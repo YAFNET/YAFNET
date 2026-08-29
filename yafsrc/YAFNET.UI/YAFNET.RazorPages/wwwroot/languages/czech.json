@@ -11,10 +11,6 @@
             "#text": "Vaše aktivita"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "Archiv"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "Stát se přáteli"
           },
@@ -119,10 +115,6 @@
             "#text": "Přihlásit"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "Zobrazit pouze nepřečtenou aktivitu"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "Prohlédnout profil"
           },
@@ -171,10 +163,6 @@
             "#text": "Vaše oznámení"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "Vaše zobrazované jméno:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "Vaše uživatelské jméno:"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Potvrďte nové heslo"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "Heslo a heslo pro potvrzení se musí shodovat."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "E-mailem"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "IP adresa"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "Připojeno"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "Umístění desky"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "název"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "Znovu odeslat ověření e-mailu"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "Správa"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": "- Všechny nástěnky -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "Prohlížeč uživatelů"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "Schválit tohoto uživatele?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "Země"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d} (před {1:N0} dny)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "Ověřovací e-mail byl znovu odeslán uživateli."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "Měli byste zadat platnou celočíselnou hodnotu pro dny."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "K dispozici je nová verze!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Přejděte na stránku Stahování"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "Přidat novou adresu"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Zakázal"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "Pro pořadí řazení musíte zadat číselnou hodnotu od 0 do 32767."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Hodnota pořadí řazení by měla být kladné celé číslo od 0 do 32767."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "Onclick JS:"
           },
@@ -1928,14 +1868,6 @@
             "#text": "Vyberte logo desky"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Mobilní motiv:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "Mobilní motiv k použití na této nástěnce."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "Název desky:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "Uložit"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "Přetažením tabulky doleva zobrazíte další data"
-          },
-          {
             "@tag": "YES",
             "#text": "Ano"
           }
@@ -2044,18 +1972,6 @@
           {
             "@tag": "DELETE_FORUM",
             "#text": "Smazat fórum"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Smazání fóra a přesouvání témat"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Během mazání neodcházejte z této stránky..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "Mazání fóra"
           },
           {
             "@tag": "HEADER1",
@@ -2103,14 +2019,6 @@
             "#text": "Změňte to v nastavení desky."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "Strávit:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Vygenerovat přehled pro tento účet správce a aktuálně vybrané téma. "
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "Poslední odeslané shrnutí:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "Naposledy (na základě času serveru) byla spuštěna úloha digest.>"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "Způsob odeslání:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Typ systému odeslaného k testu."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "Nikdy"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "Vynutit odeslání digestu"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "Generovat přehled"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "Definujte, zda má být pole povinné nebo ne"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "Uložit nový"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "Pro pořadí řazení musíte zadat číselnou hodnotu od 0 do 32767."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "Hodnota pořadí řazení by měla být kladné celé číslo od 0 do 32767."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "Nové informace o superuživateli"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Název členské přihlášky:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Pro poskytovatele je vyžadován název aplikace, pole prázdné použije název aplikace v souboru web.config."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "Musíte zadat e-mailovou adresu správce hostitele."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Název desky."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Bezpečnostní odpověď:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "Odpověď na bezpečnostní otázku."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Bezpečnostní otázka:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "Otázka, která se vás zeptá, když budete potřebovat získat ztracené heslo."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "Uživatelské jméno pro tuto e-mailovou adresu již existuje. "
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "Uživatelské jméno již existuje. "
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "Zadaná odpověď pro získání hesla je neplatná. "
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "Zadaná e-mailová adresa je neplatná. "
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "Zadané uživatelské jméno je neplatné. "
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "Zadané heslo je neplatné. "
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "Zadaná otázka pro získání hesla je neplatná. "
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "Poskytovatel ověření vrátil chybu. "
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "Pro pořadí řazení byla zadána neplatná hodnota: je nutné zadat číslo."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Hodnota pořadí řazení by měla být kladné celé číslo od 0 do 32767."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "Je nutné zadat hodnotu do pole názvu kategorie."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "Přístupová maska"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "Kategorie:"
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "Znamená to, že fórum bude skryté, když k němu uživatel nemá přístup pro čtení."
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "Počáteční přístupová maska:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "Počáteční přístupová maska ​​pro všechna fóra."
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "Fórum s takovým názvem již existuje."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "Musíte vybrat počáteční přístupovou masku pro fórum."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "Zadali jste neplatnou adresu URL."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "Musíte zadat název fóra."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Forum cannot be parent of self."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Hodnota pořadí řazení by měla být kladné celé číslo od 0 do 32767."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "Pokud je toto zaškrtnuto, všichni noví uživatelé budou členy této role. "
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "Měli byste zadat celočíselnou hodnotu pro počet uživatelských alb."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "Jako prioritu byste měli zadat celočíselnou hodnotu."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "Musíte zadat název role."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "Měli byste zadat celočíselnou hodnotu pro počet znaků v uživatelském podpisu."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "Měli byste zadat celočíselnou hodnotu pro celkový počet obrázků ve všech albech."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "Jako číslo zprávy byste měli zadat celočíselnou hodnotu."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "PMessages:"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "Max. "
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "Znamená, že uživatelům bude povoleno/nepovoleno skrýt tuto medaili."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "Povolit opětovné objednání:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Znamená, že uživatelům bude povoleno/znemožněno měnit pořadí této medaile."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "Povolit pás karet:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Znamená, že zobrazení této medaile na pásu karet bude povoleno/nepovoleno."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Odebrat medaili z této skupiny?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Odebrat medaili tomuto uživateli?"
           },
@@ -3143,20 +2895,12 @@
             "#text": "Zadejte uživatelské jméno nebo klikněte na \"Najít uživatele\" a vyberte uživatele ze seznamu uživatelů"
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "Bylo zadáno nejednoznačné uživatelské jméno!"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "Obrázek medaile musí být specifikován!"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "Musíte zadat název medaile!"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "Malý obrázek medaile musí být specifikován!"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "Vyberte obrázek medaile"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Medaile se zobrazí v uživatelském profilu"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "Minimální počet příspěvků, než budou uživatelé povýšeni na tuto hodnost."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Priorita pozice by měla být malé celé číslo."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "Musíte definovat název hodnosti."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Soukromé zprávy:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Max. "
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "Zde zadejte popis role."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Hodnocení obrázku:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "Tento obrázek se zobrazí vedle uživatelů této kategorie."
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "Zakázat uživatelské jméno uživatele?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "Uživatel byl úspěšně nahlášen jako robot"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "Zaslat uživateli e-mail s upozorněním na jeho nové heslo?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "Potvrďte heslo:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "Potvrďte nové heslo."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "Aktuální body:"
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "Uživatel je Soft-Deleted."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "Je nutné zadat Potvrdit heslo"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "Je nutné zadat nové heslo"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "Skupiny uživatelů"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "Uživatelské body"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "Resetovat/změnit uživatelské heslo"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "IP adresy:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "Zabít uživatele"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "Moderovat všechny příspěvky vytvořené uživatelem"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "Uživatel typu Host musí být označen jako Schválený, jinak bude vaše fórum nestabilní."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "Heslo uživatele změněno"
           },
@@ -3481,24 +3165,8 @@
             "#text": "Heslo uživatele změněno a e-mail s upozorněním odeslán."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "Obnovení hesla uživatele a e-mail s upozorněním odeslán"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "Uživatel {0} byl zabit!"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "Volba:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "Ručně změňte heslo a volitelně e-mailem nové heslo uživateli"
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "Obnovit heslo a odeslat nové heslo uživateli"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "Nahlaste uživatele jako BOT na StopForumSpam.com"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "Nahlásit uživatelské jméno, e-mailovou adresu a IP adresu na StopForumSpam.com jako BOT?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "Smazat tuto kategorii?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "Jste POZITIVNÍ?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "Jsi si jistá? "
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Smazat tuto roli?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "Smazat roli"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "Kulturní značka"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "Jazyk Anglický název"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "Jazyk Rodné jméno"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Přeložené zdroje"
           },
@@ -5787,6 +5435,10 @@
             "#text": "Zdá se, že odesílání e-mailu z vaší instalace YAF funguje."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Testování pošty"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "Testovací e-mail z dalšího fóra.NET"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Zadejte e-mailovou adresu, na kterou má být odeslán zkušební e-mail"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "Testování pošty"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "Obrázek medaile tak, jak bude zobrazen v uživatelské schránce."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "Obrázek pásu karet, jak bude zobrazen v poli uživatele."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "Žádné medaile"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "V současné době neexistují žádné medaile. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Posunout dolů"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "Posunout nahoru"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "dní"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "Smazat přečtené zprávy starší než:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "profilové informace"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "Předvolby fóra"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "Uživatel {0} byl úspěšně vytvořen."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "Chyba členství při vytváření uživatele: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "Operace zmenšení byla úspěšná. Velikost vaší databáze je nyní: {0}MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "Režim obnovení databáze byl úspěšně nastaven na {0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Při této operaci se něco pokazilo. "
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "Při jakýchkoli operacích úpravy dat může dojít k fragmentaci tabulky. "
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "Neopouštějte prosím tuto stránku..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "Aktualizace tabulek"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "K uvolnění aplikace musí mít vysokou/neomezenou důvěru. "
-          },
-          {
             "@tag": "TITLE",
             "#text": "Restartujte aplikaci"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Obnovit a odstranit zprávy"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Možnost obnovit zprávy, které jsou označeny jako smazané zprávy, nebo je trvale odstranit z databáze."
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "Spusťte dotaz SQL"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "Musíte zadat dotaz."
+            "@tag": "RESULT",
+            "#text": "Výsledek"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "Spusťte dotaz"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "Spustit v transakci"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "Spusťte kód SQL"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "Výsledek"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "Výraz \"spam\" ve slově (Najít):"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "Běží"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "Zastavit úlohu"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Správce úloh"
           }
@@ -6602,24 +6190,12 @@
             "#text": "Smazat tohoto uživatele?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "Jsi si jistá?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "Zobrazovaný název"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "E-mailem"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "Email obsahuje:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "Exportovat všechny uživatele jako CSV"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "Zobrazit pouze pozastavené uživatele?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "Synchronizovat všechny uživatele členství"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "Všichni uživatelé jsou nyní synchronizováni"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "Změnit titulek"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "Počet obrázků: {0}"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "Kliknutím zobrazíte album"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "alba"
           },
@@ -7072,10 +6632,6 @@
             "#text": "Smazat tuto přílohu?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "Počkejte prosím, dokud nebudou dokončena všechna nahrávání a dialog se sám zavře!"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Smazat přílohy?"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "Počet smazaných příloh: {0}"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "Nepovolené typy souborů"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "Velikost"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "Zahájit nahrávání"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Přílohy"
           },
           {
             "@tag": "UPLOAD",
             "#text": "Nahrát"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "Nahrát nový soubor(y)"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Vraťte se zpět na stránku Upravit avatara bez výběru avatara."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "Upravit profil"
           },
           {
             "@tag": "TITLE",
             "#text": "Personalizace"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "Přejděte do nadřazené složky."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "Přidat jako přítele"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(Čeká na schválení přítelem)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "Všechny žádosti o přátelství schváleny."
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "Všechny žádosti o přátelství byly schváleny a přidány do vašeho seznamu přátel."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "Všechny žádosti o přátelství starší než 14 dní byly zamítnuty."
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "Byli jste přidáni do seznamu přátel uživatele {0}."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "Žádost o přátelství odstraněno."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "Počet nevyřízených žádostí o přátelství: {0}"
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7651,88 +7171,16 @@
             "#text": "Potvrďte nové heslo:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "Zadejte své aktuální heslo"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "Je vyžadováno nové potvrzovací heslo."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "Je vyžadováno nové heslo."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "Je vyžadováno staré heslo."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "Nové heslo:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "Nová hesla se neshodují."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "Staré heslo:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "Minimální délka nového hesla: {0}."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "Nesprávné heslo nebo neplatné nové heslo."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "Jsou vyžadovány nealfanumerické znaky: {1}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "Nové heslo se musí lišit od starého."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "Nová bezpečnostní odpověď:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Aktuální heslo:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "Heslo Otázka a odpověď změněna."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Změna se nezdařila. "
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "Nová bezpečnostní otázka:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Stará bezpečnostní otázka:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Změnit heslo"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "Změňte bezpečnostní otázku a odpověď"
           }
         ]
       },
@@ -7757,14 +7205,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Vložit obrázek alba..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "Povoleno"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Vložte existující přílohu nebo nahrajte nový soubor..."
           },
@@ -7777,36 +7217,16 @@
             "#text": "Username cannot contain semi-colons (;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "Kód:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Citace:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "Původně odeslal: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Přejít na Citovaný příspěvek"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} napsal:"
           },
           {
-            "@tag": "BROWSE",
-            "#text": "Procházet"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Storno"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "Změněn email"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7857,10 +7277,6 @@
             "#text": "Téma s ID: {0} smazáno"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "Nepovoleno"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "Stažení"
           },
@@ -7869,16 +7285,8 @@
             "#text": "Upravit"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} Ověření e-mailem"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 záznamů"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 Příspěvky"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7895,10 +7303,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 záznamů"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Externí uživatel)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7961,20 +7365,12 @@
             "#text": "První strana"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Přejít na poslední stránku"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "Další strana"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "Jdi na stránku..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Přejít na zprávu"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7985,28 +7381,12 @@
             "#text": "Skrytý"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Vaše vstupní data by neměla obsahovat značky HTML."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Vaše vstupní data obsahují zakázanou značku HTML {0}."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "ve fóru: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "Zobrazit další kategorie a fóra..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "Načítání..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Spravovat"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8023,18 +7403,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "Zpráva"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Zobrazit celý web"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Zobrazit mobilní web"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Oznámení"
           },
           {
             "@tag": "MODERATOR",
@@ -8133,14 +7501,6 @@
             "#text": "Číst"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "Byla vám odeslána e-mailová zpráva. Podívejte se do své schránky a klikněte na odkaz, který je ve zprávě uveden."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "Po zaregistrování vám bude zaslána e-mailová zpráva. Abyste se mohli přihlásit, podívejte se do své poštovní schránky a klikněte na odkaz, který je ve zprávě uveden."
-          },
-          {
             "@tag": "REPLY",
             "#text": "Odpověď"
           },
@@ -8163,10 +7523,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "Výběr velikosti stránky"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Zobrazit/Skrýt"
           },
           {
             "@tag": "SUBMIT",
@@ -8197,20 +7553,12 @@
             "#text": "Kód"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "Vyberte Jazyk pro zvýraznění syntaxe"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "Zkopírujte vybraný text (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "Vytvořit odkaz"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Další značky BBCode"
           },
           {
             "@tag": "TT_CUT",
@@ -8309,40 +7657,12 @@
             "#text": "Zadejte URL:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Máte {0} nepřečtených zmínek, chcete přejít na nejnovější?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Někdo se o vás zmínil v tématu"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "Ve schránce máte {0} nečtených zpráv."
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "Nové soukromé zprávy"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "V doručené poště máte nepřečtené zprávy (celkem {0}). "
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Máte {0} nepřečtených citovaných příspěvků, chcete přejít na nejnovější?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Někdo vás citoval v tématu"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "Máte {0} nepřečtených přijatých. Děkujeme, chcete přejít na nejnovější?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Někdo vám poděkoval za zprávu"
           },
           {
             "@tag": "UPDATE",
@@ -8355,10 +7675,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "Uživatelské jméno nebo Zobrazované uživatelské jméno musí mít více než {0} znaků."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Zobrazit kategorii"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9408,18 +8724,6 @@
             "#text": "v posledních {0:N0} minutách."
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "Abecední filtr"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "Přihlaste se k odběru aktivních témat přes Atom."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "Přihlaste se k odběru zdroje Atom fóra."
-          },
-          {
             "@tag": "BY",
             "#text": "od {0}"
           },
@@ -9432,12 +8736,12 @@
             "#text": "Fórum"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "Přejít k nejnovější zprávě"
+            "@tag": "FORUMS",
+            "#text": "Fóra"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Go to first unread"
+            "@tag": "GO_LAST_POST",
+            "#text": "Přejít k nejnovější zprávě"
           },
           {
             "@tag": "IN",
@@ -9454,22 +8758,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "Poslední zpráva"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "Poslední zprávy"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "Hlavní fórum Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "RSS hlavního fóra"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "RSS hlavního fúra"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9496,6 +8784,10 @@
             "#text": "Nejaktivnější uživatelé za posledních {0} dnů"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "Nejnovější člen"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(Přístup odepřen)"
           },
@@ -9520,56 +8812,28 @@
             "#text": "Nedávní uživatelé"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "Zobrazit pouze nepřečtená témata."
-          },
-          {
             "@tag": "STATS",
             "#text": "Statistika"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "Nejnovějším členem je:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "Poslední zprávu {0}:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "Máme {0:N0} registrovaných členů."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "Počet fór: {2:N0}; počet témat: {1:N0}; počet zpráv: {0:N0}."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "Antispamové statistiky"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "Trvale zakázáno {0} šiřitelů spamu"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Trvale zakázáno"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Spammeři odepřeli registraci"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Registrace zamítnuta"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Odesílatelé spamu odeslali na StopForumSpam.com"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "Nahlášeno na StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
             "#text": "Témata"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "Ve své schránce máte {0} nepřečtených zpráv."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "Ve své schránce máte {0} nepřečtených zpráv."
           },
           {
             "@tag": "VIEWING",
@@ -9599,22 +8863,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "Jste si naprosto jisti, že to chcete udělat?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "Tímto bude váš účet trvale smazán! "
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Smazat svůj účet (trvale)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "Pokud si jen chcete dát pauzu od fóra, pozastavíte tím svůj účet na 30 dní. "
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Pozastavit svůj účet na 30 dní"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9703,16 +8951,8 @@
             "#text": "Komentáře: {0}"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "Autor: {0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "Více"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "Nová témata"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9756,10 +8996,6 @@
             "#text": "Smazat tento obrázek?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "K tomuto účtu nemůžete přidat žádná další alba."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "Nemůžete nahrávat obrázky tak velké."
           },
@@ -9774,10 +9010,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "Musíte zadat název."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9801,24 +9033,12 @@
             "#text": "Personifikace"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "Aktuální personifikace"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "Zruš personifikaci"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "Vyber novou personifikaci"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "Vlož URL personifikace na vzdáleném servru:"
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "Vysvětlující text personifikace"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9837,16 +9057,8 @@
             "#text": "Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "Vyber tvoji personifikaci z naši kolekce:"
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "Klikni sem pro výběr personifikace"
           },
           {
             "@tag": "TITLE",
@@ -9890,32 +9102,16 @@
             "#text": "Vaše jméno AIM:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "Sledovat každé téma, do kterého jste přidali příspěvek, a dostávat e-mailová upozornění na aktivity v těchto tématech?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "Zadal jste neplatnou e-mailovou adresu."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "Jako profil na Facebooku jste zadali nesprávnou adresu URL."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "Zadal jste neplatnou adresu vaší domovské stránky."
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "Zadal jste neplatnou e-mailovou adresu při vašem účtu MSN."
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "Zadal jste neplatnou adresu svého weblogu."
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "Zadali jste neplatný název pro svůj účet XMPP."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9936,10 +9132,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "Jaké jméno si přejete, aby bylo zobrazováno ostatním?"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Daylight Saving Time"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9986,10 +9178,6 @@
             "#text": "Bydliště"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "Na adresu {0} byla odeslána e-mailová zpráva.\\n\\nBude třeba, abyste novou e-mailovou adresu ověřili\\nkliknutím na odkaz v tomto e-mailu; teprve pak bude vaše adresa změněna."
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "Služba Instant messaging"
           },
@@ -10000,10 +9188,6 @@
           {
             "@tag": "OTHER",
             "#text": "jiný"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "Vyberte jiné téma fóra:"
           },
           {
             "@tag": "REALNAME2",
@@ -10048,10 +9232,6 @@
           {
             "@tag": "WHERE",
             "#text": "Město"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Vaše Jabber ID:"
           }
         ]
       },
@@ -10075,10 +9255,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "Vstupní bezpečnostní kód"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "Nastavený kód"
           },
@@ -10100,28 +9276,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Your  signature can contain any BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "Můžete použít následující kódy BBC: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "Váš podpis by neměl obsahovat BBCodes."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "Váš podpis může obsahovat libovolnou HTML značku."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "Můžete použít následující značky HTML: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "Váš podpis by neměl obsahovat značky HTML."
           },
           {
             "@tag": "SIGNATURE",
@@ -10132,20 +9288,8 @@
             "#text": "Váš podpis obsahuje zakázaný {0} BBCode."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "Váš podpis nesmí mít více než {0} znaků."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "Váš podpis je příliš dlouhý. "
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "Svůj podpis nemůžete upravovat, ale můžete jej zcela smazat."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "Oprávnění k podpisu"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10210,10 +9354,6 @@
             "#text": "Informace"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "Chyba skriptu SQL"
-          },
-          {
             "@tag": "WARNING",
             "#text": "Varování"
           }
@@ -10259,10 +9399,6 @@
             "#text": "Nemáte žádné nevyřízené požadavky"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "Schválit všechny žádosti?"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "Schválit všechny žádosti a přidat je také do seznamu přátel?"
           },
@@ -10285,14 +9421,6 @@
           {
             "@tag": "POSTS",
             "#text": "Příspěvky"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "Datum požadavku"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Your Friend List"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10614,10 +9742,6 @@
             "#text": "Oznámení"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "Oznámení (nové zprávy)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "Fórum je uzamčeno"
           },
@@ -10654,16 +9778,8 @@
             "#text": "Průzkum mínění"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "Průzkum mínění (nové zprávy)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "Ukotvit"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "Sticky (nové příspěvky)"
           }
         ]
       },
@@ -10708,18 +9824,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "Uživatel používá servery {0}. "
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "Uživatel používá stejný server XMPP - můžete se k němu připojit pomocí klienta, jako je Pidgin. "
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "Jste si jistý, že chcete mluvit sám se sebou?"
-          },
           {
             "@tag": "TITLE",
             "#text": "Messenger XMPP"
@@ -10786,10 +9890,6 @@
             "#text": "Přístup zamítnut"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "Vyžaduje soubory cookie"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "Informace"
           },
@@ -10839,40 +9939,16 @@
             "#text": "potvrďte heslo"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Zadejte popis nové desky"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "Zadejte název nové rady"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "Konfigurovat heslo"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Podrobnosti o připojení"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "Vyberte existující řetězec připojení"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "Vyberte řetězec připojení k serveru SQL Server:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "Připojení selhalo:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "Vytvořit nový řetězec připojení"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "Připojovací řetězec bude uložen jako"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10895,10 +9971,6 @@
             "#text": "Kultura hosta uživatele (jazyk)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "Současná verze:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "Databáze"
           },
@@ -10911,64 +9983,8 @@
             "#text": "Připojení k databázi YAF.NET"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "Zadejte název databáze"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "Uživatelské jméno pro tuto e-mailovou adresu již existuje. Zadejte jinou e-mailovou adresu."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "Uživatelské jméno již existuje. Zadejte jiné uživatelské jméno."
-          },
-          {
             "@tag": "ERROR",
             "#text": "Chyba"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "Deska je již nainstalována."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "Musíte zadat název desky."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "Chcete-li pokračovat, musíte aktualizovat své nastavení aplikace klíčem YAF.ConfigPassword. POZNÁMKA: Název klíče rozlišuje velká a malá písmena."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "Musíte zadat e-mailovou adresu fóra."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "Musíte zadat heslo."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "Vytvoření uživatele se nezdařilo:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "Musíte zadat e-mailovou adresu superuživatele."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "Musíte zadat uživatelské jméno superuživatele,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "Existující uživatelské jméno je neplatné a nepředstavuje aktuálního uživatele v členském obchodě."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "Zadali jste <strong> nesprávné heslo </strong>!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "Použít existující řetězec připojení DB"
           },
           {
             "@tag": "FINISH",
@@ -11007,40 +10023,12 @@
             "#text": "Instalace"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "Používejte integrované zabezpečení"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "Zadaná odpověď na získání hesla je neplatná. Zkontrolujte hodnotu a akci opakujte."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "Zadaná e-mailová adresa je neplatná. Zkontrolujte hodnotu a akci opakujte."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "Zadané heslo je neplatné. Zadejte prosím platnou hodnotu hesla."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "Zadaná otázka pro získání hesla je neplatná. Zkontrolujte hodnotu a akci opakujte."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "Zadané uživatelské jméno je neplatné. Zkontrolujte hodnotu a akci opakujte."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "Test odesílání pošty (SMTP)"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "Odešle zkušební zprávu na e-mailovou adresu, která je definována jako Odeslat na adresu"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "Vytvořit nový řetězec připojení DB"
           },
           {
             "@tag": "NEXT",
@@ -11051,10 +10039,6 @@
             "#text": "Kliknutím na „Další“ inicializujete svou databázi na nejnovější verzi."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "Až budete připraveni, klikněte na „Další“."
-          },
-          {
             "@tag": "NO",
             "#text": "NE"
           },
@@ -11063,108 +10047,28 @@
             "#text": "Poznámka"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "Žádný přístup pro zápis k nastavení"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "Nelze upravit váš konfigurační soubor tak, aby nastavil připojení k databázi z důvodu bez oprávnění k zápisu."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "Žádný přístup pro zápis k řetězcům připojení k databázi"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "Nelze upravit váš konfigurační soubor tak, aby nastavil řetězec připojení k databázi z důvodu bez oprávnění k zápisu."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "Otevřete prosím"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "soubor v kořenovém adresáři aplikace a přidejte / aktualizujte následující klíč v AppSettings & gt; sekce:"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "soubor v kořenovém adresáři aplikace a přidejte / aktualizujte následující klíč v <connectionStrings & gt; sekce:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "Ověření není stejné jako vaše heslo."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET má přístup pro zápis do kořenového adresáře aplikací (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NET má přístup pro zápis do adresáře \"~ / Upload\" ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "Předchozí"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "Poskytovatel ověřování vrátil chybu. Ověřte svůj záznam a zkuste to znovu. Pokud problém přetrvává, kontaktujte správce systému."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "Odpověď na bezpečnostní otázku"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "Otázka, kterou budete dotázáni, když potřebujete získat ztracené heslo"
           },
           {
             "@tag": "SETUP",
             "#text": "Založit"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "Zdá se, že odesílání e-mailů funguje z instalace YAF."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "Podrobnosti testu SMTP"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "Vyzkoušejte e-mail z jiného fóra Forum.NET"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "Pošta byla odeslána. Ověřte, zda byl přijat na zadanou e-mailovou adresu."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "Zadejte heslo SQL"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "Zadejte uživatelské jméno SQL"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "Vyzkoušejte připojení"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "Vyzkoušejte nastavení SMTP"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "Zkouška oprávnění"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "Testujte nastavení"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "Kliknutím na tlačítko „Předchozí“ upravte konfiguraci databáze."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11177,26 +10081,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "Zadejte e-mailovou adresu"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "Nezaškrtnuto"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "Žádost o vytvoření uživatele byla zrušena. Ověřte svůj záznam a zkuste to znovu. Pokud problém přetrvává, kontaktujte správce systému."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "Ověřte oprávnění"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "Instalace YetAnotherForum.NET je jednodušší, když má aplikace přístup pro zápis do vašeho .config\r\n                        soubory."
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "Kliknutím níže otestujete správnost oprávnění. Pokud tomu tak není, můžete\r\n                        stále použijte průvodce instalací."
           },
           {
             "@tag": "WELCOME",
@@ -11237,28 +10121,12 @@
             "#text": "Váš účet ještě není schválen, protože jste neověřili svůj e-mail. "
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Přihlaste se nebo se zaregistrujte u {0}"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Automatické přihlášení:"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "Musíte zadat jak uživatelské jméno, tak i e-mailovou adresu."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock je zapnutý"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "E-mailová adresa"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "Byl vám odeslán e-mail s novým heslem."
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11289,16 +10157,8 @@
             "#text": "Obnovit heslo"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "Při vytváření vašeho nového hesla došlo k chybě."
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Místo toho se zaregistrujte jako nový uživatel"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "Poslat heslo"
           },
           {
             "@tag": "TITLE",
@@ -11317,16 +10177,8 @@
             "#text": "Validace dvoufaktoru"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "Uživatelské jméno:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "Špatné uživatelské jméno nebo e-mailová adresa."
           }
         ]
       },
@@ -11396,10 +10248,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "Jméno člena obsahuje:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "Hledat členy"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11482,10 +10330,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Pokračujte umírněně"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Zpráva upravena v"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11590,14 +10434,6 @@
             "#text": "Odstranit toto téma?"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "Smazat tohoto uživatele?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "Smazat odkaz na téma? "
-          },
-          {
             "@tag": "DELETED",
             "#text": "Téma bylo odstraněno."
           },
@@ -11656,10 +10492,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "Téma zahájil"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "Odkaz na téma je smazán."
           },
           {
             "@tag": "TOPICS",
@@ -11746,10 +10578,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "Odpovězte soukromou zprávou na"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "Nahlásit jako SPAM"
           },
           {
             "@tag": "REPORTED",
@@ -11879,14 +10707,6 @@
             "#text": "autor: {0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "Aktivní témata"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "(Posledních 24 hodin)"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "poslední den"
           },
@@ -11967,10 +10787,6 @@
             "#text": "Nezodpovězená témata"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Nepřečtená témata"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "Pohledy"
           },
@@ -12034,14 +10850,6 @@
             "#text": "Musíte zadat anketní otázku."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "Povolit nehlasování a zobrazit výsledky."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "Hlasování a výsledky můžete přeskočit."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "Před vypršením platnosti ankety nemůžete vidět výsledky."
           },
@@ -12058,10 +10866,6 @@
             "#text": "The poll is expired."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "Šířka obrázku v px:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "Umožněte hlasovat pro mnoho možností"
           },
@@ -12070,20 +10874,12 @@
             "#text": "Můžete hlasovat pro mnoho možností."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "Hosté nemohou hlasovat. "
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "Klikněte pro hlasování"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Show who is voted"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Show who is voted."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12110,10 +10906,6 @@
             "#text": "Don"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "Vytvořit nebo upravit anketu"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Image path:"
           },
@@ -12124,18 +10916,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Otázka v dotazníku:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "Před hlasováním nemůžete vidět výsledky ankety."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "Hosté nemohou před hlasováním vidět výsledky ankety. "
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "Výsledky skryty"
           },
           {
             "@tag": "POLLSAVE",
@@ -12163,18 +10943,6 @@
             "#text": "Opravdu chcete odstranit anketu z tohoto tématu?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "Heslo blogu:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "Přidat na blog?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Zrušit úpravy/vytváření zprávy"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "Popis:"
           },
@@ -12193,10 +10961,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Uživatelské jméno hosta nesmí mít více než 100 znaků."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "Je toto téma ve formátu otázek a odpovědí?"
           },
           {
             "@tag": "LAST10",
@@ -12233,10 +10997,6 @@
           {
             "@tag": "POSTED",
             "#text": "Odesláno:"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "Při přidávání na váš blog došlo k chybě. "
           },
           {
             "@tag": "PREVIEW",
@@ -12287,26 +11047,6 @@
             "#text": "Téma s předmětem již existuje nebo předmět není dostatečně jedinečný, aby jej bylo možné přidat."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "Délka popisu tématu nesmí být delší než 255 znaků."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "Délka jednoho slova popisu tématu nesmí být delší než {0} znaků. "
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "Délka názvu tématu nesmí být delší než 255 znaků."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "Délka jednoho slova názvu tématu nesmí být delší než {0} znaků. "
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "Připojit soubory k tomuto příspěvku?"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "Sledovat toto téma a dostávat upozornění na aktivitu e-mailem?"
           },
@@ -12332,10 +11072,6 @@
             "#text": "CÍL"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "Kontaktujte {0} přes AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Krmení atomu"
           },
@@ -12356,24 +11092,12 @@
             "#text": "Navštivte blog uživatele {0}"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "Nemáte oprávnění prohlížet/stahovat přílohy."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "You [b]cannot[/b] view/download attachments. Try register."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Výběr"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "Zavřít"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "Chcete smazat tuto zprávu?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12428,10 +11152,6 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "Navštivte facebookový profil uživatele {0}"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "Změnit fórum"
           },
@@ -12448,28 +11168,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "Navštivte domovskou stránku {0}"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} přiložen následující obrázek(obrázky):"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "Stáhnout obrázek"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Kliknutím zobrazíte obrázek"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} zobrazení"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "obraz"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12514,10 +11218,6 @@
           {
             "@tag": "LOCATION",
             "#text": "Bydliště"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "Spravovat zprávu"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12588,10 +11288,6 @@
             "#text": "(Průzkum je uzavřen)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "Odešli odpověď"
-          },
-          {
             "@tag": "POSTED",
             "#text": "Odesláno"
           },
@@ -12616,18 +11312,6 @@
             "#text": "Rýchla odpověď"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "Schovej rychlou odpověď"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "Zobraz rychlou odpověď"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "Citovat vybranou zprávu"
-          },
-          {
             "@tag": "RANK",
             "#text": "Kategorie"
           },
@@ -12636,16 +11320,8 @@
             "#text": "Úspěšně jste odebrali -1 reputaci uživateli {0}."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "Děkujeme za vaše hlasování!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "Úspěšně jste dali +1 reputaci uživateli {0}."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "Děkujeme za nahlášení tohoto příspěvku."
           },
           {
             "@tag": "REPORTPOST",
@@ -12660,14 +11336,6 @@
             "#text": "Pověst"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweetujte toto téma"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "RSS kanál"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12680,19 +11348,7 @@
             "#text": "Podobná témata"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "Statistika"
-          },
-          {
             "@tag": "THANKSFROM",
-            "#text": "Děkujeme: {0}krát"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "Děkujeme: {0}krát"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
             "#text": "Děkujeme: {0}krát"
           },
           {
@@ -12702,34 +11358,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "1 uživatel poděkoval uživateli {0} za tento užitečný příspěvek."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "Bylo poděkováno: {0}krát v {1} příspěvcích"
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "Smaž toto téma"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "Uzamkni toto téma"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "Přesuň toto téma"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "Odešli nové téma"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Odešli odpověď"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "Odemkni toto téma"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12768,20 +11396,8 @@
             "#text": "Celkový"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "Sdílet na Tumblr"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Ukončit sledování tohoto tématu"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "Žena"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "Muž"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12804,10 +11420,6 @@
             "#text": "Zobraz"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "Změňte zobrazení tématu mezi normálním zobrazením nebo zobrazením vlákna."
-          },
-          {
             "@tag": "VOTES",
             "#text": "Hlasy"
           },
@@ -12824,10 +11436,6 @@
             "#text": "Fórum je uzavřeno."
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "Chcete-li posílat soukromé zprávy, musíte se zaregistrovat."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "Průzkum je uzavřen."
           },
@@ -12836,20 +11444,8 @@
             "#text": "Téma je uzavřeno."
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "Abyste mohli témata sledovat, musíte se zaregistrovat."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "Sledovat toto téma"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "Kontaktujte {0} přes Jabber"
           }
         ]
       },
@@ -12883,10 +11479,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "Informace o uživateli"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "Upravit uživatele"
           },
@@ -12909,14 +11501,6 @@
           {
             "@tag": "CITY",
             "#text": "Město:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "Kontakt"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "Země"
           },
           {
             "@tag": "DAYS",
@@ -12945,10 +11529,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "Facebookový profil:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "Přístup k fóru"
           },
           {
             "@tag": "GENDER",
@@ -12995,20 +11575,8 @@
             "#text": "minut"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "Umírněnost"
-          },
-          {
             "@tag": "MONTH",
             "#text": "Měsíc"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "{0:N2}% všech zpráv"
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} zpráv denně"
           },
           {
             "@tag": "NUMPOSTS",
@@ -13053,14 +11621,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Zobrazit všechny příspěvky uživatele"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "Sociální média"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "Statistika"
           },
           {
             "@tag": "SUSPEND",
@@ -13111,18 +11671,6 @@
             "#text": "Uživatelské jméno:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "Weblog:"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "Domovská stránka:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Název XMPP:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "rok(y)"
           }
@@ -13138,10 +11686,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "Váš účet ještě není schválen, protože jste neověřili svůj e-mail. "
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "Pokus o načtení hesla nebyl úspěšný."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13572,16 +12116,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]Váš účet byl úspěšně vytvořen.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "Vaše uživatelské jméno nebo e-mailová adresa již byla použita."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13590,14 +12126,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "Vaše e-mailová adresa je neplatná."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "Vyberte prosím složitější heslo, které obsahuje interpunkci (!?) nebo čísla."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "Účet"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13610,10 +12138,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "Pokračovat"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "Vytvořit uživatele"
           },
           {
             "@tag": "DETAILS",
@@ -13632,22 +12156,6 @@
             "#text": "Domovská stránka"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "Vyberte prosím jinou odpověď."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "Vyberte prosím jiný zobrazovaný název."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "Vyberte prosím jinou otázku."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "Vyberte prosím jiné uživatelské jméno."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "Bydliště"
           },
@@ -13656,20 +12164,8 @@
             "#text": "Už jste se zaregistrovali? "
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "Je vyžadována bezpečnostní odpověď."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "Zobrazovaný název je povinný."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "E-mail is required."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "Hesla nesouhlasí."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13708,24 +12204,12 @@
             "#text": "Slabé heslo, zkuste použít čísla a velká písmena."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "Předvolby"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "Osobní profil"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "Mýlíš se! "
-          },
-          {
             "@tag": "REGISTER",
             "#text": "Zaregistrovat"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "Zaregistrujte se u {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13734,18 +12218,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Napište heslo ještě jednou"
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Bezpečnostní odpověď"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "bezpečnostní otázka"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "Pravidla a podmínky"
           },
           {
             "@tag": "TIMEZONE",
@@ -13762,10 +12234,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Uživatelské jméno"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "Uživatelské jméno by nemělo obsahovat více než {0} znaků."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13846,10 +12314,6 @@
             "#text": "zrušení"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Zrušit hlášení zpráv"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Enter report text here."
           },
@@ -13868,14 +12332,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "Autor:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "Štítky nejsou v přehledech povoleny."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "Značka [{0}] není v přehledech povolena."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13940,10 +12396,6 @@
             "#text": "Odstranit formátování"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "Naformátováno"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "Přidat obrázek"
           },
@@ -13968,10 +12420,6 @@
             "#text": "Normální"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "Seřazený seznam"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "Předsadit"
           },
@@ -13980,20 +12428,8 @@
             "#text": "Zarazit vpravo"
           },
           {
-            "@tag": "SPELL",
-            "#text": "Kontrola pravopisu (jen v angličtině)"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "Neexistují žádná nesprávně napsaná slova."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "Podtrhnout"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "Neřazený seznam"
           }
         ]
       },
@@ -14022,10 +12458,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "Ve všech fórech"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "Hledat"
           },
@@ -14036,10 +12468,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "klíčová slova"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "Načítání výsledků hledání..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14092,14 +12520,6 @@
           {
             "@tag": "RESULTS",
             "#text": "Výsledky"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "Vyhledávané texty musí mít méně než {0} znaků a musí být v souladu s pravidly fóra pro vyhledávání (další informace najdete ve fóru FAQ)."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "Hledané texty musí mít alespoň {0} znaků a musí odpovídat pravidlům pro vyhledávání ve fóru (další informace najdete ve fóru FAQ)."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14439,16 +12859,8 @@
             "#text": "Aktivní témata"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "Zobrazí stránku Aktivní témata."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "Administrace"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "Zobrazuje index správce."
           },
           {
             "@tag": "BUDDIES",
@@ -14483,20 +12895,12 @@
             "#text": "Hostitel"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "Zobrazuje nastavení hostitele."
-          },
-          {
             "@tag": "INBOX",
             "#text": "Moje doručená pošta"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "Zobrazuje doručenou poštu soukromých zpráv."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "Jste přihlášen jako: {0}"
           },
           {
             "@tag": "LOGIN",
@@ -14551,10 +12955,6 @@
             "#text": "Zobrazí stránku Alba, která zobrazuje všechna vaše alba."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "Moje oznámení"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "Zobrazuje vaše nepřečtené přijaté poděkování, zmínky a nabídky."
           },
@@ -14569,10 +12969,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "Moje nastavení"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Upravte své uživatelské údaje a nastavení."
           },
           {
             "@tag": "MYTOPICS",
@@ -14619,14 +13015,6 @@
             "#text": "Zobrazuje týmovou stránku, která zobrazuje všechny moderátory a administrátory."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Počet témat s nepřečtenými zprávami: {0}"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "Vítáme nového hosta"
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "Chcete se zapojit do diskuze?!"
           },
@@ -14656,20 +13044,12 @@
             "#text": "od {0}"
           },
           {
-            "@tag": "CREATED",
-            "#text": "Vytvořeno"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Fórum"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "Uživatelé, kteří si prohlížejí toto fórum"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ Jdi na stránku: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14738,10 +13118,6 @@
           {
             "@tag": "REPLIES",
             "#text": "Odpovědí"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "RSS"
           },
           {
             "@tag": "SEARCH_FORUM",

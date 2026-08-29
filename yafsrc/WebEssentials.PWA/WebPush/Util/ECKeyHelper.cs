@@ -13,7 +13,7 @@ namespace WebEssentials.AspNetCore.Pwa.WebPush.Util;
 /// <summary>
 /// 
 /// </summary>
-static internal class ECKeyHelper
+internal static class ECKeyHelper
 {
     /// <summary>
     /// Gets the private key.

@@ -336,8 +336,16 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         {
             if (this.TextParam0.IsSet())
             {
-                spanTextTag.InnerHtml.Append(
-                    this.Get<ILocalization>().GetTextFormatted(this.TextLocalizedTag, this.TextParam0));
+                if (this.TextLocalizedPage.IsSet())
+                {
+                    spanTextTag.InnerHtml.Append(
+                        string.Format(this.Get<ILocalization>().GetText(this.TextLocalizedPage, this.TextLocalizedTag), this.TextParam0));
+                }
+                else
+                {
+                    spanTextTag.InnerHtml.Append(
+                        this.Get<ILocalization>().GetTextFormatted(this.TextLocalizedTag, this.TextParam0));
+                }
             }
             else
             {

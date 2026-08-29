@@ -11,10 +11,6 @@
             "#text": "Din aktivitet"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arkiv"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "Bliv venner"
           },
@@ -119,10 +115,6 @@
             "#text": "Abonnement"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "Vis kun ulæst aktivitet"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "Se profil"
           },
@@ -171,10 +163,6 @@
             "#text": "Dine meddelelser"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "Dit viste navn:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "Dit brugernavn:"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Bekræft ny adgangskode"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "Adgangskoden og bekræftelsesadgangskoden skal stemme overens."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "E-mail"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "IP-adresse"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "Tiltrådte"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "Bestyrelsens placering"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "Navn"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "Send e-mailbekræftelse igen"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "Administration"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": "- Alle bestyrelser -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "Brugerbrowser (er)"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "Vil du godkende denne bruger?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "Land"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d} (for {1:N0} dage siden)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "Bekræftelsesmail blev sendt igen til brugeren."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "Du skal indtaste en gyldig heltalsværdi for dage."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "En ny version er tilgængelig!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Gå til siden Downloads"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "Tilføj ny adresse"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Udelukket af"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "Du skal indtaste en talværdi fra 0 til 32767 for sorteringsrækkefølge."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sorteringsrækkefølgen skal være et positivt heltal fra 0 til 32767."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "OnClick JS:"
           },
@@ -1928,14 +1868,6 @@
             "#text": "Vælg et bestyrelseslogo"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Mobiltema:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "Mobiltemaet, der skal bruges på dette board."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "Bestyrelsens navn:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "Gemme"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "Stryg tabellen til venstre for at afsløre flere data"
-          },
-          {
             "@tag": "YES",
             "#text": "Ja"
           }
@@ -2044,18 +1972,6 @@
           {
             "@tag": "DELETE_FORUM",
             "#text": "Slet forum"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Sletning af forum og flytning af emner"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Venligst ikke navigere væk fra denne side, mens sletningen er i gang..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "Sletter forum"
           },
           {
             "@tag": "HEADER1",
@@ -2103,14 +2019,6 @@
             "#text": "Skift i dine bestyrelsesindstillinger."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "Fordøje:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Generer Digest for denne administratorkonto og det aktuelt valgte tema. "
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "Sidste sammenfattende afsendelse:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "Sidste gang (baseret på servertid) blev sammenfatningsopgaven kørt.>"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "Send metode:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Type system Send til test."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "Aldrig"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "Tvinge digest-sending"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "Generer Digest"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "Definer, om feltet skal være obligatorisk eller ej"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "Gem ny"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "Du skal indtaste en talværdi fra 0 til 32767 for sorteringsrækkefølge."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "Sorteringsrækkefølge-værdien skal være et positivt heltal fra 0 til 32767."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "Ny superbrugerinformation"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Navn på ansøgning om medlemskab:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Applikationsnavn påkrævet for udbyder, blank vil bruge ApplicationName i web.config."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "Du skal indtaste e-mail-adressen på værtsadministratoren."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Bestyrelsens navn."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Sikkerhedssvar:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "Svaret på sikkerhedsspørgsmålet."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Sikkerheds Spørgsmål:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "Spørgsmålet vil du blive stillet, når du skal hente din mistede adgangskode."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "Der findes allerede et brugernavn til den e-mail-adresse. "
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "Brugernavnet eksisterer allerede. "
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "Svaret til hentning af adgangskode er ugyldigt. "
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "Den angivne e-mailadresse er ugyldig. "
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "Det angivne brugernavn er ugyldigt. "
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "Den angivne adgangskode er ugyldig. "
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "Spørgsmålet om adgangskodehentning er ugyldigt. "
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "Godkendelsesudbyderen returnerede en fejl. "
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "Ugyldig værdi indtastet for sorteringsrækkefølge: skal indtaste et tal."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sorteringsrækkefølge-værdien skal være et positivt heltal fra 0 til 32767."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "Skal indtaste en værdi for feltet kategorinavn."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "Adgangsmaske"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "Kategori:"
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "Betyder, at forummet vil blive skjult, når brugeren ikke har læseadgang til det."
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "Indledende adgangsmaske:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "Den indledende adgangsmaske for alle fora."
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "Et forum med et sådant navn findes allerede."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "Du skal vælge en indledende adgangsmaske til forummet."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "Du har indtastet en ugyldig URL-adresse."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "Du skal indtaste et navn til forummet."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Forum cannot be parent of self."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sorteringsrækkefølgen skal være et positivt heltal fra 0 til 32767."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "Hvis dette er markeret, vil alle nye brugere være medlem af denne rolle. "
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "Du skal indtaste heltalsværdi for antallet af brugeralbum."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "Du skal indtaste heltalsværdi for prioritet."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "Du skal indtaste et rollenavn."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "Du skal indtaste en heltalsværdi for antallet af tegn i brugersignaturen."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "Du skal indtaste en heltalsværdi for det samlede antal billeder i alle albummer."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "Du skal indtaste heltalsværdi for pbeskednummer."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "PM beskeder:"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "Maks. "
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "Betyder, at brugere får lov/ikke tilladt at skjule denne medalje."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "Tillad genbestilling:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Betyder, at brugere får lov til/ikke at ændre rækkefølgen af ​​denne medalje."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "Tillad Ribbon Bar:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Betyder, at fremvisning af denne medalje vil være tilladt/ikke tilladt."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Vil du fjerne medalje fra denne gruppe?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Vil du fjerne medalje fra denne bruger?"
           },
@@ -3143,20 +2895,12 @@
             "#text": "Indtast et brugernavn eller klik på \"Find brugere\" for at vælge en bruger fra brugerlisten"
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "Tvetydigt brugernavn angivet!"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "Medaljebillede skal angives!"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "Du skal indtaste et medaljenavn!"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "Lille medaljebillede skal angives!"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "Vælg medaljebillede"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Medaljen vil blive vist i brugerprofilen"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "Minimum antal indlæg, før brugere rykker op til denne rang."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Rangeringsprioritet skal være et lille heltal."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "Du skal definere et rangnavn."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Private beskeder:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Maks. "
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "Indtast her en rollebeskrivelse."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Ranger billede:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "Dette billede vil blive vist ved siden af ​​brugere af denne rang."
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "Forbyde brugernavn på bruger?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "Bruger rapporteret som bot"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "Send en e-mail til brugeren om deres nye adgangskode?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "Bekræft kodeord:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "Bekræft den nye adgangskode."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "Nuværende point:"
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "Brugeren er blødt slettet."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "Skal indtaste en bekræftelseskode"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "Skal indtaste ny adgangskode"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "Brugergrupper"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "Brugerpoint"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "Nulstil/Skift brugeradgangskode"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "IP-adresser:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "Dræb bruger"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "Moderer alle indlæg lavet af brugeren"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "Gæstebrugeren skal markeres som godkendt, ellers vil dit forum være ustabilt."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "Brugeradgangskode ændret"
           },
@@ -3481,24 +3165,8 @@
             "#text": "Brugeradgangskode ændret og meddelelses-e-mail sendt."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "Nulstilling af brugeradgangskode og meddelelsesmail sendt"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "Bruger {0} dræbt!"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "Mulighed:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "Skift adgangskode manuelt og e-mail eventuelt ny adgangskode til bruger"
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "Nulstil adgangskode og e-mail ny adgangskode til bruger"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "Rapportér bruger som BOT til StopForumSpam.com"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "Rapportere brugernavn, e-mail-adresse og IP-adresse til StopForumSpam.com som BOT?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "Vil du slette denne kategori?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "Er du POSITIV?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "Er du sikker? "
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vil du slette denne rolle?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "Slet rolle"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "Kulturmærke"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "Sprog engelsk navn"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "Sprog modersmålsnavn"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Oversatte ressourcer"
           },
@@ -5787,6 +5435,10 @@
             "#text": "E-mail-afsendelsen ser ud til at virke fra din YAF-installation."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Mail test"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "Test e-mail fra endnu et Forum.NET"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Indtast den e-mail-adresse, hvortil test-e-mailen skal sendes"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "Mail test"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "Medaljebillede, som det vil blive vist i brugerboksen."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "Båndbjælkebillede, som det vil blive vist i brugerboksen."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "Ingen medaljer"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "I øjeblikket er der ingen medaljer. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Flyt ned"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "Flyt op"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "dage"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "Slet læste beskeder ældre end:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "Profiloplysninger"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "Forum præferencer"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "Bruger {0} oprettet."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "Medlemskabsfejl ved oprettelse af bruger: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "Krympeoperationen var vellykket. Din databasestørrelse er nu: {0}MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "Databasegendannelsestilstand blev indstillet til {0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Der gik noget galt med denne operation. "
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "Med enhver dataændringsoperation kan tabelfragmentering forekomme. "
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "Venligst ikke navigere væk fra denne side..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "Opdatering af tabeller"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "Skal have høj/ubegrænset tillid til at aflæse applikation. "
-          },
-          {
             "@tag": "TITLE",
             "#text": "Genstart applikation"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Gendan og slet beskeder"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Mulighed for at gendanne meddelelser, der er markeret som slettede meddelelser, eller for permanent at slette dem fra databasen."
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "Kør SQL-forespørgsel"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "Du skal indtaste en forespørgsel."
+            "@tag": "RESULT",
+            "#text": "Resultat"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "Kør forespørgsel"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "Kør i transaktion"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "Kør SQL-kode"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "Resultat"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "\"Spam\" Word (Find) udtryk:"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "Løber"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "Stop opgave"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Opgaveleder"
           }
@@ -6602,24 +6190,12 @@
             "#text": "Vil du slette denne bruger?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "Er du sikker?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "Vist navn"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "E-mail"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "E-mail indeholder:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "Eksporter alle brugere som CSV"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "Vis kun suspenderede brugere?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "Synkroniser alle medlemskabsbrugere"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "Alle brugere er synkroniseret nu"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "Skift billedtekst"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} Billede(r)"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "Klik her for at se album"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "Album"
           },
@@ -7072,10 +6632,6 @@
             "#text": "Slet denne fil?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "Vent venligst, indtil alle upload(s) er fuldført, og dialogboksen lukker sig selv!"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vil du slette vedhæftede filer?"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} vedhæftede filer slettet!"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "Ikke tilladte filtyper"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "Størrelse"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "Start upload(er)"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Vedhæftelser"
           },
           {
             "@tag": "UPLOAD",
             "#text": "Upload"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "Upload nye fil(er)"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Gå tilbage til siden Rediger avatar uden at vælge en avatar."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "Skift avatar"
           },
           {
             "@tag": "TITLE",
             "#text": "Avatarer"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "Gå til forældremappen."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "Tilføj som ven"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(Venter på ven godkendelse)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "Alle ven anmodninger er godkendt."
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "Alle ven anmodnings forespørgsler er godkendt og lagt på din venne liste."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "Alle ven anmodninger der er ældre end 14 dage bliver afslået."
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "Du er blevet tilføjet til {0}'s venne liste."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "Venanmodning fjernet."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "Du har {0} ventende ven anmodninger"
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7651,88 +7171,16 @@
             "#text": "Bekræft ny adgangskode:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "Indtast venligst din nuværende adgangskode"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "Nyt bekræftigelses adgangskode er krævet."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "Ny adgangskode er krævet."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "Gammel adgangskode er krævet."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "Ny adgangskode:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "De nye adgangskoder er ikke ens."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "Gammel adgangskode:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "Ny adgangskode skal minimum være: {0} tegn."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "Adgangskode er forkert eller den nye adgangskode er ugyldig."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "Ikke-alfanumeriske tegn er krævet: {1}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "Ny adgangskode skal være forskellig fra den gamle."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "Nyt sikkerhedssvar:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Nuværende kodeord:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "Adgangskode Spørgsmål og svar ændret."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Ændring mislykkedes. "
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "Nyt sikkerhedsspørgsmål:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Gammelt sikkerhedsspørgsmål:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Skift adgangskode"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "Skift sikkerhedsspørgsmål og svar"
           }
         ]
       },
@@ -7757,14 +7205,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Indsæt albumbillede..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "Tilladt"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Indsæt en eksisterende vedhæftet fil, eller upload en ny fil..."
           },
@@ -7777,36 +7217,16 @@
             "#text": "Brugernavnet må ikke indholde et semi kolon (;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "Kode:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Citer:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "Oprindeligt indsendt af: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Gå til Citeret indlæg"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} skrev:"
           },
           {
-            "@tag": "BROWSE",
-            "#text": "Gennemse"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Annuller"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "Skiftet email"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7857,10 +7277,6 @@
             "#text": "Emne med ID: {0} Slettet"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "Ikke tilladt"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "Hent"
           },
@@ -7869,16 +7285,8 @@
             "#text": "Redigere"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} Email godkendelse"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 poster"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 poster"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7895,10 +7303,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 poster"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Ekstern bruger)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7961,20 +7365,12 @@
             "#text": "Første side"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Gå til sidste side"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "Næste side"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "Gå til side..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Gå til besked"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7985,28 +7381,12 @@
             "#text": "Skjult"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Dine inputdata bør ikke indeholde HTML-tags."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Dine inputdata indeholder forbudt {0} HTML-tag."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "i forum: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "Vis flere kategorier og fora..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "Indlæser..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Styre"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8023,18 +7403,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "Besked"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Se hele webstedet"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Se mobilwebsted"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Notifikation"
           },
           {
             "@tag": "MODERATOR",
@@ -8133,14 +7501,6 @@
             "#text": "Læs"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "En e-mail er blevet sendt. Åben din indbakke og klik på linket i e-mailen."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "En e-mail bliver afsendt når du tilmelder dig. For at logge ind skal du tjekke din indbakke og klikke på linket i e-mailen."
-          },
-          {
             "@tag": "REPLY",
             "#text": "Svar"
           },
@@ -8163,10 +7523,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "Valg af sidestørrelse"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Vis/skjul"
           },
           {
             "@tag": "SUBMIT",
@@ -8197,20 +7553,12 @@
             "#text": "Kode"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "Vælg sprog til syntaksfremhævning"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "Kopier den valgte tekst (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "Lav link"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Flere BBKode tags"
           },
           {
             "@tag": "TT_CUT",
@@ -8309,40 +7657,12 @@
             "#text": "Indtast URL:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Du har {0} ulæste omtaler, vil du gå til den nyeste?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Nogen nævnte dig i et emne"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "Du har {0} ulæste besked(er) i din indbakke"
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "Ny(e) private besked(er)"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "Du har {0} ulæste beskeder i din indbakke. "
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Du har {0} ulæste citerede indlæg, vil du gå til det nyeste?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Nogen citerede dig i et emne"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "Du har {0} ulæste modtaget Tak, vil du gå til den nyeste?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Nogen takkede dig for en besked"
           },
           {
             "@tag": "UPDATE",
@@ -8355,10 +7675,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "Brugernavn eller vist brugernavn skal være mere end {0} tegn."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Se kategori"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9408,18 +8724,6 @@
             "#text": "i de sidste {0:N0} minutter"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "Alfabet filter"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "Abonner på aktive emner via Atom."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "Abonner på forum Atom-feed."
-          },
-          {
             "@tag": "BY",
             "#text": "af {0}"
           },
@@ -9432,12 +8736,12 @@
             "#text": "Forum"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "Gå til sidste indlæg"
+            "@tag": "FORUMS",
+            "#text": "Fora"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Go to first unread"
+            "@tag": "GO_LAST_POST",
+            "#text": "Gå til sidste indlæg"
           },
           {
             "@tag": "IN",
@@ -9454,18 +8758,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "Sidste indlæg"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "Sidste indlæg"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "Hovedforum Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "Forum RSS"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9492,6 +8784,10 @@
             "#text": "Mest aktive brugere inden for de seneste {0} dage"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "Nyeste medlem"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(Ingen adgang)"
           },
@@ -9516,56 +8812,28 @@
             "#text": "Seneste brugere"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "Vis kun ulæste emner."
-          },
-          {
             "@tag": "STATS",
             "#text": "Statistik"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "Nyeste medlem er:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "Sidste indlæg var den {0} af:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "Vi har {0:N0} registrerede medlemmer."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "{0:N0} indlæg i {1:N0} emner under {2:N0} fora."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "Anti-spam statistik"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Spammere permanent udelukket"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Permanent forbudt"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Spammere nægtet registrering"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Afvist registrering"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Spammere indsendt til StopForumSpam.com"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "Rapporteret til StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
             "#text": "Emner"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "Du har {0} ulæste beskeder i din postkasse."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "Du har {0} ulæst besked i din postkasse."
           },
           {
             "@tag": "VIEWING",
@@ -9595,22 +8863,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "Er du helt sikker på, at du vil gøre dette?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "Dette vil slette din konto permanent! "
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Slet din konto (permanent)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "Hvis du bare vil tage en pause fra forummet, vil dette suspendere din konto i 30 dage. "
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Suspendér din konto i 30 dage"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9699,16 +8951,8 @@
             "#text": "{0} kommentarer"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "Af {0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "Mere"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "Nye emner"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9752,10 +8996,6 @@
             "#text": "Slet dette billede?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "Du kan ikke tilføje flere albums til denne konto."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "Du kan ikke uploade et så stort billede."
           },
@@ -9770,10 +9010,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "Du skal angive en titel."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9797,24 +9033,12 @@
             "#text": "Avatar"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "Nuværende avatar"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "Slet avatar"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "Vælg en ny avatar"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "Skriv URL for avatar på en anden server:"
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "Avatar forklarings tekst"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9833,16 +9057,8 @@
             "#text": "Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "Vælg den avatar fra vores samling:"
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "Klik her for at vælge en avatar"
           },
           {
             "@tag": "TITLE",
@@ -9886,32 +9102,16 @@
             "#text": "Dit AIM-navn:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "Se alle emner du har skrevet et indlæg i og modtag en email notifikation når der er aktivitet i disse emner?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "Du skrev en ugyldig e-mail adresse."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "Du har indtastet en forkert URL som Facebook-profil."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "Du har skrevet en ugyldig adresse til din hjemmeside."
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "Du har skrevet en ugyldig e-mail adresse til din MSN konto."
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "Du har skrevet en ugyldig adresse til din weblog."
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "Du har indtastet et ugyldigt navn for din XMPP-konto."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9932,10 +9132,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "Hvad navn vil du have vist til andre?"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Sommertid"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9982,10 +9178,6 @@
             "#text": "Sted"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "En e-mail er blevet sendt til {0}.\\n\\nDu skal klikke på linket i den mail for at få din nye e-mail adresse godkendt."
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "Direkte besked tjenester"
           },
@@ -9996,10 +9188,6 @@
           {
             "@tag": "OTHER",
             "#text": "Andet"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "Vælg et andet forum udseende:"
           },
           {
             "@tag": "REALNAME2",
@@ -10044,10 +9232,6 @@
           {
             "@tag": "WHERE",
             "#text": "Hvor bor du?"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Dit Jabber-id:"
           }
         ]
       },
@@ -10071,10 +9255,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "Input sikkerhedskode"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "Opsætningskode"
           },
@@ -10096,28 +9276,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Your  signature can contain any BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "Du kan bruge følgende BBC-koder: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "Din signatur må ikke indeholde BBKoder."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "Din signatur kan indeholde et hvilket som helst HTML-tag."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "Du kan bruge følgende HTML-tags: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "Din signatur må ikke indeholde HTML-tags."
           },
           {
             "@tag": "SIGNATURE",
@@ -10128,20 +9288,8 @@
             "#text": "Din signatur indeholder forbudte {0} BBKoder."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "Din signatur må ikke have mere end {0} tegn."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "Din signatur er for lang. Den må ikke være på mere end {0} tegn."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "Du kan ikke redigere din signatur, men du kan slette den helt."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "Signaturtilladelser"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10206,10 +9354,6 @@
             "#text": "Oplysninger"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "SQL-scriptfejl"
-          },
-          {
             "@tag": "WARNING",
             "#text": "Advarsel"
           }
@@ -10255,10 +9399,6 @@
             "#text": "Du har ingen afventende anmodninger"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "Godkend alle venne forespørgsler?"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "Godkend alle venne forespørgsler og tilføj dem til din venne liste?"
           },
@@ -10281,14 +9421,6 @@
           {
             "@tag": "POSTS",
             "#text": "Indlæg"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "Forespørgsels dato"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Din venne liste"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10610,10 +9742,6 @@
             "#text": "Offentliggørelse"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "Offentliggørelse (Nye Indlæg)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "Forum låst"
           },
@@ -10650,16 +9778,8 @@
             "#text": "Afstemning"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "Afstemning (Nye Indlæg)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "Fastgjort"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "Sticky (nye indlæg)"
           }
         ]
       },
@@ -10704,18 +9824,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "Brugeren bruger serveren {0}. For at kommunikere med ham skal du registere der, da du ikke har en konto."
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "Brugeren bruger den samme XMPP server - du kan få forbindelse til ham med en chat klient som Pidgin. Han konto er {0}"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "Er du sikker på at du vil snakke med dig selv?"
-          },
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
@@ -10782,10 +9890,6 @@
             "#text": "Ingen adgang"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "Kræver cookies"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "Oplysninger"
           },
@@ -10835,40 +9939,16 @@
             "#text": "Bekræft adgangskode"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Indtast en beskrivelse af det nye bord"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "Indtast navnet på det nye bestyrelse"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "Konfigurer adgangskode"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Forbindelsesdetaljer"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "Vælg Eksisterende forbindelsesstreng"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "Vælg SQL Server Database Connection String:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "Forbindelsen fejlede:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "Opret ny forbindelsesstreng"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "Forbindelsesstreng gemmes som"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10891,10 +9971,6 @@
             "#text": "Gæstebrugerkultur (sprog)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "Nuværende version:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "Database"
           },
@@ -10907,64 +9983,8 @@
             "#text": "YAF.NET databaseforbindelse"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "Indtast databasenavnet"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "Et brugernavn til den e-mail-adresse findes allerede. Indtast en anden e-mail-adresse."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "Brugernavnet eksisterer allerede. Indtast et andet brugernavn."
-          },
-          {
             "@tag": "ERROR",
             "#text": "Fejl"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "Board er allerede installeret."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "Du skal indtaste et bestyrelsesnavn."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "Du skal opdatere dine appindstillinger med YAF.ConfigPassword-nøglen for at fortsætte. BEMÆRK: Nøglenavnet er store og små bogstaver."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "Du skal indtaste en bestyrelses e-mail-adresse."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "Du skal indtaste en adgangskode."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "Opret administrationsbruger mislykkedes:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "Du skal indtaste superbrugerens e-mail-adresse."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "Du skal indtaste superbrugerbrugernavnet,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "Det eksisterende brugernavn er ugyldigt og repræsenterer ikke en nuværende bruger i medlemsbutikken."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "Du indtastede det <strong> forkerte kodeord </strong>!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "Brug eksisterende DB Connection String"
           },
           {
             "@tag": "FINISH",
@@ -11003,40 +10023,12 @@
             "#text": "Installation"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "Brug integreret sikkerhed"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "Det angivne adgangskoder svar er gyldigt. Kontroller værdien, og prøv igen."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "Den angivne e-mail-adresse er ugyldig. Kontroller værdien, og prøv igen."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "Det angivne kodeord er ugyldigt. Indtast en gyldig adgangskodeværdi."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "Spørgsmålet om hentning af adgangskode er ugyldigt. Kontroller værdien, og prøv igen."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "Det angivne brugernavn er ugyldigt. Kontroller værdien, og prøv igen."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "Mail (SMTP) sendetest"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "Sender en testmeddelelse til den e-mail-adresse, der er defineret som Send til adresse"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "Opret ny DB-forbindelsesstreng"
           },
           {
             "@tag": "NEXT",
@@ -11047,10 +10039,6 @@
             "#text": "Klik på \"Næste\" vil initialisere din database til den nyeste version."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "Klik på \"Næste\", når du er klar."
-          },
-          {
             "@tag": "NO",
             "#text": "INGEN"
           },
@@ -11059,108 +10047,28 @@
             "#text": "Bemærk"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "Ingen skriveadgang til indstillinger"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "Kan ikke ændre din konfigurationsfil til at indstille databaseforbindelse på grund af ingen skrivetilladelse."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "Ingen skriveadgang til databaseforbindelsesstrenge"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "Kan ikke ændre din konfigurationsfil til at indstille databaseforbindelsesstreng på grund af ingen skrivetilladelse."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "Åbn venligst"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "arkiveres i programmets rodkatalog og tilføj / opdater følgende nøgle i & lt; AppSettings & gt; afsnit:"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "arkiveres i programmets rodmappe og tilføj / opdater følgende nøgle i & lt; connectionStrings & gt; afsnit:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "Bekræftelse er ikke den samme som din adgangskode."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET har skriveadgang til root Application Directory (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NET har skriveadgang til \"~ / Upload\" -kataloget ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "Tidligere"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "Godkendelsesudbyderen returnerede en fejl. Bekræft din indtastning, og prøv igen. Hvis problemet fortsætter, skal du kontakte din systemadministrator."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "Svaret på sikkerhedsspørgsmålet"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "Det spørgsmål, du bliver stillet, når du har brug for at hente din mistede adgangskode"
           },
           {
             "@tag": "SETUP",
             "#text": "Opsætning"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "E-mail-sendingen ser ud til at fungere fra din YAF-installation."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "SMTP-testdetaljer"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "Test e-mail fra endnu et forum.NET"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "Sendt mail. Kontroller, at det er modtaget på din indtastede e-mail-adresse."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "Indtast SQL-adgangskoden"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "Indtast SQL-brugernavnet"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "Testforbindelse"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "Test Smtp-indstillinger"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "Testtilladelse"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "Testindstillinger"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "Klik på knappen \"Forrige\" for at redigere databasekonfigurationen."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11173,26 +10081,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "Indtast til-e-mail-adresse"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "Ukontrolleret"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "Anmodningen om oprettelse af bruger er annulleret. Bekræft din indtastning, og prøv igen. Hvis problemet fortsætter, skal du kontakte din systemadministrator."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "Valider tilladelser"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "YetAnotherForum.NET-installation er lettere, når applikationen har skriveadgang til dit .config\r\n                        filer."
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "Klik nedenfor for at teste, om tilladelserne er korrekte. Hvis de ikke er det, kan du\r\n                        Brug stadig installationsguiden."
           },
           {
             "@tag": "WELCOME",
@@ -11233,28 +10121,12 @@
             "#text": "Din konto er ikke godkendt endnu, fordi du ikke har valideret din e-mail. "
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Log på eller tilmeld dig med {0}"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Husk mig"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "Du skal skrive både brugernavn og e-mail adresse."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock er på"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "Email Adresse"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "En e-mail er blevet sendt til dig med dit nye adgangskode."
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11285,16 +10157,8 @@
             "#text": "Send adgangskode"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "Der skete en fejl under registrering af din nye adgangskode"
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Tilmeld dig i stedet som ny bruger"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "Send adgangskode"
           },
           {
             "@tag": "TITLE",
@@ -11313,16 +10177,8 @@
             "#text": "To-faktor validering"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "Brugernavn:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "Forkert brugernavn eller e-mail adresse."
           }
         ]
       },
@@ -11392,10 +10248,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "Medlemsnavn Indeholder:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "Søg medlemmer"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11478,10 +10330,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Forsæt med at moderere"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Besked redigeret kl"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11586,14 +10434,6 @@
             "#text": "Slet dette emne?"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "Vil du slette denne bruger?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "Vil du slette emnelinket? "
-          },
-          {
             "@tag": "DELETED",
             "#text": "Emne slettet."
           },
@@ -11652,10 +10492,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "Emne Starter"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "Emnelinket er slettet."
           },
           {
             "@tag": "TOPICS",
@@ -11742,10 +10578,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "Svar via privat besked til"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "Rapportér som SPAM"
           },
           {
             "@tag": "REPORTED",
@@ -11875,14 +10707,6 @@
             "#text": "af {0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "Aktive emner"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "( Sidste 24 timer )"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "sidste dag"
           },
@@ -11963,10 +10787,6 @@
             "#text": "Ubesvarede emner"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Ulæste emner"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "Visninger"
           },
@@ -12030,14 +10850,6 @@
             "#text": "Du skal indtaste et afstemningsspørgsmål."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "Tillad ikke at stemme og se resultater."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "Du kan springe over afstemning og resultater."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "Du kan ikke se resultater, før afstemningen udløber."
           },
@@ -12054,10 +10866,6 @@
             "#text": "The poll is expired."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "Billedbredde i px:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "Tillad at stemme for mange valg"
           },
@@ -12066,20 +10874,12 @@
             "#text": "Du kan stemme på mange valg."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "Gæster kan ikke stemme. "
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "Klik for at stemme"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Show who is voted"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Show who is voted."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12106,10 +10906,6 @@
             "#text": "Don"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "Opret eller rediger afstemning"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Image path:"
           },
@@ -12120,18 +10916,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Afstemningsspørgsmål:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "Du kan ikke se afstemningsresultater, før du stemmer."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "Gæster kan ikke se afstemningsresultater, før de stemmer. "
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "Resultater skjult"
           },
           {
             "@tag": "POLLSAVE",
@@ -12159,18 +10943,6 @@
             "#text": "Vil du virkelig fjerne afstemningen fra dette emne?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "Blog Adgangskode:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "Post til blog?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Annuller redigering/oprettelse af besked"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "Beskrivelse:"
           },
@@ -12189,10 +10961,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Gæstebrugernavn må ikke være mere end 100 tegn."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "Er dette emne i spørgsmål og svar-format?"
           },
           {
             "@tag": "LAST10",
@@ -12229,10 +10997,6 @@
           {
             "@tag": "POSTED",
             "#text": "Skrevet:"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "En fejl er opstået da indlægget blev sendt til din blog. Bruger godkendelse kan have fejlet."
           },
           {
             "@tag": "PREVIEW",
@@ -12283,26 +11047,6 @@
             "#text": "Et emne med emnet findes allerede, eller emnet er ikke unikt nok til at blive tilføjet."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "Længden af ​​emnebeskrivelsen må ikke være mere end 255 tegn."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "Emnebeskrivelse Længden af ​​et enkelt ord må ikke være mere end {0} tegn. "
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "Længden af ​​emnenavnet må ikke være mere end 255 tegn."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "Emnenavn Længden af ​​et enkelt ord må ikke være mere end {0} tegn. "
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "Tilføj fil til dette indlæg?"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "Hold øje med dette emne og modtag notifikationer via email hvis der er aktivitet?"
           },
@@ -12328,10 +11072,6 @@
             "#text": "SIGTE"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "Kontakt {0} via AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Atom-feed"
           },
@@ -12352,24 +11092,12 @@
             "#text": "Besøg {0}s blog"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "Du har ikke tilladelse til at se/downloade vedhæftelserne."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "Du [b]Kan ikke[/b] se/downloade vedhæftelserne. Prøv at registere."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Vælg"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "Luk"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "Slet denne besked?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12424,10 +11152,6 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "Besøg {0}s Facebook-profil"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "Hop til Forum"
           },
@@ -12444,28 +11168,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "Besøg {0}s startside"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} vedhæftede følgende billed(der):"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "Download billede"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Klik for at se billede"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} Visning(er)"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "Billede"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12510,10 +11218,6 @@
           {
             "@tag": "LOCATION",
             "#text": "Sted"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "Administrer besked"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12584,10 +11288,6 @@
             "#text": "(Afstemningen er slut)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "Send svar"
-          },
-          {
             "@tag": "POSTED",
             "#text": "Skrevet"
           },
@@ -12612,18 +11312,6 @@
             "#text": "Hurtig svar"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "Skjul hurtig svar"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "Vis hurtig svar"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "Citat valgt besked"
-          },
-          {
             "@tag": "RANK",
             "#text": "Rang"
           },
@@ -12632,16 +11320,8 @@
             "#text": "Du har fjernet -1 omdømme til {0}."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "Tak for din stemme!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "Du har med succes givet +1 omdømme til {0}."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "Tak for rapportering af dette indlæg."
           },
           {
             "@tag": "REPORTPOST",
@@ -12656,14 +11336,6 @@
             "#text": "Omdømme"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweet dette emne"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "RSS-feed"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12676,20 +11348,8 @@
             "#text": "Lignende emner"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "Statistik"
-          },
-          {
             "@tag": "THANKSFROM",
             "#text": "Takket: {0} gang(e)"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "Tak: {0} gange"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
-            "#text": "Tak: {0} gange"
           },
           {
             "@tag": "THANKSINFO",
@@ -12698,34 +11358,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "1 bruger takkede {0} for dette indlæg."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "Blev takket: {0} gang(e) i {1} indlæg"
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "Slet dette emne"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "Lås dette emne"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "Flyt dette emne"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "Send nyt emne"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Send svar"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "Lås dette emne op"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12764,20 +11396,8 @@
             "#text": "i alt"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "Del på Tumblr"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Følg ikke dette emne mere"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "Kvinde"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "Mand"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12800,10 +11420,6 @@
             "#text": "Vis"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "Skift emnevisning mellem normal eller trådvisning."
-          },
-          {
             "@tag": "VOTES",
             "#text": "Stemmer"
           },
@@ -12820,10 +11436,6 @@
             "#text": "Dette forum er lukket."
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "Du skal være logget ind for at sende private beskeder."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "Afstemningen er slut."
           },
@@ -12832,20 +11444,8 @@
             "#text": "Emnet er lukket."
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "Du skal være tilmeldt for at se emner."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "Hold øje med dette emne"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "Kontakt {0} via Jabber"
           }
         ]
       },
@@ -12879,10 +11479,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "Om"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "Administrator bruger"
           },
@@ -12905,14 +11501,6 @@
           {
             "@tag": "CITY",
             "#text": "By:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "Kontakt"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "Land"
           },
           {
             "@tag": "DAYS",
@@ -12941,10 +11529,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "Facebook profil:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "Forum Adgang"
           },
           {
             "@tag": "GENDER",
@@ -12991,20 +11575,8 @@
             "#text": "minutter"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "Mådeholdenhed"
-          },
-          {
             "@tag": "MONTH",
             "#text": "måned"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "{0:N2}% af alle indlæg"
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} indlæg pr. dag"
           },
           {
             "@tag": "NUMPOSTS",
@@ -13049,14 +11621,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Vis alle indlæg af brugeren"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "Sociale medier"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "Statistik"
           },
           {
             "@tag": "SUSPEND",
@@ -13107,18 +11671,6 @@
             "#text": "Brugernavn:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "Weblog:"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "Hjemmeside:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP navn:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "Flere år)"
           }
@@ -13134,10 +11686,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "Din konto er ikke blevet godkendt endnu fordi du ikke har valideret din email adresse, en ny valideringsmail er blevet sendt til {0}. Vær venlig at valider den så du kan ligge ind."
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "Forsøg på at modtage din adgangskode var ikke gennemført med success."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13568,16 +12116,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]Din konto er blevet oprettet.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Din konto er blevet oprettet, men du skal stadig bekræfte din email. Tjek din email og følg validerings instruktionerne.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "Dit brugernavn eller e-mail er allerede tilmeldt."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13586,14 +12126,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "Du har skrevet en ugyldig e-mail adresse."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "Vælg venligst en mere kompleks adgangskode som indeholder ikke alfanummeriske tegn eller tal."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "Konto"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13606,10 +12138,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "Forsæt"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "Opret bruger"
           },
           {
             "@tag": "DETAILS",
@@ -13628,22 +12156,6 @@
             "#text": "Hjemmeside"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "Vælg et andet svar."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "Vælg et andet visnings navn."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "Vælg et andet spørgsmål."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "Vælg et andet brugernavn."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "Sted"
           },
@@ -13652,20 +12164,8 @@
             "#text": "Allerede tilmeldt? "
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "Sikkerheds svar er påkrævet."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "Visnings navn er påkrævet."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "E-mail er påkrævet."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "Adgangskoderne passer ikke sammen."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13704,24 +12204,12 @@
             "#text": "Svag adgangskode, prøv at bruge tal og store bogstaver."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "Forum opsætning"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "Profil Information"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "Forkert! Prøv igen."
-          },
-          {
             "@tag": "REGISTER",
             "#text": "Tilmeld"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "Tilmeld dig hos {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13730,18 +12218,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Skriv adgangskode igen"
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Sikkerheds svar"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Sikkerheds spørgsmål"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "Regler og betingelser"
           },
           {
             "@tag": "TIMEZONE",
@@ -13758,10 +12234,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Brugernavn"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "Bruger navnet bør ikke indholde mere end {0} tegn."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13842,10 +12314,6 @@
             "#text": "Annuller"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Annuller meddelelsesrapport"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Skriv rapport tekst her."
           },
@@ -13864,14 +12332,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "Indsendt af:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "Tags er ikke tilladt i rapporter."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "Tagget [{0}] er ikke tilladt i rapporter."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13936,10 +12396,6 @@
             "#text": "Slet Formattering"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "Formateret"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "Indsæt Billede"
           },
@@ -13964,10 +12420,6 @@
             "#text": "Normal"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "Sorteret Liste"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "Udadvendt"
           },
@@ -13976,20 +12428,8 @@
             "#text": "Højre stillet"
           },
           {
-            "@tag": "SPELL",
-            "#text": "Udfør Stavekontrol"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "Der er ingen forkert stavede ord."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "Understreget"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "Usorteret Liste"
           }
         ]
       },
@@ -14018,10 +12458,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "Alle fora"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "Søg"
           },
@@ -14032,10 +12468,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "Søgeord"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "Søger..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14088,14 +12520,6 @@
           {
             "@tag": "RESULTS",
             "#text": "Resultater"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "Søge teksten skal være mindre end {0} tegn lang og stemme overens med forummets søge regler."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "Søge teksten skal være mindst {0} tegn lang og stemme overens med forummets søge regler."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14435,16 +12859,8 @@
             "#text": "Aktive indlæg"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "Viser siden med aktive emner."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "Administration"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "Viser Admin Index."
           },
           {
             "@tag": "BUDDIES",
@@ -14479,20 +12895,12 @@
             "#text": "Vært"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "Viser værtsindstillingerne."
-          },
-          {
             "@tag": "INBOX",
             "#text": "Min indbakke"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "Viser indbakke med private beskeder."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "Logget ind som : {0}"
           },
           {
             "@tag": "LOGIN",
@@ -14547,10 +12955,6 @@
             "#text": "Viser albumsiden, som viser alle dine album."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "Mine meddelelser"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "Viser dine ulæste modtagede tak, omtaler og citater."
           },
@@ -14565,10 +12969,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "Mine indstillinger"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Rediger dine brugeroplysninger og indstillinger."
           },
           {
             "@tag": "MYTOPICS",
@@ -14615,14 +13015,6 @@
             "#text": "Viser teamsiden, som viser alle moderatorer og administratorer."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Der er {0} emne(r) med ulæste meddelelser"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "Velkommen gæst"
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "Vil du deltage i diskussionen?!"
           },
@@ -14652,20 +13044,12 @@
             "#text": "af {0}"
           },
           {
-            "@tag": "CREATED",
-            "#text": "Lavet"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "Brugere som besøger dette forum nu:"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ Gå til side: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14734,10 +13118,6 @@
           {
             "@tag": "REPLIES",
             "#text": "Svar"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "Rss-feed"
           },
           {
             "@tag": "SEARCH_FORUM",

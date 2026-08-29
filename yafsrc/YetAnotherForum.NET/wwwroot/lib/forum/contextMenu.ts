@@ -2,11 +2,15 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    document.querySelectorAll<HTMLElement>('.list-group-item-menu, .message').forEach(element => {
+    document.querySelectorAll<HTMLElement>('.list-group-item-menu, .message, .row-menu').forEach(element => {
 
         const isMessageContext = element.classList.contains('message');
 
-        const contextMenu = element.querySelector<HTMLElement>('.context-menu')!;
+        const contextMenu = element.querySelector<HTMLElement>('.context-menu');
+
+        if (!contextMenu) {
+	        return;
+        }
 
         let messageId = 0;
 

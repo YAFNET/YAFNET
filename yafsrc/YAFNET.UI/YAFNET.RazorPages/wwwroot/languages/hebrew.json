@@ -11,10 +11,6 @@
             "#text": "הפעילות שלך"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "ארכיון"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "להיות חברים"
           },
@@ -119,10 +115,6 @@
             "#text": "מנויים"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "הצג רק פעילות שלא נקראה"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "צפה בפרופיל"
           },
@@ -171,10 +163,6 @@
             "#text": "ההתראות שלך"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "שם התצוגה שלך:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "שם המשתמש שלך:"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "תאשר סיסמא חדשה"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "הסיסמה וסיסמת האישור חייבים להתאים."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "אימייל"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "כתובת ה - IP"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "הצטרף"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "מיקום לוח"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "שֵׁם"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "שלח שוב אימות דוא&quot;ל"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "מִנהָל"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": "- כל הלוחות -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "דפדפן משתמש (ים)"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "האם לאשר את המשתמש הזה?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "מְדִינָה"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d} (לפני {1:N0} ימים)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "דואר אימות נשלח שוב למשתמש."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "עליך להזין ערך שלם חוקי למשך ימים."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "גרסה חדשה זמינה!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "עבור לדף הורדות"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "הוסף כתובת חדשה"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "נאסר על ידי"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "עליך להזין ערך מספר מ-0 עד 32767 לסדר המיון."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "ערך סדר המיון צריך להיות מספר שלם חיובי מ-0 עד 32767."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "Onclick JS:"
           },
@@ -1928,14 +1868,6 @@
             "#text": "בחר לוגו של לוח"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "ערכת נושא לנייד:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "ערכת הנושא לנייד לשימוש בלוח זה."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "שם לוח:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "להציל"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "החלק את הטבלה שמאלה כדי לחשוף נתונים נוספים"
-          },
-          {
             "@tag": "YES",
             "#text": "כן"
           }
@@ -2044,18 +1972,6 @@
           {
             "@tag": "DELETE_FORUM",
             "#text": "מחק את הפורום"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "מחיקת פורום והעברת נושאים"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "נא לא לנווט הרחק מדף זה בזמן שהמחיקה מתבצעת..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "מוחק את הפורום"
           },
           {
             "@tag": "HEADER1",
@@ -2103,14 +2019,6 @@
             "#text": "שנה בהגדרות הלוח שלך."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "לְעַכֵּל:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "צור תקציר עבור חשבון ניהול זה והנושא שנבחר כעת. (ייתכן שלא ייראה כך למעשה בלקוח אימייל.)"
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "שליחת תקציר אחרון:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "בפעם האחרונה (בהתבסס על זמן השרת) בוצעה משימת התקציר.&gt;"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "שיטת השליחה:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "סוג מערכת שלח לבדיקה."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "לעולם לא"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "כפה שליחה של תקציר"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "צור Digest"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "הגדר אם השדה צריך להיות חובה או לא"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "שמור חדש"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "עליך להזין ערך מספר מ-0 עד 32767 לסדר המיון."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "ערך סדר המיון צריך להיות מספר שלם חיובי מ-0 עד 32767."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "מידע חדש על משתמשי-על"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "שם בקשה לחברות:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "שם האפליקציה נדרש לספק, ריק ישתמש ב- ApplicationName ב-web.config."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "עליך להזין את כתובת האימייל של מנהל המארח."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "שם הלוח."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "תשובת אבטחה:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "התשובה לשאלת האבטחה."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "שאלת בטחון:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "השאלה שתישאל כשתצטרך לאחזר את הסיסמה שאבדה לך."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "שם משתמש עבור אותה כתובת דואר אלקטרוני כבר קיים. נא להזין כתובת דואר אלקטרוני אחרת."
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "שם משתמש כבר קיים. נא להזין שם משתמש אחר."
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "תשובת אחזור הסיסמה שסופקה אינה חוקית. אנא בדוק את הערך ונסה שוב."
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "כתובת הדואר האלקטרוני שסופקה אינה חוקית. אנא בדוק את הערך ונסה שוב."
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "שם המשתמש שסופק אינו חוקי. אנא בדוק את הערך ונסה שוב."
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "הסיסמה שסופקה אינה חוקית. נא להזין ערך סיסמה חוקי."
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "שאלת אחזור הסיסמה שסופקה אינה חוקית. אנא בדוק את הערך ונסה שוב."
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "ספק האימות החזיר שגיאה. אנא אמת את הערך שלך ונסה שוב. אם הבעיה נמשכת, אנא פנה למנהל המערכת שלך."
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "הוזן ערך לא חוקי לסדר המיון: יש להזין מספר."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "ערך סדר המיון צריך להיות מספר שלם חיובי מ-0 עד 32767."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "יש להזין ערך עבור שדה שם הקטגוריה."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "מסיכת גישה"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "קטגוריה:"
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "המשמעות היא שהפורום יוסתר כאשר למשתמש אין גישת קריאה אליו."
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "מסכת גישה ראשונית:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "מסכת הגישה הראשונית לכל הפורומים."
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "פורום עם שם כזה כבר קיים."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "עליך לבחור מסכת גישה ראשונית לפורום."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "הזנת כתובת URL לא חוקית."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "עליך להזין שם לפורום."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Forum cannot be parent of self."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "ערך סדר המיון צריך להיות מספר שלם חיובי מ-0 עד 32767."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "אם זה מסומן, כל המשתמשים החדשים יהיו חברים בתפקיד זה.<br /> <span style=\"color:red\">[b]אזהרה:[/b] לפחות קבוצה אחת צריכה לאפשר תיבת סימון זו או שמשתמשים חדשים לא יוכלו להירשם.[/b]</span>"
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "עליך להזין ערך מספר שלם עבור מספר אלבומי המשתמש."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "עליך להזין ערך מספר שלם עבור עדיפות."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "עליך להזין שם תפקיד."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "עליך להזין ערך מספר שלם עבור מספר התווים בחתימת המשתמש."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "עליך להזין ערך מספר שלם עבור המספר הכולל של התמונות בכל האלבומים."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "עליך להזין ערך שלם עבור מספר ההודעה."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "הודעות:"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "מקסימום הודעות פרטיות מותרות לחברי הקבוצה."
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "פירוש הדבר שמשתמשים יורשו/אסרו להסתיר את המדליה הזו."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "אפשר הזמנה מחדש:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "פירוש הדבר שמשתמשים יורשו/אסרו לשנות את סדר המדליה הזו."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "אפשר סרגל סרט:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "פירוש הדבר שהצגת פס של מדליה זו תותר/אסור."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "להסיר את המדליה מהקבוצה הזו?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "להסיר מדליה מהמשתמש הזה?"
           },
@@ -3143,20 +2895,12 @@
             "#text": "הזן שם משתמש או לחץ על &quot;מצא משתמשים&quot; כדי לבחור משתמש מרשימת המשתמשים"
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "צוין שם משתמש מעורפל!"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "יש לציין תמונת מדליה!"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "יש להזין שם מדליה!"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "יש לציין תמונת מדליה קטנה!"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "בחר תמונת מדליה"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "המדליה תוצג בפרופיל המשתמש"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "מספר מינימלי של פוסטים לפני שהמשתמשים יעברו לדרגה זו."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "דירוג עדיפות צריך להיות מספר שלם קטן."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "עליך להגדיר שם דרגה."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "הודעה פרטית:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "מקסימום הודעות פרטיות מותרות לדרג חברים."
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "הזן כאן תיאור תפקיד."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "דירוג תמונה:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "תמונה זו תוצג לצד משתמשים בדרגה זו."
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "לחסום את שם המשתמש של המשתמש?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "המשתמש דווח בהצלחה כבוט"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "הודעת דוא&quot;ל למשתמש על הסיסמה החדשה שלו?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "אשר סיסמה:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "אשר את הסיסמה החדשה."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "נקודות נוכחיות:"
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "המשתמש נמחק רך."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "יש להזין סיסמה לאשר"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "יש להזין סיסמה חדשה"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "קבוצות משתמש"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "נקודות משתמש"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "אפס/שנה סיסמת משתמש"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "כתובות IP:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "להרוג משתמש"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "ניהול כל הפוסטים שנעשו על ידי המשתמש"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "המשתמש האורח חייב להיות מסומן כאושר, אחרת הפורום שלך יהיה לא יציב."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "סיסמת משתמש שונתה"
           },
@@ -3481,24 +3165,8 @@
             "#text": "סיסמת המשתמש שונתה והודעות דוא&quot;ל נשלחו."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "איפוס סיסמת משתמש ואימייל הודעה נשלח"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "משתמש {0} נהרג!"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "אוֹפְּצִיָה:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "שנה סיסמה ידנית ואפשרות לשלוח סיסמה חדשה בדוא&quot;ל למשתמש"
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "אפס את הסיסמה ואת הסיסמה החדשה בדוא&quot;ל למשתמש"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "דווח על משתמש כ-BOT ל-StopForumSpam.com"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "לדווח על שם משתמש, כתובת דואר אלקטרוני וכתובת IP ל-StopForumSpam.com בתור BOT?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "למחוק את הקטגוריה הזו?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "האם אתה חיובי?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "האם אתה בטוח? הצעד הזה הוא בלתי הפיך!"
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "למחוק את התפקיד הזה?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "מחק תפקיד"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "תג תרבות"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "שפה אנגלית שם"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "שפה שם יליד"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "משאבים מתורגמים"
           },
@@ -5787,6 +5435,10 @@
             "#text": "נראה כי שליחת האימייל פועלת מהתקנת ה-YAF שלך."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "בדיקת דואר"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "בדוק אימייל מעוד Forum.NET"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "הזן את כתובת האימייל שאליה יש לשלוח את דוא&quot;ל הבדיקה"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "בדיקת דואר"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "תמונת המדליה כפי שהיא תוצג בתיבת המשתמש."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "תמונת סרגל רצועת הכלים כפי שהיא תוצג בתיבת המשתמש."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "אין מדליות"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "נכון לעכשיו אין מדליות. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "לרדת"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "לזוז למעלה"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "ימים"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "מחק הודעות שנקראו ישנות יותר מ:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "מידע על הפרופיל"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "העדפות הפורום"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "המשתמש {0} נוצר בהצלחה."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "שגיאת חברות ביצירת משתמש: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "פעולת הכיווץ הצליחה. גודל מסד הנתונים שלך הוא כעת: {0}MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "מצב שחזור מסד הנתונים הוגדר בהצלחה ל-{0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "משהו השתבש בפעולה הזו. השגיאה המדווחת היא: {0}"
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "עם כל פעולות של שינוי נתונים, פיצול טבלה יכול להתרחש. ניתן להשתמש בפקודה זו כדי לבנות מחדש את כל האינדקסים בכל הטבלאות במסד הנתונים כדי להגביר את הביצועים."
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "נא לא לנווט הרחק מדף זה..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "עדכון טבלאות"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "חייב להיות בעל אמון גבוה/בלתי מוגבל כדי לפרוק אפליקציה. ההפעלה מחדש נכשלה."
-          },
-          {
             "@tag": "TITLE",
             "#text": "הפעל מחדש את היישום"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "שחזר ומחק הודעות"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "אפשרות לשחזר הודעות המסומנות כהודעות שנמחקו, או למחוק אותן לצמיתות ממסד הנתונים."
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "הפעל שאילתת SQL"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "עליך להזין שאילתה."
+            "@tag": "RESULT",
+            "#text": "תוֹצָאָה"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "הפעל שאילתה"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "הפעל בעסקה"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "הפעל קוד SQL"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "תוֹצָאָה"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "ביטוי מילת &quot;ספאם&quot; (מצא):"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "רץ"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "עצור משימה"
-          },
-          {
             "@tag": "TITLE",
             "#text": "מנהל משימות"
           }
@@ -6602,24 +6190,12 @@
             "#text": "למחוק את המשתמש הזה?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "האם אתה בטוח?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "הצג שם"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "אימייל"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "דואר אלקטרוני מכיל:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "ייצא את כל המשתמשים כ-CSV"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "להציג רק משתמשים מושעים?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "סנכרן את כל משתמשי החברות"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "כל המשתמשים מסונכרנים כעת"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "שנה כיתוב"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} תמונות"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "לחץ כדי להציג את האלבום"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "אלבומים"
           },
@@ -7072,10 +6632,6 @@
             "#text": "האם למחוק קובץ מצורף זה?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "אנא המתן עד שכל ההעלאות יושלמו והדיאלוג ייסגר בעצמו!"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "למחוק קבצים מצורפים?"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} קבצים מצורפים נמחקו!"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "סוגי קבצים שאינם מורשים"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "גודל"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "התחל העלאה"
-          },
-          {
             "@tag": "TITLE",
             "#text": "קבצים מצורפים"
           },
           {
             "@tag": "UPLOAD",
             "#text": "העלאת קובץ"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "העלה קבצים חדשים"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "חזור לדף שנה אוואטר מבלי לבחור אוואטר."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "החלפת דמות"
           },
           {
             "@tag": "TITLE",
             "#text": "דמויות"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "עבור אל תיקיית האב."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "הוסף כחבר"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(ממתין לאישור חבר)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "כל בקשות החברים אושרו."
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "כל בקשות החברים אושרו ונוספו לרשימת החברים שלך."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "כל בקשות החברים בנות יותר מ-14 ימים נדחו."
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "נוספת לרשימת החברים של {0}."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "בקשת החברים הוסרה."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "יש לך {0} בקשות חברות ממתינות"
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7655,88 +7175,16 @@
             "#text": "אשר/י סיסמא חדשה:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "אנא הזן את הסיסמה הנוכחית שלך"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "חובה להזין סיסמא חדשה שוב לאימות."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "חובה להזין סיסמא חדשה."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "חובה להזין את הסיסמא הישנה."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "סיסמא חדשה:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "הסיסמאות החדשות לא תואמות אחת לשניה."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "סיסמא ישנה:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "האורך המינימלי לסיסמא החדשה הוא {0}"
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "סיסמא לא נכונה או לא קבילה."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "דרושים התווים הבאים שאינן אותיות או מספרים: {0}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "הסיסמה החדשה חייבת להיות שונה מהקודמת."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "תשובת אבטחה חדשה:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "סיסמה נוכחית:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "סיסמא שאלה ותשובה השתנו."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "השינוי נכשל. אנא הזן מחדש את הערכים שלך ונסה שוב."
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "שאלת אבטחה חדשה:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "שאלת אבטחה ישנה:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "החלפת סיסמא"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "שנה שאלת אבטחה ותשובה"
           }
         ]
       },
@@ -7761,14 +7209,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "הוסף תמונת אלבום..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "מוּתָר"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "הוסף קובץ מצורף קיים או העלה קובץ חדש..."
           },
@@ -7781,36 +7221,16 @@
             "#text": "שם המשתמש אינו יכול להכיל נקודה-פסיק (;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "קוד:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "ציטוט:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "פורסם במקור על ידי: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "עבור לפוסט מצוטט"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} כתב/ה:"
           },
           {
-            "@tag": "BROWSE",
-            "#text": "לְדַפדֵף"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "ביטול"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "כתובת הדוא\"ל שונתה"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7861,10 +7281,6 @@
             "#text": "נושא עם מזהה: {0} נמחק"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "אסור"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "הורד"
           },
@@ -7873,16 +7289,8 @@
             "#text": "לַעֲרוֹך"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} אימות כתובת דוא\"ל"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 ערכים"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 כניסות"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7899,10 +7307,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 כניסות"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(משתמש חיצוני)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7965,20 +7369,12 @@
             "#text": "עמוד ראשון"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "עבור לדף האחרון"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "עמוד הבא"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "לך לעמוד..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "עבור להודעה"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7989,28 +7385,12 @@
             "#text": "מוסתר"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "נתוני הקלט שלך לא צריכים להכיל תגי HTML."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "נתוני הקלט שלך מכילים תג HTML אסור {0}."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "בפורום: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "הצג עוד קטגוריות ופורומים..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "טוען..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "לנהל"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8027,18 +7407,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "הוֹדָעָה"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "צפה באתר המלא"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "צפה באתר לנייד"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "הודעה"
           },
           {
             "@tag": "MODERATOR",
@@ -8137,14 +7505,6 @@
             "#text": "לקרוא"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "הודעת דוא\"ל נשלחה. בדוק/י את תיבת הדואר הנכנס שלך, ולחץ/י על הקישור בהודעה."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "הודעת דוא\"ל תישלח לאחר שתירשם. על מנת להתחבר, יש לבדוק את תיבת הדואר הנכנס וללחוץ על הקישור בהודעה."
-          },
-          {
             "@tag": "REPLY",
             "#text": "תשובה"
           },
@@ -8167,10 +7527,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "בחירת גודל העמוד"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "הצג הסתר"
           },
           {
             "@tag": "SUBMIT",
@@ -8201,20 +7557,12 @@
             "#text": "קוד"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "בחר שפה להדגשת תחביר"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "העתק את הטקסט שנבחר (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "יצירת קישור"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "עוד תוויות BBCode"
           },
           {
             "@tag": "TT_CUT",
@@ -8313,40 +7661,12 @@
             "#text": "הזן כתובת אתר:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "יש לך {0} אזכורים שלא נקראו, האם תרצה לעבור לאזכורים החדשים ביותר?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "מישהו הזכיר אותך בנושא"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "יש לך {0} הודעות שלא נקראו בתיבת הדואר הנכנס"
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "הודעות פרטיות חדשות"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "יש לך {0} הודעות שלא נקראו בתיבת הדואר הנכנס שלך. האם תרצה לעבור לתיבת הדואר הנכנס שלך עכשיו?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "יש לך {0} פוסטים שצוטטו שלא נקראו, האם תרצה לעבור לפוסט החדש ביותר?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "מישהו ציטט אותך בנושא"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "קיבלת {0} שלא נקראו תודה, האם תרצה לעבור לחדש ביותר?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "מישהו הודה לך על ההודעה"
           },
           {
             "@tag": "UPDATE",
@@ -8359,10 +7679,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "שם משתמש או שם משתמש לתצוגה חייב להיות יותר מ-{0} תווים."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "הצג קטגוריה"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9412,18 +8728,6 @@
             "#text": "עבור {0:N0} הדקות האחרונות"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "מסנן אלפבית"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "הירשם לנושאים פעילים דרך Atom."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "הירשם לפורום Atom Feed."
-          },
-          {
             "@tag": "BY",
             "#text": "ע\"י {0}"
           },
@@ -9436,12 +8740,12 @@
             "#text": "פורום"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "עבור להודעה אחרונה"
+            "@tag": "FORUMS",
+            "#text": "פורומים"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Go to first unread"
+            "@tag": "GO_LAST_POST",
+            "#text": "עבור להודעה אחרונה"
           },
           {
             "@tag": "IN",
@@ -9458,18 +8762,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "הודעה אחרונה"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "הודעות אחרונות"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "פורום ראשי Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "RSS לפורום ראשי"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9496,6 +8788,10 @@
             "#text": "המשתמשים הפעילים ביותר ב-{0} הימים האחרונים"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "החבר הכי חדש"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(אין גישה)"
           },
@@ -9520,56 +8816,28 @@
             "#text": "משתמשים אחרונים"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "הצג רק נושאים שלא נקראו."
-          },
-          {
             "@tag": "STATS",
             "#text": "סטטיסטיקות"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "החבר החדש ביותר הוא:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "הודעה אחרונה {0} ע\"י"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "יש לנו {0:N0} חברים רשומים."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "ישנן {0:N0} הודעות ב- {1:N0} דיונים ב- {2:N0} פורומים."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "סטטיסטיקות נגד ספאם"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} שולחי דואר זבל נאסרים לצמיתות"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "נאסר לצמיתות"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} שולחי דואר זבל נדחו רישום"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "נדחתה רישום"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} שולחי דואר זבל נשלחו אל StopForumSpam.com"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "דווח ל-StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
             "#text": "דיונים"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "יש לך {0} הודעות לא נקראו בתיבת הדואר הנכנס."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "יש לך הודעה אחת שלא נקראה בתיבת הדואר הנכנס."
           },
           {
             "@tag": "VIEWING",
@@ -9599,22 +8867,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "האם אתה בטוח לחלוטין שאתה רוצה לעשות זאת?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "זה ימחק את החשבון שלך לצמיתות! כל התוכן שלך יימחק. לאחר מכן לא ניתן לשחזר את חשבונך"
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "מחק את החשבון שלך (לצמיתות)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "אם אתה רק רוצה לקחת הפסקה מהפורום, זה ישחק את חשבונך למשך 30 יום. התוכן שלך עדיין גלוי"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "השעה את חשבונך למשך 30 יום"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9703,16 +8955,8 @@
             "#text": "{0 תגובות"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "מאת {0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "יותר"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "נושאים חדשים"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9756,10 +9000,6 @@
             "#text": "למחוק את התמונה הזו?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "אינך יכול להוסיף עוד אלבומים לחשבון זה."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "אתה לא יכול להעלות תמונות כל כך גדולות."
           },
@@ -9774,10 +9014,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "אתה צריך לציין כותרת."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9801,24 +9037,12 @@
             "#text": "דמות"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "דמות נוכחית"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "נקה דמות"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "בחר דמות חדשה"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "השתמש בדמות מכתובת URL מרוחקת:"
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "טקסט הסבר על דמות"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9837,16 +9061,8 @@
             "#text": "Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "בחר דמות מהאוסף שלנו:"
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "לחץ כאן על מנת לבחור דמות"
           },
           {
             "@tag": "TITLE",
@@ -9890,32 +9106,16 @@
             "#text": "שם ה-AIM שלך:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "לצפות בכל נושא שבו פרסמת פוסט ולקבל הודעות אימייל על פעילויות בנושאים אלו?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "הזנת כתובת דוא\"ל לא תקינה."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "הזנת כתובת URL שגויה כפרופיל פייסבוק."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "הזנת כתובת לא תקינה לדף הבית שלך."
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "הזנת כתובת דוא\"ל לא תקינה לחשבון הMSN."
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "הזנת כתובת לא תקינה לבלוג שלך."
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "הזנת שם לא חוקי עבור חשבון ה-XMPP שלך."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9936,10 +9136,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "איזה שם אתה רוצה שיוצג לאחרים?"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Daylight Saving Time"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9986,10 +9182,6 @@
             "#text": "מיקום"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "הודעה דוא\"ל נשלחה אל {0}.\\n\\nחובה לאמת את כתובת הדואר האלקטרוני ע\"י\\nפתיחת הקישור בהודעה לפני שכתובת הדואר האלקטרוני תתעדכן."
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "שירות מסרים מיידיים"
           },
@@ -10000,10 +9192,6 @@
           {
             "@tag": "OTHER",
             "#text": "אַחֵר"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "עקוף את ערכת הנושא ברירת המחדל"
           },
           {
             "@tag": "REALNAME2",
@@ -10048,10 +9236,6 @@
           {
             "@tag": "WHERE",
             "#text": "היכן את/ה גר/ה?"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "מזהה Jabber שלך:"
           }
         ]
       },
@@ -10075,10 +9259,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "קוד אבטחת קלט"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "קוד הגדרה"
           },
@@ -10100,28 +9280,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Your  signature can contain any BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "אתה יכול להשתמש בקודי ה-BBC הבאים: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "החתימה שלך לא צריכה להכיל BBCodes."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "החתימה שלך יכולה להכיל כל תג HTML."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "אתה יכול להשתמש בתגי ה-HTML הבאים: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "החתימה שלך לא צריכה להכיל תגי HTML."
           },
           {
             "@tag": "SIGNATURE",
@@ -10132,20 +9292,8 @@
             "#text": "החתימה שלך מכילה {0} BBCode אסור."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "החתימה שלך יכולה לכלול לא יותר מ-{0} תווים."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "החתימה שלך ארוכה מדי. זה יכול להכיל לא יותר מ-{0} תווים."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "אתה לא יכול לערוך את החתימה שלך, אבל אתה יכול למחוק אותה לחלוטין."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "הרשאות חתימה"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10210,10 +9358,6 @@
             "#text": "מֵידָע"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "שגיאת סקריפט SQL"
-          },
-          {
             "@tag": "WARNING",
             "#text": "אַזהָרָה"
           }
@@ -10259,10 +9403,6 @@
             "#text": "אין לך בקשות ממתינות"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "לאשר את כל הבקשות?"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "לאשר את כל הבקשות ולהוסיף אותן גם לרשימת החברים שלך?"
           },
@@ -10285,14 +9425,6 @@
           {
             "@tag": "POSTS",
             "#text": "פוסטים"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "תאריך מבוקש"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Your Friend List"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10614,10 +9746,6 @@
             "#text": "הכרזה"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "הכרזה (יש הודעות חדשות)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "הפורום נעול"
           },
@@ -10654,16 +9782,8 @@
             "#text": "סקר"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "סקר (יש הודעות חדשות)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "דביק"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "דביק (פוסטים חדשים)"
           }
         ]
       },
@@ -10708,18 +9828,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "המשתמש משתמש בשרתים {0}. כדי לתקשר אליו, עליך להירשם שם, כי אין לך חשבון."
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "המשתמש משתמש באותו שרת XMPP - ניתן להתחבר אליו באמצעות לקוח כמו Pidgin. החשבון שלו הוא {0}"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "האם אתה בטוח שאתה רוצה לדבר עם עצמך?"
-          },
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
@@ -10786,10 +9894,6 @@
             "#text": "הגישה נדחתה"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "דורש עוגיות"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "מידע"
           },
@@ -10839,40 +9943,16 @@
             "#text": "אמת את הסיסמה"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "הזן תיאור ללוח החדש"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "הזן את שם הלוח החדש"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "הגדר סיסמא"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "פרטי חיבור"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "בחר מחרוזת חיבור קיימת"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "בחר מחרוזת חיבור מסד נתונים של SQL Server:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "ההתחברות נכשלה:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "צור מחרוזת חיבור חדשה"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "מחרוזת חיבור תישמר כ-"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10895,10 +9975,6 @@
             "#text": "תרבות המשתמש האורח (שפה)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "גרסה נוכחית:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "מאגר מידע"
           },
@@ -10911,64 +9987,8 @@
             "#text": "חיבור מסד נתונים של YAF.NET"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "הזן את שם בסיס הנתונים"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "שם משתמש עבור אותה כתובת דואר אלקטרוני כבר קיים. אנא הזן כתובת דואר אלקטרוני אחרת."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "שם משתמש כבר קיים. נא להזין שם משתמש אחר."
-          },
-          {
             "@tag": "ERROR",
             "#text": "שגיאה"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "הלוח כבר מותקן."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "עליך להזין שם לוח."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "עליך לעדכן את הגדרות היישום שלך באמצעות מפתח YAF.ConfigPassword כדי להמשיך. הערה: שם המפתח הוא תלוי רישיות."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "עליך להזין כתובת דוא\"ל של הלוח."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "עליך להזין סיסמה."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "יצירת משתמש מנהל נכשלה:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "עליך להזין את כתובת הדוא\"ל של משתמש העל."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "עליך להזין את שם המשתמש של משתמש העל,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "שם המשתמש הקיים אינו חוקי ואינו מייצג משתמש נוכחי בחנות החברות."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "הזנת את <strong> סיסמא שגויה </ strong>!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "השתמש במחרוזת חיבור DB קיימת"
           },
           {
             "@tag": "FINISH",
@@ -11007,40 +10027,12 @@
             "#text": "התקנה"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "השתמש באבטחה משולבת"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "התשובה לשליפת הסיסמה שסופקה אינה חוקית. אנא בדוק את הערך ונסה שוב."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "כתובת הדואר האלקטרוני שצוינה אינה חוקית. אנא בדוק את הערך ונסה שוב."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "הסיסמה שצוינה אינה חוקית. אנא הכנס ערך סיסמא תקף."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "שאלת אחזור הסיסמה שנמסרה אינה חוקית. אנא בדוק את הערך ונסה שוב."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "שם המשתמש שסופק אינו חוקי. אנא בדוק את הערך ונסה שוב."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "מבחן שליחת דואר (SMTP)"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "שולח הודעת מבחן לכתובת הדוא\"ל המוגדרת כ- שלח לכתובת"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "צור מחרוזת חיבור DB חדשה"
           },
           {
             "@tag": "NEXT",
@@ -11051,10 +10043,6 @@
             "#text": "לחיצה על \"הבא\" תאתחל את בסיס הנתונים לגירסה האחרונה."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "לחץ על \"הבא\" כשתהיה מוכן."
-          },
-          {
             "@tag": "NO",
             "#text": "לא"
           },
@@ -11063,108 +10051,28 @@
             "#text": "הערה"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "אין גישה לכתיבה להגדרות"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "לא ניתן לשנות את קובץ התצורה שלך להגדרת חיבור מסד נתונים ללא הרשאת כתיבה."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "אין גישה לכתיבה למיתרי חיבור למסד נתונים"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "לא ניתן לשנות את קובץ התצורה שלך להגדרת מחרוזת חיבור מסד נתונים ללא הרשאת כתיבה."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "אנא פתח את ה-"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "קובץ בספריית השורש של היישום והוסף / עדכן את המפתח הבא ב & lt; AppSettings & gt; קטע:"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "קובץ בספריית השורש של היישום והוסף / עדכן את המפתח הבא ב & lt; connectionStrings & gt; קטע:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "האימות אינו זהה לסיסמה שלך."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "ל- YAF.NET גישה לכתיבה לספריית יישומי השורש (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "ל- YAF.NET גישה לכתיבה לספריית \"~ / העלאה\" ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "קודם"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "ספק האימות החזיר שגיאה. אמת את הרשומה שלך ונסה שוב. אם הבעיה נמשכת, אנא צור קשר עם מנהל המערכת שלך."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "התשובה לשאלת האבטחה"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "השאלה שתישאל כשאתה צריך לאחזר את הסיסמה שאבדה"
           },
           {
             "@tag": "SETUP",
             "#text": "להכין"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "נראה כי שליחת הדוא\"ל עובדת מהתקנת YAF שלך."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "פרטי בדיקת SMTP"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "בדוק דוא\"ל מפורום אחר"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "דואר נשלח. ודא שהוא התקבל בכתובת הדוא\"ל שהזנת."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "הזן את סיסמת SQL"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "הזן את שם המשתמש של SQL"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "חיבור מבחן"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "בדוק את הגדרות ה- Smtp"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "הרשאת מבחן"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "הגדרות בדיקה"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "לחץ על כפתור \"קודם\" כדי לערוך את תצורת בסיס הנתונים."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11177,26 +10085,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "הזן את כתובת הדוא\"ל"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "לא בדוק"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "בקשת יצירת המשתמש בוטלה. אמת את הרשומה שלך ונסה שוב. אם הבעיה נמשכת, אנא צור קשר עם מנהל המערכת שלך."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "אמת את ההרשאות"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "YetAnotherForum.NET התקנה קלה יותר כאשר לאפליקציה יש גישה לכתיבה ל- .config שלך\r\n                        קבצים."
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "לחץ למטה כדי לבדוק אם ההרשאות נכונות. אם הם לא, אתה יכול\r\n                        השתמש עדיין באשף ההתקנה."
           },
           {
             "@tag": "WELCOME",
@@ -11237,28 +10125,12 @@
             "#text": "חשבונך עדיין לא אושר מכיוון שלא אימתת את הדוא&quot;ל שלך. נא לאמת כדי שתוכל להתחבר."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "התחבר או הירשם עם {0}"
-          },
-          {
             "@tag": "AUTO",
             "#text": "התחבר אוטומטית:"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "חובה להכניס גם את שם המשתמש וגם את כתובת הדוא\"ל."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock מופעל"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "כתובת דוא\"ל"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "נשלחה אליך הודעת דוא\"ל עם הסיסמא החדשה"
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11289,16 +10161,8 @@
             "#text": "שחזר סיסמא"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "אירעה שגיאה בעת נסיון לשחזור הסיסמא."
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "הירשם במקום כמשתמש חדש"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "שלח סיסמא"
           },
           {
             "@tag": "TITLE",
@@ -11317,16 +10181,8 @@
             "#text": "אימות דו-גורמי"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "שם משתמש:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "שם המשתמש או כתובת הדוא\"ל אינם נכונים."
           }
         ]
       },
@@ -11396,10 +10252,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "שם חבר מכיל:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "חפש חברים"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11482,10 +10334,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "המשך מתון"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "הודעה נערך ב-"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11590,14 +10438,6 @@
             "#text": "האם ברצונך למחוק דיון זה?"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "למחוק את המשתמש הזה?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "למחוק את הקישור לנושא? הנושא עצמו לא יימחק."
-          },
-          {
             "@tag": "DELETED",
             "#text": "הדיון נמחק."
           },
@@ -11656,10 +10496,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "מחבר הדיון"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "הקישור לנושא נמחק."
           },
           {
             "@tag": "TOPICS",
@@ -11746,10 +10582,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "השב בהודעה פרטית ל"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "דווח על דואר זבל"
           },
           {
             "@tag": "REPORTED",
@@ -11879,14 +10711,6 @@
             "#text": "מאת {0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "נושאים פעילים"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "(24 השעות האחרונות)"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "יום אחרון"
           },
@@ -11967,10 +10791,6 @@
             "#text": "נושאים ללא מענה"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "נושאים שלא נקראו"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "צפיות"
           },
@@ -12034,14 +10854,6 @@
             "#text": "עליך להזין שאלת סקר."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "אפשר לא להצביע ולראות תוצאות."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "אתה יכול לדלג על ההצבעה והתוצאות."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "אתה לא יכול לראות תוצאות לפני שהסקר יפוג."
           },
@@ -12058,10 +10870,6 @@
             "#text": "The poll is expired."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "רוחב התמונה בפיקסלים:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "אפשר להצביע עבור אפשרויות רבות"
           },
@@ -12070,20 +10878,12 @@
             "#text": "אתה יכול להצביע עבור אפשרויות רבות."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "אורחים לא יכולים להצביע. נסה להתחבר או להירשם."
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "לחץ להצבעה"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Show who is voted"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Show who is voted."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12110,10 +10910,6 @@
             "#text": "דוֹן"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "צור או ערוך סקר"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Image path:"
           },
@@ -12128,18 +10924,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Poll Question:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "אתה לא יכול לראות את תוצאות הסקר לפני ההצבעה."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "אורחים לא יכולים לראות את תוצאות הסקר לפני ההצבעה. נסה להתחבר או להירשם."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "תוצאות מוסתרות"
           },
           {
             "@tag": "POLLSAVE",
@@ -12171,18 +10955,6 @@
             "#text": "האם את/ה באמת רוצה להסיר סקר זה?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "סיסמת בלוג:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "לכתוב לבלוג?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "בטל את עריכת/יצירת ההודעה"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "תיאור:"
           },
@@ -12201,10 +10973,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "שם משתמש אורח לא יכול להיות יותר מ-100 תווים."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "האם הנושא הזה בפורמט שאלה ותשובה?"
           },
           {
             "@tag": "LAST10",
@@ -12241,10 +11009,6 @@
           {
             "@tag": "POSTED",
             "#text": "נשלח:"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "חלה שגיאה בשליחה לבלוג שלך. ייתכן שהאימות נכשל."
           },
           {
             "@tag": "PREVIEW",
@@ -12295,26 +11059,6 @@
             "#text": "נושא עם הנושא כבר קיים או שהנושא אינו ייחודי מספיק כדי להוסיף אותו."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "אורך תיאור הנושא לא יכול להיות יותר מ-255 תווים."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "תיאור נושא אורך מילה אחת לא יכול להיות יותר מ-{0} תווים. הצעה: השתמש בקיצורים כדי לקצר."
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "אורך שם הנושא לא יכול להיות יותר מ-255 תווים."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "שם הנושא אורך מילה אחת לא יכול להיות יותר מ-{0} תווים. הצעה: השתמש בקיצורים כדי לקצר."
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "האם ברצונך לצרף קבצים לדיון זה?"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "האם ברצונך לקבל עדכונים במייל על פעילות בדיון זה?"
           },
@@ -12340,10 +11084,6 @@
             "#text": "מַטָרָה"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "צור קשר עם {0} באמצעות AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "הזנת אטום"
           },
@@ -12364,24 +11104,12 @@
             "#text": "בקר בבלוג של {0}"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "אין לך הרשאה להציג/להוריד קבצים מצורפים."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "You [b]cannot[/b] view/download attachments. Try register."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "בחירה"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "סגור"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "האם ברצונך למחוק הודעה זו?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12436,10 +11164,6 @@
             "#text": "פייסבוק"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "בקר בפרופיל הפייסבוק של {0}"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "עבור לפורום"
           },
@@ -12456,28 +11180,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "בקר בדף הבית של {0}"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} צירף/ה את הקובץ(ים) הבא(ים):"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "הורד תמונה"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "לחץ כדי להציג תמונה"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} צפיות"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "תמונה"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12522,10 +11230,6 @@
           {
             "@tag": "LOCATION",
             "#text": "מיקום"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "נהל הודעה"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12596,10 +11300,6 @@
             "#text": "(סקר סגור)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "שלח תגובה"
-          },
-          {
             "@tag": "POSTED",
             "#text": "נשלח"
           },
@@ -12624,18 +11324,6 @@
             "#text": "תגובה מהירה"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "הסתר תגובה מהירה"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "הצג תגובה מהירה"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "ציטוט הודעה נבחרת"
-          },
-          {
             "@tag": "RANK",
             "#text": "דירוג"
           },
@@ -12644,16 +11332,8 @@
             "#text": "הסרת בהצלחה את -1 מוניטין ל-{0}."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "תודה על ההצבעה שלך!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "הענקת בהצלחה מוניטין 1+ ל-{0}."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "תודה על הדיווח."
           },
           {
             "@tag": "REPORTPOST",
@@ -12668,14 +11348,6 @@
             "#text": "תדמית"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "צייץ מחדש לנושא זה"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "הזנת RSS"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12688,19 +11360,7 @@
             "#text": "נושאים דומים"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "סטטיסטיקות"
-          },
-          {
             "@tag": "THANKSFROM",
-            "#text": "תודה: {0} פעמים"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "תודה: {0} פעמים"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
             "#text": "תודה: {0} פעמים"
           },
           {
@@ -12710,34 +11370,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "משתמש אחד הודה ל-{0} על פוסט שימושי זה."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "קיבל תודה: {0} פעמים ב-{1} פוסטים"
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "מחק דיון זה"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "נעל דיון זה"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "העבר דיון זה"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "כתוב דיון חדש"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "שלח תגובה"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "שחרר את הנעילה על דיון זה"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12776,20 +11408,8 @@
             "#text": "סך הכל"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "שתפו ב-Tumblr"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "בטל מעקב אחר דיון זה"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "אִשָׁה"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "איש"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12812,10 +11432,6 @@
             "#text": "צפה"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "שנה את תצוגת הנושא בין תצוגת רגיל או שרשור."
-          },
-          {
             "@tag": "VOTES",
             "#text": "הצבעות"
           },
@@ -12832,10 +11448,6 @@
             "#text": "הפורום סגור."
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "עליך להיות מחובר על מנת לשלוח הודעות פרטיות."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "הסקר סגור."
           },
@@ -12844,20 +11456,8 @@
             "#text": "הדיון סגור."
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "חובה עליך להירשם על מנת לעקוב אחר הפורום."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "עקוב אחר דיון זה"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Xmpp"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "צור קשר עם {0} באמצעות Jabber"
           }
         ]
       },
@@ -12891,10 +11491,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "אודות"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "ערוך משתמש"
           },
@@ -12917,14 +11513,6 @@
           {
             "@tag": "CITY",
             "#text": "עִיר:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "צור קשר"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "מדינה"
           },
           {
             "@tag": "DAYS",
@@ -12953,10 +11541,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "פרופיל פייסבוק:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "גישה לפורום"
           },
           {
             "@tag": "GENDER",
@@ -13003,20 +11587,8 @@
             "#text": "דקות"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "מְתִינוּת"
-          },
-          {
             "@tag": "MONTH",
             "#text": "חוֹדֶשׁ"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "{0:N2}% מכל ההודעות"
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} הודעות ליום"
           },
           {
             "@tag": "NUMPOSTS",
@@ -13061,14 +11633,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "הצג את כל ההודעות על ידי משתמש"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "מדיה חברתית"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "סטטיסטיקות"
           },
           {
             "@tag": "SUSPEND",
@@ -13119,18 +11683,6 @@
             "#text": "שם משתמש:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "בלוג:"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "דף הבית:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "שם XMPP:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "שנים"
           }
@@ -13146,10 +11698,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "חשבונך עדיין לא מאושר משום שלא אישרת את כתובת הדוא\"ל שלך. הודעת אימות חדשה נשלחה אל {0}. לחץ על הקישור בהודעה זו על מנת לאמת ולהתחבר."
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "שחזור סיסמתך נכשל."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13580,16 +12128,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]חשבונך נוצר בהצלחה.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]חשבונך נוצר בהצלחה. עלייך עדיין לאשר את כתובת הדוא\"ל על מנת להתחבר. בדוק/י את חשבון הדוא\"ל להוראות אימות. [/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "שם המשתמש או כתובת הדוא\"ל שלך כבר נמצאים בשימוש."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13598,14 +12138,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "הזנת כתובת דוא\"ל לא תקינה."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "יש לבחור סיסמא מורכבת יותר שתכלול סימני (!?) או מספרים."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "חֶשְׁבּוֹן"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13618,10 +12150,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "המשך"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "צור משתמש"
           },
           {
             "@tag": "DETAILS",
@@ -13640,22 +12168,6 @@
             "#text": "דף הבית"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "נא לבחור תשובה אחרת."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "בחר שם תצוגה אחר."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "נא לבחור שאלה אחרת."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "נא לבחור שם משתמש שונה."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "מיקום"
           },
@@ -13664,20 +12176,8 @@
             "#text": "כבר נרשמת? לחץ על היכנס כדי להתחבר לחשבון שלך."
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "חובה להזין אבטחה."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "נדרש שם תצוגה."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "חובה להזין כתובת דוא\"ל."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "הסיסמאות אינן תואמות."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13716,24 +12216,12 @@
             "#text": "סיסמה חלשה, נסה להשתמש במספרים ובאותיות גדולות."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "הגדרות פורום"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "פרטי פרופיל"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "אתה טועה! נסה שוב."
-          },
-          {
             "@tag": "REGISTER",
             "#text": "הירשם"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "הרשמה עם {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13742,18 +12230,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "הקלד שוב את הסיסמא"
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "תשובת אבטחה"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "שאלת אבטחה"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "תנאי שימוש"
           },
           {
             "@tag": "TIMEZONE",
@@ -13770,10 +12246,6 @@
           {
             "@tag": "USERNAME",
             "#text": "שם המשתמש"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "שם המשתמש לא צריך להכיל יותר מ-{0} תווים."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13854,10 +12326,6 @@
             "#text": "לְבַטֵל"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "בטל דוח הודעה"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Enter report text here."
           },
@@ -13876,14 +12344,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "פורסם על ידי:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "תגים אינם מותרים בדוחות."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "התג [{0}] אינו מורשה בדוחות."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13948,10 +12408,6 @@
             "#text": "סגנון נקה"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "מסוגנן"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "הוספת תמונה"
           },
@@ -13976,10 +12432,6 @@
             "#text": "רגיל"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "רשימה ממוספרת"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "הזחה החוצה"
           },
@@ -13988,20 +12440,8 @@
             "#text": "צמוד לימין"
           },
           {
-            "@tag": "SPELL",
-            "#text": "בדיקת איות"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "אין מילים שנכתבו בצורה לא נכונה."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "קו תחתון"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "רשימה לא ממוספרת"
           }
         ]
       },
@@ -14030,10 +12470,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "כל הפורומים"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "חפש"
           },
@@ -14044,10 +12480,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "מילות מפתח"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "טוען תוצאות חיפוש..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14100,14 +12532,6 @@
           {
             "@tag": "RESULTS",
             "#text": "תוצאות"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "טקסט חיפוש חייב להיות באורך של פחות מ-{0} תווים ולהתאים לכללי הפורום לחיפוש (ראה שאלות נפוצות בפורום למידע נוסף)."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "טקסט חיפוש חייב להיות באורך של לפחות {0} תווים ולהתאים לכללי הפורום לחיפוש (ראה שאלות נפוצות בפורום למידע נוסף)."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14447,16 +12871,8 @@
             "#text": "דיונים פעילים"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "מציג את דף הנושאים הפעילים."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "ניהול"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "מציג את אינדקס הניהול."
           },
           {
             "@tag": "BUDDIES",
@@ -14491,20 +12907,12 @@
             "#text": "מנחה"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "מציג את הגדרות המארחים."
-          },
-          {
             "@tag": "INBOX",
             "#text": "תיבת הדואר הנכנס שלי"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "מציג את תיבת הדואר הנכנס של הודעות פרטיות."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "מחובר כ-: {0}"
           },
           {
             "@tag": "LOGIN",
@@ -14559,10 +12967,6 @@
             "#text": "מציג את דף האלבומים שמציג את כל האלבומים שלך."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "ההתראות שלי"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "מציג תודות, אזכורים וציטוטים שהתקבלו שלא נקראו."
           },
@@ -14577,10 +12981,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "ההגדרות שלי"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "ערוך את פרטי המשתמש וההגדרות שלך."
           },
           {
             "@tag": "MYTOPICS",
@@ -14627,14 +13027,6 @@
             "#text": "מציג את דף הצוות שמציג את כל המנחים והמנהלים.."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "ישנם {0} נושאים עם הודעות שלא נקראו"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "ברוך/ה הבא/ה אורח/ת"
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "רוצה להצטרף לדיון?!"
           },
@@ -14664,20 +13056,12 @@
             "#text": "ע\"י {0}"
           },
           {
-            "@tag": "CREATED",
-            "#text": "נוצר"
-          },
-          {
             "@tag": "FORUM",
             "#text": "פוֹרוּם"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "משתמשים הצופים בפורום זה"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ עבור לעמוד: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14746,10 +13130,6 @@
           {
             "@tag": "REPLIES",
             "#text": "תגובות"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "הזנת RSS"
           },
           {
             "@tag": "SEARCH_FORUM",

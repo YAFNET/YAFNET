@@ -28,6 +28,40 @@
 
 }
 
+// Shared "stat tile" number-highlight blocks (User Profile stats row, Board Statistics KPI row)
+.page-UserProfile,
+.page-Index {
+
+    .stat-tile {
+        padding: 1rem .5rem;
+        transition: transform .15s ease, box-shadow .15s ease;
+
+        i {
+            display: block;
+            margin: 0 0 .35rem !important;
+            color: var(--bs-primary);
+            font-size: 1.05rem;
+        }
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, .1);
+        }
+    }
+
+    .stat-tile-value {
+        font-size: 1.4rem;
+        line-height: 1.1;
+    }
+
+    .stat-tile-label {
+        font-size: .75rem;
+        color: var(--bs-secondary-color);
+        text-transform: uppercase;
+        letter-spacing: .04em;
+    }
+}
+
 // User Profile Page
 .page-UserProfile {
 
@@ -54,37 +88,6 @@
 
     .profile-name {
         font-weight: 700;
-    }
-
-    .profile-stats {
-        .stat-tile {
-            padding: 1rem .5rem;
-            transition: transform .15s ease, box-shadow .15s ease;
-
-            i {
-                display: block;
-                margin: 0 0 .35rem !important;
-                color: var(--bs-primary);
-                font-size: 1.05rem;
-            }
-
-            &:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 8px 18px rgba(0, 0, 0, .1);
-            }
-        }
-
-        .stat-tile-value {
-            font-size: 1.4rem;
-            line-height: 1.1;
-        }
-
-        .stat-tile-label {
-            font-size: .75rem;
-            color: var(--bs-secondary-color);
-            text-transform: uppercase;
-            letter-spacing: .04em;
-        }
     }
 
     .profile-details-label {

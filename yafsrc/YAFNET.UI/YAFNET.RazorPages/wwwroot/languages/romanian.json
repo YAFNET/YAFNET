@@ -11,10 +11,6 @@
             "#text": "Activitatea dumneavoastră"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arhivare"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "Devine prieteni"
           },
@@ -119,10 +115,6 @@
             "#text": "Subscrieri"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "Afișați numai activitatea necitit"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "Vezi profilul"
           },
@@ -171,10 +163,6 @@
             "#text": "Notificările dvs."
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "Numele dvs. de afișare:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "Numele:"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Confirmați noua parolă"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "Parola și parola de confirmare trebuie să se potrivească."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "E-mail"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "Adresa IP"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "S-a alăturat"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "Localizare bord"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "Nume"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "Reîntoarceți verificarea e-mailului"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "Administrație"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": " - Toate consiliile de administrație -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "Browser (e) utilizator"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "Aprobați acest utilizator?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "Ţară"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d} ({1:N0} zile în urmă)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "Mailul de verificare a fost trimis din nou către utilizator."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "Trebuie să introduceți o valoare întreagă validă pentru zile."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "O nouă versiune este disponibilă!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Mergeți la pagina Descărcări"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "Adăugați o adresă nouă"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Interzis de"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "Trebuie să introduceți o valoare numerică de la 0 la 32767 pentru ordinea de sortare."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Valoarea ordinii de sortare trebuie să fie un număr întreg pozitiv de la 0 la 32767."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "OnClick JS:"
           },
@@ -1928,14 +1868,6 @@
             "#text": "Selectați un logo al consiliului"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Tema mobilă:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "Tema mobilă care trebuie utilizată pe acest forum."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "Numele consiliului de administrație:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "Salvați"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "Glisați tabelul spre stânga pentru a dezvălui mai multe date"
-          },
-          {
             "@tag": "YES",
             "#text": "Da"
           }
@@ -2044,18 +1972,6 @@
           {
             "@tag": "DELETE_FORUM",
             "#text": "Ștergeți Forumul"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Ștergerea forumului și mutarea subiectelor"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Vă rugăm să nu navigați în afara acestei pagini în timp ce ștergerea este în curs..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "Ștergerea forumului"
           },
           {
             "@tag": "HEADER1",
@@ -2103,14 +2019,6 @@
             "#text": "Schimbare în setările forumului."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "Digera:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Generează Digest pentru acest cont de administrator și pentru tema selectată în prezent. (S-ar putea să nu arate așa cum este redat într-un client de e-mail.)"
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "Ultima trimitere a digestului:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "Ultima dată (în funcție de ora serverului) când a fost rulat task-ul digest.>"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "Metoda de trimitere:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Tipul de sistem trimis pentru testare."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "Niciodată"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "Forțați trimiterea Digestului"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "Generarea de Digest"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "Definiți dacă câmpul trebuie să fie obligatoriu sau nu"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "Salvați Nou"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "Trebuie să introduceți o valoare numerică de la 0 la 32767 pentru ordinea de sortare."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "Valoarea Sort Order trebuie să fie un număr întreg pozitiv cuprins între 0 și 32767."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "Informații despre noul superutilizator"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Cerere de aderare Nume:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Numele aplicației este necesar pentru furnizor, dacă este necompletat se va utiliza ApplicationName din web.config."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "Trebuie să introduceți adresa de e-mail a administratorului gazdei."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Numele consiliului."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Securitate Răspuns:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "Răspunsul la întrebarea privind securitatea."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Întrebare de securitate:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "Întrebarea care vă va fi adresată atunci când trebuie să vă recuperați parola pierdută."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "Există deja un nume de utilizator pentru această adresă de e-mail. Vă rugăm să introduceți o altă adresă de e-mail."
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "Numele de utilizator există deja. Vă rugăm să introduceți un alt nume de utilizator."
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "Răspunsul furnizat pentru recuperarea parolei nu este valid. Vă rugăm să verificați valoarea și să încercați din nou."
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "Adresa de e-mail furnizată nu este validă. Vă rugăm să verificați valoarea și să încercați din nou."
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "Numele de utilizator furnizat nu este valid. Vă rugăm să verificați valoarea și să încercați din nou."
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "Parola furnizată nu este valabilă. Vă rugăm să introduceți o parolă validă."
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "Întrebarea de recuperare a parolei furnizată nu este validă. Vă rugăm să verificați valoarea și să încercați din nou."
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "Furnizorul de autentificare a returnat o eroare. Vă rugăm să verificați datele introduse și să încercați din nou. Dacă problema persistă, vă rugăm să contactați administratorul de sistem."
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "Valoare invalidă introdusă pentru ordinea de sortare: trebuie să introduceți un număr."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Valoarea Sort Order trebuie să fie un număr întreg pozitiv cuprins între 0 și 32767."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "Trebuie să introduceți o valoare pentru câmpul \"category name\"."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "Masca de acces"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "Categorie:"
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "Înseamnă că forumul va fi ascuns atunci când utilizatorul nu are acces de citire la el."
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "Masca de acces inițial:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "Masca de acces inițială pentru toate forumurile."
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "Un forum cu un astfel de nume există deja."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "Trebuie să selectați o mască de acces inițială pentru forum."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "Ați introdus o adresă de Url invalidă."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "Trebuie să introduceți un nume pentru forum."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Forum cannot be parent of self."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Valoarea ordinii de sortare trebuie să fie un număr întreg pozitiv de la 0 la 32767."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "Dacă această opțiune este bifată, toți utilizatorii noi vor fi membri ai acestui rol. <br /><span style=\"color:red\">[b]Atenție:[/b] cel puțin un grup trebuie să aibă această casetă de selectare activată, altfel noii utilizatori nu se vor putea înregistra.[/b]</span>."
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "Trebuie să introduceți o valoare întreagă pentru numărul de albume de utilizator."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "Trebuie să introduceți o valoare întreagă pentru prioritate."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "Trebuie să introduceți un nume de rol."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "Trebuie să introduceți o valoare întreagă pentru numărul de caractere din semnătura utilizatorului."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "Trebuie să introduceți o valoare întreagă pentru numărul total de imagini din toate albumele."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "Trebuie să introduceți o valoare întreagă pentru numărul de pmessage."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "Mesaje PM:"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "Max. Mesaje private permise membrilor grupului."
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "Înseamnă că utilizatorilor li se va permite/nu li se va permite să ascundă această medalie."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "Permiteți reordonarea:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Înseamnă că utilizatorilor li se va permite/nu li se va permite să schimbe ordinea acestei medalii."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "Permiteți bara de panglică:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Înseamnă că este permisă/nepermisă afișarea acestei medalii pe bara de panglică."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Eliminați medalia din acest grup?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Îndepărtați medalia de la acest utilizator?"
           },
@@ -3143,20 +2895,12 @@
             "#text": "Introduceți un nume de utilizator sau faceți clic pe \"Find Users\" pentru a selecta un utilizator din lista de utilizatori."
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "Nume de utilizator ambiguu specificat!"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "Imaginea medaliei trebuie să fie specificată!"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "Trebuie să introduceți un nume de medalie!"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "Imaginea medaliei mici trebuie să fie specificată!"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "Selectați imaginea medaliei"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Medalia va fi afișată în Profilul utilizatorului"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "Numărul minim de postări înainte ca utilizatorii să fie avansați la acest rang."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Prioritatea de rang trebuie să fie un număr întreg mic."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "Trebuie să definiți un nume de rang."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Mesaje private:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Max. Mesajele private sunt permise pentru membrii clasamentului."
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "Introduceți aici o descriere a rolului."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Imagine de rang:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "Această imagine va fi afișată alături de utilizatorii de acest rang."
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "Interziceți numele de utilizator al utilizatorului?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "Utilizatorul a fost raportat cu succes ca fiind Bot"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "Trimiteți utilizatorului o notificare prin e-mail cu privire la noua sa parolă?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "Confirmați parola:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "Confirmați noua parolă."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "Puncte actuale:"
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "Utilizatorul este șters în mod automat."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "Trebuie să introduceți o parolă de confirmare"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "Trebuie să introduceți o nouă parolă"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "Grupuri de utilizatori"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "Puncte de utilizator"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "Resetare/schimbare parolă utilizator"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "Adrese IP:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "Ucideți utilizatorul"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "Moderați toate postările făcute de către utilizator"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "Utilizatorul invitat trebuie să fie marcat ca fiind Aprobat, altfel forumul dvs. va fi instabil."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "Parola utilizatorului a fost schimbată"
           },
@@ -3481,24 +3165,8 @@
             "#text": "Parola utilizatorului a fost schimbată și a fost trimis un e-mail de notificare."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "Resetarea parolei utilizatorului și trimiterea unui e-mail de notificare"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "Utilizatorul {0} ucis!"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "Opțiune:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "Modificarea manuală a parolei și, opțional, trimiterea prin e-mail a noii parole către utilizator"
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "Resetarea parolei și trimiterea prin e-mail a noii parole către utilizator"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "Raportați utilizatorul ca BOT la StopForumSpam.com"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "Raportați numele utilizatorului, adresa de e-mail și adresa IP la StopForumSpam.com ca BOT?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "Ștergeți această categorie?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "Ești POSITIV?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "Sunteți sigur? Acest pas este ireversibil!"
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ștergeți acest rol?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "Ștergeți rolul"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "Etichetă culturală"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "Limbă Numele în limba engleză"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "Limba Numele nativ"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Resurse traduse"
           },
@@ -5787,6 +5435,10 @@
             "#text": "Trimiterea de e-mailuri pare să funcționeze din instalația YAF."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Testarea corespondenței"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "Test de e-mail de la încă un forum.NET"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Introduceți adresa de e-mail la care trebuie trimis e-mailul de test"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "Testarea corespondenței"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "Imaginea medaliei așa cum va fi afișată în caseta de utilizator."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "Imaginea barei de panglică așa cum va fi afișată în caseta utilizatorului."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "Fără medalii"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "În prezent, nu există medalii. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Mutarea în jos"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "Mutați-vă în sus"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "zile"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "Ștergeți mesajele citite mai vechi de:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "Informații despre profil"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "Preferințe de forum"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "Utilizator {0} Creat cu succes."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "Eroare de creare a unui utilizator: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "Operațiunea de micșorare a fost un succes.Dimensiunea bazei de date este acum: {0}MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "Modul de recuperare a bazei de date a fost setat cu succes la {0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Ceva nu a mers bine în această operațiune. Eroarea raportată este: {0}"
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "La orice operațiune de modificare a datelor, se poate produce fragmentarea tabelelor. Această comandă poate fi utilizată pentru a reconstrui toți indicii pe toate tabelele din baza de date pentru a crește performanța."
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "Vă rugăm să nu părăsiți această pagină..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "Actualizarea tabelelor"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "Trebuie să aveți încredere mare/nerestricționată pentru a descărca aplicația. Repornirea a eșuat."
-          },
-          {
             "@tag": "TITLE",
             "#text": "Reporniți aplicația"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Restaurarea și ștergerea mesajelor"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Opțiunea de restaurare a mesajelor marcate ca fiind șterse sau de ștergere definitivă a acestora din baza de date."
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "Rulați o interogare SQL"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "Trebuie să introduceți o interogare."
+            "@tag": "RESULT",
+            "#text": "Rezultat"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "Rulați interogarea"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "Rulați în tranzacție"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rulați codul SQL"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "Rezultat"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "\"Spam\" Cuvânt (căutare) Expresie:"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "Rulează"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "Oprire sarcină"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Manager de sarcini"
           }
@@ -6602,24 +6190,12 @@
             "#text": "Ștergeți acest utilizator?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "Ești sigur?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "Afișați numele"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "E-mail"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "E-mailul conține:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "Exportați toți utilizatorii ca CSV"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "Afișați doar utilizatorii suspendați?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "Sincronizarea tuturor utilizatorilor membri"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "Toți utilizatorii sunt sincronizați acum"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "Schimbă legenda"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} Imagini"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "Click ptr. vizualizare Album"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "Albume"
           },
@@ -7072,10 +6632,6 @@
             "#text": "Stergi acest atasament?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "Vă rugăm să așteptați până când toate încărcările sunt finalizate și fereastra de dialog se închide singură!"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ștergeți atașamentul (atașamentele)?"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} Atașament(e) șters(e)!"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "Tipuri de fisiere interzise"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "Marime"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "Începeți încărcarea(e)"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Atasaemnte"
           },
           {
             "@tag": "UPLOAD",
             "#text": "Incarca"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "Încărcați un fișier nou(e)"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Întoarceți-vă la pagina Modificare Avatar fără a selecta un avatar."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "Editeaza Profil"
           },
           {
             "@tag": "TITLE",
             "#text": "Imagini"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "Mergeți la Dosarul părinte."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "Adauga ca prieten"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(Confirmari in asteptare)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "Aprobarea tuturor cererilor de prietenie."
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "Toate cererile aprobate si adaugate listei de prieteni."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "Toate cererile mai vechi de 14 zile sunt refuzate."
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "Ai fost adaugat ca prieten de catre {0}."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "Cererea de prietenie eliminată."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "Ai {0} cereri neconfirmate"
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7651,88 +7171,16 @@
             "#text": "Confirmați noua parolă:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "Vă rugăm să introduceți parola curentă"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "Este necesară o nouă confirmare a parolei."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "Este necesară o parolă nouă."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "Este necesară parola veche."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "Parolă nouă:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "Noile parole nu se potrivesc."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "Parola veche:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "Noua lungime minimă a parolei: {0}."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "Parolă incorectă sau Parolă nouă invalidă."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "Caracterele nonalfanumerice sunt obligatorii: {1}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "Noua parolă trebuie să fie diferită de cea veche."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "New Security Răspuns:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Parola curentă:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "Parola Întrebări și răspunsuri a fost modificată."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Schimbarea a eșuat. Vă rugăm să reintroduceți valorile dvs. și să încercați din nou."
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "O nouă întrebare de securitate:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Întrebare veche de securitate:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Resetare parola"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "Întrebări și răspunsuri privind securitatea schimbării"
           }
         ]
       },
@@ -7757,14 +7205,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Inserare imagine album..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "Permise"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Inserați un atașament existent sau încărcați un fișier nou..."
           },
@@ -7777,36 +7217,16 @@
             "#text": "Numele de utilizator nu poate contine caracterul(;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "Cod:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Citat:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "Postat inițial de: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Mergeți la Post citat"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} a scris:"
           },
           {
-            "@tag": "BROWSE",
-            "#text": "Răsfoiți"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Renunta"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "Adresa Email schimbata"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7857,10 +7277,6 @@
             "#text": "Subiect cu ID: {0} Șters"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "Nepermisă"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "Descărcați"
           },
@@ -7869,16 +7285,8 @@
             "#text": "Editați"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} Verificare Email"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 intrări"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 intrări"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7895,10 +7303,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 de intrări"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Utilizator extern)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7961,20 +7365,12 @@
             "#text": "Prima pagină"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Mergeți la ultima pagină"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "Pagina următoare"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "Mergi la pagina..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Mergeți la mesaj"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7985,28 +7381,12 @@
             "#text": "Invizibil"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Datele de intrare nu trebuie să conțină etichete HTML."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Datele de intrare conțin o etichetă HTML interzisă {0}."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "în Forum: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "Arată mai multe categorii și forumuri..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "Se incarca..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Gestionați"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8023,18 +7403,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "Mesaj"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Vezi site-ul complet"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Vezi site-ul mobil"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Notificare"
           },
           {
             "@tag": "MODERATOR",
@@ -8133,14 +7501,6 @@
             "#text": "Citește"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "Un email a fost trimis. Verifica emailul si urmareste linkul."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "Un email va fi trimis la inregitrare. Ca sa te loghezi trebuie sa verifici emailul si sa faci click pe link."
-          },
-          {
             "@tag": "REPLY",
             "#text": "Răspuns"
           },
@@ -8163,10 +7523,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "Selectarea mărimii paginii"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Afișează/ Ascunde"
           },
           {
             "@tag": "SUBMIT",
@@ -8197,20 +7553,12 @@
             "#text": "Cod"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "Alegeți limba pentru evidențierea sintaxei"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "Copiați textul selectat (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "Creați o legătură"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Mai multe etichete BBCode"
           },
           {
             "@tag": "TT_CUT",
@@ -8309,40 +7657,12 @@
             "#text": "Introduceți adresa URL:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Aveți {0} mențiuni necitite, doriți să treceți la cea mai recentă mențiune?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Cineva te-a menționat într-un topic"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "Ai  {0} mesaj(e) necitit(e) "
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "Mesaj(e) privat(e) nou(e)"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "Aveți {0} mesaj(e) necitit(e) în Cutia poștală de primire. Doriți să vă duceți acum în căsuța dvs. de intrare?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Ai {0} mesaje citate necitite, vrei să mergi la cel mai nou?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Cineva te-a citat într-un topic"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "Aveți {0} necitite primite Mulțumesc, doriți să treceți la cea mai recentă?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Cineva v-a mulțumit pentru un mesaj"
           },
           {
             "@tag": "UPDATE",
@@ -8355,10 +7675,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "Numele de utilizator sau numele de utilizator afișat trebuie să aibă mai mult de {0} caractere."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Vezi categoria"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9408,18 +8724,6 @@
             "#text": "pentru ultimele {0:N0} minute"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "Filtru alfabet"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "Abonați-vă la subiectele active prin Atom."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "Abonează-te la forumul Atom feed."
-          },
-          {
             "@tag": "BY",
             "#text": "de {0}"
           },
@@ -9432,12 +8736,12 @@
             "#text": "Forum"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "Ultima postare."
+            "@tag": "FORUMS",
+            "#text": "Forumuri"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Go to first unread"
+            "@tag": "GO_LAST_POST",
+            "#text": "Ultima postare."
           },
           {
             "@tag": "IN",
@@ -9454,18 +8758,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "Ultimul Post"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "Ultimele postări"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "Forumul principal Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "Forumul principal RSS"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9492,6 +8784,10 @@
             "#text": "Cei mai activi utilizatori în ultimele {0} zile"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "Cel mai nou membru"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(Fără acces)"
           },
@@ -9516,56 +8812,28 @@
             "#text": "Utilizatori recenți"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "Afișați numai subiectele necitite."
-          },
-          {
             "@tag": "STATS",
             "#text": "Statistici"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "Cel mai nou membru este:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "Ultima postare {0} de:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "Avem {0:N0} membrii inregistrati."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "Sunt {0:N0} postari  in {1:N0} teme in {2:N0} forumuri."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "Statistici anti-spam"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Spammerii permanent interzis"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Interzis definitiv"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Spammerii au refuzat înregistrarea"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Înregistrare refuzată"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Spammerii au fost trimiși la StopForumSpam.com"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "Raportat la StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
             "#text": "Teme"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "Ai  {0} mesaje necitite."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "Ai  {0} mesaje necitite."
           },
           {
             "@tag": "VIEWING",
@@ -9595,22 +8863,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "Ești absolut sigur că vrei să faci asta?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "Acest lucru vă va șterge contul permanent! Tot conținutul dvs. va fi șters. După aceea, contul dvs. nu mai poate fi restaurat."
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Ștergeți-vă contul (permanent)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "Dacă doriți doar să luați o pauză de la Forum, atunci acest lucru vă va suspenda contul pentru 30 de zile. Conținutul dvs. este în continuare vizibil"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Suspendați contul dvs. pentru 30 de zile"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9699,16 +8951,8 @@
             "#text": "{0} comentarii"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "De {0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "Mai mult"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "Subiecte noi"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9752,10 +8996,6 @@
             "#text": "Ștergeți această imagine?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "Nu mai puteți adăuga alte albume în acest cont."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "Nu puteți încărca imagini atât de mari."
           },
@@ -9770,10 +9010,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "Trebuie să specificați un titlu."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9797,24 +9033,12 @@
             "#text": "Avatar"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "Avatar curent"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "Avatar clar"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "Alege un nou avatar"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "Introduceți adresa URL a avatarului de pe serverul de la distanță care urmează să fie utilizat:"
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "Text explicativ Avatar"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9833,16 +9057,8 @@
             "#text": "Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "Selectează-ți Avatarul din colecția noastră:"
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "Galerie deschisă"
           },
           {
             "@tag": "TITLE",
@@ -9886,32 +9102,16 @@
             "#text": "Numele dumneavoastră AIM:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "Urmăriți fiecare subiect în care ați scris o postare și primiți notificări prin e-mail cu privire la activitățile din acele subiecte?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "Ai introdus o adresa e-mail gresita."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "Ați introdus o adresă URL incorectă ca profil Facebook."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "Ai introdus o adresa  gresita pentru pagina personala."
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "Ai introdus o adresa e-mail gresita pentru contul  MSN."
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "Ai introdus o adresa  gresita pentru weblogul tau"
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "Ați introdus un nume invalid pentru contul XMPP."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9932,10 +9132,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "Ce nume doriți să afișați celorlalți?"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Daylight Saving Time"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9982,10 +9178,6 @@
             "#text": "Locatie"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "Un email a fost trimis la {0}.\\n\\n Trebuie sa verifici noua adresa de email \\n deschizand linkul din\r\n    email inaine ca emailul tau sa fie modificat."
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "Servicii mesaje instant"
           },
@@ -9996,10 +9188,6 @@
           {
             "@tag": "OTHER",
             "#text": "Altele"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "Selecteaza o tema diferita:"
           },
           {
             "@tag": "REALNAME2",
@@ -10044,10 +9232,6 @@
           {
             "@tag": "WHERE",
             "#text": "Unde traiesti?"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "ID-ul tău Jabber:"
           }
         ]
       },
@@ -10071,10 +9255,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "Cod de securitate de intrare"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "Cod de configurare"
           },
@@ -10096,28 +9276,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Your  signature can contain any BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "Puteți utiliza următoarele coduri BBCodes: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "Semnatura nu trebuie sa contina BBCodes."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "Semnătura dvs. poate conține orice tag HTML."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "Puteți utiliza următoarele etichete HTML: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "Semnătura dvs. nu trebuie să conțină etichete HTML."
           },
           {
             "@tag": "SIGNATURE",
@@ -10128,20 +9288,8 @@
             "#text": "Semnatura contine element interzis {0} BBCode."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "Semnătura dvs. nu poate avea mai mult de {0} caractere."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "Semnătura dvs. este prea lungă. Aceasta nu poate avea mai mult de {0} caractere."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "Nu vă puteți modifica semnătura, dar o puteți șterge complet."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "Permisiuni de semnătură"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10206,10 +9354,6 @@
             "#text": "Informații"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "Eroare de script Sql"
-          },
-          {
             "@tag": "WARNING",
             "#text": "Avertisment"
           }
@@ -10255,10 +9399,6 @@
             "#text": "Nu aveți nicio cerere în așteptare"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "Aprobați toate cererile?"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "Aprobați toate solicitările și le adăugați și în lista de prieteni?"
           },
@@ -10281,14 +9421,6 @@
           {
             "@tag": "POSTS",
             "#text": "Mesaje"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "Data cererii"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Your Friend List"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10610,10 +9742,6 @@
             "#text": "Anunt"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "Anunt (Noi Postari)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "Forum inchis"
           },
@@ -10650,16 +9778,8 @@
             "#text": "Chestionar"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "Chestionar (Noi postari)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "Eticheta"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "Sticky (Mesaje noi)"
           }
         ]
       },
@@ -10704,18 +9824,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "The user Utilizeaza the servers {0}. To communicate to him you should register there, as you don't have an account."
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "The user Utilizeaza the same XMPP server - you can connect to him using a client like Pidgin. His account is {0}"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "Ești sigur că vrei să vorbești singur?"
-          },
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
@@ -10782,10 +9890,6 @@
             "#text": "Acces refuzat"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "Necesită cookie-uri"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "Informații"
           },
@@ -10835,40 +9939,16 @@
             "#text": "Verifică parola"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Introduceți o descriere pentru noul tablou"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "Introduceți numele noului consiliu"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "Configurați parola"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Detalii conexiune"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "Selectați șirul de conexiune existent"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "Selectați șirul de conexiune la baza de date SQL Server:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "Eroare de conexiune:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "Creați șir de conexiune nou"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "Cablul de conexiune va fi salvat ca"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10891,10 +9971,6 @@
             "#text": "Cultura utilizatorului invitat (limbă)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "Versiune curentă:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "Bază de date"
           },
@@ -10907,64 +9983,8 @@
             "#text": "Conexiune de baze de date YAF.NET"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "Introduceți numele bazei de date"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "Un nume de utilizator pentru acea adresă de e-mail există deja. Vă rugăm să introduceți o altă adresă de e-mail."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "Nume de utilizator deja existent. Vă rugăm să introduceți un nume de utilizator diferit."
-          },
-          {
             "@tag": "ERROR",
             "#text": "Eroare"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "Placa este deja instalată."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "Trebuie să introduceți un nume de consiliu."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "Pentru a continua, trebuie să actualizați setările de aplicații cu cheia YAF.ConfigPassword. NOTĂ: Numele cheii este sensibil cu litere mari și mici."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "Trebuie să introduceți o adresă de e-mail a Consiliului."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "Trebuie să introduceți o parolă."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "Crearea utilizatorului de administrator eșuat:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "Trebuie să introduceți adresa de e-mail super utilizator."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "Trebuie să introduceți numele de utilizator super,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "Numele de utilizator existent nu este valid și nu reprezintă un utilizator curent în magazinul de membri."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "Ați introdus <strong> parola greșită </strong>!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "Utilizați șirul de conexiune DB existent"
           },
           {
             "@tag": "FINISH",
@@ -11003,40 +10023,12 @@
             "#text": "Instalare"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "Utilizați securitate integrată"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "Răspunsul de recuperare a parolei furnizat nu este valid. Verificați valoarea și încercați din nou."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "Adresa de e-mail furnizată nu este validă. Verificați valoarea și încercați din nou."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "Parola furnizată nu este validă. Vă rugăm să introduceți o valoare de parolă validă."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "Întrebarea de recuperare a parolei furnizată nu este validă. Verificați valoarea și încercați din nou."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "Numele de utilizator furnizat nu este valid. Verificați valoarea și încercați din nou."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "Test de trimitere prin poștă (SMTP)"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "Trimite un mesaj de testare la adresa de e-mail care este definită ca Trimite la adresă"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "Creați șir de conexiune DB nouă"
           },
           {
             "@tag": "NEXT",
@@ -11047,10 +10039,6 @@
             "#text": "Făcând clic pe „Următorul” va inițializa baza de date la cea mai recentă versiune."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "Faceți clic pe „Următorul” când sunteți gata."
-          },
-          {
             "@tag": "NO",
             "#text": "NU"
           },
@@ -11059,108 +10047,28 @@
             "#text": "Notă"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "Fără acces de scriere la setări"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "Imposibil de modificat fișierul de configurare pentru a seta conexiunea bazei de date din cauza permisiunii de scriere."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "Fără acces în scris la șirurile de conexiune la baze de date"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "Imposibil de modificat fișierul de configurare pentru a seta șirul conexiunii bazei de date din cauza permisiunii de scriere."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "Vă rugăm să deschideți"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "fișați în directorul rădăcină al aplicației și adăugați / actualizați următoarea cheie din secțiunea <Aplicări>"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "fișați în directorul rădăcină al aplicației și adăugați / actualizați următoarea cheie din secțiunea <conectareStrings>:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "Verificarea nu este aceeași cu parola dvs."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET are acces de scriere la directorul de aplicații rădăcină (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NET are acces de scriere la directorul „~ / Upload” ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "Anterior"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "Furnizorul de autentificare a returnat o eroare. Vă rugăm să verificați înscrierea și încercați din nou. Dacă problema persistă, contactați administratorul de sistem."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "Răspunsul la întrebarea de securitate"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "Întrebarea vi se va pune atunci când va trebui să vă regăsiți parola pierdută"
           },
           {
             "@tag": "SETUP",
             "#text": "Înființat"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "Trimiterea prin e-mail pare să funcționeze de la instalarea dvs. YAF."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "Detalii test SMTP"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "Testează e-mailul încă de pe un alt Forum.NET"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "Mail trimis. Verificați că a fost primit la adresa de e-mail introdusă."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "Introduceți parola SQL"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "Introduceți numele de utilizator SQL"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "Test de conexiune"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "Testează setările Smtp"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "Permis de testare"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "Setări test"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "Faceți clic pe butonul „Precedent” pentru a edita configurația bazei de date."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11173,26 +10081,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "Introduceți adresa de e-mail"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "necontenit"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "Cererea de creare a utilizatorului a fost anulată. Vă rugăm să verificați introducerea și încercați din nou. Dacă problema persistă, contactați administratorul de sistem."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "Validarea permiselor"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "Instalarea YetAnotherForum.NET este mai ușoară atunci când aplicația are acces de scriere la .config\r\n                        fișiere."
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "Faceți clic mai jos pentru a testa dacă permisiunile sunt corecte. Dacă nu sunt, poți\r\n                        utilizați în continuare expertul de instalare."
           },
           {
             "@tag": "WELCOME",
@@ -11233,28 +10121,12 @@
             "#text": "Contul dvs. nu este încă aprobat deoarece nu v-ați validat e-mailul. Vă rugăm să verificați pentru a vă putea autentifica."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Autentificare sau înregistrare cu {0}"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Intrare automata:"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "Si numele de utilizator si parola trebuiesc introduse."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock este activat"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "Addresa email"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "Pe adresa ta de email a fost trimisa parola."
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11285,16 +10157,8 @@
             "#text": "Recupereaza parola"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "S-a produs o eroare la crearea noii parole."
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "În schimb, înregistrați-vă ca utilizator nou"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "Trimite parola"
           },
           {
             "@tag": "TITLE",
@@ -11313,16 +10177,8 @@
             "#text": "Validare cu doi factori"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "Utilizator:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "Utilizator sau adresa de email gresite."
           }
         ]
       },
@@ -11392,10 +10248,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "Numele membrului conține:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "Căutare membri"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11478,10 +10330,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Continuați moderat"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Mesaj editat la"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11586,14 +10434,6 @@
             "#text": "Stergi acesta tema?"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "Ștergeți acest utilizator?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "Ștergeți link-ul subiectului? Subiectul în sine nu va fi șters."
-          },
-          {
             "@tag": "DELETED",
             "#text": "Tema stearsa."
           },
@@ -11652,10 +10492,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "Cine a propus tema"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "Legătura cu subiectul este ștearsă."
           },
           {
             "@tag": "TOPICS",
@@ -11742,10 +10578,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "Răspundeți prin mesaj privat la"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "Raportează ca SPAM"
           },
           {
             "@tag": "REPORTED",
@@ -11875,14 +10707,6 @@
             "#text": "de {0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "Subiecte active"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "( Ultimele 24 de ore )"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "ultima zi"
           },
@@ -11963,10 +10787,6 @@
             "#text": "Subiecte fără răspuns"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Subiecte necitite"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "Vizualizări"
           },
@@ -12030,14 +10850,6 @@
             "#text": "Trebuie să introduceți o întrebare de sondaj."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "Permiteți să nu votați și să vedeți rezultatele."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "Puteți sări peste vot și rezultate."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "Nu puteți vedea rezultatele înainte ca sondajul să expire."
           },
@@ -12054,10 +10866,6 @@
             "#text": "The poll is expired."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "Lățimea imaginii în px:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "Permiteți să votați pentru mai multe opțiuni"
           },
@@ -12066,20 +10874,12 @@
             "#text": "Puteți vota pentru mai multe opțiuni."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "Oaspeții nu pot vota. Încercați să vă autentificați sau să vă înregistrați."
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "Click pentru a vota"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Show who is voted"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Show who is voted."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12106,10 +10906,6 @@
             "#text": "Don"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "Crearea sau editarea sondajului"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Image path:"
           },
@@ -12120,18 +10916,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Întrebare din sondaj:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "Nu puteți vedea rezultatele sondajului înainte de a vota."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "Oaspeții nu pot vedea rezultatele sondajului înainte de a vota. Încercați să vă autentificați sau să vă înregistrați."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "Rezultate ascunse"
           },
           {
             "@tag": "POLLSAVE",
@@ -12159,18 +10943,6 @@
             "#text": "Sigur doriti sa inlaturati sondajul din acest topic?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "Parola blogului:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "Postați pe blog?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Anulare Editare/creație mesaj"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "Descriere:"
           },
@@ -12189,10 +10961,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Numele de utilizator al oaspeților nu poate avea mai mult de 100 de caractere."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "Este acest subiect în format întrebare și răspuns?"
           },
           {
             "@tag": "LAST10",
@@ -12229,10 +10997,6 @@
           {
             "@tag": "POSTED",
             "#text": "Scris :"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "Eroare de postare in blogul tau. Autentificare nereusita."
           },
           {
             "@tag": "PREVIEW",
@@ -12283,26 +11047,6 @@
             "#text": "Există deja un subiect cu subiectul respectiv sau subiectul nu este suficient de unic pentru a fi adăugat."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "Lungimea descrierii subiectului nu poate fi mai mare de 255 de caractere."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "Lungimea unui singur cuvânt al descrierii subiectului nu poate fi mai mare de {0} caractere. Sugestie: utilizați abrevieri pentru a scurta."
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "Lungimea numelui subiectului nu poate fi mai mare de 255 de caractere."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "Lungimea unui singur cuvânt al numelui subiectului nu poate fi mai mare de {0} caractere. Sugestie: utilizați abrevieri pentru a scurta."
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "Ataseaza fisier la acest mesaj?"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "Urmareste acest topic,si primeste mail de notificare?"
           },
@@ -12328,10 +11072,6 @@
             "#text": "SCOP"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "Contactează {0} prin AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Feed atom"
           },
@@ -12352,24 +11092,12 @@
             "#text": "Vizitează blogul lui {0}"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "Nu aveti permisiunea de a vedea/download-a atasamentele."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "[b]Nu aveti permisiunea de[/b] vedea/download-a atasamentele. Incercati sa va inregistrati."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Alegere"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "Inchide"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "Stergi acest mesaj?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12424,10 +11152,6 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "Vizitează profilul de Facebook al lui {0}"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "Salt la forum "
           },
@@ -12444,28 +11168,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "Vizitați pagina de start a lui {0}"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} ataseaza urmatoarea imagine/imagini:"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "Descarca Imagine"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Clic ptr. a vedea imaginea"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} Vizualizare"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "Imagine"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12510,10 +11218,6 @@
           {
             "@tag": "LOCATION",
             "#text": "Locatia"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "Gestionați mesajul"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12584,10 +11288,6 @@
             "#text": "(Sondaj inchis)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "Raspuns la Post"
-          },
-          {
             "@tag": "POSTED",
             "#text": "Postat"
           },
@@ -12612,18 +11312,6 @@
             "#text": "Raspuns rapid"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "Ascunde Raspuns rapid"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "Arata Raspuns rapid"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "Citați mesajul selectat"
-          },
-          {
             "@tag": "RANK",
             "#text": "Nivel"
           },
@@ -12632,16 +11320,8 @@
             "#text": "Ai reușit să elimini cu succes -1 Reputație la {0}."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "Vă mulțumim pentru vot!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "Ați reușit să oferiți +1 Reputație lui {0}."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "Va multumim pentru raport."
           },
           {
             "@tag": "REPORTPOST",
@@ -12656,14 +11336,6 @@
             "#text": "Reputație"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweet acest subiect"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "Flux RSS"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12676,20 +11348,8 @@
             "#text": "Subiecte similare"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "Statistici"
-          },
-          {
             "@tag": "THANKSFROM",
             "#text": "Multumiri: {0} times"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "Mulțumesc: {0} ori"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
-            "#text": "Mulțumesc: {0} ori"
           },
           {
             "@tag": "THANKSINFO",
@@ -12698,34 +11358,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "1 utilizator a multumit {0} acest post util."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "A fost multumit de: {0} -ori in postarea {1} "
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "Sterge acest topic"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "Inchide acest topic"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "Muta acest topic"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "Post Topic nou"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Raspuns la Post"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "Deblocheaza acest topic"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12764,20 +11396,8 @@
             "#text": "Total"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "Partajează pe Tumblr"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Dezarhivați acest subiect"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "Femeie"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "Barbat"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12800,10 +11420,6 @@
             "#text": "Afiseaza"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "Schimbați vizualizarea subiectului între Normal sau Thread View."
-          },
-          {
             "@tag": "VOTES",
             "#text": "Voturi"
           },
@@ -12820,10 +11436,6 @@
             "#text": "Forum inchis."
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "Trebuie sa fii logat ca sa poti trimite mesaje private."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "Sondajul este inchis."
           },
@@ -12832,20 +11444,8 @@
             "#text": "Tema inchisa."
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "Trebuie sa fii inregistrat sa vezi aceasta tema."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "Urmareste aceasta tema"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "Contactați {0} prin Jabber"
           }
         ]
       },
@@ -12879,10 +11479,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "Despre"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "Utilizator Admin"
           },
@@ -12905,14 +11501,6 @@
           {
             "@tag": "CITY",
             "#text": "Oraș:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "Contactați"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "Țara"
           },
           {
             "@tag": "DAYS",
@@ -12941,10 +11529,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "Profilul Facebook:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "Accesul la forum"
           },
           {
             "@tag": "GENDER",
@@ -12991,20 +11575,8 @@
             "#text": "minute"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "Moderare"
-          },
-          {
             "@tag": "MONTH",
             "#text": "luna"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "{0:N2}% din toate publicatiile"
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} postari pe zi"
           },
           {
             "@tag": "NUMPOSTS",
@@ -13049,14 +11621,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Vezi toate publicatiile utilizatorului"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "Social media"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "Statistici"
           },
           {
             "@tag": "SUSPEND",
@@ -13107,18 +11671,6 @@
             "#text": "Utilizator:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "Weblog:"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "Pagina personala:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Nume XMPP:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "Anul (anii)"
           }
@@ -13134,10 +11686,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "Contul dvs. nu este încă aprobat deoarece nu v-ați validat e-mailul. O nouă validare a e-mailului a fost trimisă la {0}. Vă rugăm să verificați pentru a vă putea autentifica."
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "Încercarea de a vă recupera parola nu a avut succes."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13568,16 +12116,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]Contul tau a fost creat cu succes.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Contul tau a fost creat cu succes. Dar intai trebuie sa confirmi adresa de mail. Te rugam sa verifici casuta de mail, si urmareste pasii pentru confirmare.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "Utilizator sau adresa de email deja existenta."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13586,14 +12126,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "Ai introdus adresa de email gresita."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "Vă rugăm să alegeți o parolă mai complexă care să includă semne de punctuație (!?) sau numere."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "Cont"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13606,10 +12138,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "Continuați"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "Creați un utilizator"
           },
           {
             "@tag": "DETAILS",
@@ -13628,22 +12156,6 @@
             "#text": "Pagina personala"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "Vă rugăm să alegeți un alt răspuns."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "Vă rugăm să alegeți un alt nume de afișare."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "Vă rog să alegeți o altă întrebare."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "Vă rugăm să alegeți un alt nume de utilizator."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "Locatia"
           },
@@ -13652,20 +12164,8 @@
             "#text": "V-ați înscris deja? Faceți clic pe Sign In pentru a vă autentifica contul."
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "Raspuns de securitate is required."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "Display Name este obligatoriu."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "E-mail is required."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "Parolele nu se potrivesc."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13704,24 +12204,12 @@
             "#text": "Parolă slabă, încercați să folosiți numere și litere majuscule."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "Preferinte forum"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "Informatii profil"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "Vă înșelați! Încercați din nou."
-          },
-          {
             "@tag": "REGISTER",
             "#text": "Inregistrare"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "Înregistrare cu {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13730,18 +12218,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Reintrodu parola"
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Raspuns de securitate"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Intrebare de securitate"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "Termeni și condiții"
           },
           {
             "@tag": "TIMEZONE",
@@ -13758,10 +12234,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Utilizator"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "Numele de utilizator nu trebuie să conțină mai mult de {0} caractere."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13842,10 +12314,6 @@
             "#text": "Anulează"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Anulare mesaj Raport de mesaj"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Enter report text here."
           },
@@ -13864,14 +12332,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "Postat de:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "Etichetele nu sunt permise în rapoarte."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "Eticheta [{0}] nu este permisă în rapoarte."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13936,10 +12396,6 @@
             "#text": "Formatare clară"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "Formatat"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "Adaugă imagine"
           },
@@ -13964,10 +12420,6 @@
             "#text": "Normal"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "Listă ordonată"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "Outdent"
           },
@@ -13976,20 +12428,8 @@
             "#text": "Alinierea la dreapta"
           },
           {
-            "@tag": "SPELL",
-            "#text": "Verificați ortografia"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "Nu există cuvinte scrise greșit."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "Subliniați"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "Listă neordonată"
           }
         ]
       },
@@ -14018,10 +12458,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "Toate forumurile"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "Cauta"
           },
@@ -14032,10 +12468,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "Cuvânt(e) cheie"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "Incarca rezultate..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14088,14 +12520,6 @@
           {
             "@tag": "RESULTS",
             "#text": "Rezultate"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "Textul cautat trebuie sa fie maximum {0} caractere, si sa indeplineasca regulile de pe forum. (vezi FAQ/Intrebari frecvente pentru mai multe informatii)."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "Textul cautat trebuie sa fie minimum {0} caractere, si sa indeplineasca regulile de pe forum. (vezi FAQ/Intrebari frecvente pentru mai multe informatii)."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14435,16 +12859,8 @@
             "#text": "Teme active"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "Afișează pagina Subiecte active."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "Administrator"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "Afișează Admin Index."
           },
           {
             "@tag": "BUDDIES",
@@ -14479,20 +12895,12 @@
             "#text": "Gazda"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "Afișează Hostsettings (Setări gazdă)."
-          },
-          {
             "@tag": "INBOX",
             "#text": "Cutia mea poștală de intrare"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "Afișează mesajele private din Inbox."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "Logat ca: {0}"
           },
           {
             "@tag": "LOGIN",
@@ -14547,10 +12955,6 @@
             "#text": "Afișează pagina Albume, care prezintă toate albumele dvs."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "Notificările mele"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "Afișează mulțumirile, mențiunile și citatele primite necitite."
           },
@@ -14565,10 +12969,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "Setările mele"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Modificați detaliile și setările utilizatorului."
           },
           {
             "@tag": "MYTOPICS",
@@ -14615,14 +13015,6 @@
             "#text": "Afișează pagina echipei care arată toți moderatorii și administratorii.."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Există {0} Subiect(e) cu mesaje necitite"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "Bine ai venit OASPETE"
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "Vrei să te alături discuției?!"
           },
@@ -14652,20 +13044,12 @@
             "#text": "de {0}"
           },
           {
-            "@tag": "CREATED",
-            "#text": "Creat"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "Utilizatori de pe forum"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ Mergi la pagina: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14734,10 +13118,6 @@
           {
             "@tag": "REPLIES",
             "#text": "Raspunsuri"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "Hrană RSS"
           },
           {
             "@tag": "SEARCH_FORUM",

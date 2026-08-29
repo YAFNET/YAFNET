@@ -1,4 +1,4 @@
-﻿@using YAF.Core.Context
+@using YAF.Core.Context
 @using YAF.Core.Extensions
 @using YAF.Core.Model
 @using YAF.Web.HtmlHelpers
@@ -8,88 +8,125 @@
 
 @inject BoardContext Current
 
+@{
+    // Forum Statistics
+    var postsStatistics = await Current.Get<IDataCache>().GetOrSetAsync(
+        Constants.Cache.BoardStats,
+        () => Current.GetRepository<Board>().PostStatsAsync(Current.PageBoardID, true),
+        TimeSpan.FromMinutes(Current.BoardSettings.ForumStatisticsCacheTimeout));
+
+    var latestUser = await Current.Get<IDataCache>().GetOrSetAsync(
+        Constants.Cache.BoardUserStats,
+        () => Current.GetRepository<User>().LatestAsync(Current.PageBoardID),
+        TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
+
+    // Member Count
+    var membersCount = await Current.Get<IDataCache>().GetOrSetAsync(
+        Constants.Cache.BoardMembers,
+        () => Current.GetRepository<User>().BoardMembersAsync(Current.PageBoardID),
+        TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
+
+    var hasSpamStats = Current.BoardSettings.DeniedRegistrations > 0 || Current.BoardSettings.BannedUsers > 0
+                        || Current.BoardSettings.ReportedSpammers > 0;
+}
+
 <div class="row">
     <div class="col">
         <div class="card mb-3">
             <div class="card-header d-flex align-items-center">
                 @Html.IconHeader("chart-bar", "COMMON", "STATS", "fa-2x")
             </div>
-            <div class="row">
-                <div class="col">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            @{
-                                // Forum Statistics
-                                var postsStatistics = await Current.Get<IDataCache>().GetOrSetAsync(
-                                    Constants.Cache.BoardStats,
-                                    () => Current.GetRepository<Board>().PostStatsAsync(Current.PageBoardID, true),
-                                TimeSpan.FromMinutes(Current.BoardSettings.ForumStatisticsCacheTimeout));
-
-                                var latestUser = await Current.Get<IDataCache>().GetOrSetAsync(
-                                    Constants.Cache.BoardUserStats,
-                                () => Current.GetRepository<User>().LatestAsync(Current.PageBoardID),
-                                TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
-
-                                var statsPostsTopicCount = Current.Get<ILocalization>().GetTextFormatted(
-                                    "stats_posts",
-                                    postsStatistics.Posts,
-                                    postsStatistics.Topics,
-                                    postsStatistics.Forums);
-
-                                // Member Count
-                                var membersCount = await Current.Get<IDataCache>().GetOrSetAsync(
-                                    Constants.Cache.BoardMembers,
-                                () => Current.GetRepository<User>().BoardMembersAsync(Current.PageBoardID),
-                                TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
-
-                                var statsMembersCount = Current.Get<ILocalization>().GetTextFormatted("stats_members", membersCount);
-                            }
-                            @statsPostsTopicCount
-                        </li>
-
-                        @if (postsStatistics.LastPost.HasValue)
-                        {
-                            <li class="list-group-item">
-	                            @Html.LocalizedText("DEFAULT", "LASTPOST")
-	                            @Html.DisplayDateTime(DateTimeFormat.BothTopic, postsStatistics.LastPost.Value)
-	                            @Html.LocalizedText("SEARCH", "BY"):
-                                @Html.UserLink(postsStatistics.LastUserID.Value, Current.BoardSettings.EnableDisplayName
-                                    ? postsStatistics.LastUserDisplayName
-                                    : postsStatistics.LastUser, postsStatistics.LastUserSuspended,
-                                    postsStatistics.LastUserStyle)
-                            </li>
-                        }
-
-                        <li class="list-group-item">
-                            @statsMembersCount
-                        </li>
-                        <li class="list-group-item">
-	                        @Html.LocalizedText("COMMON", "STATS_LASTMEMBER")
-                            @Html.UserLink(latestUser.ID, latestUser.DisplayOrUserName(), latestUser.Suspended,
-                                latestUser.UserStyle)
-                        </li>
-                    </ul>
+            <div class="card-body">
+                <div class="row row-cols-2 row-cols-md-4 g-2 g-md-3 board-stats">
+                    <div class="col">
+                        <div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+                            @Html.Icon("comment-dots")
+                            <div class="stat-tile-value fw-bold text-primary">@postsStatistics.Posts.ToString("N0")</div>
+                            <div class="stat-tile-label">@Html.LocalizedText("DEFAULT", "POSTS")</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+                            @Html.Icon("comments")
+                            <div class="stat-tile-value fw-bold text-secondary">@postsStatistics.Topics.ToString("N0")</div>
+                            <div class="stat-tile-label">@Html.LocalizedText("DEFAULT", "TOPICS")</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+                            @Html.Icon("layer-group")
+                            <div class="stat-tile-value fw-bold text-info">@postsStatistics.Forums.ToString("N0")</div>
+                            <div class="stat-tile-label">@Html.LocalizedText("COMMON", "FORUMS")</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+                            @Html.Icon("users")
+                            <div class="stat-tile-value fw-bold text-success">@membersCount.ToString("N0")</div>
+                            <div class="stat-tile-label">@Html.LocalizedText("TOOLBAR", "MEMBERS")</div>
+                        </div>
+                    </div>
                 </div>
-                @if (Model.PageBoardContext.BoardSettings.DeniedRegistrations > 0 || Model.PageBoardContext.BoardSettings.BannedUsers > 0
-                   || Model.PageBoardContext.BoardSettings.ReportedSpammers > 0)
-                {
+
+                <div class="row g-2 g-md-3 mt-1">
+                    @if (postsStatistics.LastPost.HasValue)
+                    {
+                        <div class="col-md-6">
+                            <div class="board-stats-panel bg-body-tertiary rounded h-100 p-3">
+                                <div class="board-stats-panel-label text-body-secondary">
+                                    @Html.Icon("calendar-day")@Html.LocalizedText("DEFAULT", "LASTPOST")
+                                </div>
+                                <div>
+                                    @Html.DisplayDateTime(DateTimeFormat.BothTopic, postsStatistics.LastPost.Value)
+                                    @Html.LocalizedText("SEARCH", "BY"):
+                                    @Html.UserLink(postsStatistics.LastUserID.Value, Current.BoardSettings.EnableDisplayName
+                                        ? postsStatistics.LastUserDisplayName
+                                        : postsStatistics.LastUser, postsStatistics.LastUserSuspended,
+                                        postsStatistics.LastUserStyle)
+                                </div>
+                            </div>
+                        </div>
+                    }
                     <div class="col-md-6">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <h6>
-                                    @Html.LocalizedText("COMMON", "STATS_SPAM")
-                                </h6>
-                            </li>
-                            <li class="list-group-item">
-                                @Html.LocalizedTextFormatted("STATS_SPAM_DENIED", Current.BoardSettings.DeniedRegistrations.ToString())
-                            </li>
-                            <li class="list-group-item">
-                                @Html.LocalizedTextFormatted("STATS_SPAM_BANNED", Current.BoardSettings.BannedUsers.ToString())
-                            </li>
-                            <li class="list-group-item">
-                                @Html.LocalizedTextFormatted("STATS_SPAM_REPORTED", Current.BoardSettings.ReportedSpammers.ToString())
-                            </li>
-                        </ul>
+                        <div class="board-stats-panel bg-body-tertiary rounded h-100 p-3">
+                            <div class="board-stats-panel-label text-body-secondary">
+                                @Html.Icon("user-plus")@Html.LocalizedText("COMMON", "NEWEST_MEMBER")
+                            </div>
+                            <div>
+                                @Html.UserLink(latestUser.ID, latestUser.DisplayOrUserName(), latestUser.Suspended, latestUser.UserStyle)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (hasSpamStats)
+                {
+                    <hr class="my-3" />
+                    <h6 class="text-body-secondary text-uppercase mb-2">
+                        @Html.Icon("shield-alt")@Html.LocalizedText("COMMON", "STATS_SPAM")
+                    </h6>
+                    <div class="row row-cols-1 row-cols-md-3 g-2 g-md-3">
+                        <div class="col">
+                            <div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+                                @Html.Icon("user-slash", "text-warning")
+                                <div class="stat-tile-value fw-bold text-warning">@Current.BoardSettings.DeniedRegistrations.ToString("N0")</div>
+                                <div class="stat-tile-label">@Html.LocalizedText("COMMON", "STATS_SPAM_DENIED_LABEL")</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+                                @Html.Icon("ban", "text-danger")
+                                <div class="stat-tile-value fw-bold text-danger">@Current.BoardSettings.BannedUsers.ToString("N0")</div>
+                                <div class="stat-tile-label">@Html.LocalizedText("COMMON", "STATS_SPAM_BANNED_LABEL")</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="stat-tile bg-body-tertiary h-100 text-center rounded">
+                                @Html.Icon("flag", "text-secondary")
+                                <div class="stat-tile-value fw-bold text-secondary">@Current.BoardSettings.ReportedSpammers.ToString("N0")</div>
+                                <div class="stat-tile-label">@Html.LocalizedText("COMMON", "STATS_SPAM_REPORTED_LABEL")</div>
+                            </div>
+                        </div>
                     </div>
                 }
             </div>

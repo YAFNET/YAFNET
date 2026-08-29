@@ -11,10 +11,6 @@
             "#text": "Su actividad"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "Archivar"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "Convertirse en amigos"
           },
@@ -119,10 +115,6 @@
             "#text": "Subscripciones"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "Mostrar sólo la actividad no leída"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "Ver perfil"
           },
@@ -171,10 +163,6 @@
             "#text": "Sus notificaciones"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "Tu nombre a mostrar:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "Tu nombre de usuario:"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Confirmar nueva contraseña"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "La contraseña y la contraseña de confirmación deben coincidir."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "Correo electrónico"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "Dirección IP"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "Unido"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "Localización"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "Nombre"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "Reenviar la verificación del correo electrónico"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": "La versión instalada de TAF y la versión de tu base de datos no coinciden. Debes instalar y actualizar tu base de datos."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "Administración"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": " - Todos los tablones - "
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "Navegador de usuarios"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "¿Aprobar este usuario?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "País"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d} (Hace {1:N0} días)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "El correo de verificación fue enviado de nuevo al usuario."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "Debes ingresar un valor entero válido para días."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "¡Una nueva versión está disponible!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Ir a la página de descargas"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "Añadir nueva dirección"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Baneado por"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "Debes introducir un número entre 0 y 32767 para el orden de clasificación."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "El orden de clasificación debe ser un número entero positivo entre 0 y 32767."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "Al hacer clic en JS:"
           },
@@ -1928,14 +1868,6 @@
             "#text": "Seleccione un logotipo de la Junta"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Tema para móviles:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "El tema para móviles para usar en este tablero."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "Nombre de tablero:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "Guardar"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "Deslice la tabla hacia la izquierda para ver más datos"
-          },
-          {
             "@tag": "YES",
             "#text": "Si"
           }
@@ -2044,18 +1972,6 @@
           {
             "@tag": "DELETE_FORUM",
             "#text": "Eliminar foro"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Eliminando foro y moviendo temas"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Por favor, no navegues fuera de est página mientras la eliminación está en progreso..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "Eliminando foro"
           },
           {
             "@tag": "HEADER1",
@@ -2103,14 +2019,6 @@
             "#text": "Cambia la configuración de tu tablero."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "Resumen:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Genera el informe para esta cuenta de administrador y el tema seleccionado en este momento. (Puede no aparecer como esta renderización en el email del cliente)"
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "Último resumen enviado:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "La última vez (basado en la hora del servidor) que la tarea de resumen fue ejecutada."
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "Método de envío:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Tipo de sistema de envío para la prueba."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "Nunca"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "Forzar envío de resumen"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "Generar resumen"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "Definir si el campo debe ser obligatorio o no"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "Guardar Nuevo"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "Debes introducir un valor entre 0 y 32767 para el orden de clasificación."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "El valor del orden de clasificación debe ser un entero positivo entre 0 y 32767."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "Información del nuevo superusuario"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Nombre de la aplicación de afiliación:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Nombre de la aplicación necesaria para el proveedor. En blanco usará el ApplicationName del web.config."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "Debes introducir la dirección de email del administrador del servidor."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "El nombre del tablero."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Respuesta de seguridad:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "La respuesta a la pregunta de seguridad."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Pregunta de seguridad:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "La pregunta que quieres que sea hecha cuando necesites recuperar tu contraseña perdida."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "Ya existe un nombre de usuario para esta cuenta de email. Por favor, introduce una cuenta de email diferente."
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "El nombre de usuario ya existe. Por favor, introduce un nombre de usuario distinto."
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "La respuesta a la pregunta de seguridad es inválida. Por favor, compruébala e inténtalo de nuevo."
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "El email introducido no es válido. Por favor, compruébalo e inténtalo de nuevo."
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "El nombre de usuario introducido no es válido. Por favor, compruébalo e inténtalo de nuevo."
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "La contraseña introducida no es válida. Por favor, introduce una contraseña válida."
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "La pregunta para la recuperación de contraseña introducido no es válida. Por favor, compruébala e inténtalo de nuevo."
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "El proveedor de acceso ha devuelto un error. Por favor, verifica los datos introducidos y prueba de nuevo. Si el problema persiste contacta con el administrador."
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "La petición de creación de usuario ha sido cancelada. Por favor, verifica los datos introducidos y prueba de nuevo. Si el problema persiste contacta con el administrador."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "Valor inválido para el orden de clasificación: debes introducir un número."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "El valor del orden de clasificación debe ser un valor entero positivo entre 0 y 32767."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "Debes introducir un valor para el campo de nombre de categoría."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "Máscara de acceso"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "Categoría:"
@@ -2656,14 +2476,6 @@
             "#text": "Significa que el foro se ocultará si el usuario no tiene acceso de lectura a él."
           },
           {
-            "@tag": "INITAL_MASK",
-            "#text": "Máscara de acceso inicial:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "La máscara de acceso inicial para todos los foros."
-          },
-          {
             "@tag": "LOCKED",
             "#text": "Bloqueado:"
           },
@@ -2708,24 +2520,12 @@
             "#text": "Ya existe un foro con este nombre."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "Debes seleccionar una máscara de acceso inicial para este foro."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "Has introducido una URL inválida."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "Debes introducir un nombre para el foro."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "El foro no puede ser padre de si mismo."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "El valor del orden de clasificación debe ser un entero positivo entre 0 y 32767."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2885,36 +2685,8 @@
             "#text": "Si esto está seleccionado, todos los usuarios nuevos serán miembros de este rol.\r\n<br /><span style=\"color:red\">[b]Advertencia:[/b] Al menos un grupo necesita tener marcado este check o los usuarios nuevos no podrán registrarse.[/b]</span>"
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "Debes introducir un valor entero para el número de álbumes por usuario."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "Debes introducir un valor entero para la prioridad."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "Debe introducir un nombre de función."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "Debes introducir un valor entero para el número de caracteres en la firma de usuario."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "Debes introducir un valor entero el número total de imágenes en todos los álbumes."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "Debes introducir un valor entero para el número de mensajes privados."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "Mensajes privados (MPs):"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "Número máximo de mensajes privados permitidos para los miembros de este grupo."
           },
           {
             "@tag": "PRIORITY",
@@ -3031,26 +2803,6 @@
             "#text": "Significa que los usuarios podrán o no ocultar esta medalla."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "Permitir reordenar:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Significa que los usuarios podrán o no cambiar el orden de esta medalla."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "Permitir cinta:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Significa que estará activo o no el poder mostrar la cinta de esta medalla."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "¿Eliminar medalla a este grupo?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "¿Eliminar medalla a este usuario?"
           },
@@ -3139,20 +2891,12 @@
             "#text": "Introduce un nombre de usuario o haz click en \"Encontrar usuarios\" para seleccionar un usuario de la lista de usuarios."
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "El nombre de usuario especificado es ambiguo."
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "Debe especificarse una imagen para la medalla."
           },
           {
             "@tag": "MSG_NAME",
             "#text": "Debe introducir el nombre de una medalla."
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "Debe especificarse una imagen pequeña para la medalla."
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3177,10 +2921,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "Selecciona una imagen para la medalla"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "La medalla se mostrará en el perfil del usuario"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3240,20 +2980,8 @@
             "#text": "Número mínimo de publicaciones antes de que un usuario pueda alcanzar este rango."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "La prioridad del rango debe ser un entero pequeño."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "Debe definir un nombre de rango."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Mensajes privados:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Número máximo de mensajes privados permitidos para los miembros de este rango."
           },
           {
             "@tag": "RANK_DESC",
@@ -3262,14 +2990,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "Introduce aquí la descripción del rol."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Imagen del rango:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "Esta imagen será mostrada junto con los usuarios de este rango."
           },
           {
             "@tag": "RANK_NAME",
@@ -3341,10 +3061,6 @@
             "#text": "¿Prohibir el nombre del usuario?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "Usuario denunciado con éxito como bot"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3369,14 +3085,6 @@
             "#text": "¿Envíar al usuario una notificación con su nueva contraseña?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "Confirmar contraseña:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "Confirmar la nueva contraseña."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "Puntos actuales:"
           },
@@ -3395,14 +3103,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "El usuario es eliminado de forma suave."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "Debes introducir una contraseña de confirmación"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "Debes introducir una nueva contraseña"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3425,20 +3125,8 @@
             "#text": "Grupos del usuario"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "Puntos del usuario"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "Resetear/Cambiar contraseña de usuario"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "Direcciones IP:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "Matar al usuario"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3461,10 +3149,6 @@
             "#text": "Moderar todas las publicaciones realizadas por el usuario"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "El usuario invitado debe ser marcado como aprobado o tu foro será inestable."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "Contraseña de usuario cambiada"
           },
@@ -3473,24 +3157,8 @@
             "#text": "Contraseña de usuario cambiada y notificación enviada por email."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "Contraseña de usuario reseteada y notificación enviada por email."
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "El usuario {0} ha sido sacrificado."
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "Opción:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "Cambiar contraseña manualmente y opcionalmente enviar nueva contraseña por email al usuario."
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "Resetear contraseña y enviar una nueva contraseña por email al usuario."
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3507,10 +3175,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "Reportar al usuario como BOT a StopForumSpam.com"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "¿Reportar el nombre de usuario, la dirección de correo electrónico y la dirección IP a StopForumSpam.com como BOT?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3715,10 +3379,6 @@
             "#text": "¿Eliminar esta categoría?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "¿Estás siendo OBJETIVO?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "¿Estás seguro? ¡Este paso es irreversible!"
           },
@@ -3774,10 +3434,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "¿Eliminar este rol?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "Eliminar rol"
           },
           {
             "@tag": "HEADER",
@@ -5710,14 +5366,6 @@
             "#text": "Etiqueta de cultura"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "Nombre en inglés del idioma"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "Nombre nativo del idioma"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Recursos traducidos"
           },
@@ -5779,6 +5427,10 @@
             "#text": "El envío de correos electrónicos parece funcionar desde su instalación de YAF."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Prueba de correo"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "Correo electrónico de prueba de otro foro.NET"
           },
@@ -5797,10 +5449,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Introduzca la dirección de correo electrónico a la que debe enviarse el correo de prueba"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "Prueba de correo"
           }
         ]
       },
@@ -5816,24 +5464,12 @@
             "#text": "La imagen de la medalla será mostrada in la caja de usuario."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "La imagen de la barra Ribbon será mostrada en la caja de usuario."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "Sin medallas"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Actualmente no hay medallas. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Desplazamiento hacia abajo"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "Subir de nivel"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5917,10 +5553,6 @@
           {
             "@tag": "DAYS",
             "#text": "días"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "Eliminar los mensajes más antiguos que:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6092,16 +5724,8 @@
             "#text": "Información de perfil"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "Preferencias de foro"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "Usuario {0} creado correctamente."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "Error de afiliación creando el usuario: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6145,10 +5769,6 @@
             "#text": "La operación de encogido ha tenido éxito. El tamaño de tu base de datos es ahora: {0}MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "El modo de recuperación de la base de datos ha sido cambiado con éxito a {0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Algo ha ido mal con esta operación. El informe de error es: {0}"
           },
@@ -6167,14 +5787,6 @@
           {
             "@tag": "REINDEX",
             "#text": "Con cualquier operación de modificación de datos puede ocurrir una fragmentación de tabla. Este comando puede ser usado para reconstruir todos los índices de las tables de la base de datos para mejorar el rendimiento."
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "Por favor, no se aleje de esta página..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "Actualización de tablas"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6325,10 +5937,6 @@
             "#text": "Reiniciar la aplicación cargará de nuevo todos los archivos de configuración."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "Debes tener permisos sin restricciones para cerrar la aplicación. El reinicio ha fallado."
-          },
-          {
             "@tag": "TITLE",
             "#text": "Reiniciar la aplicación."
           }
@@ -6376,10 +5984,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Restaurar y eliminar mensajes"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Opción para restaurar los mensajes marcados como borrados, o para eliminarlos definitivamente de la base de datos."
           }
         ]
       },
@@ -6391,16 +5995,12 @@
             "#text": "Ejecutar consulta SQL"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "Tiene que introducir una consulta."
+            "@tag": "RESULT",
+            "#text": "Resultado"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "Ejecutar consulta"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "Ejecutar en transacción"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6409,10 +6009,6 @@
           {
             "@tag": "TITLE",
             "#text": "Ejecutar código SQL"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "Resultado"
           }
         ]
       },
@@ -6484,10 +6080,6 @@
           {
             "@tag": "SPAM",
             "#text": "Expresión de la palabra \"Spam\" (Buscar):"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6573,10 +6165,6 @@
             "#text": "En ejecución"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "Detener tarea"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Administrador de tareas"
           }
@@ -6594,24 +6182,12 @@
             "#text": "¿Eliminar este usuario?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "¿Estás seguro?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "Mostrar nombre"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "Envíe un correo electrónico a"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "El email contiene:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "Exportar todos los usuarios como CSV"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6700,14 +6276,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "¿Mostrar sólo los usuarios suspendidos?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "Sincronizar todos los usuarios suscritos"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "Todos los usuarios están sincronizados ahora"
           },
           {
             "@tag": "TITLE",
@@ -6986,14 +6554,6 @@
             "#text": "Cambiar el título"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} Imagen(es)"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "Click para ver el álbum"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "Álbumes"
           },
@@ -7064,10 +6624,6 @@
             "#text": "¿Eliminar este adjunto?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "Por favor, espere hasta que todas las cargas se hayan completado y el diálogo se cierre por sí mismo."
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "¿Borrar los archivos adjuntos?"
           },
@@ -7082,10 +6638,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} ¡Adjunto(s) borrado(s)!"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "Extensiones de archivo no permitidas"
           },
           {
             "@tag": "DROP_HERE",
@@ -7112,20 +6664,12 @@
             "#text": "Tamaño"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "Comenzar a cargar"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Adjuntos"
           },
           {
             "@tag": "UPLOAD",
             "#text": "Cargar"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "Cargar nuevo(s) archivo(s)"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7145,20 +6689,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Ir atrás a la página de modificación de avatar sin elegir un avatar."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "Editar perfil"
           },
           {
             "@tag": "TITLE",
             "#text": "Avatares"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "Ir a la carpeta superior"
           }
         ]
       },
@@ -7324,24 +6860,12 @@
             "#text": "Añadir como amigo"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(Esperando aprobación de amistad)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "Todas las solicitudes de amistad aprobadas."
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "Todas las solicitud de amistad han sido aprobadas y añadidos a tu lista de amigos."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "Todas las solicitudes más antiguas a 14 días han sido denegadas."
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "Has sido añadido a la lista de amigos de {0}."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7358,10 +6882,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "Solicitud de amistad eliminada."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "Tienes {0} solicitud(es) de amistad pendiente(es)."
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7643,88 +7163,16 @@
             "#text": "Confirmar clave nueva:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "Introduzca su contraseña actual"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "Clave de confirmacion requerida."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "Clave nueva requerida."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "Clave anterior requerida."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "Clave nueva:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "Las claves nuevas no concuerdan."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "Clave anterior:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "Longitud minima para la clave nueva: {0}."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "Clave incorrecta o clave nueva inválida."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "Caracteres no alfanumericos requeridos: {1}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "La nueva contraseña debe ser distinta a la anterior."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "Nueva respuesta de seguridad:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Contraseña actual:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "Se ha cambiado la contraseña de preguntas y respuestas."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "El cambio ha fallado. Por favor, vuelva a introducir sus valores e inténtelo de nuevo."
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "Nueva cuestión de seguridad:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Antigua pregunta de seguridad:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Cambiar clave"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "Cambiar la seguridad Pregunta y respuesta"
           }
         ]
       },
@@ -7749,14 +7197,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Insertar imagen en el álbum..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "Permitido"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Insertar un adjunto existente o cargar un nuevo archivo..."
           },
@@ -7769,36 +7209,16 @@
             "#text": "El nombre de usuario no puede tener puntos y comas (;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "Código:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Citar:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "Originalmente publicado por: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Ir a la publicación citada"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} escribió:"
           },
           {
-            "@tag": "BROWSE",
-            "#text": "Visite"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Cancelar"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "Email cambiado"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7849,10 +7269,6 @@
             "#text": "Tema con ID: {0} Borrado"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "No permitido"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "Descargar"
           },
@@ -7861,16 +7277,8 @@
             "#text": "Editar"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} Verificacion de Email"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 Entradas"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 Entradas"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7887,10 +7295,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 entradas"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Usuario externo)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7953,20 +7357,12 @@
             "#text": "Primera páginca"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Ir a la última página"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "Siguiente página"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "Ir a la pagina..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Ir al mensaje"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7977,28 +7373,12 @@
             "#text": "Oculto"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Los datos que introduzcas no pueden tener código HTML."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Los datos que has introducido contienen {0} etiquetas HTML no permitidas."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "en el Foro: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "Mostrar más categorías y foros..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "Cargando..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Gestionar"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8015,18 +7395,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "Mensaje"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Ver el sitio completo"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Ver el sitio para móviles"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Aviso"
           },
           {
             "@tag": "MODERATOR",
@@ -8125,14 +7493,6 @@
             "#text": "Leer"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "Un correo ha sido enviado. Revisa tu bandeja de entrada y haz clic en el link del correo."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "Un correo será enviado cuando te registres. Para iniciar sesión debes revisar tu bandeja de entrada y hacer clic en el link del correo."
-          },
-          {
             "@tag": "REPLY",
             "#text": "Responder"
           },
@@ -8155,10 +7515,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "Selección de tamaño de página"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Mostrar/Ocultar"
           },
           {
             "@tag": "SUBMIT",
@@ -8189,20 +7545,12 @@
             "#text": "Código"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "Elije el idioma para el resaltado de sintaxis."
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "Copie el texto seleccionado (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "Crear enlace"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Mas etiquetas BBCode"
           },
           {
             "@tag": "TT_CUT",
@@ -8301,40 +7649,12 @@
             "#text": "Ingrese URL:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Tienes {0} menciones sin leer, ¿quieres ir a la más reciente?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Alguien te mencionó en un tema"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "Tienes {0} mensaje(s) no leídos en tu bandeja de entrada"
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "Nuevo(s) mensaje(s) privado(s)"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "Tienes {0} mensaje(es) sin leer en tu bandeja de entrada. ¿Quieres ir a tu bandeja de entrada ahora?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Tienes {0} posts citados sin leer, ¿quieres ir al más reciente?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Alguien te citó en un tema"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "Tienes {0} recibidos sin leer Gracias, ¿quieres ir a la más reciente?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Alguien le agradeció un mensaje"
           },
           {
             "@tag": "UPDATE",
@@ -8347,10 +7667,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "El nombre de usuario y el nombre de usuario mostrado debe ser mayor de {0} caracteres."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Ver categoría"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9400,18 +8716,6 @@
             "#text": "en los últimos {0:N0} minutos"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "Filtro alfabético"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "Suscribir a los temas activos vía Atom."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "Suscribir al feed Atom del foro."
-          },
-          {
             "@tag": "BY",
             "#text": "por {0}"
           },
@@ -9424,12 +8728,12 @@
             "#text": "Foro"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "Ir a la última publicación"
+            "@tag": "FORUMS",
+            "#text": "Foros"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Ir al primero no leído"
+            "@tag": "GO_LAST_POST",
+            "#text": "Ir a la última publicación"
           },
           {
             "@tag": "IN",
@@ -9446,18 +8750,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "Últimas publicaciónes"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "Última publicación"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "Atom del foro principal"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "RSS del foro principal"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9484,6 +8776,10 @@
             "#text": "Usuarios más activos en los últimos {0} días"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "Miembro más nuevo"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(Sin acceso)"
           },
@@ -9508,56 +8804,28 @@
             "#text": "Usuarios recientes"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "Mostrar solo los temas no leídos."
-          },
-          {
             "@tag": "STATS",
             "#text": "Estadísticas"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "El miembro más nuevo es:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "Última publicación {0} por:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "Tenemos {0:N0} usuarios registrados."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "Hay {0:N0} publicaciones en {1:N0} temas en {2:N0} foros."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "Estadísticas anti-spam"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Spammers permanentemente prohibidos"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Prohibido permanentemente"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Registro de spammers denegado"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Registro denegado"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Spammers enviados a StopForumSpam.com"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "Reportado a StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
             "#text": "Temas"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "Tienes {0} mensajes no leídos en tu bandeja de entrada."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "Tienes {0} mensajes no leídos en tu bandeja de entrada."
           },
           {
             "@tag": "VIEWING",
@@ -9587,22 +8855,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "¿Estás absolutamente seguro de que quieres hacer esto?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "Esto eliminará tu cuenta de forma permanente. Todo su contenido será eliminado. Después de que su cuenta no se puede restaurar"
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Borrar su cuenta (permanentemente)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "Si sólo quieres tomarte un descanso del Foro, entonces esto suspenderá tu cuenta durante 30 días. Tu contenido seguirá siendo visible"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Suspender su cuenta durante 30 días"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9691,16 +8943,8 @@
             "#text": "{0} comentarios"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "Por {0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "Más"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "Nuevos temas"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9744,10 +8988,6 @@
             "#text": "¿Eliminar esta imagen?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "No puedes añadir más álbumes a esta cuenta."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "No puedes subir imágenes tan grandes."
           },
@@ -9762,10 +9002,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Nota: Actualmente este álbum contiene {0} imagen(es). Tienes permisos para tener {1} imágenes en cada álbum. El tamaño máximo para una imagen es de {2} KB"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "Es necesario especificar un título."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9789,24 +9025,12 @@
             "#text": "Avatar"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "Avatar Actual"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "Eliminar Avatar"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "Elije un nuevo Avatar"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "Introduce la URL del Avatar en un servidor remoto a usar:"
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "Texto de explicación del Avatar"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9825,16 +9049,8 @@
             "#text": "Nota: Si la imagen es mayor de {0}x{1} píxeles, será automáticamente redimensionada. El tamaño de tu imagen no puede ser mayor de {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Nota: Si la imagen es mayor que {0}x{1} píxeles, será automáticamente redimensionada."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "Elije tu Avatar de nuestra colección:"
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "Pincha aquí para seleccionar un Avatar"
           },
           {
             "@tag": "TITLE",
@@ -9878,32 +9094,16 @@
             "#text": "Tu nombre en AIM:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "¿Ver todos los temas en los que has publicado y recibir notificaciones sobre estos temas?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "Has ingresado un correo electrónico no válido."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "Has introducido una URL inválida como perfil de Facebook."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "Has introducido una dirección no válida para tu página web."
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "Has introducido un correo electrónico no válido para tu cuenta de MSN."
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "Has introducido una dirección no válida para tu blog."
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "Has introducido un nombre no válido para tu cuenta XMPP."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9924,10 +9124,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "¿Qué nombre quieres mostrar a los demás?"
-          },
-          {
-            "@tag": "DST",
-            "#text": "¿Usar horario de verano?"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9974,10 +9170,6 @@
             "#text": "Ubicación"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "Se ha enviado un correo a {0}.\\n\\nDebes verificar tu nuevo correo electrónico\\nabriendo el link en el correo para persistir el cambio.\\n\\nSi ves que no llega el correo, mira tu carpeta de Spam."
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "Servicios de mensajería instantánea"
           },
@@ -9988,10 +9180,6 @@
           {
             "@tag": "OTHER",
             "#text": "Otros"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "Seleccionar un tema diferente para el foro:"
           },
           {
             "@tag": "REALNAME2",
@@ -10036,10 +9224,6 @@
           {
             "@tag": "WHERE",
             "#text": "¿Donde vives?"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Tu ID de Jabber:"
           }
         ]
       },
@@ -10063,10 +9247,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "Código de seguridad de entrada"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "Código de configuración"
           },
@@ -10088,28 +9268,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Tu firma puede contener cualquier BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "No puedes usar los siguientes BBCodes: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "Tu firma no puede contener BBCodes."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "Tu firma puede contener cualquier etiqueta HTML."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "Sólo puedes usar las siguientes etiquetas HTML: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "Tu firma no puede contener etiquetas HTML."
           },
           {
             "@tag": "SIGNATURE",
@@ -10120,20 +9280,8 @@
             "#text": "Tu firma contiene {0} BBCode(s) no permitido(s)."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "Tu firma no puede tener más de {0} caracteres."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "Tu firma es demasiado larga. No puede exceder los {0} caracteres."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "No puedes editar tu firma, pero puedes eliminarla completamente."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "Permisos de firma"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10198,10 +9346,6 @@
             "#text": "Información"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "Error de Sql Script"
-          },
-          {
             "@tag": "WARNING",
             "#text": "Cuidado"
           }
@@ -10247,10 +9391,6 @@
             "#text": "No tiene ninguna solicitud pendiente"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "¿Aprobar todas las peticiones?"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "¿Quieres aprobar todas las peticiones y añadirlas a tu lista de amigos?"
           },
@@ -10273,14 +9413,6 @@
           {
             "@tag": "POSTS",
             "#text": "Publicaciones"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "Fecha de petición"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Tu lista de amigos"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10594,10 +9726,6 @@
             "#text": "Anuncio"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "Anuncio (Nuevos mensajes)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "Tema cerrado"
           },
@@ -10634,16 +9762,8 @@
             "#text": "Encuesta"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "Encuesta (Nuevos mensajes)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "Permanente"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "Permanente (Nuevas publicaciones)"
           }
         ]
       },
@@ -10688,18 +9808,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "El usuario usa los servidores {0}. Para comunicarte con él debes registrarte allí, si no tienes una cuenta."
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "El usuario usa el mismo servidor XMPP - puedes conectarte con él usando el un cliente como Pidgin. Su cuenta es {0}"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "¿Estás seguro de que quieres hablar contigo mismo?"
-          },
           {
             "@tag": "TITLE",
             "#text": "Mensajero XMPP"
@@ -10766,10 +9874,6 @@
             "#text": "Acceso Denegado"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "Requiere cookies"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "Información"
           },
@@ -10819,40 +9923,16 @@
             "#text": "Verificar contraseña"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Ingrese una descripción para la nueva placa"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "Ingrese el nombre de la nueva Junta"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "Contraseña de configuración"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Detalles de conexión"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "Seleccionar cadena de conexión existente"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "Seleccione la cadena de conexión de la base de datos de SQL Server:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "No se pudo conectar:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "Crear nueva cadena de conexión"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "La cadena de conexión se guardará como"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10875,10 +9955,6 @@
             "#text": "Cultura del usuario invitado (idioma)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "Versión actual:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "Base de datos"
           },
@@ -10891,64 +9967,8 @@
             "#text": "Conexión de base de datos YAF.NET"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "Ingrese el nombre de la base de datos"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "Ya existe un nombre de usuario para esa dirección de correo electrónico. Por favor, introduzca una dirección de correo electrónico diferente."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "Nombre de usuario ya existe. por favor ingresa un nombre de usuario distinto."
-          },
-          {
             "@tag": "ERROR",
             "#text": "Error"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "La placa ya está instalada."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "Debe ingresar un nombre de la Junta."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "Debe actualizar la configuración de su aplicación con la clave YAF.ConfigPassword para continuar. NOTA: El nombre de la clave distingue entre mayúsculas y minúsculas."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "Debe ingresar una dirección de correo electrónico de la Junta."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "Debes ingresar una contraseña."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "Error al crear usuario administrador:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "Debe ingresar la dirección de correo electrónico del superusuario."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "Debes ingresar el nombre de usuario superusuario,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "El nombre de usuario existente no es válido y no representa a un usuario actual en la tienda de membresía."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "¡Ingresó la <strong> contraseña incorrecta </strong>!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "Usar cadena de conexión de base de datos existente"
           },
           {
             "@tag": "FINISH",
@@ -10987,40 +10007,12 @@
             "#text": "Instalación"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "Usar seguridad integrada"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "La respuesta de recuperación de contraseña proporcionada no es válida. Verifique el valor e intente nuevamente."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "La dirección de correo electrónico proporcionada no es válida. Verifique el valor e intente nuevamente."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "La contraseña proporcionada no es válida. Por favor, introduzca un valor de contraseña válido."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "La pregunta de recuperación de contraseña proporcionada no es válida. Verifique el valor e intente nuevamente."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "El nombre de usuario proporcionado no es válido. Verifique el valor e intente nuevamente."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "Prueba de envío de correo (SMTP)"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "Envía un mensaje de prueba a la dirección de correo electrónico que se define como Enviar a dirección"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "Crear nueva cadena de conexión de base de datos"
           },
           {
             "@tag": "NEXT",
@@ -11031,10 +10023,6 @@
             "#text": "Al hacer clic en \"Siguiente\" se inicializará su base de datos a la última versión."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "Haga clic en \"Siguiente\" cuando esté listo."
-          },
-          {
             "@tag": "NO",
             "#text": "NO"
           },
@@ -11043,108 +10031,28 @@
             "#text": "Nota"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "Sin acceso de escritura a la configuración"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "No se puede modificar su archivo de configuración para establecer la conexión de la base de datos debido a que no tiene permiso de escritura."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "Sin acceso de escritura a cadenas de conexión de base de datos"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "No se puede modificar su archivo de configuración para establecer la cadena de conexión de la base de datos debido a que no hay permiso de escritura."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "Por favor abra el"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "archivo en el directorio raíz de la aplicación y agregue / actualice la siguiente clave en la sección <AppSettings>:"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "en el directorio raíz de la aplicación y agregue / actualice la siguiente clave en la sección <connectionStrings>:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "La verificación no es lo mismo que su contraseña."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET tiene acceso de escritura al directorio de aplicaciones raíz (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NET tiene acceso de escritura al directorio \"~ / Upload\" ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "Anterior"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "El proveedor de autenticación devolvió un error. Verifique su entrada e intente nuevamente. Si el problema persiste, comuníquese con el administrador del sistema."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "La respuesta a la pregunta de seguridad."
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "La pregunta que se le hará cuando necesite recuperar su contraseña perdida"
           },
           {
             "@tag": "SETUP",
             "#text": "Preparar"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "El envío de correo electrónico parece estar funcionando desde su instalación de YAF."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "Detalles de la prueba SMTP"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "Pruebe el correo electrónico de otro foro más .NET"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "Correo enviado. Verifique que se reciba en su dirección de correo electrónico ingresada."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "Ingrese la contraseña de SQL"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "Ingrese el nombre de usuario SQL"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "Conexión de prueba"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "Probar la configuración de Smtp"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "Permiso de prueba"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "Configuraciones de prueba"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "Haga clic en el botón \"Anterior\" para editar la configuración de la base de datos."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11157,26 +10065,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "Ingrese la dirección de correo electrónico"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "Desenfrenado"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "La solicitud de creación de usuario ha sido cancelada. Verifique su entrada e intente nuevamente. Si el problema persiste, comuníquese con el administrador del sistema."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "Validar permisos"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "Sin embargo, la instalación de AnotherForum.NET es más fácil cuando la aplicación tiene acceso de escritura a su .config\r\n                        archivos"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "Haga clic a continuación para probar si los permisos son correctos. Si no lo son, puedes\r\n                        Todavía uso el asistente de instalación."
           },
           {
             "@tag": "WELCOME",
@@ -11217,28 +10105,12 @@
             "#text": "Su cuenta no está aprobada todavía porque no ha validado su correo electrónico. Por favor, verifícalo para poder iniciar sesión."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Ingresa o regístrate con {0}"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Iniciar sesión automaticamente:"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "Debe ingresar usuario y correo electrónico."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "El bloqueo de mayúsculas está activado"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "Correo electrónico"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "Se ha enviado un correo con la nueva contraseña."
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11269,16 +10141,8 @@
             "#text": "Recuperar contraseña"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "Hubo un error creando tu nueva contraseña."
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Registrarse como usuario nuevo"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "Enviar contraseña"
           },
           {
             "@tag": "TITLE",
@@ -11297,16 +10161,8 @@
             "#text": "Validación de dos factores"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Por favor, actualiza tu cuenta de correo electrónico ahora."
-          },
-          {
             "@tag": "USERNAME",
             "#text": "Usuario o correo electrónico:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "usuario o correo electrónico no válido."
           }
         ]
       },
@@ -11376,10 +10232,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "El nombre de usuario contiene:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "Buscar usuarios"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11462,10 +10314,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Continuar moderando"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Mensaje editado en"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11570,14 +10418,6 @@
             "#text": "¿Eliminar este tema?"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "¿Eliminar este usuario?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "¿Eliminar el enlace al tema? El tema en si mismo no será eliminado."
-          },
-          {
             "@tag": "DELETED",
             "#text": "Tema eliminado."
           },
@@ -11636,10 +10476,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "Iniciador de tema"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "El enlae a este tema ha sido eliminado."
           },
           {
             "@tag": "TOPICS",
@@ -11726,10 +10562,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "Responder por mensaje privado a"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "Denunciar como SPAM"
           },
           {
             "@tag": "REPORTED",
@@ -11859,14 +10691,6 @@
             "#text": "por {0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "Temas activos"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "( Últimas 24 horas)"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "el último día"
           },
@@ -11947,10 +10771,6 @@
             "#text": "Temas no respondidos"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Temas no leídos"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "Visualizaciones"
           },
@@ -12014,14 +10834,6 @@
             "#text": "Debes introducir una pregunta para la encuesta."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "Permitir no votar y ver los resultados."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "Puedes saltarte la votación para ver los resultados."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "No puedes ver los resultados mientras no finalice la votación."
           },
@@ -12038,10 +10850,6 @@
             "#text": "La encuesta ha finalizado."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "Ancho de la imagen en px:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "Permitir votar más de una opción"
           },
@@ -12050,20 +10858,12 @@
             "#text": "Puedes votar más de una opción."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "Los invitados no pueden votar. Prueba a iniciar la sitión o registrarte."
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "Haz click para votar"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Mostrar qué han votado"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Mostrar quién ha votado"
           },
           {
             "@tag": "POLL_VOTED",
@@ -12090,10 +10890,6 @@
             "#text": "Don"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "Crear o editar encuesta"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Dirección de la imagen:"
           },
@@ -12104,18 +10900,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Pregunta de la encuesta:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "No puedes ver los resultados de la encuesta antes de votar."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "Los invitados no pueden ver los resultados de la encuesta antes de votar. Prueba a iniciar sesión o registrarte."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "Resultados ocultos"
           },
           {
             "@tag": "POLLSAVE",
@@ -12143,18 +10927,6 @@
             "#text": "¿De verdad deseas eliminar la encuesta de este tema?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "Contraseña del blog:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "¿Publicar en el blog?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Cancelar creación/edición del mensaje"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "Descripción:"
           },
@@ -12173,10 +10945,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "El nombre de usuario de invitado no puede ser mayor de 100 caracteres."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "¿Este tema está en formato de preguntas y respuestas?"
           },
           {
             "@tag": "LAST10",
@@ -12213,10 +10981,6 @@
           {
             "@tag": "POSTED",
             "#text": "Publicado:"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "A ocurrido un error al publicar en tu blog. Tal vez ha fallado la autentificación."
           },
           {
             "@tag": "PREVIEW",
@@ -12267,26 +11031,6 @@
             "#text": "Ya existe un tema con este título o uno parecido."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "La descripción del tema no puede exceder los 255 caracteres."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "La longitud de una palabra en la descripción del tema no puede ser mayor de {0} caracteres. Sugerencia: usa abreviaturas o acórtala."
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "La longitud del nombre del tema no puede exceder los 255 caracteres."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "La longitud de una palabra en el nombre del tema no puede ser mayor de {0} caracteres. Sugerencia: usa abreviaturas o acórtala."
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "¿Añadir archivos a este mensaje?"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "¿Vigilar este tema y recibir notificaciones de actividad vía e-mail?"
           },
@@ -12312,10 +11056,6 @@
             "#text": "APUNTAR"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "Contacta {0} a través de AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Feed de Atom"
           },
@@ -12336,24 +11076,12 @@
             "#text": "Visitar el blog de {0}"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "No tienes permisos para ver/descargar adjuntos."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "No puedes ver/descargar adjuntos. Prueba a iniciar sesión o registrarte."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Opción"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "Cerrar"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "¿Eliminar este mensaje?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12408,10 +11136,6 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "Visita el perfil de Facebook de {0}"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "Salto de foro"
           },
@@ -12428,28 +11152,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "Visita la página de {0}"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} adjuntó la(s) siguiente(s) imagen(es):"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "Descargar imagen"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Click para ver imagen"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} visualización(es)"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "Imagen"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12494,10 +11202,6 @@
           {
             "@tag": "LOCATION",
             "#text": "Ubicación"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "Gestionar el mensaje"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12568,10 +11272,6 @@
             "#text": "(La encuesta ha finalizado)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "Responder"
-          },
-          {
             "@tag": "POSTED",
             "#text": "Publicado"
           },
@@ -12596,18 +11296,6 @@
             "#text": "Respuesta rápida"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "Ocultar respuesta rápida"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "Mostrar respuesta rápida"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "Cita Mensaje Seleccionado"
-          },
-          {
             "@tag": "RANK",
             "#text": "Posición"
           },
@@ -12616,16 +11304,8 @@
             "#text": "Has quitado -1 a la reputación de {0}."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "¡Gracias por votar!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "Has dado +1 a la reputación de {0}."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "Gracias por denunciar este mensaje."
           },
           {
             "@tag": "REPORTPOST",
@@ -12640,14 +11320,6 @@
             "#text": "Reputación"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweet este tema"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "RSS"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Compartir"
           },
@@ -12660,19 +11332,7 @@
             "#text": "Temas similares"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "Estadísticas"
-          },
-          {
             "@tag": "THANKSFROM",
-            "#text": "Agradecimientos: {0} veces"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "Agradecimientos: {0} veces"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
             "#text": "Agradecimientos: {0} veces"
           },
           {
@@ -12682,34 +11342,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "1 usuario agradecido {0} por esta útil publicación."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "Fue agradecido: {0} vez/veces in {1} publicación(es)."
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "Eliminar este tema"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "Bloquear este tema"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "Mover este tema"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "Nuevo tema"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Responder"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "Desbloquear este tema"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12748,20 +11380,8 @@
             "#text": "Total"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "Compartir en Tumblr"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Dejar de vigilar este tema"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "Mujer"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "Hombre"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12784,10 +11404,6 @@
             "#text": "Ver"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "Cambia la vista de temas entre normal y por hilos."
-          },
-          {
             "@tag": "VOTES",
             "#text": "Votos"
           },
@@ -12804,10 +11420,6 @@
             "#text": "El foro está bloqueado."
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "Debe iniciar sesión para enviar mensajes privados."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "La encuesta ha finalizado."
           },
@@ -12816,20 +11428,8 @@
             "#text": "El tema está bloqueado."
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "Debes estar registrado para vigilar temas."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "Vigilar este tema"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "Contacta con {0} a través de Jabber"
           }
         ]
       },
@@ -12863,10 +11463,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "Acerca de"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "Usuario Admin"
           },
@@ -12889,14 +11485,6 @@
           {
             "@tag": "CITY",
             "#text": "Ciudad:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "Contacto"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "País:"
           },
           {
             "@tag": "DAYS",
@@ -12925,10 +11513,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "Perfil de Facebook:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "Acceso al Foro"
           },
           {
             "@tag": "GENDER",
@@ -12975,20 +11559,8 @@
             "#text": "minutos"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "Moderación"
-          },
-          {
             "@tag": "MONTH",
             "#text": "mes"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "{0:N2}% de todos los mensajes"
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} mensajes por día"
           },
           {
             "@tag": "NUMPOSTS",
@@ -13033,14 +11605,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Ver todos los mensajes por usuario"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "Medios de comunicación social"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "Estadísticas"
           },
           {
             "@tag": "SUSPEND",
@@ -13091,18 +11655,6 @@
             "#text": "usuario:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "Blog:"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "Página web:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Nombre en XMPP:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "Año(s)"
           }
@@ -13118,10 +11670,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "Su cuenta no ha sido aprobada porque no ha validado su cuenta de correo. Un nuevo correo de validacion ha sido enviado a {0}. Por favor valide su cuebta de correo para poder iniciar sesion."
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "El intento de recuperar su clave nueva fallo."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13552,16 +12100,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]Su cuenta ha sido creada.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Su cuenta ha sido creada, sin embargo, aun necesita confirmar su cuenta de correo antes de iniciar sesion. Por favor revise sus correos para leer las instrucciones de verificacion.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "El nombre de usuario o la cuenta de correo ya esta registrada."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13570,14 +12110,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "La cuenta de correo es incorrecta."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "Por favor elija una calve más compleja que incluya caracteres de puntuacion (!?) o numeros."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "Cuenta"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13590,10 +12122,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "Continuar"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "Crear usuario"
           },
           {
             "@tag": "DETAILS",
@@ -13612,22 +12140,6 @@
             "#text": "Pagina de inicio (web)"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "Por favor elija una respuesta diferente."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "Por favor, elige un nombre a mostrar distinto."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "Por favor elija una pregunta diferente."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "Por favor escoja un nombre de usuario diferente."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "Ubicacion"
           },
@@ -13636,20 +12148,8 @@
             "#text": "Por favor, acceda con una cuenta existente."
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "Respuesta de seguridad requerida."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "Es necesario un nombre a mostrar."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "E-mail requerido."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "Claves no concuerdan."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13688,24 +12188,12 @@
             "#text": "Contraseña débil, intente usar números y letras mayúsculas."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "Preferencias del foro"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "Informacion del perfil"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "Te has equivocado. Prueba de nuevo."
-          },
-          {
             "@tag": "REGISTER",
             "#text": "Registro"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "Regístrate con {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13714,18 +12202,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Confirmacion de clave requerida."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Respuesta de seguridad"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Pregunta de seguridad"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "Terminos y condiciones"
           },
           {
             "@tag": "TIMEZONE",
@@ -13742,10 +12218,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Nombre de usuario (nick)"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "El nombre de usuario no puede exceder los {0} caracteres."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13826,10 +12298,6 @@
             "#text": "Cancelar"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Cancelar denuncia de mensaje"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Introduce aquí la razón de tu denuncia:"
           },
@@ -13848,14 +12316,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "Publicado por:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "Las etiquetas no están permitidas en las denuncias."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "La etiqueta [{0}] no está permitida en denuncias."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13920,10 +12380,6 @@
             "#text": "Formato claro"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "Formateado"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "Añadir imagen"
           },
@@ -13948,10 +12404,6 @@
             "#text": "Normal"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "Lista ordenada"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "anular la sangría"
           },
@@ -13960,20 +12412,8 @@
             "#text": "Alinear a la derecha"
           },
           {
-            "@tag": "SPELL",
-            "#text": "Comprobar la ortografía"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "No hay palabras mal escritas."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "Subrayar"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "Lista desordenada"
           }
         ]
       },
@@ -14002,10 +12442,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "Todos los foros"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "Buscar"
           },
@@ -14016,10 +12452,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "Palabra(s) clave"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "Cargando resultados de busqueda..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14072,14 +12504,6 @@
           {
             "@tag": "RESULTS",
             "#text": "Resultados"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "El texto de búsqueda no debe exceder los {0} caracteres y obedecer las reglas del foro para búsquedas (mira las FAQ del foro para más información)."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "El texto de búsqueda debe tener al menos {0} caracteres y obedecer las reglas del foro para búsquedas (mira las FAQ del foro para más inforación)."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14419,16 +12843,8 @@
             "#text": "Temas activos"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "Muestra la página de temas activos."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "Administración"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "Muestra el índice de administración."
           },
           {
             "@tag": "BUDDIES",
@@ -14463,20 +12879,12 @@
             "#text": "Servidor"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "Muestra las preferencias del servidor."
-          },
-          {
             "@tag": "INBOX",
             "#text": "Mi bandeja de entrada"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "Muestra los mensajes privado en la bandeja de entrada."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "Sesión iniciada como: {0}"
           },
           {
             "@tag": "LOGIN",
@@ -14531,10 +12939,6 @@
             "#text": "Muestra la página con tus álbums."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "Mis notificaciones"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "Muestra tus agradecimientos, menciones y citas no recibidas."
           },
@@ -14549,10 +12953,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "Mi configuración"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Editar los datos y la configuración del usuario."
           },
           {
             "@tag": "MYTOPICS",
@@ -14599,14 +12999,6 @@
             "#text": "Muestra la página del equipo con todos los moderadores y administradores."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Hay {0} tema(s) con mensajes no leídos"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "Bienvenido visitante. Para activar todas las opciones prueba a registrarte o iniciar sesión."
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "¿Quieres unirte a la discusión?"
           },
@@ -14636,20 +13028,12 @@
             "#text": "por {0}"
           },
           {
-            "@tag": "CREATED",
-            "#text": "Creado"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Foro"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "Usuarios navegando este foro"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ Ir a la página: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14718,10 +13102,6 @@
           {
             "@tag": "REPLIES",
             "#text": "Respuestas"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "Rss"
           },
           {
             "@tag": "SEARCH_FORUM",

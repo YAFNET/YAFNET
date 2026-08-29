@@ -11,10 +11,6 @@
             "#text": "Jūsų veikla"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "Archyvas"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "Tapk draugais"
           },
@@ -119,10 +115,6 @@
             "#text": "Prenumerata "
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "Rodyti tik neperskaitytą veiklą"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "Peržiūrėti profilį"
           },
@@ -171,10 +163,6 @@
             "#text": "Jūsų pranešimai"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "Jūsų rodomas vardas:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "Jūsų vartotojo vardas: "
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Patvirtinti naują slaptažodį"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "Slaptažodis ir patvirtinimo slaptažodis turi sutapti."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "El. paštas"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "IP adresas"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "Prisijungė prie"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "Valdybos vieta"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "Pavadinimas"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "Pakartotinis el. pašto siuntimo tikrinimas"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "Administracija"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": " - Visos lentos -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "Vartotojo naršyklė (-os)"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "Patvirtinti šį naudotoją?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "Šalis"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d} (prieš {1:N0} dienų)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "Vartotojui vėl išsiųstas patikrinimo laiškas."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "Turėtumėte įvesti galiojančią sveikojo skaičiaus reikšmę dienoms."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "Pasirodė nauja versija!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Eikite į Atsisiuntimų puslapį"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "Pridėti naują adresą"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Uždrausta"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "Rūšiavimo eiliškumui įvesti reikia skaičių reikšmę nuo 0 iki 32767."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Rūšiavimo tvarkos reikšmė turėtų būti teigiamas sveikasis skaičius nuo 0 iki 32767."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "\"OnClick JS\":"
           },
@@ -1928,14 +1868,6 @@
             "#text": "Pasirinkite valdybos logotipą"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Mobilioji tema:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "Mobilioji tema, kurią galima naudoti šioje lentoje."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "Valdybos pavadinimas:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "Išsaugoti"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "Perbraukite lentelę į kairę, kad atskleistumėte daugiau duomenų"
-          },
-          {
             "@tag": "YES",
             "#text": "Taip"
           }
@@ -2044,18 +1972,6 @@
           {
             "@tag": "DELETE_FORUM",
             "#text": "Ištrinti forumą"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Forumo pašalinimas ir temų perkėlimas"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Neišeikite iš šio puslapio, kol vyksta šalinimas..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "Forumo pašalinimas"
           },
           {
             "@tag": "HEADER1",
@@ -2103,14 +2019,6 @@
             "#text": "Pakeiskite valdybos nustatymus."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "Suvestinė:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Sukurti šios administratoriaus paskyros ir šiuo metu pasirinktos temos Digestą. (Gali būti, kad el. pašto klientas iš tikrųjų atrodys kitaip.)"
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "Paskutinis siuntimas:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "Paskutinį kartą (pagal serverio laiką) buvo paleista suvestinės užduotis.>"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "Siųsti metodą:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Bandymui siunčiamos sistemos tipas."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "Niekada"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "Priverstinis \"Digest\" siuntimas"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "Sukurti Digest"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "Nustatykite, ar laukas turėtų būti privalomas, ar ne"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "Išsaugoti naują"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "Rūšiavimo eiliškumui įvesti reikia skaičių nuo 0 iki 32767."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "Sort Order reikšmė turėtų būti teigiamas sveikasis skaičius nuo 0 iki 32767."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "Naujo vyriausiojo naudotojo informacija"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Narystės paraiška Pavadinimas:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Programos pavadinimas, reikalingas teikėjui, tuščias bus naudojamas ApplicationName, esantis web.config."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "Turite įvesti priimančiosios šalies administratoriaus el. pašto adresą."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Lentos pavadinimas."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Saugumas Atsakymas:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "Atsakymas į saugumo klausimą."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Saugumo klausimas:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "Klausimas, kuris bus užduotas, kai reikės atkurti prarastą slaptažodį."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "Šio el. pašto adreso vartotojo vardas jau egzistuoja. Įveskite kitą el. pašto adresą."
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "Vartotojo vardas jau egzistuoja. Įveskite kitą naudotojo vardą."
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "Pateiktas slaptažodžio paieškos atsakymas yra neteisingas. Patikrinkite reikšmę ir bandykite dar kartą."
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "Pateiktas el. pašto adresas negalioja. Patikrinkite reikšmę ir bandykite dar kartą."
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "Pateiktas vartotojo vardas yra neteisingas. Patikrinkite reikšmę ir bandykite dar kartą."
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "Pateiktas slaptažodis negalioja. Įveskite galiojančią slaptažodžio reikšmę."
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "Pateiktas slaptažodžio paieškos klausimas yra neteisingas. Patikrinkite reikšmę ir bandykite dar kartą."
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "Autentifikavimo paslaugų teikėjas grąžino klaidą. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, kreipkitės į sistemos administratorių."
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "Įvesta netinkama rūšiavimo tvarkos reikšmė: reikia įvesti skaičių."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sort Order reikšmė turėtų būti teigiamas sveikasis skaičius nuo 0 iki 32767."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "Turi būti įvesta kategorijos pavadinimo lauko reikšmė."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "Prieigos kaukė"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "Kategorija:"
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "Tai reiškia, kad forumas bus paslėptas, kai naudotojas neturi skaitymo prieigos prie jo."
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "Pradinės prieigos kaukė:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "Pradinė visų forumų prieigos kaukė."
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "Tokio pavadinimo forumas jau egzistuoja."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "Turite pasirinkti pradinę forumo prieigos kaukę."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "Įvedėte neteisingą URL adresą."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "Turite įvesti forumo pavadinimą."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Forum cannot be parent of self."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Rūšiavimo tvarkos reikšmė turėtų būti teigiamas sveikasis skaičius nuo 0 iki 32767."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "Jei ši parinktis pažymėta, visi nauji naudotojai taps šio vaidmens nariais. <br /><span style=\"color:red\">[b]Įspėjimas:[/b] šis žymimasis langelis turi būti įjungtas bent vienoje grupėje, kitaip nauji naudotojai negalės registruotis.[/b]</span>"
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "Turėtumėte įvesti sveikojo skaičiaus reikšmę naudotojų albumų skaičiui."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "Turėtumėte įvesti sveikojo skaičiaus prioriteto reikšmę."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "Reikia įvesti Vaidmens pavadinimą."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "Reikėtų įvesti sveikojo skaičiaus reikšmę, nurodančią naudotojo parašo simbolių skaičių."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "Turėtumėte įvesti sveikojo skaičiaus reikšmę, reiškiančią bendrą vaizdų skaičių visuose albumuose."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "Turėtumėte įvesti sveikojo skaičiaus reikšmę pmessage numeriui."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "PŽinutės:"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "Didžiausia. Privačios žinutės, leidžiamos grupės nariams."
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "Reiškia, kad naudotojams bus leidžiama/neleidžiama slėpti šį medalį."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "Leisti pakartotinai užsakyti:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Reiškia, kad naudotojams bus leidžiama/neleidžiama keisti šio medalio eiliškumą."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "Leisti juostos juostą:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Reiškia, kad šio medalio rodymas juostelėje bus leidžiamas / neleidžiamas."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Pašalinti medalį iš šios grupės?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Pašalinti šio naudotojo medalį?"
           },
@@ -3143,20 +2895,12 @@
             "#text": "Įveskite naudotojo vardą arba spustelėkite \"Rasti naudotojus\", kad pasirinktumėte naudotoją iš naudotojų sąrašo."
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "Nurodytas dviprasmiškas naudotojo vardas!"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "Medalio vaizdas turi būti nurodytas!"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "Privalote įvesti medalio pavadinimą!"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "Būtina nurodyti mažo medalio atvaizdą!"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "Pasirinkite medalio paveikslėlį"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Medalis bus rodomas naudotojo profilyje"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "Mažiausias pranešimų skaičius, prieš pakylant naudotojus į šį rangą."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Rangas Prioritetas turėtų būti mažas sveikasis skaičius."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "Turite apibrėžti rango pavadinimą."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Privačios žinutės:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Didžiausia. Privačios žinutės leidžiamos tik rangų nariams."
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "Čia įveskite vaidmens aprašymą."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Ranginis vaizdas:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "Šis paveikslėlis bus rodomas šalia šio rango naudotojų."
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "Uždrausti vartotojo vardą?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "Sėkmingai pranešta apie naudotoją kaip botą"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "siųsti naudotojui pranešimą apie naują slaptažodį el. paštu?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "Patvirtinkite slaptažodį:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "Patvirtinkite naująjį slaptažodį."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "Dabartiniai taškai:"
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "Vartotojas yra švelniai ištrintas."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "Turi įvesti patvirtinimo slaptažodį"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "Turi įvesti naują slaptažodį"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "Naudotojų grupės"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "Naudotojo taškai"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "Naudotojo slaptažodžio atkūrimas / keitimas"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "IP adresai:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "Nužudyti naudotoją"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "Moderuoti visas naudotojo paskelbtas žinutes"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "Svečias naudotojas turi būti pažymėtas kaip patvirtintas, kitaip jūsų forumas bus nestabilus."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "Pakeistas naudotojo slaptažodis"
           },
@@ -3481,24 +3165,8 @@
             "#text": "Pakeistas naudotojo slaptažodis ir išsiųstas pranešimo el. laiškas."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "Naudotojo slaptažodžio atkūrimas ir pranešimo el. laiško išsiuntimas"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "Vartotojas {0} nukautas!"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "Galimybė:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "Rankiniu būdu pakeiskite slaptažodį ir pasirinktinai išsiųskite naują slaptažodį naudotojui el. paštu"
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "Slaptažodžio atstatymas ir naujo slaptažodžio siuntimas el. paštu naudotojui"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "Praneškite apie vartotoją kaip BOT StopForumSpam.com"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "Pranešti apie vartotojo vardą, el. pašto adresą ir IP adresą StopForumSpam.com kaip BOT?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "Ištrinti šią kategoriją?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "Ar esate pozityvus?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "Ar tikrai? šis žingsnis yra negrįžtamas!"
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ištrinti šį vaidmenį?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "Ištrinti vaidmenį"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "Kultūros žyma"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "Kalba Anglų kalba Pavadinimas"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "Kalba Gimtasis vardas"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Išversti ištekliai"
           },
@@ -5787,6 +5435,10 @@
             "#text": "Atrodo, kad el. laiškų siuntimas veikia iš jūsų YAF diegimo."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Pašto testavimas"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "Bandomasis el. paštas iš dar vieno Forum.NET"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Įveskite el. pašto adresą, kuriuo turėtų būti siunčiamas bandomasis el. laiškas"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "Pašto testavimas"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "Medalio vaizdas, kuris bus rodomas naudotojo lange."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "Lentelės juostos vaizdas, kuris bus rodomas naudotojo lange."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "Nėra medalių"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Šiuo metu nėra medalių. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Perkelti žemyn"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "Pereiti aukštyn"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "dienos"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "Ištrinti senesnius perskaitytus pranešimus:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "Profilio informacija"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "Forumo nuostatos"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "Vartotojas {0} Sėkmingai sukurtas."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "Narystės klaida Kuriant naudotoją: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "Jūsų duomenų bazės dydis dabar yra: {0}MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "Duomenų bazės atkūrimo režimas sėkmingai nustatytas į {0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Atliekant šią operaciją kažkas nepavyko. Pranešama ši klaida: {0}"
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "Atliekant bet kokias duomenų keitimo operacijas gali atsirasti lentelės fragmentacija. Šią komandą galima naudoti visų duomenų bazės lentelių indeksams atkurti, kad padidėtų našumas."
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "Prašome nenukrypti nuo šio puslapio..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "Lentelių atnaujinimas"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "Norint iškrauti paraišką, reikia turėti didelį / neribotą pasitikėjimą. Iš naujo paleisti nepavyko."
-          },
-          {
             "@tag": "TITLE",
             "#text": "Iš naujo paleisti programą"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Atkurti ir ištrinti žinutes"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Galimybė atkurti pranešimus, kurie pažymėti kaip ištrinti, arba visam laikui ištrinti juos iš duomenų bazės."
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "Vykdyti SQL užklausą"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "Reikia įvesti užklausą."
+            "@tag": "RESULT",
+            "#text": "Rezultatas"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "Vykdyti užklausą"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "Vykdyti operaciją"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "Paleisti SQL kodą"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "Rezultatas"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "\"Spam\" Žodis (Rasti) Išraiška:"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "Ar veikia"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "Sustabdyti užduotį"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Užduočių tvarkytojas"
           }
@@ -6602,24 +6190,12 @@
             "#text": "Ištrinti šį naudotoją?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "Ar tikrai?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "Rodomas vardas"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "El. paštas"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "El. paštas yra:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "Eksportuoti visus naudotojus kaip CSV"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "Rodyti tik sustabdytus naudotojus?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "Sinchronizuoti visus narystės naudotojus"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "Dabar sinchronizuojami visi naudotojai"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "Pakeisti antraštę"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} Vaizdas (-ai)"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "Spustelėkite, jei norite peržiūrėti albumą"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "Albumai"
           },
@@ -7072,10 +6632,6 @@
             "#text": "Ištrinti šį priedą? "
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "Palaukite, kol bus baigtas (-i) visas (-i) įkėlimas (-ai) ir dialogo langas užsidarys!"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ištrinti priedą (-us)?"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} Priedas (-ai) ištrintas (-i)!"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "Neleidžiami failų tipai"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "Dydis "
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "Įkėlimo pradžia (-os)"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Priedai "
           },
           {
             "@tag": "UPLOAD",
             "#text": "Įkelti "
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "Įkelti naują (-us) failą (-us)"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Grįžkite į puslapį Modify Avatar (keisti avatarą) nepasirinkę avataro."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "Keisti Avataras "
           },
           {
             "@tag": "TITLE",
             "#text": "Avataros "
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "Eikite į tėvų aplanką."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "Pridėti kaip draugą"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(Laukiama draugo patvirtinimo)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "Visi draugų prašymai patvirtinti."
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "Visos draugų užklausos patvirtintos ir įtrauktos į jūsų draugų sąrašą."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "Visi daugiau nei 14 dienų senumo draugų prašymai atmetami."
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "Buvote įtrauktas į {0}\"Draugų sąrašą\"."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "Draugo užklausa pašalinta."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "Jūs turite {0} laukiančių draugų užklausų"
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7651,88 +7171,16 @@
             "#text": "Patvirtinkite naują slaptažodį:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "Įveskite dabartinį slaptažodį"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "Reikia naujo slaptažodžio patvirtinimo."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "Reikalingas naujas slaptažodis."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "Reikalingas senas slaptažodis."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "Naujas slaptažodis:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "Nauji slaptažodžiai nesutampa."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "Senasis slaptažodis:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "Naujas Minimalus slaptažodžio ilgis: {0}."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "Neteisingas slaptažodis arba Naujas slaptažodis negalioja."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "Būtina naudoti ne raidinius-skaitmeninius simbolius: {1}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "Naujasis slaptažodis turi skirtis nuo senojo."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "Naujas saugumas Atsakymas:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Dabartinis slaptažodis:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "Pakeistas slaptažodžio klausimas ir atsakymas."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Pakeisti nepavyko. Prašome iš naujo įvesti reikšmes ir bandyti dar kartą."
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "Naujas saugumo klausimas:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Senas saugumo klausimas:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Keisti slaptažodį"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "Pakeisti saugumo klausimą ir atsakymą"
           }
         ]
       },
@@ -7757,14 +7205,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Įterpti albumo vaizdą..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "Leidžiama"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Įterpkite esamą priedą arba įkelkite naują failą..."
           },
@@ -7777,36 +7217,16 @@
             "#text": "Username cannot contain semi-colons (;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "Kodas: "
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Citata: "
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "Iš pradžių parašė: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Pereiti į cituojamą pranešimą"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} rašė: "
           },
           {
-            "@tag": "BROWSE",
-            "#text": "Naršykite"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Atšaukti -- "
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "Pakeistas el. paštas"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7857,10 +7277,6 @@
             "#text": "Tema su ID: {0} Pašalinta"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "Neleidžiama"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "Atsisiųsti"
           },
@@ -7869,16 +7285,8 @@
             "#text": "Redaguoti"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} El. pašto tikrinimas"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 įrašų"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 Įrašai"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7895,10 +7303,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 įrašų"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Išorės naudotojas)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7961,20 +7365,12 @@
             "#text": "Pirmas puslapis"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Eiti į paskutinį puslapį"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "Kitas puslapis"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "Eiti į puslapį..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Pereiti prie žinutės"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7985,28 +7381,12 @@
             "#text": "Paslėptas"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Jūsų įvesties duomenyse neturėtų būti HTML žymių."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Jūsų įvesties duomenyse yra uždrausta {0} HTML žyma."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "forume: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "Rodyti daugiau kategorijų ir forumų..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "Pakraunama..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Tvarkykite"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8023,18 +7403,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "Žinutė"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Peržiūrėti visą svetainę"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Peržiūrėti mobiliąją svetainę"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Pranešimas"
           },
           {
             "@tag": "MODERATOR",
@@ -8133,14 +7501,6 @@
             "#text": "Skaityti"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "\r\n      A laiškas buvo nusiųstas. Patikrinkite savo pašto dėžutę ir\r\n\r\n      paspauskite nuorodą paštu.\r\n    "
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "\r\n      A paštas bus išsiųsti, kai būsite užregistruoti.\r\n\r\n      Norėdami prisijungti jūs turėtumėte tikrinti savo pašto dėžutę ir paspauskite nuorodą\r\n\r\n      paštu.\r\n    "
-          },
-          {
             "@tag": "REPLY",
             "#text": "Atsakyti"
           },
@@ -8163,10 +7523,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "Puslapio dydžio pasirinkimas"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Rodyti / slėpti"
           },
           {
             "@tag": "SUBMIT",
@@ -8197,20 +7553,12 @@
             "#text": "Kodas"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "Pasirinkite sintaksės paryškinimo kalbą"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "Nukopijuokite pasirinktą tekstą (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "Sukurti nuorodą"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Daugiau BBCode Žymos"
           },
           {
             "@tag": "TT_CUT",
@@ -8309,40 +7657,12 @@
             "#text": "Įveskite URL:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Turite {0} neperskaitytų paminėjimų, ar norėtumėte pereiti prie naujausio?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Kažkas paminėjo jus temoje"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "\r\n      Jūs {0} neskaitytų pranešimą (-us) į aplanką Gauti\r\n\r\n      laiškai\r\n    "
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "Nauja privati žinutė (-ės)"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "Gautųjų laiškų dėžutėje turite {0} neperskaitytų pranešimų. Ar norėtumėte dabar pereiti į Gautųjų laiškų dėžutę?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Jūs turite {0} neperskaitytų cituojamų pranešimų, ar norėtumėte pereiti prie naujausio?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Kažkas jus citavo temoje"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "Jūs turite {0} neskaitytų gautų Dėkojame, ar norėtumėte pereiti prie naujausio?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Kažkas padėkojo už žinutę"
           },
           {
             "@tag": "UPDATE",
@@ -8355,10 +7675,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "Vartotojo vardas arba rodomas vartotojo vardas turi būti daugiau nei {0} simbolių."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Peržiūrėti kategoriją"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9408,18 +8724,6 @@
             "#text": "paskutines {0:N0} minutes"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "Abėcėlės filtras"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "Prenumeruokite aktyvias temas per \"Atom\"."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "Prenumeruokite forumo \"Atom\" kanalą."
-          },
-          {
             "@tag": "BY",
             "#text": "iš {0} "
           },
@@ -9432,12 +8736,12 @@
             "#text": "Forumas "
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "Eiti į paskutinį pranešimą "
+            "@tag": "FORUMS",
+            "#text": "Forumai"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Go to first unread"
+            "@tag": "GO_LAST_POST",
+            "#text": "Eiti į paskutinį pranešimą "
           },
           {
             "@tag": "IN",
@@ -9454,18 +8758,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "Last Post "
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "Latest Posts "
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "Pagrindinis forumas Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "Main Forum RSS "
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9492,6 +8784,10 @@
             "#text": "Aktyviausi naudotojai per pastarąsias {0} dienas"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "Naujausias narys"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(Nėra prieigos) "
           },
@@ -9516,56 +8812,28 @@
             "#text": "Naujausi naudotojai"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "Rodyti tik neperskaitytas temas."
-          },
-          {
             "@tag": "STATS",
             "#text": "Statistika "
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "Naujausias narys yra:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "Paskutiniai komentarai {0} iš:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "Mes {0:N0} registruoti nariai. "
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "Yra {0:N0} postų {1:N0} temomis {2:N0} forumuose. "
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "Kovos su nepageidaujamu elektroniniu paštu statistika"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Spameriai visam laikui uždrausti"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Uždrausta visam laikui"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Pašnekovams atsisakyta registruoti"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Atmesta registracija"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Spameriai pateikti StopForumSpam.com"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "Pranešta StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
             "#text": "Temos "
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "Jūs {0} neskaitytų žinučių aplanke Gauti laiškai. "
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "Jūs {0} neskaitytų pranešimų į jūsų pašto dėžutę. "
           },
           {
             "@tag": "VIEWING",
@@ -9595,22 +8863,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "Ar esate visiškai tikri, kad norite tai daryti?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "Tai visam laikui ištrins jūsų paskyrą! Visas jūsų turinys bus ištrintas. Po to jūsų paskyros nebus galima atkurti."
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Ištrinti paskyrą (visam laikui)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "Jei norite tiesiog pailsėti nuo forumo, jūsų paskyra bus sustabdyta 30 dienų. Jūsų turinys vis dar matomas"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "30 dienų sustabdykite savo paskyrą"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9699,16 +8951,8 @@
             "#text": "{0} komentarai"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "Iki {0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "Daugiau"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "Naujos temos"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9752,10 +8996,6 @@
             "#text": "Ištrinti šį paveikslėlį?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "Daugiau albumų į šią paskyrą pridėti negalima."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "Negalite įkelti tokio dydžio vaizdų."
           },
@@ -9770,10 +9010,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "Reikia nurodyti pavadinimą."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9797,24 +9033,12 @@
             "#text": "Avataras "
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "Dabartinis Avataras "
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "Atviras Avataras "
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "Pasirinkti naują Avataras "
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "Įveskite URL Avataras serveryje naudoti: "
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "Avataras Explanation Tekstas "
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9833,16 +9057,8 @@
             "#text": "Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "Pasirinkite Avataras mūsų Kolekcija: "
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "\r\n      Spauskite čia, jei norite pasirinkti\r\n\r\n      Avataras\r\n    "
           },
           {
             "@tag": "TITLE",
@@ -9886,32 +9102,16 @@
             "#text": "Jūsų AIM vardas:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "Stebėti kiekvieną temą, kurioje parašėte pranešimą, ir gauti pranešimus el. paštu apie veiklą tose temose?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "Jūs įvedėte nelegalios el. "
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "Įvedėte neteisingą \"Facebook\" profilio URL adresą."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "\r\n      Jūs įvedėte neteisingą adresą jūsų pagrindinį\r\n\r\n      puslapį.\r\n    "
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "Jūs įvedėte neteisingą e-pašto adresas MSN sąskaitos. "
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "Jūs įvedėte neteisingą adresą savo dienoraštyje. "
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "Įvedėte neteisingą XMPP paskyros pavadinimą."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9932,10 +9132,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "Kokiu vardu norite, kad jis būtų rodomas kitiems?"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Daylight Saving Time"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9982,10 +9178,6 @@
             "#text": "Vieta "
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "\r\n      A laiškas buvo nusiųstas į {0}.\\n\\nYou turės patvirtinti savo\r\n\r\n      naują elektroninio pašto adresą \\nopening nuorodą į laišką iki Jūsų email bus\r\n\r\n      pakeistas.\r\n    "
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "Momentiniai prane ¹ imù paslaugos "
           },
@@ -9996,10 +9188,6 @@
           {
             "@tag": "OTHER",
             "#text": "Kita"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "Pasirinkite kitą forumo temą:"
           },
           {
             "@tag": "REALNAME2",
@@ -10044,10 +9232,6 @@
           {
             "@tag": "WHERE",
             "#text": "Kur jūs gyvenate? "
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Jūsų \"Jabber\" ID:"
           }
         ]
       },
@@ -10071,10 +9255,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "Įvesties saugos kodas"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "Sąrankos kodas"
           },
@@ -10096,28 +9276,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Your  signature can contain any BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "Galite naudoti šiuos BBC kodus: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "Jūsų paraše neturėtų būti BBC kodų."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "Jūsų paraše gali būti bet kokia HTML žyma."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "Galite naudoti šias HTML žymas: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "Jūsų paraše neturėtų būti HTML žymių."
           },
           {
             "@tag": "SIGNATURE",
@@ -10128,20 +9288,8 @@
             "#text": "Jūsų paraše yra draudžiamas {0} BBC kodas."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "Jūsų parašą gali sudaryti ne daugiau kaip {0} simbolių."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "Jūsų parašas yra per ilgas. Jį gali sudaryti ne daugiau kaip {0} simbolių."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "Negalite redaguoti parašo, bet galite jį visiškai ištrinti."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "Pasirašymo leidimai"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10206,10 +9354,6 @@
             "#text": "Informacija"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "SQL scenarijaus klaida"
-          },
-          {
             "@tag": "WARNING",
             "#text": "Įspėjimas"
           }
@@ -10255,10 +9399,6 @@
             "#text": "Neturite jokių neišspręstų užklausų"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "Patvirtinti visus prašymus?"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "Patvirtinti visus prašymus ir įtraukti juos į draugų sąrašą?"
           },
@@ -10281,14 +9421,6 @@
           {
             "@tag": "POSTS",
             "#text": "Pranešimai"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "Prašymo data"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Your Friend List"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10610,10 +9742,6 @@
             "#text": "Reklama "
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "Skelbimas (New Posts) "
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "Forumas užblokuotas "
           },
@@ -10650,16 +9778,8 @@
             "#text": "Apklausa "
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "Apklausa (yra naujų žinučių) "
-          },
-          {
             "@tag": "STICKY",
             "#text": "Sticky "
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "Sticky (Naujos žinutės)"
           }
         ]
       },
@@ -10704,18 +9824,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "Vartotojas naudojasi serveriais {0}. Norėdami su juo susisiekti, turėtumėte ten užsiregistruoti, nes neturite paskyros."
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "Vartotojas naudoja tą patį XMPP serverį - prie jo galite prisijungti naudodami tokį klientą kaip \"Pidgin\". Jo paskyra yra {0}"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "Ar tikrai norite kalbėti su savimi?"
-          },
           {
             "@tag": "TITLE",
             "#text": "\"XMPP Messenger"
@@ -10782,10 +9890,6 @@
             "#text": "Access Denied "
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "Reikalingi slapukai"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "Informacija "
           },
@@ -10835,40 +9939,16 @@
             "#text": "Patvirtinkite slaptažodį"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Įveskite naujos lentos aprašą"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "Įveskite naujos valdybos pavadinimą"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "Konfigūruoti slaptažodį"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Informacija apie jungtį"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "Pasirinkite esamą ryšio eilutę"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "Pasirinkite „SQL Server“ duomenų bazės ryšio eilutę:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "Nepavyko prisijungti:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "Sukurkite naują ryšio eilutę"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "Ryšio eilutė bus išsaugota kaip"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10891,10 +9971,6 @@
             "#text": "Svečio vartotojo kultūra (kalba)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "Dabartinė versija:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "Duomenų bazė"
           },
@@ -10907,64 +9983,8 @@
             "#text": "YAF.NET duomenų bazės ryšys"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "Įveskite duomenų bazės pavadinimą"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "To el. Pašto vartotojo vardas jau yra. Įveskite kitą el. Pašto adresą."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "Vardas jau egzistuoja. Įveskite kitą vartotojo vardą."
-          },
-          {
             "@tag": "ERROR",
             "#text": "Klaida"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "Plokštė jau įdiegta."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "Turite įvesti valdybos pavadinimą."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "Jei norite tęsti, turite atnaujinti „appSettings“ naudodami „YAF.ConfigPassword Key“. PASTABA: rakto pavadinime yra didžiosios ir mažosios raidės."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "Turite įvesti valdybos el. Pašto adresą."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "Turite įvesti slaptažodį."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "Nepavyko sukurti administratoriaus vartotojo:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "Turite įvesti super vartotojo el. Pašto adresą."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "Turite įvesti super vartotojo vardą,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "Esamas vartotojo vardas neteisingas ir neatstovauja dabartiniam vartotojui narystės parduotuvėje."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "Įvedėte <strong> neteisingą slaptažodį </strong>!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "Naudokite esamą DB ryšio eilutę"
           },
           {
             "@tag": "FINISH",
@@ -11003,40 +10023,12 @@
             "#text": "Montavimas"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "Naudokite integruotą apsaugą"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "Pateiktas slaptažodžio gavimo atsakymas yra neteisingas. Patikrinkite vertę ir bandykite dar kartą."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "Pateiktas el. Pašto adresas neteisingas. Patikrinkite vertę ir bandykite dar kartą."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "Pateiktas slaptažodis neteisingas. Įveskite teisingą slaptažodžio reikšmę."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "Pateiktas slaptažodžio gavimo klausimas yra neteisingas. Patikrinkite vertę ir bandykite dar kartą."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "Pateiktas vartotojo vardas neteisingas. Patikrinkite vertę ir bandykite dar kartą."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "Pašto (SMTP) siuntimo testas"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "Siunčia bandomąjį pranešimą el. Pašto adresu, kuris apibūdinamas kaip Siųsti į adresą"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "Sukurkite naują DB ryšio eilutę"
           },
           {
             "@tag": "NEXT",
@@ -11047,10 +10039,6 @@
             "#text": "Spustelėjus „Kitas“, jūsų duomenų bazė bus inicializuota į naujausią versiją."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "Spustelėkite „Kitas“, kai būsite pasiruošę."
-          },
-          {
             "@tag": "NO",
             "#text": "NE"
           },
@@ -11059,108 +10047,28 @@
             "#text": "Pastaba"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "Nėra rašymo prieigos prie nustatymų"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "Nepavyko modifikuoti savo konfigūracijos failo, kad jis nustatytų duomenų bazės ryšį, nes neturi rašymo leidimo."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "Nėra rašymo prieigos prie duomenų bazės eilučių"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "Nepavyko modifikuoti savo konfigūracijos failo, kad nustatytumėte duomenų bazės ryšio eilutę, nes neturite teisės rašyti."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "Prašome atidaryti"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "failą programos šakniniame kataloge ir pridėkite / atnaujinkite šį raktą į & lt; AppSettings & gt; skyrius:"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "failą programos šakniniame kataloge ir pridėkite / atnaujinkite šį raktą į & lt; connectionStrings & gt; skyrius:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "Patvirtinimas nėra tas pats kaip jūsų slaptažodis."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET turi rašymo prieigą prie šakninių programų katalogo (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NET turi rašymo prieigą prie „~ / Įkelti“ katalogo ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "Ankstesnis"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "Autentifikavimo teikėjas grąžino klaidą. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "Atsakymas į saugumo klausimą"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "Klausimas, kuris bus užduotas, kai reikės susigrąžinti prarastą slaptažodį"
           },
           {
             "@tag": "SETUP",
             "#text": "Sąranka"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "Panašu, kad el. Laiškų siuntimas veikia iš jūsų YAF diegimo."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "SMTP testo duomenys"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "Testuokite el. Laišką iš dar vieno forumo.NET"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "Paštas išsiųstas. Patikrinkite, ar jis gautas jūsų įvestu el. Pašto adresu."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "Įveskite SQL slaptažodį"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "Įveskite SQL vartotojo vardą"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "Tikrinkite ryšį"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "Išbandykite „Smtp“ nustatymus"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "Testo leidimas"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "Testo nustatymai"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "Spustelėkite mygtuką „Ankstesnis“, norėdami redaguoti duomenų bazės konfigūraciją."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11173,26 +10081,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "Įveskite el. Pašto adresą"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "Nepažymėtas"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "Vartotojo atšaukimo užklausa atšaukta. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "Patvirtinti leidimus"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "„YetAnotherForum.NET“ įdiegti lengviau, kai programa turi rašymo prieigą prie jūsų .config\r\n                        bylos."
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "Spustelėkite žemiau, kad patikrintumėte, ar teisingi leidimai. Jei jų nėra, galite\r\n                        vis tiek naudokite diegimo vedlį."
           },
           {
             "@tag": "WELCOME",
@@ -11233,28 +10121,12 @@
             "#text": "Jūsų paskyra dar nepatvirtinta, nes nepatvirtinote savo el. pašto. Patvirtinkite, kad galėtumėte prisijungti."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Prisijunkite arba užsiregistruokite su {0}"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Automatinis prisijungimas: "
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "\r\n      Tiek vartotojo vardą ir elektroninio pašto adresas\r\n\r\n      turi būti įrašytas.\r\n    "
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "Įjungtas Caps Lock"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "Elektroninio pašto adresas "
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "\r\n      A laiškas buvo nusiųstas Jūsų naujas\r\n\r\n      slaptažodis.\r\n    "
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11285,16 +10157,8 @@
             "#text": "Atkurti slaptažodį "
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "Įvyko klaida kuriant naują slaptažodį. "
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Registracija Vietoj to kaip naujas naudotojas"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "Siųsti slaptažodį "
           },
           {
             "@tag": "TITLE",
@@ -11313,16 +10177,8 @@
             "#text": "Dviejų faktorių patvirtinimas"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "Vartotojo vardas: "
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "\r\n      Neteisingas vartotojo vardas arba elektroninio pašto\r\n\r\n      adresą.\r\n    "
           }
         ]
       },
@@ -11392,10 +10248,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "Nario vardas yra:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "Narių paieška"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11478,10 +10330,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Tęsti vidutinio sunkumo"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Pranešimas redaguotas adresu"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11586,14 +10434,6 @@
             "#text": "Ištrinti šią temą? "
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "Ištrinti šį naudotoją?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "Ištrinti temos nuorodą? Pati tema nebus ištrinta."
-          },
-          {
             "@tag": "DELETED",
             "#text": "Tema ištrinta. "
           },
@@ -11652,10 +10492,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "Tema Pradedančiųjų "
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "Temos nuoroda ištrinta."
           },
           {
             "@tag": "TOPICS",
@@ -11742,10 +10578,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "Atsakyti privačia žinute į"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "Pranešti kaip SPAM'ą"
           },
           {
             "@tag": "REPORTED",
@@ -11875,14 +10707,6 @@
             "#text": "pagal {0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "Aktyvios temos"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "( Per paskutines 24 valandas )"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "paskutinė diena"
           },
@@ -11963,10 +10787,6 @@
             "#text": "Neatsakytos temos"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Neperskaitytos temos"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "Peržiūros"
           },
@@ -12030,14 +10850,6 @@
             "#text": "Turite įvesti apklausos klausimą."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "Leisti nebalsuoti ir matyti rezultatus."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "Galite praleisti balsavimą ir rezultatus."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "Rezultatų nematysite, kol nesibaigė apklausa."
           },
@@ -12054,10 +10866,6 @@
             "#text": "The poll is expired."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "Vaizdo plotis px:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "Leisti balsuoti už daugybę pasirinkimų"
           },
@@ -12066,20 +10874,12 @@
             "#text": "Galite balsuoti už daugybę pasirinkimų."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "Svečiai negali balsuoti. Pabandykite prisijungti arba užsiregistruoti."
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "Spustelėkite norėdami balsuoti"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Show who is voted"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Show who is voted."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12106,10 +10906,6 @@
             "#text": "Don"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "Sukurti arba redaguoti apklausą"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Image path:"
           },
@@ -12120,18 +10916,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Apklausos klausimas:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "Prieš balsuodami negalite matyti apklausos rezultatų."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "Prieš balsuodami svečiai negali matyti apklausos rezultatų. Pabandykite prisijungti arba užsiregistruoti."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "Paslėpti rezultatai"
           },
           {
             "@tag": "POLLSAVE",
@@ -12159,18 +10943,6 @@
             "#text": "Ar tikrai norite pašalinti apklausą iš šios temos?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "Tinklaraščio slaptažodis:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "Skelbti tinklaraštyje?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Atšaukti žinutės redagavimą / kūrimą"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "Aprašymas:"
           },
@@ -12189,10 +10961,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Svečio vartotojo vardas negali būti ilgesnis nei 100 simbolių."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "Ar ši tema yra klausimų ir atsakymų forma?"
           },
           {
             "@tag": "LAST10",
@@ -12229,10 +10997,6 @@
           {
             "@tag": "POSTED",
             "#text": "Paskelbta: "
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "Įvyko klaida rašant į jūsų tinklaraštį. Galbūt nepavyko nustatyti autentiškumo."
           },
           {
             "@tag": "PREVIEW",
@@ -12283,26 +11047,6 @@
             "#text": "Tema su šia tema jau egzistuoja arba tema nėra pakankamai unikali, kad ją būtų galima pridėti."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "Temos aprašymo ilgis negali būti ilgesnis nei 255 simboliai."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "Temos aprašymo vieno žodžio ilgis negali būti ilgesnis nei {0} simbolių. Siūlymas: trumpinimui naudokite santrumpas."
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "Temos pavadinimo ilgis negali būti ilgesnis nei 255 simboliai."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "Temos pavadinimo vieno žodžio ilgis negali būti ilgesnis nei {0} simbolių. Siūlymas: trumpinimui naudokite santrumpas."
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "Pridėti failus į šį postą? "
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "\r\n      Stebėti šią temą ir gauti pranešimus apie veiklą, per e-\r\n\r\n      mail?\r\n    "
           },
@@ -12328,10 +11072,6 @@
             "#text": "TIKSLAS"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "Susisiekite su {0} per AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "\"Atom Feed"
           },
@@ -12352,24 +11092,12 @@
             "#text": "Aplankykite {0}'s Blog"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "Neturite leidimo peržiūrėti / atsisiųsti priedų."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "You [b]cannot[/b] view/download attachments. Try register."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Pasirinkta "
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "Uždaryti"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "Ištrinti šį pranešimą? "
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12424,10 +11152,6 @@
             "#text": "\"Facebook\""
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "Apsilankykite {0}\"Facebook\" profilyje"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "Forumas Peršokti "
           },
@@ -12444,28 +11168,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "Aplankykite {0}'s Homepage"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} pridedamas šią nuotrauką (-ai): "
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "Atsisiųsti vaizdą"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Spustelėkite, jei norite peržiūrėti paveikslėlį"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} Peržiūrėti (-os)"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "Vaizdas"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12510,10 +11218,6 @@
           {
             "@tag": "LOCATION",
             "#text": "Vieta "
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "Tvarkyti žinutę"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12584,10 +11288,6 @@
             "#text": "(Apklausa baigtos) "
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "Skelbti atsakymą "
-          },
-          {
             "@tag": "POSTED",
             "#text": "Išsiųsta "
           },
@@ -12612,18 +11312,6 @@
             "#text": "Greitas atsakymas "
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "Slėpti Greitas atsakymas "
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "Rodyti Greitas atsakymas "
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "Citata Pasirinkta žinutė"
-          },
-          {
             "@tag": "RANK",
             "#text": "Rangas "
           },
@@ -12632,16 +11320,8 @@
             "#text": "Sėkmingai pašalinote -1 reputaciją į {0}."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "Ačiū už jūsų balsavimą!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "Sėkmingai suteikėte +1 reputaciją {0}."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "Dėkojame, kad pranešėte apie šį pranešimą."
           },
           {
             "@tag": "REPORTPOST",
@@ -12656,14 +11336,6 @@
             "#text": "Reputacija"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweetinkite šią temą"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "RSS "
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12676,19 +11348,7 @@
             "#text": "Panašios temos"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "Statistika "
-          },
-          {
             "@tag": "THANKSFROM",
-            "#text": "Ačiū: {0} kartų"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "Ačiū: {0} kartų"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
             "#text": "Ačiū: {0} kartų"
           },
           {
@@ -12698,34 +11358,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "1 naudotojas padėkojo {0} už šį naudingą pranešimą."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "Buvo padėkota: {0} kartą(-ų) {1} pranešime(-uose)"
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "Ištrinti šią temą "
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "Užrakinti šią temą "
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "Perkelti šią temą "
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "Pradėti naują temą "
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Skelbti atsakymą "
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "Atrakinti šią temą "
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12764,20 +11396,8 @@
             "#text": "Iš viso"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "Dalytis Tumblr"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Nebestebėti šią temą "
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "Moteris"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "Žmogus"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12800,10 +11420,6 @@
             "#text": "Vaizdas "
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "Pakeiskite temos rodinį į įprastą arba temos rodinį."
-          },
-          {
             "@tag": "VOTES",
             "#text": "Balsavimas "
           },
@@ -12820,10 +11436,6 @@
             "#text": "Šis forumas uždarytas. "
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "\r\n      Jums reikia prisijungti, jei norite siųsti privačių\r\n\r\n      žinučių.\r\n    "
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "Apklausa baigta. "
           },
@@ -12832,20 +11444,8 @@
             "#text": "Ši tema uždaryta. "
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "\r\n      Jūs turite būti prisiregistravęs stebėti\r\n\r\n      temomis.\r\n    "
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "Stebėti šią temą "
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "Susisiekite su {0} per \"Jabber"
           }
         ]
       },
@@ -12879,10 +11479,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "Apie "
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "Redaguoti naudotoją"
           },
@@ -12905,14 +11501,6 @@
           {
             "@tag": "CITY",
             "#text": "Miestas:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "Kontaktas "
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "Šalis"
           },
           {
             "@tag": "DAYS",
@@ -12941,10 +11529,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "\"Facebook\" profilis:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "Prieiga prie forumo"
           },
           {
             "@tag": "GENDER",
@@ -12991,20 +11575,8 @@
             "#text": "minučių "
           },
           {
-            "@tag": "MODERATION",
-            "#text": "Moderavimas"
-          },
-          {
             "@tag": "MONTH",
             "#text": "mėnuo"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "{0:N2}% visų komentarų "
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} pranešimų per dieną "
           },
           {
             "@tag": "NUMPOSTS",
@@ -13049,14 +11621,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Peržiūrėti visas naudotojo žinutes"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "Socialinė žiniasklaida"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "Statistika "
           },
           {
             "@tag": "SUSPEND",
@@ -13107,18 +11671,6 @@
             "#text": "Vartotojo vardas: "
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "Weblog: "
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "Home Page: "
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP pavadinimas:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "Metai"
           }
@@ -13134,10 +11686,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "Jūsų paskyra dar nepatvirtinta, nes nepatvirtinote savo el. pašto. Naujas el. pašto patvirtinimas buvo išsiųstas į {0}. Patvirtinkite, kad galėtumėte prisijungti."
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "Bandymas gauti slaptažodį buvo nesėkmingas."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13568,16 +12116,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]Jūsų paskyra sėkmingai sukurta.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "\r\n      Jūsų vardas arba elektroninio pašto adresas jau\r\n\r\n      užregistruotas.\r\n    "
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13586,14 +12126,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "Jūs įvedėte nelegalios el. "
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "Pasirinkite sudėtingesnį slaptažodį, kuriame būtų skyrybos ženklų (!?) arba skaičių."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "Sąskaita"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13606,10 +12138,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "Tęsti"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "Sukurti naudotoją"
           },
           {
             "@tag": "DETAILS",
@@ -13628,22 +12156,6 @@
             "#text": "Pradžia "
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "Pasirinkite kitą atsakymą."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "Pasirinkite kitą rodomąjį vardą."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "Pasirinkite kitą klausimą."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "Pasirinkite kitą vartotojo vardą."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "Vieta "
           },
@@ -13652,20 +12164,8 @@
             "#text": "Jau užsiregistravote? Spustelėkite Prisijungti, kad prisijungtumėte prie savo paskyros."
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "Reikalingas saugumo atsakymas."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "Reikia rodyti vardą."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "E-mail is required."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "Slaptažodžiai nesutapo. "
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13704,24 +12204,12 @@
             "#text": "Silpnas slaptažodis, pabandykite naudoti skaičius ir didžiąsias raides."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "Forumo parinktys "
-          },
-          {
             "@tag": "PROFILE",
             "#text": "Informacija apie profilio "
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "Jūs klystate! Pabandykite dar kartą."
-          },
-          {
             "@tag": "REGISTER",
             "#text": "Registruotis "
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "Registruokitės su {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13730,18 +12218,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Pakartokite slaptažodį "
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Saugumas Atsakymas"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Saugumo klausimas"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "Taisyklės ir sąlygos"
           },
           {
             "@tag": "TIMEZONE",
@@ -13758,10 +12234,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Vartotojo vardas "
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "Vartotojo vardą turi sudaryti ne daugiau kaip {0} simbolių."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13842,10 +12314,6 @@
             "#text": "Atšaukti"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Atšaukti pranešimo ataskaitą"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Enter report text here."
           },
@@ -13864,14 +12332,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "Paskelbė:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "Žymos ataskaitose neleidžiamos."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "Žyma [{0}] ataskaitose neleidžiama."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13936,10 +12396,6 @@
             "#text": "Išvalyti formatavimą "
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "Formatuotas "
-          },
-          {
             "@tag": "IMAGE",
             "#text": "Pridėti nuotrauką "
           },
@@ -13964,10 +12420,6 @@
             "#text": "Normalus "
           },
           {
-            "@tag": "ORDERED",
-            "#text": "Užsakytas sąrašas "
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "Outdent "
           },
@@ -13976,20 +12428,8 @@
             "#text": "Lygiuoti dešinėje "
           },
           {
-            "@tag": "SPELL",
-            "#text": "Rašybos tikrinimas "
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "Nėra neteisingai parašytų žodžių."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "Pabrauktas "
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "Suženklintą sąrašą "
           }
         ]
       },
@@ -14018,10 +12458,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "Visi forumai "
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "Ieškoti "
           },
@@ -14032,10 +12468,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "Raktinis (-iai) žodis (-iai)"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "Įkeliami paieškos rezultatai..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14088,14 +12520,6 @@
           {
             "@tag": "RESULTS",
             "#text": "Rezultatai "
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "Paieškos tekstai turi būti trumpesni nei {0} simbolių ir atitikti forumo paieškos taisykles (daugiau informacijos rasite forumo DUK)."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "Paieškos tekstai turi būti bent {0} simbolių ilgio ir atitikti forumo paieškos taisykles (daugiau informacijos rasite forumo DUK)."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14435,16 +12859,8 @@
             "#text": "Active Discussions "
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "Rodomas aktyvių temų puslapis."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "Administratorius "
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "Rodoma administratoriaus rodyklė."
           },
           {
             "@tag": "BUDDIES",
@@ -14479,20 +12895,12 @@
             "#text": "Šeimininkas"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "Rodomos Hostsettings."
-          },
-          {
             "@tag": "INBOX",
             "#text": "Mano gauto pašto dėžutė"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "Rodo Gautųjų privačių pranešimų dėžutę."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "Prisijungęs kaip: {0} "
           },
           {
             "@tag": "LOGIN",
@@ -14547,10 +12955,6 @@
             "#text": "Rodomas Albumų puslapis, kuriame rodomi visi jūsų albumai."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "Mano pranešimai"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "Rodo jūsų neperskaitytas gautas padėkas, paminėjimus ir citatas."
           },
@@ -14565,10 +12969,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "Mano nustatymai"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Redaguokite naudotojo duomenis ir nustatymus."
           },
           {
             "@tag": "MYTOPICS",
@@ -14615,14 +13015,6 @@
             "#text": "Rodomas komandos puslapis, kuriame rodomi visi moderatoriai ir administratoriai."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Yra {0} temų su neperskaitytomis žinutėmis"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "Sveiki, Svečias "
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "Norite prisijungti prie diskusijos?!"
           },
@@ -14652,20 +13044,12 @@
             "#text": "iš {0} "
           },
           {
-            "@tag": "CREATED",
-            "#text": "Sukurta "
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forumas"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "Vartotojai Peržiūri šį forumą "
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[Go to Page: {0}] "
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14734,10 +13118,6 @@
           {
             "@tag": "REPLIES",
             "#text": "Atsakymai "
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "Rss feed "
           },
           {
             "@tag": "SEARCH_FORUM",

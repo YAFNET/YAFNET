@@ -11,10 +11,6 @@
             "#text": "Sizin Faaliyetiniz"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arşiv"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "Arkadaş olmak"
           },
@@ -119,10 +115,6 @@
             "#text": "Abonelikler"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "Yalnızca okunmamış Etkinliği göster"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "Profili Görüntüle"
           },
@@ -171,10 +163,6 @@
             "#text": "Bildirimleriniz"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "Görüntülenecek İsminiz:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "Kullanıcı adınız:"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Yeni Şifreyi Onayla"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "Parola ve Onay Parolası eşleşmelidir."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "E-Posta"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "IP Adresi"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "Katıldım"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "Yönetim Kurulu Konumu"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "İsim"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "E-posta Doğrulamasını Yeniden Gönder"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "Yönetim"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": " - Tüm Kurullar -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "Kullanıcı tarayıcısı (lar)"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "Bu Kullanıcıyı Onaylıyor musunuz?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "Ülke"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d} ({1:N0} gün önce)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "Doğrulama Postası Kullanıcıya tekrar gönderildi."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "Günler için geçerli bir tamsayı değeri girmelisiniz."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "Yeni Versiyonu Çıktı!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "İndirmeler sayfasına git"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "Yeni Adres Ekle"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Yasaklayan"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "Sıralama düzeni için 0 ila 32767 arasında bir sayı değeri girmelisiniz."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sıralama düzeni değeri 0 ila 32767 arasında pozitif bir tamsayı olmalıdır."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "OnClick JS:"
           },
@@ -1928,14 +1868,6 @@
             "#text": "Bir Kurul logosu seçin"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Mobil Tema:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "Bu panoda kullanılacak mobil tema."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "Kurul Adı:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "Kaydet"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "Daha Fazla Veri Göstermek İçin Tabloyu Sola Kaydırın"
-          },
-          {
             "@tag": "YES",
             "#text": "Evet"
           }
@@ -2044,18 +1972,6 @@
           {
             "@tag": "DELETE_FORUM",
             "#text": "Forumu Sil"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Forum Silme ve Konu Taşıma"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Lütfen silme işlemi devam ederken bu sayfadan uzaklaşmayın..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "Forum Silme"
           },
           {
             "@tag": "HEADER1",
@@ -2103,14 +2019,6 @@
             "#text": "Pano Ayarlarınızda Değiştirin."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "Sindirmek:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Bu yönetici hesabı ve seçili tema için Digest oluşturun. (Aslında bir e-posta istemcisinde bu şekilde görünmeyebilir)."
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "Son Özet Gönderimi:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "Özet görevinin en son ne zaman (sunucu saatine göre) çalıştırıldığı.>"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "Gönderme Yöntemi:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Teste Gönderilen Sistem Türü."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "Asla"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "Özet Göndermeye Zorla"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "Özet Oluştur"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "Alanın gerekli olup olmayacağını tanımlayın"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "Yeni Kaydet"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "Sıralama düzeni için 0 ila 32767 arasında bir sayı değeri girmelisiniz."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "Sıralama Düzeni değeri 0 ila 32767 arasında pozitif bir tamsayı olmalıdır."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "Yeni Süper Kullanıcı Bilgileri"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Üyelik Başvuru Adı:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Sağlayıcı için gerekli uygulama adı, boş web.config'de ApplicationName kullanacaktır."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "Ana bilgisayar yöneticisinin e-posta adresini girmelisiniz."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Kurulun adı."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Güvenlik Cevabı:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "Güvenlik sorusunun cevabı."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Güvenlik Sorusu:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "Kayıp şifrenizi geri almanız gerektiğinde size sorulacak soru."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "Bu e-posta adresi için bir kullanıcı adı zaten mevcut. Lütfen farklı bir e-posta adresi girin."
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "Kullanıcı adı zaten mevcut. Lütfen farklı bir kullanıcı adı girin."
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "Verilen parola alma yanıtı geçersiz. Lütfen değeri kontrol edin ve tekrar deneyin."
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "Verilen e-posta adresi geçersiz. Lütfen değeri kontrol edin ve tekrar deneyin."
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "Sağlanan kullanıcı adı geçersiz. Lütfen değeri kontrol edin ve tekrar deneyin."
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "Sağlanan şifre geçersiz. Lütfen geçerli bir parola değeri girin."
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "Sağlanan parola alma sorusu geçersiz. Lütfen değeri kontrol edin ve tekrar deneyin."
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "Kimlik doğrulama sağlayıcısı bir hata döndürdü. Lütfen girişinizi doğrulayın ve tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun."
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "Sıralama düzeni için geçersiz değer girildi: bir sayı girilmelidir."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sıralama Düzeni değeri 0 ila 32767 arasında pozitif bir tamsayı olmalıdır."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "Kategori adı alanı için bir değer girilmelidir."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "Erişim Maskesi"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "Kategori:"
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "Kullanıcının okuma erişimi olmadığında forumun gizleneceği anlamına gelir."
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "İlk Erişim Maskesi:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "Tüm forumlar için ilk erişim maskesi."
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "Böyle bir isme sahip bir forum zaten mevcut."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "Forum için bir ilk erişim maskesi seçmelisiniz."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "Geçersiz bir URL adresi girdiniz."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "Forum için bir isim girmelisiniz."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Forum cannot be parent of self."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sıralama düzeni değeri 0 ila 32767 arasında pozitif bir tamsayı olmalıdır."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "Bu işaretlenirse, tüm yeni kullanıcılar bu rolün bir üyesi olacaktır. <br /><span style=\"color:red\">[b]Uyarı:[/b] en az bir Grupta bu Onay kutusunun etkinleştirilmiş olması gerekir, aksi takdirde yeni kullanıcılar kayıt olamaz[/b]</span>."
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "Kullanıcı albümlerinin sayısı için tam sayı değeri girmelisiniz."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "Öncelik için tam sayı değeri girmelisiniz."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "Bir Rol adı girmeniz gerekir."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "Kullanıcı imzasındaki karakter sayısı için tam sayı değeri girmelisiniz."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "Tüm albümlerdeki toplam resim sayısı için tam sayı değeri girmelisiniz."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "Pmessage numarası için tamsayı değeri girmelisiniz."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "Mesajlar:"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "Max. Grup üyelerine izin verilen Özel Mesajlar."
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "Kullanıcıların bu madalyayı gizlemesine izin verileceği/verilmeyeceği anlamına gelir."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "Yeniden Siparişe İzin Ver:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Kullanıcıların bu madalyanın sırasını değiştirmesine izin verileceği/verilmeyeceği anlamına gelir."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "Şerit Çubuğuna İzin Ver:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Bu madalyanın şerit çubuğunda sergilenmesine izin verileceği/verilmeyeceği anlamına gelir."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Madalyayı bu gruptan çıkaralım mı?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Bu kullanıcıdan madalya kaldırılsın mı?"
           },
@@ -3143,20 +2895,12 @@
             "#text": "Bir Kullanıcı Adı girin veya Kullanıcı Listesinden bir Kullanıcı seçmek için \"Kullanıcıları Bul \"a tıklayın"
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "Belirsiz kullanıcı adı belirtildi!"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "Madalya resmi belirtilmelidir!"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "Bir madalya adı girmelisiniz!"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "Küçük madalya resmi belirtilmelidir!"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "Madalya Resmi Seçin"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Madalya Kullanıcı Profilinde gösterilecektir"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "Kullanıcılar bu rütbeye yükseltilmeden önce minimum gönderi sayısı."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Sıralama Önceliği küçük tamsayı olmalıdır."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "Bir rütbe adı tanımlamalısınız."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Özel mesajlar:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Max. Rütbe üyelerine izin verilen Özel Mesajlar."
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "Buraya bir rol tanımı girin."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Rütbe Resmi:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "Bu resim, bu rütbedeki kullanıcıların yanında gösterilecektir."
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "Kullanıcının Kullanıcı Adını Yasaklayın?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "Kullanıcı Başarıyla Bot Olarak Rapor Edildi"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "Kullanıcıya yeni şifresiyle ilgili bir bildirim e-postası mı gönderiyorsunuz?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "Şifreyi Onayla:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "Yeni şifreyi onaylayın."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "Güncel Puanlar:"
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "Kullanıcı Yumuşak Silinmiştir."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "Şifre Onayı Girmelisiniz"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "Yeni Şifre Girmelisiniz"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "Kullanıcı Grupları"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "Kullanıcı Puanları"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "Kullanıcı Parolasını Sıfırlama/Değiştirme"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "IP Adresleri:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "Kullanıcı Öldür"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "Kullanıcı tarafından yapılan tüm Gönderileri denetleme"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "Misafir kullanıcı Onaylandı olarak işaretlenmelidir, aksi takdirde forumunuz kararsız hale gelecektir."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "Kullanıcı Şifresi Değiştirildi"
           },
@@ -3481,24 +3165,8 @@
             "#text": "Kullanıcı Şifresi Değiştirildi ve Bildirim E-postası Gönderildi."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "Kullanıcı Şifre Sıfırlama ve Bildirim E-postası Gönderildi"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "Kullanıcı {0} Öldürüldü!"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "Opsiyonel:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "Parolayı Manuel Olarak Değiştirme ve İsteğe Bağlı Olarak Yeni Parolayı Kullanıcıya E-posta ile Gönderme"
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "Şifre Sıfırlama ve Yeni Şifreyi Kullanıcıya E-posta ile Gönderme"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "Kullanıcıyı StopForumSpam.com'a BOT olarak bildirin"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "Kullanıcı Adı, E-posta Adresi ve IP Adresini StopForumSpam.com'a BOT olarak bildirin?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "Bu kategoriyi silelim mi?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "POZİTİF misiniz?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "Emin misin? Bu adım geri döndürülemez!"
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Bu Rol Silinsin mi?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "Rol Silme"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "Kültür Etiketi"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "Dil İngilizce Adı"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "Dil Anadil Adı"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Çevrilmiş Kaynaklar"
           },
@@ -5787,6 +5435,10 @@
             "#text": "E-posta gönderimi YAF kurulumunuzdan çalışıyor gibi görünüyor."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Posta Testi"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "Başka Bir Forum.NET'ten Test E-postası"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Test e-postasının gönderileceği E-posta Adresini girin"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "Posta Testi"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "Kullanıcı kutusunda görüntüleneceği gibi madalya resmi."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "Şerit çubuğu görüntüsü, kullanıcı kutusunda görüntüleneceği gibi."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "Madalya yok"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Şu anda madalya yok. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Aşağı Hareket Et"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "İlerleyin"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "günler"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "Daha eski okunmuş mesajları sil:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "Profil Bilgileri"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "Forum Tercihleri"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "Kullanıcı {0} Başarıyla Oluşturuldu."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "Üyelik Hatası Kullanıcı Oluşturma: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "Küçültme işlemi Başarılı oldu Veritabanı boyutunuz şimdi: {0}MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "Veritabanı kurtarma modu başarıyla {0} olarak ayarlandı"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Bu operasyonda bir şeyler ters gitti. Bildirilen hata: {0}"
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "Herhangi bir veri değiştirme işleminde tablo parçalanması meydana gelebilir. Bu komut, performansı artırmak için veritabanındaki tüm tablolardaki tüm dizinleri yeniden oluşturmak için kullanılabilir."
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "Lütfen bu sayfadan uzaklaşmayın..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "Tabloları Güncelleme"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "Uygulamayı Boşaltmak için Yüksek/Kısıtlanmamış Güvene sahip olmalıdır. Yeniden Başlatma Başarısız."
-          },
-          {
             "@tag": "TITLE",
             "#text": "Uygulamayı Yeniden Başlat"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Mesajları Geri Yükleme ve Silme"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Silinmiş mesaj olarak işaretlenen mesajları geri yükleme veya veritabanından kalıcı olarak silme seçeneği."
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "SQL Sorgusu Çalıştır"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "Bir Sorgu girmeniz gerekir."
+            "@tag": "RESULT",
+            "#text": "Sonuç"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "Sorgu Çalıştır"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "İşlemde Çalıştır"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "SQL Kodunu Çalıştır"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "Sonuç"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "\"Spam\" Kelime (Bul) İfadesi:"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "Koşuyor"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "Görevi Durdur"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Görev Yöneticisi"
           }
@@ -6602,24 +6190,12 @@
             "#text": "Bu kullanıcıyı silelim mi?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "Emin misin?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "Ekran Adı"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "E-posta"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "E-posta İçerir:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "Tüm Kullanıcı(lar)ı CSV Olarak Dışa Aktar"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "Yalnızca askıya alınmış kullanıcıları göster?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "Tüm Üyelik Kullanıcılarını Senkronize Et"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "Tüm Kullanıcılar şimdi senkronize edildi"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "Başlığı Değiştir"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} Resim"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "Albümü görüntülemek için tıklayın"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "Albümler"
           },
@@ -7072,10 +6632,6 @@
             "#text": "Ekteki dosyayı Sil?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "Lütfen tüm Yükleme(ler) tamamlanana ve İletişim Kutusu kendi kendine kapanana kadar bekleyin!"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ek(ler)i siliyor musunuz?"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} Ek(ler) silindi!"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "Yasaklanan uzantılar"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "Dosya Boyutu"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "Yükleme(ler)i başlat"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Ekteki Dosyalar"
           },
           {
             "@tag": "UPLOAD",
             "#text": "Yükle"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "Yeni Dosya(lar) Yükle"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Bir Avatar seçmeden Avatarı Değiştir Sayfasına Geri Dönün."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "Profil Güncelle"
           },
           {
             "@tag": "TITLE",
             "#text": "Avatarlar"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "Ana Klasöre gidin."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "Arkadaş Olarak Ekle"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(Arkadaş Onayı Bekliyor)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "Tüm arkadaşlık isteklerini onayla"
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "Tüm arkadaşlık istekleri onaylandı ve listeye eklendi."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "Şu kadar günden eski olan tüm arkadaşlık istekleri reddedildi: 14"
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "{0} Arkadaş listesine eklisin."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "Arkadaşlık isteği kaldırıldı."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "Bekleyen {0} arkadaşlık isteğin var."
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7651,88 +7171,16 @@
             "#text": "Yeni şifreyi onaylayın:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "Lütfen Güncel Şifrenizi Girin"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "Şifre için onay gerekli."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "Yeni şifre gerekli."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "Eski şifre gerekli."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "Yeni Şifre:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "Yeni şifreler uyuşmuyor."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "Eski Şifre:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "Yeni şifreniz en az {0} karakter olmalı."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "Şifre yanlış ya da yeni şifre hatalı."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "Harf veya Sayı olmayan (0-9 a-z harici) {1} karakter gerekmektedir."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "Yeni Şifre eskisinden farklı olmalıdır."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "Yeni Güvenlik Cevabı:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Geçerli Şifre:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "Şifre Soru ve Cevap değiştirildi."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Değişiklik başarısız oldu. Lütfen değerlerinizi yeniden girin ve tekrar deneyin."
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "Yeni Güvenlik Sorusu:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Eski Güvenlik Sorusu:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Şifre Değiştir"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "Güvenlik Soru ve Cevaplarını Değiştirin"
           }
         ]
       },
@@ -7757,14 +7205,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Albüm Resmi Ekle..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "İzin verildi"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Mevcut bir Eki ekleyin veya yeni bir Dosya yükleyin..."
           },
@@ -7777,36 +7217,16 @@
             "#text": "Kullanıcı adı noktalı virgül içeremez(;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "Kod:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Alıntı:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "İlk Gönderen: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Alıntılanan Gönderiye Git"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} yazılan:"
           },
           {
-            "@tag": "BROWSE",
-            "#text": "Gözat"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "İptal"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "E-Posta adresi değişimi"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7857,10 +7277,6 @@
             "#text": "Kimlikli konu: {0} Silindi"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "İzin Verilmedi"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "İndir"
           },
@@ -7869,16 +7285,8 @@
             "#text": "Düzenle"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} E-Posta onayı"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 Giriş"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 Girişler"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7895,10 +7303,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 Giriş"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Harici Kullanıcı)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7961,20 +7365,12 @@
             "#text": "İlk sayfa"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Son sayfaya git"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "Sonraki Sayfa"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "Sayfaya Git..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Mesaja git"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7985,28 +7381,12 @@
             "#text": "Gizli"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Girdi verileriniz HTML etiketleri içermemelidir."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Girdi verileriniz yasaklanmış {0} HTML etiketi içeriyor."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "Forum'da: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "Daha Fazla Kategori ve Forum Göster..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "Yükleniyor..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Yönetmek"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8023,18 +7403,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "Mesaj"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Tam Siteyi Görüntüle"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Mobil Siteyi Görüntüle"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Bildirim"
           },
           {
             "@tag": "MODERATOR",
@@ -8133,14 +7501,6 @@
             "#text": "Okuyun"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "E-Posta Gönderildi. Mesaj Kutunuzu Kontrol Ediniz ve e-Posta içindeki Bağlantıyı Klikleyiniz."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "Kayıt Olduğunuda Belirttiğiniz e-Posta Adresine bir e-Posta Gönderilecektir. Foruma Girebilmeniz İçin Mesaj Kutunuzu Kontrol Ediniz ve e-Posta içindeki Bağlantıyı Klikleyiniz."
-          },
-          {
             "@tag": "REPLY",
             "#text": "Yanıtla"
           },
@@ -8163,10 +7523,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "Sayfa Boyutu Seçimi"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Göster/Gizle"
           },
           {
             "@tag": "SUBMIT",
@@ -8197,20 +7553,12 @@
             "#text": "Kod"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "Sözdizimi Vurgulama için Dil Seçme"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "Seçilen metni kopyalayın (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "Link Oluştur"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Daha fazla BBCode Tagı"
           },
           {
             "@tag": "TT_CUT",
@@ -8309,40 +7657,12 @@
             "#text": "URL girin:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Okunmamış {0} Mention'ınız var, en yenisine gitmek ister misiniz?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Biri Bir Konu Başlığında Sizden Bahsetti"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "Mesaj Kutunuzda {0} Okunmamış Mesaj Bulunmaktadır."
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "Yeni Özel Mesaj(lar)"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "Gelen Kutunuzda {0} okunmamış mesaj(lar)ınız var. Şimdi Gelen Kutunuza gitmek ister misiniz?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Okunmamış {0} alıntılanmış Mesajınız var, en yenisine gitmek ister misiniz?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Birisi Bir Konu Başlığında Sizden Alıntı Yaptı"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "{0} okunmamış alıcınız var Teşekkürler, en yenisine gitmek ister misiniz?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Biri Mesajınız İçin Size Teşekkür Etti"
           },
           {
             "@tag": "UPDATE",
@@ -8355,10 +7675,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "Kullanıcı Adı veya Görüntülenen Kullanıcı Adı {0} karakterden fazla olmalıdır."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Kategori görüntüle"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9408,18 +8724,6 @@
             "#text": "Son {0:N0} dakika"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "Alfabe filtresi"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "Aktif konuları Atom ile takip edin."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "Atom akışına kayıt olun."
-          },
-          {
             "@tag": "BY",
             "#text": "{0} tarafından "
           },
@@ -9432,12 +8736,12 @@
             "#text": "Forum"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "Son mesaja git"
+            "@tag": "FORUMS",
+            "#text": "Forumlar"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Go to first unread"
+            "@tag": "GO_LAST_POST",
+            "#text": "Son mesaja git"
           },
           {
             "@tag": "IN",
@@ -9454,18 +8758,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "Son Mesaj"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "Son Konular"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "Ana Forum Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "Ana Forum RSS"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9492,6 +8784,10 @@
             "#text": "Son {0} Günde En Aktif Kullanıcılar"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "En Yeni Üye"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(İzniniz Yok)"
           },
@@ -9516,56 +8812,28 @@
             "#text": "Son Kullanıcılar"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "Sadece Okunmamış Konuları Göster."
-          },
-          {
             "@tag": "STATS",
             "#text": "İstatistikler"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "Son Üyemiz:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "Son Mesaj {0} tarihinde yazılmıştır. Üye Adı:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": " {0:N0} Kayıtlı Üyemiz Bulunmaktadır."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "{2:N0} Forumun, {1:N0} Konusu altında toplam {0:N0} Mesaj bulunmaktdır."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "Anti Spam İstatistikleri"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Spam Gönderenler Kalıcı Olarak Yasaklandı"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Kalıcı Olarak Yasaklandı"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Spam Gönderenlerin Kaydı Reddedildi"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Reddedilen Kayıt"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "StopForumSpam.com'a gönderilen {0} Spam göndericisi"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "StopForumSpam.com'a bildirildi"
           },
           {
             "@tag": "TOPICS",
             "#text": "Konular"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "Mesaj Kutunuzda {0} Okunmamış Mesaj Bulunmaktadır."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "Mesaj Kutunuzda {0} Okunmamış Mesaj Bulunmaktadır."
           },
           {
             "@tag": "VIEWING",
@@ -9595,22 +8863,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "Bunu yapmak istediğinizden kesinlikle emin misiniz?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "Bu işlem hesabınızı kalıcı olarak silecektir! Tüm içeriğiniz silinecektir. Bundan sonra hesabınız geri yüklenemez"
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Hesabınızı Silin (kalıcı olarak)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "Foruma ara vermek istiyorsanız, bu işlem hesabınızı 30 gün süreyle askıya alacaktır. İçeriğiniz hala görünür durumda"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Hesabınızı 30 gün süreyle askıya alın"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9699,16 +8951,8 @@
             "#text": "{0} yorum"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "{0} tarafından"
-          },
-          {
             "@tag": "LINK",
             "#text": "Devamı"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "Yeni Konular"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9752,10 +8996,6 @@
             "#text": "Bu resimi silmek istiyor musunuz?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "Bu hesabınıza daha fazla albüm eklemeyezsiniz."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "Bu büyüklükteki resmi ekleyemezsiniz."
           },
@@ -9770,10 +9010,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "Bir başlık belirtmeniz gerekir."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9797,24 +9033,12 @@
             "#text": "Avatar"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "Şuanki Avatar"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "Avatarı Sil"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "Yeni Avatar Seçin"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "Uzak bilgisayardaki avatarın adresini girin (URL):"
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "Avatar Açıklama Yazısı"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9833,16 +9057,8 @@
             "#text": "Not: Eğer resim {0}x{1} pikselden geniş olursa, otomatik olarak boyutlandırılacaktır. Ve resmin boyutu {2}  KB 'ı geçemez."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Not: Eğer resim {0}x{1} pikselden büyük olursa, otomatik olarak boyutlandırılacaktır."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "Koleksiyonumuzdan avatar seçin:"
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "Avatar seçmek için tıklayın"
           },
           {
             "@tag": "TITLE",
@@ -9886,32 +9102,16 @@
             "#text": "AIM Adınız:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "Mesaj yazdığınız konulara cevap yazıldığında E-posta ile haber almak ister misiniz?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "Geçersiz bir e-posta adresi girdiniz."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "Facebook Profili olarak yanlış bir URL girdiniz."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "Ana sayfanız için geçersiz bir bağlantı adresi girdiniz."
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "MSN hesabınız için geçersiz bir e-posta adresi girdiniz."
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "Blogunuz için geçersiz bir bağlantı adresi girdiniz."
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "XMPP hesabınız için geçersiz bir ad girdiniz."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9932,10 +9132,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "Forumda görünecek isminiz:"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Saat değişimi uygulaması etkinleştirilsin mi?"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9982,10 +9178,6 @@
             "#text": "Nerede Yaşıyorsunuz"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": " {0} bu adrese bir E-Posta gönderildi.\\n\\n E-Posta adresiniz düzenlenilmeden önce size gelen E-Postadaki linki \\ntıklayarak adresinizi onaylamanız gerekmektedir. "
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "Hızlı mesajlaşma servisi"
           },
@@ -9996,10 +9188,6 @@
           {
             "@tag": "OTHER",
             "#text": "Diğer"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "Seçilen temayı etkinleştirmek istiyor musunuz?"
           },
           {
             "@tag": "REALNAME2",
@@ -10044,10 +9232,6 @@
           {
             "@tag": "WHERE",
             "#text": "Nerelisiniz?"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Jabber kimliğiniz:"
           }
         ]
       },
@@ -10071,10 +9255,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "Giriş Güvenlik Kodu"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "Kurulum kodu"
           },
@@ -10096,28 +9276,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Your  signature can contain any BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "Aşağıdaki BBCode'ları kullanabilirsiniz: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "İmzanız BBCodes içermemeli."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "İmzanız herhangi bir HTML etiketi içerebilir."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "Aşağıdaki HTML etiketlerini kullanabilirsiniz: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "İmzanız HTML etiketleri içermemelidir."
           },
           {
             "@tag": "SIGNATURE",
@@ -10128,20 +9288,8 @@
             "#text": "İmzanız {0} BBCode içeriyor."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "İmzanız {0} karakterden fazla olamaz."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "İmzanız çok uzun. {0} karakterden fazla olamaz."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "İmzanızı düzenleyemezsiniz, ancak tamamen silebilirsiniz."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "İmza İzinleri"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10206,10 +9354,6 @@
             "#text": "Bilgi"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "Sql Script Hatası"
-          },
-          {
             "@tag": "WARNING",
             "#text": "Uyarı"
           }
@@ -10255,10 +9399,6 @@
             "#text": "Bekleyen herhangi bir talebiniz yok"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "Tüm istekleri reddet."
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "Tüm istekleri onaylayın ve onları Arkadaş listenize de ekleyin?"
           },
@@ -10281,14 +9421,6 @@
           {
             "@tag": "POSTS",
             "#text": "Mesajlar"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "Arkadaşlık İsteği Tarihi:"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Your Friend List"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10610,10 +9742,6 @@
             "#text": "Duyurular"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "Duyurular (Yeni Duyurular)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "Forum Kilitli"
           },
@@ -10650,16 +9778,8 @@
             "#text": "Anket"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "Anket (Yeni Anketler)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "İşaretli"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "Yapışkan (Yeni Gönderiler)"
           }
         ]
       },
@@ -10704,18 +9824,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "Kullanıcı {0} kullanıyor. Kullanıcıyla iletişime geçmek için üyeliğiniz yok ise kayıt olmalısınız."
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "Kullanıcı aynı XMPP kullanıyor - Pidgin kullanarak iletişim kurabilirsiniz. Kullanıcının hesabı: {0}"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "Kendinizle konuşmak istediğinizden emin misiniz?"
-          },
           {
             "@tag": "TITLE",
             "#text": "XMPP Msn"
@@ -10782,10 +9890,6 @@
             "#text": "Erişim Engellendi"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "Çerezler gerekli"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "Bilgi"
           },
@@ -10835,40 +9939,16 @@
             "#text": "Şifreyi Doğrula"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Yeni kurul için bir açıklama girin"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "Yeni Kurulun adını girin"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "Şifreyi Yapılandır"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Bağlantı detayları"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "Mevcut Bağlantı Dizesini Seçin"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "SQL Server Veri Tabanı Bağlantı Dizesini Seçin:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "Bağlantı başarısız:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "Yeni Bağlantı Dizesi Oluştur"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "Bağlantı dizesi olarak kaydedilecek"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10891,10 +9971,6 @@
             "#text": "Misafir Kullanıcı Kültürü (Dil)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "Şimdiki versiyonu:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "Veritabanı"
           },
@@ -10907,64 +9983,8 @@
             "#text": "YAF.NET Veritabanı Bağlantısı"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "Veritabanı Adını Girin"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "Bu e-posta adresi için bir kullanıcı adı zaten var. Lütfen farklı bir e-posta adresi girin."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "Kullanıcı adı zaten var. Lütfen farklı bir kullanıcı adı girin."
-          },
-          {
             "@tag": "ERROR",
             "#text": "Hata"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "Yönetim Kurulu zaten yüklü."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "Bir Kurul adı girmelisiniz."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "Devam etmek için appSettings'i YAF.ConfigPassword Key ile güncellemelisiniz. NOT: Anahtar adı büyük / küçük harf duyarlıdır."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "Bir Kurulun e-posta adresini girmelisiniz."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "Bir şifre girmelisiniz."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "Yönetici Kullanıcısı Başarısız Oldu:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "Süper kullanıcı e-posta adresini girmelisiniz."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "Süper kullanıcı kullanıcı adını girmelisiniz,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "Mevcut kullanıcı adı geçersiz ve üyelik mağazasında mevcut bir kullanıcıyı temsil etmiyor."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "<strong> Yanlış şifreyi </strong> girdiniz!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "Mevcut DB Bağlantı Dizesini Kullan"
           },
           {
             "@tag": "FINISH",
@@ -11003,40 +10023,12 @@
             "#text": "Kurulum"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "Entegre Güvenliği Kullan"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "Sağlanan şifre alım cevabı geçersiz. Lütfen değeri kontrol edip tekrar deneyin."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "Sağlanan e-posta adresi geçersiz. Lütfen değeri kontrol edip tekrar deneyin."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "Sağlanan şifre geçersiz. Lütfen geçerli bir şifre değeri girin."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "Verilen şifre alma sorusu geçersiz. Lütfen değeri kontrol edip tekrar deneyin."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "Sağlanan kullanıcı adı geçersiz. Lütfen değeri kontrol edip tekrar deneyin."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "Posta (SMTP) Gönderme Testi"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "Adrese gönder olarak tanımlanan e-posta adresine bir test mesajı gönderir."
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "Yeni DB Bağlantı Dizesi Oluştur"
           },
           {
             "@tag": "NEXT",
@@ -11047,10 +10039,6 @@
             "#text": "\"İleri\" yi tıklamak, veritabanınızı en son sürüme başlatacaktır."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "Hazır olduğunuzda \"İleri\" yi tıklayın."
-          },
-          {
             "@tag": "NO",
             "#text": "YOK HAYIR"
           },
@@ -11059,108 +10047,28 @@
             "#text": "Not"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "Ayarlara Yazma Erişimi Yok"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "Yapılandırma dosyanızı, yazma izni olmadığından Veritabanı Bağlantısı'nı ayarlayacak şekilde değiştiremiyor."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "Veritabanı Bağlantı Dizelerine Yazma Erişimi Yok"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "Yapılandırma dosyanızı, yazma izni olmadığından Veritabanı Bağlantısı dizesini ayarlamak üzere değiştirilemiyor."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "Lütfen aç"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "Uygulama kök dizininde dosya ve <AppSettings> bölümünde aşağıdaki anahtarı ekleyin / güncelleyin:"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "Uygulama kök dizininde dosya ve <connectionStrings> bölümünde aşağıdaki anahtarı ekleyin / güncelleyin:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "Doğrulama şifrenizle aynı değil."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET, Kök Uygulama Rehberine Yazma Erişimine Sahiptir (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NET \"~ / Upload\" dizinine Yazma Erişimine Sahiptir ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "Önceki"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "Kimlik doğrulama sağlayıcısı bir hata döndürdü. Lütfen girişinizi doğrulayın ve tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "Güvenlik sorusunun cevabı"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "Kayıp şifrenizi almanız gerektiğinde size sorulacak soru"
           },
           {
             "@tag": "SETUP",
             "#text": "Kurmak"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "E-posta gönderimi YAF kurulumunuzdan çalışıyor gibi görünüyor."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "SMTP Test Detayları"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "Başka Bir Forumdan E-posta Testi"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "Mail gönderildi. Girdiğiniz e-posta adresinden alındığını doğrulayın."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "SQL şifresini girin"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "SQL Kullanıcı Adını Girin"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "Test bağlantısı"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "Smtp Ayarlarını Test Et"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "Test İzni"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "Test Ayarları"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "Veritabanı yapılandırmasını düzenlemek için \"Önceki\" düğmesini tıklayın."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11173,26 +10081,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "E-posta Adresine Girin"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "kontrolsüz"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "Kullanıcı oluşturma isteği iptal edildi. Lütfen girişinizi doğrulayın ve tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "İzinleri Doğrula"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "YetAnotherForum.NET Uygulama, .config dosyasına yazma erişimi olduğunda kurulum daha kolaydır.\r\n                        Dosyalar."
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "İzinlerin doğru olup olmadığını test etmek için aşağıya tıklayın. Onlar değilse, yapabilirsiniz\r\n                        hala kurulum sihirbazını kullanın."
           },
           {
             "@tag": "WELCOME",
@@ -11233,28 +10121,12 @@
             "#text": "E-postanızı doğrulamadığınız için hesabınız henüz onaylanmadı. Giriş yapabilmek için lütfen doğrulayın."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "{0} ile Giriş Yapın veya Kaydolun"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Beni Hatırla?"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "Kullanıcı adı ve E-Posta adresi girilmek zorunda."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock açık"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "E-posta Adresi"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "Yeni şifreiz E-Posta adresinize gönderildi."
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11285,16 +10157,8 @@
             "#text": "Şifreyi Kurtar"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "Yeni şifreniz oluşturulurken bir hata oluştu."
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Bunun yerine yeni Kullanıcı olarak kaydolun"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "Şifre Gönder"
           },
           {
             "@tag": "TITLE",
@@ -11313,16 +10177,8 @@
             "#text": "İki faktörlü doğrulama"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "Kullanıcı Adı:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "Yanlış kullanıcı adı ya da E-Posta adresi."
           }
         ]
       },
@@ -11392,10 +10248,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "Üye Adı İçerir:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "Üye Arama"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11478,10 +10330,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Yönetmeye devam et:"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Şu Adreste Düzenlenen Mesaj"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11586,14 +10434,6 @@
             "#text": "Bu Konuyu Sil?"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "Bu kullanıcıyı silelim mi?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "Konunun linkini silmek istiyor musunuz? Bu konu tek başına silinemez."
-          },
-          {
             "@tag": "DELETED",
             "#text": "Konu Silindi."
           },
@@ -11652,10 +10492,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "Konuyu Başlatan"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "Konu linki silindi."
           },
           {
             "@tag": "TOPICS",
@@ -11742,10 +10578,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "Özel Mesaj ile cevap ver"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "SPAM olarak bildir"
           },
           {
             "@tag": "REPORTED",
@@ -11875,14 +10707,6 @@
             "#text": "{0} Tarafından "
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "Favori Konular"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "( Son 24 Saat )"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "Son Gün"
           },
@@ -11963,10 +10787,6 @@
             "#text": "Cevaplanmamış Konular"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Okunmamış Konular"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "Görüntüle"
           },
@@ -12030,14 +10850,6 @@
             "#text": "Bir anket sorusu girmelisiniz."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "Oy vermemeye ve sonuçları görmeye izin verin."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "Oylama ve sonuçları atlayabilirsiniz."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "Anketin süresi dolmadan sonuçları göremezsiniz."
           },
@@ -12054,10 +10866,6 @@
             "#text": "Bu anketin süresi bitti."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "Resim genişliği:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "Birçok seçenek için oylama yapılmasına izin verin"
           },
@@ -12066,20 +10874,12 @@
             "#text": "Birçok seçenek için oy kullanabilirsiniz."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "Misafirler oy kullanamaz. Giriş yapmayı veya kaydolmayı deneyin."
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "Oya Tıklayın"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Show who is voted"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Show who is voted."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12106,10 +10906,6 @@
             "#text": "Giymek"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "Anket Oluştur veya Güncelle"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Resim Yolu:"
           },
@@ -12120,18 +10916,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Anket Sorusu:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "Oy vermeden önce anket sonuçlarını göremezsiniz."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "Misafirler sonucu oylamadan göremezler. Lütfen kayıt olunuz."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "Sonuçlar gizli"
           },
           {
             "@tag": "POLLSAVE",
@@ -12159,18 +10943,6 @@
             "#text": "Bu konudan anketi kaldırmak istediğinizden emin misiniz?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "Blog Şifresi:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "Bloga göndermek mi?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Mesaj düzenleme/oluşturmayı iptal et"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "Açıklama:"
           },
@@ -12189,10 +10961,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Misafir Kullanıcı Adı 100 karakterden fazla olamaz."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "Bu konu soru ve cevap formatında mı?"
           },
           {
             "@tag": "LAST10",
@@ -12229,10 +10997,6 @@
           {
             "@tag": "POSTED",
             "#text": "Gönderildi:"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "Blogunuza mesaj gönderilirken bir sorun oluştu. Kimlik denetlemede bir sorun oluşmuş olabilir."
           },
           {
             "@tag": "PREVIEW",
@@ -12283,26 +11047,6 @@
             "#text": "Konuyla ilgili bir başlık zaten mevcut veya konu eklenecek kadar benzersiz değil."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "Konu açıklaması uzunluğu 255 karakterden fazla olamaz."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "Konu açıklaması tek kelime uzunluğu {0} karakterden fazla olamaz. Öneri: kısaltmak için kısaltmalar kullanın."
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "Konu adı uzunluğu 255 karakterden fazla olamaz."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "Konu adı tek kelime uzunluğu {0} karakterden fazla olamaz. Öneri: kısaltmak için kısaltmalar kullanın."
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "Bu mesaja dosya ekle?"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "Bu konuyu takip et ve bir aktivite olduğunda E-Posta ile uyar?"
           },
@@ -12328,10 +11072,6 @@
             "#text": "AMAÇ"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "AOL Instant Messenger üzerinden {0} ile iletişime geçin"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Atom Yayını"
           },
@@ -12352,24 +11092,12 @@
             "#text": "{0} adlı kullanıcının blogunu ziyaret edin"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "Ekleri görüntüleme/indirme izniniz yok."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "You [b]cannot[/b] view/download attachments. Try register."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Seçenek"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "Kapat"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "Bu Mesajı SİL?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12424,10 +11152,6 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "{0} adlı kullanıcının Facebook profilini ziyaret edin"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "Forumu Atla"
           },
@@ -12444,28 +11168,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "{0} adlı kullanıcının Ana Sayfasını ziyaret edin"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} ekli resim(ler):"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "Resimi İndir"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Görmek için tıklayınız"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} Görüntüleme"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "Resim"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12510,10 +11218,6 @@
           {
             "@tag": "LOCATION",
             "#text": "Konum"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "Mesaj Yönet"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12584,10 +11288,6 @@
             "#text": "(Anket kapatıldı)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "Cevap Gönder"
-          },
-          {
             "@tag": "POSTED",
             "#text": "Gönderildi"
           },
@@ -12612,18 +11312,6 @@
             "#text": "Hızlı Cevapla"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "Hızlı Cevabı Gizle"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "Hızlı Cevabı Göster"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "Seçilen Mesajdan Alıntı"
-          },
-          {
             "@tag": "RANK",
             "#text": "Sıralama"
           },
@@ -12632,16 +11320,8 @@
             "#text": "-1 İtibarı {0}'a başarıyla kaldırdınız."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "Oylarınız için teşekkürler!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "Başarılı bir şekilde {0}'a +1 İtibar verdiniz."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "Bu mesajı bildirdiğiniz için teşekkür ederiz."
           },
           {
             "@tag": "REPORTPOST",
@@ -12656,14 +11336,6 @@
             "#text": "İtibar"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Bu Konuyu Retweetleyin"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "RSS Yayını"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12676,20 +11348,8 @@
             "#text": "Benzer Konular"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "İstatistikler"
-          },
-          {
             "@tag": "THANKSFROM",
             "#text": "{0} Kere Teşekkür Etti."
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "Teşekkürler: {0} kez"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
-            "#text": "Teşekkürler: {0} kez"
           },
           {
             "@tag": "THANKSINFO",
@@ -12698,34 +11358,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "{0}: 1 Kişi mesajın için Teşekkür Etti."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "{1} Mesajına Toplam {0} Kere Teşekkür Edildi."
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "Bu Konuyu Sil"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "Bu Konuyu Kilitle"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "Bu Konuyu Taşı"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "Yeni Konu Aç"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Cevap Yaz"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "Kilidi Kaldır"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12764,20 +11396,8 @@
             "#text": "Toplam"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "Tumblr'da Paylaş"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Konuyu izlemeyi bırak"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "Bayan"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "Bay"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12800,10 +11420,6 @@
             "#text": "Göster"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "Konu Görünümünü Normal veya Konu Görünümü arasında değiştirin."
-          },
-          {
             "@tag": "VOTES",
             "#text": "Oylar"
           },
@@ -12820,10 +11436,6 @@
             "#text": "Forum Kilitli"
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "Özel mesaj göndermek için giriş yapmalısınız."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "Anket Kilitli"
           },
@@ -12832,20 +11444,8 @@
             "#text": "Konu Kilitli"
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "Konuları takip etmek içimn giriş yapmalısınız."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "Bu Konuyu İzle"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Xmpp"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "Jabber üzerinden {0} ile iletişime geçin"
           }
         ]
       },
@@ -12879,10 +11479,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "Hakkında"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "Yönetici"
           },
@@ -12905,14 +11501,6 @@
           {
             "@tag": "CITY",
             "#text": "Şehir:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "İletişim"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "Ülke"
           },
           {
             "@tag": "DAYS",
@@ -12941,10 +11529,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "Facebook Profili:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "Forum Erişimi"
           },
           {
             "@tag": "GENDER",
@@ -12991,20 +11575,8 @@
             "#text": "Dakika"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "Yönetim"
-          },
-          {
             "@tag": "MONTH",
             "#text": "ay"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "Bütün mesajların yüzde {0:N2}  "
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} Mesaj/Gün"
           },
           {
             "@tag": "NUMPOSTS",
@@ -13049,14 +11621,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Kullanıcının Tüm Mesajlarını Gör"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "Sosyal Medya"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "İstatistikler"
           },
           {
             "@tag": "SUSPEND",
@@ -13107,18 +11671,6 @@
             "#text": "Kullanıcı Adı:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "İnternet Günlüğü:"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "Bireysel İnternet Siteniz:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP Adı:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "Yıl(lar)"
           }
@@ -13134,10 +11686,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "E-Posta adresinizi onaylamadığınız için hesabınız aktive edilmedi. Yeni onay E-Postası {0} bu adrese gönderildi. Giriş yapabilmek için onaylayınız."
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "Şifrenizi geri alma işleminiz başarıya ulaşamadı."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13568,16 +12116,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]Hesabınız başarıyla oluşturuldu.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Hesabınız başarıyla oluşturuldu. Kaydınızın tamamlanması için E-Posta adresinizi onaylamanız gerekmekte. Onay için size gönderilen E-Postaki açıklamaları okuyunuz.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "Kullanıcı adınız veya e-posta adresinizle daha önce kayıt yapılmış."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13586,14 +12126,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "Girmiş olduğunuz e-posta adresi geçersiz."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "Lütfen daha karmaşık bir şifre seçiniz. (!-? 0-9) gibi karakter-sayı içeren şifre giriniz."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "Hesap"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13606,10 +12138,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "Devam"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "Kayıt Ol"
           },
           {
             "@tag": "DETAILS",
@@ -13628,22 +12156,6 @@
             "#text": "Ana Sayfa"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "Lütfen farklı bir cevap girin."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "Lütfen forumda görünecek isminizi değiştirin."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "Lütfen farklı bir soru girin."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "Lütfen farklı bir kullanıcı adı girin."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "Adres Bilgileriniz"
           },
@@ -13652,20 +12164,8 @@
             "#text": "Zaten Kaydoldunuz mu? Hesabınıza giriş yapmak için Oturum Aç'a tıklayın."
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "Hatırlatma sorusu cevabı gereklidir."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "Forumda görünecek isim zorunludur."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "E-Posta gereklidir."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "Şifreler uyuşmuyor."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13704,24 +12204,12 @@
             "#text": "Zayıf Şifre, sayı ve büyük harf kullanmayı deneyin."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "Forum Tercihleri"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "Profil Bilgileri"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "Hatalı Deneme! Tekrar deneyiniz."
-          },
-          {
             "@tag": "REGISTER",
             "#text": "Kayıt Ol"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "{0} ile kaydolun"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13730,18 +12218,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Şifreyi yeniden giriniz"
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Hatırlatma sorusu cevabı"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Hatırlatma sorusu"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "Kurallar ve Şartlar"
           },
           {
             "@tag": "TIMEZONE",
@@ -13758,10 +12234,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Kullanıcı Adı"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "Kullanıcı adınız {0} karakterden uzun olamaz."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13842,10 +12314,6 @@
             "#text": "İptal"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Mesaj Raporunu İptal Et"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Mesajınızı buraya yazın"
           },
@@ -13864,14 +12332,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "Yazan Üye:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "Raporlarda etiketlere izin verilmez."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "Raporlarda [{0}] etiketine izin verilmez."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13936,10 +12396,6 @@
             "#text": "Formatı Temizle"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "Formatlanmış"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "Resim Ekle"
           },
@@ -13964,10 +12420,6 @@
             "#text": "Normal"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "Düzenli Liste"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "Dışarıya Doğru"
           },
@@ -13976,20 +12428,8 @@
             "#text": "Sağa Doğru Ayarla"
           },
           {
-            "@tag": "SPELL",
-            "#text": "İmla Kontrol Et"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "Yanlış yazılmış kelime yoktur."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "Altını Çiz"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "Düzensiz Liste"
           }
         ]
       },
@@ -14018,10 +12458,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "Tüm Forumlar"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "Ara"
           },
@@ -14032,10 +12468,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "Anahtar Kelime(ler)"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "Arama Sonuçları Yükleniyor..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14088,14 +12520,6 @@
           {
             "@tag": "RESULTS",
             "#text": "Sonuçlar"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "Aranılacak kelime {0} harften uzun olamaz."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "Aranılacak kelime {0} harften kısa olamaz."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14435,16 +12859,8 @@
             "#text": "Aktif Konular"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "Aktif Konular Sayfasını gösterir."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "Yönetim Paneli"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "Yönetici Dizinini gösterir."
           },
           {
             "@tag": "BUDDIES",
@@ -14479,20 +12895,12 @@
             "#text": "Ev sahibi"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "Ana Bilgisayar ayarlarını gösterir."
-          },
-          {
             "@tag": "INBOX",
             "#text": "Gelen Kutum"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "Özel Mesajlar Gelen Kutusunu gösterir."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": " {0} Giriş yapıldı. Hoşgeldiniz: "
           },
           {
             "@tag": "LOGIN",
@@ -14547,10 +12955,6 @@
             "#text": "Tüm albümlerinizi gösteren Albümler Sayfasını gösterir."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "Bildirimlerim"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "Okunmamış Alınan Teşekkürlerinizi, Bahsetmelerinizi ve Alıntılarınızı gösterir."
           },
@@ -14565,10 +12969,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "Benim Ayarlarım"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Kullanıcı bilgilerinizi ve ayarlarınızı düzenleyin."
           },
           {
             "@tag": "MYTOPICS",
@@ -14615,14 +13015,6 @@
             "#text": "Tüm Moderatörleri ve Yöneticileri gösteren Ekip Sayfasını gösterir."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Okunmamış Mesajları olan {0} Konu(lar) var"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "Hoşgeldiniz"
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "Tartışmaya katılmak ister misin?!"
           },
@@ -14652,20 +13044,12 @@
             "#text": "{0} Tarafından "
           },
           {
-            "@tag": "CREATED",
-            "#text": "Yaratıldı"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "Bu forumdaki kulllanıcılar"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ Sayfaya Git: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14734,10 +13118,6 @@
           {
             "@tag": "REPLIES",
             "#text": "Cevaplar"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "Rss Yayını"
           },
           {
             "@tag": "SEARCH_FORUM",

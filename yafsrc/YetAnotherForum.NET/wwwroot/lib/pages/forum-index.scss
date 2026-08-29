@@ -1,6 +1,17 @@
 // Forum Index Page
 .page-Index {
 
+    .board-stats-panel-label {
+        font-size: .75rem;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        margin-bottom: .35rem;
+
+        i {
+            margin: 0 .35rem 0 0 !important;
+        }
+    }
+
     .index-toolbar {
         display: flex;
         align-items: center;

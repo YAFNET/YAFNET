@@ -11,10 +11,6 @@
             "#text": "Sinun toimintasi"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arkisto"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "Tulla ystäviksi"
           },
@@ -119,10 +115,6 @@
             "#text": "Seuratut aiheet"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "Näytä vain lukemattomat aktiviteetit"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "Näytä profiili"
           },
@@ -171,10 +163,6 @@
             "#text": "Ilmoituksesi"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "Näyttönimesi:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "Käyttäjätunnus:"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Vahvista uusi salasana"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "Salasanan ja vahvistussalasanan on vastattava toisiaan."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "Sähköposti"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "IP-osoite"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "Liittynyt"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "Hallituksen sijainti"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "Nimi"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "Lähetä sähköpostivarmennus uudelleen"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "Hallinto"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": " - Kaikki johtokunnat -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "Käyttäjän selain (t)"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "Hyväksy tämä käyttäjä?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "Maa"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d} ({1:N0} päivää sitten)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "Käyttäjälle lähetettiin uudelleen vahvistusposti."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "Päivien arvoksi on syötettävä kelvollinen kokonaislukuarvo."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "Uusi versio on saatavilla!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Siirry Lataukset-sivulle"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "Lisää uusi osoite"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Kielletty"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "Lajittelujärjestystä varten on annettava lukuarvo 0-32767."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Lajittelujärjestyksen arvon on oltava positiivinen kokonaisluku välillä 0-32767."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "Onclick JS:"
           },
@@ -1928,14 +1868,6 @@
             "#text": "Valitse hallituksen logo"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Mobiiliteema:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "Mobiiliteema, jota käytetään tällä foorumilla."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "Hallituksen nimi:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "Tallenna"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "Pyyhkäise taulukkoa vasemmalle paljastaaksesi lisää tietoja."
-          },
-          {
             "@tag": "YES",
             "#text": "Kyllä"
           }
@@ -2044,18 +1972,6 @@
           {
             "@tag": "DELETE_FORUM",
             "#text": "Poista foorumi"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Foorumin poistaminen ja aiheiden siirtäminen"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Älä siirry pois tältä sivulta, kun poisto on käynnissä..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "Foorumin poistaminen"
           },
           {
             "@tag": "HEADER1",
@@ -2103,14 +2019,6 @@
             "#text": "Muuta hallituksen asetuksia."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "Sulattaa:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Luo Digest tälle hallintatilille ja tällä hetkellä valitulle teemalle. (Ei välttämättä näytä tältä sähköpostiohjelmassa.)"
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "Viimeisin Digest-lähetys:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "Viimeisin kerta (palvelimen kellonajan perusteella), jolloin digest-tehtävä suoritettiin.>"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "Lähetä menetelmä:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Testattavaksi lähetettävän järjestelmän tyyppi."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "Ei koskaan"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "Pakota Digest-lähetys"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "Luo Digest"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "Määritä, onko kenttä pakollinen vai ei."
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "Tallenna uusi"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "Lajittelujärjestyksen arvoksi on annettava numeroarvo 0-32767."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "Lajittelujärjestyksen arvon on oltava positiivinen kokonaisluku välillä 0-32767."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "Uuden pääkäyttäjän tiedot"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Jäsenhakemus Nimi:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Sovelluksen nimi vaaditaan palveluntarjoajaa varten, tyhjä käyttää ApplicationNamea web.config-tiedostossa."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "Sinun on syötettävä isännän ylläpitäjän sähköpostiosoite."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Lautakunnan nimi."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Turvallisuus Vastaus:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "Vastaus turvallisuuskysymykseen."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Turvallisuuskysymys:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "Kysymys, joka sinulle esitetään, kun haluat palauttaa kadonneen salasanasi."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "Kyseisen sähköpostiosoitteen käyttäjätunnus on jo olemassa. Anna toinen sähköpostiosoite."
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "Käyttäjätunnus on jo olemassa. Kirjoita toinen käyttäjänimi."
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "Annettu vastaus salasanan hakuun on virheellinen. Tarkista arvo ja yritä uudelleen."
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "Annettu sähköpostiosoite on virheellinen. Tarkista arvo ja yritä uudelleen."
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "Annettu käyttäjänimi on virheellinen. Tarkista arvo ja yritä uudelleen."
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "Annettu salasana on virheellinen. Syötä kelvollinen salasana."
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "Annettu salasanan hakukysymys on virheellinen. Tarkista arvo ja yritä uudelleen."
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "Todentamispalvelun tarjoaja palautti virheen. Tarkista tietosi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan."
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "Lajittelujärjestykselle on annettu virheellinen arvo: on annettava numero."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Lajittelujärjestyksen arvon on oltava positiivinen kokonaisluku välillä 0-32767."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "Luokan nimi -kenttään on annettava arvo."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "Pääsymaski"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "Kategoria:"
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "Tarkoittaa, että foorumi piilotetaan, kun käyttäjällä ei ole lukuoikeuksia siihen."
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "Alkuperäinen käyttöoikeusmaski:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "Kaikkien foorumien alkuperäinen käyttöoikeusmaski."
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "Tällaisella nimellä varustettu foorumi on jo olemassa."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "Sinun on valittava foorumille alkuperäinen käyttöoikeusmaski."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "Syötit virheellisen Url-osoitteen."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "Sinun on annettava foorumille nimi."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Forum cannot be parent of self."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Lajittelujärjestyksen arvon on oltava positiivinen kokonaisluku välillä 0-32767."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "Jos tämä on valittuna, kaikki uudet käyttäjät ovat tämän roolin jäseniä. <br /><span style=\"color:red\">[b]Varoitus:[/b] ainakin yhden ryhmän on oltava valittuna tai uudet käyttäjät eivät voi rekisteröityä[/b]</span>."
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "Käyttäjäalbumien lukumäärälle on annettava kokonaislukuarvo."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "Prioriteetille on annettava kokonaislukuarvo."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "Sinun on annettava roolin nimi."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "Käyttäjän allekirjoituksen merkkien lukumäärälle on annettava kokonaislukuarvo."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "Kaikkien albumien kuvien kokonaislukumäärä on ilmoitettava kokonaislukuna."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "pmessage-numerolle on annettava kokonaislukuarvo."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "PViestit:"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "Max. Ryhmän jäsenille sallitut yksityiset viestit."
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "Tarkoittaa, että käyttäjät saavat/ei saa piilottaa tämän mitalin."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "Salli uudelleen tilaaminen:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Tarkoittaa, että käyttäjät saavat/ei saa muuttaa tämän mitalin järjestystä."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "Salli nauhapalkki:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Tarkoittaa, että tämän mitalin näyttäminen nauhapalkissa sallitaan/ei sallita."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Poista mitali tästä ryhmästä?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Poista mitali tältä käyttäjältä?"
           },
@@ -3143,20 +2895,12 @@
             "#text": "Kirjoita käyttäjänimi tai valitse käyttäjä käyttäjäluettelosta napsauttamalla \"Etsi käyttäjiä\"."
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "Määritetty moniselitteinen käyttäjänimi!"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "Mitalin kuva on määriteltävä!"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "Sinun on annettava mitalin nimi!"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "Pieni mitalin kuva on määriteltävä!"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "Valitse mitalin kuva"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Mitali näkyy käyttäjäprofiilissa"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "Viestien vähimmäismäärä, ennen kuin käyttäjä nousee tälle tasolle."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Sijoitus Prioriteetin tulisi olla pieni kokonaisluku."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "Sinun on määriteltävä arvojärjestyksen nimi."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Yksityisviestit:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Max. Yksityisviestit sallittu Rank-jäsenille."
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "Kirjoita tähän tehtävän kuvaus."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Sijoituskuva:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "Tämä kuva näytetään tämän tason käyttäjien vieressä."
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "Käyttäjän nimi Käyttäjän nimi?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "Käyttäjä raportoitu onnistuneesti Botiksi"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "Lähetä käyttäjälle sähköpostitse ilmoitus uudesta salasanasta?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "Vahvista salasana:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "Vahvista uusi salasana."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "Nykyiset pisteet:"
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "Käyttäjä on pehmeästi poistettu."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "Täytyy syöttää vahvistussalasana"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "Täytyy syöttää uusi salasana"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "Käyttäjäryhmät"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "Käyttäjäpisteet"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "Käyttäjän salasanan nollaaminen/muuttaminen"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "IP-osoitteet:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "Tapa käyttäjä"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "Maltillistaa kaikki käyttäjän tekemät viestit"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "Vieraskäyttäjän on oltava merkitty Hyväksytyksi, tai foorumisi on epävakaa."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "Käyttäjän salasana muutettu"
           },
@@ -3481,24 +3165,8 @@
             "#text": "Käyttäjän salasana muutettu ja ilmoitussähköposti lähetetty."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "Käyttäjän salasanan nollaus ja ilmoitussähköpostin lähettäminen"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "Käyttäjä {0} Tapettu!"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "Vaihtoehto:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "Vaihda salasana manuaalisesti ja lähetä uusi salasana käyttäjälle sähköpostitse."
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "Nollaa salasana ja lähetä uusi salasana käyttäjälle sähköpostitse"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "Ilmoita käyttäjä BOT:iksi StopForumSpam.com-sivustolle."
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "Ilmoita käyttäjän nimi, sähköpostiosoite ja IP-osoite StopForumSpam.com:lle BOT:na?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "Poistetaanko tämä luokka?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "Oletko POSITIIVINEN?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "Oletko varma? Tämä vaihe on peruuttamaton!"
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Poista tämä rooli?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "Poista rooli"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "Kulttuuri Tag"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "Kieli Englanninkielinen nimi"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "Kieli Äidinkieli Nimi"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Käännetyt resurssit"
           },
@@ -5787,6 +5435,10 @@
             "#text": "Sähköpostin lähettäminen näyttää toimivan YAF-asennuksestasi."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Postin testaus"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "Testaa sähköpostia vielä toisesta Forum.NET:stä"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Kirjoita sähköpostiosoite, johon testisähköposti lähetetään."
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "Postin testaus"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "Medal-kuva sellaisena kuin se näytetään käyttäjälaatikossa."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "Nauhapalkin kuva sellaisena kuin se näytetään käyttäjälaatikossa."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "Ei mitaleja"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Tällä hetkellä ei ole mitaleja. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Siirry alaspäin"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "Siirry ylöspäin"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "päivät"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "Poista luetut viestit, jotka ovat vanhempia kuin:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "Profiilin tiedot"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "Foorumin asetukset"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "Käyttäjä {0} luotu onnistuneesti."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "Jäsenyysvirhe Käyttäjän luominen: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "Shrink operation was Successful.Your database size is now: {MT."
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "Tietokannan palautustila asetettiin onnistuneesti arvoon {0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Jokin meni pieleen tässä operaatiossa. Raportoitu virhe on: {0}"
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "Kaikissa tietojen muutostoiminnoissa voi esiintyä taulukon pirstoutumista. Tätä komentoa voidaan käyttää kaikkien tietokannan taulujen kaikkien indeksien uudelleenrakentamiseen suorituskyvyn parantamiseksi."
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "Älä navigoi pois tältä sivulta..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "Taulukoiden päivittäminen"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "Hakemuksen purkamiseen on oltava korkea/rajoitukseton luottamus. Uudelleenkäynnistys epäonnistui."
-          },
-          {
             "@tag": "TITLE",
             "#text": "Käynnistä sovellus uudelleen"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Palauta ja poista viestejä"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Vaihtoehto palauttaa viestit, jotka on merkitty poistetuiksi viesteiksi, tai poistaa ne pysyvästi tietokannasta."
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "Suorita SQL-kysely"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "Sinun on annettava kysely."
+            "@tag": "RESULT",
+            "#text": "Tulos"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "Suorita kysely"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "Suorita tapahtuma"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "Suorita SQL-koodi"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "Tulos"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "\"Spam\" sana (Etsi) ilmaisu:"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "On käynnissä"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "Lopeta tehtävä"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Tehtävämies"
           }
@@ -6602,24 +6190,12 @@
             "#text": "Poista tämä käyttäjä?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "Oletko varma?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "Näytön nimi"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "Sähköposti"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "Sähköposti sisältää:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "Vie kaikki käyttäjät CSV-muodossa"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "Näytä vain keskeytetyt käyttäjät?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "Synkronoi kaikki jäsenyyden käyttäjät"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "Kaikki käyttäjät on nyt synkronoitu"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "Vaihda kuvateksti"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} Kuva(t)"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "Klikkaa nähdäksesi albumin"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "Albumit"
           },
@@ -7072,10 +6632,6 @@
             "#text": "Poista liitetiedosto?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "Odota, kunnes kaikki lataukset on suoritettu ja valintaikkuna sulkeutuu!"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Poista liitetiedosto(t)?"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} Liitetiedosto(t) poistettu!"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "Kielletyt tiedostotyypit"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "Koko"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "Aloita lataus(t)"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Liitetiedostot"
           },
           {
             "@tag": "UPLOAD",
             "#text": "Lataa"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "Lataa uusi(t) tiedosto(t)"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Palaa takaisin Muokkaa avataria -sivulle valitsematta avataria."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "Muokkaa profiilia"
           },
           {
             "@tag": "TITLE",
             "#text": "Avatarit"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "Siirry vanhempien kansioon."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "Lisää ystäväksi"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(Odottaa ystävän hyväksyntää)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "Kaikki ystäväpyynnöt hyväksytty."
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "Kaikki ystäväpyynnöt hyväksytään ja lisätään ystävälistallesi."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "Kaikki yli 14 päivää vanhat ystäväpyynnöt evätään."
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "Sinut on lisätty {0}:n ystävälistalle."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "Ystäväpyyntö poistettu."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "Sinulla on {0} vireillä olevaa ystäväpyyntöä (pyyntöjä)."
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7651,88 +7171,16 @@
             "#text": "Vahvista uusi salasana:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "Anna nykyinen salasanasi"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "Uusi Vahvista salasana vaaditaan."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "Uusi salasana vaaditaan."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "Vanha salasana vaaditaan."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "Uusi salasana:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "Uudet salasanat eivät täsmää."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "Vanha salasana:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "Uusi salasanan vähimmäispituus: {0}."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "Salasana virheellinen tai Uusi salasana virheellinen."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "Vaaditaan muita kuin aakkosnumeerisia merkkejä: {1}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "Uuden salasanan on oltava eri kuin vanhan."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "Uusi turvallisuus Vastaus:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Nykyinen salasana:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "Salasana Kysymys ja vastaus muutettu."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Muutos epäonnistui. Syötä arvot uudelleen ja yritä uudelleen."
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "Uusi turvallisuuskysymys:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Vanha turvallisuuskysymys:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Vaihda salasana"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "Change Security Kysymys ja vastaus"
           }
         ]
       },
@@ -7757,14 +7205,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Lisää albumin kuva..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "Sallittu"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Lisää olemassa oleva liite tai lataa uusi tiedosto..."
           },
@@ -7777,36 +7217,16 @@
             "#text": "Username cannot contain semi-colons (;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "Koodi:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Lainaus:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "Alun perin lähettänyt: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Siirry lainattuun viestiin"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} kirjoitti:"
           },
           {
-            "@tag": "BROWSE",
-            "#text": "Selaa"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Peruuta"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "Muutettu sähköpostiosoite"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7857,10 +7277,6 @@
             "#text": "Aihe ID: {0} Poistettu"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "Kielletty"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "Lataa"
           },
@@ -7869,16 +7285,8 @@
             "#text": "Muokkaa"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} Sähköpostivarmennus"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 Merkinnät"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 Merkinnät"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7895,10 +7303,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 merkintää"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Ulkoinen käyttäjä)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7961,20 +7365,12 @@
             "#text": "Ensimmäinen sivu"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Siirry viimeiselle sivulle"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "Seuraava sivu"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "Siirry sivulle..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Siirry viestiin"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7985,28 +7381,12 @@
             "#text": "Piilotettu"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Syöttötiedot eivät saa sisältää HTML-tageja."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Syöttötietosi sisältävät kielletyn {0} HTML-tagin."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "foorumissa: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "Näytä lisää Kategoriat & foorumit..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "Ladataan..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Hallitse"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8023,18 +7403,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "Viesti"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Näytä koko sivusto"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Näytä mobiilisivusto"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Ilmoitus"
           },
           {
             "@tag": "MODERATOR",
@@ -8133,14 +7501,6 @@
             "#text": "Lue"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "Posti on lähetetty. Tarkista postilaatikkosi ja klikkaa linkkiä viestissä."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "Rekisteröinnin yhteydessä lähetetään sähköpostia sinulle. Ennen kuin voit kirjautua sisään, tulee sinun varmistaa sähköpostin toimivuus seuraamalla postissa olevaa linkkiä."
-          },
-          {
             "@tag": "REPLY",
             "#text": "Vastaa"
           },
@@ -8163,10 +7523,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "Sivun kokoinen valinta"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Näytä/piilota"
           },
           {
             "@tag": "SUBMIT",
@@ -8197,20 +7553,12 @@
             "#text": "Koodi"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "Valitse kieli syntaksin korostusta varten"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "Kopioi valittu teksti (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "Luo linkki"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Lisää BBCode-tunnisteita"
           },
           {
             "@tag": "TT_CUT",
@@ -8309,40 +7657,12 @@
             "#text": "Syötä URL:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Sinulla on {0} lukematonta mainintaa, haluatko siirtyä uusimpaan?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Joku mainitsi sinut aiheessa"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "Sinulla on {0} lukematonta yksityisviestiä."
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "Uusi yksityisviesti(t)"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "Saapuneet-kansiossasi on {0} lukematonta viestiä. Haluatko siirtyä Saapuneet-kansioosi nyt?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Sinulla on {0} lukemattomia lainattuja viestejä, haluatko siirtyä uusimpaan?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Joku lainasi sinua aiheessa"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "Sinulla on {0} lukematonta vastaanotettua Kiitos, haluatko siirtyä uusimpaan?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Joku kiitti sinua viestistä"
           },
           {
             "@tag": "UPDATE",
@@ -8355,10 +7675,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "Käyttäjänimen tai näyttökäyttäjän nimen on oltava enemmän kuin {0} merkkiä."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Näytä luokka"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9408,18 +8724,6 @@
             "#text": "viimeiset {0:N0} minuuttia"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "Aakkossuodatin"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "Tilaa aktiivisia aiheita Atomin kautta."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "Tilaa foorumin Atom-syöte."
-          },
-          {
             "@tag": "BY",
             "#text": "kirjoitti {0}"
           },
@@ -9432,12 +8736,12 @@
             "#text": "Alue"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "Siirry viimeisimpään viestiin"
+            "@tag": "FORUMS",
+            "#text": "Foorumit"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Go to first unread"
+            "@tag": "GO_LAST_POST",
+            "#text": "Siirry viimeisimpään viestiin"
           },
           {
             "@tag": "IN",
@@ -9454,18 +8758,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "Viimeisin viesti"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "Viimeisimmät viestit"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "Pääfoorumi Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "Pääfoorumi RSS"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9492,6 +8784,10 @@
             "#text": "Aktiivisimmat käyttäjät viimeisen {0} päivän aikana"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "Uusin jäsen"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(Ei pääsyä)"
           },
@@ -9516,56 +8812,28 @@
             "#text": "Viimeaikaiset käyttäjät"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "Näytä vain lukemattomat aiheet."
-          },
-          {
             "@tag": "STATS",
             "#text": "Tilastotietoa"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "Uusin jäsen on:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "Viimeisin viesti {0} mennessä:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "Keskustelualueella on {0:N0} rekisteröitynyttä jäsentä."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "Keskustelualueella on {0:N0} viestiä, {1:N0} aihetta ja {2:N0} aluetta."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "Roskapostin torjunta tilastoja"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Roskapostittajat pysyvästi kielletty"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Pysyvästi kielletty"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Roskapostittajilta evätty rekisteröinti"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Rekisteröinti evätty"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Roskapostittajat toimitettu StopForumSpam.com-sivustolle."
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "Ilmoitettu StopForumSpam.comille"
           },
           {
             "@tag": "TOPICS",
             "#text": "Aiheita"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "Sinulla on {0} lukematonta yksityisviestiä."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "Sinulla on {0} lukematonta yksityisviestiä."
           },
           {
             "@tag": "VIEWING",
@@ -9595,22 +8863,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "Oletko aivan varma, että haluat tehdä tämän?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "Tämä poistaa tilisi pysyvästi! Kaikki sisältösi poistetaan. Tämän jälkeen tiliäsi ei voi palauttaa"
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Poista tilisi (pysyvästi)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "Jos haluat vain pitää tauon foorumista, tilisi suljetaan 30 päiväksi. Sisältösi on edelleen näkyvissä"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Keskeytä tilisi 30 päiväksi"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9699,16 +8951,8 @@
             "#text": "{0} kommentit"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "{0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "Lisää"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "Uudet aiheet"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9752,10 +8996,6 @@
             "#text": "Poista tämä kuva?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "Et voi enää lisätä albumeita tälle tilille."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "Et voi ladata niin suuria kuvia."
           },
@@ -9770,10 +9010,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "Sinun on määritettävä otsikko."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9797,24 +9033,12 @@
             "#text": "hahmo"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "Nykyinen avatar"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "Tyhjennä Avatar"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "Valitse uusi avatar"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "Syötä käytettävän etäpalvelimen avatarin URL-osoite:"
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "Avatarin selitysteksti"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9833,16 +9057,8 @@
             "#text": "Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "Valitse Avatar kokoelmastamme:"
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "Avoin galleria"
           },
           {
             "@tag": "TITLE",
@@ -9886,32 +9102,16 @@
             "#text": "AIM-nimesi:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "Tarkkaile jokaista aihetta, johon olet kirjoittanut viestin, ja vastaanota sähköposti-ilmoituksia kyseisten aiheiden aktiviteeteista?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "Annoit virheellisen sähköpostiosoitteen."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "Olet antanut väärän URL-osoitteen Facebook-profiiliksi."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "Annoit virheellisen osoitteen kotisivuille."
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "Annoit virheellisen sähköpostiosoitteen MSN -tiliin."
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "Annoit virheellisen osoitteen blogillesi."
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "Olet antanut XMPP-tilillesi virheellisen nimen."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9932,10 +9132,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "Minkä nimen haluat näyttää muille?"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Daylight Saving Time"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9982,10 +9178,6 @@
             "#text": "Paikka"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "Osoitteeseen {0} on lähetetty sähköposti.\\n\\nSinun pitää varmistaa sähköpostin toimivuus\\nseuraamalla linkkiä viestissä ennen kuin sähköpostisi vaihdetaan."
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "Pikaviestinpalvelut"
           },
@@ -9996,10 +9188,6 @@
           {
             "@tag": "OTHER",
             "#text": "Muut"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "Valitse eri foorumiteema:"
           },
           {
             "@tag": "REALNAME2",
@@ -10044,10 +9232,6 @@
           {
             "@tag": "WHERE",
             "#text": "Missä asut?"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Jabber-tunnuksesi:"
           }
         ]
       },
@@ -10071,10 +9255,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "Syötä suojauskoodi"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "Asennuskoodi"
           },
@@ -10096,28 +9276,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Your  signature can contain any BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "Voit käyttää seuraavia BBC-koodeja: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "Allekirjoituksesi ei saisi sisältää BBC-koodeja."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "Allekirjoituksesi voi sisältää minkä tahansa HTML-tunnisteen."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "Voit käyttää seuraavia HTML-tageja: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "Allekirjoituksesi ei saa sisältää HTML-tageja."
           },
           {
             "@tag": "SIGNATURE",
@@ -10128,20 +9288,8 @@
             "#text": "Allekirjoituksesi sisältää kiellettyä {0} BBCodea."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "Allekirjoituksessasi voi olla enintään {0} merkkiä."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "Allekirjoituksesi on liian pitkä. Siinä voi olla enintään {0} merkkiä."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "Et voi muokata allekirjoitustasi, mutta voit poistaa sen kokonaan."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "Allekirjoitusoikeudet"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10206,10 +9354,6 @@
             "#text": "Tiedot"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "Sql-skripti virhe"
-          },
-          {
             "@tag": "WARNING",
             "#text": "Varoitus"
           }
@@ -10255,10 +9399,6 @@
             "#text": "Sinulla ei ole vireillä olevia pyyntöjä"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "Hyväksytäänkö kaikki pyynnöt?"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "Hyväksytkö kaikki pyynnöt ja lisäät heidät myös ystävälistallesi?"
           },
@@ -10281,14 +9421,6 @@
           {
             "@tag": "POSTS",
             "#text": "Virat"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "Pyynnön päivämäärä"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Your Friend List"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10610,10 +9742,6 @@
             "#text": "Ilmoitus"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "Ilmoitus (uusia viestejä)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "Alue on lukittu"
           },
@@ -10650,16 +9778,8 @@
             "#text": "Äänestys"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "Äänestys (uusia viestejä)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "Tiedote"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "Sticky (Uudet viestit)"
           }
         ]
       },
@@ -10704,18 +9824,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "Käyttäjä käyttää palvelimia {0}. Voidaksesi viestiä hänelle sinun pitäisi rekisteröityä sinne, koska sinulla ei ole tiliä."
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "Käyttäjä käyttää samaa XMPP-palvelinta - voit muodostaa häneen yhteyden käyttämällä Pidginin kaltaista asiakasta. Hänen tilinsä on {0}"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "Oletko varma, että haluat puhua itsellesi?"
-          },
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
@@ -10782,10 +9890,6 @@
             "#text": "Pääsy evätty"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "Vaatii evästeet"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "Tiedot"
           },
@@ -10835,40 +9939,16 @@
             "#text": "Vahvista salasana"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Kirjoita kuvaus uudelle taululle"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "Kirjoita uuden hallituksen nimi"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "Määritä salasana"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Yhteyden yksityiskohdat"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "Valitse Nykyinen yhteysjono"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "Valitse SQL Server Database Connection String:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "Ei voida yhdistää:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "Luo uusi yhteysjono"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "Yhteysjono tallennetaan nimellä"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10891,10 +9971,6 @@
             "#text": "Vieraskäyttäjän kulttuuri (kieli)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "Nykyinen versio:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "Tietokanta"
           },
@@ -10907,64 +9983,8 @@
             "#text": "YAF.NET-tietokantayhteys"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "Kirjoita tietokannan nimi"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "Kyseisen sähköpostiosoitteen käyttäjänimi on jo olemassa. Anna toinen sähköpostiosoite."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "Käyttäjätunnus on jo olemassa. Anna toinen käyttäjänimi."
-          },
-          {
             "@tag": "ERROR",
             "#text": "Virhe"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "Taulu on jo asennettu."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "Sinun on annettava hallituksen nimi."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "Jatka päivittämällä sovellusasetuksesi YAF.ConfigPassword-avaimella. HUOMAUTUS: Avaimen nimi on kirjainkoko."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "Sinun on annettava hallituksen sähköpostiosoite."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "Sinun on annettava salasana."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "Luo järjestelmänvalvojan käyttäjä epäonnistui:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "Sinun on annettava superkäyttäjän sähköpostiosoite."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "Sinun on annettava superkäyttäjänimi,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "Nykyinen käyttäjänimi on virheellinen, eikä se edusta nykyistä käyttäjää jäsenkaupassa."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "Annoit <strong> väärän salasanan </strong>!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "Käytä olemassa olevaa DB-yhteysjonoa"
           },
           {
             "@tag": "FINISH",
@@ -11003,40 +10023,12 @@
             "#text": "Asennus"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "Käytä integroitua suojausta"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "Antama vastaus salasanan hakuun on virheellinen. Tarkista arvo ja yritä uudelleen."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "Annettu sähköpostiosoite on virheellinen. Tarkista arvo ja yritä uudelleen."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "Annettu salasana on virheellinen. Anna kelvollinen salasanan arvo."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "Annettu salasananhakukysymys on virheellinen. Tarkista arvo ja yritä uudelleen."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "Annettu käyttäjänimi on virheellinen. Tarkista arvo ja yritä uudelleen."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "Postin (SMTP) lähetystesti"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "Lähettää testiviestin sähköpostiosoitteeseen, joka määritetään Lähetä osoitteeseen"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "Luo uusi DB-yhteysjono"
           },
           {
             "@tag": "NEXT",
@@ -11047,10 +10039,6 @@
             "#text": "Napsauttamalla \"Seuraava\" alustaa tietokanta uusimpaan versioon."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "Napsauta Seuraava, kun olet valmis."
-          },
-          {
             "@tag": "NO",
             "#text": "EI"
           },
@@ -11059,108 +10047,28 @@
             "#text": "Huomautus"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "Ei kirjoitusoikeutta asetuksiin"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "Konfigurointitiedostoa ei voi muokata asemaan tietokantayhteyttä, koska kirjoitusoikeutta ei ole."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "Ei kirjoitusoikeutta tietokantayhteysjonoihin"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "Konfigurointitiedostoa ei voi muokata määrittämään tietokantayhteysjonoa, koska kirjoitusoikeutta ei ole."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "Avaa"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "tiedosto sovelluksen juurikansioon ja lisää / päivitä seuraava avain & lt; AppSettings & gt; jakso:"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "tiedosto sovelluksen juurikansioon ja lisää / päivitä seuraava avain & lt; connectionStrings & gt; jakso:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "Vahvistus ei ole sama kuin salasanasi."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET on kirjoittanut pääsyn juurisovellushakemistoon (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NETillä on kirjoitusoikeus \"~ / Upload\" -hakemistoon ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "Edellinen"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "Todennustoimittaja palautti virheen. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "Vastaus turvallisuuskysymykseen"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "Kysymys, joka sinulta kysytään, kun sinun on haettava kadonneen salasanasi"
           },
           {
             "@tag": "SETUP",
             "#text": "Perustaa"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "Sähköpostin lähettäminen näyttää toimivan YAF-asennuksesi perusteella."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "SMTP-testitiedot"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "Testaa sähköpostia vielä yhdeltä foorumilta.NET"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "Posti lähetetty. Varmista, että se on vastaanotettu antamassasi sähköpostiosoitteessa."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "Kirjoita SQL-salasana"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "Kirjoita SQL-käyttäjänimi"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "Testaa yhteys"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "Testaa Smtp-asetukset"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "Testilupa"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "Testaa asetukset"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "Napsauta \"Edellinen\" -painiketta muokataksesi tietokannan määrityksiä."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11173,26 +10081,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "Kirjoita sähköpostiosoite"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "esteettä"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "Käyttäjän luomispyyntö on peruutettu. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "Vahvista käyttöoikeudet"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "YetAnotherForum.NET -sovelluksen asennus on helpompaa, kun sovelluksella on kirjoitusoikeus .config-tiedostoon\r\n                        tiedostot."
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "Napsauta alla testataksesi oikeudet oikein. Jos he eivät ole, voit\r\n                        käytä edelleen ohjattua asennusta."
           },
           {
             "@tag": "WELCOME",
@@ -11233,28 +10121,12 @@
             "#text": "Tiliäsi ei ole vielä hyväksytty, koska et ole vahvistanut sähköpostiosoitettasi. Vahvista, jotta voit kirjautua sisään."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Kirjaudu sisään tai rekisteröidy {0}"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Kirjaudu automaattisesti:"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "Sekä käyttäjätunnus että sähköpostiosoite pitää antaa."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock on päällä"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "Sähköpostiosoite"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "Sähköpostiisi on lähetetty uusi salasana."
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11285,16 +10157,8 @@
             "#text": "Hukkunut salasana"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "Uuden salasanan luonnin yhteydessä tapahtui virhe."
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Rekisteröidy sen sijaan uutena käyttäjänä"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "Lähetä salasana"
           },
           {
             "@tag": "TITLE",
@@ -11313,16 +10177,8 @@
             "#text": "Kahden tekijän validointi"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "Käyttäjätunnus:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "Virheellinen käyttäjätunnus tai salasana."
           }
         ]
       },
@@ -11392,10 +10248,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "Jäsenen nimi sisältää:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "Etsi jäseniä"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11478,10 +10330,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Jatka maltillisesti"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Viesti Edited at"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11586,14 +10434,6 @@
             "#text": "Poista aihe?"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "Poista tämä käyttäjä?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "Poista aiheen linkki? Itse aihetta ei poisteta."
-          },
-          {
             "@tag": "DELETED",
             "#text": "Aihe poistettu."
           },
@@ -11652,10 +10492,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "Aloittaja"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "Aiheen linkki on poistettu."
           },
           {
             "@tag": "TOPICS",
@@ -11742,10 +10578,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "Vastaa yksityisviestillä osoitteeseen"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "Ilmoita roskapostina"
           },
           {
             "@tag": "REPORTED",
@@ -11875,14 +10707,6 @@
             "#text": "{0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "Aktiiviset aiheet"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "( Viimeiset 24 tuntia )"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "viimeinen päivä"
           },
@@ -11963,10 +10787,6 @@
             "#text": "Vastaamattomat aiheet"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Lukemattomat aiheet"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "Näkymät"
           },
@@ -12030,14 +10850,6 @@
             "#text": "Sinun on annettava kyselykysymys."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "Anna olla äänestämättä ja katso tulokset."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "Voit ohittaa äänestyksen ja tulokset."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "Et voi nähdä tuloksia ennen kyselyn päättymistä."
           },
@@ -12054,10 +10866,6 @@
             "#text": "The poll is expired."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "Kuvan leveys px:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "Salli äänestää monista vaihtoehdoista"
           },
@@ -12066,20 +10874,12 @@
             "#text": "Voit äänestää monia vaihtoehtoja."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "Vieraat eivät voi äänestää. Yritä kirjautua tai rekisteröityä."
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "Klikkaa äänestääksesi"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Show who is voted"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Show who is voted."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12106,10 +10906,6 @@
             "#text": "Ei"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "Luo tai muokkaa kyselyä"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Image path:"
           },
@@ -12120,18 +10916,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Äänestyskysymys:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "Et voi nähdä äänestystuloksia ennen äänestämistä."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "Vieraat eivät näe äänestyksen tuloksia ennen äänestämistä. Kokeile kirjautua tai rekisteröityä."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "Tulokset piilotettu"
           },
           {
             "@tag": "POLLSAVE",
@@ -12159,18 +10943,6 @@
             "#text": "Haluatko todella poistaa gallupin tästä aiheesta?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "Blogin salasana:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "Postitse blogiin?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Peruuta viestin muokkaus/luonti"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "Kuvaus:"
           },
@@ -12189,10 +10961,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Vieraan käyttäjänimi voi olla enintään 100 merkkiä."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "Onko tämä aihe kysymys- ja vastausmuotoinen?"
           },
           {
             "@tag": "LAST10",
@@ -12229,10 +10997,6 @@
           {
             "@tag": "POSTED",
             "#text": "Lähetetty:"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "Blogiisi lähettämisessä tapahtui virhe. Autentikointi on saattanut epäonnistua."
           },
           {
             "@tag": "PREVIEW",
@@ -12283,26 +11047,6 @@
             "#text": "Aihe on jo olemassa, tai aihe ei ole tarpeeksi ainutlaatuinen lisättäväksi."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "Aiheen kuvauksen pituus voi olla enintään 255 merkkiä."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "Aiheen kuvauksen yksittäisen sanan pituus voi olla enintään {0} merkkiä. Ehdotus: käytä lyhenteitä lyhentämiseen."
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "Aiheen nimen pituus voi olla enintään 255 merkkiä."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "Aiheen nimen yksittäisen sanan pituus voi olla enintään {0} merkkiä. Ehdotus: käytä lyhenteitä lyhentämiseen."
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "Liitä tiedostoja tähän viestiin?"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "Seuraa tätä aihetta ja vastaanota ilmoituksia aktiviteeteista sähköpostitse?"
           },
@@ -12328,10 +11072,6 @@
             "#text": "Tavoitella"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "Ota yhteyttä {0} AOL Instant Messengerin kautta"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Atom-syöte"
           },
@@ -12352,24 +11092,12 @@
             "#text": "Vieraile {0}:n blogissa"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "Sinulla ei ole lupaa katsella/ladata liitetiedostoja."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "You [b]cannot[/b] view/download attachments. Try register."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Vaihtoehto"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "Sulje"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "Poista tämä viesti?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12424,10 +11152,6 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "Vieraile {0}:n Facebook-profiilissa"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "Siirry alueelle "
           },
@@ -12444,28 +11168,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "Käy {0}:n kotisivulla"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} liitti seuraavat tiedostot:"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "Lataa kuva"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Klikkaa nähdäksesi kuvan"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} Näkymä(t)"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "Kuva"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12510,10 +11218,6 @@
           {
             "@tag": "LOCATION",
             "#text": "Paikka"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "Hallitse viestiä"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12584,10 +11288,6 @@
             "#text": "(Äänestys on suljettu)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "Lähetä vastaus"
-          },
-          {
             "@tag": "POSTED",
             "#text": "Lähetetty"
           },
@@ -12612,18 +11312,6 @@
             "#text": "Nopea vastaus"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "Piilota nopea vastaus"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "Näytä nopea vastaus"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "Lainaus valittu viesti"
-          },
-          {
             "@tag": "RANK",
             "#text": "Taso"
           },
@@ -12632,16 +11320,8 @@
             "#text": "Olet onnistuneesti poistanut -1 maineen {0}."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "Kiitos äänestämisestä!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "Olet onnistuneesti antanut +1 maineen {0}."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "Kiitos, että ilmoitit tästä viestistä."
           },
           {
             "@tag": "REPORTPOST",
@@ -12656,14 +11336,6 @@
             "#text": "Maine"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweettaa tämä aihe"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "RSS -syöte"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12676,19 +11348,7 @@
             "#text": "Samankaltaisia aiheita"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "Tietoa"
-          },
-          {
             "@tag": "THANKSFROM",
-            "#text": "Kiitos: {0} kertaa"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "Kiitos: {0} kertaa"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
             "#text": "Kiitos: {0} kertaa"
           },
           {
@@ -12698,34 +11358,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "1 käyttäjä kiitti {0} tästä hyödyllisestä viestistä."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "Kiitettiin: {0} kertaa {1} viestissä {1} (s)"
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "Poista tämä aihe"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "Lukitse tämä aihe"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "Siirrä tämä aihe"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "Lähetä uusi aihe"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Lähetä vastaus"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "Avaa tämän aiheen lukitus"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12764,20 +11396,8 @@
             "#text": "Yhteensä"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "Jaa Tumblrissa"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Lopeta aiheen seuranta"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "Nainen"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "Mies"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12800,10 +11420,6 @@
             "#text": "Näytä"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "Vaihda aiheen näkymää normaalin tai langanäkymän välillä."
-          },
-          {
             "@tag": "VOTES",
             "#text": "Ääniä"
           },
@@ -12820,10 +11436,6 @@
             "#text": "Alue on lukittu."
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "Sinun täytyy kirjautua lähettääksesi yksityisviestejä."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "Äänestys on suljettu."
           },
@@ -12832,20 +11444,8 @@
             "#text": "Aihe on lukittu."
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "Sinun pitää rekisteröityä seurataksesi aiheita."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "Seuraa tätä aihetta"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "Ota yhteyttä {0} Jabberin kautta"
           }
         ]
       },
@@ -12879,10 +11479,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "Tietoja"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "Muokkaa käyttäjää"
           },
@@ -12905,14 +11501,6 @@
           {
             "@tag": "CITY",
             "#text": "Kaupunki:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "Ota yhteyttä"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "Maa"
           },
           {
             "@tag": "DAYS",
@@ -12941,10 +11529,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "Facebook-profiili:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "Foorumin käyttöoikeus"
           },
           {
             "@tag": "GENDER",
@@ -12991,20 +11575,8 @@
             "#text": "minuuttia"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "Kohtuus"
-          },
-          {
             "@tag": "MONTH",
             "#text": "kuukausi"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "{0:N2}% kaikista viesteistä"
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} viestiä päivässä"
           },
           {
             "@tag": "NUMPOSTS",
@@ -13049,14 +11621,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Näytä kaikki käyttäjän Viestit"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "Sosiaalinen media"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "Tilastotietoa"
           },
           {
             "@tag": "SUSPEND",
@@ -13107,18 +11671,6 @@
             "#text": "Käyttäjätunnus:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "Blogi:"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "Kotisivut:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP-nimi:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "Vuosi(t)"
           }
@@ -13134,10 +11686,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "Tiliäsi ei ole vielä hyväksytty, koska et ole vahvistanut sähköpostiosoitettasi. Uusi sähköpostivarmennus on lähetetty osoitteeseen {0}. Vahvista, jotta voit kirjautua sisään."
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "Yritys hakea salasanasi ei onnistunut."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13568,16 +12116,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]Tilisi on luotu onnistuneesti.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "Käyttäjätunnuksesi tai sähköpostiosoitteesi löytyi jo rekisteröityneiden käyttäjien joukosta."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13586,14 +12126,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "Syötit virheellisen sähköpostiosoitteen."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "Valitse monimutkaisempi salasana, joka sisältää välimerkkejä (!?) tai numeroita."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "Tili"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13606,10 +12138,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "Jatka"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "Luo käyttäjä"
           },
           {
             "@tag": "DETAILS",
@@ -13628,22 +12156,6 @@
             "#text": "Kotisivut"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "Valitse toinen vastaus."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "Valitse toinen näyttönimi."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "Valitse toinen kysymys."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "Valitse toinen käyttäjätunnus."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "Paikka"
           },
@@ -13652,20 +12164,8 @@
             "#text": "Oletko jo rekisteröitynyt? Klikkaa Kirjaudu sisään kirjautuaksesi tilillesi."
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "Turvallisuusvastausta tarvitaan."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "Näyttönimi vaaditaan."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "E-mail is required."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "Salasanat eivät täsmää."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13704,24 +12204,12 @@
             "#text": "Heikko salasana, yritä käyttää numeroita ja isoja kirjaimia."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "Forumin asetukset"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "Profiilin tiedot"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "Olet väärässä! Yritä uudelleen."
-          },
-          {
             "@tag": "REGISTER",
             "#text": "Rekisteröidy"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "Rekisteröidy {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13730,18 +12218,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Varmista salasana"
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Turvallisuus Vastaus"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Turvallisuuskysymys"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "Ehdot ja edellytykset"
           },
           {
             "@tag": "TIMEZONE",
@@ -13758,10 +12234,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Käyttäjätunnus"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "Käyttäjänimi saa sisältää enintään {0} merkkiä."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13842,10 +12314,6 @@
             "#text": "Peruuta"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Peruuta viestin raportti"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Enter report text here."
           },
@@ -13864,14 +12332,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "Lähettäjä:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "Tunnisteet eivät ole sallittuja raporteissa."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "Tunniste [{0}] ei ole sallittu raporteissa."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13936,10 +12396,6 @@
             "#text": "Poista muotoilut"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "Muotoiltu"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "Lisää kuva"
           },
@@ -13964,10 +12420,6 @@
             "#text": "Normaali"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "Järjestetty lista"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "Ulonna"
           },
@@ -13976,20 +12428,8 @@
             "#text": "Asemoi oikealle"
           },
           {
-            "@tag": "SPELL",
-            "#text": "Tarkista oikeinkirjoitus"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "Väärin kirjoitettuja sanoja ei ole."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "Alleviivaa"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "Järjestämätön lista"
           }
         ]
       },
@@ -14018,10 +12458,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "Kaikki forumit"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "Etsi"
           },
@@ -14032,10 +12468,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "Avainsana(t)"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "Hakutulosten lataaminen..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14088,14 +12520,6 @@
           {
             "@tag": "RESULTS",
             "#text": "Tulokset"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "Hakutekstien on oltava alle {0} merkkiä pitkiä ja foorumin hakusääntöjen mukaisia (katso lisätietoja foorumin FAQ:sta)."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "Hakutekstien on oltava vähintään {0} merkkiä pitkiä ja foorumin hakusääntöjen mukaisia (katso lisätietoja foorumin FAQ:sta)."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14435,16 +12859,8 @@
             "#text": "Aktiiviset aiheet"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "Näyttää Aktiiviset aiheet -sivun."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "Hallinta"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "Näyttää ylläpitäjän indeksin."
           },
           {
             "@tag": "BUDDIES",
@@ -14479,20 +12895,12 @@
             "#text": "Isäntä"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "Näyttää Host-asetukset."
-          },
-          {
             "@tag": "INBOX",
             "#text": "Saapuneet"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "Näyttää yksityiset viestit Saapuneet."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "Käyttäjä: {0}"
           },
           {
             "@tag": "LOGIN",
@@ -14547,10 +12955,6 @@
             "#text": "Näyttää Albumit-sivun, jossa näkyvät kaikki albumisi."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "Ilmoitukset"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "Näyttää lukemattomat Vastaanotetut kiitokset, maininnat ja lainaukset."
           },
@@ -14565,10 +12969,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "Omat asetukset"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Muokkaa käyttäjätietojasi ja -asetuksiasi."
           },
           {
             "@tag": "MYTOPICS",
@@ -14615,14 +13015,6 @@
             "#text": "Näyttää tiimisivun, jossa näkyvät kaikki moderaattorit ja ylläpitäjät.."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "On {0} Aihe(et), joissa on lukemattomia viestejä."
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "Tervetuloa vieras"
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "Haluatko osallistua keskusteluun?!"
           },
@@ -14652,20 +13044,12 @@
             "#text": "kirjoittaja {0}"
           },
           {
-            "@tag": "CREATED",
-            "#text": "Luotu"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Foorumi"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "Käyttäjät lukemassa tätä aluetta"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ Siirry sivulle: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14734,10 +13118,6 @@
           {
             "@tag": "REPLIES",
             "#text": "Vastauksia"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "RSS -syöte"
           },
           {
             "@tag": "SEARCH_FORUM",

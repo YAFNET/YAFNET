@@ -11,10 +11,6 @@
             "#text": "您的活动"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "档案"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "成为朋友"
           },
@@ -119,10 +115,6 @@
             "#text": "订阅"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "仅显示未读活动"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "查看配置文件"
           },
@@ -171,10 +163,6 @@
             "#text": "您的通知"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "你的显示名:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "用户名"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "确认新密码"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "密码和确认密码必须匹配。"
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "电子邮件"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "IP地址"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "已加入"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "董事会位置"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "姓名"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "重新发送电子邮件验证"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "管理员"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": "- 所有董事会 -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "消费者浏览器"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "批准此用户？"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "国家"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d}（{1:N0} 天前）"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "验证邮件已再次发送给用户。"
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "您应该为天输入一个有效的整数值。"
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "一个新版本可用！"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "转到下载页面"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "添加新地址"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "操作人"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "您必须为排序顺序输入一个介于 0 到 32767 之间的数值。"
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "排序顺序值应为 0 到 32767 之间的正整数。"
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "OnClick JS："
           },
@@ -1928,14 +1868,6 @@
             "#text": "选择一个董事会标志"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "手机主题："
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "在此板上使用的移动主题。"
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "董事会名称："
           },
@@ -2025,10 +1957,6 @@
             "#text": "节省"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "向左滑动表格以显示更多数据"
-          },
-          {
             "@tag": "YES",
             "#text": "是的"
           }
@@ -2043,18 +1971,6 @@
           },
           {
             "@tag": "DELETE_FORUM",
-            "#text": "删除论坛"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "删除论坛和移动主题"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "请不要在删除过程中离开此页面..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
             "#text": "删除论坛"
           },
           {
@@ -2103,14 +2019,6 @@
             "#text": "更改您的董事会设置。"
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "消化："
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "为此管理员帐户和当前选定的主题生成摘要。 "
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "最后摘要发送："
           },
@@ -2119,24 +2027,12 @@
             "#text": "上次运行摘要任务的时间（基于服务器时间）。>"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "发送方法："
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "系统发送到测试的类型。"
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "绝不"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "强制摘要发送"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "生成摘要"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "定义该字段是否应该是必需的"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "保存新"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "您必须输入一个介于 0 到 32767 之间的数值来进行排序。"
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "排序顺序值应为 0 到 32767 之间的正整数。"
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "新的超级用户信息"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "会员申请名称："
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "提供者所需的应用程序名称，空白将使用 web.config 中的 ApplicationName。"
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "您必须输入主持人管理员的电子邮件地址。"
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "董事会的名称。"
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "安全答案："
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "安全问题的答案。"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "安全问题："
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "当您需要找回丢失的密码时会询问您的问题。"
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "该电子邮件地址的用户名已经存在。"
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "此用户名已存在。"
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "提供的密码找回答案无效。"
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "提供的电子邮件地址无效。"
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "提供的用户名无效。"
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "提供的密码无效。"
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "提供的密码找回问题无效。"
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "身份验证提供程序返回错误。"
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "为排序顺序输入的值无效：必须输入一个数字。"
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "排序顺序值应为 0 到 32767 之间的正整数。"
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "必须为类别名称字段输入一个值。"
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "访问掩码"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "类别："
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "意味着当用户没有读取权限时，该论坛将被隐藏。"
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "初始访问掩码："
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "所有论坛的初始访问掩码。"
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "已经存在具有这样名称的论坛。"
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "您必须为论坛选择一个初始访问掩码。"
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "您输入的 URL 地址无效。"
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "您必须输入论坛的名称。"
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Forum cannot be parent of self."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "排序顺序值应为 0 到 32767 之间的正整数。"
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "如果选中此项，所有新用户都将成为该角色的成员。 "
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "您应该为用户相册的数量输入整数值。"
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "您应该输入整数值作为优先级。"
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "您需要输入角色名称。"
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "您应该为用户签名中的字符数输入整数值。"
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "您应该为所有相册中的图像总数输入整数值。"
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "您应该为 pmessage 编号输入整数值。"
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "消息："
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "最大限度。"
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "表示允许/不允许用户隐藏此奖牌。"
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "允许重新排序："
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "表示允许/不允许用户更改此奖牌的顺序。"
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "允许功能区栏："
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "表示将允许/禁止此奖牌的丝带栏显示。"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "从此组中移除奖牌？"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "移除该用户的勋章？"
           },
@@ -3143,20 +2895,12 @@
             "#text": "输入用户名或单击“查找用户”从用户列表中选择用户"
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "指定的用户名不明确！"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "奖牌图片必须注明！"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "您必须输入奖牌名称！"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "小奖牌图片一定要注明！"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "选择奖牌图片"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "奖牌将显示在用户资料中"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "用户升级到此级别之前的最少帖子数。"
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Rank Priority 应该是小整数。"
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "您必须定义等级名称。"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "私人信息："
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "最大限度。"
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "在此处输入角色描述。"
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "排名图片："
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "此图像将显示在此等级的用户旁边。"
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "禁止用户的用户名？"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "用户成功报告为 Bot"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "通过电子邮件向用户发送新密码通知？"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "确认密码："
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "确认新密码。"
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "当前点："
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "用户被软删除。"
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "必须输入确认密码"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "必须输入新密码"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "用户组"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "用户积分"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "重置/更改用户密码"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "IP 地址："
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "杀死用户"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "审核用户发表的所有帖子"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "访客用户必须标记为已批准，否则您的论坛将不稳定。"
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "用户密码已更改"
           },
@@ -3481,24 +3165,8 @@
             "#text": "用户密码已更改并已发送通知电子邮件。"
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "已发送用户密码重置和通知电子邮件"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "用户 {0} 被杀！"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "选项："
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "手动更改密码并可选择通过电子邮件将新密码发送给用户"
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "重置密码并通过电子邮件将新密码发送给用户"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "将用户作为 BOT 报告给 StopForumSpam.com"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "将用户名、电子邮件地址和 IP 地址报告给 StopForumSpam.com 作为 BOT？"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "删除此类别？"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "你是积极的吗？"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "你确定吗？"
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "删除此角色？"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "删除角色"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "文化标签"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "语言英文名称"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "语言 本地名称"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "翻译资源"
           },
@@ -5787,6 +5435,10 @@
             "#text": "电子邮件发送似乎在您的 YAF 安装中工作。"
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "邮件测试"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "测试来自另一个 Forum.NET 的电子邮件"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "输入应发送测试电子邮件的电子邮件地址"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "邮件测试"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "奖牌图像，因为它将显示在用户框中。"
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "功能区条图像，因为它将显示在用户框中。"
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "没有奖牌"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "目前没有奖牌。"
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "下移"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "提升"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "天"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "删除早于："
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "档案信息"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "论坛偏好"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "用户 {0} 创建成功。"
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "创建用户时出现成员错误：{0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "收缩操作成功。您的数据库大小现在是：{0}MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "数据库恢复模式已成功设置为 {0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "此操作出现问题。"
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "任何数据修改操作都可能发生表碎片。"
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "请不要离开此页面..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "更新表"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "必须具有高度/不受限制的信任才能卸载应用程序。"
-          },
-          {
             "@tag": "TITLE",
             "#text": "重启应用"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "恢复和删除消息"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "恢复标记为已删除消息的消息或从数据库中永久删除它们的选项。"
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "运行 SQL 查询"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "您需要输入一个查询。"
+            "@tag": "RESULT",
+            "#text": "结果"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "运行查询"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "运行在事务"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "运行 SQL 代码"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "结果"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "“垃圾邮件”字（查找）表达式："
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "在跑"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "停止任务"
-          },
-          {
             "@tag": "TITLE",
             "#text": "任务管理器"
           }
@@ -6602,24 +6190,12 @@
             "#text": "删除此用户？"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "你确定吗？"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "显示名称"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "电子邮件"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "电子邮件包含："
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "将所有用户导出为 CSV"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "只显示暂停的用户？"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "同步所有会员用户"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "现在所有用户都已同步"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "更改标题"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} 图片"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "点击查看相册"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "相册"
           },
@@ -7072,10 +6632,6 @@
             "#text": "删除此附件吗?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "请等到所有上传完成并且对话框自行关闭！"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "删除附件？"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} 个附件已删除！"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "不允许的文件类型"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "大小"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "开始上传"
-          },
-          {
             "@tag": "TITLE",
             "#text": "附件"
           },
           {
             "@tag": "UPLOAD",
             "#text": "上传"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "上传新文件"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "返回到修改头像页面而不选择头像。"
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "编辑配置"
           },
           {
             "@tag": "TITLE",
             "#text": "头像"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "上传目录."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "加为好友"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "（等待朋友认可）"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "所有好友请求均已获批准。"
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "所有好友请求均已获批准并添加到您的好友列表中。"
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "所有超过 14 天的好友请求均被拒绝。"
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "您已被添加到 {0} 的好友列表中。"
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "删除了朋友请求。"
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "您有 {0} 个待处理的好友请求"
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7651,88 +7171,16 @@
             "#text": "确认密码:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "请输入您的当前密码"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "确认新密码是必须的."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "新密码是必须的."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "旧密码是必须的."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "新密码:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "新密码不匹配."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "旧密码:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "密码最少长度: {0}."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "密码错误或新密码不合法."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "必须包含有非数字字符: {1}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "新密码不能和旧密码相同."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "新的安全答案："
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "当前密码："
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "密码问题和答案已更改。"
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "更改失败。"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "新的安全问题："
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "旧安全问题："
-          },
-          {
             "@tag": "TITLE",
             "#text": "修改密码"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "更改安全问题和答案"
           }
         ]
       },
@@ -7757,14 +7205,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "插入相册图像..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "允许"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "插入现有附件或上传新文件..."
           },
@@ -7777,36 +7217,16 @@
             "#text": "用户名不允许包含分号 (;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "代码:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "引用:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "最初发布者：{0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "转到引用帖子"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} 写道："
           },
           {
-            "@tag": "BROWSE",
-            "#text": "浏览"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "取消"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "更改的电子邮件"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7857,10 +7277,6 @@
             "#text": "ID 为 {0} 的主题已删除"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "已被禁止"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "下载"
           },
@@ -7869,16 +7285,8 @@
             "#text": "编辑"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} Email验证"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 个条目"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 个条目"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7895,10 +7303,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 个条目"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(外部用户)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7961,20 +7365,12 @@
             "#text": "第一页"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "末页"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "下页"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "转到..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "去留言"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7985,28 +7381,12 @@
             "#text": "隐藏"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "不允许包含 HTML 标签."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "包含有禁止的 {0} HTML 标签."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "在论坛中：{0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "显示更多类别和论坛..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "正在加载..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "管理"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8023,18 +7403,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "信息"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "查看电脑版"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "查看手机版"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "通知"
           },
           {
             "@tag": "MODERATOR",
@@ -8133,14 +7501,6 @@
             "#text": "读"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "邮件已经发出，请查收."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "注册后系统将发送邮件给您，您必须点击邮件中的连接后，才能登陆论坛."
-          },
-          {
             "@tag": "REPLY",
             "#text": "回复"
           },
@@ -8163,10 +7523,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "页面大小选择"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "显示/隐藏"
           },
           {
             "@tag": "SUBMIT",
@@ -8197,20 +7553,12 @@
             "#text": "代码"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "选择高亮语言"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "复制选定的文本（CTRL C）"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "创建链接"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "更多 BBCode 标签"
           },
           {
             "@tag": "TT_CUT",
@@ -8309,40 +7657,12 @@
             "#text": "输入URL："
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "您有 {0} 条未读的提及，您想看最新的吗？"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "有人在某个话题中提到了你"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "你有 {0} 条未读悄悄话."
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "新私信"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "您的收件箱中有 {0} 条未读邮件。"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "您有 {0} 条未读引用的帖子，您要转到最新的吗？"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "有人在某个话题中引用了你的话"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "您有 {0} 条未读已收到谢谢，您想看最新的吗？"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "有人感谢你的消息"
           },
           {
             "@tag": "UPDATE",
@@ -8355,10 +7675,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "用户名或显示名称必须大于 {0} 字符."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "查看分类"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9408,18 +8724,6 @@
             "#text": "最后 {0:N0} 分钟"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "字母过滤器"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "通过 Atom 订阅活跃主题。"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "订阅论坛 Atom 提要。"
-          },
-          {
             "@tag": "BY",
             "#text": "由 {0}"
           },
@@ -9432,12 +8736,12 @@
             "#text": "论坛"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "前往最新帖子"
+            "@tag": "FORUMS",
+            "#text": "Forums"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "转到第一条未读"
+            "@tag": "GO_LAST_POST",
+            "#text": "前往最新帖子"
           },
           {
             "@tag": "IN",
@@ -9454,18 +8758,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "最后发表"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "最后发表"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "主论坛 Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "主论坛 RSS"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9492,6 +8784,10 @@
             "#text": "过去 {0} 天内最活跃的用户"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "Newest Member"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "你没有访问这个论坛板块的权限."
           },
@@ -9516,56 +8812,28 @@
             "#text": "最近的用户"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "只看未读主题."
-          },
-          {
             "@tag": "STATS",
             "#text": "统计"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "最新会员:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "最后由 发表于 {0}:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "共有 {0:N0} 个注册会员."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "共有 {0:N0} 个帖子，{1:N0} 个话题，{2:N0} 个论坛."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "反垃圾邮件统计"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} 垃圾邮件发送者被永久禁止"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Permanently Banned"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} 垃圾邮件发送者被拒绝注册"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Denied Registration"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} 垃圾邮件发送者提交到 StopForumSpam.com"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "已报告给 StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
             "#text": "话题数量"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "您有 {0} 个未读悄悄话."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "您有 {0} 个未读悄悄话."
           },
           {
             "@tag": "VIEWING",
@@ -9595,22 +8863,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "你确定要这样做吗？"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "这将永久删除您的帐户！"
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "删除您的帐户（永久）"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "如果您只是想从论坛中休息一下，那么这将暂停您的帐户 30 天。"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "暂停您的帐户 30 天"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9699,16 +8951,8 @@
             "#text": "{0} 评论"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "由 {0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "更多"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "新主题"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9752,10 +8996,6 @@
             "#text": "删除此图片?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "此用户不能再创建相册了."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "您不能上传此大小的图片."
           },
@@ -9770,10 +9010,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "您需要指定一个标题。"
           },
           {
             "@tag": "SELECT_FILE",
@@ -9797,24 +9033,12 @@
             "#text": "头像"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "当前头像"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "清除头像"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "选择新头像"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "输入要使用的远程服务器上头像的 URL："
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "头像说明文字"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9833,16 +9057,8 @@
             "#text": "Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "从我们的收藏中选择您的头像："
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "打开画廊"
           },
           {
             "@tag": "TITLE",
@@ -9886,32 +9102,16 @@
             "#text": "您的目标名称："
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "观看您发表过帖子的每个主题并接收有关这些主题活动的电子邮件通知？"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "您输入了一个无效的电子邮件地址."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "您输入了错误的 URL 作为 Facebook 个人资料。"
           },
           {
             "@tag": "BAD_HOME",
             "#text": "您输入的主页地址无效。"
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "您为您的 MSN 帐户输入了无效的电子邮件地址。"
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "You have entered an invalid address for your weblog."
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "您输入的 XMPP 帐户名称无效。"
           },
           {
             "@tag": "BIRTHDAY",
@@ -9932,10 +9132,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "你想让别人看到什么名字？"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Daylight Saving Time"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9982,10 +9178,6 @@
             "#text": "位置"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "一封邮件已经发送到您的信箱 {0} 里.\\n\\n 您需要打开邮件，点击链接，以便校验您的电子邮件地址."
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "即时消息服务"
           },
@@ -9996,10 +9188,6 @@
           {
             "@tag": "OTHER",
             "#text": "其他"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "选择不同的论坛主题:"
           },
           {
             "@tag": "REALNAME2",
@@ -10044,10 +9232,6 @@
           {
             "@tag": "WHERE",
             "#text": "您住在哪里?"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "您的 Jabber ID："
           }
         ]
       },
@@ -10071,10 +9255,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "输入安全码"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "设置代码"
           },
@@ -10096,28 +9276,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "签名不允许包含 BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "你可以使用以下的 BBCodes: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "你的签名没包含有 BBCodes."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "你的签名可以包含任何HTML代码."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "你可以使用以下HTML标签: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "你的签名不能包含HTML标签."
           },
           {
             "@tag": "SIGNATURE",
@@ -10128,20 +9288,8 @@
             "#text": "你签名包含人禁止的 {0} BBCode."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "你的签名不能超过 {0} 字符."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "你的签名太长了，你的签名最大为 {0} 字符."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "你不能修改签名，但能删除掉。"
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "签名权限"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10206,10 +9354,6 @@
             "#text": "信息"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "SQL脚本错误"
-          },
-          {
             "@tag": "WARNING",
             "#text": "等待"
           }
@@ -10255,10 +9399,6 @@
             "#text": "您没有任何待处理的请求"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "批准所有请求？"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "批准所有请求并将它们也添加到您的朋友列表中？"
           },
@@ -10281,14 +9421,6 @@
           {
             "@tag": "POSTS",
             "#text": "帖子"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "查询日期"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Your Friend List"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10610,10 +9742,6 @@
             "#text": "公告"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "公告 (有新贴)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "论坛锁定"
           },
@@ -10650,16 +9778,8 @@
             "#text": "投票"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "投票 (有新贴)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "置顶"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "粘性（新帖子）"
           }
         ]
       },
@@ -10704,18 +9824,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "用户使用服务器 {0}。"
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "用户使用相同的 XMPP 服务器 - 您可以使用像 Pidgin 这样的客户端连接到他。"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "你确定要自言自语吗？"
-          },
           {
             "@tag": "TITLE",
             "#text": "XMPP 信使"
@@ -10782,10 +9890,6 @@
             "#text": "拒绝访问"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "需要 cookie"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "信息"
           },
@@ -10835,40 +9939,16 @@
             "#text": "验证密码"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "输入新董事会的描述"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "输入新董事会的名称"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "配置密码"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "连接细节"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "选择现有连接字符串"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "选择SQL Server数据库连接字符串："
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "连接失败："
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "创建新的连接字符串"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "连接字符串将保存为"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10891,10 +9971,6 @@
             "#text": "访客用户文化（语言）"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "当前版本："
-          },
-          {
             "@tag": "DATABASE",
             "#text": "数据库"
           },
@@ -10907,64 +9983,8 @@
             "#text": "YAF.NET数据库连接"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "输入数据库名称"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "该电子邮件地址的用户名已存在。请输入其他电子邮件地址。"
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "此用户名已存在。请输入其他用户名。"
-          },
-          {
             "@tag": "ERROR",
             "#text": "错误"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "主板已安装。"
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "您必须输入董事会名称。"
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "您必须使用YAF.ConfigPassword键更新您的appSettings才能继续。注意：密钥名称区分大小写。"
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "您必须输入董事会电子邮件地址。"
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "您必须输入密码。"
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "创建管理员用户失败："
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "您必须输入超级用户电子邮件地址。"
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "您必须输入超级用户用户名，"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "现有用户名无效，并且不代表成员资格存储中的当前用户。"
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "您输入了<strong>错误的密码</ strong>！"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "使用现有DB连接字符串"
           },
           {
             "@tag": "FINISH",
@@ -11003,40 +10023,12 @@
             "#text": "安装"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "使用集成安全性"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "提供的密码检索答案无效。请检查该值，然后重试。"
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "提供的电子邮件地址无效。请检查该值，然后重试。"
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "提供的密码无效。请输入有效的密码值。"
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "提供的密码检索问题无效。请检查该值，然后重试。"
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "提供的用户名无效。请检查该值，然后重试。"
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "邮件（SMTP）发送测试"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "将测试消息发送到定义为发送到地址的电子邮件地址"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "创建新的DB连接字符串"
           },
           {
             "@tag": "NEXT",
@@ -11047,10 +10039,6 @@
             "#text": "单击“下一步”将数据库初始化为最新版本。"
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "准备好后，单击“下一步”。"
-          },
-          {
             "@tag": "NO",
             "#text": "没有"
           },
@@ -11059,108 +10047,28 @@
             "#text": "注意"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "无设置写入权限"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "由于没有写入权限，无法修改配置文件以设置数据库连接。"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "没有对数据库连接字符串的写访问权限"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "由于没有写入权限，无法修改配置文件以设置数据库连接字符串。"
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "请打开"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "在应用程序根目录中的文件，并在＆lt; AppSettings＆gt;中添加/更新以下密钥部分："
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "在应用程序根目录中的文件，并在＆lt; connectionStrings＆gt;中添加/更新以下密钥部分："
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "验证与您的密码不同。"
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET具有对根应用程序目录的写访问权（“〜/”）..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NET具有对“〜/ Upload”目录的写入权限..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "以前"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "身份验证提供程序返回错误。请验证您的输入，然后重试。如果问题仍然存在，请与系统管理员联系。"
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "安全问题的答案"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "当您需要检索丢失的密码时，系统会询问您的问题"
           },
           {
             "@tag": "SETUP",
             "#text": "建立"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "电子邮件发送似乎正在您的YAF安装中运行。"
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "SMTP测试详细信息"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "从另一个Forum.NET测试电子邮件"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "邮件已发送。验证是否已在您输入的电子邮件地址中收到。"
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "输入SQL密码"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "输入SQL用户名"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "测试连接"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "测试Smtp设置"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "测试许可"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "测试设置"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "单击“上一步”按钮以编辑数据库配置。"
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11173,26 +10081,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "输入电子邮件地址"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "未选中"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "用户创建请求已被取消。请验证您的输入，然后重试。如果问题仍然存在，请与系统管理员联系。"
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "验证权限"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "当Application具有对.config的写入权限时，YetAnotherForum.NET安装更容易\r\n                        文件。"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "单击下方以测试权限是否正确。如果他们不是，你可以\r\n                        仍然使用安装向导。"
           },
           {
             "@tag": "WELCOME",
@@ -11233,28 +10121,12 @@
             "#text": "您的帐户尚未获得批准，因为您尚未验证您的电子邮件。"
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "使用 {0} 登录或注册"
-          },
-          {
             "@tag": "AUTO",
             "#text": "自动登录:"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "用户名和电子邮件地址必须输入."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "大写锁定已开启"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "电子邮件地址"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "一封电子邮件已经发送给您，里面有新的密码."
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11285,16 +10157,8 @@
             "#text": "恢复密码"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "创建新密码时出错."
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "改为注册为新用户"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "发送密码"
           },
           {
             "@tag": "TITLE",
@@ -11313,16 +10177,8 @@
             "#text": "两因素验证"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "请现在更改你的邮件地址!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "用户名:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "错误的用户名或电子邮件地址."
           }
         ]
       },
@@ -11392,10 +10248,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "成员名字包含:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "查找成员"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11478,10 +10330,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "继续适度"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "消息编辑于"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11586,14 +10434,6 @@
             "#text": "删除此话题？"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "删除此用户？"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "删除主题链接？"
-          },
-          {
             "@tag": "DELETED",
             "#text": "话题已删除."
           },
@@ -11652,10 +10492,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "话题发起人"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "主题链接被删除。"
           },
           {
             "@tag": "TOPICS",
@@ -11742,10 +10578,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "私信回复到"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "报告为垃圾邮件"
           },
           {
             "@tag": "REPORTED",
@@ -11875,14 +10707,6 @@
             "#text": "由 {0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "活动主题"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "( 近24小时 )"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "昨天"
           },
@@ -11963,10 +10787,6 @@
             "#text": "未回复主题"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "未读主题"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "查看次数"
           },
@@ -12030,14 +10850,6 @@
             "#text": "您必须输入一个投票问题。"
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "允许不投票并查看结果。"
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "您可以跳过投票和结果。"
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "在投票到期之前您看不到结果。"
           },
@@ -12054,10 +10866,6 @@
             "#text": "The poll is expired."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "以像素为单位的图像宽度："
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "允许为许多选择投票"
           },
@@ -12066,20 +10874,12 @@
             "#text": "您可以为许多选择投票。"
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "客人不能投票。"
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "点击投票"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Show who is voted"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Show who is voted."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12106,10 +10906,6 @@
             "#text": "大学教师"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "创建或编辑投票"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Image path:"
           },
@@ -12120,18 +10916,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "投票问题："
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "投票前您看不到投票结果。"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "客人在投票前看不到投票结果。"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "结果隐藏"
           },
           {
             "@tag": "POLLSAVE",
@@ -12159,18 +10943,6 @@
             "#text": "您真的要从此主题中删除投票吗？"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "博客密码："
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "发到博客？"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "取消消息编辑/创建"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "描述："
           },
@@ -12189,10 +10961,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "来宾用户名不能超过 100 个字符。"
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "这个话题是问答形式吗？"
           },
           {
             "@tag": "LAST10",
@@ -12229,10 +10997,6 @@
           {
             "@tag": "POSTED",
             "#text": "时间:"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "发布到您的博客时出错。"
           },
           {
             "@tag": "PREVIEW",
@@ -12283,26 +11047,6 @@
             "#text": "具有主题的主题已存在或主题不够独特，无法添加。"
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "主题描述长度不能超过 255 个字符。"
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "主题描述单个字长不能超过 {0} 个字符。"
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "主题名称长度不能超过 255 个字符。"
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "主题名称单字长度不能超过 {0} 个字符。"
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "将文件附加到此帖子？"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "观看此主题并通过电子邮件接收活动通知？"
           },
@@ -12328,10 +11072,6 @@
             "#text": "目标"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "通过 AOL Instant Messenger 联系 {0}"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "原子饲料"
           },
@@ -12352,24 +11092,12 @@
             "#text": "访问 {0} 的博客"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "您无权查看/下载附件。"
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "You [b]cannot[/b] view/download attachments. Try register."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "选择"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "关"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "删除这条信息?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12424,10 +11152,6 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "访问 {0} 的 Facebook 个人资料"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "论坛跳转"
           },
@@ -12444,28 +11168,12 @@
             "#text": "万维网"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "访问 {0} 的主页"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} 个图片附件:"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "下载图片"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "点击查看图片"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} 次观看"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "图片"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12510,10 +11218,6 @@
           {
             "@tag": "LOCATION",
             "#text": "位置"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "管理消息"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12584,10 +11288,6 @@
             "#text": "(投票已经关闭)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "发表回复"
-          },
-          {
             "@tag": "POSTED",
             "#text": "发表时间"
           },
@@ -12612,18 +11312,6 @@
             "#text": "快速回复"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "隐藏快速回复"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "显示快速回复"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "引用选定的消息"
-          },
-          {
             "@tag": "RANK",
             "#text": "等级"
           },
@@ -12632,16 +11320,8 @@
             "#text": "您已成功将 -1 Reputation 移除到 {0}。"
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "感谢您的投票！"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "您已成功为 {0} 提供 +1 声誉。"
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "感谢您报告这篇文章。"
           },
           {
             "@tag": "REPORTPOST",
@@ -12656,14 +11336,6 @@
             "#text": "名声"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "转发此话题"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "RSS订阅"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12676,19 +11348,7 @@
             "#text": "类似主题"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "统计"
-          },
-          {
             "@tag": "THANKSFROM",
-            "#text": "感谢：{0} 次"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "感谢：{0} 次"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
             "#text": "感谢：{0} 次"
           },
           {
@@ -12698,34 +11358,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "1 位用户感谢 {0} 发布了这篇有用的帖子。"
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "被感谢：在 {1} 个帖子中 {0} 次"
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "删除此主题"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "锁定这个话题"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "移动这个话题"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "发布新主题"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "发表回复"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "解锁这个话题"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12764,20 +11396,8 @@
             "#text": "全部的"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "在 Tumblr 上分享"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "取消订阅"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "女士"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "男人"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12800,10 +11420,6 @@
             "#text": "看法"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "在普通视图或线程视图之间更改主题视图。"
-          },
-          {
             "@tag": "VOTES",
             "#text": "投票"
           },
@@ -12820,10 +11436,6 @@
             "#text": "论坛关闭."
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "登录后才能发送悄悄话."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "投票已经关闭."
           },
@@ -12832,20 +11444,8 @@
             "#text": "话题被关闭."
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "注册后才能关注话题."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "订阅"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "xmpp"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "通过 Jabber 联系 {0}"
           }
         ]
       },
@@ -12879,10 +11479,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "有关信息"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "编辑用户"
           },
@@ -12905,14 +11501,6 @@
           {
             "@tag": "CITY",
             "#text": "城市："
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "联系"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "国家"
           },
           {
             "@tag": "DAYS",
@@ -12941,10 +11529,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "脸书简介："
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "论坛访问"
           },
           {
             "@tag": "GENDER",
@@ -12991,20 +11575,8 @@
             "#text": "分钟"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "适度"
-          },
-          {
             "@tag": "MONTH",
             "#text": "月"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "全部发贴百分比：{0:N2}% "
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "每天发贴数: {0:N2} "
           },
           {
             "@tag": "NUMPOSTS",
@@ -13049,14 +11621,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "按用户查看所有帖子"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "社交媒体"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "统计"
           },
           {
             "@tag": "SUSPEND",
@@ -13107,18 +11671,6 @@
             "#text": "用户名:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "博客"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "主页:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP 名称："
-          },
-          {
             "@tag": "YEARS",
             "#text": "年）"
           }
@@ -13134,10 +11686,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "您的帐户尚未获得批准，因为您尚未验证您的电子邮件。"
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "尝试检索您的密码未成功。"
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13568,16 +12116,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]创建帐号成功.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "您输入的用户名或电子邮件地址已经被注册，请更换一个."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13586,14 +12126,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "您输入了一个无效的电子邮件地址."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "请选择一个包含标点符号 (!?) 或数字的更复杂的密码。"
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "帐户"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13606,10 +12138,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "继续"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "创建用户"
           },
           {
             "@tag": "DETAILS",
@@ -13628,22 +12156,6 @@
             "#text": "个人主页"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "选择不同的答案."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "选择不同的显示名."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "选择不同的问题."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "选择不同的用户名."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "位置"
           },
@@ -13652,20 +12164,8 @@
             "#text": "使用现有帐号登录"
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "安全回答问题是必须的."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "显示名是必须的."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "E-mail是必须的."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "两次输入的密码不一致."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13704,24 +12204,12 @@
             "#text": "弱密码，尝试使用数字和大写字母。"
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "社区信息"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "个人信息"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "你错了！"
-          },
-          {
             "@tag": "REGISTER",
             "#text": "注册"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "向 {0} 注册"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13730,18 +12218,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "再次输入密码"
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "安全答案"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "安全问题"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "条款和条件"
           },
           {
             "@tag": "TIMEZONE",
@@ -13758,10 +12234,6 @@
           {
             "@tag": "USERNAME",
             "#text": "用户名"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "用户名不应包含超过 {0} 个字符。"
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13842,10 +12314,6 @@
             "#text": "取消"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "取消留言报告"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Enter report text here."
           },
@@ -13864,14 +12332,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "发表者："
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "报告中不允许使用标签。"
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "报告中不允许使用标记 [{0}]。"
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13936,10 +12396,6 @@
             "#text": "清除格式"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "格式化"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "添加图像"
           },
@@ -13964,10 +12420,6 @@
             "#text": "普通的"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "排序列表"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "突出"
           },
@@ -13976,20 +12428,8 @@
             "#text": "右对齐"
           },
           {
-            "@tag": "SPELL",
-            "#text": "拼写检查"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "没有拼写错误的单词。"
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "下划线"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "无序列表"
           }
         ]
       },
@@ -14018,10 +12458,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "所有论坛"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "搜索"
           },
@@ -14032,10 +12468,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "关键字"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "正在加载搜索结果..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14088,14 +12520,6 @@
           {
             "@tag": "RESULTS",
             "#text": "搜索结果"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "搜索文本的长度必须少于 {0} 个字符并符合论坛搜索规则（有关详细信息，请参阅论坛常见问题解答）。"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "搜索文本的长度必须至少为 {0} 个字符，并且符合论坛搜索规则（有关详细信息，请参阅论坛常见问题解答）。"
           },
           {
             "@tag": "SEARCH_IN",
@@ -14435,16 +12859,8 @@
             "#text": "活动主题"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "显示活动主题页面。"
-          },
-          {
             "@tag": "ADMIN",
             "#text": "后台管理"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "显示管理索引。"
           },
           {
             "@tag": "BUDDIES",
@@ -14479,20 +12895,12 @@
             "#text": "主机"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "显示主机设置。"
-          },
-          {
             "@tag": "INBOX",
             "#text": "我的收件箱"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "显示私信箱."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "欢迎回来，{0}"
           },
           {
             "@tag": "LOGIN",
@@ -14547,10 +12955,6 @@
             "#text": "显示专辑页面，其中显示您的所有专辑。"
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "我的通知"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "显示您未读的收到的感谢、提及和报价。"
           },
@@ -14565,10 +12969,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "我的设置"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "编辑您的用户详细信息和设置。"
           },
           {
             "@tag": "MYTOPICS",
@@ -14615,14 +13015,6 @@
             "#text": "显示显示所有版主和管理员的团队页面。"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "有 {0} 个主题包含未读消息"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "欢迎您，来宾."
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "想加入讨论？！"
           },
@@ -14652,20 +13044,12 @@
             "#text": "由 {0}"
           },
           {
-            "@tag": "CREATED",
-            "#text": "创建"
-          },
-          {
             "@tag": "FORUM",
             "#text": "论坛"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "用户浏览此论坛"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ 前往页面: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14734,10 +13118,6 @@
           {
             "@tag": "REPLIES",
             "#text": "回复"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "RSS订阅"
           },
           {
             "@tag": "SEARCH_FORUM",

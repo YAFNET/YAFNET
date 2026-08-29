@@ -18,7 +18,7 @@ jobs:
       should-release: ${{ steps.check-tag.outputs.should-release }}
     steps:
       - name: Checkout netfx
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
           sparse-checkout: |
@@ -62,7 +62,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout netfx
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
 
@@ -72,7 +72,7 @@ jobs:
           vs-version: '18'
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
           dotnet-version: '10.0.x'
 
@@ -105,7 +105,7 @@ jobs:
           $section | Set-Content -Path RELEASE_NOTES.md
 
       - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ needs.check-version.outputs.version }}
           name: YAFNET v${{ needs.check-version.outputs.version }}

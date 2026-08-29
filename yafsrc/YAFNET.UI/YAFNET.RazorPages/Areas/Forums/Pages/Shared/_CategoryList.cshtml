@@ -48,7 +48,7 @@
         <div class="col">
             <div class="card mb-3">
                 <div class="card-header">
-                    <div class="row justify-content-between align-items-center">
+                    <div class="row justify-content-between align-items-center row-menu">
                         <div class="col-auto">
 	                        <div class="d-none d-md-inline-block icon-category rounded align-middle">
 		                        @categoryImage
@@ -56,6 +56,22 @@
 	                        <a href="@Html.Raw(Current.Get<ILinkBuilder>().GetCategoryLink(category.CategoryID, category.Category))">
 		                        @Html.HtmlEncode(category.Category)
 	                        </a>
+                            @if (Current.IsAdmin)
+	                        {
+		                        <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+			                        <a button-style="None"
+			                           class="dropdown-item"
+			                           asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
+			                           asp-route-c="@Html.Raw(category.CategoryID)"
+			                           text-localized-page="COMMON"
+			                           text-localized-tag="EDIT"
+			                           title-localized-tag="EDIT"
+			                           title-localized-page="COMMON"
+			                           Icon="edit">
+			                        </a>
+                                
+		                        </div>
+	                        }
                         </div>
                         <div class="col-auto">
                             <form method="post">
@@ -82,7 +98,7 @@
                         var lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(forum.ForumID, forum.LastTopicID, forum.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(), forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
                         <div class="row forum-row align-items-start">
-                            <div class="@Html.Raw(forum.RemoteURL.IsNotSet() ? "col-md-8" : "col")">
+                            <div class="@Html.Raw(forum.RemoteURL.IsNotSet() ? "col-md-8 row-menu" : "col row-menu")">
                                 <h5>
                                     @Html.GetForumIcon(forum, lastRead)
 
@@ -118,6 +134,24 @@
                                         @forum.Description
                                     </h6>
                                 }
+								
+                                @if (Current.IsAdmin)
+                                {
+	                                <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+		                                <a button-style="None"
+		                                   class="dropdown-item"
+		                                   asp-page="@ForumPages.Admin_EditForum.GetPageName()"
+		                                   asp-route-c="@Html.Raw(forum.ForumID)"
+		                                   text-localized-page="COMMON"
+		                                   text-localized-tag="EDIT"
+		                                   title-localized-tag="EDIT"
+		                                   title-localized-page="COMMON"
+		                                   Icon="edit">
+		                                </a>
+                                
+	                                </div>
+                                }
+
                                 @if (forum.SubForums > 0)
                                 {
                                     <div class="card card-subforums my-1 bg-body-tertiary">

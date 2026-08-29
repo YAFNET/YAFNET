@@ -11,10 +11,6 @@
             "#text": "Hoạt động của bạn"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "Lưu trữ"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "Trở thành bạn bè"
           },
@@ -119,10 +115,6 @@
             "#text": "Chủ đề theo dõi"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "Chỉ hiển thị Hoạt động chưa đọc"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "Xem lí lịch"
           },
@@ -171,10 +163,6 @@
             "#text": "Thông báo của bạn"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "Tên hiển thị của bạn:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "Tên đăng nhập:"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Xác nhận mật khẩu mới"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "Mật khẩu và Mật khẩu xác nhận phải khớp."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "E-mail"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "Địa chỉ IP"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "Đã tham gia"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "Vị trí hội đồng quản trị"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "Tên"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "Gửi lại xác minh email"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "Sự quản lý"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": "- Tất cả các hội đồng quản trị -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "Trình duyệt người dùng"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "Phê duyệt Người dùng này?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "Quốc gia"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0: d} ({1: N0} ngày trước)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "Thư xác minh đã được gửi lại cho Người dùng."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "Bạn nên nhập một giá trị số nguyên hợp lệ cho ngày."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "Một phiên bản mới có sẵn!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Đi tới trang Tải xuống"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "Thêm địa chỉ mới"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Bị cấm bởi"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "Bạn phải nhập một giá trị số từ 0 đến 32767 cho thứ tự sắp xếp."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Giá trị thứ tự sắp xếp phải là một số nguyên dương từ 0 đến 32767."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "Onclick JS:"
           },
@@ -1928,14 +1868,6 @@
             "#text": "Chọn một biểu trưng của Hội đồng quản trị"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Chủ đề di động:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "Chủ đề di động để sử dụng trên bảng này."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "Bảng tên:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "Tiết kiệm"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "Vuốt bảng sang trái để hiển thị thêm dữ liệu"
-          },
-          {
             "@tag": "YES",
             "#text": "Đúng"
           }
@@ -2043,18 +1971,6 @@
           },
           {
             "@tag": "DELETE_FORUM",
-            "#text": "Xóa diễn đàn"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Xóa diễn đàn và các chủ đề chuyển động"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Vui lòng không điều hướng khỏi trang này trong khi quá trình xóa đang diễn ra ..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
             "#text": "Xóa diễn đàn"
           },
           {
@@ -2103,14 +2019,6 @@
             "#text": "Thay đổi trong Cài đặt bảng của bạn."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "Tiêu:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Tạo Thông báo cho tài khoản quản trị này và chủ đề hiện được chọn. (Có thể không thực sự giống như điều này được hiển thị trong ứng dụng email.)"
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "Gửi thông báo cuối cùng:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "Lần cuối cùng (dựa trên thời gian của máy chủ) tác vụ thông báo đã được chạy.&gt;"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "Gửi Phương thức:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Loại hệ thống gửi để kiểm tra."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "Không bao giờ"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "Buộc gửi thông báo"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "Tạo thông báo"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "Xác định xem trường có được yêu cầu hay không"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "Lưu mới"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "Bạn phải nhập một giá trị số từ 0 đến 32767 cho thứ tự sắp xếp."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "Giá trị Thứ tự sắp xếp phải là một số nguyên dương từ 0 đến 32767."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "Thông tin về Superuser mới"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Tên đăng ký thành viên:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Tên ứng dụng bắt buộc đối với nhà cung cấp, ô trống sẽ sử dụng ApplicationName trong web.config."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "Bạn phải nhập địa chỉ email của quản trị viên máy chủ."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Tên của hội đồng quản trị."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Câu hỏi bảo mật:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "Câu trả lời cho câu hỏi bảo mật."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Câu hỏi bảo mật:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "Câu hỏi bạn sẽ được hỏi khi cần lấy lại mật khẩu đã mất."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "Tên người dùng cho địa chỉ e-mail đó đã tồn tại. Vui lòng nhập một địa chỉ e-mail khác."
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "Tên đăng kí đã được sử dụng. Vui lòng nhập một tên người dùng khác nhau."
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "Câu trả lời truy xuất mật khẩu được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "Địa chỉ e-mail được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "Tên người dùng được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "Mật khẩu được cung cấp không hợp lệ. Vui lòng nhập giá trị mật khẩu hợp lệ."
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "Câu hỏi lấy lại mật khẩu được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "Nhà cung cấp xác thực đã trả lại lỗi. Vui lòng xác nhận nhập cảnh của bạn và thử lại. Nếu sự cố vẫn tiếp diễn, vui lòng liên hệ với quản trị viên hệ thống của bạn."
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "Giá trị đã nhập không hợp lệ cho thứ tự sắp xếp: phải nhập một số."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Giá trị Thứ tự sắp xếp phải là một số nguyên dương từ 0 đến 32767."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "Phải nhập giá trị cho trường tên danh mục."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "Mặt nạ truy cập"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "Loại:"
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "Có nghĩa là diễn đàn sẽ bị ẩn khi người dùng không có quyền đọc vào nó."
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "Mặt nạ truy cập ban đầu:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "Mặt nạ truy cập ban đầu cho tất cả các diễn đàn."
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "Một diễn đàn có tên như vậy đã tồn tại."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "Bạn phải chọn một mặt nạ truy cập ban đầu cho diễn đàn."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "Địa chỉ Url của bạn đã nhập không hợp lệ."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "Bạn phải nhập tên cho diễn đàn."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Forum cannot be parent of self."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Giá trị thứ tự sắp xếp phải là một số nguyên dương từ 0 đến 32767."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "Nếu điều này được chọn, tất cả người dùng mới sẽ là thành viên của vai trò này.<br /> <span style=\"color:red\">[b] Cảnh báo: [/ b] ít nhất một Nhóm cần bật Hộp kiểm này nếu không người dùng mới sẽ không thể đăng ký. [/ b]</span>"
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "Bạn nên nhập giá trị số nguyên cho số lượng album người dùng."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "Bạn nên nhập giá trị số nguyên để ưu tiên."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "Bạn cần nhập tên Vai trò."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "Bạn nên nhập giá trị số nguyên cho số ký tự trong chữ ký người dùng."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "Bạn nên nhập giá trị số nguyên cho tổng số hình ảnh trong tất cả các album."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "Bạn nên nhập giá trị số nguyên cho số pmessage."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "Số trang:"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "Tối đa Tin nhắn riêng tư được phép cho các thành viên nhóm."
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "Có nghĩa là người dùng sẽ được phép / không được phép ẩn huy chương này."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "Cho phép Đặt hàng lại:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Có nghĩa là người dùng sẽ được phép / không được phép thay đổi thứ tự của huy chương này."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "Cho phép thanh Ribbon:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Có nghĩa là việc hiển thị trên thanh dải băng của huy chương này sẽ được phép / không cho phép."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Xóa huy chương khỏi nhóm này?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Xóa huy chương khỏi người dùng này?"
           },
@@ -3143,20 +2895,12 @@
             "#text": "Nhập Tên người dùng hoặc Nhấp vào &quot;Tìm người dùng&quot; để chọn Người dùng từ Danh sách người dùng"
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "Tên người dùng không rõ ràng được chỉ định!"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "Hình ảnh huy chương phải được chỉ định!"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "Bạn phải nhập tên huy chương!"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "Hình ảnh huy chương nhỏ phải được chỉ định!"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "Chọn hình ảnh huy chương"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Huy chương sẽ được hiển thị trong Hồ sơ người dùng"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "Số lượng bài viết tối thiểu trước khi người dùng được nâng cao lên xếp hạng này."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Ưu tiên Xếp hạng phải là số nguyên nhỏ."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "Bạn phải xác định tên cấp bậc."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Tin nhắn riêng tư:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Tối đa Tin nhắn riêng tư được phép để xếp hạng thành viên."
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "Nhập vào đây một mô tả vai trò."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Xếp hạng hình ảnh:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "Hình ảnh này sẽ được hiển thị bên cạnh những người dùng có thứ hạng này."
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "Cấm tên người dùng của người dùng?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "Người dùng được báo cáo thành công là Bot"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "Gửi email cho người dùng một thông báo về mật khẩu mới của họ?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "Xác nhận mật khẩu:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "Xác nhận mật khẩu mới."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "Điểm hiện tại:"
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "Người dùng đã được xóa mềm."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "Phải nhập mật khẩu xác nhận"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "Phải nhập mật khẩu mới"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "Các nhóm người sử dụng"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "Điểm người dùng"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "Đặt lại / thay đổi mật khẩu người dùng"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "Các địa chỉ IP:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "Giết người dùng"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "Kiểm duyệt tất cả các Bài đăng do Người dùng tạo"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "Người dùng Khách phải được đánh dấu là Đã phê duyệt nếu không diễn đàn của bạn sẽ không ổn định."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "Mật khẩu người dùng đã thay đổi"
           },
@@ -3481,24 +3165,8 @@
             "#text": "Mật khẩu người dùng đã thay đổi và email thông báo đã được gửi."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "Đặt lại mật khẩu người dùng và gửi email thông báo"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "Người dùng {0} bị giết!"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "Quyền mua:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "Thay đổi mật khẩu theo cách thủ công và tùy chọn gửi mật khẩu mới qua email cho người dùng"
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "Đặt lại mật khẩu và gửi mật khẩu mới qua email cho người dùng"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "Báo cáo Người dùng là BOT cho StopForumSpam.com"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "Báo cáo Tên người dùng, Địa chỉ Email và Địa chỉ IP cho StopForumSpam.com dưới dạng BOT?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "Xóa danh mục này?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "Bạn có TÍCH CỰC?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "Bạn có chắc không? bước này là không thể thay đổi!"
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Xóa vai trò này?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "Xóa vai trò"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "Thẻ văn hóa"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "Ngôn ngữ Tên tiếng Anh"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "Tên bản ngữ ngôn ngữ"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Tài nguyên đã Dịch"
           },
@@ -5787,6 +5435,10 @@
             "#text": "Việc gửi email dường như đang hoạt động từ cài đặt YAF của bạn."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Kiểm tra thư"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "Kiểm tra email từ một diễn đàn khác.NET"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Nhập Địa chỉ email nơi email thử nghiệm sẽ được gửi"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "Kiểm tra thư"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "Hình ảnh huy chương vì nó sẽ được hiển thị trong hộp người dùng."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "Hình ảnh thanh ruy-băng vì nó sẽ được hiển thị trong hộp người dùng."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "Không có huy chương"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Hiện tại không có huy chương. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Đi xuống"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "Đi lên"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "ngày"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "Xóa các tin nhắn đã đọc cũ hơn:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "Thông tin cá nhân"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "Tùy chọn Diễn đàn"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "Người dùng {0} đã được tạo thành công."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "Lỗi tư cách thành viên khi tạo người dùng: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "Thao tác thu hẹp đã thành công. Kích thước cơ sở dữ liệu của bạn bây giờ là: {0} MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "Chế độ khôi phục cơ sở dữ liệu đã được đặt thành công thành {0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Đã xảy ra sự cố với thao tác này. Lỗi được báo cáo là: {0}"
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "Với bất kỳ hoạt động sửa đổi dữ liệu nào, có thể xảy ra hiện tượng phân mảnh bảng. Lệnh này có thể được sử dụng để xây dựng lại tất cả các chỉ mục trên tất cả các bảng trong cơ sở dữ liệu để tăng hiệu suất."
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "Vui lòng không điều hướng khỏi trang này ..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "Cập nhật bảng"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "Phải có độ tin cậy cao / không hạn chế để dỡ ứng dụng. Khởi động lại không thành công."
-          },
-          {
             "@tag": "TITLE",
             "#text": "Khỏi động lại ưng dụng"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Khôi phục và xóa tin nhắn"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Tùy chọn để khôi phục Tin nhắn bị gắn cờ là tin nhắn đã xóa hoặc xóa vĩnh viễn chúng khỏi cơ sở dữ liệu."
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "Chạy truy vấn SQL"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "Bạn cần nhập một Truy vấn."
+            "@tag": "RESULT",
+            "#text": "Kết quả"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "Chạy truy vấn"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "Chạy trong giao dịch"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "Chạy mã SQL"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "Kết quả"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "Từ &quot;Spam&quot; (Tìm) Biểu thức:"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "Đang chạy"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "Dừng công việc"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Nhiệm vụ máng cỏ"
           }
@@ -6602,24 +6190,12 @@
             "#text": "Xóa người dùng này?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "Bạn có chắc không?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "Tên hiển thị"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "E-mail"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "Chứa Email:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "Xuất Tất cả (các) Người dùng dưới dạng CSV"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "Chỉ hiển thị những người dùng bị tạm ngừng?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "Đồng bộ hóa tất cả người dùng là thành viên"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "Tất cả người dùng đã được đồng bộ hóa ngay bây giờ"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "Thay đổi chú thích"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} (Các) hình ảnh"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "Bấm để xem Anbom"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "Tập ảnh"
           },
@@ -7072,10 +6632,6 @@
             "#text": "Xóa tập tin đính kèm này?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "Vui lòng đợi cho đến khi tất cả (các) Tải lên hoàn tất và Hộp thoại tự đóng!"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Xóa (các) tệp đính kèm?"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} (Các) tệp đính kèm đã bị xóa!"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "Các định dạng bị cấm"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "Dung lượng"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "Bắt đầu tải lên"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Đính kèm"
           },
           {
             "@tag": "UPLOAD",
             "#text": "Tải lên"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "Tải lên (các) tệp mới"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Quay lại trang Sửa đổi hình đại diện mà không chọn Hình đại diện."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "Đổi hình"
           },
           {
             "@tag": "TITLE",
             "#text": "Hình đại diện"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "Đi tới Thư mục gốc."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "Thêm bạn"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(Bạn đang chờ duyệt)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "Đồng ý mọi đề nghị kết bạn."
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "Đồng ý mọi đề nghị kết bạn và thêm vào danh sách bạn bè."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "Mọi yêu cầu kết bạn bị hủy sau 14 ngày."
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "Bạn đã thêm {0}'s vào danh sách bạn bè."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "Yêu cầu kết bạn."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "Bạn có {0} lời đề nghị kết bạn chưa đồng ý(s)"
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7651,88 +7171,16 @@
             "#text": "Nhập lại mật khẩu mới:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "Vui lòng nhập mật khẩu hiện tại của bạn"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "Bạn chưa xác nhận lại mật khẩu mới."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "Bạn chưa nhập mật khẩu mới."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "Bạn chưa nhập mật khẩu cũ."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "Mật khẩu mới:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "Mật khẩu xác nhận không đúng."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "Mật khẩu cũ:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "Mật khẩu mới phải từ: {0} kí tự trở lên."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "Mật khẩu cũ không đúng hoặc Mật khẩu mới không hợp lệ."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "Mật khẩu phải chứa ký tự đặc biệt: {1}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "Mật khẩu mới phải khác với mật khẩu cũ."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "Câu trả lời bảo mật mới:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Mật khẩu hiện tại:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "Mật khẩu Câu hỏi và Câu trả lời đã thay đổi."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Thay đổi không thành công. Vui lòng nhập lại các giá trị của bạn và thử lại."
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "Câu hỏi bảo mật mới:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Câu hỏi bảo mật cũ:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Đổi mật khẩu"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "Thay đổi câu hỏi và câu trả lời bảo mật"
           }
         ]
       },
@@ -7757,14 +7205,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Chèn hình ảnh anbom ..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "Cho phép"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Chèn Tệp đính kèm hiện có hoặc tải lên Tệp mới ..."
           },
@@ -7777,36 +7217,16 @@
             "#text": "Tên đăng nhập không được mang dấu chấm phẩy (;)."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "Mã:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Trích dẫn:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "Nguyên văn bởi: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Đi tới Bài đăng được trích dẫn"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} đã viết:"
           },
           {
-            "@tag": "BROWSE",
-            "#text": "Duyệt qua"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Hủy"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "Đổi Email"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7857,10 +7277,6 @@
             "#text": "Chủ đề có ID: {0} Đã bị xóa"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "Không được phép"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "Tải xuống"
           },
@@ -7869,16 +7285,8 @@
             "#text": "Chỉnh sửa"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} Xác nhận Email"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 mục nhập"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 mục nhập"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7895,10 +7303,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 mục nhập"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Người dùng bên ngoài)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7961,20 +7365,12 @@
             "#text": "Trang đầu tiên"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Đi đến trang cuối cùng"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "Trang tiếp theo"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "Chuyển tới trang..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Đi tới tin nhắn"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7985,28 +7381,12 @@
             "#text": "Ẩn giấu"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Dữ liệu đầu vào của bạn không được chứa các thẻ HTML."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Dữ liệu đầu vào của bạn chứa thẻ HTML {0} bị cấm."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "trong Diễn đàn: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "Hiển thị thêm Danh mục &amp; Diễn đàn ..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "Đang tải..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Quản lý"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8023,18 +7403,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "Thông điệp"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Xem toàn bộ trang web"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Xem trang web dành cho thiết bị di động"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Thông báo"
           },
           {
             "@tag": "MODERATOR",
@@ -8133,14 +7501,6 @@
             "#text": "Đọc"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "Một email đã được gửi! Hãy kiểm tra hộp thư của bạn và click vào đường dẫn đã gửi trong email."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "Một email đã được gửi! Hãy kiểm tra hộp thư của bạn và click vào đường dẫn đã gửi trong email để kích hoạt tài khoản của bạn."
-          },
-          {
             "@tag": "REPLY",
             "#text": "Đáp lại"
           },
@@ -8163,10 +7523,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "Lựa chọn kích thước trang"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Hiện an"
           },
           {
             "@tag": "SUBMIT",
@@ -8197,20 +7553,12 @@
             "#text": "Mã số"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "Chọn ngôn ngữ để đánh dấu cú pháp"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "Sao chép văn bản đã chọn (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "Tạo liên kết"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Thêm BBCode Tags"
           },
           {
             "@tag": "TT_CUT",
@@ -8309,40 +7657,12 @@
             "#text": "Nhập URL:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Bạn có {0} Đề cập chưa đọc, bạn có muốn chuyển đến Đề cập mới nhất không?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Ai đó đã đề cập đến bạn trong một chủ đề"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "Bạn có {0} tin nhắn chưa đọc"
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "(Các) Tin nhắn Cá nhân Mới"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "Bạn có {0} tin nhắn chưa đọc trong Hộp thư đến của mình. Bạn có muốn truy cập Hộp thư đến của mình ngay bây giờ không?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Bạn có {0} Bài đăng được trích dẫn chưa đọc, bạn có muốn chuyển sang bài mới nhất không?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Ai đó đã trích dẫn bạn trong một chủ đề"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "Bạn đã nhận được {0} thư chưa đọc Cảm ơn, bạn có muốn chuyển sang thư mới nhất không?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Ai đó đã cảm ơn bạn vì một tin nhắn"
           },
           {
             "@tag": "UPDATE",
@@ -8355,10 +7675,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "Tên người dùng hoặc Tên người dùng hiển thị phải có nhiều hơn {0} ký tự."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Xem danh mục"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9408,18 +8724,6 @@
             "#text": "trong {0: N0} phút qua"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "Bộ lọc bảng chữ cái"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "Đăng ký các chủ đề đang hoạt động qua Atom."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "Đăng ký nguồn cấp dữ liệu Atom của diễn đàn."
-          },
-          {
             "@tag": "BY",
             "#text": "bởi {0}"
           },
@@ -9432,12 +8736,12 @@
             "#text": "Diễn đàn"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "Xem bài viết cuối"
+            "@tag": "FORUMS",
+            "#text": "Diễn đàn"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Go to first unread"
+            "@tag": "GO_LAST_POST",
+            "#text": "Xem bài viết cuối"
           },
           {
             "@tag": "IN",
@@ -9454,18 +8758,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "Bài cuối"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "Bài viết cuối"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "Diễn đàn chính Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "Diễn đàn chính RSS"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9492,6 +8784,10 @@
             "#text": "Người dùng hoạt động nhiều nhất trong {0} ngày qua"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "Thành viên mới nhất"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(Không truy cập)"
           },
@@ -9516,56 +8812,28 @@
             "#text": "Người dùng gần đây"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "Chỉ hiển thị các chủ đề chưa đọc."
-          },
-          {
             "@tag": "STATS",
             "#text": "Thống kê"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "Chào mừng thành viên mới nhất:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": "Bài viết cuối {0} bởi:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "Diễn đàn có tất cả {0:N0} thành viên."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "Có {0:N0} bài viết và {1:N0} chủ đề trong tổng số {2:N0} diễn đàn."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "Thống kê chống thư rác"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} Người gửi spam bị cấm vĩnh viễn"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Bị cấm vĩnh viễn"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} Người gửi thư rác bị từ chối đăng ký"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Đăng ký bị từ chối"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "{0} Người gửi spam được gửi đến StopForumSpam.com"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "Đã báo cáo tới StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
             "#text": "Chủ đề"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "Bạn có {0} tin nhắn mới."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "Bạn có {0} tin nhắn mới."
           },
           {
             "@tag": "VIEWING",
@@ -9595,22 +8863,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "Bạn có chắc chắn muốn làm điều này không?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "Điều này sẽ xóa tài khoản của bạn vĩnh viễn! Tất cả nội dung của bạn sẽ bị xóa. Sau đó, tài khoản của bạn không thể được khôi phục"
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Xóa tài khoản của bạn (vĩnh viễn)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "Nếu bạn chỉ muốn tạm dừng Diễn đàn, thì điều này sẽ tạm ngưng tài khoản của bạn trong 30 ngày. Nội dung của bạn vẫn hiển thị"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Tạm ngưng tài khoản của bạn trong 30 ngày"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9699,16 +8951,8 @@
             "#text": "{0} nhận xét"
           },
           {
-            "@tag": "LASTBY",
-            "#text": "Bởi {0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "Hơn"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "Chủ đề mới"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9752,10 +8996,6 @@
             "#text": "Xóa hình ảnh này?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "Bạn không thể thêm bất kỳ album nào nữa vào tài khoản này."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "Bạn không thể tải lên hình ảnh lớn như vậy."
           },
@@ -9770,10 +9010,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "Bạn cần chỉ định một tiêu đề."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9797,24 +9033,12 @@
             "#text": "Hình đại diện"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "Hình hiện tại"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "Xóa hình"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "chọn hình mới"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "Nhập đường dẫn hình:"
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "Văn bản Giải thích Hình đại diện"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9833,16 +9057,8 @@
             "#text": "Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "Chọn hình từ thư viện:"
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "Click vào đây để chọn"
           },
           {
             "@tag": "TITLE",
@@ -9886,32 +9102,16 @@
             "#text": "Tên AIM của bạn:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "Xem mọi chủ đề mà bạn đã đăng và nhận thông báo qua email về các hoạt động trong các chủ đề đó?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "Bạn đã nhập địa chỉ email không hợp lệ."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "Bạn đã nhập sai URL làm Hồ sơ Facebook."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "Bạn đã nhập địa chỉ không hợp lệ cho trang chủ của bạn."
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "Bạn đã nhập địa chỉ email không hợp lệ cho tài khoản MSN."
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "Bạn đã nhập địa chỉ không hợp lệ cho weblog."
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "Bạn đã nhập tên không hợp lệ cho tài khoản XMPP của mình."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9932,10 +9132,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "Bạn muốn hiển thị tên gì cho người khác?"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Daylight Saving Time"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9982,10 +9178,6 @@
             "#text": "Đến từ"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "Một email được gửi đến {0}.\\n\\nBạn cần phải xác nhận địa chỉ mail bằng cách click vào đường dẫn đã gửi đến cho bạn."
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "Dịch vụ nhắn tin tức thì"
           },
@@ -9996,10 +9188,6 @@
           {
             "@tag": "OTHER",
             "#text": "Khác"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "Chọn chủ đề diễn đàn khác nhau:"
           },
           {
             "@tag": "REALNAME2",
@@ -10044,10 +9232,6 @@
           {
             "@tag": "WHERE",
             "#text": "Bạn đang ở đâu?"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "ID Jabber của bạn:"
           }
         ]
       },
@@ -10071,10 +9255,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "Mã bảo mật đầu vào"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "Mã thiết lập"
           },
@@ -10096,28 +9276,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Your  signature can contain any BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "Bạn có thể sử dụng các mã BBC sau: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "Chữ ký của bạn không được chứa mã BBC."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "Chữ ký của bạn có thể chứa bất kỳ thẻ HTML nào."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "Bạn có thể sử dụng các thẻ HTML sau: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "Chữ ký của bạn không được chứa các thẻ HTML."
           },
           {
             "@tag": "SIGNATURE",
@@ -10128,20 +9288,8 @@
             "#text": "Chữ ký của bạn chứa mã BBCode {0} bị cấm."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "Chữ ký của bạn không được có nhiều hơn {0} ký tự."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "Chữ ký của bạn quá dài. Nó không được có nhiều hơn {0} ký tự."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "Bạn không thể chỉnh sửa chữ ký của mình, nhưng bạn có thể xóa nó hoàn toàn."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "Quyền đối với Chữ ký"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10206,10 +9354,6 @@
             "#text": "Thông tin"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "Lỗi tập lệnh Sql"
-          },
-          {
             "@tag": "WARNING",
             "#text": "Cảnh báo"
           }
@@ -10255,10 +9399,6 @@
             "#text": "Bạn không có bất kỳ yêu cầu nào đang chờ xử lý"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "Phê duyệt tất cả các yêu cầu?"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "Phê duyệt tất cả các yêu cầu và thêm chúng vào danh sách Bạn bè của bạn?"
           },
@@ -10281,14 +9421,6 @@
           {
             "@tag": "POSTS",
             "#text": "Bài viết"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "Ngày đề nghị"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Your Friend List"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10610,10 +9742,6 @@
             "#text": "Thông báo"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "Thông báo (Có bài viết mới)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "Diễn đàn đã khóa"
           },
@@ -10650,16 +9778,8 @@
             "#text": "Bình chọn"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "Bình chọn (Có bài viết mới)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "Chú ý"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "Sticky (Bài mới)"
           }
         ]
       },
@@ -10704,18 +9824,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "Người dùng sử dụng máy chủ {0}. Để giao tiếp với anh ấy, bạn nên đăng ký ở đó, vì bạn không có tài khoản."
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "Người dùng sử dụng cùng một máy chủ XMPP - bạn có thể kết nối với họ bằng một ứng dụng khách như Pidgin. Tài khoản của anh ấy là {0}"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "Bạn có chắc chắn muốn nói chuyện với chính mình?"
-          },
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
@@ -10782,10 +9890,6 @@
             "#text": "Từ chối truy cập"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "Yêu cầu cookie"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "Thông tin"
           },
@@ -10835,40 +9939,16 @@
             "#text": "Xác nhận lại mật khẩu"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Nhập mô tả cho bảng mới"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "Nhập tên của Hội đồng quản trị mới"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "Cấu hình mật khẩu"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Chi tiết kết nối"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "Chọn Chuỗi kết nối hiện có"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "Chọn Chuỗi kết nối cơ sở dữ liệu SQL Server:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "Kết nối thất bại:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "Tạo chuỗi kết nối mới"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "Chuỗi kết nối sẽ được lưu dưới dạng"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10891,10 +9971,6 @@
             "#text": "Văn hóa người dùng của khách (Ngôn ngữ)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "Phiên bản hiện tại:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "Cơ sở dữ liệu"
           },
@@ -10907,64 +9983,8 @@
             "#text": "Kết nối cơ sở dữ liệu YAF.NET"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "Nhập tên cơ sở dữ liệu"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "Tên người dùng cho địa chỉ email đó đã tồn tại. Vui lòng nhập một địa chỉ email khác."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "Tên này đã có người dùng. Vui lòng nhập một tên người dùng khác nhau."
-          },
-          {
             "@tag": "ERROR",
             "#text": "lỗi"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "Bảng đã được cài đặt."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "Bạn phải nhập tên Hội đồng."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "Bạn phải cập nhật Cài đặt ứng dụng của mình với Khóa YAF.ConfigPassword để tiếp tục. LƯU Ý: Tên khóa là trường hợp nhạy cảm."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "Bạn phải nhập một địa chỉ email của Hội đồng."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "Bạn phải nhập mật khẩu."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "Tạo quản trị viên không thành công:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "Bạn phải nhập địa chỉ email siêu người dùng."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "Bạn phải nhập tên người dùng siêu,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "Tên người dùng hiện tại không hợp lệ và không đại diện cho người dùng hiện tại trong cửa hàng thành viên."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "Bạn đã nhập <strong> mật khẩu sai </ strong>!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "Sử dụng chuỗi kết nối DB hiện có"
           },
           {
             "@tag": "FINISH",
@@ -11003,40 +10023,12 @@
             "#text": "Cài đặt"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "Sử dụng bảo mật tích hợp"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "Câu trả lời lấy lại mật khẩu được cung cấp là không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "Địa chỉ e-mail được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "Mật khẩu được cung cấp không hợp lệ. Vui lòng nhập một giá trị mật khẩu hợp lệ."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "Câu hỏi truy xuất mật khẩu được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "Tên người dùng được cung cấp không hợp lệ. Vui lòng kiểm tra giá trị và thử lại."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "Kiểm tra gửi thư (SMTP)"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "Gửi tin nhắn kiểm tra đến địa chỉ Email được xác định là Gửi đến địa chỉ"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "Tạo chuỗi kết nối DB mới"
           },
           {
             "@tag": "NEXT",
@@ -11047,10 +10039,6 @@
             "#text": "Nhấp vào \"Tiếp theo\" sẽ khởi tạo cơ sở dữ liệu của bạn lên phiên bản mới nhất."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "Nhấp vào \"Tiếp theo\" khi bạn đã sẵn sàng."
-          },
-          {
             "@tag": "NO",
             "#text": "KHÔNG"
           },
@@ -11059,108 +10047,28 @@
             "#text": "chú thích"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "Không có quyền truy cập ghi vào cài đặt"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "Không thể sửa đổi tệp cấu hình của bạn để đặt Kết nối cơ sở dữ liệu do không có quyền ghi."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "Không có quyền truy cập ghi vào chuỗi kết nối cơ sở dữ liệu"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "Không thể sửa đổi tệp cấu hình của bạn để đặt chuỗi Kết nối cơ sở dữ liệu do không có quyền ghi."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "Vui lòng mở"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "tệp trong thư mục gốc của ứng dụng và thêm / cập nhật khóa sau trong phần <Cài đặt ứng dụng>:"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "tệp trong thư mục gốc của ứng dụng và thêm / cập nhật khóa sau trong phần <ConnectionStrings>:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "Xác minh không giống như mật khẩu của bạn."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET có quyền truy cập ghi vào thư mục ứng dụng gốc (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NET có quyền truy cập ghi vào thư mục \"~ / Tải lên\" ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "Trước"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "Nhà cung cấp xác thực trả lại một lỗi. Vui lòng xác nhận nhập cảnh của bạn và thử lại. Nếu sự cố vẫn còn, vui lòng liên hệ với quản trị viên hệ thống của bạn."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "Câu trả lời cho câu hỏi bảo mật"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "Câu hỏi bạn sẽ được hỏi khi bạn cần lấy lại mật khẩu bị mất"
           },
           {
             "@tag": "SETUP",
             "#text": "Thiết lập"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "Việc gửi email dường như đang hoạt động từ cài đặt YAF của bạn."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "Chi tiết kiểm tra SMTP"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "Kiểm tra email từ một diễn đàn khác.NET"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "Thư đã gửi. Xác nhận nó nhận được tại địa chỉ email đã nhập của bạn."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "Nhập mật khẩu SQL"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "Nhập tên người dùng SQL"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "Kiểm tra kết nối"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "Kiểm tra cài đặt Smtp"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "Giấy phép thử nghiệm"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "Cài đặt kiểm tra"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "Nhấp vào nút \"Trước\" để chỉnh sửa cấu hình cơ sở dữ liệu."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11173,26 +10081,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "Nhập địa chỉ email"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "Bỏ chọn"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "Yêu cầu tạo người dùng đã bị hủy. Vui lòng xác nhận nhập cảnh của bạn và thử lại. Nếu sự cố vẫn còn, vui lòng liên hệ với quản trị viên hệ thống của bạn."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "Xác thực quyền"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "Cài đặt YetAnotherForum.NET dễ dàng hơn khi Ứng dụng có quyền truy cập ghi vào .config của bạn\r\n                        các tập tin."
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "Nhấp vào bên dưới để kiểm tra nếu quyền là chính xác. Nếu họ không, bạn có thể\r\n                        vẫn sử dụng trình hướng dẫn cài đặt."
           },
           {
             "@tag": "WELCOME",
@@ -11233,28 +10121,12 @@
             "#text": "Tài khoản của bạn chưa được chấp thuận vì bạn chưa xác thực email của mình. Vui lòng xác minh để bạn có thể đăng nhập."
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Đăng nhập hoặc Đăng ký với {0}"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Ghi nhớ"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "Bạn cần phải nhập cả tên đăng nhập và email."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock đang bật"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "Email"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "Email đã được gửi cho bạn vơi mật khẩu mới."
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11285,16 +10157,8 @@
             "#text": "Nhận lại mật khẩu"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "Lỗi tạo mật khẩu mới."
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Đăng ký thay thế với tư cách người dùng mới"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "gửi mật khẩu"
           },
           {
             "@tag": "TITLE",
@@ -11313,16 +10177,8 @@
             "#text": "Xác thực hai yếu tố"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "Tên đăng nhập:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "Sai tên đăng nhập hoặc email."
           }
         ]
       },
@@ -11392,10 +10248,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "Tên thành viên Chứa:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "Tìm kiếm thành viên"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11478,10 +10330,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Tiếp tục kiểm duyệt"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Tin nhắn được chỉnh sửa lúc"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11586,14 +10434,6 @@
             "#text": "Xóa chủ đề?"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "Xóa người dùng này?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "Xóa liên kết chủ đề? Bản thân chủ đề sẽ không bị xóa."
-          },
-          {
             "@tag": "DELETED",
             "#text": "Chủ đề đã xóa."
           },
@@ -11652,10 +10492,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "Tác giả"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "Liên kết chủ đề đã bị xóa."
           },
           {
             "@tag": "TOPICS",
@@ -11742,10 +10578,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "Trả lời bằng tin nhắn riêng tư tới"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "Báo cáo là thư rác"
           },
           {
             "@tag": "REPORTED",
@@ -11875,14 +10707,6 @@
             "#text": "bởi {0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "Chủ đề có bài mới"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "(Trong vòng 24 tiếng)"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "1 ngày trước đây"
           },
@@ -11963,10 +10787,6 @@
             "#text": "Chủ đề chưa được trả lời"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Chủ đề chưa đọc"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "Xem"
           },
@@ -12030,14 +10850,6 @@
             "#text": "Bạn phải nhập một câu hỏi thăm dò ý kiến."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "Cho phép không bình chọn và xem kết quả."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "Bạn có thể bỏ qua bình chọn và kết quả."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "Bạn không thể xem kết quả trước khi cuộc thăm dò hết hạn."
           },
@@ -12054,10 +10866,6 @@
             "#text": "The poll is expired."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "Chiều rộng hình ảnh tính bằng px:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "Cho phép bỏ phiếu cho nhiều lựa chọn"
           },
@@ -12066,20 +10874,12 @@
             "#text": "Bạn có thể bỏ phiếu cho nhiều sự lựa chọn."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "Khách không thể bỏ phiếu. Hãy thử đăng nhập hoặc đăng ký."
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "Bấm để bình chọn"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Show who is voted"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Show who is voted."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12106,10 +10906,6 @@
             "#text": "Giảng viên đại học"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "Tạo hoặc chỉnh sửa cuộc thăm dò ý kiến"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Image path:"
           },
@@ -12120,18 +10916,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Câu hỏi thăm dò ý kiến:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "Bạn không thể xem kết quả thăm dò trước khi bỏ phiếu."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "Khách không thể xem kết quả thăm dò trước khi bỏ phiếu. Hãy thử đăng nhập hoặc đăng ký."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "Kết quả ẩn"
           },
           {
             "@tag": "POLLSAVE",
@@ -12159,18 +10943,6 @@
             "#text": "Bạn thật sự muốn xoá bình chọn của chủ đề này?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "Mật khẩu Blog:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "Đăng lên blog?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Hủy chỉnh sửa / tạo tin nhắn"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "Sự mô tả:"
           },
@@ -12189,10 +10961,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Tên người dùng khách không được nhiều hơn 100 ký tự."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "Chủ đề này có ở dạng câu hỏi và câu trả lời không?"
           },
           {
             "@tag": "LAST10",
@@ -12229,10 +10997,6 @@
           {
             "@tag": "POSTED",
             "#text": "Đã gửi:"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "Đã xảy ra lỗi gửi bài đến blog của bạn. Việc xác thực có thể đã không thành công."
           },
           {
             "@tag": "PREVIEW",
@@ -12283,26 +11047,6 @@
             "#text": "Một chủ đề với chủ đề đã tồn tại hoặc chủ đề không đủ duy nhất để được thêm vào."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "Độ dài mô tả chủ đề không được nhiều hơn 255 ký tự."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "Độ dài từ đơn của mô tả chủ đề không được nhiều hơn {0} ký tự. Gợi ý: sử dụng các từ viết tắt để rút gọn."
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "Độ dài tên chủ đề không được quá 255 ký tự."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "Độ dài từ đơn của tên chủ đề không được nhiều hơn {0} ký tự. Gợi ý: sử dụng các từ viết tắt để rút gọn."
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "Đính kèm tập tin?"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "Nhận thông báo của chủ đề qua email?"
           },
@@ -12328,10 +11072,6 @@
             "#text": "MỤC ĐÍCH"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "Liên hệ với {0} qua AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Nguồn cấp dữ liệu Atom"
           },
@@ -12352,24 +11092,12 @@
             "#text": "Ghé thăm Blog của {0}"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "Bạn không có quyền xem / tải xuống tệp đính kèm."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "You [b]cannot[/b] view/download attachments. Try register."
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Chọn"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "Đóng"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "Xóa tin nhắn?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12424,10 +11152,6 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "Ghé thăm Hồ sơ trên Facebook của {0}"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "Di chuyển"
           },
@@ -12444,28 +11168,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "Truy cập Trang chủ của {0}"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} hình được đính kèm:"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "Tải hình ảnh"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Nhấp để xem hình ảnh"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} Xem (các)"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "Hình ảnh"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12510,10 +11218,6 @@
           {
             "@tag": "LOCATION",
             "#text": "Đến từ"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "Quản lý tin nhắn"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12584,10 +11288,6 @@
             "#text": "(Bình chọn đã đóng)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "Viết bài trả lời"
-          },
-          {
             "@tag": "POSTED",
             "#text": "Đã gửi"
           },
@@ -12612,18 +11312,6 @@
             "#text": "Trả lời nhanh"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "Ẩn Trả Lời Nhanh"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "Hiển thị Trả Lời Nhanh"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "Trích dẫn tin nhắn đã chọn"
-          },
-          {
             "@tag": "RANK",
             "#text": "Danh hiệu"
           },
@@ -12632,16 +11320,8 @@
             "#text": "Bạn đã xóa thành công -1 Danh tiếng cho {0}."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "Cảm ơn sự bình chọn của bạn!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "Bạn đã tạo thành công Danh tiếng +1 cho {0}."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "Cảm ơn bạn đã gửi báo cáo về bài viết này."
           },
           {
             "@tag": "REPORTPOST",
@@ -12656,14 +11336,6 @@
             "#text": "Danh tiếng"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Tweet lại chủ đề này"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "RSS"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12676,19 +11348,7 @@
             "#text": "Chủ đề tương tự"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "Thống kê"
-          },
-          {
             "@tag": "THANKSFROM",
-            "#text": "Cảm ơn: {0} lần"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "Cảm ơn: {0} lần"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
             "#text": "Cảm ơn: {0} lần"
           },
           {
@@ -12698,34 +11358,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "1 người cảm ơn {0} cho bài viết."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "Được cảm ơn: {0} lần trong {1} bài viết"
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "Xóa chủ đề"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "Khóa chủ đề"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "Di chuyển chủ đề"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "Tạo chủ đề"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Trả Lời"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "Mở khóa chủ đề"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12764,20 +11396,8 @@
             "#text": "Tổng"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "Chia sẻ trên Tumblr"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "chưa xem chủ đề này"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "Người đàn bà"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "Người đàn ông"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12800,10 +11420,6 @@
             "#text": "Xem"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "Thay đổi Chế độ xem Chủ đề giữa Chế độ xem Bình thường hoặc Chế độ xem Chủ đề."
-          },
-          {
             "@tag": "VOTES",
             "#text": "Bỏ phiếu"
           },
@@ -12820,10 +11436,6 @@
             "#text": "Diễn đàn đã được đóng."
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "Bạn cần đăng nhập để gửi tin nhắn."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "Bình chọn đã đóng."
           },
@@ -12832,20 +11444,8 @@
             "#text": "Chủ đề đã được đóng."
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "Bạn cần đăng nhập để tiếp tục."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "Xem chủ đề này"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "Liên hệ với {0} qua Jabber"
           }
         ]
       },
@@ -12879,10 +11479,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "Thông tin chung"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "Người dùng biên tập"
           },
@@ -12905,14 +11501,6 @@
           {
             "@tag": "CITY",
             "#text": "Thành phố:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "Liên hệ"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "Quốc gia"
           },
           {
             "@tag": "DAYS",
@@ -12941,10 +11529,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "Thông tin cá nhân trên Facebook:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "Truy cập Diễn đàn"
           },
           {
             "@tag": "GENDER",
@@ -12991,20 +11575,8 @@
             "#text": "phút"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "Điều độ"
-          },
-          {
             "@tag": "MONTH",
             "#text": "tháng"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "{0:N2}% trên tổng số bài viết"
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} bài trên ngày"
           },
           {
             "@tag": "NUMPOSTS",
@@ -13049,14 +11621,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Xem tất cả các bài của thành viên này"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "Truyền thông xã hội"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "Thống kê"
           },
           {
             "@tag": "SUSPEND",
@@ -13107,18 +11671,6 @@
             "#text": "Tên sử dụng:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "Blog:"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "Trang chủ:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Tên XMPP:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "Năm"
           }
@@ -13134,10 +11686,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "Tài khoản của bạn chưa được chấp nhận bởi bạn chưa xác minh Email.Một Email đã được gửi tới {0}. Vui lòng xác minh để có thể đăng nhập."
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "Lấy lại mật khẩu không thành công."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13568,16 +12116,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]Bạn đã đăng ký thành công.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "Tên sử dụng hoặc email đã được dùng để đăng ký."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13586,14 +12126,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "Địa chỉ email bạn cung cấp không hợp lệ."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "Xin chọn một mật khẩu an toàn hơn,bao gồm cả các ký tự (!?) hoặc số."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "Tài khoản"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13606,10 +12138,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "Tiếp tục"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "Đăng ký"
           },
           {
             "@tag": "DETAILS",
@@ -13628,22 +12156,6 @@
             "#text": "Trang web"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "Vui lòng chọn một câu trả lời khác."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "Vui lòng chọn một tên hiển thị khác."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "Vui lòng chọn một câu hỏi khác."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "Vui lòng chọn một Username khác."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "Đến từ"
           },
@@ -13652,20 +12164,8 @@
             "#text": "Đã đăng ký? Nhấp vào Đăng nhập để đăng nhập tài khoản của bạn."
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "Bạn chưa trả lời Câu hỏi bảo mật."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "Tên hiển thị là bắt buộc."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "Bạn chưa nhập Email"
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "Mật khẩu không giống nhau."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13704,24 +12204,12 @@
             "#text": "Mật khẩu yếu, hãy thử sử dụng số và chữ viết hoa."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "Tuỳ chọn"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "Thông tin cá nhân"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "Bạn sai rồi! Thử lại."
-          },
-          {
             "@tag": "REGISTER",
             "#text": "Đăng ký"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "Đăng ký với {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13730,18 +12218,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Bạn chưa nhập Mật khẩu xác nhận."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Trả lời"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Câu hỏi bảo mật"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "Điều khoản sử dụng"
           },
           {
             "@tag": "TIMEZONE",
@@ -13758,10 +12234,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Tên đăng nhập"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "Tên người dùng không được chứa nhiều hơn {0} ký tự."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13842,10 +12314,6 @@
             "#text": "Hủy"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Hủy báo cáo tin nhắn"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Nhập văn bản báo cáo."
           },
@@ -13864,14 +12332,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "Gửi bởi:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "Thẻ không được phép trong báo cáo."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "Thẻ [{0}] không được phép trong báo cáo."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13936,10 +12396,6 @@
             "#text": "Xóa định dạng"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "Được định dạng"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "Thêm hình ảnh"
           },
@@ -13964,10 +12420,6 @@
             "#text": "Bình thường"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "Danh sách được yêu cầu"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "Lạc hậu"
           },
@@ -13976,20 +12428,8 @@
             "#text": "Sắp xếp đúng"
           },
           {
-            "@tag": "SPELL",
-            "#text": "Kiểm tra chính tả"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "Không có từ viết sai chính tả."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "Gạch chân"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "Danh sách không theo thứ tự"
           }
         ]
       },
@@ -14018,10 +12458,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "Tất cả diễn đàn"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "Tìm kiếm"
           },
@@ -14032,10 +12468,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "Từ khoá"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "Đang tải kết quả tìm kiếm..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14088,14 +12520,6 @@
           {
             "@tag": "RESULTS",
             "#text": "Kết quả"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "Văn bản tìm kiếm phải dài dưới {0} ký tự và tuân thủ các quy tắc của diễn đàn về tìm kiếm (xem Câu hỏi thường gặp về diễn đàn để biết thêm thông tin)."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "Văn bản tìm kiếm phải dài ít nhất {0} ký tự và tuân thủ các quy tắc của diễn đàn về tìm kiếm (xem Câu hỏi thường gặp về diễn đàn để biết thêm thông tin)."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14435,16 +12859,8 @@
             "#text": "Chủ đề có bài mới"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "Hiển thị Trang Chủ đề Hoạt động."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "Quản trị viên"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "Hiển thị Chỉ mục quản trị."
           },
           {
             "@tag": "BUDDIES",
@@ -14479,20 +12895,12 @@
             "#text": "Chủ nhà"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "Hiển thị các Cài đặt Máy chủ."
-          },
-          {
             "@tag": "INBOX",
             "#text": "Hộp thư của tôi"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "Hiển thị Hộp thư đến của Tin nhắn Riêng tư."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "Đăng nhập dưới tên: {0}"
           },
           {
             "@tag": "LOGIN",
@@ -14547,10 +12955,6 @@
             "#text": "Hiển thị Trang Album hiển thị tất cả các album của bạn."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "Thông báo của tôi"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "Hiển thị lời cảm ơn, đề cập và báo giá đã nhận chưa đọc của bạn."
           },
@@ -14565,10 +12969,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "Cài đặt của tôi"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Chỉnh sửa chi tiết người dùng và cài đặt của bạn."
           },
           {
             "@tag": "MYTOPICS",
@@ -14615,14 +13015,6 @@
             "#text": "Hiển thị Trang nhóm hiển thị tất cả Người điều hành và Quản trị viên .."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Có {0} (các) Chủ đề có Thư chưa đọc"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "Chào mừng khách"
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "Muốn tham gia thảo luận ?!"
           },
@@ -14652,20 +13044,12 @@
             "#text": "bởi {0}"
           },
           {
-            "@tag": "CREATED",
-            "#text": "Tạo"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Diễn đàn"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "Ai đang xem trang này?"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ Chuyến đến trang: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14734,10 +13118,6 @@
           {
             "@tag": "REPLIES",
             "#text": "Trả Lời"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "RSS"
           },
           {
             "@tag": "SEARCH_FORUM",

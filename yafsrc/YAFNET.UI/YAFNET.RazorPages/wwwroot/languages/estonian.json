@@ -11,10 +11,6 @@
             "#text": "Teie tegevus"
           },
           {
-            "@tag": "ARCHIVE",
-            "#text": "Arhiiv"
-          },
-          {
             "@tag": "BECOME_FRIENDS",
             "#text": "Sõbraks saama"
           },
@@ -119,10 +115,6 @@
             "#text": "E-kirja teadete eelistused"
           },
           {
-            "@tag": "UNREAD_ONLY",
-            "#text": "Kuva ainult lugemata tegevus"
-          },
-          {
             "@tag": "VIEW_PROFILE",
             "#text": "Vaata profiili"
           },
@@ -171,10 +163,6 @@
             "#text": "Teie teated"
           },
           {
-            "@tag": "YOUR_USERDISPLAYNAME",
-            "#text": "Teistele kuvatav nimi:"
-          },
-          {
             "@tag": "YOUR_USERNAME",
             "#text": "Teie kasutajanimi:"
           }
@@ -186,10 +174,6 @@
           {
             "@tag": "CONFIRM_PASSWORD",
             "#text": "Kinnita Uus salasõna"
-          },
-          {
-            "@tag": "INVALID_MATCH",
-            "#text": "Parool ja kinnitusparool peavad ühtima."
           },
           {
             "@tag": "PASSWORD",
@@ -844,36 +828,16 @@
             "#text": "E-post"
           },
           {
-            "@tag": "ADMIN_IPADRESS",
-            "#text": "IP-aadress"
-          },
-          {
             "@tag": "ADMIN_JOINED",
             "#text": "Liitunud"
-          },
-          {
-            "@tag": "ADMIN_LOCATION",
-            "#text": "Juhatuse asukoht"
-          },
-          {
-            "@tag": "ADMIN_NAME",
-            "#text": "Nimi"
           },
           {
             "@tag": "ADMIN_RESEND_EMAIL",
             "#text": "Saada e-posti kinnitus uuesti"
           },
           {
-            "@tag": "ADMIN_UPGRADE",
-            "#text": " and update your database."
-          },
-          {
             "@tag": "ADMINISTRATION",
             "#text": "Administreerimine"
-          },
-          {
-            "@tag": "ALL_BOARDS",
-            "#text": "- Kõik lauad -"
           },
           {
             "@tag": "APROVE_ALL",
@@ -890,10 +854,6 @@
           {
             "@tag": "BROWSER",
             "#text": "Kasutajabrauser (id)"
-          },
-          {
-            "@tag": "CONFIRM_APROVE",
-            "#text": "Kas kinnitada see kasutaja?"
           },
           {
             "@tag": "CONFIRM_APROVE_ALL",
@@ -914,10 +874,6 @@
           {
             "@tag": "COUNTRY",
             "#text": "Maa"
-          },
-          {
-            "@tag": "DAYS_AGO",
-            "#text": "{0:d} ({1:N0} päeva tagasi)"
           },
           {
             "@tag": "DELETE_ALL",
@@ -944,16 +900,8 @@
             "#text": "Kasutajale saadeti uuesti kinnituskiri."
           },
           {
-            "@tag": "MSG_VALID_DAYS",
-            "#text": "Peaksite sisestama päevade jaoks kehtiva täisarvu väärtuse."
-          },
-          {
             "@tag": "NEW_VERSION",
             "#text": "Uus versioon on saadaval!"
-          },
-          {
-            "@tag": "NEW_VERSION_DOWNLOAD",
-            "#text": "Minge lehele Allalaadimised"
           },
           {
             "@tag": "NUM_CATEGORIES",
@@ -1304,10 +1252,6 @@
           {
             "@tag": "ADD_IP",
             "#text": "Lisa uus aadress"
-          },
-          {
-            "@tag": "BAN_BY",
-            "#text": "Keelatud"
           },
           {
             "@tag": "EMPTY_HEADER",
@@ -1697,10 +1641,6 @@
             "#text": "Sorteerimisjärjekorra jaoks peate sisestama numbri väärtuse vahemikus 0 kuni 32767."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sorteerimisjärjestuse väärtus peaks olema positiivne täisarv vahemikus 0 kuni 32767."
-          },
-          {
             "@tag": "ONCLICK_JS",
             "#text": "Onclick JS:"
           },
@@ -1928,14 +1868,6 @@
             "#text": "Valige juhatuse logo"
           },
           {
-            "@tag": "BOARD_MOBILE_THEME",
-            "#text": "Mobiili teema:"
-          },
-          {
-            "@tag": "BOARD_MOBILE_THEME_HELP",
-            "#text": "Sellel tahvlil kasutatav mobiiliteema."
-          },
-          {
             "@tag": "BOARD_NAME",
             "#text": "Juhatuse nimi:"
           },
@@ -2025,10 +1957,6 @@
             "#text": "Salvesta"
           },
           {
-            "@tag": "TABLE_RESPONSIVE",
-            "#text": "Rohkemate andmete kuvamiseks pühkige tabel vasakule"
-          },
-          {
             "@tag": "YES",
             "#text": "Jah"
           }
@@ -2044,18 +1972,6 @@
           {
             "@tag": "DELETE_FORUM",
             "#text": "Kustuta foorum"
-          },
-          {
-            "@tag": "DELETE_MOVE_TITLE",
-            "#text": "Foorumi kustutamine ja teemade teisaldamine"
-          },
-          {
-            "@tag": "DELETE_MSG",
-            "#text": "Palun ärge navigeerige sellelt lehelt kustutamise ajal..."
-          },
-          {
-            "@tag": "DELETE_TITLE",
-            "#text": "Foorumi kustutamine"
           },
           {
             "@tag": "HEADER1",
@@ -2103,14 +2019,6 @@
             "#text": "Muutke oma tahvli seadeid."
           },
           {
-            "@tag": "DIGEST_GENERATE",
-            "#text": "Seedimine:"
-          },
-          {
-            "@tag": "DIGEST_GENERATE_HELP",
-            "#text": "Loo selle administraatorikonto ja praegu valitud teema kokkuvõte. "
-          },
-          {
             "@tag": "DIGEST_LAST",
             "#text": "Viimane kokkuvõtte saatmine:"
           },
@@ -2119,24 +2027,12 @@
             "#text": "Viimane kord (serveri aja põhjal) käivitati kokkuvõtteülesanne.>"
           },
           {
-            "@tag": "DIGEST_METHOD",
-            "#text": "Saatmisviis:"
-          },
-          {
-            "@tag": "DIGEST_METHOD_HELP",
-            "#text": "Süsteemi tüüp Saada testimiseks."
-          },
-          {
             "@tag": "DIGEST_NEVER",
             "#text": "Mitte kunagi"
           },
           {
             "@tag": "FORCE_SEND",
             "#text": "Force Digest Saada"
-          },
-          {
-            "@tag": "GENERATE_DIGEST",
-            "#text": "Loo kokkuvõte"
           },
           {
             "@tag": "HEADER2",
@@ -2222,10 +2118,6 @@
           {
             "@tag": "REQUIRED_HELP",
             "#text": "Määrake, kas väli on kohustuslik või mitte"
-          },
-          {
-            "@tag": "SAVE_NEW",
-            "#text": "Salvesta uus"
           },
           {
             "@tag": "SHOW_REGISTER",
@@ -2315,10 +2207,6 @@
           {
             "@tag": "MSG_NUMBER_SORT",
             "#text": "Sorteerimisjärjestuse jaoks peate sisestama numbri väärtuse vahemikus 0 kuni 32767."
-          },
-          {
-            "@tag": "MSG_POSITIVE_SORT",
-            "#text": "Sorteerimisjärjestuse väärtus peaks olema positiivne täisarv vahemikus 0 kuni 32767."
           },
           {
             "@tag": "POLL_ACCESS",
@@ -2414,14 +2302,6 @@
             "#text": "Uus superkasutaja teave"
           },
           {
-            "@tag": "MEMBSHIP_APP_NAME",
-            "#text": "Liikmetaotluse nimi:"
-          },
-          {
-            "@tag": "MEMBSHIP_APP_NAME_HELP",
-            "#text": "Pakkuja jaoks on nõutav rakenduse nimi, tühi kasutab failis web.config ApplicationName."
-          },
-          {
             "@tag": "MSG_EMAIL_ADMIN",
             "#text": "Peate sisestama hosti administraatori e-posti aadressi."
           },
@@ -2448,58 +2328,6 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Juhatuse nimi."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Turvavastus:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_HELP",
-            "#text": "Vastus turvaküsimusele."
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Turvaküsimus:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_HELP",
-            "#text": "Küsimus, mis esitatakse teile, kui teil on vaja kaotatud parool taastada."
-          },
-          {
-            "@tag": "STATUS_DUP_EMAIL",
-            "#text": "Selle e-posti aadressi kasutajanimi on juba olemas. "
-          },
-          {
-            "@tag": "STATUS_DUP_NAME",
-            "#text": "Kasutajanimi on juba olemas. "
-          },
-          {
-            "@tag": "STATUS_INVAL_ANSWER",
-            "#text": "Parooli otsimise vastus on kehtetu. "
-          },
-          {
-            "@tag": "STATUS_INVAL_MAIL",
-            "#text": "Esitatud e-posti aadress on kehtetu. "
-          },
-          {
-            "@tag": "STATUS_INVAL_NAME",
-            "#text": "Esitatud kasutajanimi on kehtetu. "
-          },
-          {
-            "@tag": "STATUS_INVAL_PASS",
-            "#text": "Esitatud parool on kehtetu. "
-          },
-          {
-            "@tag": "STATUS_INVAL_QUESTION",
-            "#text": "Esitatud parooli otsimise küsimus on kehtetu. "
-          },
-          {
-            "@tag": "STATUS_PROVIDER_ERR",
-            "#text": "Autentimise pakkuja tagastas veateate. "
-          },
-          {
-            "@tag": "STATUS_USR_REJECTED",
-            "#text": "Kasutaja loomise taotlus on tühistatud. "
           },
           {
             "@tag": "TITLE",
@@ -2579,10 +2407,6 @@
             "#text": "Sorteerimisjärjekorra jaoks sisestatud vale väärtus: tuleb sisestada number."
           },
           {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sorteerimisjärjestuse väärtus peaks olema positiivne täisarv vahemikus 0 kuni 32767."
-          },
-          {
             "@tag": "MSG_VALUE",
             "#text": "Kategooria nime väljale tuleb sisestada väärtus."
           },
@@ -2603,10 +2427,6 @@
       {
         "@name": "ADMIN_EDITFORUM",
         "Resource": [
-          {
-            "@tag": "ACCESS_MASK",
-            "#text": "Juurdepääsumask"
-          },
           {
             "@tag": "CATEGORY",
             "#text": "Kategooria:"
@@ -2654,14 +2474,6 @@
           {
             "@tag": "HIDE_NOACESS_HELP",
             "#text": "Tähendab, et foorum peidetakse, kui kasutajal pole sellele lugemisõigust."
-          },
-          {
-            "@tag": "INITAL_MASK",
-            "#text": "Esialgne juurdepääsumask:"
-          },
-          {
-            "@tag": "INITAL_MASK_HELP",
-            "#text": "Kõigi foorumite esialgne juurdepääsumask."
           },
           {
             "@tag": "LOCKED",
@@ -2712,24 +2524,12 @@
             "#text": "Sellise nimega foorum on juba olemas."
           },
           {
-            "@tag": "MSG_INITAL_MASK",
-            "#text": "Peate valima foorumi algse juurdepääsumaski."
-          },
-          {
-            "@tag": "MSG_INVALID_URL",
-            "#text": "Sisestasite vale URL-aadressi."
-          },
-          {
             "@tag": "MSG_NAME_FORUM",
             "#text": "Peate sisestama foorumi nime."
           },
           {
             "@tag": "MSG_PARENT_SELF",
             "#text": "Foorum ei saa olla iseenda ema."
-          },
-          {
-            "@tag": "MSG_POSITIVE_VALUE",
-            "#text": "Sorteerimisjärjestuse väärtus peaks olema positiivne täisarv vahemikus 0 kuni 32767."
           },
           {
             "@tag": "MSG_VALUE",
@@ -2889,36 +2689,8 @@
             "#text": "Kui see on märgitud, on kõik uued kasutajad selle rolli liikmed. "
           },
           {
-            "@tag": "MSG_ALBUM_NUMBER",
-            "#text": "Peaksite sisestama kasutajaalbumite arvu täisarvu."
-          },
-          {
-            "@tag": "MSG_INTEGER",
-            "#text": "Prioriteediks peaksite sisestama täisarvu."
-          },
-          {
             "@tag": "MSG_NAME",
             "#text": "Peate sisestama rolli nime."
-          },
-          {
-            "@tag": "MSG_SIG_NUMBER",
-            "#text": "Peaksite sisestama kasutaja allkirjas olevate tähemärkide arvu täisarvu."
-          },
-          {
-            "@tag": "MSG_TOTAL_NUMBER",
-            "#text": "Peaksite sisestama kõigi albumite piltide koguarvu täisarvu."
-          },
-          {
-            "@tag": "MSG_VALID_NUMBER",
-            "#text": "Peaksite sisestama psõnumi numbri täisarvu."
-          },
-          {
-            "@tag": "PMMESSAGES",
-            "#text": "PSõnumid:"
-          },
-          {
-            "@tag": "PMMESSAGES_HELP",
-            "#text": "Max "
           },
           {
             "@tag": "PRIORITY",
@@ -3035,26 +2807,6 @@
             "#text": "Tähendab, et kasutajatel lubatakse/keelatakse seda medalit peita."
           },
           {
-            "@tag": "ALLOW_REORDER",
-            "#text": "Luba uuesti tellida:"
-          },
-          {
-            "@tag": "ALLOW_REORDER_HELP",
-            "#text": "Tähendab, et kasutajatel on lubatud/keelatud selle medali järjekorda muuta."
-          },
-          {
-            "@tag": "ALLOW_RIBBON",
-            "#text": "Luba lindiriba:"
-          },
-          {
-            "@tag": "ALLOW_RIBBON_HELP",
-            "#text": "Tähendab, et selle medali lintriba näitamine on lubatud/keelatud."
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Kas eemaldada medal sellest grupist?"
-          },
-          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Kas eemaldada sellelt kasutajalt medal?"
           },
@@ -3143,20 +2895,12 @@
             "#text": "Sisestage kasutajanimi või klõpsake \"Otsi kasutajaid\", et valida kasutaja kasutajate loendist"
           },
           {
-            "@tag": "MSG_AMBIGOUS_USER",
-            "#text": "Määratud ebaselge kasutajanimi!"
-          },
-          {
             "@tag": "MSG_IMAGE",
             "#text": "Medali pilt tuleb täpsustada!"
           },
           {
             "@tag": "MSG_NAME",
             "#text": "Peate sisestama medali nime!"
-          },
-          {
-            "@tag": "MSG_SMALL_IMAGE",
-            "#text": "Väike medali pilt tuleb täpsustada!"
           },
           {
             "@tag": "MSG_VALID_USER",
@@ -3185,10 +2929,6 @@
           {
             "@tag": "SELECT_IMAGE",
             "#text": "Valige medalipilt"
-          },
-          {
-            "@tag": "SELECT_IMAGE_HELP",
-            "#text": "Medal kuvatakse kasutajaprofiilis"
           },
           {
             "@tag": "SHOW_MESSAGE",
@@ -3248,20 +2988,8 @@
             "#text": "Minimaalne postituste arv, enne kui kasutajad sellele auastmele tõusevad."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Asetuse prioriteet peaks olema väike täisarv."
-          },
-          {
             "@tag": "NEED_NAME",
             "#text": "Peate määrama auastme nime."
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES",
-            "#text": "Privaatsõnumid:"
-          },
-          {
-            "@tag": "PRIVATE_MESSAGES_HELP",
-            "#text": "Max "
           },
           {
             "@tag": "RANK_DESC",
@@ -3270,14 +2998,6 @@
           {
             "@tag": "RANK_DESC_HELP",
             "#text": "Sisestage siia rolli kirjeldus."
-          },
-          {
-            "@tag": "RANK_IMAGE",
-            "#text": "Järjekorra pilt:"
-          },
-          {
-            "@tag": "RANK_IMAGE_HELP",
-            "#text": "Seda pilti näidatakse selle järgu kasutajate kõrval."
           },
           {
             "@tag": "RANK_NAME",
@@ -3349,10 +3069,6 @@
             "#text": "Kas keelata kasutaja kasutajanimi?"
           },
           {
-            "@tag": "BOT_REPORTED",
-            "#text": "Kasutajast teatati edukalt kui robotist"
-          },
-          {
             "@tag": "BOT_REPORTED_FAILED",
             "#text": "User Reporting was not successfull, please check your API Key!"
           },
@@ -3377,14 +3093,6 @@
             "#text": "Kas saadate kasutajale uue parooli kohta teate?"
           },
           {
-            "@tag": "CONFIRM_PASS",
-            "#text": "Kinnita salasõna:"
-          },
-          {
-            "@tag": "CONFIRM_PASS_HELP",
-            "#text": "Kinnitage uus parool."
-          },
-          {
             "@tag": "CURRENT_POINTS",
             "#text": "Praegused punktid:"
           },
@@ -3403,14 +3111,6 @@
           {
             "@tag": "DISABLED_HELP",
             "#text": "Kasutaja on pehmelt kustutatud."
-          },
-          {
-            "@tag": "ERROR_CONFIRM_PASS",
-            "#text": "Peate sisestama parooli kinnitamise"
-          },
-          {
-            "@tag": "ERROR_NEW_PASS",
-            "#text": "Peate sisestama uue parooli"
           },
           {
             "@tag": "ERROR_PASS_NOTMATCH",
@@ -3433,20 +3133,8 @@
             "#text": "Kasutajarühmad"
           },
           {
-            "@tag": "HEAD_USER_POINTS",
-            "#text": "Kasutajapunktid"
-          },
-          {
-            "@tag": "HEAD_USER_RESETPASS",
-            "#text": "Lähtesta/muutke kasutaja parooli"
-          },
-          {
             "@tag": "IP_ADDRESSES",
             "#text": "IP-aadressid:"
-          },
-          {
-            "@tag": "KILL_USER",
-            "#text": "Tapa kasutaja"
           },
           {
             "@tag": "KILL_USER_CONFIRM",
@@ -3469,10 +3157,6 @@
             "#text": "Modereeri kõiki kasutaja tehtud postitusi"
           },
           {
-            "@tag": "MSG_GUEST_APPROVED",
-            "#text": "Külaliskasutaja peab olema märgitud heakskiidetuks, vastasel juhul on teie foorum ebastabiilne."
-          },
-          {
             "@tag": "MSG_PASS_CHANGED",
             "#text": "Kasutaja parool muudetud"
           },
@@ -3481,24 +3165,8 @@
             "#text": "Kasutaja parool muudetud ja teavitusmeil saadetud."
           },
           {
-            "@tag": "MSG_PASS_RESET",
-            "#text": "Kasutaja parooli lähtestamine ja teavitusmeil saadetud"
-          },
-          {
             "@tag": "MSG_USER_KILLED",
             "#text": "Kasutaja {0} tapeti!"
-          },
-          {
-            "@tag": "PASS_OPTION",
-            "#text": "Valik:"
-          },
-          {
-            "@tag": "PASS_OPTION_CHANGE",
-            "#text": "Muutke käsitsi parool ja soovi korral saatke kasutajale uus parool"
-          },
-          {
-            "@tag": "PASS_OPTION_RESET",
-            "#text": "Lähtestage parool ja saatke kasutajale uus parool"
           },
           {
             "@tag": "PASS_REQUIREMENT",
@@ -3515,10 +3183,6 @@
           {
             "@tag": "REPORT_USER",
             "#text": "Teatage kasutajast kui BOTist saidile StopForumSpam.com"
-          },
-          {
-            "@tag": "REPORT_USER_CONFIRM",
-            "#text": "Kas teatage kasutajanimi, e-posti aadress ja IP-aadress saidile StopForumSpam.com kui BOT?"
           },
           {
             "@tag": "RESET_PASS",
@@ -3723,10 +3387,6 @@
             "#text": "Kas kustutada see kategooria?"
           },
           {
-            "@tag": "CONFIRM_DELETE_POSITIVE",
-            "#text": "Kas sa oled POSITIIVNE?"
-          },
-          {
             "@tag": "CONFIRM_SORTING",
             "#text": "Oled sa kindel? "
           },
@@ -3782,10 +3442,6 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Kas kustutada see roll?"
-          },
-          {
-            "@tag": "DELETE_ROLEFROMYAF",
-            "#text": "Kustuta roll"
           },
           {
             "@tag": "HEADER",
@@ -5718,14 +5374,6 @@
             "#text": "Kultuurimärk"
           },
           {
-            "@tag": "LANG_NAME",
-            "#text": "Keel Inglise Nimi"
-          },
-          {
-            "@tag": "NATIVE_NAME",
-            "#text": "Keele emakeel"
-          },
-          {
             "@tag": "PROGRESS",
             "#text": "Tõlgitud ressursid"
           },
@@ -5787,6 +5435,10 @@
             "#text": "Näib, et meili saatmine teie YAF-i installist töötab."
           },
           {
+            "@tag": "TEST_MAIL_TITLE",
+            "#text": "Meili testimine"
+          },
+          {
             "@tag": "TEST_SUBJECT",
             "#text": "Testige meili järjekordselt Forum.NET-ilt"
           },
@@ -5805,10 +5457,6 @@
           {
             "@tag": "TO_MAIL_HELP",
             "#text": "Sisestage e-posti aadress, kuhu testmeil saata"
-          },
-          {
-            "@tag": "TEST_MAIL_TITLE",
-            "#text": "Meili testimine"
           }
         ]
       },
@@ -5824,24 +5472,12 @@
             "#text": "Medali pilt sellisena, nagu see kuvatakse kasutajakastis."
           },
           {
-            "@tag": "DISPLAY_RIBBON",
-            "#text": "Lindiriba pilt, nagu see kuvatakse kasutajakastis."
-          },
-          {
             "@tag": "EMPTY_HEADER",
             "#text": "Medalit pole"
           },
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Praegu pole medaleid. "
-          },
-          {
-            "@tag": "MOVE_DOWN",
-            "#text": "Liigu alla"
-          },
-          {
-            "@tag": "MOVE_UP",
-            "#text": "Üles liikuma"
           },
           {
             "@tag": "NEW_MEDAL",
@@ -5925,10 +5561,6 @@
           {
             "@tag": "DAYS",
             "#text": "päevadel"
-          },
-          {
-            "@tag": "DELETE_READ",
-            "#text": "Kustutage loetud sõnumid, mis on vanemad kui:"
           },
           {
             "@tag": "DELETE_UNREAD",
@@ -6100,16 +5732,8 @@
             "#text": "profiili info"
           },
           {
-            "@tag": "HEADER4",
-            "#text": "Foorumi eelistused"
-          },
-          {
             "@tag": "MSG_CREATED",
             "#text": "Kasutaja {0} loodud edukalt."
-          },
-          {
-            "@tag": "MSG_ERROR_CREATE",
-            "#text": "Liikmelisuse viga kasutaja loomisel: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6153,10 +5777,6 @@
             "#text": "Kahandamine õnnestus. Teie andmebaasi suurus on praegu: {0} MB"
           },
           {
-            "@tag": "INDEX_STATS",
-            "#text": "Andmebaasi taastamise režiimiks määrati {0}"
-          },
-          {
             "@tag": "INDEX_STATS_FAIL",
             "#text": "Selle toiminguga läks midagi valesti. "
           },
@@ -6175,14 +5795,6 @@
           {
             "@tag": "REINDEX",
             "#text": "Mis tahes andmete muutmise toiminguga võib tabel killuneda. "
-          },
-          {
-            "@tag": "REINDEX_MSG",
-            "#text": "Palun ärge navigeerige sellelt lehelt minema..."
-          },
-          {
-            "@tag": "REINDEX_TITLE",
-            "#text": "Tabelite värskendamine"
           },
           {
             "@tag": "REINDEXTBL_BTN",
@@ -6333,10 +5945,6 @@
             "#text": "Rakenduse taaskäivitamine laadib uuesti kõik konfiguratsioonifailid."
           },
           {
-            "@tag": "MSG_TRUST",
-            "#text": "Rakenduse mahalaadimiseks peab olema kõrge/piiramatu usaldusväärsus. "
-          },
-          {
             "@tag": "TITLE",
             "#text": "Taaskäivitage rakendus"
           }
@@ -6384,10 +5992,6 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Sõnumite taastamine ja kustutamine"
-          },
-          {
-            "@tag": "TITLE_MESSAGE_HELP",
-            "#text": "Võimalus taastada kustutatud sõnumitena märgitud sõnumid või kustutada need andmebaasist jäädavalt."
           }
         ]
       },
@@ -6399,16 +6003,12 @@
             "#text": "Käivitage SQL päring"
           },
           {
-            "@tag": "NEED_QUERY",
-            "#text": "Peate sisestama päringu."
+            "@tag": "RESULT",
+            "#text": "Tulemus"
           },
           {
             "@tag": "RUN_QUERY",
             "#text": "Käivitage päring"
-          },
-          {
-            "@tag": "RUN_TRANSCATION",
-            "#text": "Käivita tehingus"
           },
           {
             "@tag": "SQL_COMMAND",
@@ -6417,10 +6017,6 @@
           {
             "@tag": "TITLE",
             "#text": "Käivitage SQL-kood"
-          },
-          {
-            "@tag": "RESULT",
-            "#text": "Tulemus"
           }
         ]
       },
@@ -6492,10 +6088,6 @@
           {
             "@tag": "SPAM",
             "#text": "\"Rämpsposti\" sõna (leida) väljend:"
-          },
-          {
-            "@tag": "SPAM_HELP",
-            "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
             "@tag": "TITLE",
@@ -6581,10 +6173,6 @@
             "#text": "Jookseb"
           },
           {
-            "@tag": "STOP_TASK",
-            "#text": "Peatage ülesanne"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Ülesannete haldur"
           }
@@ -6602,24 +6190,12 @@
             "#text": "Kas kustutada see kasutaja?"
           },
           {
-            "@tag": "CONFIRM_SYNC",
-            "#text": "Oled sa kindel?"
-          },
-          {
-            "@tag": "DISPLAY_NAME",
-            "#text": "Kuvatav nimi"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "Meil"
           },
           {
             "@tag": "EMAIL_CONTAINS",
             "#text": "E-post sisaldab:"
-          },
-          {
-            "@tag": "EXPORT_CSV",
-            "#text": "Ekspordi kõik kasutajad CSV-vormingus"
           },
           {
             "@tag": "EXPORT_XML",
@@ -6708,14 +6284,6 @@
           {
             "@tag": "SUSPENDED_ONLY",
             "#text": "Kas kuvada ainult peatatud kasutajad?"
-          },
-          {
-            "@tag": "SYNC_ALL",
-            "#text": "Sünkrooni kõik liikmelisuse kasutajad"
-          },
-          {
-            "@tag": "SYNC_FINISH",
-            "#text": "Kõik kasutajad on nüüd sünkroonitud"
           },
           {
             "@tag": "TITLE",
@@ -6994,14 +6562,6 @@
             "#text": "Muuda pealkirja"
           },
           {
-            "@tag": "ALBUM_IMAGES_NUMBER",
-            "#text": "{0} Pilt/Pildid"
-          },
-          {
-            "@tag": "ALBUM_VIEW",
-            "#text": "Vajutage albumi avamiseks"
-          },
-          {
             "@tag": "ALBUMS",
             "#text": "Albumid"
           },
@@ -7072,10 +6632,6 @@
             "#text": "Kas kustutan selle manuse?"
           },
           {
-            "@tag": "COMPLETE_WARNING",
-            "#text": "Palun oodake, kuni kõik üleslaadimised on lõpetatud ja dialoog sulgub!"
-          },
-          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Kas kustutada manus(ed)?"
           },
@@ -7090,10 +6646,6 @@
           {
             "@tag": "DELETED",
             "#text": "{0} manus(t) on kustutatud!"
-          },
-          {
-            "@tag": "DISALLOWED_EXTENSIONS",
-            "#text": "Keelatud faili tüübid"
           },
           {
             "@tag": "DROP_HERE",
@@ -7120,20 +6672,12 @@
             "#text": "Suurus"
           },
           {
-            "@tag": "START_UPLOADS",
-            "#text": "Alusta üleslaadimist"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Manused"
           },
           {
             "@tag": "UPLOAD",
             "#text": "Üleslaadimine"
-          },
-          {
-            "@tag": "UPLOAD_NEW",
-            "#text": "Laadi üles uus fail(id)"
           },
           {
             "@tag": "UPLOAD_NOTE",
@@ -7153,20 +6697,12 @@
         "@name": "AVATAR",
         "Resource": [
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Minge tagasi avatari muutmise lehele ilma avatari valimata."
-          },
-          {
             "@tag": "EDITPROFILE",
             "#text": "Muuda avatar"
           },
           {
             "@tag": "TITLE",
             "#text": "Avatarid"
-          },
-          {
-            "@tag": "UP_TITLE",
-            "#text": "Minge emakausta."
           }
         ]
       },
@@ -7332,24 +6868,12 @@
             "#text": "Lisa sõbrana"
           },
           {
-            "@tag": "AWAIT_BUDDY_APPROVAL",
-            "#text": "(Ootab taotluse vastuvõtmist)"
-          },
-          {
-            "@tag": "NOTIFICATION_ALL_APPROVED",
-            "#text": "Kõik sõbrataotlused vastu võetud."
-          },
-          {
             "@tag": "NOTIFICATION_ALL_APPROVED_ADDED",
             "#text": "Kõik sõbra taotlused on vastu võetud ja lisatud teie sõprade loetellu."
           },
           {
             "@tag": "NOTIFICATION_ALL_DENIED",
             "#text": "Kõik üle 14 päeva vanused sõbrataotlused on tagasi lükatud."
-          },
-          {
-            "@tag": "NOTIFICATION_BUDDYAPPROVED",
-            "#text": "Te olete lisatud kasutaja {0} sõprade loetellu."
           },
           {
             "@tag": "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -7366,10 +6890,6 @@
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
             "#text": "Sõbrataotlus eemaldati."
-          },
-          {
-            "@tag": "PENDINGBUDDIES",
-            "#text": "Teil on {0} ootel sõbrataotlust"
           },
           {
             "@tag": "PENDINGBUDDIES_TITLE",
@@ -7651,88 +7171,16 @@
             "#text": "Uue parooli kinnitus:"
           },
           {
-            "@tag": "EMPTY_ANSWER",
-            "#text": "New Answer is requiered."
-          },
-          {
-            "@tag": "EMPTY_PASSWORD",
-            "#text": "Palun sisestage oma praegune parool"
-          },
-          {
-            "@tag": "EMPTY_QUESTION",
-            "#text": "New Question is requiered."
-          },
-          {
-            "@tag": "NEED_NEW_CONFIRM_PASSWORD",
-            "#text": "Uue parooli kinnitus on kohustuslik."
-          },
-          {
-            "@tag": "NEED_NEW_PASSWORD",
-            "#text": "Uus parool on kohustuslik."
-          },
-          {
-            "@tag": "NEED_OLD_PASSWORD",
-            "#text": "Vana parool on kohustuslik."
-          },
-          {
             "@tag": "NEW_PASSWORD",
             "#text": "Uus parool:"
-          },
-          {
-            "@tag": "NO_PASSWORD_MATCH",
-            "#text": "Uued paroolid ei klapi."
           },
           {
             "@tag": "OLD_PASSWORD",
             "#text": "Vana parool:"
           },
           {
-            "@tag": "PASSWORD_BAD_LENGTH",
-            "#text": "Uue parooli minimaalne pikkus: {0}."
-          },
-          {
-            "@tag": "PASSWORD_INCORRECT",
-            "#text": "Vale parool või kehtetu uus parool."
-          },
-          {
-            "@tag": "PASSWORD_NOT_COMPLEX",
-            "#text": "Nõutud sümbolid: {1}."
-          },
-          {
-            "@tag": "PASSWORD_NOT_NEW",
-            "#text": "Uus parool peab erinema vanast."
-          },
-          {
-            "@tag": "SECURITY_ANSWER_NEW",
-            "#text": "Uus turvavastus:"
-          },
-          {
-            "@tag": "SECURITY_ANSWER_OLD",
-            "#text": "Praegune salasõna:"
-          },
-          {
-            "@tag": "SECURITY_CHANGED",
-            "#text": "Parooli küsimus ja vastus muudetud."
-          },
-          {
-            "@tag": "SECURITY_NOT_CHANGED",
-            "#text": "Muudatus ebaõnnestus. "
-          },
-          {
-            "@tag": "SECURITY_QUESTION_NEW",
-            "#text": "Uus turvaküsimus:"
-          },
-          {
-            "@tag": "SECURITY_QUESTION_OLD",
-            "#text": "Vana turvaküsimus:"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Parooli muutmine"
-          },
-          {
-            "@tag": "TITLE_SECURITY",
-            "#text": "Muutke turvaküsimust ja vastust"
           }
         ]
       },
@@ -7757,14 +7205,6 @@
         "@name": "COMMON",
         "Resource": [
           {
-            "@tag": "ALBUMIMG_BBCODE",
-            "#text": "Sisesta albumi pilt..."
-          },
-          {
-            "@tag": "ALLOWED",
-            "#text": "Lubatud"
-          },
-          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Sisestage olemasolev manus või laadige üles uus fail..."
           },
@@ -7777,36 +7217,16 @@
             "#text": "Kasutajanimi ei tohi sisaldada semikoolonit(;) või erimärke."
           },
           {
-            "@tag": "BBCODE_CODE",
-            "#text": "Kood:"
-          },
-          {
-            "@tag": "BBCODE_QUOTE",
-            "#text": "Tsitaat:"
-          },
-          {
             "@tag": "BBCODE_QUOTEPOSTED",
             "#text": "Algselt postitas: {0}"
-          },
-          {
-            "@tag": "BBCODE_QUOTEPOSTED_TT",
-            "#text": "Minge tsiteeritud postituse juurde"
           },
           {
             "@tag": "BBCODE_QUOTEWROTE",
             "#text": "{0} kirjutas:"
           },
           {
-            "@tag": "BROWSE",
-            "#text": "Sirvige"
-          },
-          {
             "@tag": "CANCEL",
             "#text": "Katkesta"
-          },
-          {
-            "@tag": "CHANGEEMAIL_SUBJECT",
-            "#text": "E-kirja aadressi muutmine"
           },
           {
             "@tag": "CHARACTERS_LEFT",
@@ -7857,10 +7277,6 @@
             "#text": "Teema ID-ga: {0} Kustutatud"
           },
           {
-            "@tag": "DISALLOWED",
-            "#text": "Keelatud"
-          },
-          {
             "@tag": "DOWNLOAD",
             "#text": "Lae alla"
           },
@@ -7869,16 +7285,8 @@
             "#text": "Muuda"
           },
           {
-            "@tag": "EMAILVERIFICATION_SUBJECT",
-            "#text": "{0} E-kirja valideerimine"
-          },
-          {
             "@tag": "ENTRIES_10",
             "#text": "10 kirjet"
-          },
-          {
-            "@tag": "ENTRIES_15",
-            "#text": "15 kirjet"
           },
           {
             "@tag": "ENTRIES_20",
@@ -7895,10 +7303,6 @@
           {
             "@tag": "ENTRIES_50",
             "#text": "50 kirjet"
-          },
-          {
-            "@tag": "EXTERNALUSER",
-            "#text": "(Väline kasutaja)"
           },
           {
             "@tag": "FONT_COLOR",
@@ -7961,20 +7365,12 @@
             "#text": "Esimene lehekülg"
           },
           {
-            "@tag": "GOTOLASTPAGE_TT",
-            "#text": "Mine viimasele lehele"
-          },
-          {
             "@tag": "GOTONEXTPAGE_TT",
             "#text": "Järgmine leht"
           },
           {
             "@tag": "GOTOPAGE_HEADER",
             "#text": "Mine lehele..."
-          },
-          {
-            "@tag": "GOTOPOST_ТТ",
-            "#text": "Mine sõnumi juurde"
           },
           {
             "@tag": "GOTOPREVPAGE_TT",
@@ -7985,28 +7381,12 @@
             "#text": "Peidetud"
           },
           {
-            "@tag": "HTMLTAG_FORBIDDEN",
-            "#text": "Sisestatud andmed ei tohi sisaldada HTML tage."
-          },
-          {
-            "@tag": "HTMLTAG_WRONG",
-            "#text": "Sisestatud andmetes on keelatud HTML tag {0}."
-          },
-          {
             "@tag": "IN_FORUM",
             "#text": "foorumis: {0}"
           },
           {
-            "@tag": "LOAD_MORE",
-            "#text": "Kuva rohkem kategooriaid ja foorumeid..."
-          },
-          {
             "@tag": "LOADING",
             "#text": "Laadimine..."
-          },
-          {
-            "@tag": "MANAGE",
-            "#text": "Halda"
           },
           {
             "@tag": "MAX_ONLINE",
@@ -8023,18 +7403,6 @@
           {
             "@tag": "MESSAGE",
             "#text": "Sõnum"
-          },
-          {
-            "@tag": "MOBILE_FULLSITE",
-            "#text": "Vaata kogu saiti"
-          },
-          {
-            "@tag": "MOBILE_VIEWSITE",
-            "#text": "Vaata mobiilisaiti"
-          },
-          {
-            "@tag": "MODAL_NOTIFICATION_HEADER",
-            "#text": "Teade"
           },
           {
             "@tag": "MODERATOR",
@@ -8133,14 +7501,6 @@
             "#text": "Lugege"
           },
           {
-            "@tag": "REGMAIL_SENT",
-            "#text": "E-kiri on saadetud. Kontrollige oma sissetulevat postkasti ja klikkige e-kirjas olevale lingile."
-          },
-          {
-            "@tag": "REGMAIL_WILL_BE_SEND",
-            "#text": "Vastuseks teie registreerumisele saadetakse e-kiri. Sisselogimiseks palume kontrollida sissetulevat postkasti ja vajutada e-kirjas olevale lingile."
-          },
-          {
             "@tag": "REPLY",
             "#text": "Vasta"
           },
@@ -8163,10 +7523,6 @@
           {
             "@tag": "SHOW_TITLE",
             "#text": "Lehe suurusvalik"
-          },
-          {
-            "@tag": "SHOWHIDE",
-            "#text": "Näita Peida"
           },
           {
             "@tag": "SUBMIT",
@@ -8197,20 +7553,12 @@
             "#text": "Kood"
           },
           {
-            "@tag": "TT_CODELANG",
-            "#text": "Valige süntaksi esiletõstmise keel"
-          },
-          {
             "@tag": "TT_COPY",
             "#text": "Kopeeri valitud tekst (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
             "#text": "Loo link"
-          },
-          {
-            "@tag": "TT_CUSTOMBBCODE",
-            "#text": "Rohkem BBCode tähiseid"
           },
           {
             "@tag": "TT_CUT",
@@ -8309,40 +7657,12 @@
             "#text": "Sisestage URL:"
           },
           {
-            "@tag": "UNREAD_MENTION_MSG",
-            "#text": "Teil on {0} lugemata mainimist. Kas soovite minna uusima juurde?"
-          },
-          {
-            "@tag": "UNREAD_MENTION_TITLE",
-            "#text": "Keegi mainis teid teemas"
-          },
-          {
-            "@tag": "UNREAD_MSG",
-            "#text": "Teie postkastis on {0} lugemata kirja."
-          },
-          {
             "@tag": "UNREAD_MSG_TITLE",
             "#text": "Uued privaatsõnumid"
           },
           {
             "@tag": "UNREAD_MSG2",
             "#text": "Teie postkastis on {0} lugemata kirja(t). "
-          },
-          {
-            "@tag": "UNREAD_QUOTED_MSG",
-            "#text": "Teil on {0} lugemata tsiteeritud postitust, kas soovite minna uusima juurde?"
-          },
-          {
-            "@tag": "UNREAD_QUOTED_TITLE",
-            "#text": "Keegi tsiteeris teid teemas"
-          },
-          {
-            "@tag": "UNREAD_THANKS_MSG",
-            "#text": "Teil on {0} lugemata saadetud Täname, kas soovite minna uusima juurde?"
-          },
-          {
-            "@tag": "UNREAD_THANKS_TITLE",
-            "#text": "Keegi tänas teid sõnumi eest"
           },
           {
             "@tag": "UPDATE",
@@ -8355,10 +7675,6 @@
           {
             "@tag": "USERNAME_TOOSMALL",
             "#text": "Kasutajanimi või kuvatav kasutajanimi peab olema pikem kui {0} tähemärki."
-          },
-          {
-            "@tag": "VIEW_CATEGORY",
-            "#text": "Vaata kategooriat"
           },
           {
             "@tag": "VIEW_FORUM",
@@ -9408,18 +8724,6 @@
             "#text": "viimase {0:N0} minuti jooksul"
           },
           {
-            "@tag": "ALPHABET_FILTER",
-            "#text": "Tähestiku filter"
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPACTIVE",
-            "#text": "Liitu aktiivsete teemade Atom vooga."
-          },
-          {
-            "@tag": "ATOMICONTOOLTIPFORUM",
-            "#text": "Liitu Atom vooga."
-          },
-          {
             "@tag": "BY",
             "#text": "{0}"
           },
@@ -9432,12 +8736,12 @@
             "#text": "Foorum"
           },
           {
-            "@tag": "GO_LAST_POST",
-            "#text": "Mine viimasele postitusele"
+            "@tag": "FORUMS",
+            "#text": "Foorumid"
           },
           {
-            "@tag": "GO_LASTUNREAD_POST",
-            "#text": "Go to first unread"
+            "@tag": "GO_LAST_POST",
+            "#text": "Mine viimasele postitusele"
           },
           {
             "@tag": "IN",
@@ -9454,18 +8758,6 @@
           {
             "@tag": "LASTPOST",
             "#text": "Viimane postitus"
-          },
-          {
-            "@tag": "LATEST_POSTS",
-            "#text": "Viimased postitused"
-          },
-          {
-            "@tag": "MAIN_FORUM_ATOM",
-            "#text": "Põhifoorumi Atom"
-          },
-          {
-            "@tag": "MAIN_FORUM_RSS",
-            "#text": "Põhifoorumi RSS"
           },
           {
             "@tag": "MARK_ALL_ASREAD",
@@ -9492,6 +8784,10 @@
             "#text": "Viimase {0} päeva aktiivseimad kasutajad"
           },
           {
+            "@tag": "NEWEST_MEMBER",
+            "#text": "Uusim liige"
+          },
+          {
             "@tag": "NO_FORUM_ACCESS",
             "#text": "(Juurdepääs puudub)"
           },
@@ -9516,56 +8812,28 @@
             "#text": "Viimased kasutajad"
           },
           {
-            "@tag": "SHOW_UNREAD_ONLY",
-            "#text": "Kuva ainult lugemata teemad."
-          },
-          {
             "@tag": "STATS",
             "#text": "Statistika"
-          },
-          {
-            "@tag": "STATS_LASTMEMBER",
-            "#text": "Uusim liige on:"
-          },
-          {
-            "@tag": "STATS_LASTPOST",
-            "#text": " Viimane postitus {0}:"
-          },
-          {
-            "@tag": "STATS_MEMBERS",
-            "#text": "Meil on {0:N0} registreerunud kasutajat."
-          },
-          {
-            "@tag": "STATS_POSTS",
-            "#text": "{0:N0} postitust on {1:N0} teemas ja {2:N0} foorumis."
           },
           {
             "@tag": "STATS_SPAM",
             "#text": "Rämpspostivastane statistika"
           },
           {
-            "@tag": "STATS_SPAM_BANNED",
-            "#text": "{0} rämpsposti saatjat on jäädavalt keelatud"
+            "@tag": "STATS_SPAM_BANNED_LABEL",
+            "#text": "Püsivalt keelatud"
           },
           {
-            "@tag": "STATS_SPAM_DENIED",
-            "#text": "{0} rämpspostitaja registreerimisest keelduti"
+            "@tag": "STATS_SPAM_DENIED_LABEL",
+            "#text": "Registreerimisest keelduti"
           },
           {
-            "@tag": "STATS_SPAM_REPORTED",
-            "#text": "StopForumSpam.com-ile saadeti {0} rämpsposti saatjat"
+            "@tag": "STATS_SPAM_REPORTED_LABEL",
+            "#text": "Teatatud saidile StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
             "#text": "Teemad"
-          },
-          {
-            "@tag": "UNREAD0",
-            "#text": "Sul on {0} lugemata kirja postkastis."
-          },
-          {
-            "@tag": "UNREAD1",
-            "#text": "Sul on {0} lugemata kiri postkastis."
           },
           {
             "@tag": "VIEWING",
@@ -9595,22 +8863,6 @@
           {
             "@tag": "CONFIRM",
             "#text": "Kas olete täiesti kindel, et soovite seda teha?"
-          },
-          {
-            "@tag": "OPTION_DELETE_TEXT",
-            "#text": "See kustutab teie konto jäädavalt! "
-          },
-          {
-            "@tag": "OPTION_DELETE_TITLE",
-            "#text": "Kustutage oma konto (jäädavalt)"
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TEXT",
-            "#text": "Kui soovite lihtsalt foorumis pausi teha, peatab see teie konto 30 päevaks. "
-          },
-          {
-            "@tag": "OPTION_SUSPEND_TITLE",
-            "#text": "Peatage oma konto 30 päevaks"
           },
           {
             "@tag": "OPTIONS_TITLE",
@@ -9699,16 +8951,8 @@
             "#text": "{0} kommentaari"
           },
           {
-            "@tag": "LASTBY",
-            "#text": " {0}"
-          },
-          {
             "@tag": "LINK",
             "#text": "Rohkem"
-          },
-          {
-            "@tag": "NEWTOPICS",
-            "#text": "Uued teemad"
           },
           {
             "@tag": "REMOVALLINK",
@@ -9752,10 +8996,6 @@
             "#text": "Kas kustutan selle pildi?"
           },
           {
-            "@tag": "ERROR_MAXALBUMS",
-            "#text": "Sellele kontole albumeid enam ei saa lisada."
-          },
-          {
             "@tag": "ERROR_TOOBIG",
             "#text": "Pilt on liiga suur üles laadimiseks."
           },
@@ -9770,10 +9010,6 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
-          },
-          {
-            "@tag": "NEED_TITLE",
-            "#text": "Peate määrama pealkirja."
           },
           {
             "@tag": "SELECT_FILE",
@@ -9797,24 +9033,12 @@
             "#text": "Avatar"
           },
           {
-            "@tag": "AVATARCURRENT",
-            "#text": "Kehtiv avatar"
-          },
-          {
             "@tag": "AVATARDELETE",
             "#text": "Eemalda avatar"
           },
           {
-            "@tag": "AVATARNEW",
-            "#text": "Vali uus avatar"
-          },
-          {
             "@tag": "AVATARREMOTE",
             "#text": "Sisesta teises serveris oleva avatari URL:"
-          },
-          {
-            "@tag": "AVATARTEXT",
-            "#text": "Avatari selgitav tekst"
           },
           {
             "@tag": "AVATARUPLOAD",
@@ -9833,16 +9057,8 @@
             "#text": "Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB."
           },
           {
-            "@tag": "NOTE_REMOTE",
-            "#text": "Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized."
-          },
-          {
             "@tag": "OURAVATAR",
             "#text": "Vali avatar meie kogumikust:"
-          },
-          {
-            "@tag": "OURAVATAR_SELECT",
-            "#text": "Avatari valimiseks kliki siia"
           },
           {
             "@tag": "TITLE",
@@ -9886,32 +9102,16 @@
             "#text": "Teie AIM-i nimi:"
           },
           {
-            "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
-            "#text": "Kas soovite jälgida teemasid, kus te olete teinud postituse, ja saada e-posti teel teavitusi nende teemadega seotud tegevuste kohta?"
-          },
-          {
             "@tag": "BAD_EMAIL",
             "#text": "E-kirja aadress on vigane."
-          },
-          {
-            "@tag": "BAD_FACEBOOK",
-            "#text": "Sisestasite Facebooki profiilina vale URL-i."
           },
           {
             "@tag": "BAD_HOME",
             "#text": "Kodulehe aadress on vigane."
           },
           {
-            "@tag": "BAD_MSN",
-            "#text": "E-kirja aadress on vigane."
-          },
-          {
             "@tag": "BAD_WEBLOG",
             "#text": "Blogi aadress on vigane."
-          },
-          {
-            "@tag": "BAD_XMPP",
-            "#text": "Te sisestasite vale XMPP konto nime."
           },
           {
             "@tag": "BIRTHDAY",
@@ -9932,10 +9132,6 @@
           {
             "@tag": "DISPLAYNAME",
             "#text": "Millist nime soovite näidata teistele kasutajatele?"
-          },
-          {
-            "@tag": "DST",
-            "#text": "Kas teostada automaatselt kellakeeramist?"
           },
           {
             "@tag": "DUPLICATED_EMAIL",
@@ -9982,10 +9178,6 @@
             "#text": "Asukoht"
           },
           {
-            "@tag": "MAIL_SENT",
-            "#text": "E-kiri on saadetud {0}.\\n\\nTe peate oma uue e-posti aadressi kinnitama,\\navades e-kirjas oleva lingi enne e-posti aadressi muutmist."
-          },
-          {
             "@tag": "MESSENGER",
             "#text": "Kiirsõnumiteenused"
           },
@@ -9996,10 +9188,6 @@
           {
             "@tag": "OTHER",
             "#text": "muud"
-          },
-          {
-            "@tag": "OVERRIDE_DEFAULT_THEMES",
-            "#text": "Valige erinev foorumiteema:"
           },
           {
             "@tag": "REALNAME2",
@@ -10044,10 +9232,6 @@
           {
             "@tag": "WHERE",
             "#text": "Kus Te elate?"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "Teie Jabberi ID:"
           }
         ]
       },
@@ -10071,10 +9255,6 @@
             "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
           },
           {
-            "@tag": "INPUT_CODE",
-            "#text": "Sisendi turvakood"
-          },
-          {
             "@tag": "SETUP_CODE",
             "#text": "Seadistuskood"
           },
@@ -10096,28 +9276,8 @@
         "@name": "EDIT_SIGNATURE",
         "Resource": [
           {
-            "@tag": "BBCODE_ALLOWEDALL",
-            "#text": "Teie allkiri võib sisaldada mis tahes BBCode."
-          },
-          {
-            "@tag": "BBCODE_ALLOWEDLIST",
-            "#text": "Saate kasutada järgmisi BBC koode: {0}."
-          },
-          {
             "@tag": "BBCODE_FORBIDDEN",
             "#text": "BBCode allkirjas on keelatud."
-          },
-          {
-            "@tag": "HTML_ALLOWEDALL",
-            "#text": "Teie allkiri võib sisaldada mis tahes HTML-märgendit."
-          },
-          {
-            "@tag": "HTML_ALLOWEDLIST",
-            "#text": "Saate kasutada järgmisi HTML-märgendeid: {0}."
-          },
-          {
-            "@tag": "HTML_FORBIDDEN",
-            "#text": "Teie allkiri ei tohiks sisaldada HTML-märgendeid."
           },
           {
             "@tag": "SIGNATURE",
@@ -10128,20 +9288,8 @@
             "#text": "Allkirjas on keelatud {0} BBCode."
           },
           {
-            "@tag": "SIGNATURE_CHARSMAX",
-            "#text": "Teie allkirjas ei tohi olla rohkem kui {0} tähemärki."
-          },
-          {
             "@tag": "SIGNATURE_MAX",
             "#text": "Allkiri on liiga pikk. Maksimaalne märkide arv on {0}."
-          },
-          {
-            "@tag": "SIGNATURE_NOEDIT",
-            "#text": "Te ei saa oma allkirja muuta, kuid saate selle täielikult kustutada."
-          },
-          {
-            "@tag": "SIGNATURE_PERMISSIONS",
-            "#text": "Allkirjaõigused"
           },
           {
             "@tag": "SIGNATURE_PREVIEW",
@@ -10206,10 +9354,6 @@
             "#text": "Teave"
           },
           {
-            "@tag": "SQLERROR",
-            "#text": "SQL-skripti viga"
-          },
-          {
             "@tag": "WARNING",
             "#text": "Hoiatus"
           }
@@ -10255,10 +9399,6 @@
             "#text": "Teil pole ootelolevaid taotlusi"
           },
           {
-            "@tag": "NOTIFICATION_APPROVEALL",
-            "#text": "Kas võtan vastu kõik taotlused?"
-          },
-          {
             "@tag": "NOTIFICATION_APPROVEALLADD",
             "#text": "Kas võtan vastu kõik taotlused ja lisan nad teie sõprade loetellu?"
           },
@@ -10281,14 +9421,6 @@
           {
             "@tag": "POSTS",
             "#text": "Postitused"
-          },
-          {
-            "@tag": "REQUEST_DATE",
-            "#text": "Taotluse kuupäev"
-          },
-          {
-            "@tag": "YOUR_BUDDYLIST",
-            "#text": "Minu sõbrad"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -10610,10 +9742,6 @@
             "#text": "Teadaanne"
           },
           {
-            "@tag": "ANNOUNCEMENT_NEW",
-            "#text": "Teadaanne (Uued postitused)"
-          },
-          {
             "@tag": "FORUM_LOCKED",
             "#text": "Foorum lukustatud"
           },
@@ -10650,16 +9778,8 @@
             "#text": "Küsitlus"
           },
           {
-            "@tag": "POLL_NEW",
-            "#text": "Küsitlus (Uued postitused)"
-          },
-          {
             "@tag": "STICKY",
             "#text": "Päevakohane"
-          },
-          {
-            "@tag": "STICKY_NEW",
-            "#text": "Kleepuv (uued postitused)"
           }
         ]
       },
@@ -10704,18 +9824,6 @@
       {
         "@name": "IM_XMPP",
         "Resource": [
-          {
-            "@tag": "SERVEROTHER",
-            "#text": "Kasutaja kasutab servereid {0}. Temaga suhtlemiseks palume registreeruda siin, kuna teil puudub kasutajakonto."
-          },
-          {
-            "@tag": "SERVERSAME",
-            "#text": "Kasutaja kasutab sama XMPP serverit - te võite temaga ühendust võtta näiteks Pidgin kliendi abil. Tema kasutajakonto on {0}"
-          },
-          {
-            "@tag": "SERVERYOU",
-            "#text": "Kas olete kindel, et soovite rääkida iseendaga?"
-          },
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
@@ -10782,10 +9890,6 @@
             "#text": "Liigipääs keelatud"
           },
           {
-            "@tag": "TITLE_COOKIES",
-            "#text": "Vajab küpsiseid"
-          },
-          {
             "@tag": "TITLE_EXCEPTION",
             "#text": "Informatsioon"
           },
@@ -10835,40 +9939,16 @@
             "#text": "Kinnita parool"
           },
           {
-            "@tag": "BOARD_DESCRIPTION",
-            "#text": "Sisestage uue tahvli kirjeldus"
-          },
-          {
             "@tag": "BOARDNAME",
             "#text": "Sisestage uue juhatuse nimi"
-          },
-          {
-            "@tag": "CONFIGPASSWORD",
-            "#text": "Seadista parool"
           },
           {
             "@tag": "CONNECTIONDETAILS",
             "#text": "Ühenduse üksikasjad"
           },
           {
-            "@tag": "CONNECTIONEXIST",
-            "#text": "Valige olemasolev ühenduse string"
-          },
-          {
-            "@tag": "CONNECTIONEXISTDESC",
-            "#text": "Valige SQL Serveri andmebaasi ühendusstring:"
-          },
-          {
             "@tag": "CONNECTIONFAILED",
             "#text": "Ühendus ebaõnnestus:"
-          },
-          {
-            "@tag": "CONNECTIONNEW",
-            "#text": "Loo uus ühendustring"
-          },
-          {
-            "@tag": "CONNECTIONNEWNOTE",
-            "#text": "Ühenduse string salvestatakse kujul"
           },
           {
             "@tag": "CONNECTIONSUCCESS",
@@ -10891,10 +9971,6 @@
             "#text": "Külaliste kasutajate kultuur (keel)"
           },
           {
-            "@tag": "CURRENTVERSION",
-            "#text": "Praegune versioon:"
-          },
-          {
             "@tag": "DATABASE",
             "#text": "Andmebaas"
           },
@@ -10907,64 +9983,8 @@
             "#text": "YAF.NET-i andmebaasiühendus"
           },
           {
-            "@tag": "DBNAME",
-            "#text": "Sisestage andmebaasi nimi"
-          },
-          {
-            "@tag": "DUPLICATEEMAIL",
-            "#text": "Selle e-posti aadressi kasutajanimi on juba olemas. Sisestage teine ​​e-posti aadress."
-          },
-          {
-            "@tag": "DUPLICATEUSERNAME",
-            "#text": "Kasutajanimi on juba olemas. Sisestage teine ​​kasutajanimi."
-          },
-          {
             "@tag": "ERROR",
             "#text": "Viga"
-          },
-          {
-            "@tag": "ERRORBOARDINSTALLED",
-            "#text": "Laud on juba installitud."
-          },
-          {
-            "@tag": "ERRORBOARDNAME",
-            "#text": "Peate sisestama juhatuse nime."
-          },
-          {
-            "@tag": "ERRORCONFIGPASSWORD",
-            "#text": "Jätkamiseks peate värskendama oma rakenduse seadeid YAF.ConfigPassword võtmega. MÄRKUS. Võtme nimi on tõstutundlik."
-          },
-          {
-            "@tag": "ERRORFORUMEMAIL",
-            "#text": "Peate sisestama juhatuse e-posti aadressi."
-          },
-          {
-            "@tag": "ERRORPASSWORD",
-            "#text": "Peate sisestama parooli."
-          },
-          {
-            "@tag": "ERRORUSERCREATE",
-            "#text": "Administraatori kasutaja loomine nurjus:"
-          },
-          {
-            "@tag": "ERRORUSEREMAIL",
-            "#text": "Peate sisestama superkasutaja e-posti aadressi."
-          },
-          {
-            "@tag": "ERRORUSERNAME",
-            "#text": "Peate sisestama superkasutaja kasutajanime,"
-          },
-          {
-            "@tag": "ERRORUSERNOTFOUND",
-            "#text": "Olemasolev kasutajanimi on kehtetu ega esinda praegust kasutajat liikmestaatuses."
-          },
-          {
-            "@tag": "ERRORWRONGPASSWORD",
-            "#text": "Sisestasite <strong> vale parooli </strong>!"
-          },
-          {
-            "@tag": "EXISTCONNECTION",
-            "#text": "Kasutage olemasolevat DB-ühenduse stringi"
           },
           {
             "@tag": "FINISH",
@@ -11003,40 +10023,12 @@
             "#text": "Paigaldamine"
           },
           {
-            "@tag": "INTEGRATED",
-            "#text": "Kasutage integreeritud turvalisust"
-          },
-          {
-            "@tag": "INVALIDANSWER",
-            "#text": "Esitatud parooli otsimise vastus on vale. Kontrollige väärtust ja proovige uuesti."
-          },
-          {
-            "@tag": "INVALIDEMAIL",
-            "#text": "Esitatud e-posti aadress on vale. Kontrollige väärtust ja proovige uuesti."
-          },
-          {
-            "@tag": "INVALIDPASSWORD",
-            "#text": "Esitatud parool on vale. Sisestage kehtiv parooli väärtus."
-          },
-          {
-            "@tag": "INVALIDQUESTION",
-            "#text": "Esitatud parooli otsimise küsimus on vale. Kontrollige väärtust ja proovige uuesti."
-          },
-          {
-            "@tag": "INVALIDUSERNAME",
-            "#text": "Esitatud kasutajanimi on vale. Kontrollige väärtust ja proovige uuesti."
-          },
-          {
             "@tag": "MAILTEST",
             "#text": "Posti (SMTP) saatmise test"
           },
           {
             "@tag": "MAILTESTDESC",
             "#text": "Saadab testteate e-posti aadressile, mis on määratletud kui Saada aadressile"
-          },
-          {
-            "@tag": "NEWCONNECTION",
-            "#text": "Uue DB-ühenduse stringi loomine"
           },
           {
             "@tag": "NEXT",
@@ -11047,10 +10039,6 @@
             "#text": "Klõpsates nupul \"Järgmine\", lähtestatakse teie andmebaas uusimale versioonile."
           },
           {
-            "@tag": "NEXTREADY",
-            "#text": "Kui olete valmis, klõpsake \"Järgmine\"."
-          },
-          {
             "@tag": "NO",
             "#text": "EI"
           },
@@ -11059,108 +10047,28 @@
             "#text": "Märge"
           },
           {
-            "@tag": "NOWRITEAPPSETTINGS",
-            "#text": "Juurdepääs seadetele puudub"
-          },
-          {
-            "@tag": "NOWRITEAPPSETTINGSNOTE",
-            "#text": "Teie konfiguratsioonifaili ei saa Andmebaasi ühenduse määramiseks muuta, kuna puuduvad kirjutamisõigused."
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGS",
-            "#text": "Juurdepääs andmebaasi ühendusstringidele puudub"
-          },
-          {
-            "@tag": "NOWRITECONNSETTINGSNOTE",
-            "#text": "Teie konfiguratsioonifaili ei saa Database Connection stringi määramiseks muuta, kuna tal pole kirjutamisõigust."
-          },
-          {
-            "@tag": "OPENFILE",
-            "#text": "Palun avage"
-          },
-          {
-            "@tag": "OPENFILEDESC",
-            "#text": "faili rakenduse juurkataloogis ja lisage / värskendage järgmist võtit jaotises & lt; AppSettings & gt; jaotis:"
-          },
-          {
-            "@tag": "OPENFILEDESC2",
-            "#text": "faili rakenduse juurkataloogis ja lisage / värskendage järgmist võtit jaotises & lt; connectionStrings & gt; jaotis:"
-          },
-          {
-            "@tag": "PASSWORDNOMATCH",
-            "#text": "Kinnitamine ei ole sama, mis teie parool."
-          },
-          {
-            "@tag": "PERMISSIONAPP",
-            "#text": "YAF.NET omab juurdepääsu juurrakenduste kataloogile (\"~ /\") ..."
-          },
-          {
-            "@tag": "PERMISSIONUPLOAD",
-            "#text": "YAF.NET-il on juurdepääs kataloogile \"~ / Laadi üles\" ..."
-          },
-          {
             "@tag": "PREVIOUS",
             "#text": "Eelmine"
-          },
-          {
-            "@tag": "PROVIDERERROR",
-            "#text": "Autentimispakkuja tagastati tõrge. Kinnitage oma sisestus ja proovige uuesti. Kui probleem püsib, pöörduge oma süsteemi administraatori poole."
-          },
-          {
-            "@tag": "SECURITYANSWER",
-            "#text": "Vastus turvaküsimusele"
-          },
-          {
-            "@tag": "SECURITYQUESTION",
-            "#text": "Küsimus, mis esitatakse siis, kui peate kadunud parooli hankima"
           },
           {
             "@tag": "SETUP",
             "#text": "Seadistamine"
           },
           {
-            "@tag": "SMTPTESTBODY",
-            "#text": "E-posti saatmine näib toimivat teie YAF-i installist."
-          },
-          {
             "@tag": "SMTPTESTDETAILS",
             "#text": "SMTP testi üksikasjad"
-          },
-          {
-            "@tag": "SMTPTESTSUBJECT",
-            "#text": "Testimeili veel ühest foorumist.NET"
           },
           {
             "@tag": "SMTPTESTSUCCESS",
             "#text": "Post saadeti. Kontrollige, kas see on teie sisestatud e-posti aadressil laekunud."
           },
           {
-            "@tag": "SQLPASS",
-            "#text": "Sisestage SQL parool"
-          },
-          {
-            "@tag": "SQLUSER",
-            "#text": "Sisestage SQL kasutajanimi"
-          },
-          {
-            "@tag": "TESTCONNECTION",
-            "#text": "Testühendus"
-          },
-          {
             "@tag": "TESTEMAIL",
             "#text": "Testige Smtp-seadeid"
           },
           {
-            "@tag": "TESTPERMISSION",
-            "#text": "Testi luba"
-          },
-          {
             "@tag": "TESTSETTINGS",
             "#text": "Testiseaded"
-          },
-          {
-            "@tag": "TESTSETTINGSDESC",
-            "#text": "Andmebaasi konfiguratsiooni muutmiseks klõpsake nuppu \"Eelmine\"."
           },
           {
             "@tag": "TESTSETTINGSTEXT",
@@ -11173,26 +10081,6 @@
           {
             "@tag": "TOEMAIL",
             "#text": "Sisestage e-posti aadress"
-          },
-          {
-            "@tag": "UNCHECKED",
-            "#text": "Märkimata"
-          },
-          {
-            "@tag": "USERREJECTED",
-            "#text": "Kasutaja loomise taotlus on tühistatud. Kinnitage oma sisestus ja proovige uuesti. Kui probleem püsib, pöörduge oma süsteemi administraatori poole."
-          },
-          {
-            "@tag": "VALIDATEPERMISSION",
-            "#text": "Kinnitage õigused"
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONDESC",
-            "#text": "YetAnotherForum.NET on installimine lihtsam, kui rakendusel on teie .config-i kirjutamisõigus\r\n                        faile."
-          },
-          {
-            "@tag": "VALIDATEPERMISSIONTEXT",
-            "#text": "Klõpsake allpool, et kontrollida, kas õigused on õiged. Kui neid pole, saate seda teha\r\n                        kasuta ikkagi installiviisardit."
           },
           {
             "@tag": "WELCOME",
@@ -11233,28 +10121,12 @@
             "#text": "Teie konto pole veel kinnitatud, kuna te pole oma e-posti kinnitanud. "
           },
           {
-            "@tag": "AUTH_CONNECT",
-            "#text": "Logige sisse või registreeruge teenusega {0}"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Jäta mind meelde"
           },
           {
-            "@tag": "BOTH_USERNAME_EMAIL",
-            "#text": "Nii kasutajanimi kui ka e-posti aadress peavad olema sisestatud."
-          },
-          {
-            "@tag": "CAPS_LOCK",
-            "#text": "Caps Lock on sisse lülitatud"
-          },
-          {
             "@tag": "EMAIL",
             "#text": "E-posti aadress"
-          },
-          {
-            "@tag": "EMAIL_SENT_PASSWORD",
-            "#text": "Teile on saadetud e-kiri uue parooliga."
           },
           {
             "@tag": "ERROR_LOCKEDOUT",
@@ -11285,16 +10157,8 @@
             "#text": "Parooli taastamine"
           },
           {
-            "@tag": "RECOVER_ERROR",
-            "#text": "Uue parooli tegemisel tekkis viga."
-          },
-          {
             "@tag": "REGISTER_INSTEAD",
             "#text": "Registreeruge selle asemel uueks kasutajaks"
-          },
-          {
-            "@tag": "SENDPASSWORD",
-            "#text": "Saada parool"
           },
           {
             "@tag": "TITLE",
@@ -11313,16 +10177,8 @@
             "#text": "Kahefaktoriline valideerimine"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
             "@tag": "USERNAME",
             "#text": "Kasutajanimi:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "Vale kasutajanimi või e-posti aadress."
           }
         ]
       },
@@ -11392,10 +10248,6 @@
           {
             "@tag": "SEARCH_MEMBER",
             "#text": "Liikme nimi sisaldab:"
-          },
-          {
-            "@tag": "SEARCH_MEMBERS",
-            "#text": "Otsi liikmeid"
           },
           {
             "@tag": "SEARCH_RANK",
@@ -11478,10 +10330,6 @@
           {
             "@tag": "GOMODERATE",
             "#text": "Jätka modereerimist"
-          },
-          {
-            "@tag": "MESSAGE_EDITEDAT",
-            "#text": "Sõnumit muudetud kell"
           },
           {
             "@tag": "MESSAGE_RESTORED",
@@ -11586,14 +10434,6 @@
             "#text": "Kas kustutan selle teema?"
           },
           {
-            "@tag": "CONFIRM_DELETE_USER",
-            "#text": "Kas kustutada see kasutaja?"
-          },
-          {
-            "@tag": "CONFIRM_DELETETOPICLINK",
-            "#text": "Kas kustutan teema lingi? Teema ise jääb alles."
-          },
-          {
             "@tag": "DELETED",
             "#text": "Teema kustutatud."
           },
@@ -11652,10 +10492,6 @@
           {
             "@tag": "TOPIC_STARTER",
             "#text": "Teemaalgataja"
-          },
-          {
-            "@tag": "TOPICLINK_DELETED",
-            "#text": "Teema link on kustutatud."
           },
           {
             "@tag": "TOPICS",
@@ -11742,10 +10578,6 @@
           {
             "@tag": "REPLYTO",
             "#text": "Vasta privaatsõnumiga"
-          },
-          {
-            "@tag": "REPORT_SPAM",
-            "#text": "Teata rämpspostiks"
           },
           {
             "@tag": "REPORTED",
@@ -11875,14 +10707,6 @@
             "#text": "{0}"
           },
           {
-            "@tag": "GUESTTITLE",
-            "#text": "Aktiivsed teemad"
-          },
-          {
-            "@tag": "LAST_24",
-            "#text": "( Viimased 24 tundi )"
-          },
-          {
             "@tag": "LAST_DAY",
             "#text": "eelmine päev"
           },
@@ -11963,10 +10787,6 @@
             "#text": "Vastamata teemad"
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "Lugemata teemad"
-          },
-          {
             "@tag": "VIEWS",
             "#text": "Vaatamisi"
           },
@@ -12030,14 +10850,6 @@
             "#text": "Palun sisestage küsitluse küsimus."
           },
           {
-            "@tag": "POLL_ALLOWSKIPVOTE",
-            "#text": "Lubage mitte hääletada ja vaadake tulemusi."
-          },
-          {
-            "@tag": "POLL_ALLOWSKIPVOTE_INFO",
-            "#text": "Saate hääletamise ja tulemuste vahele jätta."
-          },
-          {
             "@tag": "POLL_CLOSEDBOUND",
             "#text": "Te ei näe tulemusi enne küsitluse aegumist."
           },
@@ -12054,10 +10866,6 @@
             "#text": "See küsitlus on aegunud."
           },
           {
-            "@tag": "POLL_IMGWIDTH",
-            "#text": "Pildi laius pikselites:"
-          },
-          {
             "@tag": "POLL_MULTIPLECHOICES",
             "#text": "Lubage hääletada paljude valikute poolt"
           },
@@ -12066,20 +10874,12 @@
             "#text": "Saate hääletada paljude valikute poolt."
           },
           {
-            "@tag": "POLL_NOPERM_GUEST",
-            "#text": "Külalised ei saa hääletada. Palun registreeruge."
-          },
-          {
             "@tag": "POLL_PLEASEVOTE",
             "#text": "Vajutage hääletamiseks"
           },
           {
             "@tag": "POLL_SHOWVOTERS",
             "#text": "Näita, kes hääletas"
-          },
-          {
-            "@tag": "POLL_SHOWVOTERS_INFO",
-            "#text": "Näita, kes on hääletanud."
           },
           {
             "@tag": "POLL_VOTED",
@@ -12106,10 +10906,6 @@
             "#text": "Don"
           },
           {
-            "@tag": "POLLHEADER",
-            "#text": "Lisa või muuda küsitlust"
-          },
-          {
             "@tag": "POLLIMAGE_TEXT",
             "#text": "Pildi teekond:"
           },
@@ -12120,18 +10916,6 @@
           {
             "@tag": "POLLQUESTION",
             "#text": "Küsitluse küsimus:"
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN",
-            "#text": "Te ei saa näha küsitluse tulemusi enne hääletamist."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_GUEST",
-            "#text": "Külalised ei näe küsitluse tulemusi enne hääletamist. Palun registreeruge."
-          },
-          {
-            "@tag": "POLLRESULTSHIDDEN_SHORT",
-            "#text": "Tulemused peidetud"
           },
           {
             "@tag": "POLLSAVE",
@@ -12159,18 +10943,6 @@
             "#text": "Kas te soovite eemaldada küsitluse sellest teemast?"
           },
           {
-            "@tag": "BLOG_PASSWORD",
-            "#text": "Blogi parool:"
-          },
-          {
-            "@tag": "BLOG_POST",
-            "#text": "Postitada blogisse?"
-          },
-          {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Tühista sõnumi muutmine/loomine"
-          },
-          {
             "@tag": "DESCRIPTION",
             "#text": "Kirjeldus:"
           },
@@ -12189,10 +10961,6 @@
           {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Külalise kasutajanimi ei tohi olla pikem kui 100 tähemärki."
-          },
-          {
-            "@tag": "ISQUESTION",
-            "#text": "Kas see teema on küsimuste-vastuste kujul?"
           },
           {
             "@tag": "LAST10",
@@ -12229,10 +10997,6 @@
           {
             "@tag": "POSTED",
             "#text": "Postitas:"
-          },
-          {
-            "@tag": "POSTTOBLOG_FAILED",
-            "#text": "Teie ajaveebi postituse lisamisel tekkis viga. Võimalik, et autentimine ebaõnnestus."
           },
           {
             "@tag": "PREVIEW",
@@ -12283,26 +11047,6 @@
             "#text": "Teemaga teema on juba olemas või teema pole lisamiseks piisavalt unikaalne."
           },
           {
-            "@tag": "TOPIC_DESCRIPTION_TOOLONG",
-            "#text": "Teema kirjelduse pikkus ei tohi olla pikem kui 255 tähemärki."
-          },
-          {
-            "@tag": "TOPIC_DESCRIPTION_WORDTOOLONG",
-            "#text": "Teema kirjelduse ühe sõna pikkus ei tohi olla pikem kui {0} tähemärki. "
-          },
-          {
-            "@tag": "TOPIC_NAME_TOOLONG",
-            "#text": "Teema nime pikkus ei tohi olla pikem kui 255 tähemärki."
-          },
-          {
-            "@tag": "TOPIC_NAME_WORDTOOLONG",
-            "#text": "Teema nime ühe sõna pikkus ei tohi olla pikem kui {0} tähemärki. "
-          },
-          {
-            "@tag": "TOPICATTACH",
-            "#text": "Kas lisan failid sellele postitusele?"
-          },
-          {
             "@tag": "TOPICWATCH",
             "#text": "Kas soovite jälgida seda teemat ja saada e-posti teel teateid teemaga seotud tegevuste kohta?"
           },
@@ -12328,10 +11072,6 @@
             "#text": "EESMÄRK"
           },
           {
-            "@tag": "AIM_TITLE",
-            "#text": "Võtke ettevõttega {0} ühendust AOL Instant Messengeri kaudu"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Atom voog"
           },
@@ -12352,24 +11092,12 @@
             "#text": "Külastage kasutaja {0} blogi"
           },
           {
-            "@tag": "CANT_DOWNLOAD",
-            "#text": "Teil ei ole õigust vaadata/alla laadida manuseid."
-          },
-          {
-            "@tag": "CANT_DOWNLOAD_REGISTER",
-            "#text": "Teil [b]ei ole[/b] õigust vaadata/alla laadida manuseid. Proovige uuesti ja registreeruge"
-          },
-          {
             "@tag": "CHOICE",
             "#text": "Valik"
           },
           {
             "@tag": "CLOSE_TEXT",
             "#text": "Sule"
-          },
-          {
-            "@tag": "CONFIRM_DELETEMESSAGE",
-            "#text": "Kas kustutan selle sõnumi?"
           },
           {
             "@tag": "CONFIRM_DELETETOPIC",
@@ -12424,10 +11152,6 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_TITLE",
-            "#text": "Külastage kasutaja {0} Facebooki profiili"
-          },
-          {
             "@tag": "FORUM_JUMP",
             "#text": "Hüppa foorumisse"
           },
@@ -12444,28 +11168,12 @@
             "#text": "Www"
           },
           {
-            "@tag": "HOME_TITLE",
-            "#text": "Külastage kasutaja {0} kodulehte"
-          },
-          {
-            "@tag": "IMAGE_ATTACHMENT_TEXT",
-            "#text": "{0} lisas alljärgneva(d) pildi(d):"
-          },
-          {
-            "@tag": "IMAGE_DOWNLOAD",
-            "#text": "Laadi alla pilt"
-          },
-          {
             "@tag": "IMAGE_RESIZE_ENLARGE",
             "#text": "Vajutage pildi vaatamiseks"
           },
           {
             "@tag": "IMAGE_RESIZE_VIEWS",
             "#text": "{0} vaatamist"
-          },
-          {
-            "@tag": "IMAGE_TEXT",
-            "#text": "Pilt"
           },
           {
             "@tag": "INFO_NOMORETOPICS",
@@ -12510,10 +11218,6 @@
           {
             "@tag": "LOCATION",
             "#text": "Asukoht"
-          },
-          {
-            "@tag": "MANAGE_POST",
-            "#text": "Sõnumi haldamine"
           },
           {
             "@tag": "MANAGE_TOPIC",
@@ -12584,10 +11288,6 @@
             "#text": "(Küsitlus on suletud)"
           },
           {
-            "@tag": "POST_REPLY",
-            "#text": "Saada vastus"
-          },
-          {
             "@tag": "POSTED",
             "#text": "Saadetud"
           },
@@ -12612,18 +11312,6 @@
             "#text": "Kiirvastus"
           },
           {
-            "@tag": "QUICKREPLY_HIDE",
-            "#text": "Peida kiirvastus"
-          },
-          {
-            "@tag": "QUICKREPLY_SHOW",
-            "#text": "Näita kiirvastust"
-          },
-          {
-            "@tag": "QUOTE_SELECTED",
-            "#text": "Tsiteeri valitud sõnumit"
-          },
-          {
             "@tag": "RANK",
             "#text": "Tase"
           },
@@ -12632,16 +11320,8 @@
             "#text": "Olete edukalt eemaldanud -1 maine domeenilt {0}."
           },
           {
-            "@tag": "REP_VOTE_TITLE",
-            "#text": "Täname hääletamise eest!"
-          },
-          {
             "@tag": "REP_VOTE_UP_MSG",
             "#text": "Olete edukalt andnud kasutajale {0} +1 maine."
-          },
-          {
-            "@tag": "REPORTEDFEEDBACK",
-            "#text": "Täname selle postituse raporteerimise eest."
           },
           {
             "@tag": "REPORTPOST",
@@ -12656,14 +11336,6 @@
             "#text": "Maine"
           },
           {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweet seda teemat"
-          },
-          {
-            "@tag": "RSSTOPIC",
-            "#text": "RSS voog"
-          },
-          {
             "@tag": "SHARE",
             "#text": "Share"
           },
@@ -12676,20 +11348,8 @@
             "#text": "Sarnased teemad"
           },
           {
-            "@tag": "STATISTICS",
-            "#text": "Statistika"
-          },
-          {
             "@tag": "THANKSFROM",
             "#text": "Tänuavaldused: {0} korda"
-          },
-          {
-            "@tag": "THANKSFROM_FEM",
-            "#text": "Täname: {0} korda"
-          },
-          {
-            "@tag": "THANKSFROM_MUSC",
-            "#text": "Täname: {0} korda"
           },
           {
             "@tag": "THANKSINFO",
@@ -12698,34 +11358,6 @@
           {
             "@tag": "THANKSINFOSINGLE",
             "#text": "1 kasutaja avaldas tänu {0}-le selle kasuliku postituse eest."
-          },
-          {
-            "@tag": "THANKSTO",
-            "#text": "Avaldati tänu: {0} kord(a) {1} postituses"
-          },
-          {
-            "@tag": "TIP_DELETE_TOPIC",
-            "#text": "Kustuta see teema"
-          },
-          {
-            "@tag": "TIP_LOCK_TOPIC",
-            "#text": "Lukusta see teema"
-          },
-          {
-            "@tag": "TIP_MOVE_TOPIC",
-            "#text": "Liiguta seda teemat"
-          },
-          {
-            "@tag": "TIP_NEW_TOPIC",
-            "#text": "Postita uus teema"
-          },
-          {
-            "@tag": "TIP_REPLY_TOPIC",
-            "#text": "Postita vastus"
-          },
-          {
-            "@tag": "TIP_UNLOCK_TOPIC",
-            "#text": "Lukusta lahti see teema"
           },
           {
             "@tag": "TOGGLEPOST",
@@ -12764,20 +11396,8 @@
             "#text": "Kokku"
           },
           {
-            "@tag": "TUMBLR_TOPIC",
-            "#text": "Jaga Tumblris"
-          },
-          {
             "@tag": "UNWATCHTOPIC",
             "#text": "Lõpeta selle teema jälgimine"
-          },
-          {
-            "@tag": "USERGENDER_FEM",
-            "#text": "Naine"
-          },
-          {
-            "@tag": "USERGENDER_MAS",
-            "#text": "Mees"
           },
           {
             "@tag": "USEROFFLINESTATUS",
@@ -12800,10 +11420,6 @@
             "#text": "Vaade"
           },
           {
-            "@tag": "VIEW_TOOLTIP",
-            "#text": "Teemavaate muutmine tavavaate või lõimevaate vahel."
-          },
-          {
             "@tag": "VOTES",
             "#text": "Hääled"
           },
@@ -12820,10 +11436,6 @@
             "#text": "See foorum on suletud."
           },
           {
-            "@tag": "WARN_PMLOGIN",
-            "#text": "Te peate olema sisse logitud, et saata privaatsõnumeid."
-          },
-          {
             "@tag": "WARN_POLL_CLOSED",
             "#text": "Küsitlus on suletud."
           },
@@ -12832,20 +11444,8 @@
             "#text": "Teema on suletud."
           },
           {
-            "@tag": "WARN_WATCHLOGIN",
-            "#text": "Teemade vaatamiseks peate olema registreeritud."
-          },
-          {
             "@tag": "WATCHTOPIC",
             "#text": "Jälgi seda teemat"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP"
-          },
-          {
-            "@tag": "XMPP_TITLE",
-            "#text": "Võtke ühendust ettevõttega {0} Jabberi kaudu"
           }
         ]
       },
@@ -12879,10 +11479,6 @@
         "@name": "PROFILE",
         "Resource": [
           {
-            "@tag": "ABOUT",
-            "#text": "Umbes"
-          },
-          {
             "@tag": "ADMIN_USER",
             "#text": "Administreeriv kasutaja"
           },
@@ -12905,14 +11501,6 @@
           {
             "@tag": "CITY",
             "#text": "Linn:"
-          },
-          {
-            "@tag": "CONTACT",
-            "#text": "Kontakt"
-          },
-          {
-            "@tag": "COUNTRY:",
-            "#text": "Riik"
           },
           {
             "@tag": "DAYS",
@@ -12941,10 +11529,6 @@
           {
             "@tag": "FACEBOOK",
             "#text": "Facebooki profiil:"
-          },
-          {
-            "@tag": "FORUM_ACCESS",
-            "#text": "Juurdepääs foorumile"
           },
           {
             "@tag": "GENDER",
@@ -12991,20 +11575,8 @@
             "#text": "minutid"
           },
           {
-            "@tag": "MODERATION",
-            "#text": "Modereerimine"
-          },
-          {
             "@tag": "MONTH",
             "#text": "kuu"
-          },
-          {
-            "@tag": "NUMALL",
-            "#text": "{0:N2}% postituste koguarvust"
-          },
-          {
-            "@tag": "NUMDAY",
-            "#text": "{0:N2} postitust päevas"
           },
           {
             "@tag": "NUMPOSTS",
@@ -13049,14 +11621,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Vaata kõiki postitusi kasutaja järgi"
-          },
-          {
-            "@tag": "SOCIAL_MEDIA",
-            "#text": "Sotsiaalmeedia"
-          },
-          {
-            "@tag": "STATISTICS",
-            "#text": "Statistika"
           },
           {
             "@tag": "SUSPEND",
@@ -13107,18 +11671,6 @@
             "#text": "Nimi:"
           },
           {
-            "@tag": "WEBLOG",
-            "#text": "Ajaveeb:"
-          },
-          {
-            "@tag": "WEBSITE",
-            "#text": "Kodulehekülg:"
-          },
-          {
-            "@tag": "XMPP",
-            "#text": "XMPP nimi:"
-          },
-          {
             "@tag": "YEARS",
             "#text": "Aasta(d)"
           }
@@ -13134,10 +11686,6 @@
           {
             "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
             "#text": "Teie konto veel ei ole kinnitatud, kuna te ei ole oma e-posti aadressi kinnitanud. Uus kinnituskiri on saadetud {0}. Palun kinnitage address, et saaksite sisse logida."
-          },
-          {
-            "@tag": "GENERAL_FAILURE",
-            "#text": "Parooli taastamise katse ebaõnnestus."
           },
           {
             "@tag": "PAGE1_INSTRUCTIONS",
@@ -13568,16 +12116,8 @@
         "@name": "REGISTER",
         "Resource": [
           {
-            "@tag": "ACCOUNT_CREATED",
-            "#text": "[center]Konto on edukalt loodud.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Konto on edukalt loodud. Enne sisselogimist tuleb e-postiaadress kinnitada Palun kontrolli e-posti verifitseerimise instruktsioonideks.[/center]"
-          },
-          {
-            "@tag": "ALREADY_REGISTERED",
-            "#text": "Kasutajanimi või e-post on juba kasutusel."
           },
           {
             "@tag": "ALREADY_REGISTERED_DISPLAYNAME",
@@ -13586,14 +12126,6 @@
           {
             "@tag": "BAD_EMAIL",
             "#text": "E-posti aadress ei vasta reeglitele."
-          },
-          {
-            "@tag": "BAD_PASSWORD",
-            "#text": "Palun sisesta keerukam parool, mis sisaldab erisümboleid (!?) või numbreid."
-          },
-          {
-            "@tag": "BASIC_ACCOUNT",
-            "#text": "Konto"
           },
           {
             "@tag": "BOT_MESSAGE",
@@ -13606,10 +12138,6 @@
           {
             "@tag": "CONTINUE",
             "#text": "Jätka"
-          },
-          {
-            "@tag": "CREATE_USER",
-            "#text": "Loo uus kasutaja"
           },
           {
             "@tag": "DETAILS",
@@ -13628,22 +12156,6 @@
             "#text": "Kodulehekülg"
           },
           {
-            "@tag": "INVALID_ANSWER",
-            "#text": "Palun vali teistsugune vastus."
-          },
-          {
-            "@tag": "INVALID_DISPLAYNAME",
-            "#text": "Palun vali teistsugune hüüdnimi."
-          },
-          {
-            "@tag": "INVALID_QUESTION",
-            "#text": "Palun vali teistsugune küsimus."
-          },
-          {
-            "@tag": "INVALID_USERNAME",
-            "#text": "Palun vali teistsugune kasutajanimi."
-          },
-          {
             "@tag": "LOCATION",
             "#text": "Asukoht"
           },
@@ -13652,20 +12164,8 @@
             "#text": "Kas olete juba registreerunud? "
           },
           {
-            "@tag": "NEED_ANSWER",
-            "#text": "Salaküsimuse vastus on kohustuslik."
-          },
-          {
-            "@tag": "NEED_DISPLAYNAME",
-            "#text": "Hüüdnimi on kohustuslik.."
-          },
-          {
             "@tag": "NEED_EMAIL",
             "#text": "E-post on kohustuslik."
-          },
-          {
-            "@tag": "NEED_MATCH",
-            "#text": "Paroolid ei kattu."
           },
           {
             "@tag": "NEED_PASSWORD",
@@ -13704,24 +12204,12 @@
             "#text": "Nõrk parool, proovige kasutada numbreid ja suurtähti."
           },
           {
-            "@tag": "PREFERENCES",
-            "#text": "Foorumi eelistused"
-          },
-          {
             "@tag": "PROFILE",
             "#text": "Profiili info"
           },
           {
-            "@tag": "RECATCHA_BADWORDS",
-            "#text": "Vale! Proovi uuesti."
-          },
-          {
             "@tag": "REGISTER",
             "#text": "Registreeri"
-          },
-          {
-            "@tag": "REGISTER_AUTH",
-            "#text": "Registreeru kasutajaga {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
@@ -13730,18 +12218,6 @@
           {
             "@tag": "RETYPE_PASSWORD",
             "#text": "Parooli tuleb korrata."
-          },
-          {
-            "@tag": "SECURITY_ANSWER",
-            "#text": "Salaküsimuse vastus"
-          },
-          {
-            "@tag": "SECURITY_QUESTION",
-            "#text": "Salaküsimus"
-          },
-          {
-            "@tag": "TERMS_AND_CONDITIONS_TITLE",
-            "#text": "Tingimused ja reeglid"
           },
           {
             "@tag": "TIMEZONE",
@@ -13758,10 +12234,6 @@
           {
             "@tag": "USERNAME",
             "#text": "Kasutajanimi"
-          },
-          {
-            "@tag": "USERNAME_LENGTH_WARN",
-            "#text": "Kasutajanimi ei tohi olla pikem kui {0} märki."
           },
           {
             "@tag": "VERIFICATION_EMAIL_SUBJECT",
@@ -13842,10 +12314,6 @@
             "#text": "Tühista"
           },
           {
-            "@tag": "CANCEL_TITLE",
-            "#text": "Tühista sõnumiaruanne"
-          },
-          {
             "@tag": "ENTER_TEXT",
             "#text": "Palun sisestage põhjus, miks te soovite saata raporti antud postituse kohta:"
           },
@@ -13864,14 +12332,6 @@
           {
             "@tag": "POSTEDBY",
             "#text": "Saatja:"
-          },
-          {
-            "@tag": "REPORTTEXT_ALLTAGSFORBIDDEN",
-            "#text": "Märgised ei ole raportites lubatud."
-          },
-          {
-            "@tag": "REPORTTEXT_FORBIDDENTAG",
-            "#text": "Märgis [{0}] ei ole raportites lubatud."
           },
           {
             "@tag": "REPORTTEXT_TOOLONG",
@@ -13936,10 +12396,6 @@
             "#text": "Puhasta kujundus"
           },
           {
-            "@tag": "FORMATTED",
-            "#text": "Kujundatud"
-          },
-          {
             "@tag": "IMAGE",
             "#text": "Lisa pilt"
           },
@@ -13964,10 +12420,6 @@
             "#text": "Normaal"
           },
           {
-            "@tag": "ORDERED",
-            "#text": "Järjestatud loend"
-          },
-          {
             "@tag": "OUTDENT",
             "#text": "Väline taandrida"
           },
@@ -13976,20 +12428,8 @@
             "#text": "Joonda paremale"
           },
           {
-            "@tag": "SPELL",
-            "#text": "Kontrolli õigekirja"
-          },
-          {
-            "@tag": "SPELL_CORRECT",
-            "#text": "Valesti kirjutatud sõnu pole."
-          },
-          {
             "@tag": "UNDERLINE",
             "#text": "Allajoonitud"
-          },
-          {
-            "@tag": "UNORDERED",
-            "#text": "Järjestamata loend"
           }
         ]
       },
@@ -14018,10 +12458,6 @@
         "@name": "SEARCH",
         "Resource": [
           {
-            "@tag": "ALLFORUMS",
-            "#text": "Kõik foorumid"
-          },
-          {
             "@tag": "BTNSEARCH",
             "#text": "Otsi"
           },
@@ -14032,10 +12468,6 @@
           {
             "@tag": "KEYWORDS",
             "#text": "Märksõna(d)"
-          },
-          {
-            "@tag": "LOADING_SEARCH",
-            "#text": "Otsingutulemuste laadimine..."
           },
           {
             "@tag": "MATCH_ALL",
@@ -14088,14 +12520,6 @@
           {
             "@tag": "RESULTS",
             "#text": "Tulemused"
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MAX",
-            "#text": "Otsitava teksti pikkus peab olema kuni {0} tähemärki ja tekst peab vastama foorumi otsingureeglitele (vt. foorumi KKK täiendava info saamiseks)."
-          },
-          {
-            "@tag": "SEARCH_CRITERIA_ERROR_MIN",
-            "#text": "Otsitava teksti pikkus peab olema vähemalt {0} tähemärki ja tekst peab vastama foorumi otsingureeglitele (vt. foorumi KKK täiendava info saamiseks)."
           },
           {
             "@tag": "SEARCH_IN",
@@ -14447,16 +12871,8 @@
             "#text": "Aktiivsed teemad"
           },
           {
-            "@tag": "ACTIVETOPICS_TITLE",
-            "#text": "Näitab aktiivsete teemade lehte."
-          },
-          {
             "@tag": "ADMIN",
             "#text": "Administraator"
-          },
-          {
-            "@tag": "ADMIN_TITLE",
-            "#text": "Näitab administraatori indeksit."
           },
           {
             "@tag": "BUDDIES",
@@ -14491,20 +12907,12 @@
             "#text": "Võõrustaja"
           },
           {
-            "@tag": "HOST_TITLE",
-            "#text": "Näitab hosti seadeid."
-          },
-          {
             "@tag": "INBOX",
             "#text": "Minu postkast"
           },
           {
             "@tag": "INBOX_TITLE",
             "#text": "Kuvab privaatsõnumite postkasti."
-          },
-          {
-            "@tag": "LOGGED_IN_AS",
-            "#text": "Sisse logitud kui: {0}"
           },
           {
             "@tag": "LOGIN",
@@ -14559,10 +12967,6 @@
             "#text": "Kuvab albumite lehe, mis näitab kõiki teie albumeid."
           },
           {
-            "@tag": "MYNOTIFY",
-            "#text": "Minu teatised"
-          },
-          {
             "@tag": "MYNOTIFY_TITLE",
             "#text": "Näitab teie lugemata saadud tänu, mainimisi ja tsitaate."
           },
@@ -14577,10 +12981,6 @@
           {
             "@tag": "MYSETTINGS",
             "#text": "Minu seaded"
-          },
-          {
-            "@tag": "MYSETTINGS_TITLE",
-            "#text": "Muutke oma kasutajaandmeid ja seadeid."
           },
           {
             "@tag": "MYTOPICS",
@@ -14627,14 +13027,6 @@
             "#text": "Näitab meeskonnalehte, kus kuvatakse kõik moderaatorid ja administraatorid."
           },
           {
-            "@tag": "UNREADTOPICS",
-            "#text": "{0} teema(t) on lugemata sõnumitega"
-          },
-          {
-            "@tag": "WELCOME_GUEST",
-            "#text": "Tere tulemast, külaline! Kõigi võimaluste kasutamiseks palume registreeruda või sisse logida."
-          },
-          {
             "@tag": "WELCOME_GUEST_CONNECT",
             "#text": "Kas soovite aruteluga liituda?!"
           },
@@ -14664,20 +13056,12 @@
             "#text": "{0} järgi"
           },
           {
-            "@tag": "CREATED",
-            "#text": "Loodud"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Foorum"
           },
           {
             "@tag": "FORUMUSERS",
             "#text": "Kasutaja hetkel foorumis"
-          },
-          {
-            "@tag": "GOTO_POST_PAGER",
-            "#text": "[ Mine lehele: {0} ]"
           },
           {
             "@tag": "INFO_UNWATCH_FORUM",
@@ -14746,10 +13130,6 @@
           {
             "@tag": "REPLIES",
             "#text": "Vastuseid"
-          },
-          {
-            "@tag": "RSSFEED",
-            "#text": "Rss voog"
           },
           {
             "@tag": "SEARCH_FORUM",
