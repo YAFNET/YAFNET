@@ -99,6 +99,49 @@ module.exports = function (grunt) {
                         dest: 'Content/flag-icons/'
                     }
                 ]
+            },
+            version: {
+	            options: {
+		            patterns: [
+			            {
+				            match: /Version>([\d.]+)<\//,
+				            replacement: 'Version><%= pkg.version%></'
+			            },
+			            {
+				            match: /AssemblyVersion>([\d.]+)<\//,
+				            replacement: 'AssemblyVersion><%= pkg.version%></'
+			            },
+			            {
+				            match: /FileVersion>([\d.]+)<\//,
+				            replacement: 'FileVersion><%= pkg.version%></'
+			            },
+			            {
+				            match: /AssemblyInformationalVersion\("[\d.]+"\)/,
+				            replacement: 'AssemblyInformationalVersion("<%= pkg.version%>")'
+			            },
+			            {
+				            match: /AssemblyVersion\("[\d.]+"\)/,
+				            replacement: 'AssemblyVersion("<%= pkg.version%>.0")'
+			            },
+			            {
+				            match: /AssemblyFileVersion\("[\d.]+"\)/,
+				            replacement: 'AssemblyFileVersion("<%= pkg.version%>.0")'
+			            }
+		            ]
+	            },
+	            files: [
+		            {
+			            expand: true,
+			            flatten: true,
+			            src: ['../GlobalAssemblyInfo.cs'],
+			            dest: '../'
+		            }, {
+			            expand: true,
+			            flatten: true,
+			            src: ['../ServiceStack/Directory.Build.props'],
+			            dest: '../ServiceStack/'
+		            }
+	            ]
             }
         },
 
@@ -593,4 +636,9 @@ module.exports = function (grunt) {
         [
             'sass', 'postcss', 'cssmin'
         ]);
+
+    grunt.registerTask('updateVersionNumber',
+	    [
+		    'replace:version'
+	    ]);
 };

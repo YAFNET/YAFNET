@@ -32,11 +32,6 @@ using YAF.Types.Models;
 public partial class ReportPost : ForumPage
 {
     /// <summary>
-    ///   The _all posts by user.
-    /// </summary>
-    private Tuple<Topic, Message, User, Forum> message;
-
-    /// <summary>
     /// The topic name.
     /// </summary>
     private string topicName;
@@ -45,7 +40,7 @@ public partial class ReportPost : ForumPage
     ///   Gets AllPostsByUser.
     /// </summary>
     public Tuple<Topic, Message, User, Forum> Message =>
-        this.message ??= this.GetRepository<Message>().GetMessageWithAccess(this.MessageId, this.PageBoardContext.PageUserID);
+        field ??= this.GetRepository<Message>().GetMessageWithAccess(this.MessageId, this.PageBoardContext.PageUserID);
 
     protected int MessageId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 

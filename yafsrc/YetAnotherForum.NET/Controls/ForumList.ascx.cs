@@ -33,24 +33,17 @@ using YAF.Web.Controls;
 public partial class ForumList : BaseUserControl
 {
     /// <summary>
-    /// The Data Source
-    /// </summary>
-    private Tuple<List<SimpleModerator>, List<ForumRead>> dataSource;
-
-    /// <summary>
     ///   Gets or sets DataSource.
     /// </summary>
-    public Tuple<List<SimpleModerator>, List<ForumRead>> DataSource
-    {
-        get => this.dataSource;
+    public Tuple<List<SimpleModerator>, List<ForumRead>> DataSource {
+        get;
 
-        set
-        {
-            this.dataSource = value;
+        set {
+            field = value;
 
             this.ForumList1.DataSource = this.PageBoardContext.PageForumID > 0
-                                             ? this.dataSource.Item2
-                                             : this.dataSource.Item2.Where(x => !x.ParentID.HasValue);
+                ? field.Item2
+                : field.Item2.Where(x => !x.ParentID.HasValue);
         }
     }
 

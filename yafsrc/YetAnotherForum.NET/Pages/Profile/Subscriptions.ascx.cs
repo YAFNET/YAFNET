@@ -71,7 +71,7 @@ public partial class Subscriptions : ProfilePage
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
         this.rblNotificationType.Items.AddRange(
-            items.Select(x => new ListItem(this.GetText(x.Value), x.Key.ToString())).ToArray());
+            [.. items.Select(x => new ListItem(this.GetText(x.Value), x.Key.ToString()))]);
 
         var setting =
             this.rblNotificationType.Items.FindByValue(
@@ -245,14 +245,17 @@ public partial class Subscriptions : ProfilePage
     /// </returns>
     private static List<int> GetCheckedIds(Repeater repeater, string checkBoxId, string idLabelId)
     {
-        return (from item in repeater.Items.OfType<RepeaterItem>()
-                let checkBox = item.FindControlAs<CheckBox>(checkBoxId)
-                let idLabel = item.FindControlAs<Label>(idLabelId)
-                where checkBox.Checked
-                select idLabel.Text.ToTypeOrDefault<int?>(null)
-                into id
-                where id.HasValue
-                select id.Value).ToList();
+        return
+        [
+            .. from item in repeater.Items.OfType<RepeaterItem>()
+            let checkBox = item.FindControlAs<CheckBox>(checkBoxId)
+            let idLabel = item.FindControlAs<Label>(idLabelId)
+            where checkBox.Checked
+            select idLabel.Text.ToTypeOrDefault<int?>(null)
+            into id
+            where id.HasValue
+            select id.Value
+        ];
     }
 
     /// <summary>

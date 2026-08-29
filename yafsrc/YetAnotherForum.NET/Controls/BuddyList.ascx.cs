@@ -260,13 +260,13 @@ public partial class BuddyList : BaseUserControl
             switch (this.Mode)
             {
                 case FriendMode.Friends:
-                    buddyListView = buddyList.Where(x => x.Approved).DistinctBy(x => x.UserID).ToList();
+                    buddyListView = [.. buddyList.Where(x => x.Approved).DistinctBy(x => x.UserID)];
                     break;
                 case FriendMode.ReceivedRequests:
-                    buddyListView = buddyList.Where(x => !x.Approved && x.FromUserID != this.CurrentUserID).ToList();
+                    buddyListView = [.. buddyList.Where(x => !x.Approved && x.FromUserID != this.CurrentUserID)];
                     break;
                 case FriendMode.SendRequests:
-                    buddyListView = buddyList.Where(x => !x.Approved && x.FromUserID == this.CurrentUserID).ToList();
+                    buddyListView = [.. buddyList.Where(x => !x.Approved && x.FromUserID == this.CurrentUserID)];
                     break;
             }
 

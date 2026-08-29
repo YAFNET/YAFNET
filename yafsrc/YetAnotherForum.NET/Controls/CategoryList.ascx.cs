@@ -194,7 +194,7 @@ public partial class CategoryList : BaseUserControl
 
         return new Tuple<List<SimpleModerator>, List<ForumRead>>(
             forums.Item1,
-            forums.Item2.Where(forum => forum.CategoryID == item.CategoryID).ToList());
+            [.. forums.Item2.Where(forum => forum.CategoryID == item.CategoryID)]);
     }
 
     /// <summary>

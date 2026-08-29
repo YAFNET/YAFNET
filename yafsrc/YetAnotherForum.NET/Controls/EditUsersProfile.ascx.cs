@@ -41,13 +41,6 @@ public partial class EditUsersProfile : BaseUserControl
 {
     private List<ProfileCustom> userProfileCustom;
 
-    private IList<ProfileDefinition> profileDefinitions;
-
-    /// <summary>
-    /// The current culture information
-    /// </summary>
-    private CultureInfo currentCultureInfo;
-
     /// <summary>
     /// Gets the current Culture information.
     /// </summary>
@@ -58,14 +51,14 @@ public partial class EditUsersProfile : BaseUserControl
     {
         get
         {
-            if (this.currentCultureInfo != null)
+            if (field != null)
             {
-                return this.currentCultureInfo;
+                return field;
             }
 
-            this.currentCultureInfo = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
+            field = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
 
-            return this.currentCultureInfo;
+            return field;
         }
     }
 
@@ -78,7 +71,7 @@ public partial class EditUsersProfile : BaseUserControl
         this.userProfileCustom ??= this.GetRepository<ProfileCustom>().Get(p => p.UserID == this.User.Item1.ID);
 
     private IList<ProfileDefinition> ProfileDefinitions =>
-        this.profileDefinitions ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
+        field ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
 
     /// <summary>
     /// Handles the Click event of the Cancel control.

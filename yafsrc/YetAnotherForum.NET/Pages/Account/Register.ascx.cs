@@ -42,8 +42,6 @@ public partial class Register : AccountPage
     {
     }
 
-    private IList<ProfileDefinition> profileDefinitions;
-
     /// <summary>
     ///   Gets a value indicating whether IsProtected.
     /// </summary>
@@ -62,7 +60,7 @@ public partial class Register : AccountPage
     /// </summary>
     /// <value>The profile definitions.</value>
     private IList<ProfileDefinition> ProfileDefinitions =>
-        this.profileDefinitions ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
+        field ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
 
     /// <summary>
     /// The On PreRender event.

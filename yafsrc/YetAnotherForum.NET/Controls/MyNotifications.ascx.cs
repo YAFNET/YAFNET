@@ -203,8 +203,10 @@ public partial class MyNotifications : BaseUserControl
 
         var notify = activity.Item1.Notification ? "text-success" : "text-secondary";
 
-        iconLabel.Text = $@"<i class=""fas fa-circle fa-stack-2x {notify}""></i>
-               <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>";
+        iconLabel.Text = $"""
+                          <i class="fas fa-circle fa-stack-2x {notify}"></i>
+                                         <i class="fas fa-{icon} fa-stack-1x fa-inverse"></i>
+                          """;
 
         displayDateTime.DateTime = activity.Item1.Created;
 

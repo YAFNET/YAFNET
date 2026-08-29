@@ -370,8 +370,8 @@ public partial class PMList : BaseUserControl
         var list = (List<PagedPm>)this.Messages.DataSource;
 
         list = !exportPmIds.NullOrEmpty()
-                   ? list.Where(x => !x.IsDeleted && exportPmIds.Contains(x.PMessageID)).ToList()
-                   : list.Where(x => !x.IsDeleted).ToList();
+                   ? [.. list.Where(x => !x.IsDeleted && exportPmIds.Contains(x.PMessageID))]
+                   : [.. list.Where(x => !x.IsDeleted)];
 
         var messageList = new List<PagedPm>();
 

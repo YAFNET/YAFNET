@@ -34,11 +34,6 @@ using YAF.Types.Models;
 public partial class EditUsersSuspend : BaseUserControl
 {
     /// <summary>
-    /// The user.
-    /// </summary>
-    private User user;
-
-    /// <summary>
     ///   Gets or sets a value indicating whether ShowHeader.
     /// </summary>
     public bool ShowHeader
@@ -62,13 +57,13 @@ public partial class EditUsersSuspend : BaseUserControl
     {
         get
         {
-            var id = this.user;
+            var id = field;
             if (id != null)
             {
                 return id;
             }
 
-            return this.user = this.GetRepository<User>().GetById(this.CurrentUserID);
+            return field = this.GetRepository<User>().GetById(this.CurrentUserID);
         }
     }
 

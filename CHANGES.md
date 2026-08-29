@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.16
+* bug fixes
+
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
 

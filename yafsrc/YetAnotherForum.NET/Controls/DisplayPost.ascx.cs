@@ -36,11 +36,6 @@ using YAF.Types.Models;
 public partial class DisplayPost : BaseUserControl
 {
     /// <summary>
-    ///   The current Post Data for this post.
-    /// </summary>
-    private PostDataHelperWrapper postDataHelperWrapper;
-
-    /// <summary>
     ///   Gets or sets Current Page Index.
     /// </summary>
     public int CurrentPage { get; set; }
@@ -67,12 +62,12 @@ public partial class DisplayPost : BaseUserControl
     {
         get
         {
-            if (this.postDataHelperWrapper == null && this.DataSource != null)
+            if (field == null && this.DataSource != null)
             {
-                this.postDataHelperWrapper = new PostDataHelperWrapper(this.DataSource);
+                field = new PostDataHelperWrapper(this.DataSource);
             }
 
-            return this.postDataHelperWrapper;
+            return field;
         }
     }
 

@@ -51,11 +51,15 @@ public partial class BBCodes : AdminPage
     protected List<int> GetSelectedBbCodeIDs()
     {
         // get checked items....
-        return (from RepeaterItem item in this.bbCodeList.Items
-                let sel = item.FindControlAs<CheckBox>("chkSelected")
-                where sel.Checked
-                select item.FindControlAs<HiddenField>("hiddenBBCodeID") into hiddenId
-                select hiddenId.Value.ToType<int>()).ToList();
+        return
+        [
+            .. from RepeaterItem item in this.bbCodeList.Items
+            let sel = item.FindControlAs<CheckBox>("chkSelected")
+            where sel.Checked
+            select item.FindControlAs<HiddenField>("hiddenBBCodeID")
+            into hiddenId
+            select hiddenId.Value.ToType<int>()
+        ];
     }
 
     /// <summary>

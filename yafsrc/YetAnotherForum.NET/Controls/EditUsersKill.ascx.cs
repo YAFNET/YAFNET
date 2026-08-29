@@ -35,11 +35,6 @@ using YAF.Types.Models.Identity;
 public partial class EditUsersKill : BaseUserControl
 {
     /// <summary>
-    ///   The _all posts by user.
-    /// </summary>
-    private IOrderedEnumerable<Message> allPostsByUser;
-
-    /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
     
@@ -49,7 +44,7 @@ public partial class EditUsersKill : BaseUserControl
     ///   Gets AllPostsByUser.
     /// </summary>
     public IOrderedEnumerable<Message> AllPostsByUser =>
-        this.allPostsByUser ??= this.GetRepository<Message>().GetAllUserMessages(this.User.Item1.ID);
+        field ??= this.GetRepository<Message>().GetAllUserMessages(this.User.Item1.ID);
 
     /// <summary>
     ///   Gets IPAddresses.
