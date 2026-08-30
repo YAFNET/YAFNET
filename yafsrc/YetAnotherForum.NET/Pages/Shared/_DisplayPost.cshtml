@@ -123,7 +123,7 @@
 
     if (!postData.IsGuest)
     {
-        customProfile = Current.Get<IDataCache>().GetOrSet(string.Format(Constants.Cache.UserCustomProfileData, postData.UserId), () => Current.GetRepository<ProfileCustom>().ListByUser(postData.UserId)).Where(x => x.Item2.ShowInUserInfo && x.Item1.Value.IsSet()).ToList();
+        customProfile = [.. Current.Get<IDataCache>().GetOrSet(string.Format(Constants.Cache.UserCustomProfileData, postData.UserId), () => Current.GetRepository<ProfileCustom>().ListByUser(postData.UserId)).Where(x => x.Item2.ShowInUserInfo && x.Item1.Value.IsSet())];
     }
 
     var manageVisible = editVisible || deleteVisible || moveVisible;

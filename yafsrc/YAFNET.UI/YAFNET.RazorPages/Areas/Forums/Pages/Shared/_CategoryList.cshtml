@@ -16,7 +16,7 @@
 @foreach (var category in Model)
 {
     var tuple = new List<ForumRead>(
-	    Current.Get<ISessionService>().Forums.Where(forum => forum.CategoryID == category.CategoryID).ToList());
+	    [.. Current.Get<ISessionService>().Forums.Where(forum => forum.CategoryID == category.CategoryID)]);
 
     var forums  = Current.PageForumID > 0
                ? tuple.ToList()

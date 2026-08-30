@@ -144,7 +144,20 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body topic-list">
+            @{
+                var totalTopics = Model.Topics.NullOrEmpty() ? 0 : Model.Topics.FirstOrDefault().TotalRows;
+            }
+            <div class="card-body topic-list"
+                 id="topicsContainer"
+                 data-load-more-url="@Url.Page("Topics", "LoadMoreTopics", new { f = Model.PageBoardContext.PageForumID, name = Model.PageBoardContext.PageForum.Name })"
+                 data-next-page="@(Model.PageBoardContext.PageIndex + 1)"
+                 data-page-size="@Model.Size"
+                 data-show="@Model.ShowTopicListSelected"
+                 data-total="@totalTopics"
+                 data-loaded-count="@Model.Topics.Count"
+                 data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())"
+                 data-topic-starter-title="@(Model.Get<ILocalization>().GetText("TOPIC_STARTER"))"
+                 data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
                 @if (!Model.Announcements.HasItems() && !Model.Topics.HasItems())
                 {
                     <alert type="info" localized-tag="NO_TOPICS"></alert>
@@ -155,21 +168,16 @@
                     @Html.TopicContainer(topic, false)
                 }
 
-
-                @for (var index = 0; index < Model.Topics.Count; index++)
+                @foreach (var topic in Model.Topics)
                 {
-                    var topic = Model.Topics[index];
+                    @Html.TopicContainer(topic, false)
+                }
 
-                    if (index + 1 == Model.Topics.Count)
-                    {
-                        @Html.TopicContainer(topic, true)
-                    }
-                    else
-                    {
-                        @Html.TopicContainer(topic, false)
-                    }
-                } 
-
+                <div id="topicsLoadMoreSentinel" class="text-center py-3">
+                    <div class="spinner-border spinner-border-sm text-secondary d-none" role="status">
+                        <span class="visually-hidden">@Html.LocalizedText("COMMON", "LOADING")</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -244,12 +252,7 @@
     </div>
 }
 
-<div class="row justify-content-between">
-	<div class="col-auto mb-1">
-		<pager page-size="@Model.Size" use-submit="false"
-		       count="Model.Topics.NullOrEmpty() ? 0 : Model.Topics.FirstOrDefault().TotalRows">
-		</pager>
-	</div>
+<div class="row justify-content-end">
 	<div class="col-auto mb-1">
 		@if (Model.PageBoardContext.ForumModeratorAccess)
 		{
@@ -275,25 +278,10 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ChoicesScriptsPartial")
+    <script src="~/js/topics.min.js" asp-append-version="true" defer></script>
     <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
                     $"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
-
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs(
-                    $"{Model.Get<ILocalization>().GetText("TOPIC_STARTER")}&nbsp;...",
-                    ".topic-starter-popover",
-                    "hover")))
-
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-             JavaScriptBlocks.TopicLinkPopoverJs(
-                    $"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...",
-                    ".topic-link-popover",
-                    "focus hover")))
-
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.ForumIconLegendPopoverJs(
-                    (await Html.PartialAsync("_TopicIconLegend")).RenderToString().ToJsString(),
-                    "topic-icon-legend-popvover")))
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
             JavaScriptBlocks.ForumIconLegendPopoverJs(

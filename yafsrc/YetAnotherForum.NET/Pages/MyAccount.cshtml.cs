@@ -27,9 +27,8 @@ namespace YAF.Pages;
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-using Core.Helpers;
 using Core.Model;
 
 using Types.Models;
@@ -60,12 +59,6 @@ public class MyAccountModel : ForumPageRegistered
     /// </summary>
     [BindProperty]
     public List<Tuple<Activity, Topic>> Stream { get; set; }
-
-    /// <summary>
-    /// Gets or sets the total items.
-    /// </summary>
-    [BindProperty]
-    public int TotalItems { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether created topic.
@@ -124,21 +117,76 @@ public class MyAccountModel : ForumPageRegistered
     /// </summary>
     public void OnPostReset()
     {
+        // Clear stale posted checkbox values so the reset state below is what gets rendered.
+        this.ModelState.Clear();
+
         this.Reset();
     }
 
     /// <summary>
-    /// The get last item class.
+    /// Loads more Activity for infinite scrolling, also used to (re-)apply the filter checkboxes via AJAX.
     /// </summary>
-    /// <param name="itemIndex">
-    /// The item index.
+    /// <param name="page">
+    /// The zero-based page index to load.
     /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public string GetLastItemClass(int itemIndex)
+    /// <param name="size">
+    /// The page size to load.
+    /// </param>
+    /// <param name="createdTopic">Filter: created topic.</param>
+    /// <param name="createdReply">Filter: created reply.</param>
+    /// <param name="givenThanks">Filter: given thanks.</param>
+    /// <param name="becomeFriends">Filter: become friends.</param>
+    public IActionResult OnGetLoadMoreActivity(
+        int page,
+        int size,
+        bool createdTopic,
+        bool createdReply,
+        bool givenThanks,
+        bool becomeFriends)
     {
-        return itemIndex == this.Stream.Count - 1 ? string.Empty : "border-right";
+        var stream = this.GetFilteredStream(createdTopic, createdReply, givenThanks, becomeFriends);
+
+        var paged = stream.Skip(page * size).Take(size).ToList();
+
+        return new PartialViewResult
+        {
+            ViewName = "_MyAccountActivityListItems",
+            ViewData = new ViewDataDictionary<List<Tuple<Activity, Topic>>>(this.ViewData, paged)
+        };
+    }
+
+    /// <summary>
+    /// Gets the current user's activity stream, filtered by the given activity flags.
+    /// </summary>
+    private List<Tuple<Activity, Topic>> GetFilteredStream(
+        bool createdTopic,
+        bool createdReply,
+        bool givenThanks,
+        bool becomeFriends)
+    {
+        var stream = this.GetRepository<Activity>().Timeline(this.PageBoardContext.PageUserID);
+
+        if (!createdTopic)
+        {
+            stream.RemoveAll(a => a.Item1.ActivityFlags.CreatedTopic);
+        }
+
+        if (!createdReply)
+        {
+            stream.RemoveAll(a => a.Item1.ActivityFlags.CreatedReply);
+        }
+
+        if (!givenThanks)
+        {
+            stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);
+        }
+
+        if (!becomeFriends)
+        {
+            stream.RemoveAll(a => a.Item1.ActivityFlags.BecomeFriends);
+        }
+
+        return stream;
     }
 
     /// <summary>
@@ -146,43 +194,13 @@ public class MyAccountModel : ForumPageRegistered
     /// </summary>
     private void BindData()
     {
-        this.PageSizeList = new SelectList(
-            StaticDataHelper.PageEntries(),
-            nameof(SelectListItem.Value),
-            nameof(SelectListItem.Text));
+        var stream = this.GetFilteredStream(this.CreatedTopic, this.CreatedReply, this.GivenThanks, this.BecomeFriends);
 
-        this.PageSizeList = new SelectList(
-            StaticDataHelper.PageEntries(),
-            nameof(SelectListItem.Value),
-            nameof(SelectListItem.Text));
-
-        var stream = this.GetRepository<Activity>().Timeline(this.PageBoardContext.PageUserID);
-
-        if (!this.CreatedTopic)
-        {
-            stream.RemoveAll(a => a.Item1.ActivityFlags.CreatedTopic);
-        }
-
-        if (!this.CreatedReply)
-        {
-            stream.RemoveAll(a => a.Item1.ActivityFlags.CreatedReply);
-        }
-
-        if (!this.GivenThanks)
-        {
-            stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);
-        }
-
-        if (!this.BecomeFriends)
-        {
-            stream.RemoveAll(a => a.Item1.ActivityFlags.BecomeFriends);
-        }
-
-        this.TotalItems = stream.Count;
-
-        var paged = stream.Skip(this.PageBoardContext.PageIndex * this.Size).Take(this.Size).ToList();
-
-        this.Stream = paged;
+        this.Stream =
+        [
+            .. stream
+                .Skip(this.PageBoardContext.PageIndex * this.Size).Take(this.Size)
+        ];
     }
 
     /// <summary>

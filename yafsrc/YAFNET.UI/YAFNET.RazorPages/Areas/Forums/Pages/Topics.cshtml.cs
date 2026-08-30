@@ -29,6 +29,7 @@ namespace YAF.Pages;
 using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
@@ -121,6 +122,41 @@ public class TopicsModel : ForumPage
         await this.BindDataAsync();
 
         return this.Page();
+    }
+
+    /// <summary>
+    /// Loads more Topics for infinite scrolling.
+    /// </summary>
+    /// <param name="page">
+    /// The zero-based page index to load.
+    /// </param>
+    /// <param name="show">
+    /// The date filter, mirrors <see cref="ShowTopicListSelected"/>.
+    /// </param>
+    /// <param name="size">
+    /// The page size to load.
+    /// </param>
+    public IActionResult OnGetLoadMoreTopics(int page, int show, int size)
+    {
+        if (!this.PageBoardContext.ForumReadAccess)
+        {
+            return this.NotFound();
+        }
+
+        int[] days = [1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356];
+
+        var topics = this.GetRepository<Topic>().ListPaged(
+            this.PageBoardContext.PageForumID,
+            this.PageBoardContext.PageUserID,
+            show == 0 ? DateTimeHelper.SqlDbMinTime() : DateTime.UtcNow.AddDays(-days[show]),
+            page,
+            size,
+            this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
+
+        return new PartialViewResult
+        {
+            ViewName = "_TopicsListItems", ViewData = new ViewDataDictionary<List<PagedTopic>>(this.ViewData, topics)
+        };
     }
 
     /// <summary>

@@ -1,13 +1,8 @@
 ﻿@page "{handler?}"
 
 @using YAF.Core.Extensions
-@using YAF.Core.Helpers
 @using YAF.Web.HtmlHelpers
-@using YAF.Types.Constants
-@using YAF.Types.Extensions
-@using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
-@using YAF.Types.Models
 
 @model MyAccountModel
 
@@ -83,200 +78,63 @@
         {
             <div class="row">
                 <div class="col">
-                    <div class="card mb-3 mt-2" id="activity">
+                    <div class="card mb-3" id="activity">
                         <div class="card-header">
-                            <div class="row justify-content-between align-items-center">
-                                <div class="col-auto">
-                                    @Html.IconHeader("stream", "ACCOUNT", "ACTIVITY")
-                                </div>
-                                <div class="col-auto">
-                                    <form method="post">
-                                    <div class="btn-toolbar" role="toolbar">
-                                        
-                                        <div class="input-group input-group-sm me-2" role="group">
-                                            <div class="input-group-text">
-                                                @Html.LocalizedText("SHOW"):
-                                            </div>
-                                            <select asp-for="@Model.Size"
-                                                    asp-items="Model.PageSizeList"
-                                                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                                    class="form-select"
-                                                    onchange="this.form.submit();"></select>
-                                        </div>
-                                        <div class="btn-group" role="group" aria-label="Filters">
-                                            <button button-style="Secondary"
-                                                    button-size="Small"
-                                                    bs-toggle="dropdown"
-                                                    class="dropdown-toggle"
-                                                    icon="filter"
-                                                    text-localized-page="ADMIN_USERS"
-                                                    text-localized-tag="FILTER_DROPDOWN"></button>
-                                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                                                <div class="px-3 py-1">
-                                                    <div class="mb-3">
-                                                        <div class="form-check form-switch">
-                                                            <input asp-for="CreatedTopic" class="form-check-input" role="switch" switch/>
-                                                            <label asp-for="CreatedTopic" class="form-check-label"
-                                                                   localized-page="ACCOUNT"
-                                                                   localized-tag="CREATED_TOPIC">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <div class="form-check form-switch">
-                                                            <input asp-for="CreatedReply" class="form-check-input" role="switch" switch/>
-                                                            <label asp-for="CreatedReply" class="form-check-label"
-                                                                   localized-page="ACCOUNT"
-                                                                   localized-tag="CREATED_REPLY">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <div class="form-check form-switch">
-                                                            <input asp-for="GivenThanks" class="form-check-input" role="switch" switch/>
-                                                            <label asp-for="GivenThanks" class="form-check-label"
-                                                                   localized-page="ACCOUNT"
-                                                                   localized-tag="GIVEN_THANKS">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                            <div class="form-check form-switch">
-                                                                <input asp-for="BecomeFriends" class="form-check-input" role="switch" switch />
-                                                                <label asp-for="BecomeFriends" class="form-check-label"
-                                                                       localized-page="ACCOUNT"
-                                                                       localized-tag="BECOME_FRIENDS">
-                                                                </label>
-                                                            </div>
-                                                    </div>
-                                                    <hr/>
-                                                    <button type="submit"
-                                                            button-style="Primary"
-                                                            button-size="Small"
-                                                            icon="sync"
-                                                            text-localized-page="COMMON"
-                                                            text-localized-tag="UPDATE"></button>
-
-                                                    <button type="submit"
-                                                            asp-page-handler="Reset"
-                                                            class=" float-end"
-                                                            button-style="Secondary"
-                                                            button-size="Small"
-                                                            icon="trash"
-                                                            text-localized-page="COMMON"
-                                                            text-localized-tag="CLEAR"></button>
-                                                </div>
-                                            </div>
-                                        </div>
+                            @Html.IconHeader("stream", "ACCOUNT", "ACTIVITY")
+                        </div>
+                        <form method="post">
+                            <div class="card-body border-bottom py-2" id="activityFilters">
+                                <div class="d-flex flex-wrap align-items-center gap-2">
+                                    <span class="text-muted">@Html.LocalizedText("FILTER_DROPDOWN"):</span>
+                                    <div class="btn-group flex-wrap" role="group" aria-label="Filters">
+                                        <input asp-for="CreatedTopic" class="btn-check" autocomplete="off" />
+                                        <label asp-for="CreatedTopic" class="btn btn-outline-primary btn-sm">
+                                            @Html.Icon("comment")@Html.LocalizedText("ACCOUNT", "CREATED_TOPIC")
+                                        </label>
+                                        <input asp-for="CreatedReply" class="btn-check" autocomplete="off" />
+                                        <label asp-for="CreatedReply" class="btn btn-outline-primary btn-sm">
+                                            @Html.Icon("comment")@Html.LocalizedText("ACCOUNT", "CREATED_REPLY")
+                                        </label>
+                                        <input asp-for="GivenThanks" class="btn-check" autocomplete="off" />
+                                        <label asp-for="GivenThanks" class="btn btn-outline-primary btn-sm">
+                                            @Html.Icon("heart")@Html.LocalizedText("ACCOUNT", "GIVEN_THANKS")
+                                        </label>
+                                        <input asp-for="BecomeFriends" class="btn-check" autocomplete="off" />
+                                        <label asp-for="BecomeFriends" class="btn btn-outline-primary btn-sm">
+                                            @Html.Icon("user-group")@Html.LocalizedText("ACCOUNT", "BECOME_FRIENDS")
+                                        </label>
                                     </div>
-                                </form>
+                                    <button type="submit"
+                                            asp-page-handler="Reset"
+                                            text-localized-page="COMMON"
+                                            text-localized-tag="CLEAR"
+                                            button-style="Secondary"
+                                            button-size="Small"
+                                            Icon="trash">
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            @for (var index = 0; index < Model.Stream.Count; index++)
-                            {
-                                var activity = Model.Stream[index];
-
-                                var message = string.Empty;
-                                var icon = string.Empty;
-                                var title = string.Empty;
-
-                                var url = activity.Item2.ID is not 0 ?
-                                              Model.Get<ILinkBuilder>().GetTopicLink(activity.Item2) :
-                                              "";
-
-                                if (activity.Item1.ActivityFlags.CreatedTopic)
-                                {
-                                    title = Model.Get<ILocalization>().GetText("ACCOUNT", "CREATED_TOPIC");
-                                    icon = "comment";
-                                    message = Model.Get<ILocalization>().GetTextFormatted("CREATED_TOPIC_MSG", "");
-                                }
-
-                                if (activity.Item1.ActivityFlags.CreatedReply)
-                                {
-                                    title = Model.Get<ILocalization>().GetText("ACCOUNT", "CREATED_REPLY");
-                                    icon = "comment";
-                                    message = Model.Get<ILocalization>().GetTextFormatted("CREATED_REPLY_MSG", "");
-                                }
-
-                                if (activity.Item1.ActivityFlags.GivenThanks)
-                                {
-                                    var user = await Model.GetRepository<User>().GetByIdAsync(activity.Item1.FromUserID.Value);
-
-                                    var userLink = Model.Get<IHtmlHelper>().UserLink(user);
-
-                                    title = Model.Get<ILocalization>().GetText("ACCOUNT", "GIVEN_THANKS");
-                                    icon = "heart";
-                                    message = Model.Get<ILocalization>().GetTextFormatted(
-                                        "GIVEN_THANKS_MSG",
-                                        userLink.RenderToString(),
-                                        "");
-                                }
-
-                                if (activity.Item1.ActivityFlags.BecomeFriends)
-                                {
-                                    var user = await Model.GetRepository<User>().GetByIdAsync(activity.Item1.FromUserID.Value);
-
-                                    var userLink = Model.Get<IHtmlHelper>().UserLink(user);
-
-                                    title = Model.Get<ILocalization>().GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", user.DisplayOrUserName());
-                                    icon = "user-group";
-                                    message = Model.Get<ILocalization>().GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", userLink.RenderToString());
-                                }
-
-                                var notify = activity.Item1.Notification ? "text-success" : "text-secondary";
-
-                                <div class="row">
-                                    <div class="col-auto text-center flex-column d-none d-sm-flex">
-                                        <h5 class="m-2">
-                                            @Html.IconStack("circle", notify, icon, "fa-inverse", "fa-1x pt-3")
-                                        </h5>
-                                        <div class="row h-50">
-                                            <div class="col @Html.Raw(Model.GetLastItemClass(index))">&nbsp;</div>
-                                            <div class="col">&nbsp;</div>
-                                        </div>
-                                    </div>
-                                    <div class="col py-2">
-                                        <div class="@Html.Raw(activity.Item1.Notification ? "card shadow" : "card")">
-                                            <div class="card-body py-2">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <h5 class="card-title mb-1 text-break d-none d-md-block">
-                                                        @title
-                                                    </h5>
-                                                    <small class="d-none d-md-block">
-                                                        @Html.IconBadge("calendar-day", "clock", "text-secondary")
-                                                        @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
-                                                    </small>
-                                                </div>
-                                                @Html.Raw(message) 
-                                                
-                                                @if (url.IsSet())
-                                                {
-                                                    <a button-style="None"
-                                                       icon="comment"
-                                                       icon-css-class="far"
-                                                       text="@activity.Item2.TopicName"
-                                                       href="@url"></a>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
+                        </form>
+                        <div class="card-body"
+                             id="activityContainer"
+                             data-load-more-url="@Url.Page("MyAccount", "LoadMoreActivity")"
+                             data-page-size="@Model.Size"
+                             data-loaded-count="@Model.Stream.Count">
+                            @await Html.PartialAsync("_MyAccountActivityListItems", Model.Stream)
+                            <div id="activityLoadMoreSentinel" class="text-center py-3 d-none">
+                                <div class="spinner-border spinner-border-sm text-secondary d-none" role="status">
+                                    <span class="visually-hidden">@Html.LocalizedText("COMMON", "LOADING")</span>
                                 </div>
-                            }
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-            <div class="row justify-content-end">
-                <div class="col-auto">
-                    <pager page-size="@Model.Size" use-submit="false"
-                           count="!Model.Stream.NullOrEmpty() ? Model.TotalItems : 0">
-                    </pager>
-                </div>
-            </div>
         }
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/myaccount.min.js" asp-append-version="true" defer></script>
+}

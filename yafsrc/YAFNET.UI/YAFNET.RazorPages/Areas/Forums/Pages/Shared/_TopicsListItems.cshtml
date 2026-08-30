@@ -1,0 +1,8 @@
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Objects.Model
+@model List<PagedTopic>
+
+@foreach (var topic in Model)
+{
+    @Html.TopicContainer(topic, false)
+}

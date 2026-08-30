@@ -12,7 +12,7 @@
 
 @{
     var forumList = Current.PageForumID > 0 ?
-        Model.SubForums : Model.SubForums.Where(x => !x.ParentID.HasValue).ToList();
+        Model.SubForums : [.. Model.SubForums.Where(x => !x.ParentID.HasValue)];
 }
 
 @foreach (var forum in forumList)

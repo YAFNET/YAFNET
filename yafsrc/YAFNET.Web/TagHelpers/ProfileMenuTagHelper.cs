@@ -113,7 +113,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             ForumPages.UserProfile,
             this.GetText("VIEW_PROFILE"),
             "user",
-            new {u = this.PageContext.PageUserID , name = this.PageContext.MembershipUser.UserName }));
+            new { u = this.PageContext.PageUserID, name = this.PageContext.MembershipUser.UserName }));
 
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
             "list-group-item list-group-item-action",
@@ -186,7 +186,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 ForumPages.Albums,
                 this.GetText("EDIT_ALBUMS"),
                 "images",
-                new { u = this.PageContext.PageUserID}));
+                new { u = this.PageContext.PageUserID }));
         }
 
         if (this.PageContext.BoardSettings.AvatarUpload
@@ -308,7 +308,15 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     {
         var link = new TagBuilder(HtmlTag.A);
 
-        link.AddCssClass(BoardContext.Current.CurrentForumPage.PageName == page ? $"{cssClass} active" : cssClass);
+        if (BoardContext.Current.CurrentForumPage.PageName == page ||
+            (BoardContext.Current.CurrentForumPage.PageName == ForumPages.Notification && page == ForumPages.MyAccount))
+        {
+            link.AddCssClass($"{cssClass} active");
+        }
+        else
+        {
+            link.AddCssClass(cssClass);
+        }
 
         link.MergeAttribute(
             HtmlAttribute.Href,

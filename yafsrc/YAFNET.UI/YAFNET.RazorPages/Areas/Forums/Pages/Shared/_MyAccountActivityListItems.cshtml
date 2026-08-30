@@ -1,0 +1,100 @@
+@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Models
+@model List<Tuple<Activity, Topic>>
+
+@for (var index = 0; index < Model.Count; index++)
+{
+    var activity = Model[index];
+
+    var message = string.Empty;
+    var icon = string.Empty;
+    var title = string.Empty;
+
+    var url = activity.Item2.ID is not 0 ?
+                  BoardContext.Current.Get<ILinkBuilder>().GetTopicLink(activity.Item2) :
+                  "";
+
+    if (activity.Item1.ActivityFlags.CreatedTopic)
+    {
+        title = BoardContext.Current.Get<ILocalization>().GetText("ACCOUNT", "CREATED_TOPIC");
+        icon = "comment";
+        message = BoardContext.Current.Get<ILocalization>().GetTextFormatted("CREATED_TOPIC_MSG", "");
+    }
+
+    if (activity.Item1.ActivityFlags.CreatedReply)
+    {
+        title = BoardContext.Current.Get<ILocalization>().GetText("ACCOUNT", "CREATED_REPLY");
+        icon = "comment";
+        message = BoardContext.Current.Get<ILocalization>().GetTextFormatted("CREATED_REPLY_MSG", "");
+    }
+
+    if (activity.Item1.ActivityFlags.GivenThanks)
+    {
+        var user = await BoardContext.Current.GetRepository<User>().GetByIdAsync(activity.Item1.FromUserID.Value);
+
+        var userLink = Html.UserLink(user);
+
+        title = BoardContext.Current.Get<ILocalization>().GetText("ACCOUNT", "GIVEN_THANKS");
+        icon = "heart";
+        message = BoardContext.Current.Get<ILocalization>().GetTextFormatted(
+            "GIVEN_THANKS_MSG",
+            userLink.RenderToString(),
+            "");
+    }
+
+    if (activity.Item1.ActivityFlags.BecomeFriends)
+    {
+        var user = await BoardContext.Current.GetRepository<User>().GetByIdAsync(activity.Item1.FromUserID.Value);
+
+        var userLink = Html.UserLink(user);
+
+        title = BoardContext.Current.Get<ILocalization>().GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", user.DisplayOrUserName());
+        icon = "user-group";
+        message = BoardContext.Current.Get<ILocalization>().GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", userLink.RenderToString());
+    }
+
+    var notify = activity.Item1.Notification ? "text-success" : "text-secondary";
+
+    <div class="row">
+        <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <h5 class="m-2">
+                @Html.IconStack("circle", notify, icon, "fa-inverse", "fa-1x pt-3")
+            </h5>
+            <div class="row h-50">
+                <div class="col @(index == Model.Count - 1 ? string.Empty : "border-right")">&nbsp;</div>
+                <div class="col">&nbsp;</div>
+            </div>
+        </div>
+        <div class="col py-2">
+            <div class="@Html.Raw(activity.Item1.Notification ? "card shadow" : "card")">
+                <div class="card-body py-2">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="card-title mb-1 text-break d-none d-md-block">
+                            @title
+                        </h5>
+                        <small class="d-none d-md-block">
+                            @Html.IconBadge("calendar-day", "clock", "text-secondary")
+                            @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
+                        </small>
+                    </div>
+                    @Html.Raw(message)
+
+                    @if (url.IsSet())
+                    {
+                        <a button-style="None"
+                           icon="comment"
+                           icon-css-class="far"
+                           text="@activity.Item2.TopicName"
+                           href="@url"></a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1690,61 +1690,6 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Renders the Load More on Scrolling JS.
-    /// </summary>
-    /// <param name="url">The Current Url</param>
-    /// <returns>
-    /// Returns the JS String
-    /// </returns>
-    public static string LoadMoreOnScrolling(string url)
-    {
-        return $$"""
-                   function GetCategories() {
-                       const categoryIndexInput = document.getElementById("category-index");
-                   
-                       var categoryIndex = categoryIndexInput.value;
-                   
-                       categoryIndex++;
-                   
-                       const url = "{{url}}" + "?index=" + categoryIndex;
-                   
-                       fetch(url, {
-                               method: "GET",
-                               headers: {
-                                   'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-                               }
-                           }).then(res => res.text())
-                           .then(response => {
-                               document.getElementById("category-list").innerHTML = response;
-                               categoryIndexInput.value = categoryIndex;
-                           });
-                   
-                   }
-                   
-                   window.addEventListener("scroll", () => {
-                       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-                       
-                       const discussions = document.querySelector(".row-discussions"),
-                       stats =  document.querySelector(".row-stats");
-                       
-                       var height = scrollTop + clientHeight + stats.clientHeight;
-                       
-                       if (discussions) {
-                          height += discussions.clientHeight;
-                       }
-                       
-                       if (height >= scrollHeight) {
-                           const btn = document.getElementById("category-info-more");
-                           if (btn != null) {
-                               GetCategories();
-                           }
-                       }
-                   });
-                   
-                   """;
-    }
-
-    /// <summary>
     /// Renders toggleSelection Function JS.
     /// </summary>
     /// <param name="message">

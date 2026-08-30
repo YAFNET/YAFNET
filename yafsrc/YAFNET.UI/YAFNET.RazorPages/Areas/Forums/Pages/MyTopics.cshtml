@@ -1,6 +1,5 @@
 @page "{handler?}"
 @using YAF.Core.Helpers
-@using YAF.Core.Utilities
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
@@ -75,21 +74,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body topic-list">
+                @{
+                    var totalTopics = Model.TopicList.NullOrEmpty() ? 0 : Model.TopicList.FirstOrDefault().TotalRows;
+                }
+                <div class="card-body topic-list"
+                     id="topicsContainer"
+                     data-load-more-url="@Url.Page("MyTopics", "LoadMoreTopics")"
+                     data-next-page="@(Model.PageBoardContext.PageIndex + 1)"
+                     data-page-size="@Model.Size"
+                     data-show="@Model.Input.SinceValue"
+                     data-mode="@Model.Input.TopicModeValue"
+                     data-total="@totalTopics"
+                     data-loaded-count="@(Model.TopicList?.Count ?? 0)"
+                     data-icon-legend-content="@((await Html.PartialAsync("_TopicIconLegend")).RenderToString())"
+                     data-topic-starter-title="@(Model.Get<ILocalization>().GetText("TOPIC_STARTER"))"
+                     data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
                     @if (!Model.TopicList.NullOrEmpty())
                     {
-                        @for (var index = 0; index < Model.TopicList.Count; index++)
+                        @foreach (var topic in Model.TopicList)
                         {
-                            var topic = Model.TopicList[index];
-
-                            if (index + 1 == Model.TopicList.Count)
-                            {
-                                @Html.TopicContainer(topic, true)
-                            }
-                            else
-                            {
-                                @Html.TopicContainer(topic, false)
-                            }
+                            @Html.TopicContainer(topic, false)
                         }
                     }
                     else
@@ -97,6 +101,12 @@
                         <alert type="info" icon="info-circle" localized-tag="NO_POSTS">
                         </alert>
                     }
+
+                    <div id="topicsLoadMoreSentinel" class="text-center py-3">
+                        <div class="spinner-border spinner-border-sm text-secondary d-none" role="status">
+                            <span class="visually-hidden">@Html.LocalizedText("COMMON", "LOADING")</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="row justify-content-end">
@@ -112,32 +122,8 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-end">
-        <div class="col-auto">
-            <pager page-size="@Model.Size"
-                   count="0">
-            </pager>
-        </div>
-    </div>
 </form>
 
 @section Scripts {
-
-    <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs(
-            $"{Model.Get<ILocalization>().GetText("TOPIC_STARTER")}&nbsp;...",
-            ".topic-starter-popover",
-            "hover")))
-
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.TopicLinkPopoverJs(
-                $"{Model.Get<ILocalization>().GetText("LASTPOST")}&nbsp;{Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...",
-                ".topic-link-popover",
-                "focus hover")))
-
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.ForumIconLegendPopoverJs(
-                (await Html.PartialAsync("_TopicIconLegend")).RenderToString().ToJsString(),
-                "topic-icon-legend-popvover")))
-    </script>
+    <script src="~/js/topics.min.js" asp-append-version="true" defer></script>
 }

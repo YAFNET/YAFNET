@@ -27,9 +27,8 @@ namespace YAF.Pages;
 using System.Collections.Generic;
 using System.Linq;
 
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-using Core.Helpers;
 using Core.Model;
 
 using Types.Models;
@@ -56,13 +55,6 @@ public class NotificationModel : ForumPageRegistered
     /// </summary>
     [BindProperty]
     public List<Tuple<Activity, User, Topic>> Notifications { get; set; }
-
-    /// <summary>
-    /// Gets or sets the notifications count.
-    /// </summary>
-    /// <value>The notifications count.</value>
-    [BindProperty]
-    public int NotificationsCount { get; set; }
 
     /// <summary>
     /// The was mentioned.
@@ -141,18 +133,13 @@ public class NotificationModel : ForumPageRegistered
     }
 
     /// <summary>
-    /// The update filter click.
-    /// </summary>
-    public void OnPostUpdateFilter()
-    {
-        this.BindData();
-    }
-
-    /// <summary>
     /// Reset Filter
     /// </summary>
     public void OnPostReset()
     {
+        // Clear stale posted checkbox values so the reset state below is what gets rendered.
+        this.ModelState.Clear();
+
         this.WasMentioned = true;
         this.ReceivedThanks = true;
         this.WasQuoted = true;
@@ -174,51 +161,102 @@ public class NotificationModel : ForumPageRegistered
     }
 
     /// <summary>
-    /// Binds the data.
+    /// Loads more Notifications for infinite scrolling, also used to (re-)apply the filter checkboxes via AJAX.
     /// </summary>
-    private void BindData()
+    /// <param name="page">
+    /// The zero-based page index to load.
+    /// </param>
+    /// <param name="size">
+    /// The page size to load.
+    /// </param>
+    /// <param name="wasMentioned">Filter: was mentioned.</param>
+    /// <param name="receivedThanks">Filter: received thanks.</param>
+    /// <param name="wasQuoted">Filter: was quoted.</param>
+    /// <param name="watchForumReply">Filter: watch forum reply.</param>
+    /// <param name="watchTopicReply">Filter: watch topic reply.</param>
+    /// <param name="becomeFriends">Filter: become friends.</param>
+    public IActionResult OnGetLoadMoreNotifications(
+        int page,
+        int size,
+        bool wasMentioned,
+        bool receivedThanks,
+        bool wasQuoted,
+        bool watchForumReply,
+        bool watchTopicReply,
+        bool becomeFriends)
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+        var stream = this.GetFilteredNotifications(
+            wasMentioned, receivedThanks, wasQuoted, watchForumReply, watchTopicReply, becomeFriends);
 
+        var paged = stream.Skip(page * size).Take(size).ToList();
+
+        return new PartialViewResult
+        {
+            ViewName = "_NotificationListItems",
+            ViewData = new ViewDataDictionary<List<Tuple<Activity, User, Topic>>>(this.ViewData, paged)
+        };
+    }
+
+    /// <summary>
+    /// Gets the current user's notification stream, filtered by the given activity flags.
+    /// </summary>
+    private List<Tuple<Activity, User, Topic>> GetFilteredNotifications(
+        bool wasMentioned,
+        bool receivedThanks,
+        bool wasQuoted,
+        bool watchForumReply,
+        bool watchTopicReply,
+        bool becomeFriends)
+    {
         var stream = this.GetRepository<Activity>().Notifications(this.PageBoardContext.PageUserID);
 
-        if (!this.WasMentioned)
+        if (!wasMentioned)
         {
             stream.RemoveAll(a => a.Item1.ActivityFlags.WasMentioned);
         }
 
-        if (!this.ReceivedThanks)
+        if (!receivedThanks)
         {
             stream.RemoveAll(a => a.Item1.ActivityFlags.ReceivedThanks);
         }
 
-        if (!this.WasQuoted)
+        if (!wasQuoted)
         {
             stream.RemoveAll(a => a.Item1.ActivityFlags.WasQuoted);
         }
 
-        if (!this.WatchForumReply)
+        if (!watchForumReply)
         {
             stream.RemoveAll(a => a.Item1.ActivityFlags.WatchForumReply);
         }
 
-        if (!this.WatchTopicReply)
+        if (!watchTopicReply)
         {
             stream.RemoveAll(a => a.Item1.ActivityFlags.WatchTopicReply);
         }
 
-        if (!this.BecomeFriends)
+        if (!becomeFriends)
         {
             stream.RemoveAll(a => a.Item1.ActivityFlags.BecomeFriends);
         }
 
         stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);
 
-        this.NotificationsCount = stream.Count;
+        return stream;
+    }
 
-        var paged = stream
-            .Skip(this.PageBoardContext.PageIndex * this.Size).Take(this.Size).ToList();
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private void BindData()
+    {
+        var stream = this.GetFilteredNotifications(
+            this.WasMentioned, this.ReceivedThanks, this.WasQuoted, this.WatchForumReply, this.WatchTopicReply, this.BecomeFriends);
 
-        this.Notifications = paged;
+        this.Notifications =
+        [
+            .. stream
+                .Skip(this.PageBoardContext.PageIndex * this.Size).Take(this.Size)
+        ];
     }
 }

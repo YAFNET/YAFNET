@@ -1,0 +1,98 @@
+@using YAF.Core.Context
+@using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Web.HtmlHelpers
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Models
+@model List<Tuple<Activity, User, Topic>>
+
+@foreach (var activity in Model)
+{
+    var message = string.Empty;
+    var icon = string.Empty;
+    var notify = activity.Item1.Notification ? "text-success" : "text-secondary";
+
+    if (!activity.Item1.FromUserID.HasValue)
+    {
+        continue;
+    }
+
+    var userLink = Html.UserLink(activity.Item1.FromUserID.Value, activity.Item2.DisplayOrUserName(), activity.Item2.Suspended, activity.Item2.UserStyle);
+
+    if (activity.Item3.ID is 0 && activity.Item1.ActivityFlags.BecomeFriends)
+    {
+        icon = "user-group";
+        message = BoardContext.Current.Get<ILocalization>().GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", userLink.RenderToString());
+    }
+    else
+    {
+        if (!activity.Item1.MessageID.HasValue)
+        {
+            continue;
+        }
+
+        var link = BoardContext.Current.Get<ILinkBuilder>().GetMessageLink(activity.Item3, activity.Item1.MessageID.Value);
+
+        var topicLink = $"<a href=\"{link}\" role=\"button\"><i class=\"far fa-comment  me-1\"></i><span class=\"ms-1\">{activity.Item3.TopicName}</span></a>";
+
+        if (activity.Item1.ActivityFlags.ReceivedThanks)
+        {
+            icon = "heart";
+            message = BoardContext.Current.Get<ILocalization>().GetTextFormatted("RECEIVED_THANKS_MSG", userLink.RenderToString(), topicLink);
+        }
+        else if (activity.Item1.ActivityFlags.WasMentioned)
+        {
+            icon = "at";
+            message = BoardContext.Current.Get<ILocalization>().GetTextFormatted("WAS_MENTIONED_MSG", userLink.RenderToString(), topicLink);
+        }
+        else if (activity.Item1.ActivityFlags.WasQuoted)
+        {
+            icon = "quote-left";
+            message = BoardContext.Current.Get<ILocalization>().GetTextFormatted("WAS_QUOTED_MSG", userLink.RenderToString(), topicLink);
+        }
+        else if (activity.Item1.ActivityFlags.WatchForumReply)
+        {
+            icon = "comments";
+            message = BoardContext.Current.Get<ILocalization>().GetTextFormatted("WATCH_FORUM_MSG", userLink.RenderToString(), topicLink);
+        }
+        else if (activity.Item1.ActivityFlags.WatchTopicReply)
+        {
+            icon = "comment";
+            message = BoardContext.Current.Get<ILocalization>().GetTextFormatted("WATCH_TOPIC_MSG", userLink.RenderToString(), topicLink);
+        }
+    }
+
+    <li class="list-group-item list-group-item-action notification-row">
+        <div class="d-flex w-100 justify-content-between align-items-start flex-wrap">
+            <div>
+                <span class="fa-stack">
+                    <i class="@($"fas fa-circle fa-stack-2x {notify}")"></i>
+                    <i class="@($"fas fa-{icon} fa-stack-1x fa-inverse")"></i>
+                </span>
+
+                @Html.Raw(message)
+            </div>
+
+            @if (activity.Item1.Notification)
+            {
+                <button button-style="Secondary"
+                        button-size="Small"
+                        text-localized-tag="MARK_ASREAD"
+                        asp-page-handler="MarkRead"
+                        asp-route-id="@activity.Item1.MessageID.Value"
+                        Icon="glasses">
+                </button>
+            }
+        </div>
+        <div class="mt-2">
+            <span class="badge text-light-emphasis bg-light-subtle"
+                  title="@Html.LocalizedText("POSTMESSAGE", "POSTED")"
+                  data-bs-toggle="tooltip">
+                @Html.Icon("calendar-day")
+                @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
+            </span>
+        </div>
+    </li>
+}

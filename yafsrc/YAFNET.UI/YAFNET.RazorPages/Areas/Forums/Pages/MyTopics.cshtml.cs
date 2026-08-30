@@ -27,6 +27,7 @@ namespace YAF.Pages;
 using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
@@ -113,45 +114,94 @@ public class MyTopicsModel : ForumPageRegistered
     {
         this.LoadControls();
 
-        // we'll hold topics in this table
-        this.TopicList = null;
+        this.TopicList = this.GetTopicsList(
+            this.Input.TopicModeValue,
+            this.GetSinceDate(this.Input.SinceValue),
+            this.PageBoardContext.PageIndex,
+            this.Size);
+    }
 
-        // page index in db which is returned back  is +1 based!
-        var currentPageIndex = this.PageBoardContext.PageIndex;
+    /// <summary>
+    /// Loads more Topics for infinite scrolling.
+    /// </summary>
+    /// <param name="page">
+    /// The zero-based page index to load.
+    /// </param>
+    /// <param name="mode">
+    /// The topic list mode, mirrors <see cref="MyTopicsInputModel.TopicModeValue"/>.
+    /// </param>
+    /// <param name="show">
+    /// The since-date filter, mirrors <see cref="MyTopicsInputModel.SinceValue"/>.
+    /// </param>
+    /// <param name="size">
+    /// The page size to load.
+    /// </param>
+    public IActionResult OnGetLoadMoreTopics(int page, int mode, int show, int size)
+    {
+        var topics = this.GetTopicsList(mode, this.GetSinceDate(show), page, size);
 
-        // default since date is now
-        var sinceDate = DateTime.UtcNow;
+        return new PartialViewResult
+        {
+            ViewName = "_TopicsListItems", ViewData = new ViewDataDictionary<List<PagedTopic>>(this.ViewData, topics)
+        };
+    }
 
-        sinceDate = this.Input.SinceValue switch
+    /// <summary>
+    /// Computes the since-date filter for the given dropdown value.
+    /// </summary>
+    /// <param name="sinceValue">
+    /// The selected "since" dropdown value.
+    /// </param>
+    private DateTime GetSinceDate(int sinceValue)
+    {
+        if (sinceValue == 0)
+        {
+            // filter topics since last visit
+            return this.Get<ISessionService>().LastVisit ?? DateTime.UtcNow;
+        }
+
+        return sinceValue switch
         {
             // decrypt selected option
             9999 => DateTimeHelper.SqlDbMinTime(),
-            > 0 => DateTime.UtcNow - TimeSpan.FromDays(this.Input.SinceValue),
-            < 0 => DateTime.UtcNow + TimeSpan.FromHours(this.Input.SinceValue),
-            _ => sinceDate
+            > 0 => DateTime.UtcNow - TimeSpan.FromDays(sinceValue),
+            < 0 => DateTime.UtcNow + TimeSpan.FromHours(sinceValue),
+            _ => DateTime.UtcNow
         };
+    }
 
-        // we want to filter topics since last visit
-        if (this.Input.SinceValue == 0)
-        {
-            sinceDate = this.Get<ISessionService>().LastVisit ?? DateTime.UtcNow;
-        }
-
-        this.TopicList = this.Input.TopicModeValue.ToEnum<TopicListMode>() switch
+    /// <summary>
+    /// Gets the topics list for the given mode/filter/paging.
+    /// </summary>
+    /// <param name="modeValue">
+    /// The topic list mode, mirrors <see cref="MyTopicsInputModel.TopicModeValue"/>.
+    /// </param>
+    /// <param name="sinceDate">
+    /// The since-date filter.
+    /// </param>
+    /// <param name="pageIndex">
+    /// The zero-based page index to load.
+    /// </param>
+    /// <param name="size">
+    /// The page size to load.
+    /// </param>
+    private List<PagedTopic> GetTopicsList(int modeValue, DateTime sinceDate, int pageIndex, int size)
+    {
+        return modeValue.ToEnum<TopicListMode>() switch
         {
             TopicListMode.Active => this.GetRepository<Topic>()
-                .ListActivePaged(this.PageBoardContext.PageUserID, sinceDate, DateTime.UtcNow, currentPageIndex,
-                    this.Size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
+                .ListActivePaged(this.PageBoardContext.PageUserID, sinceDate, DateTime.UtcNow, pageIndex,
+                    size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
             TopicListMode.Unanswered => this.GetRepository<Topic>()
                 .ListUnansweredPaged(this.PageBoardContext.PageUserID, sinceDate, DateTime.UtcNow,
-                    currentPageIndex, this.Size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
+                    pageIndex, size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
             TopicListMode.Watch => this.GetRepository<Topic>()
-                .ListWatchedPaged(this.PageBoardContext.PageUserID, sinceDate, DateTime.UtcNow, currentPageIndex,
-                    this.Size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
+                .ListWatchedPaged(this.PageBoardContext.PageUserID, sinceDate, DateTime.UtcNow, pageIndex,
+                    size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
             TopicListMode.User => this.GetRepository<Topic>()
-                .ListByUserPaged(this.PageBoardContext.PageUserID, sinceDate, DateTime.UtcNow, currentPageIndex,
-                    this.Size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
-            _ => this.TopicList
+                .ListByUserPaged(this.PageBoardContext.PageUserID, sinceDate, DateTime.UtcNow, pageIndex,
+                    size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
+            _ => null
         };
     }
 

@@ -2,8 +2,10 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.9
+* [NEW] added context menu to category and forum on the main
 * [FIXED #1769] paging for attachments on admin edit user page
 * [FIXED] geoipservice can now correctly handle IPV6 Addresses 
+* [CHANGES] tweaked the ui to make it more consistend 
 * Replaced ImageSharp with SkiaSharp
 
 # YetAnotherForum.NET v4.0.8
@@ -89,6 +91,9 @@ YetAnotherForum.NET Changelog
 * Real-time Notifications for Received Thanks
 * Replaced Private Messages with real-time user chat
 * Two Factor Authentication
+
+# YetAnotherForum.NET v3.2.16
+* bug fixes
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

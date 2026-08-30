@@ -1,11 +1,6 @@
-﻿@page "{handler?}"
-@using YAF.Core.Context
-@using YAF.Core.Extensions
-@using YAF.Core.Helpers
+@page "{handler?}"
 @using YAF.Web.HtmlHelpers
-@using YAF.Types.Constants
 @using YAF.Types.Extensions
-@using YAF.Types.Interfaces
 
 @model NotificationModel
 
@@ -17,212 +12,66 @@
         <div class="col">
             <div class="row">
                 <div class="col">
-                    <div class="card mb-3 mt-2" id="activity">
+                    <div class="card mb-3" id="activity">
                         <div class="card-header">
-                            <div class="row justify-content-between align-items-center">
-                                <div class="col-auto">
-                                    @Html.IconHeader("bell", "NOTIFICATION", "YOUR_NOTIFIY")
+                            @Html.IconHeader("bell", "NOTIFICATION", "YOUR_NOTIFIY")
+                        </div>
+                        <div class="card-body border-bottom py-2" id="notificationFilters">
+	                        <div class="d-flex flex-wrap align-items-center gap-2">
+		                        <span class="text-muted">@Html.LocalizedText("FILTER_DROPDOWN"):</span>
+                                <div class="btn-group flex-wrap" role="group" aria-label="Filters">
+                                    <input asp-for="WasMentioned" class="btn-check" autocomplete="off" />
+                                    <label asp-for="WasMentioned" class="btn btn-outline-primary btn-sm">
+                                        @Html.Icon("at")@Html.LocalizedText("NOTIFICATION", "WAS_MENTIONED")
+                                    </label>
+                                    <input asp-for="ReceivedThanks" class="btn-check" autocomplete="off" />
+                                    <label asp-for="ReceivedThanks" class="btn btn-outline-primary btn-sm">
+                                        @Html.Icon("heart")@Html.LocalizedText("NOTIFICATION", "RECEIVED_THANKS")
+                                    </label>
+                                    <input asp-for="WasQuoted" class="btn-check" autocomplete="off" />
+                                    <label asp-for="WasQuoted" class="btn btn-outline-primary btn-sm">
+                                        @Html.Icon("quote-left")@Html.LocalizedText("NOTIFICATION", "WAS_QUOTED")
+                                    </label>
+                                    <input asp-for="WatchForumReply" class="btn-check" autocomplete="off" />
+                                    <label asp-for="WatchForumReply" class="btn btn-outline-primary btn-sm">
+                                        @Html.Icon("comments")@Html.LocalizedText("NOTIFICATION", "WATCH_FORUM_REPLY")
+                                    </label>
+                                    <input asp-for="WatchTopicReply" class="btn-check" autocomplete="off" />
+                                    <label asp-for="WatchTopicReply" class="btn btn-outline-primary btn-sm">
+                                        @Html.Icon("comment")@Html.LocalizedText("NOTIFICATION", "WATCH_TOPIC_REPLY")
+                                    </label>
+                                    <input asp-for="BecomeFriends" class="btn-check" autocomplete="off" />
+                                    <label asp-for="BecomeFriends" class="btn btn-outline-primary btn-sm">
+                                        @Html.Icon("user-group")@Html.LocalizedText("ACCOUNT", "BECOME_FRIENDS")
+                                    </label>
                                 </div>
-                                <div class="col-auto">
-                                    <div class="btn-toolbar" role="toolbar">
-                                        <div class="input-group input-group-sm me-2" role="group">
-                                            <div class="input-group-text">
-                                                @Html.LocalizedText("SHOW"):
-                                            </div>
-                                            <select asp-for="@Model.Size"
-                                                    asp-items="Model.PageSizeList"
-                                                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                                    class="form-select"
-                                                    onchange="this.form.submit();"></select>
-
-                                        </div>
-                                        <div class="btn-group" role="group" aria-label="Filters">
-                                            <button button-style="Secondary"
-                                                    button-size="Small"
-                                                    class="dropdown-toggle"
-                                                    bs-toggle="dropdown"
-                                                    icon="filter"
-                                                    text-localized-page="ADMIN_USERS"
-                                                    text-localized-tag="FILTER_DROPDOWN"></button>
-                                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                                                <div class="px-3 py-1">
-                                                    <div class="mb-3">
-                                                        <div class="form-check form-switch">
-                                                            <input asp-for="WasMentioned" class="form-check-input" role="switch" switch />
-                                                            <label asp-for="WasMentioned" class="form-check-label"
-                                                                   localized-page="NOTIFICATION"
-                                                                   localized-tag="WAS_MENTIONED">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <div class="form-check form-switch">
-                                                            <input asp-for="ReceivedThanks" class="form-check-input" role="switch" switch />
-                                                            <label asp-for="ReceivedThanks" class="form-check-label"
-                                                                   localized-page="NOTIFICATION"
-                                                                   localized-tag="RECEIVED_THANKS">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <div class="form-check form-switch">
-                                                            <input asp-for="WasQuoted" class="form-check-input" role="switch" switch />
-                                                            <label asp-for="WasQuoted" class="form-check-label"
-                                                                   localized-page="NOTIFICATION"
-                                                                   localized-tag="WAS_QUOTED">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <div class="form-check form-switch">
-                                                            <input asp-for="WatchForumReply" class="form-check-input" role="switch" switch />
-                                                            <label asp-for="WatchForumReply" class="form-check-label"
-                                                                   localized-page="NOTIFICATION"
-                                                                   localized-tag="WATCH_FORUM_REPLY">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <div class="form-check form-switch">
-                                                            <input asp-for="WatchTopicReply" class="form-check-input" role="switch" switch />
-                                                            <label asp-for="WatchTopicReply" class="form-check-label"
-                                                                   localized-page="NOTIFICATION"
-                                                                   localized-tag="WATCH_TOPIC_REPLY">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <div class="form-check form-switch">
-                                                            <input asp-for="BecomeFriends" class="form-check-input" role="switch" switch />
-                                                            <label asp-for="BecomeFriends" class="form-check-label"
-                                                                   localized-page="ACCOUNT"
-                                                                   localized-tag="BECOME_FRIENDS">
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <button type="submit"
-                                                            text-localized-tag="UPDATE"
-                                                            class="me-2"
-                                                            button-style="Primary"
-                                                            button-size="Small"
-                                                            Icon="sync">
-                                                    </button>
-                                                    <button type="submit" 
-                                                            asp-page-handler="Reset"
-                                                            text-localized-tag="CLEAR"
-                                                            button-style="Secondary"
-                                                            button-size="Small"
-                                                            Icon="trash">
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button type="submit"
+                                        asp-page-handler="Reset"
+                                        text-localized-tag="CLEAR"
+                                        button-style="Secondary"
+                                        button-size="Small"
+                                        Icon="trash">
+                                </button>
                             </div>
                         </div>
-                        @if (!Model.Notifications.NullOrEmpty())
-                        {
-                            <ul class="list-group list-group-flush">
-
-                                @foreach (var activity in Model.Notifications)
-                                {
-                                    var message = string.Empty;
-                                    var icon = string.Empty;
-                                    var notify = activity.Item1.Notification ? "text-success" : "text-secondary";
-
-                                    if (!activity.Item1.FromUserID.HasValue)
-                                    {
-                                        continue;
-                                    }
-
-                                    var userLink = Html.UserLink(activity.Item1.FromUserID.Value, activity.Item2.DisplayOrUserName(), activity.Item2.Suspended, activity.Item2.UserStyle);
-
-                                    if (activity.Item3.ID is 0 && activity.Item1.ActivityFlags.BecomeFriends)
-                                    {
-                                        icon = "user-group";
-                                        message = Model.Get<ILocalization>().GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", userLink.RenderToString());
-                                    }
-                                    else
-                                    {
-                                        if (!activity.Item1.MessageID.HasValue)
-                                        {
-	                                        continue;
-                                        }
-
-                                        var link = BoardContext.Current.Get<ILinkBuilder>().GetMessageLink(activity.Item3, activity.Item1.MessageID.Value);
-
-                                        var topicLink = $"<a href=\"{link}\" role=\"button\"><i class=\"far fa-comment  me-1\"></i><span class=\"ms-1\">{activity.Item3.TopicName}</span></a>";
-
-                                        if (activity.Item1.ActivityFlags.ReceivedThanks)
-                                        {
-                                            icon = "heart";
-                                            message = Model.GetTextFormatted("RECEIVED_THANKS_MSG", userLink.RenderToString(), topicLink);
-                                        }
-                                        else if (activity.Item1.ActivityFlags.WasMentioned)
-                                        {
-                                            icon = "at";
-                                            message = Model.GetTextFormatted("WAS_MENTIONED_MSG", userLink.RenderToString(), topicLink);
-                                        }
-                                        else if (activity.Item1.ActivityFlags.WasQuoted)
-                                        {
-                                            icon = "quote-left";
-                                            message = Model.GetTextFormatted("WAS_QUOTED_MSG", userLink.RenderToString(), topicLink);
-                                        }
-                                        else if (activity.Item1.ActivityFlags.WatchForumReply)
-                                        {
-                                            icon = "comments";
-                                            message = Model.GetTextFormatted("WATCH_FORUM_MSG", userLink.RenderToString(), topicLink);
-                                        }
-                                        else if (activity.Item1.ActivityFlags.WatchTopicReply)
-                                        {
-                                            icon = "comment";
-                                            message = Model.GetTextFormatted("WATCH_TOPIC_MSG", userLink.RenderToString(), topicLink);
-                                        }
-                                    }
-
-                                    <li class="list-group-item list-group-item-action notification-row">
-                                        <div class="d-flex w-100 justify-content-between align-items-start flex-wrap">
-                                            <div>
-                                                <span class="fa-stack">
-                                                    <i class="@($"fas fa-circle fa-stack-2x {notify}")"></i>
-                                                    <i class="@($"fas fa-{icon} fa-stack-1x fa-inverse")"></i>
-                                                </span>
-
-                                                @Html.Raw(message)
-                                            </div>
-
-                                            @if (activity.Item1.Notification)
-                                            {
-                                                <button button-style="Secondary"
-                                                        button-size="Small"
-                                                        text-localized-tag="MARK_ASREAD"
-                                                        asp-page-handler="MarkRead"
-                                                        asp-route-id="@activity.Item1.MessageID.Value"
-                                                        Icon="glasses">
-                                                </button>
-                                            }
-                                        </div>
-                                        <div class="mt-2">
-                                            <span class="badge text-light-emphasis bg-light-subtle"
-                                                  title="@Html.LocalizedText("POSTMESSAGE", "POSTED")"
-                                                  data-bs-toggle="tooltip">
-                                                @Html.Icon("calendar-day")
-                                                @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
-                                            </span>
-                                        </div>
-                                    </li>
-                                }
-
-                            </ul>
-                        }
-                        else
-                        {
-                            <div class="card-body">
-	                            @await Html.PartialAsync("_NoEntryInfo")
-                            </div>
-                        }
+                        <ul class="list-group list-group-flush @(Model.Notifications.NullOrEmpty() ? "d-none" : string.Empty)"
+                            id="notificationsContainer"
+                            data-load-more-url="@Url.Page("Notification", "LoadMoreNotifications")"
+                            data-page-size="@Model.Size"
+                            data-loaded-count="@Model.Notifications.Count">
+                            @if (!Model.Notifications.NullOrEmpty())
+                            {
+                                @await Html.PartialAsync("_NotificationListItems", Model.Notifications)
+                            }
+                            <li id="notificationsLoadMoreSentinel" class="list-group-item border-0 text-center py-3 d-none">
+                                <div class="spinner-border spinner-border-sm text-secondary d-none" role="status">
+                                    <span class="visually-hidden">@Html.LocalizedText("COMMON", "LOADING")</span>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="card-body @(Model.Notifications.NullOrEmpty() ? string.Empty : "d-none")" id="notificationsEmpty">
+                            @await Html.PartialAsync("_NoEntryInfo")
+                        </div>
 
                         <div class="card-footer">
                             <div class="row justify-content-end align-items-center">
@@ -243,13 +92,10 @@
 
                 </div>
             </div>
-            <div class="row justify-content-end">
-                <div class="col-auto">
-                    <pager page-size="@Model.Size"
-                           count="Model.NotificationsCount">
-                    </pager>
-                </div>
-            </div>
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script src="~/js/notification.min.js" asp-append-version="true" defer></script>
+}
