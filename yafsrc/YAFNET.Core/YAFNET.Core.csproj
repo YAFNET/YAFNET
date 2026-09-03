@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="9.3.2" />
-    <PackageReference Include="SkiaSharp" Version="[4.151.1]" />
+    <PackageReference Include="SkiaSharp" Version="[4.151.2]" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="[4.151.1]" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="10.33.0.1635">
 	    <PrivateAssets>all</PrivateAssets>
