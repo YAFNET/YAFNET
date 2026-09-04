@@ -2450,7 +2450,7 @@ progress {
 }
 .form-control::-webkit-file-upload-button {
   padding: 1rem 0;
-  margin: -1rem 0;
+  margin: -1rem -0;
   -webkit-margin-end: 0;
           margin-inline-end: 0;
   color: #666;
@@ -2469,7 +2469,7 @@ progress {
 }
 .form-control::file-selector-button {
   padding: 1rem 0;
-  margin: -1rem 0;
+  margin: -1rem -0;
   -webkit-margin-end: 0;
           margin-inline-end: 0;
   color: #666;
@@ -2530,13 +2530,13 @@ progress {
 }
 .form-control-sm::-webkit-file-upload-button {
   padding: 0 0;
-  margin: 0 0;
+  margin: -0 -0;
   -webkit-margin-end: 0;
           margin-inline-end: 0;
 }
 .form-control-sm::file-selector-button {
   padding: 0 0;
-  margin: 0 0;
+  margin: -0 -0;
   -webkit-margin-end: 0;
           margin-inline-end: 0;
 }
@@ -2549,13 +2549,13 @@ progress {
 }
 .form-control-lg::-webkit-file-upload-button {
   padding: 1.25rem 0;
-  margin: -1.25rem 0;
+  margin: -1.25rem -0;
   -webkit-margin-end: 0;
           margin-inline-end: 0;
 }
 .form-control-lg::file-selector-button {
   padding: 1.25rem 0;
-  margin: -1.25rem 0;
+  margin: -1.25rem -0;
   -webkit-margin-end: 0;
           margin-inline-end: 0;
 }
