@@ -46,7 +46,7 @@
 										<h5 class="card-title text-uppercase text-body-secondary mb-0">
 											@Html.LocalizedText("ADMIN_ADMIN", "NUM_CATEGORIES")
 										</h5>
-										<span class="h2 fw-bold mb-0 text-info">
+										<span class="h2 fw-bold mb-0 text-light stats" data-count-target="@Model.Input.NumCategories" class="h2 fw-bold mb-0 text-info">
 											@Model.Input.NumCategories
 										</span>
 									</div>
@@ -71,13 +71,13 @@
 										</h5>
 										@if (Model.PageBoardContext.PageUser.DarkMode)
 										{
-											<span class="h2 fw-bold mb-0 text-light">
+											<span class="h2 fw-bold mb-0 text-light stats" data-count-target="@Model.Input.NumForums">
 												@Model.Input.NumForums
 											</span>
 										}
 										else
 										{
-											<span class="h2 fw-bold mb-0 text-dark">
+											<span class="h2 fw-bold mb-0 text-dark stats" data-count-target="@Model.Input.NumForums">
 												@Model.Input.NumForums
 											</span>
 										}
@@ -110,7 +110,7 @@
 										<h5 class="card-title text-uppercase text-body-secondary mb-0">
 											@Html.LocalizedText("ADMIN_ADMIN", "NUM_TOPICS")
 										</h5>
-										<span class="h2 fw-bold mb-0 text-secondary">
+										<span class="h2 fw-bold mb-0 text-secondary stats" data-count-target="@Model.Input.NumTopics">
 											@Model.Input.NumTopics
 										</span>
 									</div>
@@ -138,7 +138,7 @@
 										<h5 class="card-title text-uppercase text-body-secondary mb-0">
 											@Html.LocalizedText("ADMIN_ADMIN", "NUM_POSTS")
 										</h5>
-										<span class="h2 fw-bold mb-0 text-primary">
+										<span class="h2 fw-bold mb-0 text-primary stats" data-count-target="@Model.Input.NumPosts">
 											@Model.Input.NumPosts
 										</span>
 									</div>
@@ -166,7 +166,7 @@
 										<h5 class="card-title text-uppercase text-body-secondary mb-0">
 											@Html.LocalizedText("ADMIN_ADMIN", "NUM_USERS")
 										</h5>
-										<span class="h2 fw-bold mb-0 text-success">
+										<span class="h2 fw-bold mb-0 text-success stats" data-count-target="@Model.Input.NumUsers">
 											@Model.Input.NumUsers
 										</span>
 									</div>

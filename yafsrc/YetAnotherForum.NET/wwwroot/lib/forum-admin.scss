@@ -71,3 +71,7 @@
     margin-bottom: 10px;
     overflow: scroll;
 }
+
+.stats {
+    animation: countUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
