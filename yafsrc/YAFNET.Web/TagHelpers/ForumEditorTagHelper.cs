@@ -148,7 +148,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         this.MaxCharacters,
                         language,
                         toolbar,
-                        $"'{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}', '{this.Get<BoardInfo>().GetUrlToCss("forum.min.css")}'",
+                        $"'{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}', '{this.Get<BoardInfo>().GetUrlToCss("forum.min.css").Replace("~", "")}'",
                         this.Get<IUrlHelper>().Action(
                             "GetList",
                             "CustomBBCodes"), dragDropJs));
