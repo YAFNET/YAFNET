@@ -38,7 +38,10 @@ module.exports = [
 		mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
 		resolve: {
 			extensions: ['.ts', '.js'],
-			extensionAlias: { '.js': ['.js', '.ts'] }
+			extensionAlias: { '.js': ['.js', '.ts'] },
+			alias: {
+				'md.bootstrappersiandatetimepicker$': path.resolve(__dirname, 'node_modules/md.bootstrappersiandatetimepicker/dist/mds.bs.datetimepicker.js')
+			}
 		},
 		optimization: {
 			minimize: true,
