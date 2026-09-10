@@ -124,11 +124,11 @@ static internal class OrmLiteConfigExtensions
                            PostDropTableSql = JoinSql(postDrops.Map(x => x.Sql))
                        };
 
-        modelDef.CompositePrimaryKeys.AddRange(modelType.AllAttributes<CompositePrimaryKeyAttribute>().ToList());
+        modelDef.CompositePrimaryKeys.AddRange([.. modelType.AllAttributes<CompositePrimaryKeyAttribute>()]);
 
-        modelDef.CompositeIndexes.AddRange(modelType.AllAttributes<CompositeIndexAttribute>().ToList());
+        modelDef.CompositeIndexes.AddRange([.. modelType.AllAttributes<CompositeIndexAttribute>()]);
 
-        modelDef.UniqueConstraints.AddRange(modelType.AllAttributes<UniqueConstraintAttribute>().ToList());
+        modelDef.UniqueConstraints.AddRange([.. modelType.AllAttributes<UniqueConstraintAttribute>()]);
 
         var objProperties = modelType.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
 

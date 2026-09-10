@@ -17,6 +17,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+public enum DbKind
+{
+    Sqlite,
+    PostgreSql,
+    SqlServer,
+    MySql,
+
+    Unknown
+}
+
 /// <summary>
 /// Interface IOrmLiteDialectProvider
 /// </summary>

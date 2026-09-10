@@ -146,14 +146,14 @@ public static class EnumerableExtensions
                 batch.Add(item);
                 if (batch.Count >= batchSize)
                 {
-                    yield return batch.ToArray();
+                    yield return [.. batch];
                     batch.Clear();
                 }
             }
 
             if (batch.Count > 0)
             {
-                yield return batch.ToArray();
+                yield return [.. batch];
                 batch.Clear();
             }
         }

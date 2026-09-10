@@ -12,7 +12,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using ServiceStack.Data;
@@ -529,6 +529,65 @@ public static class OrmLiteWriteApiAsync
         }
 
         /// <summary>
+        /// Inserts a new row or updates the row with the same primary key using a native UPSERT when supported.
+        /// Providers without native UPSERT support use Save() behavior.
+        /// </summary>
+        public Task UpsertAsync<T>(T obj, CancellationToken token = default)
+        {
+            return dbConn.Exec(dbCmd => dbCmd.UpsertAsync(obj, updateOnly: null, token));
+        }
+
+        /// <summary>
+        /// Inserts all insertable fields for a new row, or only updates fields selected by updateOnly when the
+        /// primary key already exists.
+        /// </summary>
+        public Task UpsertAsync<T>(T obj,
+            Expression<Func<T, object>> updateOnly, CancellationToken token = default)
+        {
+            if (updateOnly == null)
+                throw new ArgumentNullException(nameof(updateOnly));
+
+            return dbConn.Exec(dbCmd => dbCmd.UpsertAsync(obj, updateOnly.GetFieldNames(), token));
+        }
+
+        /// <summary>
+        /// Inserts all insertable fields for a new row, or only updates fields named by updateOnly when the
+        /// primary key already exists.
+        /// </summary>
+        public Task UpsertAsync<T>(T obj,
+            string[] updateOnly, CancellationToken token = default)
+        {
+            if (updateOnly == null)
+                throw new ArgumentNullException(nameof(updateOnly));
+
+            return dbConn.Exec(dbCmd => dbCmd.UpsertAsync(obj, updateOnly, token));
+        }
+
+        /// <summary>
+        /// Inserts new rows or only updates selected fields on rows with the same primary keys in a transaction.
+        /// </summary>
+        public Task UpsertAllAsync<T>( IEnumerable<T> objs,
+            Expression<Func<T, object>> updateOnly, CancellationToken token = default)
+        {
+            if (updateOnly == null)
+                throw new ArgumentNullException(nameof(updateOnly));
+
+            return dbConn.Exec(dbCmd => dbCmd.UpsertAllAsync(objs, updateOnly.GetFieldNames(), token));
+        }
+
+        /// <summary>
+        /// Inserts new rows or only updates named fields on rows with the same primary keys in a transaction.
+        /// </summary>
+        public Task UpsertAllAsync<T>( IEnumerable<T> objs,
+            string[] updateOnly, CancellationToken token = default)
+        {
+            if (updateOnly == null)
+                throw new ArgumentNullException(nameof(updateOnly));
+
+            return dbConn.Exec(dbCmd => dbCmd.UpsertAllAsync(objs, updateOnly, token));
+        }
+
+        /// <summary>
         /// Insert a new row or update existing row. Returns true if a new row was inserted.
         /// Optional references param decides whether to save all related references as well. E.g:
         /// <para>db.UpsertAsync(customer, references:true)</para>
@@ -648,7 +707,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>Task.</returns>
         public Task SaveReferencesAsync<T, TRef>(T instance, List<TRef> refs, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.SaveReferencesAsync(token, instance, refs.ToArray()));
+            return dbConn.Exec(dbCmd => dbCmd.SaveReferencesAsync(token, instance, [.. refs]));
         }
 
         /// <summary>
@@ -663,7 +722,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>Task.</returns>
         public Task SaveReferencesAsync<T, TRef>(T instance, IEnumerable<TRef> refs, CancellationToken token)
         {
-            return dbConn.Exec(dbCmd => dbCmd.SaveReferencesAsync(token, instance, refs.ToArray()));
+            return dbConn.Exec(dbCmd => dbCmd.SaveReferencesAsync(token, instance, [.. refs]));
         }
 
         /// <summary>

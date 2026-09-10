@@ -9,8 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-
+using System.Linq.Expressions;
 using ServiceStack.Data;
 using ServiceStack.OrmLite.Base.Text;
 
@@ -556,6 +555,71 @@ public static class OrmLiteWriteApi
         }
 
         /// <summary>
+        /// Inserts a new row or updates the row with the same primary key using a native UPSERT when supported.
+        /// Providers without native UPSERT support use Save() behavior.
+        /// </summary>
+        public void Upsert<T>(T obj)
+        {
+            dbConn.Exec(dbCmd => dbCmd.Upsert(obj, updateOnly: null));
+        }
+
+        /// <summary>
+        /// Inserts all insertable fields for a new row, or only updates fields selected by updateOnly when the
+        /// primary key already exists.
+        /// </summary>
+        public void Upsert<T>(T obj,
+            Expression<Func<T, object>> updateOnly)
+        {
+            if (updateOnly == null)
+                throw new ArgumentNullException(nameof(updateOnly));
+
+            dbConn.Exec(dbCmd => dbCmd.Upsert(obj, updateOnly.GetFieldNames()));
+        }
+
+        /// <summary>
+        /// Inserts all insertable fields for a new row, or only updates fields named by updateOnly when the
+        /// primary key already exists.
+        /// </summary>
+        public void Upsert<T>(T obj, string[] updateOnly)
+        {
+            if (updateOnly == null)
+                throw new ArgumentNullException(nameof(updateOnly));
+
+            dbConn.Exec(dbCmd => dbCmd.Upsert(obj, updateOnly));
+        }
+
+        /// <summary>
+        /// Inserts new rows or updates rows with the same primary keys in a transaction.
+        /// </summary>
+        public void UpsertAll<T>(IEnumerable<T> objs)
+        {
+            dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly: null));
+        }
+
+        /// <summary>
+        /// Inserts new rows or only updates selected fields on rows with the same primary keys in a transaction.
+        /// </summary>
+        public void UpsertAll<T>(IEnumerable<T> objs,
+            Expression<Func<T, object>> updateOnly)
+        {
+            if (updateOnly == null)
+                throw new ArgumentNullException(nameof(updateOnly));
+
+            dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly.GetFieldNames()));
+        }
+
+        /// <summary>
+        /// Inserts new rows or only updates named fields on rows with the same primary keys in a transaction.
+        /// </summary>
+        public void UpsertAll<T>(IEnumerable<T> objs, string[] updateOnly)
+        {
+            if (updateOnly == null)
+                throw new ArgumentNullException(nameof(updateOnly));
+
+            dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly));
+        }
+
+        /// <summary>
         /// Insert a new row or update existing row. Returns true if a new row was inserted.
         /// Optional references param decides whether to save all related references as well. E.g:
         /// <para>db.Save(customer, references:true)</para>
@@ -642,7 +706,7 @@ public static class OrmLiteWriteApi
         /// <param name="refs">The refs.</param>
         public void SaveReferences<T, TRef>(T instance, List<TRef> refs)
         {
-            dbConn.Exec(dbCmd => dbCmd.SaveReferences(instance, refs.ToArray()));
+            dbConn.Exec(dbCmd => dbCmd.SaveReferences(instance, [.. refs]));
         }
 
         /// <summary>
@@ -655,7 +719,7 @@ public static class OrmLiteWriteApi
         /// <param name="refs">The refs.</param>
         public void SaveReferences<T, TRef>(T instance, IEnumerable<TRef> refs)
         {
-            dbConn.Exec(dbCmd => dbCmd.SaveReferences(instance, refs.ToArray()));
+            dbConn.Exec(dbCmd => dbCmd.SaveReferences(instance, [.. refs]));
         }
 
         /// <summary>

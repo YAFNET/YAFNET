@@ -324,7 +324,7 @@ namespace ServiceStack.ExpressionUtil
 
     internal sealed class ExpressionFingerprintChain : IEquatable<ExpressionFingerprintChain>
     {
-        public readonly List<ExpressionFingerprint> Elements = new();
+        public readonly List<ExpressionFingerprint> Elements = [];
         public bool Equals(ExpressionFingerprintChain other)
         {
             // Two chains are considered equal if two elements appearing in the same index in
@@ -364,8 +364,8 @@ namespace ServiceStack.ExpressionUtil
 
     internal sealed class FingerprintingExpressionVisitor : ExpressionVisitor
     {
-        private readonly List<object> _seenConstants = new();
-        private readonly List<ParameterExpression> _seenParameters = new();
+        private readonly List<object> _seenConstants = [];
+        private readonly List<ParameterExpression> _seenParameters = [];
         private readonly ExpressionFingerprintChain _currentChain = new();
         private bool _gaveUp;
 

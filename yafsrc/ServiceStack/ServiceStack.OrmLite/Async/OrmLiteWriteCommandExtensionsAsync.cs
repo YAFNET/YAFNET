@@ -872,6 +872,125 @@ static internal class OrmLiteWriteCommandExtensionsAsync
             return SaveAllAsync(dbCmd, objs, token);
         }
 
+        internal async Task UpsertAsync<T>(T obj,
+        ICollection<string> updateOnly, CancellationToken token)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
+            OrmLiteConfig.UpsertFilter?.Invoke(dbCmd, obj);
+
+            var modelDef = typeof(T).GetModelDefinition();
+            var primaryKey = modelDef.FieldDefinitions.FirstOrDefault(x => x.IsPrimaryKey)
+                ?? throw new NotSupportedException($"'{typeof(T).Name}' does not have a primary key");
+            var updateFieldDefs = OrmLiteWriteCommandExtensions.GetUpsertUpdateFieldDefinitions(modelDef, updateOnly);
+            var canonicalUpdateOnly = updateOnly == null
+                ? null
+                : updateFieldDefs.Map(x => x.Name);
+
+            var id = primaryKey.GetValue(obj);
+            var defaultId = primaryKey.FieldType.GetDefaultValue();
+            if (primaryKey.AutoIncrement && (id == null || Equals(id, defaultId)))
+            {
+                var dialect = dbCmd.GetDialectProvider();
+                var newId = await dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: true,
+                    enableIdentityInsert: false, token: token).ConfigAwait();
+                primaryKey.SetValue(obj, dialect.FromDbValue(newId, primaryKey.FieldType));
+                if (modelDef.RowVersion != null)
+                {
+                    var rowVersion = await dbCmd.GetRowVersionAsync(modelDef, primaryKey.GetValue(obj), token).ConfigAwait();
+                    modelDef.RowVersion.SetValue(obj, rowVersion);
+                }
+                return;
+            }
+
+            var dialectProvider = dbCmd.GetDialectProvider();
+            if (dialectProvider is not IOrmLiteUpsertDialectProvider { SupportsUpsert: true } upsertProvider)
+            {
+                await dbCmd.UpsertUsingSaveAsync(obj, modelDef, primaryKey, updateFieldDefs, token).ConfigAwait();
+                return;
+            }
+
+            var enableIdentityInsert = primaryKey.AutoIncrement;
+            try
+            {
+                if (enableIdentityInsert)
+                    await dialectProvider.EnableIdentityInsertAsync<T>(dbCmd, token).ConfigAwait();
+
+                upsertProvider.PrepareParameterizedUpsertStatement<T>(dbCmd,
+                    dialectProvider.GetNonDefaultValueInsertFields<T>(obj), canonicalUpdateOnly);
+                dialectProvider.SetParameterValues<T>(dbCmd, obj);
+                await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
+            }
+            finally
+            {
+                if (enableIdentityInsert)
+                    await dialectProvider.DisableIdentityInsertAsync<T>(dbCmd, token).ConfigAwait();
+            }
+
+            id = primaryKey.GetValue(obj);
+            if (modelDef.RowVersion != null)
+            {
+                var rowVersion = await dbCmd.GetRowVersionAsync(modelDef, id, token).ConfigAwait();
+                modelDef.RowVersion.SetValue(obj, rowVersion);
+            }
+        }
+
+        internal async Task UpsertAllAsync<T>(IEnumerable<T> objs,
+            ICollection<string> updateOnly, CancellationToken token)
+        {
+            var rows = objs.ToList();
+            if (rows.Count == 0)
+                return;
+
+            IDbTransaction dbTrans = null;
+            try
+            {
+                dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
+                foreach (var row in rows)
+                    await dbCmd.UpsertAsync(row, updateOnly, token).ConfigAwait();
+                dbTrans?.Commit();
+            }
+            finally
+            {
+                dbTrans?.Dispose();
+                if (dbCmd.Transaction == dbTrans)
+                    dbCmd.Transaction = null;
+            }
+        }
+
+        private async Task UpsertUsingSaveAsync<T>(T obj,
+            ModelDefinition modelDef, FieldDefinition primaryKey, List<FieldDefinition> updateFieldDefs,
+            CancellationToken token)
+        {
+            var id = primaryKey.GetValue(obj);
+            if (await dbCmd.ExistsByIdAsync<T>(id, token).ConfigAwait())
+            {
+                if (updateFieldDefs.Count > 0)
+                {
+                    var updateFields = new Dictionary<string, object>
+                    {
+                        [primaryKey.Name] = id
+                    };
+                    foreach (var fieldDef in updateFieldDefs)
+                    {
+                        updateFields[fieldDef.Name] = fieldDef.GetValue(obj);
+                    }
+
+                    await dbCmd.UpdateOnlyFieldsAsync<T>(updateFields, commandFilter: null, token: token).ConfigAwait();
+                }
+            }
+            else
+            {
+                await dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: false,
+                    enableIdentityInsert: primaryKey.AutoIncrement, token: token).ConfigAwait();
+            }
+
+            if (modelDef.RowVersion != null)
+            {
+                var rowVersion = await dbCmd.GetRowVersionAsync(modelDef, primaryKey.GetValue(obj), token).ConfigAwait();
+                modelDef.RowVersion.SetValue(obj, rowVersion);
+            }
+        }
+
         /// <summary>
         /// Save as an asynchronous operation.
         /// </summary>
@@ -879,7 +998,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="obj">The object.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        async internal Task<bool> SaveAsync<T>(T obj, CancellationToken token)
+        internal async Task<bool> SaveAsync<T>(T obj, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 

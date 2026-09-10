@@ -18,9 +18,11 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using static ServiceStack.OrmLite.Sql;
 
 /// <summary>
 /// Class SqlExpression.
@@ -3068,6 +3070,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             return string.Empty;
         }
 
+        if (this.TryVisitTypedJsonAccess(exp, out var jsonAccess))
+        {
+            return jsonAccess;
+        }
+
         switch (exp.NodeType)
         {
             case ExpressionType.Lambda:
@@ -4309,7 +4316,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         // Check this FIRST before other Contains checks
         if (IsSpanContainsOnArray(m))
         {
-            return VisitSpanContainsMethodCall(m);
+            return this.VisitSpanContainsMethodCall(m);
         }
 
         if (this.IsStaticArrayMethod(m))
@@ -4886,7 +4893,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 // args[0] is the collection, args[1] is the column/value to check
                 var quotedColName = args[1];
                 var collectionExpr = m.Arguments[0];
-                return ToInPartialString(collectionExpr, quotedColName);
+                return this.ToInPartialString(collectionExpr, quotedColName);
 
             default:
                 throw new NotSupportedException();
@@ -5036,6 +5043,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <exception cref="SelectList">this.DialectProvider.GetColumnNames(paramModelDef, alias)</exception>
     protected virtual object VisitSqlMethodCall(MethodCallExpression m)
     {
+        if (IsJsonSqlMethod(m.Method.Name))
+        {
+            return this.VisitJsonSqlMethodCall(m);
+        }
+
         var args = this.VisitInSqlExpressionList(m.Arguments);
         var quotedColName = args[0];
         var columnEnumMemberAccess = args[0] as EnumMemberAccess;
@@ -5097,6 +5109,275 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         return new PartialSqlString(statement, columnEnumMemberAccess);
     }
+
+    private static bool IsJsonSqlMethod(string methodName)
+    {
+        return methodName is nameof(Sql.Json) or nameof(Sql.IsJson) or nameof(Sql.JsonValue) or nameof(Sql.JsonQuery)
+            or nameof(Sql.JsonExists) or nameof(Sql.JsonType) or nameof(Sql.JsonArrayLength)
+            or nameof(Sql.JsonArrayContains) or nameof(Sql.JsonContains);
+    }
+
+    private object VisitJsonSqlMethodCall(MethodCallExpression m)
+    {
+        var json = this.VisitJsonDocument(m.Arguments[0]);
+        switch (m.Method.Name)
+        {
+            case nameof(Sql.Json):
+                return json;
+            case nameof(Sql.IsJson):
+                return this.VisitIsJsonMethod(json);
+            case nameof(Sql.JsonValue):
+                return this.VisitJsonValueMethod(json, this.VisitJsonPath(m.Arguments[1]), m.Type);
+            case nameof(Sql.JsonQuery):
+                return this.VisitJsonQueryMethod(json,
+                    m.Arguments.Count == 1 ? this.JsonPath("$") : this.VisitJsonPath(m.Arguments[1]), m.Type);
+            case nameof(Sql.JsonExists):
+                return this.VisitJsonExistsMethod(json, this.VisitJsonPath(m.Arguments[1]));
+            case nameof(Sql.JsonType):
+                return this.VisitJsonTypeMethod(json,
+                    m.Arguments.Count == 1 ? this.JsonPath("$") : this.VisitJsonPath(m.Arguments[1]));
+            case nameof(Sql.JsonArrayLength):
+                return this.VisitJsonArrayLengthMethod(json,
+                    m.Arguments.Count == 1 ? this.JsonPath("$") : this.VisitJsonPath(m.Arguments[1]));
+            case nameof(Sql.JsonArrayContains):
+            {
+                var path = m.Arguments.Count == 2 ? this.JsonPath("$") : this.VisitJsonPath(m.Arguments[1]);
+                var valueExpression = m.Arguments.Count == 2 ? m.Arguments[1] : m.Arguments[2];
+                var value = this.VisitJsonValueArgument(valueExpression);
+                return this.VisitJsonArrayContainsMethod(json, path, value, valueExpression.Type);
+            }
+            case nameof(Sql.JsonContains):
+            {
+                if (this.IsParameterAccess(m.Arguments[1]))
+                    throw new NotSupportedException("Sql.JsonContains candidate values must be constants or captured values.");
+
+                var candidate = this.EvaluateExpression(m.Arguments[1]);
+                var candidateJson = candidate == null
+                    ? "null"
+                    : JsonSerializer.SerializeToString(candidate, candidate.GetType());
+                var candidateParam = this.ConvertToParam(candidateJson);
+                var path = m.Arguments.Count == 2 ? this.JsonPath("$") : this.VisitJsonPath(m.Arguments[2]);
+                return this.VisitJsonContainsMethod(json, path, candidateParam);
+            }
+            default:
+                throw new NotSupportedException($"Unsupported JSON SQL method '{m.Method.Name}'.");
+        }
+    }
+
+    private object VisitJsonDocument(Expression expression)
+    {
+        var value = this.Visit(expression);
+        return value is PartialSqlString ? value : new PartialSqlString(this.ConvertToParam(value));
+    }
+
+    private object VisitJsonValueArgument(Expression expression)
+    {
+        if (!IsJsonArrayScalarType(expression.Type))
+            throw new NotSupportedException("Sql.JsonArrayContains values must be JSON scalar values.");
+
+        var value = this.Visit(expression);
+        return value is PartialSqlString ? value : new PartialSqlString(this.ConvertToParam(value));
+    }
+
+    protected readonly struct JsonPathExpression
+    {
+        public JsonPathExpression(string sql, string value)
+        {
+            this.Sql = sql;
+            this.Value = value;
+        }
+
+        public string Sql { get; }
+        public string Value { get; }
+        public override string ToString() => this.Sql;
+    }
+
+    private JsonPathExpression VisitJsonPath(Expression expression)
+    {
+        var value = this.Visit(expression);
+        if (value is PartialSqlString sql)
+            return new JsonPathExpression(sql.Text, null);
+        if (value is not string path)
+            throw new ArgumentException("JSON paths must be strings.", nameof(expression));
+        return this.JsonPath(path);
+    }
+
+    protected string QuoteJsonPath(string path) => this.DialectProvider.GetQuotedValue(path, typeof(string));
+    protected JsonPathExpression JsonPath(string path) => new(this.QuoteJsonPath(path), path);
+
+    protected string GetJsonDbType(Type returnType)
+    {
+        returnType = Nullable.GetUnderlyingType(returnType) ?? returnType;
+        return this.DialectProvider.GetConverterBestMatch(returnType).ColumnDefinition;
+    }
+
+    protected object JsonScalar(string sql, Type returnType)
+    {
+        returnType = Nullable.GetUnderlyingType(returnType) ?? returnType;
+        return returnType.IsEnum
+            ? new EnumMemberAccess(sql, returnType)
+            : new PartialSqlString(sql);
+    }
+
+    protected object JsonValueType(string sql) => new EnumMemberAccess(sql, typeof(JsonValueType));
+
+    protected virtual object VisitIsJsonMethod(object json) => this.JsonMethodNotSupported(nameof(Sql.IsJson));
+    protected virtual object VisitJsonValueMethod(object json, JsonPathExpression path, Type returnType) => this.JsonMethodNotSupported(nameof(Sql.JsonValue));
+    protected virtual object VisitJsonQueryMethod(object json, JsonPathExpression path, Type returnType) => this.JsonMethodNotSupported(nameof(Sql.JsonQuery));
+    protected virtual object VisitJsonExistsMethod(object json, JsonPathExpression path) => this.JsonMethodNotSupported(nameof(Sql.JsonExists));
+    protected virtual object VisitJsonTypeMethod(object json, JsonPathExpression path) => this.JsonMethodNotSupported(nameof(Sql.JsonType));
+    protected virtual object VisitJsonArrayLengthMethod(object json, JsonPathExpression path) => this.JsonMethodNotSupported(nameof(Sql.JsonArrayLength));
+    protected virtual object VisitJsonArrayContainsMethod(object json, JsonPathExpression path, object value, Type valueType) => this.JsonMethodNotSupported(nameof(Sql.JsonArrayContains));
+    protected virtual object VisitJsonContainsMethod(object json, JsonPathExpression path, object candidateJson) => this.JsonMethodNotSupported(nameof(Sql.JsonContains));
+
+    private object JsonMethodNotSupported(string methodName) => throw new NotSupportedException(
+        $"{this.DialectProvider.GetType().Name} does not support Sql.{methodName}().");
+
+    private bool TryVisitTypedJsonAccess(Expression expression, out object result)
+    {
+        result = null;
+        if (this.TryVisitTypedJsonArrayOperation(expression, out result))
+            return true;
+
+        var pathParts = new List<string>();
+        if (!this.TryCollectTypedJsonPath(expression, pathParts, out var marker) || pathParts.Count == 0)
+            return false;
+
+        var json = this.VisitJsonDocument(marker.Arguments[0]);
+        var path = this.JsonPath("$" + string.Concat(pathParts));
+        result = IsJsonScalarType(expression.Type)
+            ? this.VisitJsonValueMethod(json, path, expression.Type)
+            : this.VisitJsonQueryMethod(json, path, expression.Type);
+        return true;
+    }
+
+    private bool TryVisitTypedJsonArrayOperation(Expression expression, out object result)
+    {
+        result = null;
+        Expression array = null;
+        Expression value = null;
+        var isLength = false;
+
+        if (expression is MemberExpression member && member.Expression != null &&
+            IsJsonArrayType(member.Expression.Type) &&
+            (member.Member.Name == nameof(ICollection.Count) || member.Member.Name == "Length"))
+        {
+            array = member.Expression;
+            isLength = true;
+        }
+        else if (expression is MethodCallExpression call && call.Method.Name == nameof(IList.Contains))
+        {
+            if (call.Object != null && call.Arguments.Count == 1 && IsJsonArrayType(call.Object.Type))
+            {
+                array = call.Object;
+                value = call.Arguments[0];
+            }
+            else if (call.Object == null && call.Arguments.Count == 2 && IsJsonArrayType(call.Arguments[0].Type))
+            {
+                array = call.Arguments[0];
+                value = call.Arguments[1];
+            }
+        }
+
+        if (array == null)
+            return false;
+
+        var pathParts = new List<string>();
+        if (!this.TryCollectTypedJsonPath(array, pathParts, out var marker) || pathParts.Count == 0)
+            return false;
+
+        var json = this.VisitJsonDocument(marker.Arguments[0]);
+        var path = this.JsonPath("$" + string.Concat(pathParts));
+        result = isLength
+            ? this.VisitJsonArrayLengthMethod(json, path)
+            : this.VisitJsonArrayContainsMethod(json, path, this.VisitJsonValueArgument(value), value.Type);
+        return true;
+    }
+
+    private bool TryCollectTypedJsonPath(Expression expression, List<string> pathParts, out MethodCallExpression marker)
+    {
+        marker = null;
+        if (expression is UnaryExpression unary &&
+            (unary.NodeType == ExpressionType.Convert || unary.NodeType == ExpressionType.ConvertChecked))
+            return this.TryCollectTypedJsonPath(unary.Operand, pathParts, out marker);
+
+        if (expression is MemberExpression member)
+        {
+            if (member.Expression != null &&
+                (IsJsonScalarType(member.Expression.Type) || IsJsonArrayType(member.Expression.Type)))
+                return false;
+            if (!this.TryCollectTypedJsonPath(member.Expression, pathParts, out marker))
+                return false;
+            pathParts.Add(JsonMemberPath(member.Member));
+            return true;
+        }
+
+        if (expression is MethodCallExpression call)
+        {
+            if (call.Method.DeclaringType == typeof(Sql) && call.Method.Name == nameof(Sql.Json))
+            {
+                marker = call;
+                return true;
+            }
+
+            if (call.Method.Name == "get_Item" && call.Arguments.Count == 1 &&
+                call.Object != null && !IsJsonScalarType(call.Object.Type) && this.TryCollectTypedJsonPath(call.Object, pathParts, out marker))
+            {
+                pathParts.Add(this.JsonIndexPath(call.Arguments[0]));
+                return true;
+            }
+        }
+
+        if (expression is IndexExpression index && index.Arguments.Count == 1 && this.TryCollectTypedJsonPath(index.Object, pathParts, out marker))
+        {
+            pathParts.Add(this.JsonIndexPath(index.Arguments[0]));
+            return true;
+        }
+
+        if (expression is BinaryExpression binary && binary.NodeType == ExpressionType.ArrayIndex && this.TryCollectTypedJsonPath(binary.Left, pathParts, out marker))
+        {
+            pathParts.Add(this.JsonIndexPath(binary.Right));
+            return true;
+        }
+
+        return false;
+    }
+
+    private string JsonIndexPath(Expression expression)
+    {
+        var value = this.EvaluateExpression(expression);
+        if (value is not int index || index < 0)
+        {
+            throw new NotSupportedException("Typed JSON array indexes must be non-negative constant or captured integers.");
+        }
+
+        return $"[{index}]";
+    }
+
+    private static string JsonMemberPath(MemberInfo member)
+    {
+        var name = member.GetCustomAttribute<DataMemberAttribute>()?.Name ?? member.Name;
+        return Regex.IsMatch(name, "^[A-Za-z_][A-Za-z0-9_]*$")
+            ? "." + name
+            : ".\"" + name.Replace("\\", "\\\\").Replace("\"", "\\\"") + "\"";
+    }
+
+    private static bool IsJsonScalarType(Type type)
+    {
+        type = Nullable.GetUnderlyingType(type) ?? type;
+        return type == typeof(string) || type == typeof(char) || type == typeof(byte[]) || type.IsValueType;
+    }
+
+    private static bool IsJsonArrayScalarType(Type type)
+    {
+        type = Nullable.GetUnderlyingType(type) ?? type;
+        return type == typeof(string) || type == typeof(char) || type.IsValueType;
+    }
+
+    private static bool IsJsonArrayType(Type type) =>
+        type != typeof(string) && type != typeof(byte[]) &&
+        typeof(IEnumerable).IsAssignableFrom(type) &&
+        !typeof(IDictionary).IsAssignableFrom(type);
 
     /// <summary>
     /// Converts the in expression to SQL.

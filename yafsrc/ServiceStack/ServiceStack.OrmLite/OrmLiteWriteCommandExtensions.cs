@@ -1445,6 +1445,132 @@ public static class OrmLiteWriteCommandExtensions
             }
         }
 
+
+        internal void Upsert<T>(T obj, ICollection<string> updateOnly)
+        {
+            OrmLiteUtils.AssertNotAnonType<T>();
+            OrmLiteConfig.UpsertFilter?.Invoke(dbCmd, obj);
+
+            var modelDef = typeof(T).GetModelDefinition();
+            var primaryKey = modelDef.FieldDefinitions.FirstOrDefault(x => x.IsPrimaryKey)
+                ?? throw new NotSupportedException($"'{typeof(T).Name}' does not have a primary key");
+            var updateFieldDefs = GetUpsertUpdateFieldDefinitions(modelDef, updateOnly);
+            var canonicalUpdateOnly = updateOnly == null
+                ? null
+                : updateFieldDefs.Map(x => x.Name);
+
+            var id = primaryKey.GetValue(obj);
+            var defaultId = primaryKey.FieldType.GetDefaultValue();
+            if (primaryKey.AutoIncrement && (id == null || Equals(id, defaultId)))
+            {
+                var dialect = dbCmd.GetDialectProvider();
+                var newId = dbCmd.Insert(obj, commandFilter: null, selectIdentity: true);
+                primaryKey.SetValue(obj, dialect.FromDbValue(newId, primaryKey.FieldType));
+                modelDef.RowVersion?.SetValue(obj, dbCmd.GetRowVersion(modelDef, primaryKey.GetValue(obj)));
+                return;
+            }
+
+            var dialectProvider = dbCmd.GetDialectProvider();
+            if (dialectProvider is not IOrmLiteUpsertDialectProvider { SupportsUpsert: true } upsertProvider)
+            {
+                dbCmd.UpsertUsingSave(obj, modelDef, primaryKey, updateFieldDefs);
+                return;
+            }
+
+            var enableIdentityInsert = primaryKey.AutoIncrement;
+            try
+            {
+                if (enableIdentityInsert)
+                    dialectProvider.EnableIdentityInsert<T>(dbCmd);
+
+                upsertProvider.PrepareParameterizedUpsertStatement<T>(dbCmd,
+                    dialectProvider.GetNonDefaultValueInsertFields<T>(obj), canonicalUpdateOnly);
+                dialectProvider.SetParameterValues<T>(dbCmd, obj);
+                dbCmd.ExecNonQuery();
+            }
+            finally
+            {
+                if (enableIdentityInsert)
+                    dialectProvider.DisableIdentityInsert<T>(dbCmd);
+            }
+
+            id = primaryKey.GetValue(obj);
+            modelDef.RowVersion?.SetValue(obj, dbCmd.GetRowVersion(modelDef, id));
+        }
+
+
+        internal void UpsertAll<T>(IEnumerable<T> objs, ICollection<string> updateOnly)
+        {
+            var rows = objs.ToList();
+            if (rows.Count == 0)
+                return;
+
+            IDbTransaction dbTrans = null;
+            try
+            {
+                dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
+                foreach (var row in rows)
+                    dbCmd.Upsert(row, updateOnly);
+                dbTrans?.Commit();
+            }
+            finally
+            {
+                dbTrans?.Dispose();
+                if (dbCmd.Transaction == dbTrans)
+                    dbCmd.Transaction = null;
+            }
+        }
+
+        internal static List<FieldDefinition> GetUpsertUpdateFieldDefinitions(
+            ModelDefinition modelDef, ICollection<string> updateOnly)
+        {
+            HashSet<FieldDefinition> selectedFields = null;
+            if (updateOnly != null)
+            {
+                selectedFields = updateOnly
+                    .Map(modelDef.AssertFieldDefinition)
+                    .ToSet();
+
+                var invalidField = selectedFields.FirstOrDefault(x => x.IsPrimaryKey || x.IsRowVersion);
+                if (invalidField != null)
+                    throw new ArgumentException($"'{invalidField.Name}' cannot be included in updateOnly", nameof(updateOnly));
+            }
+
+            return modelDef.FieldDefinitions
+                .Where(x => !x.IsPrimaryKey
+                            && !x.IsRowVersion
+                            && !x.ShouldSkipUpdate()
+                            && (selectedFields == null || selectedFields.Contains(x)))
+                .ToList();
+        }
+
+        private void UpsertUsingSave<T>(T obj,
+            ModelDefinition modelDef, FieldDefinition primaryKey, List<FieldDefinition> updateFieldDefs)
+        {
+            var id = primaryKey.GetValue(obj);
+            if (dbCmd.ExistsById<T>(id))
+            {
+                if (updateFieldDefs.Count > 0)
+                {
+                    var updateFields = new Dictionary<string, object>
+                    {
+                        [primaryKey.Name] = id,
+                    };
+                    foreach (var fieldDef in updateFieldDefs)
+                        updateFields[fieldDef.Name] = fieldDef.GetValue(obj);
+
+                    dbCmd.UpdateOnlyFields<T>(updateFields);
+                }
+            }
+            else
+            {
+                dbCmd.Insert(obj, commandFilter: null, selectIdentity: false,
+                    enableIdentityInsert: primaryKey.AutoIncrement);
+            }
+
+            modelDef.RowVersion?.SetValue(obj, dbCmd.GetRowVersion(modelDef, primaryKey.GetValue(obj)));
+        }
+
         /// <summary>
         /// Saves the specified objs.
         /// </summary>

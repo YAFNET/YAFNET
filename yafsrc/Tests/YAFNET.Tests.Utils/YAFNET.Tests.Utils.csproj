@@ -13,11 +13,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.12" />
     <PackageReference Include="Microsoft.Playwright" Version="1.62.0" />
     <PackageReference Include="netDumbster" Version="3.1.1" />
 	  <PackageReference Include="NUnit" Version="4.6.1" />
-	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.33.0.1635">
+	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.34.0.3385">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>

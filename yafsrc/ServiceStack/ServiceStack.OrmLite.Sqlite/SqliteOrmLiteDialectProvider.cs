@@ -17,6 +17,8 @@ using System.Data.SQLite;
 /// <seealso cref="ServiceStack.OrmLite.Sqlite.SqliteOrmLiteDialectProviderBase" />
 public class SqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProviderBase
 {
+    public override DbKind Kind => DbKind.Sqlite;
+
     /// <summary>
     /// The instance
     /// </summary>

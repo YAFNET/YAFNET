@@ -19,6 +19,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite.Base.Common;
 using ServiceStack.OrmLite.Base.Text;
 using ServiceStack.OrmLite.SqlServer.Converters;
 
@@ -35,6 +36,8 @@ using System.Text;
 /// <seealso cref="SqlServerOrmLiteDialectProvider" />
 public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlServerOrmLiteDialectProvider>
 {
+    public override DbKind Kind => DbKind.SqlServer;
+
     /// <summary>
     /// The instance
     /// </summary>
@@ -250,7 +253,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <returns>System.String.</returns>
     public override string ToCreateSchemaStatement(string schemaName)
     {
-        var sql = $"CREATE SCHEMA [{NamingStrategy.GetSchemaName(schemaName)}]";
+        var sql = $"CREATE SCHEMA [{NamingStrategy.GetSchemaName(schemaName).Replace("]", "]]")}]";
         return sql;
     }
 
@@ -1466,6 +1469,31 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             ? $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) {strReturning}" +
               $" VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})"
             : $" INSERT INTO {this.GetQuotedTableName(modelDef)}{strReturning} DEFAULT VALUES";
+    }
+
+    public override bool SupportsUpsert => true;
+
+    public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
+        ICollection<string> insertFields = null, ICollection<string> updateOnly = null)
+    {
+        PrepareUpsertFields<T>(cmd, insertFields, updateOnly,
+            out var modelDef, out var insertFieldDefs, out var updateFieldDefs);
+
+        var primaryKey = modelDef.PrimaryKey;
+        var quotedPrimaryKey = GetQuotedColumnName(primaryKey);
+        var primaryKeyParam = this.GetParam(SanitizeFieldNameForParamName(primaryKey.FieldName));
+        var insertColumns = insertFieldDefs.Map(GetQuotedColumnName).Join(",");
+        var insertValues = insertFieldDefs.Map(x =>
+            this.GetParam(SanitizeFieldNameForParamName(x.FieldName), x.CustomInsert)).Join(",");
+        var whenMatched = updateFieldDefs.Count > 0
+            ? "WHEN MATCHED THEN UPDATE SET " + GetUpsertUpdateSql(updateFieldDefs, "target.") + " "
+            : "";
+
+        cmd.CommandText = $"MERGE INTO {GetQuotedTableName(modelDef)} WITH (HOLDLOCK) AS target " +
+                          $"USING (VALUES ({primaryKeyParam})) AS source ({quotedPrimaryKey}) " +
+                          $"ON target.{quotedPrimaryKey}=source.{quotedPrimaryKey} " +
+                          whenMatched +
+                          $"WHEN NOT MATCHED THEN INSERT ({insertColumns}) VALUES ({insertValues});";
     }
 
     /// <summary>

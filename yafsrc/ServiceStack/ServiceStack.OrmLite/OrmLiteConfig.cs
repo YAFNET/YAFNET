@@ -394,6 +394,9 @@ public static class OrmLiteConfig
     /// </summary>
     /// <value>The insert filter.</value>
     public static Action<IDbCommand, object> InsertFilter { get; set; }
+
+    public static Action<IDbCommand, object> UpsertFilter { get; set; }
+
     /// <summary>
     /// Gets or sets the update filter.
     /// </summary>

@@ -53,7 +53,7 @@ public class SavePoint
     public SavePoint(OrmLiteTransaction transaction, string name)
     {
         this.Transaction = transaction;
-        this.Name = name;
+        this.Name = name?.SqlVerifyFragment();
         this.DialectProvider = this.Transaction.Db.GetDialectProvider();
     }
 

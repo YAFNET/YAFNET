@@ -228,7 +228,7 @@ public class Migrator
     /// <param name="dbFactory">The database factory.</param>
     /// <param name="migrationAssemblies">The migration assemblies.</param>
     public Migrator(IDbConnectionFactory dbFactory, params Assembly[] migrationAssemblies)
-        : this(dbFactory, GetAllMigrationTypes(migrationAssemblies).ToArray())
+        : this(dbFactory, [.. GetAllMigrationTypes(migrationAssemblies)])
     {
     }
 

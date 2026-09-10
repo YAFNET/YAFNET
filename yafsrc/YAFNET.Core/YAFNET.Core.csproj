@@ -20,9 +20,9 @@
     <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00018" />
     <PackageReference Include="MailKit" Version="4.17.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.11" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.11" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.12" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="OEmbed.Core" Version="2.0.7" />
     <PackageReference Include="SimdLinq" Version="1.3.2" />
@@ -38,14 +38,14 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="9.3.2" />
-    <PackageReference Include="SkiaSharp" Version="4.151.2" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.151.2" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.33.0.1635">
+    <PackageReference Include="SkiaSharp" Version="4.152.0" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.152.0" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.34.0.3385">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Runtime.Caching" Version="10.0.11" />
-    <PackageReference Include="System.ServiceModel.Syndication" Version="10.0.11" />
+    <PackageReference Include="System.Runtime.Caching" Version="10.0.12" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="10.0.12" />
     <PackageReference Include="UAParser.Core" Version="4.0.6" />
   </ItemGroup>
 </Project>
