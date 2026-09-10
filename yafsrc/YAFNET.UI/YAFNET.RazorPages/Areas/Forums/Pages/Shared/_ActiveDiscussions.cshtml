@@ -99,19 +99,30 @@
 {iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>";
 
                 <li class="list-group-item pt-2 list-group-item-action">
-                    <a button-style="@ButtonStyle.Link"
-                       icon="comment"
-                       icon-css-class="far"
-                       icon-color="text-secondary"
-                       class="fw-bold p-0 text-start"
-                       style="@styles"
-                       bs-toggle="tooltip"
-                       text="@Html.Raw(topicSubject)"
-                       title-non-localized="@Html.Raw($"{startedByText} {inForumText}")"
-                       href="@Html.Raw(Current.Get<ILinkBuilder>().GetTopicLink(topic.TopicID, topic.Topic))">
-                    </a>
+	                <a button-style="@ButtonStyle.Link"
+	                   icon="comment"
+	                   icon-css-class="far"
+	                   icon-color="text-secondary"
+	                   class="fw-bold p-0 text-start"
+	                   style="@styles"
+	                   bs-toggle="tooltip"
+	                   text="@Html.Raw(topicSubject)"
+	                   title-non-localized="@Html.Raw($"{startedByText} {inForumText}")"
+	                   href="@Html.Raw(Current.Get<ILinkBuilder>().GetTopicLink(topic.TopicID, topic.Topic))">
+	                </a>
+					
+	                <span class="badge bg-light-subtle border float-end">  <a button-style="@ButtonStyle.Link"
+	                                                                        icon="info-circle"
+	                                                                        icon-color="text-secondary"
+	                                                                        text-localized-page="DEFAULT"
+	                                                                        text-localized-tag="BY"
+	                                                                        text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.LastUserDisplayName : topic.LastUserName)"
+	                                                                        bs-content="@infoData"
+	                                                                        class="text-body-secondary topic-link-popover p-0 text-start"
+	                                                                        bs-toggle="popover"></a>
+		                </span>
 
-                    @if (topic.LastPosted > lastRead)
+	                @if (topic.LastPosted > lastRead)
                     {
 	                    <span class="badge text-bg-success">@Html.LocalizedText("COMMON", "NEW_MESSAGE")</span>
                     }
@@ -120,16 +131,6 @@
                        button-style="@ButtonStyle.Link"
                        text="@Html.Raw($"({topic.Forum})")"
                        href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(topic.ForumID, topic.Forum))"></a>
-
-                    <a button-style="@ButtonStyle.Link"
-                       icon="info-circle"
-                       icon-color="text-secondary"
-                       text-localized-page="DEFAULT"
-                       text-localized-tag="BY"
-                       text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.LastUserDisplayName : topic.LastUserName)"
-                       bs-content="@infoData"
-                       class="text-body-secondary topic-link-popover p-0 text-start"
-                       bs-toggle="popover"></a>
 
                 </li>
             }

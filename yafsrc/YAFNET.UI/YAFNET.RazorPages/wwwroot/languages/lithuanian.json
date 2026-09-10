@@ -8784,8 +8784,12 @@
             "#text": "Aktyviausi naudotojai per pastarąsias {0} dienas"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Naujausias narys"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8871,6 +8875,22 @@
           {
             "@tag": "TITLE",
             "#text": "Ištrinkite savo {0} paskyrą"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Tai visam laikui ištrins jūsų paskyrą! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Ištrinkite paskyrą (visam laikui)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Jei tiesiog norite padaryti pertrauką forume, jūsų paskyra bus sustabdyta 30 dienų. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Sustabdykite paskyrą 30 dienų"
           }
         ]
       },

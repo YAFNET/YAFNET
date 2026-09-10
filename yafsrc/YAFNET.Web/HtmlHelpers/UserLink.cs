@@ -178,7 +178,7 @@ public static class UserLinkHtmlHelper
 
                 link.MergeAttribute(HtmlAttribute.Href, context.Get<ILinkBuilder>().GetUserProfileLink(userId, displayName));
 
-                cssClass.Append("btn-sm");
+                cssClass.Append("btn btn-sm btn-outline-secondary position-relative");
 
                 if (context.Get<IPermissions>().Check(context.BoardSettings.ProfileViewPermissions) &&
                     context.BoardSettings.EnableUserInfoHoverCards && enableHoverCard)
@@ -276,39 +276,44 @@ public static class UserLinkHtmlHelper
             TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
         var status = new TagBuilder(HtmlTag.Span);
+        var hiddenText = new TagBuilder(HtmlTag.Span);
 
         status.MergeAttribute("data-bs-toggle", "tooltip");
 
         if (suspended.HasValue)
         {
             // suspended
-            status.AddCssClass("align-middle text-warning user-suspended me-1");
+            status.AddCssClass("position-absolute top-0 start-100 translate-middle p-1 bg-warning border border-light rounded-circle");
+
+            var text = context.Get<ILocalization>().GetTextFormatted("USERSUSPENDED", suspended.Value);
+
             status.MergeAttribute(
                 HtmlAttribute.Title,
-                context.Get<ILocalization>().GetTextFormatted("USERSUSPENDED", suspended.Value));
+                text);
+            hiddenText.InnerHtml.Append(text);
         }
         else
         {
             if (activeUsers.Exists(x => x.UserID == userId && !x.IsActiveExcluded))
             {
                 // online
-                status.AddCssClass("align-middle text-success user-online me-1");
+                status.AddCssClass("position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle");
                 status.MergeAttribute("data-bs-title", context.Get<ILocalization>().GetText("USERONLINESTATUS"));
+                hiddenText.InnerHtml.Append(context.Get<ILocalization>().GetText("USERONLINESTATUS"));
             }
             else
             {
                 // offline
-                status.AddCssClass("align-middle text-danger user-offline me-1");
+                status.AddCssClass("position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle");
                 status.MergeAttribute("data-bs-title", context.Get<ILocalization>().GetText("USEROFFLINESTATUS"));
+                hiddenText.InnerHtml.Append(context.Get<ILocalization>().GetText("USEROFFLINESTATUS"));
             }
         }
 
-        var icon = new TagBuilder(HtmlTag.I);
+        hiddenText.AddCssClass("fas fa-user-circle");
+        hiddenText.AddCssClass("visually-hidden");
 
-        icon.AddCssClass("fas fa-user-circle");
-        icon.MergeAttribute(HtmlAttribute.Style, "font-size: 1.5em");
-
-        status.InnerHtml.AppendHtml(icon);
+        status.InnerHtml.AppendHtml(hiddenText);
 
         return status;
     }

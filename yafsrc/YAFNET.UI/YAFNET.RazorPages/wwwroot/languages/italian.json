@@ -8776,8 +8776,12 @@
             "#text": "Utenti più attivi negli ultimi {0} giorni"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Membro più recente"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8863,6 +8867,22 @@
           {
             "@tag": "TITLE",
             "#text": "Cancellare l'account {0}"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Questo eliminerà il tuo account in modo permanente! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Elimina il tuo account (permanentemente)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Se vuoi semplicemente prenderti una pausa dal Forum, il tuo account verrà sospeso per 30 giorni. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Sospendere il tuo Account per 30 giorni"
           }
         ]
       },

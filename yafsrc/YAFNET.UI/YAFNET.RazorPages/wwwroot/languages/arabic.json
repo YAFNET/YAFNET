@@ -8772,8 +8772,12 @@
             "#text": "المستخدمون الأكثر نشاطًا في آخر {0} يوم"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Newest Member"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8859,6 +8863,22 @@
           {
             "@tag": "TITLE",
             "#text": "احذف حساب {0} الخاص بك"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "سيؤدي هذا إلى حذف حسابك نهائيًا! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "حذف حسابك (بشكل دائم)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "إذا كنت تريد فقط أخذ استراحة من المنتدى، فسيؤدي ذلك إلى تعليق حسابك لمدة 30 يومًا. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "قم بتعليق حسابك لمدة 30 يومًا"
           }
         ]
       },

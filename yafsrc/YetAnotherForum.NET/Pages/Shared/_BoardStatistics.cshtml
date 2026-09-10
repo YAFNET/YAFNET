@@ -15,10 +15,10 @@
         () => Current.GetRepository<Board>().PostStatsAsync(Current.PageBoardID, true),
         TimeSpan.FromMinutes(Current.BoardSettings.ForumStatisticsCacheTimeout));
 
-    var latestUser = await Current.Get<IDataCache>().GetOrSetAsync(
-        Constants.Cache.BoardUserStats,
-        () => Current.GetRepository<User>().LatestAsync(Current.PageBoardID),
-        TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
+    var latestUsers = await Current.Get<IDataCache>().GetOrSetAsync(
+	    Constants.Cache.BoardUserStats,
+	    () => Current.GetRepository<User>().LatestAsync(Current.PageBoardID),
+	    TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
 
     // Member Count
     var membersCount = await Current.Get<IDataCache>().GetOrSetAsync(
@@ -67,37 +67,33 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row g-2 g-md-3 mt-1">
-                    @if (postsStatistics.LastPost.HasValue)
-                    {
-                        <div class="col-md-6">
-                            <div class="board-stats-panel bg-body-tertiary rounded h-100 p-3">
-                                <div class="board-stats-panel-label text-body-secondary">
-                                    @Html.Icon("calendar-day")@Html.LocalizedText("DEFAULT", "LASTPOST")
-                                </div>
-                                <div>
-                                    @Html.DisplayDateTime(DateTimeFormat.BothTopic, postsStatistics.LastPost.Value)
-                                    @Html.LocalizedText("SEARCH", "BY"):
-                                    @Html.UserLink(postsStatistics.LastUserID.Value, Current.BoardSettings.EnableDisplayName
-                                        ? postsStatistics.LastUserDisplayName
-                                        : postsStatistics.LastUser, postsStatistics.LastUserSuspended,
-                                        postsStatistics.LastUserStyle)
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    <div class="col-md-6">
-                        <div class="board-stats-panel bg-body-tertiary rounded h-100 p-3">
-                            <div class="board-stats-panel-label text-body-secondary">
-                                @Html.Icon("user-plus")@Html.LocalizedText("COMMON", "NEWEST_MEMBER")
-                            </div>
-                            <div>
-                                @Html.UserLink(latestUser.ID, latestUser.DisplayOrUserName(), latestUser.Suspended, latestUser.UserStyle)
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				
+                @if (latestUsers.Count > 0)
+                {
+	                <div class="row g-2 g-md-3 mt-1">
+		                <div class="col">
+			                <div class="board-stats-panel bg-body-tertiary rounded h-100 p-3">
+				                <div class="board-stats-panel-label text-body-secondary">
+					                @Html.Icon("user-plus")@Html.LocalizedText("COMMON", "NEWEST_MEMBERS")
+					                <span class="badge text-bg-danger ms-1">@latestUsers.Count @Html.LocalizedText("DEFAULT","NEW_MEMBER")</span>
+				                </div>
+				                <div>
+					                <div class="row text-center m-1">
+						                @foreach (var user in latestUsers)
+						                {
+							                <div class="col p-2">
+								                <img style="width: 3rem; height: 3rem" class="img-fluid rounded" 
+								                     src="@Html.Raw(Current.Get<IAvatars>().GetAvatarUrlForUser(user.ID, user.Avatar, user.AvatarImage != null))" alt="User Image">
+								                @Html.UserLink(user.ID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name, user.Suspended, user.UserStyle, cssClassAppend: " btn fw-bold fs-7 text-secondary text-truncate w-100 p-0")
+                                                <div class="fs-8">@Html.DisplayDateTime(DateTimeFormat.BothTopic, user.Joined)</div>
+							                </div>
+						                }
+					                </div>
+				                </div>
+			                </div>
+		                </div>
+	                </div>
+                }
 
                 @if (hasSpamStats)
                 {

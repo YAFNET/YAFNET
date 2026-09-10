@@ -8784,8 +8784,12 @@
             "#text": "过去 {0} 天内最活跃的用户"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Newest Member"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8871,6 +8875,22 @@
           {
             "@tag": "TITLE",
             "#text": "删除您的 {0} 帐户"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "这将永久删除您的帐户！"
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "删除您的帐户（永久）"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "如果您只是想离开论坛休息一下，那么您的帐户将被暂停 30 天。"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "暂停您的帐户 30 天"
           }
         ]
       },

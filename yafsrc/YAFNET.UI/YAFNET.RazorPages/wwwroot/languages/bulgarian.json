@@ -8776,8 +8776,12 @@
             "#text": "Повечето активни потребители през последните {0} дни"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Newest Member"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8863,6 +8867,22 @@
           {
             "@tag": "TITLE",
             "#text": "Изтрийте вашия акаунт {0}"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Това ще изтрие вашия акаунт за постоянно! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Изтрийте своя акаунт (завинаги)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Ако просто искате да си вземете почивка от форума, това ще спре вашия акаунт за 30 дни. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Спрете акаунта си за 30 дни"
           }
         ]
       },

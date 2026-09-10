@@ -149,7 +149,7 @@ public static class UserRepositoryExtensions
         }
 
         /// <summary>
-        /// Gets the Latest User.
+        /// Gets the Latest Users (for the last 6 month).
         /// </summary>
         /// <param name="boardId">
         /// The board id.
@@ -157,17 +157,17 @@ public static class UserRepositoryExtensions
         /// <returns>
         /// The <see cref="User"/>.
         /// </returns>
-        public Task<User> LatestAsync(int boardId)
+        public Task<List<User>> LatestAsync(int boardId)
         {
             return repository.DbAccess.ExecuteAsync(db =>
             {
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-                expression.Where<User>(u => (u.Flags & 4) != 4 && (u.Flags & 2) == 2 && u.BoardID == boardId);
+                expression.Where<User>(u => (u.Flags & 4) != 4 && (u.Flags & 2) == 2 && u.BoardID == boardId && u.Joined >= DateTime.UtcNow.AddMonths(-6));
 
-                expression.OrderByDescending<User>(u => u.Joined).Take(1);
+                expression.OrderByDescending<User>(u => u.Joined);
 
-                return db.SingleAsync(expression);
+                return db.SelectAsync(expression);
             });
         }
 

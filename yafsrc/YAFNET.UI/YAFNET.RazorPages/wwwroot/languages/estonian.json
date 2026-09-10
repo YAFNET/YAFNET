@@ -8784,8 +8784,12 @@
             "#text": "Viimase {0} päeva aktiivseimad kasutajad"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Uusim liige"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8871,6 +8875,22 @@
           {
             "@tag": "TITLE",
             "#text": "Kustutage oma {0} konto"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "See kustutab teie konto jäädavalt! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Kustutage oma konto (jäädavalt)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Kui soovite lihtsalt foorumis pausi teha, peatab see teie konto 30 päevaks. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Peatage oma konto 30 päevaks"
           }
         ]
       },

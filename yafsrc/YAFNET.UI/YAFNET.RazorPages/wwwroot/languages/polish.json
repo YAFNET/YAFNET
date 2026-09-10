@@ -8780,8 +8780,12 @@
             "#text": "Najaktywniejsi użytkownicy w ciągu ostatnich {0} dni"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Najnowszy członek"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8867,6 +8871,22 @@
           {
             "@tag": "TITLE",
             "#text": "Usuń swoje konto {0}."
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Spowoduje to trwałe usunięcie Twojego konta! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Usuń swoje konto (trwale)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Jeśli chcesz po prostu odpocząć od forum, spowoduje to zawieszenie Twojego konta na 30 dni. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Zawieś swoje Konto na 30 dni"
           }
         ]
       },

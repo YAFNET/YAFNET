@@ -8784,7 +8784,11 @@
             "#text": "Người dùng hoạt động nhiều nhất trong {0} ngày qua"
           },
           {
-            "@tag": "NEWEST_MEMBER",
+            "@tag": "NEW_MEMBER",
+            "#text": "Thành viên mới"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
             "#text": "Thành viên mới nhất"
           },
           {
@@ -8871,6 +8875,22 @@
           {
             "@tag": "TITLE",
             "#text": "Xóa tài khoản {0} của bạn"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Điều này sẽ xóa tài khoản của bạn vĩnh viễn! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Xóa tài khoản của bạn (vĩnh viễn)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Nếu bạn chỉ muốn tạm dừng tham gia Diễn đàn thì tài khoản của bạn sẽ bị đình chỉ trong 30 ngày. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Đình chỉ tài khoản của bạn trong 30 ngày"
           }
         ]
       },

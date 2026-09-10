@@ -8776,8 +8776,12 @@
             "#text": "Meest actieve gebruikers in de afgelopen {0} dagen"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Nieuwste lid"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8863,6 +8867,22 @@
           {
             "@tag": "TITLE",
             "#text": "Verwijder uw {0}-account"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Hiermee wordt je account definitief verwijderd! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Verwijder uw account (definitief)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Als je gewoon even een pauze wilt nemen van het Forum, wordt je account hierdoor voor 30 dagen opgeschort. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Schors uw account gedurende 30 dagen"
           }
         ]
       },

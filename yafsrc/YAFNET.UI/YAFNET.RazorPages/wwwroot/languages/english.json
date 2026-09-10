@@ -8776,8 +8776,12 @@
                     "#text": "Most Active Users in the last {0} Days"
                 },
                 {
-                    "@tag": "NEWEST_MEMBER",
-                    "#text": "Newest Member"
+	                "@tag": "NEW_MEMBER",
+	                "#text": "New Members"
+                },
+                {
+                    "@tag": "NEWEST_MEMBERS",
+                    "#text": "Latest Members"
                 },
                 {
                     "@tag": "NO_FORUM_ACCESS",
@@ -8852,18 +8856,34 @@
         {
             "@name": "DELETE_ACCOUNT",
             "Resource": [
-                {
-                    "@tag": "CONFIRM",
-                    "#text": "Are you absolutely sure you want to do this?"
-                },
-                {
-                    "@tag": "OPTIONS_TITLE",
-                    "#text": "You have the option to..."
-                },
-                {
-                    "@tag": "TITLE",
-                    "#text": "Delete Your {0} Account"
-                }
+	            {
+		            "@tag": "CONFIRM",
+		            "#text": "Are you absolutely sure you want to do this?"
+	            },
+	            {
+		            "@tag": "OPTION_DELETE_TEXT",
+		            "#text": "This will delete your account permanently! All your content will be deleted. After that your account can not be restored"
+	            },
+	            {
+		            "@tag": "OPTION_DELETE_TITLE",
+		            "#text": "Delete your Account (permanently)"
+	            },
+	            {
+		            "@tag": "OPTION_SUSPEND_TEXT",
+		            "#text": "If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible"
+	            },
+	            {
+		            "@tag": "OPTION_SUSPEND_TITLE",
+		            "#text": "Suspend your Account for 30 days"
+	            },
+	            {
+		            "@tag": "OPTIONS_TITLE",
+		            "#text": "You have the option to..."
+	            },
+	            {
+		            "@tag": "TITLE",
+		            "#text": "Delete Your {0} Account"
+	            }
             ]
         },
         {

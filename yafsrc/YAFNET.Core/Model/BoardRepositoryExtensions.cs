@@ -367,7 +367,7 @@ public static class BoardRepositoryExtensions
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
                     expression.Join<Topic>((a, b) => b.ID == a.TopicID).Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
-                        .Join<Forum, Category>((c, d) => d.ID == c.CategoryID).Join<User>((a, e) => e.ID == a.UserID);
+                        .Join<Forum, Category>((c, d) => d.ID == c.CategoryID);
 
                     expression.Where<Message, Topic, Forum, Category>(
                         (a, b, c, d) => (a.Flags & 16) == 16 && (b.Flags & 8) != 8 && d.BoardID == boardId && (d.Flags & 1) == 1);
@@ -409,18 +409,12 @@ public static class BoardRepositoryExtensions
 
                     var countForumsSql = countForumsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
-                    expression.Take(1).Select<Message, User>(
-                        (a, e) => new
+                    expression.Take(1).Select<Message>(
+                        a => new
                         {
                             Posts = Sql.Custom<int>($"({countPostsSql})"),
                             Topics = Sql.Custom<int>($"({countTopicsSql})"),
-                            Forums = Sql.Custom<int>($"({countForumsSql})"),
-                            LastPost = a.Posted,
-                            LastUserID = a.UserID,
-                            LastUser = e.Name,
-                            LastUserDisplayName = e.DisplayName,
-                            LastUserStyle = e.UserStyle,
-                            LastUserSuspended = e.Suspended
+                            Forums = Sql.Custom<int>($"({countForumsSql})")
                         });
 
                     return db.SingleAsync<BoardStat>(expression);

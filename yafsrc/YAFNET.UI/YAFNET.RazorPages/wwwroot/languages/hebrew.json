@@ -8788,8 +8788,12 @@
             "#text": "המשתמשים הפעילים ביותר ב-{0} הימים האחרונים"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "החבר הכי חדש"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8875,6 +8879,22 @@
           {
             "@tag": "TITLE",
             "#text": "מחק את חשבון {0} שלך"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "זה ימחק את חשבונך לצמיתות! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "מחק את החשבון שלך (לצמיתות)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "אם אתה רק רוצה לקחת הפסקה מהפורום, זה ישחק את חשבונך למשך 30 יום. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "השעה את חשבונך למשך 30 יום"
           }
         ]
       },

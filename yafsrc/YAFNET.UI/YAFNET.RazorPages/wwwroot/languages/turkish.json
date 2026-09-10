@@ -8784,8 +8784,12 @@
             "#text": "Son {0} Günde En Aktif Kullanıcılar"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "En Yeni Üye"
+            "@tag": "NEW_MEMBER",
+            "#text": "Yeni Üyeler"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "En Yeni Üyeler"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8871,6 +8875,22 @@
           {
             "@tag": "TITLE",
             "#text": "{0} Hesabınızı Silin"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Bu, hesabınızı kalıcı olarak silecektir! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Hesabınızı silin (kalıcı olarak)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Eğer Forum'a ara vermek isterseniz, bu durumda hesabınız 30 gün süreyle askıya alınacaktır. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Hesabınızı 30 gün süreyle askıya alın"
           }
         ]
       },

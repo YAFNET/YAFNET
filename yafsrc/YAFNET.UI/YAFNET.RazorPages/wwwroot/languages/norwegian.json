@@ -8784,8 +8784,12 @@
             "#text": "Mest aktive brukere de siste {0} dagene"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Nyeste medlem"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8871,6 +8875,22 @@
           {
             "@tag": "TITLE",
             "#text": "Slett din {0}-konto"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Dette vil slette kontoen din permanent! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Slett kontoen din (permanent)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Hvis du bare vil ta en pause fra forumet, vil dette suspendere kontoen din i 30 dager. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Suspender kontoen din i 30 dager"
           }
         ]
       },

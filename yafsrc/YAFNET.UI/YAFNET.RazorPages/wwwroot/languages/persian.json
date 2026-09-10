@@ -8772,8 +8772,12 @@
             "#text": "فعال ترین کاربران در {0} روز گذشته"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "جدیدترین عضو"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8859,6 +8863,22 @@
           {
             "@tag": "TITLE",
             "#text": "حساب {0} خود را حذف کنید"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "با این کار حساب شما برای همیشه حذف می شود! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "اکانت خود را حذف کنید (برای همیشه)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "اگر فقط می خواهید از تالار گفتگو فاصله بگیرید، این کار حساب شما را به مدت 30 روز معلق می کند. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "حساب خود را به مدت 30 روز معلق کنید"
           }
         ]
       },

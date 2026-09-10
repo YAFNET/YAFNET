@@ -8784,8 +8784,12 @@
             "#text": "Najaktívnejší používatelia za posledných {0} dní"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Najnovší člen"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8871,6 +8875,22 @@
           {
             "@tag": "TITLE",
             "#text": "Odstránenie vášho účtu {0}"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Týmto natrvalo odstránite svoj účet! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Odstráňte svoj účet (natrvalo)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Ak si chcete len oddýchnuť od fóra, pozastavíte tým svoj účet na 30 dní. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Pozastavte svoj účet na 30 dní"
           }
         ]
       },

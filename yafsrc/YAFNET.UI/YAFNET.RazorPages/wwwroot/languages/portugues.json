@@ -8784,8 +8784,12 @@
             "#text": "Utilizadores mais activos nos últimos {0} Dias"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Membro mais novo"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8871,6 +8875,22 @@
           {
             "@tag": "TITLE",
             "#text": "Apagar a sua conta {0} Account"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Isso excluirá sua conta permanentemente! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Exclua sua conta (permanentemente)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Se você quiser apenas fazer uma pausa no Fórum, sua conta será suspensa por 30 dias. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Suspender sua conta por 30 dias"
           }
         ]
       },

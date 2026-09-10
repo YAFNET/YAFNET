@@ -8784,8 +8784,12 @@
             "#text": "Mest aktiva användare under de senaste {0} dagarna"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Nyaste medlem"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Senaste medlemmarna"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8871,6 +8875,22 @@
           {
             "@tag": "TITLE",
             "#text": "Ta bort ditt {0}-konto"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Detta kommer att radera ditt konto permanent! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Ta bort ditt konto (permanent)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Om du bara vill ta en paus från forumet kommer detta att stänga av ditt konto i 30 dagar. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Stäng av ditt konto i 30 dagar"
           }
         ]
       },

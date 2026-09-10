@@ -262,7 +262,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         {
             // Render Delete Account Item
             html.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "list-group-item list-group-item-action",
+                "list-group-item list-group-item-action text-danger",
                 ForumPages.Profile_DeleteAccount,
                 this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
                 "user-alt-slash"));
@@ -329,8 +329,16 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var icon = new TagBuilder(HtmlTag.I);
 
-        icon.AddCssClass(
-            $"fas fa-{iconName} me-1 {(BoardContext.Current.CurrentForumPage.PageName == page ? "text-light" : "text-secondary")}");
+        if (page == ForumPages.Profile_DeleteAccount)
+        {
+            icon.AddCssClass(
+                $"fas fa-{iconName} me-1 text-danger");
+        }
+        else
+        {
+            icon.AddCssClass(
+                $"fas fa-{iconName} me-1 {(BoardContext.Current.CurrentForumPage.PageName == page ? "text-light" : "text-secondary")}");
+        }
 
         link.InnerHtml.AppendHtml(icon);
 

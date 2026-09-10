@@ -8776,8 +8776,12 @@
             "#text": "Usuarios más activos en los últimos {0} días"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Miembro más nuevo"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8863,6 +8867,22 @@
           {
             "@tag": "TITLE",
             "#text": "Borrar su cuenta {0}"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "¡Esto eliminará tu cuenta permanentemente! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Elimina tu cuenta (permanentemente)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Si solo desea tomar un descanso del Foro, se suspenderá su cuenta durante 30 días. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Suspende tu cuenta por 30 días"
           }
         ]
       },

@@ -8776,8 +8776,12 @@
             "#text": "Aktivste Benutzer in den letzten {0} Tagen"
           },
           {
-            "@tag": "NEWEST_MEMBER",
-            "#text": "Neuestes Mitglied"
+            "@tag": "NEW_MEMBER",
+            "#text": "New Members"
+          },
+          {
+            "@tag": "NEWEST_MEMBERS",
+            "#text": "Latest Members"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8863,6 +8867,22 @@
           {
             "@tag": "TITLE",
             "#text": "Ihr {0} Konto löschen"
+          },
+          {
+            "@tag": "OPTION_DELETE_TEXT",
+            "#text": "Dadurch wird Ihr Konto dauerhaft gelöscht! "
+          },
+          {
+            "@tag": "OPTION_DELETE_TITLE",
+            "#text": "Löschen Sie Ihr Konto (dauerhaft)"
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TEXT",
+            "#text": "Wenn Sie sich einfach nur eine Pause vom Forum gönnen möchten, wird Ihr Konto dadurch für 30 Tage gesperrt. "
+          },
+          {
+            "@tag": "OPTION_SUSPEND_TITLE",
+            "#text": "Sperren Sie Ihr Konto für 30 Tage"
           }
         ]
       },
