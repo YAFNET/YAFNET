@@ -88,61 +88,66 @@
                                         text-localized-tag="SORT_BY"
                                         Icon="sort"></button>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="UserNameAsc"
-                                            icon="@(Model.Input.SortNameField == 1 ? "check-square" : "sort-alpha-down")"
-                                            text-localized-tag="USERNAME_ASC"></button>
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="UserNameDesc"
-                                            icon="@(Model.Input.SortNameField == 2 ? "check-square" : "sort-alpha-down-alt")"
-                                            text-localized-tag="USERNAME_DESC"></button>
-                                    <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="RankAsc"
-                                            icon="@(Model.Input.SortRankNameField == 1 ? "check-square" : "sort-alpha-down")"
-                                            text-localized-tag="RANK_ASC"></button>
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="RankDesc"
-                                            icon="@(Model.Input.SortRankNameField == 2 ? "check-square" : "sort-alpha-down-alt")"
-                                            text-localized-page="MEMBERS"
-                                            text-localized-tag="RANK_DESC"></button>
-                                    <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="JoinedAsc"
-                                            icon="@(Model.Input.SortJoinedField == 1 ? "check-square" : "sort-alpha-down")"
-                                            text-localized-tag="JOINED_ASC"></button>
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="JoinedDesc"
-                                            icon="@(Model.Input.SortJoinedField == 2 ? "check-square" : "sort-alpha-down-alt")"
-                                            text-localized-tag="JOINED_DESC"></button>
-                                    <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="PostsAsc" 
-                                            icon="@(Model.Input.SortNumPostsField == 1 ? "check-square" : "sort-alpha-down")"
-                                            text-localized-tag="POSTS_ASC"></button>
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="PostsDesc"
-                                            icon="@(Model.Input.SortNumPostsField == 2 ? "check-square" : "sort-alpha-down-alt")"
-                                            text-localized-tag="POSTS_DESC"></button>
-                                    <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="LastVisitAsc" 
-                                            icon="@(Model.Input.SortLastVisitField == 1 ? "check-square" : "sort-alpha-down")"
-                                            text-localized-tag="LASTVISIT_ASC"></button>
-                                    <button class="dropdown-item"
-                                            button-style="None"
-                                            asp-page-handler="LastVisitDesc"
-                                            icon="@(Model.Input.SortLastVisitField == 2 ? "check-square" : "sort-alpha-down-alt")"
-                                            text-localized-tag="LASTVISIT_DESC"></button>
+	                                <input type="hidden" asp-for="Input.SortNameField">
+	                                <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="UserNameAsc"
+	                                        icon="@(Model.Input.SortNameField == 1 ? "check-square" : "sort-alpha-down")"
+	                                        text-localized-tag="USERNAME_ASC"></button>
+                                        <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="UserNameDesc"
+	                                        icon="@(Model.Input.SortNameField == 2 ? "check-square" : "sort-alpha-down-alt")"
+	                                        text-localized-tag="USERNAME_DESC"></button>
+	                                <div class="dropdown-divider"></div>
+                                        <input type="hidden" asp-for="Input.SortRankNameField">
+                                        <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="RankAsc"
+	                                        icon="@(Model.Input.SortRankNameField == 1 ? "check-square" : "sort-alpha-down")"
+	                                        text-localized-tag="RANK_ASC"></button>
+                                        <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="RankDesc"
+	                                        icon="@(Model.Input.SortRankNameField == 2 ? "check-square" : "sort-alpha-down-alt")"
+	                                        text-localized-page="MEMBERS"
+	                                        text-localized-tag="RANK_DESC"></button>
+	                                <div class="dropdown-divider"></div>
+                                        <input type="hidden" asp-for="Input.SortJoinedField">
+                                        <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="JoinedAsc"
+	                                        icon="@(Model.Input.SortJoinedField == 1 ? "check-square" : "sort-alpha-down")"
+	                                        text-localized-tag="JOINED_ASC"></button>
+                                        <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="JoinedDesc"
+	                                        icon="@(Model.Input.SortJoinedField == 2 ? "check-square" : "sort-alpha-down-alt")"
+	                                        text-localized-tag="JOINED_DESC"></button>
+	                                <div class="dropdown-divider"></div>
+                                        <input type="hidden" asp-for="Input.SortNumPostsField">
+                                        <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="PostsAsc"
+	                                        icon="@(Model.Input.SortNumPostsField == 1 ? "check-square" : "sort-alpha-down")"
+	                                        text-localized-tag="POSTS_ASC"></button>
+                                        <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="PostsDesc"
+	                                        icon="@(Model.Input.SortNumPostsField == 2 ? "check-square" : "sort-alpha-down-alt")"
+	                                        text-localized-tag="POSTS_DESC"></button>
+	                                <div class="dropdown-divider"></div>
+                                        <input type="hidden" asp-for="Input.SortLastVisitField">
+                                        <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="LastVisitAsc"
+	                                        icon="@(Model.Input.SortLastVisitField == 1 ? "check-square" : "sort-alpha-down")"
+	                                        text-localized-tag="LASTVISIT_ASC"></button>
+                                        <button class="dropdown-item"
+	                                        button-style="None"
+	                                        asp-page-handler="LastVisitDesc"
+	                                        icon="@(Model.Input.SortLastVisitField == 2 ? "check-square" : "sort-alpha-down-alt")"
+	                                        text-localized-tag="LASTVISIT_DESC"></button>
                                 </div>
                             </div>
                         </div>

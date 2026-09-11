@@ -15,8 +15,8 @@
 @inject BoardContext Current
 
 @{
-    ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin.min" : "forum.min";
-    ViewBag.PageName = Current.CurrentForumPage.PageName.ToString();
+    var forumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin.min" : "forum.min";
+    var pageName = Current.CurrentForumPage.PageName.ToString();
 }
 
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
     <title>@Html.Raw(Current.CurrentForumPage.GeneratePageTitle())</title>
     <link rel="stylesheet" href="@Html.Raw($"{Current.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}")" asp-append-version="true"
           type="text/css" />
-    <link rel="stylesheet" href="~/css/@Html.Raw($"{ViewBag.ForumCss}.css")" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/@Html.Raw($"{forumCss}.css")" asp-append-version="true" />
     @await RenderSectionAsync("StyleSheets", required: false)
     <script src="~/js/themeSelector.min.js"></script>
 	
@@ -40,7 +40,7 @@
     <img alt="board logo" src="@Html.Raw($"/{Current.Get<BoardFolders>().Logos}/{Current.BoardSettings.ForumLogo}")" class="my-3 img-fluid" loading="lazy"  />
 </a>
 <div class="yafnet">
-    <div class="page-@ViewBag.PageName">
+    <div class="page-@pageName">
 
         <header class="mb-2">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
