@@ -33,6 +33,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 using YAF.Core.BasePages;
+using YAF.Core.Filters;
 using YAF.Core.Model;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
@@ -42,6 +43,7 @@ using YAF.Types.Objects;
 /// The Stats controller.
 /// </summary>
 [Route("api/[controller]")]
+[AdminAuthorization]
 public class Stats : ForumBaseController
 {
     /// <summary>
@@ -57,18 +59,7 @@ public class Stats : ForumBaseController
     {
         try
         {
-            // Check if user has access
-            if (BoardContext.Current == null)
-            {
-                return this.NotFound();
-            }
-
-            if (!BoardContext.Current.IsAdmin)
-            {
-                return this.NotFound();
-            }
-
-            var activeUsers = await this.GetRepository<Active>().GetAsync(a => a.BoardID == this.Get<BoardSettings>().BoardId);
+           var activeUsers = await this.GetRepository<Active>().GetAsync(a => a.BoardID == this.Get<BoardSettings>().BoardId);
 
             var browsers = activeUsers
                 .GroupBy(u => new { u.Browser })

@@ -22,7 +22,7 @@ internal static class ECKeyHelper
     /// <returns></returns>
     public static ECPrivateKeyParameters GetPrivateKey(byte[] privateKey)
     {
-        Asn1Object version = new DerInteger(1);
+        Asn1Object version = DerInteger.GetInstance(1);
         Asn1Object derEncodedKey = new DerOctetString(privateKey);
         Asn1Object keyTypeParameters = new DerTaggedObject(0, new DerObjectIdentifier("1.2.840.10045.3.1.7"));
 

@@ -32,7 +32,10 @@ public static class ExpressionCacheKey
 
     public static bool CanCache(Expression expr)
     {
-        if (ClosureSafety.HasMutableClosure(expr))
+        // Slow-compiled delegates retain their closure instance. Even when a captured
+        // value has an immutable type, another invocation can supply a different
+        // closure instance and value for the same canonical expression key.
+        if (ClosureSafety.HasClosure(expr))
         {
             return false;
         }
@@ -48,7 +51,7 @@ public static class ExpressionCacheKey
 
     private sealed class CanonicalExpressionPrinter(StringBuilder sb) : ExpressionVisitor
     {
-        override protected Expression VisitConstant(ConstantExpression node)
+        protected override Expression VisitConstant(ConstantExpression node)
         {
             // Remove closure object identity
             if (node.Type.Name.Contains("DisplayClass"))
@@ -62,7 +65,7 @@ public static class ExpressionCacheKey
             return node;
         }
 
-        override protected Expression VisitMember(MemberExpression node)
+        protected override Expression VisitMember(MemberExpression node)
         {
             if (node.Expression is ConstantExpression c &&
                 c.Type.Name.Contains("DisplayClass"))
@@ -77,11 +80,12 @@ public static class ExpressionCacheKey
                 sb.Append(")");
                 return node;
             }
+
             sb.Append($"MEMBER({node.Member.DeclaringType}.{node.Member.Name}:{node.Type.FullName})");
             return base.VisitMember(node);
         }
 
-        override protected Expression VisitLambda<T>(Expression<T> node)
+        protected override Expression VisitLambda<T>(Expression<T> node)
         {
             sb.Append("LAMBDA(");
             foreach (var p in node.Parameters)
@@ -93,13 +97,13 @@ public static class ExpressionCacheKey
             return base.VisitLambda(node);
         }
 
-        override protected Expression VisitBinary(BinaryExpression node)
+        protected override Expression VisitBinary(BinaryExpression node)
         {
             sb.Append($"BIN({node.NodeType})");
             return base.VisitBinary(node);
         }
 
-        override protected Expression VisitParameter(ParameterExpression node)
+        protected override Expression VisitParameter(ParameterExpression node)
         {
             sb.Append($"PARAM({node.Type.FullName})");
             return node;
@@ -108,7 +112,7 @@ public static class ExpressionCacheKey
 
     private sealed class CacheableExpressionVisitor : ExpressionVisitor
     {
-        public bool Cacheable { get; private set; } = true;
+        private bool Cacheable { get; set; } = true;
 
         public static bool IsCacheable(Expression expr)
         {
@@ -117,20 +121,20 @@ public static class ExpressionCacheKey
             return v.Cacheable;
         }
 
-        override protected Expression VisitInvocation(InvocationExpression node)
+        protected override Expression VisitInvocation(InvocationExpression node)
         {
             // Cannot reliably cache invocation expressions
             this.Cacheable = false;
             return node;
         }
 
-        override protected Expression VisitRuntimeVariables(RuntimeVariablesExpression node)
+        protected override Expression VisitRuntimeVariables(RuntimeVariablesExpression node)
         {
             this.Cacheable = false;
             return node;
         }
 
-        override protected Expression VisitTry(TryExpression node)
+        protected override Expression VisitTry(TryExpression node)
         {
             // Safe but unusual — allow it
             return base.VisitTry(node);
@@ -139,11 +143,44 @@ public static class ExpressionCacheKey
 
     public static class ClosureSafety
     {
+        public static bool HasClosure(Expression expr)
+        {
+            var detector = new ClosureDetector();
+            detector.Visit(expr);
+            return detector.Result;
+        }
+
         public static bool HasMutableClosure(Expression expr)
         {
             var detector = new MutableClosureDetector();
             detector.Visit(expr);
             return detector.Result;
+        }
+
+        private sealed class ClosureDetector : ExpressionVisitor
+        {
+            public bool Result { get; private set; }
+
+            public override Expression Visit(Expression node)
+            {
+                if (this.Result || node is null)
+                {
+                    return node;
+                }
+
+                return base.Visit(node);
+            }
+
+            protected override Expression VisitConstant(ConstantExpression node)
+            {
+                if (!node.Type.Name.Contains("DisplayClass"))
+                {
+                    return base.VisitConstant(node);
+                }
+
+                this.Result = true;
+                return node;
+            }
         }
 
         private sealed class MutableClosureDetector : ExpressionVisitor
@@ -160,7 +197,7 @@ public static class ExpressionCacheKey
                 return base.Visit(node);
             }
 
-            override protected Expression VisitMember(MemberExpression node)
+            protected override Expression VisitMember(MemberExpression node)
             {
                 if (this.Result)
                 {
@@ -168,16 +205,17 @@ public static class ExpressionCacheKey
                 }
 
                 // Identify DisplayClass closure (C# compiler generated)
-                if (node.Expression is ConstantExpression c &&
-                    c.Type.IsNestedPrivate &&
-                    c.Type.Name.Contains("DisplayClass"))
+                if (node.Expression is not ConstantExpression { Type.IsNestedPrivate: true } c ||
+                    !c.Type.Name.Contains("DisplayClass"))
                 {
-                    var capturedType = node.Type;
+                    return base.VisitMember(node);
+                }
 
-                    if (IsMutableType(capturedType))
-                    {
-                        this.Result = true;
-                    }
+                var capturedType = node.Type;
+
+                if (IsMutableType(capturedType))
+                {
+                    this.Result = true;
                 }
 
                 return base.VisitMember(node);
@@ -185,53 +223,56 @@ public static class ExpressionCacheKey
 
             private static bool IsMutableType(Type type)
             {
-                // Arrays are always mutable
-                if (type.IsArray)
+                while (true)
                 {
-                    return true;
-                }
+                    // Arrays are always mutable
+                    if (type.IsArray)
+                    {
+                        return true;
+                    }
 
-                // ref structs and Span<T> are stack-only, must never be cached
-                if (type.IsRefStruct())
-                {
-                    return true;
-                }
+                    // ref structs and Span<T> are stack-only, must never be cached
+                    if (type.IsRefStruct())
+                    {
+                        return true;
+                    }
 
-                // Classes are mutable unless proven otherwise
-                if (!type.IsValueType)
-                {
-                    return true;
-                }
+                    // Classes are mutable unless proven otherwise
+                    if (!type.IsValueType)
+                    {
+                        return true;
+                    }
 
-                // Enums are immutable
-                if (type.IsEnum)
-                {
-                    return false;
-                }
+                    // Enums are immutable
+                    if (type.IsEnum)
+                    {
+                        return false;
+                    }
 
-                // Primitive value types are immutable
-                if (type.IsPrimitive)
-                {
-                    return false;
-                }
+                    // Primitive value types are immutable
+                    if (type.IsPrimitive)
+                    {
+                        return false;
+                    }
 
-                // Decimal, DateTime, Guid are immutable structs
-                if (type == typeof(decimal) ||
-                    type == typeof(DateTime) ||
-                    type == typeof(Guid) ||
-                    type == typeof(TimeSpan))
-                {
-                    return false;
-                }
+                    // Decimal, DateTime, Guid are immutable structs
+                    if (type == typeof(decimal) || type == typeof(DateTime) || type == typeof(Guid) || type == typeof(TimeSpan))
+                    {
+                        return false;
+                    }
 
-                // Nullable<T> → check underlying type
-                if (Nullable.GetUnderlyingType(type) is Type underlying)
-                {
-                    return IsMutableType(underlying);
-                }
+                    // Nullable<T> → check underlying type
+                    if (Nullable.GetUnderlyingType(type) is not { } underlying)
+                    {
+                        return StructIsMutable(type);
+                    }
 
-                // Structs are mutable unless all fields are readonly, and those fields are immutable
-                return StructIsMutable(type);
+                    type = underlying;
+                    continue;
+
+                    // Structs are mutable unless all fields are readonly, and those fields are immutable
+                    break;
+                }
             }
 
             private static bool StructIsMutable(Type type)
@@ -253,5 +294,4 @@ public static class ExpressionCacheKey
             }
         }
     }
-
 }

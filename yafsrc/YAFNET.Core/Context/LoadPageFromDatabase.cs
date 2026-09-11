@@ -122,9 +122,16 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             {
                 if (!path.Equals("/"))
                 {
-                    var endpointPath = this.EndpointSources.Where(x => path.Contains(x)).ToList();
+                    var endpointPath = this.EndpointSources.Where(path.Contains).ToList();
 
-                    forumPage = endpointPath.Count != 0 ? endpointPath[0].ToPageName().ToString() : path.ToPageName().ToString();
+                    try
+                    {
+                        forumPage = endpointPath.Count != 0 ? endpointPath[0].ToPageName().ToString() : path.ToPageName().ToString();
+                    }
+                    catch (Exception)
+                    {
+                        forumPage = string.Empty;
+                    }
                 }
                 else
                 {
