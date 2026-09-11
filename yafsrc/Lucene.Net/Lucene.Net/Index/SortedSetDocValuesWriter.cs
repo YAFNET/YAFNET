@@ -22,17 +22,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingDeltaPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
-    using AppendingPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DirectBytesStartArray = YAF.Lucene.Net.Util.BytesRefHash.DirectBytesStartArray;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using AppendingDeltaPackedInt64Buffer = Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
+    using AppendingPackedInt64Buffer = Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using ByteBlockPool = Lucene.Net.Util.ByteBlockPool;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using BytesRefHash = Lucene.Net.Util.BytesRefHash;
+    using Counter = Lucene.Net.Util.Counter;
+    using DirectBytesStartArray = Lucene.Net.Util.BytesRefHash.DirectBytesStartArray;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Buffers up pending <see cref="T:byte[]"/>s per doc, deref and sorting via
@@ -202,13 +202,15 @@ namespace YAF.Lucene.Net.Index
         [SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType", Justification = "Matches Lucene")]
         private IEnumerable<long?> GetOrdCountEnumerable(int maxDoc)
         {
-            AppendingDeltaPackedInt64Buffer.Iterator iter = pendingCounts.GetIterator();
+            using var enumerator = pendingCounts.GetEnumerator();
 
             if (Debugging.AssertsEnabled) Debugging.Assert(pendingCounts.Count == maxDoc, "MaxDoc: {0}, pending.Count: {1}", maxDoc, pending.Count);
 
             for (int docUpto = 0; docUpto < maxDoc; ++docUpto)
             {
-                yield return iter.Next();
+                bool moved = enumerator.MoveNext();
+                if (Debugging.AssertsEnabled) Debugging.Assert(moved);
+                yield return enumerator.Current;
             }
         }
 
@@ -216,8 +218,8 @@ namespace YAF.Lucene.Net.Index
         private IEnumerable<long?> GetOrdsEnumerable(int[] ordMap, int maxCountPerDoc)
         {
             int currentUpTo = 0, currentLength = 0;
-            AppendingPackedInt64Buffer.Iterator iter = pending.GetIterator();
-            AppendingDeltaPackedInt64Buffer.Iterator counts = pendingCounts.GetIterator();
+            using var enumerator = pending.GetEnumerator();
+            using var counts = pendingCounts.GetEnumerator();
             int[] cd = new int[maxCountPerDoc]; // LUCENENET specific - renamed from currentDoc to cd to prevent conflict
 
             for (long ordUpto = 0; ordUpto < pending.Count; ++ordUpto)
@@ -226,10 +228,14 @@ namespace YAF.Lucene.Net.Index
                 {
                     // refill next doc, and sort remapped ords within the doc.
                     currentUpTo = 0;
-                    currentLength = (int)counts.Next();
+                    bool countsMoved = counts.MoveNext();
+                    if (Debugging.AssertsEnabled) Debugging.Assert(countsMoved);
+                    currentLength = (int)counts.Current;
                     for (int j = 0; j < currentLength; j++)
                     {
-                        cd[j] = ordMap[(int)iter.Next()];
+                        bool moved = enumerator.MoveNext();
+                        if (Debugging.AssertsEnabled) Debugging.Assert(moved);
+                        cd[j] = ordMap[(int)enumerator.Current];
                     }
                     Array.Sort(cd, 0, currentLength);
                 }

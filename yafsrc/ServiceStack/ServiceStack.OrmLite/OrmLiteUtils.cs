@@ -679,17 +679,19 @@ public static class OrmLiteUtils
         return "{0}".SqlFmt(value);
     }
 
+    public static TimeSpan DefaultRegexTimeout = TimeSpan.FromSeconds(1);
+
     /// <summary>
     /// The verify fragment reg ex
     /// </summary>
     public static Regex VerifyFragmentRegEx = new("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|select|sys|sysobjects|syscolumns|table|update)([^\\w]|$)+",
-        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase, DefaultRegexTimeout);
 
     /// <summary>
     /// The verify SQL reg ex
     /// </summary>
     public static Regex VerifySqlRegEx = new("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|table|update)([^\\w]|$)+",
-        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase, DefaultRegexTimeout);
 
     /// <summary>
     /// Gets or sets the SQL verify fragment function.
@@ -716,14 +718,30 @@ public static class OrmLiteUtils
             return false;
         }
 
-        var fragmentToVerify = sql
-            .StripQuotedStrings('\'')
-            .StripQuotedStrings('"')
-            .StripQuotedStrings('`')
+        var s1 = sql.StripQuotedStrings('\'', out var inQuotes1);
+        if (inQuotes1)
+            return true;
+
+        var s2 = s1.StripQuotedStrings('"', out var inQuotes2);
+        if (inQuotes2)
+            return true;
+
+        var fragmentToVerify = s2
+            .StripQuotedStrings('`', out var inQuotes3)
             .ToLower();
 
-        var match = verifySql.Match(fragmentToVerify);
-        return match.Success;
+        if (inQuotes3)
+            return true;
+
+        try
+        {
+            var match = verifySql.Match(fragmentToVerify);
+            return match.Success;
+        }
+        catch (RegexMatchTimeoutException)
+        {
+            return true;
+        }
     }
 
     /// <summary>
@@ -767,11 +785,20 @@ public static class OrmLiteUtils
             return null;
         }
 
-        var fragmentToVerify = sqlFragment
-            .StripQuotedStrings('\'')
-            .StripQuotedStrings('"')
-            .StripQuotedStrings('`')
+        var s1 = sqlFragment.StripQuotedStrings('\'', out var inQuotes1);
+        if (inQuotes1)
+            throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
+
+        var s2 = s1.StripQuotedStrings('"', out var inQuotes2);
+        if (inQuotes2)
+            throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
+
+        var fragmentToVerify = s2
+            .StripQuotedStrings('`', out var inQuotes3)
             .ToLower();
+
+        if (inQuotes3)
+            throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
 
         foreach (var illegalFragment in illegalFragments)
         {
@@ -802,20 +829,37 @@ public static class OrmLiteUtils
     /// <returns>string.</returns>
     public static string StripQuotedStrings(this string text, char quote = '\'')
     {
-        var sb = StringBuilderCache.Allocate();
-        var inQuotes = false;
-        foreach (var c in text)
+        return StripQuotedStrings(text, quote, out _);
+    }
+
+    public static string StripQuotedStrings(this string text, char quote, out bool inQuotes)
+    {
+        if (text == null)
         {
+            inQuotes = false;
+            return null;
+        }
+
+        var sb = StringBuilderCache.Allocate();
+        inQuotes = false;
+        for (var i = 0; i < text.Length; i++)
+        {
+            var c = text[i];
             if (c == quote)
             {
+                if (inQuotes && i + 1 < text.Length && text[i + 1] == quote)
+                {
+                    // Escaped quote within quoted literal (e.g. '' or "")
+                    i++;
+                    continue;
+                }
+
                 inQuotes = !inQuotes;
                 continue;
             }
 
             if (!inQuotes)
-            {
                 sb.Append(c);
-            }
         }
 
         return StringBuilderCache.ReturnAndFree(sb);
@@ -1636,24 +1680,7 @@ public static class OrmLiteUtils
             if (c == ')')
             {
                 inBracesCount--;
-                if (inBracesCount > 0)
-                {
-                    continue;
-                }
-
-                var endPos = expr.IndexOf(',', i);
-                if (endPos == -1)
-                {
-                    endPos = expr.Length;
-                }
-
-                var arg = expr.Substring(pos, endPos - pos).Trim();
-                if (!string.IsNullOrEmpty(arg))
-                {
-                    to.Add(arg);
-                }
-
-                pos = endPos;
+               
                 continue;
             }
 

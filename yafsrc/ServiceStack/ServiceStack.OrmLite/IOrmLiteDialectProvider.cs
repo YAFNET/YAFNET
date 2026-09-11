@@ -18,11 +18,22 @@ using System.Threading;
 
 using System.Threading.Tasks;
 
+public enum DbKind
+{
+    Sqlite,
+    PostgreSql,
+    SqlServer,
+    MySql,
+    Unknown
+}
+
 /// <summary>
 /// Interface IOrmLiteDialectProvider
 /// </summary>
 public interface IOrmLiteDialectProvider
 {
+    DbKind Kind { get; }
+
     /// <summary>
     /// Configure Provider with connection string options 
     /// </summary>

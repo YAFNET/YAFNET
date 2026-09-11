@@ -188,6 +188,23 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             : $"INSERT INTO {GetQuotedTableName(modelDef)} DEFAULT VALUES{strReturning}";
     }
 
+    public override bool SupportsUpsert => true;
+
+    public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
+        ICollection<string>? insertFields = null, ICollection<string>? updateOnly = null)
+    {
+        PrepareUpsertFields<T>(cmd, insertFields, updateOnly,
+            out var modelDef, out var insertFieldDefs, out var updateFieldDefs);
+
+        var conflictTarget = GetQuotedColumnName(modelDef.PrimaryKey);
+        var conflictAction = updateFieldDefs.Count == 0
+            ? "DO NOTHING"
+            : "DO UPDATE SET " + GetUpsertUpdateSql(updateFieldDefs);
+
+        cmd.CommandText = $"{GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
+                          $"ON CONFLICT ({conflictTarget}) {conflictAction}";
+    }
+
     /// <summary>
     /// Converts to insertrowssql.
     /// </summary>

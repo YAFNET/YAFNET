@@ -32,6 +32,8 @@ namespace ServiceStack.OrmLite.SqlServer
     /// <seealso cref="SqlServerOrmLiteDialectProvider" />
     public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlServerOrmLiteDialectProvider>
     {
+        public override DbKind Kind => DbKind.SqlServer;
+
         /// <summary>
         /// The instance
         /// </summary>
@@ -235,7 +237,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         public override string ToCreateSchemaStatement(string schemaName)
         {
-            var sql = $"CREATE SCHEMA [{NamingStrategy.GetSchemaName(schemaName)}]";
+            var sql = $"CREATE SCHEMA [{this.NamingStrategy.GetSchemaName(schemaName).Replace("]", "]]")}]";
             return sql;
         }
 
@@ -277,10 +279,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesTableExist(IDbCommand dbCmd, TableRef tableRef)
         {
-            var tableName = GetTableNameOnly(tableRef);
+            var tableName = this.GetTableNameOnly(tableRef);
             var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0}".SqlFmt(this, tableName);
 
-            var schema = GetSchemaName(tableRef);
+            var schema = this.GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = {0}".SqlFmt(this, schema);
@@ -307,10 +309,10 @@ namespace ServiceStack.OrmLite.SqlServer
             TableRef tableRef,
             CancellationToken token = default)
         {
-            var tableName = GetTableNameOnly(tableRef);
+            var tableName = this.GetTableNameOnly(tableRef);
             var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0}".SqlFmt(this, tableName);
 
-            var schema = GetSchemaName(tableRef);
+            var schema = this.GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = {0}".SqlFmt(this, schema);
@@ -337,12 +339,12 @@ namespace ServiceStack.OrmLite.SqlServer
             string columnName,
             TableRef tableRef)
         {
-            var tableName = GetTableNameOnly(tableRef);
+            var tableName = this.GetTableNameOnly(tableRef);
             var sql =
                 "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
                     .SqlFmt(this, tableName, columnName);
 
-            var schema = GetSchemaName(tableRef);
+            var schema = this.GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = @schema";
@@ -367,12 +369,12 @@ namespace ServiceStack.OrmLite.SqlServer
             TableRef tableRef,
             CancellationToken token = default)
         {
-            var tableName = GetTableNameOnly(tableRef);
+            var tableName = this.GetTableNameOnly(tableRef);
             var sql =
                 "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
                     .SqlFmt(this, tableName, columnName);
 
-            var schema = GetSchemaName(tableRef);
+            var schema = this.GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = @schema";
@@ -395,7 +397,7 @@ namespace ServiceStack.OrmLite.SqlServer
             string columnName,
             TableRef tableRef)
         {
-            var tableName = GetTableNameOnly(tableRef);
+            var tableName = this.GetTableNameOnly(tableRef);
             var sql =
                 "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
                     .SqlFmt(this, tableName, columnName);
@@ -862,12 +864,12 @@ namespace ServiceStack.OrmLite.SqlServer
         }
         public override string ToAddColumnStatement(TableRef tableRef, FieldDefinition fieldDef)
         {
-            return $"ALTER TABLE {QuoteTable(tableRef)} ADD {GetColumnDefinition(fieldDef)};";
+            return $"ALTER TABLE {this.QuoteTable(tableRef)} ADD {this.GetColumnDefinition(fieldDef)};";
         }
 
         public override string ToAlterColumnStatement(TableRef tableRef, FieldDefinition fieldDef)
         {
-            return $"ALTER TABLE {QuoteTable(tableRef)} ALTER COLUMN {GetColumnDefinition(fieldDef)};";
+            return $"ALTER TABLE {this.QuoteTable(tableRef)} ALTER COLUMN {this.GetColumnDefinition(fieldDef)};";
         }
 
         /// <summary>
@@ -879,7 +881,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         public override string ToChangeColumnNameStatement(TableRef tableRef, FieldDefinition fieldDef, string oldColumn)
         {
-            var objectName = $"{QuoteTable(tableRef)}.{GetQuotedColumnName(oldColumn)}";
+            var objectName = $"{this.QuoteTable(tableRef)}.{this.GetQuotedColumnName(oldColumn)}";
 
             return
                 $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedValue(fieldDef.FieldName)}, {this.GetQuotedValue("COLUMN")};";
@@ -887,13 +889,13 @@ namespace ServiceStack.OrmLite.SqlServer
 
         public override string ToRenameColumnStatement(TableRef tableRef, string oldColumn, string newColumn)
         {
-            var objectName = $"{QuoteTable(tableRef)}.{GetQuotedColumnName(oldColumn)}";
-            return $"EXEC sp_rename {GetQuotedValue(objectName)}, {GetQuotedColumnName(newColumn)}, 'COLUMN';";
+            var objectName = $"{this.QuoteTable(tableRef)}.{this.GetQuotedColumnName(oldColumn)}";
+            return $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedColumnName(newColumn)}, 'COLUMN';";
         }
 
         public override string ToDropIndexStatement<T>(string indexName)
         {
-            return $"DROP INDEX IF EXISTS {GetQuotedName(indexName)} ON {GetQuotedTableName(typeof(T))};";
+            return $"DROP INDEX IF EXISTS {this.GetQuotedName(indexName)} ON {this.GetQuotedTableName(typeof(T))};";
         }
 
         /// <summary>
@@ -976,7 +978,7 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 if (fieldDef.DefaultValueConstraint != null)
                 {
-                    sql.Append(" CONSTRAINT ").Append(GetQuotedName(fieldDef.DefaultValueConstraint));
+                    sql.Append(" CONSTRAINT ").Append(this.GetQuotedName(fieldDef.DefaultValueConstraint));
                 }
                 sql.AppendFormat(this.DefaultValueFormat, defaultValue);
             }
@@ -1057,7 +1059,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="constraintName">Name of the constraint.</param>
         /// <returns>System.String.</returns>
         public override string ToDropConstraintStatement(TableRef tableRef, string constraintName) =>
-            $"ALTER TABLE {QuoteTable(tableRef)} DROP CONSTRAINT {GetQuotedName(constraintName)};";
+            $"ALTER TABLE {this.QuoteTable(tableRef)} DROP CONSTRAINT {this.GetQuotedName(constraintName)};";
 
         /// <summary>
         /// Bulks the insert.
@@ -1083,18 +1085,18 @@ namespace ServiceStack.OrmLite.SqlServer
             bulkCopy.DestinationTableName = modelDef.ModelName;
 
             var table = new DataTable();
-            var fieldDefs = GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
+            var fieldDefs = this.GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
             foreach (var fieldDef in fieldDefs)
             {
-                if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
                 {
                     continue;
                 }
 
-                var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
+                var columnName = this.NamingStrategy.GetColumnName(fieldDef.FieldName);
                 bulkCopy.ColumnMappings.Add(columnName, columnName);
 
-                var converter = GetConverterBestMatch(fieldDef);
+                var converter = this.GetConverterBestMatch(fieldDef);
                 var colType = converter.DbType switch
                 {
                     DbType.String => typeof(string),
@@ -1111,18 +1113,18 @@ namespace ServiceStack.OrmLite.SqlServer
                 var row = table.NewRow();
                 foreach (var fieldDef in fieldDefs)
                 {
-                    if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                    if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
                     {
                         continue;
                     }
 
                     var value = fieldDef.AutoId
-                        ? GetInsertDefaultValue(fieldDef)
+                        ? this.GetInsertDefaultValue(fieldDef)
                         : fieldDef.GetValue(obj);
 
-                    var converter = GetConverterBestMatch(fieldDef);
+                    var converter = this.GetConverterBestMatch(fieldDef);
                     var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
-                    var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
+                    var columnName = this.NamingStrategy.GetColumnName(fieldDef.FieldName);
                     dbValue ??= DBNull.Value;
                     row[columnName] = dbValue;
                 }
@@ -1184,7 +1186,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     sbColumnNames.Append(this.GetQuotedColumnName(fieldDef));
                     sbColumnValues.Append(this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName)));
 
-                    AddParameter(cmd, fieldDef);
+                    this.AddParameter(cmd, fieldDef);
                 }
                 catch (Exception ex)
                 {
@@ -1424,6 +1426,31 @@ namespace ServiceStack.OrmLite.SqlServer
                 : $" INSERT INTO {this.GetQuotedTableName(modelDef)}{strReturning} DEFAULT VALUES";
         }
 
+        public override bool SupportsUpsert => true;
+
+        public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
+            ICollection<string> insertFields = null, ICollection<string> updateOnly = null)
+        {
+            this.PrepareUpsertFields<T>(cmd, insertFields, updateOnly,
+                out var modelDef, out var insertFieldDefs, out var updateFieldDefs);
+
+            var primaryKey = modelDef.PrimaryKey;
+            var quotedPrimaryKey = this.GetQuotedColumnName(primaryKey);
+            var primaryKeyParam = this.GetParam(this.SanitizeFieldNameForParamName(primaryKey.FieldName));
+            var insertColumns = insertFieldDefs.Map(this.GetQuotedColumnName).Join(",");
+            var insertValues = insertFieldDefs.Map(x =>
+                this.GetParam(this.SanitizeFieldNameForParamName(x.FieldName), x.CustomInsert)).Join(",");
+            var whenMatched = updateFieldDefs.Count > 0
+                ? "WHEN MATCHED THEN UPDATE SET " + this.GetUpsertUpdateSql(updateFieldDefs, "target.") + " "
+                : "";
+
+            cmd.CommandText = $"MERGE INTO {this.GetQuotedTableName(modelDef)} WITH (HOLDLOCK) AS target " +
+                              $"USING (VALUES ({primaryKeyParam})) AS source ({quotedPrimaryKey}) " +
+                              $"ON target.{quotedPrimaryKey}=source.{quotedPrimaryKey} " +
+                              whenMatched +
+                              $"WHEN NOT MATCHED THEN INSERT ({insertColumns}) VALUES ({insertValues});";
+        }
+
         /// <summary>
         /// Prepares the insert row statement.
         /// </summary>
@@ -1515,7 +1542,7 @@ namespace ServiceStack.OrmLite.SqlServer
             ISet<string> tags = null)
         {
             var sb = StringBuilderCache.Allocate();
-            ApplyTags(sb, tags);
+            this.ApplyTags(sb, tags);
 
             sb.Append(selectExpression)
                 .Append(bodyExpression);
@@ -1729,7 +1756,7 @@ namespace ServiceStack.OrmLite.SqlServer
             var fmt = format.Contains('\'')
                 ? format.Replace("'", "")
                 : format;
-            foreach (var entry in DateFormatMap)
+            foreach (var entry in this.DateFormatMap)
             {
                 fmt = fmt.Replace(entry.Key, entry.Value);
             }
@@ -1963,13 +1990,13 @@ namespace ServiceStack.OrmLite.SqlServer
                 ormLiteConn.ConnectionId = sqlConn.ClientConnectionId;
             }
 
-            foreach (var command in ConnectionCommands)
+            foreach (var command in this.ConnectionCommands)
             {
                 using var cmd = dbConn.CreateCommand();
                 cmd.ExecNonQuery(command);
             }
 
-            OnOpenConnection?.Invoke(dbConn);
+            this.OnOpenConnection?.Invoke(dbConn);
         }
 
         /// <summary>

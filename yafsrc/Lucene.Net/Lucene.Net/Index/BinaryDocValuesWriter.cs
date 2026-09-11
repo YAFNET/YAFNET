@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 
@@ -20,17 +21,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingDeltaPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using AppendingDeltaPackedInt64Buffer = Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Counter = Lucene.Net.Util.Counter;
+    using DataInput = Lucene.Net.Store.DataInput;
+    using DataOutput = Lucene.Net.Store.DataOutput;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = Lucene.Net.Util.PagedBytes;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Buffers up pending <see cref="T:byte[]"/> per doc, then flushes when
@@ -136,7 +137,7 @@ namespace YAF.Lucene.Net.Index
         {
             // Use yield return instead of ucsom IEnumerable
             var value = new BytesRef();
-            AppendingDeltaPackedInt64Buffer.Iterator lengthsIterator = lengths.GetIterator();
+            using var lengthsEnumerator = lengths.GetEnumerator();
             int size = (int)lengths.Count;
             DataInput bytesIterator = bytes.GetDataInput();
             int maxDoc = maxDocParam;
@@ -147,7 +148,9 @@ namespace YAF.Lucene.Net.Index
                 BytesRef v = null;
                 if (upto < size)
                 {
-                    int length = (int)lengthsIterator.Next();
+                    bool moved = lengthsEnumerator.MoveNext();
+                    if (Debugging.AssertsEnabled) Debugging.Assert(moved);
+                    int length = (int)lengthsEnumerator.Current;
                     value.Grow(length);
                     value.Length = length;
                     try

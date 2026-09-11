@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 
 using ServiceStack.Data;
 using ServiceStack.OrmLite.Base.Text;
@@ -500,6 +501,71 @@ public static class OrmLiteWriteApi
     public static int Delete(this IDbConnection dbConn, Type tableType, string sqlFilter, object anonType)
     {
         return dbConn.Exec(dbCmd => dbCmd.Delete(tableType, sqlFilter, anonType));
+    }
+
+    /// <summary>
+    /// Inserts a new row or updates the row with the same primary key using a native UPSERT when supported.
+    /// Providers without native UPSERT support use Save() behavior.
+    /// </summary>
+    public static void Upsert<T>(this IDbConnection dbConn, T obj)
+    {
+        dbConn.Exec(dbCmd => dbCmd.Upsert(obj, updateOnly: null));
+    }
+
+    /// <summary>
+    /// Inserts all insertable fields for a new row, or only updates fields selected by updateOnly when the
+    /// primary key already exists.
+    /// </summary>
+    public static void Upsert<T>(this IDbConnection dbConn, T obj,
+        Expression<Func<T, object>> updateOnly)
+    {
+        if (updateOnly == null)
+            throw new ArgumentNullException(nameof(updateOnly));
+
+        dbConn.Exec(dbCmd => dbCmd.Upsert(obj, updateOnly.GetFieldNames()));
+    }
+
+    /// <summary>
+    /// Inserts all insertable fields for a new row, or only updates fields named by updateOnly when the
+    /// primary key already exists.
+    /// </summary>
+    public static void Upsert<T>(this IDbConnection dbConn, T obj, string[] updateOnly)
+    {
+        if (updateOnly == null)
+            throw new ArgumentNullException(nameof(updateOnly));
+
+        dbConn.Exec(dbCmd => dbCmd.Upsert(obj, updateOnly));
+    }
+
+    /// <summary>
+    /// Inserts new rows or updates rows with the same primary keys in a transaction.
+    /// </summary>
+    public static void UpsertAll<T>(this IDbConnection dbConn, IEnumerable<T> objs)
+    {
+        dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly: null));
+    }
+
+    /// <summary>
+    /// Inserts new rows or only updates selected fields on rows with the same primary keys in a transaction.
+    /// </summary>
+    public static void UpsertAll<T>(this IDbConnection dbConn, IEnumerable<T> objs,
+        Expression<Func<T, object>> updateOnly)
+    {
+        if (updateOnly == null)
+            throw new ArgumentNullException(nameof(updateOnly));
+
+        dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly.GetFieldNames()));
+    }
+
+    /// <summary>
+    /// Inserts new rows or only updates named fields on rows with the same primary keys in a transaction.
+    /// </summary>
+    public static void UpsertAll<T>(this IDbConnection dbConn, IEnumerable<T> objs, string[] updateOnly)
+    {
+        if (updateOnly == null)
+            throw new ArgumentNullException(nameof(updateOnly));
+
+        dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly));
     }
 
     /// <summary>

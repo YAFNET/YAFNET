@@ -22,6 +22,7 @@ using global::MySql.Data.MySqlClient;
 
 using ServiceStack.OrmLite.MySql.Converters;
 using ServiceStack.OrmLite.MySql.DataAnnotations;
+using static Google.Protobuf.WellKnownTypes.Field.Types;
 
 /// <summary>
 /// Class MySqlDialectProviderBase.
@@ -31,6 +32,7 @@ using ServiceStack.OrmLite.MySql.DataAnnotations;
 /// <seealso cref="ServiceStack.OrmLite.OrmLiteDialectProviderBase{TDialect}" />
 public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProviderBase<TDialect> where TDialect : IOrmLiteDialectProvider
 {
+    public override DbKind Kind => DbKind.MySql;
 
     /// <summary>
     /// The text column definition
@@ -76,6 +78,28 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     }
 
     public override bool SupportsSchema => false;
+
+    /// <summary>
+    /// MySQL's ON DUPLICATE KEY UPDATE also matches secondary UNIQUE constraints.
+    /// Set to false to use OrmLite's primary-key-only Save fallback instead.
+    /// </summary>
+    public bool UseNativeUpsert { get; set; } = true;
+
+    public override bool SupportsUpsert => UseNativeUpsert;
+
+    public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
+        ICollection<string> insertFields = null, ICollection<string> updateOnly = null)
+    {
+        PrepareUpsertFields<T>(cmd, insertFields, updateOnly,
+            out var modelDef, out var insertFieldDefs, out var updateFieldDefs);
+
+        var updateSql = updateFieldDefs.Count > 0
+            ? GetUpsertUpdateSql(updateFieldDefs)
+            : $"{GetQuotedColumnName(modelDef.PrimaryKey)}={GetQuotedColumnName(modelDef.PrimaryKey)}";
+
+        cmd.CommandText = $"{GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
+                          $"ON DUPLICATE KEY UPDATE {updateSql}";
+    }
 
     /// <summary>
     /// The row version trigger format

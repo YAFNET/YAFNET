@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+using System;
 using System.Data;
 
 namespace ServiceStack.OrmLite.Converters;
@@ -20,9 +21,20 @@ public class ByteArrayConverter : OrmLiteConverter
     /// </summary>
     /// <value>The column definition.</value>
     public override string ColumnDefinition => "BLOB";
+
     /// <summary>
     /// Gets the type of the database.
     /// </summary>
     /// <value>The type of the database.</value>
     public override DbType DbType => DbType.Binary;
+
+    public override string ToQuotedString(Type fieldType, object value)
+    {
+        if (value is byte[] bytes)
+        {
+            return "0x" + BitConverter.ToString(bytes).Replace("-", "");
+        }
+
+        return base.ToQuotedString(fieldType, value);
+    }
 }

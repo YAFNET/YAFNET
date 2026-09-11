@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util.Packed;
 using System;
 using System.Collections.Generic;
@@ -21,12 +22,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingDeltaPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using AppendingDeltaPackedInt64Buffer = Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
+    using Counter = Lucene.Net.Util.Counter;
+    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Buffers up pending long per doc, then flushes when
@@ -102,7 +103,7 @@ namespace YAF.Lucene.Net.Index
         private IEnumerable<long?> GetNumericIterator(int maxDoc)
         {
             // LUCENENET specific: using yield return instead of custom iterator type. Much less code.
-            AbstractAppendingInt64Buffer.Iterator iter = pending.GetIterator();
+            using var enumerator = pending.GetEnumerator();
             int size = (int)pending.Count;
             int upto = 0;
 
@@ -111,7 +112,9 @@ namespace YAF.Lucene.Net.Index
                 long? value;
                 if (upto < size)
                 {
-                    var v = iter.Next();
+                    bool moved = enumerator.MoveNext();
+                    if (Debugging.AssertsEnabled) Debugging.Assert(moved);
+                    var v = enumerator.Current;
                     if (docsWithField is null || docsWithField.Get(upto))
                     {
                         value = v;

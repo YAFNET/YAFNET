@@ -86,9 +86,9 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// <param name="right">The right.</param>
     override protected void ConvertToPlaceholderAndParameter(ref object right)
     {
-        var paramName = Params.Count.ToString();
+        var paramName = this.Params.Count.ToString();
         var paramValue = right;
-        var parameter = CreateParam(paramName, paramValue);
+        var parameter = this.CreateParam(paramName, paramValue);
 
         // Prevents a new plan cache for each different string length. Every string is parameterized as NVARCHAR(max) 
         if (parameter.DbType == DbType.String)
@@ -96,7 +96,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
             parameter.Size = -1;
         }
 
-        Params.Add(parameter);
+        this.Params.Add(parameter);
 
         right = parameter.ParameterName;
     }
@@ -113,7 +113,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     {
         base.VisitFilter(operand, originalLeft, originalRight, ref left, ref right);
 
-        if (originalRight is TimeSpan && DialectProvider.GetConverter<TimeSpan>() is SqlServerTimeConverter)
+        if (originalRight is TimeSpan && this.DialectProvider.GetConverter<TimeSpan>() is SqlServerTimeConverter)
         {
             right = $"CAST({right} AS TIME)";
         }
@@ -126,7 +126,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     public override string ToDeleteRowStatement()
     {
         return base.tableDefs.Count > 1
-                   ? $"DELETE {DialectProvider.GetQuotedTableName(modelDef)} {FromExpression} {WhereExpression}"
+                   ? $"DELETE {this.DialectProvider.GetQuotedTableName(this.modelDef)} {this.FromExpression} {this.WhereExpression}"
                    : base.ToDeleteRowStatement();
     }
 }

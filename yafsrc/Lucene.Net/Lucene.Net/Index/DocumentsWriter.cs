@@ -26,15 +26,15 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FlushedSegment = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
-    using IEvent = YAF.Lucene.Net.Index.IndexWriter.IEvent;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using SegmentFlushTicket = YAF.Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
-    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using Analyzer = Lucene.Net.Analysis.Analyzer;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Directory = Lucene.Net.Store.Directory;
+    using FlushedSegment = Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
+    using IEvent = Lucene.Net.Index.IndexWriter.IEvent;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using Query = Lucene.Net.Search.Query;
+    using SegmentFlushTicket = Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
+    using ThreadState = Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class accepts multiple added documents and directly
@@ -538,11 +538,16 @@ namespace YAF.Lucene.Net.Index
                 int dwptNumDocs = dwpt.NumDocsInRAM;
                 try
                 {
-                    int docCount = dwpt.UpdateDocuments(docs, analyzer, delTerm);
-                    numDocsInRAM.AddAndGet(docCount);
+                    // LUCENENET: backport fix from Lucene 4.10.0 in LUCENE-5871
+                    dwpt.UpdateDocuments(docs, analyzer, delTerm);
                 }
                 finally
                 {
+                    // LUCENENET: backport fix from Lucene 4.10.0 in LUCENE-5871
+                    // We don't know how many documents were actually
+                    // counted as indexed, so we must subtract here to
+                    // accumulate our separate counter:
+                    numDocsInRAM.AddAndGet(dwpt.NumDocsInRAM - dwptNumDocs);
                     if (dwpt.CheckAndResetHasAborted())
                     {
                         if (dwpt.PendingFilesToDelete.Count > 0)
@@ -585,10 +590,15 @@ namespace YAF.Lucene.Net.Index
                 try
                 {
                     dwpt.UpdateDocument(doc, analyzer, delTerm);
-                    numDocsInRAM.IncrementAndGet();
+                    // LUCENENET: removed incrementAndGet call in backport of fix from Lucene 4.10.0 in LUCENE-5871
                 }
                 finally
                 {
+                    // LUCENENET: backport fix from Lucene 4.10.0 in LUCENE-5871
+                    // We don't know whether the document actually
+                    // counted as being indexed, so we must subtract here to
+                    // accumulate our separate counter:
+                    numDocsInRAM.AddAndGet(dwpt.NumDocsInRAM - dwptNumDocs);
                     if (dwpt.CheckAndResetHasAborted())
                     {
                         if (dwpt.PendingFilesToDelete.Count > 0)
@@ -732,6 +742,8 @@ namespace YAF.Lucene.Net.Index
             {
                 oldValue = numDocsInRAM;
             }
+            // LUCENENET: backport fix from Lucene 4.10.0 in LUCENE-5871
+            if (Debugging.AssertsEnabled) Debugging.Assert(numDocsInRAM >= 0);
         }
 
         // for asserts

@@ -33,6 +33,8 @@ using ServiceStack.OrmLite.PostgreSQL.Converters;
 /// </summary>
 public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDialectProvider>
 {
+    public override DbKind Kind => DbKind.PostgreSql;
+
     /// <summary>
     /// The instance
     /// </summary>
@@ -751,6 +753,23 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                               : $"INSERT INTO {GetQuotedTableName(modelDef)} DEFAULT VALUES{strReturning}";
     }
 
+    public override bool SupportsUpsert => true;
+
+    public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
+        ICollection<string> insertFields = null, ICollection<string> updateOnly = null)
+    {
+        PrepareUpsertFields<T>(cmd, insertFields, updateOnly,
+            out var modelDef, out var insertFieldDefs, out var updateFieldDefs);
+
+        var conflictTarget = GetQuotedColumnName(modelDef.PrimaryKey);
+        var conflictAction = updateFieldDefs.Count == 0
+            ? "DO NOTHING"
+            : "DO UPDATE SET " + GetUpsertUpdateSql(updateFieldDefs);
+
+        cmd.CommandText = $"{GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
+                          $"ON CONFLICT ({conflictTarget}) {conflictAction}";
+    }
+
     //Convert xmin into an integer so it can be used in comparisons
     /// <summary>
     /// The row version field comparer
@@ -976,7 +995,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>System.String.</returns>
     public override string ToCreateSchemaStatement(string schemaName)
     {
-        var sql = $"CREATE SCHEMA {NamingStrategy.GetSchemaName(schemaName)}";
+        var sql = $"CREATE SCHEMA {GetQuotedName(NamingStrategy.GetSchemaName(schemaName))}";
         return sql;
     }
 
@@ -1171,7 +1190,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         if (name == null)
             return null;
         return name.IndexOf('.') >= 0
-                   ? base.GetQuotedName(name.Replace(".", "\".\""))
+                   ? string.Join(".", name.Split('.').Map(part => base.GetQuotedName(part)))
                    : base.GetQuotedName(name);
     }
 
@@ -1389,7 +1408,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         var useTable = GetQuotedTableName(modelDef);
         var useColumn = fieldDef != null ? NamingStrategy.GetColumnName(fieldDef.FieldName) : columnName;
 
-        return $"SELECT setval(pg_get_serial_sequence('{useTable}', '{useColumn}'), {value}, false);";
+        return $"SELECT setval(pg_get_serial_sequence('{useTable.SqlParam()}', '{useColumn.SqlParam()}'), {value}, false);";
     }
 
     /// <summary>

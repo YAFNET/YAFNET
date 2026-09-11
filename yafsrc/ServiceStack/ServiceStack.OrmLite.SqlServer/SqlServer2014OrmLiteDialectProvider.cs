@@ -39,14 +39,13 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             return $"{fieldDef.FieldName} rowversion NOT NULL";
         }
 
-        var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
-                              GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var memTableAttrib = fieldDef.PropertyInfo?.ReflectedType.FirstAttribute<SqlServerMemoryOptimizedAttribute>();
         var isMemoryTable = memTableAttrib != null;
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -78,7 +77,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
             if (fieldDef.AutoIncrement)
             {
-                sql.Append(" ").Append(GetAutoIncrementDefinition(fieldDef));
+                sql.Append(" ").Append(this.GetAutoIncrementDefinition(fieldDef));
             }
 
             if (isMemoryTable && bucketCount.HasValue)
@@ -90,7 +89,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
         {
             if (isMemoryTable && bucketCount.HasValue)
             {
-                sql.Append($" NOT NULL INDEX {GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
+                sql.Append($" NOT NULL INDEX {this.GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
 
                 if (fieldDef.IsNonClustered)
                 {
@@ -110,14 +109,14 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             sql.Append(" UNIQUE");
         }
 
-        var defaultValue = GetDefaultValue(fieldDef);
+        var defaultValue = this.GetDefaultValue(fieldDef);
         if (!string.IsNullOrEmpty(defaultValue))
         {
             if (fieldDef.DefaultValueConstraint != null)
             {
-                sql.Append(" CONSTRAINT ").Append(GetQuotedName(fieldDef.DefaultValueConstraint));
+                sql.Append(" CONSTRAINT ").Append(this.GetQuotedName(fieldDef.DefaultValueConstraint));
             }
-            sql.AppendFormat(DefaultValueFormat, defaultValue);
+            sql.AppendFormat(this.DefaultValueFormat, defaultValue);
         }
 
         return StringBuilderCache.ReturnAndFree(sql);
@@ -137,14 +136,13 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             return $"{fieldDef.FieldName} rowversion NOT NULL";
         }
 
-        var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
-                              GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var memTableAttrib = fieldDef.PropertyInfo?.ReflectedType.FirstAttribute<SqlServerMemoryOptimizedAttribute>();
         var isMemoryTable = memTableAttrib != null;
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -182,7 +180,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
                 if (fieldDef.AutoIncrement)
                 {
-                    sql.Append(" ").Append(GetAutoIncrementDefinition(fieldDef));
+                    sql.Append(" ").Append(this.GetAutoIncrementDefinition(fieldDef));
                 }
 
                 if (isMemoryTable && bucketCount.HasValue)
@@ -194,7 +192,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             {
                 if (isMemoryTable && bucketCount.HasValue)
                 {
-                    sql.Append($" NOT NULL INDEX {GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
+                    sql.Append($" NOT NULL INDEX {this.GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
 
                     if (fieldDef.IsNonClustered)
                     {
@@ -215,10 +213,10 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             sql.Append(" UNIQUE");
         }
 
-        var defaultValue = GetDefaultValue(fieldDef);
+        var defaultValue = this.GetDefaultValue(fieldDef);
         if (!string.IsNullOrEmpty(defaultValue))
         {
-            sql.AppendFormat(DefaultValueFormat, defaultValue);
+            sql.AppendFormat(this.DefaultValueFormat, defaultValue);
         }
 
         return StringBuilderCache.ReturnAndFree(sql);
@@ -249,7 +247,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
                     continue;
                 }
 
-                var columnDefinition = GetColumnDefinition(fieldDef, modelDef);
+                var columnDefinition = this.GetColumnDefinition(fieldDef, modelDef);
                 if (columnDefinition == null)
                 {
                     continue;
@@ -262,7 +260,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
                 sbColumns.Append(columnDefinition);
 
-                var sqlConstraint = GetCheckConstraint(modelDef, fieldDef);
+                var sqlConstraint = this.GetCheckConstraint(modelDef, fieldDef);
                 if (sqlConstraint != null)
                 {
                     sbConstraints.Append(",\n" + sqlConstraint);
@@ -275,12 +273,12 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
                 var refModelDef = OrmLiteUtils.GetModelDefinition(fieldDef.ForeignKey.ReferenceType);
                 sbConstraints.Append(
-                    $", \n\n  CONSTRAINT {GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef))} " +
-                    $"FOREIGN KEY ({GetQuotedColumnName(fieldDef.FieldName)}) " +
-                    $"REFERENCES {GetQuotedTableName(refModelDef)} ({GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                    $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} " +
+                    $"FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) " +
+                    $"REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
-                sbConstraints.Append(GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
-                sbConstraints.Append(GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
+                sbConstraints.Append(this.GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
+                sbConstraints.Append(this.GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
             }
 
             if (memoryTableAttrib != null)
@@ -326,7 +324,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             }
         }
 
-        var uniqueConstraints = GetUniqueConstraints(modelDef);
+        var uniqueConstraints = this.GetUniqueConstraints(modelDef);
         if (uniqueConstraints != null)
         {
             sbConstraints.Append(",\n" + uniqueConstraints);
@@ -334,7 +332,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
         // TODO
 
-        var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";
+        var sql = $"CREATE TABLE {this.GetQuotedTableName(modelDef)} ";
         sql += fileTableAttrib != null
                    ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
                    : $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n){StringBuilderCache.ReturnAndFree(sbTableOptions)}; \n";

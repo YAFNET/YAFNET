@@ -30,13 +30,15 @@ using ServiceStack.OrmLite.Converters;
 /// <typeparam name="TDialect">The type of the t dialect.</typeparam>
 /// <seealso cref="ServiceStack.OrmLite.IOrmLiteDialectProvider" />
 public abstract class OrmLiteDialectProviderBase<TDialect>
-    : IOrmLiteDialectProvider
+    : IOrmLiteDialectProvider, IOrmLiteUpsertDialectProvider
     where TDialect : IOrmLiteDialectProvider
 {
     /// <summary>
     /// The log
     /// </summary>
-    readonly static protected ILog Log = LogManager.GetLogger(typeof(IOrmLiteDialectProvider));
+    protected readonly static ILog Log = LogManager.GetLogger(typeof(IOrmLiteDialectProvider));
+
+    public virtual DbKind Kind => DbKind.Unknown;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OrmLiteDialectProviderBase{TDialect}"/> class.
@@ -781,9 +783,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetQuotedName(string name) =>
-        name == null ? null : name.FirstCharEquals(QuoteChar)
-            ? name : QuoteChar + name + QuoteChar;
+    public virtual string GetQuotedName(string name)
+    {
+        if (name == null) return null;
+        if (name.Length >= 2 && name[0] == QuoteChar && name[name.Length - 1] == QuoteChar)
+            return name;
+        var quoteStr = QuoteChar.ToString();
+        return QuoteChar + name.Replace(quoteStr, quoteStr + quoteStr) + QuoteChar;
+    }
 
     /// <summary>
     /// Gets the name of the quoted.
@@ -1501,6 +1508,71 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         cmd.CommandText =
             $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
             $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+    }
+
+    public virtual bool SupportsUpsert => false;
+
+    public virtual void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
+        ICollection<string> insertFields = null, ICollection<string> updateOnly = null) =>
+        throw new NotSupportedException($"{GetType().Name} does not support native UPSERT statements");
+
+    protected void PrepareUpsertFields<T>(IDbCommand cmd,
+        ICollection<string> insertFields,
+        ICollection<string> updateOnly,
+        out ModelDefinition modelDef,
+        out List<FieldDefinition> insertFieldDefs,
+        out List<FieldDefinition> updateFieldDefs)
+    {
+        modelDef = typeof(T).GetModelDefinition();
+        var primaryKey = modelDef.FieldDefinitions.FirstOrDefault(x => x.IsPrimaryKey)
+                         ?? throw new NotSupportedException($"'{typeof(T).Name}' does not have a primary key");
+
+        var requestedInsertFields = GetInsertFieldDefinitions(modelDef, insertFields).ToSet();
+        requestedInsertFields.Add(primaryKey);
+
+        insertFieldDefs = modelDef.FieldDefinitions
+            .Where(x => requestedInsertFields.Contains(x)
+                        && (!ShouldSkipInsert(x) || x.AutoId || x.IsPrimaryKey))
+            .ToList();
+
+        var updateAllFields = updateOnly == null;
+        var requestedUpdateFields = updateAllFields
+            ? null
+            : GetInsertFieldDefinitions(modelDef, updateOnly).ToSet();
+
+        updateFieldDefs = modelDef.FieldDefinitions
+            .Where(x => !x.IsPrimaryKey
+                        && !x.IsRowVersion
+                        && !x.ShouldSkipUpdate()
+                        && (updateAllFields || requestedUpdateFields.Contains(x)))
+            .ToList();
+
+        cmd.Parameters.Clear();
+        foreach (var fieldDef in modelDef.FieldDefinitions)
+        {
+            if (!insertFieldDefs.Contains(fieldDef) && !updateFieldDefs.Contains(fieldDef))
+                continue;
+
+            var p = AddParameter(cmd, fieldDef);
+            if (fieldDef.AutoId)
+                p.Value = GetInsertDefaultValue(fieldDef);
+        }
+    }
+
+    protected string GetUpsertInsertSql(ModelDefinition modelDef, IEnumerable<FieldDefinition> insertFieldDefs)
+    {
+        var fields = insertFieldDefs.ToList();
+        var columnNames = fields.Map(GetQuotedColumnName).Join(",");
+        var columnValues = fields.Map(x =>
+            this.GetParam(SanitizeFieldNameForParamName(x.FieldName), x.CustomInsert)).Join(",");
+        return $"INSERT INTO {GetQuotedTableName(modelDef)} ({columnNames}) VALUES ({columnValues})";
+    }
+
+    protected string GetUpsertUpdateSql(IEnumerable<FieldDefinition> updateFieldDefs, string targetPrefix = null)
+    {
+        return updateFieldDefs.Map(x =>
+            (targetPrefix ?? "") + GetQuotedColumnName(x) + "=" +
+            this.GetParam(SanitizeFieldNameForParamName(x.FieldName), x.CustomUpdate)).Join(", ");
     }
 
     /// <summary>

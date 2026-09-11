@@ -348,6 +348,8 @@ public static class OrmLiteConfig
     /// </summary>
     /// <value>The update filter.</value>
     public static Action<IDbCommand, object> UpdateFilter { get; set; }
+
+    public static Action<IDbCommand, object> UpsertFilter { get; set; }
     /// <summary>
     /// Gets or sets the SQL expression select filter.
     /// </summary>

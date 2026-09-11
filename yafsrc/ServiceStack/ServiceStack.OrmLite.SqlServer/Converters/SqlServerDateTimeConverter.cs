@@ -30,7 +30,7 @@ public class SqlServerDateTimeConverter : DateTimeConverter
     /// <returns>System.String.</returns>
     public override string ToQuotedString(Type fieldType, object value)
     {
-        return DateTimeFmt((DateTime)value, DateTimeFormat);
+        return this.DateTimeFmt((DateTime)value, DateTimeFormat);
     }
 
     /// <summary>

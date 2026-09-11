@@ -72,8 +72,8 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     override protected string GetAutoIncrementDefinition(FieldDefinition fieldDef)
     {
         return !string.IsNullOrEmpty(fieldDef.Sequence)
-                   ? $"DEFAULT NEXT VALUE FOR {Sequence(NamingStrategy.GetSchemaName(GetModel(fieldDef.PropertyInfo?.ReflectedType)), fieldDef.Sequence)}"
-                   : AutoIncrementDefinition;
+                   ? $"DEFAULT NEXT VALUE FOR {this.Sequence(this.NamingStrategy.GetSchemaName(GetModel(fieldDef.PropertyInfo?.ReflectedType)), fieldDef.Sequence)}"
+                   : this.AutoIncrementDefinition;
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     public override List<string> ToCreateSequenceStatements(Type tableType)
     {
         var modelDef = GetModel(tableType);
-        return SequenceList(tableType).Select(seq => $"CREATE SEQUENCE {Sequence(NamingStrategy.GetSchemaName(modelDef), seq)} AS BIGINT START WITH 1 INCREMENT BY 1 NO CACHE;").ToList();
+        return this.SequenceList(tableType).Select(seq => $"CREATE SEQUENCE {this.Sequence(this.NamingStrategy.GetSchemaName(modelDef), seq)} AS BIGINT START WITH 1 INCREMENT BY 1 NO CACHE;").ToList();
     }
 
     /// <summary>
@@ -116,7 +116,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     public override string ToCreateSequenceStatement(Type tableType, string sequenceName)
     {
         var modelDef = GetModel(tableType);
-        return $"CREATE SEQUENCE {Sequence(NamingStrategy.GetSchemaName(modelDef), sequenceName)} AS BIGINT START WITH 1 INCREMENT BY 1 NO CACHE;";
+        return $"CREATE SEQUENCE {this.Sequence(this.NamingStrategy.GetSchemaName(modelDef), sequenceName)} AS BIGINT START WITH 1 INCREMENT BY 1 NO CACHE;";
     }
 
     /// <summary>
@@ -159,7 +159,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
                                              ISet<string> tags = null)
     {
         var sb = StringBuilderCache.Allocate();
-        ApplyTags(sb, tags);
+        this.ApplyTags(sb, tags);
 
         sb.Append(selectExpression)
             .Append(bodyExpression);
@@ -197,7 +197,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
 
             sb.Append(" ORDER BY " + orderBy);
         }
-        sb.Append(" ").Append(SqlLimit(offset, rows));
+        sb.Append(" ").Append(this.SqlLimit(offset, rows));
 
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -215,11 +215,10 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             return $"{fieldDef.FieldName} rowversion NOT NULL";
         }
 
-        var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
-                              GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -242,7 +241,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
 
             if (fieldDef.AutoIncrement)
             {
-                sql.Append(" ").Append(AutoIncrementDefinition);
+                sql.Append(" ").Append(this.AutoIncrementDefinition);
             }
         }
         else
@@ -255,15 +254,15 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             sql.Append(" UNIQUE");
         }
 
-        var defaultValue = GetDefaultValue(fieldDef);
+        var defaultValue = this.GetDefaultValue(fieldDef);
         if (!string.IsNullOrEmpty(defaultValue))
         {
             if (fieldDef.DefaultValueConstraint != null)
             {
-                sql.Append(" CONSTRAINT ").Append(GetQuotedName(fieldDef.DefaultValueConstraint));
+                sql.Append(" CONSTRAINT ").Append(this.GetQuotedName(fieldDef.DefaultValueConstraint));
             }
 
-            sql.AppendFormat(DefaultValueFormat, defaultValue);
+            sql.AppendFormat(this.DefaultValueFormat, defaultValue);
         }
 
         return StringBuilderCache.ReturnAndFree(sql);
@@ -283,11 +282,10 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             return $"{fieldDef.FieldName} rowversion NOT NULL";
         }
 
-        var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
-                              GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -316,7 +314,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
 
                 if (fieldDef.AutoIncrement)
                 {
-                    sql.Append(" ").Append(AutoIncrementDefinition);
+                    sql.Append(" ").Append(this.AutoIncrementDefinition);
                 }
             }
             else
@@ -330,10 +328,10 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             sql.Append(" UNIQUE");
         }
 
-        var defaultValue = GetDefaultValue(fieldDef);
+        var defaultValue = this.GetDefaultValue(fieldDef);
         if (!string.IsNullOrEmpty(defaultValue))
         {
-            sql.AppendFormat(DefaultValueFormat, defaultValue);
+            sql.AppendFormat(this.DefaultValueFormat, defaultValue);
         }
 
         return StringBuilderCache.ReturnAndFree(sql);
@@ -363,7 +361,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
                     continue;
                 }
 
-                var columnDefinition = GetColumnDefinition(fieldDef, modelDef);
+                var columnDefinition = this.GetColumnDefinition(fieldDef, modelDef);
 
                 if (columnDefinition == null)
                 {
@@ -377,7 +375,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
 
                 sbColumns.Append(columnDefinition);
 
-                var sqlConstraint = GetCheckConstraint(modelDef, fieldDef);
+                var sqlConstraint = this.GetCheckConstraint(modelDef, fieldDef);
                 if (sqlConstraint != null)
                 {
                     sbConstraints.Append(",\n" + sqlConstraint);
@@ -390,12 +388,12 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
 
                 var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
                 sbConstraints.Append(
-                    $", \n\n  CONSTRAINT {GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef))} " +
-                    $"FOREIGN KEY ({GetQuotedColumnName(fieldDef.FieldName)}) " +
-                    $"REFERENCES {GetQuotedTableName(refModelDef)} ({GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                    $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} " +
+                    $"FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) " +
+                    $"REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
-                sbConstraints.Append(GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
-                sbConstraints.Append(GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
+                sbConstraints.Append(this.GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
+                sbConstraints.Append(this.GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
             }
         }
         else
@@ -422,7 +420,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             }
         }
 
-        var uniqueConstraints = GetUniqueConstraints(modelDef);
+        var uniqueConstraints = this.GetUniqueConstraints(modelDef);
         if (uniqueConstraints != null)
         {
             sbConstraints.Append(",\n" + uniqueConstraints);
@@ -443,7 +441,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             sbConstraints.Append(") ");
         }
 
-        var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";
+        var sql = $"CREATE TABLE {this.GetQuotedTableName(modelDef)} ";
         sql += fileTableAttrib != null
                    ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
                    : $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n){StringBuilderCache.ReturnAndFree(sbTableOptions)}; \n";
@@ -459,7 +457,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// <param name="cmd">The command.</param>
     public override void AppendFieldCondition(StringBuilder sqlFilter, FieldDefinition fieldDef, IDbCommand cmd)
     {
-        if (isSpatialField(fieldDef))
+        if (this.isSpatialField(fieldDef))
         {
             // Append condition statement to determine if SqlGeometry or SqlGeography type is Equal
             // using the type's STEquals method
@@ -467,12 +465,12 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             // SqlGeometry: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeometry.stequals.aspx
             // SqlGeography: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.stequals.aspx
             sqlFilter
-                .Append(GetQuotedColumnName(fieldDef.FieldName))
+                .Append(this.GetQuotedColumnName(fieldDef.FieldName))
                 .Append(".STEquals(")
-                .Append(this.GetParam(SanitizeFieldNameForParamName(fieldDef.FieldName)))
+                .Append(this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName)))
                 .Append(") = 1");
 
-            AddParameter(cmd, fieldDef);
+            this.AddParameter(cmd, fieldDef);
         }
         else
         {
@@ -487,7 +485,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// <param name="fieldDef">The field definition.</param>
     public override void AppendNullFieldCondition(StringBuilder sqlFilter, FieldDefinition fieldDef)
     {
-        if (hasIsNullProperty(fieldDef))
+        if (this.hasIsNullProperty(fieldDef))
         {
             // Append condition statement to determine if SqlHierarchyId, SqlGeometry, or SqlGeography type is NULL
             // using the type's IsNull property
@@ -496,7 +494,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             // SqlGeometry: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeometry.isnull.aspx
             // SqlGeography: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.isnull.aspx
             sqlFilter
-                .Append(GetQuotedColumnName(fieldDef.FieldName))
+                .Append(this.GetQuotedColumnName(fieldDef.FieldName))
                 .Append(".IsNull = 1");
         }
         else
@@ -522,6 +520,6 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// <returns><c>true</c> if [has is null property] [the specified field definition]; otherwise, <c>false</c>.</returns>
     internal bool hasIsNullProperty(FieldDefinition fieldDef)
     {
-        return isSpatialField(fieldDef) || fieldDef.FieldType.Name == "SqlHierarchyId";
+        return this.isSpatialField(fieldDef) || fieldDef.FieldType.Name == "SqlHierarchyId";
     }
 }
