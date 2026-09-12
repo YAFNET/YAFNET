@@ -8861,14 +8861,6 @@
             "#text": "Sind Sie absolut sicher, dass Sie das tun wollen?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Sie haben die Möglichkeit,..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Ihr {0} Konto löschen"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Dadurch wird Ihr Konto dauerhaft gelöscht! "
           },
@@ -8883,6 +8875,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Sperren Sie Ihr Konto für 30 Tage"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Sie haben die Möglichkeit,..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Ihr {0} Konto löschen"
           }
         ]
       },
@@ -10276,6 +10276,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Name ZA"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Es werden {0} bis {1} von {2} Einträgen angezeigt"
           }
         ]
       },

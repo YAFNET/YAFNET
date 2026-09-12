@@ -8869,14 +8869,6 @@
             "#text": "Jste si naprosto jisti, že to chcete udělat?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Máte možnost..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Smažte svůj účet {0}"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Tímto bude váš účet trvale smazán! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Pozastavit svůj účet na 30 dní"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Máte možnost..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Smažte svůj účet {0}"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Jméno Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Zobrazeno {0} až {1} z {2} záznamů"
           }
         ]
       },

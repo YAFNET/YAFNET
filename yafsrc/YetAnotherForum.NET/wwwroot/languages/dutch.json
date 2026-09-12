@@ -8861,14 +8861,6 @@
             "#text": "Weet je absoluut zeker dat je dit wilt doen?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Je hebt de optie om..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Verwijder uw {0}-account"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Hiermee wordt je account definitief verwijderd! "
           },
@@ -8883,6 +8875,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Schors uw account gedurende 30 dagen"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Je hebt de optie om..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Verwijder uw {0}-account"
           }
         ]
       },
@@ -10276,6 +10276,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Naam Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Toont {0} tot {1} van {2} vermeldingen"
           }
         ]
       },

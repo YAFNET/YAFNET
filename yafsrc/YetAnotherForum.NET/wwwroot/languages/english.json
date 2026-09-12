@@ -10262,6 +10262,10 @@
                     "#text": "Role:"
                 },
                 {
+                    "@tag": "SHOWING_X_TO_X_OF_X",
+                    "#text": "Showing {0} to {1} of {2} entries"
+                },
+                {
                     "@tag": "SORT_BY",
                     "#text": "Sort by"
                 },

@@ -8869,14 +8869,6 @@
             "#text": "Är du helt säker på att du vill göra detta?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Du har möjlighet att..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Ta bort ditt {0}-konto"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Detta kommer att radera ditt konto permanent! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Stäng av ditt konto i 30 dagar"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Du har möjlighet att..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Ta bort ditt {0}-konto"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Namn Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Visar {0} till {1} ​​av {2} poster"
           }
         ]
       },

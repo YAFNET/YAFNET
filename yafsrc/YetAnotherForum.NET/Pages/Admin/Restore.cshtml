@@ -4,6 +4,7 @@
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
+@using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
 <form method="post">
@@ -150,14 +151,15 @@
         </div>
         </div>
     </div>
-    <div class="row justify-content-end">
-        <div class="col-auto">
-            <pager page-size="@Model.Size"
-                   count="!Model.DeletedTopics.NullOrEmpty() ? Model.DeletedTopics.FirstOrDefault()!.TotalRows : 0"
-                   query-name="p">
-            </pager>
-        </div>
-    </div>
+<div class="row justify-content-end">
+	<div class="col-auto">
+		<pager page-size="@Model.Size"
+		       count="!Model.DeletedTopics.NullOrEmpty() ? Model.DeletedTopics.FirstOrDefault()!.TotalRows : 0"
+		       query-name="p">
+		</pager>
+	</div>
+</div>
+    
     <div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
@@ -254,13 +256,13 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-end">
-        <div class="col-auto">
-            <pager page-size="@Model.Size"
-                   count="!Model.DeletedMessages.NullOrEmpty() ? Model.DeletedMessages.FirstOrDefault()!.TotalRows : 0"
-                   query-name="p2">
-            </pager>
-        </div>
-    </div>
+<div class="row justify-content-end">
+	<div class="col-auto">
+		<pager page-size="@Model.Size"
+		       count="!Model.DeletedMessages.NullOrEmpty() ? Model.DeletedMessages.FirstOrDefault()!.TotalRows : 0"
+		       query-name="p2">
+		</pager>
+	</div>
+</div>
 
 </form>

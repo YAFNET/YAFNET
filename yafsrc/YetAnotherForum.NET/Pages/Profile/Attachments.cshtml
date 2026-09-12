@@ -5,6 +5,7 @@
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Models
+@using YAF.Types.Objects
 
 @model YAF.Pages.Profile.AttachmentsModel
 
@@ -74,14 +75,14 @@
 								        text-localized-tag="BUTTON_DELETEATTACHMENT"
 								        return-confirm-tag="CONFIRM_DELETE"></button>
 							}
-							
-							<pager page-size="@Model.Size"
-							       count="!Model.Attachments.NullOrEmpty() ?
-								       (await Model.GetRepository<Attachment>().CountAsync(a => a.UserID == Model.PageBoardContext.PageUserID)).ToType<int>() : 0">
-							</pager>
+
 						</form>
 					</div>
 				</div>
+				@if (!Model.Attachments.NullOrEmpty())
+				{
+					@await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = (await Model.GetRepository<Attachment>().CountAsync(a => a.UserID == Model.PageBoardContext.PageUserID)).ToType<int>(), Size = Model.Size })
+				}
 			</div>
 		</div>
 	</div>

@@ -7,6 +7,7 @@
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Models
+@using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
 <form method="post">
@@ -169,16 +170,11 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-end">
-        <div class="col-auto">
-            <pager page-size="@Model.Size"
-                   count="!Model.List.NullOrEmpty()
-             ? (await Model.GetRepository<BannedUserAgent>()
-                                      .CountAsync(x => x.BoardID == Model.PageBoardContext.PageBoardID)).ToType<int>()
-             : 0">
-            </pager>
-        </div>
-    </div>
+    @if (!Model.List.NullOrEmpty())
+    {
+	    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = (await Model.GetRepository<BannedUserAgent>()
+		    .CountAsync(x => x.BoardID == Model.PageBoardContext.PageBoardID)).ToType<int>(), Size = Model.Size })
+    }
 </form>
 
 @section Scripts {

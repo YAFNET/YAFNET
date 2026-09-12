@@ -8869,14 +8869,6 @@
             "#text": "Er du helt sikker på at du vil gjøre dette?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Du har muligheten til å..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Slett din {0}-konto"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Dette vil slette kontoen din permanent! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Suspender kontoen din i 30 dager"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Du har muligheten til å..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Slett din {0}-konto"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Navn ZA"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Viser {0} til {1} ​​av {2} oppføringer"
           }
         ]
       },

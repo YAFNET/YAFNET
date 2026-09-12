@@ -8869,14 +8869,6 @@
             "#text": "Kas olete täiesti kindel, et soovite seda teha?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Sul on võimalus..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Kustutage oma {0} konto"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "See kustutab teie konto jäädavalt! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Peatage oma konto 30 päevaks"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Sul on võimalus..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Kustutage oma {0} konto"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nimi Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Kuvatakse {0} kuni {1} kirjet {2}-st"
           }
         ]
       },

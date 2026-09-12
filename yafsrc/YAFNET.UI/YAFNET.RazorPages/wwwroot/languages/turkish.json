@@ -8869,14 +8869,6 @@
             "#text": "Bunu yapmak istediğinizden kesinlikle emin misiniz?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Seçeneğiniz var ..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "{0} Hesabınızı Silin"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Bu, hesabınızı kalıcı olarak silecektir! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Hesabınızı 30 gün süreyle askıya alın"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Seçeneğiniz var ..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "{0} Hesabınızı Silin"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "İsim Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "{2} girişten {0} - {1} arası gösteriliyor"
           }
         ]
       },

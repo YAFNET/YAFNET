@@ -8869,14 +8869,6 @@
             "#text": "Ar esate visiškai tikri, kad norite tai daryti?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Galite pasirinkti..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Ištrinkite savo {0} paskyrą"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Tai visam laikui ištrins jūsų paskyrą! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Sustabdykite paskyrą 30 dienų"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Galite pasirinkti..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Ištrinkite savo {0} paskyrą"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Pavadinimas Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Rodoma nuo {0} iki {1} iš {2} įrašų"
           }
         ]
       },

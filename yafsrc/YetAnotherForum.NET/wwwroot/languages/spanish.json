@@ -8861,14 +8861,6 @@
             "#text": "¿Estás absolutamente seguro de que quieres hacer esto?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Tienes la opción de..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Borrar su cuenta {0}"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "¡Esto eliminará tu cuenta permanentemente! "
           },
@@ -8883,6 +8875,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Suspende tu cuenta por 30 días"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Tienes la opción de..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Borrar su cuenta {0}"
           }
         ]
       },
@@ -10276,6 +10276,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nombre Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Mostrando {0} a {1} de {2} entradas"
           }
         ]
       },

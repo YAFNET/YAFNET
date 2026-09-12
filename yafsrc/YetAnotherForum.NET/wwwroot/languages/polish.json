@@ -8865,14 +8865,6 @@
             "#text": "Czy jesteś absolutnie pewien, że chcesz to zrobić?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Masz możliwość..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Usuń swoje konto {0}."
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Spowoduje to trwałe usunięcie Twojego konta! "
           },
@@ -8887,6 +8879,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Zawieś swoje Konto na 30 dni"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Masz możliwość..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Usuń swoje konto {0}."
           }
         ]
       },
@@ -10280,6 +10280,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nazwa Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Wyświetlanie od {0} do {1} z {2} wpisów"
           }
         ]
       },

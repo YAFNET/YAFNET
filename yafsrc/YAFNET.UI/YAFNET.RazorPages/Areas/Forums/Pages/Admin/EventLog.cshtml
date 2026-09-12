@@ -6,6 +6,7 @@
 @using YAF.Types.Interfaces
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces.Services
+@using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
 <form method="post">
@@ -201,12 +202,10 @@
         </div>
     </div>
 
-    <div class="row justify-content-end">
-        <div class="col-auto">
-            <pager page-size="@Model.Size"
-                   count="!Model.List.NullOrEmpty() ? Model.List.FirstOrDefault().TotalRows : 0"></pager>
-        </div>
-    </div>
+    @if (!Model.List.NullOrEmpty())
+    {
+	    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.List.FirstOrDefault().TotalRows, Size = Model.Size })
+    }
 </form>
 
 @section Scripts {

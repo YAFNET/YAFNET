@@ -8869,14 +8869,6 @@
             "#text": "Êtes-vous absolument sûr de vouloir faire ça ?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Vous avez la possibilité de..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Supprimer votre compte {0}"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Cela supprimera définitivement votre compte ! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Suspendez votre compte pendant 30 jours"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Vous avez la possibilité de..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Supprimer votre compte {0}"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nom Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Affichage de {0} à {1} des {2} entrées"
           }
         ]
       },

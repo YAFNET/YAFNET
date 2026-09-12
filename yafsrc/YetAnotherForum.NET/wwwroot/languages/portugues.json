@@ -8869,14 +8869,6 @@
             "#text": "Tem a certeza absoluta de que quer fazer isto?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Tem a opção de..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Apagar a sua conta {0} Account"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Isso excluirá sua conta permanentemente! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Suspender sua conta por 30 dias"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Tem a opção de..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Apagar a sua conta {0} Account"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nome Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Mostrando {0} a {1} de {2} entradas"
           }
         ]
       },

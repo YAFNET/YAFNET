@@ -8869,14 +8869,6 @@
             "#text": "Bạn có chắc chắn muốn làm điều này không?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Bạn có lựa chọn để..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Xóa tài khoản {0} của bạn"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Điều này sẽ xóa tài khoản của bạn vĩnh viễn! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Đình chỉ tài khoản của bạn trong 30 ngày"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Bạn có lựa chọn để..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Xóa tài khoản {0} của bạn"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Tên ZA"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Hiển thị {0} đến {1} trong số {2} mục nhập"
           }
         ]
       },

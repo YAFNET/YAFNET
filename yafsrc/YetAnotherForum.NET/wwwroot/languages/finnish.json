@@ -8869,14 +8869,6 @@
             "#text": "Oletko aivan varma, että haluat tehdä tämän?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Sinulla on mahdollisuus..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Poista tilisi {0}"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Tämä poistaa tilisi pysyvästi! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Pysäytä tilisi 30 päiväksi"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Sinulla on mahdollisuus..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Poista tilisi {0}"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nimi Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Näytetään {0}–{1}/{2} merkintää"
           }
         ]
       },

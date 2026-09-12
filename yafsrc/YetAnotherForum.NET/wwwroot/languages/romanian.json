@@ -8869,14 +8869,6 @@
             "#text": "Ești absolut sigur că vrei să faci asta?"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "Aveți opțiunea de a..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Ștergeți-vă contul {0}"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "Acest lucru vă va șterge definitiv contul! "
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "Suspendați-vă contul timp de 30 de zile"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "Aveți opțiunea de a..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Ștergeți-vă contul {0}"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nume Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Se afișează de la {0} la {1} din {2} intrări"
           }
         ]
       },

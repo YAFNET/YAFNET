@@ -8869,14 +8869,6 @@
             "#text": "你确定要这样做吗？"
           },
           {
-            "@tag": "OPTIONS_TITLE",
-            "#text": "您可以选择..."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "删除您的 {0} 帐户"
-          },
-          {
             "@tag": "OPTION_DELETE_TEXT",
             "#text": "这将永久删除您的帐户！"
           },
@@ -8891,6 +8883,14 @@
           {
             "@tag": "OPTION_SUSPEND_TITLE",
             "#text": "暂停您的帐户 30 天"
+          },
+          {
+            "@tag": "OPTIONS_TITLE",
+            "#text": "您可以选择..."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "删除您的 {0} 帐户"
           }
         ]
       },
@@ -10292,6 +10292,10 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "名称 Z-A"
+          },
+          {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "显示第 {0} 到 {1} 个条目，共 {2} 个条目"
           }
         ]
       },

@@ -6,6 +6,7 @@
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
 @using YAF.Types.Models
+@using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
 
@@ -267,11 +268,6 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-end">
-        <div class="col-auto">
-            <pager page-size="@Model.Size"
-                   count="@Model.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>().Count">
-            </pager>
-        </div>
-    </div>
+    
+    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>().Count, Size = Model.Size })
 </form>
