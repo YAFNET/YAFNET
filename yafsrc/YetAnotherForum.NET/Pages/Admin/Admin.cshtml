@@ -439,81 +439,120 @@
 </div>
 
 	@{
-		var showingFrom = Model.ActiveUserList[0].UserCount == 0 ? 0 : BoardContext.Current.PageIndex * Model.Size + 1;
-		var showingTo = Math.Min((BoardContext.Current.PageIndex + 1) * Model.Size, Model.ActiveUserList[0].UserCount);
+		var indexActive = HttpContext.Request.GetQueryOrRouteValue<int>("p").ToTypeOrDefault(1) - 1;
+		var showingFromActive = Model.ActiveUserList[0].UserCount == 0 ? 0 : indexActive * Model.Size + 1;
+		var showingToActive = Math.Min((indexActive + 1) * Model.Size, Model.ActiveUserList[0].UserCount);
 	}
 <div class="row justify-content-between align-items-center">
 		<div class="col-auto">
 			<p class="text-secondary">
-				@Html.LocalizedTextFormatted("SHOWING_X_TO_X_OF_X", showingFrom, showingTo, Model.ActiveUserList[0].UserCount)
+				@Html.LocalizedTextFormatted("SHOWING_X_TO_X_OF_X", showingFromActive, showingToActive, Model.ActiveUserList[0].UserCount)
 			</p>
 		</div>
 		<div class="col-auto">
-		<pager page-size="@Model.Size"
-		       count="@Model.ActiveUserList.HasItems() ? Model.ActiveUserList[0].UserCount : 0"
-		       query-name="p" use-submit="false">
-		</pager>
-	</div>
+			<pager page-size="@Model.Size"
+			       count="@Model.ActiveUserList.HasItems() ? Model.ActiveUserList[0].UserCount : 0"
+			       query-name="p" use-submit="false">
+			</pager>
+		</div>
 </div>
 
-<div class="row">
-	<div class="col-xl-12">
-		<div class="card mb-3">
-			<div class="card-header">
-				<div class="row justify-content-between align-items-center">
-					<div class="col-auto">
-						@Html.IconHeader("user-plus", "ADMIN_ADMIN", "HEADER2")
-					</div>
-					<div class="col-auto">
-						<div class="input-group input-group-sm me-2" role="group">
-							<div class="input-group-text">
-								@Html.LocalizedText("SHOW"):
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card mb-3">
+				<div class="card-header">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							@Html.IconHeader("user-plus", "ADMIN_ADMIN", "HEADER2")
+						</div>
+						<div class="col-auto">
+							<div class="input-group input-group-sm me-2" role="group">
+								<div class="input-group-text">
+									@Html.LocalizedText("SHOW"):
+								</div>
+								<select asp-for="@Model.Input.UnverifiedPageSize"
+								        asp-items="Model.UnverifiedPageSizeList"
+								        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+								        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+								        class="form-select"
+								        onchange="this.form.submit();"></select>
 							</div>
-							<select asp-for="@Model.Input.UnverifiedPageSize"
-							        asp-items="Model.UnverifiedPageSizeList"
-							        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-							        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-							        class="form-select"
-							        onchange="this.form.submit();"></select>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			@if (!Model.UserList.NullOrEmpty())
-			{
-				<div class="card-body">
-					<ul class="list-group">
-						@foreach (var user in Model.UserList)
-						{
-							<li class="list-group-item list-group-item-action list-group-item-menu d-flex justify-content-between align-items-start">
-								<div class="align-items-baseline">
-									<div class="me-2">
-										<span class="fw-bold">
-											@Model.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)
-										</span>
+				@if (!Model.UserList.NullOrEmpty())
+				{
+					<div class="card-body">
+						<ul class="list-group">
+							@foreach (var user in Model.UserList)
+							{
+								<li class="list-group-item list-group-item-action list-group-item-menu d-flex justify-content-between align-items-start">
+									<div class="align-items-baseline">
+										<div class="me-2">
+											<span class="fw-bold">
+												@Model.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)
+											</span>
+										</div>
+										<div class="me-2">
+											<span class="fw-bold">
+												@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_JOINED"):
+											</span>
+											@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(user.Joined))
+										</div>
+										<div>
+											<span class="fw-bold">
+												@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_EMAIL"):
+											</span>
+											@user.Email
+										</div>
 									</div>
-									<div class="me-2">
-										<span class="fw-bold">
-											@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_JOINED"):
-										</span>
-										@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(user.Joined))
-									</div>
-									<div>
-										<span class="fw-bold">
-											@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_EMAIL"):
-										</span>
-										@user.Email
-									</div>
-								</div>
-								<small>
-									<button class="dropdown-toggle"
-									        button-style="Secondary"
-									        button-size="Small"
-									        bs-toggle="dropdown"
-									        aria-label="@Model.GetText("TOOLS")"
-									        Icon="ellipsis-v"></button>
-									<div class="dropdown-menu">
+									<small>
+										<button class="dropdown-toggle"
+										        button-style="Secondary"
+										        button-size="Small"
+										        bs-toggle="dropdown"
+										        aria-label="@Model.GetText("TOOLS")"
+										        Icon="ellipsis-v"></button>
+										<div class="dropdown-menu">
+											<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+											   asp-route-u="@Html.Raw(user.ID)"
+											   Icon="user-edit"
+											   text-localized-tag="EDITUSER"
+											   button-style="None"
+											   class="dropdown-item">
+											</a>
+											<button asp-page-handler="ResendEmail"
+											        asp-route-id="@Html.Raw(user.ID)"
+											        asp-route-p="@Model.Request.RouteValues["p"]"
+											        asp-route-p2="@Model.Request.RouteValues["p2"]"
+											        Icon="share"
+											        text-localized-tag="ADMIN_RESEND_EMAIL"
+											        button-style="None"
+											        class="dropdown-item">
+											</button>
+											<button asp-page-handler="Approve"
+											        asp-route-id="@Html.Raw(user.ID)"
+											        asp-route-p="@Model.Request.RouteValues["p"]"
+											        asp-route-p2="@Model.Request.RouteValues["p2"]"
+											        button-style="None"
+											        class="dropdown-item"
+											        Icon="check"
+											        text-localized-tag="ADMIN_APPROVE">
+											</button>
+											<button asp-page-handler="Delete"
+											        asp-route-id="@Html.Raw(user.ID)"
+											        asp-route-p="@Model.Request.RouteValues["p"]"
+											        asp-route-p2="@Model.Request.RouteValues["p2"]"
+											        button-style="None"
+											        class="dropdown-item"
+											        return-confirm-tag="CONFIRM_DELETE"
+											        Icon="trash"
+											        text-localized-tag="ADMIN_DELETE">
+											</button>
+										</div>
+									</small>
+									<div class="dropdown-menu context-menu" aria-labelledby="context menu">
 										<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
 										   asp-route-u="@Html.Raw(user.ID)"
 										   Icon="user-edit"
@@ -550,93 +589,65 @@
 										        text-localized-tag="ADMIN_DELETE">
 										</button>
 									</div>
-								</small>
-								<div class="dropdown-menu context-menu" aria-labelledby="context menu">
-									<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
-									   asp-route-u="@Html.Raw(user.ID)"
-									   Icon="user-edit"
-									   text-localized-tag="EDITUSER"
-									   button-style="None"
-									   class="dropdown-item">
-									</a>
-									<button asp-page-handler="ResendEmail"
-									        asp-route-id="@Html.Raw(user.ID)"
-									        asp-route-p="@Model.Request.RouteValues["p"]"
-									        asp-route-p2="@Model.Request.RouteValues["p2"]"
-									        Icon="share"
-									        text-localized-tag="ADMIN_RESEND_EMAIL"
-									        button-style="None"
-									        class="dropdown-item">
-									</button>
-									<button asp-page-handler="Approve"
-									        asp-route-id="@Html.Raw(user.ID)"
-									        asp-route-p="@Model.Request.RouteValues["p"]"
-									        asp-route-p2="@Model.Request.RouteValues["p2"]"
-									        button-style="None"
-									        class="dropdown-item"
-									        Icon="check"
-									        text-localized-tag="ADMIN_APPROVE">
-									</button>
-									<button asp-page-handler="Delete"
-									        asp-route-id="@Html.Raw(user.ID)"
-									        asp-route-p="@Model.Request.RouteValues["p"]"
-									        asp-route-p2="@Model.Request.RouteValues["p2"]"
-									        button-style="None"
-									        class="dropdown-item"
-									        return-confirm-tag="CONFIRM_DELETE"
-									        Icon="trash"
-									        text-localized-tag="ADMIN_DELETE">
-									</button>
-								</div>
-							</li>
-						}
+								</li>
+							}
 
-					</ul>
-				</div>
-				<div class="card-footer">
-					<div class="d-lg-flex">
-						<div>
-							<button asp-page-handler="ApproveAll"
-							        asp-route-p="@Model.Request.RouteValues["p"]"
-							        asp-route-p2="@Model.Request.RouteValues["p2"]"
-							        button-style="Primary"
-							        Icon="check"
-							        text-localized-tag="APROVE_ALL"
-							        class="mb-1"
-							        return-confirm-tag="CONFIRM_APROVE_ALL"></button>
-							<button asp-page-handler="DeleteAll"
-							        asp-route-p="@Model.Request.RouteValues["p"]"
-							        asp-route-p2="@Model.Request.RouteValues["p2"]"
-							        button-style="Danger"
-							        Icon="trash"
-							        text-localized-tag="DELETE_ALL"
-							        return-confirm-tag="CONFIRM_DELETE_ALL"
-							        class="me-1 mb-1"></button>
-						</div>
-						<div>
-							<input type="number" asp-for="Input.DaysOld" placeholder="@Model.GetText("DELETE_ALL")"
-							       class="form-control"/>
+						</ul>
+					</div>
+					<div class="card-footer">
+						<div class="d-lg-flex">
+							<div>
+								<button asp-page-handler="ApproveAll"
+								        asp-route-p="@Model.Request.RouteValues["p"]"
+								        asp-route-p2="@Model.Request.RouteValues["p2"]"
+								        button-style="Primary"
+								        Icon="check"
+								        text-localized-tag="APROVE_ALL"
+								        class="mb-1"
+								        return-confirm-tag="CONFIRM_APROVE_ALL"></button>
+								<button asp-page-handler="DeleteAll"
+								        asp-route-p="@Model.Request.RouteValues["p"]"
+								        asp-route-p2="@Model.Request.RouteValues["p2"]"
+								        button-style="Danger"
+								        Icon="trash"
+								        text-localized-tag="DELETE_ALL"
+								        return-confirm-tag="CONFIRM_DELETE_ALL"
+								        class="me-1 mb-1"></button>
+							</div>
+							<div>
+								<input type="number" asp-for="Input.DaysOld" placeholder="@Model.GetText("DELETE_ALL")"
+								       class="form-control"/>
+							</div>
 						</div>
 					</div>
-				</div>
-			}
-			else
-			{
-				<div class="card-body">
-					@await Html.PartialAsync("_NoEntryInfo")
-				</div>
-			}
+				}
+				else
+				{
+					<div class="card-body">
+						@await Html.PartialAsync("_NoEntryInfo")
+					</div>
+				}
+			</div>
 		</div>
 	</div>
-</div>
-<div class="row justify-content-end">
-	<div class="col-auto">
-		<pager page-size="@Model.Input.UnverifiedPageSize"
-		       count="@Model.Input.UnverifiedCount"
-		       query-name="p2" use-submit="false">
-		</pager>
+	@{
+		var indexUnverified = HttpContext.Request.GetQueryOrRouteValue<int>("p2").ToTypeOrDefault(1) - 1;
+		var showingFromUnverified = Model.ActiveUserList[0].UserCount == 0 ? 0 : indexUnverified * Model.Size + 1;
+		var showingToUnverified = Math.Min((indexUnverified + 1) * Model.Size, Model.ActiveUserList[0].UserCount);
+	}
+	<div class="row justify-content-between align-items-center">
+		<div class="col-auto">
+			<p class="text-secondary">
+				@Html.LocalizedTextFormatted("SHOWING_X_TO_X_OF_X", showingFromUnverified, showingToUnverified, Model.Input.UnverifiedCount)
+			</p>
+		</div>
+		<div class="col-auto">
+			<pager page-size="@Model.Input.UnverifiedPageSize"
+			       count="@Model.Input.UnverifiedCount"
+			       query-name="p2" use-submit="false">
+			</pager>
+		</div>
 	</div>
-</div>
 </form>
 
 @section Scripts {

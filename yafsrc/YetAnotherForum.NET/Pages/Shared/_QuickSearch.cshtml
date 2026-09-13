@@ -14,16 +14,21 @@
 		@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DoQuickSearchJs(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search))))
 	</script>
 
-    <div class="d-flex">
+	<div class="d-flex">
 
 		<input id="QuickSearch" class="form-control me-2" type="search" onkeydown="@Html.Raw(JavaScriptBlocks.ClickOnEnterJs("QuickSearchBtn"))"
-	           placeholder="@Html.LocalizedText("TOOLBAR", "SEARCHKEYWORD")"/>
-	    <button type="submit"
-				id="QuickSearchBtn"
-	            button-style="OutlineInfo"
-	            title-localized-tag="SEARCH"
-	            onclick="quickSearch()"
-	            icon="search">
-	    </button>
-    </div>
+		       placeholder="@Html.LocalizedText("TOOLBAR", "SEARCHKEYWORD")"/>
+		<button type="submit"
+		        id="QuickSearchBtn"
+		        button-style="OutlineInfo"
+		        title-localized-tag="SEARCH"
+		        onclick="quickSearch()"
+		        icon="search">
+		</button>
+	</div>
+
+	<div class="py-2 py-lg-1 col-12 col-lg-auto">
+		<div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+		<hr class="d-lg-none my-2 text-white-50">
+	</div>
 }
