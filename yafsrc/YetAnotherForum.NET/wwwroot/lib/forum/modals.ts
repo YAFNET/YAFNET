@@ -74,6 +74,7 @@ function loadModal(modal: any, placeholderElement: HTMLDivElement) {
 
 	modal._element.addEventListener('shown.bs.modal', (event: Event) => {
 		const target = event.target as HTMLElement;
+
 		if (target.id === 'LoginBox') {
 			Utilities.togglePassword();
 

@@ -113,13 +113,13 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock, IHasTag
     public override string? DataSource => this.Db.DataSource;
     public override string? ServerVersion => this.Db.ServerVersion;
 
-    override protected DbCommand CreateDbCommand()
+    protected override DbCommand CreateDbCommand()
     {
         var dbCmd = this.Db.CreateCommand();
         return new SingleWriterDbCommand(this, dbCmd, this.WriteLock);
     }
 
-    override protected void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
     {
         if (disposing)
         {

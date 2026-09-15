@@ -47,7 +47,9 @@ namespace ServiceStack
         {
             var lambdaExpr =
                 Expression.Lambda<Func<object, object>>(Expression.Convert(arg, typeof(object)), _unusedParameterExpr);
-            return ExpressionUtil.CachedExpressionCompiler.Process(lambdaExpr);
+            // The delegate is invoked exactly once. When the expression can't be served from a cache,
+            // interpreting it is far cheaper than emitting and JIT compiling a throwaway DynamicMethod.
+            return ExpressionUtil.CachedExpressionCompiler.Process(lambdaExpr, preferInterpretation: true);
         }
     }
 }
@@ -66,7 +68,16 @@ namespace ServiceStack.ExpressionUtil
         // how to handle it, we'll just compile the expression as normal.
         public static Func<TModel, TValue> Process<TModel, TValue>(Expression<Func<TModel, TValue>> lambdaExpression)
         {
-            return Compiler<TModel, TValue>.Compile(lambdaExpression);
+            return Compiler<TModel, TValue>.Compile(lambdaExpression, preferInterpretation: false);
+        }
+
+        // preferInterpretation only affects expressions that can't be served from a cache. Use it when
+        // the returned delegate is invoked once (see CachedExpressionCompiler.Evaluate), never for
+        // delegates that are kept and invoked repeatedly, where JIT compiled code is much faster.
+        public static Func<TModel, TValue> Process<TModel, TValue>(Expression<Func<TModel, TValue>> lambdaExpression,
+            bool preferInterpretation)
+        {
+            return Compiler<TModel, TValue>.Compile(lambdaExpression, preferInterpretation);
         }
 
         private static class Compiler<TIn, TOut>
@@ -80,13 +91,13 @@ namespace ServiceStack.ExpressionUtil
 
             private readonly static ConcurrentDictionary<string, Func<TIn, TOut>> _slowCompileCache = new();
 
-            public static Func<TIn, TOut> Compile(Expression<Func<TIn, TOut>> expr)
+            public static Func<TIn, TOut> Compile(Expression<Func<TIn, TOut>> expr, bool preferInterpretation)
             {
                 return CompileFromIdentityFunc(expr)
                        ?? CompileFromConstLookup(expr)
                        ?? CompileFromMemberAccess(expr)
                        ?? CompileFromFingerprint(expr)
-                       ?? CachedCompileSlow(expr);
+                       ?? CompileSlow(expr, preferInterpretation);
             }
 
             private static Func<TIn, TOut> CompileFromConstLookup(Expression<Func<TIn, TOut>> expr)
@@ -180,16 +191,7 @@ namespace ServiceStack.ExpressionUtil
                 return null;
             }
 
-            private static Func<TIn, TOut> CachedCompileSlow(Expression<Func<TIn, TOut>> expr)
-            {
-                if (ExpressionCacheKey.TryGetKey(expr, out var key))
-                {
-                    return _slowCompileCache.GetOrAdd(key, _ => CompileSlow(expr));
-                }
-                return CompileSlow(expr);
-            }
-
-            private static Func<TIn, TOut> CompileSlow(Expression<Func<TIn, TOut>> expr)
+            private static Func<TIn, TOut> CompileSlow(Expression<Func<TIn, TOut>> expr, bool preferInterpretation)
             {
 #if DEBUG
                 Console.WriteLine("SlowCompile");
@@ -212,7 +214,7 @@ namespace ServiceStack.ExpressionUtil
                                 var inner = m.Arguments[0];
                                 var newBody = Expression.Convert(inner, typeof(object));
                                 var newLambda = Expression.Lambda<Func<TIn, TOut>>(newBody, expr.Parameters);
-                                return newLambda.Compile();
+                                return CompileLambda(newLambda, preferInterpretation);
                             }
                             catch
                             {
@@ -221,12 +223,19 @@ namespace ServiceStack.ExpressionUtil
                         }
                     }
 
-                    return expr.Compile();
+                    return CompileLambda(expr, preferInterpretation);
                 }
                 catch (Exception)
                 {
                     throw;
                 }
+            }
+
+            private static Func<TIn, TOut> CompileLambda(Expression<Func<TIn, TOut>> expr, bool preferInterpretation)
+            {
+                // Interpretation skips IL emit + JIT of a DynamicMethod, which dominates the cost of
+                // compiling a small expression that is only going to be invoked once.
+                return expr.Compile(preferInterpretation);
             }
         }
     }
