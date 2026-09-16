@@ -20,7 +20,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="LighthousePlaywright.Net" Version="1.0.2" />
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.0" />
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
 	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.34.0.3385">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -68,7 +68,7 @@ public static class IconHeaderHtmlHelper
         string page,
         string tag,
         string iconSize = "",
-        string iconType = "text-secondary",
+        string iconType = "text-primary",
         string param0 = "",
         string param1 = "",
         string param2 = "")
