@@ -1489,11 +1489,13 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             ? "WHEN MATCHED THEN UPDATE SET " + GetUpsertUpdateSql(updateFieldDefs, "target.") + " "
             : "";
 
+#pragma warning disable S2077 // SQL queries should not be dynamically formatted
         cmd.CommandText = $"MERGE INTO {GetQuotedTableName(modelDef)} WITH (HOLDLOCK) AS target " +
                           $"USING (VALUES ({primaryKeyParam})) AS source ({quotedPrimaryKey}) " +
                           $"ON target.{quotedPrimaryKey}=source.{quotedPrimaryKey} " +
                           whenMatched +
                           $"WHEN NOT MATCHED THEN INSERT ({insertColumns}) VALUES ({insertValues});";
+#pragma warning restore S2077
     }
 
     /// <summary>
