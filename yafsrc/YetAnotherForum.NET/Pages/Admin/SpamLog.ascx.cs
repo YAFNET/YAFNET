@@ -28,7 +28,6 @@ using FarsiLibrary.Utils;
 
 using Newtonsoft.Json;
 
-using YAF.Core.Utilities.StringUtils;
 using YAF.Web.Controls;
 
 /// <summary>
@@ -36,7 +35,7 @@ using YAF.Web.Controls;
 /// </summary>
 public partial class SpamLog : AdminPage
 {
-    private readonly StackTraceBeautify beautify;
+    private readonly StackTraceBeautify.StackTraceBeautify beautify;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamLog"/> class.
@@ -44,7 +43,7 @@ public partial class SpamLog : AdminPage
     public SpamLog()
         : base("ADMIN_EVENTLOG", ForumPages.Admin_SpamLog)
     {
-        this.beautify = new StackTraceBeautify();
+        this.beautify = new StackTraceBeautify.StackTraceBeautify();
     }
 
     /// <summary>
