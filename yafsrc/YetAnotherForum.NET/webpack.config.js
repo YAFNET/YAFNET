@@ -39,7 +39,8 @@ module.exports = [
 				},
 				{
 					test: /\.ts$/i,
-					use: ['ts-loader'],
+					// TypeScript 7 (native) has no JS compiler API, ts-loader needs TypeScript 6
+					use: [{ loader: 'ts-loader', options: { compiler: 'typescript6' } }],
 					exclude: /node_modules/
 				}
 			]
