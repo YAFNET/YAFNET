@@ -20,7 +20,7 @@ jobs:
         vs-version: '18'
 
     - name: Restore Packages
-      run: dotnet restore ./yafsrc/YAF.NET-SqlServer.slnx
+      run: msbuild ./yafsrc/YAF.NET-SqlServer.slnx -t:restore -p:RestorePackagesConfig=true
 
     - name: Build Solution
       run: msbuild ./yafsrc/YAF.NET-SqlServer.slnx -t:rebuild -property:Configuration=Release
