@@ -49,6 +49,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="StackTraceBeautify" Version="2.0.0" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="10.0.12">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
