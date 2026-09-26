@@ -570,8 +570,7 @@ public static class OrmLiteWriteApi
         public void Upsert<T>(T obj,
             Expression<Func<T, object>> updateOnly)
         {
-            if (updateOnly == null)
-                throw new ArgumentNullException(nameof(updateOnly));
+            ArgumentNullException.ThrowIfNull(updateOnly);
 
             dbConn.Exec(dbCmd => dbCmd.Upsert(obj, updateOnly.GetFieldNames()));
         }
@@ -582,8 +581,7 @@ public static class OrmLiteWriteApi
         /// </summary>
         public void Upsert<T>(T obj, string[] updateOnly)
         {
-            if (updateOnly == null)
-                throw new ArgumentNullException(nameof(updateOnly));
+            ArgumentNullException.ThrowIfNull(updateOnly);
 
             dbConn.Exec(dbCmd => dbCmd.Upsert(obj, updateOnly));
         }
@@ -602,8 +600,7 @@ public static class OrmLiteWriteApi
         public void UpsertAll<T>(IEnumerable<T> objs,
             Expression<Func<T, object>> updateOnly)
         {
-            if (updateOnly == null)
-                throw new ArgumentNullException(nameof(updateOnly));
+            ArgumentNullException.ThrowIfNull(updateOnly);
 
             dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly.GetFieldNames()));
         }
@@ -613,8 +610,7 @@ public static class OrmLiteWriteApi
         /// </summary>
         public void UpsertAll<T>(IEnumerable<T> objs, string[] updateOnly)
         {
-            if (updateOnly == null)
-                throw new ArgumentNullException(nameof(updateOnly));
+            ArgumentNullException.ThrowIfNull(updateOnly);
 
             dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly));
         }

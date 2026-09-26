@@ -172,7 +172,7 @@ public static class GroupRepositoryExtensions
                         UsrAlbumImages = userAlbumImages
                     });
 
-                BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroup(groupId.Value, accessMaskId);
+                await BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroupAsync(groupId.Value, accessMaskId);
             }
 
             if (style.IsSet())

@@ -39,7 +39,6 @@ using Newtonsoft.Json;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
@@ -62,7 +61,7 @@ public class SpamLogModel : AdminPage
     [BindProperty]
     public List<PagedEventLog> List { get; set; }
 
-    private readonly StackTraceBeautify beautify;
+    private readonly StackTraceBeautify.StackTraceBeautify beautify;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamLogModel"/> class.
@@ -70,7 +69,7 @@ public class SpamLogModel : AdminPage
     public SpamLogModel()
         : base("ADMIN_SPAMLOG", ForumPages.Admin_SpamLog)
     {
-        this.beautify = new StackTraceBeautify();
+        this.beautify = new StackTraceBeautify.StackTraceBeautify();
     }
 
     /// <summary>

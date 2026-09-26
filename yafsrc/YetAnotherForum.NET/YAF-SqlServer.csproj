@@ -7,6 +7,7 @@
     <RootNamespace>YAF</RootNamespace>
 	<CompressionEnabled>false</CompressionEnabled>
 	<TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
+	<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -17,6 +18,7 @@
     <PackageReference Include="SimdLinq" Version="1.3.2" />
     <PackageReference Include="SkiaSharp" Version="4.152.1" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.152.1" />
+    <PackageReference Include="StackTraceBeautify" Version="2.0.0" />
     <PackageReference Include="UAParser.Core" Version="4.0.6" />
   </ItemGroup>
 

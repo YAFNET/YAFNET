@@ -95,7 +95,7 @@ public static class ActiveAccessRepositoryExtensions
                 activeList.Add(newItem);
             }
 
-            activeList = activeList.DistinctBy(a => new { a.UserID, a.ForumID }).ToList();
+            activeList = [.. activeList.DistinctBy(a => new { a.UserID, a.ForumID })];
 
             try
             {

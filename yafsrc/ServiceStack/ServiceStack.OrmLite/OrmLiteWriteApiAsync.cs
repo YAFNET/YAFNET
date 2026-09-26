@@ -544,8 +544,7 @@ public static class OrmLiteWriteApiAsync
         public Task UpsertAsync<T>(T obj,
             Expression<Func<T, object>> updateOnly, CancellationToken token = default)
         {
-            if (updateOnly == null)
-                throw new ArgumentNullException(nameof(updateOnly));
+            ArgumentNullException.ThrowIfNull(updateOnly);
 
             return dbConn.Exec(dbCmd => dbCmd.UpsertAsync(obj, updateOnly.GetFieldNames(), token));
         }
@@ -557,8 +556,7 @@ public static class OrmLiteWriteApiAsync
         public Task UpsertAsync<T>(T obj,
             string[] updateOnly, CancellationToken token = default)
         {
-            if (updateOnly == null)
-                throw new ArgumentNullException(nameof(updateOnly));
+            ArgumentNullException.ThrowIfNull(updateOnly);
 
             return dbConn.Exec(dbCmd => dbCmd.UpsertAsync(obj, updateOnly, token));
         }
@@ -569,8 +567,7 @@ public static class OrmLiteWriteApiAsync
         public Task UpsertAllAsync<T>( IEnumerable<T> objs,
             Expression<Func<T, object>> updateOnly, CancellationToken token = default)
         {
-            if (updateOnly == null)
-                throw new ArgumentNullException(nameof(updateOnly));
+            ArgumentNullException.ThrowIfNull(updateOnly);
 
             return dbConn.Exec(dbCmd => dbCmd.UpsertAllAsync(objs, updateOnly.GetFieldNames(), token));
         }
@@ -581,8 +578,7 @@ public static class OrmLiteWriteApiAsync
         public Task UpsertAllAsync<T>( IEnumerable<T> objs,
             string[] updateOnly, CancellationToken token = default)
         {
-            if (updateOnly == null)
-                throw new ArgumentNullException(nameof(updateOnly));
+            ArgumentNullException.ThrowIfNull(updateOnly);
 
             return dbConn.Exec(dbCmd => dbCmd.UpsertAllAsync(objs, updateOnly, token));
         }

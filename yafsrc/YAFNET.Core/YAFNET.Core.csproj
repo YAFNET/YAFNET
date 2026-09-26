@@ -44,6 +44,7 @@
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="StackTraceBeautify" Version="2.0.0" />
     <PackageReference Include="System.Runtime.Caching" Version="10.0.12" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="10.0.12" />
     <PackageReference Include="UAParser.Core" Version="4.0.6" />

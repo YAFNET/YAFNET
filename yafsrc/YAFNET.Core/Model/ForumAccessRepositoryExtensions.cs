@@ -50,7 +50,7 @@ public static class ForumAccessRepositoryExtensions
         /// <param name="accessMaskId">
         /// The access mask identifier.
         /// </param>
-        public void InitialAssignGroup(int groupId,
+        public async Task InitialAssignGroupAsync(int groupId,
             int accessMaskId)
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
@@ -58,8 +58,8 @@ public static class ForumAccessRepositoryExtensions
             expression.Join<Category>((f, c) => c.ID == f.CategoryID)
                 .Where<Category>(c => c.BoardID == repository.BoardID);
 
-            var forums = repository.DbAccess.Execute(
-                db => db.Connection.Select(expression));
+            var forums = await repository.DbAccess.Execute(
+                db => db.Connection.SelectAsync(expression));
 
             var accessList = new List<ForumAccess>();
 
@@ -71,7 +71,7 @@ public static class ForumAccessRepositoryExtensions
                     AccessMaskID = accessMaskId
                 }));
 
-            repository.BulkInsert(accessList);
+            await repository.BulkInsertAsync(accessList);
         }
 
         /// <summary>

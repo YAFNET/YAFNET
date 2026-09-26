@@ -183,9 +183,4 @@ public class SqliteExpression<T> : SqlExpression<T>
         return new PartialSqlString(
             $"EXISTS (SELECT 1 FROM json_each({json}, {path}) j WHERE {typePredicate} AND j.atom = {value})");
     }
-
-    protected override PartialSqlString ToLengthPartialString(object arg)
-    {
-        return new PartialSqlString($"LENGTH({arg})");
-    }
 }

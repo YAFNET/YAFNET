@@ -38,7 +38,6 @@ using Newtonsoft.Json;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
@@ -67,7 +66,7 @@ public class EventLogModel : AdminPage
     /// <value>The types.</value>
     public List<SelectListItem> Types { get; set; }
 
-    private readonly StackTraceBeautify beautify;
+    private readonly StackTraceBeautify.StackTraceBeautify beautify;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EventLogModel"/> class.
@@ -75,7 +74,7 @@ public class EventLogModel : AdminPage
     public EventLogModel()
         : base("ADMIN_EVENTLOG", ForumPages.Admin_EventLog)
     {
-        this.beautify = new StackTraceBeautify();
+        this.beautify = new StackTraceBeautify.StackTraceBeautify();
     }
 
     /// <summary>

@@ -84,7 +84,7 @@ public class HighLighter
 
         if (language == "stacktrace")
         {
-            var beautify = new StackTraceBeautify();
+            var beautify = new StackTraceBeautify.StackTraceBeautify();
             // Create Output
             tmpOutput.Append(
                 $"<div class=\"card\"><div class=\"card-body\"><pre class=\"line-numbers {language}\"{(highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty)}><code>");

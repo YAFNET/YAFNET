@@ -33,6 +33,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using YAF.Types.Interfaces.Data;
+using static Lucene.Net.Search.FieldValueHitQueue;
 
 /// <summary>
 ///     The repository extensions.
@@ -265,26 +266,47 @@ public static class IRepositoryExtensions
         }
     }
 
-    /// <summary>
-    /// Uses the most optimal approach to bulk insert multiple rows for each RDBMS provider.
-    /// </summary>
-    /// <typeparam name="T">The Model.</typeparam>
     /// <param name="repository">The repository.</param>
-    /// <param name="inserts">The inserts.</param>
-    public static void BulkInsert<T>(this IRepository<T> repository, IEnumerable<T> inserts)
-        where T : IEntity
+    /// <typeparam name="T">The Model.</typeparam>
+    extension<T>(IRepository<T> repository) where T : IEntity
     {
-        var insertList = inserts.ToList();
+        /// <summary>
+        /// Uses the most optimal approach to bulk insert multiple rows for each RDBMS provider.
+        /// </summary>
+        /// <param name="inserts">The inserts.</param>
+        public void BulkInsert(IEnumerable<T> inserts)
+        {
+            var insertList = inserts.ToList();
 
-        repository.DbAccess.Execute(
-            db =>
-            {
-                db.Connection.BulkInsert(insertList, new BulkInsertConfig
+            repository.DbAccess.Execute(
+                db =>
                 {
-                    Mode = BulkInsertMode.Sql
+                    db.Connection.BulkInsert(insertList, new BulkInsertConfig
+                    {
+                        Mode = BulkInsertMode.Sql
+                    });
+                    return insertList.Count;
                 });
-                return insertList.Count;
-            });
+        }
+
+        /// <summary>
+        /// Uses the most optimal approach to bulk insert multiple rows for each RDBMS provider.
+        /// </summary>
+        /// <param name="inserts">The inserts.</param>
+        public async Task BulkInsertAsync(IEnumerable<T> inserts)
+        {
+            var insertList = inserts.ToList();
+
+            await repository.DbAccess.ExecuteAsync(
+                async db =>
+                {
+                    await db.BulkInsertAsync(insertList, new BulkInsertConfig
+                    {
+                        Mode = BulkInsertMode.Sql
+                    });
+                    return insertList.Count;
+                });
+        }
     }
 
     /// <summary>
