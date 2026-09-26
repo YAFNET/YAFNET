@@ -4,6 +4,7 @@ csharp_style_namespace_declarations=file_scoped:suggestion
 
 dotnet_diagnostic.S3904.severity = none
 dotnet_diagnostic.S6967.severity = none
+dotnet_diagnostic.S8970.severity = none
 
 # CA1711: Identifiers should not have incorrect suffix
 dotnet_diagnostic.CA1711.severity = none
@@ -33,8 +34,6 @@ csharp_new_line_before_else = true
 csharp_new_line_before_members_in_anonymous_types = false
 #require members of object intializers to be on separate lines
 csharp_new_line_before_members_in_object_initializers = true
-#require members of object initializers to be on the same line
-csharp_new_line_before_members_in_object_initializers = false
 #require braces to be on a new line for object_collection_array_initializers, types, control_blocks, lambdas, and methods (also known as "Allman" style)
 csharp_new_line_before_open_brace = object_collection_array_initializers, types, control_blocks, lambdas, methods
 
@@ -129,7 +128,6 @@ dotnet_style_qualification_for_field = true:suggestion
 dotnet_style_qualification_for_method = true:suggestion
 #prefer properties to be prefaced with this. in C# or Me. in Visual Basic
 dotnet_style_qualification_for_property = true:suggestion
-[*.cs]
 #### Benennungsstile ####
 
 # Benennungsregeln
@@ -171,11 +169,6 @@ dotnet_naming_style.pascal_case.required_prefix =
 dotnet_naming_style.pascal_case.required_suffix = 
 dotnet_naming_style.pascal_case.word_separator = 
 dotnet_naming_style.pascal_case.capitalization = pascal_case
-
-dotnet_naming_style.pascal_case.required_prefix = 
-dotnet_naming_style.pascal_case.required_suffix = 
-dotnet_naming_style.pascal_case.word_separator = 
-dotnet_naming_style.pascal_case.capitalization = pascal_case
 csharp_style_expression_bodied_operators = false:silent
 csharp_style_expression_bodied_indexers = true:silent
 csharp_style_expression_bodied_accessors = true:silent
@@ -188,54 +181,6 @@ csharp_style_prefer_local_over_anonymous_function = true:suggestion
 csharp_style_prefer_index_operator = true:suggestion
 csharp_style_prefer_range_operator = true:suggestion
 dotnet_diagnostic.S2325.severity = none
-
-[*.vb]
-#### Benennungsstile ####
-
-# Benennungsregeln
-
-dotnet_naming_rule.interface_should_be_beginnt_mit_i.severity = suggestion
-dotnet_naming_rule.interface_should_be_beginnt_mit_i.symbols = interface
-dotnet_naming_rule.interface_should_be_beginnt_mit_i.style = beginnt_mit_i
-
-dotnet_naming_rule.typen_should_be_pascal_schreibweise.severity = suggestion
-dotnet_naming_rule.typen_should_be_pascal_schreibweise.symbols = typen
-dotnet_naming_rule.typen_should_be_pascal_schreibweise.style = pascal_schreibweise
-
-dotnet_naming_rule.nicht_feldmember_should_be_pascal_schreibweise.severity = suggestion
-dotnet_naming_rule.nicht_feldmember_should_be_pascal_schreibweise.symbols = nicht_feldmember
-dotnet_naming_rule.nicht_feldmember_should_be_pascal_schreibweise.style = pascal_schreibweise
-
-# Symbolspezifikationen
-
-dotnet_naming_symbols.interface.applicable_kinds = interface
-dotnet_naming_symbols.interface.applicable_accessibilities = public, friend, private, protected, protected_friend, private_protected
-dotnet_naming_symbols.interface.required_modifiers = 
-
-dotnet_naming_symbols.typen.applicable_kinds = class, struct, interface, enum
-dotnet_naming_symbols.typen.applicable_accessibilities = public, friend, private, protected, protected_friend, private_protected
-dotnet_naming_symbols.typen.required_modifiers = 
-
-dotnet_naming_symbols.nicht_feldmember.applicable_kinds = property, event, method
-dotnet_naming_symbols.nicht_feldmember.applicable_accessibilities = public, friend, private, protected, protected_friend, private_protected
-dotnet_naming_symbols.nicht_feldmember.required_modifiers = 
-
-# Benennungsstile
-
-dotnet_naming_style.beginnt_mit_i.required_prefix = I
-dotnet_naming_style.beginnt_mit_i.required_suffix = 
-dotnet_naming_style.beginnt_mit_i.word_separator = 
-dotnet_naming_style.beginnt_mit_i.capitalization = pascal_case
-
-dotnet_naming_style.pascal_schreibweise.required_prefix = 
-dotnet_naming_style.pascal_schreibweise.required_suffix = 
-dotnet_naming_style.pascal_schreibweise.word_separator = 
-dotnet_naming_style.pascal_schreibweise.capitalization = pascal_case
-
-dotnet_naming_style.pascal_schreibweise.required_prefix = 
-dotnet_naming_style.pascal_schreibweise.required_suffix = 
-dotnet_naming_style.pascal_schreibweise.word_separator = 
-dotnet_naming_style.pascal_schreibweise.capitalization = pascal_case
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
@@ -256,5 +201,4 @@ dotnet_style_prefer_compound_assignment = true:suggestion
 dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
-tab_width = 4
 indent_size = 4
