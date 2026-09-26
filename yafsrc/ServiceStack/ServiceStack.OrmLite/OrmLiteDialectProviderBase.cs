@@ -1392,6 +1392,16 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         }
     }
 
+    public async virtual Task BulkInsertAsync<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
+    {
+        config ??= new BulkInsertConfig();
+        foreach (var batch in objs.BatchesOf(config.BatchSize))
+        {
+            var sql = this.ToInsertRowsSql(batch, insertFields: config.InsertFields);
+            await db.ExecuteSqlAsync(sql, token: token).ConfigAwait();
+        }
+    }
+
     /// <summary>
     /// Converts to insertrowstatement.
     /// </summary>

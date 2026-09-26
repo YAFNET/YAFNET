@@ -268,10 +268,6 @@ public static class ExpressionCacheKey
                     }
 
                     type = underlying;
-                    continue;
-
-                    // Structs are mutable unless all fields are readonly, and those fields are immutable
-                    break;
                 }
             }
 

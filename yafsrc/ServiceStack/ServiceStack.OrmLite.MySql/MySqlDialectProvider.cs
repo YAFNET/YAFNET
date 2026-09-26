@@ -7,6 +7,8 @@
 
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 using ServiceStack.OrmLite.Base.Text;
 
@@ -65,37 +67,47 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
         return new MySqlParameter();
     }
 
-    /// <summary>
-    /// Bulks the insert.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="db">The database.</param>
-    /// <param name="objs">The objs.</param>
-    /// <param name="config">The configuration.</param>
     public override void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
     {
-        config ??= new BulkInsertConfig();
+        config ??= new();
         if (config.Mode == BulkInsertMode.Sql)
         {
             base.BulkInsert(db, objs, config);
             return;
         }
 
+        using var fs = CreateTempFileStream();
+        CreateBulkLoader(db, objs, fs).Load(fs);
+    }
+
+    public async override Task BulkInsertAsync<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
+    {
+        config ??= new BulkInsertConfig();
+        if (config.Mode == BulkInsertMode.Sql)
+        {
+            await base.BulkInsertAsync(db, objs, config, token).ConfigAwait();
+            return;
+        }
+
+        await using var fs = CreateTempFileStream();
+        await CreateBulkLoader(db, objs, fs).LoadAsync(fs, token).ConfigAwait();
+    }
+
+    private static FileStream CreateTempFileStream() => new(Path.GetTempFileName(),
+        FileMode.Create, FileAccess.ReadWrite, FileShare.None, 4096, FileOptions.DeleteOnClose);
+
+    private static MySqlBulkLoader CreateBulkLoader<T>(IDbConnection db, IEnumerable<T> objs, Stream stream)
+    {
         var mysqlConn = (MySqlConnection)db.ToDbConnection();
 
-        var tmpPath = Path.GetRandomFileName();
-        using (var fs = File.OpenWrite(tmpPath))
-        {
-            CsvSerializer.SerializeToStream(objs, fs);
-            fs.Close();
-        }
+        CsvSerializer.SerializeToStream(objs, stream);
+        stream.Position = 0;
 
         var dialect = db.Dialect();
         var modelDef = ModelDefinition<T>.Definition;
 
         var bulkLoader = new MySqlBulkLoader(mysqlConn)
         {
-            FileName = tmpPath,
             Local = true,
             TableName = dialect.GetQuotedTableName(modelDef),
             CharacterSet = "UTF8",
@@ -110,11 +122,11 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
         var columns = CsvSerializer.PropertiesFor<T>()
             .Select(x => dialect.GetQuotedColumnName(modelDef.GetFieldDefinition(x.PropertyName)));
         bulkLoader.Columns.AddRange(columns);
-
-        bulkLoader.Load();
-        File.Delete(tmpPath);
+        return bulkLoader;
     }
 }
+
+
 
 /// <summary>
 /// Class MySql55DialectProvider.

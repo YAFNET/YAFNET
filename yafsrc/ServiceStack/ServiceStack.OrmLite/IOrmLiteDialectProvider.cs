@@ -413,6 +413,17 @@ public interface IOrmLiteDialectProvider
     void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null);
 
     /// <summary>
+    /// Bulks the insert asynchronous.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="db">The database.</param>
+    /// <param name="objs">The objs.</param>
+    /// <param name="config">The configuration.</param>
+    /// <param name="token">The token.</param>
+    /// <returns></returns>
+    Task BulkInsertAsync<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default);
+
+    /// <summary>
     /// Converts to insertrowstatement.
     /// </summary>
     /// <param name="cmd">The command.</param>

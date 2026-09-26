@@ -29,7 +29,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log => OrmLiteLog.Log;
+    internal static ILog Log => OrmLiteLog.Log;
 
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)
@@ -1554,7 +1554,7 @@ public static class OrmLiteWriteCommandExtensions
                 {
                     var updateFields = new Dictionary<string, object>
                     {
-                        [primaryKey.Name] = id,
+                        [primaryKey.Name] = id
                     };
                     foreach (var fieldDef in updateFieldDefs)
                         updateFields[fieldDef.Name] = fieldDef.GetValue(obj);

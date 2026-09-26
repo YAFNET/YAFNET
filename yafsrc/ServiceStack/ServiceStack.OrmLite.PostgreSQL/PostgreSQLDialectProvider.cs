@@ -7,6 +7,7 @@
 
 using System.Data.Common;
 
+using ServiceStack.Logging;
 using ServiceStack.OrmLite.Base.Common;
 using ServiceStack.OrmLite.Base.Text;
 
@@ -498,13 +499,6 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                sql.StartsWith("WITH ", StringComparison.OrdinalIgnoreCase);
     }
 
-    /// <summary>
-    /// Bulks the insert.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="db">The database.</param>
-    /// <param name="objs">The objs.</param>
-    /// <param name="config">The configuration.</param>
     public override void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
     {
         config ??= new();
@@ -515,86 +509,102 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         }
 
         var pgConn = (NpgsqlConnection)db.ToDbConnection();
-
-        var modelDef = ModelDefinition<T>.Definition;
-
-        var sb = StringBuilderCache.Allocate()
-            .Append($"COPY {this.GetQuotedTableName(modelDef)} (");
-
-        var fieldDefs = this.GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
-        var i = 0;
-        foreach (var fieldDef in fieldDefs)
-        {
-            if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
-            {
-                continue;
-            }
-
-            if (i++ > 0)
-            {
-                sb.Append(',');
-            }
-
-            sb.Append($"\"{this.GetQuotedColumnName(fieldDef)}\"");
-        }
-
-        sb.Append(") FROM STDIN (FORMAT BINARY)");
-
-        var copyCmd = StringBuilderCache.ReturnAndFree(sb);
-        using var writer = pgConn.BeginBinaryImport(copyCmd);
+        var fieldDefs = this.GetBinaryImportFieldDefinitions<T>(config);
+        using var writer = pgConn.BeginBinaryImport(this.ToBinaryImportCommand<T>(fieldDefs));
 
         foreach (var obj in objs)
         {
             writer.StartRow();
             foreach (var fieldDef in fieldDefs)
             {
-                if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                var dbValue = this.ToBinaryImportValue(fieldDef, obj, out var dbType);
+                try
                 {
-                    continue;
-                }
-
-                var value = fieldDef.AutoId
-                    ? this.GetInsertDefaultValue(fieldDef)
-                    : fieldDef.GetValue(obj);
-
-                var converter = this.GetConverterBestMatch(fieldDef);
-                if (converter == null)
-                {
-                    throw new NotSupportedException($"No converter found for {fieldDef.FieldType.Name}");
-                }
-                var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
-                if (dbValue is float f)
-                {
-                    dbValue = (double)f;
-                }
-
-                if (dbValue is null or DBNull)
-                {
-                    writer.WriteNull();
-                }
-                else
-                {
-                    try
-                    {
-                        var dbType = this.GetNpgsqlDbType(fieldDef);
-                        if (dbType == NpgsqlDbType.Text && dbValue is not string && dbValue is not char)
-                        {
-                            dbValue = this.StringSerializer.SerializeToString(dbValue);
-                        }
-
+                    if (dbValue == null)
+                        writer.WriteNull();
+                    else
                         writer.Write(dbValue, dbType);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
-                    }
+                }
+                catch (Exception e)
+                {
+                    LogManager.GetLogger(this.GetType()).Error(e.Message, e);
+                    throw;
                 }
             }
         }
-
         writer.Complete();
     }
+
+    public override async Task BulkInsertAsync<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
+    {
+        config ??= new();
+        if (config.Mode == BulkInsertMode.Sql)
+        {
+            await base.BulkInsertAsync(db, objs, config, token).ConfigAwait();
+            return;
+        }
+
+        var pgConn = (NpgsqlConnection)db.ToDbConnection();
+        var fieldDefs = this.GetBinaryImportFieldDefinitions<T>(config);
+        await using var writer = await pgConn.BeginBinaryImportAsync(this.ToBinaryImportCommand<T>(fieldDefs), token).ConfigAwait();
+
+        foreach (var obj in objs)
+        {
+            await writer.StartRowAsync(token).ConfigAwait();
+            foreach (var fieldDef in fieldDefs)
+            {
+                var dbValue = this.ToBinaryImportValue(fieldDef, obj, out var dbType);
+                try
+                {
+                    if (dbValue == null)
+                        await writer.WriteNullAsync(token).ConfigAwait();
+                    else
+                        await writer.WriteAsync(dbValue, dbType, token).ConfigAwait();
+                }
+                catch (Exception e)
+                {
+                    LogManager.GetLogger(this.GetType()).Error(e.Message, e);
+                    throw;
+                }
+            }
+        }
+        await writer.CompleteAsync(token).ConfigureAwait(false);
+    }
+
+    private List<FieldDefinition> GetBinaryImportFieldDefinitions<T>(BulkInsertConfig config)
+    {
+        return this.GetInsertFieldDefinitions(ModelDefinition<T>.Definition, insertFields: config.InsertFields)
+            .Where(x => !this.ShouldSkipInsert(x) || x.AutoId)
+            .ToList();
+    }
+
+    private string ToBinaryImportCommand<T>(List<FieldDefinition> fieldDefs)
+    {
+        return
+            $"COPY {this.GetQuotedTableName(ModelDefinition<T>.Definition)} ({string.Join(",", fieldDefs.Select(this.GetQuotedColumnName))}) FROM STDIN (FORMAT BINARY)";
+    }
+
+    private object ToBinaryImportValue(FieldDefinition fieldDef, object obj, out NpgsqlDbType dbType)
+    {
+        dbType = default;
+        var value = fieldDef.AutoId
+            ? this.GetInsertDefaultValue(fieldDef)
+            : fieldDef.GetValue(obj);
+
+        var converter = this.GetConverterBestMatch(fieldDef)
+                        ?? throw new NotSupportedException($"No converter found for {fieldDef.FieldType.Name}");
+        var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
+        if (dbValue is null or DBNull)
+            return null;
+        if (dbValue is float f)
+            dbValue = (double)f;
+
+        dbType = this.GetNpgsqlDbType(fieldDef);
+        if (dbType == NpgsqlDbType.Text && dbValue is not string && dbValue is not char)
+            dbValue = this.StringSerializer.SerializeToString(dbValue);
+        return dbValue;
+    }
+
 
     /// <summary>
     /// Gets the type of the NPGSQL database.
@@ -717,7 +727,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             if (this.ShouldReturnOnInsert(modelDef, fieldDef))
             {
                 sbReturningColumns.Append(sbReturningColumns.Length == 0 ? " RETURNING " : ",");
-                var colName = fieldDef.IsRowVersion ? $"{RowVersionColumnName} AS {GetQuotedColumnName(fieldDef)}" : GetQuotedColumnName(fieldDef);
+                var colName = fieldDef.IsRowVersion ? $"{RowVersionColumnName} AS {this.GetQuotedColumnName(fieldDef)}" : this.GetQuotedColumnName(fieldDef);
                 sbReturningColumns.Append(colName);
             }
 
@@ -776,15 +786,15 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
         ICollection<string> insertFields = null, ICollection<string> updateOnly = null)
     {
-        PrepareUpsertFields<T>(cmd, insertFields, updateOnly,
+        this.PrepareUpsertFields<T>(cmd, insertFields, updateOnly,
             out var modelDef, out var insertFieldDefs, out var updateFieldDefs);
 
-        var conflictTarget = GetQuotedColumnName(modelDef.PrimaryKey);
+        var conflictTarget = this.GetQuotedColumnName(modelDef.PrimaryKey);
         var conflictAction = updateFieldDefs.Count == 0
             ? "DO NOTHING"
-            : "DO UPDATE SET " + GetUpsertUpdateSql(updateFieldDefs);
+            : "DO UPDATE SET " + this.GetUpsertUpdateSql(updateFieldDefs);
 
-        cmd.CommandText = $"{GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
+        cmd.CommandText = $"{this.GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
                           $"ON CONFLICT ({conflictTarget}) {conflictAction}";
     }
 
@@ -1027,7 +1037,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>System.String.</returns>
     public override string ToCreateSchemaStatement(string schemaName)
     {
-        var sql = $"CREATE SCHEMA {GetQuotedName(NamingStrategy.GetSchemaName(schemaName))}";
+        var sql = $"CREATE SCHEMA {this.GetQuotedName(this.NamingStrategy.GetSchemaName(schemaName))}";
         return sql;
     }
 
@@ -1547,7 +1557,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         {"%d", "DD"},
         {"%H", "HH24"},
         {"%M", "MI"},
-        {"%S", "SS"},
+        {"%S", "SS"}
     };
 
     public override string SqlDateFormat(string quotedColumn, string format)
@@ -1555,14 +1565,17 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         var fmt = format.Contains('\'')
             ? format.Replace("'", "")
             : format;
-        foreach (var entry in DateFormatMap)
+        foreach (var entry in this.DateFormatMap)
         {
             fmt = fmt.Replace(entry.Key, entry.Value);
         }
         return $"TO_CHAR({quotedColumn}, '{fmt}')";
     }
 
-    public override string SqlChar(int charCode) => $"CHR({charCode})";
+    public override string SqlChar(int charCode)
+    {
+        return $"CHR({charCode})";
+    }
 
     /// <summary>
     /// Unwraps the specified database.

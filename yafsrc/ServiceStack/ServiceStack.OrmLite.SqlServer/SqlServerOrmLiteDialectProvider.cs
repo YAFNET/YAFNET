@@ -1124,33 +1124,50 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <param name="config">The configuration.</param>
     public override void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
     {
-        config ??= new BulkInsertConfig();
+        config ??= new();
         if (config.Mode == BulkInsertMode.Sql)
         {
             base.BulkInsert(db, objs, config);
             return;
         }
 
+        using var bulkCopy = CreateBulkCopy(db, objs, config, out var table);
+        bulkCopy.WriteToServer(table);
+    }
+
+    public async override Task BulkInsertAsync<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
+    {
+        config ??= new();
+        if (config.Mode == BulkInsertMode.Sql)
+        {
+            await base.BulkInsertAsync(db, objs, config, token).ConfigAwait();
+            return;
+        }
+
+        using var bulkCopy = CreateBulkCopy(db, objs, config, out var table);
+        await bulkCopy.WriteToServerAsync(table, token).ConfigAwait();
+    }
+
+    private SqlBulkCopy CreateBulkCopy<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config, out DataTable table)
+    {
         var sqlConn = (SqlConnection)db.ToDbConnection();
-        using var bulkCopy = new SqlBulkCopy(sqlConn);
+        var bulkCopy = new SqlBulkCopy(sqlConn);
         var modelDef = ModelDefinition<T>.Definition;
 
         bulkCopy.BatchSize = config.BatchSize;
-        bulkCopy.DestinationTableName = modelDef.ModelName;
+        bulkCopy.DestinationTableName = GetQuotedTableName(modelDef);
 
-        var table = new DataTable();
-        var fieldDefs = this.GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
+        table = new DataTable();
+        var fieldDefs = GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
         foreach (var fieldDef in fieldDefs)
         {
-            if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
-            {
+            if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
                 continue;
-            }
 
-            var columnName = this.NamingStrategy.GetColumnName(fieldDef.FieldName);
+            var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
             bulkCopy.ColumnMappings.Add(columnName, columnName);
 
-            var converter = this.GetConverterBestMatch(fieldDef);
+            var converter = GetConverterBestMatch(fieldDef);
             var colType = converter.DbType switch
             {
                 DbType.String => typeof(string),
@@ -1167,26 +1184,22 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             var row = table.NewRow();
             foreach (var fieldDef in fieldDefs)
             {
-                if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
-                {
+                if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
                     continue;
-                }
 
                 var value = fieldDef.AutoId
-                    ? this.GetInsertDefaultValue(fieldDef)
+                    ? GetInsertDefaultValue(fieldDef)
                     : fieldDef.GetValue(obj);
 
-                var converter = this.GetConverterBestMatch(fieldDef);
+                var converter = GetConverterBestMatch(fieldDef);
                 var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
-                var columnName = this.NamingStrategy.GetColumnName(fieldDef.FieldName);
+                var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
                 dbValue ??= DBNull.Value;
                 row[columnName] = dbValue;
             }
-
             table.Rows.Add(row);
         }
-
-        bulkCopy.WriteToServer(table);
+        return bulkCopy;
     }
 
     /// <summary>

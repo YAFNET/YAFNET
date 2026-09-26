@@ -110,8 +110,8 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock, IHasTag
 
     public override string Database => this.Db.Database;
     public override ConnectionState State => this.Db.State;
-    public override string? DataSource => this.Db.DataSource;
-    public override string? ServerVersion => this.Db.ServerVersion;
+    public override string DataSource => this.Db.DataSource;
+    public override string ServerVersion => this.Db.ServerVersion;
 
     protected override DbCommand CreateDbCommand()
     {
