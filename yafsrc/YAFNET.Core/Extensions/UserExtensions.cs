@@ -31,20 +31,23 @@ using YAF.Types.Models;
 /// </summary>
 public static class UserExtensions
 {
-    /// <summary>
-    /// Gets The Display Name or User Name,
-    /// depending in Display Name feature is enabled or not
-    /// </summary>
     /// <param name="user">
     /// The user.
     /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string DisplayOrUserName(this User user)
+    extension(User user)
     {
-        return BoardContext.Current.BoardSettings.EnableDisplayName
-                   ? user.DisplayName
-                   : user.Name;
+        /// <summary>
+        /// Gets The Display Name or User Name,
+        /// depending in Display Name feature is enabled or not
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string DisplayOrUserName()
+        {
+            return BoardContext.Current.BoardSettings.EnableDisplayName
+                ? user.DisplayName
+                : user.Name;
+        }
     }
 }

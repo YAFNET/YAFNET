@@ -23,18 +23,19 @@
  * under the License.
  */
 
-using System.Threading.Tasks;
-
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 
 using FarsiLibrary.Core.Utils;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Newtonsoft.Json;
+
+using StackTraceBeautify;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
@@ -61,7 +62,7 @@ public class SpamLogModel : AdminPage
     [BindProperty]
     public List<PagedEventLog> List { get; set; }
 
-    private readonly StackTraceBeautify.StackTraceBeautify beautify;
+    private readonly StackTraceBeautify beautify;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamLogModel"/> class.
@@ -69,7 +70,7 @@ public class SpamLogModel : AdminPage
     public SpamLogModel()
         : base("ADMIN_SPAMLOG", ForumPages.Admin_SpamLog)
     {
-        this.beautify = new StackTraceBeautify.StackTraceBeautify();
+        this.beautify = new StackTraceBeautify();
     }
 
     /// <summary>

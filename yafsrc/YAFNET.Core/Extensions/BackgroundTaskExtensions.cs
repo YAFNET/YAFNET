@@ -29,17 +29,20 @@ namespace YAF.Core.Extensions;
 /// </summary>
 public static class BackgroundTaskExtensions
 {
-    /// <summary>
-    /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
-    /// </summary>
     /// <param name="backgroundTask">
     /// The background Task.
     /// </param>
-    /// <returns>
-    /// The <see cref="bool"/>.
-    /// </returns>
-    public static bool IsStoppable(this IBackgroundTask backgroundTask)
+    extension(IBackgroundTask backgroundTask)
     {
-        return backgroundTask is not ICriticalBackgroundTask;
+        /// <summary>
+        /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool IsStoppable()
+        {
+            return backgroundTask is not ICriticalBackgroundTask;
+        }
     }
 }

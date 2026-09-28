@@ -55,7 +55,7 @@ public static class AssemblyExtensions
         assemblies.Select(
             a => a.GetExportedTypes()
                 .Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Length != 0)
-                .ToList()).ForEach(types => moduleClassTypes.AddRange(types));
+                .ToList()).ForEach(moduleClassTypes.AddRange);
 
         return moduleClassTypes.Distinct();
     }

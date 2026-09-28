@@ -24,6 +24,8 @@
 
 namespace YAF.Core.BBCode;
 
+using StackTraceBeautify;
+
 using System;
 using System.Text;
 using System.Web;
@@ -84,7 +86,7 @@ public class HighLighter
 
         if (language == "stacktrace")
         {
-            var beautify = new StackTraceBeautify.StackTraceBeautify();
+            var beautify = new StackTraceBeautify();
             // Create Output
             tmpOutput.Append(
                 $"<div class=\"card\"><div class=\"card-body\"><pre class=\"line-numbers {language}\"{(highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty)}><code>");
