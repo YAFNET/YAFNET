@@ -26,6 +26,8 @@ using System.Threading.Tasks;
 
 namespace YAF.Pages.Admin;
 
+using StackTraceBeautify;
+
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -66,7 +68,7 @@ public class EventLogModel : AdminPage
     /// <value>The types.</value>
     public List<SelectListItem> Types { get; set; }
 
-    private readonly StackTraceBeautify.StackTraceBeautify beautify;
+    private readonly StackTraceBeautify beautify;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EventLogModel"/> class.
@@ -74,7 +76,7 @@ public class EventLogModel : AdminPage
     public EventLogModel()
         : base("ADMIN_EVENTLOG", ForumPages.Admin_EventLog)
     {
-        this.beautify = new StackTraceBeautify.StackTraceBeautify();
+        this.beautify = new StackTraceBeautify();
     }
 
     /// <summary>

@@ -55,7 +55,7 @@ public class SpamWordCheckItem
 
         try
         {
-            this.SpamWordRegEx = new Regex(spamWord, options, TimeSpan.FromMilliseconds(100));
+            this.SpamWordRegEx = new Regex(spamWord, options, Constants.Constants.RegexTimeout);
         }
         catch (Exception)
         {

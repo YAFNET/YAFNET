@@ -128,7 +128,7 @@ public class CheckBannedUserAgents : IHaveServiceLocator
     /// <returns>bool.</returns>
     private static bool MachUserAgent(string userAgent, string pattern)
     {
-        var check = Regex.Match(userAgent, pattern, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
+        var check = Regex.Match(userAgent, pattern, RegexOptions.IgnoreCase, Constants.RegexTimeout);
 
         return check.Success;
     }

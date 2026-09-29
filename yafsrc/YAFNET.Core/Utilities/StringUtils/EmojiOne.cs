@@ -44,7 +44,7 @@ public static partial class EmojiOne
                 $"{IGNORE_PATTERN}|{SHORTNAME_PATTERN}",
                 ShortNameToUnicodeCallback,
                 RegexOptions.IgnoreCase,
-                TimeSpan.FromMilliseconds(100));
+                Constants.RegexTimeout);
         }
 
         if (ascii)

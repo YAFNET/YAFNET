@@ -64,7 +64,7 @@ public class BadWordReplaceItem
 
         try
         {
-            this.BadWordRegEx = new Regex(badWord, options, TimeSpan.FromMilliseconds(100));
+            this.BadWordRegEx = new Regex(badWord, options, Constants.Constants.RegexTimeout);
         }
         catch (Exception)
         {

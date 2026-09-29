@@ -261,7 +261,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         const RegexOptions regexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline
                                          ;
 
-        var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", regexOptions, TimeSpan.FromMilliseconds(100));
+        var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", regexOptions, Constants.RegexTimeout);
 
         // remove quotes from old messages
         return quote.Replace(body, string.Empty).TrimStart();
@@ -284,7 +284,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         var hiddenRegex = new Regex(
             @"\[hide-reply\](?<inner>(.|\n)*?)\[\/hide-reply\]|\[hide-reply-thanks\](?<inner>(.|\n)*?)\[\/hide-reply-thanks\]|\[group-hide\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[group-hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide-thanks(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-thanks\]|\[hide-posts(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-posts\]",
             regexOptions,
-            TimeSpan.FromMilliseconds(100));
+            Constants.RegexTimeout);
 
         var hiddenTagMatch = hiddenRegex.Match(body);
 
@@ -313,7 +313,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         var spoilerRegex = new Regex(
             @"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]",
             regexOptions,
-            TimeSpan.FromMilliseconds(100));
+            Constants.RegexTimeout);
 
         var spoilerTagMatch = spoilerRegex.Match(body);
 
@@ -338,14 +338,14 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     {
         // These are '\n\r' things related to multiline regexps.
         var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase,
-            TimeSpan.FromMilliseconds(100));
+            Constants.RegexTimeout);
         for (var i = mc1.Count - 1; i >= 0; i--)
         {
             html = html.Insert(mc1[i].Index + 1, " \r");
         }
 
         var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase,
-            TimeSpan.FromMilliseconds(100));
+            Constants.RegexTimeout);
         for (var i = mc2.Count - 1; i >= 0; i--)
         {
             html = html.Insert(mc2[i].Index + 1, " \r");
@@ -419,7 +419,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         const RegexOptions regexOptions = RegexOptions.IgnoreCase;
 
-        var matches = Regex.Matches(text, matchRegEx, regexOptions, TimeSpan.FromMilliseconds(100))
+        var matches = Regex.Matches(text, matchRegEx, regexOptions, Constants.RegexTimeout)
             .OrderByDescending(x => x.Index);
 
         matches.ForEach(

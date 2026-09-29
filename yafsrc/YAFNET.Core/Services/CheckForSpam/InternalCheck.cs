@@ -69,7 +69,7 @@ public class InternalCheck : ICheckForBot
             {
                 var banned = bannedEmailRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
                     .Find(b => Regex.Match(emailAddress, b.Mask, RegexOptions.None,
-                        TimeSpan.FromMilliseconds(100)).Success);
+                        Constants.RegexTimeout).Success);
 
                 if (banned != null)
                 {
@@ -94,7 +94,7 @@ public class InternalCheck : ICheckForBot
                 try
                 {
                     if (!Regex.Match(userName, mask, RegexOptions.None,
-                            TimeSpan.FromMilliseconds(100)).Success)
+                            Constants.RegexTimeout).Success)
                     {
                         continue;
                     }

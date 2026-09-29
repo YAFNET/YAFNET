@@ -148,7 +148,7 @@ public class User : IEntity, IHaveBoardID, IHaveID
 
                 if (Regex.IsMatch(tz, @"^[\-?\+?\d]*$",
                         RegexOptions.None,
-                        TimeSpan.FromMilliseconds(100)))
+                        Constants.RegexTimeout))
                 {
                     return TimeZoneInfo.Local;
                 }

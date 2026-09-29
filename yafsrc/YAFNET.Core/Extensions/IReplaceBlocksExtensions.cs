@@ -43,7 +43,7 @@ public static class IReplaceBlocksExtensions
     private readonly static Regex _regExHtml = new(
         """</?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)/?>""",
         _options | RegexOptions.Compiled,
-        TimeSpan.FromMilliseconds(100));
+        Constants.RegexTimeout);
 
     /// <param name="replaceBlocks">
     /// The replace Blocks.

@@ -43,6 +43,6 @@ public static class UrlHelper
             message,
             @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)",
             RegexOptions.None,
-            TimeSpan.FromMilliseconds(100)).Count;
+            Constants.RegexTimeout).Count;
     }
 }

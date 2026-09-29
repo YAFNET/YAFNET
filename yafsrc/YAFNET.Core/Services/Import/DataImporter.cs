@@ -446,7 +446,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 var dr = usersTable.NewRow();
                 var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))",
                     RegexOptions.None,
-                    TimeSpan.FromMilliseconds(100));
+                    Constants.RegexTimeout);
                 dr.ItemArray = regex.Split(await streamReader.ReadLineAsync());
 
                 usersTable.Rows.Add(dr);

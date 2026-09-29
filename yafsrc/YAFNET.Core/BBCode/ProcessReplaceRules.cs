@@ -28,6 +28,9 @@ namespace YAF.Core.BBCode;
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 ///     Provides a way to handle layers of replacements rules
@@ -144,7 +147,19 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
         // apply all rules...
         foreach (var rule in localRulesList)
         {
-            rule.Replace(ref text, mainCollection);
+            try
+            {
+                rule.Replace(ref text, mainCollection);
+            }
+            catch (RegexMatchTimeoutException ex)
+            {
+                // skip the rule and leave the text unformatted instead of failing the whole page
+                BoardContext.Current?.Get<ILogger<ProcessReplaceRules>>()?.LogWarning(
+                    ex,
+                    "BBCode rule {Rule} timed out and was skipped (pattern: {Pattern})",
+                    rule.GetType().Name,
+                    ex.Pattern);
+            }
         }
 
         // reconstruct the html

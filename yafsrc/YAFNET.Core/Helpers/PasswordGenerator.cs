@@ -152,29 +152,29 @@ public static class PasswordGenerator
                                    password,
                                    REGEX_LOWERCASE,
                                    RegexOptions.None,
-                                   TimeSpan.FromMilliseconds(100));
+                                   Constants.RegexTimeout);
 
         var upperCaseIsValid = !includeUppercase || Regex.IsMatch(
                                    password,
                                    REGEX_UPPERCASE,
                                    RegexOptions.None,
-                                   TimeSpan.FromMilliseconds(100));
+                                   Constants.RegexTimeout);
 
         var numericIsValid = !includeNumeric || Regex.IsMatch(
                                  password,
                                  REGEX_NUMERIC,
                                  RegexOptions.None,
-                                 TimeSpan.FromMilliseconds(100));
+                                 Constants.RegexTimeout);
         var symbolsAreValid = !includeSpecial || Regex.IsMatch(
                                   password,
                                   REGEX_SPECIAL,
                                   RegexOptions.None,
-                                  TimeSpan.FromMilliseconds(100));
+                                  Constants.RegexTimeout);
         var spacesAreValid = !includeSpaces || Regex.IsMatch(
                                  password,
                                  REGEX_SPACE,
                                  RegexOptions.None,
-                                 TimeSpan.FromMilliseconds(100));
+                                 Constants.RegexTimeout);
 
         return lowerCaseIsValid && upperCaseIsValid && numericIsValid && symbolsAreValid && spacesAreValid;
     }

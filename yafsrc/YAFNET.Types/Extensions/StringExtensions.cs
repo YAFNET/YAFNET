@@ -169,7 +169,7 @@ public static class StringExtensions
                 return result;
             }
 
-            var r = new Regex(@"\s+", RegexOptions.None, TimeSpan.FromMilliseconds(100));
+            var r = new Regex(@"\s+", RegexOptions.None, Constants.Constants.RegexTimeout);
             return r.Replace(str, " ");
         }
     }

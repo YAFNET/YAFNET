@@ -46,7 +46,7 @@ public static partial class BBCodeHelper
             text,
             @"\[quote\=(?<user>.+?);(?<messageId>.+?)\](?<inner>.+?)\[\/quote\]",
             RegexOptions.Singleline,
-            TimeSpan.FromMilliseconds(100));
+            Constants.RegexTimeout);
 
         return [.. (from Match match in mentions select match.Groups["user"].Value)];
     }
@@ -60,7 +60,7 @@ public static partial class BBCodeHelper
     public static List<string> FindMentions(string text)
     {
         var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase,
-            TimeSpan.FromMilliseconds(100));
+            Constants.RegexTimeout);
 
         return [.. (from Match match in mentions select match.Groups["inner"].Value)];
     }
@@ -76,7 +76,7 @@ public static partial class BBCodeHelper
     /// </returns>
     public static string StripBBCode(string text)
     {
-        return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(100));
+        return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty, RegexOptions.None, Constants.RegexTimeout);
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public static partial class BBCodeHelper
         var regex = new Regex(
             @"\](?<inner>(.*?))\[/code\]",
             RegexOptions.IgnoreCase | RegexOptions.Singleline,
-            TimeSpan.FromMilliseconds(100));
+            Constants.RegexTimeout);
 
         return regex.Replace(
             text,

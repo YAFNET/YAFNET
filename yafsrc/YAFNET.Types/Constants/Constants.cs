@@ -30,6 +30,12 @@ namespace YAF.Types.Constants;
 public static class Constants
 {
     /// <summary>
+    ///   The default regex match timeout. The first match on a new compiled regex
+    ///   includes JIT time, which alone can exceed a very short timeout on a slow or busy host.
+    /// </summary>
+    public static readonly TimeSpan RegexTimeout = TimeSpan.FromSeconds(1);
+
+    /// <summary>
     /// Cache key constants
     /// </summary>
     public struct Cache

@@ -47,7 +47,7 @@ public class Localization : ILocalization
     private readonly static Regex BeginNoParseRegex = new(
         @"(?<!\[noparse\])(?<inner>\[b\])",
         RegexOptions.Compiled,
-        TimeSpan.FromMilliseconds(100));
+        Constants.RegexTimeout);
 
     /// <summary>
     /// The end no parse regex.
@@ -55,7 +55,7 @@ public class Localization : ILocalization
     private readonly static Regex EndNoParseRegex = new(
         @"(?<inner>\[/b\])(?!\[/noparse\])",
         RegexOptions.Compiled,
-        TimeSpan.FromMilliseconds(100));
+        Constants.RegexTimeout);
 
     /// <summary>
     ///   The _culture.
