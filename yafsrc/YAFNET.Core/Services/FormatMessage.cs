@@ -31,6 +31,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Microsoft.Extensions.Logging;
+
 /// <summary>
 /// YAF FormatMessage provides functions related to formatting the post messages.
 /// </summary>
@@ -208,7 +210,14 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         ruleEngine.Process(ref message);
 
         // Format Emoticons
-        message = EmojiOne.ShortNameToUnicode(message, true);
+        try
+        {
+            message = EmojiOne.ShortNameToUnicode(message, true);
+        }
+        catch (RegexMatchTimeoutException ex)
+        {
+            this.LogRegexTimeout(ex, nameof(this.Format));
+        }
 
         return message;
     }
@@ -263,8 +272,17 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", regexOptions, Constants.RegexTimeout);
 
-        // remove quotes from old messages
-        return quote.Replace(body, string.Empty).TrimStart();
+        try
+        {
+            // remove quotes from old messages
+            return quote.Replace(body, string.Empty).TrimStart();
+        }
+        catch (RegexMatchTimeoutException ex)
+        {
+            this.LogRegexTimeout(ex, nameof(this.RemoveNestedQuotes));
+
+            return body;
+        }
     }
 
     /// <summary>
@@ -286,14 +304,24 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
             regexOptions,
             Constants.RegexTimeout);
 
-        var hiddenTagMatch = hiddenRegex.Match(body);
-
-        if (hiddenTagMatch.Success)
+        try
         {
-            body = hiddenRegex.Replace(body, string.Empty);
-        }
+            var hiddenTagMatch = hiddenRegex.Match(body);
 
-        return body;
+            if (hiddenTagMatch.Success)
+            {
+                body = hiddenRegex.Replace(body, string.Empty);
+            }
+
+            return body;
+        }
+        catch (RegexMatchTimeoutException ex)
+        {
+            this.LogRegexTimeout(ex, nameof(this.RemoveHiddenBBCodeContent));
+
+            // fail closed, never leak hidden content
+            return string.Empty;
+        }
     }
 
     /// <summary>
@@ -315,11 +343,18 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
             regexOptions,
             Constants.RegexTimeout);
 
-        var spoilerTagMatch = spoilerRegex.Match(body);
-
-        if (spoilerTagMatch.Success)
+        try
         {
-            body = spoilerTagMatch.Groups["inner"].Value;
+            var spoilerTagMatch = spoilerRegex.Match(body);
+
+            if (spoilerTagMatch.Success)
+            {
+                body = spoilerTagMatch.Groups["inner"].Value;
+            }
+        }
+        catch (RegexMatchTimeoutException ex)
+        {
+            this.LogRegexTimeout(ex, nameof(this.RemoveCustomBBCodes));
         }
 
         return body;
@@ -336,19 +371,27 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// </returns>
     public string RepairHtml(string html)
     {
-        // These are '\n\r' things related to multiline regexps.
-        var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase,
-            Constants.RegexTimeout);
-        for (var i = mc1.Count - 1; i >= 0; i--)
+        try
         {
-            html = html.Insert(mc1[i].Index + 1, " \r");
-        }
+            // These are '\n\r' things related to multiline regexps.
+            var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase,
+                Constants.RegexTimeout);
+            for (var i = mc1.Count - 1; i >= 0; i--)
+            {
+                html = html.Insert(mc1[i].Index + 1, " \r");
+            }
 
-        var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase,
-            Constants.RegexTimeout);
-        for (var i = mc2.Count - 1; i >= 0; i--)
+            var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase,
+                Constants.RegexTimeout);
+            for (var i = mc2.Count - 1; i >= 0; i--)
+            {
+                html = html.Insert(mc2[i].Index + 1, " \r");
+            }
+        }
+        catch (RegexMatchTimeoutException ex)
         {
-            html = html.Insert(mc2[i].Index + 1, " \r");
+            // line breaks are only cosmetic, the encoding below must always run
+            this.LogRegexTimeout(ex, nameof(this.RepairHtml));
         }
 
         return HttpUtility.HtmlEncode(html);
@@ -383,15 +426,23 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         ArgumentNullException.ThrowIfNull(prefix);
         ArgumentNullException.ThrowIfNull(postfix);
 
-        wordList.Where(w => w.Length > 3).ForEach(
-            word => MatchAndPerformAction(
-                $"({word.ToLower().ToRegExString()})",
-                message,
-                (_, index, length) =>
-                    {
-                        message = message.Insert(index + length, postfix);
-                        message = message.Insert(index, prefix);
-                    }));
+        try
+        {
+            wordList.Where(w => w.Length > 3).ForEach(
+                word => MatchAndPerformAction(
+                    $"({word.ToLower().ToRegExString()})",
+                    message,
+                    (_, index, length) =>
+                        {
+                            message = message.Insert(index + length, postfix);
+                            message = message.Insert(index, prefix);
+                        }));
+        }
+        catch (RegexMatchTimeoutException ex)
+        {
+            // keep the words highlighted so far, the rest stays plain
+            this.LogRegexTimeout(ex, nameof(this.SurroundWordList));
+        }
 
         return message;
     }
@@ -428,5 +479,23 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                     var inner = text.Substring(match.Index + 1, match.Length - 1).Trim().ToLower();
                     matchAction(inner, match.Index, match.Length);
                 });
+    }
+
+    /// <summary>
+    /// Logs a regex timeout, so the caller can fall back instead of failing the page.
+    /// </summary>
+    /// <param name="ex">
+    /// The timeout exception.
+    /// </param>
+    /// <param name="method">
+    /// The method in which the timeout occurred.
+    /// </param>
+    private void LogRegexTimeout(RegexMatchTimeoutException ex, string method)
+    {
+        this.Get<ILogger<FormatMessage>>().LogWarning(
+            ex,
+            "Regex timed out in {Method} and was skipped (pattern: {Pattern})",
+            method,
+            ex.Pattern);
     }
 }
