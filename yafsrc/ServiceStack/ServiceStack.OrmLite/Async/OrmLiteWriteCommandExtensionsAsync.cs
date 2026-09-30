@@ -842,8 +842,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
                                 shouldInclude: f => f == pkField);
                         }
 
-                        await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
-                        await InsertInternalAsync<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity: false, token);
+                        await InsertInternalAsync<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity: false, token).ConfigAwait();
                     }
                 }
                 finally
@@ -853,10 +852,12 @@ static internal class OrmLiteWriteCommandExtensionsAsync
                         await dialectProvider.DisableIdentityInsertAsync<T>(dbCmd, token);
                     }
                 }
+
+                dbTrans?.Commit();
             }
             finally
             {
-                dbTrans?.Commit();
+                dbTrans?.Dispose();
             }
         }
 
