@@ -78,13 +78,13 @@
 					                <span class="badge text-bg-danger ms-1">@latestUsers.Count @Html.LocalizedText("DEFAULT","NEW_MEMBER")</span>
 				                </div>
 				                <div>
-                                    <div class="row justify-content-between m-1">
+                                    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-2 g-md-3 mt-0">
 						                @foreach (var user in latestUsers)
 						                {
-							                <div class="col-1 p-2">
+							                <div class="col">
 								                <img style="width: 3rem; height: 3rem" class="img-fluid rounded" 
 								                     src="@Html.Raw(Current.Get<IAvatars>().GetAvatarUrlForUser(user.ID, user.Avatar, user.AvatarImage != null))" alt="User Image">
-                                                @Html.UserLink(user.ID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name, user.Suspended, user.UserStyle, cssClassAppend: " fs-7 w-100")
+                                                @Html.UserLink(user.ID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name, user.Suspended, user.UserStyle, cssClassAppend: " fs-7 w-100 mt-1 text-break")
                                                 <div class="fs-8">@Html.DisplayDateTime(DateTimeFormat.BothTopic, user.Joined)</div>
 							                </div>
 						                }
