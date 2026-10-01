@@ -249,7 +249,7 @@
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[facebook\](?&lt;url&gt;.*?)\[/facebook\]</SearchRegex>
-    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="${url}"&gt;&lt;iframe src="https://www.facebook.com/plugins/post.php?href=${url}" /&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="${url}"&gt;&lt;iframe src="https://www.facebook.com/plugins/post.php?href=${url}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
     <Variables>url</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>true</UseToolbar>

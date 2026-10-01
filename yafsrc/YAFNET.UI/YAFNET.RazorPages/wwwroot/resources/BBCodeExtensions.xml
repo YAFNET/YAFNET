@@ -53,7 +53,7 @@
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]</SearchRegex>
 	  <ReplaceRegex>
-          &lt;div data-oembed-url="//youtube.com/embed/${id}" class="ratio ratio-16x9"&gt;&lt;iframe src="//youtube.com/embed/${id}?hd=1" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+          &lt;div data-oembed-url="//youtube.com/embed/${id}" class="ratio ratio-16x9"&gt;&lt;iframe src="//youtube.com/embed/${id}?hd=1" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
       </ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
@@ -249,7 +249,7 @@
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[facebook\](?&lt;url&gt;.*?)\[/facebook\]</SearchRegex>
-    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="${url}"&gt;&lt;iframe src="https://www.facebook.com/plugins/post.php?href=${url}" /&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="${url}"&gt;&lt;iframe src="https://www.facebook.com/plugins/post.php?href=${url}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
     <Variables>url</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>true</UseToolbar>
