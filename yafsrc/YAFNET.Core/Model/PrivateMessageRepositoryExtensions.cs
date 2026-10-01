@@ -72,8 +72,7 @@ public static class PrivateMessageRepositoryExtensions
                 });
 
             var list = await repository.DbAccess.ExecuteAsync(
-                db => db.SelectAsync<PrivateMessage>(
-                    $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"));
+                db => db.SelectAsync(expression.UnionAll(expression2)));
 
             return [.. list.OrderBy(x => x.ID)];
         }
@@ -145,8 +144,7 @@ public static class PrivateMessageRepositoryExtensions
                             (to, u) => u.ID == Sql.TableAlias(to.FromUserId, "to") && u.ID != userId)
                         .Select<User>(u => u);
 
-                    return db.SelectAsync<User>(
-                        $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}");
+                    return db.SelectAsync<User, PrivateMessage>(expression.UnionAll(expression2));
                 });
 
             return [.. list.DistinctBy(x => x.ID).OrderBy(x => x.Name)];

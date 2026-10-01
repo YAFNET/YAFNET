@@ -637,8 +637,8 @@ public static class UserRepositoryExtensions
 
             return
             [
-                .. (await repository.DbAccess.ExecuteAsync(db => db.SelectAsync<User>(
-                    $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}")))
+                .. (await repository.DbAccess.ExecuteAsync(
+                    db => db.SelectAsync<User, WatchTopic>(expression.UnionAll(expression2))))
                 .DistinctBy(x => x.ID)
             ];
         }
