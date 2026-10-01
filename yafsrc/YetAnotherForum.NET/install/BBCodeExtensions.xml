@@ -38,7 +38,7 @@
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]</SearchRegex>
 	  <ReplaceRegex>
-          &lt;div data-oembed-url="//youtube.com/embed/${id}" class="ratio ratio-16x9"&gt;&lt;iframe src="//youtube.com/embed/${id}?hd=1" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+          &lt;div data-oembed-url="//youtube.com/embed/${id}" class="ratio ratio-16x9"&gt;&lt;iframe src="//youtube.com/embed/${id}?hd=1" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
       </ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
