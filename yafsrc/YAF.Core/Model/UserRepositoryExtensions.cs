@@ -732,8 +732,7 @@ public static class UserRepositoryExtensions
                              c.ID == topicId && (b.Flags & 2) == 2 && (b.Flags & 4) != 4 && (b.Flags & 32) != 32).Select<User>(x => x);
 
         return repository.DbAccess.Execute(
-                db => db.Connection.Select<User>(
-                    $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"))
+                db => db.Connection.Select<User>(expression.UnionAll(expression2)))
             .DistinctBy(x => x.ID).ToList();
     }
 
@@ -1506,8 +1505,7 @@ public static class UserRepositoryExtensions
                                                            usr.Suspended
                                                        });
 
-                    return db.Connection.Select<SimpleModerator>(
-                            $"{expression.ToMergedParamsSelectStatement()} union all {expression2.ToMergedParamsSelectStatement()}")
+                    return db.Connection.Select<SimpleModerator>(expression.UnionAll(expression2))
                         .OrderByDescending(x => x.IsGroup).ThenBy(x => x.Name).ToList();
                 });
     }

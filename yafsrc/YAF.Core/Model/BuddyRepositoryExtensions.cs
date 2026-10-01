@@ -258,7 +258,6 @@ public static class BuddyRepositoryExtensions
                                  });
 
         return repository.DbAccess.Execute(
-            db => db.Connection.Select<BuddyUser>(
-                $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"));
+            db => db.Connection.Select<BuddyUser>(expression.UnionAll(expression2)));
     }
 }
