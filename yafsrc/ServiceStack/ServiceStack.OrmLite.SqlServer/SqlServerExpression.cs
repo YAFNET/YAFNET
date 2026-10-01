@@ -5,8 +5,10 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
+using System.Text;
 
 using ServiceStack.OrmLite.Base.Text;
 using ServiceStack.OrmLite.SqlServer.Converters;
@@ -27,6 +29,30 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// <param name="dialectProvider">The dialect provider.</param>
     public SqlServerExpression(IOrmLiteDialectProvider dialectProvider)
         : base(dialectProvider) { }
+
+    /// <summary>
+    /// SQL Server doesn't use the RECURSIVE keyword
+    /// </summary>
+    /// <value>The with recursive keyword.</value>
+    override protected string WithRecursiveKeyword => "WITH";
+
+    /// <summary>
+    /// Converts to update from statement, e.g:
+    /// UPDATE t SET a = c.A FROM t INNER JOIN c ON ... WHERE ...
+    /// </summary>
+    /// <param name="values">The values.</param>
+    /// <returns>System.String.</returns>
+    override protected string ToUpdateFromStatement(List<KeyValuePair<FieldDefinition, string>> values)
+    {
+        var target = TableAlias != null ? DialectProvider.GetQuotedName(TableAlias) : DialectProvider.GetQuotedTableName(modelDef);
+        var set = new StringBuilder();
+        foreach (var entry in values)
+        {
+            set.Append(set.Length > 0 ? ", " : "").Append(DialectProvider.GetQuotedColumnName(entry.Key)).Append(" = ").Append(entry.Value);
+        }
+
+        return $"UPDATE {target} SET {set}{FromExpression}\n{WhereExpression}".TrimEnd();
+    }
 
     /// <summary>
     /// Prepares the update statement.
@@ -86,7 +112,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// <param name="right">The right.</param>
     override protected void ConvertToPlaceholderAndParameter(ref object right)
     {
-        var paramName = this.Params.Count.ToString();
+        var paramName = this.NextParamName();
         var paramValue = right;
         var parameter = this.CreateParam(paramName, paramValue);
 

@@ -389,6 +389,10 @@ public class SqlBuilder
         /// <param name="queryType">Type of the query.</param>
         /// <returns>System.String.</returns>
         public string SelectInto<T>(QueryType queryType) => RawSql;
+
+        // Raw SQL templates are used as-is
+        public string ToSetOperandStatement(string alias) => RawSql;
+        public string Dump(bool includeParams) => RawSql;
     }
 
     /// <summary>

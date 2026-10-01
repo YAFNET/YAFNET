@@ -42,7 +42,7 @@ static internal class ReadExpressionCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> Select<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
     {
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         string sql = q.Where(predicate).SelectInto<T>(QueryType.Select);
 
         return dbCmd.ExprConvertToList<T>(sql, q.Params);
@@ -345,7 +345,7 @@ static internal class ReadExpressionCommandExtensions
     /// <returns>T.</returns>
     static internal T Single<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
     {
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
 
         return Single(dbCmd, q.Where(predicate));
     }
@@ -388,7 +388,7 @@ static internal class ReadExpressionCommandExtensions
     /// <returns>TKey.</returns>
     public static TKey Scalar<T, TKey>(this IDbCommand dbCmd, Expression<Func<T, object>> field)
     {
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Select(field);
         var sql = q.SelectInto<T>(QueryType.Select);
         return dbCmd.Scalar<TKey>(sql, q.Params);
@@ -406,7 +406,7 @@ static internal class ReadExpressionCommandExtensions
     static internal TKey Scalar<T, TKey>(this IDbCommand dbCmd,
                                          Expression<Func<T, object>> field, Expression<Func<T, bool>> predicate)
     {
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Select(field).Where(predicate);
         string sql = q.SelectInto<T>(QueryType.Select);
         return dbCmd.Scalar<TKey>(sql, q.Params);
@@ -420,7 +420,7 @@ static internal class ReadExpressionCommandExtensions
     /// <returns>System.Int64.</returns>
     static internal long Count<T>(this IDbCommand dbCmd)
     {
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         var sql = q.ToCountStatement();
         return GetCount(dbCmd, sql, q.Params);
     }
@@ -447,7 +447,7 @@ static internal class ReadExpressionCommandExtensions
     /// <returns>System.Int64.</returns>
     static internal long Count<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
     {
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Where(predicate);
         var sql = q.ToCountStatement();
         return GetCount(dbCmd, sql, q.Params);
@@ -556,7 +556,7 @@ static internal class ReadExpressionCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> LoadSelect<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate, IEnumerable<string> include = null)
     {
-        var expr = dbCmd.GetDialectProvider().SqlExpression<T>().Where(predicate);
+        var expr = dbCmd.CreateQuery<T>().Where(predicate);
         return dbCmd.LoadListWithReferences<T, T>(expr, include);
     }
 

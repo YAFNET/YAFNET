@@ -52,7 +52,7 @@ public class SqliteExpression<T> : SqlExpression<T>
             }
             else
             {
-                statement = $"strftime('{arg}',{quotedColName})";
+                statement = $"strftime({DialectProvider.GetQuotedValue(arg.ToString())},{quotedColName})";
             }
 
             return new PartialSqlString(statement);

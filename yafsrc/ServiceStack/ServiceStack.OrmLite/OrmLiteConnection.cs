@@ -73,6 +73,12 @@ public class OrmLiteConnection
     public object? WriteLock { get; set; }
 
     /// <summary>
+    /// Mandatory filters applied to queries on this connection, see db.EnsureFilter()
+    /// </summary>
+    /// <value>The filters.</value>
+    public OrmLiteConnectionFilters Filters { get; internal set; } = OrmLiteConnectionFilters.Empty;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="OrmLiteConnection"/> class.
     /// </summary>
     /// <param name="factory">The factory.</param>
@@ -105,6 +111,21 @@ public class OrmLiteConnection
     public IDbConnection DbConnection => dbConnection ??= ConnectionString.ToDbConnection(Factory.DialectProvider);
 
     /// <summary>
+    /// The number of times a shared connection, e.g. SQLite :memory:, is open
+    /// </summary>
+    private int sharedOpens;
+
+    /// <summary>
+    /// Open a shared connection which is returned for every open, e.g. SQLite :memory:
+    /// </summary>
+    /// <returns>OrmLiteConnection.</returns>
+    internal OrmLiteConnection OpenShared()
+    {
+        Interlocked.Increment(ref sharedOpens);
+        return this;
+    }
+
+    /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public void Dispose()
@@ -112,6 +133,12 @@ public class OrmLiteConnection
         Factory.OnDispose?.Invoke(this);
         if (!Factory.AutoDisposeConnection)
         {
+            // Filters of a shared connection are scoped to its outermost open so they aren't used by the next open
+            if (Interlocked.Decrement(ref sharedOpens) <= 0)
+            {
+                Interlocked.Exchange(ref sharedOpens, 0);
+                Filters = OrmLiteConnectionFilters.Empty;
+            }
             return;
         }
 
@@ -128,7 +155,6 @@ public class OrmLiteConnection
         catch (Exception e)
         {
             LogManager.GetLogger(GetType()).Error("Failed to Dispose()", e);
-            Console.WriteLine(e);
         }
 
         dbConnection = null;

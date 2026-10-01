@@ -65,9 +65,7 @@ public class IndexFieldsCacheKey
     /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
     public override bool Equals(object obj)
     {
-        var that = obj as IndexFieldsCacheKey;
-
-        if (obj == null)
+        if (obj is not IndexFieldsCacheKey that)
         {
             return false;
         }

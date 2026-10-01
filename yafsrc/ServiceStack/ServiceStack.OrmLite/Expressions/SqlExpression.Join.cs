@@ -525,6 +525,38 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     }
 
     /// <summary>
+    /// Adds the connection's filters for a joined table to the join's ON condition, so LEFT JOINs keep their meaning,
+    /// or to the mandatory WHERE conditions for joins without one, e.g. CROSS JOIN
+    /// </summary>
+    /// <param name="sqlExpr">The SQL expr.</param>
+    /// <param name="joinDef">The join definition.</param>
+    /// <param name="alias">The alias.</param>
+    /// <returns>System.String.</returns>
+    private string AddJoinedTableFilter(string sqlExpr, ModelDefinition joinDef, string alias)
+    {
+        if (this.ConnectionFilters == null || this.ConnectionFilters.IsEmpty || joinDef?.ModelType == null)
+        {
+            return sqlExpr;
+        }
+
+        var condition = this.ConnectionFilters.ToFilterCondition(this.DialectProvider, joinDef.ModelType, alias, paramPrefix: "",
+            out var filterParams);
+        if (condition == null)
+        {
+            return sqlExpr;
+        }
+
+        condition = this.AddRenamedParams(filterParams, condition);
+        if (string.IsNullOrEmpty(sqlExpr))
+        {
+            this.Ensure(condition);
+            return sqlExpr;
+        }
+
+        return sqlExpr + " AND " + condition;
+    }
+
+    /// <summary>
     /// Customs the join.
     /// </summary>
     /// <param name="joinString">The join string.</param>
@@ -603,6 +635,8 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                           ? sourceDef
                           : targetDef;
 
+        sqlExpr = this.AddJoinedTableFilter(sqlExpr, joinDef, this.joinAlias?.Alias);
+
         this.FromExpression += joinFormat != null
                                    ? $" {joinType} {joinFormat(this.DialectProvider, joinDef, sqlExpr)}"
                                    : this.joinAlias != null
@@ -638,7 +672,8 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <returns>System.String.</returns>
     public string SelectInto<TModel>(QueryType queryType)
     {
-        if (this.CustomSelect && this.OnlyFields == null || typeof(TModel) == typeof(T) && !this.PrefixFieldWithTableName)
+        if (this.HasSetOperations // columns are defined by the combined queries
+            || this.CustomSelect && this.OnlyFields == null || typeof(TModel) == typeof(T) && !this.PrefixFieldWithTableName)
         {
             return this.ToSelectStatement(queryType);
         }

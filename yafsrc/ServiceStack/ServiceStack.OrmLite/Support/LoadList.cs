@@ -81,7 +81,7 @@ internal abstract class LoadList<Into, From>
 
         if (q == null)
         {
-            q = this.dialectProvider.SqlExpression<From>();
+            q = dbCmd.CreateQuery<From>();
         }
 
         this.dbCmd = dbCmd;
@@ -112,6 +112,7 @@ internal abstract class LoadList<Into, From>
                      $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
                      $"WHERE {dialectProvider.GetQuotedColumnName(refField)} " +
                      $"IN ({subSql})";
+        sqlRef = dbCmd.AddFilterCondition(refModelDef.ModelType, sqlRef);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {
@@ -157,14 +158,17 @@ internal abstract class LoadList<Into, From>
 
     protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef, FieldDefinition refId)
     {
-        return dialectProvider.GetRefSelfSql(q.Clone(), modelDef, refSelf, refModelDef, refId);
+        return dbCmd.AddFilterCondition(refModelDef.ModelType,
+            dialectProvider.GetRefSelfSql(q.Clone(), modelDef, refSelf, refModelDef, refId));
     }
 
     protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField) =>
-        dialectProvider.GetRefFieldSql(subSql, refModelDef, refField);
+        dbCmd.AddFilterCondition(refModelDef.ModelType,
+            dialectProvider.GetRefFieldSql(subSql, refModelDef, refField));
 
     protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef) =>
-        dialectProvider.GetFieldReferenceSql(subSql, fieldDef, fieldRef);
+        dbCmd.AddFilterCondition(fieldRef.RefModel,
+            dialectProvider.GetFieldReferenceSql(subSql, fieldDef, fieldRef));
 
     /// <summary>
     /// Creates the reference map.

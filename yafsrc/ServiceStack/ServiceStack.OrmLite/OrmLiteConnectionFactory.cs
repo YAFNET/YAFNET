@@ -138,7 +138,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 
         var connection = this.AutoDisposeConnection
                              ? DialectProvider.CreateOrmLiteConnection(this)
-                             : this.OrmLiteConnection;
+                             : this.OrmLiteConnection.OpenShared();
 
         return connection;
     }
@@ -175,7 +175,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 
         IDbConnection connection = factory.AutoDisposeConnection
                                        ? new OrmLiteConnection(factory)
-                                       : factory.OrmLiteConnection;
+                                       : factory.OrmLiteConnection.OpenShared();
         return connection;
     }
 
@@ -202,17 +202,70 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <returns>IDbConnection.</returns>
     public virtual IDbConnection OpenDbConnection()
     {
-        var connection = this.CreateDbConnection();
-        connection.Open();
-
-        return connection;
+        return OpenOrDispose(this.CreateDbConnection());
     }
+
+    /// <summary>
+    /// Opens the database connection.
+    /// </summary>
+    /// <param name="configure">The configure.</param>
+    /// <returns>IDbConnection.</returns>
     public virtual IDbConnection OpenDbConnection(Action<IDbConnection> configure)
     {
-        var connection = CreateDbConnection();
-        configure(connection);
-        connection.Open();
-        return connection;
+        return OpenOrDispose(this.CreateDbConnection(), configure);
+    }
+
+    /// <summary>
+    /// Opens the connection, disposing it if configure or Open() throws so it's not leaked
+    /// </summary>
+    /// <param name="connection">The connection.</param>
+    /// <param name="configure">The configure.</param>
+    /// <returns>IDbConnection.</returns>
+    private static IDbConnection OpenOrDispose(IDbConnection connection, Action<IDbConnection> configure = null)
+    {
+        try
+        {
+            configure?.Invoke(connection);
+            connection.Open();
+            return connection;
+        }
+        catch
+        {
+            connection.Dispose();
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Opens the connection asynchronous, disposing it if configure or Open() throws so it's not leaked
+    /// </summary>
+    /// <param name="connection">The connection.</param>
+    /// <param name="dialect">The dialect.</param>
+    /// <param name="configure">The configure.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
+    private async static Task<IDbConnection> OpenOrDisposeAsync(IDbConnection connection, IOrmLiteDialectProvider dialect,
+        Action<IDbConnection> configure, CancellationToken token)
+    {
+        try
+        {
+            configure?.Invoke(connection);
+            if (connection is OrmLiteConnection ormliteConn)
+            {
+                await ormliteConn.OpenAsync(token).ConfigAwait();
+            }
+            else
+            {
+                await dialect.OpenAsync(connection, token).ConfigAwait();
+            }
+
+            return connection;
+        }
+        catch
+        {
+            connection.Dispose();
+            throw;
+        }
     }
 
     /// <summary>
@@ -222,15 +275,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
     public async virtual Task<IDbConnection> OpenDbConnectionAsync(CancellationToken token = default)
     {
-        var connection = this.CreateDbConnection();
-        if (connection is OrmLiteConnection ormliteConn)
-        {
-            await ormliteConn.OpenAsync(token).ConfigAwait();
-            return connection;
-        }
-
-        await this.DialectProvider.OpenAsync(connection, token).ConfigAwait();
-        return connection;
+        return await OpenOrDisposeAsync(this.CreateDbConnection(), this.DialectProvider, null, token).ConfigAwait();
     }
 
     /// <summary>
@@ -241,41 +286,43 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
     public async virtual Task<IDbConnection> OpenDbConnectionAsync(string namedConnection, CancellationToken token = default)
     {
-        var connection = CreateDbConnection(namedConnection);
-        if (connection is OrmLiteConnection ormliteConn)
-        {
-            await ormliteConn.OpenAsync(token).ConfigAwait();
-            return connection;
-        }
-
-        await this.DialectProvider.OpenAsync(connection, token).ConfigAwait();
-        return connection;
+        return await OpenOrDisposeAsync(CreateDbConnection(namedConnection), GetNamedDialectProvider(namedConnection), null, token).ConfigAwait();
     }
+
+    /// <summary>
+    /// Open database connection as an asynchronous operation.
+    /// </summary>
+    /// <param name="configure">The configure.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
     public async virtual Task<IDbConnection> OpenDbConnectionAsync(Action<IDbConnection> configure, CancellationToken token = default)
     {
-        var connection = CreateDbConnection();
-        configure(connection);
-        if (connection is OrmLiteConnection ormliteConn)
-        {
-            await ormliteConn.OpenAsync(token).ConfigAwait();
-            return connection;
-        }
-
-        await DialectProvider.OpenAsync(connection, token).ConfigAwait();
-        return connection;
+        return await OpenOrDisposeAsync(this.CreateDbConnection(), this.DialectProvider, configure, token).ConfigAwait();
     }
+
+    /// <summary>
+    /// Open database connection as an asynchronous operation.
+    /// </summary>
+    /// <param name="namedConnection">The named connection.</param>
+    /// <param name="configure">The configure.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
     public async virtual Task<IDbConnection> OpenDbConnectionAsync(string namedConnection, Action<IDbConnection> configure, CancellationToken token = default)
     {
-        var connection = CreateDbConnection(namedConnection);
-        configure(connection);
-        if (connection is OrmLiteConnection ormliteConn)
-        {
-            await ormliteConn.OpenAsync(token).ConfigAwait();
-            return connection;
-        }
+        return await OpenOrDisposeAsync(CreateDbConnection(namedConnection), GetNamedDialectProvider(namedConnection), configure, token).ConfigAwait();
+    }
 
-        await DialectProvider.OpenAsync(connection, token).ConfigAwait();
-        return connection;
+    /// <summary>
+    /// Gets the dialect provider of a named connection.
+    /// </summary>
+    /// <param name="namedConnection">The named connection.</param>
+    /// <returns>IOrmLiteDialectProvider.</returns>
+    /// <exception cref="System.Collections.Generic.KeyNotFoundException">No factory registered is named " + namedConnection</exception>
+    private static IOrmLiteDialectProvider GetNamedDialectProvider(string namedConnection)
+    {
+        return NamedConnections.TryGetValue(namedConnection, out var factory)
+                   ? factory.DialectProvider
+                   : throw new KeyNotFoundException("No factory registered is named " + namedConnection);
     }
 
     /// <summary>
@@ -294,9 +341,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
         var connection = DialectProvider.CreateOrmLiteConnection(this);
         connection.ConnectionString = connectionString;
 
-        connection.Open();
-
-        return connection;
+        return OpenOrDispose(connection);
     }
     public virtual IDbConnection OpenDbConnectionString(string connectionString, Action<IDbConnection> configure)
     {
@@ -305,10 +350,8 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 
         var connection = DialectProvider.CreateOrmLiteConnection(this);
         connection.ConnectionString = connectionString;
-        configure(connection);
 
-        connection.Open();
-        return connection;
+        return OpenOrDispose(connection, configure);
     }
 
     /// <summary>
@@ -328,9 +371,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
         var connection = DialectProvider.CreateOrmLiteConnection(this);
         connection.ConnectionString = connectionString;
 
-        await connection.OpenAsync(token).ConfigAwait();
-
-        return connection;
+        return await OpenOrDisposeAsync(connection, this.DialectProvider, null, token).ConfigAwait();
     }
 
     public async virtual Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, Action<IDbConnection> configure, CancellationToken token = default)
@@ -340,10 +381,8 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 
         var connection = DialectProvider.CreateOrmLiteConnection(this);
         connection.ConnectionString = connectionString;
-        configure(connection);
 
-        await connection.OpenAsync(token).ConfigAwait();
-        return connection;
+        return await OpenOrDisposeAsync(connection, this.DialectProvider, configure, token).ConfigAwait();
     }
 
     /// <summary>
@@ -443,18 +482,11 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <returns>IDbConnection.</returns>
     public virtual IDbConnection OpenDbConnection(string namedConnection)
     {
-        var connection = CreateDbConnection(namedConnection);
-
-        connection.Open();
-
-        return connection;
+        return OpenOrDispose(CreateDbConnection(namedConnection));
     }
     public virtual IDbConnection OpenDbConnection(string namedConnection, Action<IDbConnection> configure)
     {
-        var connection = CreateDbConnection(namedConnection);
-        configure(connection);
-        connection.Open();
-        return connection;
+        return OpenOrDispose(CreateDbConnection(namedConnection), configure);
     }
 
     /// <summary>

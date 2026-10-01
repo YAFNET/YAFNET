@@ -556,6 +556,11 @@ public static class OrmLiteWriteCommandExtensions
     }
 
     /// <summary>
+    /// Marks a values buffer whose reader's GetValues() failed
+    /// </summary>
+    private static readonly object GetValuesFailed = new();
+
+    /// <summary>
     /// Populates the values.
     /// </summary>
     /// <param name="reader">The reader.</param>
@@ -564,12 +569,16 @@ public static class OrmLiteWriteCommandExtensions
     /// <returns>System.Object[].</returns>
     static internal object[] PopulateValues(this IDataReader reader, object[] values, IOrmLiteDialectProvider dialectProvider)
     {
-        if (!OrmLiteConfig.DeoptimizeReader)
+        if (!OrmLiteConfig.DeoptimizeReader && !dialectProvider.DeoptimizeReader)
         {
             if (values == null)
             {
                 values = new object[reader.FieldCount];
             }
+
+            // GetValues() already failed on a previous row of this reader
+            if (values.Length > 0 && ReferenceEquals(values[0], GetValuesFailed))
+                return null;
 
             try
             {
@@ -577,6 +586,9 @@ public static class OrmLiteWriteCommandExtensions
             }
             catch (Exception ex)
             {
+                // Mark the reader's reused values buffer so the rest of its rows use individual field reads
+                if (values.Length > 0)
+                    values[0] = GetValuesFailed;
                 values = null;
                 Log.Warn("Error trying to use GetValues() from DataReader. Falling back to individual field reads...", ex);
             }
@@ -1009,15 +1021,42 @@ public static class OrmLiteWriteCommandExtensions
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        var sqlIn = dbCmd.SetIdsInSqlParams(idValues);
+        var dialect = dbCmd.GetDialectProvider();
+        var batches = OrmLiteUtils.GetIdBatches(idValues, dialect);
+        if (batches.Count == 1)
+        {
+            var sqlIn = dbCmd.SetIdsInSqlParams(batches[0]);
         if (string.IsNullOrEmpty(sqlIn))
         {
             return 0;
         }
 
-        var sql = GetDeleteByIdsSql<T>(sqlIn, dbCmd.GetDialectProvider());
+            return dbCmd.ExecuteSql(GetDeleteByIdsSql<T>(sqlIn, dialect));
+        }
 
-        return dbCmd.ExecuteSql(sql);
+        // Delete all batches atomically
+        IDbTransaction dbTrans = null;
+        try
+        {
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
+
+            var count = 0;
+            foreach (var batch in batches)
+            {
+                dbCmd.Parameters.Clear();
+                var sqlIn = dbCmd.SetIdsInSqlParams(batch);
+                count += dbCmd.ExecuteSql(GetDeleteByIdsSql<T>(sqlIn, dialect));
+            }
+
+            dbTrans?.Commit();
+            return count;
+        }
+        finally
+        {
+            dbTrans?.Dispose();
+            if (dbTrans != null && dbCmd.Transaction == dbTrans)
+                dbCmd.Transaction = null;
+        }
     }
 
     /// <summary>
@@ -1501,7 +1540,7 @@ public static class OrmLiteWriteCommandExtensions
             var dialect = dbCmd.GetDialectProvider();
             var newId = dbCmd.Insert(obj, commandFilter: null, selectIdentity: true);
             primaryKey.SetValue(obj, dialect.FromDbValue(newId, primaryKey.FieldType));
-            modelDef.RowVersion?.SetValue(obj, dbCmd.GetRowVersion(modelDef, primaryKey.GetValue(obj)));
+            dbCmd.ReadBackUpsertFields(obj, modelDef, GetUpsertFieldsAfterInsert(dialect, modelDef), primaryKey.GetValue(obj));
             return;
         }
 
@@ -1512,6 +1551,8 @@ public static class OrmLiteWriteCommandExtensions
             return;
         }
 
+        var readBackFields = GetUpsertReadBackFields(modelDef);
+        var didReadBack = false;
         var enableIdentityInsert = primaryKey.AutoIncrement;
         try
         {
@@ -1521,7 +1562,24 @@ public static class OrmLiteWriteCommandExtensions
             upsertProvider.PrepareParameterizedUpsertStatement<T>(dbCmd,
                 dialectProvider.GetNonDefaultValueInsertFields<T>(obj), canonicalUpdateOnly);
             dialectProvider.SetParameterValues<T>(dbCmd, obj);
-            dbCmd.ExecNonQuery();
+
+            // Return the upserted row in the same statement when supported, e.g. RETURNING or OUTPUT
+            var returningSql = readBackFields.Count > 0
+                ? upsertProvider.ToUpsertReturningStatement(dbCmd.CommandText, modelDef)
+                : null;
+            if (returningSql != null)
+            {
+                var row = dbCmd.ConvertTo<T>(returningSql);
+                if (row != null) // no row is returned when an existing row isn't updated, e.g. DO NOTHING
+                {
+                    CopyFields(row, obj, readBackFields);
+                    didReadBack = true;
+                }
+            }
+            else
+            {
+                dbCmd.ExecNonQuery();
+            }
         }
         finally
         {
@@ -1529,8 +1587,51 @@ public static class OrmLiteWriteCommandExtensions
                 dialectProvider.DisableIdentityInsert<T>(dbCmd);
         }
 
-        id = primaryKey.GetValue(obj);
-        modelDef.RowVersion?.SetValue(obj, dbCmd.GetRowVersion(modelDef, id));
+        if (!didReadBack)
+            dbCmd.ReadBackUpsertFields(obj, modelDef, readBackFields, primaryKey.GetValue(obj));
+    }
+
+    /// <summary>
+    /// Fields Upsert keeps in sync with the database: the RowVersion and [ReturnOnInsert] fields
+    /// </summary>
+    internal static List<FieldDefinition> GetUpsertReadBackFields(ModelDefinition modelDef) =>
+        modelDef.FieldDefinitions.Where(x => x.IsRowVersion || x.ReturnOnInsert).ToList();
+
+    /// <summary>
+    /// Fields to read back after an INSERT, excluding [ReturnOnInsert] fields already populated by the insert
+    /// </summary>
+    internal static List<FieldDefinition> GetUpsertFieldsAfterInsert(IOrmLiteDialectProvider dialect, ModelDefinition modelDef)
+    {
+        var fields = GetUpsertReadBackFields(modelDef);
+        return dialect.HasInsertReturnValues(modelDef)
+            ? fields.Where(x => !x.ReturnOnInsert).ToList()
+            : fields;
+    }
+
+    internal static void CopyFields<T>(T from, T to, List<FieldDefinition> fields)
+    {
+        foreach (var fieldDef in fields)
+            fieldDef.SetValue(to, fieldDef.GetValue(from));
+    }
+
+    /// <summary>
+    /// Reads back fields with a separate query, only the row version if it's the only field
+    /// </summary>
+    private static void ReadBackUpsertFields<T>(this IDbCommand dbCmd, T obj, ModelDefinition modelDef,
+        List<FieldDefinition> fields, object id)
+    {
+        if (fields.Count == 0)
+            return;
+
+        if (fields.Count == 1 && fields[0].IsRowVersion)
+        {
+            fields[0].SetValue(obj, dbCmd.GetRowVersion(modelDef, id));
+            return;
+        }
+
+        var row = dbCmd.SingleById<T>(id);
+        if (row != null)
+            CopyFields(row, obj, fields);
     }
 
 
@@ -1601,9 +1702,11 @@ public static class OrmLiteWriteCommandExtensions
         {
             dbCmd.Insert(obj, commandFilter: null, selectIdentity: false,
                 enableIdentityInsert: primaryKey.AutoIncrement);
+            dbCmd.ReadBackUpsertFields(obj, modelDef, GetUpsertFieldsAfterInsert(dbCmd.GetDialectProvider(), modelDef), id);
+            return;
         }
 
-        modelDef.RowVersion?.SetValue(obj, dbCmd.GetRowVersion(modelDef, primaryKey.GetValue(obj)));
+        dbCmd.ReadBackUpsertFields(obj, modelDef, GetUpsertReadBackFields(modelDef), id);
     }
 
     /// <summary>

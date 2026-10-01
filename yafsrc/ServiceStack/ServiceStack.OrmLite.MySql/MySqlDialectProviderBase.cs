@@ -79,6 +79,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
     public override bool SupportsSchema => false;
 
+	// MariaDB doesn't support FOR UPDATE OF, so rows of all joined tables are locked
+	public override string GetForUpdateClause(string lockTable, bool skipLocked) =>
+		"FOR UPDATE" + (skipLocked ? " SKIP LOCKED" : "");
+
     /// <summary>
     /// MySQL's ON DUPLICATE KEY UPDATE also matches secondary UNIQUE constraints.
     /// Set to false to use OrmLite's primary-key-only Save fallback instead.
@@ -865,7 +869,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string SqlCurrency(string fieldOrValue, string currencySymbol)
     {
-        return this.SqlConcat([$"'{currencySymbol}'", $"cast({fieldOrValue} as decimal(15,2))"]);
+        return this.SqlConcat([this.GetQuotedValue(currencySymbol), $"cast({fieldOrValue} as decimal(15,2))"]);
     }
 
     /// <summary>
@@ -902,7 +906,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
     public override string SqlDateFormat(string quotedColumn, string format)
     {
-        return $"DATE_FORMAT({quotedColumn}, '{format}')";
+        return $"DATE_FORMAT({quotedColumn}, {GetQuotedValue(format)})";
     }
 
     /// <summary>

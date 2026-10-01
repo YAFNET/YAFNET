@@ -496,6 +496,16 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     }
 
     /// <summary>
+    /// Converts to returning statement.
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="isDelete">if set to <c>true</c> [is delete].</param>
+    /// <returns>System.String.</returns>
+    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete) =>
+        sql.TrimEnd().TrimEnd(';') + " RETURNING " + GetColumnNames(modelDef);
+
+    /// <summary>
     /// Determines whether [is full select statement] [the specified SQL].
     /// </summary>
     /// <param name="sql">The SQL.</param>
@@ -754,6 +764,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     }
 
     public override bool SupportsUpsert => true;
+
+    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef) =>
+        ToReturningStatement(sql, modelDef, isDelete: false);
 
     public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
         ICollection<string> insertFields = null, ICollection<string> updateOnly = null)
@@ -1440,7 +1453,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>System.String.</returns>
     public override string SqlCurrency(string fieldOrValue, string currencySymbol) => currencySymbol == "$"
         ? fieldOrValue + "::text::money::text"
-        : "replace(" + fieldOrValue + "::text::money::text,'$','" + currencySymbol + "')";
+        : "replace(" + fieldOrValue + "::text::money::text,'$'," + GetQuotedValue(currencySymbol) + ")";
 
     /// <summary>
     /// SQLs the cast.

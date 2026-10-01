@@ -584,7 +584,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         public static Task<bool> ExistsAsync<T>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.ScalarAsync(expression.Limit(1).Select("'exists'"), token).Then(x => x != null));
+            return dbConn.Exec(dbCmd => dbCmd.ScalarAsync(expression.CloneForExists(), token).Then(x => x != null));
         }
         /// <summary>
         /// Returns true if the Query returns any records, using an SqlFormat query. E.g:

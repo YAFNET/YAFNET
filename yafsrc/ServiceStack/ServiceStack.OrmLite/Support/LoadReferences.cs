@@ -84,7 +84,7 @@ internal abstract class LoadReferences<T>
         var refField = modelDef.GetRefFieldDef(refModelDef, refType);
 
         var sqlFilter = dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
-        var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
+        var sql = dbCmd.ToFilteredSelectStatement(refType, sqlFilter, pkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {
@@ -103,7 +103,7 @@ internal abstract class LoadReferences<T>
     protected string GetRefFieldSql(Type refType, FieldDefinition refField)
     {
         var sqlFilter = dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
-        var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
+        var sql = dbCmd.ToFilteredSelectStatement(refType, sqlFilter, pkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {
@@ -130,7 +130,7 @@ internal abstract class LoadReferences<T>
         }
 
         var sqlFilter = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey) + "={0}";
-        var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, refPkValue);
+        var sql = dbCmd.ToFilteredSelectStatement(refType, sqlFilter, refPkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {
@@ -154,6 +154,7 @@ internal abstract class LoadReferences<T>
             $"SELECT {pk}, {dialectProvider.GetQuotedColumnName(fieldRef.RefFieldDef)} " +
             $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
             $"WHERE {pk}" + "={0}", refPkValue);
+        sqlRef = dbCmd.AddFilterCondition(fieldRef.RefModel, sqlRef);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {

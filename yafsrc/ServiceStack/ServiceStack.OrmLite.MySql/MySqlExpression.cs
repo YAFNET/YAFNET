@@ -9,6 +9,8 @@ namespace ServiceStack.OrmLite.MySql;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text;
+
 /// <summary>
 /// Class MySqlExpression.
 /// Implements the <see cref="ServiceStack.OrmLite.SqlExpression{T}" />
@@ -32,6 +34,31 @@ public class MySqlExpression<T> : SqlExpression<T>
     override protected string ToCast(string quotedColName)
     {
         return $"cast({quotedColName} as char(1000))";
+    }
+
+    /// <summary>
+    /// Converts to update from statement, e.g:
+    /// UPDATE t INNER JOIN c ON ... SET t.a = c.A WHERE ...
+    /// </summary>
+    /// <param name="values">The values.</param>
+    /// <returns>string.</returns>
+    override protected string ToUpdateFromStatement(List<KeyValuePair<FieldDefinition, string>> values)
+    {
+        var target = TableAlias != null ? DialectProvider.GetQuotedName(TableAlias) : DialectProvider.GetQuotedTableName(modelDef);
+        var tables = FromExpression.Trim();
+        if (tables.StartsWith("FROM ", StringComparison.OrdinalIgnoreCase))
+        {
+            tables = tables.Substring("FROM ".Length);
+        }
+
+        var set = new StringBuilder();
+        foreach (var entry in values)
+        {
+            set.Append(set.Length > 0 ? ", " : "").Append(target).Append('.')
+                .Append(DialectProvider.GetQuotedColumnName(entry.Key)).Append(" = ").Append(entry.Value);
+        }
+
+        return $"UPDATE {tables}\nSET {set}\n{WhereExpression}".TrimEnd();
     }
 
     /// <summary>
@@ -66,7 +93,7 @@ public class MySqlExpression<T> : SqlExpression<T>
         }
 
         var arg = args.Count > 0 ? args[0] : null;
-        string statement = arg == null ? ToCast(quotedColName.ToString()) : $"DATE_FORMAT({quotedColName},'{arg}')";
+        string statement = arg == null ? ToCast(quotedColName.ToString()) : $"DATE_FORMAT({quotedColName},{DialectProvider.GetQuotedValue(arg.ToString())})";
         return new PartialSqlString(statement);
     }
 

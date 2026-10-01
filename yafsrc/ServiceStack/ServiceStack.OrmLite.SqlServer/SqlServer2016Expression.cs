@@ -11,7 +11,9 @@ namespace ServiceStack.OrmLite.SqlServer;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq.Expressions;
+using System.Text;
 
 /// <summary>
 /// Class SqlServer2016Expression.
@@ -27,6 +29,92 @@ public class SqlServer2016Expression<T> : SqlServerExpression<T>
     /// <param name="dialectProvider">The dialect provider.</param>
     public SqlServer2016Expression(IOrmLiteDialectProvider dialectProvider)
         : base(dialectProvider) { }
+
+    /// <summary>
+    /// Uses a single JSON array param, i.e. "col IN (SELECT value FROM OPENJSON(@0))", for IN lists larger than
+    /// MaxInListParams to avoid SQL Server's 2100 parameter limit
+    /// </summary>
+    /// <param name="quotedColName">Name of the quoted col.</param>
+    /// <param name="values">The values.</param>
+    /// <returns>System.String.</returns>
+    override protected string CreateInListSql(object quotedColName, List<object> values)
+    {
+        if (DialectProvider.MaxInListParams > 0 && values.Count > DialectProvider.MaxInListParams && ToJsonArray(values) is { } json)
+        {
+            var p = AddParam(json);
+            p.Size = -1; // NVARCHAR(MAX), default string param sizes would truncate the list
+            return $"{quotedColName} IN (SELECT value FROM OPENJSON({p.ParameterName}))";
+        }
+
+        return base.CreateInListSql(quotedColName, values);
+    }
+
+    /// <summary>
+    /// Converts the values to a JSON array.
+    /// Returns null if any values can't be losslessly compared with OPENJSON's NVARCHAR values
+    /// </summary>
+    /// <param name="values">The values.</param>
+    /// <returns>System.String.</returns>
+    private static string ToJsonArray(List<object> values)
+    {
+        var sb = StringBuilderCache.Allocate().Append('[');
+        foreach (var value in values)
+        {
+            if (sb.Length > 1)
+            {
+                sb.Append(',');
+            }
+
+            switch (value)
+            {
+                case short or int or long or byte or sbyte or ushort or uint or ulong or decimal:
+                    sb.Append(Convert.ToString(value, CultureInfo.InvariantCulture));
+                    break;
+                case Guid guid:
+                    sb.Append('"').Append(guid.ToString("D")).Append('"');
+                    break;
+                case string str:
+                    AppendJsonString(sb, str);
+                    break;
+                default:
+                    StringBuilderCache.Free(sb);
+                    return null;
+            }
+        }
+
+        return StringBuilderCache.ReturnAndFree(sb.Append(']'));
+    }
+
+    /// <summary>
+    /// Appends the JSON string.
+    /// </summary>
+    /// <param name="sb">The string builder.</param>
+    /// <param name="str">The string.</param>
+    private static void AppendJsonString(StringBuilder sb, string str)
+    {
+        sb.Append('"');
+        foreach (var c in str)
+        {
+            switch (c)
+            {
+                case '"': sb.Append("\\\""); break;
+                case '\\': sb.Append("\\\\"); break;
+                default:
+                    if (c < ' ')
+                    {
+                        sb.Append("\\u").Append(((int)c).ToString("x4"));
+                    }
+                    else
+                    {
+                        sb.Append(c);
+                    }
+
+                    break;
+            }
+        }
+
+        sb.Append('"');
+    }
 
     /// <summary>
     /// Visits the SQL method call.
