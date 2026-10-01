@@ -84,7 +84,7 @@ public class SqliteExpression<T> : SqlExpression<T>
             case nameof(string.ToString) when m.Object?.Type == typeof(DateTime):
             {
                 var arg = args.Count > 0 ? args[0] : null;
-                statement = arg == null ? this.ToCast(quotedColName.ToString()) : $"strftime('{arg}',{quotedColName})";
+                statement = arg == null ? this.ToCast(quotedColName.ToString()) : $"strftime({DialectProvider.GetQuotedValue(arg.ToString())},{quotedColName})";
 
                 return new PartialSqlString(statement);
             }

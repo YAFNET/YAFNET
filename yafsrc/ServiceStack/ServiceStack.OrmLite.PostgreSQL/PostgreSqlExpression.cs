@@ -8,6 +8,7 @@
 namespace ServiceStack.OrmLite.PostgreSQL;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
@@ -24,6 +25,58 @@ public class PostgreSqlExpression<T> : SqlExpression<T>
     /// <param name="dialectProvider">The dialect provider.</param>
     public PostgreSqlExpression(IOrmLiteDialectProvider dialectProvider)
         : base(dialectProvider) {}
+
+    /// <summary>
+    /// The array parameter types
+    /// </summary>
+    private readonly static HashSet<Type> ArrayParamTypes = [
+        typeof(short), typeof(int), typeof(long), typeof(float), typeof(double), typeof(decimal), typeof(string),
+    ];
+
+    /// <summary>
+    /// Uses a single array param, i.e. "col = ANY(@0)", for IN lists larger than MaxInListParams
+    /// </summary>
+    /// <param name="quotedColName">Name of the quoted col.</param>
+    /// <param name="values">The values.</param>
+    /// <returns>string.</returns>
+    override protected string CreateInListSql(object quotedColName, List<object> values)
+    {
+        if (DialectProvider.MaxInListParams > 0 && values.Count > DialectProvider.MaxInListParams && ToArrayParam(values) is { } array)
+        {
+            return $"{quotedColName} = ANY({ConvertToParam(array)})";
+        }
+
+        return base.CreateInListSql(quotedColName, values);
+    }
+
+    /// <summary>
+    /// Converts the values to an array parameter.
+    /// Returns null if values aren't all non-null values of the same natively supported array type
+    /// </summary>
+    /// <param name="values">The values.</param>
+    /// <returns>Array.</returns>
+    private static Array ToArrayParam(List<object> values)
+    {
+        var type = values[0]?.GetType();
+        if (type == null || !ArrayParamTypes.Contains(type))
+        {
+            return null;
+        }
+
+        var array = Array.CreateInstance(type, values.Count);
+        for (var i = 0; i < values.Count; i++)
+        {
+            var value = values[i];
+            if (value == null || value.GetType() != type)
+            {
+                return null;
+            }
+
+            array.SetValue(value, i);
+        }
+
+        return array;
+    }
 
     /// <summary>
     /// Gets the name of the quoted column.

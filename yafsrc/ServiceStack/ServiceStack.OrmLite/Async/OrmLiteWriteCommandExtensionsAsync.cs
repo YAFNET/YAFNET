@@ -497,18 +497,47 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal Task<int> DeleteByIdsAsync<T>(IEnumerable idValues,
+        internal async Task<int> DeleteByIdsAsync<T>(IEnumerable idValues,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
-            var sqlIn = dbCmd.SetIdsInSqlParams(idValues);
+            var dialect = dbCmd.GetDialectProvider();
+            var batches = OrmLiteUtils.GetIdBatches(idValues, dialect);
+            if (batches.Count == 1)
+            {
+                var sqlIn = dbCmd.SetIdsInSqlParams(batches[0]);
             if (string.IsNullOrEmpty(sqlIn))
             {
-                return TaskResult.Zero;
+                    return 0;
             }
 
-            var sql = OrmLiteWriteCommandExtensions.GetDeleteByIdsSql<T>(sqlIn, dbCmd.GetDialectProvider());
+                var sql = OrmLiteWriteCommandExtensions.GetDeleteByIdsSql<T>(sqlIn, dialect);
+                return await dbCmd.ExecuteSqlAsync(sql, commandFilter, token).ConfigAwait();
+            }
 
-            return dbCmd.ExecuteSqlAsync(sql, commandFilter, token);
+            // Delete all batches atomically
+            IDbTransaction dbTrans = null;
+            try
+            {
+                dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
+
+                var count = 0;
+                foreach (var batch in batches)
+                {
+                    dbCmd.Parameters.Clear();
+                    var sqlIn = dbCmd.SetIdsInSqlParams(batch);
+                    var sql = OrmLiteWriteCommandExtensions.GetDeleteByIdsSql<T>(sqlIn, dialect);
+                    count += await dbCmd.ExecuteSqlAsync(sql, commandFilter, token).ConfigAwait();
+                }
+
+                dbTrans?.Commit();
+                return count;
+            }
+            finally
+            {
+                dbTrans?.Dispose();
+                if (dbTrans != null && dbCmd.Transaction == dbTrans)
+                    dbCmd.Transaction = null;
+            }
         }
 
         /// <summary>
@@ -895,11 +924,8 @@ static internal class OrmLiteWriteCommandExtensionsAsync
                 var newId = await dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: true,
                     enableIdentityInsert: false, token: token).ConfigAwait();
                 primaryKey.SetValue(obj, dialect.FromDbValue(newId, primaryKey.FieldType));
-                if (modelDef.RowVersion != null)
-                {
-                    var rowVersion = await dbCmd.GetRowVersionAsync(modelDef, primaryKey.GetValue(obj), token).ConfigAwait();
-                    modelDef.RowVersion.SetValue(obj, rowVersion);
-                }
+                await dbCmd.ReadBackUpsertFieldsAsync(obj, modelDef,
+                    OrmLiteWriteCommandExtensions.GetUpsertFieldsAfterInsert(dialect, modelDef), primaryKey.GetValue(obj), token).ConfigAwait();
                 return;
             }
 
@@ -910,6 +936,8 @@ static internal class OrmLiteWriteCommandExtensionsAsync
                 return;
             }
 
+            var readBackFields = OrmLiteWriteCommandExtensions.GetUpsertReadBackFields(modelDef);
+            var didReadBack = false;
             var enableIdentityInsert = primaryKey.AutoIncrement;
             try
             {
@@ -919,7 +947,24 @@ static internal class OrmLiteWriteCommandExtensionsAsync
                 upsertProvider.PrepareParameterizedUpsertStatement<T>(dbCmd,
                     dialectProvider.GetNonDefaultValueInsertFields<T>(obj), canonicalUpdateOnly);
                 dialectProvider.SetParameterValues<T>(dbCmd, obj);
-                await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
+
+                // Return the upserted row in the same statement when supported, e.g. RETURNING or OUTPUT
+                var returningSql = readBackFields.Count > 0
+                    ? upsertProvider.ToUpsertReturningStatement(dbCmd.CommandText, modelDef)
+                    : null;
+                if (returningSql != null)
+                {
+                    var row = await dbCmd.ConvertToAsync<T>(returningSql, token).ConfigAwait();
+                    if (row != null) // no row is returned when an existing row isn't updated, e.g. DO NOTHING
+                    {
+                        OrmLiteWriteCommandExtensions.CopyFields(row, obj, readBackFields);
+                        didReadBack = true;
+                    }
+                }
+                else
+                {
+                    await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
+                }
             }
             finally
             {
@@ -927,11 +972,38 @@ static internal class OrmLiteWriteCommandExtensionsAsync
                     await dialectProvider.DisableIdentityInsertAsync<T>(dbCmd, token).ConfigAwait();
             }
 
-            id = primaryKey.GetValue(obj);
-            if (modelDef.RowVersion != null)
+            if (!didReadBack)
+                await dbCmd.ReadBackUpsertFieldsAsync(obj, modelDef, readBackFields, primaryKey.GetValue(obj), token).ConfigAwait();
+        }
+
+        /// <summary>
+        /// Reads back fields with a separate query, only the row version if it's the only field
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="fields">The fields.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        private async Task ReadBackUpsertFieldsAsync<T>(T obj, ModelDefinition modelDef,
+            List<FieldDefinition> fields, object id, CancellationToken token)
+        {
+            if (fields.Count == 0)
             {
-                var rowVersion = await dbCmd.GetRowVersionAsync(modelDef, id, token).ConfigAwait();
-                modelDef.RowVersion.SetValue(obj, rowVersion);
+                return;
+            }
+
+            if (fields.Count == 1 && fields[0].IsRowVersion)
+            {
+                fields[0].SetValue(obj, await dbCmd.GetRowVersionAsync(modelDef, id, token).ConfigAwait());
+                return;
+            }
+
+            var row = await dbCmd.SingleByIdAsync<T>(id, token).ConfigAwait();
+            if (row != null)
+            {
+                OrmLiteWriteCommandExtensions.CopyFields(row, obj, fields);
             }
         }
 
@@ -983,13 +1055,12 @@ static internal class OrmLiteWriteCommandExtensionsAsync
             {
                 await dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: false,
                     enableIdentityInsert: primaryKey.AutoIncrement, token: token).ConfigAwait();
+                await dbCmd.ReadBackUpsertFieldsAsync(obj, modelDef,
+                    OrmLiteWriteCommandExtensions.GetUpsertFieldsAfterInsert(dbCmd.GetDialectProvider(), modelDef), id, token).ConfigAwait();
+                return;
             }
 
-            if (modelDef.RowVersion != null)
-            {
-                var rowVersion = await dbCmd.GetRowVersionAsync(modelDef, primaryKey.GetValue(obj), token).ConfigAwait();
-                modelDef.RowVersion.SetValue(obj, rowVersion);
-            }
+            await dbCmd.ReadBackUpsertFieldsAsync(obj, modelDef, OrmLiteWriteCommandExtensions.GetUpsertReadBackFields(modelDef), id, token).ConfigAwait();
         }
 
         /// <summary>

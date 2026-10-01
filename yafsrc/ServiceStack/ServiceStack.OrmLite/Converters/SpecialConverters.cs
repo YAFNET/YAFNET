@@ -72,13 +72,23 @@ public class EnumConverter : StringConverter
             return enumKind;
         }
 
-        enumKind = IsIntEnum(enumType)
-            ? EnumKind.Int
-            : enumType.HasAttributeCached<EnumAsCharAttribute>()
-                ? EnumKind.Char
-                : HasEnumMembers(enumType)
+        if (IsIntEnum(enumType))
+        {
+            enumKind = EnumKind.Int;
+        }
+        else
+        {
+            if (enumType.HasAttributeCached<EnumAsCharAttribute>())
+            {
+                enumKind = EnumKind.Char;
+            }
+            else
+            {
+                enumKind = HasEnumMembers(enumType)
                     ? EnumKind.EnumMember
                     : EnumKind.String;
+            }
+        }
 
         Dictionary<Type, EnumKind> snapshot, newCache;
         do

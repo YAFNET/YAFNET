@@ -39,7 +39,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 
         base.InitColumnTypeMap();
 
-        OrmLiteConfig.DeoptimizeReader = true;
+        // Only for SQLite, GetValues() changes the behavior of System.Data.SQLite's GetGuid()
+        DeoptimizeReader = true;
         base.RegisterConverter<DateTime>(new SqliteCoreDateTimeConverter());
         //Old behavior using native sqlite3.dll
         //base.RegisterConverter<DateTime>(new SqliteNativeDateTimeConverter());
@@ -130,6 +131,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef) =>
         fieldDef.ReturnOnInsert || (fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && HasInsertReturnValues(modelDef));
 
+    // SQLite only has database-level locks, ForUpdate() is ignored
+    public override string? GetForUpdateClause(string? lockTable, bool skipLocked) => null;
+
     public override bool HasInsertReturnValues(ModelDefinition modelDef) =>
         modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert);
 
@@ -196,6 +200,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     }
 
     public override bool SupportsUpsert => true;
+
+    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef) =>
+        ToReturningStatement(sql, modelDef, isDelete: false);
 
     public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
         ICollection<string>? insertFields = null, ICollection<string>? updateOnly = null)
@@ -646,7 +653,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>System.String.</returns>
     public override string SqlCurrency(string fieldOrValue, string currencySymbol)
     {
-        return this.SqlConcat(["'" + currencySymbol + "'", "printf(\"%.2f\", " + fieldOrValue + ")"]);
+        return this.SqlConcat([GetQuotedValue(currencySymbol), "printf(\"%.2f\", " + fieldOrValue + ")"]);
     }
 
     /// <summary>
@@ -658,6 +665,16 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     {
         return value ? "1" : "0";
     }
+
+    /// <summary>
+    /// Converts to returning statement. Requires SQLite 3.35+
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="isDelete">if set to <c>true</c> [is delete].</param>
+    /// <returns>System.String.</returns>
+    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete) =>
+        sql.TrimEnd().TrimEnd(';') + " RETURNING " + GetColumnNames(modelDef);
 
     /// <summary>
     /// Gets the SQL random.

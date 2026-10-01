@@ -546,7 +546,7 @@ public static class OrmLiteReadApi
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool Exists<T>(SqlExpression<T> expression)
         {
-            return dbConn.Exec(dbCmd => dbCmd.Scalar(expression.Limit(1).Select("'exists'"))) != null;
+            return dbConn.Exec(dbCmd => dbCmd.Scalar(expression.CloneForExists())) != null;
         }
 
         /// <summary>

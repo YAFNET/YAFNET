@@ -40,6 +40,24 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     protected readonly static ILog Log = LogManager.GetLogger(typeof(IOrmLiteDialectProvider));
     public virtual DbKind Kind => DbKind.Unknown;
 
+    /// <summary>
+    /// Gets or sets the maximum number of params used in an IN list before it's split into batches
+    /// or replaced with a single array param by dialects that support it
+    /// </summary>
+    /// <value>The maximum in list parameters.</value>
+    public int MaxInListParams { get; set; } = 1000;
+
+    /// <summary>
+    /// Converts to a statement returning the affected rows of an UPDATE or DELETE statement.
+    /// </summary>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="isDelete">if set to <c>true</c> [is delete].</param>
+    /// <returns>System.String.</returns>
+    /// <exception cref="System.NotSupportedException"></exception>
+    public virtual string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete) =>
+        throw new NotSupportedException($"{GetType().Name} doesn't support returning rows from UPDATE and DELETE statements");
+
     /* ADO.NET UNDERSTOOD DATA TYPES:
                 COUNTER	DbType.Int64
                 AUTOINCREMENT	DbType.Int64
@@ -716,11 +734,15 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 : this.GetQuotedName(table);
         }
 
-        var escapedSchema = schema.Contains('.')
-            ? schema.Replace(".", this.QuoteChar + "." + this.QuoteChar)
-            : schema;
-        return this.JoinSchema(this.GetQuotedName(escapedSchema), this.GetQuotedName(table));
+        return JoinSchema(QuoteSchemaName(schema), GetQuotedName(table));
     }
+
+    /// <summary>
+    /// Quotes each part of a multi-part schema name individually, e.g. db.dbo => "db"."dbo"
+    /// </summary>
+    public virtual string QuoteSchemaName(string schema) => schema == null ? null : schema.IndexOf('.') >= 0
+        ? string.Join(".", schema.Split('.').Select(GetQuotedName))
+        : GetQuotedName(schema);
 
     public virtual string JoinSchema(string schema, string table)
     {
@@ -793,10 +815,46 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string GetQuotedName(string name)
     {
         if (name == null) return null;
-        if (name.Length >= 2 && name[0] == QuoteChar && name[name.Length - 1] == QuoteChar)
+        if (IsQuotedName(name, QuoteChar))
             return name;
         var quoteStr = QuoteChar.ToString();
         return QuoteChar + name.Replace(quoteStr, quoteStr + quoteStr) + QuoteChar;
+    }
+
+    /// <summary>
+    /// Whether name is a regular identifier that's safe to emit unquoted, i.e. starts with a letter or '_'
+    /// and only contains letters, digits, '_' or any of the dialect-specific allowedChars (e.g. '$', '#')
+    /// </summary>
+    public static bool IsRegularIdentifier(string name, string allowedChars = null)
+    {
+        if (string.IsNullOrEmpty(name) || !(char.IsLetter(name[0]) || name[0] == '_'))
+            return false;
+        foreach (var c in name)
+        {
+            if (!(char.IsLetterOrDigit(c) || c == '_' || (allowedChars != null && allowedChars.IndexOf(c) >= 0)))
+                return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Whether name is already a single well-formed quoted identifier, i.e. wrapped in quoteChar with any
+    /// embedded quoteChar escaped by doubling. Prevents identifier breakout via names like: "a"; DROP TABLE b; --"
+    /// </summary>
+    public static bool IsQuotedName(string name, char quoteChar)
+    {
+        if (name == null || name.Length < 2 || name[0] != quoteChar || name[name.Length - 1] != quoteChar)
+            return false;
+        for (var i = 1; i < name.Length - 1; i++)
+        {
+            if (name[i] != quoteChar)
+                continue;
+            if (i + 1 < name.Length - 1 && name[i + 1] == quoteChar)
+                i++;
+            else
+                return false;
+        }
+        return true;
     }
 
     /// <summary>
@@ -967,7 +1025,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns><c>true</c> if [is full select statement] [the specified SQL]; otherwise, <c>false</c>.</returns>
     public virtual bool IsFullSelectStatement(string sql)
     {
-        return !string.IsNullOrEmpty(sql) && sql.TrimStart().StartsWith("SELECT", StringComparison.OrdinalIgnoreCase);
+        return !string.IsNullOrEmpty(sql)
+               && (sql.TrimStart().StartsWith("SELECT", StringComparison.OrdinalIgnoreCase)
+                   || sql.TrimStart().StartsWith("WITH ", StringComparison.OrdinalIgnoreCase)); // common table expressions
     }
 
     // Fmt
@@ -1563,6 +1623,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     public virtual bool SupportsUpsert => false;
+
+    public virtual string ToUpsertReturningStatement(string sql, ModelDefinition modelDef) => null;
 
     public virtual void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
         ICollection<string> insertFields = null, ICollection<string> updateOnly = null) =>
@@ -2690,6 +2752,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Read each field of a row individually instead of with a single IDataReader.GetValues() call
+    /// </summary>
+    /// <value><c>true</c> if [deoptimize reader]; otherwise, <c>false</c>.</value>
+    public bool DeoptimizeReader { get; set; }
+
+    /// <summary>
     /// Determines whether [has insert return values] [the specified model definition].
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
@@ -2698,6 +2766,22 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     {
         return modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert);
     }
+
+    /// <summary>
+    /// Gets the table hint that locks the selected rows for SqlExpression.ForUpdate().
+    /// </summary>
+    /// <param name="skipLocked">if set to <c>true</c> [skip locked].</param>
+    /// <returns>System.String.</returns>
+    public virtual string GetForUpdateTableHint(bool skipLocked) => null;
+
+    /// <summary>
+    /// Gets the clause that locks the selected rows for SqlExpression.ForUpdate().
+    /// </summary>
+    /// <param name="lockTable">The lock table.</param>
+    /// <param name="skipLocked">if set to <c>true</c> [skip locked].</param>
+    /// <returns>System.String.</returns>
+    public virtual string GetForUpdateClause(string lockTable, bool skipLocked) =>
+        "FOR UPDATE" + (lockTable != null ? " OF " + lockTable : "") + (skipLocked ? " SKIP LOCKED" : "");
 
     /// <summary>
     /// Gets the default value.
@@ -3991,7 +4075,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <value>The SQL random.</value>
     public virtual string SqlRandom => "RAND()";
 
-    public virtual string SqlDateFormat(string quotedColumn, string format) => $"strftime('{format}',{quotedColumn})";
+    public virtual string SqlDateFormat(string quotedColumn, string format) => $"strftime({GetQuotedValue(format)},{quotedColumn})";
     public virtual string SqlChar(int charCode) => $"CHAR({charCode})";
 
     // Async API's, should be overriden by Dialect Providers to use .ConfigureAwait(false)

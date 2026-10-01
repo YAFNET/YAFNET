@@ -372,7 +372,7 @@ public static class OrmLiteReadExpressionsApiAsync
         /// <returns>Task&lt;System.Int64&gt;.</returns>
         public Task<long> CountAsync<T>(CancellationToken token = default)
         {
-            var expression = dbConn.GetDialectProvider().SqlExpression<T>();
+            var expression = dbConn.CreateQuery<T>();
             return dbConn.Exec(dbCmd => dbCmd.CountAsync(expression, token));
         }
 

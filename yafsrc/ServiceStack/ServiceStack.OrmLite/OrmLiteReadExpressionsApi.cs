@@ -105,7 +105,7 @@ public static class OrmLiteReadExpressionsApi
         /// <returns>SqlExpression&lt;T&gt;.</returns>
         public SqlExpression<T> From<T>()
         {
-            return dbConn.GetExecFilter().SqlExpression<T>(dbConn);
+            return dbConn.GetExecFilter().SqlExpression<T>(dbConn).WithFilters(dbConn);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ public static class OrmLiteReadExpressionsApi
         /// <returns>SqlExpression&lt;T&gt;.</returns>
         public SqlExpression<T> From<T>(Action<SqlExpression<T>> options)
         {
-            var q = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
+            var q = dbConn.GetExecFilter().SqlExpression<T>(dbConn).WithFilters(dbConn);
             options(q);
             return q;
         }
@@ -130,7 +130,7 @@ public static class OrmLiteReadExpressionsApi
         /// <returns>SqlExpression&lt;T&gt;.</returns>
         public SqlExpression<T> From<T, JoinWith>(Expression<Func<T, JoinWith, bool>> joinExpr = null)
         {
-            var sql = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
+            var sql = dbConn.GetExecFilter().SqlExpression<T>(dbConn).WithFilters(dbConn);
             sql.Join<T, JoinWith>(joinExpr);
             return sql;
         }
@@ -143,7 +143,7 @@ public static class OrmLiteReadExpressionsApi
         /// <returns>SqlExpression&lt;T&gt;.</returns>
         public SqlExpression<T> From<T>(string fromExpression)
         {
-            var expr = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
+            var expr = dbConn.GetExecFilter().SqlExpression<T>(dbConn).WithFilters(dbConn);
             expr.From(fromExpression);
             return expr;
         }
@@ -167,7 +167,7 @@ public static class OrmLiteReadExpressionsApi
                 expr.SetTableAlias(tableOptions.Alias);
             }
 
-            return expr;
+            return expr.WithFilters(dbConn);
         }
 
         /// <summary>
@@ -839,7 +839,7 @@ public static class OrmLiteReadExpressionsApi
         /// <returns>System.Int64.</returns>
         public long Count<T>()
         {
-            var expression = dbConn.GetDialectProvider().SqlExpression<T>();
+            var expression = dbConn.CreateQuery<T>();
             return dbConn.Exec(dbCmd => dbCmd.Count(expression));
         }
 

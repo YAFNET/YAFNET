@@ -457,9 +457,9 @@ public static class OrmLiteConfig
     public static bool IsCaseInsensitive { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [deoptimize reader].
+    /// Read each field of a row individually for every dialect, use IOrmLiteDialectProvider.DeoptimizeReader to only
+    /// change a specific dialect
     /// </summary>
-    /// <value><c>true</c> if [deoptimize reader]; otherwise, <c>false</c>.</value>
     public static bool DeoptimizeReader { get; set; }
 
     /// <summary>

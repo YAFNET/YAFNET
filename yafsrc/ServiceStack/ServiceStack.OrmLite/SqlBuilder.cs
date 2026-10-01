@@ -410,6 +410,11 @@ public class SqlBuilder
         {
             return this.RawSql;
         }
+
+        // Raw SQL templates are used as-is
+        public string ToSetOperandStatement(string alias) => this.RawSql;
+
+        public string Dump(bool includeParams) => this.RawSql;
     }
 
     /// <summary>

@@ -63,7 +63,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
         internal Task<List<T>> SelectAsync<T>(Expression<Func<T, bool>> predicate, CancellationToken token)
         {
-            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            var q = dbCmd.CreateQuery<T>();
             var sql = q.Where(predicate).SelectInto<T>(QueryType.Select);
 
             return dbCmd.ExprConvertToListAsync<T>(sql, q.Params, q.OnlyFields, token);
@@ -316,7 +316,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <returns>Task&lt;T&gt;.</returns>
         internal Task<T> SingleAsync<T>(Expression<Func<T, bool>> predicate, CancellationToken token)
         {
-            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            var q = dbCmd.CreateQuery<T>();
 
             return SingleAsync(dbCmd, q.Where(predicate), token);
         }
@@ -330,9 +330,10 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <returns>Task&lt;T&gt;.</returns>
         internal Task<T> SingleAsync<T>(SqlExpression<T> expression, CancellationToken token)
         {
-            var sql = expression.Limit(1).SelectInto<T>(QueryType.Single);
+            var q = expression.Clone().Limit(1); // don't mutate the caller's expression
+            var sql = q.SelectInto<T>(QueryType.Single);
 
-            return dbCmd.ExprConvertToAsync<T>(sql, expression.Params, token);
+            return dbCmd.ExprConvertToAsync<T>(sql, q.Params, token);
         }
 
         /// <summary>
@@ -345,7 +346,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <returns>Task&lt;TKey&gt;.</returns>
         public Task<TKey> ScalarAsync<T, TKey>(Expression<Func<T, object>> field, CancellationToken token)
         {
-            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            var q = dbCmd.CreateQuery<T>();
             q.Select(field);
             var sql = q.SelectInto<T>(QueryType.Select);
             return dbCmd.ScalarAsync<TKey>(sql, q.Params, token);
@@ -362,7 +363,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <returns>Task&lt;TKey&gt;.</returns>
         internal Task<TKey> ScalarAsync<T, TKey>(Expression<Func<T, object>> field, Expression<Func<T, bool>> predicate, CancellationToken token)
         {
-            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            var q = dbCmd.CreateQuery<T>();
             q.Select(field).Where(predicate);
             var sql = q.SelectInto<T>(QueryType.Select);
             return dbCmd.ScalarAsync<TKey>(sql, q.Params, token);
@@ -376,7 +377,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <returns>Task&lt;System.Int64&gt;.</returns>
         internal Task<long> CountAsync<T>(CancellationToken token)
         {
-            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            var q = dbCmd.CreateQuery<T>();
             var sql = q.ToCountStatement();
             return GetCountAsync(dbCmd, sql, q.Params, token);
         }
@@ -403,7 +404,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <returns>Task&lt;System.Int64&gt;.</returns>
         internal Task<long> CountAsync<T>(Expression<Func<T, bool>> predicate, CancellationToken token)
         {
-            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            var q = dbCmd.CreateQuery<T>();
             q.Where(predicate);
             var sql = q.ToCountStatement();
             return GetCountAsync(dbCmd, sql, q.Params, token);
@@ -489,7 +490,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
         internal Task<List<T>> LoadSelectAsync<T>(Expression<Func<T, bool>> predicate, IEnumerable<string> include = null, CancellationToken token = default)
         {
-            var expr = dbCmd.GetDialectProvider().SqlExpression<T>().Where(predicate);
+            var expr = dbCmd.CreateQuery<T>().Where(predicate);
             return dbCmd.LoadListWithReferencesAsync<T, T>(expr, include, token);
         }
     }
@@ -520,7 +521,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
         internal Task<List<T>> Select<T>(Expression<Func<T, bool>> predicate, CancellationToken token)
         {
-            var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+            var q = dbCmd.CreateQuery<T>();
             var sql = q.Where(predicate).SelectInto<T>(QueryType.Select);
 
             return dbCmd.ExprConvertToListAsync<T>(sql, q.Params, q.OnlyFields, token);

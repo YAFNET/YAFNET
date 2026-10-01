@@ -79,7 +79,7 @@ internal abstract class LoadList<Into, From>
     {
         this.dialectProvider = dbCmd.GetDialectProvider();
 
-        q ??= this.dialectProvider.SqlExpression<From>();
+        q ??= dbCmd.CreateQuery<From>();
 
         this.dbCmd = dbCmd;
         this.q = q;
@@ -109,6 +109,7 @@ internal abstract class LoadList<Into, From>
                      $"FROM {this.dialectProvider.GetQuotedTableName(refModelDef)} " +
                      $"WHERE {this.dialectProvider.GetQuotedColumnName(refField)} " +
                      $"IN ({this.subSql})";
+        sqlRef = this.dbCmd.AddFilterCondition(refModelDef.ModelType, sqlRef);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {
@@ -161,7 +162,8 @@ internal abstract class LoadList<Into, From>
     /// <returns>System.String.</returns>
     protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef, FieldDefinition refId)
     {
-        return this.dialectProvider.GetRefSelfSql(this.q.Clone(), modelDef, refSelf, refModelDef, refId);
+        return this.dbCmd.AddFilterCondition(refModelDef.ModelType,
+            this.dialectProvider.GetRefSelfSql(this.q.Clone(), modelDef, refSelf, refModelDef, refId));
     }
 
     /// <summary>
@@ -172,7 +174,8 @@ internal abstract class LoadList<Into, From>
     /// <returns>System.String.</returns>
     protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField)
     {
-        return this.dialectProvider.GetRefFieldSql(this.subSql, refModelDef, refField);
+        return this.dbCmd.AddFilterCondition(refModelDef.ModelType,
+            this.dialectProvider.GetRefFieldSql(this.subSql, refModelDef, refField));
     }
 
     /// <summary>
@@ -183,7 +186,8 @@ internal abstract class LoadList<Into, From>
     /// <returns>System.String.</returns>
     protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef)
     {
-        return this.dialectProvider.GetFieldReferenceSql(this.subSql, fieldDef, fieldRef);
+        return this.dbCmd.AddFilterCondition(fieldRef.RefModel,
+            this.dialectProvider.GetFieldReferenceSql(this.subSql, fieldDef, fieldRef));
     }
 
     /// <summary>

@@ -554,7 +554,7 @@ public static class OrmLiteReadApiAsync
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
         public Task<bool> ExistsAsync<T>(SqlExpression<T> expression, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.ScalarAsync(expression.Limit(1).Select("'exists'"), token).Then(x => x != null));
+            return dbConn.Exec(dbCmd => dbCmd.ScalarAsync(expression.CloneForExists(), token).Then(x => x != null));
         }
 
         /// <summary>

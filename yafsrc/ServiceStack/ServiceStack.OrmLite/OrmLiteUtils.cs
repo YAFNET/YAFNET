@@ -7,11 +7,13 @@
 
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using ServiceStack.Logging;
@@ -37,8 +39,113 @@ public static class OrmLiteUtils
     /// <summary>
     /// The index fields cache
     /// </summary>
-    private readonly static Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache
-        = new(maxCachedIndexFields);
+    private readonly static ConcurrentDictionary<IndexFieldsKey, IndexFieldsEntry> indexFieldsCache = new();
+
+    /// <summary>
+    /// Allocation-free cache key of the reader columns being mapped, verified against the entry's column names on hit
+    /// </summary>
+    private readonly struct IndexFieldsKey(ModelDefinition modelDef, IOrmLiteDialectProvider dialect,
+        int startPos, int endPos, bool hasOnlyFields, int namesHash) : IEquatable<IndexFieldsKey>
+    {
+        /// <summary>
+        /// The model definition
+        /// </summary>
+        private readonly ModelDefinition modelDef = modelDef;
+
+        /// <summary>
+        /// The dialect
+        /// </summary>
+        private readonly IOrmLiteDialectProvider dialect = dialect;
+
+        /// <summary>
+        /// The start position
+        /// </summary>
+        private readonly int startPos = startPos;
+
+        /// <summary>
+        /// The end position
+        /// </summary>
+        private readonly int endPos = endPos;
+
+        /// <summary>
+        /// Whether only fields are selected
+        /// </summary>
+        private readonly bool hasOnlyFields = hasOnlyFields;
+
+        /// <summary>
+        /// The column names hash
+        /// </summary>
+        private readonly int namesHash = namesHash;
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns><see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
+        public bool Equals(IndexFieldsKey other) =>
+            ReferenceEquals(this.modelDef, other.modelDef)
+            && ReferenceEquals(this.dialect, other.dialect) && this.startPos == other.startPos && this.endPos == other.endPos
+            && this.hasOnlyFields == other.hasOnlyFields && this.namesHash == other.namesHash;
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        public override bool Equals(object obj) => obj is IndexFieldsKey other && this.Equals(other);
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = this.namesHash;
+                hash = hash * 31 + this.modelDef.GetHashCode();
+                hash = hash * 31 + this.dialect.GetHashCode();
+                hash = hash * 31 + this.startPos;
+                hash = hash * 31 + this.endPos;
+                return hash * 31 + (this.hasOnlyFields ? 1 : 0);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Cached index fields of the mapped reader columns.
+    /// </summary>
+    private sealed class IndexFieldsEntry(string[] columnNames, Tuple<FieldDefinition, int, IOrmLiteConverter>[] result)
+    {
+        /// <summary>
+        /// The column names
+        /// </summary>
+        public readonly string[] ColumnNames = columnNames;
+
+        /// <summary>
+        /// The result
+        /// </summary>
+        public readonly Tuple<FieldDefinition, int, IOrmLiteConverter>[] Result = result;
+
+        /// <summary>
+        /// Whether the reader columns match the cached column names.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="startPos">The start position.</param>
+        /// <returns><c>true</c> if matches, <c>false</c> otherwise.</returns>
+        public bool Matches(IDataReader reader, int startPos)
+        {
+            for (var i = 0; i < this.ColumnNames.Length; i++)
+            {
+                if (!string.Equals(this.ColumnNames[i], reader.GetName(startPos + i), StringComparison.Ordinal))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
 
     /// <summary>
     /// The log
@@ -554,6 +661,112 @@ public static class OrmLiteUtils
     }
 
     /// <summary>
+    /// Returns ids split into batches of at most dialect.MaxInListParams, always returns at least 1 (possibly empty) batch
+    /// </summary>
+    /// <param name="idValues">The identifier values.</param>
+    /// <param name="dialect">The dialect.</param>
+    /// <returns>List&lt;List&lt;object&gt;&gt;.</returns>
+    static internal List<List<object>> GetIdBatches(IEnumerable idValues, IOrmLiteDialectProvider dialect)
+    {
+        var ids = Sql.Flatten(idValues);
+        var max = dialect.MaxInListParams;
+        if (max <= 0 || ids.Count <= max)
+        {
+            return [ids];
+        }
+
+        var batches = new List<List<object>>();
+        for (var i = 0; i < ids.Count; i += max)
+        {
+            batches.Add(ids.GetRange(i, Math.Min(max, ids.Count - i)));
+        }
+
+        return batches;
+    }
+
+    /// <summary>
+    /// Input params that have been added to a command, SQL Server + PostgreSQL don't allow re-using them in other commands
+    /// </summary>
+    private readonly static ConditionalWeakTable<IDbDataParameter, object> paramsInUse = new();
+
+    /// <summary>
+    /// The in use callback
+    /// </summary>
+    private readonly static ConditionalWeakTable<IDbDataParameter, object>.CreateValueCallback inUseFn = _ => EmptyObject;
+
+    /// <summary>
+    /// The empty object
+    /// </summary>
+    private readonly static object EmptyObject = new();
+
+    /// <summary>
+    /// Adds db params to the command, adding clones of Input params that were previously added to another command,
+    /// e.g. when re-executing the same SqlExpression, as SQL Server + PostgreSQL don't allow re-using db params
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="sqlParams">The SQL parameters.</param>
+    public static void AddParams(this IDbCommand dbCmd, IEnumerable<IDbDataParameter> sqlParams)
+    {
+        if (sqlParams == null)
+        {
+            return;
+        }
+
+        var startCount = dbCmd.Parameters.Count;
+        try
+        {
+            foreach (var sqlParam in sqlParams)
+            {
+                if (sqlParam.Direction != ParameterDirection.Input)
+                {
+                    // Add Output params as-is so callers can read their values
+                    dbCmd.Parameters.Add(sqlParam);
+                }
+                else if (paramsInUse.TryGetValue(sqlParam, out _))
+                {
+                    dbCmd.Parameters.Add(dbCmd.CloneParam(sqlParam));
+                }
+                else
+                {
+                    dbCmd.Parameters.Add(sqlParam);
+                    paramsInUse.GetValue(sqlParam, inUseFn);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // e.g. params owned by commands created outside of OrmLite
+            if (Log.IsDebugEnabled)
+            {
+                Log.Debug("Exception trying to reuse db params, executing with cloned params instead", ex);
+            }
+
+            while (dbCmd.Parameters.Count > startCount)
+            {
+                dbCmd.Parameters.RemoveAt(dbCmd.Parameters.Count - 1);
+            }
+
+            foreach (var sqlParam in sqlParams)
+            {
+                dbCmd.Parameters.Add(dbCmd.CloneParam(sqlParam));
+            }
+        }
+    }
+
+    /// <summary>
+    /// Clones the parameter.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="sqlParam">The SQL parameter.</param>
+    /// <returns>IDbDataParameter.</returns>
+    private static IDbDataParameter CloneParam(this IDbCommand dbCmd, IDbDataParameter sqlParam)
+    {
+        var p = dbCmd.CreateParameter();
+        p.PopulateWith(sqlParam);
+        return p;
+    }
+
+    /// <summary>
     /// Sets the ids in SQL parameters.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
@@ -574,6 +787,36 @@ public static class OrmLiteUtils
         }
         var sqlIn = StringBuilderCache.ReturnAndFree(sbParams);
         return sqlIn;
+    }
+
+    /// <summary>
+    /// Whether text contains word (case-insensitive) as a whole word, i.e. not surrounded by letters, digits or '_'
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="word">The word.</param>
+    /// <returns><c>true</c> if text contains the word, <c>false</c> otherwise.</returns>
+    static internal bool ContainsWord(this string text, string word)
+    {
+        if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(word))
+        {
+            return false;
+        }
+
+        static bool IsWordChar(char c) => char.IsLetterOrDigit(c) || c == '_';
+
+        var index = text.IndexOf(word, StringComparison.OrdinalIgnoreCase);
+        while (index >= 0)
+        {
+            var end = index + word.Length;
+            if ((index == 0 || !IsWordChar(text[index - 1])) && (end == text.Length || !IsWordChar(text[end])))
+            {
+                return true;
+            }
+
+            index = text.IndexOf(word, index + 1, StringComparison.OrdinalIgnoreCase);
+        }
+
+        return false;
     }
 
     /// <param name="sqlText">The SQL text.</param>
@@ -677,25 +920,54 @@ public static class OrmLiteUtils
 
     public static TimeSpan DefaultRegexTimeout = TimeSpan.FromSeconds(1);
 
-    /// <summary>
-    /// The verify fragment reg ex
-    /// </summary>
-    public static Regex VerifyFragmentRegEx = new("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|select|sys|sysobjects|syscolumns|table|update)([^\\w]|$)+",
-        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase,
-        DefaultRegexTimeout);
+    // Symbolic tokens (comments, statement separators, system vars) are illegal anywhere, e.g. "Id--", "Id;TRUNCATE x"
+    // (a single trailing ';' is allowed). Keyword tokens are only illegal as whole words.
+    private const string IllegalSymbolTokensPattern = "--|;(?!\\s*$)|/\\*|\\*/|@@";
 
-    /// <summary>
-    /// The verify SQL reg ex
-    /// </summary>
-    public static Regex VerifySqlRegEx = new("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|table|update)([^\\w]|$)+",
-        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase,
-        DefaultRegexTimeout);
+    public static Regex VerifyFragmentRegEx = new Regex(
+        "(" + IllegalSymbolTokensPattern + ")|(?:[^\\w]|^)(%|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|select|sys|sysobjects|syscolumns|table|update)(?:[^\\w]|$)",
+        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase, DefaultRegexTimeout);
+
+    public static Regex VerifySqlRegEx = new Regex(
+       "(" + IllegalSymbolTokensPattern + ")|(?:[^\\w]|^)(%|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|table|update)(?:[^\\w]|$)",
+       RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase, DefaultRegexTimeout);
 
     /// <summary>
     /// Gets or sets the SQL verify fragment function.
     /// </summary>
     /// <value>The SQL verify fragment function.</value>
     public static Func<string, string> SqlVerifyFragmentFn { get; set; }
+
+    /// <summary>
+    /// Returns the fragments to verify after stripping quoted literals, or null if a literal is unclosed.
+    /// Literals are stripped using both ANSI ('' escapes) and MySQL (\' escapes) semantics, as the fragment
+    /// must be safe regardless of which interpretation the RDBMS uses.
+    /// </summary>
+    internal static string[] GetFragmentsToVerify(string sql)
+    {
+        var ansi = StripAllQuotedStrings(sql, backslashEscapes: false);
+        if (ansi == null)
+            return null;
+        if (sql.IndexOf('\\') == -1)
+            return [ansi];
+        var mysql = StripAllQuotedStrings(sql, backslashEscapes: true);
+        return mysql == null ? null : [ansi, mysql];
+    }
+
+    private static string StripAllQuotedStrings(string sql, bool backslashEscapes)
+    {
+        // Quoted literals are replaced with a space so adjacent tokens aren't concatenated, e.g. select'a'from
+        var s1 = StripQuotedStrings(sql, '\'', backslashEscapes, " ", out var inQuotes1);
+        if (inQuotes1)
+            return null;
+        var s2 = StripQuotedStrings(s1, '"', backslashEscapes, " ", out var inQuotes2);
+        if (inQuotes2)
+            return null;
+        var s3 = StripQuotedStrings(s2, '`', backslashEscapes: false, " ", out var inQuotes3);
+        if (inQuotes3)
+            return null;
+        return s3.ToLower();
+    }
 
     /// <summary>
     /// Determines whether [is unsafe SQL] [the specified SQL].
@@ -716,31 +988,20 @@ public static class OrmLiteUtils
             return false;
         }
 
-        var s1 = sql.StripQuotedStrings('\'', out var inQuotes1);
-        if (inQuotes1)
-        {
-            return true;
-        }
-
-        var s2 = s1.StripQuotedStrings('"', out var inQuotes2);
-        if (inQuotes2)
-        {
-            return true;
-        }
-
-        var fragmentToVerify = s2
-            .StripQuotedStrings('`', out var inQuotes3)
-            .ToLower();
-
-        if (inQuotes3)
+        var fragments = GetFragmentsToVerify(sql);
+        if (fragments == null)
         {
             return true;
         }
 
         try
         {
-            var match = verifySql.Match(fragmentToVerify);
-            return match.Success;
+            foreach (var fragment in fragments)
+            {
+                if (verifySql.IsMatch(fragment))
+                    return true;
+            }
+            return false;
         }
         catch (RegexMatchTimeoutException)
         {
@@ -791,26 +1052,16 @@ public static class OrmLiteUtils
                 return null;
             }
 
-            var s1 = sqlFragment.StripQuotedStrings('\'', out var inQuotes1);
-            if (inQuotes1)
+            var fragments = GetFragmentsToVerify(sqlFragment);
+            if (fragments == null)
                 throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
 
-            var s2 = s1.StripQuotedStrings('"', out var inQuotes2);
-            if (inQuotes2)
-                throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
-
-            var fragmentToVerify = s2
-                .StripQuotedStrings('`', out var inQuotes3)
-                    .ToLower();
-
-            if (inQuotes3)
-                throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
-
-            foreach (var illegalFragment in illegalFragments)
+            foreach (var fragmentToVerify in fragments)
             {
-                if (fragmentToVerify.IndexOf(illegalFragment, StringComparison.Ordinal) >= 0)
+                foreach (var illegalFragment in illegalFragments)
                 {
-                    throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
+                    if (fragmentToVerify.IndexOf(illegalFragment, StringComparison.Ordinal) >= 0)
+                        throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
                 }
             }
 
@@ -836,38 +1087,53 @@ public static class OrmLiteUtils
             return StripQuotedStrings(sqlFragment, quote, out _);
         }
 
-        public string StripQuotedStrings(char quote, out bool inQuotes)
+        
+    }
+
+    public static string StripQuotedStrings(this string text, char quote, out bool inQuotes) =>
+       StripQuotedStrings(text, quote, backslashEscapes: false, replaceWith: null, out inQuotes);
+
+    internal static string StripQuotedStrings(string text, char quote, bool backslashEscapes, string replaceWith, out bool inQuotes)
+    {
+        if (text == null)
         {
-            if (sqlFragment == null)
+            inQuotes = false;
+            return null;
+        }
+
+        var sb = StringBuilderCache.Allocate();
+        inQuotes = false;
+        for (var i = 0; i < text.Length; i++)
+        {
+            var c = text[i];
+
+            if (inQuotes && backslashEscapes && c == '\\')
             {
-                inQuotes = false;
-                return null;
+                // Backslash escaped char within quoted literal (e.g. \' in MySQL)
+                i++;
+                continue;
             }
 
-            var sb = StringBuilderCache.Allocate();
-            inQuotes = false;
-            for (var i = 0; i < sqlFragment.Length; i++)
+            if (c == quote)
             {
-                var c = sqlFragment[i];
-                if (c == quote)
+                if (inQuotes && i + 1 < text.Length && text[i + 1] == quote)
                 {
-                    if (inQuotes && i + 1 < sqlFragment.Length && sqlFragment[i + 1] == quote)
-                    {
-                        // Escaped quote within quoted literal (e.g. '' or "")
-                        i++;
-                        continue;
-                    }
-
-                    inQuotes = !inQuotes;
+                    // Escaped quote within quoted literal (e.g. '' or "")
+                    i++;
                     continue;
                 }
 
-                if (!inQuotes)
-                    sb.Append(c);
+                inQuotes = !inQuotes;
+                if (!inQuotes && replaceWith != null)
+                    sb.Append(replaceWith);
+                continue;
             }
 
-            return StringBuilderCache.ReturnAndFree(sb);
+            if (!inQuotes)
+                sb.Append(c);
         }
+
+        return StringBuilderCache.ReturnAndFree(sb);
     }
 
     /// <summary>
@@ -1004,33 +1270,21 @@ public static class OrmLiteUtils
             int? endPos = null)
         {
             var fieldCount = reader.FieldCount;
-            var sb = StringBuilderCache.Allocate();
-            for (var i = 0; i < fieldCount; i++)
-            {
-                if (sb.Length > 0)
-                {
-                    sb.Append(", ");
-                }
-
-                sb.Append(reader.GetName(i));
-            }
-            var fieldNames = StringBuilderCache.ReturnAndFree(sb);
-
             var end = endPos.GetValueOrDefault(fieldCount);
-            var cacheKey = (startPos == 0 && end == fieldCount && onlyFields == null)
-                ? new IndexFieldsCacheKey(fieldNames, modelDefinition, dialect)
-                : null;
 
-            Tuple<FieldDefinition, int, IOrmLiteConverter>[] value;
-            if (cacheKey != null)
+            var namesHash = 17;
+            unchecked
             {
-                lock (indexFieldsCache)
+                for (var i = startPos; i < end; i++)
                 {
-                    if (indexFieldsCache.TryGetValue(cacheKey, out value))
-                    {
-                        return value;
-                    }
+                    namesHash = namesHash * 31 + (reader.GetName(i)?.GetHashCode() ?? 0);
                 }
+            }
+
+            var cacheKey = new IndexFieldsKey(modelDefinition, dialect, startPos, end, onlyFields != null, namesHash);
+            if (indexFieldsCache.TryGetValue(cacheKey, out var entry) && entry.Matches(reader, startPos))
+            {
+                return entry.Result;
             }
 
             var cache = new List<Tuple<FieldDefinition, int, IOrmLiteConverter>>();
@@ -1092,20 +1346,15 @@ public static class OrmLiteUtils
 
             var result = cache.ToArray();
 
-            if (cacheKey != null)
+            if (indexFieldsCache.Count < maxCachedIndexFields)
             {
-                lock (indexFieldsCache)
+                var columnNames = new string[end - startPos];
+                for (var i = startPos; i < end; i++)
                 {
-                    if (indexFieldsCache.TryGetValue(cacheKey, out value))
-                    {
-                        return value;
-                    }
-
-                    if (indexFieldsCache.Count < maxCachedIndexFields)
-                    {
-                        indexFieldsCache.Add(cacheKey, result);
-                    }
+                    columnNames[i - startPos] = reader.GetName(i);
                 }
+
+                indexFieldsCache[cacheKey] = new IndexFieldsEntry(columnNames, result);
             }
 
             return result;

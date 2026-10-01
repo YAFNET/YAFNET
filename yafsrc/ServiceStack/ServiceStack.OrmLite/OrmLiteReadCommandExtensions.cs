@@ -188,33 +188,79 @@ public static class OrmLiteReadCommandExtensions
                 return dbCmd;
             }
 
-            try
-            {
-                dbCmd.Parameters.Clear();
-                foreach (var sqlParam in sqlParams)
-                {
-                    dbCmd.Parameters.Add(sqlParam);
-                }
-            }
-            catch (Exception ex)
-            {
-                //SQL Server + PostgreSql doesn't allow re-using db params in multiple queries
-                if (Log.IsDebugEnabled)
-                {
-                    Log.Debug("Exception trying to reuse db params, executing with cloned params instead", ex);
-                }
-
-                dbCmd.Parameters.Clear();
-                foreach (var sqlParam in sqlParams)
-                {
-                    var p = dbCmd.CreateParameter();
-                    p.PopulateWith(sqlParam);
-                    dbCmd.Parameters.Add(p);
-                }
-            }
-
+            dbCmd.Parameters.Clear();
+            dbCmd.AddParams(sqlParams);
             return dbCmd;
         }
+    }
+
+    /// <summary>
+    /// Adds a db param for each value and replaces the whole {ParamString}{propName} placeholder token in sql
+    /// with the comma-delimited param list, e.g. @ids => @v0,@v1 (without matching longer names like @idsCount)
+    /// </summary>
+    private static string AddInParams(this IDbCommand dbCmd, IOrmLiteDialectProvider dialectProvider,
+        string sql, string propName, IEnumerable inValues, ref int paramIndex)
+    {
+        var sb = StringBuilderCache.Allocate();
+        foreach (var item in inValues)
+        {
+            var p = dbCmd.CreateParameter();
+            p.ParameterName = "v" + paramIndex++;
+
+            if (sb.Length > 0)
+                sb.Append(',');
+            sb.Append(dialectProvider.ParamString + p.ParameterName);
+
+            p.Direction = ParameterDirection.Input;
+            if (item != null)
+            {
+                dialectProvider.InitDbParam(p, item.GetType());
+                dialectProvider.SetParamValue(p, item, item.GetType());
+            }
+            else
+            {
+                p.Value = DBNull.Value;
+            }
+
+            dbCmd.Parameters.Add(p);
+        }
+
+        var sqlIn = StringBuilderCache.ReturnAndFree(sb);
+        if (string.IsNullOrEmpty(sqlIn))
+            sqlIn = "NULL";
+        if (sql == null)
+            return null;
+
+        sql = ReplaceParamToken(sql, dialectProvider.ParamString + propName, sqlIn);
+        if (dialectProvider.ParamString != "@")
+            sql = ReplaceParamToken(sql, "@" + propName, sqlIn);
+        return sql;
+    }
+
+    /// <summary>
+    /// Replace all occurrences of a param token not followed by an identifier char, i.e. @id but not @idx
+    /// </summary>
+    internal static string ReplaceParamToken(string sql, string token, string replaceWith)
+    {
+        var pos = sql.IndexOf(token, StringComparison.Ordinal);
+        if (pos < 0)
+            return sql;
+
+        var sb = StringBuilderCache.Allocate();
+        var lastPos = 0;
+        while (pos >= 0)
+        {
+            var endPos = pos + token.Length;
+            var isWholeToken = endPos >= sql.Length || !(char.IsLetterOrDigit(sql[endPos]) || sql[endPos] == '_');
+            if (isWholeToken)
+            {
+                sb.Append(sql, lastPos, pos - lastPos).Append(replaceWith);
+                lastPos = endPos;
+            }
+            pos = sql.IndexOf(token, endPos, StringComparison.Ordinal);
+        }
+        sb.Append(sql, lastPos, sql.Length - lastPos);
+        return StringBuilderCache.ReturnAndFree(sb);
     }
 
     /// <summary>
@@ -222,7 +268,7 @@ public static class OrmLiteReadCommandExtensions
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>IEnumerable.</returns>
-    private static IEnumerable GetMultiValues(object value)
+    static internal IEnumerable GetMultiValues(object value)
     {
         if (value is SqlInValues inValues)
         {
@@ -273,39 +319,7 @@ public static class OrmLiteReadCommandExtensions
                 var inValues = sql != null ? GetMultiValues(value) : null;
                 if (inValues != null)
                 {
-                    var propType = value?.GetType() ?? typeof(object);
-                    var sb = StringBuilderCache.Allocate();
-                    foreach (var item in inValues)
-                    {
-                        var p = dbCmd.CreateParameter();
-                        p.ParameterName = "v" + paramIndex++;
-
-                        if (sb.Length > 0)
-                        {
-                            sb.Append(',');
-                        }
-
-                        sb.Append(dialectProvider.ParamString + p.ParameterName);
-
-                        p.Direction = ParameterDirection.Input;
-                        dialectProvider.InitDbParam(p, item.GetType());
-
-                        dialectProvider.SetParamValue(p, item, item.GetType());
-
-                        dbCmd.Parameters.Add(p);
-                    }
-
-                    var sqlIn = StringBuilderCache.ReturnAndFree(sb);
-                    if (string.IsNullOrEmpty(sqlIn))
-                    {
-                        sqlIn = "NULL";
-                    }
-
-                    sqlCopy = sqlCopy?.Replace(dialectProvider.ParamString + propName, sqlIn);
-                    if (dialectProvider.ParamString != "@")
-                    {
-                        sqlCopy = sqlCopy?.Replace("@" + propName, sqlIn);
-                    }
+                    sqlCopy = dbCmd.AddInParams(dialectProvider, sqlCopy, propName, inValues, ref paramIndex);
                 }
                 else
                 {
@@ -372,38 +386,7 @@ public static class OrmLiteReadCommandExtensions
                     var inValues = GetMultiValues(value);
                     if (inValues != null)
                     {
-                        var sb = StringBuilderCache.Allocate();
-                        foreach (var item in inValues)
-                        {
-                            var p = dbCmd.CreateParameter();
-                            p.ParameterName = "v" + paramIndex++;
-
-                            if (sb.Length > 0)
-                            {
-                                sb.Append(',');
-                            }
-
-                            sb.Append(dialectProvider.ParamString + p.ParameterName);
-
-                            p.Direction = ParameterDirection.Input;
-                            dialectProvider.InitDbParam(p, item.GetType());
-
-                            dialectProvider.SetParamValue(p, item, item.GetType());
-
-                            dbCmd.Parameters.Add(p);
-                        }
-
-                        var sqlIn = StringBuilderCache.ReturnAndFree(sb);
-                        if (string.IsNullOrEmpty(sqlIn))
-                        {
-                            sqlIn = "NULL";
-                        }
-
-                        sqlCopy = sqlCopy?.Replace(dialectProvider.ParamString + propName, sqlIn);
-                        if (dialectProvider.ParamString != "@")
-                        {
-                            sqlCopy = sqlCopy?.Replace("@" + propName, sqlIn);
-                        }
+                        sqlCopy = dbCmd.AddInParams(dialectProvider, sqlCopy, propName, inValues, ref paramIndex);
                     }
                     else
                     {
@@ -619,7 +602,7 @@ public static class OrmLiteReadCommandExtensions
                 sb.Append(dialectProvider.GetParam(p.ParameterName));
             }
 
-            return dialectProvider.ToSelectStatement(typeof(T), StringBuilderCache.ReturnAndFree(sb));
+            return dbCmd.ToFilteredSelectStatement(typeof(T), StringBuilderCache.ReturnAndFree(sb));
         }
 
         /// <summary>
@@ -630,13 +613,26 @@ public static class OrmLiteReadCommandExtensions
         /// <returns>List&lt;T&gt;.</returns>
         internal List<T> SelectByIds<T>(IEnumerable idValues)
         {
-            var sqlIn = dbCmd.SetIdsInSqlParams(idValues);
-            return string.IsNullOrEmpty(sqlIn)
-                ? []
-                : Select<T>(
-                    dbCmd,
-                    dbCmd.GetDialectProvider().GetQuotedColumnName(ModelDefinition<T>.Definition.PrimaryKey) + " IN (" +
-                    sqlIn + ")");
+            var dialect = dbCmd.GetDialectProvider();
+            var pkColumn = dialect.GetQuotedColumnName(ModelDefinition<T>.Definition.PrimaryKey);
+            var batches = OrmLiteUtils.GetIdBatches(idValues, dialect);
+            if (batches.Count == 1)
+            {
+                var sqlIn = dbCmd.SetIdsInSqlParams(batches[0]);
+                return string.IsNullOrEmpty(sqlIn)
+                    ? []
+                    : Select<T>(dbCmd, pkColumn + " IN (" + sqlIn + ")");
+            }
+
+            var to = new List<T>();
+            foreach (var batch in batches)
+            {
+                dbCmd.Parameters.Clear();
+                var sqlIn = dbCmd.SetIdsInSqlParams(batch);
+                to.AddRange(Select<T>(dbCmd, pkColumn + " IN (" + sqlIn + ")"));
+            }
+
+            return to;
         }
 
         /// <summary>
@@ -693,7 +689,7 @@ public static class OrmLiteReadCommandExtensions
 
             return OrmLiteUtils.IsScalar<T>()
                 ? dbCmd.Scalar<T>(sql)
-                : dbCmd.ConvertTo<T>(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql));
+                : dbCmd.ConvertTo<T>(dbCmd.ToFilteredSelectStatement(typeof(T), sql));
         }
 
         /// <summary>
@@ -709,7 +705,7 @@ public static class OrmLiteReadCommandExtensions
 
             return OrmLiteUtils.IsScalar<T>()
                 ? dbCmd.Scalar<T>(sql)
-                : dbCmd.ConvertTo<T>(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql));
+                : dbCmd.ConvertTo<T>(dbCmd.ToFilteredSelectStatement(typeof(T), sql));
         }
 
         /// <summary>
@@ -747,11 +743,12 @@ public static class OrmLiteReadCommandExtensions
         /// <returns>List&lt;T&gt;.</returns>
         internal List<T> Select<T>(string sql, IEnumerable<IDbDataParameter> sqlParams)
         {
-            dbCmd.CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
             if (sqlParams != null)
             {
                 dbCmd.SetParameters(sqlParams);
             }
+
+            dbCmd.CommandText = dbCmd.ToFilteredSelectStatement(typeof(T), sql);
 
             return dbCmd.ConvertToList<T>();
         }
@@ -770,7 +767,7 @@ public static class OrmLiteReadCommandExtensions
                 dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
             }
 
-            dbCmd.CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
+            dbCmd.CommandText = dbCmd.ToFilteredSelectStatement(typeof(T), sql);
 
             return dbCmd.ConvertToList<T>();
         }
@@ -789,7 +786,7 @@ public static class OrmLiteReadCommandExtensions
                 SetParameters(dbCmd, dict, (bool)false, sql: ref sql);
             }
 
-            dbCmd.CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
+            dbCmd.CommandText = dbCmd.ToFilteredSelectStatement(typeof(T), sql);
 
             return dbCmd.ConvertToList<T>();
         }
@@ -820,7 +817,7 @@ public static class OrmLiteReadCommandExtensions
                 dbCmd.SetParameters(fromTableType, anonType, excludeDefaults: false, sql: ref sql);
             }
 
-            dbCmd.CommandText = ToSelect<T>(dbCmd.GetDialectProvider(), fromTableType, sql);
+            dbCmd.CommandText = ToSelect<T>(dbCmd, fromTableType, sql);
 
             return dbCmd.ConvertToList<T>();
         }
@@ -837,15 +834,22 @@ public static class OrmLiteReadCommandExtensions
     /// Converts to select.
     /// </summary>
     /// <typeparam name="TModel">The type of the t model.</typeparam>
-    /// <param name="dialectProvider">The dialect provider.</param>
+    /// <param name="dbCmd">The database command.</param>
     /// <param name="fromTableType">Type of from table.</param>
     /// <param name="sqlFilter">The SQL filter.</param>
     /// <returns>System.String.</returns>
     static internal string ToSelect<TModel>(
-        IOrmLiteDialectProvider dialectProvider,
+        IDbCommand dbCmd,
         Type fromTableType,
         string sqlFilter)
     {
+        var dialectProvider = dbCmd.GetDialectProvider();
+        var condition = dbCmd.GetFilterCondition(fromTableType);
+        if (condition != null)
+        {
+            sqlFilter = OrmLiteConnectionFiltersApi.CombineFilter(condition, sqlFilter);
+        }
+
         var sql = StringBuilderCache.Allocate();
         var modelDef = ModelDefinition<TModel>.Definition;
         sql.Append(
@@ -1050,7 +1054,7 @@ public static class OrmLiteReadCommandExtensions
                 dbCmd.SetParameters<T>(anonType, excludeDefaults: true, sql: ref sql);
             }
 
-            return dbCmd.ConvertToList<T>(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql));
+            return dbCmd.ConvertToList<T>(dbCmd.ToFilteredSelectStatement(typeof(T), sql));
         }
 
         /// <summary>
@@ -1084,7 +1088,7 @@ public static class OrmLiteReadCommandExtensions
             }
 
             var dialectProvider = dbCmd.GetDialectProvider();
-            dbCmd.CommandText = dialectProvider.ToSelectStatement(typeof(T), sql);
+            dbCmd.CommandText = dbCmd.ToFilteredSelectStatement(typeof(T), sql);
 
             var resultsFilter = OrmLiteConfig.ResultsFilter;
             if (resultsFilter != null)
@@ -1148,7 +1152,7 @@ public static class OrmLiteReadCommandExtensions
         private IEnumerable<T> ColumnLazy<T>(string sql)
         {
             var dialectProvider = dbCmd.GetDialectProvider();
-            dbCmd.CommandText = dialectProvider.ToSelectStatement(typeof(T), sql);
+            dbCmd.CommandText = dbCmd.ToFilteredSelectStatement(typeof(T), sql);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {
@@ -1325,7 +1329,7 @@ public static class OrmLiteReadCommandExtensions
                 dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
             }
 
-            return dbCmd.Column<T>(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql));
+            return dbCmd.Column<T>(dbCmd.ToFilteredSelectStatement(typeof(T), sql));
         }
     }
 
@@ -1581,7 +1585,7 @@ public static class OrmLiteReadCommandExtensions
                 SetParameters(dbCmd, anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
             }
 
-            var result = dbCmd.Scalar(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql));
+            var result = dbCmd.Scalar(dbCmd.ToFilteredSelectStatement(typeof(T), sql));
             return result != null;
         }
 
@@ -1592,13 +1596,11 @@ public static class OrmLiteReadCommandExtensions
             var modelDef = ModelDefinition<T>.Definition;
             var pkName = ModelDefinition<T>.PrimaryKeyName;
             var dialect = dbCmd.GetDialectProvider();
-            var result = dbCmd.SqlScalar<int>(
-                "SELECT 1 FROM " + dialect.GetQuotedTableName(modelDef) +
-                " WHERE " + dialect.GetQuotedColumnName(modelDef.PrimaryKey) + " = " + dialect.GetParam(pkName),
-                new Dictionary<string, object>
-                {
-                    [pkName] = value
-                });
+            var sql = "SELECT 1 FROM " + dialect.GetQuotedTableName(modelDef) +
+                      " WHERE " + dialect.GetQuotedColumnName(modelDef.PrimaryKey) + " = " + dialect.GetParam(pkName);
+            dbCmd.SetParameters(new Dictionary<string, object> { [pkName] = value }, excludeDefaults: false, ref sql);
+            sql = dbCmd.AddFilterCondition(typeof(T), sql);
+            var result = dbCmd.Scalar<int>(sql);
             return result == 1;
         }
 

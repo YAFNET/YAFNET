@@ -33,6 +33,18 @@ public enum DbKind
 public interface IOrmLiteDialectProvider
 {
     /// <summary>
+    /// Max number of values in a single IN list (i.e. db params) before APIs like SelectByIds / DeleteByIds are
+    /// executed in batches and Contains() expressions use an alternative strategy
+    /// </summary>
+    int MaxInListParams { get; set; }
+
+    /// <summary>
+    /// Converts an UPDATE or DELETE statement into one that also returns all columns of the affected rows,
+    /// e.g. with RETURNING or OUTPUT. Throws NotSupportedException if the RDBMS doesn't support it.
+    /// </summary>
+    string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete);
+    
+    /// <summary>
     /// Configure Provider with connection string options
     /// </summary>
     void Init(string connectionString);
@@ -189,6 +201,31 @@ public interface IOrmLiteDialectProvider
     bool HasInsertReturnValues(ModelDefinition modelDef);
 
     /// <summary>
+    /// Whether the SQL is a complete SELECT statement, e.g. starting with SELECT or a common table expression, rather
+    /// than a WHERE filter
+    /// </summary>
+    bool IsFullSelectStatement(string sql);
+
+    /// <summary>
+    /// Read each field of a row individually instead of with a single IDataReader.GetValues() call, for ADO.NET
+    /// providers whose GetValues() changes how fields are read, e.g. System.Data.SQLite's GetGuid()
+    /// </summary>
+    bool DeoptimizeReader { get; set; }
+
+    /// <summary>
+    /// Table hint that locks the rows selected from a table for SqlExpression.ForUpdate(), e.g. WITH (UPDLOCK, ROWLOCK)
+    /// in SQL Server, or null if the RDBMS uses a lock clause instead
+    /// </summary>
+    string GetForUpdateTableHint(bool skipLocked);
+
+    /// <summary>
+    /// Clause appended to a SELECT statement to lock the selected rows for SqlExpression.ForUpdate(), e.g. FOR UPDATE,
+    /// or null if the RDBMS uses a table hint or doesn't support row locks
+    /// </summary>
+    /// <param name="lockTable">The quoted table or alias to lock when the query has joins, otherwise null</param>
+    /// <param name="skipLocked">Skip rows locked by other transactions instead of waiting for them</param>
+    string GetForUpdateClause(string lockTable, bool skipLocked);
+
     /// Gets the parameter value.
     /// </summary>
     /// <param name="value">The value.</param>

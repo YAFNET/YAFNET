@@ -178,6 +178,31 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     private bool hasEnsureConditions;
     /// <summary>
+    /// The Ensure() conditions, kept when WHERE conditions are cleared
+    /// </summary>
+    private string ensureExpression;
+
+    /// <summary>
+    /// The filters from the connection and their SQL
+    /// </summary>
+    private List<KeyValuePair<LambdaExpression, string>> connectionFilters;
+
+    /// <summary>
+    /// The connection's mandatory filters, applied to tables joined to the query
+    /// </summary>
+    internal OrmLiteConnectionFilters ConnectionFilters { get; set; }
+
+    /// <summary>
+    /// The Ensure() conditions of the query
+    /// </summary>
+    internal string EnsureExpression => ensureExpression;
+
+    /// <summary>
+    /// Prefix of param names, e.g. to add filter params to commands without clashing with their params
+    /// </summary>
+    internal string ParamPrefix { get; set; } = "";
+
+    /// <summary>
     /// The in SQL method call
     /// </summary>
     private bool inSqlMethodCall;
@@ -264,8 +289,20 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         to.skipParameterizationForThisExpression = this.skipParameterizationForThisExpression;
         to.UseSelectPropertiesAsAliases = this.UseSelectPropertiesAsAliases;
         to.hasEnsureConditions = this.hasEnsureConditions;
+        to.ensureExpression = this.ensureExpression;
+        to.connectionFilters = this.connectionFilters != null ? [..this.connectionFilters] : null;
+        to.ConnectionFilters = this.ConnectionFilters;
+        to.ParamPrefix = this.ParamPrefix;
 
         to.Params = [..this.Params];
+        to.setOperations = this.setOperations != null ? [..this.setOperations] : null;
+        to.setOperationParams = this.setOperationParams != null ? [..this.setOperationParams] : null;
+        to.setOperationsSelect = this.setOperationsSelect;
+        to.withClause = this.withClause;
+        to.forUpdate = this.forUpdate;
+        to.forUpdateSkipLocked = this.forUpdateSkipLocked;
+        to.topPerGroupPartitionBy = this.topPerGroupPartitionBy;
+        to.topPerGroupTake = this.topPerGroupTake;
 
         to.underlyingExpression = this.underlyingExpression;
         to.SqlFilter = this.SqlFilter;
@@ -377,15 +414,25 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         sb.Append(this.skipParameterizationForThisExpression ? "1" : "0");
         sb.Append(this.UseSelectPropertiesAsAliases ? "1" : "0");
         sb.Append(this.hasEnsureConditions ? "1" : "0");
+        sb.Append(this.forUpdate ? "1" : "0");
+        sb.Append(this.forUpdateSkipLocked ? "1" : "0");
         sb.AppendLine();
+
+        if (withClause != null)
+            sb.AppendLine(withClause);
+        if (topPerGroupPartitionBy != null)
+            sb.Append("TOP PER GROUP:").Append(topPerGroupPartitionBy).Append(',').Append(topPerGroupTake).AppendLine();
+        DumpSetOperations(sb, includeParams);
 
         if (includeParams)
         {
-            sb.Append("PARAMS:").Append(this.Params.Count).AppendLine();
+            sb.Append("PARAMS:").Append(this.Params.Count - (this.setOperationParams?.Count ?? 0)).AppendLine();
             if (this.Params.Count > 0)
             {
                 foreach (var p in this.Params)
                 {
+                    if (setOperationParams?.Contains(p) == true)
+                        continue; // included in the set operation dumps
                     sb.Append(p.ParameterName).Append('=');
                     sb.AppendLine(p.Value.ConvertTo<string>());
                 }
@@ -1051,6 +1098,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         this.PrefixFieldWithTableName = tableAlias != null;
         this.TableAlias = tableAlias;
+        this.RefreshConnectionFilters();
         return this;
     }
 
@@ -1067,7 +1115,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
         else
         {
-            var singleTable = rawFrom.ToLower().IndexOfAny("join", ",") == -1;
+            // Only quote single table names, i.e. not "A JOIN B" or "A, B" (but table names can contain "join", e.g. Rejoinder)
+            var singleTable = rawFrom.IndexOf(',') == -1 && !rawFrom.ContainsWord("join");
             this.FromExpression = singleTable
                                       ? " \nFROM " + this.DialectProvider.QuoteTable(rawFrom)
                                       : " \nFROM " + rawFrom;
@@ -1084,7 +1133,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         this.underlyingExpression = null; // Where() clears the expression
 
-        this.WhereExpression = null;
+        // Ensure() conditions are mandatory, so only the other conditions are cleared
+        this.WhereExpression = this.hasEnsureConditions
+                                   ? "WHERE " + this.ensureExpression + " AND " + TrueLiteral
+                                   : null;
         return this;
     }
 
@@ -1217,6 +1269,56 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         return this.AppendToWhere("OR", this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams));
     }
+
+    /// <summary>
+    /// Converts interpolated SQL into a filter where each interpolated value is added as a db param
+    /// </summary>
+    /// <param name="sqlFilter">The SQL filter.</param>
+    /// <returns>System.String.</returns>
+    protected string FormatFilter(SqlFormattable sqlFilter)
+    {
+        if (sqlFilter == null)
+        {
+            return null;
+        }
+
+        return sqlFilter.Build(this.DialectProvider, arg => {
+            if (arg is SqlInValues inValues)
+            {
+                return inValues.Count > 0 ? this.CreateInParamSql(inValues.GetValues()) : SqlInValues.EmptyIn;
+            }
+
+            if (OrmLiteReadCommandExtensions.GetMultiValues(arg) is { } values)
+            {
+                var sqlIn = this.CreateInParamSql(values);
+                return sqlIn.Length > 0 ? sqlIn : SqlInValues.EmptyIn;
+            }
+
+            return this.AddParam(arg).ParameterName;
+        });
+    }
+
+    /// <summary>
+    /// Add a filter from interpolated SQL where each interpolated value is sent as a db param, e.g:
+    /// <para>q.Where(Sql.Fmt($"Age &gt; {age} AND LastName IN ({names})"))</para>
+    /// </summary>
+    /// <param name="sqlFilter">The SQL filter.</param>
+    /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
+    public virtual SqlExpression<T> Where(SqlFormattable sqlFilter) => this.AppendToWhere("AND", this.FormatFilter(sqlFilter));
+
+    /// <summary>
+    /// Add an AND filter from interpolated SQL where each interpolated value is sent as a db param
+    /// </summary>
+    /// <param name="sqlFilter">The SQL filter.</param>
+    /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
+    public virtual SqlExpression<T> And(SqlFormattable sqlFilter) => this.AppendToWhere("AND", this.FormatFilter(sqlFilter));
+
+    /// <summary>
+    /// Add an OR filter from interpolated SQL where each interpolated value is sent as a db param
+    /// </summary>
+    /// <param name="sqlFilter">The SQL filter.</param>
+    /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
+    public virtual SqlExpression<T> Or(SqlFormattable sqlFilter) => this.AppendToWhere("OR", this.FormatFilter(sqlFilter));
 
     /// <summary>
     /// Adds the condition.
@@ -1561,8 +1663,62 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
         }
 
+        this.ensureExpression = this.hasEnsureConditions ? condition + " AND " + this.ensureExpression : condition;
         this.hasEnsureConditions = true;
         return this;
+    }
+
+    /// <summary>
+    /// Adds a mandatory filter from the connection with Ensure(), with columns prefixed by the table, so it stays
+    /// unambiguous when tables are joined later
+    /// </summary>
+    /// <param name="filter">The filter.</param>
+    /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
+    internal SqlExpression<T> EnsureConnectionFilter(Expression<Func<T, bool>> filter)
+    {
+        var sql = this.ToConnectionFilterSql(filter);
+        (this.connectionFilters ??= []).Add(new(filter, sql));
+        return this.Ensure(sql);
+    }
+
+    /// <summary>
+    /// Converts the connection filter to SQL.
+    /// </summary>
+    /// <param name="filter">The filter.</param>
+    /// <returns>System.String.</returns>
+    private string ToConnectionFilterSql(LambdaExpression filter)
+    {
+        var hold = this.PrefixFieldWithTableName;
+        this.PrefixFieldWithTableName = true;
+        try
+        {
+            this.Reset();
+            return WhereExpressionToString(this.Visit(filter));
+        }
+        finally
+        {
+            this.PrefixFieldWithTableName = hold;
+        }
+    }
+
+    /// <summary>
+    /// Regenerates the connection filters' SQL, e.g. after the table alias changed
+    /// </summary>
+    private void RefreshConnectionFilters()
+    {
+        if (this.connectionFilters == null)
+        {
+            return;
+        }
+
+        for (var i = 0; i < this.connectionFilters.Count; i++)
+        {
+            var (filter, oldSql) = (this.connectionFilters[i].Key, this.connectionFilters[i].Value);
+            var newSql = this.ToConnectionFilterSql(filter);
+            this.WhereExpression = this.WhereExpression?.Replace(oldSql, newSql);
+            this.ensureExpression = this.ensureExpression?.Replace(oldSql, newSql);
+            this.connectionFilters[i] = new(filter, newSql);
+        }
     }
 
     /// <summary>
@@ -1727,6 +1883,22 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         this.HavingExpression = this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams);
 
+        if (this.HavingExpression != null)
+        {
+            this.HavingExpression = "HAVING " + this.HavingExpression;
+        }
+
+        return this;
+    }
+
+    /// <summary>
+    /// Add a HAVING filter from interpolated SQL where each interpolated value is sent as a db param
+    /// </summary>
+    /// <param name="sqlFilter">The SQL filter.</param>
+    /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
+    public virtual SqlExpression<T> Having(SqlFormattable sqlFilter)
+    {
+        this.HavingExpression = this.FormatFilter(sqlFilter);
         if (this.HavingExpression != null)
         {
             this.HavingExpression = "HAVING " + this.HavingExpression;
@@ -2032,6 +2204,80 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual SqlExpression<T> OrderByFieldsDescending(params string[] fieldNames)
     {
         return this.OrderByFields(" DESC", fieldNames);
+    }
+
+    /// <summary>
+    /// Order by a user-supplied, comma-delimited list of field names that are resolved to quoted columns instead of
+    /// being embedded as SQL. Fields can be prefixed with '-' or suffixed with ASC/DESC to change the sort direction, e.g:
+    /// <para>q.OrderBySafe(request.OrderBy, nameof(Order.Id), nameof(Order.Total), nameof(Order.CreatedDate))</para>
+    /// <para>Accepts "-Total,Id" or "Total DESC, Id". If no allowed fields are specified any field on the queried tables
+    /// is accepted. Throws an ArgumentException for any other input. A null or empty orderBy leaves the order unchanged.</para>
+    /// </summary>
+    /// <param name="orderBy">The order by.</param>
+    /// <param name="allowed">The allowed fields.</param>
+    /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
+    /// <exception cref="System.ArgumentException"></exception>
+    public virtual SqlExpression<T> OrderBySafe(string orderBy, params string[] allowed)
+    {
+        if (string.IsNullOrWhiteSpace(orderBy))
+        {
+            return this;
+        }
+
+        var fieldNames = new List<string>();
+        foreach (var part in orderBy.Split(','))
+        {
+            var item = part.Trim();
+            if (item.Length == 0)
+            {
+                continue;
+            }
+
+            var desc = false;
+            string name;
+            if (item[0] == '-')
+            {
+                desc = true;
+                name = item.Substring(1).Trim();
+            }
+            else
+            {
+                var tokens = item.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                if (tokens.Length > 2)
+                {
+                    throw new ArgumentException($"Invalid OrderBy field '{item}'");
+                }
+
+                name = tokens[0];
+                if (tokens.Length == 2)
+                {
+                    if (string.Equals(tokens[1], "DESC", StringComparison.OrdinalIgnoreCase))
+                    {
+                        desc = true;
+                    }
+                    else if (!string.Equals(tokens[1], "ASC", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new ArgumentException($"Invalid OrderBy direction '{tokens[1]}'");
+                    }
+                }
+            }
+
+            if (allowed is { Length: > 0 })
+            {
+                var match = Array.Find(allowed, x => string.Equals(x, name, StringComparison.OrdinalIgnoreCase));
+                name = match ?? throw new ArgumentException($"OrderBy field '{name}' is not allowed");
+            }
+            else if (this.FirstMatchingField(name) == null)
+            {
+                throw new ArgumentException($"Could not find OrderBy field '{name}'");
+            }
+
+            fieldNames.Add(desc ? "-" + name : name);
+        }
+
+        return fieldNames.Count > 0
+                   ? this.OrderByFields(OrderBySuffix.Asc, fieldNames.ToArray())
+                   : this;
     }
 
     /// <summary>
@@ -2715,13 +2961,19 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     }
 
     /// <summary>
+    /// The name of the next param added to the query
+    /// </summary>
+    /// <returns>System.String.</returns>
+    protected string NextParamName() => this.ParamPrefix + this.Params.Count;
+
+    /// <summary>
     /// Adds the parameter.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Data.IDbDataParameter.</returns>
     public virtual IDbDataParameter AddParam(object value)
     {
-        var paramName = this.Params.Count.ToString();
+        var paramName = this.NextParamName();
         var paramValue = value;
 
         var parameter = this.CreateParam(paramName, paramValue);
@@ -2745,26 +2997,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// Copies the parameters to.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    public virtual void CopyParamsTo(IDbCommand dbCmd)
-    {
-        try
-        {
-            foreach (var sqlParam in this.Params)
-            {
-                dbCmd.Parameters.Add(sqlParam);
-            }
-        }
-        catch (Exception)
-        {
-            // SQL Server + PostgreSql doesn't allow re-using db params in multiple queries
-            foreach (var sqlParam in this.Params)
-            {
-                var p = dbCmd.CreateParameter();
-                p.PopulateWith(sqlParam);
-                dbCmd.Parameters.Add(p);
-            }
-        }
-    }
+    public virtual void CopyParamsTo(IDbCommand dbCmd) => dbCmd.AddParams(this.Params);
 
     /// <summary>
     /// Converts to deleterowstatement.
@@ -2934,8 +3167,23 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         SelectFilter?.Invoke(this);
         OrmLiteConfig.SqlExpressionSelectFilter?.Invoke(this.GetUntyped());
 
-        var sql = this.DialectProvider
-            .ToSelectStatement(forType, this.modelDef, this.SelectExpression, this.BodyExpression, this.OrderByExpression, offset: this.Offset, rows: this.Rows, this.Tags);
+        string sql;
+        if (this.forUpdate)
+        {
+            this.AssertCanLock();
+            sql = this.AppendLockClause(this.DialectProvider
+                .ToSelectStatement(forType, this.modelDef, this.SelectExpression, this.GetLockedBodyExpression(), this.OrderByExpression, offset: this.Offset, rows: this.Rows, this.Tags));
+        }
+        else
+        {
+            sql = this.HasSetOperations
+                      ? this.ToSetOperationsSelectStatement(forType)
+                      : this.DialectProvider
+                          .ToSelectStatement(forType, this.modelDef, this.SelectExpression,
+                              this.HasTopPerGroup ? this.GetTopPerGroupBodyExpression() : this.BodyExpression, this.OrderByExpression, offset: this.Offset, rows: this.Rows, this.Tags);
+        }
+
+        sql = this.PrefixWithClause(sql);
 
         return this.SqlFilter != null
                    ? this.SqlFilter(sql)
@@ -2962,7 +3210,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         SelectFilter?.Invoke(this);
         OrmLiteConfig.SqlExpressionSelectFilter?.Invoke(this.GetUntyped());
 
-        var sql = "SELECT COUNT(*)" + this.BodyExpression;
+        var sql = this.HasSetOperations
+                      ? this.ToSetOperationsCountStatement()
+                      : "SELECT COUNT(*)" + (this.HasTopPerGroup ? this.GetTopPerGroupBodyExpression() : this.BodyExpression);
+        sql = this.PrefixWithClause(sql);
 
         return this.SqlFilter != null
                    ? this.SqlFilter(sql)
@@ -3942,6 +4193,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 return new PartialSqlString(expr + " AS " + member.Name);    // new { BuyerName = Sql.TableAlias(b.Name, "buyer") }
             }
 
+            // Window function aliases are quoted as they're often reserved words, e.g. new { Rank = Sql.Rank(w => ...) }
+            if (IsWindowFunctionCall(methodCallExpr))
+                return new PartialSqlString(expr + " AS " + DialectProvider.GetQuotedName(member.Name));
+
             if (mi.Name != nameof(Sql.Desc) && mi.Name != nameof(Sql.Asc) && mi.Name != nameof(Sql.As) && mi.Name != nameof(Sql.AllFields))
             {
                 return new PartialSqlString(expr + " AS " + member.Name);    // new { Alias = Sql.Count("*") }
@@ -4306,7 +4561,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         {
             var hold = this.inSqlMethodCall;
             this.inSqlMethodCall = true;
-            var ret = this.VisitSqlMethodCall(m);
+
+            // Window functions are handled before VisitSqlMethodCall() overrides visit their window lambda
+            var ret = IsWindowFunctionCall(m)
+                          ? this.VisitWindowFunctionCall(m)
+                          : this.VisitSqlMethodCall(m);
             this.inSqlMethodCall = hold;
             return ret;
         }
@@ -4925,11 +5184,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         var inArgs = Sql.Flatten(result as IEnumerable);
 
-        var sqlIn = inArgs.Count > 0
-                        ? this.CreateInParamSql(inArgs)
-                        : "NULL";
-
-        var statement = $"{quotedColName} IN ({sqlIn})";
+        var statement = inArgs.Count > 0
+                            ? this.CreateInListSql(quotedColName, inArgs)
+                            : $"{quotedColName} IN (NULL)";
         return new PartialSqlString(statement);
     }
 
@@ -5421,52 +5678,48 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 return FalseLiteral; // "column IN ([])" is always false
             }
 
-            var sqlIn = this.CreateInParamSql(inArgs);
-            return $"{quotedColName} IN ({sqlIn})";
+            return this.CreateInListSql(quotedColName, inArgs);
         }
 
         if (argValue is ISqlExpression exprArg)
         {
             var subSelect = exprArg.ToSelectStatement(QueryType.Select);
-            var renameParams = new List<Tuple<string, string>>();
-            foreach (var p in exprArg.Params)
-            {
-                var oldName = p.ParameterName;
-                var newName = this.DialectProvider.GetParam(this.Params.Count.ToString());
-                if (oldName != newName)
-                {
-                    var pClone = this.DialectProvider.CreateParam().PopulateWith(p);
-                    renameParams.Add(Tuple.Create(oldName, newName));
-                    pClone.ParameterName = newName;
-                    this.Params.Add(pClone);
-                }
-                else
-                {
-                    this.Params.Add(p);
-                }
-            }
-
-            // regex replace doesn't work when param is at end of string "AND a = :0"
-            var lastChar = subSelect[^1];
-            if (!(char.IsWhiteSpace(lastChar) || lastChar == ')'))
-            {
-                subSelect += " ";
-            }
-
-            for (var i = renameParams.Count - 1; i >= 0; i--)
-            {
-                // Replace complete db params [@1] and not partial tokens [@1]0
-                var paramsRegex = new Regex(
-                    renameParams[i].Item1 + "([^\\d])",
-                    RegexOptions.None,
-                    TimeSpan.FromMilliseconds(100));
-                subSelect = paramsRegex.Replace(subSelect, renameParams[i].Item2 + "$1");
-            }
-
+            subSelect = this.AddRenamedParams(exprArg.Params, subSelect);
             return this.CreateInSubQuerySql(quotedColName, subSelect);
         }
 
         throw new NotSupportedException($"In({argValue.GetType()})");
+    }
+
+    /// <summary>
+    /// Returns SQL for "{quotedColName} IN (@0,@1,...)". Lists larger than DialectProvider.MaxInListParams are split
+    /// into multiple OR'd IN lists to stay within RDBMS IN list limits (e.g. Oracle's 1000 expressions).
+    /// Dialects can override to use more efficient strategies for large lists, e.g. array or JSON params.
+    /// </summary>
+    /// <param name="quotedColName">Name of the quoted col.</param>
+    /// <param name="values">The values.</param>
+    /// <returns>string.</returns>
+    protected virtual string CreateInListSql(object quotedColName, List<object> values)
+    {
+        var max = this.DialectProvider.MaxInListParams;
+        if (max <= 0 || values.Count <= max)
+        {
+            return $"{quotedColName} IN ({this.CreateInParamSql(values)})";
+        }
+
+        var sb = StringBuilderCache.Allocate().Append('(');
+        for (var i = 0; i < values.Count; i += max)
+        {
+            if (i > 0)
+            {
+                sb.Append(" OR ");
+            }
+
+            var chunk = values.GetRange(i, Math.Min(max, values.Count - i));
+            sb.Append(quotedColName).Append(" IN (").Append(this.CreateInParamSql(chunk)).Append(')');
+        }
+
+        return StringBuilderCache.ReturnAndFree(sb.Append(')'));
     }
 
     /// <summary>
@@ -5668,6 +5921,22 @@ public interface ISqlExpression
     /// <param name="forType">For type.</param>
     /// <returns>string.</returns>
     string SelectInto<TModel>(QueryType forType);
+
+    /// <summary>
+    /// The SELECT statement used when this query is combined with another query in a set operation, e.g. UNION,
+    /// i.e. without an ORDER BY (invalid in set operation operands). Queries with their own limits, e.g. Take(10),
+    /// or set operations are wrapped in a derived table with the specified alias.
+    /// </summary>
+    /// <param name="alias">The alias.</param>
+    /// <returns>System.String.</returns>
+    string ToSetOperandStatement(string alias);
+
+    /// <summary>
+    /// Dump internal state of this query into a string, e.g. for computing a unique hash
+    /// </summary>
+    /// <param name="includeParams">if set to <c>true</c> [include parameters].</param>
+    /// <returns>System.String.</returns>
+    string Dump(bool includeParams);
 }
 
 /// <summary>
