@@ -56,11 +56,11 @@
 			            <div class="col">
 				            <div class="card album-card h-100">
 					            <a href="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId = image.ID }))"
-					               title="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : Html.HtmlEncode(image.FileName))} - Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]")"
+					               title="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : "")}")"
 					               class="album-cover-link"
 					               data-toggle="lightbox"
 					               data-gallery="@Model.Album.ID"
-					               data-caption="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : Html.HtmlEncode(image.FileName))} - Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]")">
+					               data-caption="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : "")}")">
 						            <img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = image.ID }))"
 						                 class="card-img-top album-cover w-100 h-100 object-fit-cover"
 						                 alt="@Html.HtmlEncode(image.Caption.IsSet() ? image.Caption : image.FileName)"
@@ -69,9 +69,14 @@
 					            <div class="card-body">
 						            @if (Model.AlbumUser.ID != Model.PageBoardContext.PageUserID)
 						            {
-							            <p class="card-text">
-								            @Html.HtmlEncode(image.Caption)
-							            </p>
+							            <div class="d-flex justify-content-between align-items-center">
+								            <div class="card-text">
+									            @Html.HtmlEncode(image.Caption)
+								            </div>
+								            <div>
+									            <a href="javascript:@(JavaScriptBlocks.BootBoxPromptJs("Album IMG Code", "", Model.Localization.GetText("CANCEL"), Model.Localization.GetText("COPY_TO_CLIPBOARD"), $"Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]"))">@Html.Icon("share-from-square", "text-secondary")</a>
+								            </div>
+							            </div>
 						            }
 						            else
 						            {
@@ -119,6 +124,10 @@
 										            }
 
 									            </form>
+								            </div>
+
+								            <div class="float-end">
+									            <a href="javascript:@(JavaScriptBlocks.BootBoxPromptJs("Album IMG Code", "", Model.Localization.GetText("CANCEL"), Model.Localization.GetText("COPY_TO_CLIPBOARD"), $"Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]"))">@Html.Icon("share-from-square", "text-secondary")</a>
 								            </div>
 							            </div>
 						            }
