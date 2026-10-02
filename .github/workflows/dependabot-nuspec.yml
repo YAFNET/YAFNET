@@ -1,0 +1,85 @@
+name: Update nuspec files for Dependabot PRs
+
+# pull_request_target is needed so the GITHUB_TOKEN can push to the Dependabot branch.
+# No code from the pull request is executed, only the nuspec files are edited.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  update-nuspec:
+    if: github.actor == 'dependabot[bot]' && github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout pull request branch
+        if: steps.metadata.outputs.package-ecosystem == 'nuget'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update nuspec dependency versions
+        if: steps.metadata.outputs.package-ecosystem == 'nuget'
+        env:
+          UPDATED_DEPENDENCIES: ${{ steps.metadata.outputs.updated-dependencies-json }}
+        shell: python
+        run: |
+          import json, os, pathlib, re
+
+          deps = json.loads(os.environ["UPDATED_DEPENDENCIES"] or "[]")
+          dependency_tag = re.compile(r"<dependency\b[^>]*>", re.IGNORECASE)
+
+          for path in pathlib.Path("yafsrc").rglob("*.nuspec"):
+              if {"bin", "obj", "node_modules"} & set(path.parts):
+                  continue
+
+              with open(path, encoding="utf-8", newline="") as f:
+                  original = f.read()
+
+              text = original
+              for dep in deps:
+                  name, version = dep.get("dependencyName"), dep.get("newVersion")
+                  if not name or not version:
+                      continue
+
+                  id_attr = re.compile(r'\bid="' + re.escape(name) + '"', re.IGNORECASE)
+                  version_attr = re.compile(r'(\bversion=")[^"]*(")', re.IGNORECASE)
+
+                  def replace(match):
+                      tag = match.group(0)
+                      if not id_attr.search(tag):
+                          return tag
+                      return version_attr.sub(lambda m: m.group(1) + version + m.group(2), tag)
+
+                  text = dependency_tag.sub(replace, text)
+
+              if text != original:
+                  with open(path, "w", encoding="utf-8", newline="") as f:
+                      f.write(text)
+                  print(f"Updated {path}")
+
+      - name: Commit and push changes
+        if: steps.metadata.outputs.package-ecosystem == 'nuget'
+        run: |
+          if git diff --quiet; then
+            echo "No nuspec files need to be updated."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898319+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.nuspec'
+          git commit -m "Update nuspec dependencies"
+          git push
