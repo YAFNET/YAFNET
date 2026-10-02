@@ -6,6 +6,7 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Configuration" %>
 <%@ Import Namespace="YAF.Core.Context.Start" %>
+<%@ Import Namespace="YAF.Core.Utilities" %>
 
 
 <div class="bg-light-subtle">
@@ -23,12 +24,12 @@
                   <div class="col">
                       <div class="card mb-4 shadow-sm">
                           <a href='<%# "{0}resource.ashx?image={1}".FormatWith(BoardInfo.ForumClientFileRoot, this.Eval("ID")) %>'
-                             title='<%#  "{0} - Album IMG Code: [ALBUMIMG]{1}[/ALBUMIMG]".FormatWith(this.HtmlEncode(this.Eval("Caption") == null ? this.Eval("FileName") : this.Eval("Caption")), this.UserAlbum.ID) %>'
-                             data-toggle="lightbox" data-gallery='<%# this.UserAlbum.ID %>' data-caption='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption")).Trim()%>'>
+                             title='<%#  this.HtmlEncode(this.Eval("Caption")) %>'
+                             data-toggle="lightbox" data-gallery='<%# this.UserAlbum.ID %>' data-caption='<%# this.HtmlEncode(this.Eval("Caption"))%>'>
                               <img src='<%# "{0}resource.ashx?imgprv={1}".FormatWith(BoardInfo.ForumClientFileRoot, this.Eval("ID")) %>'
                                    class="card-img-top"
-                                   alt='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>'
-                                   title='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>' />
+                                   alt='<%# this.HtmlEncode(this.Eval("Caption"))%>'
+                                   title='<%# this.HtmlEncode(this.Eval("Caption"))%>' />
                           </a>
                           <div class="card-body">
                               <asp:Label runat="server"
@@ -54,6 +55,7 @@
                                                        Type="OutlineSecondary"
                                                        Visible="<%# this.UserID == this.PageBoardContext.PageUserID %>"/>
                                   </div>
+                                  <div class="float-end"><a href="javascript:<%# JavaScriptBlocks.BootBoxPromptJs("Album IMG Code", "", this.GetText("CANCEL"), this.GetText("OK"), "[ALBUMIMG]{0}[/ALBUMIMG]".FormatWith(this.UserAlbum.ID)) %>" role="button" type="button"><YAF:Icon runat="server" IconName="share-from-square" IconType="text-secondary"/></a></div>
                               </div>
                           </div>
                       </div>

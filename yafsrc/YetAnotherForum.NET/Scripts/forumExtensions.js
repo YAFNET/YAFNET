@@ -11572,27 +11572,20 @@ document.addEventListener("DOMContentLoaded", function() {
     return Choices;
 });
 
-var lightbox = function(y) {
-    "use strict";
-    function f(l) {
-        const t = Object.create(null, {
-            [Symbol.toStringTag]: {
-                value: "Module"
-            }
+var lightbox = function(e) {
+    var t = Object.create, n = Object.defineProperty, r = Object.getOwnPropertyDescriptor, i = Object.getOwnPropertyNames, a = Object.getPrototypeOf, o = Object.prototype.hasOwnProperty, s = (e, t, a, s) => {
+        if (t && typeof t == `object` || typeof t == `function`) for (var c = i(t), l = 0, u = c.length, d; l < u; l++) d = c[l], 
+        !o.call(e, d) && d !== a && n(e, d, {
+            get: (e => t[e]).bind(null, d),
+            enumerable: !(s = r(t, d)) || s.enumerable
         });
-        if (l) {
-            for (const e in l) if (e !== "default") {
-                const a = Object.getOwnPropertyDescriptor(l, e);
-                Object.defineProperty(t, e, a.get ? a : {
-                    enumerable: !0,
-                    get: () => l[e]
-                });
-            }
-        }
-        return t.default = l, Object.freeze(t);
-    }
-    const r = f(y);
-    class i {
+        return e;
+    };
+    e = ((e, r, i) => (i = e == null ? {} : t(a(e)), s(r || !e || !e.__esModule || !o.call(e, `default`) ? n(i, `default`, {
+        value: e,
+        enumerable: !0
+    }) : i, e)))(e, 1);
+    var c = class t {
         hash;
         settings;
         modalOptions;
@@ -11605,20 +11598,20 @@ var lightbox = function(y) {
         modalElement;
         modal;
         carousel;
-        static allowedEmbedTypes = [ "embed", "youtube", "vimeo", "instagram", "url" ];
-        static allowedMediaTypes = [ ...i.allowedEmbedTypes, "image", "html" ];
-        static defaultSelector = '[data-toggle="lightbox"]';
-        constructor(t, e = {}) {
-            this.hash = this.randomHash(), this.settings = Object.assign({}, r.Modal.Default, r.Carousel.Default, {
+        static allowedEmbedTypes = [ `embed`, `youtube`, `vimeo`, `instagram`, `url` ];
+        static allowedMediaTypes = [ ...t.allowedEmbedTypes, `image`, `html` ];
+        static defaultSelector = `[data-toggle="lightbox"]`;
+        constructor(t, n = {}) {
+            this.hash = this.randomHash(), this.settings = Object.assign({}, e.Modal.Default, e.Carousel.Default, {
                 interval: !1,
-                target: '[data-toggle="lightbox"]',
-                gallery: "",
-                size: "xl",
+                target: `[data-toggle="lightbox"]`,
+                gallery: ``,
+                size: `xl`,
                 constrain: !0
-            }, e), this.modalOptions = this.setOptionsFromSettings(r.Modal.Default), 
-            this.carouselOptions = this.setOptionsFromSettings(r.Carousel.Default), 
-            typeof t == "string" && (this.settings.target = t, t = document.querySelector(t)), 
-            this.el = t, this.type = t.dataset.type || "", t.dataset.size && (this.settings.size = t.dataset.size), 
+            }, n), this.modalOptions = this.setOptionsFromSettings(e.Modal.Default), 
+            this.carouselOptions = this.setOptionsFromSettings(e.Carousel.Default), 
+            typeof t == `string` && (this.settings.target = t, t = document.querySelector(t)), 
+            this.el = t, this.type = t.dataset.type || ``, t.dataset.size && (this.settings.size = t.dataset.size), 
             this.src = this.getSrc(t), this.sources = this.getGalleryItems(), this.createCarousel(), 
             this.createModal();
         }
@@ -11628,72 +11621,70 @@ var lightbox = function(y) {
         hide() {
             this.modal.hide();
         }
-        setOptionsFromSettings(t) {
-            return Object.keys(t).reduce((e, a) => Object.assign(e, {
-                [a]: this.settings[a]
+        setOptionsFromSettings(e) {
+            return Object.keys(e).reduce((e, t) => Object.assign(e, {
+                [t]: this.settings[t]
             }), {});
         }
-        getSrc(t) {
-            let e = t.dataset.src || t.dataset.remote || t.href || "https://placehold.co/1600x900";
-            if (t.dataset.type === "html" || t.dataset.type === "image") return e;
-            /https?:\/\//.test(e) || (e = window.location.origin + e);
-            const a = new URL(e);
-            return (t.dataset.footer || t.dataset.caption) && a.searchParams.set("caption", t.dataset.footer || t.dataset.caption || ""), 
-            a.toString();
+        getSrc(e) {
+            let t = e.dataset.src || e.dataset.remote || e.href || `https://placehold.co/1600x900`;
+            if (e.dataset.type === `html` || e.dataset.type === `image`) return t;
+            /https?:\/\//.test(t) || (t = window.location.origin + t);
+            let n = new URL(t);
+            return (e.dataset.footer || e.dataset.caption) && n.searchParams.set(`caption`, e.dataset.footer || e.dataset.caption || ``), 
+            n.toString();
         }
         getGalleryItems() {
-            let t;
+            let e;
             if (this.settings.gallery) {
                 if (Array.isArray(this.settings.gallery)) return this.settings.gallery;
-                t = this.settings.gallery;
-            } else this.el.dataset.gallery && (t = this.el.dataset.gallery);
-            return t ? [ ...new Set(Array.from(document.querySelectorAll(`[data-gallery="${t}"]`), a => {
-                const o = a;
-                return `${o.dataset.type || ""}${this.getSrc(o)}`;
-            })) ] : [ `${this.type || ""}${this.src}` ];
+                e = this.settings.gallery;
+            } else this.el.dataset.gallery && (e = this.el.dataset.gallery);
+            return e ? [ ...new Set(Array.from(document.querySelectorAll(`[data-gallery="${e}"]`), e => {
+                let t = e;
+                return `${t.dataset.type || ``}${this.getSrc(t)}`;
+            })) ] : [ `${this.type || ``}${this.src}` ];
         }
-        getYoutubeId(t) {
-            const e = t.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/);
-            return e && e[2].length === 11 ? e[2] : !1;
+        getYoutubeId(e) {
+            let t = e.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/);
+            return t && t[2].length === 11 ? t[2] : !1;
         }
-        getYoutubeLink(t) {
-            const e = this.getYoutubeId(t);
-            if (!e) return !1;
-            const a = t.split("?"), o = a.length > 1 ? `?${a[1]}` : "";
-            return `https://www.youtube.com/embed/${e}${o}`;
+        getYoutubeLink(e) {
+            let t = this.getYoutubeId(e);
+            if (!t) return !1;
+            let n = e.split(`?`);
+            return `https://www.youtube.com/embed/${t}${n.length > 1 ? `?${n[1]}` : ``}`;
         }
-        getInstagramEmbed(t) {
-            if (/instagram/.test(t)) return t += /\/embed$/.test(t) ? "" : "/embed", 
-            `<iframe src="${t}" class="start-50 translate-middle-x" style="max-width: 500px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+        getInstagramEmbed(e) {
+            if (/instagram/.test(e)) return e += /\/embed$/.test(e) ? `` : `/embed`, 
+            `<iframe src="${e}" class="start-50 translate-middle-x" style="max-width: 500px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
         }
-        isEmbed(t) {
-            const a = new RegExp(`(${i.allowedEmbedTypes.join("|")})`).test(t), o = /\.(png|jpe?g|gif|svg|webp)/i.test(t) || this.el.dataset.type === "image";
-            return a || !o;
+        isEmbed(e) {
+            let n = RegExp(`(${t.allowedEmbedTypes.join(`|`)})`).test(e), r = /\.(png|jpe?g|gif|svg|webp)/i.test(e) || this.el.dataset.type === `image`;
+            return n || !r;
         }
         createCarousel() {
-            const t = document.createElement("template"), e = i.allowedMediaTypes.join("|"), a = this.sources.map((s, n) => {
-                s = s.replace(/\/$/, "");
-                const h = new RegExp(`^(${e})`, "i"), x = /^html/.test(s), E = /^image/.test(s);
-                h.test(s) && (s = s.replace(h, ""));
-                const S = this.settings.constrain ? "mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0" : "h-100 w-100", u = new URLSearchParams(s.split("?")[1]);
-                let m = "", d = s;
-                if (u.get("caption")) try {
-                    let b = new URL(s);
-                    b.searchParams.delete("caption"), d = b.toString(), m = `<div class="carousel-caption d-none d-md-block" style="z-index:2"><p class="bg-secondary rounded">${u.get("caption")}</p></div>`;
+            let n = document.createElement(`template`), r = t.allowedMediaTypes.join(`|`), i = this.sources.map((e, t) => {
+                e = e.replace(/\/$/, ``);
+                let n = RegExp(`^(${r})`, `i`), i = /^html/.test(e), a = /^image/.test(e);
+                n.test(e) && (e = e.replace(n, ``));
+                let o = this.settings.constrain ? `mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0` : `h-100 w-100`, s = new URLSearchParams(e.split(`?`)[1]), c = ``, l = e;
+                if (s.get(`caption`)) try {
+                    let t = new URL(e);
+                    t.searchParams.delete(`caption`), l = t.toString(), c = `<div class="d-none d-md-block" style="z-index:2"><p class="text-bg-dark text-center p-1">${s.get(`caption`)}</p></div>`;
                 } catch {
-                    d = s;
+                    l = e;
                 }
-                let c = `<img src="${d}" class="d-block ${S} img-fluid" style="z-index: 1; object-fit: contain;" />`, p = "";
-                const C = this.getInstagramEmbed(s), g = this.getYoutubeLink(s);
-                return this.isEmbed(s) && !E && (g && (s = g, p = 'title="YouTube video player" frameborder="0" allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"'), 
-                c = C || `<img src="${s}" ${p} class="d-block mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0 img-fluid" style="z-index: 1; object-fit: contain;" />`), 
-                x && (c = s), `
-          <div class="carousel-item ${n ? "" : "active"}" style="min-height: 100px">
+                let u = `<img src="${l}" class="d-block ${o} img-fluid" style="z-index: 1; object-fit: contain;" />`, d = ``, f = this.getInstagramEmbed(e), p = this.getYoutubeLink(e);
+                return this.isEmbed(e) && !a && (p && (e = p, d = `title="YouTube video player" frameborder="0" allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"`), 
+                u = f || `<img src="${e}" ${d} class="d-block mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0 img-fluid" style="z-index: 1; object-fit: contain;" />`), 
+                i && (u = e), `
+          <div class="carousel-item ${t ? `` : `active`}" style="min-height: 100px">
             <div class="position-absolute top-50 start-50 translate-middle text-white"><div class="spinner-border" style="width: 3rem; height: 3rem" role="status"></div></div>
-            <div class="ratio ratio-16x9" style="background-color: #000;">${c}</div>
-            ${m}
+            <div class="ratio ratio-16x9" style="background-color: #000;">${u}</div>
+            ${c}
           </div>`;
-            }).join(""), o = this.sources.length < 2 ? "" : `
+            }).join(``), a = this.sources.length < 2 ? `` : `
         <button id="#lightboxCarousel-${this.hash}-prev" class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel-${this.hash}" data-bs-slide="prev">
           <span class="btn btn-primary carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
@@ -11701,36 +11692,36 @@ var lightbox = function(y) {
         <button id="#lightboxCarousel-${this.hash}-next" class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel-${this.hash}" data-bs-slide="next">
           <span class="btn btn-primary carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
-        </button>`, v = `
+        </button>`, o = `
       <div class="carousel-indicators" style="bottom: -40px">
-        ${this.sources.map((s, n) => `
-            <button type="button" data-bs-target="#lightboxCarousel-${this.hash}" data-bs-slide-to="${n}" class="${n === 0 ? "active" : ""}" aria-current="${n === 0 ? "true" : "false"}" aria-label="Slide ${n + 1}"></button>`).join("")}
+        ${this.sources.map((e, t) => `
+            <button type="button" data-bs-target="#lightboxCarousel-${this.hash}" data-bs-slide-to="${t}" class="${t === 0 ? `active` : ``}" aria-current="${t === 0 ? `true` : `false`}" aria-label="Slide ${t + 1}"></button>`).join(``)}
       </div>`;
-            t.innerHTML = `
+            n.innerHTML = `
       <div id="lightboxCarousel-${this.hash}" class="lightbox-carousel carousel slide" data-bs-ride="carousel" data-bs-interval="${this.carouselOptions.interval}">
-        <div class="carousel-inner">${a}</div>
-        ${v}
+        <div class="carousel-inner">${i}</div>
         ${o}
-      </div>`.trim(), this.carouselElement = t.content.firstChild;
-            const w = {
+        ${a}
+      </div>`.trim(), this.carouselElement = n.content.firstChild;
+            let s = {
                 ...this.carouselOptions,
                 keyboard: !1
             };
-            this.carousel = new r.Carousel(this.carouselElement, w);
-            const $ = this.type && this.type !== "image" ? this.type + this.src : this.src;
-            return this.carousel.to(this.findGalleryItemIndex(this.sources, $)), 
-            this.carouselOptions.keyboard === !0 && document.addEventListener("keydown", s => {
-                if (s.code === "ArrowLeft") return document.getElementById(`#lightboxCarousel-${this.hash}-prev`)?.click(), 
+            this.carousel = new e.Carousel(this.carouselElement, s);
+            let c = this.type && this.type !== `image` ? this.type + this.src : this.src;
+            return this.carousel.to(this.findGalleryItemIndex(this.sources, c)), 
+            this.carouselOptions.keyboard === !0 && document.addEventListener(`keydown`, e => {
+                if (e.code === `ArrowLeft`) return document.getElementById(`#lightboxCarousel-${this.hash}-prev`)?.click(), 
                 !1;
-                if (s.code === "ArrowRight") return document.getElementById(`#lightboxCarousel-${this.hash}-next`)?.click(), 
+                if (e.code === `ArrowRight`) return document.getElementById(`#lightboxCarousel-${this.hash}-next`)?.click(), 
                 !1;
             }), this.carousel;
         }
-        findGalleryItemIndex(t, e) {
-            return t.findIndex(a => a.includes(e)) || 0;
+        findGalleryItemIndex(e, t) {
+            return e.findIndex(e => e.includes(t)) || 0;
         }
         createModal() {
-            const t = document.createElement("template");
+            let t = document.createElement(`template`);
             return t.innerHTML = `
       <div class="modal lightbox fade" id="lightboxModal-${this.hash}" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-${this.settings.size}">
@@ -11740,23 +11731,23 @@ var lightbox = function(y) {
             </div>
           </div>
         </div>
-      </div>`.trim(), this.modalElement = t.content.firstChild, this.modalElement.querySelector(".modal-body")?.appendChild(this.carouselElement), 
-            this.modalElement.addEventListener("hidden.bs.modal", () => this.modalElement.remove()), 
-            this.modalElement.querySelector("[data-bs-dismiss]")?.addEventListener("click", () => this.modal.hide()), 
-            this.modal = new r.Modal(this.modalElement, this.modalOptions), this.modal;
+      </div>`.trim(), this.modalElement = t.content.firstChild, this.modalElement.querySelector(`.modal-body`)?.appendChild(this.carouselElement), 
+            this.modalElement.addEventListener(`hidden.bs.modal`, () => this.modalElement.remove()), 
+            this.modalElement.querySelector(`[data-bs-dismiss]`)?.addEventListener(`click`, () => this.modal.hide()), 
+            this.modal = new e.Modal(this.modalElement, this.modalOptions), this.modal;
         }
-        randomHash(t = 8) {
+        randomHash(e = 8) {
             return Array.from({
-                length: t
-            }, () => Math.floor(Math.random() * 36).toString(36)).join("");
+                length: e
+            }, () => Math.floor(Math.random() * 36).toString(36)).join(``);
         }
-        static initialize(t) {
-            t.preventDefault(), new i(this).show();
+        static initialize(e) {
+            e.preventDefault(), new t(this).show();
         }
-    }
-    return document.querySelectorAll(i.defaultSelector).forEach(l => l.addEventListener("click", i.initialize)), 
-    typeof window < "u" && window.bootstrap && (window.bootstrap.Lightbox = i), 
-    i;
+    };
+    return document.querySelectorAll(c.defaultSelector).forEach(e => e.addEventListener(`click`, c.initialize)), 
+    typeof window < `u` && window.bootstrap && (window.bootstrap.Lightbox = c), 
+    c;
 }(bootstrap);
 
 function userCardContent(pop, delay) {
