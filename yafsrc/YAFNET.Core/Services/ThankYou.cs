@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services;
 
-using System.Web;
-
 using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -52,7 +50,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
-    /// Creates an instance of the thank you object from the current information.
+    /// Creates an instance of the ThankYou object from the current information.
     /// </summary>
     /// <param name="username">
     /// The Current Username
@@ -75,8 +73,8 @@ public class ThankYou : IThankYou, IHaveServiceLocator
         string titleTag,
         int messageId)
     {
-        return new()
-                   {
+        return new ThankYouInfo
+        {
                        MessageID = messageId,
                        ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, false),
                        Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
@@ -85,7 +83,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Creates an instance of the thank you object from the current information.
+    /// Creates an instance of the ThankYou object from the current information.
     /// </summary>
     /// <param name="username">
     /// The Current Username
@@ -142,21 +140,12 @@ public class ThankYou : IThankYou, IHaveServiceLocator
             return "&nbsp;";
         }
 
-        var thanksText = this.Get<ILocalization>()
-            .GetTextFormatted("THANKSINFO", thanksNumber, username);
-
         var thanks = this.GetThanks(messageId);
 
         return thanksInfoOnly
-                   ? thanks.Replace("\"", "'").Replace("<ol>", string.Empty).Replace("</ol>", string.Empty)
+                   ? thanks
                    : $"""
-                      <a class="btn btn-link thanks-popover"
-                                                 data-bs-toggle="popover"
-                                                 data-bs-trigger="click hover"
-                                                 data-bs-html="true"
-                                                 title="{thanksText}"
-                                                 data-bs-content="{thanks.Replace("\"", "'")}">
-                                                     <i class="fa fa-heart" style= "color:#e74c3c"></i>&nbsp;+{thanksNumber}</a>
+                      <i class="fa fa-heart text-danger me-1"></i>{thanks}
                       """;
     }
 
@@ -169,7 +158,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// The message Id.
     /// </param>
     /// <returns>
-    /// The get thanks.
+    /// List of avatar links
     /// </returns>
     private string GetThanks(int messageId)
     {

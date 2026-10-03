@@ -1,5 +1,4 @@
-﻿import * as bootstrap from 'bootstrap';
-import '../prism.js';
+﻿import '../prism.js';
 import * as Attachments from '../forum/attachments';
 import * as Albums from '../forum/albums';
 import * as Utilities from '../forum/utilities';
@@ -27,32 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	Utilities.renderAttachPreview('.attachments-preview');
-
-	document.querySelectorAll<HTMLElement>('.thanks-popover').forEach(thanks => {
-		const popover = new bootstrap.Popover(thanks, {
-			template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
-		});
-
-		thanks.addEventListener('show.bs.popover', () => {
-			const messageId = thanks.dataset.messageid as string;
-
-			fetch(`/api/ThankYou/GetThanks/${messageId}`, {
-					method: 'POST',
-					headers: {
-						'Accept': 'application/json',
-						'Content-Type': 'application/json;charset=utf-8',
-						'RequestVerificationToken': (document.querySelector('input[name="__RequestVerificationToken"]') as HTMLInputElement).value
-					}
-				})
-				.then(res => res.json())
-				.then(response => {
-					const popoverList = document.getElementById(`popover-list-${messageId}`);
-					if (popoverList) {
-						popoverList.innerHTML = response.thanksInfo;
-					}
-				});
-		});
-	});
 
 	document.querySelectorAll<HTMLElement>('.attachedImage').forEach(imageLink => {
 		var parentNode = (imageLink.parentNode as HTMLElement);

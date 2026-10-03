@@ -57,42 +57,6 @@ public class ThankYouController : ForumBaseController
     [Authorize]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpPost("GetThanks/{messageId:int}")]
-    public async Task<ActionResult<ThankYouInfo>> GetThanks(int messageId)
-    {
-        if (this.PageBoardContext.IsGuest)
-        {
-            return this.NotFound();
-        }
-
-        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
-
-        var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
-
-        // if the user is empty, return a null object...
-        return userName.IsNotSet()
-            ? this.NotFound()
-            : this.Ok(
-                this.Get<IThankYou>().GetThankYou(
-                    new UnicodeEncoder().XSSEncode(userName),
-                    "BUTTON_THANKSDELETE",
-                    "BUTTON_THANKSDELETE_TT",
-                    messageId));
-    }
-
-    /// <summary>
-    /// Add Thanks to post
-    /// </summary>
-    /// <param name="messageId">
-    /// The message Id.
-    /// </param>
-    /// <returns>
-    /// Returns ThankYou Info
-    /// </returns>
-    [ValidateAntiForgeryToken]
-    [Authorize]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("AddThanks/{messageId:int}")]
     public ActionResult<ThankYouInfo> AddThanks(int messageId)
     {

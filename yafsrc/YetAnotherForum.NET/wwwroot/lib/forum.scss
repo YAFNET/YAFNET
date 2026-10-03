@@ -96,11 +96,11 @@
 }
 
 .avatar-stack {
-    display: flex;
+    display: inline-block;
 
     .avatar-item {
-        height: 20px;
-        width: 20px;
+        height: 30px;
+        width: 30px;
         display: inline-block;
         transition: margin 0.1s ease-in-out;
 
