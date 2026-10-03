@@ -1320,10 +1320,10 @@ public static class JavaScriptBlocks
     {
         return $$"""
                  bootbox.prompt({
-                     title: "{{title}}",
-                     message: "{{message}}",
-                     value: "{{value}}",
-                     buttons: { cancel: { label: "{{cancel}}" }, confirm: { label: "{{ok}}" } },
+                     title: '{{title}}',
+                     message: '{{message}}',
+                     value: '{{value}}',
+                     buttons: { cancel: { label: '{{cancel}}' }, confirm: { label: '{{ok}}' } },
                      callback: function() {}
                  });
                  """;
