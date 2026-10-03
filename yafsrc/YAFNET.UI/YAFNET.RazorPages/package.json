@@ -13,11 +13,8 @@
     },
     "homepage": "https://yetanotherforum.net/",
     "scripts": {
-        "preinstall": "npm install -g copy-files-from-to npm-check",
+        "preinstall": "npm install -g npm-check",
         "updatePackages": "set npm_config_allow_scripts=&& npm-check -y",
-        "copy": "copy-files-from-to"
-    },
-    "dependencies": {
-        "copy-files-from-to": "^4.0.1"
+        "copy": "node copy-files.js"
     }
 }
