@@ -23,14 +23,11 @@
  */
 
 
-using Microsoft.AspNetCore.Hosting;
-
 using netDumbster.smtp;
 
 using NUnit.Framework.Interfaces;
 
 using YAF.Tests.Pages;
-using YAF.ViewComponents;
 
 namespace YAF.Tests.Infrastructure;
 
@@ -69,12 +66,6 @@ public abstract class DatabaseFixture : IAsyncDisposable
             await this.CloseBrowserAsync(this.TestSettings);
         }
     }
-
-    /// <summary>
-    /// Gets or sets the host factory.
-    /// </summary>
-    /// <value>The host factory.</value>
-    private WebTestingHostFactory<CultureSwitcherViewComponent> HostFactory { get; set; }
 
     public IBrowserContext Context { get; private set; }
 
@@ -169,21 +160,8 @@ public abstract class DatabaseFixture : IAsyncDisposable
     {
         this.BaseUrl = testSettings.TestForumUrl;
 
-        // Create the host factory with the App class as parameter and the
-        // url we are going to use.
-        this.HostFactory = new WebTestingHostFactory<CultureSwitcherViewComponent>();
-
-        this.HostFactory
-            // Override host configuration to mock stuff if required.
-            .WithWebHostBuilder(
-                builder =>
-                {
-                    // Setup the url to use.
-                    builder.UseUrls(this.BaseUrl);
-                    // Replace or add services if needed.
-                })
-            // Create the host using the CreateDefaultClient method.
-            .CreateDefaultClient();
+        // The host is shared by all fixtures and stopped in the AssemblySetup
+        WebTestingHostFactoryUtils.EnsureHostStarted(testSettings);
 
         var videoDir = string.Empty;
 

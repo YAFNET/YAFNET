@@ -33,29 +33,35 @@ using YAF.Types.Extensions;
 
 namespace YAF.Tests.Utils;
 
-public class CustomStartupFilter(string ipAddress) : IStartupFilter
+public class CustomStartupFilter : IStartupFilter
 {
     public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
     {
         return app =>
         {
-            if (ipAddress.IsNotSet())
-            {
-                next(app);
-            }
-
-            app.UseMiddleware<FakeRemoteIpAddressMiddleware>(ipAddress);
+            app.UseMiddleware<FakeRemoteIpAddressMiddleware>();
 
             next(app);
         };
     }
 }
 
-public class FakeRemoteIpAddressMiddleware(RequestDelegate next, string ipAddress)
+/// <summary>
+/// Overrides the remote ip address with the value of the <see cref="HeaderName"/> request header,
+/// so a single shared test host can simulate requests from different ip addresses.
+/// </summary>
+public class FakeRemoteIpAddressMiddleware(RequestDelegate next)
 {
+    public const string HeaderName = "X-Test-Remote-IP";
+
     public async Task Invoke(HttpContext httpContext)
     {
-        httpContext.Connection.RemoteIpAddress = IPAddress.Parse(ipAddress);
+        string ipAddress = httpContext.Request.Headers[HeaderName];
+
+        if (ipAddress.IsSet())
+        {
+            httpContext.Connection.RemoteIpAddress = IPAddress.Parse(ipAddress);
+        }
 
         await next(httpContext);
     }

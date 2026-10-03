@@ -25,6 +25,7 @@
 using System.IO;
 
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace YAF.Tests.Infrastructure;
 
@@ -56,6 +57,11 @@ public abstract class DatabaseTestBase
 
         this.TestSettings = configuration.GetSection("TestSettings").Get<TestConfig>();
 
+        if (!this.TestSettings.UseDocker)
+        {
+            this.IgnoreIfNotLocalDatabase();
+        }
+
         // Acquires the running container (starts it if first consumer)
         this.Fixture = await FixtureRegistry.AcquireAsync(this.Scenario, this.TestSettings);
     }
@@ -63,6 +69,29 @@ public abstract class DatabaseTestBase
     [OneTimeTearDown]
     public async Task BaseOneTimeTearDown()
     {
+        // nothing was acquired, if the scenario was ignored
+        if (this.Fixture is null)
+        {
+            return;
+        }
+
         await FixtureRegistry.ReleaseAsync(this.Scenario, this.TestSettings);
+    }
+
+    /// <summary>
+    /// Without docker all scenarios run against the same local forum, so only the
+    /// scenario that matches the database the forum is configured for is tested.
+    /// </summary>
+    private void IgnoreIfNotLocalDatabase()
+    {
+        var services = WebTestingHostFactoryUtils.EnsureHostStarted(this.TestSettings);
+
+        var providerName = services.GetRequiredService<IConfiguration>()["BoardConfiguration:ConnectionProviderName"];
+
+        if (!string.Equals(providerName, this.Scenario.ConnectionProviderName, StringComparison.OrdinalIgnoreCase))
+        {
+            Assert.Ignore(
+                $"The local forum uses the provider '{providerName}', not '{this.Scenario.ConnectionProviderName}' ({this.Scenario}).");
+        }
     }
 }

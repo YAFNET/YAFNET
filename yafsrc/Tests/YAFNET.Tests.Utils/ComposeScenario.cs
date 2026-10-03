@@ -33,33 +33,43 @@ public class ComposeScenario
     public static ComposeScenario MySql => new(
         name: nameof(MySql),
         baseUrl: "http://localhost:8001/Install/Install",
-        composeFile: $"docker-compose-{nameof(MySql)}-test.yml");
+        composeFile: $"docker-compose-{nameof(MySql)}-test.yml",
+        connectionProviderName: "MySql.Data.MySqlClient");
 
     public static ComposeScenario PostgreSQL => new(
         name: nameof(PostgreSQL),
         baseUrl: "http://localhost:8001/Install/Install",
-        composeFile: $"docker-compose-{nameof(PostgreSQL)}-test.yml");
+        composeFile: $"docker-compose-{nameof(PostgreSQL)}-test.yml",
+        connectionProviderName: "Npgsql Data Provider");
 
     public static ComposeScenario Sqlite => new(
         name: nameof(Sqlite),
         baseUrl: "http://localhost:8001/Install/Install",
-        composeFile: $"docker-compose-{nameof(Sqlite)}-test.yml");
+        composeFile: $"docker-compose-{nameof(Sqlite)}-test.yml",
+        connectionProviderName: "System.Data.SQLite");
 
     public static ComposeScenario SqlServer => new(
         name: nameof(SqlServer),
         baseUrl: "http://localhost:8001/Install/Install",
-        composeFile: $"docker-compose-{nameof(SqlServer)}-test.yml");
+        composeFile: $"docker-compose-{nameof(SqlServer)}-test.yml",
+        connectionProviderName: "Microsoft.Data.SqlClient");
 
 
     public string Name { get; }
     public string BaseUrl { get; }
     public string ComposeFile { get; }
 
-    private ComposeScenario(string name, string baseUrl, string composeFile)
+    /// <summary>
+    /// Gets the BoardConfiguration:ConnectionProviderName the forum uses for this backend.
+    /// </summary>
+    public string ConnectionProviderName { get; }
+
+    private ComposeScenario(string name, string baseUrl, string composeFile, string connectionProviderName)
     {
         this.Name = name;
         this.BaseUrl = baseUrl;
         this.ComposeFile = composeFile;
+        this.ConnectionProviderName = connectionProviderName;
     }
 
     public override string ToString()
