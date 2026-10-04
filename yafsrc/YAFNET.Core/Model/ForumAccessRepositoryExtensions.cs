@@ -58,8 +58,8 @@ public static class ForumAccessRepositoryExtensions
             expression.Join<Category>((f, c) => c.ID == f.CategoryID)
                 .Where<Category>(c => c.BoardID == repository.BoardID);
 
-            var forums = await repository.DbAccess.Execute(
-                db => db.Connection.SelectAsync(expression));
+            var forums = await repository.DbAccess.ExecuteAsync(
+                db => db.SelectAsync(expression));
 
             var accessList = new List<ForumAccess>();
 
