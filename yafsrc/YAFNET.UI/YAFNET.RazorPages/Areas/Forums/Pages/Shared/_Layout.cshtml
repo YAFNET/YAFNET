@@ -143,10 +143,7 @@
 
                         @await Html.PartialAsync("_QuickSearch")
                         
-                        @if (Current.BoardSettings.AllowUserTheme)
-	                    {
-		                    @await Html.PartialAsync("_ThemeModeSelector")
-	                    }
+	                    @await Html.PartialAsync("_ThemeModeSelector")
 
 	                    @await Html.PartialAsync("_UserMenu")
                     </div>

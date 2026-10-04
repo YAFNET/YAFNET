@@ -160,7 +160,8 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// </summary>
     /// <param name="albumId">The album identifier.</param>
     /// <param name="imageId">The image identifier.</param>
-    public async Task OnPostDeleteImageAsync(int? albumId, int imageId)
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    public async Task<IActionResult> OnPostDeleteImageAsync(int? albumId, int imageId)
     {
         var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
@@ -169,7 +170,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             imageId,
             this.PageBoardContext.PageUserID);
 
-        await this.BindDataAsync(albumId);
+        return await this.BindDataAsync(albumId);
     }
 
     /// <summary>
@@ -270,9 +271,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             // Check if user album is empty
             if (this.Images.NullOrEmpty())
             {
-                await this.DeleteAlbumAsync(this.AlbumId.Value);
-
-                return this.Page();
+                return await this.DeleteAlbumAsync(this.AlbumId.Value);
             }
         }
 
@@ -304,7 +303,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
         // clear the cache for this user to update albums|images stats...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.EditAlbumImages);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID });
     }
 
     /// <summary>

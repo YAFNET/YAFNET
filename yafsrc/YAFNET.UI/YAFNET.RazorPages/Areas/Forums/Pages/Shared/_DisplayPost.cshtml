@@ -17,8 +17,6 @@
 
 @inject BoardContext Current
 
-@inject IHttpContextAccessor ContextAccessor
-
 @{
     var postData = new PostDataHelperWrapper(Model);
     string messageRowCssClass;
@@ -28,8 +26,6 @@
     var addReputationVisible = false;
     var removeReputationVisible = false;
     var toolsVisible = true;
-
-    var request = ContextAccessor.HttpContext.Request;
 
     var isIgnored = await Current.Get<IUserIgnored>().IsIgnoredAsync(postData.UserId);
 
@@ -502,7 +498,7 @@
                                                     icon-mobile-only="true"
                                                     bs-toggle="ajax-modal"
                                                     bs-target="QuickReplyDialog"
-	                                                bs-target-url="@Url.Page("Posts", "QuickReply", new { name = request.GetQueryOrRouteValue<string>("name"), t = request.GetQueryOrRouteValue<int>("t"), p =  request.Query["p"], m = request.Query["m"]})"
+	                                                bs-target-url="@Url.Page("Posts", "QuickReply", new { name = Current.CurrentForumPage.Request.GetQueryOrRouteValue<string>("name"), t = Current.CurrentForumPage.Request.GetQueryOrRouteValue<int>("t"), p =  Current.CurrentForumPage.Request.Query["p"], m = Current.CurrentForumPage.Request.Query["m"]})"
 	                                                class="dropdown-item"></button>
                                         }
 
@@ -604,20 +600,14 @@
 
                     @if (Model.ThanksNumber > 0 || thankVisible || quoteVisible || multiQuoteVisible)
                     {
-                        var username = Current.CurrentForumPage.HtmlEncode(Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName);
-
-                        var thanksLabelText = Model.ThanksNumber == 1 ?
-                                                  Current.Get<ILocalization>().GetTextFormatted("THANKSINFOSINGLE", username) :
-                                                  Current.Get<ILocalization>().GetTextFormatted("THANKSINFO", Model.ThanksNumber, username);
-
-                        var formatThanksInfo = $"<ol id=\"popover-list-{postData.MessageId}\"></ol>";
-
+                        var username = Current.CurrentForumPage.HtmlEncode(Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName); 
+                        var thanksInfo = Current.Get<IThankYou>().ThanksInfo(username, postData.MessageId, false); 
+                        
                         <div class="card-footer py-0">
                             <div class="row">
-                                <div class="col px-0">
+                                <div class="col">
                                     @if (Model.ThanksNumber > 0)
                                     {
-
                                         @if (Current.IsGuest)
                                         {
 	                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">
@@ -627,15 +617,7 @@
                                         else
                                         {
 	                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">
-		                                        <a class="btn btn-link thanks-popover"
-		                                           data-bs-toggle="popover"
-		                                           data-bs-trigger="click hover"
-		                                           data-bs-html="true"
-		                                           data-messageid="@postData.MessageId"
-		                                           title="@thanksLabelText"
-		                                           data-bs-content="@formatThanksInfo.ToJsString()">
-			                                        <i class="fa fa-heart text-danger me-1"></i>+@Model.ThanksNumber
-		                                        </a>
+		                                       @Html.Raw(thanksInfo)
 	                                        </span>
                                         }
                                     }
@@ -689,7 +671,7 @@
 	                                                   text-localized-tag="QUICKREPLY"
 	                                                   bs-toggle="ajax-modal"
 	                                                   bs-target="QuickReplyDialog"
-	                                                   bs-target-url="@Url.Page("Posts", "QuickReply", new { name = request.GetQueryOrRouteValue<string>("name"), t = request.GetQueryOrRouteValue<int>("t"), p = request.Query["p"], m = request.Query["m"] })">
+	                                                   bs-target-url="@Url.Page("Posts", "QuickReply", new { name = Current.CurrentForumPage.Request.GetQueryOrRouteValue<string>("name"), t = Current.CurrentForumPage.Request.GetQueryOrRouteValue<int>("t"), p = Current.CurrentForumPage.Request.Query["p"], m = Current.CurrentForumPage.Request.Query["m"] })">
 	                                                </a>
                                                 }
 

@@ -115,10 +115,10 @@ public class Album : IAlbum, IHaveServiceLocator
         int imageId,
         int userId)
     {
-        var image = await this.GetRepository<UserAlbumImage>().GetImageAsync(imageId);
+        var image = await this.GetRepository<UserAlbumImage>().GetByIdAsync(imageId).ConfigureAwait(false);
 
-        var fileName = image.Item1.FileName;
-        var imgAlbumId = image.Item1.AlbumID.ToString();
+        var fileName = image.FileName;
+        var imgAlbumId = image.AlbumID.ToString();
         var fullName = $"{uploadFolder}/{userId}.{imgAlbumId}.{fileName}.yafalbum";
         var file = new FileInfo(fullName);
 
