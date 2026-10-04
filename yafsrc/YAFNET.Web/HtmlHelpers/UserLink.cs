@@ -75,7 +75,7 @@ public static class UserLinkHtmlHelper
         /// The user id.
         /// </param>
         /// <param name="replaceName">
-        /// The replace name.
+        /// The replaceName.
         /// </param>
         /// <param name="suspended">
         /// The suspended.
@@ -109,7 +109,7 @@ public static class UserLinkHtmlHelper
         /// The user id.
         /// </param>
         /// <param name="replaceName">
-        /// The replace name.
+        /// The replaceName.
         /// </param>
         /// <param name="suspended">
         /// The suspended.
@@ -238,11 +238,6 @@ public static class UserLinkHtmlHelper
             else
             {
                 var link = new TagBuilder(HtmlTag.Span);
-
-                if (context.BoardSettings.ShowUserOnlineStatus)
-                {
-                    link.InnerHtml.AppendHtml(RenderStatusIcon(context, userId, suspended));
-                }
 
                 link.InnerHtml.AppendHtml(displayName);
 

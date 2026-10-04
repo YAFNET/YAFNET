@@ -166,7 +166,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
 
         var thanks = this.GetRepository<Thanks>().MessageGetThanksList(messageId);
 
-        filler.Append("<div class=\"avatar-stack\">");
+        filler.Append("<span class=\"avatar-stack\">");
 
         thanks.ForEach(
             dr =>
@@ -186,7 +186,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
                     filler.Append("</a>");
                 });
 
-        filler.Append("</div>");
+        filler.Append("</span>");
 
         return filler.ToString();
     }

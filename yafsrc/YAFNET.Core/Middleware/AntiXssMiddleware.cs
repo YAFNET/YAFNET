@@ -128,13 +128,13 @@ public class AntiXssMiddleware
     private async static Task<string> ReadRequestBodyAsync(HttpContext context)
     {
         var buffer = new MemoryStream();
-        await context.Request.Body.CopyToAsync(buffer);
+        await context.Request.Body.CopyToAsync(buffer, context.RequestAborted);
         context.Request.Body = buffer;
         buffer.Position = 0;
 
         var encoding = Encoding.UTF8;
 
-        var requestContent = await new StreamReader(buffer, encoding).ReadToEndAsync();
+        var requestContent = await new StreamReader(buffer, encoding).ReadToEndAsync(context.RequestAborted);
         context.Request.Body.Position = 0;
 
         return requestContent;
@@ -154,7 +154,7 @@ public class AntiXssMiddleware
 
         this.error ??= new ErrorResponse { Description = "Error from AntiXssMiddleware", ErrorCode = 500 };
 
-        return context.Response.WriteAsync(this.error.ToJson());
+        return context.Response.WriteAsync(this.error.ToJson(), context.RequestAborted);
     }
 }
 

@@ -88,12 +88,12 @@ public class RobotsTxtMiddleware : IHaveServiceLocator
             // try environment first
             if (File.Exists(environmentRobotsTxt))
             {
-                output = await File.ReadAllTextAsync(environmentRobotsTxt);
+                output = await File.ReadAllTextAsync(environmentRobotsTxt, context.RequestAborted);
             }
             // then robots.txt
             else if (File.Exists(generalRobotsTxt))
             {
-                output = await File.ReadAllTextAsync(generalRobotsTxt);
+                output = await File.ReadAllTextAsync(generalRobotsTxt, context.RequestAborted);
             }
             // then just a general default
             else
