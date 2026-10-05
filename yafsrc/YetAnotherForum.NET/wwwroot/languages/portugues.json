@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Aplicação de reinício"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "O aplicativo não voltou. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "O aplicativo está reiniciando. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Papel:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Mostrando {0} a {1} de {2} entradas"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Ordenar por"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nome Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Mostrando {0} a {1} de {2} entradas"
           }
         ]
       },

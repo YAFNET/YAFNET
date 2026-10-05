@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Genstart applikation"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Ansøgningen kom ikke tilbage. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Applikationen genstarter. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Rolle:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Viser {0} til {1} ​​af {2} poster"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Sorter efter"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Navn Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Viser {0} til {1} ​​af {2} poster"
           }
         ]
       },

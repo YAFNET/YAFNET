@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -24,6 +24,7 @@
 
 namespace YAF.Pages.Admin;
 
+using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Hosting;
@@ -62,13 +63,35 @@ public class RestartAppModel : AdminPage
     }
 
     /// <summary>
-    /// The on post async.
+    /// Gets or sets a value indicating whether the application is restarting.
+    /// </summary>
+    public bool IsRestarting { get; set; }
+
+    /// <summary>
+    /// Renders the "restarting" view and stops the application after the response was sent.
+    /// The hosting environment (IIS, Windows Service, systemd, Docker) is responsible for starting it again.
     /// </summary>
     /// <returns>
-    /// The <see cref="Task"/>.
+    /// The <see cref="IActionResult"/>.
     /// </returns>
-    public void OnPost()
+    public IActionResult OnPost()
     {
-        this.applicationLifetime.StopApplication();
+        this.IsRestarting = true;
+
+        this.Response.OnCompleted(() =>
+            {
+                _ = Task.Run(async () =>
+                    {
+                        // give the client time to receive and render the response
+                        await Task.Delay(TimeSpan.FromSeconds(1), CancellationToken.None);
+
+                        this.applicationLifetime.StopApplication();
+                    },
+                    CancellationToken.None);
+
+                return Task.CompletedTask;
+            });
+
+        return this.Page();
     }
 }

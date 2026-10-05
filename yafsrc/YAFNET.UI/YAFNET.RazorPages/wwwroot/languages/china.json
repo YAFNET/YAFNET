@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "重启应用"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "申请没有回来。"
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "应用程序正在重新启动。"
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "角色:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "显示第 {0} 到 {1} 个条目，共 {2} 个条目"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "排序方式"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "名称 Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "显示第 {0} 到 {1} 个条目，共 {2} 个条目"
           }
         ]
       },

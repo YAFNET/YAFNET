@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Starta om programmet"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Ansökan kom inte tillbaka. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Applikationen startar om. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Roll:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Visar {0} till {1} ​​av {2} poster"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Sortera efter"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Namn Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Visar {0} till {1} ​​av {2} poster"
           }
         ]
       },

@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Taaskäivitage rakendus"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Taotlus ei tulnud tagasi. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Rakendus taaskäivitub. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Roll:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Kuvatakse {0} kuni {1} kirjet {2}-st"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Sorteerima"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nimi Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Kuvatakse {0} kuni {1} kirjet {2}-st"
           }
         ]
       },

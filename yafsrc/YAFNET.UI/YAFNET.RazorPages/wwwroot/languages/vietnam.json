@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Khỏi động lại ưng dụng"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Ứng dụng đã không quay trở lại. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Ứng dụng đang khởi động lại. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Vai diễn:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Hiển thị {0} đến {1} trong số {2} mục nhập"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Sắp xếp theo"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Tên ZA"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Hiển thị {0} đến {1} trong số {2} mục nhập"
           }
         ]
       },

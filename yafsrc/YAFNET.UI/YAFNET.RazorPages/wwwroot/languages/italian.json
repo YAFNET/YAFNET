@@ -5939,6 +5939,14 @@
           {
             "@tag": "TITLE",
             "#text": "Riavviare l'applicazione"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "L'applicazione non è tornata. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "L'applicazione si sta riavviando. "
           }
         ]
       },
@@ -10262,6 +10270,10 @@
             "#text": "Ruolo:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Visualizzazione da {0} a {1} di {2} voci"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Ordina per"
           },
@@ -10276,10 +10288,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nome utente decrescente"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Visualizzazione da {0} a {1} di {2} voci"
           }
         ]
       },

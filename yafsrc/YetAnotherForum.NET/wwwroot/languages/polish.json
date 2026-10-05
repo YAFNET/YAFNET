@@ -5939,6 +5939,14 @@
           {
             "@tag": "TITLE",
             "#text": "Uruchom ponownie aplikację"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Aplikacja nie wróciła. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Aplikacja uruchamia się ponownie. "
           }
         ]
       },
@@ -10266,6 +10274,10 @@
             "#text": "Rola:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Wyświetlanie od {0} do {1} z {2} wpisów"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Sortuj według"
           },
@@ -10280,10 +10292,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nazwa Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Wyświetlanie od {0} do {1} z {2} wpisów"
           }
         ]
       },

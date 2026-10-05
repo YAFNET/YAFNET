@@ -1,23 +1,84 @@
-﻿@page "{handler?}"
+@page "{handler?}"
 
 @using YAF.Web.HtmlHelpers
 @model YAF.Pages.Admin.RestartAppModel
 
-<form method="post">
+@if (Model.IsRestarting)
+{
 	<div class="row">
 		<div class="col-xl-12">
 			<div class="card mb-3">
 				<div class="card-body text-center">
-					<h5 class="card-title">
-						@Html.LocalizedText("ADMIN_RESTARTAPP", "INFO")
-					</h5>
-					<button type="submit"
-					        button-style="Primary"
-					        text-localized-page="ADMIN_RESTARTAPP"
-					        text-localized-tag="TITLE"
-					        icon="sync"></button>
+					<div id="RestartPending">
+						<div class="spinner-border text-primary mb-3" role="status" aria-hidden="true"></div>
+						<h5 class="card-title">
+							@Html.LocalizedText("ADMIN_RESTARTAPP", "RESTARTING")
+						</h5>
+					</div>
+					<div id="RestartTimeout" class="alert alert-warning d-none mb-0" role="alert">
+						@Html.LocalizedText("ADMIN_RESTARTAPP", "RESTART_TIMEOUT")
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</form>
+}
+else
+{
+	<form method="post">
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="card mb-3">
+					<div class="card-body text-center">
+						<h5 class="card-title">
+							@Html.LocalizedText("ADMIN_RESTARTAPP", "INFO")
+						</h5>
+						<button type="submit"
+						        button-style="Primary"
+						        text-localized-page="ADMIN_RESTARTAPP"
+						        text-localized-tag="TITLE"
+						        icon="sync"></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+}
+
+@section Scripts {
+	@if (Model.IsRestarting)
+	{
+		<script>
+			(function () {
+				const targetUrl = '@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Admin))';
+				const startedAt = Date.now();
+				const timeout = 120000;
+
+				const poll = function () {
+					fetch(targetUrl, { cache: 'no-store', credentials: 'same-origin' })
+						.then(function (response) {
+							if (response.ok) {
+								window.location.href = targetUrl;
+							} else {
+								retry();
+							}
+						})
+						.catch(retry);
+				};
+
+				const retry = function () {
+					if (Date.now() - startedAt > timeout) {
+						document.getElementById('RestartPending').classList.add('d-none');
+						document.getElementById('RestartTimeout').classList.remove('d-none');
+						return;
+					}
+
+					setTimeout(poll, 2000);
+				};
+
+				// the server stops ~1 second after this page was sent, don't poll the old instance
+				setTimeout(poll, 4000);
+			})();
+		</script>
+	}
+}

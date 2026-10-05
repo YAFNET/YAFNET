@@ -5939,6 +5939,14 @@
           {
             "@tag": "TITLE",
             "#text": "Anwendung (YAF) neustarten"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Die Bewerbung kam nicht zurück. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Die Anwendung wird neu gestartet. "
           }
         ]
       },
@@ -10262,6 +10270,10 @@
             "#text": "Gruppe:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Es werden {0} bis {1} von {2} Einträgen angezeigt"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Sortieren nach"
           },
@@ -10276,10 +10288,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Name ZA"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Es werden {0} bis {1} von {2} Einträgen angezeigt"
           }
         ]
       },

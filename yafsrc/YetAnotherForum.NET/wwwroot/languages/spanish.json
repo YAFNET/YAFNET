@@ -5939,6 +5939,14 @@
           {
             "@tag": "TITLE",
             "#text": "Reiniciar la aplicación."
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "La solicitud no volvió. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "La aplicación se está reiniciando. "
           }
         ]
       },
@@ -10262,6 +10270,10 @@
             "#text": "Rol:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Mostrando {0} a {1} de {2} entradas"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Ordenar por"
           },
@@ -10276,10 +10288,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nombre Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Mostrando {0} a {1} de {2} entradas"
           }
         ]
       },

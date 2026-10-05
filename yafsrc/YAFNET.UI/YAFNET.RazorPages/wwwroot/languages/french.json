@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Redémarrer l'application"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "La demande n'est pas revenue. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "L'application redémarre. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Rôle :"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Affichage de {0} à {1} des {2} entrées"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Trier par"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nom Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Affichage de {0} à {1} des {2} entrées"
           }
         ]
       },

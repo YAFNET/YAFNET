@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Uygulamayı Yeniden Başlat"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Başvuruya geri dönüş olmadı. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Uygulama yeniden başlatılıyor. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Rolü:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "{2} girişten {0} - {1} arası gösteriliyor"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Göre sırala"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "İsim Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "{2} girişten {0} - {1} arası gösteriliyor"
           }
         ]
       },

@@ -5939,6 +5939,14 @@
           {
             "@tag": "TITLE",
             "#text": "Herstart Applicatie"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "De aanvraag kwam niet terug. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "De applicatie wordt opnieuw opgestart. "
           }
         ]
       },
@@ -10262,6 +10270,10 @@
             "#text": "Rol:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Toont {0} tot {1} van {2} vermeldingen"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Sorteer op"
           },
@@ -10276,10 +10288,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Naam Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Toont {0} tot {1} van {2} vermeldingen"
           }
         ]
       },

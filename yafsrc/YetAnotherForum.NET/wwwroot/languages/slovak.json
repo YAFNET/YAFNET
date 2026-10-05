@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Reštartovanie aplikácie"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Aplikácia sa nevrátila. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Aplikácia sa reštartuje. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Úloha:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Zobrazuje sa {0} až {1} z {2} záznamov"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Zoradiť podľa"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Názov Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Zobrazuje sa {0} až {1} z {2} záznamov"
           }
         ]
       },

@@ -5934,7 +5934,15 @@
             "Resource": [
                 {
                     "@tag": "INFO",
-                    "#text": "Restarting the application will reload all config files."
+                    "#text": "This will stop the application. The hosting environment (IIS, Windows Service, systemd, Docker) is responsible for starting it again."
+                },
+                {
+                    "@tag": "RESTARTING",
+                    "#text": "The application is restarting. This page reloads automatically once it is available again."
+                },
+                {
+                    "@tag": "RESTART_TIMEOUT",
+                    "#text": "The application did not come back. If it is not hosted by IIS or a service manager that restarts it automatically (Windows Service, systemd, Docker), it has to be started manually."
                 },
                 {
                     "@tag": "TITLE",

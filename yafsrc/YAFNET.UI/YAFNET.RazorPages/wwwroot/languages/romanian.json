@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Reporniți aplicația"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Aplicația nu a revenit. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Aplicația se repornește. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Rol:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Se afișează de la {0} la {1} din {2} intrări"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Sortează după"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Nume Z-A"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Se afișează de la {0} la {1} din {2} intrări"
           }
         ]
       },

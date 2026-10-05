@@ -5947,6 +5947,14 @@
           {
             "@tag": "TITLE",
             "#text": "Start applikasjonen på nytt"
+          },
+          {
+            "@tag": "RESTART_TIMEOUT",
+            "#text": "Søknaden kom ikke tilbake. "
+          },
+          {
+            "@tag": "RESTARTING",
+            "#text": "Applikasjonen starter på nytt. "
           }
         ]
       },
@@ -10278,6 +10286,10 @@
             "#text": "Rolle:"
           },
           {
+            "@tag": "SHOWING_X_TO_X_OF_X",
+            "#text": "Viser {0} til {1} ​​av {2} oppføringer"
+          },
+          {
             "@tag": "SORT_BY",
             "#text": "Sorter etter"
           },
@@ -10292,10 +10304,6 @@
           {
             "@tag": "USERNAME_DESC",
             "#text": "Navn ZA"
-          },
-          {
-            "@tag": "SHOWING_X_TO_X_OF_X",
-            "#text": "Viser {0} til {1} ​​av {2} oppføringer"
           }
         ]
       },
