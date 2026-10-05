@@ -36,7 +36,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// <summary>
     /// Add new user album test.
     /// </summary>
-    [Test, Order(1)]
+    [Test]
     public async Task AddNewUserAlbumTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -107,7 +107,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// <summary>
     /// Add additional image test.
     /// </summary>
-    [Test, Order(2)]
+    [Test, DependsOnTest(nameof(AddNewUserAlbumTest))]
     public async Task AddAdditionalImageTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -162,7 +162,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// <summary>
     /// Set the image as cover test.
     /// </summary>
-    [Test, Order(3)]
+    [Test, DependsOnTest(nameof(AddAdditionalImageTest))]
     public async Task SetImageAsCoverTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -218,7 +218,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// <summary>
     /// Remove the image as cover test.
     /// </summary>
-    [Test, Order(4)]
+    [Test, DependsOnTest(nameof(SetImageAsCoverTest))]
     public async Task RemoveImageAsCoverTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -276,7 +276,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// <summary>
     /// Edit the image caption test.
     /// </summary>
-    [Test, Order(5)]
+    [Test, DependsOnTest(nameof(RemoveImageAsCoverTest))]
     public async Task EditImageCaptionTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -343,7 +343,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// <summary>
     /// Edit the album title test.
     /// </summary>
-    [Test, Order(6)]
+    [Test, DependsOnTest(nameof(EditImageCaptionTest))]
     public async Task EditAlbumTitleTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -401,7 +401,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// <summary>
     /// Deletes an image from album test.
     /// </summary>
-    [Test, Order(7)]
+    [Test, DependsOnTest(nameof(EditAlbumTitleTest))]
     public async Task DeleteImageFromAlbumTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -448,8 +448,6 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.Locator(".btn-success").ClickAsync();
 
-                await page.ReloadAsync();
-
                 var textNew = await page.GetByText("Delete", new PageGetByTextOptions { Exact = true }).CountAsync();
 
                 Assert.That(textOld, Is.Not.EqualTo(textNew), "Image deleting failed");
@@ -459,7 +457,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// <summary>
     /// Delete the user album test.
     /// </summary>
-    [Test, Order(8)]
+    [Test, DependsOnTest(nameof(DeleteImageFromAlbumTest))]
     public async Task DeleteUserAlbumTest()
     {
         await this.Fixture.Context.GotoPageAsync(

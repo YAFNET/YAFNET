@@ -116,11 +116,7 @@ public static class PageExtensions
 
             Assert.That(pageSource.Contains("Remove Friend"), Is.False, "User is already a Friend");
 
-            Assert.That(
-                pageSource, Does.Contain("Add as Friend"),
-                "My Friends function is not available for that User, or is disabled for that Forum");
-
-            await page.Locator("//a[contains(@href,'AddFriendRequest')]").ClickAsync();
+            await page.Locator("//button[contains(@formaction,'AddFriendRequest')]").ClickAsync();
 
             pageSource = await page.ContentAsync();
 

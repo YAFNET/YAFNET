@@ -62,20 +62,8 @@ public abstract class DatabaseTestBase
             this.IgnoreIfNotLocalDatabase();
         }
 
-        // Acquires the running container (starts it if first consumer)
+        // Reuses the running stack of this scenario, it is stopped by the AssemblySetup
         this.Fixture = await FixtureRegistry.AcquireAsync(this.Scenario, this.TestSettings);
-    }
-
-    [OneTimeTearDown]
-    public async Task BaseOneTimeTearDown()
-    {
-        // nothing was acquired, if the scenario was ignored
-        if (this.Fixture is null)
-        {
-            return;
-        }
-
-        await FixtureRegistry.ReleaseAsync(this.Scenario, this.TestSettings);
     }
 
     /// <summary>

@@ -75,10 +75,10 @@ public class ReputationTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     await page.GotoAsync(newTestTopicUrl);
 
                     Assert.That(
-                        await page.Locator("//a[contains(@class,'AddReputation_')]").IsVisibleAsync(), Is.True,
+                        await page.Locator("//button[contains(@class,'AddReputation_')]").IsVisibleAsync(), Is.True,
                         "Reputation is deactivated  in yaf or the user has already voted within the last 24 hours, or the user doesn't have enough points to be allowed to vote");
 
-                    await page.Locator("//a[contains(@class,'AddReputation_')]").ClickAsync();
+                    await page.Locator("//button[contains(@class,'AddReputation_')]").ClickAsync();
 
                     var pageSource = await page.ContentAsync();
 
@@ -148,10 +148,10 @@ public class ReputationTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     await page.GotoAsync(newTestTopicUrl);
 
                     Assert.That(
-                        await page.Locator("//a[contains(@class,'RemoveReputation_')]").IsVisibleAsync(), Is.True,
+                        await page.Locator("//button[contains(@class,'RemoveReputation_')]").IsVisibleAsync(), Is.True,
                         "Reputation is deactivated (Or negative Reputation) in yaf or the user has already voted within the last 24 hours, or the user doesn't have enough points to be allowed to vote");
 
-                    await page.Locator("//a[contains(@class,'RemoveReputation_')]").ClickAsync();
+                    await page.Locator("//button[contains(@class,'RemoveReputation_')]").ClickAsync();
 
                     var pageSource = await page.ContentAsync();
 

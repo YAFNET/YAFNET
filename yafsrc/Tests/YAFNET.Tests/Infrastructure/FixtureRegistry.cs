@@ -22,29 +22,34 @@
  * under the License.
  */
 
-using System.Collections.Concurrent;
 using System.Threading;
 
 namespace YAF.Tests.Infrastructure;
 
+/// <summary>
+/// Keeps the docker stack of the current scenario running across all test classes.
+/// All scenarios share the same port, so only one stack can run at a time. The stack is
+/// only replaced when a test class for a different scenario starts, and the last one is
+/// stopped by the <see cref="AssemblySetup"/> after all tests are done.
+/// </summary>
 public static class FixtureRegistry
 {
-    // One live fixture per DB type, shared across all test classes
-    private readonly static ConcurrentDictionary<ComposeScenario, DatabaseFixture> Fixtures = new();
-    private readonly static ConcurrentDictionary<ComposeScenario, int> ConsumerCount = new();
     private readonly static SemaphoreSlim Lock = new(1, 1);
+
+    private static DatabaseFixture activeFixture;
 
     public async static Task<DatabaseFixture> AcquireAsync(ComposeScenario scenario, TestConfig testSettings)
     {
         await Lock.WaitAsync();
         try
         {
-            ConsumerCount.AddOrUpdate(scenario, 1, (_, count) => count + 1);
-
-            if (Fixtures.TryGetValue(scenario, out var fixtureFromDictionary))
+            if (activeFixture is not null && activeFixture.Scenario.Name == scenario.Name)
             {
-                return fixtureFromDictionary;
+                return activeFixture;
             }
+
+            // a different scenario needs the port, stop the running stack first
+            await DisposeActiveFixtureAsync();
 
             var fixture = scenario.Name switch
             {
@@ -56,9 +61,9 @@ public static class FixtureRegistry
             };
 
             await fixture.InitializeAsync(testSettings);
-            Fixtures[scenario] = fixture;
+            activeFixture = fixture;
 
-            return Fixtures[scenario];
+            return activeFixture;
         }
         finally
         {
@@ -66,22 +71,32 @@ public static class FixtureRegistry
         }
     }
 
-    public async static Task ReleaseAsync(ComposeScenario scenario, TestConfig testSettings)
+    /// <summary>
+    /// Stops the running stack. Called once after all tests are done.
+    /// </summary>
+    public async static Task ReleaseAllAsync()
     {
         await Lock.WaitAsync();
         try
         {
-            var remaining = ConsumerCount.AddOrUpdate(scenario, 0, (_, count) => count - 1);
-
-            // Only tear down the container when the last test class is done
-            if (remaining == 0 && Fixtures.TryRemove(scenario, out var fixture))
-            {
-                await fixture.DisposeAsync();
-            }
+            await DisposeActiveFixtureAsync();
         }
         finally
         {
             Lock.Release();
         }
+    }
+
+    private async static Task DisposeActiveFixtureAsync()
+    {
+        if (activeFixture is null)
+        {
+            return;
+        }
+
+        var fixture = activeFixture;
+        activeFixture = null;
+
+        await fixture.DisposeAsync();
     }
 }

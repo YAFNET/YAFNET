@@ -34,7 +34,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
     /// <summary>
     /// Add watch topic test.
     /// </summary>
-    [Test, Order(1)]
+    [Test]
     public async Task AddWatchTopicTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -105,7 +105,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
     /// <summary>
     /// Delete watch topic test.
     /// </summary>
-    [Test, Order(2)]
+    [Test, DependsOnTest(nameof(AddWatchTopicTest))]
     public async Task DeleteWatchTopicTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -152,7 +152,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
     /// <summary>
     /// Add watch forum test.
     /// </summary>
-    [Test, Order(3)]
+    [Test, DependsOnTest(nameof(DeleteWatchTopicTest))]
     public async Task AddWatchForumTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -220,7 +220,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
     /// <summary>
     /// Delete watch forum test.
     /// </summary>
-    [Test, Order(4)]
+    [Test, DependsOnTest(nameof(AddWatchForumTest))]
     public async Task DeleteWatchForumTest()
     {
         await this.Fixture.Context.GotoPageAsync(
@@ -350,9 +350,11 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
 
                 await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Admin" }).ClickAsync();
                 await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Settings" }).ClickAsync();
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Board Settings" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Board Settings" })
+                    .ClickAsync();
 
-                await page.GetByRole(AriaRole.Checkbox, new PageGetByRoleOptions { Name = "Allow Digest Email Sending" }).CheckAsync();
+                await page.GetByRole(AriaRole.Checkbox,
+                    new PageGetByRoleOptions { Name = "Allow Digest Email Sending" }).CheckAsync();
 
                 await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save" }).ClickAsync();
 
@@ -391,7 +393,10 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
 
                 // Force digest send
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Digest");
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Force Digest Send" }).ClickAsync();
+
+                await page.GetByRole(AriaRole.Textbox, new PageGetByRoleOptions { Name = "Email:" }).ClickAsync();
+                await page.GetByRole(AriaRole.Textbox, new PageGetByRoleOptions { Name = "Email:" }).FillAsync($"{this.TestSettings.TestUserName.ToLower()}@test.com");
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Send Test" }).ClickAsync();
 
                 // Check if an Email was received
                 while (this.Fixture.SmtpServer.ReceivedEmailCount.Equals(0))
@@ -410,11 +415,14 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                     "Sender does not match");
 
                 Assert.That(
-                    mail.Headers["Subject"], Is.EqualTo($"Active and New Topics - Daily Digest for {this.TestSettings.TestApplicationName}"),
+                    mail.Headers["Subject"],
+                    Is.EqualTo($"Active and New Topics - Daily Digest for {this.TestSettings.TestApplicationName}"),
                     "Subject does not match");
 
                 Assert.That(
-                    mail.MessageParts[1].BodyData.Contains($"Active and New Topics - Daily Digest for {this.TestSettings.TestApplicationName}"), Is.True,
+                    mail.MessageParts[1].BodyData
+                        .Contains($"Active and New Topics - Daily Digest for {this.TestSettings.TestApplicationName}"),
+                    Is.True,
                     "Body does not match");
             });
     }

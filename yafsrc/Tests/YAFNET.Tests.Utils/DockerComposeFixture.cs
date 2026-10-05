@@ -110,46 +110,41 @@ public sealed class DockerComposeFixture
             $"App did not become reachable at {this.AppBaseUrl} within {StartupTimeout.TotalSeconds}s.");
     }
 
-    private Task RunComposeAsync(string arguments, bool captureOutput = false)
+    private async Task RunComposeAsync(string arguments, bool captureOutput = false)
     {
-        try
+        var fullArgs = $"compose -f {this.composeFile} {arguments}";
+
+        await TestContext.Progress.WriteLineAsync($"🧪 docker {fullArgs}");
+
+        var psi = new ProcessStartInfo("docker", fullArgs)
         {
-            TestContext.Progress.WriteLine("🧪 Start docker");
+            WorkingDirectory = this.composeDirectory,
+            RedirectStandardOutput = captureOutput,
+            RedirectStandardError = captureOutput,
+            UseShellExecute = false
+        };
 
-            var fullArgs = $"compose -f {this.composeFile} {arguments}";
+        using var process = Process.Start(psi)!;
 
-            var psi = new ProcessStartInfo("docker", fullArgs)
-            {
-                WorkingDirectory = this.composeDirectory,
-                RedirectStandardOutput = captureOutput,
-                RedirectStandardError = captureOutput,
-                UseShellExecute = false
-            };
+        if (captureOutput)
+        {
+            // read both streams while waiting, otherwise a full pipe buffer blocks docker
+            var output = process.StandardOutput.ReadToEndAsync();
+            var error = process.StandardError.ReadToEndAsync();
 
-            var tcs = new TaskCompletionSource<bool>();
+            await process.WaitForExitAsync();
 
-            var process = new Process { StartInfo = psi, EnableRaisingEvents = true };
-
-            process.Exited += (_, _) =>
-            {
-                if (process.ExitCode == 0)
-                {
-                    tcs.SetResult(true);
-                }
-                else
-                {
-                    tcs.SetException(new Exception(
-                        $"'docker {fullArgs}' exited with code {process.ExitCode}"));
-                }
-            };
-
-            process.Start();
-
-            return Task.CompletedTask;
+            await TestContext.Progress.WriteLineAsync(await output);
+            await TestContext.Progress.WriteLineAsync(await error);
         }
-        catch (Exception exception)
+        else
         {
-            return Task.FromException(exception);
+            await process.WaitForExitAsync();
+        }
+
+        if (process.ExitCode != 0)
+        {
+            throw new InvalidOperationException($"'docker {fullArgs}' exited with code {process.ExitCode}");
         }
     }
 

@@ -58,11 +58,13 @@ public class SignatureTests(ComposeScenario scenario) : DatabaseTestBase(scenari
                         pageSource, Does.Contain("Edit Signature"),
                         "Edit Signature is not available for that User");
 
+                    await page.Locator(".BBCodeEditor").ClickAsync();
+
                     await page.Locator(".BBCodeEditor").FillAsync("This is a Test Signature created by an Unit Test.");
 
                     await page.Locator("//*[contains(@formaction,'Preview')]").ClickAsync();
 
-                    var previewCell = await page.Locator(".card-body").First.TextContentAsync();
+                    var previewCell = await page.Locator(".card-message-signature .card-body").TextContentAsync();
 
                     Assert.That(
                         previewCell, Is.EqualTo("This is a Test Signature created by an Unit Test."),

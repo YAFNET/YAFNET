@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Tests.Infrastructure;
+
 namespace YAF.Tests;
 
 /// <summary>
@@ -31,11 +33,13 @@ namespace YAF.Tests;
 public class AssemblySetup
 {
     /// <summary>
-    /// Stops the shared test host, so the url is free again for the next test run.
+    /// Stops the running docker stack and the shared test host, so the url is free again for the next test run.
     /// </summary>
     [OneTimeTearDown]
-    public void TearDown()
+    public async Task TearDown()
     {
+        await FixtureRegistry.ReleaseAllAsync();
+
         WebTestingHostFactoryUtils.DisposeHost();
     }
 }
