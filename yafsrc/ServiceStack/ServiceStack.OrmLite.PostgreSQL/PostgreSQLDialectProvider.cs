@@ -26,6 +26,8 @@ using Npgsql;
 
 using NpgsqlTypes;
 
+using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite.Converters;
 using ServiceStack.OrmLite.PostgreSQL.Converters;
 
 /// <summary>
@@ -57,6 +59,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     public PostgreSqlDialectProvider()
     {
+        this.VectorConverter = new VectorTextConverter();
         base.AutoIncrementDefinition = "";
         base.ParamString = ":";
         base.SelectIdentitySql = "SELECT LASTVAL()";
@@ -252,6 +255,38 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                                                               "WHERE"
     ], StringComparer.OrdinalIgnoreCase);
 
+    protected override bool SupportsIndexInclude => true;
+
+    // PostgreSQL only has virtual generated columns from v18, so they're always stored
+    protected override string GetGeneratedColumnDefinition(FieldDefinition fieldDef)
+    {
+        var columnType = this.GetFieldTypeDefinition(fieldDef);
+        return $"{this.GetQuotedColumnName(fieldDef)} {columnType} GENERATED ALWAYS AS " +
+               $"({this.ResolveColumnRefs(fieldDef.ModelDef, fieldDef.ComputeExpression)}) STORED";
+    }
+
+    public override List<string> ToCreateCommentStatements(Type tableType)
+    {
+        var to = new List<string>();
+        var modelDef = GetModel(tableType);
+        var table = this.GetQuotedTableName(modelDef);
+        if (!string.IsNullOrEmpty(modelDef.Description))
+        {
+            to.Add($"COMMENT ON TABLE {table} IS {this.GetQuotedValue(modelDef.Description)}");
+        }
+
+        foreach (var fieldDef in modelDef.FieldDefinitions)
+        {
+            if (string.IsNullOrEmpty(fieldDef.Description) || fieldDef.ShouldSkipCreate() || fieldDef.IsRowVersion)
+            {
+                continue;
+            }
+
+            to.Add($"COMMENT ON COLUMN {table}.{this.GetQuotedColumnName(fieldDef)} IS {this.GetQuotedValue(fieldDef.Description)}");
+        }
+        return to;
+    }
+
     /// <summary>
     /// Gets the column definition.
     /// </summary>
@@ -260,7 +295,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override string GetColumnDefinition(FieldDefinition fieldDef)
     {
         if (fieldDef.IsRowVersion)
+        {
             return null;
+        }
+
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
+        }
 
         string fieldDefinition = null;
 
@@ -283,7 +325,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             }
             else
             {
-                fieldDefinition = GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+                fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
             }
         }
 
@@ -339,6 +381,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>System.String.</returns>
     public override string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
     {
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
+        }
 
         string fieldDefinition = null;
 
@@ -361,7 +407,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             }
             else
             {
-                fieldDefinition = this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+                fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
             }
         }
 
@@ -424,16 +470,22 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         foreach (var fieldDef in this.CreateTableFieldsStrategy(modelDef))
         {
-            if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+            if (fieldDef.ShouldSkipCreate())
+            {
                 continue;
+            }
 
             var columnDefinition = this.GetColumnDefinition(fieldDef, modelDef);
 
             if (columnDefinition == null)
+            {
                 continue;
+            }
 
             if (sbColumns.Length != 0)
+            {
                 sbColumns.Append(", \n  ");
+            }
 
             sbColumns.Append(columnDefinition);
 
@@ -444,7 +496,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             }
 
             if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
+            {
                 continue;
+            }
 
             var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
             sbConstraints.Append(
@@ -496,14 +550,25 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     }
 
     /// <summary>
+    /// The query that returns the query plan of the SQL
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="analyze">if set to <c>true</c> [analyze].</param>
+    /// <returns>ExplainQuery.</returns>
+    public override ExplainQuery ToExplainQuery(IDbConnection db, string sql, bool analyze) =>
+        new() { Sql = (analyze ? "EXPLAIN ANALYZE " : "EXPLAIN ") + sql };
+
+    /// <summary>
     /// Converts to returning statement.
     /// </summary>
     /// <param name="sql">The SQL.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="isDelete">if set to <c>true</c> [is delete].</param>
+    /// <param name="returnFields">The fields to return, or null for all fields.</param>
     /// <returns>System.String.</returns>
-    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete) =>
-        sql.TrimEnd().TrimEnd(';') + " RETURNING " + GetColumnNames(modelDef);
+    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete, ICollection<FieldDefinition> returnFields = null) =>
+        sql.TrimEnd().TrimEnd(';') + " RETURNING " + this.GetReturningColumns(modelDef, returnFields);
 
     /// <summary>
     /// Determines whether [is full select statement] [the specified SQL].
@@ -514,7 +579,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     {
         sql = sql?.TrimStart();
         if (string.IsNullOrEmpty(sql))
+        {
             return false;
+        }
 
         return sql.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase) ||
                sql.StartsWith("WITH ", StringComparison.OrdinalIgnoreCase);
@@ -548,10 +615,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         foreach (var fieldDef in fieldDefs)
         {
             if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            {
                 continue;
+            }
 
             if (i++ > 0)
+            {
                 sb.Append(',');
+            }
 
             sb.Append($"\"{this.GetQuotedColumnName(fieldDef)}\"");
         }
@@ -567,7 +638,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             foreach (var fieldDef in fieldDefs)
             {
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                {
                     continue;
+                }
 
                 var value = fieldDef.AutoId
                     ? this.GetInsertDefaultValue(fieldDef)
@@ -580,7 +653,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                 }
                 var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
                 if (dbValue is float f)
+                {
                     dbValue = (double)f;
+                }
 
                 if (dbValue is null or DBNull)
                 {
@@ -610,6 +685,92 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         writer.Complete();
     }
 
+    protected override string ToBulkUpsertStatement(ModelDefinition modelDef, string stagingTable,
+        List<FieldDefinition> insertFieldDefs, List<FieldDefinition> updateFieldDefs)
+    {
+        var conflictAction = updateFieldDefs.Count == 0
+            ? "DO NOTHING"
+            : "DO UPDATE SET " + updateFieldDefs.Map(x =>
+                this.GetQuotedColumnName(x) + "=" + GetBulkUpsertValue(x.CustomUpdate, "EXCLUDED." + this.GetQuotedColumnName(x))).Join(", ");
+
+        return $"{this.GetBulkUpsertInsertSql(modelDef, stagingTable, insertFieldDefs)} " +
+               $"ON CONFLICT ({this.GetQuotedColumnName(modelDef.PrimaryKey)}) {conflictAction}";
+    }
+
+    // Rows are loaded with COPY
+    protected override void BulkLoad<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config)
+    {
+        if (config.Mode == BulkInsertMode.Sql)
+        {
+            base.BulkLoad(db, quotedTable, fieldDefs, rows, config);
+            return;
+        }
+
+        var pgConn = (NpgsqlConnection)db.ToDbConnection();
+        using var writer = pgConn.BeginBinaryImport(this.ToBinaryImportCommand(quotedTable, fieldDefs));
+        foreach (var row in rows)
+        {
+            writer.StartRow();
+            foreach (var fieldDef in fieldDefs)
+            {
+                var dbValue = this.ToBinaryImportDbValue(fieldDef, this.GetBulkLoadValue(fieldDef, row), out var dbType);
+                if (dbValue == null)
+                {
+                    writer.WriteNull();
+                }
+                else
+                {
+                    writer.Write(dbValue, dbType);
+                }
+            }
+        }
+        writer.Complete();
+    }
+
+    private List<FieldDefinition> GetBinaryImportFieldDefinitions<T>(BulkInsertConfig config) =>
+        this.GetInsertFieldDefinitions(ModelDefinition<T>.Definition, insertFields: config.InsertFields)
+            .Where(x => !this.ShouldSkipInsert(x) || x.AutoId)
+            .ToList();
+
+    private string ToBinaryImportCommand<T>(List<FieldDefinition> fieldDefs) =>
+        this.ToBinaryImportCommand(this.GetQuotedTableName(ModelDefinition<T>.Definition), fieldDefs);
+
+    private string ToBinaryImportCommand(string quotedTable, List<FieldDefinition> fieldDefs) =>
+        $"COPY {quotedTable} ({string.Join(",", fieldDefs.Select(x => this.GetQuotedColumnName(x)))}) FROM STDIN (FORMAT BINARY)";
+
+    private object ToBinaryImportValue(FieldDefinition fieldDef, object obj, out NpgsqlDbType dbType)
+    {
+        var value = fieldDef.AutoId
+            ? this.GetInsertDefaultValue(fieldDef)
+            : fieldDef.GetValue(obj);
+        return this.ToBinaryImportDbValue(fieldDef, value, out dbType);
+    }
+
+    private object ToBinaryImportDbValue(FieldDefinition fieldDef, object value, out NpgsqlDbType dbType)
+    {
+        dbType = default;
+
+        var converter = this.GetConverterBestMatch(fieldDef)
+            ?? throw new NotSupportedException($"No converter found for {fieldDef.FieldType.Name}");
+        var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
+        if (dbValue is null or DBNull)
+        {
+            return null;
+        }
+
+        if (dbValue is float f)
+        {
+            dbValue = (double)f;
+        }
+
+        dbType = this.GetNpgsqlDbType(fieldDef);
+        if (dbType == NpgsqlDbType.Text && dbValue is not string && dbValue is not char)
+        {
+            dbValue = this.StringSerializer.SerializeToString(dbValue);
+        }
+
+        return dbValue;
+    }
     public NpgsqlDbType GetNpgsqlDbType(FieldDefinition fieldDef)
     {
         var converter = this.GetConverterBestMatch(fieldDef);
@@ -726,12 +887,19 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
             if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId
                                            && shouldInclude?.Invoke(fieldDef) != true)
+            {
                 continue;
+            }
 
             if (sbColumnNames.Length > 0)
+            {
                 sbColumnNames.Append(",");
+            }
+
             if (sbColumnValues.Length > 0)
+            {
                 sbColumnValues.Append(",");
+            }
 
             try
             {
@@ -750,7 +918,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         foreach (var fieldDef in modelDef.AutoIdFields) // need to include any AutoId fields that weren't included
         {
             if (fieldDefs.Contains(fieldDef))
+            {
                 continue;
+            }
 
             sbReturningColumns.Append(sbReturningColumns.Length == 0 ? " RETURNING " : ",");
             sbReturningColumns.Append(GetQuotedColumnName(fieldDef.FieldName));
@@ -765,8 +935,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
     public override bool SupportsUpsert => true;
 
-    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef) =>
-        ToReturningStatement(sql, modelDef, isDelete: false);
+    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef, ICollection<FieldDefinition> returnFields = null) =>
+        this.ToReturningStatement(sql, modelDef, isDelete: false, returnFields);
 
     public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
         ICollection<string> insertFields = null, ICollection<string> updateOnly = null)
@@ -894,6 +1064,16 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                    : "SELECT relname, reltuples FROM pg_class JOIN pg_catalog.pg_namespace n ON n.oid = pg_class.relnamespace WHERE relkind = 'r' AND nspname = {0}".SqlFmt(this, schemaName);
     }
 
+    public override List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef)
+    {
+        var schema = this.GetSchemaName(tableRef);
+        var sql = "SELECT indexname FROM pg_indexes WHERE lower(tablename) = {0}".SqlFmt(this, this.GetTableNameOnly(tableRef).ToLower())
+            + (schema != null
+                ? " AND lower(schemaname) = {0}".SqlFmt(this, schema.ToLower())
+                : " AND schemaname = current_schema()");
+        return db.Column<string>(sql);
+    }
+
     /// <summary>
     /// Doeses the table exist.
     /// </summary>
@@ -944,9 +1124,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         {
             var builder = new NpgsqlConnectionStringBuilder(conn.ConnectionString);
             if (schema == null)
+            {
                 schema = builder.SearchPath;
+            }
+
             if (schema == null)
+            {
                 schema = "public";
+            }
 
             // If a search path (schema) is specified, and there is only one, then assume the CREATE TABLE directive should apply to that schema.
             if (!string.IsNullOrEmpty(schema) && !schema.Contains(","))
@@ -1070,8 +1255,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                        ? " AND TABLE_SCHEMA = @schema"
                        : " AND lower(TABLE_SCHEMA) = @schema";
 
-            if (Normalize)
+            if (this.Normalize)
+            {
                 schema = schema.ToLower();
+            }
         }
 
         return sql;
@@ -1143,7 +1330,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
-            if (sbColumnValues.Length > 0) sbColumnValues.Append(",");
+            if (sbColumnValues.Length > 0)
+            {
+                sbColumnValues.Append(",");
+            }
+
             sbColumnValues.Append(fieldDef.GetQuotedValue(objWithProperties));
         }
 
@@ -1201,7 +1392,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override string GetQuotedName(string name)
     {
         if (name == null)
+        {
             return null;
+        }
+
         return name.IndexOf('.') >= 0
                    ? string.Join(".", name.Split('.').Map(part => base.GetQuotedName(part)))
                    : base.GetQuotedName(name);
@@ -1232,8 +1426,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <exception cref="System.NotImplementedException">Returning last inserted identity is not implemented on this DB Provider.</exception>
     public override string GetLastInsertIdSqlSuffix<T>()
     {
-        if (SelectIdentitySql == null)
+        if (this.SelectIdentitySql == null)
+        {
             throw new NotImplementedException("Returning last inserted identity is not implemented on this DB Provider.");
+        }
 
         if (UseReturningForLastInsertId)
         {
@@ -1249,33 +1445,34 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// Gets the types map.
     /// </summary>
     /// <value>The types map.</value>
-    public Dictionary<Type,NpgsqlDbType> TypesMap { get; } = new() {
-                                                                           [typeof(bool)] = NpgsqlDbType.Boolean,
-                                                                           [typeof(short)] = NpgsqlDbType.Smallint,
-                                                                           [typeof(int)] = NpgsqlDbType.Integer,
-                                                                           [typeof(long)] = NpgsqlDbType.Bigint,
-                                                                           [typeof(float)] = NpgsqlDbType.Real,
-                                                                           [typeof(double)] = NpgsqlDbType.Double,
-                                                                           [typeof(decimal)] = NpgsqlDbType.Numeric,
-                                                                           [typeof(string)] = NpgsqlDbType.Text,
-                                                                           [typeof(char[])] = NpgsqlDbType.Varchar,
-                                                                           [typeof(char)] = NpgsqlDbType.Char,
-                                                                           [typeof(NpgsqlPoint)] = NpgsqlDbType.Point,
-                                                                           [typeof(NpgsqlLSeg)] = NpgsqlDbType.LSeg,
-                                                                           [typeof(NpgsqlPath)] = NpgsqlDbType.Path,
-                                                                           [typeof(NpgsqlPolygon)] = NpgsqlDbType.Polygon,
-                                                                           [typeof(NpgsqlLine)] = NpgsqlDbType.Line,
-                                                                           [typeof(NpgsqlCircle)] = NpgsqlDbType.Circle,
-                                                                           [typeof(NpgsqlBox)] = NpgsqlDbType.Box,
-                                                                           [typeof(BitArray)] = NpgsqlDbType.Varbit,
-                                                                           [typeof(IDictionary<string, string>)] = NpgsqlDbType.Hstore,
-                                                                           [typeof(Guid)] = NpgsqlDbType.Uuid,
-                                                                           [typeof(ValueTuple<IPAddress, int>)] = NpgsqlDbType.Cidr,
-                                                                           [typeof(ValueTuple<IPAddress,int>)] = NpgsqlDbType.Inet,
-                                                                           [typeof(IPAddress)] = NpgsqlDbType.Inet,
-                                                                           [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,
-                                                                           [typeof(NpgsqlTsQuery)] = NpgsqlDbType.TsQuery,
-                                                                           [typeof(NpgsqlTsVector)] = NpgsqlDbType.TsVector,
+    public Dictionary<Type, NpgsqlDbType> TypesMap { get; } = new()
+    {
+        [typeof(bool)] = NpgsqlDbType.Boolean,
+        [typeof(short)] = NpgsqlDbType.Smallint,
+        [typeof(int)] = NpgsqlDbType.Integer,
+        [typeof(long)] = NpgsqlDbType.Bigint,
+        [typeof(float)] = NpgsqlDbType.Real,
+        [typeof(double)] = NpgsqlDbType.Double,
+        [typeof(decimal)] = NpgsqlDbType.Numeric,
+        [typeof(string)] = NpgsqlDbType.Text,
+        [typeof(char[])] = NpgsqlDbType.Varchar,
+        [typeof(char)] = NpgsqlDbType.Char,
+        [typeof(NpgsqlPoint)] = NpgsqlDbType.Point,
+        [typeof(NpgsqlLSeg)] = NpgsqlDbType.LSeg,
+        [typeof(NpgsqlPath)] = NpgsqlDbType.Path,
+        [typeof(NpgsqlPolygon)] = NpgsqlDbType.Polygon,
+        [typeof(NpgsqlLine)] = NpgsqlDbType.Line,
+        [typeof(NpgsqlCircle)] = NpgsqlDbType.Circle,
+        [typeof(NpgsqlBox)] = NpgsqlDbType.Box,
+        [typeof(BitArray)] = NpgsqlDbType.Varbit,
+        [typeof(IDictionary<string, string>)] = NpgsqlDbType.Hstore,
+        [typeof(Guid)] = NpgsqlDbType.Uuid,
+        [typeof(ValueTuple<IPAddress, int>)] = NpgsqlDbType.Cidr,
+        [typeof(ValueTuple<IPAddress, int>)] = NpgsqlDbType.Inet,
+        [typeof(IPAddress)] = NpgsqlDbType.Inet,
+        [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,
+        [typeof(NpgsqlTsQuery)] = NpgsqlDbType.TsQuery,
+        [typeof(NpgsqlTsVector)] = NpgsqlDbType.TsVector,
 #if NET6_0
                                                                            [typeof(DateOnly)] = NpgsqlDbType.Dat4e,
                                                                            [typeof(TimeOnly)] = NpgsqlDbType.Time,  
@@ -1302,11 +1499,16 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <exception cref="System.NotSupportedException">Type '{type.Name}' not found in 'TypesMap'</exception>
     public NpgsqlDbType GetDbType(Type type)
     {
-        if (TypesMap.TryGetValue(type, out var paramType))
+        if (this.TypesMap.TryGetValue(type, out var paramType))
+        {
             return paramType;
+        }
+
         var genericEnum = type.GetTypeWithGenericTypeDefinitionOf(typeof(IEnumerable<>));
         if (genericEnum != null)
-            return GetDbType(genericEnum.GenericTypeArguments[0]) | NpgsqlDbType.Array;
+        {
+            return this.GetDbType(genericEnum.GenericTypeArguments[0]) | NpgsqlDbType.Array;
+        }
 
         throw new NotSupportedException($"Type '{type.Name}' not found in 'TypesMap'");
     }
@@ -1332,6 +1534,35 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                                                                         { "boolean[]", NpgsqlDbType.Array | NpgsqlDbType.Boolean }
     };
 
+    // Vectors use the vector type of the pgvector extension: CREATE EXTENSION vector
+    public override string GetVectorColumnDefinition(int dimensions) => $"vector({dimensions})";
+
+    public override string ToVectorParam(string param, int dimensions) => param + "::vector";
+
+    public override string ToVectorDistance(VectorDistance distance, string vector, string other) =>
+        $"({vector} {VectorOperator(distance)} {other})";
+
+    private static string VectorOperator(VectorDistance distance) => distance switch
+    {
+        VectorDistance.Cosine => "<=>",
+        VectorDistance.L2 => "<->",
+        _ => "<#>",
+    };
+
+    // Npgsql can't read the vector type without a plugin, so it's read as text
+    protected override string GetVectorSelectExpression(string quotedColumn) => quotedColumn + "::text";
+
+    protected override string ToCreateVectorIndexStatement(ModelDefinition modelDef, FieldDefinition fieldDef, string indexName)
+    {
+        var operatorClass = fieldDef.VectorDistance switch
+        {
+            VectorDistance.Cosine => "vector_cosine_ops",
+            VectorDistance.L2 => "vector_l2_ops",
+            _ => "vector_ip_ops",
+        };
+        return $"CREATE INDEX {indexName} ON {this.GetQuotedTableName(modelDef)} USING hnsw ({this.GetQuotedColumnName(fieldDef)} {operatorClass}); \n";
+    }
+
     /// <summary>
     /// Sets the parameter.
     /// </summary>
@@ -1339,7 +1570,13 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="p">The p.</param>
     public override void SetParameter(FieldDefinition fieldDef, IDbDataParameter p)
     {
-        if (fieldDef.CustomFieldDefinition != null &&
+        if (fieldDef.VectorDimensions != null)
+        {
+            // Sent as text without a type, which PostgreSQL converts to the type of its column
+            p.ParameterName = this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName));
+            ((NpgsqlParameter)p).NpgsqlDbType = NpgsqlDbType.Unknown;
+        }
+        else if (fieldDef.CustomFieldDefinition != null &&
             NativeTypes.TryGetValue(fieldDef.CustomFieldDefinition, out var npgsqlDbType))
         {
             p.ParameterName = this.GetParam(SanitizeFieldNameForParamName(fieldDef.FieldName));
@@ -1476,6 +1713,40 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="db">The database.</param>
     /// <returns>NpgsqlConnection.</returns>
     protected DbConnection Unwrap(IDbConnection db) => (DbConnection)db.ToDbConnection();
+
+    /// <summary>
+    /// SQLSTATEs where PostgreSQL confirmed the statement wasn't applied: serialization failures, deadlocks, locks
+    /// that weren't available and connections that couldn't be made
+    /// </summary>
+    public static HashSet<string> NotAppliedErrors { get; } = [
+        "40001", "40P01", "55P03", "53300", "53400", "57P03", "08001", "08004",
+    ];
+
+    /// <summary>
+    /// SQLSTATEs where the connection was lost, so the statement may have been applied
+    /// </summary>
+    public static HashSet<string> ConnectionLostErrors { get; } = [
+        "08000", "08003", "08006", "57P01", "57P02",
+    ];
+
+    public override TransientError GetTransientError(Exception ex)
+    {
+        if (ex is PostgresException pgEx)
+        {
+            if (NotAppliedErrors.Contains(pgEx.SqlState))
+            {
+                return TransientError.NotApplied;
+            }
+
+            if (ConnectionLostErrors.Contains(pgEx.SqlState))
+            {
+                return TransientError.MaybeApplied;
+            }
+
+            return TransientError.None;
+        }
+        return base.GetTransientError(ex);
+    }
 
     /// <summary>
     /// Unwraps the specified command.
@@ -1615,8 +1886,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     {
         try
         {
-            if (await ReadAsync(reader, token).ConfigureAwait(false))
+            if (await this.ReadAsync(reader, token).ConfigureAwait(false))
+            {
                 return fn();
+            }
 
             return default;
         }

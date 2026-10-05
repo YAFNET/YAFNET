@@ -58,7 +58,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
+            return dbCmd.WithLog(dbCmd.ExecNonQueryWithRetryAsync(token));
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
+            return dbCmd.WithLog(dbCmd.ExecNonQueryWithRetryAsync(token));
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
+            return dbCmd.WithLog(dbCmd.ExecNonQueryWithRetryAsync(token));
         }
 
         /// <summary>
@@ -359,7 +359,7 @@ namespace ServiceStack.OrmLite
                 return OrmLiteConfig.ResultsFilter.GetScalar(dbCmd).InTask();
             }
 
-            return dbCmd.GetDialectProvider().ExecuteScalarAsync(dbCmd, token);
+            return dbCmd.ExecScalarWithRetryAsync(token);
         }
 
         /// <summary>
@@ -381,7 +381,7 @@ namespace ServiceStack.OrmLite
                 return OrmLiteConfig.ResultsFilter.GetScalar(dbCmd).InTask();
             }
 
-            return dbCmd.GetDialectProvider().ExecuteScalarAsync(dbCmd, token);
+            return dbCmd.ExecScalarWithRetryAsync(token);
         }
 
         /// <summary>

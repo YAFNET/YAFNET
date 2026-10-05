@@ -1,10 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="MySqlDialectProviderBase.cs" company="ServiceStack, Inc.">
-//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
-// </copyright>
-// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
-// ***********************************************************************
-
+﻿using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite.MySql;
@@ -38,6 +32,29 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// The text column definition
     /// </summary>
     private const string TextColumnDefinition = "TEXT";
+
+    /// <summary>
+    /// Errors where MySQL confirmed the statement wasn't applied: deadlock victims and connections that couldn't
+    /// be made
+    /// </summary>
+    public static HashSet<int> NotAppliedErrors { get; } = [
+        1040, 1042, 1203, 1213, 2002, 2003,
+    ];
+
+    /// <summary>
+    /// Errors where the connection was lost, so the statement may have been applied
+    /// </summary>
+    public static HashSet<int> ConnectionLostErrors { get; } = [
+        1053, 1158, 1159, 1160, 1161, 1927, 2006, 2013, 4031,
+    ];
+
+    /// <summary>
+    /// Whether a MySQL error number is a temporary error
+    /// </summary>
+    protected static TransientError GetTransientError(int errorNumber) =>
+        NotAppliedErrors.Contains(errorNumber) ? TransientError.NotApplied
+        : ConnectionLostErrors.Contains(errorNumber) ? TransientError.MaybeApplied
+        : TransientError.None;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MySqlDialectProviderBase{TDialect}"/> class.
@@ -91,6 +108,22 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
     public override bool SupportsUpsert => UseNativeUpsert;
 
+    // EXPLAIN returns a row for each table of the query. Analyzing uses EXPLAIN ANALYZE in MySQL 8.0.18+ which
+    // returns the lines of the plan, and ANALYZE in MariaDB which returns rows with actual row counts.
+    public override ExplainQuery ToExplainQuery(IDbConnection db, string sql, bool analyze)
+    {
+        if (!analyze)
+        {
+            return new() { Sql = "EXPLAIN " + sql, ReadPlan = reader => ExplainQuery.ReadTable(reader) };
+        }
+
+        var serverVersion = (db as DbConnection ?? db?.ToDbConnection() as DbConnection)?.ServerVersion;
+        var isMariaDb = serverVersion?.IndexOf("MariaDB", StringComparison.OrdinalIgnoreCase) >= 0;
+        return isMariaDb
+            ? new() { Sql = "ANALYZE " + sql, ReadPlan = reader => ExplainQuery.ReadTable(reader) }
+            : new() { Sql = "EXPLAIN ANALYZE " + sql };
+    }
+
     public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
         ICollection<string> insertFields = null, ICollection<string> updateOnly = null)
     {
@@ -103,6 +136,21 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
         cmd.CommandText = $"{GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
                           $"ON DUPLICATE KEY UPDATE {updateSql}";
+    }
+
+    // DROP TABLE without TEMPORARY commits the current transaction
+    protected override string ToDropBulkStagingTableStatement(string stagingTable) => "DROP TEMPORARY TABLE " + stagingTable;
+
+    protected override string ToBulkUpsertStatement(ModelDefinition modelDef, string stagingTable,
+        List<FieldDefinition> insertFieldDefs, List<FieldDefinition> updateFieldDefs)
+    {
+        var table = this.GetQuotedTableName(modelDef);
+        var updateSql = updateFieldDefs.Count > 0
+            ? updateFieldDefs.Map(x => $"{table}.{this.GetQuotedColumnName(x)}=" +
+                GetBulkUpsertValue(x.CustomUpdate, $"{stagingTable}.{this.GetQuotedColumnName(x)}")).Join(", ")
+            : $"{table}.{this.GetQuotedColumnName(modelDef.PrimaryKey)}={table}.{this.GetQuotedColumnName(modelDef.PrimaryKey)}";
+
+        return $"{this.GetBulkUpsertInsertSql(modelDef, stagingTable, insertFieldDefs)} ON DUPLICATE KEY UPDATE {updateSql}";
     }
 
     /// <summary>
@@ -547,6 +595,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
                    : "SELECT table_name, table_rows FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}".SqlFmt(this, this.NamingStrategy.GetSchemaName(schema)  + "\\_%");
     }
 
+    public override List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef) => db.Column<string>(
+        "SELECT DISTINCT INDEX_NAME FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
+            .SqlFmt(this.UnquotedTable(tableRef), db.Database));
+
     /// <summary>
     /// Doeses the table exist.
     /// </summary>
@@ -691,7 +743,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         var modelDef = GetModel(tableType);
         foreach (var fieldDef in this.CreateTableFieldsStrategy(modelDef))
         {
-            if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+            if (fieldDef.ShouldSkipCreate())
             {
                 continue;
             }
@@ -754,7 +806,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
         var sql = $"CREATE TABLE {this.GetQuotedTableName(modelDef)} \n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
 
-        return sql;
+        return this.WithSystemVersioning(modelDef, sql);
     }
 
     public override List<string> GetSchemas(IDbCommand dbCmd)
@@ -825,6 +877,11 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
         var ret = base.GetColumnDefinition(fieldDef);
 
+        if (!fieldDef.IsRowVersion && !string.IsNullOrEmpty(fieldDef.Description))
+        {
+            return $"{ret} COMMENT {this.GetQuotedValue(fieldDef.Description)}";
+        }
+
         return fieldDef.IsRowVersion ? $"{ret} DEFAULT 1" : ret;
     }
 
@@ -846,7 +903,105 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
         var ret = base.GetColumnDefinition(fieldDef, modelDef);
 
-        return fieldDef.IsRowVersion ? $"{ret} DEFAULT 1" : ret;
+        if (fieldDef.IsRowVersion)
+        {
+            return $"{ret} DEFAULT 1";
+        }
+
+        return !string.IsNullOrEmpty(fieldDef.Description)
+            ? $"{ret} COMMENT {this.GetQuotedValue(fieldDef.Description)}"
+            : ret;
+    }
+
+    // MariaDB 10.3+ has system-versioned tables, MySQL doesn't
+    // MySqlConnector doesn't return the rows affected by each statement of a batch
+    public override bool SupportsBatchRowsAffected => false;
+
+    public override bool SupportsSystemVersioning => this.IsMariaDb == true;
+
+    protected override string GetSystemTimeColumnDefinition(FieldDefinition fieldDef) => this.SupportsSystemVersioning
+        ? $"{this.GetQuotedColumnName(fieldDef)} TIMESTAMP(6) GENERATED ALWAYS AS ROW {(fieldDef.IsRowStart ? "START" : "END")}"
+        : throw this.SystemVersioningNotSupported();
+
+    protected override string ToSystemVersionedTableStatement(ModelDefinition modelDef, string createTableSql)
+    {
+        if (!this.SupportsSystemVersioning)
+        {
+            throw this.SystemVersioningNotSupported();
+        }
+
+        GetSystemTimeFields(modelDef, out var rowStart, out var rowEnd);
+        var definitions = rowStart != null
+            ? $"PERIOD FOR SYSTEM_TIME ({this.GetQuotedColumnName(rowStart)}, {this.GetQuotedColumnName(rowEnd)})"
+            : null;
+        return AddToCreateTable(createTableSql, definitions, " WITH SYSTEM VERSIONING");
+    }
+
+    // MySQL and MariaDB have no filtered indexes or INCLUDE
+    protected override bool SupportsFilteredIndexes => false;
+
+    /// <summary>
+    /// Whether the server is MariaDB, which has different vector functions and a vector index. It's detected from
+    /// the first connection that's opened, set it to use them before then.
+    /// </summary>
+    public bool? IsMariaDb { get; set; }
+
+    public override void InitConnection(IDbConnection dbConn)
+    {
+        base.InitConnection(dbConn);
+        this.IsMariaDb ??= (dbConn.ToDbConnection() as DbConnection)?.ServerVersion?
+            .IndexOf("MariaDB", StringComparison.OrdinalIgnoreCase) >= 0;
+    }
+
+    // Vectors use the VECTOR type of MariaDB 11.7+ and MySQL 9+
+    public override string GetVectorColumnDefinition(int dimensions) => $"VECTOR({dimensions})";
+
+    public override string ToVectorDistance(VectorDistance distance, string vector, string other)
+    {
+        if (this.IsMariaDb == true)
+        {
+            return distance switch
+            {
+                VectorDistance.Cosine => $"VEC_DISTANCE_COSINE({vector}, {other})",
+                VectorDistance.L2 => $"VEC_DISTANCE_EUCLIDEAN({vector}, {other})",
+                _ => throw new NotSupportedException("MariaDB doesn't have an inner product vector distance"),
+            };
+        }
+
+        // Only in MySQL HeatWave and Enterprise
+        var metric = distance switch
+        {
+            VectorDistance.Cosine => "COSINE",
+            VectorDistance.L2 => "EUCLIDEAN",
+            _ => "DOT",
+        };
+        return $"DISTANCE({vector}, {other}, '{metric}')";
+    }
+
+    // MariaDB has a vector index for NOT NULL columns, MySQL has none
+    protected override string ToCreateVectorIndexStatement(ModelDefinition modelDef, FieldDefinition fieldDef, string indexName)
+    {
+        if (this.IsMariaDb != true)
+        {
+            return null;
+        }
+
+        if (fieldDef.VectorDistance == VectorDistance.NegativeInnerProduct)
+        {
+            throw new NotSupportedException("MariaDB doesn't have an inner product vector distance");
+        }
+
+        var distance = fieldDef.VectorDistance == VectorDistance.Cosine ? "cosine" : "euclidean";
+        return $"CREATE VECTOR INDEX {indexName} ON {this.GetQuotedTableName(modelDef)} ({this.GetQuotedColumnName(fieldDef)}) DISTANCE={distance}; \n";
+    }
+
+    // Column comments are part of their definition
+    public override List<string> ToCreateCommentStatements(Type tableType)
+    {
+        var modelDef = GetModel(tableType);
+        return string.IsNullOrEmpty(modelDef.Description)
+            ? []
+            : [$"ALTER TABLE {this.GetQuotedTableName(modelDef)} COMMENT = {this.GetQuotedValue(modelDef.Description)}"];
     }
 
     /// <summary>

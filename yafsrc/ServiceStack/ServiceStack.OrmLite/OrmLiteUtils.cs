@@ -1560,6 +1560,13 @@ public static class OrmLiteUtils
     }
 
     /// <summary>
+    /// Whether complex types are serialized as JSON, which the JSON functions of an RDBMS can query
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    /// <returns><c>true</c> if complex types are serialized as JSON, <c>false</c> otherwise.</returns>
+    public static bool IsJsonSerializer(this IStringSerializer serializer) => serializer is JsonStringSerializer;
+
+    /// <summary>
     /// Strips the database quotes.
     /// </summary>
     /// <param name="quotedExpr">The quoted expr.</param>

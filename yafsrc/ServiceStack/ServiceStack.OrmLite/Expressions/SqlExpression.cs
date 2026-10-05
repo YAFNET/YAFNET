@@ -19,8 +19,10 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using ServiceStack.DataAnnotations;
 
 /// <summary>
 /// Class SqlExpression.
@@ -170,7 +172,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <summary>
     /// The filters from the connection and their SQL
     /// </summary>
-    private List<KeyValuePair<LambdaExpression, string>> connectionFilters;
+    private List<KeyValuePair<ConnectionFilter<T>, string>> connectionFilters;
 
     /// <summary>
     /// The connection's mandatory filters, applied to tables joined to the query
@@ -275,11 +277,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         to.ConnectionFilters = this.ConnectionFilters;
         to.ParamPrefix = this.ParamPrefix;
 
-        to.Params = [..this.Params];
-        to.setOperations = this.setOperations != null ? [..this.setOperations] : null;
-        to.setOperationParams = this.setOperationParams != null ? [..this.setOperationParams] : null;
+        to.Params = new List<IDbDataParameter>(this.Params);
+        to.setOperations = this.setOperations != null ? new List<SetOperation>(this.setOperations) : null;
+        to.setOperationParams = this.setOperationParams != null ? new List<IDbDataParameter>(this.setOperationParams) : null;
         to.setOperationsSelect = this.setOperationsSelect;
-        to.withClause = this.withClause;
+        to.commonTableExpressions = this.commonTableExpressions != null ? [.. this.commonTableExpressions] : null;
+        to.systemTimeClause = this.systemTimeClause;
+        to.recursiveCte = this.recursiveCte;
+        to.usesRecursiveDepth = this.usesRecursiveDepth;
         to.forUpdate = this.forUpdate;
         to.forUpdateSkipLocked = this.forUpdateSkipLocked;
         to.topPerGroupPartitionBy = this.topPerGroupPartitionBy;
@@ -398,11 +403,22 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         sb.Append(this.forUpdateSkipLocked ? "1" : "0");
         sb.AppendLine();
 
-        if (withClause != null)
-            sb.AppendLine(withClause);
-        if (topPerGroupPartitionBy != null)
-            sb.Append("TOP PER GROUP:").Append(topPerGroupPartitionBy).Append(',').Append(topPerGroupTake).AppendLine();
-        DumpSetOperations(sb, includeParams);
+        if (this.withClause is { } with)
+        {
+            sb.AppendLine(with);
+        }
+
+        if (this.systemTimeClause != null)
+        {
+            sb.AppendLine(this.systemTimeClause);
+        }
+
+        if (this.topPerGroupPartitionBy != null)
+        {
+            sb.Append("TOP PER GROUP:").Append(this.topPerGroupPartitionBy).Append(',').Append(this.topPerGroupTake).AppendLine();
+        }
+
+        this.DumpSetOperations(sb, includeParams);
 
         if (includeParams)
         {
@@ -411,8 +427,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             {
                 foreach (var p in this.Params)
                 {
-                    if (setOperationParams?.Contains(p) == true)
+                    if (this.setOperationParams?.Contains(p) == true)
+                    {
                         continue; // included in the set operation dumps
+                    }
+
                     sb.Append(p.ParameterName).Append('=');
                     sb.AppendLine(p.Value.ConvertTo<string>());
                 }
@@ -1250,7 +1269,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             return null;
         }
 
-        return sqlFilter.Build(this.DialectProvider, arg => {
+        return sqlFilter.Build(this.DialectProvider, arg =>
+        {
             if (arg is SqlInValues inValues)
             {
                 return inValues.Count > 0 ? this.CreateInParamSql(inValues.GetValues()) : SqlInValues.EmptyIn;
@@ -1584,23 +1604,28 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
     /// <summary>
     /// Adds a mandatory filter from the connection with Ensure(), with columns prefixed by the table, so it stays
-    /// unambiguous when tables are joined later
+    /// unambiguous when tables are joined later. Filters that don't apply with the values of their scope aren't added.
     /// </summary>
     /// <param name="filter">The filter.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    internal SqlExpression<T> EnsureConnectionFilter(Expression<Func<T, bool>> filter)
+    internal SqlExpression<T> EnsureConnectionFilter(ConnectionFilter<T> filter)
     {
-        var sql = this.ToConnectionFilterSql(filter);
+        var sql = filter.ToSql(this);
+        if (sql == null)
+        {
+            return this;
+        }
+
         (this.connectionFilters ??= []).Add(new(filter, sql));
         return this.Ensure(sql);
     }
 
     /// <summary>
-    /// Converts the connection filter to SQL.
+    /// Translates a filter of the connection to SQL, with its db params added to the query
     /// </summary>
     /// <param name="filter">The filter.</param>
     /// <returns>System.String.</returns>
-    private string ToConnectionFilterSql(LambdaExpression filter)
+    internal string RenderConnectionFilter(LambdaExpression filter)
     {
         var hold = this.PrefixFieldWithTableName;
         this.PrefixFieldWithTableName = true;
@@ -1628,7 +1653,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         for (var i = 0; i < this.connectionFilters.Count; i++)
         {
             var (filter, oldSql) = (this.connectionFilters[i].Key, this.connectionFilters[i].Value);
-            var newSql = this.ToConnectionFilterSql(filter);
+            var newSql = filter.ToSql(this) ?? TrueLiteral;
             this.WhereExpression = this.WhereExpression?.Replace(oldSql, newSql);
             this.ensureExpression = this.ensureExpression?.Replace(oldSql, newSql);
             this.connectionFilters[i] = new(filter, newSql);
@@ -2748,6 +2773,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>System.String.</returns>
     protected string NextParamName() => this.ParamPrefix + this.Params.Count;
 
+    // The value of an expression, or how to get it from the arguments of the compiled query that's being built
+    protected object EvaluateValue(Expression expression) => CompiledQueryBuild.Current is { } build
+        ? build.Evaluate(expression)
+        : CachedExpressionCompiler.Evaluate(expression);
+
     /// <summary>
     /// Adds the parameter.
     /// </summary>
@@ -2755,6 +2785,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>System.Data.IDbDataParameter.</returns>
     public virtual IDbDataParameter AddParam(object value)
     {
+        if (value is CompiledValue compiled)
+        {
+            // Created with its value as it normally is, then created from the argument each time
+            var p = this.AddParam(compiled.Sample);
+            CompiledQueryBuild.Current.Bind(p, compiled);
+            return p;
+        }
+
         var paramName = this.NextParamName();
         var paramValue = value;
 
@@ -3025,8 +3063,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public string FromExpression
     {
         get => string.IsNullOrEmpty(this.fromExpression)
-                   ? " \nFROM " + this.DialectProvider.GetQuotedTableName(this.modelDef) + (this.TableAlias != null ? " " + this.DialectProvider.GetQuotedName(this.TableAlias) : string.Empty)
-                   : this.fromExpression;
+            ? " \nFROM " + this.DialectProvider.GetQuotedTableName(this.modelDef)
+                + (this.systemTimeClause != null ? " " + this.systemTimeClause : "")
+                + (this.TableAlias != null ? " " + this.DialectProvider.GetQuotedName(this.TableAlias) : "")
+            : this.fromExpression;
         set => this.fromExpression = value;
     }
 
@@ -3238,6 +3278,19 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>object.</returns>
     public virtual object GetValue(object value, Type type)
     {
+        if (value is CompiledValue compiled)
+        {
+            if (this.skipParameterizationForThisExpression)
+            {
+                throw new NotSupportedException("The argument of a compiled query is used where its value is in the SQL");
+            }
+
+            var dialect = this.DialectProvider;
+            var valueType = type == typeof(CompiledValue) ? null : type;
+            return compiled.Map(x => dialect.GetParamValue(x, valueType ?? x.GetType()))
+                ?? (object)PartialSqlString.Null;
+        }
+
         if (this.skipParameterizationForThisExpression)
         {
             return this.DialectProvider.GetQuotedValue(value, type);
@@ -3304,7 +3357,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             if (left is not PartialSqlString && right is not PartialSqlString)
             {
-                var result = CachedExpressionCompiler.Evaluate(this.PreEvaluateBinary(b, left, right));
+                var result = this.EvaluateValue(this.PreEvaluateBinary(b, left, right));
                 return result;
             }
 
@@ -3395,7 +3448,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
             else if (left is not PartialSqlString && right is not PartialSqlString)
             {
-                var evaluatedValue = CachedExpressionCompiler.Evaluate(this.PreEvaluateBinary(b, left, right));
+                var evaluatedValue = this.EvaluateValue(this.PreEvaluateBinary(b, left, right));
                 var result = this.VisitConstant(Expression.Constant(evaluatedValue));
                 return result;
             }
@@ -3736,7 +3789,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
         }
 
-        return CachedExpressionCompiler.Evaluate(m);
+        return this.EvaluateValue(m);
     }
 
     protected bool IsTableColumn(MemberExpression m)
@@ -3834,7 +3887,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>object.</returns>
     protected virtual object VisitMemberInit(MemberInitExpression exp)
     {
-        return CachedExpressionCompiler.Evaluate(exp);
+        return this.EvaluateValue(exp);
     }
 
     /// <summary>
@@ -3857,7 +3910,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             return new SelectList(exprs);
         }
 
-        return CachedExpressionCompiler.Evaluate(nex);
+        return this.EvaluateValue(nex);
     }
 
     /// <summary>
@@ -3867,11 +3920,12 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>bool.</returns>
     private bool IsLambdaArg(Expression expr)
     {
-        return expr switch {
-                ParameterExpression pe => this.IsLambdaArg(pe.Name),
-                UnaryExpression ue when ue.Operand is ParameterExpression uepe => this.IsLambdaArg(uepe.Name),
-                _ => false
-            };
+        return expr switch
+        {
+            ParameterExpression pe => this.IsLambdaArg(pe.Name),
+            UnaryExpression ue when ue.Operand is ParameterExpression uepe => this.IsLambdaArg(uepe.Name),
+            _ => false
+        };
     }
 
     /// <summary>
@@ -3964,7 +4018,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             // Window function aliases are quoted as they're often reserved words, e.g. new { Rank = Sql.Rank(w => ...) }
             if (IsWindowFunctionCall(methodCallExpr))
-                return new PartialSqlString(expr + " AS " + DialectProvider.GetQuotedName(member.Name));
+            {
+                return new PartialSqlString(expr + " AS " + this.DialectProvider.GetQuotedName(member.Name));
+            }
 
             if (mi.Name != nameof(Sql.Desc) && mi.Name != nameof(Sql.Asc) && mi.Name != nameof(Sql.As) && mi.Name != nameof(Sql.AllFields))
             {
@@ -4115,7 +4171,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                         return this.Visit(e);
                     }
 
-                    return CachedExpressionCompiler.Evaluate(u);
+                    return this.EvaluateValue(u);
                 }
 
                 break;
@@ -4134,10 +4190,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var arg = e.Arguments[0];
         var oIndex = arg is ConstantExpression constant
                          ? constant.Value
-                         : CachedExpressionCompiler.Evaluate(arg);
+            : this.EvaluateValue(arg);
 
         var index = (int)Convert.ChangeType(oIndex, typeof(int));
-        var oCollection = CachedExpressionCompiler.Evaluate(e.Object);
+        var oCollection = this.EvaluateValue(e.Object);
 
         if (oCollection is List<object> list)
         {
@@ -4328,9 +4384,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         if (m.Method.DeclaringType == typeof(Sql))
         {
+            // Handled before VisitSqlMethodCall() overrides, which expect the method to have arguments
+            if (m.Method.Name == nameof(Sql.RecursiveDepth))
+            {
+                return this.VisitRecursiveDepth();
+            }
+
             var hold = this.inSqlMethodCall;
             this.inSqlMethodCall = true;
-
             // Window functions are handled before VisitSqlMethodCall() overrides visit their window lambda
             var ret = IsWindowFunctionCall(m)
                           ? this.VisitWindowFunctionCall(m)
@@ -4371,11 +4432,18 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         try
         {
-            return CachedExpressionCompiler.Evaluate(m);
+            return this.EvaluateValue(m);
         }
         catch (InvalidOperationException)
         {
             if (this.originalLambda == null)
+            {
+                throw;
+            }
+
+            // An expression that doesn't use the lambda's parameters was compiled and evaluated,
+            // so the exception was thrown by the expression itself, e.g. by a method it calls
+            if (!UsesParameters(m))
             {
                 throw;
             }
@@ -4391,8 +4459,35 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 exprParams[i] = p.Type.CreateInstance();
             }
 
-            var ret = lambda.DynamicInvoke(exprParams);
-            return ret;
+            try
+            {
+                var ret = lambda.DynamicInvoke(exprParams);
+                return ret;
+            }
+            catch (TargetInvocationException e) when (e.InnerException != null)
+            {
+                // Throw the exception of the expression, not of how it was invoked
+                ExceptionDispatchInfo.Capture(e.InnerException).Throw();
+                throw;
+            }
+        }
+    }
+
+    private static bool UsesParameters(Expression m)
+    {
+        var finder = new ParameterFinder();
+        finder.Visit(m);
+        return finder.Found;
+    }
+
+    private sealed class ParameterFinder : ExpressionVisitor
+    {
+        public bool Found;
+
+        protected override Expression VisitParameter(ParameterExpression node)
+        {
+            this.Found = true;
+            return node;
         }
     }
 
@@ -4783,9 +4878,25 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>object.</returns>
     private object ToInPartialString(Expression memberExpr, object quotedColName)
     {
+        // list.Contains(column) is an IN, column.Contains(value) isn't: the list has to be a value
+        if (this.IsParameterAccess(memberExpr))
+        {
+            throw new NotSupportedException(
+                $"Contains() can't be used on the {memberExpr.Type.Name} column '{memberExpr}'. " +
+                "Complex types stored as JSON can be queried when the dialect has UseJson.");
+        }
+
+        // A value that's searched for is sent as a db param, only columns and SQL are used as they are
+        if (!IsSqlClass(quotedColName))
+        {
+            quotedColName = new PartialSqlString(this.ConvertToParam(quotedColName));
+        }
+
         var result = this.EvaluateExpression(memberExpr);
 
-        var inArgs = Sql.Flatten(result as IEnumerable);
+        var inArgs = result is CompiledValue compiled
+            ? CompiledQueryBuild.Current.ToInArgs(compiled)
+            : Sql.Flatten(result as IEnumerable);
 
         var statement = inArgs.Count > 0
                             ? this.CreateInListSql(quotedColName, inArgs)
@@ -4912,6 +5023,36 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         return new PartialSqlString($"(CASE WHEN {args[0]} = {args[1]} THEN 0 WHEN {args[0]} > {args[1]} THEN 1 ELSE -1 END)");
     }
 
+    // Sql.CosineDistance(x.Embedding, vector) and the other distances of [Vector] columns
+    protected virtual object VisitVectorSqlMethodCall(MethodCallExpression m)
+    {
+        var distance = m.Method.Name switch
+        {
+            nameof(Sql.CosineDistance) => VectorDistance.Cosine,
+            nameof(Sql.L2Distance) => VectorDistance.L2,
+            _ => VectorDistance.NegativeInnerProduct,
+        };
+        return new PartialSqlString(this.DialectProvider.ToVectorDistance(distance,
+            this.VisitVectorOperand(m.Arguments[0]), this.VisitVectorOperand(m.Arguments[1])));
+    }
+
+    // A vector column, or a vector that's sent as a db param
+    private string VisitVectorOperand(Expression expression)
+    {
+        var value = this.Visit(expression);
+        if (value is PartialSqlString sql)
+        {
+            return sql.Text;
+        }
+
+        var vector = Converters.VectorConverter.ToFloats(value)
+            ?? throw new ArgumentNullException(nameof(expression), "The vector to compare with is null");
+        var converter = this.DialectProvider.VectorConverter;
+        var p = this.AddParam(converter.ToDbValue(typeof(float[]), vector));
+        converter.InitDbParam(p, typeof(float[]));
+        return this.DialectProvider.ToVectorParam(p.ParameterName, vector.Length);
+    }
+
     /// <summary>
     /// Visits the SQL method call.
     /// </summary>
@@ -4923,6 +5064,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         if (IsJsonSqlMethod(m.Method.Name))
         {
             return VisitJsonSqlMethodCall(m);
+        }
+
+        if (m.Method.Name is nameof(Sql.CosineDistance) or nameof(Sql.L2Distance) or nameof(Sql.NegativeInnerProduct))
+        {
+            return this.VisitVectorSqlMethodCall(m);
         }
 
         List<object> args = this.VisitInSqlExpressionList(m.Arguments);
@@ -5028,8 +5174,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
             case nameof(Sql.JsonContains):
             {
-                if (IsParameterAccess(m.Arguments[1]))
+                if (this.IsParameterAccess(m.Arguments[1]))
+                {
                     throw new NotSupportedException("Sql.JsonContains candidate values must be constants or captured values.");
+                }
 
                 var candidate = EvaluateExpression(m.Arguments[1]);
                 var candidateJson = candidate == null
@@ -5053,7 +5201,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     private object VisitJsonValueArgument(Expression expression)
     {
         if (!IsJsonArrayScalarType(expression.Type))
+        {
             throw new NotSupportedException("Sql.JsonArrayContains values must be JSON scalar values.");
+        }
 
         var value = Visit(expression);
         return value is PartialSqlString ? value : new PartialSqlString(ConvertToParam(value));
@@ -5076,10 +5226,16 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         var value = Visit(expression);
         if (value is PartialSqlString sql)
+        {
             return new JsonPathExpression(sql.Text, null);
+        }
+
         if (value is not string path)
+        {
             throw new ArgumentException("JSON paths must be strings.", nameof(expression));
-        return JsonPath(path);
+        }
+
+        return this.JsonPath(path);
     }
 
     protected string QuoteJsonPath(string path) => DialectProvider.GetQuotedValue(path, typeof(string));
@@ -5116,20 +5272,60 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     private bool TryVisitTypedJsonAccess(Expression expression, out object result)
     {
         result = null;
-        if (TryVisitTypedJsonArrayOperation(expression, out result))
+        if (this.TryVisitTypedJsonArrayOperation(expression, out result))
+        {
             return true;
+        }
 
         var pathParts = new List<string>();
-        if (!TryCollectTypedJsonPath(expression, pathParts, out var marker) || pathParts.Count == 0)
+        if (!this.TryCollectTypedJsonPath(expression, pathParts, out var document) || pathParts.Count == 0)
+        {
             return false;
+        }
 
-        var json = VisitJsonDocument(marker.Arguments[0]);
-        var path = JsonPath("$" + string.Concat(pathParts));
+        this.AssertJsonDocument(document);
+        var json = this.VisitJsonDocument(GetJsonDocument(document));
+        var path = this.JsonPath("$" + string.Concat(pathParts));
         result = IsJsonScalarType(expression.Type)
             ? VisitJsonValueMethod(json, path, expression.Type)
             : VisitJsonQueryMethod(json, path, expression.Type);
         return true;
     }
+
+    /// <summary>
+    /// C# 14 inserts an implicit array -> ReadOnlySpan&lt;T&gt;/Span&lt;T&gt; conversion, either as a
+    /// Convert node or as a call to op_Implicit. Returns the underlying array instead of the ref struct.
+    /// </summary>
+    /// <param name="e">The expression.</param>
+    /// <returns>Expression.</returns>
+    private static Expression UnwrapSpanConversion(Expression e)
+    {
+        while (true)
+        {
+            if (e is UnaryExpression { NodeType: ExpressionType.Convert } u && IsRefStruct(u.Type))
+            {
+                e = u.Operand;
+            }
+            else if (e is MethodCallExpression { Method.Name: "op_Implicit", Object: null } c &&
+                     c.Arguments.Count == 1 && IsRefStruct(c.Type))
+            {
+                e = c.Arguments[0];
+            }
+            else
+            {
+                return e;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Whether the type is a ref struct, e.g. Span&lt;T&gt;
+    /// </summary>
+    /// <param name="type">The type.</param>
+    /// <returns><c>true</c> if the type is a ref struct; otherwise, <c>false</c>.</returns>
+    private static bool IsRefStruct(Type type) =>
+        type.IsValueType && type.GetCustomAttributes(false)
+            .Any(x => x.GetType().FullName == "System.Runtime.CompilerServices.IsByRefLikeAttribute");
 
     private bool TryVisitTypedJsonArrayOperation(Expression expression, out object result)
     {
@@ -5145,6 +5341,12 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             array = member.Expression;
             isLength = true;
         }
+        else if (expression is UnaryExpression { NodeType: ExpressionType.ArrayLength } arrayLength)
+        {
+            // array.Length is its own kind of expression, unlike list.Count
+            array = arrayLength.Operand;
+            isLength = true;
+        }
         else if (expression is MethodCallExpression call && call.Method.Name == nameof(IList.Contains))
         {
             if (call.Object != null && call.Arguments.Count == 1 && IsJsonArrayType(call.Object.Type))
@@ -5152,42 +5354,131 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 array = call.Object;
                 value = call.Arguments[0];
             }
-            else if (call.Object == null && call.Arguments.Count == 2 && IsJsonArrayType(call.Arguments[0].Type))
+            else if (call.Object == null && call.Arguments.Count == 2)
             {
-                array = call.Arguments[0];
-                value = call.Arguments[1];
+                // Enumerable.Contains(array, value), or MemoryExtensions.Contains(span, value) in C# 14
+                // where the array is converted to a span
+                var source = UnwrapSpanConversion(call.Arguments[0]);
+                if (IsJsonArrayType(source.Type))
+                {
+                    array = source;
+                    value = call.Arguments[1];
+                }
             }
         }
 
         if (array == null)
+        {
             return false;
+        }
 
+        // The array can be a property of a document, or the document itself e.g. a List<string> column
         var pathParts = new List<string>();
-        if (!TryCollectTypedJsonPath(array, pathParts, out var marker) || pathParts.Count == 0)
+        if (!this.TryCollectTypedJsonPath(array, pathParts, out var document))
+        {
             return false;
+        }
 
-        var json = VisitJsonDocument(marker.Arguments[0]);
-        var path = JsonPath("$" + string.Concat(pathParts));
+        this.AssertJsonDocument(document);
+        var json = this.VisitJsonDocument(GetJsonDocument(document));
+        var path = this.JsonPath("$" + string.Concat(pathParts));
         result = isLength
             ? VisitJsonArrayLengthMethod(json, path)
             : VisitJsonArrayContainsMethod(json, path, VisitJsonValueArgument(value), value.Type);
         return true;
     }
 
-    private bool TryCollectTypedJsonPath(Expression expression, List<string> pathParts, out MethodCallExpression marker)
+    /// <summary>
+    /// Whether the expression is a column that's a complex type OrmLite serializes, e.g. x.Address or x.Tags,
+    /// whose properties can be queried when it's stored as JSON
+    /// </summary>
+    private bool IsComplexTypeColumn(MemberExpression member)
     {
-        marker = null;
+        if (member.Member is not PropertyInfo || IsJsonScalarType(member.Type))
+        {
+            return false;
+        }
+
+        var source = member.Expression;
+        while (source is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } convert)
+        {
+            source = convert.Operand;
+        }
+
+        if (source is not ParameterExpression param)
+        {
+            return false;
+        }
+
+        var tableDef = param.Type.IsAssignableFrom(this.modelDef.ModelType)
+            ? this.modelDef
+            : this.tableDefs.FirstOrDefault(x => param.Type.IsAssignableFrom(x.ModelType));
+        var fieldDef = tableDef?.GetFieldDefinition(member.Member.Name);
+        if (fieldDef == null || fieldDef.IsReference || fieldDef.VectorDimensions != null)
+        {
+            return false;
+        }
+
+        // A property with the type of a table in the query refers to the columns of that table, e.g.
+        // x.Customer.Name is the Name of the joined Customer table
+        if (this.tableDefs.Any(x => x.ModelType == fieldDef.FieldType))
+        {
+            return false;
+        }
+
+        // Types with their own converter aren't serialized, e.g. PostgreSQL arrays and hstore
+        return this.DialectProvider.GetConverter(fieldDef.FieldType) == null;
+    }
+
+    // The document of Sql.Json(document), or the expression if it's a complex type column
+    private static Expression GetJsonDocument(Expression document) =>
+        document is MethodCallExpression { Method.Name: nameof(Sql.Json) } marker && marker.Method.DeclaringType == typeof(Sql)
+            ? marker.Arguments[0]
+            : document;
+
+    // Querying into a complex type column needs it to be stored as JSON. The document of Sql.Json() is
+    // JSON the App says it is, e.g. a string column, so it isn't checked.
+    private void AssertJsonDocument(Expression document)
+    {
+        if (document is MemberExpression column && !this.DialectProvider.StringSerializer.IsJsonSerializer())
+        {
+            throw new NotSupportedException(
+                $"'{column}' can't be queried as {column.Member.DeclaringType?.Name}.{column.Member.Name} is a " +
+                "complex type that isn't stored as JSON. Set UseJson = true on the dialect provider to store " +
+                "complex types as JSON, which is the default when it's configured with AddOrmLite().");
+        }
+    }
+
+    // Collects the JSON path of an expression and the document it's in, which is the argument of Sql.Json()
+    // or a complex type column
+    private bool TryCollectTypedJsonPath(Expression expression, List<string> pathParts, out Expression document)
+    {
+        document = null;
         if (expression is UnaryExpression unary &&
             (unary.NodeType == ExpressionType.Convert || unary.NodeType == ExpressionType.ConvertChecked))
-            return TryCollectTypedJsonPath(unary.Operand, pathParts, out marker);
+        {
+            return this.TryCollectTypedJsonPath(unary.Operand, pathParts, out document);
+        }
 
         if (expression is MemberExpression member)
         {
+            if (this.IsComplexTypeColumn(member))
+            {
+                document = member;
+                return true;
+            }
+
             if (member.Expression != null &&
                 (IsJsonScalarType(member.Expression.Type) || IsJsonArrayType(member.Expression.Type)))
+            {
                 return false;
-            if (!TryCollectTypedJsonPath(member.Expression, pathParts, out marker))
+            }
+
+            if (!this.TryCollectTypedJsonPath(member.Expression, pathParts, out document))
+            {
                 return false;
+            }
+
             pathParts.Add(JsonMemberPath(member.Member));
             return true;
         }
@@ -5196,13 +5487,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         {
             if (call.Method.DeclaringType == typeof(Sql) && call.Method.Name == nameof(Sql.Json))
             {
-                marker = call;
+                document = call;
                 return true;
             }
 
             if (call.Method.Name == "get_Item" && call.Arguments.Count == 1 &&
                 call.Object != null && !IsJsonScalarType(call.Object.Type) &&
-                TryCollectTypedJsonPath(call.Object, pathParts, out marker))
+                this.TryCollectTypedJsonPath(call.Object, pathParts, out document))
             {
                 pathParts.Add(JsonIndexPath(call.Arguments[0]));
                 return true;
@@ -5210,14 +5501,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         if (expression is IndexExpression index && index.Arguments.Count == 1 &&
-            TryCollectTypedJsonPath(index.Object, pathParts, out marker))
+            this.TryCollectTypedJsonPath(index.Object, pathParts, out document))
         {
             pathParts.Add(JsonIndexPath(index.Arguments[0]));
             return true;
         }
 
         if (expression is BinaryExpression binary && binary.NodeType == ExpressionType.ArrayIndex &&
-            TryCollectTypedJsonPath(binary.Left, pathParts, out marker))
+            this.TryCollectTypedJsonPath(binary.Left, pathParts, out document))
         {
             pathParts.Add(JsonIndexPath(binary.Right));
             return true;
@@ -5230,7 +5521,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         var value = EvaluateExpression(expression);
         if (value is not int index || index < 0)
+        {
             throw new NotSupportedException("Typed JSON array indexes must be non-negative constant or captured integers.");
+        }
+
         return $"[{index}]";
     }
 
@@ -5277,6 +5571,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         if (quotedColName is not PartialSqlString)
         {
             quotedColName = this.ConvertToParam(quotedColName);
+        }
+
+        if (argValue is CompiledValue compiled)
+        {
+            var inValues = CompiledQueryBuild.Current.ToInArgs(compiled);
+            return inValues.Count == 0
+                ? FalseLiteral
+                : this.CreateInListSql(quotedColName, inValues);
         }
 
         if (argValue is IEnumerable enumerableArg)
@@ -5360,12 +5662,19 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         string statement;
 
         var arg = args.Count > 0 ? args[0] : null;
+        if (arg is CompiledValue compiled)
+        {
+            return this.VisitCompiledColumnAccessMethod(m, quotedColName, compiled);
+        }
 
         string wildcardArg, escapeSuffix = string.Empty;
         if (this.AllowEscapeWildcards)
         {
             wildcardArg = arg != null ? this.DialectProvider.EscapeWildcards(arg.ToString()) : string.Empty;
-            escapeSuffix = wildcardArg.IndexOf('^') >= 0 ? " escape '^'" : string.Empty;
+            // Compiled queries always have it, as it can't change with the values of their arguments
+            escapeSuffix = wildcardArg.IndexOf('^') >= 0 || (CompiledQueryBuild.Current != null && IsLikeMethod(m))
+                ? " escape '^'"
+                : string.Empty;
         }
         else
         {
@@ -5428,6 +5737,42 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 throw new NotSupportedException();
         }
         return new PartialSqlString(statement);
+    }
+
+    private static bool IsLikeMethod(MethodCallExpression m) =>
+        m.Method.Name is "StartsWith" or "EndsWith" or "Contains";
+
+    // A string method whose value is an argument of a compiled query, which is converted each time it's run
+    private object VisitCompiledColumnAccessMethod(MethodCallExpression m, object quotedColName, CompiledValue arg)
+    {
+        var dialect = this.DialectProvider;
+        if (m.Method.Name == "Equals")
+        {
+            var value = arg.Map(x =>
+            {
+                var type = x.GetType();
+                var converter = type != typeof(string) ? dialect.GetConverterBestMatch(type) : null;
+                return converter != null ? converter.ToDbValue(type, x) : x;
+            });
+            return new PartialSqlString($"{quotedColName}={this.ConvertToParam(value)}");
+        }
+
+        if (!IsLikeMethod(m))
+        {
+            throw new NotSupportedException($"{m.Method.Name}() can't be used with the argument of a compiled query");
+        }
+
+        var escape = this.AllowEscapeWildcards;
+        var upper = !OrmLiteConfig.StripUpperInLike;
+        var prefix = m.Method.Name == "StartsWith" ? "" : "%";
+        var suffix = m.Method.Name == "EndsWith" ? "" : "%";
+        var like = arg.Map(x =>
+        {
+            var text = escape ? dialect.EscapeWildcards(x.ToString()) : x.ToString();
+            return prefix + (upper ? text.ToUpper() : text) + suffix;
+        });
+        var column = upper ? $"upper({quotedColName})" : quotedColName.ToString();
+        return new PartialSqlString($"{column} like {this.ConvertToParam(like)}{(escape ? " escape '^'" : "")}");
     }
 
     /// <summary>
@@ -6082,6 +6427,12 @@ public static class DbDataParameterExtensions
         if (fieldDef != null)
         {
             dialectProvider.SetParameter(fieldDef, parameter);
+        }
+
+        // The value is converted for its type above, where a vector needs the type of its column
+        if (fieldDef?.VectorDimensions != null)
+        {
+            parameter.Value = dialectProvider.GetFieldValue(fieldDef, value) ?? DBNull.Value;
         }
 
         dbCmd.Parameters.Add(parameter);

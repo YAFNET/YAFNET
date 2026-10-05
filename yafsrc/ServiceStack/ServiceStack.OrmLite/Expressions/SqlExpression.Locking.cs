@@ -40,8 +40,13 @@ public abstract partial class SqlExpression<T>
     /// </summary>
     private string GetLockedBodyExpression()
     {
-        var body = BodyExpression;
-        var hint = DialectProvider.GetForUpdateTableHint(forUpdateSkipLocked);
+        if (this.HasSystemTime)
+        {
+            throw new NotSupportedException("ForUpdate() can't be used with previous versions of a table, e.g. AsOf()");
+        }
+
+        var body = this.BodyExpression;
+        var hint = this.DialectProvider.GetForUpdateTableHint(this.forUpdateSkipLocked);
         if (string.IsNullOrEmpty(hint))
             return body;
 

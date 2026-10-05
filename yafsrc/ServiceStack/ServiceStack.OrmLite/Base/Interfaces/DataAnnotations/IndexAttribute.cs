@@ -53,4 +53,19 @@ public class IndexAttribute : AttributeBase
     /// </summary>
     /// <value><c>true</c> if [non clustered]; otherwise, <c>false</c>.</value>
     public bool NonClustered { get; set; }
+
+    /// <summary>
+    /// Only index the rows matching this SQL condition (a filtered or partial index), e.g:
+    /// <para>[Index(Where = "{{DeletedDate}} IS NULL")]</para>
+    /// {Property} names are replaced with their quoted column name.
+    /// </summary>
+    /// <value>The where condition.</value>
+    public string Where { get; set; }
+
+    /// <summary>
+    /// Other properties whose columns are kept in the index (a covering index), so queries that only use them
+    /// and the indexed column are answered from the index
+    /// </summary>
+    /// <value>The included properties.</value>
+    public string[] Include { get; set; }
 }

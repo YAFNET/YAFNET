@@ -215,7 +215,17 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             return $"{fieldDef.FieldName} rowversion NOT NULL";
         }
 
-        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        if (fieldDef.IsRowStart || fieldDef.IsRowEnd)
+        {
+            return this.GetSystemTimeColumnDefinition(fieldDef);
+        }
+
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
+        }
+
+        var fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
 
         var sql = StringBuilderCache.Allocate();
         sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
@@ -282,7 +292,17 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             return $"{fieldDef.FieldName} rowversion NOT NULL";
         }
 
-        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        if (fieldDef.IsRowStart || fieldDef.IsRowEnd)
+        {
+            return this.GetSystemTimeColumnDefinition(fieldDef);
+        }
+
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
+        }
+
+        var fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
 
         var sql = StringBuilderCache.Allocate();
         sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
@@ -356,7 +376,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
         {
             foreach (var fieldDef in modelDef.FieldDefinitions)
             {
-                if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+                if (fieldDef.ShouldSkipCreate())
                 {
                     continue;
                 }
@@ -446,7 +466,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
                    ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
                    : $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n){StringBuilderCache.ReturnAndFree(sbTableOptions)}; \n";
 
-        return sql;
+        return this.WithSystemVersioning(modelDef, sql);
     }
 
     /// <summary>

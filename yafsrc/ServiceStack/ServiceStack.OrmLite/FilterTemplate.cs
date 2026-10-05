@@ -1,0 +1,971 @@
+﻿// ***********************************************************************
+// <copyright file="FilterTemplate.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+
+#nullable enable
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq.Expressions;
+using System.Text;
+
+namespace ServiceStack.OrmLite;
+
+/// <summary>
+/// A filter of a FilterSet rule for a table, with the scope of the connection it's applied to
+/// </summary>
+internal sealed class ConnectionFilter<T>(FilterTemplate<T> template, object? scope)
+{
+    private Expression<Func<T, bool>>? bound;
+
+    /// <summary>
+    /// The filter with the values of the scope, as it's translated when its SQL isn't reused
+    /// </summary>
+    public Expression<Func<T, bool>> Bound => this.bound ??= template.Bind(scope);
+
+    /// <summary>
+    /// The filter's SQL for the query, with its db params added to the query, or null if it doesn't apply to rows
+    /// with the values of the scope, e.g. f.Filter&lt;T&gt;((x, s) =&gt; s.IsAdmin || x.OwnerId == s.UserId) for admins
+    /// </summary>
+    public string? ToSql(SqlExpression<T> q) =>
+        template.ToSql(q.DialectProvider, q.TableAlias, q.ParamPrefix, q.Params, scope, this, q.RenderConnectionFilter);
+
+    /// <summary>
+    /// The filter's SQL for the table in SQL OrmLite builds, e.g. a joined table or a command's WHERE clause, with its
+    /// db params named with paramPrefix added to dbParams
+    /// </summary>
+    public string? ToSql(IOrmLiteDialectProvider dialect, string? alias, string paramPrefix, List<IDbDataParameter> dbParams) =>
+        template.ToSql(dialect, alias, paramPrefix, dbParams, scope, this,
+            filter => Render(dialect, alias, paramPrefix, dbParams, filter));
+
+    // Translates the filter for this statement, continuing the names of the db params
+    private static string Render(IOrmLiteDialectProvider dialect, string? alias, string paramPrefix,
+        List<IDbDataParameter> dbParams, LambdaExpression filter)
+    {
+        var q = dialect.SqlExpression<T>();
+        q.ParamPrefix = paramPrefix;
+        q.Params = new List<IDbDataParameter>(dbParams);
+        if (alias != null)
+        {
+            q.SetTableAlias(alias);
+        }
+
+        var sql = q.RenderConnectionFilter(filter);
+        for (var i = dbParams.Count; i < q.Params.Count; i++)
+        {
+            dbParams.Add(q.Params[i]);
+        }
+
+        return sql;
+    }
+}
+
+/// <summary>
+/// The filter of a FilterSet rule for a table, translated to SQL once for each combination of what its SQL depends on:
+/// the dialect, the table's alias, the conditions that only read the scope, and which of its values are null.
+/// Each statement reads its values from the scope and adds them as db params.
+/// <para>Parts of the filter that don't read the row are evaluated for each statement, either as a condition that
+/// only reads the scope, which is decided in C#, e.g. s.WorkspaceId == null, or a value that becomes a db param.
+/// Filters whose SQL can't be reused are translated for each statement, see FilterSet.NotCachedReasons.</para>
+/// </summary>
+internal sealed class FilterTemplate<T>
+{
+    // Params of the SQL that's kept, which are renamed for each query
+    private const string ParamPrefix = "__ssf";
+    private const int MaxGuards = 32;
+    private const int MaxRendered = 64;
+
+    private readonly FilterRule rule;
+    private readonly LambdaExpression condition; // (T x, TScope s) => ... or (T x) => ...
+    private readonly ParameterExpression row;
+    private readonly ParameterExpression? scopeParam;
+    private readonly LogicNode? root;           // null when the filter is translated for each statement
+    private readonly List<Slot> slots = [];
+    private readonly ConcurrentDictionary<ulong, Variant> variants = new();
+    private int rendered;
+
+    internal FilterTemplate(FilterRule rule)
+    {
+        this.rule = rule;
+        this.condition = rule.Condition!;
+        if (typeof(T) != rule.Type)
+        {
+            this.condition = TableTypeRebinder.Rebind(this.condition, typeof(T));
+        }
+
+        this.row = this.condition.Parameters[0];
+        this.scopeParam = this.condition.Parameters.Count > 1 ? this.condition.Parameters[1] : null;
+
+        try
+        {
+            var guards = 0;
+            this.root = this.Analyze(this.condition.Body, ref guards);
+            if (guards > MaxGuards)
+            {
+                this.root = null;
+                this.NotCached($"It has more than {MaxGuards} conditions that only read the scope");
+            }
+        }
+        catch (Exception e)
+        {
+            this.root = null;
+            this.NotCached(e.Message);
+        }
+    }
+
+    private void NotCached(string reason) => this.rule.NotCachedReason = $"for {typeof(T).Name}: {reason}";
+
+    /// <summary>
+    /// The filter with the scope's value in place of its parameter: x => condition
+    /// </summary>
+    internal Expression<Func<T, bool>> Bind(object? scope)
+    {
+        if (this.scopeParam == null)
+        {
+            return (Expression<Func<T, bool>>)this.condition;
+        }
+
+        var body = new ReplaceParameter(this.scopeParam, Expression.Constant(scope, this.scopeParam.Type)).Visit(this.condition.Body);
+        return Expression.Lambda<Func<T, bool>>(body!, this.row);
+    }
+
+    internal string? ToSql(IOrmLiteDialectProvider dialect, string? alias, string paramPrefix,
+        List<IDbDataParameter> dbParams, object? scope, ConnectionFilter<T> filter, Func<LambdaExpression, string> render)
+    {
+        var choice = this.Choose(scope, dialect, alias);
+        var build = CompiledQueryBuild.Current;
+        var useIndex = build?.FilterUses.Count ?? 0;
+
+        string? sql;
+        if (choice.Sql == FilterChoice.Skip)
+        {
+            sql = null;
+        }
+        else if (choice.Sql == FilterChoice.False)
+        {
+            sql = SqlExpression<T>.FalseLiteral;
+        }
+        else
+        {
+            // A compiled query that's being built creates the db params of the filter's values from the scope of the
+            // connection it's run with, see CompiledQueryBase.GetSql()
+            Action<IDbDataParameter, Func<object?[], object?>, object>? bind = build is { IsBinding: true }
+                ? (p, getValue, value) => build.Bind(p, new CompiledValue(
+                    (args, _) => getValue((object?[])args[build.Args.Length + useIndex]), value))
+                : null;
+            sql = choice.Sql is RenderedSql rendered
+                ? rendered.Apply(dialect, paramPrefix, dbParams, choice.Values!, bind)
+                : null;
+            if (sql == null)
+            {
+                sql = choice.Variant is Variant variant
+                    ? render(Expression.Lambda<Func<T, bool>>(variant.WithScope(scope), this.row))
+                    : render(filter.Bound);
+                choice = default; // translated for this statement, so a compiled query can't keep its SQL
+            }
+        }
+
+        if (build != null)
+        {
+            var template = this;
+            build.FilterUses.Add(new FilterUse(this.rule, choice.Sql, (s, d) => template.Choose(s, d, alias)));
+        }
+        return sql;
+    }
+
+    /// <summary>
+    /// The SQL of the filter for the values of the scope, or null in Sql when it's translated for each statement
+    /// </summary>
+    internal FilterChoice Choose(object? scope, IOrmLiteDialectProvider dialect, string? alias)
+    {
+        if (this.root == null || OrmLiteConfig.SqlExpressionInitFilter != null)
+        {
+            return default;
+        }
+
+        ulong bits = 0;
+        var result = this.root.Eval(scope, ref bits);
+        if (result == true)
+        {
+            return new FilterChoice(FilterChoice.Skip, null, null);
+        }
+
+        if (result == false)
+        {
+            return new FilterChoice(FilterChoice.False, null, null);
+        }
+
+        var variant = this.variants.GetOrAdd(bits, b => new Variant(this, b));
+        var values = new object?[this.slots.Count];
+        ulong nulls = 0;
+        for (var i = 0; i < variant.Slots.Length; i++)
+        {
+            var slot = variant.Slots[i];
+            if ((values[slot] = this.slots[slot].Value(scope)) == null)
+            {
+                nulls |= 1UL << i;
+            }
+        }
+
+        var key = (dialect, alias, nulls, CollectionSizes(variant, values));
+        if (!variant.Rendered.TryGetValue(key, out var sql))
+        {
+            if (this.rendered >= MaxRendered)
+            {
+                this.NotCached($"It has more than {MaxRendered} SQL statements");
+                sql = RenderedSql.NotCached;
+            }
+            else
+            {
+                sql = this.Render(variant, dialect, alias, values, scope) ?? RenderedSql.NotCached;
+                if (variant.Rendered.TryAdd(key, sql))
+                {
+                    System.Threading.Interlocked.Increment(ref this.rendered);
+                }
+            }
+        }
+        return new FilterChoice(ReferenceEquals(sql, RenderedSql.NotCached) ? null : sql, values, variant);
+    }
+
+    // The sizes of the collections it uses, which have a db param for each of their values, e.g. s.Ids.Contains(x.Id)
+    private static string? CollectionSizes(Variant variant, object?[] values)
+    {
+        StringBuilder? sb = null;
+        foreach (var slot in variant.Slots)
+        {
+            if (values[slot] is System.Collections.IEnumerable and not string && CompiledQueryBuild.ToList(values[slot]) is { } list)
+            {
+                (sb ??= new StringBuilder()).Append(slot).Append(':').Append(list.Count).Append(',');
+            }
+        }
+        return sb?.ToString();
+    }
+
+    // Translates the variant with the values of the scope, then again with the values as the arguments of a compiled
+    // query, to find their db params. Its SQL is kept when both are the same.
+    private RenderedSql? Render(Variant variant, IOrmLiteDialectProvider dialect, string? alias, object?[] values,
+        object? scope)
+    {
+        var hold = CompiledQueryBuild.Current;
+        try
+        {
+            CompiledQueryBuild.Current = null;
+            var normal = NewQuery(dialect, alias);
+            var normalSql = normal.RenderConnectionFilter(Expression.Lambda<Func<T, bool>>(variant.WithScope(scope), this.row));
+
+            var args = new object?[values.Length];
+            values.CopyTo(args, 0);
+            var build = new CompiledQueryBuild(args!, new ArgMode[args.Length], bind: true);
+            var body = new ReplaceSlots(slot => values[slot] == null
+                ? Expression.Constant(null, this.slots[slot].Type)
+                : this.slots[slot].Arg).Visit(variant.Folded);
+            var q = NewQuery(dialect, alias);
+            CompiledQueryBuild.Current = build;
+            var sql = q.RenderConnectionFilter(Expression.Lambda<Func<T, bool>>(body!, this.row));
+            CompiledQueryBuild.Current = null;
+
+            var reason = RenderedSql.Create(build, dialect, sql, q.Params, normalSql, normal.Params, out var to);
+            if (reason != null)
+            {
+                this.NotCached(reason);
+            }
+
+            return to;
+        }
+        catch (Exception e)
+        {
+            this.NotCached($"The SQL can't be generated without the values of the scope: {e.Message}");
+            return null;
+        }
+        finally
+        {
+            CompiledQueryBuild.Current = hold;
+        }
+    }
+
+    private static SqlExpression<T> NewQuery(IOrmLiteDialectProvider dialect, string? alias)
+    {
+        var q = dialect.SqlExpression<T>();
+        q.ParamPrefix = ParamPrefix;
+        if (alias != null)
+        {
+            q.SetTableAlias(alias);
+        }
+
+        return q;
+    }
+
+    // The structure of the filter's conditions, whose conditions that only read the scope are decided in C#
+    private LogicNode Analyze(Expression e, ref int guards)
+    {
+        if (e.Type == typeof(bool) && this.IsEvaluated(e))
+        {
+            if (e is ConstantExpression { Value: bool value })
+            {
+                return new ConstNode(value);
+            }
+
+            return new GuardNode(guards++, this.CompileValue(e));
+        }
+
+        switch (e)
+        {
+            case BinaryExpression { NodeType: ExpressionType.AndAlso, Method: null } and:
+                return new AndNode(this.Analyze(and.Left, ref guards), this.Analyze(and.Right, ref guards));
+            case BinaryExpression { NodeType: ExpressionType.OrElse, Method: null } or:
+                return new OrNode(this.Analyze(or.Left, ref guards), this.Analyze(or.Right, ref guards));
+            case UnaryExpression { NodeType: ExpressionType.Not, Method: null } not when not.Type == typeof(bool):
+                return new NotNode(this.Analyze(not.Operand, ref guards));
+            case ConditionalExpression cond when cond.Type == typeof(bool) && this.IsEvaluated(cond.Test):
+                return new CondNode(this.Analyze(cond.Test, ref guards), this.Analyze(cond.IfTrue, ref guards),
+                    this.Analyze(cond.IfFalse, ref guards));
+            default:
+                return new LeafNode(new SlotFinder(this).Visit(e)!);
+        }
+    }
+
+    // Whether the expression doesn't read the row, so it's evaluated in C#
+    private bool IsEvaluated(Expression e) => FreeParameters.OnlyUses(e, this.scopeParam);
+
+    private Func<object?, object?> CompileValue(Expression e)
+    {
+        var scope = Expression.Parameter(typeof(object), "scope");
+        var body = this.scopeParam != null
+            ? new ReplaceParameter(this.scopeParam, Expression.Convert(scope, this.scopeParam.Type)).Visit(e)!
+            : e;
+        return Expression.Lambda<Func<object?, object?>>(Expression.Convert(body, typeof(object)), scope).Compile();
+    }
+
+    // A value of the filter that's evaluated for each statement
+    private sealed class Slot(Expression original, Func<object?, object?> value, Expression marker, Expression arg)
+    {
+        public Expression Original { get; } = original;
+        public Func<object?, object?> Value { get; } = value;
+        public Expression Marker { get; } = marker;
+        public Expression Arg { get; } = arg; // the argument of a compiled query that's being built
+        public Type Type => this.Original.Type;
+    }
+
+    private sealed class SlotMarker(int index)
+    {
+        public readonly int Index = index;
+    }
+
+    // Replaces the values of the filter with slots
+    private sealed class SlotFinder(FilterTemplate<T> template) : ExpressionVisitor
+    {
+        public override Expression? Visit(Expression? node)
+        {
+            if (node == null || !this.IsSlot(node))
+            {
+                return base.Visit(node);
+            }
+
+            var index = template.slots.Count;
+            var marker = Expression.Field(Expression.Constant(new SlotMarker(index)), nameof(SlotMarker.Index));
+            var argType = typeof(CompiledQueryArg<>).MakeGenericType(node.Type);
+            var arg = Expression.Property(Expression.Constant(Activator.CreateInstance(argType, index), argType),
+                nameof(CompiledQueryArg<int>.Value));
+            template.slots.Add(new Slot(node, template.CompileValue(node), marker, arg));
+            // Typed as the value it's in place of, see ReplaceSlots
+            return Expression.Convert(Expression.Convert(marker, typeof(object)), node.Type);
+        }
+
+        // A value that doesn't read the row, and reads the scope or something that can change, unlike 1 + 2.
+        // The methods of Sql are translated to SQL, not evaluated.
+        private bool IsSlot(Expression node)
+        {
+            if (node is ConstantExpression or LambdaExpression || node.NodeType == ExpressionType.Quote
+                || node.Type == typeof(void))
+            {
+                return false;
+            }
+
+            if (node is ParameterExpression && node != template.scopeParam)
+            {
+                return false;
+            }
+
+            if (node is MethodCallExpression call && call.Method.DeclaringType == typeof(Sql))
+            {
+                return false;
+            }
+
+            return template.IsEvaluated(node) && new ValueFinder(template.scopeParam).Find(node);
+        }
+    }
+
+    private sealed class ValueFinder(ParameterExpression? scope) : ExpressionVisitor
+    {
+        private bool found;
+
+        public bool Find(Expression e)
+        {
+            this.Visit(e);
+            return this.found;
+        }
+
+        public override Expression? Visit(Expression? node)
+        {
+            if (this.found || node == null)
+            {
+                return node;
+            }
+
+            if (node is MemberExpression or MethodCallExpression or InvocationExpression or NewExpression
+                || node == scope)
+            {
+                this.found = true;
+                return node;
+            }
+            return base.Visit(node);
+        }
+    }
+
+    private static int? SlotIndex(Expression node) =>
+        node is UnaryExpression
+        {
+            NodeType: ExpressionType.Convert, Operand: UnaryExpression
+            {
+                NodeType: ExpressionType.Convert,
+                Operand: MemberExpression { Expression: ConstantExpression { Value: SlotMarker marker } }
+            }
+        }
+            ? marker.Index
+            : null;
+
+    private sealed class ReplaceSlots(Func<int, Expression> replace) : ExpressionVisitor
+    {
+        public override Expression? Visit(Expression? node) =>
+            node != null && SlotIndex(node) is { } index ? replace(index) : base.Visit(node);
+    }
+
+    private sealed class SlotsFinder : ExpressionVisitor
+    {
+        public readonly List<int> Slots = [];
+
+        public override Expression? Visit(Expression? node)
+        {
+            if (node != null && SlotIndex(node) is { } index)
+            {
+                if (!this.Slots.Contains(index))
+                {
+                    this.Slots.Add(index);
+                }
+
+                return node;
+            }
+            return base.Visit(node);
+        }
+    }
+
+    /// <summary>
+    /// The filter with the conditions that only read the scope decided
+    /// </summary>
+    private sealed class Variant
+    {
+        private readonly FilterTemplate<T> template;
+        public readonly Expression Folded;
+        public readonly int[] Slots; // the values of the scope it uses
+        public readonly ConcurrentDictionary<(IOrmLiteDialectProvider, string?, ulong, string?), RenderedSql> Rendered = new();
+
+        public Variant(FilterTemplate<T> template, ulong bits)
+        {
+            this.template = template;
+            this.Folded = template.root!.Fold(bits);
+            var finder = new SlotsFinder();
+            finder.Visit(this.Folded);
+            this.Slots = finder.Slots.ToArray();
+        }
+
+        // The filter as it's normally translated, with the values read from the scope
+        public Expression WithScope(object? scope)
+        {
+            var slots = this.template.slots;
+            var scopeParam = this.template.scopeParam;
+            return new ReplaceSlots(index => scopeParam == null
+                ? slots[index].Original
+                : new ReplaceParameter(scopeParam, Expression.Constant(scope, scopeParam.Type))
+                    .Visit(slots[index].Original)!).Visit(this.Folded)!;
+        }
+    }
+
+    private abstract class LogicNode
+    {
+        /// <summary>
+        /// Evaluates the conditions that only read the scope, as C# would, recording their values in bits.
+        /// Returns whether rows always or never match, or null if it depends on the row.
+        /// </summary>
+        public abstract bool? Eval(object? scope, ref ulong bits);
+
+        /// <summary>
+        /// The condition with the values recorded in bits
+        /// </summary>
+        public abstract Expression Fold(ulong bits);
+
+        protected static bool? Const(Expression e) => e is ConstantExpression { Value: bool value } ? value : null;
+    }
+
+    private sealed class ConstNode(bool value) : LogicNode
+    {
+        public override bool? Eval(object? scope, ref ulong bits) => value;
+        public override Expression Fold(ulong bits) => Expression.Constant(value);
+    }
+
+    private sealed class GuardNode(int index, Func<object?, object?> fn) : LogicNode
+    {
+        public override bool? Eval(object? scope, ref ulong bits)
+        {
+            var value = (bool)fn(scope)!;
+            bits |= (value ? 2UL : 1UL) << (index * 2);
+            return value;
+        }
+
+        public override Expression Fold(ulong bits) => ((bits >> (index * 2)) & 3) switch
+        {
+            2 => Expression.Constant(true),
+            1 => Expression.Constant(false),
+            _ => throw new InvalidOperationException("The condition wasn't evaluated"),
+        };
+    }
+
+    private sealed class LeafNode(Expression expression) : LogicNode
+    {
+        public override bool? Eval(object? scope, ref ulong bits) => null;
+        public override Expression Fold(ulong bits) => expression;
+    }
+
+    private sealed class AndNode(LogicNode left, LogicNode right) : LogicNode
+    {
+        public override bool? Eval(object? scope, ref ulong bits)
+        {
+            var l = left.Eval(scope, ref bits);
+            if (l == false)
+            {
+                return false;
+            }
+
+            var r = right.Eval(scope, ref bits);
+            if (r == false)
+            {
+                return false;
+            }
+
+            return l == true ? r : r == true ? l : null;
+        }
+
+        public override Expression Fold(ulong bits)
+        {
+            var l = left.Fold(bits);
+            if (Const(l) == false)
+            {
+                return l;
+            }
+
+            var r = right.Fold(bits);
+            if (Const(r) == false)
+            {
+                return r;
+            }
+
+            return Const(l) == true ? r : Const(r) == true ? l : Expression.AndAlso(l, r);
+        }
+    }
+
+    private sealed class OrNode(LogicNode left, LogicNode right) : LogicNode
+    {
+        public override bool? Eval(object? scope, ref ulong bits)
+        {
+            var l = left.Eval(scope, ref bits);
+            if (l == true)
+            {
+                return true;
+            }
+
+            var r = right.Eval(scope, ref bits);
+            if (r == true)
+            {
+                return true;
+            }
+
+            return l == false ? r : r == false ? l : null;
+        }
+
+        public override Expression Fold(ulong bits)
+        {
+            var l = left.Fold(bits);
+            if (Const(l) == true)
+            {
+                return l;
+            }
+
+            var r = right.Fold(bits);
+            if (Const(r) == true)
+            {
+                return r;
+            }
+
+            return Const(l) == false ? r : Const(r) == false ? l : Expression.OrElse(l, r);
+        }
+    }
+
+    private sealed class NotNode(LogicNode operand) : LogicNode
+    {
+        public override bool? Eval(object? scope, ref ulong bits) => !operand.Eval(scope, ref bits);
+
+        public override Expression Fold(ulong bits)
+        {
+            var e = operand.Fold(bits);
+            return Const(e) is { } value ? Expression.Constant(!value) : Expression.Not(e);
+        }
+    }
+
+    private sealed class CondNode(LogicNode test, LogicNode ifTrue, LogicNode ifFalse) : LogicNode
+    {
+        public override bool? Eval(object? scope, ref ulong bits) =>
+            test.Eval(scope, ref bits) == true ? ifTrue.Eval(scope, ref bits) : ifFalse.Eval(scope, ref bits);
+
+        public override Expression Fold(ulong bits) =>
+            Const(test.Fold(bits)) == true ? ifTrue.Fold(bits) : ifFalse.Fold(bits);
+    }
+}
+
+/// <summary>
+/// The SQL a filter has for the values of a scope, with the values of its db params
+/// </summary>
+internal readonly struct FilterChoice(object? sql, object?[]? values, object? variant)
+{
+    /// <summary>
+    /// The filter doesn't apply to rows with the values of the scope
+    /// </summary>
+    public static readonly object Skip = new();
+
+    /// <summary>
+    /// No rows match the filter with the values of the scope
+    /// </summary>
+    public static readonly object False = new();
+
+    /// <summary>
+    /// A RenderedSql, Skip or False, or null when the filter is translated for each statement
+    /// </summary>
+    public readonly object? Sql = sql;
+    public readonly object?[]? Values = values;
+    public readonly object? Variant = variant;
+}
+
+/// <summary>
+/// A filter applied to a compiled query that's being built, to choose its SQL again with the scope of the connection
+/// the query is run with
+/// </summary>
+internal sealed class FilterUse(FilterRule rule, object? sql, Func<object?, IOrmLiteDialectProvider, FilterChoice> choose)
+{
+    public FilterRule Rule { get; } = rule;
+
+    /// <summary>
+    /// The SQL the filter had when the query was built, null if it was translated for the statement
+    /// </summary>
+    public object? Sql { get; } = sql;
+
+    public FilterChoice Choose(object? scope, IOrmLiteDialectProvider dialect) => choose(scope, dialect);
+}
+
+/// <summary>
+/// The SQL of a filter that's kept, with the values of its db params read from the scope for each statement
+/// </summary>
+internal sealed class RenderedSql
+{
+    // Kept so SQL that can't be reused isn't checked again each time
+    public static readonly RenderedSql NotCached = new([], [], [], false, false);
+
+    private readonly string[] parts;   // the SQL between its db params
+    private readonly int[] paramAt;    // the db param after each part
+    private readonly FilterParam[] dbParams;
+    private readonly bool isMySqlConnector;
+    private readonly bool usesLists;   // a collection of the scope has a db param for each of its values
+
+    private RenderedSql(string[] parts, int[] paramAt, FilterParam[] dbParams, bool isMySqlConnector, bool usesLists)
+    {
+        this.parts = parts;
+        this.paramAt = paramAt;
+        this.dbParams = dbParams;
+        this.isMySqlConnector = isMySqlConnector;
+        this.usesLists = usesLists;
+    }
+
+    private sealed class FilterParam(IDbDataParameter? param, Func<object[], List<object>[], object>? getValue,
+        Type? valueType, DbType? dbType, int? size, byte? precision, byte? scale)
+    {
+        public readonly IDbDataParameter? Param = param;                        // a db param that's the same each time
+        public readonly Func<object[], List<object>[], object>? GetValue = getValue; // or one for a value of the scope
+        public readonly Type? ValueType = valueType;
+        public readonly DbType? DbType = dbType;
+        public readonly int? Size = size;
+        public readonly byte? Precision = precision;
+        public readonly byte? Scale = scale;
+    }
+
+    // The values of the scope's collections that have a db param for each of their values
+    private List<object>[]? ToLists(object?[] values)
+    {
+        if (!this.usesLists)
+        {
+            return null;
+        }
+
+        var lists = new List<object>[values.Length];
+        for (var i = 0; i < values.Length; i++)
+        {
+            lists[i] = CompiledQueryBuild.ToList(values[i])!;
+        }
+
+        return lists;
+    }
+
+    /// <summary>
+    /// Adds the filter's SQL to the query, with db params for its values, or returns null if the values can't be
+    /// used with the SQL, e.g. a value of a different type
+    /// </summary>
+    public string? Apply(IOrmLiteDialectProvider dialect, string paramPrefix, List<IDbDataParameter> to,
+        object?[] values, Action<IDbDataParameter, Func<object?[], object?>, object>? bind = null)
+    {
+        if (ReferenceEquals(this, NotCached))
+        {
+            return null;
+        }
+
+        var lists = this.ToLists(values);
+        var created = new IDbDataParameter[this.dbParams.Length];
+        var raw = bind != null ? new object[this.dbParams.Length] : null;
+        var start = to.Count;
+        for (var i = 0; i < this.dbParams.Length; i++)
+        {
+            var template = this.dbParams[i];
+            var name = dialect.GetParam(paramPrefix + (start + i));
+            if (template.Param != null)
+            {
+                var p = dialect.CreateParam();
+                p.PopulateWith(template.Param);
+                p.ParameterName = name;
+                created[i] = p;
+                continue;
+            }
+
+            var value = template.GetValue!(values!, lists!);
+            if (value == null || value.GetType() != template.ValueType)
+            {
+                return null;
+            }
+
+            created[i] = CreateParam(dialect, this.isMySqlConnector, name, value, template);
+            if (raw != null)
+            {
+                raw[i] = value;
+            }
+        }
+
+        to.AddRange(created);
+        if (bind != null)
+        {
+            for (var i = 0; i < this.dbParams.Length; i++)
+            {
+                if (this.dbParams[i].GetValue is { } getValue)
+                {
+                    bind(created[i], vals => getValue(vals!, this.ToLists(vals)!), raw![i]);
+                }
+            }
+        }
+        if (this.paramAt.Length == 0)
+        {
+            return this.parts[0];
+        }
+
+        var sb = new StringBuilder(this.parts[0]);
+        for (var i = 0; i < this.paramAt.Length; i++)
+        {
+            sb.Append(created[this.paramAt[i]].ParameterName).Append(this.parts[i + 1]);
+        }
+
+        return sb.ToString();
+    }
+
+    // As SqlExpression.AddParam() creates them
+    private static IDbDataParameter CreateParam(IOrmLiteDialectProvider dialect, bool isMySqlConnector, string name,
+        object value, FilterParam? template)
+    {
+        var p = dialect.CreateParam();
+        p.ParameterName = name;
+        p.Direction = ParameterDirection.Input;
+        if (!isMySqlConnector)
+        {
+            p.SourceVersion = DataRowVersion.Default;
+        }
+
+        dialect.ConfigureParam(p, value, null);
+        dialect.InitQueryParam(p);
+        if (template?.DbType != null)
+        {
+            p.DbType = template.DbType.Value;
+        }
+
+        if (template?.Size != null)
+        {
+            p.Size = template.Size.Value;
+        }
+
+        if (template?.Precision != null)
+        {
+            p.Precision = template.Precision.Value;
+        }
+
+        if (template?.Scale != null)
+        {
+            p.Scale = template.Scale.Value;
+        }
+
+        return p;
+    }
+
+    /// <summary>
+    /// The SQL to keep, or null with the reason when the SQL and db params with the values of the scope as arguments
+    /// aren't the same as when the filter is normally translated
+    /// </summary>
+    internal static string? Create(CompiledQueryBuild build, IOrmLiteDialectProvider dialect, string sql,
+        List<IDbDataParameter> sqlParams, string normalSql, List<IDbDataParameter> normalParams, out RenderedSql? to)
+    {
+        to = null;
+        var usesLists = false;
+        for (var i = 0; i < build.Args.Length; i++)
+        {
+            if (build.UsedInSql[i])
+            {
+                return "A value of the scope is used in its SQL instead of a db param";
+            }
+
+            usesLists |= build.UsedAsList[i];
+        }
+        if (build.HasNullValue)
+        {
+            return "A value converted from the scope is null";
+        }
+
+        if (sql != normalSql)
+        {
+            return "The SQL changes with the values of the scope";
+        }
+
+        if (sqlParams.Count != normalParams.Count)
+        {
+            return "The db params change with the values of the scope";
+        }
+
+        var isMySqlConnector = dialect.IsMySqlConnector();
+        var templates = new FilterParam[sqlParams.Count];
+        var bound = 0;
+        for (var i = 0; i < sqlParams.Count; i++)
+        {
+            var p = sqlParams[i];
+            var normal = normalParams[i];
+            if (p.ParameterName != normal.ParameterName || p.DbType != normal.DbType || !Equals(p.Value, normal.Value))
+            {
+                return $"The db param {p.ParameterName} isn't the same each time";
+            }
+
+            if (!build.Bound.TryGetValue(p, out var value))
+            {
+                templates[i] = new FilterParam(p, null, null, null, null, null, null);
+                continue;
+            }
+
+            bound++;
+            // Changes made to the db param after it was created are made each time
+            var created = CreateParam(dialect, isMySqlConnector, p.ParameterName, value.Sample, null);
+            if (!Equals(created.Value, p.Value))
+            {
+                return $"The db param {p.ParameterName} isn't created from the value of the scope";
+            }
+
+            templates[i] = new FilterParam(null, value.GetValue, value.Sample.GetType(),
+                created.DbType != p.DbType ? p.DbType : null,
+                created.Size != p.Size ? p.Size : null,
+                created.Precision != p.Precision ? p.Precision : null,
+                created.Scale != p.Scale ? p.Scale : null);
+        }
+        if (bound != build.Bound.Count)
+        {
+            return "The db params of the scope's values are changed by its SQL";
+        }
+
+        // Each db param's name is replaced by the name of the db param the query gives it
+        var marked = sql;
+        for (var i = sqlParams.Count - 1; i >= 0; i--)
+        {
+            marked = marked.Replace(sqlParams[i].ParameterName, "\0" + i + "\0");
+        }
+
+        var split = marked.Split('\0');
+        var parts = new string[split.Length / 2 + 1];
+        var paramAt = new int[split.Length / 2];
+        for (var i = 0; i < split.Length; i++)
+        {
+            if (i % 2 == 0)
+            {
+                parts[i / 2] = split[i];
+            }
+            else
+            {
+                paramAt[i / 2] = int.Parse(split[i]);
+            }
+        }
+
+        to = new RenderedSql(parts, paramAt, templates, isMySqlConnector, usesLists);
+        return null;
+    }
+}
+
+/// <summary>
+/// Whether an expression only uses the parameter, or no parameters, apart from those of lambdas within it
+/// </summary>
+internal sealed class FreeParameters : ExpressionVisitor
+{
+    private readonly ParameterExpression? allowed;
+    private readonly HashSet<ParameterExpression> declared = [];
+    private bool usesOther;
+
+    private FreeParameters(ParameterExpression? allowed) => this.allowed = allowed;
+
+    public static bool OnlyUses(Expression e, ParameterExpression? allowed)
+    {
+        var finder = new FreeParameters(allowed);
+        finder.Visit(e);
+        return !finder.usesOther;
+    }
+
+    protected override Expression VisitLambda<TDelegate>(Expression<TDelegate> node)
+    {
+        foreach (var p in node.Parameters)
+        {
+            this.declared.Add(p);
+        }
+
+        return base.VisitLambda(node);
+    }
+
+    protected override Expression VisitParameter(ParameterExpression node)
+    {
+        if (node != this.allowed && !this.declared.Contains(node))
+        {
+            this.usesOther = true;
+        }
+
+        return node;
+    }
+}
+
+internal sealed class ReplaceParameter(ParameterExpression from, Expression to) : ExpressionVisitor
+{
+    protected override Expression VisitParameter(ParameterExpression node) => node == from ? to : node;
+}

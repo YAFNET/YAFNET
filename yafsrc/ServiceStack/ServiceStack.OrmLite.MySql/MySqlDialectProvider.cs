@@ -32,6 +32,19 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
     /// </summary>
     public static MySqlDialectProvider Instance = new();
 
+    public override TransientError GetTransientError(Exception ex)
+    {
+        if (ex is MySqlException myEx)
+        {
+            var kind = GetTransientError(myEx.Number);
+            if (kind != TransientError.None)
+            {
+                return kind;
+            }
+        }
+        return base.GetTransientError(ex);
+    }
+
     /// <summary>
     /// The text column definition
     /// </summary>
@@ -104,7 +117,8 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
             FieldQuotationCharacter = '"',
             FieldQuotationOptional = true,
             EscapeCharacter = '\\',
-            LineTerminator = Environment.NewLine
+            // The row separator CsvSerializer writes, which isn't the newline of every OS
+            LineTerminator = CsvConfig.RowSeparatorString
         };
 
         var columns = CsvSerializer.PropertiesFor<T>()

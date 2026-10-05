@@ -29,6 +29,7 @@ static internal class OrmLiteDiagnostics
                 Operation = operation,
                 Command = dbCmd, 
                 ConnectionId = dbCmd.GetConnectionId(),
+                NamedConnection = dbCmd.GetNamedConnection(),
                 Tag = dbCmd.GetTag()
             }.Init(Activity.Current));
 
@@ -47,6 +48,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = dbCmd.GetConnectionId(),
+                NamedConnection = dbCmd.GetNamedConnection(),
                 Tag = dbCmd.GetTag(),
                 Command = dbCmd
             }.Init(Activity.Current));
@@ -64,6 +66,7 @@ static internal class OrmLiteDiagnostics
                 OperationId = operationId,
                 Operation = operation,
                 ConnectionId = dbCmd.GetConnectionId(),
+                NamedConnection = dbCmd.GetNamedConnection(),
                 Tag = dbCmd.GetTag(),
                 Command = dbCmd,
                 Exception = ex

@@ -244,7 +244,49 @@ public static class OrmLiteWriteApi
     /// </summary>
     public static void BulkInsert<T>(this IDbConnection dbConn, IEnumerable<T> objs, BulkInsertConfig config = null)
     {
+        dbConn.SetBulkInsertRuleValues(ref objs, ref config);
         dbConn.Dialect().BulkInsert(dbConn, objs, config);
+    }
+
+    /// <summary>
+    /// Inserts the rows with a new primary key and updates those with an existing one, for large numbers of rows.
+    /// The rows are bulk loaded into a temporary table, then upserted from it in a single statement. E.g:
+    /// <para>db.BulkUpsert(customers)</para>
+    /// Unlike UpsertAll() the rows aren't modified, e.g. with the values of [ReturnOnInsert] fields.
+    /// </summary>
+    public static void BulkUpsert<T>(this IDbConnection dbConn, IEnumerable<T> objs, BulkInsertConfig config = null)
+    {
+        dbConn.Dialect().BulkUpsert(dbConn, objs, updateOnly: null, config);
+    }
+
+    /// <summary>
+    /// Inserts the rows with a new primary key and only updates the selected fields of those with an existing one,
+    /// for large numbers of rows. E.g:
+    /// <para>db.BulkUpsert(customers, updateOnly: x => new { x.Name, x.Email })</para>
+    /// </summary>
+    public static void BulkUpsert<T>(this IDbConnection dbConn, IEnumerable<T> objs,
+        Expression<Func<T, object>> updateOnly, BulkInsertConfig config = null)
+    {
+        if (updateOnly == null)
+        {
+            throw new ArgumentNullException(nameof(updateOnly));
+        }
+
+        dbConn.Dialect().BulkUpsert(dbConn, objs, updateOnly.GetFieldNames(), config);
+    }
+
+    /// <summary>
+    /// Inserts the rows with a new primary key and only updates the named fields of those with an existing one,
+    /// for large numbers of rows.
+    /// </summary>
+    public static void BulkUpsert<T>(this IDbConnection dbConn, IEnumerable<T> objs, string[] updateOnly, BulkInsertConfig config = null)
+    {
+        if (updateOnly == null)
+        {
+            throw new ArgumentNullException(nameof(updateOnly));
+        }
+
+        dbConn.Dialect().BulkUpsert(dbConn, objs, updateOnly, config);
     }
 
     /// <summary>

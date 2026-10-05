@@ -15,8 +15,8 @@ using System.Data;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
-
 using System.Threading.Tasks;
+using ServiceStack.DataAnnotations;
 
 public enum DbKind
 {
@@ -41,11 +41,54 @@ public interface IOrmLiteDialectProvider
     int MaxInListParams { get; set; }
 
     /// <summary>
-    /// Converts an UPDATE or DELETE statement into one that also returns all columns of the affected rows,
-    /// e.g. with RETURNING or OUTPUT. Throws NotSupportedException if the RDBMS doesn't support it.
+    /// Whether InsertAll, UpdateAll, UpsertAll and SaveAll send their statements together with an ADO.NET DbBatch
+    /// when the driver supports it, instead of a round trip for each row. Enabled by default.
     /// </summary>
-    string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete);
-    
+    bool UseDbBatch { get; set; }
+
+    /// <summary>
+    /// The most statements that are sent together when UseDbBatch is enabled, 1000 by default
+    /// </summary>
+    int BatchSize { get; set; }
+
+    /// <summary>
+    /// Whether the driver returns the rows affected by each statement of a DbBatch, which UpdateAll needs to know
+    /// if a row with a RowVersion was updated
+    /// </summary>
+    bool SupportsBatchRowsAffected { get; }
+
+    /// <summary>
+    /// When statements and connections that fail with a temporary error are run again, e.g. after a deadlock,
+    /// throttling or a lost connection. Uses OrmLiteConfig.RetryPolicy when it's not set, use OrmLiteRetry.None to
+    /// not retry this dialect. Null when nothing is retried: without a policy, with one that doesn't retry, e.g.
+    /// OrmLiteRetry.None, or when the dialect doesn't support retries.
+    /// </summary>
+    OrmLiteRetryPolicy RetryPolicy { get; set; }
+
+    /// <summary>
+    /// Whether the dialect retries temporary errors, when it has a RetryPolicy or there's a global one
+    /// </summary>
+    bool SupportsRetries { get; }
+
+    /// <summary>
+    /// Whether an error of the driver is temporary, and if it is, whether the database confirmed the statement
+    /// wasn't applied
+    /// </summary>
+    TransientError GetTransientError(Exception ex);
+
+    /// <summary>
+    /// Converts an UPDATE or DELETE statement into one that also returns the affected rows, e.g. with RETURNING or
+    /// OUTPUT, with all their columns or only the returnFields. Throws NotSupportedException if the RDBMS doesn't
+    /// support it.
+    /// </summary>
+    string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete, ICollection<FieldDefinition> returnFields = null);
+
+    /// <summary>
+    /// How to get the query plan of a statement, where analyze also runs the statement to include actual row counts
+    /// and timings. Throws NotSupportedException if the RDBMS doesn't support it.
+    /// </summary>
+    ExplainQuery ToExplainQuery(IDbConnection db, string sql, bool analyze);
+
     /// <summary>
     /// Configure Provider with connection string options 
     /// </summary>
@@ -424,6 +467,17 @@ public interface IOrmLiteDialectProvider
     void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null);
 
     /// <summary>
+    /// Bulk loads the rows into a temporary table, then inserts those with a new primary key and updates those
+    /// with an existing one in a single statement
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="db">The database.</param>
+    /// <param name="objs">The objs.</param>
+    /// <param name="updateOnly">The fields to update, or null for all fields.</param>
+    /// <param name="config">The configuration.</param>
+    void BulkUpsert<T>(IDbConnection db, IEnumerable<T> objs, ICollection<string> updateOnly = null, BulkInsertConfig config = null);
+
+    /// <summary>
     /// Converts to insertrowstatement.
     /// </summary>
     /// <param name="cmd">The command.</param>
@@ -688,6 +742,16 @@ public interface IOrmLiteDialectProvider
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
     string ToPostDropTableStatement(ModelDefinition modelDef);
+    string ToDropTableStatement(ModelDefinition modelDef);
+
+    /// <summary>
+    /// The clause that reads previous versions of a system-versioned table, e.g. FOR SYSTEM_TIME AS OF @0
+    /// </summary>
+    string ToSystemTimeClause(string condition);
+    /// <summary>
+    /// The time a system-versioned table is compared with, e.g. in UTC for SQL Server
+    /// </summary>
+    DateTime ToSystemTime(DateTime time);
 
     /// <summary>
     /// Converts to createindexstatements.
@@ -695,6 +759,23 @@ public interface IOrmLiteDialectProvider
     /// <param name="tableType">Type of the table.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
     List<string> ToCreateIndexStatements(Type tableType);
+    /// <summary>
+    /// The statements that add the [Description] of a table and its columns as comments
+    /// </summary>
+    List<string> ToCreateCommentStatements(Type tableType);
+
+    /// <summary>
+    /// Converts the float[] of a [Vector] column to and from the RDBMS's vector type
+    /// </summary>
+    IOrmLiteConverter VectorConverter { get; set; }
+    /// <summary>
+    /// The SQL for a db param with a vector's value, e.g. cast to the RDBMS's vector type
+    /// </summary>
+    string ToVectorParam(string param, int dimensions);
+    /// <summary>
+    /// The SQL for the distance of 2 vectors, which are columns or the SQL from ToVectorParam()
+    /// </summary>
+    string ToVectorDistance(VectorDistance distance, string vector, string other);
 
     /// <summary>
     /// Converts to createsequencestatements.
@@ -1026,6 +1107,22 @@ public interface IOrmLiteDialectProvider
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
     string GetDropForeignKeyConstraints(ModelDefinition modelDef);
+
+    /// <summary>
+    /// The columns of a table as they're reported by the database, e.g. their type, size and if they allow nulls
+    /// </summary>
+    ColumnSchema[] GetSchemaColumns(IDbConnection db, string quotedTable);
+
+    /// <summary>
+    /// The columns the fields of a model are created with, as they're reported by the database, which are read
+    /// from a temporary table that's created with them
+    /// </summary>
+    ColumnSchema[] GetModelSchemaColumns(IDbConnection db, List<FieldDefinition> fieldDefs);
+
+    /// <summary>
+    /// The names of the indexes of a table, or null if they can't be read
+    /// </summary>
+    List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef);
 
     string ToAddColumnStatement(TableRef tableRef, FieldDefinition fieldDef);
     string ToAlterColumnStatement(TableRef tableRef, FieldDefinition fieldDef);

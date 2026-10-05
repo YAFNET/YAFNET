@@ -55,12 +55,13 @@ static internal class WriteExpressionCommandExtensions
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, model);
 
-        var fieldsToUpdate = onlyFields.UpdateFields.Count == 0
+        var fieldsToUpdate = dbCmd.WithRuleFields<T>(onlyFields.UpdateFields.Count == 0
                                  ? onlyFields.GetAllFields()
-                                 : onlyFields.UpdateFields;
+            : onlyFields.UpdateFields, forInsert: false);
 
         onlyFields.CopyParamsTo(dbCmd);
 
+        dbCmd.SetUpdateRuleValues<T>(model, fieldsToUpdate);
         dbCmd.GetDialectProvider().PrepareUpdateRowStatement(dbCmd, model, fieldsToUpdate);
 
         if (!onlyFields.WhereExpression.IsNullOrEmpty())
@@ -92,7 +93,7 @@ static internal class WriteExpressionCommandExtensions
             throw new ArgumentNullException(nameof(onlyFields));
         }
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Update(onlyFields);
         q.Where(where);
         return dbCmd.UpdateOnlyFields(obj, q, commandFilter);
@@ -121,7 +122,7 @@ static internal class WriteExpressionCommandExtensions
             throw new ArgumentNullException(nameof(onlyFields));
         }
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Update(onlyFields);
         q.Where(where);
         return dbCmd.UpdateOnlyFields(obj, q, commandFilter);
@@ -180,9 +181,58 @@ static internal class WriteExpressionCommandExtensions
 
         q.CopyParamsTo(dbCmd);
 
-        var updateFieldValues = updateFields.AssignedValues();
+        var updateFieldValues = dbCmd.WithUpdateRuleValues<T>(updateFields.AssignedValues());
         dbCmd.GetDialectProvider().PrepareUpdateRowStatement<T>(dbCmd, updateFieldValues, q.WhereExpression);
 
+        return dbCmd;
+    }
+
+    /// <summary>
+    /// Update the fields of the rows matching a compiled query, which reuses the SQL of its WHERE clause
+    /// </summary>
+    internal static IDbCommand InitUpdateOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, BoundQuery<T> where)
+    {
+        if (updateFields == null)
+        {
+            throw new ArgumentNullException(nameof(updateFields));
+        }
+
+        if (where == null)
+        {
+            throw new ArgumentNullException(nameof(where));
+        }
+
+        OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.EvalFactoryFn());
+
+        var whereExpression = where.ToWhereExpression(); // creates its db params
+        dbCmd.AddParams(where.Params);
+
+        var updateFieldValues = dbCmd.WithUpdateRuleValues<T>(updateFields.AssignedValues());
+        dbCmd.GetDialectProvider().PrepareUpdateRowStatement<T>(dbCmd, updateFieldValues, whereExpression);
+        return dbCmd;
+    }
+
+    /// <summary>
+    /// Add to the fields of the rows matching a compiled query, which reuses the SQL of its WHERE clause
+    /// </summary>
+    internal static IDbCommand InitUpdateAdd<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, BoundQuery<T> where)
+    {
+        if (updateFields == null)
+        {
+            throw new ArgumentNullException(nameof(updateFields));
+        }
+
+        if (where == null)
+        {
+            throw new ArgumentNullException(nameof(where));
+        }
+
+        OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.EvalFactoryFn());
+
+        var whereExpression = where.ToWhereExpression(); // creates its db params
+        dbCmd.AddParams(where.Params);
+
+        dbCmd.PrepareUpdateRowAddStatement<T>(updateFields.AssignedValues(), whereExpression);
         return dbCmd;
     }
 
@@ -229,8 +279,9 @@ static internal class WriteExpressionCommandExtensions
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.EvalFactoryFn());
 
         dbCmd.SetParameters(sqlParams);
+        whereExpression = dbCmd.AddFilterToWhereExpression(typeof(T), whereExpression);
 
-        var updateFieldValues = updateFields.AssignedValues();
+        var updateFieldValues = dbCmd.WithUpdateRuleValues<T>(updateFields.AssignedValues());
         dbCmd.GetDialectProvider().PrepareUpdateRowStatement<T>(dbCmd, updateFieldValues, whereExpression);
 
         return dbCmd;
@@ -275,8 +326,7 @@ static internal class WriteExpressionCommandExtensions
 
         q.CopyParamsTo(dbCmd);
 
-        var updateFieldValues = updateFields.AssignedValues();
-        dbCmd.GetDialectProvider().PrepareUpdateRowAddStatement<T>(dbCmd, updateFieldValues, q.WhereExpression);
+        dbCmd.PrepareUpdateRowAddStatement<T>(updateFields.AssignedValues(), q.WhereExpression);
 
         return dbCmd;
     }
@@ -304,8 +354,9 @@ static internal class WriteExpressionCommandExtensions
         }
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
+        updateFields = dbCmd.WithUpdateRuleValues<T>(updateFields);
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Where(where);
         q.PrepareUpdateStatement(dbCmd, updateFields);
         return dbCmd.UpdateAndVerify<T>(commandFilter, updateFields.ContainsKey(ModelDefinition.RowVersionName));
@@ -368,13 +419,15 @@ static internal class WriteExpressionCommandExtensions
     /// <returns>System.Int32.</returns>
     public static int UpdateOnlyFields<T>(this IDbCommand dbCmd,
                                           Dictionary<string, object> updateFields,
-                                          Action<IDbCommand> commandFilter = null)
+        Action<IDbCommand> commandFilter = null,
+        bool applyRules = true)
     {
-        return dbCmd.UpdateOnlyReferences<T>(updateFields, dbFields => {
-                var whereExpr = dbCmd.GetDialectProvider().GetUpdateOnlyWhereExpression<T>(dbFields, out var exprArgs);
-                dbCmd.PrepareUpdateOnly<T>(dbFields, whereExpr, exprArgs);
-                return dbCmd.UpdateAndVerify<T>(commandFilter, dbFields.ContainsKey(ModelDefinition.RowVersionName));
-            });
+        return dbCmd.UpdateOnlyReferences<T>(updateFields, dbFields =>
+        {
+            var whereExpr = dbCmd.GetDialectProvider().GetUpdateOnlyWhereExpression<T>(dbFields, out var exprArgs);
+            dbCmd.PrepareUpdateOnly<T>(dbFields, whereExpr, exprArgs, applyRules);
+            return dbCmd.UpdateAndVerify<T>(commandFilter, dbFields.ContainsKey(ModelDefinition.RowVersionName));
+        });
     }
 
     /// <summary>
@@ -464,8 +517,10 @@ static internal class WriteExpressionCommandExtensions
     /// <param name="updateFields">The update fields.</param>
     /// <param name="whereExpression">The where expression.</param>
     /// <param name="whereParams">The where parameters.</param>
+    /// <param name="applyRules">if set to <c>true</c> applies the connection's write rules.</param>
     /// <exception cref="System.ArgumentNullException">updateFields</exception>
-    static internal void PrepareUpdateOnly<T>(this IDbCommand dbCmd, Dictionary<string, object> updateFields, string whereExpression, object[] whereParams)
+    static internal void PrepareUpdateOnly<T>(this IDbCommand dbCmd, Dictionary<string, object> updateFields, string whereExpression, object[] whereParams,
+        bool applyRules = true)
     {
         if (updateFields == null)
         {
@@ -473,8 +528,12 @@ static internal class WriteExpressionCommandExtensions
         }
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
+        if (applyRules)
+        {
+            updateFields = dbCmd.WithUpdateRuleValues<T>(updateFields);
+        }
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Where(whereExpression, whereParams);
         q.PrepareUpdateStatement(dbCmd, updateFields);
     }
@@ -491,9 +550,9 @@ static internal class WriteExpressionCommandExtensions
     {
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, item);
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Where(where);
-        q.PrepareUpdateStatement(dbCmd, item, excludeDefaults: true);
+        dbCmd.PrepareUpdateStatement(q, item, excludeDefaults: true);
         return dbCmd.ExecNonQuery();
     }
 
@@ -510,13 +569,26 @@ static internal class WriteExpressionCommandExtensions
     {
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, item);
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Where(expression);
-        q.PrepareUpdateStatement(dbCmd, item);
+        dbCmd.PrepareUpdateStatement(q, item);
         commandFilter?.Invoke(dbCmd);
         return dbCmd.ExecNonQuery();
     }
 
+    /// <summary>
+    /// UPDATE statement of the object's fields, with the values of the connection's rules
+    /// </summary>
+    /// <typeparam name="T">The Model</typeparam>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="q">The query.</param>
+    /// <param name="item">The item.</param>
+    /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
+    static internal void PrepareUpdateStatement<T>(this IDbCommand dbCmd, SqlExpression<T> q, T item, bool excludeDefaults = false)
+    {
+        dbCmd.SetUpdateRuleValues<T>(item, excludeDefaults: excludeDefaults);
+        q.PrepareUpdateStatement(dbCmd, item, excludeDefaults);
+    }
     /// <summary>
     /// Updates the specified update only.
     /// </summary>
@@ -531,8 +603,9 @@ static internal class WriteExpressionCommandExtensions
         OrmLiteUtils.AssertNotAnonType<T>();
 
         OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateOnly.ToFilterType<T>());
+        updateOnly = dbCmd.WithUpdateRuleValues<T>(updateOnly);
 
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         var whereSql = q.Where(where).WhereExpression;
         q.CopyParamsTo(dbCmd);
         var hadRowVersion = dbCmd.PrepareUpdateAnonSql<T>(dbCmd.GetDialectProvider(), updateOnly, whereSql);
@@ -629,9 +702,7 @@ static internal class WriteExpressionCommandExtensions
         OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
 
         var dialectProvider = dbCmd.GetDialectProvider();
-        var sql = dialectProvider.ToInsertRowStatement(dbCmd, obj, onlyFields);
-
-        dialectProvider.SetParameterValues<T>(dbCmd, obj);
+        var sql = dbCmd.ToInsertOnlyStatement(obj, onlyFields);
 
         return selectIdentity ? dbCmd.ExecLongScalar(sql + dialectProvider.GetLastInsertIdSqlSuffix<T>()) : dbCmd.ExecuteSql(sql);
     }
@@ -657,6 +728,23 @@ static internal class WriteExpressionCommandExtensions
         var cmd = dbCmd.InitUpsert(model, q);
         commandFilter?.Invoke(cmd);
         return cmd.ExecNonQuery();
+    }
+
+    /// <summary>
+    /// INSERT statement of the object's fields and its params, with the values of the connection's rules
+    /// </summary>
+    /// <typeparam name="T">The Model</typeparam>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="obj">The object.</param>
+    /// <param name="onlyFields">The only fields.</param>
+    /// <returns>System.String.</returns>
+    static internal string ToInsertOnlyStatement<T>(this IDbCommand dbCmd, T obj, ICollection<string> onlyFields)
+    {
+        var dialectProvider = dbCmd.GetDialectProvider();
+        dbCmd.SetInsertRuleValues<T>(obj);
+        var sql = dialectProvider.ToInsertRowStatement(dbCmd, obj, dbCmd.WithRuleFields<T>(onlyFields, forInsert: true));
+        dialectProvider.SetParameterValues<T>(dbCmd, obj);
+        return sql;
     }
 
     /// <summary>
@@ -710,7 +798,7 @@ static internal class WriteExpressionCommandExtensions
 
         OrmLiteConfig.InsertFilter?.Invoke(dbCmd, insertFields.EvalFactoryFn());
 
-        var fieldValuesMap = insertFields.AssignedValues();
+        var fieldValuesMap = dbCmd.WithInsertRuleValues<T>(insertFields.AssignedValues());
         dbCmd.GetDialectProvider().PrepareInsertRowStatement<T>(dbCmd, fieldValuesMap);
         return dbCmd;
     }
@@ -725,7 +813,7 @@ static internal class WriteExpressionCommandExtensions
     /// <returns>System.Int32.</returns>
     public static int Delete<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> where, Action<IDbCommand> commandFilter = null)
     {
-        var ev = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var ev = dbCmd.CreateQuery<T>();
         ev.Where(where);
         return dbCmd.Delete(ev, commandFilter);
     }
@@ -754,7 +842,7 @@ static internal class WriteExpressionCommandExtensions
     /// <returns>System.Int32.</returns>
     public static int DeleteWhere<T>(this IDbCommand dbCmd, string whereFilter, object[] whereParams)
     {
-        var q = dbCmd.GetDialectProvider().SqlExpression<T>();
+        var q = dbCmd.CreateQuery<T>();
         q.Where(whereFilter, whereParams);
         var sql = q.ToDeleteRowStatement();
         return dbCmd.ExecuteSql(sql, q.Params);
