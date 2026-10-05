@@ -52,7 +52,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
 
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
-            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteReaderAsync(dbCmd, token));
+            return dbCmd.WithLog(dbCmd.ExecReaderWithRetryAsync(token));
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
 
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
-            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteReaderAsync(dbCmd, token));
+            return dbCmd.WithLog(dbCmd.ExecReaderWithRetryAsync(token));
         }
 
         /// <summary>
@@ -494,7 +494,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
         /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
         public async Task<long> LongScalarAsync(CancellationToken token)
         {
-            var ret = await dbCmd.GetDialectProvider().ExecuteScalarAsync(dbCmd, token).ConfigAwait();
+            var ret = await dbCmd.ExecScalarWithRetryAsync(token).ConfigAwait();
             return OrmLiteReadCommandExtensions.ToLong(ret);
         }
 

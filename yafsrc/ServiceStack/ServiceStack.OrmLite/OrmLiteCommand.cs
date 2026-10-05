@@ -105,10 +105,28 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     }
 
     /// <summary>
+    /// Set while the dialect runs the statement for an async API, which retries it
+    /// </summary>
+    internal bool SkipRetry;
+
+    /// <summary>
+    /// Gets a value indicating whether the statement is retried on temporary errors.
+    /// </summary>
+    private bool CanRetry => !this.SkipRetry && this.DialectProvider.RetryPolicy != null;
+
+    /// <summary>
     /// Executes an SQL statement against the <see langword="Connection" /> object of a .NET Framework data provider, and returns the number of rows affected.
     /// </summary>
     /// <returns>The number of rows affected.</returns>
-    public int ExecuteNonQuery()
+    public int ExecuteNonQuery() => !this.CanRetry
+        ? this.ExecuteNonQueryOnce()
+        : OrmLiteRetryExec.Execute(this, this.DialectProvider, this.ExecuteNonQueryOnce);
+
+    /// <summary>
+    /// Executes the non query once.
+    /// </summary>
+    /// <returns>The number of rows affected.</returns>
+    private int ExecuteNonQueryOnce()
     {
         this.StartTimestamp = Stopwatch.GetTimestamp();
         this.DialectProvider.OnBeforeExecuteNonQuery?.Invoke(this);
@@ -136,7 +154,15 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Executes the <see cref="P:System.Data.IDbCommand.CommandText" /> against the <see cref="P:System.Data.IDbCommand.Connection" /> and builds an <see cref="T:System.Data.IDataReader" />.
     /// </summary>
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
-    public IDataReader ExecuteReader()
+    public IDataReader ExecuteReader() => !this.CanRetry
+        ? this.ExecuteReaderOnce()
+        : OrmLiteRetryExec.Execute(this, this.DialectProvider, this.ExecuteReaderOnce);
+
+    /// <summary>
+    /// Executes the reader once.
+    /// </summary>
+    /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
+    private IDataReader ExecuteReaderOnce()
     {
         this.StartTimestamp = Stopwatch.GetTimestamp();
         var ret = this.DbCommand.ExecuteReader();
@@ -149,7 +175,16 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// </summary>
     /// <param name="behavior">One of the <see cref="T:System.Data.CommandBehavior" /> values.</param>
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
-    public IDataReader ExecuteReader(CommandBehavior behavior)
+    public IDataReader ExecuteReader(CommandBehavior behavior) => !this.CanRetry
+        ? this.ExecuteReaderOnce(behavior)
+        : OrmLiteRetryExec.Execute(this, this.DialectProvider, () => this.ExecuteReaderOnce(behavior));
+
+    /// <summary>
+    /// Executes the reader once.
+    /// </summary>
+    /// <param name="behavior">One of the <see cref="T:System.Data.CommandBehavior" /> values.</param>
+    /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
+    private IDataReader ExecuteReaderOnce(CommandBehavior behavior)
     {
         this.StartTimestamp = Stopwatch.GetTimestamp();
         var ret = this.DbCommand.ExecuteReader(behavior);
@@ -161,7 +196,15 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Executes the query, and returns the first column of the first row in the resultset returned by the query. Extra columns or rows are ignored.
     /// </summary>
     /// <returns>The first column of the first row in the resultset.</returns>
-    public object? ExecuteScalar()
+    public object? ExecuteScalar() => !this.CanRetry
+        ? this.ExecuteScalarOnce()
+        : OrmLiteRetryExec.Execute(this, this.DialectProvider, this.ExecuteScalarOnce);
+
+    /// <summary>
+    /// Executes the scalar once.
+    /// </summary>
+    /// <returns>The first column of the first row in the resultset.</returns>
+    private object? ExecuteScalarOnce()
     {
         this.StartTimestamp = Stopwatch.GetTimestamp();
         var ret = this.DbCommand.ExecuteScalar();

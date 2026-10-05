@@ -60,7 +60,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
                 Log.DebugCommand(dbCmd);
             }
 
-            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
+            return dbCmd.WithLog(dbCmd.ExecNonQueryWithRetryAsync(token));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
                 Log.DebugCommand(dbCmd);
             }
 
-            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
+            return dbCmd.WithLog(dbCmd.ExecNonQueryWithRetryAsync(token));
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
                 Log.DebugCommand(dbCmd);
             }
 
-            return dbCmd.WithLog(dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token));
+            return dbCmd.WithLog(dbCmd.ExecNonQueryWithRetryAsync(token));
         }
 
         /// <summary>
@@ -346,7 +346,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
                 return OrmLiteConfig.ResultsFilter.GetScalar(dbCmd).InTask();
             }
 
-            return dbCmd.GetDialectProvider().ExecuteScalarAsync(dbCmd, token);
+            return dbCmd.ExecScalarWithRetryAsync(token);
         }
 
         /// <summary>
@@ -367,7 +367,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
                 return OrmLiteConfig.ResultsFilter.GetScalar(dbCmd).InTask();
             }
 
-            return dbCmd.GetDialectProvider().ExecuteScalarAsync(dbCmd, token);
+            return dbCmd.ExecScalarWithRetryAsync(token);
         }
 
         /// <summary>

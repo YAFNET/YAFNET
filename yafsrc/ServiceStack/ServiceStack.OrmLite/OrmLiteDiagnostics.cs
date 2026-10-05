@@ -40,6 +40,7 @@ static internal class OrmLiteDiagnostics
                     OperationId = operationId,
                     Operation = operation,
                     ConnectionId = dbCmd.GetConnectionId(),
+                    NamedConnection = dbCmd.GetNamedConnection(),
                     Tag = dbCmd.GetTag(),
                     Command = dbCmd
                 }.Init(Activity.Current));
@@ -66,6 +67,7 @@ static internal class OrmLiteDiagnostics
                     OperationId = operationId,
                     Operation = operation,
                     ConnectionId = dbCmd.GetConnectionId(),
+                    NamedConnection = dbCmd.GetNamedConnection(),
                     Tag = dbCmd.GetTag(),
                     Command = dbCmd
                 }.Init(Activity.Current));
@@ -91,6 +93,7 @@ static internal class OrmLiteDiagnostics
                     OperationId = operationId,
                     Operation = operation,
                     ConnectionId = dbCmd.GetConnectionId(),
+                    NamedConnection = dbCmd.GetNamedConnection(),
                     Tag = dbCmd.GetTag(),
                     Command = dbCmd,
                     Exception = ex
@@ -148,7 +151,8 @@ static internal class OrmLiteDiagnostics
             var operationId = Guid.NewGuid();
             listener.Write(
                 Diagnostics.Events.OrmLite.WriteTransactionOpen,
-                new OrmLiteDiagnosticEvent {
+                new OrmLiteDiagnosticEvent
+                {
                     EventType = Diagnostics.Events.OrmLite.WriteTransactionOpen,
                     OperationId = operationId,
                     Operation = operation,
@@ -423,7 +427,8 @@ static internal class OrmLiteDiagnostics
                     OperationId = operationId,
                     Operation = operation,
                     IsolationLevel = isolationLevel,
-                    Connection = dbConn, ConnectionId = dbConn.GetConnectionId(),
+                    Connection = dbConn,
+                    ConnectionId = dbConn.GetConnectionId(),
                     Tag = dbConn.GetTag(),
                     TransactionName = transactionName
                 }.Init(Activity.Current));

@@ -1191,7 +1191,7 @@ public static class MessageRepositoryExtensions
                 .ToMergedParamsSelectStatement();
 
             return repository.DbAccess
-                .Execute(db => db.Connection.Select<DateTime?>(lastPostedExpression))
+                .Execute(db => db.Connection.Column<DateTime?>(lastPostedExpression))
                 .FirstOrDefault();
         }
 

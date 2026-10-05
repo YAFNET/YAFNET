@@ -748,9 +748,43 @@ public static class OrmLiteWriteApiAsync
         /// <summary>
         /// Uses the most optimal approach to bulk insert multiple rows for each RDBMS provider 
         /// </summary>
-        public Task BulkInsertAsync<T>(IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
+        public async Task BulkInsertAsync<T>(IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
         {
-            return dbConn.Dialect().BulkInsertAsync(dbConn, objs, config, token);
+            dbConn.SetBulkInsertRuleValues(ref objs, ref config);
+            await dbConn.Dialect().BulkInsertAsync(dbConn, objs, config, token).ConfigAwait();
+        }
+
+        /// <summary>
+        /// Inserts the rows with a new primary key and updates those with an existing one, for large numbers of rows.
+        /// The rows are bulk loaded into a temporary table, then upserted from it in a single statement.
+        /// </summary>
+        public Task BulkUpsertAsync<T>(IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
+        {
+            return dbConn.Dialect().BulkUpsertAsync(dbConn, objs, updateOnly: null, config, token);
+        }
+
+        /// <summary>
+        /// Inserts the rows with a new primary key and only updates the selected fields of those with an existing one,
+        /// for large numbers of rows.
+        /// </summary>
+        public Task BulkUpsertAsync<T>(IEnumerable<T> objs,
+            Expression<Func<T, object>> updateOnly, BulkInsertConfig config = null, CancellationToken token = default)
+        {
+            ArgumentNullException.ThrowIfNull(updateOnly);
+
+            return dbConn.Dialect().BulkUpsertAsync(dbConn, objs, updateOnly.GetFieldNames(), config, token);
+        }
+
+        /// <summary>
+        /// Inserts the rows with a new primary key and only updates the named fields of those with an existing one,
+        /// for large numbers of rows.
+        /// </summary>
+        public Task BulkUpsertAsync<T>(IEnumerable<T> objs, string[] updateOnly,
+            BulkInsertConfig config = null, CancellationToken token = default)
+        {
+            ArgumentNullException.ThrowIfNull(updateOnly);
+
+            return dbConn.Dialect().BulkUpsertAsync(dbConn, objs, updateOnly, config, token);
         }
 
         /// <summary>

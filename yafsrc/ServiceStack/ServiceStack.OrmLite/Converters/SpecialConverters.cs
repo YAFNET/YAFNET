@@ -113,11 +113,21 @@ public class EnumConverter : StringConverter
     {
         var enumKind = GetEnumKind(fieldType);
 
-        p.DbType = enumKind == EnumKind.Int
-            ? Enum.GetUnderlyingType(fieldType) == typeof(long)
-                ? DbType.Int64
-                : DbType.Int32
-            : this.DbType;
+        if (enumKind == EnumKind.Int)
+        {
+            if (Enum.GetUnderlyingType(fieldType) == typeof(long))
+            {
+                p.DbType = DbType.Int64;
+            }
+            else
+            {
+                p.DbType = DbType.Int32;
+            }
+        }
+        else
+        {
+            p.DbType = this.DbType;
+        }
     }
 
     /// <summary>

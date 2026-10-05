@@ -225,6 +225,13 @@ public static class OrmLiteConfig
     }
 
     /// <summary>
+    /// The named connection the command is run on, or null for the default connection
+    /// </summary>
+    public static string GetNamedConnection(this IDbCommand db) => db is OrmLiteCommand ormLiteCmd
+        ? ormLiteCmd.OrmLiteConnection.NamedConnection
+        : null;
+
+    /// <summary>
     /// The requires orm lite connection
     /// </summary>
     private const string RequiresOrmLiteConnection = "{0} can only be set on a OrmLiteConnectionFactory connection, not a plain IDbConnection";
@@ -437,6 +444,18 @@ public static class OrmLiteConfig
     /// </summary>
     /// <value>The exception filter.</value>
     public static Action<IDbCommand, Exception> ExceptionFilter { get; set; }
+
+    /// <summary>
+    /// When statements and connections that fail with a temporary error are run again, for every dialect without a
+    /// RetryPolicy of its own that supports retries. Not retried when null, the default.
+    /// </summary>
+    public static OrmLiteRetryPolicy RetryPolicy { get; set; }
+
+    /// <summary>
+    /// The tables that GetSchemaDiff() doesn't compare, which ignores the tables of ASP.NET Core Identity and
+    /// EF Core's migrations by default, e.g. AspNetUsers
+    /// </summary>
+    public static SchemaDiffOptions SchemaDiff { get; set; } = new();
 
     /// <summary>
     /// Gets or sets a value indicating whether [throw on error].

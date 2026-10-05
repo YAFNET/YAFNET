@@ -8,11 +8,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ServiceStack.DataAnnotations;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading;
-
+using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite.Base.Text;
 
 namespace ServiceStack.OrmLite;
@@ -68,6 +67,21 @@ public class ModelDefinition
     /// </summary>
     /// <value>The post create table SQL.</value>
     public string PostCreateTableSql { get; set; }
+
+    /// <summary>
+    /// The table's comment, from [Description]
+    /// </summary>
+    public string Description { get; set; }
+
+    /// <summary>
+    /// Whether the RDBMS keeps previous versions of the table's rows, from [SystemVersioned]
+    /// </summary>
+    public bool IsSystemVersioned { get; set; }
+
+    /// <summary>
+    /// The name of the table previous versions are kept in, where the RDBMS has one
+    /// </summary>
+    public string HistoryTable { get; set; }
 
     /// <summary>
     /// Gets or sets the pre drop table SQL.

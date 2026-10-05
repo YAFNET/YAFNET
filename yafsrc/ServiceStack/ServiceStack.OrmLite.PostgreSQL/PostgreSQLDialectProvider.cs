@@ -28,6 +28,8 @@ using Npgsql;
 
 using NpgsqlTypes;
 
+using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite.Converters;
 using ServiceStack.OrmLite.PostgreSQL.Converters;
 
 /// <summary>
@@ -59,6 +61,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     public PostgreSqlDialectProvider()
     {
+        this.VectorConverter = new VectorTextConverter();
         this.AutoIncrementDefinition = string.Empty;
         this.ParamString = ":";
         base.SelectIdentitySql = "SELECT LASTVAL()";
@@ -120,8 +123,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// Sets a value indicating whether [use hstore].
     /// </summary>
     /// <value><c>true</c> if [use hstore]; otherwise, <c>false</c>.</value>
-    public bool UseHstore {
-        set {
+    public bool UseHstore
+    {
+        set
+        {
             if (value)
             {
                 this.RegisterConverter<IDictionary<string, string>>(new PostgreSqlHstoreConverter());
@@ -139,9 +144,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// Gets or sets a value indicating whether this <see cref="PostgreSqlDialectProvider" /> is normalize.
     /// </summary>
     /// <value><c>true</c> if normalize; otherwise, <c>false</c>.</value>
-    public bool Normalize {
+    public bool Normalize
+    {
         get;
-        set {
+        set
+        {
             field = value;
             this.NamingStrategy = field
                 ? new OrmLiteNamingStrategyBase()
@@ -238,6 +245,38 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         "WHERE"
     ], StringComparer.OrdinalIgnoreCase);
 
+    protected override bool SupportsIndexInclude => true;
+
+    // PostgreSQL only has virtual generated columns from v18, so they're always stored
+    protected override string GetGeneratedColumnDefinition(FieldDefinition fieldDef)
+    {
+        var columnType = this.GetFieldTypeDefinition(fieldDef);
+        return $"{this.GetQuotedColumnName(fieldDef)} {columnType} GENERATED ALWAYS AS " +
+               $"({this.ResolveColumnRefs(fieldDef.ModelDef, fieldDef.ComputeExpression)}) STORED";
+    }
+
+    public override List<string> ToCreateCommentStatements(Type tableType)
+    {
+        var to = new List<string>();
+        var modelDef = GetModel(tableType);
+        var table = this.GetQuotedTableName(modelDef);
+        if (!string.IsNullOrEmpty(modelDef.Description))
+        {
+            to.Add($"COMMENT ON TABLE {table} IS {this.GetQuotedValue(modelDef.Description)}");
+        }
+
+        foreach (var fieldDef in modelDef.FieldDefinitions)
+        {
+            if (string.IsNullOrEmpty(fieldDef.Description) || fieldDef.ShouldSkipCreate() || fieldDef.IsRowVersion)
+            {
+                continue;
+            }
+
+            to.Add($"COMMENT ON COLUMN {table}.{this.GetQuotedColumnName(fieldDef)} IS {this.GetQuotedValue(fieldDef.Description)}");
+        }
+        return to;
+    }
+
     /// <summary>
     /// Gets the column definition.
     /// </summary>
@@ -248,6 +287,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         if (fieldDef.IsRowVersion)
         {
             return null;
+        }
+
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
         }
 
         string fieldDefinition = null;
@@ -271,8 +315,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             }
             else
             {
-                fieldDefinition =
-                    this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+                fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
             }
         }
 
@@ -318,6 +361,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>System.String.</returns>
     public override string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
     {
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
+        }
+
         string fieldDefinition = null;
 
         if (fieldDef.CustomFieldDefinition != null)
@@ -339,8 +387,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             }
             else
             {
-                fieldDefinition =
-                    this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+                fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
             }
         }
 
@@ -403,7 +450,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         foreach (var fieldDef in this.CreateTableFieldsStrategy(modelDef))
         {
-            if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+            if (fieldDef.ShouldSkipCreate())
             {
                 continue;
             }
@@ -483,14 +530,25 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     }
 
     /// <summary>
+    /// The query that returns the query plan of the SQL
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="analyze">if set to <c>true</c> [analyze].</param>
+    /// <returns>ExplainQuery.</returns>
+    public override ExplainQuery ToExplainQuery(IDbConnection db, string sql, bool analyze) =>
+        new() { Sql = (analyze ? "EXPLAIN ANALYZE " : "EXPLAIN ") + sql };
+
+    /// <summary>
     /// Converts to returning statement.
     /// </summary>
     /// <param name="sql">The SQL.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="isDelete">if set to <c>true</c> [is delete].</param>
+    /// <param name="returnFields">The fields to return, or null for all fields.</param>
     /// <returns>System.String.</returns>
-    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete) =>
-        sql.TrimEnd().TrimEnd(';') + " RETURNING " + GetColumnNames(modelDef);
+    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete, ICollection<FieldDefinition> returnFields = null) =>
+        sql.TrimEnd().TrimEnd(';') + " RETURNING " + this.GetReturningColumns(modelDef, returnFields);
 
     /// <summary>
     /// Determines whether [is full select statement] [the specified SQL].
@@ -531,9 +589,13 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                 try
                 {
                     if (dbValue == null)
+                    {
                         writer.WriteNull();
+                    }
                     else
+                    {
                         writer.Write(dbValue, dbType);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -567,9 +629,13 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                 try
                 {
                     if (dbValue == null)
+                    {
                         await writer.WriteNullAsync(token).ConfigAwait();
+                    }
                     else
+                    {
                         await writer.WriteAsync(dbValue, dbType, token).ConfigAwait();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -581,40 +647,121 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         await writer.CompleteAsync(token).ConfigureAwait(false);
     }
 
-    private List<FieldDefinition> GetBinaryImportFieldDefinitions<T>(BulkInsertConfig config)
+    protected override string ToBulkUpsertStatement(ModelDefinition modelDef, string stagingTable,
+        List<FieldDefinition> insertFieldDefs, List<FieldDefinition> updateFieldDefs)
     {
-        return this.GetInsertFieldDefinitions(ModelDefinition<T>.Definition, insertFields: config.InsertFields)
-            .Where(x => !this.ShouldSkipInsert(x) || x.AutoId)
-            .ToList();
+        var conflictAction = updateFieldDefs.Count == 0
+            ? "DO NOTHING"
+            : "DO UPDATE SET " + updateFieldDefs.Map(x =>
+                GetQuotedColumnName(x) + "=" + GetBulkUpsertValue(x.CustomUpdate, "EXCLUDED." + GetQuotedColumnName(x))).Join(", ");
+
+        return $"{this.GetBulkUpsertInsertSql(modelDef, stagingTable, insertFieldDefs)} " +
+               $"ON CONFLICT ({this.GetQuotedColumnName(modelDef.PrimaryKey)}) {conflictAction}";
     }
 
-    private string ToBinaryImportCommand<T>(List<FieldDefinition> fieldDefs)
+    // Rows are loaded with COPY
+    protected override void BulkLoad<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config)
     {
-        return
-            $"COPY {this.GetQuotedTableName(ModelDefinition<T>.Definition)} ({string.Join(",", fieldDefs.Select(this.GetQuotedColumnName))}) FROM STDIN (FORMAT BINARY)";
+        if (config.Mode == BulkInsertMode.Sql)
+        {
+            base.BulkLoad(db, quotedTable, fieldDefs, rows, config);
+            return;
+        }
+
+        var pgConn = (NpgsqlConnection)db.ToDbConnection();
+        using var writer = pgConn.BeginBinaryImport(this.ToBinaryImportCommand(quotedTable, fieldDefs));
+        foreach (var row in rows)
+        {
+            writer.StartRow();
+            foreach (var fieldDef in fieldDefs)
+            {
+                var dbValue = this.ToBinaryImportDbValue(fieldDef, this.GetBulkLoadValue(fieldDef, row), out var dbType);
+                if (dbValue == null)
+                {
+                    writer.WriteNull();
+                }
+                else
+                {
+                    writer.Write(dbValue, dbType);
+                }
+            }
+        }
+        writer.Complete();
     }
+
+    protected override async Task BulkLoadAsync<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config, CancellationToken token)
+    {
+        if (config.Mode == BulkInsertMode.Sql)
+        {
+            await base.BulkLoadAsync(db, quotedTable, fieldDefs, rows, config, token).ConfigAwait();
+            return;
+        }
+
+        var pgConn = (NpgsqlConnection)db.ToDbConnection();
+        await using var writer = await pgConn.BeginBinaryImportAsync(this.ToBinaryImportCommand(quotedTable, fieldDefs), token).ConfigAwait();
+        foreach (var row in rows)
+        {
+            await writer.StartRowAsync(token).ConfigAwait();
+            foreach (var fieldDef in fieldDefs)
+            {
+                var dbValue = this.ToBinaryImportDbValue(fieldDef, this.GetBulkLoadValue(fieldDef, row), out var dbType);
+                if (dbValue == null)
+                {
+                    await writer.WriteNullAsync(token).ConfigAwait();
+                }
+                else
+                {
+                    await writer.WriteAsync(dbValue, dbType, token).ConfigAwait();
+                }
+            }
+        }
+        await writer.CompleteAsync(token).ConfigureAwait(false);
+    }
+
+    private List<FieldDefinition> GetBinaryImportFieldDefinitions<T>(BulkInsertConfig config) =>
+        GetInsertFieldDefinitions(ModelDefinition<T>.Definition, insertFields: config.InsertFields)
+            .Where(x => !this.ShouldSkipInsert(x) || x.AutoId)
+            .ToList();
+
+    private string ToBinaryImportCommand<T>(List<FieldDefinition> fieldDefs) =>
+        this.ToBinaryImportCommand(this.GetQuotedTableName(ModelDefinition<T>.Definition), fieldDefs);
+
+    private string ToBinaryImportCommand(string quotedTable, List<FieldDefinition> fieldDefs) =>
+        $"COPY {quotedTable} ({string.Join(",", fieldDefs.Select(x => this.GetQuotedColumnName(x)))}) FROM STDIN (FORMAT BINARY)";
 
     private object ToBinaryImportValue(FieldDefinition fieldDef, object obj, out NpgsqlDbType dbType)
     {
-        dbType = default;
         var value = fieldDef.AutoId
             ? this.GetInsertDefaultValue(fieldDef)
             : fieldDef.GetValue(obj);
+        return this.ToBinaryImportDbValue(fieldDef, value, out dbType);
+    }
+
+    private object ToBinaryImportDbValue(FieldDefinition fieldDef, object value, out NpgsqlDbType dbType)
+    {
+        dbType = default;
 
         var converter = this.GetConverterBestMatch(fieldDef)
-                        ?? throw new NotSupportedException($"No converter found for {fieldDef.FieldType.Name}");
+            ?? throw new NotSupportedException($"No converter found for {fieldDef.FieldType.Name}");
         var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
         if (dbValue is null or DBNull)
+        {
             return null;
+        }
+
         if (dbValue is float f)
+        {
             dbValue = (double)f;
+        }
 
         dbType = this.GetNpgsqlDbType(fieldDef);
         if (dbType == NpgsqlDbType.Text && dbValue is not string && dbValue is not char)
+        {
             dbValue = this.StringSerializer.SerializeToString(dbValue);
+        }
+
         return dbValue;
     }
-
 
     /// <summary>
     /// Gets the type of the NPGSQL database.
@@ -635,7 +782,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                     ? DbType.Int64
                     : DbType.String;
         }
-        return columnDef switch {
+        return columnDef switch
+        {
             "json" => NpgsqlDbType.Json,
             "jsonb" => NpgsqlDbType.Jsonb,
             "hstore" => NpgsqlDbType.Hstore,
@@ -648,7 +796,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             "double numeric[]" => NpgsqlDbType.Array | NpgsqlDbType.Numeric,
             "timestamp[]" => NpgsqlDbType.Array | NpgsqlDbType.Timestamp,
             "timestamp with time zone[]" => NpgsqlDbType.Array | NpgsqlDbType.TimestampTz,
-            _ => dbType switch {
+            _ => dbType switch
+            {
                 DbType.Boolean => NpgsqlDbType.Boolean,
                 DbType.SByte => NpgsqlDbType.Smallint,
                 DbType.UInt16 => NpgsqlDbType.Smallint,
@@ -793,8 +942,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
     public override bool SupportsUpsert => true;
 
-    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef) =>
-        ToReturningStatement(sql, modelDef, isDelete: false);
+    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef, ICollection<FieldDefinition> returnFields = null) =>
+        this.ToReturningStatement(sql, modelDef, isDelete: false, returnFields);
 
     public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
         ICollection<string> insertFields = null, ICollection<string> updateOnly = null)
@@ -921,6 +1070,16 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             ? null
             : "SELECT relname, reltuples FROM pg_class JOIN pg_catalog.pg_namespace n ON n.oid = pg_class.relnamespace WHERE relkind = 'r' AND nspname = {0}"
                 .SqlFmt(this, schemaName);
+    }
+
+    public override List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef)
+    {
+        var schema = this.GetSchemaName(tableRef);
+        var sql = "SELECT indexname FROM pg_indexes WHERE lower(tablename) = {0}".SqlFmt(this, this.GetTableNameOnly(tableRef).ToLower())
+            + (schema != null
+                ? " AND lower(schemaname) = {0}".SqlFmt(this, schema.ToLower())
+                : " AND schemaname = current_schema()");
+        return db.Column<string>(sql);
     }
 
     /// <summary>
@@ -1308,7 +1467,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// Gets the types map.
     /// </summary>
     /// <value>The types map.</value>
-    public Dictionary<Type, NpgsqlDbType> TypesMap { get; } = new() {
+    public Dictionary<Type, NpgsqlDbType> TypesMap { get; } = new()
+    {
         [typeof(bool)] = NpgsqlDbType.Boolean,
         [typeof(short)] = NpgsqlDbType.Smallint,
         [typeof(int)] = NpgsqlDbType.Integer,
@@ -1404,6 +1564,35 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         { "boolean[]", NpgsqlDbType.Array | NpgsqlDbType.Boolean }
     };
 
+    // Vectors use the vector type of the pgvector extension: CREATE EXTENSION vector
+    public override string GetVectorColumnDefinition(int dimensions) => $"vector({dimensions})";
+
+    public override string ToVectorParam(string param, int dimensions) => param + "::vector";
+
+    public override string ToVectorDistance(VectorDistance distance, string vector, string other) =>
+        $"({vector} {VectorOperator(distance)} {other})";
+
+    private static string VectorOperator(VectorDistance distance) => distance switch
+    {
+        VectorDistance.Cosine => "<=>",
+        VectorDistance.L2 => "<->",
+        _ => "<#>",
+    };
+
+    // Npgsql can't read the vector type without a plugin, so it's read as text
+    protected override string GetVectorSelectExpression(string quotedColumn) => quotedColumn + "::text";
+
+    protected override string ToCreateVectorIndexStatement(ModelDefinition modelDef, FieldDefinition fieldDef, string indexName)
+    {
+        var operatorClass = fieldDef.VectorDistance switch
+        {
+            VectorDistance.Cosine => "vector_cosine_ops",
+            VectorDistance.L2 => "vector_l2_ops",
+            _ => "vector_ip_ops",
+        };
+        return $"CREATE INDEX {indexName} ON {this.GetQuotedTableName(modelDef)} USING hnsw ({this.GetQuotedColumnName(fieldDef)} {operatorClass}); \n";
+    }
+
     /// <summary>
     /// Sets the parameter.
     /// </summary>
@@ -1411,7 +1600,13 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="p">The p.</param>
     public override void SetParameter(FieldDefinition fieldDef, IDbDataParameter p)
     {
-        if (fieldDef.CustomFieldDefinition != null &&
+        if (fieldDef.VectorDimensions != null)
+        {
+            // Sent as text without a type, which PostgreSQL converts to the type of its column
+            p.ParameterName = this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName));
+            ((NpgsqlParameter)p).NpgsqlDbType = NpgsqlDbType.Unknown;
+        }
+        else if (fieldDef.CustomFieldDefinition != null &&
             this.NativeTypes.TryGetValue(fieldDef.CustomFieldDefinition, out var npgsqlDbType))
         {
             p.ParameterName = this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName));
@@ -1598,6 +1793,40 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     static protected DbConnection Unwrap(IDbConnection db)
     {
         return (DbConnection)db.ToDbConnection();
+    }
+
+    /// <summary>
+    /// SQLSTATEs where PostgreSQL confirmed the statement wasn't applied: serialization failures, deadlocks, locks
+    /// that weren't available and connections that couldn't be made
+    /// </summary>
+    public static HashSet<string> NotAppliedErrors { get; } = [
+        "40001", "40P01", "55P03", "53300", "53400", "57P03", "08001", "08004",
+    ];
+
+    /// <summary>
+    /// SQLSTATEs where the connection was lost, so the statement may have been applied
+    /// </summary>
+    public static HashSet<string> ConnectionLostErrors { get; } = [
+        "08000", "08003", "08006", "57P01", "57P02",
+    ];
+
+    public override TransientError GetTransientError(Exception ex)
+    {
+        if (ex is PostgresException pgEx)
+        {
+            if (NotAppliedErrors.Contains(pgEx.SqlState))
+            {
+                return TransientError.NotApplied;
+            }
+
+            if (ConnectionLostErrors.Contains(pgEx.SqlState))
+            {
+                return TransientError.MaybeApplied;
+            }
+
+            return TransientError.None;
+        }
+        return base.GetTransientError(ex);
     }
 
     /// <summary>

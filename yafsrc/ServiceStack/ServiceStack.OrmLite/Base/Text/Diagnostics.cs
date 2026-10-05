@@ -397,6 +397,12 @@ public class OrmLiteDiagnosticEvent : DiagnosticEvent
     public Guid? ConnectionId { get; set; }
 
     /// <summary>
+    /// The named connection the command was run on, or null for the default connection
+    /// </summary>
+    /// <value>The named connection.</value>
+    public string? NamedConnection { get; set; }
+
+    /// <summary>
     /// Gets or sets the connection.
     /// </summary>
     /// <value>The connection.</value>

@@ -149,10 +149,16 @@ public abstract partial class SqlExpression<T>
         var renames = new Dictionary<string, string>();
         foreach (var p in otherParams)
         {
-            var pClone = DialectProvider.CreateParam().PopulateWith(p);
-            pClone.ParameterName = DialectProvider.GetParam(NextParamName());
-            renames[StripParamPrefix(p.ParameterName)] = pClone.ParameterName;
-            Params.Add(pClone);
+            var pClone = this.DialectProvider.CreateParam().PopulateWith(p);
+            pClone.ParameterName = this.DialectProvider.GetParam(this.NextParamName());
+            // The clone is created from the argument of a compiled query that's being built, instead of the param
+            if (CompiledQueryBuild.Current is { IsBinding: true } build && build.Bound.TryGetValue(p, out var value))
+            {
+                build.Bound.Remove(p);
+                build.Bind(pClone, value);
+            }
+            renames[this.StripParamPrefix(p.ParameterName)] = pClone.ParameterName;
+            this.Params.Add(pClone);
             addedTo?.Add(pClone);
         }
 

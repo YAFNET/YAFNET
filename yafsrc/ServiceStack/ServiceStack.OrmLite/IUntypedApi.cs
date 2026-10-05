@@ -31,6 +31,28 @@ public interface IUntypedApi
     IDbCommand DbCmd { get; set; }
 
     /// <summary>
+    /// Every row of the table, as a List of its Type
+    /// </summary>
+    IList Select();
+    Task<IList> SelectAsync(CancellationToken token = default);
+    /// <summary>
+    /// The rows matching a SQL filter, as a List of the table's Type, e.g:
+    /// <para>api.Select("Age > @age", new { age = 40 })</para>
+    /// </summary>
+    IList Select(string sqlFilter, object anonType = null);
+    Task<IList> SelectAsync(string sqlFilter, object anonType = null, CancellationToken token = default);
+    /// <summary>
+    /// The row with the primary key, or null if it doesn't exist
+    /// </summary>
+    object SingleById(object id);
+    Task<object> SingleByIdAsync(object id, CancellationToken token = default);
+    /// <summary>
+    /// How many rows the table has
+    /// </summary>
+    long Count();
+    Task<long> CountAsync(CancellationToken token = default);
+
+    /// <summary>
     /// Saves all.
     /// </summary>
     /// <param name="objs">The objs.</param>

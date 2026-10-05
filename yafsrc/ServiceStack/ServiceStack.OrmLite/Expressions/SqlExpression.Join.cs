@@ -706,19 +706,19 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <returns>System.String.</returns>
     private string AddJoinedTableFilter(string sqlExpr, ModelDefinition joinDef, string alias)
     {
+        CompiledQueryBuild.FilterTable(joinDef?.ModelType);
         if (this.ConnectionFilters == null || this.ConnectionFilters.IsEmpty || joinDef?.ModelType == null)
         {
             return sqlExpr;
         }
 
-        var condition = this.ConnectionFilters.ToFilterCondition(this.DialectProvider, joinDef.ModelType, alias, paramPrefix: "",
-            out var filterParams);
+        // Its db params are added to the query's
+        var condition = this.ConnectionFilters.ToFilterCondition(this.DialectProvider, joinDef.ModelType, alias, this.ParamPrefix, this.Params);
         if (condition == null)
         {
             return sqlExpr;
         }
 
-        condition = this.AddRenamedParams(filterParams, condition);
         if (string.IsNullOrEmpty(sqlExpr))
         {
             this.Ensure(condition);

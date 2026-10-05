@@ -48,16 +48,102 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public int MaxInListParams { get; set; } = 1000;
 
     /// <summary>
+    /// Whether InsertAll, UpdateAll, UpsertAll and SaveAll send their rows with DbBatch, where the ADO.NET provider supports it
+    /// </summary>
+    /// <value><c>true</c> if [use database batch]; otherwise, <c>false</c>.</value>
+    public bool UseDbBatch { get; set; } = true;
+
+    /// <summary>
+    /// The maximum number of statements sent in a single DbBatch
+    /// </summary>
+    /// <value>The size of the batch.</value>
+    public int BatchSize { get; set; } = 1000;
+
+    /// <summary>
+    /// Whether the ADO.NET provider returns the rows affected by each statement of a batch
+    /// </summary>
+    /// <value><c>true</c> if [supports batch rows affected]; otherwise, <c>false</c>.</value>
+    public virtual bool SupportsBatchRowsAffected => true;
+
+    private OrmLiteRetryPolicy retryPolicy;
+    /// <summary>
+    /// Null when nothing is retried, e.g. with OrmLiteRetry.None, so statements skip retrying as they do without a
+    /// policy
+    /// </summary>
+    public OrmLiteRetryPolicy RetryPolicy
+    {
+        get
+        {
+            if (!this.SupportsRetries)
+            {
+                return null;
+            }
+
+            var policy = this.retryPolicy ?? OrmLiteConfig.RetryPolicy;
+            return policy?.MaxRetries > 0 ? policy : null;
+        }
+        set => this.retryPolicy = value;
+    }
+
+    public virtual bool SupportsRetries => true;
+
+    /// <summary>
+    /// Recognizes a lost connection, dialects override it to recognize their driver's temporary errors
+    /// </summary>
+    public virtual TransientError GetTransientError(Exception ex) =>
+        ex is System.Data.Common.DbException && OrmLiteRetryExec.IsConnectionLost(ex)
+            ? TransientError.MaybeApplied
+            : TransientError.None;
+
+    /// <summary>
     /// Converts to a statement returning the affected rows of an UPDATE or DELETE statement.
     /// </summary>
     /// <param name="sql">The SQL.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="isDelete">if set to <c>true</c> [is delete].</param>
+    /// <param name="returnFields">The fields to return, or null for all fields.</param>
     /// <returns>System.String.</returns>
     /// <exception cref="System.NotSupportedException"></exception>
-    public virtual string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete) =>
+    public virtual string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete, ICollection<FieldDefinition> returnFields = null) =>
         throw new NotSupportedException($"{GetType().Name} doesn't support returning rows from UPDATE and DELETE statements");
 
+    /// <summary>
+    /// The query that returns the query plan of the SQL
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="analyze">if set to <c>true</c> runs the query to return the actual plan.</param>
+    /// <returns>ExplainQuery.</returns>
+    /// <exception cref="System.NotSupportedException"></exception>
+    public virtual ExplainQuery ToExplainQuery(IDbConnection db, string sql, bool analyze) =>
+        throw new NotSupportedException($"{this.GetType().Name} doesn't support returning query plans");
+
+    /// <summary>
+    /// The columns of a RETURNING clause: all the table's columns, or only the returnFields
+    /// </summary>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="returnFields">The return fields.</param>
+    /// <returns>System.String.</returns>
+    protected virtual string GetReturningColumns(ModelDefinition modelDef, ICollection<FieldDefinition> returnFields)
+    {
+        if (returnFields == null || returnFields.Count == 0)
+        {
+            return this.GetColumnNames(modelDef);
+        }
+
+        // The table's columns are in the same order as its fields
+        var allColumns = this.GetColumnNames(modelDef, null);
+        var sqlColumns = new List<SelectItem>();
+        for (var i = 0; i < allColumns.Length; i++)
+        {
+            if (returnFields.Contains(modelDef.FieldDefinitions[i]))
+            {
+                sqlColumns.Add(allColumns[i]);
+            }
+        }
+
+        return sqlColumns.ToArray().ToSelectString();
+    }
     /* ADO.NET UNDERSTOOD DATA TYPES:
                 COUNTER	DbType.Int64
                 AUTOINCREMENT	DbType.Int64
@@ -149,9 +235,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
-    /// Use JSON for serializing Complex Types
+    /// Use JSON for serializing Complex Types, which lets typed queries read their properties, e.g:
+    /// <para>db.Select&lt;Customer&gt;(x => x.Address.City == "London")</para>
     /// </summary>
-    public virtual bool UseJson {
+    public virtual bool UseJson
+    {
+        get => this.StringSerializer.IsJsonSerializer();
         set => this.StringSerializer = value ? new JsonStringSerializer() : new JsvStringSerializer();
     }
 
@@ -315,7 +404,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets or sets the parameter name filter.
     /// </summary>
     /// <value>The parameter name filter.</value>
-    public Func<string, string> ParamNameFilter {
+    public Func<string, string> ParamNameFilter
+    {
         get => field ?? OrmLiteConfig.ParamNameFilter;
         set;
     }
@@ -335,9 +425,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets or sets the enum converter.
     /// </summary>
     /// <value>The enum converter.</value>
-    public EnumConverter EnumConverter {
+    public EnumConverter EnumConverter
+    {
         get;
-        set {
+        set
+        {
             value.DialectProvider = this;
             field = value;
         }
@@ -347,9 +439,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets or sets the row version converter.
     /// </summary>
     /// <value>The row version converter.</value>
-    public RowVersionConverter RowVersionConverter {
+    public RowVersionConverter RowVersionConverter
+    {
         get;
-        set {
+        set
+        {
             value.DialectProvider = this;
             field = value;
         }
@@ -359,9 +453,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets or sets the reference type converter.
     /// </summary>
     /// <value>The reference type converter.</value>
-    public ReferenceTypeConverter ReferenceTypeConverter {
+    public ReferenceTypeConverter ReferenceTypeConverter
+    {
         get;
-        set {
+        set
+        {
             value.DialectProvider = this;
             field = value;
         }
@@ -371,9 +467,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets or sets the value type converter.
     /// </summary>
     /// <value>The value type converter.</value>
-    public ValueTypeConverter ValueTypeConverter {
+    public ValueTypeConverter ValueTypeConverter
+    {
         get;
-        set {
+        set
+        {
             value.DialectProvider = this;
             field = value;
         }
@@ -485,6 +583,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             return this.RowVersionConverter;
         }
 
+        if (fieldDef.VectorDimensions != null)
+        {
+            return this.VectorConverter;
+        }
+
         if (this.Converters.TryGetValue(fieldType, out var converter))
         {
             return converter;
@@ -561,7 +664,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.Object.</returns>
     public object GetValue(IDataReader reader, int columnIndex, Type type)
     {
-        if (this.Converters.TryGetValue(type, out var converter))
+        // Resolve Nullable<T> to T's converter (as GetConverter does), otherwise e.g. a DateTime? column
+        // in SQLite (stored as TEXT) is read raw as a string and fails in the converter's FromDbValue cast
+        var converter = this.GetConverter(type);
+        if (converter != null)
         {
             return converter.GetValue(reader, columnIndex, null);
         }
@@ -814,11 +920,18 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.String.</returns>
     public virtual string GetQuotedName(string name)
     {
-        if (name == null) return null;
-        if (IsQuotedName(name, QuoteChar))
+        if (name == null)
+        {
+            return null;
+        }
+
+        if (IsQuotedName(name, this.QuoteChar))
+        {
             return name;
-        var quoteStr = QuoteChar.ToString();
-        return QuoteChar + name.Replace(quoteStr, quoteStr + quoteStr) + QuoteChar;
+        }
+
+        var quoteStr = this.QuoteChar.ToString();
+        return this.QuoteChar + name.Replace(quoteStr, quoteStr + quoteStr) + this.QuoteChar;
     }
 
     /// <summary>
@@ -828,11 +941,16 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public static bool IsRegularIdentifier(string name, string allowedChars = null)
     {
         if (string.IsNullOrEmpty(name) || !(char.IsLetter(name[0]) || name[0] == '_'))
+        {
             return false;
+        }
+
         foreach (var c in name)
         {
             if (!(char.IsLetterOrDigit(c) || c == '_' || (allowedChars != null && allowedChars.IndexOf(c) >= 0)))
+            {
                 return false;
+            }
         }
         return true;
     }
@@ -844,15 +962,25 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public static bool IsQuotedName(string name, char quoteChar)
     {
         if (name == null || name.Length < 2 || name[0] != quoteChar || name[name.Length - 1] != quoteChar)
+        {
             return false;
+        }
+
         for (var i = 1; i < name.Length - 1; i++)
         {
             if (name[i] != quoteChar)
+            {
                 continue;
+            }
+
             if (i + 1 < name.Length - 1 && name[i + 1] == quoteChar)
+            {
                 i++;
+            }
             else
+            {
                 return false;
+            }
         }
         return true;
     }
@@ -888,13 +1016,82 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Replaces {Property} references in SQL from attributes with their quoted column name, e.g. in
+    /// [Index(Where)] and [Compute(expression)]
+    /// </summary>
+    public virtual string ResolveColumnRefs(ModelDefinition modelDef, string sql)
+    {
+        if (modelDef == null || string.IsNullOrEmpty(sql) || sql.IndexOf('{') < 0)
+        {
+            return sql;
+        }
+
+        return ColumnRefRegex.Replace(sql, m => modelDef.GetFieldDefinition(m.Groups[1].Value) is { } fieldDef
+            ? this.GetQuotedColumnName(fieldDef)
+            : m.Value);
+    }
+    private static readonly Regex ColumnRefRegex = new(@"\{(\w+)\}", RegexOptions.Compiled);
+
+    /// <summary>
+    /// The column type of a field: its [CustomField], the vector type of a [Vector] or the type of its converter
+    /// </summary>
+    protected virtual string GetFieldTypeDefinition(FieldDefinition fieldDef) =>
+        this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? (fieldDef.VectorDimensions != null
+            ? this.GetVectorColumnDefinition(fieldDef.VectorDimensions.Value)
+            : this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale));
+
+    public IOrmLiteConverter VectorConverter { get; set; } = new VectorConverter();
+
+    /// <summary>
+    /// The column type of a [Vector] with these dimensions
+    /// </summary>
+    public virtual string GetVectorColumnDefinition(int dimensions) =>
+        throw new NotSupportedException($"{this.GetType().Name} doesn't support [Vector] columns");
+
+    public virtual string ToVectorParam(string param, int dimensions) => param;
+
+    public virtual string ToVectorDistance(VectorDistance distance, string vector, string other) =>
+        throw new NotSupportedException($"{this.GetType().Name} doesn't support vector distances");
+
+    /// <summary>
+    /// The statement that creates the vector index of an indexed [Vector] column, or null if the RDBMS has none
+    /// </summary>
+    protected virtual string ToCreateVectorIndexStatement(ModelDefinition modelDef, FieldDefinition fieldDef, string indexName) => null;
+
+    /// <summary>
+    /// What's selected for a [Vector] column if it can't be read as it is, or null to select the column
+    /// </summary>
+    protected virtual string GetVectorSelectExpression(string quotedColumn) => null;
+
+    /// <summary>
+    /// A column the RDBMS generates from its [Compute("expression")], which is stored when it's [Persisted]
+    /// </summary>
+    protected virtual string GetGeneratedColumnDefinition(FieldDefinition fieldDef)
+    {
+        var columnType = this.GetFieldTypeDefinition(fieldDef);
+        return $"{this.GetQuotedColumnName(fieldDef)} {columnType} GENERATED ALWAYS AS " +
+               $"({this.ResolveColumnRefs(fieldDef.ModelDef, fieldDef.ComputeExpression)}) " +
+               (fieldDef.IsPersisted ? "STORED" : "VIRTUAL");
+    }
+
+    /// <summary>
     /// Gets the column definition.
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
     public virtual string GetColumnDefinition(FieldDefinition fieldDef)
     {
-        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        if (fieldDef.IsRowStart || fieldDef.IsRowEnd)
+        {
+            return this.GetSystemTimeColumnDefinition(fieldDef);
+        }
+
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
+        }
+
+        var fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
 
         var sql = StringBuilderCache.Allocate();
         sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
@@ -935,7 +1132,17 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.String.</returns>
     public virtual string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
     {
-        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        if (fieldDef.IsRowStart || fieldDef.IsRowEnd)
+        {
+            return this.GetSystemTimeColumnDefinition(fieldDef);
+        }
+
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
+        }
+
+        var fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
 
         var sql = StringBuilderCache.Allocate();
         sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
@@ -1240,6 +1447,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             {
                 sqlColumns[i] = this.GetRowVersionSelectColumn(field, quotedPrefix);
             }
+            else if (field.VectorDimensions != null && this.GetVectorSelectExpression(
+                         (quotedPrefix.Length > 0 ? quotedPrefix + "." : "") + this.GetQuotedColumnName(field)) is { } vectorSelect)
+            {
+                sqlColumns[i] = new SelectItemExpression(this, vectorSelect, field.FieldName);
+            }
             else
             {
                 sqlColumns[i] = new SelectItemColumn(this, field, quotedPrefix);
@@ -1462,6 +1674,290 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         }
     }
 
+    // What a bulk upsert does: load the rows into a temporary staging table, then upsert them from it
+    protected sealed class BulkUpsertPlan
+    {
+        public FieldDefinition PrimaryKey;
+        /// <summary>The quoted name of the temporary table the rows are loaded into</summary>
+        public string StagingTable;
+        /// <summary>The fields loaded into the staging table: those that are inserted or updated</summary>
+        public List<FieldDefinition> FieldDefs;
+        public string CreateStagingTableSql;
+        public string UpsertSql;
+        public string DropStagingTableSql;
+    }
+
+    /// <summary>
+    /// Returns null when rows have to be upserted one at a time: the RDBMS has no native upsert, or the connection
+    /// has filters or write rules for the table, which a single statement can't apply to the rows it updates
+    /// </summary>
+    protected virtual BulkUpsertPlan CreateBulkUpsertPlan<T>(IDbConnection db, ICollection<string> updateOnly, BulkInsertConfig config)
+    {
+        var modelDef = ModelDefinition<T>.Definition;
+        var primaryKey = modelDef.FieldDefinitions.FirstOrDefault(x => x.IsPrimaryKey)
+            ?? throw new NotSupportedException($"'{typeof(T).Name}' does not have a primary key");
+        var updateFieldDefs = OrmLiteWriteCommandExtensions.GetUpsertUpdateFieldDefinitions(modelDef, updateOnly);
+
+        if (!this.SupportsUpsert || db.Exec(dbCmd => dbCmd.HasFilters<T>() || dbCmd.HasWriteRules<T>()))
+        {
+            return null;
+        }
+
+        var requestedInsertFields = GetInsertFieldDefinitions(modelDef, config.InsertFields).ToSet();
+        requestedInsertFields.Add(primaryKey);
+        var insertFieldDefs = modelDef.FieldDefinitions
+            .Where(x => requestedInsertFields.Contains(x) && (!this.ShouldSkipInsert(x) || x.AutoId || x.IsPrimaryKey))
+            .ToList();
+
+        var fieldDefs = modelDef.FieldDefinitions
+            .Where(x => insertFieldDefs.Contains(x) || updateFieldDefs.Contains(x))
+            .ToList();
+
+        var stagingTable = this.GetBulkStagingTableName("ormlite_stage_" + Guid.NewGuid().ToString("N"));
+        return new BulkUpsertPlan
+        {
+            PrimaryKey = primaryKey,
+            StagingTable = stagingTable,
+            FieldDefs = fieldDefs,
+            CreateStagingTableSql = this.ToCreateBulkStagingTableStatement(modelDef, stagingTable, fieldDefs),
+            UpsertSql = this.ToBulkUpsertStatement(modelDef, stagingTable, insertFieldDefs, updateFieldDefs),
+            DropStagingTableSql = this.ToDropBulkStagingTableStatement(stagingTable),
+        };
+    }
+
+    // Rows with an [AutoIncrement] primary key that hasn't been assigned are new, and are inserted for the RDBMS
+    // to assign it. The others are loaded into the staging table.
+    private static IEnumerable<T> GetRowsToStage<T>(IEnumerable<T> objs, FieldDefinition primaryKey, List<T> newRows)
+    {
+        if (!primaryKey.AutoIncrement)
+        {
+            return objs;
+        }
+
+        var defaultId = primaryKey.FieldType.GetDefaultValue();
+        IEnumerable<T> RowsWithIds()
+        {
+            foreach (var obj in objs)
+            {
+                var id = primaryKey.GetValue(obj);
+                if (id == null || Equals(id, defaultId))
+                {
+                    newRows.Add(obj);
+                }
+                else
+                {
+                    yield return obj;
+                }
+            }
+        }
+        return RowsWithIds();
+    }
+
+    public virtual void BulkUpsert<T>(IDbConnection db, IEnumerable<T> objs, ICollection<string> updateOnly = null, BulkInsertConfig config = null)
+    {
+        config ??= new();
+        var plan = this.CreateBulkUpsertPlan<T>(db, updateOnly, config);
+        if (plan == null)
+        {
+            if (updateOnly == null)
+            {
+                db.UpsertAll(objs);
+            }
+            else
+            {
+                db.UpsertAll(objs, updateOnly.ToArray());
+            }
+
+            return;
+        }
+
+        var newRows = new List<T>();
+        db.ExecuteSql(plan.CreateStagingTableSql);
+        try
+        {
+            this.BulkLoad(db, plan.StagingTable, plan.FieldDefs, GetRowsToStage(objs, plan.PrimaryKey, newRows), config);
+
+            db.Exec(dbCmd =>
+            {
+                // Rows keep the primary keys they were given
+                if (plan.PrimaryKey.AutoIncrement)
+                {
+                    this.EnableIdentityInsert<T>(dbCmd);
+                }
+
+                try
+                {
+                    return dbCmd.ExecuteSql(plan.UpsertSql);
+                }
+                finally
+                {
+                    if (plan.PrimaryKey.AutoIncrement)
+                    {
+                        this.DisableIdentityInsert<T>(dbCmd);
+                    }
+                }
+            });
+        }
+        finally
+        {
+            db.ExecuteSql(plan.DropStagingTableSql);
+        }
+
+        if (newRows.Count > 0)
+        {
+            db.BulkInsert(newRows, config);
+        }
+    }
+
+    public virtual async Task BulkUpsertAsync<T>(IDbConnection db, IEnumerable<T> objs, ICollection<string> updateOnly = null, BulkInsertConfig config = null, CancellationToken token = default)
+    {
+        config ??= new();
+        var plan = this.CreateBulkUpsertPlan<T>(db, updateOnly, config);
+        if (plan == null)
+        {
+            if (updateOnly == null)
+            {
+                await db.UpsertAllAsync(objs, token).ConfigAwait();
+            }
+            else
+            {
+                await db.UpsertAllAsync(objs, updateOnly.ToArray(), token).ConfigAwait();
+            }
+
+            return;
+        }
+
+        var newRows = new List<T>();
+        await db.ExecuteSqlAsync(plan.CreateStagingTableSql, token: token).ConfigAwait();
+        try
+        {
+            await this.BulkLoadAsync(db, plan.StagingTable, plan.FieldDefs, GetRowsToStage(objs, plan.PrimaryKey, newRows), config, token).ConfigAwait();
+
+            await db.Exec(async dbCmd =>
+            {
+                if (plan.PrimaryKey.AutoIncrement)
+                {
+                    await this.EnableIdentityInsertAsync<T>(dbCmd, token).ConfigAwait();
+                }
+
+                try
+                {
+                    return await dbCmd.ExecuteSqlAsync(plan.UpsertSql, token).ConfigAwait();
+                }
+                finally
+                {
+                    if (plan.PrimaryKey.AutoIncrement)
+                    {
+                        await this.DisableIdentityInsertAsync<T>(dbCmd, token).ConfigAwait();
+                    }
+                }
+            }).ConfigAwait();
+        }
+        finally
+        {
+            await db.ExecuteSqlAsync(plan.DropStagingTableSql, token: token).ConfigAwait();
+        }
+
+        if (newRows.Count > 0)
+        {
+            await db.BulkInsertAsync(newRows, config, token).ConfigAwait();
+        }
+    }
+
+    /// <summary>
+    /// The quoted name of a temporary table of this connection
+    /// </summary>
+    protected virtual string GetBulkStagingTableName(string name) => this.GetQuotedName(name);
+
+    /// <summary>
+    /// Creates an empty temporary table with the same columns as the fields of a table
+    /// </summary>
+    protected virtual string ToCreateBulkStagingTableStatement(ModelDefinition modelDef, string stagingTable, List<FieldDefinition> fieldDefs) =>
+        $"CREATE TEMPORARY TABLE {stagingTable} AS " +
+        $"SELECT {fieldDefs.Map(GetQuotedColumnName).Join(",")} FROM {this.GetQuotedTableName(modelDef)} WHERE 1=0";
+
+    protected virtual string ToDropBulkStagingTableStatement(string stagingTable) => "DROP TABLE " + stagingTable;
+
+    /// <summary>
+    /// The statement that inserts the rows of the staging table with a new primary key, and updates the
+    /// updateFieldDefs of those with an existing one
+    /// </summary>
+    protected virtual string ToBulkUpsertStatement(ModelDefinition modelDef, string stagingTable,
+        List<FieldDefinition> insertFieldDefs, List<FieldDefinition> updateFieldDefs) =>
+        throw new NotSupportedException($"{this.GetType().Name} does not support bulk upserts");
+
+    // INSERT INTO Table (columns) SELECT columns FROM staging
+    protected string GetBulkUpsertInsertSql(ModelDefinition modelDef, string stagingTable, List<FieldDefinition> insertFieldDefs) =>
+        $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({insertFieldDefs.Map(GetQuotedColumnName).Join(",")}) " +
+        $"SELECT {insertFieldDefs.Map(x => GetBulkUpsertValue(x.CustomInsert, GetQuotedColumnName(x))).Join(",")} FROM {stagingTable}";
+
+    // The value a column is inserted or updated with: the staged column, in the field's [CustomInsert] or [CustomUpdate]
+    protected static string GetBulkUpsertValue(string customFormat, string stagedColumn) =>
+        customFormat != null ? string.Format(customFormat, stagedColumn) : stagedColumn;
+
+    /// <summary>
+    /// The value of a row that's loaded into a table, where an [AutoId] that hasn't been assigned gets a new one
+    /// </summary>
+    protected object GetBulkLoadValue(FieldDefinition fieldDef, object obj)
+    {
+        var value = fieldDef.GetValue(obj);
+        return fieldDef.AutoId && (value == null || Equals(value, fieldDef.FieldType.GetDefaultValue()))
+            ? this.GetInsertDefaultValue(fieldDef)
+            : value;
+    }
+
+    // INSERT INTO table (columns) VALUES (row),(row),...
+    private string ToBulkLoadSql<T>(string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows)
+    {
+        var sb = StringBuilderCache.Allocate()
+            .Append("INSERT INTO ").Append(quotedTable).Append(" (")
+            .Append(fieldDefs.Map(GetQuotedColumnName).Join(",")).Append(") VALUES ");
+
+        var count = 0;
+        foreach (var row in rows)
+        {
+            sb.Append(count++ > 0 ? ",\n(" : "\n(");
+            for (var i = 0; i < fieldDefs.Count; i++)
+            {
+                if (i > 0)
+                {
+                    sb.Append(',');
+                }
+
+                sb.Append(this.GetQuotedValue(this.GetBulkLoadValue(fieldDefs[i], row), fieldDefs[i].FieldType));
+            }
+            sb.Append(')');
+        }
+        var sql = StringBuilderCache.ReturnAndFree(sb);
+        return count > 0 ? sql : null;
+    }
+
+    /// <summary>
+    /// Loads rows into a table with the fields of the model, using the fastest way the RDBMS has
+    /// </summary>
+    protected virtual void BulkLoad<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config)
+    {
+        foreach (var batch in rows.BatchesOf(config.BatchSize))
+        {
+            var sql = ToBulkLoadSql(quotedTable, fieldDefs, batch);
+            if (sql != null)
+            {
+                db.ExecuteSql(sql);
+            }
+        }
+    }
+
+    protected virtual async Task BulkLoadAsync<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config, CancellationToken token)
+    {
+        foreach (var batch in rows.BatchesOf(config.BatchSize))
+        {
+            var sql = ToBulkLoadSql(quotedTable, fieldDefs, batch);
+            if (sql != null)
+            {
+                await db.ExecuteSqlAsync(sql, token: token).ConfigAwait();
+            }
+        }
+    }
     /// <summary>
     /// Converts to insertrowstatement.
     /// </summary>
@@ -1624,7 +2120,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
     public virtual bool SupportsUpsert => false;
 
-    public virtual string ToUpsertReturningStatement(string sql, ModelDefinition modelDef) => null;
+    public virtual string ToUpsertReturningStatement(string sql, ModelDefinition modelDef, ICollection<FieldDefinition> returnFields = null) => null;
 
     public virtual void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
         ICollection<string> insertFields = null, ICollection<string> updateOnly = null) =>
@@ -1665,11 +2161,15 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
             if (!insertFieldDefs.Contains(fieldDef) && !updateFieldDefs.Contains(fieldDef))
+            {
                 continue;
+            }
 
             var p = AddParameter(cmd, fieldDef);
             if (fieldDef.AutoId)
-                p.Value = GetInsertDefaultValue(fieldDef);
+            {
+                p.Value = this.GetInsertDefaultValue(fieldDef);
+            }
         }
     }
 
@@ -2139,7 +2639,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual void SetParameter(FieldDefinition fieldDef, IDbDataParameter p)
     {
         p.ParameterName = this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName));
-        this.InitDbParam(p, fieldDef.ColumnType);
+        if (fieldDef.VectorDimensions != null)
+        {
+            this.VectorConverter.InitDbParam(p, fieldDef.ColumnType);
+        }
+        else
+        {
+            this.InitDbParam(p, fieldDef.ColumnType);
+        }
     }
 
     /// <summary>
@@ -2237,6 +2744,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
         foreach (IDataParameter p in dbCmd.Parameters)
         {
+            if (OrmLiteConnectionFiltersApi.IsFilterParam(p.ParameterName))
+            {
+                continue; // params of the connection's filter conditions
+            }
+
             var fieldName = this.ToFieldName(p.ParameterName);
             fieldMap.TryGetValue(fieldName, out var fieldDef);
 
@@ -2917,7 +3429,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         var modelDef = tableType.GetModelDefinition();
         foreach (var fieldDef in this.CreateTableFieldsStrategy(modelDef))
         {
-            if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+            if (fieldDef.ShouldSkipCreate())
             {
                 continue;
             }
@@ -2979,7 +3491,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         var sql =
             $"CREATE TABLE {this.GetQuotedTableName(modelDef)} \n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
 
-        return sql;
+        return this.WithSystemVersioning(modelDef, sql);
     }
 
     /// <summary>
@@ -3015,14 +3527,64 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.String.</returns>
     public virtual string GetCheckConstraint(ModelDefinition modelDef, FieldDefinition fieldDef)
     {
-        if (fieldDef.CheckConstraint == null)
+        var constraint = fieldDef.CheckConstraint;
+        if (fieldDef.CheckEnum)
+        {
+            var enumConstraint = this.GetEnumCheckConstraint(fieldDef);
+            constraint = constraint == null
+                ? enumConstraint
+                : $"({constraint}) AND {enumConstraint}";
+        }
+
+        if (constraint == null)
         {
             return null;
+
         }
 
         return
-            $"CONSTRAINT CHK_{modelDef.Schema}_{modelDef.ModelName}_{fieldDef.FieldName} CHECK ({fieldDef.CheckConstraint})";
+            $"CONSTRAINT CHK_{modelDef.Schema}_{modelDef.ModelName}_{fieldDef.FieldName} CHECK ({constraint})";
     }
+
+    /// <summary>
+    /// The condition a [CheckEnum] column is constrained by, which only allows the values of its Enum as they're
+    /// stored, e.g: "Status" IN ('New','Shipped')
+    /// </summary>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <returns>System.String.</returns>
+    /// <exception cref="System.NotSupportedException"></exception>
+    protected virtual string GetEnumCheckConstraint(FieldDefinition fieldDef)
+    {
+        var enumType = fieldDef.FieldType;
+        if (!enumType.IsEnum)
+        {
+            throw new NotSupportedException($"[CheckEnum] is only valid on Enum properties, {fieldDef.Name} is a {enumType.Name}");
+        }
+
+        if (enumType.HasAttributeCached<FlagsAttribute>())
+        {
+            throw new NotSupportedException($"[CheckEnum] isn't supported on [Flags] Enums like {enumType.Name}, whose values are combined");
+        }
+
+        var values = new List<string>();
+        foreach (var value in Enum.GetValues(enumType))
+        {
+            var quotedValue = this.GetQuotedValue(value, enumType);
+            if (!values.Contains(quotedValue))
+            {
+                values.Add(quotedValue);
+            }
+        }
+
+        return $"{this.GetQuotedColumnName(fieldDef)} IN ({string.Join(",", values)})";
+    }
+
+    /// <summary>
+    /// The statements that add the [Description] of a table and its columns as comments
+    /// </summary>
+    /// <param name="tableType">Type of the table.</param>
+    /// <returns>List&lt;System.String&gt;.</returns>
+    public virtual List<string> ToCreateCommentStatements(Type tableType) => [];
 
     /// <summary>
     /// Converts to postcreatetablestatement.
@@ -3042,6 +3604,64 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string ToPostDropTableStatement(ModelDefinition modelDef)
     {
         return null;
+    }
+
+    public virtual string ToDropTableStatement(ModelDefinition modelDef) =>
+        $"DROP TABLE {this.GetQuotedTableName(modelDef)}";
+
+    /// <summary>
+    /// Whether the RDBMS can keep previous versions of a table's rows, from [SystemVersioned]
+    /// </summary>
+    public virtual bool SupportsSystemVersioning => false;
+
+    protected NotSupportedException SystemVersioningNotSupported() => new(
+        $"{this.GetType().Name} doesn't support system-versioned tables, which need SQL Server 2016+ or MariaDB 10.3+");
+
+    public virtual string ToSystemTimeClause(string condition) => this.SupportsSystemVersioning
+        ? "FOR SYSTEM_TIME " + condition
+        : throw this.SystemVersioningNotSupported();
+
+    public virtual DateTime ToSystemTime(DateTime time) => time;
+
+    /// <summary>
+    /// The column of a [RowStart] or [RowEnd] property of a [SystemVersioned] table
+    /// </summary>
+    protected virtual string GetSystemTimeColumnDefinition(FieldDefinition fieldDef) => throw this.SystemVersioningNotSupported();
+
+    /// <summary>
+    /// Makes the CREATE TABLE statement of a [SystemVersioned] table create it system-versioned
+    /// </summary>
+    protected virtual string ToSystemVersionedTableStatement(ModelDefinition modelDef, string createTableSql) =>
+        throw this.SystemVersioningNotSupported();
+
+    // The [RowStart] and [RowEnd] fields of a [SystemVersioned] table, which has both or neither
+    protected static void GetSystemTimeFields(ModelDefinition modelDef, out FieldDefinition rowStart, out FieldDefinition rowEnd)
+    {
+        rowStart = modelDef.FieldDefinitions.FirstOrDefault(x => x.IsRowStart);
+        rowEnd = modelDef.FieldDefinitions.FirstOrDefault(x => x.IsRowEnd);
+        if ((rowStart == null) != (rowEnd == null))
+        {
+            throw new NotSupportedException($"{modelDef.Name} needs both a [RowStart] and a [RowEnd] property, or neither");
+        }
+    }
+
+    // The CREATE TABLE statement, system-versioned when the table is [SystemVersioned]
+    protected string WithSystemVersioning(ModelDefinition modelDef, string createTableSql) => modelDef.IsSystemVersioned
+        ? this.ToSystemVersionedTableStatement(modelDef, createTableSql)
+        : createTableSql;
+
+    // Adds column and table definitions to a CREATE TABLE statement, before and after the ) that ends its columns
+    protected static string AddToCreateTable(string createTableSql, string definitions, string tableOptions)
+    {
+        var endPos = createTableSql.LastIndexOf(')');
+        if (endPos < 0)
+        {
+            throw new NotSupportedException("Could not find the end of the columns in: " + createTableSql);
+        }
+
+        return createTableSql.Substring(0, endPos).TrimEnd() +
+               (string.IsNullOrEmpty(definitions) ? "" : ",\n  " + definitions) +
+               " \n)" + tableOptions + createTableSql.Substring(endPos + 1);
     }
 
     /// <summary>
@@ -3086,14 +3706,22 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                                 modelDef.ModelName.SafeVarName(),
                                 fieldDef.FieldName);
 
-            sqlIndexes.Add(
-                this.ToCreateIndexStatement(
-                    fieldDef.IsUniqueIndex,
-                    indexName,
-                    modelDef,
-                    fieldDef.FieldName,
-                    isCombined: false,
-                    fieldDef: fieldDef));
+            if (fieldDef.VectorDimensions != null)
+            {
+                // A vector index where the RDBMS has one, as other indexes can't be used to find similar vectors
+                var sqlVectorIndex = ToCreateVectorIndexStatement(modelDef, fieldDef, indexName);
+                if (sqlVectorIndex != null)
+                {
+                    sqlIndexes.Add(sqlVectorIndex);
+                }
+
+                continue;
+            }
+
+            var keyColumns = this.GetIndexKeyColumns(modelDef, fieldDef.IsUniqueIndex, this.GetQuotedColumnName(fieldDef), fieldDef.IndexInclude);
+            sqlIndexes.Add(this.WithIndexOptions(modelDef, fieldDef.IndexInclude, fieldDef.IndexWhere, keyColumns != null
+                ? ToCreateIndexStatement(fieldDef.IsUniqueIndex, indexName, modelDef, keyColumns, isCombined: true, fieldDef: fieldDef)
+                : ToCreateIndexStatement(fieldDef.IsUniqueIndex, indexName, modelDef, fieldDef.FieldName, isCombined: false, fieldDef: fieldDef)));
         }
 
         foreach (var compositeIndex in modelDef.CompositeIndexes)
@@ -3123,16 +3751,71 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 }
             }
 
-            sqlIndexes.Add(
-                this.ToCreateIndexStatement(
-                    compositeIndex.Unique,
-                    indexName,
-                    modelDef,
-                    StringBuilderCache.ReturnAndFree(sb),
-                    isCombined: true));
+            var columns = StringBuilderCache.ReturnAndFree(sb);
+            sqlIndexes.Add(this.WithIndexOptions(modelDef, compositeIndex.Include, compositeIndex.Where,
+                ToCreateIndexStatement(compositeIndex.Unique, indexName, modelDef,
+                    GetIndexKeyColumns(modelDef, compositeIndex.Unique, columns, compositeIndex.Include) ?? columns,
+                    isCombined: true)));
         }
 
         return sqlIndexes;
+    }
+
+    /// <summary>
+    /// Whether indexes can keep other columns with INCLUDE. Where they can't, the columns of a covering index
+    /// are added to the key columns of non-unique indexes instead.
+    /// </summary>
+    protected virtual bool SupportsIndexInclude => false;
+
+    /// <summary>
+    /// Whether an index can be limited to the rows matching a condition
+    /// </summary>
+    protected virtual bool SupportsFilteredIndexes => true;
+
+    private string GetQuotedIndexColumn(ModelDefinition modelDef, string name) =>
+        modelDef.GetFieldDefinition(name) is { } fieldDef
+            ? this.GetQuotedColumnName(fieldDef)
+            : this.GetQuotedColumnName(name);
+
+    // The key columns with the columns to include, for an RDBMS without INCLUDE. Returns null if they're unchanged.
+    private string GetIndexKeyColumns(ModelDefinition modelDef, bool isUnique, string keyColumns, string[] include)
+    {
+        // Adding columns to a unique index would change which rows it allows
+        if (include == null || include.Length == 0 || this.SupportsIndexInclude || isUnique)
+        {
+            return null;
+        }
+
+        return keyColumns + ", " + string.Join(", ", include.Map(x => GetQuotedIndexColumn(modelDef, x)));
+    }
+
+    // Adds the INCLUDE and WHERE of a covering or filtered index to its CREATE INDEX statement
+    private string WithIndexOptions(ModelDefinition modelDef, string[] include, string where, string sql)
+    {
+        var options = "";
+        if (include is { Length: > 0 } && this.SupportsIndexInclude)
+        {
+            options += $" INCLUDE ({string.Join(", ", include.Map(x => GetQuotedIndexColumn(modelDef, x)))})";
+        }
+
+        if (!string.IsNullOrEmpty(where))
+        {
+            if (!this.SupportsFilteredIndexes)
+            {
+                throw new NotSupportedException($"{this.GetType().Name} doesn't support filtered indexes, used by {modelDef.Name}");
+            }
+
+            options += " WHERE " + this.ResolveColumnRefs(modelDef, where);
+        }
+        if (options.Length == 0)
+        {
+            return sql;
+        }
+
+        var endPos = sql.LastIndexOf(';');
+        return endPos >= 0
+            ? sql.Substring(0, endPos) + options + sql.Substring(endPos)
+            : sql + options;
     }
 
     /// <summary>
@@ -3362,7 +4045,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         FieldDefinition fieldDef = null)
     {
         fieldDef ??= modelDef.GetFieldDefinition(fieldName);
-        return $"CREATE {(isUnique ? "UNIQUE" : string.Empty)}" +
+        return "CREATE" + (isUnique ? " UNIQUE" : string.Empty) +
                (fieldDef?.IsClustered == true ? " CLUSTERED" : string.Empty) +
                (fieldDef?.IsNonClustered == true ? " NONCLUSTERED" : string.Empty) +
                $" INDEX {indexName} ON {this.GetQuotedTableName(modelDef)} " +
@@ -3698,6 +4381,36 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return null;
     }
 
+    public virtual ColumnSchema[] GetSchemaColumns(IDbConnection db, string quotedTable) =>
+        db.GetTableColumns($"SELECT * FROM {quotedTable} WHERE 1=0");
+
+    public virtual ColumnSchema[] GetModelSchemaColumns(IDbConnection db, List<FieldDefinition> fieldDefs)
+    {
+        var tempTable = this.GetBulkStagingTableName("ormlite_diff_" + Guid.NewGuid().ToString("N"));
+        // Named constraints have to be unique, which the constraints of the model's table already are
+        var columns = fieldDefs.Map(x => this.GetColumnDefinition(x.DefaultValueConstraint == null
+            ? x
+            : x.Clone(f =>
+            {
+                f.ModelDef = x.ModelDef;
+                f.DefaultValueConstraint = null;
+            })));
+        db.ExecuteSql(this.ToCreateTempTableStatement(tempTable, columns.Join(",\n  ")));
+        try
+        {
+            return this.GetSchemaColumns(db, tempTable);
+        }
+        finally
+        {
+            db.ExecuteSql(this.ToDropBulkStagingTableStatement(tempTable));
+        }
+    }
+
+    protected virtual string ToCreateTempTableStatement(string tempTable, string columnDefinitions) =>
+        $"CREATE TEMPORARY TABLE {tempTable} (\n  {columnDefinitions}\n)";
+
+    public virtual List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef) => null;
+
     /// <summary>
     /// Converts to alter column statement.
     /// </summary>
@@ -3833,7 +4546,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 ? (unique ? "uidx" : "idx") + "_" + sourceDef.ModelName + "_" + fieldDef.FieldName
                 : indexName);
 
-        var command = $"CREATE {(unique ? "UNIQUE" : string.Empty)} " +
+        var command = $"CREATE {(unique ? "UNIQUE " : string.Empty)}" +
                       $"INDEX {name} ON {this.GetQuotedTableName(sourceDef)}" +
                       $"({this.GetQuotedColumnName(fieldDef)});";
         return command;

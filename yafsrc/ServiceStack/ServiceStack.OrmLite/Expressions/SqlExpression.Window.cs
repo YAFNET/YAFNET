@@ -21,7 +21,7 @@ public abstract partial class SqlExpression<T>
     /// <summary>
     /// Whether this query only returns the top rows of each group, from TopPerGroup()
     /// </summary>
-    public bool HasTopPerGroup => topPerGroupPartitionBy != null;
+    public bool HasTopPerGroup => this.topPerGroupPartitionBy != null;
 
     /// <summary>
     /// Only return the first <paramref name="take"/> rows of each group of rows with the same
@@ -32,24 +32,29 @@ public abstract partial class SqlExpression<T>
     public virtual SqlExpression<T> TopPerGroup(Expression<Func<T, object>> partitionBy, int take)
     {
         if (partitionBy == null)
+        {
             throw new ArgumentNullException(nameof(partitionBy));
-        if (take < 1)
-            throw new ArgumentOutOfRangeException(nameof(take), "take must be at least 1");
+        }
 
-        Reset(string.Empty);
-        var partitionExpr = Visit(partitionBy);
+        if (take < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(take), "take must be at least 1");
+        }
+
+        this.Reset(string.Empty);
+        var partitionExpr = this.Visit(partitionBy);
         if (IsSqlClass(partitionExpr))
         {
             StripAliases(partitionExpr as SelectList);
-            topPerGroupPartitionBy = partitionExpr.ToString();
+            this.topPerGroupPartitionBy = partitionExpr.ToString();
         }
         else
         {
-            topPerGroupPartitionBy = partitionExpr is string strExpr
-                ? ListExpression(partitionBy, strExpr)
+            this.topPerGroupPartitionBy = partitionExpr is string strExpr
+                ? this.ListExpression(partitionBy, strExpr)
                 : partitionExpr.ToString();
         }
-        topPerGroupTake = take;
+        this.topPerGroupTake = take;
         return this;
     }
 
@@ -60,29 +65,48 @@ public abstract partial class SqlExpression<T>
     /// </summary>
     private string GetTopPerGroupBodyExpression()
     {
-        if (HasSetOperations)
+        if (this.HasSetOperations)
+        {
             throw new NotSupportedException("TopPerGroup() can't be used with set operations like Union()");
-        if (HasCommonTableExpression)
-            throw new NotSupportedException("TopPerGroup() can't be used with common table expressions like WithRecursive()");
-        if (!string.IsNullOrEmpty(GroupByExpression))
-            throw new NotSupportedException("TopPerGroup() can't be used with GroupBy()");
-        if (string.IsNullOrEmpty(orderBy))
-            throw new NotSupportedException("TopPerGroup() requires an OrderBy() to rank the rows of each group");
-        if (TableAlias == null && modelDef.Schema != null)
-            throw new NotSupportedException("TopPerGroup() on a table with a schema requires a TableAlias");
+        }
 
-        var alias = DialectProvider.GetQuotedName(TableAlias ?? DialectProvider.NamingStrategy.GetTableName(modelDef));
-        var tableRef = TableAlias != null
-            ? DialectProvider.GetQuotedName(TableAlias)
-            : DialectProvider.GetQuotedTableName(modelDef);
-        var rowNumber = DialectProvider.GetQuotedName(TopPerGroupRowNumber);
+        if (this.HasCommonTableExpression)
+        {
+            throw new NotSupportedException("TopPerGroup() can't be used with common table expressions like WithRecursive()");
+        }
+
+        if (this.HasSystemTime)
+        {
+            throw new NotSupportedException("TopPerGroup() can't be used with previous versions of a table, e.g. AsOf()");
+        }
+
+        if (!string.IsNullOrEmpty(this.GroupByExpression))
+        {
+            throw new NotSupportedException("TopPerGroup() can't be used with GroupBy()");
+        }
+
+        if (string.IsNullOrEmpty(this.orderBy))
+        {
+            throw new NotSupportedException("TopPerGroup() requires an OrderBy() to rank the rows of each group");
+        }
+
+        if (this.TableAlias == null && this.modelDef.Schema != null)
+        {
+            throw new NotSupportedException("TopPerGroup() on a table with a schema requires a TableAlias");
+        }
+
+        var alias = this.DialectProvider.GetQuotedName(this.TableAlias ?? this.DialectProvider.NamingStrategy.GetTableName(this.modelDef));
+        var tableRef = this.TableAlias != null
+            ? this.DialectProvider.GetQuotedName(this.TableAlias)
+            : this.DialectProvider.GetQuotedTableName(this.modelDef);
+        var rowNumber = this.DialectProvider.GetQuotedName(TopPerGroupRowNumber);
 
         var sb = StringBuilderCache.Allocate()
             .Append(" \nFROM (SELECT ").Append(tableRef).Append(".*, ROW_NUMBER() OVER (PARTITION BY ")
-            .Append(topPerGroupPartitionBy).Append(' ').Append(orderBy).Append(") AS ").Append(rowNumber)
-            .Append(BodyExpression)
+            .Append(this.topPerGroupPartitionBy).Append(' ').Append(this.orderBy).Append(") AS ").Append(rowNumber)
+            .Append(this.BodyExpression)
             .Append(") ").Append(alias)
-            .Append("\nWHERE ").Append(alias).Append('.').Append(rowNumber).Append(" <= ").Append(topPerGroupTake);
+            .Append("\nWHERE ").Append(alias).Append('.').Append(rowNumber).Append(" <= ").Append(this.topPerGroupTake);
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
@@ -121,64 +145,80 @@ public abstract partial class SqlExpression<T>
                 function = "DENSE_RANK()";
                 break;
             case nameof(Sql.Ntile):
-                function = $"NTILE({EvaluateWindowInt(args[0], "buckets")})";
+                function = $"NTILE({this.EvaluateWindowInt(args[0], "buckets")})";
                 break;
             case nameof(Sql.Lag):
             case nameof(Sql.Lead):
-                function = m.Method.Name.ToUpperInvariant() + "(" + VisitWindowColumn(args[0])
-                    + (args.Count == 3 ? ", " + EvaluateWindowInt(args[1], "offset") : "") + ")";
+                function = m.Method.Name.ToUpperInvariant() + "(" + this.VisitWindowColumn(args[0])
+                    + (args.Count == 3 ? ", " + this.EvaluateWindowInt(args[1], "offset") : "") + ")";
                 break;
             case nameof(Sql.FirstValue):
-                function = $"FIRST_VALUE({VisitWindowColumn(args[0])})";
+                function = $"FIRST_VALUE({this.VisitWindowColumn(args[0])})";
                 break;
             case nameof(Sql.LastValue):
-                function = $"LAST_VALUE({VisitWindowColumn(args[0])})";
+                function = $"LAST_VALUE({this.VisitWindowColumn(args[0])})";
                 break;
             case nameof(Sql.Sum):
             case nameof(Sql.Count):
             case nameof(Sql.Min):
             case nameof(Sql.Max):
             case nameof(Sql.Avg):
-                function = m.Method.Name.ToUpperInvariant() + "(" + VisitWindowColumn(args[0]) + ")";
+                function = m.Method.Name.ToUpperInvariant() + "(" + this.VisitWindowColumn(args[0]) + ")";
                 break;
             default:
                 throw new NotSupportedException($"Sql.{m.Method.Name}() isn't a supported window function");
         }
 
-        return new PartialSqlString(function + " OVER (" + VisitWindow(window) + ")");
+        return new PartialSqlString(function + " OVER (" + this.VisitWindow(window) + ")");
     }
 
     private object VisitWindowColumn(Expression expr)
     {
         while (expr.NodeType is ExpressionType.Convert or ExpressionType.ConvertChecked)
+        {
             expr = ((UnaryExpression)expr).Operand;
+        }
 
         if (expr is ConstantExpression { Value: "*" })
+        {
             return "*";
+        }
 
         var column = expr.NodeType == ExpressionType.MemberAccess
-            ? VisitMemberAccess((MemberExpression)expr)
-            : Visit(expr);
+            ? this.VisitMemberAccess((MemberExpression)expr)
+            : this.Visit(expr);
         if (column is PartialSqlString or SelectItem or EnumMemberAccess)
+        {
             return column;
-        if (expr is MemberExpression && IsLambdaArg(GetRootParameter(expr)))
+        }
+
+        if (expr is MemberExpression && this.IsLambdaArg(GetRootParameter(expr)))
+        {
             return column;
+        }
+
         throw new NotSupportedException($"Window functions only support columns, not '{expr}'");
     }
 
     private static ParameterExpression GetRootParameter(Expression expr)
     {
         while (expr is MemberExpression me)
+        {
             expr = me.Expression;
+        }
+
         return expr as ParameterExpression;
     }
 
     private int EvaluateWindowInt(Expression expr, string name)
     {
         // Inlined into the SQL, which is safe as it's an int
-        var value = EvaluateExpression(expr);
+        var value = this.EvaluateExpression(expr);
         if (value is not int i || i < 0)
+        {
             throw new ArgumentException($"{name} must be a non-negative int", name);
+        }
+
         return i;
     }
 
@@ -195,7 +235,10 @@ public abstract partial class SqlExpression<T>
             expr = call.Object;
         }
         if (expr != window.Parameters[0])
+        {
             throw new NotSupportedException($"Unsupported window expression '{window.Body}'");
+        }
+
         calls.Reverse();
 
         var partitionBy = new List<string>();
@@ -210,21 +253,27 @@ public abstract partial class SqlExpression<T>
                         ? (IEnumerable<Expression>)array.Expressions
                         : [call.Arguments[0]];
                     foreach (var column in columns)
-                        partitionBy.Add(VisitWindowColumn(column).ToString());
+                    {
+                        partitionBy.Add(this.VisitWindowColumn(column).ToString());
+                    }
+
                     break;
                 case nameof(SqlWindow.OrderBy):
                 case nameof(SqlWindow.ThenBy):
-                    orderBy.Add(VisitWindowColumn(call.Arguments[0]).ToString());
+                    orderBy.Add(this.VisitWindowColumn(call.Arguments[0]).ToString());
                     break;
                 case nameof(SqlWindow.OrderByDescending):
                 case nameof(SqlWindow.ThenByDescending):
-                    orderBy.Add(VisitWindowColumn(call.Arguments[0]) + " DESC");
+                    orderBy.Add(this.VisitWindowColumn(call.Arguments[0]) + " DESC");
                     break;
                 case nameof(SqlWindow.RowsBetween):
-                    var preceding = (int?)EvaluateExpression(call.Arguments[0]);
-                    var following = (int?)EvaluateExpression(call.Arguments[1]);
+                    var preceding = (int?)this.EvaluateExpression(call.Arguments[0]);
+                    var following = (int?)this.EvaluateExpression(call.Arguments[1]);
                     if (preceding < 0 || following < 0)
+                    {
                         throw new ArgumentException("RowsBetween() values must be non-negative");
+                    }
+
                     frame = "ROWS BETWEEN "
                         + (preceding == null ? "UNBOUNDED PRECEDING" : preceding == 0 ? "CURRENT ROW" : preceding + " PRECEDING")
                         + " AND "
@@ -235,11 +284,20 @@ public abstract partial class SqlExpression<T>
 
         var sb = new StringBuilder();
         if (partitionBy.Count > 0)
+        {
             sb.Append("PARTITION BY ").Append(string.Join(", ", partitionBy));
+        }
+
         if (orderBy.Count > 0)
+        {
             sb.Append(sb.Length > 0 ? " " : "").Append("ORDER BY ").Append(string.Join(", ", orderBy));
+        }
+
         if (frame != null)
+        {
             sb.Append(sb.Length > 0 ? " " : "").Append(frame);
+        }
+
         return sb.ToString();
     }
 }

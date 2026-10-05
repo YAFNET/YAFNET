@@ -150,7 +150,7 @@ public static class OrmLiteWriteExpressionsApiAsync
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateAddAsync(updateFields, dbCmd.GetDialectProvider().SqlExpression<T>().Where(where), commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateAddAsync(updateFields, dbCmd.CreateQuery<T>().Where(where), commandFilter, token));
         }
 
         /// <summary>

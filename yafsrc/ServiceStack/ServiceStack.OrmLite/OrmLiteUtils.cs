@@ -1545,6 +1545,13 @@ public static class OrmLiteUtils
         return symbol.IndexOfAny(QuotedChars) >= 0;
     }
 
+    /// <summary>
+    /// Whether complex types are serialized as JSON, which the JSON functions of an RDBMS can query
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    /// <returns><c>true</c> if complex types are serialized as JSON, <c>false</c> otherwise.</returns>
+    public static bool IsJsonSerializer(this IStringSerializer serializer) => serializer is JsonStringSerializer;
+
     /// <param name="quotedExpr">The quoted expr.</param>
     extension(string quotedExpr)
     {

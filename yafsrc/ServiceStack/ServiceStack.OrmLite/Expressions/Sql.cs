@@ -129,6 +129,12 @@ public static partial class Sql
     }
 
     /// <summary>
+    /// How many levels a row of a WithRecursive() query is from the rows it started with, which are at 0. E.g:
+    /// <para>q.WithRecursive(seed, recurse).OrderBy(x => Sql.RecursiveDepth())</para>
+    /// </summary>
+    public static int RecursiveDepth() => 0;
+
+    /// <summary>
     /// Sums the specified value.
     /// </summary>
     /// <typeparam name="T"></typeparam>

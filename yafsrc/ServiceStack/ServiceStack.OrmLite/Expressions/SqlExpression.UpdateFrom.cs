@@ -23,18 +23,60 @@ public abstract partial class SqlExpression<T>
     public virtual string ToUpdateFromStatement(LambdaExpression set)
     {
         if (set == null)
+        {
             throw new ArgumentNullException(nameof(set));
-        if (HasSetOperations || HasCommonTableExpression || HasTopPerGroup || IsForUpdate)
-            throw new NotSupportedException("UpdateFrom() doesn't support set operations, CTEs, TopPerGroup() or ForUpdate()");
-        if (!string.IsNullOrEmpty(GroupByExpression) || Offset != null || Rows != null)
-            throw new NotSupportedException("UpdateFrom() doesn't support GroupBy(), Skip() or Take()");
-        if (modelDef.PrimaryKey == null)
-            throw new NotSupportedException($"UpdateFrom() requires {typeof(T).Name} to have a primary key");
+        }
 
-        var sql = ToUpdateFromStatement(GetUpdateFromValues(set));
-        return SqlFilter != null
-            ? SqlFilter(sql)
+        if (this.HasSetOperations || this.HasCommonTableExpression || this.HasTopPerGroup || this.IsForUpdate || this.HasSystemTime)
+        {
+            throw new NotSupportedException("UpdateFrom() doesn't support set operations, CTEs, TopPerGroup(), ForUpdate() or AsOf()");
+        }
+
+        if (!string.IsNullOrEmpty(this.GroupByExpression) || this.Offset != null || this.Rows != null)
+        {
+            throw new NotSupportedException("UpdateFrom() doesn't support GroupBy(), Skip() or Take()");
+        }
+
+        if (this.modelDef.PrimaryKey == null)
+        {
+            throw new NotSupportedException($"UpdateFrom() requires {typeof(T).Name} to have a primary key");
+        }
+
+        var values = this.GetUpdateFromValues(set);
+        this.AddUpdateFromRuleValues(values);
+        var sql = this.ToUpdateFromStatement(values);
+        return this.SqlFilter != null
+            ? this.SqlFilter(sql)
             : sql;
+    }
+
+    /// <summary>
+    /// The connection's write rules for the table, whose OnUpdate values are added to an UpdateFrom()
+    /// </summary>
+    internal TableWriteRules UpdateFromRules { get; set; }
+
+    private void AddUpdateFromRuleValues(List<KeyValuePair<FieldDefinition, string>> values)
+    {
+        if (this.UpdateFromRules == null)
+        {
+            return;
+        }
+
+        // Values from other columns can't be verified
+        foreach (var rule in this.UpdateFromRules.EnsureWrites)
+        {
+            if (values.Exists(x => x.Key == rule.Field))
+            {
+                throw new NotSupportedException(
+                    $"UpdateFrom() can't update '{rule.Field.Name}', which has an EnsureWrites rule on this connection");
+            }
+        }
+        foreach (var rule in this.UpdateFromRules.OnUpdate)
+        {
+            values.RemoveAll(x => x.Key == rule.Field);
+            var value = this.DialectProvider.GetFieldValue(rule.Field, rule.GetValue());
+            values.Add(new(rule.Field, this.AddParam(value).ParameterName));
+        }
     }
 
     /// <summary>
@@ -44,36 +86,46 @@ public abstract partial class SqlExpression<T>
     {
         var body = set.Body;
         while (body is UnaryExpression { NodeType: ExpressionType.Convert } convert)
+        {
             body = convert.Operand;
+        }
+
         if (body is not MemberInitExpression { NewExpression.Arguments.Count: 0 } init || init.Type != typeof(T)
             || init.Bindings.Count == 0)
+        {
             throw new ArgumentException($"Expected columns to update like: new {typeof(T).Name} {{ Name = ... }}", nameof(set));
+        }
 
-        var holdLambda = originalLambda;
-        originalLambda = set;
+        var holdLambda = this.originalLambda;
+        this.originalLambda = set;
         try
         {
             var values = new List<KeyValuePair<FieldDefinition, string>>();
             foreach (var binding in init.Bindings)
             {
                 if (binding is not MemberAssignment assign)
+                {
                     throw new ArgumentException($"Expected columns to update like: new {typeof(T).Name} {{ Name = ... }}", nameof(set));
-                var fieldDef = modelDef.GetFieldDefinition(assign.Member.Name)
+                }
+
+                var fieldDef = this.modelDef.GetFieldDefinition(assign.Member.Name)
                     ?? throw new ArgumentException($"'{assign.Member.Name}' isn't a column of {typeof(T).Name}", nameof(set));
                 if (fieldDef.IsPrimaryKey)
+                {
                     throw new ArgumentException($"UpdateFrom() can't update the primary key '{fieldDef.Name}'", nameof(set));
+                }
 
-                var value = Visit(assign.Expression);
+                var value = this.Visit(assign.Expression);
                 var sql = value is PartialSqlString or SelectItem
                     ? value.ToString()
-                    : AddParam(DialectProvider.GetFieldValue(fieldDef, value)).ParameterName; // a constant or captured value
+                    : this.AddParam(this.DialectProvider.GetFieldValue(fieldDef, value)).ParameterName; // a constant or captured value
                 values.Add(new(fieldDef, sql));
             }
             return values;
         }
         finally
         {
-            originalLambda = holdLambda;
+            this.originalLambda = holdLambda;
         }
     }
 
@@ -84,23 +136,23 @@ public abstract partial class SqlExpression<T>
     /// </summary>
     protected virtual string ToUpdateFromStatement(List<KeyValuePair<FieldDefinition, string>> values)
     {
-        var table = DialectProvider.GetQuotedTableName(modelDef);
-        var tableRef = TableAlias != null ? DialectProvider.GetQuotedName(TableAlias) : table;
-        var pk = DialectProvider.GetQuotedColumnName(modelDef.PrimaryKey);
-        var derived = DialectProvider.GetQuotedName("_u");
-        var derivedId = DialectProvider.GetQuotedName("_id");
+        var table = this.DialectProvider.GetQuotedTableName(this.modelDef);
+        var tableRef = this.TableAlias != null ? this.DialectProvider.GetQuotedName(this.TableAlias) : table;
+        var pk = this.DialectProvider.GetQuotedColumnName(this.modelDef.PrimaryKey);
+        var derived = this.DialectProvider.GetQuotedName("_u");
+        var derivedId = this.DialectProvider.GetQuotedName("_id");
 
         var select = new StringBuilder().Append("SELECT ").Append(tableRef).Append('.').Append(pk).Append(" AS ").Append(derivedId);
         var set = new StringBuilder();
         for (var i = 0; i < values.Count; i++)
         {
-            var column = DialectProvider.GetQuotedName("_v" + i);
+            var column = this.DialectProvider.GetQuotedName("_v" + i);
             select.Append(", ").Append(values[i].Value).Append(" AS ").Append(column);
-            set.Append(i > 0 ? ", " : "").Append(DialectProvider.GetQuotedColumnName(values[i].Key))
+            set.Append(i > 0 ? ", " : "").Append(this.DialectProvider.GetQuotedColumnName(values[i].Key))
                 .Append(" = ").Append(derived).Append('.').Append(column);
         }
 
-        return $"UPDATE {table} SET {set}\nFROM ({select}{BodyExpression}) {derived}\n" +
+        return $"UPDATE {table} SET {set}\nFROM ({select}{this.BodyExpression}) {derived}\n" +
                $"WHERE {table}.{pk} = {derived}.{derivedId}";
     }
 }

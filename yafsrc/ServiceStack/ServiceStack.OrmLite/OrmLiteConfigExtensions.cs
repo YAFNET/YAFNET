@@ -112,17 +112,21 @@ static internal class OrmLiteConfigExtensions
             return to;
         }
 
+        var systemVersionedAttr = modelType.FirstAttribute<SystemVersionedAttribute>();
         modelDef = new ModelDefinition
-                       {
-                           ModelType = modelType,
-                           Name = modelType.Name,
-                           Alias = modelAliasAttr?.Name,
-                           Schema = schemaAttr?.Name,
-                           PreCreateTableSql = JoinSql(preCreates.Map(x => x.Sql)),
-                           PostCreateTableSql = JoinSql(postCreates.Map(x => x.Sql)),
-                           PreDropTableSql = JoinSql(preDrops.Map(x => x.Sql)),
-                           PostDropTableSql = JoinSql(postDrops.Map(x => x.Sql))
-                       };
+        {
+            ModelType = modelType,
+            Name = modelType.Name,
+            Alias = modelAliasAttr?.Name,
+            Schema = schemaAttr?.Name,
+            PreCreateTableSql = JoinSql(preCreates.Map(x => x.Sql)),
+            PostCreateTableSql = JoinSql(postCreates.Map(x => x.Sql)),
+            PreDropTableSql = JoinSql(preDrops.Map(x => x.Sql)),
+            PostDropTableSql = JoinSql(postDrops.Map(x => x.Sql)),
+            Description = modelType.FirstAttribute<DescriptionAttribute>()?.Description,
+            IsSystemVersioned = systemVersionedAttr != null,
+            HistoryTable = systemVersionedAttr?.HistoryTable
+        };
 
         modelDef.CompositePrimaryKeys.AddRange([.. modelType.AllAttributes<CompositePrimaryKeyAttribute>()]);
 
@@ -224,6 +228,18 @@ static internal class OrmLiteConfigExtensions
             var fkAttr = propertyInfo.FirstAttribute<ForeignKeyAttribute>();
             var customFieldAttr = propertyInfo.FirstAttribute<CustomFieldAttribute>();
             var chkConstraintAttr = propertyInfo.FirstAttribute<CheckConstraintAttribute>();
+            var isRowStart = propertyInfo.HasAttributeCached<RowStartAttribute>();
+            var isRowEnd = propertyInfo.HasAttributeCached<RowEndAttribute>();
+            if ((isRowStart || isRowEnd) && propertyType != typeof(DateTime))
+            {
+                throw new NotSupportedException($"[RowStart] and [RowEnd] are only valid for DateTime properties, {modelType.Name}.{propertyInfo.Name} is a {propertyInfo.PropertyType.Name}");
+            }
+
+            var vectorAttr = propertyInfo.FirstAttribute<VectorAttribute>();
+            if (vectorAttr != null && propertyInfo.PropertyType != typeof(float[]))
+            {
+                throw new NotSupportedException($"[Vector] is only valid for float[] properties, {modelType.Name}.{propertyInfo.Name} is a {propertyInfo.PropertyType.Name}");
+            }
 
             var order = propertyInfoIdx++;
             if (customFieldAttr != null && customFieldAttr.Order != 0)
@@ -231,7 +247,8 @@ static internal class OrmLiteConfigExtensions
                 order = customFieldAttr.Order;
             }
 
-            var fieldDefinition = new FieldDefinition {
+            var fieldDefinition = new FieldDefinition
+            {
                 ModelDef = modelDef,
                 Name = propertyInfo.Name,
                 Alias = aliasAttr?.Name,
@@ -248,9 +265,18 @@ static internal class OrmLiteConfigExtensions
                 IsClustered = indexAttr?.Clustered == true,
                 IsNonClustered = indexAttr?.NonClustered == true,
                 IndexName = indexAttr?.Name,
+                IndexWhere = indexAttr?.Where,
+                IndexInclude = indexAttr?.Include,
+                CheckEnum = propertyInfo.HasAttributeCached<CheckEnumAttribute>(),
+                Description = propertyInfo.FirstAttribute<DescriptionAttribute>()?.Description,
+                VectorDimensions = vectorAttr?.Dimensions,
+                VectorDistance = vectorAttr?.Distance ?? VectorDistance.Cosine,
                 IsRowVersion = isRowVersion,
-                IgnoreOnInsert = propertyInfo.HasAttributeCached<IgnoreOnInsertAttribute>(),
-                IgnoreOnUpdate = propertyInfo.HasAttributeCached<IgnoreOnUpdateAttribute>(),
+                // The times of a row's version are set by the RDBMS
+                IgnoreOnInsert = propertyInfo.HasAttributeCached<IgnoreOnInsertAttribute>() || isRowStart || isRowEnd,
+                IgnoreOnUpdate = propertyInfo.HasAttributeCached<IgnoreOnUpdateAttribute>() || isRowStart || isRowEnd,
+                IsRowStart = isRowStart,
+                IsRowEnd = isRowEnd,
                 ReturnOnInsert = propertyInfo.HasAttributeCached<ReturnOnInsertAttribute>(),
                 FieldLength = stringLengthAttr?.MaximumLength,
                 DefaultValue = defaultValueAttr?.DefaultValue,
@@ -287,11 +313,11 @@ static internal class OrmLiteConfigExtensions
             if (referenceFieldAttr != null)
             {
                 fieldDefinition.FieldReference = new FieldReference(fieldDefinition)
-                                                     {
-                                                         RefModel = referenceFieldAttr.Model,
-                                                         RefId = referenceFieldAttr.Id,
-                                                         RefField = referenceFieldAttr.Field ?? propertyInfo.Name
-                                                     };
+                {
+                    RefModel = referenceFieldAttr.Model,
+                    RefId = referenceFieldAttr.Id,
+                    RefField = referenceFieldAttr.Field ?? propertyInfo.Name
+                };
             }
 
             if (isIgnored)

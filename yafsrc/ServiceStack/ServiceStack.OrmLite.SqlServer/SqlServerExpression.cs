@@ -108,17 +108,13 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// <param name="right">The right.</param>
     override protected void ConvertToPlaceholderAndParameter(ref object right)
     {
-        var paramName = this.NextParamName();
-        var paramValue = right;
-        var parameter = this.CreateParam(paramName, paramValue);
+        var parameter = this.AddParam(right);
 
         // Prevents a new plan cache for each different string length. Every string is parameterized as NVARCHAR(max)
         if (parameter.DbType == DbType.String)
         {
             parameter.Size = -1;
         }
-
-        this.Params.Add(parameter);
 
         right = parameter.ParameterName;
     }

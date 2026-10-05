@@ -20,7 +20,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using ServiceStack.DataAnnotations;
+using ServiceStack.OrmLite.Base.Common;
 using ServiceStack.OrmLite.Sqlite.Converters;
 
 /// <summary>
@@ -66,9 +67,11 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <summary>
     /// Enable Write Ahead Logging (PRAGMA journal_mode=WAL)
     /// </summary>
-    public bool EnableWal {
-        get => OneTimeConnectionCommands.Contains(SqlitePragmas.JournalModeWal);
-        set {
+    public bool EnableWal
+    {
+        get => this.OneTimeConnectionCommands.Contains(SqlitePragmas.JournalModeWal);
+        set
+        {
             if (value)
             {
                 OneTimeConnectionCommands.AddIfNotExists(SqlitePragmas.JournalModeWal);
@@ -83,9 +86,11 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <summary>
     /// PRAGMA busy_timeout
     /// </summary>
-    public TimeSpan BusyTimeout {
-        set {
-            ConnectionCommands.RemoveAll(x => x.StartsWith("PRAGMA busy_timeout"));
+    public TimeSpan BusyTimeout
+    {
+        set
+        {
+            this.ConnectionCommands.RemoveAll(x => x.StartsWith("PRAGMA busy_timeout"));
             if (value > TimeSpan.Zero)
             {
                 ConnectionCommands.Add(SqlitePragmas.BusyTimeout(value));
@@ -96,7 +101,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <summary>
     /// Whether to use UTC for DateTime fields
     /// </summary>
-    public bool UseUtc {
+    public bool UseUtc
+    {
         set => ((OrmLite.Converters.DateTimeConverter)this.GetConverter<DateTime>()).DateStyle = value
             ? DateTimeKind.Utc
             : DateTimeKind.Unspecified;
@@ -128,6 +134,12 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <value><c>true</c> if [supports schema]; otherwise, <c>false</c>.</value>
     public override bool SupportsSchema => false;
 
+    /// <summary>
+    /// Its drivers already wait for a lock to be released until the command times out, and an embedded database
+    /// doesn't lose its connection, so retries would only wait longer
+    /// </summary>
+    public override bool SupportsRetries => false;
+
     protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef) =>
         fieldDef.ReturnOnInsert || (fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && HasInsertReturnValues(modelDef));
 
@@ -158,12 +170,19 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 
             if ((ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
                 && shouldInclude?.Invoke(fieldDef) != true)
+            {
                 continue;
+            }
 
             if (sbColumnNames.Length > 0)
+            {
                 sbColumnNames.Append(",");
+            }
+
             if (sbColumnValues.Length > 0)
+            {
                 sbColumnValues.Append(",");
+            }
 
             try
             {
@@ -186,7 +205,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         foreach (var fieldDef in modelDef.AutoIdFields) // need to include any AutoId fields that weren't included 
         {
             if (fieldDefs.Contains(fieldDef))
+            {
                 continue;
+            }
 
             sbReturningColumns.Append(sbReturningColumns.Length == 0 ? " RETURNING " : ",");
             sbReturningColumns.Append(GetQuotedColumnName(fieldDef));
@@ -201,8 +222,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 
     public override bool SupportsUpsert => true;
 
-    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef) =>
-        ToReturningStatement(sql, modelDef, isDelete: false);
+    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef, ICollection<FieldDefinition>? returnFields = null) =>
+        this.ToReturningStatement(sql, modelDef, isDelete: false, returnFields);
 
     public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
         ICollection<string>? insertFields = null, ICollection<string>? updateOnly = null)
@@ -217,6 +238,27 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 
         cmd.CommandText = $"{GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
                           $"ON CONFLICT ({conflictTarget}) {conflictAction}";
+    }
+
+    /// <summary>
+    /// The statement that upserts the rows of the staging table into the model's table
+    /// </summary>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="stagingTable">The staging table.</param>
+    /// <param name="insertFieldDefs">The insert field definitions.</param>
+    /// <param name="updateFieldDefs">The update field definitions.</param>
+    /// <returns>System.String.</returns>
+    protected override string ToBulkUpsertStatement(ModelDefinition modelDef, string stagingTable,
+        List<FieldDefinition> insertFieldDefs, List<FieldDefinition> updateFieldDefs)
+    {
+        var conflictAction = updateFieldDefs.Count == 0
+            ? "DO NOTHING"
+            : "DO UPDATE SET " + updateFieldDefs.Map(x =>
+                GetQuotedColumnName(x) + "=" + GetBulkUpsertValue(x.CustomUpdate, "excluded." + GetQuotedColumnName(x))).Join(", ");
+
+        // WHERE true tells SQLite's parser that ON starts the upsert clause, and not a join of the SELECT
+        return $"{this.GetBulkUpsertInsertSql(modelDef, stagingTable, insertFieldDefs)} WHERE true " +
+               $"ON CONFLICT ({this.GetQuotedColumnName(modelDef.PrimaryKey)}) {conflictAction}";
     }
 
     /// <summary>
@@ -498,12 +540,17 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override string UnquotedTable(TableRef tableRef)
     {
         if (tableRef.QuotedName != null)
+        {
             return tableRef.QuotedName.Replace("\"", "");
+        }
+
         var alias = tableRef.ModelDef?.Alias;
         if (alias != null)
+        {
             return tableRef.ModelDef?.Schema != null
-                ? NamingStrategy.GetSchemaName(tableRef.ModelDef.Schema) + "_" + NamingStrategy.GetTableAlias(alias)
-                : NamingStrategy.GetTableAlias(alias);
+                ? this.NamingStrategy.GetSchemaName(tableRef.ModelDef.Schema) + "_" + this.NamingStrategy.GetTableAlias(alias)
+                : this.NamingStrategy.GetTableAlias(alias);
+        }
 
         var schema = tableRef.ModelDef?.Schema ?? tableRef.Schema;
         var tableName = tableRef.ModelDef?.Name ?? tableRef.Name;
@@ -558,6 +605,46 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         throw new NotImplementedException("Schemas are not supported by sqlite");
     }
 
+    // Columns are read from the table's definition, which has their declared type and if they allow nulls
+    public override ColumnSchema[] GetSchemaColumns(IDbConnection db, string quotedTable)
+    {
+        var columns = db.SqlList<Dictionary<string, object>>($"PRAGMA table_xinfo({quotedTable})");
+        return columns.Map(column =>
+        {
+            var to = new ColumnSchema
+            {
+                ColumnName = column["name"]?.ToString(),
+                ColumnOrdinal = Convert.ToInt32(column["cid"]),
+                DataTypeName = column["type"]?.ToString(),
+                DataType = typeof(object),
+                ColumnSize = -1,
+                // A primary key is only reported as not null when it's declared as NOT NULL
+                AllowDBNull = Convert.ToInt32(column["notnull"]) == 0 && Convert.ToInt32(column["pk"]) == 0,
+                IsKey = Convert.ToInt32(column["pk"]) > 0,
+                DefaultValue = column["dflt_value"],
+            };
+            // VARCHAR(50) or DECIMAL(18,2)
+            var size = to.DataTypeName?.RightPart('(').LeftPart(')').Split(',');
+            if (to.DataTypeName?.EndsWith(")") == true && int.TryParse(size[0].Trim(), out var first))
+            {
+                to.DataTypeName = to.DataTypeName.LeftPart('(').Trim();
+                if (size.Length == 2 && int.TryParse(size[1].Trim(), out var scale))
+                {
+                    to.NumericPrecision = first;
+                    to.NumericScale = scale;
+                }
+                else
+                {
+                    to.ColumnSize = first;
+                }
+            }
+            return to;
+        }).ToArray();
+    }
+
+    public override List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef) => db.Column<string>(
+        "SELECT name FROM sqlite_master WHERE type='index' AND tbl_name = {0} COLLATE NOCASE".SqlFmt(this, this.UnquotedTable(tableRef)));
+
     /// <summary>
     /// Doeses the table exist.
     /// </summary>
@@ -567,7 +654,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public override bool DoesTableExist(IDbCommand dbCmd, TableRef tableRef)
     {
-        var sql = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name = {0}"
+        // The names of tables aren't case sensitive
+        var sql = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name = {0} COLLATE NOCASE"
             .SqlFmt(tableRef.Name);
 
         dbCmd.CommandText = sql;
@@ -599,6 +687,16 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         }
         return false;
     }
+
+    // Vectors are stored as the bytes of their floats, which the functions of the sqlite-vec extension compare
+    public override string GetVectorColumnDefinition(int dimensions) => "BLOB";
+
+    public override string ToVectorDistance(VectorDistance distance, string vector, string other) => distance switch
+    {
+        VectorDistance.Cosine => $"vec_distance_cosine({vector}, {other})",
+        VectorDistance.L2 => $"vec_distance_L2({vector}, {other})",
+        _ => throw new NotSupportedException("sqlite-vec doesn't have an inner product vector distance"),
+    };
 
     /// <summary>
     /// Gets the column definition.
@@ -667,14 +765,49 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     }
 
     /// <summary>
+    /// The query that returns the query plan of the SQL
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="analyze">if set to <c>true</c> [analyze].</param>
+    /// <returns>ExplainQuery.</returns>
+    public override ExplainQuery ToExplainQuery(IDbConnection db, string sql, bool analyze) => analyze
+        ? throw new NotSupportedException("SQLite doesn't support analyzing query plans")
+        : new() { Sql = "EXPLAIN QUERY PLAN " + sql, ReadPlan = ReadQueryPlan };
+
+    // EXPLAIN QUERY PLAN returns the steps of the plan as a tree of (id, parent, notused, detail) rows
+    private static string ReadQueryPlan(IDataReader reader)
+    {
+        var depths = new Dictionary<long, int>();
+        var sb = new StringBuilder();
+        while (reader.Read())
+        {
+            var id = Convert.ToInt64(reader.GetValue(0));
+            var parent = Convert.ToInt64(reader.GetValue(1));
+            var depth = depths.TryGetValue(parent, out var parentDepth) ? parentDepth + 1 : 0;
+            depths[id] = depth;
+
+            if (sb.Length > 0)
+            {
+                sb.Append('\n');
+            }
+
+            sb.Append(' ', depth * 2).Append(Convert.ToString(reader.GetValue(3)));
+        }
+
+        return sb.ToString();
+    }
+
+    /// <summary>
     /// Converts to returning statement. Requires SQLite 3.35+
     /// </summary>
     /// <param name="sql">The SQL.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="isDelete">if set to <c>true</c> [is delete].</param>
+    /// <param name="returnFields">The fields to return, or null for all fields.</param>
     /// <returns>System.String.</returns>
-    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete) =>
-        sql.TrimEnd().TrimEnd(';') + " RETURNING " + GetColumnNames(modelDef);
+    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete, ICollection<FieldDefinition> returnFields = null) =>
+        sql.TrimEnd().TrimEnd(';') + " RETURNING " + this.GetReturningColumns(modelDef, returnFields);
 
     /// <summary>
     /// Gets the SQL random.

@@ -5,6 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
+using ServiceStack.OrmLite.Converters;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -48,6 +49,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// </summary>
     public SqlServerOrmLiteDialectProvider()
     {
+        this.VectorConverter = new VectorTextConverter();
         this.AutoIncrementDefinition = "IDENTITY(1,1)";
         base.SelectIdentitySql = "SELECT SCOPE_IDENTITY()";
 
@@ -970,6 +972,111 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
         return fieldDef.FieldType == typeof(Guid) ? "newid()" : null;
     }
 
+    protected override bool SupportsIndexInclude => true;
+
+    // System-versioned (temporal) tables need SQL Server 2016+
+    public override bool SupportsSystemVersioning => true;
+
+    // The period of a system-versioned table is in UTC
+    public override DateTime ToSystemTime(DateTime time) =>
+        time.Kind == DateTimeKind.Local ? time.ToUniversalTime() : time;
+
+    protected override string GetSystemTimeColumnDefinition(FieldDefinition fieldDef) =>
+        $"{this.GetQuotedColumnName(fieldDef)} DATETIME2 GENERATED ALWAYS AS ROW {(fieldDef.IsRowStart ? "START" : "END")} NOT NULL";
+
+    // Previous versions are kept in a history table, in the table's schema
+    private string GetHistoryTableName(ModelDefinition modelDef)
+    {
+        var tableRef = new TableRef(modelDef);
+        return this.GetQuotedName(this.GetSchemaName(tableRef) ?? DefaultSchema) + "." +
+               this.GetQuotedName(modelDef.HistoryTable ?? this.GetTableNameOnly(tableRef) + "History");
+    }
+
+    protected override string ToSystemVersionedTableStatement(ModelDefinition modelDef, string createTableSql)
+    {
+        GetSystemTimeFields(modelDef, out var rowStart, out var rowEnd);
+        var definitions = "";
+        var startColumn = rowStart != null ? this.GetQuotedColumnName(rowStart) : this.GetQuotedName("SysStartTime");
+        var endColumn = rowEnd != null ? this.GetQuotedColumnName(rowEnd) : this.GetQuotedName("SysEndTime");
+        if (rowStart == null)
+        {
+            // The period needs columns, which aren't selected unless they're named
+            definitions = $"{startColumn} DATETIME2 GENERATED ALWAYS AS ROW START HIDDEN NOT NULL,\n  " +
+                          $"{endColumn} DATETIME2 GENERATED ALWAYS AS ROW END HIDDEN NOT NULL,\n  ";
+        }
+        definitions += $"PERIOD FOR SYSTEM_TIME ({startColumn}, {endColumn})";
+
+        return AddToCreateTable(createTableSql, definitions,
+            $" WITH (SYSTEM_VERSIONING = ON (HISTORY_TABLE = {this.GetHistoryTableName(modelDef)}))");
+    }
+
+    // A system-versioned table can't be dropped until it stops being versioned, which leaves its history table
+    public override string ToDropTableStatement(ModelDefinition modelDef)
+    {
+        var table = this.GetQuotedTableName(modelDef);
+        if (!modelDef.IsSystemVersioned)
+        {
+            return $"DROP TABLE {table}";
+        }
+
+        return $"IF OBJECTPROPERTY(OBJECT_ID({this.GetQuotedValue(table)}), 'TableTemporalType') = 2 " +
+               $"ALTER TABLE {table} SET (SYSTEM_VERSIONING = OFF);\n" +
+               $"DROP TABLE {table};\n" +
+               $"DROP TABLE IF EXISTS {this.GetHistoryTableName(modelDef)};";
+    }
+
+    // Vectors use the VECTOR type of SQL Server 2025 and Azure SQL
+    public override string GetVectorColumnDefinition(int dimensions) => $"VECTOR({dimensions})";
+
+    public override string ToVectorParam(string param, int dimensions) => $"CAST({param} AS VECTOR({dimensions}))";
+
+    public override string ToVectorDistance(VectorDistance distance, string vector, string other)
+    {
+        var metric = distance switch
+        {
+            VectorDistance.Cosine => "cosine",
+            VectorDistance.L2 => "euclidean",
+            _ => "dot",
+        };
+        return $"VECTOR_DISTANCE('{metric}', {vector}, {other})";
+    }
+
+    // Computed columns have the type of their expression
+    protected override string GetGeneratedColumnDefinition(FieldDefinition fieldDef) =>
+        $"{this.GetQuotedColumnName(fieldDef)} AS ({this.ResolveColumnRefs(fieldDef.ModelDef, fieldDef.ComputeExpression)})" +
+        (fieldDef.IsPersisted ? " PERSISTED" : "");
+
+    public override List<string> ToCreateCommentStatements(Type tableType)
+    {
+        var to = new List<string>();
+        var modelDef = GetModel(tableType);
+        var tableRef = new TableRef(modelDef);
+        string N(string text) => "N" + this.GetQuotedValue(text);
+        // Tables without a [Schema] are created in the connection's default schema, which isn't always dbo
+        var schema = this.GetSchemaName(tableRef);
+        var table = "@level0type=N'SCHEMA', @level0name=" + (schema != null ? N(schema) : "@schema") +
+                    ", @level1type=N'TABLE', @level1name=" + N(this.GetTableNameOnly(tableRef));
+        var addDescription = (schema == null ? "DECLARE @schema sysname = SCHEMA_NAME(); " : "") +
+                             "EXEC sp_addextendedproperty @name=N'MS_Description', @value=";
+
+        if (!string.IsNullOrEmpty(modelDef.Description))
+        {
+            to.Add($"{addDescription}{N(modelDef.Description)}, {table}");
+        }
+
+        foreach (var fieldDef in modelDef.FieldDefinitions)
+        {
+            if (string.IsNullOrEmpty(fieldDef.Description) || fieldDef.ShouldSkipCreate())
+            {
+                continue;
+            }
+
+            var column = this.GetQuotedColumnName(fieldDef).StripDbQuotes();
+            to.Add($"{addDescription}{N(fieldDef.Description)}, {table}, @level2type=N'COLUMN', @level2name={N(column)}");
+        }
+        return to;
+    }
+
     /// <summary>
     /// Gets the column definition.
     /// </summary>
@@ -983,10 +1090,17 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             return $"{fieldDef.FieldName} rowversion NOT NULL";
         }
 
-        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(
-            fieldDef.ColumnType,
-            fieldDef.FieldLength,
-            fieldDef.Scale);
+        if (fieldDef.IsRowStart || fieldDef.IsRowEnd)
+        {
+            return this.GetSystemTimeColumnDefinition(fieldDef);
+        }
+
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
+        }
+
+        var fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
 
         var sql = StringBuilderCache.Allocate();
         sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
@@ -1052,10 +1166,17 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             return $"{fieldDef.FieldName} rowversion NOT NULL";
         }
 
-        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(
-            fieldDef.ColumnType,
-            fieldDef.FieldLength,
-            fieldDef.Scale);
+        if (fieldDef.IsRowStart || fieldDef.IsRowEnd)
+        {
+            return this.GetSystemTimeColumnDefinition(fieldDef);
+        }
+
+        if (fieldDef.IsGenerated)
+        {
+            return this.GetGeneratedColumnDefinition(fieldDef);
+        }
+
+        var fieldDefinition = this.GetFieldTypeDefinition(fieldDef);
 
         var sql = StringBuilderCache.Allocate();
         sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
@@ -1148,22 +1269,92 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
         await bulkCopy.WriteToServerAsync(table, token).ConfigAwait();
     }
 
+    // A temporary table of the connection
+    protected override string GetBulkStagingTableName(string name) => this.GetQuotedName("#" + name);
+
+    protected override string ToCreateTempTableStatement(string tempTable, string columnDefinitions) =>
+        $"CREATE TABLE {tempTable} (\n  {columnDefinitions}\n)";
+
+    public override List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef) => db.Column<string>(
+        "SELECT name FROM sys.indexes WHERE object_id = OBJECT_ID({0}) AND name IS NOT NULL"
+            .SqlFmt(this, this.QuoteTable(tableRef)));
+
+    // UNION ALL stops the staging table inheriting the IDENTITY of the table's column, so it can be given values
+    protected override string ToCreateBulkStagingTableStatement(ModelDefinition modelDef, string stagingTable, List<FieldDefinition> fieldDefs)
+    {
+        var columns = fieldDefs.Map(GetQuotedColumnName).Join(",");
+        var table = this.GetQuotedTableName(modelDef);
+        return $"SELECT {columns} INTO {stagingTable} FROM {table} WHERE 1=0 " +
+               $"UNION ALL SELECT {columns} FROM {table} WHERE 1=0";
+    }
+
+    protected override string ToBulkUpsertStatement(ModelDefinition modelDef, string stagingTable,
+        List<FieldDefinition> insertFieldDefs, List<FieldDefinition> updateFieldDefs)
+    {
+        var quotedPrimaryKey = this.GetQuotedColumnName(modelDef.PrimaryKey);
+        var whenMatched = updateFieldDefs.Count > 0
+            ? "WHEN MATCHED THEN UPDATE SET " + updateFieldDefs.Map(x =>
+                $"target.{GetQuotedColumnName(x)}=" + GetBulkUpsertValue(x.CustomUpdate, "source." + GetQuotedColumnName(x))).Join(", ") + " "
+            : "";
+
+        return $"MERGE INTO {this.GetQuotedTableName(modelDef)} WITH (HOLDLOCK) AS target " +
+               $"USING {stagingTable} AS source " +
+               $"ON target.{quotedPrimaryKey}=source.{quotedPrimaryKey} " +
+               whenMatched +
+               $"WHEN NOT MATCHED THEN INSERT ({insertFieldDefs.Map(GetQuotedColumnName).Join(",")}) " +
+               $"VALUES ({insertFieldDefs.Map(x => GetBulkUpsertValue(x.CustomInsert, "source." + GetQuotedColumnName(x))).Join(",")});";
+    }
+
+    // Rows are loaded with SqlBulkCopy
+    protected override void BulkLoad<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config)
+    {
+        if (config.Mode == BulkInsertMode.Sql)
+        {
+            base.BulkLoad(db, quotedTable, fieldDefs, rows, config);
+            return;
+        }
+
+        using var bulkCopy = this.CreateBulkCopy(db, quotedTable, fieldDefs, rows, config, this.GetBulkLoadValue, out var table);
+        bulkCopy.WriteToServer(table);
+    }
+
+    protected override async Task BulkLoadAsync<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config, CancellationToken token)
+    {
+        if (config.Mode == BulkInsertMode.Sql)
+        {
+            await base.BulkLoadAsync(db, quotedTable, fieldDefs, rows, config, token).ConfigAwait();
+            return;
+        }
+
+        using var bulkCopy = this.CreateBulkCopy(db, quotedTable, fieldDefs, rows, config, this.GetBulkLoadValue, out var table);
+        await bulkCopy.WriteToServerAsync(table, token).ConfigAwait();
+    }
+
     private SqlBulkCopy CreateBulkCopy<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config, out DataTable table)
     {
-        var sqlConn = (SqlConnection)db.ToDbConnection();
-        var bulkCopy = new SqlBulkCopy(sqlConn);
         var modelDef = ModelDefinition<T>.Definition;
+        var fieldDefs = GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields)
+            .Where(x => !this.ShouldSkipInsert(x) || x.AutoId)
+            .ToList();
+
+        return this.CreateBulkCopy(db, this.GetQuotedTableName(modelDef), fieldDefs, objs, config,
+            (fieldDef, obj) => fieldDef.AutoId ? this.GetInsertDefaultValue(fieldDef) : fieldDef.GetValue(obj), out table);
+    }
+
+    private SqlBulkCopy CreateBulkCopy<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs,
+        IEnumerable<T> objs, BulkInsertConfig config, Func<FieldDefinition, object, object> getValue, out DataTable table)
+    {
+        var sqlConn = (SqlConnection)db.ToDbConnection();
+        // Rows are copied in the connection's transaction, which SqlBulkCopy doesn't use unless it's given it
+        var sqlTrans = db.GetTransaction()?.ToDbTransaction() as SqlTransaction;
+        var bulkCopy = new SqlBulkCopy(sqlConn, SqlBulkCopyOptions.Default, sqlTrans);
 
         bulkCopy.BatchSize = config.BatchSize;
-        bulkCopy.DestinationTableName = GetQuotedTableName(modelDef);
+        bulkCopy.DestinationTableName = quotedTable;
 
         table = new DataTable();
-        var fieldDefs = GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
         foreach (var fieldDef in fieldDefs)
         {
-            if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
-                continue;
-
             var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
             bulkCopy.ColumnMappings.Add(columnName, columnName);
 
@@ -1184,12 +1375,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             var row = table.NewRow();
             foreach (var fieldDef in fieldDefs)
             {
-                if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
-                    continue;
-
-                var value = fieldDef.AutoId
-                    ? GetInsertDefaultValue(fieldDef)
-                    : fieldDef.GetValue(obj);
+                var value = getValue(fieldDef, obj);
 
                 var converter = GetConverterBestMatch(fieldDef);
                 var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
@@ -1199,6 +1385,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             }
             table.Rows.Add(row);
         }
+
         return bulkCopy;
     }
 
@@ -1366,6 +1553,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     public override void EnableIdentityInsert<T>(IDbCommand cmd)
     {
         var tableName = cmd.GetDialectProvider().GetQuotedTableName(ModelDefinition<T>.Definition);
+        cmd.Parameters.Clear(); // a SET that's sent with params only lasts for its statement
         cmd.ExecNonQuery($"SET IDENTITY_INSERT {tableName} ON");
     }
 
@@ -1379,6 +1567,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     public override Task EnableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default)
     {
         var tableName = cmd.GetDialectProvider().GetQuotedTableName(ModelDefinition<T>.Definition);
+        cmd.Parameters.Clear(); // a SET that's sent with params only lasts for its statement
         return cmd.ExecNonQueryAsync($"SET IDENTITY_INSERT {tableName} ON", null, token);
     }
 
@@ -1390,6 +1579,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     public override void DisableIdentityInsert<T>(IDbCommand cmd)
     {
         var tableName = cmd.GetDialectProvider().GetQuotedTableName(ModelDefinition<T>.Definition);
+        cmd.Parameters.Clear(); // a SET that's sent with params only lasts for its statement
         cmd.ExecNonQuery($"SET IDENTITY_INSERT {tableName} OFF");
     }
 
@@ -1403,6 +1593,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     public override Task DisableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default)
     {
         var tableName = cmd.GetDialectProvider().GetQuotedTableName(ModelDefinition<T>.Definition);
+        cmd.Parameters.Clear(); // a SET that's sent with params only lasts for its statement
         return cmd.ExecNonQueryAsync($"SET IDENTITY_INSERT {tableName} OFF", null, token);
     }
 
@@ -1512,21 +1703,39 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// </summary>
     /// <param name="sql">The SQL.</param>
     /// <param name="modelDef">The model definition.</param>
+    /// <param name="returnFields">The fields to return, or null for all fields.</param>
     /// <returns>System.String.</returns>
-    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef)
+    public override string ToUpsertReturningStatement(string sql, ModelDefinition modelDef, ICollection<FieldDefinition> returnFields = null) =>
+        sql.TrimEnd().TrimEnd(';') + " " + this.GetOutputClause(modelDef, "INSERTED", returnFields) + ";";
+
+    /// <summary>
+    /// OUTPUT clause of all the table's columns, or only the returnFields
+    /// </summary>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="prefix">The prefix, INSERTED or DELETED.</param>
+    /// <param name="returnFields">The return fields.</param>
+    /// <returns>System.String.</returns>
+    private string GetOutputClause(ModelDefinition modelDef, string prefix, ICollection<FieldDefinition> returnFields)
     {
+        var returnAll = returnFields == null || returnFields.Count == 0;
         var sb = StringBuilderCache.Allocate();
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
-            if (fieldDef.CustomSelect != null)
+            if (fieldDef.CustomSelect != null || !returnAll && !returnFields.Contains(fieldDef))
             {
                 continue;
+
             }
 
-            sb.Append(sb.Length == 0 ? "OUTPUT " : ", ").Append("INSERTED.").Append(this.GetQuotedColumnName(fieldDef));
+            sb.Append(sb.Length == 0 ? "OUTPUT " : ", ").Append(prefix).Append('.').Append(this.GetQuotedColumnName(fieldDef));
         }
 
-        return sql.TrimEnd().TrimEnd(';') + " " + StringBuilderCache.ReturnAndFree(sb) + ";";
+        if (sb.Length == 0)
+        {
+            throw new ArgumentException($"No columns of {modelDef.Name} to return", nameof(returnFields));
+        }
+
+        return StringBuilderCache.ReturnAndFree(sb);
     }
 
     public override void PrepareParameterizedUpsertStatement<T>(IDbCommand cmd,
@@ -1828,6 +2037,32 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     }
 
     /// <summary>
+    /// The query that returns the query plan of the SQL.
+    /// SHOWPLAN_TEXT returns the estimated plan without running the query, but not for statements with params,
+    /// so they're merged into the SQL. STATISTICS PROFILE runs the query and returns the plan with actual row
+    /// counts after its results.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="sql">The SQL.</param>
+    /// <param name="analyze">if set to <c>true</c> [analyze].</param>
+    /// <returns>ExplainQuery.</returns>
+    public override ExplainQuery ToExplainQuery(IDbConnection db, string sql, bool analyze) => analyze
+        ? new()
+        {
+            Sql = sql,
+            BeforeSql = "SET STATISTICS PROFILE ON",
+            AfterSql = "SET STATISTICS PROFILE OFF",
+            ReadPlan = reader => ExplainQuery.ReadTable(reader, "Rows", "Executes", "StmtText")
+        }
+        : new()
+        {
+            Sql = sql,
+            BeforeSql = "SET SHOWPLAN_TEXT ON",
+            AfterSql = "SET SHOWPLAN_TEXT OFF",
+            MergeParams = true
+        };
+
+    /// <summary>
     /// Adds an OUTPUT clause before the statement's WHERE clause, e.g:
     /// UPDATE "Table" SET ... OUTPUT INSERTED."Id", ... WHERE ...
     /// Note: SQL Server doesn't allow OUTPUT without INTO on tables with enabled triggers
@@ -1835,22 +2070,11 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <param name="sql">The SQL.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="isDelete">if set to <c>true</c> [is delete].</param>
+    /// <param name="returnFields">The fields to return, or null for all fields.</param>
     /// <returns>System.String.</returns>
-    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete)
+    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete, ICollection<FieldDefinition> returnFields = null)
     {
-        var prefix = isDelete ? "DELETED" : "INSERTED";
-        var sb = StringBuilderCache.Allocate();
-        foreach (var fieldDef in modelDef.FieldDefinitions)
-        {
-            if (fieldDef.CustomSelect != null)
-            {
-                continue;
-            }
-
-            sb.Append(sb.Length == 0 ? "OUTPUT " : ", ").Append(prefix).Append('.').Append(this.GetQuotedColumnName(fieldDef));
-        }
-
-        var output = StringBuilderCache.ReturnAndFree(sb);
+        var output = this.GetOutputClause(modelDef, isDelete ? "DELETED" : "INSERTED", returnFields);
 
         sql = sql.TrimEnd().TrimEnd(';');
 
@@ -1975,6 +2199,41 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     public override void DisableForeignKeysCheck(IDbCommand cmd)
     {
         cmd.ExecNonQuery("EXEC sp_msforeachtable \"ALTER TABLE ? NOCHECK CONSTRAINT all\"");
+    }
+
+    /// <summary>
+    /// Errors where SQL Server confirmed the statement wasn't applied: deadlock and snapshot update conflict
+    /// victims, In-Memory OLTP conflicts and Azure SQL throttling, failovers and resource limits
+    /// </summary>
+    public static HashSet<int> NotAppliedErrors { get; } = [
+        1205, 3960, 4060, 4221, 10928, 10929, 40501, 40613, 41301, 41302, 41305, 41325, 41839, 49918, 49919, 49920,
+    ];
+
+    /// <summary>
+    /// Errors where the connection was lost, so the statement may have been applied
+    /// </summary>
+    public static HashSet<int> ConnectionLostErrors { get; } = [
+        64, 121, 233, 10053, 10054, 10060, 40197,
+    ];
+
+    public override TransientError GetTransientError(Exception ex)
+    {
+        if (ex is SqlException sqlEx)
+        {
+            foreach (SqlError error in sqlEx.Errors)
+            {
+                if (NotAppliedErrors.Contains(error.Number))
+                {
+                    return TransientError.NotApplied;
+                }
+
+                if (ConnectionLostErrors.Contains(error.Number))
+                {
+                    return TransientError.MaybeApplied;
+                }
+            }
+        }
+        return base.GetTransientError(ex);
     }
 
     /// <summary>

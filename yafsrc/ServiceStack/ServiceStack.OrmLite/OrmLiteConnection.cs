@@ -42,7 +42,26 @@ public class OrmLiteConnection
     /// Gets or sets the transaction.
     /// </summary>
     /// <value>The transaction.</value>
-    public IDbTransaction? Transaction { get; set; }
+    public IDbTransaction? Transaction
+    {
+        get => this.source != null ? this.source.Transaction : this.transaction;
+        set
+        {
+            if (this.source != null)
+            {
+                this.source.Transaction = value;
+            }
+            else
+            {
+                this.transaction = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// The transaction
+    /// </summary>
+    private IDbTransaction? transaction;
 
     /// <summary>
     /// Gets the database transaction.
@@ -54,6 +73,12 @@ public class OrmLiteConnection
     /// The database connection
     /// </summary>
     private IDbConnection? dbConnection;
+
+    /// <summary>
+    /// The connection this is an unfiltered view of, when created by WithoutFilters(), which shares its underlying
+    /// connection and transaction
+    /// </summary>
+    private OrmLiteConnection? source;
 
     /// <summary>
     /// Gets the dialect provider.
@@ -88,10 +113,25 @@ public class OrmLiteConnection
     public object? WriteLock { get; set; }
 
     /// <summary>
-    /// Mandatory filters applied to queries on this connection, see db.EnsureFilter()
+    /// Mandatory filters and write rules applied to statements on this connection, see db.UseFilters()
     /// </summary>
     /// <value>The filters.</value>
     public OrmLiteConnectionFilters Filters { get; internal set; } = OrmLiteConnectionFilters.Empty;
+
+    private System.Collections.Generic.Dictionary<string, object?>? items;
+
+    /// <summary>
+    /// State to keep with this connection for as long as it's open, e.g. the tenant it's confined to, see db.SetItem().
+    /// Shared with the connections returned by WithoutFilters(), which are the same connection.
+    /// </summary>
+    public System.Collections.Generic.Dictionary<string, object?> Items => this.source != null
+        ? this.source.Items
+        : this.items ??= new();
+
+    /// <summary>
+    /// Whether this connection was returned by WithoutFilters()
+    /// </summary>
+    public bool IsWithoutFilters => this.source != null;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OrmLiteConnection" /> class.
@@ -123,8 +163,30 @@ public class OrmLiteConnection
     /// Gets the database connection.
     /// </summary>
     /// <value>The database connection.</value>
-    public IDbConnection DbConnection =>
-        this.dbConnection ??= this.ConnectionString.ToDbConnection(this.Factory.DialectProvider);
+    public IDbConnection DbConnection => this.source != null
+        ? this.source.DbConnection
+        : this.dbConnection ??= this.ConnectionString.ToDbConnection(this.Factory.DialectProvider);
+
+    /// <summary>
+    /// A connection over the same underlying connection and transaction, without this connection's filters and
+    /// rules. Disposing or closing it doesn't close the underlying connection.
+    /// </summary>
+    /// <returns>OrmLiteConnection.</returns>
+    internal OrmLiteConnection CreateWithoutFilters()
+    {
+        var owner = this.source ?? this;
+        return new OrmLiteConnection(this.Factory)
+        {
+            source = owner,
+            DialectProvider = owner.DialectProvider,
+            Tag = owner.Tag,
+            NamedConnection = owner.NamedConnection,
+            CommandTimeout = owner.CommandTimeout,
+            ConnectionId = owner.ConnectionId,
+            WriteLock = owner.WriteLock,
+            ConnectionString = owner.ConnectionString
+        };
+    }
 
     /// <summary>
     /// The number of times a shared connection, e.g. SQLite :memory:, is open
@@ -146,14 +208,20 @@ public class OrmLiteConnection
     /// </summary>
     public void Dispose()
     {
+        if (this.source != null)
+        {
+            return; // the underlying connection is owned by the connection it was created from
+        }
+
         this.Factory.OnDispose?.Invoke(this);
         if (!this.Factory.AutoDisposeConnection)
         {
-            // Filters of a shared connection are scoped to its outermost open so they aren't used by the next open
-            if (Interlocked.Decrement(ref sharedOpens) <= 0)
+            // Filters and items of a shared connection are scoped to its outermost open so they aren't used by the next open
+            if (Interlocked.Decrement(ref this.sharedOpens) <= 0)
             {
-                Interlocked.Exchange(ref sharedOpens, 0);
-                Filters = OrmLiteConnectionFilters.Empty;
+                Interlocked.Exchange(ref this.sharedOpens, 0);
+                this.Filters = OrmLiteConnectionFilters.Empty;
+                this.items = null;
             }
             return;
         }
@@ -201,6 +269,11 @@ public class OrmLiteConnection
     /// </summary>
     public void Close()
     {
+        if (this.source != null)
+        {
+            return;
+        }
+
         if (this.dbConnection == null)
         {
             LogManager.GetLogger(this.GetType()).WarnFormat("No dbConnection to Close()");
@@ -264,6 +337,12 @@ public class OrmLiteConnection
     /// </summary>
     public void Open()
     {
+        if (this.source != null)
+        {
+            this.source.Open();
+            return;
+        }
+
         var dbConn = this.DbConnection;
         if (dbConn.State == ConnectionState.Broken)
         {
@@ -275,65 +354,29 @@ public class OrmLiteConnection
             return;
         }
 
-        var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(this);
-        Exception? e = null;
-
-        try
-        {
-            dbConn.Open();
-            //so the internal connection is wrapped for example by miniprofiler
-            this.dbConnection = this.Factory.ConnectionFilter(dbConn);
-
-            this.DialectProvider.InitConnection(this);
-        }
-        catch (Exception ex)
-        {
-            e = ex;
-            throw;
-        }
-        finally
-        {
-            if (e != null)
-            {
-                Diagnostics.OrmLite.WriteConnectionOpenError(id, this, e);
-            }
-            else
-            {
-                Diagnostics.OrmLite.WriteConnectionOpenAfter(id, this);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Open as an asynchronous operation.
-    /// </summary>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>A Task representing the asynchronous operation.</returns>
-    public async Task OpenAsync(CancellationToken token = default)
-    {
-        var dbConn = this.DbConnection;
-        if (dbConn.State == ConnectionState.Broken)
-        {
-            dbConn.Close();
-        }
-
-        if (dbConn.State == ConnectionState.Closed)
+        for (var retry = 1; ; retry++)
         {
             var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(this);
             Exception? e = null;
+            TimeSpan delay;
 
             try
             {
-                await this.DialectProvider.OpenAsync(dbConn, token).ConfigAwait();
+                dbConn.Open();
                 //so the internal connection is wrapped for example by miniprofiler
                 this.dbConnection = this.Factory.ConnectionFilter(dbConn);
 
                 this.DialectProvider.InitConnection(this);
+                return;
             }
             catch (Exception ex)
             {
                 e = ex;
-                throw;
+                if (!(this.DialectProvider.RetryPolicy is { } policy
+                      && OrmLiteRetryExec.ShouldRetryOpen(policy, this.DialectProvider, ex, retry, out delay)))
+                {
+                    throw;
+                }
             }
             finally
             {
@@ -346,6 +389,82 @@ public class OrmLiteConnection
                     Diagnostics.OrmLite.WriteConnectionOpenAfter(id, this);
                 }
             }
+
+            if (dbConn.State != ConnectionState.Closed)
+            {
+                dbConn.Close();
+            }
+
+            Thread.Sleep(delay);
+        }
+    }
+
+    /// <summary>
+    /// Open as an asynchronous operation.
+    /// </summary>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    public async Task OpenAsync(CancellationToken token = default)
+    {
+        if (this.source != null)
+        {
+            await this.source.OpenAsync(token).ConfigAwait();
+            return;
+        }
+
+        var dbConn = this.DbConnection;
+        if (dbConn.State == ConnectionState.Broken)
+        {
+            dbConn.Close();
+        }
+
+        if (dbConn.State != ConnectionState.Closed)
+        {
+            return;
+        }
+
+        for (var retry = 1; ; retry++)
+        {
+            var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(this);
+            Exception? e = null;
+            TimeSpan delay;
+
+            try
+            {
+                await this.DialectProvider.OpenAsync(dbConn, token).ConfigAwait();
+                //so the internal connection is wrapped for example by miniprofiler
+                this.dbConnection = this.Factory.ConnectionFilter(dbConn);
+
+                this.DialectProvider.InitConnection(this);
+                return;
+            }
+            catch (Exception ex)
+            {
+                e = ex;
+                if (!(this.DialectProvider.RetryPolicy is { } policy
+                      && OrmLiteRetryExec.ShouldRetryOpen(policy, this.DialectProvider, ex, retry, out delay)))
+                {
+                    throw;
+                }
+            }
+            finally
+            {
+                if (e != null)
+                {
+                    Diagnostics.OrmLite.WriteConnectionOpenError(id, this, e);
+                }
+                else
+                {
+                    Diagnostics.OrmLite.WriteConnectionOpenAfter(id, this);
+                }
+            }
+
+            if (dbConn.State != ConnectionState.Closed)
+            {
+                dbConn.Close();
+            }
+
+            await Task.Delay(delay, token).ConfigAwait();
         }
     }
 
