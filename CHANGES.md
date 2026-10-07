@@ -1,6 +1,33 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.10
+* [FIXED] Security: BBCode [url] links could still run javascript: by putting a tab or control character into the URL scheme (stored XSS)
+* [FIXED] Security: Groups created when syncing a new ASP.NET Identity role received moderator-level access to every forum instead of the access of the start group (check groups created by role sync on existing installs)
+* [FIXED] Comparing two revisions of an edited post on the message history page crashed
+* [FIXED] "Go to post" links opened the wrong page in topics with more than two pages
+* [FIXED] Restoring a deleted post did not give the author the post count back
+* [FIXED] Editing an unapproved post in an unmoderated forum (or with "override approval") did not approve it
+* [FIXED] The pager on My Topics -> Watched always showed 0 topics
+* [FIXED] Deleting a forum cleared the last post information of an unrelated topic in another forum
+* [FIXED] Users were never promoted along a rank ladder
+* [FIXED] Reputation votes were not recorded, so the "once every 24 hours" voting limit was never enforced
+* [FIXED] "Most active users" showed arbitrary users instead of the top posters
+* [FIXED] The "quoted" notification counter showed the number of received thanks
+* [FIXED] "Delete all" (event log, spam log, active users) did not clear the cached data when more than one row was deleted
+* [FIXED] Nested quotes with a user name were rendered in the wrong order with swapped attributions
+* [FIXED] Editing or quoting older HTML posts lost list items, kept formatting inside links as raw HTML, lost the type of notes and turned paragraph ends into flag emojis ([br])
+* [FIXED] The order of BBCode rules with the same rank was not deterministic
+* [FIXED] "Disable nofollow links after x days" had no effect
+* [FIXED] RSS feeds of posts containing a spoiler only showed the spoiler text
+* [FIXED] Moderator approval notifications were sent fire-and-forget, so mail errors were lost
+* [FIXED] Topic watch notifications could be sent in the wrong language when push notifications are enabled
+* [FIXED] Generated passwords never used the first and last character of the allowed set (and could hang when spaces were included)
+* [FIXED] FlagsBase.EnumToIndex returned wrong bit indexes, StringValueAttribute could not be applied to enum values
+* [CHANGES] The BBCode rule engine is now async: IReplaceRule.ReplaceAsync, IProcessReplaceRules.ProcessAsync, IBBCodeService.MakeHtmlAsync and ConvertHtmlToBBCodeForEditAsync replace the synchronous methods (breaking change for custom rules that implement IReplaceRule directly, rules based on BaseReplaceRule keep working)
+* [CHANGES] Html.LocalizedText with BBCode is now Html.LocalizedTextAsync
+* [NEW] Extended unit test suite including repository tests against an in-memory SQLite database
+
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
 * [FIXED #1769] paging for attachments on admin edit user page
@@ -106,7 +133,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Private-message replies leak across users in broadcast threads
 * [FIXED] IDOR on attachments
 * [FIXED] Private message leak
-* [FIXED] PM delete IDOR — no ownership check before deleting a UserPMessage by ID.
+* [FIXED] PM delete IDOR ï¿½ no ownership check before deleting a UserPMessage by ID.
 * [FIXED] Stored XSS via scheme bypass in bbcode url
 * bug fixes
 
