@@ -16,12 +16,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 using global::MySql.Data.MySqlClient;
-
 using ServiceStack.OrmLite.MySql.Converters;
 using ServiceStack.OrmLite.MySql.DataAnnotations;
 
@@ -625,6 +624,119 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         "SELECT DISTINCT INDEX_NAME FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
             .SqlFmt(this.UnquotedTable(tableRef), db.Database));
 
+    // Indexes are created for primary keys, unique constraints and foreign keys, with the name of their constraint
+    public override List<IndexSchema> GetTableIndexes(IDbConnection db, TableRef tableRef) => ToIndexSchemas(
+        db.SqlList<Dictionary<string, object>>(
+            ("SELECT s.INDEX_NAME AS name, MIN(s.NON_UNIQUE) = 0 AS is_unique, s.INDEX_NAME = 'PRIMARY' AS is_primary_key, " +
+             "EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc WHERE tc.TABLE_SCHEMA = s.TABLE_SCHEMA " +
+             "AND tc.TABLE_NAME = s.TABLE_NAME AND tc.CONSTRAINT_NAME = s.INDEX_NAME) AS is_constraint, " +
+             "GROUP_CONCAT(s.COLUMN_NAME ORDER BY s.SEQ_IN_INDEX SEPARATOR ',') AS columns " +
+             "FROM INFORMATION_SCHEMA.STATISTICS s WHERE s.TABLE_NAME = {0} AND s.TABLE_SCHEMA = {1} " +
+             "GROUP BY s.TABLE_SCHEMA, s.TABLE_NAME, s.INDEX_NAME")
+            .SqlFmt(this.UnquotedTable(tableRef), db.Database)));
+
+    // SHOW CREATE TABLE reads temporary tables too, which INFORMATION_SCHEMA doesn't have. MariaDB adds a CHECK of
+    // JSON_VALID() to JSON columns, which isn't a constraint of the model.
+    public override List<CheckConstraintSchema> GetCheckConstraints(IDbConnection db, string quotedTable)
+    {
+        var row = db.SqlList<Dictionary<string, object>>($"SHOW CREATE TABLE {quotedTable}").FirstOrDefault();
+        var sql = row?.Values.Skip(1).FirstOrDefault()?.ToString() ?? "";
+        var to = new List<CheckConstraintSchema>();
+        foreach (var line in sql.Split('\n'))
+        {
+            var match = CheckConstraintRegex.Match(line.Trim().TrimEnd(','));
+            if (!match.Success)
+            {
+                continue;
+            }
+
+            var condition = match.Groups[2].Value.Trim();
+            if (condition.StartsWith("json_valid(", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            to.Add(new CheckConstraintSchema { Name = match.Groups[1].Value, Condition = condition });
+        }
+        return to;
+    }
+
+    private static readonly System.Text.RegularExpressions.Regex CheckConstraintRegex = new(
+        @"^CONSTRAINT\s+`([^`]+)`\s+CHECK\s*\((.*)\)$",
+        System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Compiled,
+        TimeSpan.FromSeconds(1));
+
+    // A FULLTEXT index, whose columns are the ones MATCH() has to search for it to be used. It's created by copying the
+    // table, as MariaDB doesn't index the rows a table has when it's created again in place
+    public override List<string> ToCreateFullTextIndexStatements(ModelDefinition modelDef) => [
+        $"ALTER TABLE {this.GetQuotedTableName(modelDef)} ADD FULLTEXT INDEX {this.GetQuotedName(this.GetFullTextIndexName(modelDef))} " +
+        $"({this.GetFullTextColumnNames(modelDef).Join(", ")}), ALGORITHM=COPY;",
+    ];
+
+    public override List<string> ToDropFullTextIndexStatements(ModelDefinition modelDef) => [
+        $"DROP INDEX {this.GetQuotedName(this.GetFullTextIndexName(modelDef))} ON {this.GetQuotedTableName(modelDef)};",
+    ];
+
+    public override bool SupportsFullTextSearch(IDbConnection db) => true;
+
+    public override bool HasFullTextIndex(IDbConnection db, ModelDefinition modelDef) =>
+        this.GetTableIndexNames(db, new TableRef(modelDef)).Any(x => x.EqualsIgnoreCase(this.GetFullTextIndexName(modelDef)));
+
+    // InnoDB's default stop words, which aren't indexed
+    private static readonly HashSet<string> FullTextStopWords = new(StringComparer.OrdinalIgnoreCase) {
+        "a", "about", "an", "are", "as", "at", "be", "by", "com", "de", "en", "for", "from", "how", "i", "in", "is",
+        "it", "la", "of", "on", "or", "that", "the", "this", "to", "was", "what", "when", "where", "who", "will",
+        "with", "und", "www",
+    };
+
+    // Every word and phrase is required, and words are prefixes of the words they match, e.g. +data*. Words that
+    // aren't indexed, as they're shorter than innodb_ft_min_token_size (3) or stop words, would match no rows when
+    // they're required, so they're optional.
+    public override List<string> ToFullTextSearch(List<FullTextTerm> terms) => [
+        terms.Map(x => x.IsPhrase ? "+\"" + x.Words.Join(" ") + "\""
+            : x.Words[0].Length < 3 || FullTextStopWords.Contains(x.Words[0]) ? x.Words[0] + "*"
+            : "+" + x.Words[0] + "*").Join(" "),
+    ];
+
+    public override string ToFullTextMatch(FullTextColumns columns, List<string> parameters) =>
+        $"MATCH({columns.Columns.Join(", ")}) AGAINST({parameters[0]} IN BOOLEAN MODE)";
+
+    public override string ToFullTextRank(FullTextColumns columns, List<string> parameters) =>
+        $"MATCH({columns.Columns.Join(", ")}) AGAINST({parameters[0]} IN BOOLEAN MODE)";
+
+    // Unique constraints are unique indexes
+    public override string ToDropUniqueConstraintStatement(TableRef tableRef, string constraintName) =>
+        $"ALTER TABLE {this.QuoteTable(tableRef)} DROP INDEX {this.GetQuotedName(constraintName)};";
+
+    // SHOW COLUMNS reads temporary tables too, which INFORMATION_SCHEMA doesn't have
+    public override Dictionary<string, string> GetColumnDefaults(IDbConnection db, string quotedTable)
+    {
+        var to = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var column in db.SqlList<Dictionary<string, object>>($"SHOW COLUMNS FROM {quotedTable}"))
+        {
+            var defaultValue = column["Default"];
+            to[column["Field"].ToString()] = defaultValue is null or DBNull ? null : defaultValue.ToString();
+        }
+        return to;
+    }
+
+    public override List<ForeignKeySchema> GetTableForeignKeys(IDbConnection db, TableRef tableRef)
+    {
+        string Columns(string column) =>
+            $"(SELECT GROUP_CONCAT(k.{column} ORDER BY k.ORDINAL_POSITION SEPARATOR ',') FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE k " +
+            "WHERE k.CONSTRAINT_SCHEMA = rc.CONSTRAINT_SCHEMA AND k.TABLE_NAME = rc.TABLE_NAME AND k.CONSTRAINT_NAME = rc.CONSTRAINT_NAME)";
+        return ToForeignKeySchemas(db.SqlList<Dictionary<string, object>>(
+            ($"SELECT rc.CONSTRAINT_NAME AS name, {Columns("COLUMN_NAME")} AS columns, rc.REFERENCED_TABLE_NAME AS ref_table, " +
+             $"{Columns("REFERENCED_COLUMN_NAME")} AS ref_columns, rc.DELETE_RULE AS on_delete, rc.UPDATE_RULE AS on_update " +
+             "FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc WHERE rc.TABLE_NAME = {0} AND rc.CONSTRAINT_SCHEMA = {1}")
+                .SqlFmt(this.UnquotedTable(tableRef), db.Database)));
+    }
+
+    // The column is defined again with its default, as ALTER COLUMN SET DEFAULT can only set literals and expressions
+    // in parentheses, e.g. not CURRENT_TIMESTAMP before MySQL 8.0.13
+    public override string ToAlterColumnDefaultStatement(TableRef tableRef, FieldDefinition fieldDef) =>
+        this.ToAlterColumnStatement(tableRef, fieldDef);
+
     /// <summary>
     /// Doeses the table exist.
     /// </summary>
@@ -1035,8 +1147,27 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             throw new NotSupportedException("MariaDB doesn't have an inner product vector distance");
         }
 
+        var options = fieldDef.VectorIndex;
+        if (options?.IndexType == VectorIndexType.IvfFlat || options?.EfConstruction > 0 || options?.Lists > 0)
+        {
+            throw new NotSupportedException("MariaDB's vector indexes are HNSW indexes, whose only option is M");
+        }
+
         var distance = fieldDef.VectorDistance == VectorDistance.Cosine ? "cosine" : "euclidean";
-        return $"CREATE VECTOR INDEX {indexName} ON {this.GetQuotedTableName(modelDef)} ({this.GetQuotedColumnName(fieldDef)}) DISTANCE={distance}; \n";
+        var m = options?.M > 0 ? $" M={options.M}" : "";
+        return $"CREATE VECTOR INDEX {indexName} ON {this.GetQuotedTableName(modelDef)} ({this.GetQuotedColumnName(fieldDef)}){m} DISTANCE={distance}; \n";
+    }
+
+    // MariaDB's vector indexes are searched with mhnsw_ef_search, MySQL has none
+    public override List<string> ToVectorSearchStatements(VectorSearchOptions options)
+    {
+        var to = new List<string>();
+        if (this.IsMariaDb == true && options.EfSearch != null)
+        {
+            to.Add($"SET SESSION mhnsw_ef_search = {options.EfSearch.Value}");
+        }
+
+        return to;
     }
 
     // Column comments are part of their definition
@@ -1185,6 +1316,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         return this.Unwrap(db).OpenAsync(token);
     }
+
+    public override string ToReadOnlySessionStatement(bool readOnly) => readOnly
+        ? "SET SESSION TRANSACTION READ ONLY"
+        : "SET SESSION TRANSACTION READ WRITE";
 
     /// <summary>
     /// Executes the reader asynchronous.

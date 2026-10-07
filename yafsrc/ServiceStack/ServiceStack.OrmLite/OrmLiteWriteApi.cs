@@ -234,7 +234,7 @@ public static class OrmLiteWriteApi
         /// <param name="objs">The objs.</param>
         public void InsertUsingDefaults<T>(params T[] objs)
         {
-            dbConn.Exec(dbCmd => dbCmd.InsertUsingDefaults(objs));
+            dbConn.ExecAll(dbCmd => dbCmd.InsertUsingDefaults(objs));
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ public static class OrmLiteWriteApi
         /// <param name="objs">The objs.</param>
         public void InsertAll<T>(IEnumerable<T> objs, bool enableIdentityInsert = false)
         {
-            dbConn.Exec(dbCmd => dbCmd.InsertAll(objs, commandFilter: null, enableIdentityInsert: enableIdentityInsert));
+            dbConn.ExecAll(dbCmd => dbCmd.InsertAll(objs, commandFilter: null, enableIdentityInsert: enableIdentityInsert));
         }
 
         /// <summary>
@@ -282,7 +282,7 @@ public static class OrmLiteWriteApi
         /// <param name="commandFilter">The command filter.</param>
         public void InsertAll<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter, bool enableIdentityInsert = false)
         {
-            dbConn.Exec(dbCmd => dbCmd.InsertAll(objs, commandFilter: commandFilter, enableIdentityInsert: enableIdentityInsert));
+            dbConn.ExecAll(dbCmd => dbCmd.InsertAll(objs, commandFilter: commandFilter, enableIdentityInsert: enableIdentityInsert));
         }
 
         /// <summary>
@@ -418,7 +418,7 @@ public static class OrmLiteWriteApi
         /// <returns>System.Int32.</returns>
         public int UpdateAll<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter = null)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateAll(objs, commandFilter));
+            return dbConn.ExecAll(dbCmd => dbCmd.UpdateAll(objs, commandFilter));
         }
 
         /// <summary>
@@ -468,7 +468,7 @@ public static class OrmLiteWriteApi
         /// <returns>System.Int32.</returns>
         public int Delete<T>(params T[] allFieldsFilters)
         {
-            return dbConn.Exec(dbCmd => dbCmd.Delete(allFieldsFilters));
+            return dbConn.ExecAll(dbCmd => dbCmd.Delete(allFieldsFilters));
         }
 
         /// <summary>
@@ -493,7 +493,7 @@ public static class OrmLiteWriteApi
         /// <returns>number of rows deleted</returns>
         public int DeleteNonDefaults<T>(params T[] nonDefaultsFilters)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DeleteNonDefaults(nonDefaultsFilters));
+            return dbConn.ExecAll(dbCmd => dbCmd.DeleteNonDefaults(nonDefaultsFilters));
         }
 
         /// <summary>
@@ -533,7 +533,7 @@ public static class OrmLiteWriteApi
         /// <returns>number of rows deleted</returns>
         public int DeleteByIds<T>(IEnumerable idValues)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DeleteByIds<T>(idValues));
+            return dbConn.ExecAll(dbCmd => dbCmd.DeleteByIds<T>(idValues));
         }
 
         /// <summary>
@@ -556,7 +556,7 @@ public static class OrmLiteWriteApi
         /// <returns>number of rows deleted</returns>
         public int DeleteAll<T>(IEnumerable<T> rows)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DeleteAll(rows));
+            return dbConn.ExecAll(dbCmd => dbCmd.DeleteAll(rows));
         }
 
         /// <summary>
@@ -633,7 +633,7 @@ public static class OrmLiteWriteApi
         /// </summary>
         public void UpsertAll<T>(IEnumerable<T> objs)
         {
-            dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly: null));
+            dbConn.ExecAll(dbCmd => dbCmd.UpsertAll(objs, updateOnly: null));
         }
 
         /// <summary>
@@ -644,7 +644,7 @@ public static class OrmLiteWriteApi
         {
             ArgumentNullException.ThrowIfNull(updateOnly);
 
-            dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly.GetFieldNames()));
+            dbConn.ExecAll(dbCmd => dbCmd.UpsertAll(objs, updateOnly.GetFieldNames()));
         }
 
         /// <summary>
@@ -654,7 +654,7 @@ public static class OrmLiteWriteApi
         {
             ArgumentNullException.ThrowIfNull(updateOnly);
 
-            dbConn.Exec(dbCmd => dbCmd.UpsertAll(objs, updateOnly));
+            dbConn.ExecAll(dbCmd => dbCmd.UpsertAll(objs, updateOnly));
         }
 
         /// <summary>
@@ -671,6 +671,16 @@ public static class OrmLiteWriteApi
             if (!references)
             {
                 return dbConn.Exec(dbCmd => dbCmd.Save(obj));
+            }
+
+            if (dbConn.RetriesAsTransaction())
+            {
+                return dbConn.RunInTransaction(() => dbConn.Exec(dbCmd =>
+                {
+                    var ret = dbCmd.Save(obj);
+                    dbCmd.SaveAllReferences(obj);
+                    return ret;
+                }));
             }
 
             var trans = dbConn.OpenTransactionIfNotExists();
@@ -707,7 +717,7 @@ public static class OrmLiteWriteApi
         /// <returns>number of rows added</returns>
         public int SaveAll<T>(IEnumerable<T> objs)
         {
-            return dbConn.Exec(dbCmd => dbCmd.SaveAll(objs));
+            return dbConn.ExecAll(dbCmd => dbCmd.SaveAll(objs));
         }
 
         /// <summary>

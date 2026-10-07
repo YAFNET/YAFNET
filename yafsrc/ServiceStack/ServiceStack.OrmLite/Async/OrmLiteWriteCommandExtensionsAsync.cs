@@ -209,7 +209,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
 
             if (hadRowVersion && rowsUpdated == 0)
             {
-                throw new OptimisticConcurrencyException();
+                throw new OptimisticConcurrencyException(OrmLiteWriteCommandExtensions.RowModifiedMessage);
             }
 
             return rowsUpdated;
@@ -278,7 +278,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
 
                     if (hadRowVersion && rowsUpdated == 0)
                     {
-                        throw new OptimisticConcurrencyException();
+                        throw new OptimisticConcurrencyException(OrmLiteWriteCommandExtensions.RowModifiedMessage);
                     }
 
                     count += rowsUpdated;
@@ -309,7 +309,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         var rowsUpdated = await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
         if (hadRowVersion && rowsUpdated == 0)
         {
-            throw new OptimisticConcurrencyException();
+            throw new OptimisticConcurrencyException(OrmLiteWriteCommandExtensions.RowModifiedMessage);
         }
 
         return rowsUpdated;
@@ -495,7 +495,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
             var rowsAffected = await dbCmd.ExecuteSqlAsync(sql, commandFilter, token).ConfigAwait();
             if (rowsAffected == 0)
             {
-                throw new OptimisticConcurrencyException("The row was modified or deleted since the last read");
+                throw new OptimisticConcurrencyException(OrmLiteWriteCommandExtensions.RowModifiedMessage);
             }
         }
 

@@ -31,6 +31,11 @@ public static class OrmLiteWriteCommandExtensions
     /// </summary>
     internal static ILog Log => OrmLiteLog.Log;
 
+    /// <summary>
+    /// The message of the OptimisticConcurrencyException thrown when a row's version isn't the one that was read
+    /// </summary>
+    internal const string RowModifiedMessage = "The row was modified or deleted since the last read";
+
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)
     {
@@ -137,6 +142,11 @@ public static class OrmLiteWriteCommandExtensions
             {
                 if (!tableExists)
                 {
+                    // Generated first, so a model with an option the RDBMS doesn't have, e.g. a filtered index in MySQL,
+                    // throws before the table is created without it
+                    var createTableSql = dialectProvider.ToCreateTableStatement(modelType);
+                    var sqlIndexes = dialectProvider.ToCreateIndexStatements(modelType);
+
                     if (modelDef.PreCreateTableSql != null)
                     {
                         ExecuteSql(dbCmd, modelDef.PreCreateTableSql);
@@ -177,7 +187,6 @@ public static class OrmLiteWriteCommandExtensions
                         }
                     }
 
-                    var createTableSql = dialectProvider.ToCreateTableStatement(modelType);
                     ExecuteSql(dbCmd, createTableSql);
 
                     var postCreateTableSql = dialectProvider.ToPostCreateTableStatement(modelDef);
@@ -191,7 +200,6 @@ public static class OrmLiteWriteCommandExtensions
                     ExecuteSql(dbCmd, modelDef.PostCreateTableSql);
                 }*/
 
-                    var sqlIndexes = dialectProvider.ToCreateIndexStatements(modelType);
                     foreach (var sqlIndex in sqlIndexes)
                     {
                         try
@@ -207,6 +215,14 @@ public static class OrmLiteWriteCommandExtensions
                             }
 
                             throw;
+                        }
+                    }
+
+                    if (modelDef.FullTextIndex != null)
+                    {
+                        foreach (var sql in dialectProvider.ToCreateFullTextIndexStatements(modelDef))
+                        {
+                            dbCmd.ExecuteSql(sql);
                         }
                     }
 
@@ -298,6 +314,15 @@ public static class OrmLiteWriteCommandExtensions
                 if (modelDef.PreDropTableSql != null)
                 {
                     ExecuteSql(dbCmd, modelDef.PreDropTableSql);
+                }
+
+                // SQLite's full-text index is a table of its own, which other RDBMS drop with the table
+                if (modelDef.FullTextIndex != null && dialectProvider.Kind == DbKind.Sqlite)
+                {
+                    foreach (var sql in dialectProvider.ToDropFullTextIndexStatements(modelDef))
+                    {
+                        dbCmd.ExecuteSql(sql);
+                    }
                 }
 
                 var dropTableFks = dialectProvider.GetDropForeignKeyConstraints(modelDef);
@@ -508,7 +533,8 @@ public static class OrmLiteWriteCommandExtensions
 
                 if (values != null && values[index] == DBNull.Value)
                 {
-                    value = fieldDef.IsNullable ? null : fieldDef.FieldTypeDefaultValue;
+                    // null, unless the property can't be null
+                    value = fieldDef.FieldTypeDefaultValue;
                     var useValue = dbNullFilter?.Invoke(fieldDef);
                     if (useValue != null)
                     {
@@ -522,10 +548,7 @@ public static class OrmLiteWriteCommandExtensions
                     value = converter.GetValue(reader, index, values);
                     if (value == null)
                     {
-                        if (!fieldDef.IsNullable)
-                        {
-                            value = fieldDef.FieldTypeDefaultValue;
-                        }
+                        value = fieldDef.FieldTypeDefaultValue;
 
                         var useValue = dbNullFilter?.Invoke(fieldDef);
                         if (useValue != null)
@@ -701,7 +724,7 @@ public static class OrmLiteWriteCommandExtensions
 
             if (hadRowVersion && rowsUpdated == 0)
             {
-                throw new OptimisticConcurrencyException();
+                throw new OptimisticConcurrencyException(RowModifiedMessage);
             }
 
             return rowsUpdated;
@@ -767,7 +790,7 @@ public static class OrmLiteWriteCommandExtensions
                     var rowsUpdated = dbCmd.ExecNonQuery();
                     if (hadRowVersion && rowsUpdated == 0)
                     {
-                        throw new OptimisticConcurrencyException();
+                        throw new OptimisticConcurrencyException(RowModifiedMessage);
                     }
 
                     count += rowsUpdated;
@@ -802,7 +825,7 @@ public static class OrmLiteWriteCommandExtensions
         var rowsUpdated = dbCmd.ExecNonQuery();
         if (hadRowVersion && rowsUpdated == 0)
         {
-            throw new OptimisticConcurrencyException();
+            throw new OptimisticConcurrencyException(RowModifiedMessage);
         }
 
         return rowsUpdated;
@@ -1001,7 +1024,7 @@ public static class OrmLiteWriteCommandExtensions
             var rowsAffected = dbCmd.ExecuteSql(sql, commandFilter: commandFilter);
             if (rowsAffected == 0)
             {
-                throw new OptimisticConcurrencyException("The row was modified or deleted since the last read");
+                throw new OptimisticConcurrencyException(RowModifiedMessage);
             }
         }
 

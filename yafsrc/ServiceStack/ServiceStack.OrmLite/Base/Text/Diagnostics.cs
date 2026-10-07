@@ -401,6 +401,10 @@ public class OrmLiteDiagnosticEvent : DiagnosticEvent
     /// </summary>
     /// <value>The named connection.</value>
     public string? NamedConnection { get; set; }
+    /// <summary>
+    /// Whether the command was run on a read replica
+    /// </summary>
+    public bool IsReadReplica { get; set; }
 
     /// <summary>
     /// Gets or sets the connection.

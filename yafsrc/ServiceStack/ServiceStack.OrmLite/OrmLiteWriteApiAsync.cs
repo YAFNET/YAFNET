@@ -161,7 +161,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>Task.</returns>
         public Task InsertUsingDefaultsAsync<T>(T[] objs, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.InsertUsingDefaultsAsync(objs, token));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.InsertUsingDefaultsAsync(objs, token), token);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>Task.</returns>
         public Task InsertAllAsync<T>(IEnumerable<T> objs, bool enableIdentityInsert = false, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.InsertAllAsync(objs, commandFilter: null, enableIdentityInsert: enableIdentityInsert, token: token));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.InsertAllAsync(objs, commandFilter: null, enableIdentityInsert: enableIdentityInsert, token: token), token);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>Task.</returns>
         public Task InsertAllAsync<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter, bool enableIdentityInsert = false, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.InsertAllAsync(objs, commandFilter: commandFilter, enableIdentityInsert: enableIdentityInsert, token: token));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.InsertAllAsync(objs, commandFilter: commandFilter, enableIdentityInsert: enableIdentityInsert, token: token), token);
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         public Task<int> UpdateAllAsync<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter = null, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateAllAsync(objs, commandFilter, token));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.UpdateAllAsync(objs, commandFilter, token), token);
         }
 
         /// <summary>
@@ -365,7 +365,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         public Task<int> DeleteAsync<T>(Action<IDbCommand> commandFilter = null, CancellationToken token = default, params T[] allFieldsFilters)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DeleteAsync(token, allFieldsFilters));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.DeleteAsync(token, allFieldsFilters), token);
         }
 
         /// <summary>
@@ -377,7 +377,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         public Task<int> DeleteAsync<T>(Action<IDbCommand> commandFilter = null, params T[] allFieldsFilters)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DeleteAsync(CancellationToken.None, allFieldsFilters));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.DeleteAsync(CancellationToken.None, allFieldsFilters), CancellationToken.None);
         }
 
         /// <summary>
@@ -404,7 +404,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>number of rows deleted</returns>
         public Task<int> DeleteNonDefaultsAsync<T>(CancellationToken token, params T[] nonDefaultsFilters)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DeleteNonDefaultsAsync(token, nonDefaultsFilters));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.DeleteNonDefaultsAsync(token, nonDefaultsFilters), token);
         }
 
         /// <summary>
@@ -415,7 +415,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         public Task<int> DeleteNonDefaultsAsync<T>(params T[] nonDefaultsFilters)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DeleteNonDefaultsAsync(CancellationToken.None, nonDefaultsFilters));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.DeleteNonDefaultsAsync(CancellationToken.None, nonDefaultsFilters), CancellationToken.None);
         }
 
         /// <summary>
@@ -463,7 +463,7 @@ public static class OrmLiteWriteApiAsync
         public Task<int> DeleteByIdsAsync<T>(IEnumerable idValues,
             Action<IDbCommand> commandFilter = null, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DeleteByIdsAsync<T>(idValues, commandFilter, token));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.DeleteByIdsAsync<T>(idValues, commandFilter, token), token);
         }
 
         /// <summary>
@@ -485,7 +485,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>number of rows deleted</returns>
         public Task<int> DeleteAllAsync<T>(IEnumerable<T> rows, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.DeleteAllAsync(rows, token));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.DeleteAllAsync(rows, token), token);
         }
 
         /// <summary>
@@ -569,7 +569,7 @@ public static class OrmLiteWriteApiAsync
         {
             ArgumentNullException.ThrowIfNull(updateOnly);
 
-            return dbConn.Exec(dbCmd => dbCmd.UpsertAllAsync(objs, updateOnly.GetFieldNames(), token));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.UpsertAllAsync(objs, updateOnly.GetFieldNames(), token), token);
         }
 
         /// <summary>
@@ -580,7 +580,7 @@ public static class OrmLiteWriteApiAsync
         {
             ArgumentNullException.ThrowIfNull(updateOnly);
 
-            return dbConn.Exec(dbCmd => dbCmd.UpsertAllAsync(objs, updateOnly, token));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.UpsertAllAsync(objs, updateOnly, token), token);
         }
 
         /// <summary>
@@ -598,6 +598,16 @@ public static class OrmLiteWriteApiAsync
             if (!references)
             {
                 return await dbConn.Exec(dbCmd => dbCmd.SaveAsync(obj, token)).ConfigAwait();
+            }
+
+            if (dbConn.RetriesAsTransaction())
+            {
+                return await dbConn.RunInTransactionAsync(() => dbConn.Exec(async dbCmd =>
+                {
+                    var ret = await dbCmd.SaveAsync(obj, token).ConfigAwait();
+                    await dbCmd.SaveAllReferencesAsync(obj, token).ConfigAwait();
+                    return ret;
+                }), token: token).ConfigAwait();
             }
 
             var trans = dbConn.OpenTransactionIfNotExists();
@@ -647,7 +657,7 @@ public static class OrmLiteWriteApiAsync
         /// <returns>number of rows added</returns>
         public Task<int> UpsertAllAsync<T>(IEnumerable<T> objs, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.SaveAllAsync(objs, token));
+            return dbConn.ExecAllAsync(dbCmd => dbCmd.SaveAllAsync(objs, token), token);
         }
 
         /// <summary>

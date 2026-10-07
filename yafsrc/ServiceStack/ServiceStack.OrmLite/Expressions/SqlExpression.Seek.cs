@@ -66,6 +66,9 @@ public abstract partial class SqlExpression<T>
     /// <summary>
     /// Adds (a &gt; @0) OR (a = @0 AND b &gt; @1) ... for each ORDER BY column, using &lt; for descending columns.
     /// This form is supported by all RDBMS (unlike row value comparisons) and works with mixed sort directions.
+    /// With more than one column it starts with a &gt;= bound on the first column (&lt;= when descending), which
+    /// matches the same rows but lets RDBMS like PostgreSQL and SQL Server seek to it in an index instead of scanning
+    /// the rows before it.
     /// </summary>
     private SqlExpression<T> AddSeekCondition(List<SeekTerm> terms, object[] values)
     {
@@ -79,6 +82,14 @@ public abstract partial class SqlExpression<T>
         }
 
         var sb = new StringBuilder("(");
+        // The rows after the last row are all on or after its value of the first column
+        if (terms.Count > 1)
+        {
+            sb.Append('(').Append(terms[0].Column)
+                .Append(terms[0].Descending ? " <= " : " >= ")
+                .Append(paramNames[0])
+                .Append(") AND (");
+        }
         for (var i = 0; i < terms.Count; i++)
         {
             if (i > 0)
@@ -93,7 +104,7 @@ public abstract partial class SqlExpression<T>
                 .Append(paramNames[i])
                 .Append(')');
         }
-        sb.Append(')');
+        sb.Append(terms.Count > 1 ? "))" : ")");
 
         return AppendToWhere("AND", sb.ToString());
     }

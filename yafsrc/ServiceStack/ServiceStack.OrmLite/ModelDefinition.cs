@@ -294,6 +294,11 @@ public class ModelDefinition
     public List<CompositeIndexAttribute> CompositeIndexes { get; set; }
 
     /// <summary>
+    /// The full-text index of the table's text columns, from its [FullTextIndex]
+    /// </summary>
+    public FullTextIndexAttribute FullTextIndex { get; set; }
+
+    /// <summary>
     /// Gets or sets the unique constraints.
     /// </summary>
     /// <value>The unique constraints.</value>

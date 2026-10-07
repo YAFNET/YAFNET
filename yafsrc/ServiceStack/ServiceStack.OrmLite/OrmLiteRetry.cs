@@ -378,6 +378,7 @@ internal static class OrmLiteRetryExec
     // Only the statements of a dialect with a policy create the closures of a retry
     internal static Task<int> ExecNonQueryWithRetryAsync(this IDbCommand dbCmd, CancellationToken token)
     {
+        (dbCmd as OrmLiteCommand)?.OrmLiteConnection.OnExecute(dbCmd, isNonQuery: true);
         var dialect = dbCmd.GetDialectProvider();
         return dialect.RetryPolicy == null
             ? dialect.ExecuteNonQueryAsync(dbCmd, token)
@@ -389,17 +390,32 @@ internal static class OrmLiteRetryExec
 
     internal static Task<IDataReader> ExecReaderWithRetryAsync(this IDbCommand dbCmd, CancellationToken token)
     {
+        (dbCmd as OrmLiteCommand)?.OrmLiteConnection.OnExecute(dbCmd, isNonQuery: false);
         var dialect = dbCmd.GetDialectProvider();
         return dialect.RetryPolicy == null
             ? dialect.ExecuteReaderAsync(dbCmd, token)
             : RetryReaderAsync(dbCmd, dialect, token);
     }
 
-    private static Task<IDataReader> RetryReaderAsync(IDbCommand dbCmd, IOrmLiteDialectProvider dialect, CancellationToken token) =>
-        ExecuteAsync(dbCmd, () => dialect.ExecuteReaderAsync(dbCmd, token), token);
+    private static async Task<IDataReader> RetryReaderAsync(IDbCommand dbCmd, IOrmLiteDialectProvider dialect, CancellationToken token) =>
+        RetryReader(dbCmd, dialect, await ExecuteAsync(dbCmd, () => dialect.ExecuteReaderAsync(dbCmd, token), token).ConfigAwait(),
+            CommandBehavior.Default);
+
+    /// <summary>
+    /// The rows of a query that's run again if reading its first row fails with a temporary error
+    /// </summary>
+    internal static IDataReader RetryReader(IDbCommand dbCmd, IOrmLiteDialectProvider dialect, IDataReader reader,
+        CommandBehavior behavior)
+    {
+        var policy = GetStatementPolicy(dbCmd, dialect);
+        return policy != null && reader is DbDataReader dbReader
+            ? new OrmLiteRetryReader(dbReader, dbCmd, dialect, policy, behavior)
+            : reader;
+    }
 
     internal static Task<object> ExecScalarWithRetryAsync(this IDbCommand dbCmd, CancellationToken token)
     {
+        (dbCmd as OrmLiteCommand)?.OrmLiteConnection.OnExecute(dbCmd, isNonQuery: false);
         var dialect = dbCmd.GetDialectProvider();
         return dialect.RetryPolicy == null
             ? dialect.ExecuteScalarAsync(dbCmd, token)
@@ -594,6 +610,37 @@ public static class OrmLiteRetryApi
             await Task.Delay(delay, token).ConfigAwait();
         }
     }
+
+    /// <summary>
+    /// Whether a write of many rows, which runs in a transaction of its own, runs in a transaction that's run again
+    /// after a temporary error, e.g. InsertAll(). Writes in the App's transaction are retried with it.
+    /// </summary>
+    internal static bool RetriesAsTransaction(this IDbConnection db) =>
+        !db.InTransaction() && db.GetDialectProvider().RetryPolicy != null;
+
+    /// <summary>
+    /// Run a write of many rows in a transaction that's run again after a temporary error, see RetriesAsTransaction()
+    /// </summary>
+    internal static T ExecAll<T>(this IDbConnection db, Func<IDbCommand, T> fn) =>
+        db.RetriesAsTransaction() ? db.RunInTransaction(() => db.Exec(fn)) : db.Exec(fn);
+
+    internal static void ExecAll(this IDbConnection db, Action<IDbCommand> fn)
+    {
+        if (db.RetriesAsTransaction())
+        {
+            db.RunInTransaction(() => db.Exec(fn));
+        }
+        else
+        {
+            db.Exec(fn);
+        }
+    }
+
+    internal static Task<T> ExecAllAsync<T>(this IDbConnection db, Func<IDbCommand, Task<T>> fn, CancellationToken token) =>
+        db.RetriesAsTransaction() ? db.RunInTransactionAsync(() => db.Exec(fn), token: token) : db.Exec(fn);
+
+    internal static Task ExecAllAsync(this IDbConnection db, Func<IDbCommand, Task> fn, CancellationToken token) =>
+        db.RetriesAsTransaction() ? db.RunInTransactionAsync(() => db.Exec(fn), token: token) : db.Exec(fn);
 
     /// <summary>
     /// Roll back a transaction that failed, whose connection may have been lost
