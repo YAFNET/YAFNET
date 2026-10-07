@@ -287,7 +287,7 @@ public class DiffMatchPatch
 
         // Check to see if the problem can be split in two.
         var hm = this.HalfMatch(text1, text2);
-        if (hm != null)
+        if (hm.Length != 0)
         {
             // A half-match was found, sort out the return data.
             var text1A = hm[0];
@@ -800,16 +800,16 @@ public class DiffMatchPatch
         // Check again based on the third quarter.
         var hm2 = this.HalfMatchI(longtext, shortText, (longtext.Length + 1) / 2);
         string[] hm;
-        if (hm1 == null && hm2 == null)
+        if (hm1.Length == 0 && hm2.Length == 0)
         {
             return [];
         }
 
-        if (hm2 == null)
+        if (hm2.Length == 0)
         {
             hm = hm1;
         }
-        else if (hm1 == null)
+        else if (hm1.Length == 0)
         {
             hm = hm2;
         }

@@ -158,6 +158,6 @@ public abstract class FlagsBase
     /// </returns>
     public static int EnumToIndex(Enum theEnum)
     {
-        return Convert.ToInt32(Math.Sqrt(Convert.ToInt32(theEnum))) - 1;
+        return System.Numerics.BitOperations.Log2((uint)Convert.ToInt32(theEnum));
     }
 }

@@ -28,7 +28,7 @@ namespace YAF.Types.Attributes;
 /// This attribute is used to represent a string value
 /// for a value in an enum.
 /// </summary>
-[AttributeUsage(AttributeTargets.Enum)]
+[AttributeUsage(AttributeTargets.Field)]
 public class StringValueAttribute : Attribute
 {
     /// <summary>
