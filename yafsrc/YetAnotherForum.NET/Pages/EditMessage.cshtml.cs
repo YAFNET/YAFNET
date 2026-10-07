@@ -183,7 +183,7 @@ public class EditMessageModel : ForumPage
         }
 
         // editing a message...
-        this.InitEditedPost();
+        await this.InitEditedPostAsync();
 
         return this.Page();
     }
@@ -419,13 +419,13 @@ public class EditMessageModel : ForumPage
     /// <summary>
     /// The initializes the edited post.
     /// </summary>
-    private void InitEditedPost()
+    private async Task InitEditedPostAsync()
     {
         if (this.PageBoardContext.PageMessage.MessageFlags.IsHtml)
         {
             // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-            this.PageBoardContext.PageMessage.MessageText = this.Get<IBBCodeService>()
-                .ConvertHtmlToBBCodeForEdit(this.PageBoardContext.PageMessage.MessageText);
+            this.PageBoardContext.PageMessage.MessageText = await this.Get<IBBCodeService>()
+                .ConvertHtmlToBBCodeForEditAsync(this.PageBoardContext.PageMessage.MessageText);
         }
 
         this.Input.Editor = BBCodeHelper.DecodeCodeBlocks(this.PageBoardContext.PageMessage.MessageText);

@@ -12,6 +12,9 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="..\..\YetAnotherForum.NET\wwwroot\languages\english.json" Link="languages\english.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\YAFNET.Core\YAFNET.Core.csproj" />
     <ProjectReference Include="..\..\YAFNET.Data\YAFNET.Data.Sqlite\YAFNET.Data.Sqlite.csproj" />
   </ItemGroup>
@@ -22,6 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+    <PackageReference Include="NSubstitute" Version="6.2.0" />
     <PackageReference Include="NUnit" Version="5.0.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.3.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="10.35.0.4138">

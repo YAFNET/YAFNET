@@ -272,15 +272,16 @@ public static class MessageRepositoryExtensions
         // Get Total Rows
         var totalRows = GetMessageCount(topicId, showDeleted, sincePostedDate, toPostedDate);
 
+        // the (0-based) page that is queried
+        var queryPageIndex = pageIndex;
+
         if (messagePosition > 0)
         {
-            // Change index
-            pageIndex = messagePosition / pageSize;
+            // Change index to the page containing the message
+            queryPageIndex = messagePosition / pageSize;
 
-            if (pageIndex > 0)
-            {
-                pageIndex++;
-            }
+            // the returned PageIndex is used as the (1-based) page number in the url, 0 is the first page
+            pageIndex = queryPageIndex > 0 ? queryPageIndex + 1 : 0;
         }
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
@@ -302,7 +303,7 @@ public static class MessageRepositoryExtensions
                         expression.And(m => (m.Flags & 8) != 8);
                     }
 
-                    var pageIndexCheck = pageIndex + 1;
+                    var pageIndexCheck = queryPageIndex + 1;
                     var totalPages = IPagerExtensions.PageCount(totalRows, pageSize);
 
                     if (totalPages == 0)
@@ -317,7 +318,7 @@ public static class MessageRepositoryExtensions
                     }
                     else
                     {
-                        expression.OrderBy<Message>(m => m.Posted).Page(pageIndex + 1, pageSize);
+                        expression.OrderBy<Message>(m => m.Posted).Page(queryPageIndex + 1, pageSize);
                     }
 
                     var reputationExpression = db.Connection.From<ReputationVote>(db.Connection.TableAlias("x"));
@@ -1079,9 +1080,12 @@ public static class MessageRepositoryExtensions
             User originalMessageUser,
             int editedBy)
         {
+            // MessageFlags returns a new instance on every get, so keep a local copy to modify
+            var flags = originalMessage.MessageFlags;
+
             if (overrideApproval || !forum.ForumFlags.IsModerated)
             {
-                originalMessage.MessageFlags.IsApproved = true;
+                flags.IsApproved = true;
             }
 
             if (await BoardContext.Current.GetRepository<MessageHistory>()
@@ -1124,7 +1128,7 @@ public static class MessageRepositoryExtensions
                     MessageText = message,
                     Edited = DateTime.UtcNow,
                     EditedBy = editedBy,
-                    Flags = originalMessage.MessageFlags.BitValue,
+                    Flags = flags.BitValue,
                     IsModeratorChanged = isModeratorChanged,
                     EditReason = reasonOfEdit
                 },
@@ -1152,7 +1156,7 @@ public static class MessageRepositoryExtensions
             {
                 MessageId = originalMessage.ID,
                 Message = message,
-                Flags = originalMessage.Flags,
+                Flags = flags.BitValue,
                 Posted = originalMessage.Posted.ToString(CultureInfo.InvariantCulture),
                 UserName = originalMessageUser.Name,
                 UserDisplayName = originalMessageUser.DisplayName,
@@ -1519,7 +1523,7 @@ public static class MessageRepositoryExtensions
 
             // -- update user post count
             if (!await BoardContext.Current.GetRepository<Forum>()
-                    .ExistsAsync(f => f.ID == forumId && (f.Flags & 4) != 4))
+                    .ExistsAsync(f => f.ID == forumId && (f.Flags & 4) == 4))
             {
                 var postCount = (await repository.CountAsync(
                     x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16)).ToType<int>();

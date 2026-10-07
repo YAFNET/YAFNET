@@ -179,7 +179,7 @@ public class RegisterModel : AccountPage
             }
         }
 
-        this.ErrorMessage = this.Get<IBBCodeService>().MakeHtml(
+        this.ErrorMessage = await this.Get<IBBCodeService>().MakeHtmlAsync(
             this.GetText("ACCOUNT_CREATED_VERIFICATION"),
             true,
             true);

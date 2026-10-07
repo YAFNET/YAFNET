@@ -52,7 +52,7 @@ public static class ReputationVoteRepositoryExtensions
         int fromUserId,
         int toUserId)
     {
-        var voteDate = repository.GetSingleAsync(
+        var voteDate = await repository.GetSingleAsync(
             r => r.ReputationFromUserID == fromUserId && r.ReputationToUserID == toUserId);
 
         if (voteDate != null)

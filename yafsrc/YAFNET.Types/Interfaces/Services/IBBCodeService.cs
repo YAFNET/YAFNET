@@ -60,7 +60,7 @@ public interface IBBCodeService
     /// <returns>
     /// The converted text
     /// </returns>
-    string ConvertHtmlToBBCodeForEdit(string message);
+    Task<string> ConvertHtmlToBBCodeForEditAsync(string message);
 
     /// <summary>
     /// Creates the rules that convert BBCode to HTML
@@ -118,7 +118,7 @@ public interface IBBCodeService
     /// <returns>
     /// The make html.
     /// </returns>
-    string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride);
+    Task<string> MakeHtmlAsync(string inputString, bool doFormatting, bool targetBlankOverride);
 
     /// <summary>
     /// Helper function that dandles registering "Custom BBCode" JavaScript (if there is any)

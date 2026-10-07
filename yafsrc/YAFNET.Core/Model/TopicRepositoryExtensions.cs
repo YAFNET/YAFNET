@@ -247,17 +247,19 @@ public static class TopicRepositoryExtensions
 
                     expression.Where(whereCriteria);
 
-                    // -- count total
-                    var countTotalExpression = db.Connection.From<Topic>().Join<Forum>((t, f) => f.ID == t.ForumID)
-                        .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID)
-                        .Join<Forum, Category>((f, c) => c.ID == f.CategoryID);
+                    // -- count total (the user's watched topics, same filter as the list).
+                    // The parameters are inlined, otherwise they would be bound to the outer query's parameters.
+                    var countTotalExpression = db.Connection.From<WatchTopic>().Join<Topic>((w, t) => t.ID == w.TopicID)
+                        .Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
+                        .Where<WatchTopic>(w => w.UserID == userId);
 
                     countTotalExpression.Where(whereCriteria);
 
                     expression.OrderByDescending<Topic>(t => t.LastPosted).Page(pageIndex + 1, pageSize);
 
                     var countTotalSql = countTotalExpression
-                        .Select(Sql.Count($"{countTotalExpression.Column<Topic>(x => x.ID)}")).ToSelectStatement();
+                        .Select(Sql.Count($"{countTotalExpression.Column<Topic>(x => x.ID, true)}"))
+                        .ToMergedParamsSelectStatement();
 
                     // -- count deleted posts
                     var countDeletedExpression = db.Connection.From<Message>(db.Connection.TableAlias("mes"));

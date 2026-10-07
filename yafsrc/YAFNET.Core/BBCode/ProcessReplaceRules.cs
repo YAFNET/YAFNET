@@ -29,6 +29,7 @@ namespace YAF.Core.BBCode;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
@@ -116,11 +117,14 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
     /// <param name="text">
     ///     The text.
     /// </param>
-    public void Process(ref string text)
+    /// <returns>
+    ///     The processed text.
+    /// </returns>
+    public async Task<string> ProcessAsync(string text)
     {
         if (text.IsNotSet())
         {
-            return;
+            return text;
         }
 
         // sort the rules according to rank...
@@ -128,7 +132,13 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
         {
             lock (this.rulesLock)
             {
-                this.rulesList.Sort();
+                // stable sort: rules with the same rank keep the order they were added in
+                // (List.Sort is unstable, so that order changed whenever rules were added or re-ranked)
+                var sorted = this.rulesList.OrderBy(rule => rule, Comparer<IReplaceRule>.Default).ToList();
+
+                this.rulesList.Clear();
+                this.rulesList.AddRange(sorted);
+
                 this.needSort = false;
             }
         }
@@ -149,7 +159,7 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
         {
             try
             {
-                rule.Replace(ref text, mainCollection);
+                text = await rule.ReplaceAsync(text, mainCollection);
             }
             catch (RegexMatchTimeoutException ex)
             {
@@ -164,5 +174,7 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
 
         // reconstruct the html
         mainCollection.Reconstruct(ref text);
+
+        return text;
     }
 }

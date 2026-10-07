@@ -21,7 +21,7 @@
                 @Html.IconHeader("user-secret", "RULES", "TITLE")
             </div>
             <div class="card-body">
-                @Html.Raw(Model.Get<IBBCodeService>().MakeHtml(Model.Get<ILocalization>().GetTextFormatted("RULES_TEXT", (string)ViewBag.Email), true, true))
+                @Html.Raw(await Model.Get<IBBCodeService>().MakeHtmlAsync(Model.Get<ILocalization>().GetTextFormatted("RULES_TEXT", (string)ViewBag.Email), true, true))
             </div>
 
             @if (BoardContext.Current.IsGuest)

@@ -538,7 +538,7 @@ public static class ForumRepositoryExtensions
 
             await BoardContext.Current.GetRepository<Topic>().UpdateOnlyAsync(
                 () => new Topic { LastMessageID = null },
-                f => f.ID == forumId);
+                t => t.ForumID == forumId);
 
             await BoardContext.Current.GetRepository<Active>().DeleteAsync(x => x.ForumID == forumId);
 

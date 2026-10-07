@@ -89,46 +89,45 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         var adminLink = this.Get<ILinkBuilder>().GetAbsoluteLink(ForumPages.Moderate_UnapprovedPosts, new {f = forumId});
 
         // send each message...
-        moderatorUserNames.Distinct().AsParallel().ForAll(
-            userName =>
-                {
-                    // add each member of the group
-                    var user = this.GetRepository<User>().GetSingle(x => x.Name == userName);
+        foreach (var userName in moderatorUserNames.Distinct())
+        {
+            // add each member of the group
+            var user = this.GetRepository<User>().GetSingle(x => x.Name == userName);
 
-                    if (user == null)
+            if (user == null)
+            {
+                continue;
+            }
+
+            var languageFile = UserHelper.GetUserLanguageFile(user);
+
+            var subject = string.Format(
+                this.Get<ILocalization>().GetText(
+                    "COMMON",
+                    isSpamMessage
+                        ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                        : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
+                    languageFile),
+                this.BoardSettings.Name);
+
+            var notifyModerators =
+                new TemplateEmail(
+                    isSpamMessage
+                        ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                        : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
                     {
-                        return;
-                    }
-
-                    var languageFile = UserHelper.GetUserLanguageFile(user);
-
-                    var subject = string.Format(
-                        this.Get<ILocalization>().GetText(
-                            "COMMON",
-                            isSpamMessage
-                                ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
-                                : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-                            languageFile),
-                        this.BoardSettings.Name);
-
-                    var notifyModerators =
-                        new TemplateEmail(
-                            isSpamMessage
-                                ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
-                                : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
+                        TemplateLanguageFile = languageFile,
+                        TemplateParams =
                             {
-                                TemplateLanguageFile = languageFile,
-                                TemplateParams =
-                                    {
-                                        ["{user}"] = userName,
-                                        ["{adminlink}"] = adminLink,
-                                        ["{css}"] = inlineCss,
-                                        ["{forumlink}"] = forumLink
-                                    }
-                            };
+                                ["{user}"] = userName,
+                                ["{adminlink}"] = adminLink,
+                                ["{css}"] = inlineCss,
+                                ["{forumlink}"] = forumLink
+                            }
+                    };
 
-                    notifyModerators.SendEmailAsync(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject);
-                });
+            await notifyModerators.SendEmailAsync(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject);
+        }
     }
 
     /// <summary>
@@ -262,7 +261,8 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        await Task.WhenAll(watchUsers.Select(async user =>
+        // sequential: the template email is shared and its language is set per user
+        foreach (var user in watchUsers)
         {
             // Add to stream
             if (user.Activity)
@@ -313,8 +313,8 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             var toAddress = MailboxAddress.Parse(user.Email);
             toAddress.Name = this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name;
 
-            mailMessages.Add(watchEmail.CreateEmail(fromAddress, toAddress, subject));
-        }));
+            mailMessages.Add(await watchEmail.CreateEmailAsync(fromAddress, toAddress, subject));
+        }
 
         if (mailMessages.HasItems())
         {

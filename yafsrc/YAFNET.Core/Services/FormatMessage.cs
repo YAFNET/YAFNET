@@ -132,7 +132,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         bool? targetBlankOverride = false,
         DateTime? messageLastEdited = null)
     {
-        var formattedMessage = this.Format(
+        var formattedMessage = await this.FormatAsync(
             message,
             messageId,
             targetBlankOverride ?? false,
@@ -164,7 +164,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The formatted message.
     /// </returns>
-    private string Format(
+    private async Task<string> FormatAsync(
         string message,
         int messageId,
         bool targetBlankOverride,
@@ -177,7 +177,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         // check to see if no follow should be disabled since the message is properly aged
         if (useNoFollow && boardSettings.DisableNoFollowLinksAfterDay > 0)
         {
-            var messageAge = messageLastEdited - DateTime.UtcNow;
+            var messageAge = DateTime.UtcNow - messageLastEdited;
             if (messageAge.Days > boardSettings.DisableNoFollowLinksAfterDay)
             {
                 // disable no follow
@@ -207,7 +207,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         message = this.Get<IBadWordReplace>().Replace(message);
 
         // process...
-        ruleEngine.Process(ref message);
+        message = await ruleEngine.ProcessAsync(message);
 
         // Format Emoticons
         try
@@ -216,7 +216,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         }
         catch (RegexMatchTimeoutException ex)
         {
-            this.LogRegexTimeout(ex, nameof(this.Format));
+            this.LogRegexTimeout(ex, nameof(this.FormatAsync));
         }
 
         return message;
@@ -246,7 +246,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         message = this.RemoveCustomBBCodes(message);
 
-        var formattedMessage = this.Format(message, messageId, false, DateTime.UtcNow);
+        var formattedMessage = await this.FormatAsync(message, messageId, false, DateTime.UtcNow);
 
         formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
             formattedMessage,
@@ -345,12 +345,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         try
         {
-            var spoilerTagMatch = spoilerRegex.Match(body);
-
-            if (spoilerTagMatch.Success)
-            {
-                body = spoilerTagMatch.Groups["inner"].Value;
-            }
+            // keep the spoiler content, only drop the tags
+            body = spoilerRegex.Replace(body, "${inner}");
         }
         catch (RegexMatchTimeoutException ex)
         {

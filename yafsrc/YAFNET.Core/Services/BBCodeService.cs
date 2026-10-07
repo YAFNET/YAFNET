@@ -168,7 +168,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// <returns>
     /// The converted text
     /// </returns>
-    public string ConvertHtmlToBBCodeForEdit(string message)
+    public Task<string> ConvertHtmlToBBCodeForEditAsync(string message)
     {
         const bool doFormatting = true;
         const bool targetBlankOverride = false;
@@ -185,9 +185,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             CreateHtmlRules(ruleEngine);
         }
 
-        ruleEngine.Process(ref message);
-
-        return message;
+        return ruleEngine.ProcessAsync(message);
     }
 
     /// <summary>
@@ -314,7 +312,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 RegexOptions.Singleline));
 
         // bullets
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<li>", "[*]", Options));
+        // the [*] rule needs a line break at the end of the item;
+        // inline tags run first (rank 0), rules that wrap an inner part protect the html inside it
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<li>", "[*]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</li>", "\r\n", Options) { RuleRank = 0 });
 
         // alignment
         ruleEngine.AddRule(
@@ -354,20 +355,20 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 "[indent]${inner}[/indent]",
                 Options));
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<b>", "[b]", Options) { RuleRank = 4 });
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</b>", "[/b]", Options) { RuleRank = 5 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<b>", "[b]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</b>", "[/b]", Options) { RuleRank = 0 });
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<strong>", "[b]", Options) { RuleRank = 3 });
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</strong>", "[/b]", Options) { RuleRank = 4 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<strong>", "[b]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</strong>", "[/b]", Options) { RuleRank = 0 });
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<s>", "[s]", Options));
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</s>", "[/s]", Options));
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<s>", "[s]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</s>", "[/s]", Options) { RuleRank = 0 });
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<em>", "[i]", Options));
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</em>", "[/i]", Options));
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<em>", "[i]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</em>", "[/i]", Options) { RuleRank = 0 });
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<u>", "[u]", Options));
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</u>", "[/u]", Options));
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<u>", "[u]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</u>", "[/u]", Options) { RuleRank = 0 });
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
                 """<span style="text-decoration: underline;">(?<inner>(.*?))</span>""",
@@ -429,21 +430,22 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
                     """<div class="alert alert-(?<type>(.*?))" role="alert">(?<inner>(.*?))</div>""",
-                    "[note=${size}]${inner}[/note]",
+                    "[note=${type}]${inner}[/note]",
                     Options,
                     [
                         "type"
                     ])
-                { RuleRank = 101 });
+                { RuleRank = 99 });
 
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options));
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options) { RuleRank = 0 });
 
-        // Format paragraphs
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("<p>", "\r\n\r\n", Options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("</p>", "[br]", Options));
+        // Format paragraphs (after the aligned paragraphs, equal ranks have no fixed order)
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("<p>", "\r\n\r\n", Options) { RuleRank = 90 });
+        // there is no [br] BBCode ([br] is an emoji short code), <p> already adds the line breaks
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("</p>", string.Empty, Options) { RuleRank = 90 });
 
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("&nbsp;", string.Empty, Options));
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("&nbsp;", string.Empty, Options) { RuleRank = 90 });
 
         // remove remaining tags
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<[^>]+>", string.Empty, Options) { RuleRank = 100 });
@@ -537,7 +539,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[url\=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>(?!\s*(?:javascript|data|vbscript|file)\s*:)[^""\r\n\]\[]*?)\](?<inner>(.+?))\[/url\]",
+                        @"\[url\=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>(?!\s*(?:javascript|data|vbscript|file)\s*:)[^""\x00-\x1F\]\[]*?)\](?<inner>(.+?))\[/url\]",
                         Options | RegexOptions.Compiled,
                         Constants.RegexTimeout),
                     "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
@@ -552,7 +554,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)(.+?))\[/url\]",
+                        @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)([^\x00-\x1F]+?))\[/url\]",
                         Options | RegexOptions.Compiled,
                         Constants.RegexTimeout),
                     "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
@@ -854,7 +856,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
         ruleEngine.AddRule(
             new QuoteRegexReplaceRule(
-                @"\[quote=(?<quote>(.*?))](?<inner>(.*?))\[/quote\]\r\n|\[quote=(?<quote>(.*?))](?<inner>(.*?))\[/quote\]",
+                @"\[quote(?:=(?<quote>[^\]]*))?\](?<inner>(?:(?!\[quote[=\]]).)*?)\[/quote\](?:\r\n)?",
                 """
                 <div class="card mx-3 mb-3 border-secondary shadow-sm" >
                     <div class="card-body">
@@ -863,7 +865,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                     </div>
                 </div>
                 """,
-                Options | RegexOptions.NonBacktracking) { RuleRank = 61 });
+                Options) { RuleRank = 61 });
 
         // simple open quote tag
         const string SimpleOpenQuoteReplace = """
@@ -938,7 +940,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// <returns>
     /// The make html.
     /// </returns>
-    public string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride)
+    public Task<string> MakeHtmlAsync(string inputString, bool doFormatting, bool targetBlankOverride)
     {
         var ruleEngine = this.ProcessReplaceRulesFactory(
             [doFormatting, targetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks]);
@@ -953,9 +955,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 this.Get<BoardSettings>().UseNoFollowLinks);
         }
 
-        ruleEngine.Process(ref inputString);
-
-        return inputString;
+        return ruleEngine.ProcessAsync(inputString);
     }
 
     /// <summary>

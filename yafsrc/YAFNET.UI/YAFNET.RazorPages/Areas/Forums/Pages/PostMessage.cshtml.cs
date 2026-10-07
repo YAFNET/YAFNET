@@ -251,14 +251,17 @@ public class PostMessageModel : ForumPage
                 var messages = this.GetRepository<Message>().GetByIds(
                     this.Get<ISessionService>().MultiQuoteIds.Select(i => i.MessageID));
 
-                messages.ForEach(this.InitQuotedReply);
+                foreach (var quoted in messages)
+                {
+                    await this.InitQuotedReplyAsync(quoted);
+                }
 
                 // Clear Multi-quotes
                 this.Get<ISessionService>().MultiQuoteIds = null;
             }
             else
             {
-                this.InitQuotedReply(this.quotedMessage);
+                await this.InitQuotedReplyAsync(this.quotedMessage);
             }
         }
 
@@ -510,7 +513,7 @@ public class PostMessageModel : ForumPage
     /// <param name="message">
     /// The current TypedMessage.
     /// </param>
-    private void InitQuotedReply(Message message)
+    private async Task InitQuotedReplyAsync(Message message)
     {
         var messageContent = BBCodeHelper.DecodeCodeBlocks(message.MessageText);
 
@@ -522,7 +525,7 @@ public class PostMessageModel : ForumPage
         if (message.MessageFlags.IsHtml)
         {
             // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-            messageContent = this.Get<IBBCodeService>().ConvertHtmlToBBCodeForEdit(messageContent);
+            messageContent = await this.Get<IBBCodeService>().ConvertHtmlToBBCodeForEditAsync(messageContent);
         }
 
         // Ensure quoted replies have bad words removed from them

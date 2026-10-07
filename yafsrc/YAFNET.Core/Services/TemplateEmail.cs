@@ -111,18 +111,18 @@ public class TemplateEmail : IHaveServiceLocator
     /// <param name="subject">
     /// The subject.
     /// </param>
-    public Task SendEmailAsync(MailboxAddress fromAddress, MailboxAddress toAddress, string subject)
+    public async Task SendEmailAsync(MailboxAddress fromAddress, MailboxAddress toAddress, string subject)
     {
         var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
 
         // just send directly
-        return this.Get<IMailService>().SendAsync(
+        await this.Get<IMailService>().SendAsync(
             fromAddress,
             toAddress,
             fromAddress,
             subject,
             textBody,
-            this.ProcessHtml(textBody));
+            await this.ProcessHtmlAsync(textBody));
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public class TemplateEmail : IHaveServiceLocator
     /// <returns>
     /// The <see cref="MimeMessage"/>.
     /// </returns>
-    public MimeMessage CreateEmail(MailboxAddress fromAddress, MailboxAddress toAddress, string subject)
+    public async Task<MimeMessage> CreateEmailAsync(MailboxAddress fromAddress, MailboxAddress toAddress, string subject)
     {
         var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
 
@@ -151,7 +151,7 @@ public class TemplateEmail : IHaveServiceLocator
             fromAddress,
             subject,
             textBody,
-            this.ProcessHtml(textBody));
+            await this.ProcessHtmlAsync(textBody));
     }
 
     /// <summary>
@@ -188,13 +188,13 @@ public class TemplateEmail : IHaveServiceLocator
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private string ProcessHtml(string textBody)
+    private async Task<string> ProcessHtmlAsync(string textBody)
     {
         var path = this.Get<ITheme>().BuildMappedThemePath(this.HtmlTemplateFileName);
 
         var htmlTemplate = File.ReadAllText(path);
 
-        var formattedBody = this.Get<IBBCodeService>().MakeHtml(textBody, true, true);
+        var formattedBody = await this.Get<IBBCodeService>().MakeHtmlAsync(textBody, true, true);
 
         this.TemplateParams["{manageText}"] = this.Get<ILocalization>().GetText("DIGEST", "REMOVALTEXT", this.TemplateLanguageFile);
 

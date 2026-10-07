@@ -129,7 +129,11 @@ public class FakeLocalization : ILocalization
 
     public LanguageResource LoadLanguageFile(string fileName)
     {
-        return new LanguageResource();
+        // real parsing: code that loads a language file directly (e.g. mail templates) needs real content
+        using var file = System.IO.File.OpenText(fileName);
+        using var reader = new Newtonsoft.Json.JsonTextReader(file);
+
+        return new Newtonsoft.Json.JsonSerializer().Deserialize<LanguageResource>(reader);
     }
 
     private static string Key(string page, string tag)

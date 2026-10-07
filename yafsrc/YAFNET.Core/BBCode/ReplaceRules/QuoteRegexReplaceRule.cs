@@ -26,6 +26,7 @@ namespace YAF.Core.BBCode.ReplaceRules;
 
 using System;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
@@ -42,7 +43,9 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
     /// <param name="replaceRegex">The replace regex.</param>
     /// <param name="options">The options.</param>
     public QuoteRegexReplaceRule(string searchRegex, string replaceRegex, RegexOptions options)
-        : base(searchRegex, replaceRegex, options, ["quote"])
+        // built here: the string constructors add RegexOptions.NonBacktracking, which doesn't support
+        // the lookahead used to find the innermost quote (the regex timeout still applies)
+        : base(new Regex(searchRegex, options, Constants.RegexTimeout), replaceRegex, ["quote"])
     {
         this.RuleRank = 60;
     }
@@ -57,6 +60,24 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
     /// The replacement.
     /// </param>
     public override void Replace(ref string text, IReplaceBlocks replacement)
+    {
+        // the quote rule loads the quoted post, it only runs asynchronously
+        throw new NotSupportedException($"{nameof(QuoteRegexReplaceRule)} only supports {nameof(this.ReplaceAsync)}.");
+    }
+
+    /// <summary>
+    /// Renders the quotes, innermost first.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="replacement">
+    /// The replacement.
+    /// </param>
+    /// <returns>
+    /// The text with the quotes rendered.
+    /// </returns>
+    public async override Task<string> ReplaceAsync(string text, IReplaceBlocks replacement)
     {
         var sb = new StringBuilder(text);
 
@@ -78,8 +99,12 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
             var localQuoteWrote = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
             var localQuotePosted = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
 
-            // extract post id if exists
-            if (quote.Contains(';'))
+            // a plain [quote] has no author line
+            if (quote.IsNotSet())
+            {
+                quote = string.Empty;
+            }
+            else if (quote.Contains(';'))
             {
                 string postId, userName, topicLink = string.Empty;
 
@@ -88,7 +113,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
                     postId = quote[(quote.LastIndexOf(';') + 1)..];
                     userName = quote = quote[..quote.LastIndexOf(';')];
 
-                    var topic = BoardContext.Current.GetRepository<Topic>().GetTopicFromMessageAsync(postId.ToType<int>()).Result;
+                    var topic = await BoardContext.Current.GetRepository<Topic>().GetTopicFromMessageAsync(postId.ToType<int>());
 
                     topicLink = BoardContext.Current.Get<ILinkBuilder>().GetMessageLink(topic, postId.ToType<int>());
                 }
@@ -160,7 +185,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
             match = this.RegExSearch.Match(sb.ToString());
         }
 
-        text = sb.ToString();
+        return sb.ToString();
     }
 
     /// <summary>

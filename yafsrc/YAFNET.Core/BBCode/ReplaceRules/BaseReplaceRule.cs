@@ -25,6 +25,7 @@
 namespace YAF.Core.BBCode.ReplaceRules;
 
 using System;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Base class for all replacement rules.
@@ -53,6 +54,25 @@ public abstract class BaseReplaceRule : IComparable, IReplaceRule
     /// The replacement.
     /// </param>
     public abstract void Replace(ref string text, IReplaceBlocks replacement);
+
+    /// <summary>
+    /// Applies the rule. The regex rules work synchronously, rules that need I/O override this.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <param name="replacement">
+    /// The replacement.
+    /// </param>
+    /// <returns>
+    /// The text with the rule applied.
+    /// </returns>
+    public virtual Task<string> ReplaceAsync(string text, IReplaceBlocks replacement)
+    {
+        this.Replace(ref text, replacement);
+
+        return Task.FromResult(text);
+    }
 
     /// <summary>
     /// The compare to.

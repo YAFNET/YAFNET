@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Interfaces;
 
+using System.Threading.Tasks;
+
 /// <summary>
 /// Base Replace Rules Interface
 /// </summary>
@@ -35,7 +37,7 @@ public interface IReplaceRule
     string RuleDescription { get; }
 
     /// <summary>
-    /// The replace.
+    /// Applies the rule to the text.
     /// </summary>
     /// <param name="text">
     /// The text.
@@ -43,7 +45,8 @@ public interface IReplaceRule
     /// <param name="replacement">
     /// The replacement.
     /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    void Replace(ref string text, IReplaceBlocks replacement);
+    /// <returns>
+    /// The text with the rule applied.
+    /// </returns>
+    Task<string> ReplaceAsync(string text, IReplaceBlocks replacement);
 }

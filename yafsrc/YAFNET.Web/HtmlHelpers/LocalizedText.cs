@@ -61,15 +61,37 @@ public static class LocalizedTextHtmlHelper
         /// <param name="tag">
         /// The tag.
         /// </param>
-        /// <param name="enableBBCode">
-        /// The enable bb code.
-        /// </param>
         /// <returns>
         /// The <see cref="IHtmlContent"/>.
         /// </returns>
         public IHtmlContent LocalizedText(string page,
+            string tag)
+        {
+            var content = new HtmlContentBuilder();
+
+            var text = BoardContext.Current.Get<ILocalization>().GetText(page, tag);
+
+            return content.AppendHtml(text);
+        }
+
+        /// <summary>
+        /// The localized text, optionally with BBCode converted to HTML (use with <c>@await</c>).
+        /// </summary>
+        /// <param name="page">
+        /// The page.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="enableBBCode">
+        /// Convert BBCode to HTML.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public async Task<IHtmlContent> LocalizedTextAsync(string page,
             string tag,
-            bool enableBBCode = false)
+            bool enableBBCode)
         {
             var content = new HtmlContentBuilder();
 
@@ -78,7 +100,7 @@ public static class LocalizedTextHtmlHelper
             // convert from BBCode to HTML
             if (enableBBCode)
             {
-                text = BoardContext.Current.Get<IBBCodeService>().MakeHtml(text, true, true);
+                text = await BoardContext.Current.Get<IBBCodeService>().MakeHtmlAsync(text, true, true);
             }
 
             return content.AppendHtml(text);

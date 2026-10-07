@@ -32,15 +32,21 @@ using Microsoft.AspNetCore.Session;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
+using NSubstitute;
+
 using YAF.Configuration;
 using YAF.Core;
 using YAF.Core.Context;
 using YAF.Core.Data;
+using YAF.Core.Extensions;
+using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Types;
+using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Events;
+using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
@@ -100,6 +106,9 @@ public sealed class TestBoardContext : IDisposable
         builder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>();
         builder.RegisterInstance(this.Events).As<IRaiseEvent>().As<IRaiseEventAsync>();
         builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().SingleInstance();
+        builder.RegisterInstance(this.Search).As<ISearch>();
+        builder.RegisterInstance(this.LinkBuilder).As<ILinkBuilder>();
+        builder.RegisterInstance(this.Notifications).As<ISendNotification>();
 
         if (useDatabase)
         {
@@ -153,6 +162,21 @@ public sealed class TestBoardContext : IDisposable
     public RecordingEventRaiser Events { get; } = new();
 
     /// <summary>
+    /// Gets the fake search index registered as <see cref="ISearch"/>.
+    /// </summary>
+    public FakeSearch Search { get; } = new();
+
+    /// <summary>
+    /// Gets the NSubstitute <see cref="ILinkBuilder"/>; forum links are <c>/forum/{id}</c>.
+    /// </summary>
+    public ILinkBuilder LinkBuilder { get; } = CreateLinkBuilder();
+
+    /// <summary>
+    /// Gets the NSubstitute <see cref="ISendNotification"/> (verify calls with <c>Received()</c>).
+    /// </summary>
+    public ISendNotification Notifications { get; } = Substitute.For<ISendNotification>();
+
+    /// <summary>
     /// Gets the in-memory database, or <c>null</c> when created without <c>useDatabase</c>.
     /// </summary>
     public TestDatabase Database { get; }
@@ -193,6 +217,38 @@ public sealed class TestBoardContext : IDisposable
     public PageQueryData Query { get; } = new();
 
     /// <summary>
+    /// Grants a user access to a forum the way the forum does it: writes the group / access mask
+    /// permission chain (<see cref="TestDatabase.AddForumAccess"/>) and then rebuilds the user's
+    /// ActiveAccess rows from the access views with the production <c>InsertPageAccess</c>.
+    /// Requires <c>useDatabase: true</c>.
+    /// </summary>
+    public void GrantAccess(
+        int userId,
+        int forumId,
+        AccessFlags.Flags access = TestDatabase.MemberAccess,
+        GroupFlags.Flags groupFlags = GroupFlags.Flags.None)
+    {
+        if (this.Database is null)
+        {
+            throw new InvalidOperationException("GrantAccess needs a TestBoardContext created with useDatabase: true.");
+        }
+
+        this.Database.AddForumAccess(userId, forumId, access, groupFlags);
+        this.RefreshActiveAccess(userId);
+    }
+
+    /// <summary>
+    /// Rebuilds the user's ActiveAccess rows from the access views (what happens on the next page load).
+    /// </summary>
+    public void RefreshActiveAccess(int userId)
+    {
+        var repository = this.Current.GetRepository<ActiveAccess>();
+
+        repository.Delete(a => a.UserID == userId);
+        repository.InsertPageAccess(TestDatabase.BoardId, userId, false);
+    }
+
+    /// <summary>
     /// Resolves a service from the test container.
     /// </summary>
     public T Resolve<T>()
@@ -210,10 +266,26 @@ public sealed class TestBoardContext : IDisposable
         this.Database?.Dispose();
     }
 
+    private static ILinkBuilder CreateLinkBuilder()
+    {
+        var linkBuilder = Substitute.For<ILinkBuilder>();
+
+        linkBuilder.GetForumLink(Arg.Any<Forum>()).Returns(c => $"/forum/{c.Arg<Forum>().ID}");
+        linkBuilder.GetForumLink(Arg.Any<int>(), Arg.Any<string>()).Returns(c => $"/forum/{c.ArgAt<int>(0)}");
+
+        return linkBuilder;
+    }
+
     private static DefaultHttpContext CreateHttpContext()
     {
         var context = new DefaultHttpContext();
         context.Features.Set<ISessionFeature>(new SessionFeature { Session = new FakeSession() });
+
+        // a realistic request, used when absolute links are built
+        context.Request.Scheme = "https";
+        context.Request.Host = new HostString("forum.example.com");
+        context.Request.PathBase = string.Empty;
+        context.Request.Path = "/";
         return context;
     }
 

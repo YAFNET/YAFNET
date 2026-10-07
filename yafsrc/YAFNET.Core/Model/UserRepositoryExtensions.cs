@@ -82,7 +82,7 @@ public static class UserRepositoryExtensions
                 // -- See if user got enough posts for next ladder group
                 var result = await BoardContext.Current.GetRepository<Rank>().GetAsync(x =>
                     x.BoardID == rankInfo.Item2.BoardID && (x.Flags & 2) == 2 &&
-                    x.MinPosts <= rankInfo.Item1.NumPosts && x.MinPosts == rankInfo.Item2.MinPosts);
+                    x.MinPosts <= rankInfo.Item1.NumPosts && x.MinPosts > rankInfo.Item2.MinPosts);
 
                 newRank = result.MaxBy(x => x.MinPosts);
             }
@@ -260,7 +260,7 @@ public static class UserRepositoryExtensions
                                                      {expression.Column<User>(u => u.Suspended, true)},
                                                      {expression.Column<User>(u => u.UserStyle, true)},
                                                      counter.{provider.GetQuotedName("NumOfPosts")}
-                         """).Take(displayNumber);
+                         """).OrderBy($"counter.{provider.GetQuotedName("NumOfPosts")} DESC").Take(displayNumber);
 
                 return db.SelectAsync<LastActive>(expression);
             })).OrderByDescending(x => x.NumOfPosts)];
@@ -850,7 +850,7 @@ public static class UserRepositoryExtensions
                 // -- count Quoted
                 var countQuotedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-                countQuotedExpression.Where(a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
+                countQuotedExpression.Where(a => a.UserID == userId && (a.Flags & 4096) == 4096 && a.Notification);
 
                 var countQuotedSql = countQuotedExpression.Select(Sql.Count("1"))
                     .ToMergedParamsSelectStatement();

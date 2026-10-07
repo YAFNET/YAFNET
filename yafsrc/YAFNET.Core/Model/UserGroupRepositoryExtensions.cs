@@ -138,14 +138,17 @@ public static class UserGroupRepositoryExtensions
                         expression.Join<Group>((a, b) => b.ID == a.GroupID)
                             .Where<ForumAccess, Group>((a, b) => b.BoardID == boardId && (b.Flags & 4) == 4)
                             .GroupBy(a => a.ForumID).Select<ForumAccess>(
-                                a => new { a.GroupID, a.ForumID, AccessMaskID = Sql.Min(a.AccessMaskID) });
+                                a => new { a.ForumID, AccessMaskID = Sql.Min(a.AccessMaskID) });
 
                         var list = repository.DbAccess.Execute(
                             db => db.Connection.Select(expression));
 
-                        var forumAccessList = new List<ForumAccess>();
-
-                        list.ForEach(forumAccessList.Add);
+                        // -- the new group gets the access of the start group(s)
+                        var forumAccessList = list.Select(
+                            access => new ForumAccess
+                            {
+                                GroupID = groupId.Value, ForumID = access.ForumID, AccessMaskID = access.AccessMaskID
+                            }).ToList();
 
                         BoardContext.Current.GetRepository<ForumAccess>().BulkInsert(forumAccessList);
                     }

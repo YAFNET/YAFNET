@@ -34,6 +34,7 @@ using YAF.Core.Events;
 using YAF.Core.Migrations;
 using YAF.Data.Sqlite;
 using YAF.Types.Extensions.Data;
+using YAF.Types.Flags;
 using YAF.Types.Models;
 
 /// <summary>
@@ -62,6 +63,8 @@ public sealed class TestDatabase : IDisposable
     private static readonly Lazy<SQLiteConnection> Template = new(CreateTemplate);
 
     private readonly SQLiteConnection keepAlive;
+
+    private int nameCounter;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TestDatabase"/> class.
@@ -97,7 +100,7 @@ public sealed class TestDatabase : IDisposable
     }
 
     /// <summary>
-    /// Inserts a user with valid defaults for all required columns.
+    /// Inserts an approved user with valid defaults for all required columns.
     /// </summary>
     /// <returns>The new user ID.</returns>
     public int AddUser(string name, Action<User> configure = null)
@@ -111,20 +114,190 @@ public sealed class TestDatabase : IDisposable
             Email = $"{name.ToLowerInvariant()}@example.com",
             Joined = DateTime.UtcNow,
             LastVisit = DateTime.UtcNow,
-            PageSize = 20
+            PageSize = 20,
+            Flags = (int)UserFlags.Flags.IsApproved
         };
 
         configure?.Invoke(user);
 
+        return this.Insert(user);
+    }
+
+    /// <summary>
+    /// Inserts a rank. Ladder ranks are what users get promoted through by post count.
+    /// </summary>
+    /// <returns>The new rank ID.</returns>
+    public int AddRank(string name, int? minPosts = null, bool isLadder = false, Action<Rank> configure = null)
+    {
+        var rank = new Rank
+        {
+            BoardID = BoardId,
+            Name = name,
+            MinPosts = minPosts,
+            SortOrder = 1,
+            Flags = new RankFlags { IsLadder = isLadder }.BitValue
+        };
+
+        configure?.Invoke(rank);
+
+        return this.Insert(rank);
+    }
+
+    /// <summary>
+    /// Inserts a category on the test board (names must be unique per board, the default is).
+    /// </summary>
+    /// <returns>The new category ID.</returns>
+    public int AddCategory(string name = null, Action<Category> configure = null)
+    {
+        var category = new Category
+        {
+            BoardID = BoardId, Name = name ?? $"Category {++this.nameCounter}", SortOrder = 1, Flags = 1
+        };
+
+        configure?.Invoke(category);
+
+        return this.Insert(category);
+    }
+
+    /// <summary>
+    /// Inserts a forum. Without a category ID a new category is created
+    /// (names must be unique per category, the default is).
+    /// </summary>
+    /// <returns>The new forum ID.</returns>
+    public int AddForum(string name = null, int? categoryId = null, Action<Forum> configure = null)
+    {
+        name ??= $"Forum {++this.nameCounter}";
+
+        var forum = new Forum
+        {
+            CategoryID = categoryId ?? this.AddCategory(),
+            Name = name,
+            Description = $"{name} description",
+            SortOrder = 1
+        };
+
+        configure?.Invoke(forum);
+
+        return this.Insert(forum);
+    }
+
+    /// <summary>
+    /// Inserts a topic row (without messages; use <see cref="AddMessage"/> to add posts).
+    /// </summary>
+    /// <returns>The new topic ID.</returns>
+    public int AddTopic(int forumId, int userId, string subject = "Test Topic", Action<Topic> configure = null)
+    {
+        var topic = new Topic
+        {
+            ForumID = forumId,
+            UserID = userId,
+            TopicName = subject,
+            Posted = DateTime.UtcNow,
+            UserName = $"User{userId}",
+            UserDisplayName = $"User {userId}"
+        };
+
+        configure?.Invoke(topic);
+
+        return this.Insert(topic);
+    }
+
+    /// <summary>
+    /// Inserts an approved message at the next position of the topic and updates the topic's
+    /// post count and last post columns (like posting through the repository would).
+    /// </summary>
+    /// <returns>The new message ID.</returns>
+    public int AddMessage(
+        int topicId,
+        int userId,
+        string text = "Test message",
+        DateTime? posted = null,
+        int? replyTo = null,
+        Action<Message> configure = null)
+    {
         using var db = this.Open();
 
-        return (int)db.Insert(user, selectIdentity: true);
+        var position = db.Scalar<Message, int?>(m => Sql.Max(m.Position), m => m.TopicID == topicId);
+
+        var message = new Message
+        {
+            TopicID = topicId,
+            UserID = userId,
+            MessageText = text,
+            Posted = posted ?? DateTime.UtcNow,
+            UserName = $"User{userId}",
+            UserDisplayName = $"User {userId}",
+            IP = "127.0.0.1",
+            ReplyTo = replyTo,
+            Position = position.HasValue ? position.Value + 1 : 0,
+            Flags = new MessageFlags { IsHtml = true, IsBBCode = true, IsSmilies = true, IsApproved = true }.BitValue,
+            IsModeratorChanged = false
+        };
+
+        configure?.Invoke(message);
+
+        var id = (int)db.Insert(message, selectIdentity: true);
+
+        db.UpdateAdd(() => new Topic { NumPosts = 1 }, t => t.ID == topicId);
+        db.UpdateOnly(
+            () => new Topic
+            {
+                LastPosted = message.Posted,
+                LastMessageID = id,
+                LastUserID = userId,
+                LastUserName = message.UserName,
+                LastUserDisplayName = message.UserDisplayName,
+                LastMessageFlags = message.Flags
+            },
+            t => t.ID == topicId);
+
+        return id;
+    }
+
+    /// <summary>
+    /// The access a normal member gets: read, post, reply, poll and vote.
+    /// </summary>
+    public const AccessFlags.Flags MemberAccess = AccessFlags.Flags.ReadAccess | AccessFlags.Flags.PostAccess
+                                                  | AccessFlags.Flags.ReplyAccess | AccessFlags.Flags.PollAccess
+                                                  | AccessFlags.Flags.VoteAccess;
+
+    /// <summary>
+    /// Sets up the permission chain the access views are built from: a new group (with the given
+    /// group flags) the user is a member of, and an access mask granting <paramref name="access"/>
+    /// to the forum for that group. This only writes the permission tables; the per-user
+    /// ActiveAccess cache the topic lists read is filled by <see cref="TestBoardContext.GrantAccess"/>.
+    /// </summary>
+    /// <returns>The new group ID.</returns>
+    public int AddForumAccess(
+        int userId,
+        int forumId,
+        AccessFlags.Flags access = MemberAccess,
+        GroupFlags.Flags groupFlags = GroupFlags.Flags.None)
+    {
+        var number = ++this.nameCounter;
+
+        var groupId = this.Insert(new Group { BoardID = BoardId, Name = $"Group {number}", Flags = (int)groupFlags, SortOrder = 1 });
+        var maskId = this.Insert(new AccessMask { BoardID = BoardId, Name = $"Mask {number}", Flags = (int)access, SortOrder = 1 });
+
+        using var db = this.Open();
+
+        db.Insert(new ForumAccess { GroupID = groupId, ForumID = forumId, AccessMaskID = maskId });
+        db.Insert(new UserGroup { UserID = userId, GroupID = groupId });
+
+        return groupId;
     }
 
     /// <inheritdoc />
     public void Dispose()
     {
         this.keepAlive.Dispose();
+    }
+
+    private int Insert<T>(T entity)
+    {
+        using var db = this.Open();
+
+        return (int)db.Insert(entity, selectIdentity: true);
     }
 
     private static SQLiteConnection CreateTemplate()
@@ -152,7 +325,8 @@ public sealed class TestDatabase : IDisposable
         using var db = dbAccess.CreateConnectionOpen();
 
         db.Insert(new Board { ID = BoardId, Name = "Test Board", Description = "Unit test board" });
-        db.Insert(new Rank { ID = RankId, BoardID = BoardId, Name = "Member", SortOrder = 1 });
+        // the start rank new users get (like the installer creates)
+        db.Insert(new Rank { ID = RankId, BoardID = BoardId, Name = "Member", SortOrder = 1, Flags = (int)RankFlags.Flags.IsStart });
 
         return template;
     }

@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Interfaces;
 
+using System.Threading.Tasks;
+
 /// <summary>
 /// Replace Rules Interface
 /// </summary>
@@ -50,5 +52,8 @@ public interface IProcessReplaceRules
     /// <param name="text">
     /// The text.
     /// </param>
-    void Process(ref string text);
+    /// <returns>
+    /// The processed text.
+    /// </returns>
+    Task<string> ProcessAsync(string text);
 }
