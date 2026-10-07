@@ -19,6 +19,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -1074,6 +1075,141 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         return db.Column<string>(sql);
     }
 
+    // The key columns of indexes are the first indnkeyatts of their columns, the others are INCLUDE columns
+    public override List<IndexSchema> GetTableIndexes(IDbConnection db, TableRef tableRef)
+    {
+        var schema = this.GetSchemaName(tableRef);
+        string Columns(string where) =>
+            "array_to_string(ARRAY(SELECT COALESCE(a.attname, '?') FROM unnest(ix.indkey) WITH ORDINALITY AS k(attnum, ord) " +
+            "LEFT JOIN pg_attribute a ON a.attrelid = t.oid AND a.attnum = k.attnum " +
+            $"WHERE {where} ORDER BY k.ord), ',')";
+        var sql = "SELECT i.relname AS name, ix.indisunique AS is_unique, (ix.indisprimary OR c.oid IS NOT NULL) AS is_constraint, " +
+            $"ix.indisprimary AS is_primary_key, {Columns("k.ord <= ix.indnkeyatts")} AS columns, " +
+            $"{Columns("k.ord > ix.indnkeyatts")} AS include, pg_get_expr(ix.indpred, ix.indrelid) AS where_condition " +
+            "FROM pg_index ix JOIN pg_class i ON i.oid = ix.indexrelid JOIN pg_class t ON t.oid = ix.indrelid " +
+            "JOIN pg_namespace n ON n.oid = t.relnamespace " +
+            "LEFT JOIN pg_constraint c ON c.conindid = ix.indexrelid AND c.contype IN ('p','u','x') " +
+            "WHERE lower(t.relname) = {0}".SqlFmt(this, this.GetTableNameOnly(tableRef).ToLower())
+            + (schema != null
+                ? " AND lower(n.nspname) = {0}".SqlFmt(this, schema.ToLower())
+                : " AND n.nspname = current_schema()");
+        return ToIndexSchemas(db.SqlList<Dictionary<string, object>>(sql));
+    }
+
+    // Strings are cast to their column's type, e.g. 'a'::character varying, which isn't a difference from text
+    private static readonly Regex StringCastRegex = new(@"'::(character varying|text|bpchar|character)\b",
+        RegexOptions.Compiled, TimeSpan.FromSeconds(1));
+
+    public override Dictionary<string, string> GetColumnDefaults(IDbConnection db, string quotedTable)
+    {
+        var defaults = ToColumnDefaults(db.SqlList<Dictionary<string, object>>(
+            ("SELECT a.attname AS name, pg_get_expr(d.adbin, d.adrelid) AS value FROM pg_attribute a " +
+             "LEFT JOIN pg_attrdef d ON d.adrelid = a.attrelid AND d.adnum = a.attnum " +
+             "WHERE a.attrelid = {0}::regclass AND a.attnum > 0 AND NOT a.attisdropped").SqlFmt(this, quotedTable)));
+        foreach (var name in defaults.Keys.ToList())
+        {
+            if (defaults[name] != null)
+            {
+                defaults[name] = StringCastRegex.Replace(defaults[name], "'");
+            }
+        }
+        return defaults;
+    }
+
+    private static readonly Regex TextSearchConfigRegex = new(@"^[A-Za-z_][A-Za-z0-9_]*$", RegexOptions.Compiled,
+        TimeSpan.FromSeconds(1));
+
+    // The text search configuration, 'simple' by default, which indexes words as they're written
+    private string FullTextConfig(ModelDefinition modelDef)
+    {
+        var language = modelDef.FullTextIndex?.Language ?? "simple";
+        if (!TextSearchConfigRegex.IsMatch(language))
+        {
+            throw new ArgumentException($"'{language}' isn't the name of a PostgreSQL text search configuration");
+        }
+
+        return this.GetQuotedValue(language.ToLowerInvariant());
+    }
+
+    // The tsvector of the columns, which queries use the same expression as the index for it to be used
+    private string ToTsVector(ModelDefinition modelDef, List<string> columns) =>
+        $"to_tsvector({this.FullTextConfig(modelDef)}, {columns.Map(x => $"coalesce({x},'')").Join(" || ' ' || ")})";
+
+    public override List<string> ToCreateFullTextIndexStatements(ModelDefinition modelDef) => [
+        $"CREATE INDEX IF NOT EXISTS {this.GetQuotedName(this.GetFullTextIndexName(modelDef))} ON {this.GetQuotedTableName(modelDef)} " +
+        $"USING GIN ({this.ToTsVector(modelDef, this.GetFullTextColumnNames(modelDef))});",
+    ];
+
+    public override List<string> ToDropFullTextIndexStatements(ModelDefinition modelDef)
+    {
+        var schema = this.GetSchemaName(new TableRef(modelDef));
+        var name = this.GetQuotedName(this.GetFullTextIndexName(modelDef));
+        return [$"DROP INDEX IF EXISTS {(schema != null ? this.GetQuotedName(schema) + "." : "")}{name};"];
+    }
+
+    public override bool SupportsFullTextSearch(IDbConnection db) => true;
+
+    public override bool HasFullTextIndex(IDbConnection db, ModelDefinition modelDef) =>
+        this.GetTableIndexNames(db, new TableRef(modelDef)).Any(x => x.EqualsIgnoreCase(this.GetFullTextIndexName(modelDef)));
+
+    // Words are prefixes of the words they match, e.g. data:*, and a phrase's words follow each other
+    public override List<string> ToFullTextSearch(List<FullTextTerm> terms) => [
+        terms.Map(x => x.IsPhrase ? "(" + x.Words.Join(" <-> ") + ")" : x.Words[0] + ":*").Join(" & "),
+    ];
+
+    public override string ToFullTextMatch(FullTextColumns columns, List<string> parameters) =>
+        $"{this.ToTsVector(columns.ModelDef, columns.Columns)} @@ to_tsquery({this.FullTextConfig(columns.ModelDef)}, {parameters[0]})";
+
+    public override string ToFullTextRank(FullTextColumns columns, List<string> parameters) =>
+        $"ts_rank_cd({this.ToTsVector(columns.ModelDef, columns.Columns)}, to_tsquery({this.FullTextConfig(columns.ModelDef)}, {parameters[0]}))";
+
+    public override List<string> GetModelIndexConditions(IDbConnection db, List<FieldDefinition> fieldDefs,
+        List<IndexSchema> indexes) => this.ReadModelIndexConditions(db, fieldDefs, indexes, tempTable => ToColumnDefaults(
+            db.SqlList<Dictionary<string, object>>(
+                ("SELECT i.relname AS name, pg_get_expr(ix.indpred, ix.indrelid) AS value FROM pg_index ix " +
+                 "JOIN pg_class i ON i.oid = ix.indexrelid WHERE ix.indrelid = {0}::regclass").SqlFmt(this, tempTable))));
+
+    public override List<CheckConstraintSchema> GetCheckConstraints(IDbConnection db, string quotedTable)
+    {
+        var checks = ToCheckConstraintSchemas(db.SqlList<Dictionary<string, object>>(
+            ("SELECT conname AS name, pg_get_constraintdef(oid) AS condition FROM pg_constraint " +
+             "WHERE conrelid = {0}::regclass AND contype = 'c'").SqlFmt(this, quotedTable)));
+        foreach (var check in checks)
+        {
+            // CHECK ((qty > 0))
+            var condition = check.Condition?.Trim() ?? "";
+            if (condition.StartsWith("CHECK", StringComparison.OrdinalIgnoreCase))
+            {
+                condition = condition.Substring("CHECK".Length).Trim();
+            }
+
+            check.Condition = condition;
+        }
+        return checks;
+    }
+
+    public override List<ForeignKeySchema> GetTableForeignKeys(IDbConnection db, TableRef tableRef)
+    {
+        string Columns(string keys, string table) =>
+            $"array_to_string(ARRAY(SELECT a.attname FROM unnest(c.{keys}) WITH ORDINALITY AS k(attnum, ord) " +
+            $"JOIN pg_attribute a ON a.attrelid = c.{table} AND a.attnum = k.attnum ORDER BY k.ord), ',')";
+        string Action(string type) =>
+            $"CASE c.{type} WHEN 'c' THEN 'CASCADE' WHEN 'n' THEN 'SET NULL' WHEN 'd' THEN 'SET DEFAULT' " +
+            "WHEN 'r' THEN 'RESTRICT' ELSE 'NO ACTION' END";
+
+        var schema = this.GetSchemaName(tableRef);
+        var sql = $"SELECT c.conname AS name, {Columns("conkey", "conrelid")} AS columns, rt.relname AS ref_table, " +
+            $"{Columns("confkey", "confrelid")} AS ref_columns, {Action("confdeltype")} AS on_delete, " +
+            $"{Action("confupdtype")} AS on_update " +
+            "FROM pg_constraint c JOIN pg_class t ON t.oid = c.conrelid JOIN pg_namespace n ON n.oid = t.relnamespace " +
+            "JOIN pg_class rt ON rt.oid = c.confrelid " +
+            "WHERE c.contype = 'f' AND lower(t.relname) = {0}".SqlFmt(this, this.GetTableNameOnly(tableRef).ToLower())
+            + (schema != null
+                ? " AND lower(n.nspname) = {0}".SqlFmt(this, schema.ToLower())
+                : " AND n.nspname = current_schema()");
+        return ToForeignKeySchemas(db.SqlList<Dictionary<string, object>>(sql));
+    }
+
     /// <summary>
     /// Doeses the table exist.
     /// </summary>
@@ -1537,7 +1673,36 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     // Vectors use the vector type of the pgvector extension: CREATE EXTENSION vector
     public override string GetVectorColumnDefinition(int dimensions) => $"vector({dimensions})";
 
+    // Half-precision vectors use pgvector's halfvec type
+    public override string GetVectorColumnDefinition(int dimensions, VectorPrecision precision) =>
+        precision == VectorPrecision.Half ? $"halfvec({dimensions})" : this.GetVectorColumnDefinition(dimensions);
+
     public override string ToVectorParam(string param, int dimensions) => param + "::vector";
+
+    public override string ToVectorParam(string param, int dimensions, VectorPrecision precision) =>
+        precision == VectorPrecision.Half ? param + "::halfvec" : this.ToVectorParam(param, dimensions);
+
+    public override List<string> ToVectorSearchStatements(VectorSearchOptions options)
+    {
+        var to = new List<string>();
+        if (options.EfSearch != null)
+        {
+            to.Add($"SET hnsw.ef_search = {options.EfSearch.Value}");
+        }
+
+        if (options.Probes != null)
+        {
+            to.Add($"SET ivfflat.probes = {options.Probes.Value}");
+        }
+
+        if (options.IterativeScan != null)
+        {
+            // HNSW returns the rows in order of their distance, IVFFlat only has relaxed_order (pgvector 0.8+)
+            to.Add($"SET hnsw.iterative_scan = {(options.IterativeScan.Value ? "strict_order" : "off")}");
+            to.Add($"SET ivfflat.iterative_scan = {(options.IterativeScan.Value ? "relaxed_order" : "off")}");
+        }
+        return to;
+    }
 
     public override string ToVectorDistance(VectorDistance distance, string vector, string other) =>
         $"({vector} {VectorOperator(distance)} {other})";
@@ -1554,13 +1719,40 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
     protected override string ToCreateVectorIndexStatement(ModelDefinition modelDef, FieldDefinition fieldDef, string indexName)
     {
-        var operatorClass = fieldDef.VectorDistance switch
+        var type = fieldDef.VectorPrecision == VectorPrecision.Half ? "halfvec" : "vector";
+        var operatorClass = type + fieldDef.VectorDistance switch
         {
-            VectorDistance.Cosine => "vector_cosine_ops",
-            VectorDistance.L2 => "vector_l2_ops",
-            _ => "vector_ip_ops",
+            VectorDistance.Cosine => "_cosine_ops",
+            VectorDistance.L2 => "_l2_ops",
+            _ => "_ip_ops",
         };
-        return $"CREATE INDEX {indexName} ON {this.GetQuotedTableName(modelDef)} USING hnsw ({this.GetQuotedColumnName(fieldDef)} {operatorClass}); \n";
+
+        var options = fieldDef.VectorIndex;
+        var with = new List<string>();
+        string method;
+        if (options?.IndexType == VectorIndexType.IvfFlat)
+        {
+            method = "ivfflat";
+            if (options.Lists > 0)
+            {
+                with.Add($"lists = {options.Lists}");
+            }
+        }
+        else
+        {
+            method = "hnsw";
+            if (options?.M > 0)
+            {
+                with.Add($"m = {options.M}");
+            }
+
+            if (options?.EfConstruction > 0)
+            {
+                with.Add($"ef_construction = {options.EfConstruction}");
+            }
+        }
+        var withSql = with.Count > 0 ? $" WITH ({string.Join(", ", with)})" : "";
+        return $"CREATE INDEX {indexName} ON {this.GetQuotedTableName(modelDef)} USING {method} ({this.GetQuotedColumnName(fieldDef)} {operatorClass}){withSql}; \n";
     }
 
     /// <summary>
@@ -1778,6 +1970,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     {
         return Unwrap(db).OpenAsync(token);
     }
+
+    public override string ToReadOnlySessionStatement(bool readOnly) => readOnly
+        ? "SET SESSION CHARACTERISTICS AS TRANSACTION READ ONLY"
+        : "SET SESSION CHARACTERISTICS AS TRANSACTION READ WRITE";
 
     /// <summary>
     /// Executes the reader asynchronous.

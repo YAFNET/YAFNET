@@ -30,7 +30,8 @@ static internal class OrmLiteDiagnostics
                 Command = dbCmd, 
                 ConnectionId = dbCmd.GetConnectionId(),
                 NamedConnection = dbCmd.GetNamedConnection(),
-                Tag = dbCmd.GetTag()
+                IsReadReplica = dbCmd is OrmLiteCommand { OrmLiteConnection.IsReadReplica: true },
+                Tag = dbCmd.GetTag(),
             }.Init(Activity.Current));
 
             return operationId;
@@ -49,6 +50,7 @@ static internal class OrmLiteDiagnostics
                 Operation = operation,
                 ConnectionId = dbCmd.GetConnectionId(),
                 NamedConnection = dbCmd.GetNamedConnection(),
+                IsReadReplica = dbCmd is OrmLiteCommand { OrmLiteConnection.IsReadReplica: true },
                 Tag = dbCmd.GetTag(),
                 Command = dbCmd
             }.Init(Activity.Current));
@@ -67,6 +69,7 @@ static internal class OrmLiteDiagnostics
                 Operation = operation,
                 ConnectionId = dbCmd.GetConnectionId(),
                 NamedConnection = dbCmd.GetNamedConnection(),
+                IsReadReplica = dbCmd is OrmLiteCommand { OrmLiteConnection.IsReadReplica: true },
                 Tag = dbCmd.GetTag(),
                 Command = dbCmd,
                 Exception = ex

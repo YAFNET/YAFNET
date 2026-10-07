@@ -23,7 +23,7 @@ using System;
 /// Wrapper IDbConnection class to allow for connection sharing, mocking, etc.
 /// </summary>
 public class OrmLiteConnection
-    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider, IHasTag
+    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider, IHasTag, IHasDbWrites
 {
     /// <summary>
     /// The factory
@@ -75,6 +75,124 @@ public class OrmLiteConnection
     /// connection and transaction
     /// </summary>
     private OrmLiteConnection? source;
+
+    /// <summary>
+    /// Whether the connection is for queries that can read from a read replica, opened with
+    /// OpenReadOnlyDbConnection(). Its statements can't write, even when it's opened on the primary, e.g. in
+    /// development without a replica, so writes fail the same way they would on a replica.
+    /// </summary>
+    public bool IsReadOnly { get; internal set; }
+
+    /// <summary>
+    /// Whether the connection is to a read replica
+    /// </summary>
+    public bool IsReadReplica { get; internal set; }
+
+    /// <summary>
+    /// Whether the connection has run a statement that writes, e.g. so a request reads what it wrote from the primary
+    /// </summary>
+    public bool HasWrites
+    {
+        get => this.source?.HasWrites ?? this.hasWrites;
+        private set
+        {
+            if (this.source != null)
+            {
+                this.source.HasWrites = value;
+            }
+            else
+            {
+                this.hasWrites = value;
+            }
+        }
+    }
+    private bool hasWrites;
+
+    /// <summary>
+    /// Called before the connection runs its first statement that writes, e.g. so the user's next requests read what
+    /// they wrote from the primary
+    /// </summary>
+    public Action? OnFirstWrite { get; set; }
+
+    // The database's session is read-only, and is made read-write again before the connection is pooled
+    private bool readOnlySession;
+
+    /// <summary>
+    /// Called before each statement runs: records writes, and rejects them on read-only connections the database
+    /// doesn't make read-only
+    /// </summary>
+    internal void OnExecute(IDbCommand dbCmd, bool isNonQuery)
+    {
+        var owner = this.source ?? this;
+        if (owner.IsReadOnly && !owner.readOnlySession && OrmLiteWriteStatement.IsWrite(dbCmd, exact: true))
+        {
+            throw new InvalidOperationException(
+                "This connection is read-only, it's opened for queries that can read from a read replica. " +
+                "Write with a connection to the primary, e.g. Db instead of ReadDb, or OpenDbConnection().");
+        }
+        // Read-only connections can't write
+        if (!owner.IsReadOnly && !owner.hasWrites && (isNonQuery || OrmLiteWriteStatement.IsWrite(dbCmd, exact: false)))
+        {
+            owner.hasWrites = true;
+            (this.OnFirstWrite ?? owner.OnFirstWrite)?.Invoke();
+        }
+    }
+
+    // Make the session of a read-only connection read-only, so the database rejects its writes, including on a
+    // replica that isn't read-only, e.g. in development
+    private void StartReadOnlySession()
+    {
+        if (!this.IsReadOnly || this.readOnlySession)
+        {
+            return;
+        }
+
+        var sql = this.DialectProvider.ToReadOnlySessionStatement(true);
+        if (sql == null)
+        {
+            return; // checked by OnExecute()
+        }
+
+        using var cmd = this.DbConnection.CreateCommand();
+        cmd.CommandText = sql;
+        cmd.ExecuteNonQuery();
+        this.readOnlySession = true;
+    }
+
+    // Pooled connections keep their session, so it's made read-write again before the connection is closed
+    private void EndReadOnlySession()
+    {
+        if (!this.readOnlySession)
+        {
+            return;
+        }
+
+        this.readOnlySession = false;
+        if (this.dbConnection is not { State: ConnectionState.Open })
+        {
+            return;
+        }
+
+        try
+        {
+            using var cmd = this.dbConnection.CreateCommand();
+            cmd.CommandText = this.DialectProvider.ToReadOnlySessionStatement(false);
+            cmd.ExecuteNonQuery();
+        }
+        catch (Exception e)
+        {
+            // A read replica can't be made read-write, e.g. a PostgreSQL standby, whose pool is only used for reads
+            var log = LogManager.GetLogger(this.GetType());
+            if (this.IsReadReplica)
+            {
+                log.Debug("A read replica's connection can't be made read-write before closing it: " + e.Message);
+            }
+            else
+            {
+                log.Error("Failed to make a read-only connection read-write before closing it", e);
+            }
+        }
+    }
 
     /// <summary>
     /// Gets the dialect provider.
@@ -167,6 +285,8 @@ public class OrmLiteConnection
             DialectProvider = owner.DialectProvider,
             Tag = owner.Tag,
             NamedConnection = owner.NamedConnection,
+            IsReadOnly = owner.IsReadOnly,
+            IsReadReplica = owner.IsReadReplica,
             CommandTimeout = owner.CommandTimeout,
             ConnectionId = owner.ConnectionId,
             WriteLock = owner.WriteLock,
@@ -219,8 +339,9 @@ public class OrmLiteConnection
 
         try
         {
-            DialectProvider.OnDisposeConnection?.Invoke(this);
-            dbConnection?.Dispose();
+            this.EndReadOnlySession();
+            this.DialectProvider.OnDisposeConnection?.Invoke(this);
+            this.dbConnection?.Dispose();
         }
         catch (Exception e)
         {
@@ -270,8 +391,9 @@ public class OrmLiteConnection
         Exception? e = null;
         try
         {
-            DialectProvider.OnDisposeConnection?.Invoke(this);
-            dbConnection.Close();
+            this.EndReadOnlySession();
+            this.DialectProvider.OnDisposeConnection?.Invoke(this);
+            this.dbConnection.Close();
         }
         catch (Exception ex)
         {
@@ -354,6 +476,7 @@ public class OrmLiteConnection
                 }
 
                 this.DialectProvider.InitConnection(dbConn);
+                this.StartReadOnlySession();
                 return;
             }
             catch (Exception ex)
@@ -426,6 +549,7 @@ public class OrmLiteConnection
                 }
 
                 this.DialectProvider.InitConnection(dbConn);
+                this.StartReadOnlySession();
                 return;
             }
             catch (Exception ex)

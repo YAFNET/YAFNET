@@ -112,9 +112,13 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Executes an SQL statement against the <see langword="Connection" /> object of a .NET Framework data provider, and returns the number of rows affected.
     /// </summary>
     /// <returns>The number of rows affected.</returns>
-    public int ExecuteNonQuery() => !this.CanRetry
-        ? this.ExecuteNonQueryOnce()
-        : OrmLiteRetryExec.Execute(this, this.DialectProvider, this.ExecuteNonQueryOnce);
+    public int ExecuteNonQuery()
+    {
+        this.dbConn.OnExecute(this, isNonQuery: true);
+        return !this.CanRetry
+            ? this.ExecuteNonQueryOnce()
+            : OrmLiteRetryExec.Execute(this, this.DialectProvider, this.ExecuteNonQueryOnce);
+    }
 
     /// <summary>
     /// Executes the non query once.
@@ -141,9 +145,14 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Executes the <see cref="P:System.Data.IDbCommand.CommandText" /> against the <see cref="P:System.Data.IDbCommand.Connection" /> and builds an <see cref="T:System.Data.IDataReader" />.
     /// </summary>
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
-    public IDataReader ExecuteReader() => !this.CanRetry
-        ? this.ExecuteReaderOnce()
-        : OrmLiteRetryExec.Execute(this, this.DialectProvider, this.ExecuteReaderOnce);
+    public IDataReader ExecuteReader()
+    {
+        this.dbConn.OnExecute(this, isNonQuery: false);
+        return !this.CanRetry
+            ? this.ExecuteReaderOnce()
+            : OrmLiteRetryExec.RetryReader(this, this.DialectProvider,
+                OrmLiteRetryExec.Execute(this, this.DialectProvider, this.ExecuteReaderOnce), CommandBehavior.Default);
+    }
 
     /// <summary>
     /// Executes the reader once.
@@ -159,9 +168,14 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// </summary>
     /// <param name="behavior">One of the <see cref="T:System.Data.CommandBehavior" /> values.</param>
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
-    public IDataReader ExecuteReader(CommandBehavior behavior) => !this.CanRetry
-        ? this.ExecuteReaderOnce(behavior)
-        : OrmLiteRetryExec.Execute(this, this.DialectProvider, () => this.ExecuteReaderOnce(behavior));
+    public IDataReader ExecuteReader(CommandBehavior behavior)
+    {
+        this.dbConn.OnExecute(this, isNonQuery: false);
+        return !this.CanRetry
+            ? this.ExecuteReaderOnce(behavior)
+            : OrmLiteRetryExec.RetryReader(this, this.DialectProvider,
+                OrmLiteRetryExec.Execute(this, this.DialectProvider, () => this.ExecuteReaderOnce(behavior)), behavior);
+    }
 
     /// <summary>
     /// Executes the reader once.
@@ -177,9 +191,13 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Executes the query, and returns the first column of the first row in the resultset returned by the query. Extra columns or rows are ignored.
     /// </summary>
     /// <returns>The first column of the first row in the resultset.</returns>
-    public object? ExecuteScalar() => !this.CanRetry
-        ? this.ExecuteScalarOnce()
-        : OrmLiteRetryExec.Execute(this, this.DialectProvider, this.ExecuteScalarOnce);
+    public object? ExecuteScalar()
+    {
+        this.dbConn.OnExecute(this, isNonQuery: false);
+        return !this.CanRetry
+            ? this.ExecuteScalarOnce()
+            : OrmLiteRetryExec.Execute(this, this.DialectProvider, this.ExecuteScalarOnce);
+    }
 
     /// <summary>
     /// Executes the scalar once.

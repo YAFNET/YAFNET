@@ -127,6 +127,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// </summary>
     public override bool SupportsRetries => false;
 
+    public override string ToReadOnlySessionStatement(bool readOnly) => readOnly
+        ? "PRAGMA query_only = ON"
+        : "PRAGMA query_only = OFF";
+
     protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef) =>
         fieldDef.ReturnOnInsert || (fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && HasInsertReturnValues(modelDef));
 
@@ -589,6 +593,179 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 
     public override List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef) => db.Column<string>(
         "SELECT name FROM sqlite_master WHERE type='index' AND tbl_name = {0} COLLATE NOCASE".SqlFmt(this, this.UnquotedTable(tableRef)));
+
+    // Indexes that aren't created with CREATE INDEX are for primary keys and unique constraints. SQLite keeps the
+    // statements that create indexes, which the WHERE of a partial index is read from.
+    public override List<IndexSchema> GetTableIndexes(IDbConnection db, TableRef tableRef)
+    {
+        var rows = db.SqlList<Dictionary<string, object>>(
+            ("SELECT il.name AS name, il.\"unique\" AS is_unique, CASE WHEN il.origin = 'c' THEN 0 ELSE 1 END AS is_constraint, " +
+             "CASE WHEN il.origin = 'pk' THEN 1 ELSE 0 END AS is_primary_key, " +
+             "(SELECT group_concat(name, ',') FROM (SELECT ii.name FROM pragma_index_info(il.name) ii ORDER BY ii.seqno)) AS columns, " +
+             "(SELECT m.sql FROM sqlite_master m WHERE m.type = 'index' AND m.name = il.name) AS index_sql " +
+             "FROM pragma_index_list({0}) il").SqlFmt(this, this.UnquotedTable(tableRef)));
+        var indexes = ToIndexSchemas(rows);
+        for (var i = 0; i < rows.Count; i++)
+        {
+            if (rows[i]["index_sql"] is string sql)
+            {
+                indexes[i].Where = IndexSchema.Parse(sql)?.Where;
+            }
+        }
+        return indexes;
+    }
+
+    // The named CHECK constraints of the statement that created the table, which SQLite keeps as it was written
+    public override List<CheckConstraintSchema> GetCheckConstraints(IDbConnection db, string quotedTable)
+    {
+        var name = quotedTable.StripDbQuotes();
+        var sql = db.Scalar<string>(("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = {0} COLLATE NOCASE " +
+            "UNION ALL SELECT sql FROM sqlite_temp_master WHERE type = 'table' AND name = {0} COLLATE NOCASE").SqlFmt(this, name));
+        var to = new List<CheckConstraintSchema>();
+        if (sql == null)
+        {
+            return to;
+        }
+
+        foreach (System.Text.RegularExpressions.Match match in CheckConstraintRegex.Matches(sql))
+        {
+            // The condition is in the parentheses after CHECK, which can have parentheses of their own
+            var start = match.Index + match.Length;
+            var depth = 1;
+            var inQuotes = false;
+            for (var i = start; i < sql.Length; i++)
+            {
+                var c = sql[i];
+                if (c == '\'')
+                {
+                    inQuotes = !inQuotes;
+                }
+                else if (inQuotes)
+                {
+                    continue;
+                }
+                else if (c == '(')
+                {
+                    depth++;
+                }
+                else if (c == ')' && --depth == 0)
+                {
+                    to.Add(new CheckConstraintSchema
+                    {
+                        Name = match.Groups[1].Value.Trim('"', '`', '[', ']'),
+                        Condition = sql.Substring(start, i - start).Trim(),
+                    });
+                    break;
+                }
+            }
+        }
+        return to;
+    }
+
+    private static readonly System.Text.RegularExpressions.Regex CheckConstraintRegex = new(
+        @"\bCONSTRAINT\s+(""[^""]+""|`[^`]+`|\[[^\]]+\]|[^\s(]+)\s+CHECK\s*\(",
+        System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Compiled,
+        TimeSpan.FromSeconds(1));
+
+    // An FTS5 table that indexes the text of the table's rows by their integer primary key, which it reads from the
+    // table instead of storing it again. Triggers keep it in sync with the table's rows.
+    public override string GetFullTextIndexName(ModelDefinition modelDef) =>
+        modelDef.FullTextIndex?.Name ?? this.GetTableNameOnly(new TableRef(modelDef)) + "_fts";
+
+    public override List<string> ToCreateFullTextIndexStatements(ModelDefinition modelDef)
+    {
+        var primaryKey = modelDef.PrimaryKey;
+        if (primaryKey == null || !primaryKey.FieldType.IsIntegerType())
+        {
+            throw new NotSupportedException($"SQLite's full-text index of {modelDef.Name} needs an integer primary key");
+        }
+
+        var table = this.GetQuotedTableName(modelDef);
+        var name = this.GetFullTextIndexName(modelDef);
+        var fts = this.GetQuotedName(name);
+        var columns = this.GetFullTextColumnNames(modelDef);
+        var pk = this.GetQuotedColumnName(primaryKey);
+        string Values(string row) => columns.Map(x => row + "." + x).Join(", ");
+        var ftsColumns = columns.Join(", ");
+        var insert = $"INSERT INTO {fts}(rowid, {ftsColumns}) VALUES (new.{pk}, {Values("new")});";
+        var delete = $"INSERT INTO {fts}({fts}, rowid, {ftsColumns}) VALUES ('delete', old.{pk}, {Values("old")});";
+
+        return [
+            $"CREATE VIRTUAL TABLE {fts} USING fts5({ftsColumns}, content={this.GetQuotedValue(this.UnquotedTable(new TableRef(modelDef)))}, " +
+                $"content_rowid={this.GetQuotedValue(this.NamingStrategy.GetColumnName(primaryKey.FieldName))});",
+            $"CREATE TRIGGER {this.GetQuotedName(name + "_ai")} AFTER INSERT ON {table} BEGIN {insert} END;",
+            $"CREATE TRIGGER {this.GetQuotedName(name + "_ad")} AFTER DELETE ON {table} BEGIN {delete} END;",
+            $"CREATE TRIGGER {this.GetQuotedName(name + "_au")} AFTER UPDATE OF {pk}, {ftsColumns} ON {table} BEGIN {delete} {insert} END;",
+            // Index the rows the table already has
+            $"INSERT INTO {fts}({fts}) VALUES ('rebuild');",
+        ];
+    }
+
+    public override List<string> ToDropFullTextIndexStatements(ModelDefinition modelDef)
+    {
+        var name = this.GetFullTextIndexName(modelDef);
+        return [
+            $"DROP TRIGGER IF EXISTS {this.GetQuotedName(name + "_ai")};",
+            $"DROP TRIGGER IF EXISTS {this.GetQuotedName(name + "_ad")};",
+            $"DROP TRIGGER IF EXISTS {this.GetQuotedName(name + "_au")};",
+            $"DROP TABLE IF EXISTS {this.GetQuotedName(name)};",
+        ];
+    }
+
+    public override bool SupportsFullTextSearch(IDbConnection db) =>
+        db.Scalar<long>("SELECT COUNT(*) FROM pragma_module_list WHERE name = 'fts5'") > 0;
+
+    public override bool HasFullTextIndex(IDbConnection db, ModelDefinition modelDef) =>
+        db.Scalar<long>("SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = {0} COLLATE NOCASE"
+            .SqlFmt(this, this.GetFullTextIndexName(modelDef))) > 0;
+
+    // Words are prefixes of the words they match, e.g. "data"*
+    public override List<string> ToFullTextSearch(List<FullTextTerm> terms) => [
+        terms.Map(x => x.IsPhrase ? "\"" + x.Words.Join(" ") + "\"" : "\"" + x.Words[0] + "\"*").Join(" AND "),
+    ];
+
+    public override string ToFullTextMatch(FullTextColumns columns, List<string> parameters)
+    {
+        var fts = this.GetQuotedName(this.GetFullTextIndexName(columns.ModelDef));
+        return $"{columns.PrimaryKey} IN (SELECT rowid FROM {fts} WHERE {fts} MATCH {parameters[0]})";
+    }
+
+    // bm25() is lower for more relevant rows, so it's negated
+    public override string ToFullTextRank(FullTextColumns columns, List<string> parameters)
+    {
+        var fts = this.GetQuotedName(this.GetFullTextIndexName(columns.ModelDef));
+        return $"COALESCE((SELECT -bm25({fts}) FROM {fts} WHERE {fts} MATCH {parameters[0]} AND rowid = {columns.PrimaryKey}), 0)";
+    }
+
+    public override string ToAddConstraintStatement(TableRef tableRef, string constraint) => null;
+
+    public override string ToDropUniqueConstraintStatement(TableRef tableRef, string constraintName) => null;
+
+    public override string ToDropCheckConstraintStatement(TableRef tableRef, string constraintName) => null;
+
+    public override Dictionary<string, string> GetColumnDefaults(IDbConnection db, string quotedTable)
+    {
+        var to = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var column in db.SqlList<Dictionary<string, object>>($"PRAGMA table_xinfo({quotedTable})"))
+        {
+            var defaultValue = column["dflt_value"];
+            to[column["name"].ToString()] = defaultValue is null or DBNull ? null : defaultValue.ToString();
+        }
+        return to;
+    }
+
+    // SQLite doesn't keep the names of foreign keys, and "to" is null for foreign keys of the referenced primary key
+    public override List<ForeignKeySchema> GetTableForeignKeys(IDbConnection db, TableRef tableRef) => ToForeignKeySchemas(
+        db.SqlList<Dictionary<string, object>>(
+            ("SELECT NULL AS name, group_concat(\"from\", ',') AS columns, \"table\" AS ref_table, " +
+             "group_concat(\"to\", ',') AS ref_columns, on_delete, on_update " +
+             "FROM (SELECT * FROM pragma_foreign_key_list({0}) ORDER BY id, seq) GROUP BY id")
+                .SqlFmt(this, this.UnquotedTable(tableRef))));
+
+    // Constraints and defaults can only be changed by creating the table again
+    public override string ToAddForeignKeyStatement(TableRef tableRef, FieldDefinition fieldDef) => null;
+
+    public override string ToAlterColumnDefaultStatement(TableRef tableRef, FieldDefinition fieldDef) => null;
 
     /// <summary>
     /// Doeses the table exist.

@@ -978,6 +978,13 @@ namespace ServiceStack.OrmLite.SqlServer
 
         public override string ToVectorParam(string param, int dimensions) => $"CAST({param} AS VECTOR({dimensions}))";
 
+        // Half-precision vectors are a preview feature of SQL Server 2025, which needs PREVIEW_FEATURES to be enabled
+        public override string GetVectorColumnDefinition(int dimensions, VectorPrecision precision) =>
+            precision == VectorPrecision.Half ? $"VECTOR({dimensions}, float16)" : this.GetVectorColumnDefinition(dimensions);
+
+        public override string ToVectorParam(string param, int dimensions, VectorPrecision precision) =>
+            precision == VectorPrecision.Half ? $"CAST({param} AS VECTOR({dimensions}, float16))" : this.ToVectorParam(param, dimensions);
+
         public override string ToVectorDistance(VectorDistance distance, string vector, string other)
         {
             var metric = distance switch
@@ -1211,6 +1218,155 @@ namespace ServiceStack.OrmLite.SqlServer
         public override List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef) => db.Column<string>(
             "SELECT name FROM sys.indexes WHERE object_id = OBJECT_ID({0}) AND name IS NOT NULL"
                 .SqlFmt(this, this.QuoteTable(tableRef)));
+
+        public override List<IndexSchema> GetTableIndexes(IDbConnection db, TableRef tableRef)
+        {
+            string Columns(int included, string orderBy) =>
+                "STUFF((SELECT ',' + c.name FROM sys.index_columns ic " +
+                "JOIN sys.columns c ON c.object_id = ic.object_id AND c.column_id = ic.column_id " +
+                $"WHERE ic.object_id = i.object_id AND ic.index_id = i.index_id AND ic.is_included_column = {included} " +
+                $"ORDER BY {orderBy} FOR XML PATH('')), 1, 1, '')";
+            return ToIndexSchemas(db.SqlList<Dictionary<string, object>>(
+                ("SELECT i.name AS name, i.is_unique AS is_unique, " +
+                 "CAST(CASE WHEN i.is_primary_key = 1 OR i.is_unique_constraint = 1 THEN 1 ELSE 0 END AS bit) AS is_constraint, " +
+                 $"i.is_primary_key AS is_primary_key, {Columns(0, "ic.key_ordinal")} AS columns, " +
+                 $"{Columns(1, "ic.index_column_id")} AS include, i.filter_definition AS where_condition " +
+                 "FROM sys.indexes i WHERE i.object_id = OBJECT_ID({0}) AND i.name IS NOT NULL")
+                    .SqlFmt(this, this.QuoteTable(tableRef))));
+        }
+
+        public override List<string> GetModelIndexConditions(IDbConnection db, List<FieldDefinition> fieldDefs,
+            List<IndexSchema> indexes) => this.ReadModelIndexConditions(db, fieldDefs, indexes, tempTable => ToColumnDefaults(
+                db.SqlList<Dictionary<string, object>>(
+                    "SELECT name AS name, filter_definition AS value FROM tempdb.sys.indexes WHERE object_id = OBJECT_ID({0})"
+                        .SqlFmt(this, "tempdb.." + tempTable.StripDbQuotes()))));
+
+        // The catalog full-text indexes are created in
+        public const string FullTextCatalog = "ormlite_fts";
+
+        // A full-text index keyed by the table's primary key. Its catalog and index can't be created in a transaction, so
+        // they're created with EXEC, which runs them in batches of their own.
+        public override List<string> ToCreateFullTextIndexStatements(ModelDefinition modelDef)
+        {
+            if (modelDef.PrimaryKey == null)
+            {
+                throw new NotSupportedException($"SQL Server's full-text index of {modelDef.Name} needs a primary key");
+            }
+
+            var table = this.GetQuotedTableName(modelDef);
+            var language = modelDef.FullTextIndex?.Language;
+            var languageTerm = string.IsNullOrEmpty(language) ? "0"
+                : int.TryParse(language, out var lcid) ? lcid.ToString() : this.GetQuotedValue(language);
+            var columns = this.GetFullTextColumnNames(modelDef).Map(x => $"{x} LANGUAGE {languageTerm}").Join(", ");
+            var catalog = this.GetQuotedName(FullTextCatalog);
+            return [
+                $"IF NOT EXISTS (SELECT 1 FROM sys.fulltext_catalogs WHERE name = {this.GetQuotedValue(FullTextCatalog)}) " +
+                $"EXEC({this.GetQuotedValue($"CREATE FULLTEXT CATALOG {catalog}")});",
+                $"DECLARE @key sysname = (SELECT name FROM sys.indexes WHERE object_id = OBJECT_ID({this.GetQuotedValue(table)}) AND is_primary_key = 1);\n" +
+                $"DECLARE @sql nvarchar(max) = {this.GetQuotedValue($"CREATE FULLTEXT INDEX ON {table} ({columns}) KEY INDEX ")} + QUOTENAME(@key) + " +
+                $"{this.GetQuotedValue($" ON {catalog} WITH (CHANGE_TRACKING = AUTO, STOPLIST = OFF)")};\n" +
+                "EXEC(@sql);",
+            ];
+        }
+
+        public override List<string> ToDropFullTextIndexStatements(ModelDefinition modelDef)
+        {
+            var table = this.GetQuotedTableName(modelDef);
+            return [
+                $"IF EXISTS (SELECT 1 FROM sys.fulltext_indexes WHERE object_id = OBJECT_ID({this.GetQuotedValue(table)})) " +
+                $"EXEC({this.GetQuotedValue($"DROP FULLTEXT INDEX ON {table}")});",
+            ];
+        }
+
+        // Full-Text Search is an optional component of SQL Server
+        public override bool SupportsFullTextSearch(IDbConnection db) =>
+            db.Scalar<int?>("SELECT CONVERT(int, FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))") == 1;
+
+        public override bool HasFullTextIndex(IDbConnection db, ModelDefinition modelDef) =>
+            db.Scalar<int>("SELECT COUNT(*) FROM sys.fulltext_indexes WHERE object_id = OBJECT_ID({0})"
+                .SqlFmt(this, this.GetQuotedTableName(modelDef))) > 0;
+
+        // Rows are indexed in the background after they're written
+        public override bool IsFullTextIndexUpToDate(IDbConnection db, ModelDefinition modelDef)
+        {
+            var objectId = "OBJECT_ID({0})".SqlFmt(this, this.GetQuotedTableName(modelDef));
+            return db.Scalar<int>($"SELECT CASE WHEN OBJECTPROPERTYEX({objectId}, 'TableFulltextPendingChanges') = 0 " +
+                $"AND OBJECTPROPERTYEX({objectId}, 'TableFulltextPopulateStatus') = 0 THEN 1 ELSE 0 END") == 1;
+        }
+
+        // CONTAINS() of several columns only matches rows with every word of its search in the same column, so each word
+        // and phrase is matched by a CONTAINS() of its own, which matches it in any column
+        public override bool FullTextMatchesEachTerm => true;
+
+        // Words are prefixes of the words they match, e.g. "data*"
+        public override List<string> ToFullTextSearch(List<FullTextTerm> terms) =>
+            terms.Map(x => x.IsPhrase ? "\"" + x.Words.Join(" ") + "\"" : "\"" + x.Words[0] + "*\"");
+
+        public override string ToFullTextMatch(FullTextColumns columns, List<string> parameters) =>
+            "(" + parameters.Map(p => $"CONTAINS(({columns.Columns.Join(", ")}), {p})").Join(" AND ") + ")";
+
+        // The sum of the rank of each word and phrase
+        public override string ToFullTextRank(FullTextColumns columns, List<string> parameters)
+        {
+            var ftColumns = this.GetFullTextColumnNames(columns.ModelDef).Join(", ");
+            return "(" + parameters.Map(p => $"COALESCE((SELECT ft.[RANK] FROM CONTAINSTABLE({columns.Table}, ({ftColumns}), {p}) ft " +
+                $"WHERE ft.[KEY] = {columns.PrimaryKey}), 0)").Join(" + ") + ")";
+        }
+
+        // Temporary tables, e.g. of GetModelCheckConstraints(), are in tempdb
+        public override List<CheckConstraintSchema> GetCheckConstraints(IDbConnection db, string quotedTable)
+        {
+            var isTemp = quotedTable.IndexOf('#') >= 0;
+            var catalog = isTemp ? "tempdb." : "";
+            var objectName = isTemp ? "tempdb.." + quotedTable.StripDbQuotes() : quotedTable;
+            return ToCheckConstraintSchemas(db.SqlList<Dictionary<string, object>>(
+                ($"SELECT cc.name AS name, cc.definition AS condition FROM {catalog}sys.check_constraints cc " +
+                 "WHERE cc.parent_object_id = OBJECT_ID({0})").SqlFmt(this, objectName)));
+        }
+
+        // Temporary tables, e.g. of GetModelSchemaColumns(), are in tempdb
+        public override Dictionary<string, string> GetColumnDefaults(IDbConnection db, string quotedTable)
+        {
+            var isTemp = quotedTable.IndexOf('#') >= 0;
+            var catalog = isTemp ? "tempdb." : "";
+            var objectName = isTemp ? "tempdb.." + quotedTable.StripDbQuotes() : quotedTable;
+            return ToColumnDefaults(db.SqlList<Dictionary<string, object>>(
+                ($"SELECT c.name AS name, dc.definition AS value FROM {catalog}sys.columns c " +
+                 $"LEFT JOIN {catalog}sys.default_constraints dc ON dc.parent_object_id = c.object_id AND dc.parent_column_id = c.column_id " +
+                 "WHERE c.object_id = OBJECT_ID({0})").SqlFmt(this, objectName)));
+        }
+
+        public override List<ForeignKeySchema> GetTableForeignKeys(IDbConnection db, TableRef tableRef)
+        {
+            string Columns(string table, string column) =>
+                "STUFF((SELECT ',' + c.name FROM sys.foreign_key_columns fkc " +
+                $"JOIN sys.columns c ON c.object_id = fkc.{table} AND c.column_id = fkc.{column} " +
+                "WHERE fkc.constraint_object_id = fk.object_id ORDER BY fkc.constraint_column_id FOR XML PATH('')), 1, 1, '')";
+            return ToForeignKeySchemas(db.SqlList<Dictionary<string, object>>(
+                ($"SELECT fk.name AS name, {Columns("parent_object_id", "parent_column_id")} AS columns, " +
+                 $"OBJECT_NAME(fk.referenced_object_id) AS ref_table, {Columns("referenced_object_id", "referenced_column_id")} AS ref_columns, " +
+                 "fk.delete_referential_action_desc AS on_delete, fk.update_referential_action_desc AS on_update " +
+                 "FROM sys.foreign_keys fk WHERE fk.parent_object_id = OBJECT_ID({0})").SqlFmt(this, this.QuoteTable(tableRef))));
+        }
+
+        // Defaults are constraints, so the column's default is dropped by its name before it's added
+        public override string ToAlterColumnDefaultStatement(TableRef tableRef, FieldDefinition fieldDef)
+        {
+            var table = this.QuoteTable(tableRef);
+            var sql = "DECLARE @default sysname = (SELECT dc.name FROM sys.default_constraints dc " +
+                "JOIN sys.columns c ON c.object_id = dc.parent_object_id AND c.column_id = dc.parent_column_id " +
+                "WHERE dc.parent_object_id = OBJECT_ID({0}) AND c.name = {1});\n".SqlFmt(this, table, this.NamingStrategy.GetColumnName(fieldDef.FieldName)) +
+                $"DECLARE @drop nvarchar(max) = {this.GetQuotedValue($"ALTER TABLE {table} DROP CONSTRAINT ")} + QUOTENAME(@default);\n" +
+                "IF @default IS NOT NULL EXEC(@drop);";
+            var defaultValue = this.GetDefaultValue(fieldDef);
+            if (string.IsNullOrEmpty(defaultValue))
+            {
+                return sql;
+            }
+
+            var constraint = fieldDef.DefaultValueConstraint != null ? $" CONSTRAINT {this.GetQuotedName(fieldDef.DefaultValueConstraint)}" : "";
+            return sql + $"\nALTER TABLE {table} ADD{constraint} DEFAULT {defaultValue} FOR {this.GetQuotedColumnName(fieldDef)};";
+        }
 
         // UNION ALL stops the staging table inheriting the IDENTITY of the table's column, so it can be given values
         protected override string ToCreateBulkStagingTableStatement(ModelDefinition modelDef, string stagingTable, List<FieldDefinition> fieldDefs)

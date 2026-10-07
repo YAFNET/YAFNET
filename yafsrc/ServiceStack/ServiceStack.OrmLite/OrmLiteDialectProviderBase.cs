@@ -676,7 +676,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.Object.</returns>
     public object GetValue(IDataReader reader, int columnIndex, Type type)
     {
-        if (this.Converters.TryGetValue(type, out var converter))
+        //if (this.Converters.TryGetValue(type, out var converter))
+        // Resolve Nullable<T> to T's converter (as GetConverter does), otherwise e.g. a DateTime? column
+        // in SQLite (stored as TEXT) is read raw as a string and fails in the converter's FromDbValue cast
+        var converter = this.GetConverter(type);
+        if (converter != null)
         {
             return converter.GetValue(reader, columnIndex, null);
         }
@@ -996,7 +1000,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     protected virtual string GetFieldTypeDefinition(FieldDefinition fieldDef) =>
         this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? (fieldDef.VectorDimensions != null
-            ? this.GetVectorColumnDefinition(fieldDef.VectorDimensions.Value)
+            ? this.GetVectorColumnDefinition(fieldDef.VectorDimensions.Value, fieldDef.VectorPrecision)
             : this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale));
 
     public IOrmLiteConverter VectorConverter { get; set; } = new VectorConverter();
@@ -1007,7 +1011,20 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string GetVectorColumnDefinition(int dimensions) =>
         throw new NotSupportedException($"{this.GetType().Name} doesn't support [Vector] columns");
 
+    /// <summary>
+    /// The column type of a [Vector] with these dimensions and precision
+    /// </summary>
+    public virtual string GetVectorColumnDefinition(int dimensions, VectorPrecision precision) =>
+        precision == VectorPrecision.Single
+            ? this.GetVectorColumnDefinition(dimensions)
+            : throw new NotSupportedException($"{this.GetType().Name} doesn't support half-precision [Vector] columns");
+
     public virtual string ToVectorParam(string param, int dimensions) => param;
+
+    public virtual string ToVectorParam(string param, int dimensions, VectorPrecision precision) =>
+        this.ToVectorParam(param, dimensions);
+
+    public virtual List<string> ToVectorSearchStatements(VectorSearchOptions options) => [];
 
     public virtual string ToVectorDistance(VectorDistance distance, string vector, string other) =>
         throw new NotSupportedException($"{this.GetType().Name} doesn't support vector distances");
@@ -1021,6 +1038,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// What's selected for a [Vector] column if it can't be read as it is, or null to select the column
     /// </summary>
     protected virtual string GetVectorSelectExpression(string quotedColumn) => null;
+
+    public virtual string ToSelectColumn(FieldDefinition fieldDef, string quotedColumn) =>
+        fieldDef?.VectorDimensions != null ? this.GetVectorSelectExpression(quotedColumn) ?? quotedColumn : quotedColumn;
 
     /// <summary>
     /// A column the RDBMS generates from its [Compute("expression")], which is stored when it's [Persisted]
@@ -1300,6 +1320,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             NamedConnection = namedConnection
         };
     }
+
+    public virtual string ToReadOnlySessionStatement(bool readOnly) => null;
 
     public virtual void InitConnection(IDbConnection dbConn)
     {
@@ -4119,7 +4141,17 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         db.ExecuteSql(this.ToCreateTempTableStatement(tempTable, columns.Join(",\n  ")));
         try
         {
-            return this.GetSchemaColumns(db, tempTable);
+            var schemaColumns = this.GetSchemaColumns(db, tempTable);
+            // The defaults the model's columns are created with, as the database writes them
+            var defaults = this.GetColumnDefaults(db, tempTable);
+            if (defaults != null)
+            {
+                foreach (var column in schemaColumns)
+                {
+                    column.DefaultValue = defaults.TryGetValue(column.ColumnName, out var defaultValue) ? defaultValue : null;
+                }
+            }
+            return schemaColumns;
         }
         finally
         {
@@ -4131,6 +4163,160 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         $"CREATE TEMPORARY TABLE {tempTable} (\n  {columnDefinitions}\n)";
 
     public virtual List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef) => null;
+
+    public virtual List<IndexSchema> GetTableIndexes(IDbConnection db, TableRef tableRef) => null;
+
+    /// <summary>
+    /// The indexes of the rows of a query with name, is_unique, is_constraint and columns, a comma-separated list of
+    /// its key columns in order
+    /// </summary>
+    protected static List<IndexSchema> ToIndexSchemas(List<Dictionary<string, object>> rows) =>
+        rows.Map(row => new IndexSchema
+        {
+            Name = RowValue(row, "name")?.ToString(),
+            IsUnique = Convert.ToBoolean(RowValue(row, "is_unique") ?? false),
+            IsConstraint = Convert.ToBoolean(RowValue(row, "is_constraint") ?? false),
+            IsPrimaryKey = Convert.ToBoolean(RowValue(row, "is_primary_key") ?? false),
+            Columns = RowList(row, "columns"),
+            Include = RowList(row, "include"),
+            Where = RowValue(row, "where_condition")?.ToString() is { Length: > 0 } where ? where : null,
+        });
+
+    public virtual List<CheckConstraintSchema> GetCheckConstraints(IDbConnection db, string quotedTable) => null;
+
+    public virtual List<string> GetModelIndexConditions(IDbConnection db, List<FieldDefinition> fieldDefs,
+        List<IndexSchema> indexes) => null;
+
+    /// <summary>
+    /// The WHERE conditions of indexes created on a temporary table with the columns of fieldDefs, as they're read by
+    /// readConditions with the temporary table's quoted name, by index name
+    /// </summary>
+    protected List<string> ReadModelIndexConditions(IDbConnection db, List<FieldDefinition> fieldDefs,
+        List<IndexSchema> indexes, Func<string, Dictionary<string, string>> readConditions)
+    {
+        var tempTable = this.GetBulkStagingTableName("ormlite_diff_" + Guid.NewGuid().ToString("N"));
+        db.ExecuteSql(this.ToCreateTempTableStatement(tempTable, this.GetTempColumnDefinitions(fieldDefs).Join(",\n  ")));
+        try
+        {
+            // Index names have to be unique in some databases, e.g. in PostgreSQL's schemas
+            var prefix = "ix_" + Guid.NewGuid().ToString("N").Substring(0, 12) + "_";
+            for (var i = 0; i < indexes.Count; i++)
+            {
+                db.ExecuteSql($"CREATE INDEX {this.GetQuotedName(prefix + i)} ON {tempTable} " +
+                              $"({indexes[i].Columns.Map(this.GetQuotedName).Join(", ")}) WHERE {indexes[i].Where}");
+            }
+            var written = readConditions(tempTable);
+            return indexes.Select((_, i) => written.TryGetValue(prefix + i, out var condition) ? condition : null).ToList();
+        }
+        finally
+        {
+            db.ExecuteSql(this.ToDropBulkStagingTableStatement(tempTable));
+        }
+    }
+
+    // The columns of a temporary table that's created with the columns of a model, without the names of their default
+    // constraints, which have to be unique in some databases
+    protected List<string> GetTempColumnDefinitions(List<FieldDefinition> fieldDefs) =>
+        fieldDefs.Map(x => this.GetColumnDefinition(x.DefaultValueConstraint == null
+            ? x
+            : x.Clone(f =>
+            {
+                f.ModelDef = x.ModelDef;
+                f.DefaultValueConstraint = null;
+            })));
+
+    public virtual List<CheckConstraintSchema> GetModelCheckConstraints(IDbConnection db, List<FieldDefinition> fieldDefs,
+        List<CheckConstraintSchema> checks)
+    {
+        var tempTable = this.GetBulkStagingTableName("ormlite_diff_" + Guid.NewGuid().ToString("N"));
+        var columns = this.GetTempColumnDefinitions(fieldDefs);
+        // Constraint names have to be unique in some databases, e.g. in SQL Server's tempdb
+        var prefix = "chk_" + Guid.NewGuid().ToString("N").Substring(0, 12) + "_";
+        for (var i = 0; i < checks.Count; i++)
+        {
+            columns.Add($"CONSTRAINT {this.GetQuotedName(prefix + i)} CHECK ({checks[i].Condition})");
+        }
+        db.ExecuteSql(this.ToCreateTempTableStatement(tempTable, columns.Join(",\n  ")));
+        try
+        {
+            var created = this.GetCheckConstraints(db, tempTable);
+            if (created == null)
+            {
+                return null;
+            }
+
+            return checks.Select((check, i) => new CheckConstraintSchema
+            {
+                Name = check.Name,
+                Condition = created.FirstOrDefault(x => string.Equals(x.Name, prefix + i, StringComparison.OrdinalIgnoreCase))?.Condition,
+            }).ToList();
+        }
+        finally
+        {
+            db.ExecuteSql(this.ToDropBulkStagingTableStatement(tempTable));
+        }
+    }
+
+    /// <summary>
+    /// The check constraints of the rows of a query with name and condition columns
+    /// </summary>
+    protected static List<CheckConstraintSchema> ToCheckConstraintSchemas(List<Dictionary<string, object>> rows) =>
+        rows.Map(row => new CheckConstraintSchema
+        {
+            Name = RowValue(row, "name")?.ToString(),
+            Condition = RowValue(row, "condition")?.ToString(),
+        });
+
+    public virtual Dictionary<string, string> GetColumnDefaults(IDbConnection db, string quotedTable) => null;
+
+    public virtual List<ForeignKeySchema> GetTableForeignKeys(IDbConnection db, TableRef tableRef) => null;
+
+    /// <summary>
+    /// The default values of the rows of a query with name and value columns
+    /// </summary>
+    protected static Dictionary<string, string> ToColumnDefaults(List<Dictionary<string, object>> rows)
+    {
+        var to = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var row in rows)
+        {
+            var name = RowValue(row, "name")?.ToString();
+            if (name != null)
+            {
+                to[name] = RowValue(row, "value")?.ToString();
+            }
+        }
+        return to;
+    }
+
+    /// <summary>
+    /// The foreign keys of the rows of a query with name, columns and ref_columns, comma-separated lists of their
+    /// columns in order, ref_table, on_delete and on_update
+    /// </summary>
+    protected static List<ForeignKeySchema> ToForeignKeySchemas(List<Dictionary<string, object>> rows) =>
+        rows.Map(row => new ForeignKeySchema
+        {
+            Name = RowValue(row, "name")?.ToString(),
+            Columns = RowList(row, "columns"),
+            RefTable = RowValue(row, "ref_table")?.ToString(),
+            RefColumns = RowList(row, "ref_columns"),
+            OnDelete = RowValue(row, "on_delete")?.ToString(),
+            OnUpdate = RowValue(row, "on_update")?.ToString(),
+        });
+
+    private static object RowValue(Dictionary<string, object> row, string name)
+    {
+        foreach (var entry in row)
+        {
+            if (string.Equals(entry.Key, name, StringComparison.OrdinalIgnoreCase))
+            {
+                return entry.Value is DBNull ? null : entry.Value;
+            }
+        }
+        return null;
+    }
+
+    private static List<string> RowList(Dictionary<string, object> row, string name) =>
+        (RowValue(row, name)?.ToString() ?? "").Split([','], StringSplitOptions.RemoveEmptyEntries).ToList();
 
     /// <summary>
     /// Converts to alter column statement.
@@ -4194,6 +4380,60 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>string.</returns>
     public virtual string ToDropForeignKeyStatement(TableRef tableRef, string foreignKeyName) =>
         $"ALTER TABLE {QuoteTable(tableRef)} DROP CONSTRAINT {GetQuotedName(foreignKeyName)};";
+
+    public virtual string ToAddForeignKeyStatement(TableRef tableRef, FieldDefinition fieldDef)
+    {
+        var refModelDef = fieldDef.ForeignKey.ReferenceType.GetModelDefinition();
+        var name = fieldDef.ForeignKey.GetForeignKeyName(fieldDef.ModelDef ?? tableRef.ModelDef, refModelDef, this.NamingStrategy, fieldDef);
+        return $"ALTER TABLE {this.QuoteTable(tableRef)} " +
+               $"ADD CONSTRAINT {this.GetQuotedName(name)} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef)}) " +
+               $"REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey)})" +
+               $"{this.GetForeignKeyOnDeleteClause(fieldDef.ForeignKey)}{this.GetForeignKeyOnUpdateClause(fieldDef.ForeignKey)};";
+    }
+
+    public virtual string GetFullTextIndexName(ModelDefinition modelDef) =>
+        modelDef.FullTextIndex?.Name ?? this.NamingStrategy.ApplyNameRestrictions("ftx_" + this.GetTableNameOnly(new TableRef(modelDef)));
+
+    protected NotSupportedException FullTextNotSupported() =>
+        new($"{this.GetType().Name} doesn't support full-text indexes");
+
+    public virtual List<string> ToCreateFullTextIndexStatements(ModelDefinition modelDef) => throw this.FullTextNotSupported();
+
+    public virtual List<string> ToDropFullTextIndexStatements(ModelDefinition modelDef) => throw this.FullTextNotSupported();
+
+    public virtual bool SupportsFullTextSearch(IDbConnection db) => false;
+
+    public virtual bool HasFullTextIndex(IDbConnection db, ModelDefinition modelDef) => false;
+
+    public virtual bool IsFullTextIndexUpToDate(IDbConnection db, ModelDefinition modelDef) => true;
+
+    public virtual bool FullTextMatchesEachTerm => false;
+
+    public virtual List<string> ToFullTextSearch(List<FullTextTerm> terms) => throw this.FullTextNotSupported();
+
+    public virtual string ToFullTextMatch(FullTextColumns columns, List<string> parameters) => throw this.FullTextNotSupported();
+
+    public virtual string ToFullTextRank(FullTextColumns columns, List<string> parameters) => throw this.FullTextNotSupported();
+
+    // The quoted columns of a [FullTextIndex] without their table, e.g. to create its index
+    protected List<string> GetFullTextColumnNames(ModelDefinition modelDef) =>
+        modelDef.GetFullTextFields().Map(this.GetQuotedColumnName);
+
+    public virtual string ToAddConstraintStatement(TableRef tableRef, string constraint) =>
+        $"ALTER TABLE {this.QuoteTable(tableRef)} ADD {constraint};";
+
+    public virtual string ToDropUniqueConstraintStatement(TableRef tableRef, string constraintName) =>
+        $"ALTER TABLE {this.QuoteTable(tableRef)} DROP CONSTRAINT {this.GetQuotedName(constraintName)};";
+
+    public virtual string ToDropCheckConstraintStatement(TableRef tableRef, string constraintName) =>
+        $"ALTER TABLE {this.QuoteTable(tableRef)} DROP CONSTRAINT {this.GetQuotedName(constraintName)};";
+
+    public virtual string ToAlterColumnDefaultStatement(TableRef tableRef, FieldDefinition fieldDef)
+    {
+        var defaultValue = this.GetDefaultValue(fieldDef);
+        return $"ALTER TABLE {this.QuoteTable(tableRef)} ALTER COLUMN {this.GetQuotedColumnName(fieldDef)} " +
+               (string.IsNullOrEmpty(defaultValue) ? "DROP DEFAULT;" : $"SET DEFAULT {defaultValue};");
+    }
 
     /// <summary>
     /// Converts to dropconstraintstatement.

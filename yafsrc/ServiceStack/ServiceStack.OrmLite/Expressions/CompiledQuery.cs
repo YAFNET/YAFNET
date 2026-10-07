@@ -1030,6 +1030,22 @@ internal sealed class CompiledValue
         return new CompiledValue((args, lists) => getValue(args, lists) is { } value ? convert(value) : null, sample);
     }
 
+    // Its value, for SQL that changes with it, which is kept for each value of its argument, or not kept when it isn't
+    // the argument itself
+    internal object UseValueInSql()
+    {
+        if (this.ArgIndex >= 0)
+        {
+            CompiledQueryBuild.ReadArg(this.ArgIndex);
+        }
+        else if (CompiledQueryBuild.Current is { } build)
+        {
+            build.HasNullValue = true;
+        }
+
+        return this.Sample;
+    }
+
     // SQL that uses this instead of a db param isn't the SQL that's normally generated, so it's never kept
     public override string ToString() => "{CompiledQueryArg}";
 }

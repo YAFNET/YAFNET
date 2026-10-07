@@ -122,10 +122,21 @@ public class SqliteExpression<T> : SqlExpression<T>
     protected override object VisitIsJsonMethod(object json) =>
         new PartialSqlString($"json_valid({json})");
 
-    protected override object VisitJsonValueMethod(object json, JsonPathExpression path, Type returnType)
+    protected override object VisitJsonValueMethod(object json, JsonPathExpression path, Type returnType) =>
+        this.JsonTypedValue($"json_extract({json}, {path})", $"json_type({json}, {path})", returnType);
+
+    // json_each() returns the rows of an array, with the SQL value of each item and its JSON type
+    protected override string JsonArrayItemsFrom(object json, JsonPathExpression path, string alias) =>
+        $"json_each({json}, {path}) AS {alias}";
+
+    protected override string JsonArrayItemDocument(string alias) => alias + ".value";
+
+    protected override object VisitJsonArrayItemValue(string alias, Type type) =>
+        this.JsonTypedValue(alias + ".value", alias + ".type", type);
+
+    // The value when its JSON type is the type's, otherwise null
+    private object JsonTypedValue(string extract, string jsonType, Type returnType)
     {
-        var extract = $"json_extract({json}, {path})";
-        var jsonType = $"json_type({json}, {path})";
         var type = Nullable.GetUnderlyingType(returnType) ?? returnType;
 
         if (type == typeof(string) || type.IsEnum)

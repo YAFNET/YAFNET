@@ -721,7 +721,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                             {
                                 if (!fieldDef.IsRowVersion)
                                 {
-                                    sbSelect.Append($"{this.GetQuotedColumnName(tableDef, matchingField.Name)} AS {this.SqlColumn(fieldDef)}");
+                                    sbSelect.Append($"{this.DialectProvider.ToSelectColumn(matchingField, this.GetQuotedColumnName(tableDef, matchingField.Name))} AS {this.SqlColumn(fieldDef)}");
                                 }
                                 else
                                 {
@@ -763,11 +763,13 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                         {
                             if (!fieldDef.IsRowVersion)
                             {
-                                sbSelect.Append(tableAlias == null
-                                                    ? this.GetQuotedColumnName(tableDef, tableFieldDef.Name)
-                                                    : this.GetQuotedColumnName(tableDef, tableAlias, tableFieldDef.Name));
+                                var column = tableAlias == null
+                                                 ? this.GetQuotedColumnName(tableDef, tableFieldDef.Name)
+                                                 : this.GetQuotedColumnName(tableDef, tableAlias, tableFieldDef.Name);
+                                var selectColumn = this.DialectProvider.ToSelectColumn(tableFieldDef, column);
+                                sbSelect.Append(selectColumn);
 
-                                if (tableFieldDef.RequiresAlias)
+                                if (tableFieldDef.RequiresAlias || selectColumn != column)
                                 {
                                     sbSelect.Append(" AS ").Append(this.SqlColumn(fieldDef.Name));
                                 }
@@ -815,7 +817,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                                              ? this.TableAlias
                                              : null;
 
-                        sbSelect.Append($"{this.DialectProvider.GetQuotedColumnName(tableDef, tableAlias, matchingField)} as {this.SqlColumn(fieldDef.Name)}");
+                        sbSelect.Append($"{this.DialectProvider.ToSelectColumn(matchingField, this.DialectProvider.GetQuotedColumnName(tableDef, tableAlias, matchingField))} as {this.SqlColumn(fieldDef.Name)}");
 
                         break;
                     }

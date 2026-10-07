@@ -37,4 +37,27 @@ public class OrmLiteConfigurationBuilder(IDbConnectionFactory dbFactory)
         DbFactory.RegisterConnection(name, connectionString, dialectProvider ?? OrmLiteConfig.DialectProvider);
         return this;
     }
+
+    /// <summary>
+    /// Register a read replica of the main connection, e.g. a PostgreSQL standby, which uses its dialect and
+    /// dbFactory.OpenReadOnlyDbConnection() opens, or the main connection when it can't be opened and fallbackToPrimary
+    /// </summary>
+    public OrmLiteConfigurationBuilder AddReadReplica(string? connectionString, bool fallbackToPrimary = false)
+    {
+        this.DbFactory.RegisterReadReplica(connectionString ?? throw new ArgumentNullException(nameof(connectionString)),
+            fallbackToPrimary);
+        return this;
+    }
+
+    /// <summary>
+    /// Register a read replica of a named connection, which uses its dialect and
+    /// dbFactory.OpenReadOnlyDbConnection(namedConnection) opens
+    /// </summary>
+    public OrmLiteConfigurationBuilder AddReadReplica(string namedConnection, string? connectionString,
+        bool fallbackToPrimary = false)
+    {
+        this.DbFactory.RegisterReadReplica(namedConnection,
+            connectionString ?? throw new ArgumentNullException(nameof(connectionString)), fallbackToPrimary);
+        return this;
+    }
 }

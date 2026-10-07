@@ -98,8 +98,32 @@ public class PostgreSqlExpression<T> : SqlExpression<T>
         return base.GetQuotedColumnName(tableDef, memberName);
     }
 
+    // Arrays of strings and numbers are stored in PostgreSQL's array types, e.g. text[] of a string[]
+    protected override bool IsArrayColumn(FieldDefinition fieldDef) =>
+        (fieldDef.CustomFieldDefinition ?? this.DialectProvider.GetConverter(fieldDef.FieldType)?.ColumnDefinition)?.EndsWith("[]") == true;
+
+    protected override object VisitArrayContains(object column, FieldDefinition fieldDef, object value) =>
+        value.ToString() == "null"
+            ? new PartialSqlString($"(array_position({column}, NULL) IS NOT NULL)")
+            : new PartialSqlString($"({value} = ANY({column}))");
+
+    protected override object VisitArrayLength(object column, FieldDefinition fieldDef) =>
+        new PartialSqlString($"cardinality({column})");
+
+    protected override string ArrayItemsFrom(object column, FieldDefinition fieldDef, string alias) =>
+        $"unnest({column}) AS {alias}({this.DialectProvider.GetQuotedName("value")})";
+
     private static string JsonItem(object json, JsonPathExpression path) =>
        $"jsonb_path_query_first(CAST({json} AS jsonb), CAST({path} AS jsonpath))";
+
+    // The rows of the items of an array, which are jsonb
+    protected override string JsonArrayItemsFrom(object json, JsonPathExpression path, string alias) =>
+        $"jsonb_path_query(CAST({json} AS jsonb), CAST({this.JsonArrayItemsPath(path)} AS jsonpath)) " +
+        $"AS {alias}({this.DialectProvider.GetQuotedName("value")})";
+
+    private string JsonArrayItemsPath(JsonPathExpression path) => path.Value != null
+        ? this.QuoteJsonPath(path.Value + "[*]")
+        : throw new NotSupportedException("Conditions on the items of JSON arrays need a constant JSON path.");
 
     protected override object VisitIsJsonMethod(object json) =>
         new PartialSqlString($"({json} IS JSON)");

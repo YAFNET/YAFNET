@@ -71,6 +71,18 @@ public interface IOrmLiteDialectProvider
     bool SupportsRetries { get; }
 
     /// <summary>
+    /// The statement that makes the rest of a connection's session read-only, or read-write again, or null when the
+    /// database doesn't have one, e.g. SQL Server, whose read-only connections OrmLite checks instead
+    /// </summary>
+    string ToReadOnlySessionStatement(bool readOnly);
+
+    /// <summary>
+    /// What's selected for a column, which is the column unless the driver can't read it as it is, e.g. the vectors
+    /// of PostgreSQL, which are selected as text
+    /// </summary>
+    string ToSelectColumn(FieldDefinition fieldDef, string quotedColumn);
+
+    /// <summary>
     /// Whether an error of the driver is temporary, and if it is, whether the database confirmed the statement
     /// wasn't applied
     /// </summary>
@@ -773,6 +785,15 @@ public interface IOrmLiteDialectProvider
     /// </summary>
     string ToVectorParam(string param, int dimensions);
     /// <summary>
+    /// The SQL for a db param with a vector's value, cast to the vector type of a column with the precision
+    /// </summary>
+    string ToVectorParam(string param, int dimensions, VectorPrecision precision);
+    /// <summary>
+    /// The statements that set how this connection searches vector indexes, e.g. PostgreSQL's hnsw.ef_search,
+    /// which are empty where the RDBMS doesn't have them
+    /// </summary>
+    List<string> ToVectorSearchStatements(VectorSearchOptions options);
+    /// <summary>
     /// The SQL for the distance of 2 vectors, which are columns or the SQL from ToVectorParam()
     /// </summary>
     string ToVectorDistance(VectorDistance distance, string vector, string other);
@@ -1124,6 +1145,43 @@ public interface IOrmLiteDialectProvider
     /// </summary>
     List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef);
 
+    /// <summary>
+    /// The indexes of a table with their key columns, or null if they can't be read
+    /// </summary>
+    List<IndexSchema> GetTableIndexes(IDbConnection db, TableRef tableRef);
+
+    /// <summary>
+    /// The default values of the columns of a table by column name, as they're written by the database, e.g.
+    /// ((0)) on SQL Server, with null for columns without a default, or null if they can't be read. It reads the
+    /// temporary tables of GetModelSchemaColumns() too.
+    /// </summary>
+    Dictionary<string, string> GetColumnDefaults(IDbConnection db, string quotedTable);
+
+    /// <summary>
+    /// The foreign keys of a table, or null if they can't be read
+    /// </summary>
+    List<ForeignKeySchema> GetTableForeignKeys(IDbConnection db, TableRef tableRef);
+
+    /// <summary>
+    /// The check constraints of a table, with their conditions as they're written by the database, or null if they
+    /// can't be read. It reads the temporary tables of GetModelCheckConstraints() too.
+    /// </summary>
+    List<CheckConstraintSchema> GetCheckConstraints(IDbConnection db, string quotedTable);
+
+    /// <summary>
+    /// The conditions of check constraints as the database writes them, which are read from a temporary table that's
+    /// created with them and the columns of fieldDefs, in the same order with the same names as checks
+    /// </summary>
+    List<CheckConstraintSchema> GetModelCheckConstraints(IDbConnection db, List<FieldDefinition> fieldDefs,
+        List<CheckConstraintSchema> checks);
+
+    /// <summary>
+    /// The WHERE conditions of filtered indexes as the database writes them, which are read from indexes created with
+    /// them on a temporary table with the columns of fieldDefs, in the same order as indexes, or null if the database
+    /// keeps them as they're written, e.g. SQLite
+    /// </summary>
+    List<string> GetModelIndexConditions(IDbConnection db, List<FieldDefinition> fieldDefs, List<IndexSchema> indexes);
+
     string ToAddColumnStatement(TableRef tableRef, FieldDefinition fieldDef);
     string ToAlterColumnStatement(TableRef tableRef, FieldDefinition fieldDef);
     string ToChangeColumnNameStatement(TableRef tableRef, FieldDefinition fieldDef, string oldColumn);
@@ -1149,6 +1207,99 @@ public interface IOrmLiteDialectProvider
         string foreignKeyName = null);
 
     string ToDropForeignKeyStatement(TableRef tableRef, string foreignKeyName);
+
+    /// <summary>
+    /// The name of the full-text index of a model's [FullTextIndex], e.g. ftx_article, or SQLite's article_fts table
+    /// </summary>
+    string GetFullTextIndexName(ModelDefinition modelDef);
+
+    /// <summary>
+    /// The statements that create the full-text index of a model's [FullTextIndex] in its table, and index the rows it
+    /// has. Throws a NotSupportedException if the RDBMS doesn't have full-text indexes.
+    /// </summary>
+    List<string> ToCreateFullTextIndexStatements(ModelDefinition modelDef);
+
+    /// <summary>
+    /// The statements that drop the full-text index of a model's [FullTextIndex]
+    /// </summary>
+    List<string> ToDropFullTextIndexStatements(ModelDefinition modelDef);
+
+    /// <summary>
+    /// Whether the database can create full-text indexes
+    /// </summary>
+    bool SupportsFullTextSearch(IDbConnection db);
+
+    /// <summary>
+    /// Whether the table of a model has the full-text index of its [FullTextIndex]
+    /// </summary>
+    bool HasFullTextIndex(IDbConnection db, ModelDefinition modelDef);
+
+    /// <summary>
+    /// Whether the rows that were written are in the full-text index of a model, which SQL Server indexes in the
+    /// background
+    /// </summary>
+    bool IsFullTextIndexUpToDate(IDbConnection db, ModelDefinition modelDef);
+
+    /// <summary>
+    /// Whether each word or phrase of a search is matched by a condition of its own, with a db param for each, e.g.
+    /// SQL Server, whose CONTAINS() of several columns only matches rows with every word in the same column
+    /// </summary>
+    bool FullTextMatchesEachTerm { get; }
+
+    /// <summary>
+    /// The values of the db params of a search, in the full-text query syntax of the RDBMS, from the words and "quoted
+    /// phrases" of OrmLiteFullTextSearch.ParseSearch(): one for the whole search, or one for each of its terms when
+    /// FullTextMatchesEachTerm
+    /// </summary>
+    List<string> ToFullTextSearch(List<FullTextTerm> terms);
+
+    /// <summary>
+    /// The condition that a row's full-text index matches the search of db params
+    /// </summary>
+    string ToFullTextMatch(FullTextColumns columns, List<string> parameters);
+
+    /// <summary>
+    /// How relevant a row is to the search of db params, where higher is more relevant
+    /// </summary>
+    string ToFullTextRank(FullTextColumns columns, List<string> parameters);
+
+    /// <summary>
+    /// Add a constraint to a table, e.g. CONSTRAINT "UC_Order_Code" UNIQUE ("Code"), or null if the database can't
+    /// add it to an existing table
+    /// </summary>
+    string ToAddConstraintStatement(TableRef tableRef, string constraint);
+
+    /// <summary>
+    /// The unique constraints of a model's [UniqueConstraint] attributes, separated by ",\n", or null if it has none
+    /// </summary>
+    string GetUniqueConstraints(ModelDefinition modelDef);
+
+    /// <summary>
+    /// The check constraint of a field's [CheckConstraint] and [CheckEnum], e.g. CONSTRAINT CHK__Order_Qty CHECK (Qty > 0),
+    /// or null if it has none
+    /// </summary>
+    string GetCheckConstraint(ModelDefinition modelDef, FieldDefinition fieldDef);
+
+    /// <summary>
+    /// Drop a unique constraint, or null if the database can't
+    /// </summary>
+    string ToDropUniqueConstraintStatement(TableRef tableRef, string constraintName);
+
+    /// <summary>
+    /// Drop a check constraint, or null if the database can't
+    /// </summary>
+    string ToDropCheckConstraintStatement(TableRef tableRef, string constraintName);
+
+    /// <summary>
+    /// Add the foreign key of a field to its table, or null if the database can't add it to an existing table
+    /// </summary>
+    string ToAddForeignKeyStatement(TableRef tableRef, FieldDefinition fieldDef);
+
+    /// <summary>
+    /// Change the default value of a column to its field's, or remove it when the field doesn't have one, or null if
+    /// the database can't change it
+    /// </summary>
+    string ToAlterColumnDefaultStatement(TableRef tableRef, FieldDefinition fieldDef);
 
     /// <summary>
     /// Converts to createindexstatement.

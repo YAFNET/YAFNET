@@ -324,6 +324,16 @@ public class FieldDefinition
     public VectorDistance VectorDistance { get; set; }
 
     /// <summary>
+    /// The precision of the values of a [Vector] column
+    /// </summary>
+    public VectorPrecision VectorPrecision { get; set; }
+
+    /// <summary>
+    /// The options of the vector index of an indexed [Vector] column
+    /// </summary>
+    public VectorAttribute VectorIndex { get; set; }
+
+    /// <summary>
     /// Gets or sets the custom select.
     /// </summary>
     /// <value>The custom select.</value>
@@ -501,6 +511,8 @@ public class FieldDefinition
             IsRowEnd = this.IsRowEnd,
             VectorDimensions = this.VectorDimensions,
             VectorDistance = this.VectorDistance,
+            VectorPrecision = this.VectorPrecision,
+            VectorIndex = this.VectorIndex,
             CustomSelect = this.CustomSelect,
             BelongToModelName = this.BelongToModelName,
             IsReference = this.IsReference,
@@ -508,7 +520,7 @@ public class FieldDefinition
             ReferenceSelfId = this.ReferenceSelfId,
             FieldReference = this.FieldReference,
             CustomFieldDefinition = this.CustomFieldDefinition,
-            IsRefType = this.IsRefType
+            IsRefType = this.IsRefType,
         };
 
         modifier?.Invoke(fieldDef);

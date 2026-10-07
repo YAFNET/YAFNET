@@ -619,6 +619,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         this.CustomSelect = true;
         var selectSql = this.Visit(fields);
+
+        // A single column, e.g. Select(x => x.Embedding)
+        if (fields is LambdaExpression { Body: var body })
+        {
+            selectSql = this.ToSelectColumn(body, selectSql);
+        }
+
         if (!IsSqlClass(selectSql))
         {
             selectSql = this.ConvertToParam(selectSql);
@@ -2108,22 +2115,36 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
     /// <summary>
     /// Order by a user-supplied, comma-delimited list of field names that are resolved to quoted columns instead of
-    /// being embedded as SQL. Fields can be prefixed with '-' or suffixed with ASC/DESC to change the sort direction, e.g:
-    /// <para>q.OrderBySafe(request.OrderBy, nameof(Order.Id), nameof(Order.Total), nameof(Order.CreatedDate))</para>
-    /// <para>Accepts "-Total,Id" or "Total DESC, Id". If no allowed fields are specified any field on the queried tables
-    /// is accepted. Throws an ArgumentException for any other input. A null or empty orderBy leaves the order unchanged.</para>
+    /// being embedded as SQL, which can be any field of the queried tables. Fields can be prefixed with '-' or
+    /// suffixed with ASC/DESC to change the sort direction, e.g. "-Total,Id" or "Total DESC, Id". Use the overload
+    /// with the allowed fields to stop users sorting by fields they shouldn't, e.g. a PasswordHash.
+    /// Throws an ArgumentException for any other input. A null or empty orderBy leaves the order unchanged.
+    /// </summary>
+    /// <param name="orderBy">The order by.</param>
+    /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
+    /// <exception cref="System.ArgumentException"></exception>
+    public virtual SqlExpression<T> OrderBySafe(string orderBy) => this.OrderBySafe(orderBy, (IEnumerable<string>)null);
+
+    /// <summary>
+    /// Order by a user-supplied, comma-delimited list of the allowed fields, which are resolved to quoted columns
+    /// instead of being embedded as SQL, e.g:
+    /// <para>q.OrderBySafe(request.OrderBy, [nameof(Order.Id), nameof(Order.Total), nameof(Order.CreatedDate)])</para>
+    /// <para>Accepts "-Total,Id" or "Total DESC, Id", ignoring the case of field names. Throws an ArgumentException
+    /// for any other input, including fields that aren't allowed. A null or empty orderBy leaves the order unchanged.</para>
     /// </summary>
     /// <param name="orderBy">The order by.</param>
     /// <param name="allowed">The allowed fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     /// <exception cref="System.ArgumentException"></exception>
-    public virtual SqlExpression<T> OrderBySafe(string orderBy, params string[] allowed)
+    public virtual SqlExpression<T> OrderBySafe(string orderBy, IEnumerable<string> allowed)
     {
         if (string.IsNullOrWhiteSpace(orderBy))
         {
             return this;
         }
 
+        // null allows any field of the queried tables, while an empty list allows none
+        var allowedFields = allowed?.ToArray();
         var fieldNames = new List<string>();
         foreach (var part in orderBy.Split(','))
         {
@@ -2135,6 +2156,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             var desc = false;
             string name;
+            string direction = null;
             if (item[0] == '-')
             {
                 desc = true;
@@ -2151,25 +2173,37 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 name = tokens[0];
                 if (tokens.Length == 2)
                 {
-                    if (string.Equals(tokens[1], "DESC", StringComparison.OrdinalIgnoreCase))
-                    {
-                        desc = true;
-                    }
-                    else if (!string.Equals(tokens[1], "ASC", StringComparison.OrdinalIgnoreCase))
-                    {
-                        throw new ArgumentException($"Invalid OrderBy direction '{tokens[1]}'");
-                    }
+                    direction = tokens[1];
                 }
             }
 
-            if (allowed is { Length: > 0 })
+            if (allowedFields != null)
             {
-                var match = Array.Find(allowed, x => string.Equals(x, name, StringComparison.OrdinalIgnoreCase));
+                var match = Array.Find(allowedFields, x => string.Equals(x, name, StringComparison.OrdinalIgnoreCase));
                 name = match ?? throw new ArgumentException($"OrderBy field '{name}' is not allowed");
+                // A mistake in the allowed fields, rather than in the user's input
+                if (this.FirstMatchingField(name) == null && !string.Equals(name, "Random", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException($"OrderBy field '{name}' is allowed, but isn't a field of the query");
+                }
             }
             else if (this.FirstMatchingField(name) == null)
             {
                 throw new ArgumentException($"Could not find OrderBy field '{name}'");
+            }
+
+            // The direction is checked after the field, so input that isn't a field is reported as one,
+            // e.g. "(SELECT 1)"
+            if (direction != null)
+            {
+                if (string.Equals(direction, "DESC", StringComparison.OrdinalIgnoreCase))
+                {
+                    desc = true;
+                }
+                else if (!string.Equals(direction, "ASC", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException($"Invalid OrderBy direction '{direction}'");
+                }
             }
 
             fieldNames.Add(desc ? "-" + name : name);
@@ -3210,17 +3244,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     }
 
     /// <summary>
-    /// Visits the join.
+    /// A join condition, whose values are db params like the WHERE conditions', so its SQL is the same for every value
     /// </summary>
     /// <param name="exp">The exp.</param>
     /// <returns>object.</returns>
-    protected virtual object VisitJoin(Expression exp)
-    {
-        this.skipParameterizationForThisExpression = true;
-        var visitedExpression = this.Visit(exp);
-        this.skipParameterizationForThisExpression = false;
-        return visitedExpression;
-    }
+    protected virtual object VisitJoin(Expression exp) => this.Visit(exp);
 
     /// <summary>
     /// Visits the lambda.
@@ -3232,6 +3260,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         if (this.originalLambda == null)
         {
             this.originalLambda = lambda;
+        }
+
+        if (this.Sep == " " && this.TryVisitJsonBoolean(lambda.Body, out var jsonBoolean))
+        {
+            return jsonBoolean;
         }
 
         if (lambda.Body.NodeType == ExpressionType.MemberAccess && this.Sep == " ")
@@ -3313,7 +3346,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var operand = this.BindOperant(b.NodeType);   // sep= " " ??
         if (operand is "AND" or "OR")
         {
-            if (this.IsBooleanComparison(b.Left))
+            if (this.TryVisitJsonBoolean(b.Left, out var jsonLeft))
+            {
+                left = jsonLeft;
+            }
+            else if (this.IsBooleanComparison(b.Left))
             {
                 left = this.VisitMemberAccess((MemberExpression)b.Left);
                 if (left is PartialSqlString)
@@ -3334,7 +3371,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 left = this.Visit(b.Left);
             }
 
-            if (this.IsBooleanComparison(b.Right))
+            if (this.TryVisitJsonBoolean(b.Right, out var jsonRight))
+            {
+                right = jsonRight;
+            }
+            else if (this.IsBooleanComparison(b.Right))
             {
                 right = this.VisitMemberAccess((MemberExpression)b.Right);
                 if (right is PartialSqlString)
@@ -3904,6 +3945,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             for (var i = 0; i < exprs.Count; ++i)
             {
+                exprs[i] = this.ToSelectColumn(nex.Arguments[i], exprs[i]);
                 exprs[i] = this.SetAnonTypePropertyNamesForSelectExpression(exprs[i], nex.Arguments[i], nex.Members[i]);
             }
 
@@ -3911,6 +3953,32 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         return this.EvaluateValue(nex);
+    }
+
+    /// <summary>
+    /// A column selected as an item of the select list, which some drivers can't read as it is, e.g. the vectors of
+    /// PostgreSQL, which are selected as text. Columns in other expressions, e.g. a distance, are used as they are.
+    /// </summary>
+    private object ToSelectColumn(Expression expression, object sql)
+    {
+        while (expression is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } convert)
+        {
+            expression = convert.Operand;
+        }
+
+        if (sql is not PartialSqlString column || expression is not MemberExpression { Expression: ParameterExpression param } member)
+        {
+            return sql;
+        }
+
+        var fieldDef = param.Type.GetModelDefinition()?.GetFieldDefinition(member.Member.Name);
+        if (fieldDef?.VectorDimensions == null)
+        {
+            return sql;
+        }
+
+        var select = this.DialectProvider.ToSelectColumn(fieldDef, column.Text);
+        return select == column.Text ? sql : new PartialSqlString(select);
     }
 
     /// <summary>
@@ -4343,6 +4411,12 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
 
             return false;
+        }
+
+        // A value in a JSON document, e.g. x.Address.City.StartsWith("L") or t.StartsWith("v") of an array's item
+        if (this.IsTypedJsonValue(m.Object))
+        {
+            return true;
         }
 
         if (m.Object is MethodCallExpression methCallExp)
@@ -5032,25 +5106,138 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             nameof(Sql.L2Distance) => VectorDistance.L2,
             _ => VectorDistance.NegativeInnerProduct,
         };
+        // Vectors to compare with have the dimensions and precision of the column they're compared with
+        var column = VectorFieldOf(m.Arguments[0]) ?? VectorFieldOf(m.Arguments[1]);
         return new PartialSqlString(this.DialectProvider.ToVectorDistance(distance,
-            this.VisitVectorOperand(m.Arguments[0]), this.VisitVectorOperand(m.Arguments[1])));
+            this.VisitVectorOperand(m.Arguments[0], column), this.VisitVectorOperand(m.Arguments[1], column)));
+    }
+
+    // Sql.Matches(x, search) and Sql.MatchRank(x, search) of the [FullTextIndex] of x's table
+    protected virtual object VisitFullTextSqlMethodCall(MethodCallExpression m)
+    {
+        var table = m.Arguments[0];
+        while (table is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } convert)
+        {
+            table = convert.Operand;
+        }
+
+        if (table is not ParameterExpression param)
+        {
+            throw new NotSupportedException($"Sql.{m.Method.Name}() searches the table of a lambda's parameter, e.g. Sql.{m.Method.Name}(x, search)");
+        }
+
+        var tableDef = param.Type.GetModelDefinition();
+        if (tableDef?.FullTextIndex == null)
+        {
+            throw new NotSupportedException($"{param.Type.Name} doesn't have a [FullTextIndex] to search");
+        }
+
+        var primaryKey = tableDef.PrimaryKey
+            ?? throw new NotSupportedException($"{param.Type.Name} needs a primary key to search its [FullTextIndex]");
+
+        // Qualified with the table or its alias, as a sub query of the full-text index can reference them
+        var tableAlias = tableDef == this.modelDef ? this.TableAlias : null;
+        string Qualified(FieldDefinition fieldDef) => tableAlias != null
+            ? this.DialectProvider.GetQuotedColumnName(tableDef, tableAlias, fieldDef)
+            : this.DialectProvider.GetQuotedColumnName(tableDef, fieldDef);
+        var columns = new FullTextColumns
+        {
+            ModelDef = tableDef,
+            Table = this.DialectProvider.GetQuotedTableName(tableDef),
+            Columns = tableDef.GetFullTextFields().Map(Qualified),
+            PrimaryKey = Qualified(primaryKey),
+        };
+
+        // The search is only ever sent as db params, in the RDBMS's full-text query syntax
+        var search = this.Visit(m.Arguments[1]);
+        if (search is PartialSqlString sql)
+        {
+            if (!sql.Text.EqualsIgnoreCase("null"))
+            {
+                throw new NotSupportedException($"The search of Sql.{m.Method.Name}() is a value, not a column");
+            }
+
+            search = null;
+        }
+        List<string> ToSearch(object value) => this.DialectProvider.ToFullTextSearch(OrmLiteFullTextSearch.ParseSearch(value?.ToString()));
+
+        var parameters = new List<string>();
+        if (search is CompiledValue compiled && !this.DialectProvider.FullTextMatchesEachTerm)
+        {
+            // The argument of a compiled query, whose search is converted each time it's run
+            var p = this.AddParam(compiled.Map(x => ToSearch(x)[0])
+                ?? throw new ArgumentException("The search has no words to search for"));
+            parameters.Add(p.ParameterName);
+        }
+        else
+        {
+            // A condition for each term changes the SQL with the search, which a compiled query keeps for each search
+            if (search is CompiledValue each)
+            {
+                search = each.UseValueInSql();
+            }
+
+            foreach (var value in ToSearch(search))
+            {
+                parameters.Add(this.AddParam(value).ParameterName);
+            }
+        }
+
+        return new PartialSqlString(m.Method.Name == nameof(Sql.Matches)
+            ? this.DialectProvider.ToFullTextMatch(columns, parameters)
+            : this.DialectProvider.ToFullTextRank(columns, parameters));
+    }
+
+    // The [Vector] column of an operand, if it's one
+    private static FieldDefinition VectorFieldOf(Expression expression)
+    {
+        while (expression is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } convert)
+        {
+            expression = convert.Operand;
+        }
+
+        return expression is MemberExpression { Expression: ParameterExpression param } member
+            ? param.Type.GetModelDefinition()?.GetFieldDefinition(member.Member.Name) is { VectorDimensions: not null } fieldDef
+                ? fieldDef
+                : null
+            : null;
     }
 
     // A vector column, or a vector that's sent as a db param
-    private string VisitVectorOperand(Expression expression)
+    private string VisitVectorOperand(Expression expression, FieldDefinition column)
     {
+        var precision = column?.VectorPrecision ?? VectorPrecision.Single;
+        // A float[] converted to a ReadOnlyMemory<float> for the distance methods, or the other way around
+        while (expression is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } convert)
+        {
+            expression = convert.Operand;
+        }
+
         var value = this.Visit(expression);
         if (value is PartialSqlString sql)
         {
             return sql.Text;
         }
 
-        var vector = Converters.VectorConverter.ToFloats(value)
-            ?? throw new ArgumentNullException(nameof(expression), "The vector to compare with is null");
         var converter = this.DialectProvider.VectorConverter;
-        var p = this.AddParam(converter.ToDbValue(typeof(float[]), vector));
+        IDbDataParameter p;
+        float[] vector;
+        if (value is CompiledValue compiled)
+        {
+            // The argument of a compiled query, whose db param is created from its vector each time it's run
+            vector = Converters.VectorConverter.ToFloats(compiled.Sample);
+            var dbValue = compiled.Map(x => converter.ToDbValue(typeof(float[]), Converters.VectorConverter.ToFloats(x)))
+                ?? throw new ArgumentNullException(nameof(expression), "The vector to compare with is empty");
+            p = this.AddParam(dbValue);
+        }
+        else
+        {
+            vector = Converters.VectorConverter.ToFloats(value)
+                ?? throw new ArgumentNullException(nameof(expression), "The vector to compare with is null");
+            p = this.AddParam(converter.ToDbValue(typeof(float[]), vector));
+        }
         converter.InitDbParam(p, typeof(float[]));
-        return this.DialectProvider.ToVectorParam(p.ParameterName, vector.Length);
+        return this.DialectProvider.ToVectorParam(p.ParameterName, column?.VectorDimensions ?? vector.Length, precision);
     }
 
     /// <summary>
@@ -5069,6 +5256,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         if (m.Method.Name is nameof(Sql.CosineDistance) or nameof(Sql.L2Distance) or nameof(Sql.NegativeInnerProduct))
         {
             return this.VisitVectorSqlMethodCall(m);
+        }
+
+        if (m.Method.Name is nameof(Sql.Matches) or nameof(Sql.MatchRank))
+        {
+            return this.VisitFullTextSqlMethodCall(m);
         }
 
         List<object> args = this.VisitInSqlExpressionList(m.Arguments);
@@ -5194,8 +5386,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
     private object VisitJsonDocument(Expression expression)
     {
-        var value = Visit(expression);
-        return value is PartialSqlString ? value : new PartialSqlString(ConvertToParam(value));
+        if (expression is ParameterExpression item && this.jsonItems != null && this.jsonItems.TryGetValue(item, out var alias))
+        {
+            return new PartialSqlString(this.JsonArrayItemDocument(alias));
+        }
+
+        var value = this.Visit(expression);
+        return value is PartialSqlString ? value : new PartialSqlString(this.ConvertToParam(value));
     }
 
     private object VisitJsonValueArgument(Expression expression)
@@ -5205,8 +5402,24 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             throw new NotSupportedException("Sql.JsonArrayContains values must be JSON scalar values.");
         }
 
-        var value = Visit(expression);
-        return value is PartialSqlString ? value : new PartialSqlString(ConvertToParam(value));
+        var value = this.WithTablePrefixes(() => this.Visit(expression));
+        return value is PartialSqlString ? value : new PartialSqlString(this.ConvertToParam(value));
+    }
+
+    // The columns of the query's tables in a subquery of an array's items are prefixed with their table, as the
+    // subquery's own columns can have the same names, e.g. the id, key and value of SQLite's json_each()
+    private T WithTablePrefixes<T>(Func<T> fn)
+    {
+        var hold = this.PrefixFieldWithTableName;
+        this.PrefixFieldWithTableName = true;
+        try
+        {
+            return fn();
+        }
+        finally
+        {
+            this.PrefixFieldWithTableName = hold;
+        }
     }
 
     protected readonly struct JsonPathExpression
@@ -5269,9 +5482,27 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     private object JsonMethodNotSupported(string methodName) => throw new NotSupportedException(
         $"{DialectProvider.GetType().Name} does not support Sql.{methodName}().");
 
+    // The parameters of lambdas whose argument is an item of a JSON array, e.g. l in x.Lines.Any(l => l.Sku == "A-1"),
+    // with the alias of the array's rows
+    private Dictionary<ParameterExpression, string> jsonItems;
+    private int jsonItemAliases;
+
     private bool TryVisitTypedJsonAccess(Expression expression, out object result)
     {
         result = null;
+        if (expression is ParameterExpression item && this.jsonItems != null && this.jsonItems.TryGetValue(item, out var itemAlias))
+        {
+            // An item that's a scalar, e.g. t in x.Tags.Any(t => t.StartsWith("v"))
+            result = this.arrayItemAliases?.Contains(itemAlias) == true
+                ? this.VisitArrayItemValue(itemAlias, item.Type)
+                : this.VisitJsonArrayItemValue(itemAlias, item.Type);
+            return true;
+        }
+        if (this.TryVisitJsonArrayPredicate(expression, out result))
+        {
+            return true;
+        }
+
         if (this.TryVisitTypedJsonArrayOperation(expression, out result))
         {
             return true;
@@ -5291,6 +5522,168 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             : VisitJsonQueryMethod(json, path, expression.Type);
         return true;
     }
+
+    /// <summary>
+    /// Any(), All() and Count() of a JSON array, with or without a predicate on its items, e.g.
+    /// x.Lines.Any(l => l.Sku == "A-1" &amp;&amp; l.Quantity > 1), as a subquery of the array's rows
+    /// </summary>
+    private bool TryVisitJsonArrayPredicate(Expression expression, out object result)
+    {
+        result = null;
+        if (expression is not MethodCallExpression call || call.Method.DeclaringType != typeof(Enumerable)
+            || call.Method.Name is not (nameof(Enumerable.Any) or nameof(Enumerable.All) or nameof(Enumerable.Count))
+            || call.Arguments.Count is < 1 or > 2)
+        {
+            return false;
+        }
+
+        var source = UnwrapSpanConversion(call.Arguments[0]);
+        if (!IsJsonArrayType(source.Type))
+        {
+            return false;
+        }
+
+        object json = null;
+        JsonPathExpression path = default;
+        var isArrayColumn = this.TryGetArrayColumn(source, out var column, out var arrayField);
+        if (!isArrayColumn)
+        {
+            var pathParts = new List<string>();
+            if (!this.TryCollectTypedJsonPath(source, pathParts, out var document))
+            {
+                return false;
+            }
+
+            this.AssertJsonDocument(document);
+            json = this.VisitJsonDocument(GetJsonDocument(document));
+            path = this.JsonPath("$" + string.Concat(pathParts));
+        }
+
+        if (call.Arguments.Count == 1)
+        {
+            // Any() and Count() of the whole array
+            var length = isArrayColumn
+                ? this.VisitArrayLength(column, arrayField)
+                : this.VisitJsonArrayLengthMethod(json, path);
+            result = call.Method.Name == nameof(Enumerable.Any)
+                ? new PartialSqlString($"({length} > 0)")
+                : length;
+            return true;
+        }
+
+        if (call.Arguments[1] is not LambdaExpression predicate || predicate.Parameters.Count != 1)
+        {
+            return false;
+        }
+
+        var alias = "j" + this.jsonItemAliases++;
+        string from;
+        if (isArrayColumn)
+        {
+            from = this.ArrayItemsFrom(column, arrayField, alias);
+            (this.arrayItemAliases ??= new()).Add(alias);
+        }
+        else
+        {
+            from = this.JsonArrayItemsFrom(json, path, alias);
+        }
+        (this.jsonItems ??= new())[predicate.Parameters[0]] = alias;
+        string condition;
+        try
+        {
+            condition = this.WithTablePrefixes(() => this.ToJsonItemCondition(predicate.Body));
+        }
+        finally
+        {
+            this.jsonItems.Remove(predicate.Parameters[0]);
+        }
+
+        result = call.Method.Name switch
+        {
+            nameof(Enumerable.Any) => new PartialSqlString($"EXISTS (SELECT 1 FROM {from} WHERE {condition})"),
+            // Items whose condition is unknown, e.g. null, aren't a match
+            nameof(Enumerable.All) => new PartialSqlString(
+                $"NOT EXISTS (SELECT 1 FROM {from} WHERE (CASE WHEN {condition} THEN 1 ELSE 0 END) = 0)"),
+            _ => new PartialSqlString($"(SELECT COUNT(*) FROM {from} WHERE {condition})"),
+        };
+        return true;
+    }
+
+    // Whether the expression is a value in a JSON document or an item of a JSON array, which is SQL, not a C# value
+    private bool IsTypedJsonValue(Expression expression)
+    {
+        while (expression is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } convert)
+        {
+            expression = convert.Operand;
+        }
+
+        if (expression is ParameterExpression item)
+        {
+            return this.jsonItems?.ContainsKey(item) == true;
+        }
+
+        if (expression is not MemberExpression)
+        {
+            return false;
+        }
+
+        var pathParts = new List<string>();
+        return this.TryCollectTypedJsonPath(expression, pathParts, out _) && pathParts.Count > 0;
+    }
+
+    // A condition on an item, which can be a boolean property or item, e.g. l => l.Shipped
+    private string ToJsonItemCondition(Expression body)
+    {
+        if (this.TryVisitJsonBoolean(body, out var boolean))
+        {
+            return boolean.ToString();
+        }
+
+        var condition = this.Visit(body);
+        return WhereExpressionToString(condition);
+    }
+
+    /// <summary>
+    /// A boolean property of a JSON document, or a boolean item of a JSON array, as a condition, e.g.
+    /// x.Address.Country.InEu or l.Shipped
+    /// </summary>
+    private bool TryVisitJsonBoolean(Expression expression, out PartialSqlString result)
+    {
+        result = null;
+        if (expression is UnaryExpression { NodeType: ExpressionType.Not } not && this.TryVisitJsonBoolean(not.Operand, out var operand))
+        {
+            result = new PartialSqlString($"(NOT {operand})");
+            return true;
+        }
+        if (expression is not (MemberExpression or ParameterExpression)
+            || (Nullable.GetUnderlyingType(expression.Type) ?? expression.Type) != typeof(bool)
+            || !this.TryVisitTypedJsonAccess(expression, out var value))
+        {
+            return false;
+        }
+
+        result = new PartialSqlString($"({value}={this.GetQuotedTrueValue()})");
+        return true;
+    }
+
+    /// <summary>
+    /// The rows of the items of a JSON array for a subquery, e.g. json_each(doc, '$.Lines') AS j0, whose items are read
+    /// with VisitJsonArrayItemDocument() and VisitJsonArrayItemValue()
+    /// </summary>
+    protected virtual string JsonArrayItemsFrom(object json, JsonPathExpression path, string alias) =>
+        throw new NotSupportedException(
+            $"{this.DialectProvider.GetType().Name} does not support conditions on the items of JSON arrays.");
+
+    /// <summary>
+    /// An item of a JSON array as a JSON document, whose properties are read with JSON paths
+    /// </summary>
+    protected virtual string JsonArrayItemDocument(string alias) => alias + "." + this.DialectProvider.GetQuotedName("value");
+
+    /// <summary>
+    /// An item of a JSON array that's a scalar, e.g. a string of a List&lt;string&gt;
+    /// </summary>
+    protected virtual object VisitJsonArrayItemValue(string alias, Type type) =>
+        this.VisitJsonValueMethod(new PartialSqlString(this.JsonArrayItemDocument(alias)), this.JsonPath("$"), type);
 
     /// <summary>
     /// C# 14 inserts an implicit array -> ReadOnlySpan&lt;T&gt;/Span&lt;T&gt; conversion, either as a
@@ -5372,6 +5765,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             return false;
         }
 
+        if (this.TryGetArrayColumn(array, out var column, out var arrayField))
+        {
+            result = isLength
+                ? this.VisitArrayLength(column, arrayField)
+                : this.VisitArrayContains(column, arrayField, this.VisitArrayValue(value));
+            return true;
+        }
+
         // The array can be a property of a document, or the document itself e.g. a List<string> column
         var pathParts = new List<string>();
         if (!this.TryCollectTypedJsonPath(array, pathParts, out var document))
@@ -5387,6 +5788,86 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             : VisitJsonArrayContainsMethod(json, path, VisitJsonValueArgument(value), value.Type);
         return true;
     }
+
+    // The aliases of the rows of the items of arrays that are stored in the database's own array type
+    private HashSet<string> arrayItemAliases;
+
+    /// <summary>
+    /// Whether a column is stored in the database's own array type instead of JSON, e.g. PostgreSQL's text[] of a
+    /// string[] property, which is queried with VisitArrayContains(), VisitArrayLength() and ArrayItemsFrom()
+    /// </summary>
+    protected virtual bool IsArrayColumn(FieldDefinition fieldDef) => false;
+
+    // A column of a table in the query that's stored in the database's own array type, e.g. x.Aliases
+    private bool TryGetArrayColumn(Expression expression, out object column, out FieldDefinition fieldDef)
+    {
+        column = null;
+        fieldDef = null;
+        while (expression is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } convert)
+        {
+            expression = convert.Operand;
+        }
+
+        if (expression is not MemberExpression { Member: PropertyInfo } member)
+        {
+            return false;
+        }
+
+        var source = member.Expression;
+        while (source is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } convert)
+        {
+            source = convert.Operand;
+        }
+
+        if (source is not ParameterExpression param || this.jsonItems?.ContainsKey(param) == true)
+        {
+            return false;
+        }
+
+        var tableDef = param.Type.IsAssignableFrom(this.modelDef.ModelType)
+            ? this.modelDef
+            : this.tableDefs.FirstOrDefault(x => param.Type.IsAssignableFrom(x.ModelType));
+        fieldDef = tableDef?.GetFieldDefinition(member.Member.Name);
+        if (fieldDef == null || !this.IsArrayColumn(fieldDef))
+        {
+            return false;
+        }
+
+        column = this.Visit(member);
+        return true;
+    }
+
+    // A value searched for in an array, which is a db param unless it's a column
+    private object VisitArrayValue(Expression expression)
+    {
+        var value = this.Visit(expression);
+        return value is PartialSqlString ? value : new PartialSqlString(this.ConvertToParam(value));
+    }
+
+    /// <summary>
+    /// Whether an array column contains a value, see IsArrayColumn()
+    /// </summary>
+    protected virtual object VisitArrayContains(object column, FieldDefinition fieldDef, object value) =>
+        throw new NotSupportedException($"{this.DialectProvider.GetType().Name} does not support array columns.");
+
+    /// <summary>
+    /// The number of items of an array column, see IsArrayColumn()
+    /// </summary>
+    protected virtual object VisitArrayLength(object column, FieldDefinition fieldDef) =>
+        throw new NotSupportedException($"{this.DialectProvider.GetType().Name} does not support array columns.");
+
+    /// <summary>
+    /// The rows of the items of an array column for a subquery, whose items are read with VisitArrayItemValue(),
+    /// see IsArrayColumn()
+    /// </summary>
+    protected virtual string ArrayItemsFrom(object column, FieldDefinition fieldDef, string alias) =>
+        throw new NotSupportedException($"{this.DialectProvider.GetType().Name} does not support array columns.");
+
+    /// <summary>
+    /// An item of an array column in the rows of ArrayItemsFrom()
+    /// </summary>
+    protected virtual object VisitArrayItemValue(string alias, Type type) =>
+        new PartialSqlString(alias + "." + this.DialectProvider.GetQuotedName("value"));
 
     /// <summary>
     /// Whether the expression is a column that's a complex type OrmLite serializes, e.g. x.Address or x.Tags,
@@ -5454,6 +5935,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     private bool TryCollectTypedJsonPath(Expression expression, List<string> pathParts, out Expression document)
     {
         document = null;
+        if (expression is ParameterExpression item && this.jsonItems?.ContainsKey(item) == true)
+        {
+            document = item;
+            return true;
+        }
         if (expression is UnaryExpression unary &&
             (unary.NodeType == ExpressionType.Convert || unary.NodeType == ExpressionType.ConvertChecked))
         {
