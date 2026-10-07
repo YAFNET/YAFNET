@@ -56,7 +56,7 @@ public static class IRepositoryExtensions
         /// </returns>
         public bool DeleteAll()
         {
-            var success = repository.DbAccess.Execute(db => db.Connection.DeleteAll<T>()) == 1;
+            var success = repository.DbAccess.Execute(db => db.Connection.DeleteAll<T>()) > 0;
 
             if (success)
             {

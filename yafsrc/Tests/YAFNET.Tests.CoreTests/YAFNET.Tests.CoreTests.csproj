@@ -13,6 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAFNET.Core\YAFNET.Core.csproj" />
+    <ProjectReference Include="..\..\YAFNET.Data\YAFNET.Data.Sqlite\YAFNET.Data.Sqlite.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AwesomeAssertions" Version="9.6.0" />

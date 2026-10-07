@@ -27,14 +27,20 @@ namespace YAF.Tests.CoreTests.TestInfrastructure;
 using Autofac;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Session;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 using YAF.Configuration;
 using YAF.Core;
 using YAF.Core.Context;
+using YAF.Core.Data;
+using YAF.Core.Services;
 using YAF.Types;
 using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
@@ -52,6 +58,8 @@ using YAF.Types.Objects.Model;
 /// board.Localization.Add("RELATIVE_TIME", "NOW", "just now");
 /// board.User.IsGuest = true;
 /// </code>
+/// Pass <c>useDatabase: true</c> to get a private in-memory SQLite database (see <see cref="TestDatabase"/>)
+/// with the real <see cref="BasicRepository{T}"/>, so <c>GetRepository&lt;T&gt;()</c> runs real SQL.
 /// </remarks>
 public sealed class TestBoardContext : IDisposable
 {
@@ -67,7 +75,10 @@ public sealed class TestBoardContext : IDisposable
     /// <param name="configure">
     /// Additional registrations. They are applied last, so they override the defaults.
     /// </param>
-    public TestBoardContext(Action<ContainerBuilder> configure = null)
+    /// <param name="useDatabase">
+    /// Register an in-memory SQLite <see cref="IDbAccess"/> and the real repositories.
+    /// </param>
+    public TestBoardContext(Action<ContainerBuilder> configure = null, bool useDatabase = false)
     {
         var builder = new ContainerBuilder();
 
@@ -87,6 +98,16 @@ public sealed class TestBoardContext : IDisposable
         builder.RegisterInstance(this.ControlSettings);
         builder.RegisterGeneric(typeof(NullLogger<>)).As(typeof(ILogger<>)).SingleInstance();
         builder.RegisterInstance(NullLoggerFactory.Instance).As<ILoggerFactory>();
+        builder.RegisterInstance(this.Events).As<IRaiseEvent>().As<IRaiseEventAsync>();
+        builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().SingleInstance();
+
+        if (useDatabase)
+        {
+            this.Database = new TestDatabase();
+
+            builder.RegisterInstance(this.Database.DbAccess).As<IDbAccess>();
+            builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
+        }
 
         configure?.Invoke(builder);
 
@@ -111,9 +132,9 @@ public sealed class TestBoardContext : IDisposable
     public BoardContext Current => BoardContext.Current;
 
     /// <summary>
-    /// Gets the HTTP context the board context is bound to.
+    /// Gets the HTTP context the board context is bound to (with an in-memory session).
     /// </summary>
-    public DefaultHttpContext HttpContext { get; } = new();
+    public DefaultHttpContext HttpContext { get; } = CreateHttpContext();
 
     /// <summary>
     /// Gets the fake localization (returns <c>[PAGE.TAG]</c> for unknown texts).
@@ -124,6 +145,17 @@ public sealed class TestBoardContext : IDisposable
     /// Gets the in-memory cache registered as <see cref="IDataCache"/> and <see cref="IObjectStore"/>.
     /// </summary>
     public FakeDataCache Cache { get; } = new();
+
+    /// <summary>
+    /// Gets the event raiser registered as <see cref="IRaiseEvent"/> and <see cref="IRaiseEventAsync"/>.
+    /// No handlers run, raised events are recorded.
+    /// </summary>
+    public RecordingEventRaiser Events { get; } = new();
+
+    /// <summary>
+    /// Gets the in-memory database, or <c>null</c> when created without <c>useDatabase</c>.
+    /// </summary>
+    public TestDatabase Database { get; }
 
     /// <summary>
     /// Gets the board settings.
@@ -175,6 +207,14 @@ public sealed class TestBoardContext : IDisposable
         ServiceLocatorAccess.CurrentServiceProvider = this.previousServiceProvider;
 
         this.container.Dispose();
+        this.Database?.Dispose();
+    }
+
+    private static DefaultHttpContext CreateHttpContext()
+    {
+        var context = new DefaultHttpContext();
+        context.Features.Set<ISessionFeature>(new SessionFeature { Session = new FakeSession() });
+        return context;
     }
 
     /// <summary>
