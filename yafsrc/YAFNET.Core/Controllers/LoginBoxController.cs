@@ -68,6 +68,7 @@ public class LoginBox : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PartialViewResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("SignIn")]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> SignInAsync(LoginModal model)
     {
         var user = await this.Get<IAspNetUsersHelper>().ValidateUserAsync(model.UserName);

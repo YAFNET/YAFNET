@@ -48,7 +48,8 @@ public class PostsController : ForumBaseController
     /// <summary>
     /// Remove or Mark Post as Answer
     /// </summary>
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("MarkAsAnswer/{m:int}")]
     public async Task<IActionResult> MarkAsAnswer(int m)
     {

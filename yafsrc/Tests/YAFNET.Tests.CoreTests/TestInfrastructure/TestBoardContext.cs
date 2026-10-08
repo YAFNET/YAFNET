@@ -128,11 +128,7 @@ public sealed class TestBoardContext : IDisposable
         GlobalContainer.AutoFacContainer = this.container;
         ServiceLocatorAccess.CurrentServiceProvider = this.container.Resolve<IServiceLocator>();
 
-        this.Current.PageData = Tuple.Create(
-            this.Request,
-            Tuple.Create(this.PageLoad, this.PageUser, new Category(), new Forum(), new Topic(), new Message()),
-            this.User,
-            this.Query);
+        this.SetPageData();
     }
 
     /// <summary>
@@ -199,7 +195,7 @@ public sealed class TestBoardContext : IDisposable
     /// <summary>
     /// Gets the current page user.
     /// </summary>
-    public User PageUser { get; } = new() { ID = 2, Name = "TestUser", DisplayName = "Test User" };
+    public User PageUser { get; private set; } = new() { ID = 2, Name = "TestUser", DisplayName = "Test User" };
 
     /// <summary>
     /// Gets the page load data (access rights of the current user).
@@ -249,6 +245,63 @@ public sealed class TestBoardContext : IDisposable
     }
 
     /// <summary>
+    /// Gets the forum of the current page (see <see cref="SetPage"/>).
+    /// </summary>
+    public Forum PageForum { get; private set; } = new();
+
+    /// <summary>
+    /// Gets the topic of the current page (see <see cref="SetPage"/>), can be <c>null</c>.
+    /// </summary>
+    public Topic PageTopic { get; private set; } = new();
+
+    /// <summary>
+    /// Makes the forum / topic (loaded from the test database) the current page, like a request with
+    /// <c>?f=..&amp;t=..</c> would. The access rights of the page are the <see cref="PageLoad"/> flags.
+    /// </summary>
+    public void SetPage(int forumId, int? topicId = null)
+    {
+        this.PageForum = this.Current.GetRepository<Forum>().GetById(forumId) ?? new Forum();
+        this.PageTopic = topicId.HasValue ? this.Current.GetRepository<Topic>().GetById(topicId.Value) : null;
+
+        this.Query.ForumID = this.PageForum.ID;
+        this.Query.TopicID = this.PageTopic?.ID ?? 0;
+        this.Query.CategoryID = this.PageForum.CategoryID;
+
+        this.SetPageData();
+    }
+
+    /// <summary>
+    /// Makes the user (loaded from the test database) the current, logged-in user.
+    /// </summary>
+    public void LoginAs(int userId)
+    {
+        this.PageUser = this.Current.GetRepository<User>().GetById(userId);
+        this.PageLoad.UserID = userId;
+        this.User.IsGuest = false;
+
+        this.Current.MembershipUser = new Types.Models.Identity.AspNetUsers
+        {
+            Id = this.PageUser.ProviderUserKey ?? $"key-{userId}",
+            UserName = this.PageUser.Name,
+            Email = this.PageUser.Email
+        };
+
+        this.SetPageData();
+    }
+
+    /// <summary>
+    /// Creates a controller bound to the test HTTP context.
+    /// </summary>
+    public T CreateController<T>()
+        where T : Microsoft.AspNetCore.Mvc.Controller, new()
+    {
+        return new T
+        {
+            ControllerContext = new Microsoft.AspNetCore.Mvc.ControllerContext { HttpContext = this.HttpContext }
+        };
+    }
+
+    /// <summary>
     /// Resolves a service from the test container.
     /// </summary>
     public T Resolve<T>()
@@ -264,6 +317,15 @@ public sealed class TestBoardContext : IDisposable
 
         this.container.Dispose();
         this.Database?.Dispose();
+    }
+
+    private void SetPageData()
+    {
+        this.Current.PageData = Tuple.Create(
+            this.Request,
+            Tuple.Create(this.PageLoad, this.PageUser, new Category(), this.PageForum, this.PageTopic, new Message()),
+            this.User,
+            this.Query);
     }
 
     private static ILinkBuilder CreateLinkBuilder()
@@ -286,6 +348,7 @@ public sealed class TestBoardContext : IDisposable
         context.Request.Host = new HostString("forum.example.com");
         context.Request.PathBase = string.Empty;
         context.Request.Path = "/";
+        context.Connection.RemoteIpAddress = System.Net.IPAddress.Parse("203.0.113.10");
         return context;
     }
 

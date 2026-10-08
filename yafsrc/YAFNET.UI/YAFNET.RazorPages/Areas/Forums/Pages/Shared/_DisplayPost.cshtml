@@ -263,7 +263,7 @@
                                         {
                                             if (postData.PostIsAnswer)
                                             {
-                                                <a button-style="None"
+                                                <button button-style="None"
                                                    text-localized-page="POSTS"
                                                    text-localized-tag="MARK_ANSWER_REMOVE"
                                                    title-localized-tag="MARK_ANSWER_REMOVE_TITLE"
@@ -275,11 +275,11 @@
                                                    asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
                                                    asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
                                                    asp-route-m="@postData.MessageId"
-                                                   class="dropdown-item"></a>
+                                                   class="dropdown-item"></button>
                                             }
                                             else
                                             {
-                                                <a button-style="None"
+                                                <button button-style="None"
                                                    text-localized-page="POSTS"
                                                    text-localized-tag="MARK_ANSWER"
                                                    title-localized-tag="MARK_ANSWER_TITLE"
@@ -291,7 +291,7 @@
                                                    asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
                                                    asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
                                                    asp-route-m="@postData.MessageId"
-                                                   class="dropdown-item"></a>
+                                                   class="dropdown-item"></button>
                                             }
                                         }
 

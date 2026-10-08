@@ -67,7 +67,13 @@ public class ThankYouController : ForumBaseController
             return this.NotFound();
         }
 
-        var message = this.GetRepository<Message>().GetById(messageId);
+        // only messages the user can read, and not the own ones
+        var message = this.GetRepository<Message>().GetMessageWithAccess(messageId, fromUserId)?.Item2;
+
+        if (message is null || message.UserID == fromUserId)
+        {
+            return this.NotFound();
+        }
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
@@ -115,14 +121,24 @@ public class ThankYouController : ForumBaseController
     {
         var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
 
+        if (message is null)
+        {
+            return this.NotFound();
+        }
+
+        var userId = this.PageBoardContext.PageUserID;
+
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
         this.GetRepository<Thanks>().RemoveMessageThanks(
-            this.PageBoardContext.PageUserID,
+            userId,
             messageId);
 
+        // only the activities of this thanks: "received" (from this user) and "given" (by this user)
         await this.GetRepository<Activity>()
-            .DeleteAsync(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 2048));
+            .DeleteAsync(
+                a => a.MessageID == messageId
+                     && (a.Flags == 1024 && a.FromUserID == userId || a.Flags == 2048 && a.UserID == userId));
 
         return this.Ok(this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));
     }

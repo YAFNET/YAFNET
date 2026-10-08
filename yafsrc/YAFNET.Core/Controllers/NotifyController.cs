@@ -182,7 +182,8 @@ public class NotifyController : ForumBaseController
     /// Mark all Activity as read
     /// </summary>
     [Authorize]
-    [HttpGet]
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("MarkAllActivity")]
     public IActionResult MarkAllActivity()
     {

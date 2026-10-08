@@ -46,6 +46,8 @@ public class PollController : ForumBaseController
     /// </summary>
     /// <param name="pollId">The poll identifier.</param>
     /// <returns>IActionResult.</returns>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("RemovePoll/{pollId:int}")]
     public IActionResult RemovePoll(int pollId)
     {
@@ -92,6 +94,8 @@ public class PollController : ForumBaseController
     /// <param name="pollId">The poll identifier.</param>
     /// <param name="forumId">The forum identifier.</param>
     /// <returns>IActionResult.</returns>
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("Vote/{choiceId:int}/{topicId:int}/{pollId:int}/{forumId:int}")]
     public async Task<IActionResult> Vote(int choiceId, int topicId, int pollId, int forumId)
     {
@@ -102,10 +106,20 @@ public class PollController : ForumBaseController
 
         var poll = await this.GetRepository<Poll>().GetByIdAsync(pollId);
         var topic = await this.GetRepository<Topic>().GetByIdAsync(topicId);
-        var forumAccess = await this.GetRepository<ActiveAccess>()
-            .GetSingleAsync(x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == forumId);
+        var choice = await this.GetRepository<Choice>().GetByIdAsync(choiceId);
 
-        if (poll is null || topic is null || forumAccess is null)
+        // the ids come from the client: the choice must belong to the poll, the poll to the topic
+        // and the vote access is checked for the forum of the topic
+        if (poll is null || topic is null || choice is null || choice.PollID != poll.ID || topic.PollID != poll.ID
+            || topic.ForumID != forumId)
+        {
+            return this.NotFound();
+        }
+
+        var forumAccess = await this.GetRepository<ActiveAccess>()
+            .GetSingleAsync(x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == topic.ForumID);
+
+        if (forumAccess is null)
         {
             return this.NotFound();
         }
@@ -113,9 +127,11 @@ public class PollController : ForumBaseController
         var userPollVotes = this.GetRepository<PollVote>().VoteCheck(poll.ID, this.PageBoardContext.PageUserID);
 
         var isClosed = this.Get<PollService>().IsPollClosed(poll);
-        var canVote = (forumAccess.VoteAccess && (userPollVotes.NullOrEmpty() || userPollVotes.TrueForAll(v => choiceId != v.ChoiceID)))
-                      || (poll.PollFlags.AllowMultipleChoice && forumAccess.VoteAccess
-                                                             && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID));
+
+        // one vote per poll, or one vote per choice if the poll allows multiple choices
+        var canVote = forumAccess.VoteAccess
+                      && (userPollVotes.NullOrEmpty() || poll.PollFlags.AllowMultipleChoice
+                          && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID));
 
         var redirect = this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
@@ -146,9 +162,15 @@ public class PollController : ForumBaseController
             return redirect;
         }
 
-        await this.GetRepository<Choice>().VoteAsync(choiceId);
-
-        this.GetRepository<PollVote>().Vote(choiceId, this.PageBoardContext.PageUserID, pollId);
+        // only count the vote if it was recorded (the vote check is repeated right before the insert)
+        if (this.GetRepository<PollVote>().Vote(
+                choiceId,
+                this.PageBoardContext.PageUserID,
+                pollId,
+                poll.PollFlags.AllowMultipleChoice))
+        {
+            await this.GetRepository<Choice>().VoteAsync(choiceId);
+        }
 
         this.PageBoardContext.SessionNotify(this.GetText("INFO_VOTED"), MessageTypes.success);
 

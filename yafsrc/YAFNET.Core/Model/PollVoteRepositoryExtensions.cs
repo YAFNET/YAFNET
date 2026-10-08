@@ -81,19 +81,29 @@ public static class PollVoteRepositoryExtensions
         /// <param name="pollId">
         /// The poll id.
         /// </param>
-        public void Vote(int choiceId,
+        /// <param name="allowMultipleChoice">
+        /// The poll allows one vote per choice instead of one vote per poll.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the vote was recorded, <c>false</c> if the user already voted.
+        /// </returns>
+        public bool Vote(int choiceId,
             int userId,
-            int pollId)
+            int pollId,
+            bool allowMultipleChoice = false)
         {
             // re-check immediately before inserting to narrow the double-vote race window
-            if (repository.Exists(p => p.UserID == userId && p.PollID == pollId))
+            if (repository.Exists(
+                    p => p.UserID == userId && p.PollID == pollId && (!allowMultipleChoice || p.ChoiceID == choiceId)))
             {
-                return;
+                return false;
             }
 
             var entity = new PollVote { PollID = pollId, UserID = userId, ChoiceID = choiceId };
 
             repository.Insert(entity);
+
+            return true;
         }
     }
 }

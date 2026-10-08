@@ -4,6 +4,10 @@ YetAnotherForum.NET Changelog
 # YetAnotherForum.NET v4.0.10
 * [FIXED] Security: BBCode [url] links could still run javascript: by putting a tab or control character into the URL scheme (stored XSS)
 * [FIXED] Security: Groups created when syncing a new ASP.NET Identity role received moderator-level access to every forum instead of the access of the start group (check groups created by role sync on existing installs)
+* [FIXED] Security: Quick reply accepted replies to any topic, also without reply access (read-only and hidden forums) and to locked topics and forums
+* [FIXED] Security: Poll votes could be repeated without limit, counted for choices of other polls and cast without vote access in the topic's forum
+* [FIXED] Security: Removing a poll, voting, marking an answer and "mark all notifications as read" could be triggered by GET requests (CSRF), the login box did not validate the antiforgery token
+* [FIXED] Removing a thanks deleted the thanks notifications of all other users for that post, thanks could be given for own and unreadable posts
 * [FIXED] Comparing two revisions of an edited post on the message history page crashed
 * [FIXED] "Go to post" links opened the wrong page in topics with more than two pages
 * [FIXED] Restoring a deleted post did not give the author the post count back

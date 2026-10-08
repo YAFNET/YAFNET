@@ -95,6 +95,12 @@ public class PostsModalController : ForumBaseController
     {
         try
         {
+            // the topic comes from the request: check the same access rights as the reply page
+            if (!this.CanReply())
+            {
+                return this.Ok(new MessageModalNotification(this.GetText("INFO", "ACCESSDENIED"), MessageTypes.danger));
+            }
+
             if (model.QuickReplyEditor.IsNotSet())
             {
                 return this.Ok(new MessageModalNotification(this.GetText("EMPTY_MESSAGE"), MessageTypes.warning));
@@ -284,6 +290,31 @@ public class PostsModalController : ForumBaseController
     /// </summary>
     /// <param name="forumInfo">The forum information.</param>
     /// <returns>Returns if the forum needs to be moderated</returns>
+    /// <summary>
+    /// Checks if the current user can reply to the current topic.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    private bool CanReply()
+    {
+        var topic = this.PageBoardContext.PageTopic;
+        var forum = this.PageBoardContext.PageForum;
+
+        if (topic is null || forum is null || topic.ID == 0 || topic.ForumID != forum.ID || topic.TopicFlags.IsDeleted)
+        {
+            return false;
+        }
+
+        if (!this.PageBoardContext.ForumReplyAccess)
+        {
+            return false;
+        }
+
+        // locked topics and forums only accept replies from moderators
+        return !topic.TopicFlags.IsLocked && !forum.ForumFlags.IsLocked || this.PageBoardContext.ForumModeratorAccess;
+    }
+
     private bool CheckForumModerateStatus(Forum forumInfo)
     {
         // User Moderate override
