@@ -101,6 +101,22 @@ public class MessageEditTests
     }
 
     [Test]
+    [Description("Edits in the same second get versions one second apart (the time is part of the key of a version, MySQL saves whole seconds)")]
+    public async Task UpdateAsync_History_Edits_In_Same_Second_Test()
+    {
+        var message = this.AddPost(this.alice, "version 1", 0);
+
+        await this.EditAsync(message, "version 2", "first");
+        await this.EditAsync(message, "version 3", "second");
+        await this.EditAsync(message, "version 4", "third");
+
+        var history = this.Repository<MessageHistory>().Get(h => h.MessageID == message).OrderBy(h => h.Edited).ToList();
+
+        history.Select(h => h.Message).Should().Equal("version 1", "version 2", "version 3");
+        (history[2].Edited - history[1].Edited).Should().BeGreaterThanOrEqualTo(TimeSpan.FromSeconds(1));
+    }
+
+    [Test]
     [Description("Editing updates the topic subject, priority and the search index")]
     public async Task UpdateAsync_Topic_And_Search_Test()
     {

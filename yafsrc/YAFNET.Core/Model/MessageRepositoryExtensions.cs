@@ -1096,9 +1096,22 @@ public static class MessageRepositoryExtensions
                 flags.IsApproved = true;
             }
 
-            if (await BoardContext.Current.GetRepository<MessageHistory>()
-                    .ExistsAsync(m => m.MessageID == originalMessage.ID))
+            // -- the newest version in the history (the key of a version is the message and the time of the edit)
+            var lastEdited = BoardContext.Current.GetRepository<MessageHistory>().DbAccess.Execute(
+                db => db.Connection.Scalar<MessageHistory, DateTime?>(
+                    m => Sql.Max(m.Edited),
+                    m => m.MessageID == originalMessage.ID));
+
+            if (lastEdited.HasValue)
             {
+                // -- MySQL saves whole seconds: an edit in the same second as the newest version gets the next second
+                var edited = DateTime.UtcNow;
+
+                if (edited < lastEdited.Value.AddSeconds(1))
+                {
+                    edited = lastEdited.Value.AddSeconds(1);
+                }
+
                 // -- insert current message variant - use OriginalMessage in future
                 await BoardContext.Current.GetRepository<MessageHistory>().InsertAsync(
                     new MessageHistory
@@ -1106,7 +1119,7 @@ public static class MessageRepositoryExtensions
                         MessageID = originalMessage.ID,
                         Message = originalMessage.MessageText,
                         IP = originalMessage.IP,
-                        Edited = DateTime.UtcNow,
+                        Edited = edited,
                         EditedBy = editedBy,
                         EditReason = reasonOfEdit,
                         IsModeratorChanged = originalMessage.IsModeratorChanged.Value,
