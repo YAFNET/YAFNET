@@ -47,6 +47,18 @@ public interface IDateTimeService
     string FormatDateLong(DateTime dateTime);
 
     /// <summary>
+    /// Formats a calendar date (e.g. a birthday) into 7. february 2003, it is no point in time:
+    /// it is not converted into the time zone of the user.
+    /// </summary>
+    /// <param name="date">
+    /// The date to be formatted
+    /// </param>
+    /// <returns>
+    /// The format date long.
+    /// </returns>
+    string FormatCalendarDate(DateTime date);
+
+    /// <summary>
     /// Formats a DateTime value into 07.03.2003
     /// </summary>
     /// <param name="dateTime">

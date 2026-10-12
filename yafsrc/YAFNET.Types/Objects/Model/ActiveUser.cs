@@ -78,7 +78,7 @@ public class ActiveUser
     /// Gets or sets a value indicating whether this instance is guest.
     /// </summary>
     /// <value><c>true</c> if this instance is guest; otherwise, <c>false</c>.</value>
-    public bool IsGuest { get; set; }
+    public bool IsGuest => this.ActiveFlags.IsGuest;
 
     /// <summary>
     /// Gets or sets the suspended.

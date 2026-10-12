@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                            <input type="hidden" asp-for="Input.Id" value="@Model.Input" />
+                            <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
                             <label class="form-label" info-button="true"
                                    asp-for="Input.Name"
                                    localized-tag="MASK_NAME" localized-page="ADMIN_EDITACCESSMASKS"></label>
@@ -30,7 +30,7 @@
                                    localized-tag="MASK_ORDER" localized-page="ADMIN_EDITACCESSMASKS"></label>
                             <input type="number" asp-for="Input.SortOrder"
                                    required="required" maxlength="5"
-                                   class="form-control" data-min="0" min="1" />
+                                   class="form-control" data-min="0" min="0" />
                             <div class="invalid-feedback">
                                 @Html.LocalizedText("MSG_NUMBER_SORT")
                             </div>

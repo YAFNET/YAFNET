@@ -224,4 +224,15 @@ public class BoardConfiguration
     /// </summary>
     /// <value>The permissions policy.</value>
     public string ContentSecurityPolicy { get; set; } = "";
+
+    /// <summary>
+    /// The reverse proxies (addresses or networks in CIDR notation, e.g. "203.0.113.5" or "173.245.48.0/20")
+    /// whose X-Forwarded-For / X-Real-IP headers are used for the client address. Proxies in loopback and
+    /// private networks (same host, LAN, docker) are always trusted; add the address ranges of a proxy or CDN
+    /// in a public network here (e.g. Cloudflare), otherwise its address is used as the client address.
+    ///
+    /// ** Defaults to: empty  **
+    /// </summary>
+    /// <value>The trusted proxies.</value>
+    public string[] TrustedProxies { get; set; } = [];
 }

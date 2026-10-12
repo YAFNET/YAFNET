@@ -26,7 +26,7 @@ namespace YAF.Web.ViewFeatures;
 
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
-static internal class CultureSwitcherViewComponent
+internal static class CultureSwitcherViewComponent
 {
     /// <summary>
     /// Gets <see cref="ModelExplorer"/> for named <paramref name="expression"/> in given

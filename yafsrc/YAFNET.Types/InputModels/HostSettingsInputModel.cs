@@ -338,22 +338,19 @@ public class HostSettingsInputModel
     public bool AllowEmailTopic { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [disable no follow links after day].
+    /// Gets or sets the age of a post in days after which its links are no longer "nofollow" (0 = always "nofollow").
     /// </summary>
-    /// <value><c>true</c> if [disable no follow links after day]; otherwise, <c>false</c>.</value>
-    public bool DisableNoFollowLinksAfterDay { get; set; }
+    public int DisableNoFollowLinksAfterDay { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [lock posts].
+    /// Gets or sets the age of a post in days after which it can no longer be edited (0 = never locked).
     /// </summary>
-    /// <value><c>true</c> if [lock posts]; otherwise, <c>false</c>.</value>
-    public bool LockPosts { get; set; }
+    public int LockPosts { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [show share topic to].
+    /// Gets or sets who can see the share topic (a <see cref="YAF.Types.Constants.ViewPermissions"/> value, like the other permissions).
     /// </summary>
-    /// <value><c>true</c> if [show share topic to]; otherwise, <c>false</c>.</value>
-    public bool ShowShareTopicTo { get; set; }
+    public int ShowShareTopicTo { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [enable user information hover cards].
@@ -512,16 +509,14 @@ public class HostSettingsInputModel
     public bool ShowMoved { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [show help to].
+    /// Gets or sets who can see the help (a <see cref="YAF.Types.Constants.ViewPermissions"/> value, like the other permissions).
     /// </summary>
-    /// <value><c>true</c> if [show help to]; otherwise, <c>false</c>.</value>
-    public bool ShowHelpTo { get; set; }
+    public int ShowHelpTo { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [show team to].
+    /// Gets or sets who can see the team (a <see cref="YAF.Types.Constants.ViewPermissions"/> value, like the other permissions).
     /// </summary>
-    /// <value><c>true</c> if [show team to]; otherwise, <c>false</c>.</value>
-    public bool ShowTeamTo { get; set; }
+    public int ShowTeamTo { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [scroll to post].

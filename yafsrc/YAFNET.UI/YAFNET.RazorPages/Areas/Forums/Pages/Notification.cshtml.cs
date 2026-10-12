@@ -185,6 +185,10 @@ public class NotificationModel : ForumPageRegistered
         bool watchTopicReply,
         bool becomeFriends)
     {
+        // the values come from the client (the page offers at most 50 entries)
+        page = Math.Max(page, 0);
+        size = Math.Clamp(size, 1, 100);
+
         var stream = this.GetFilteredNotifications(
             wasMentioned, receivedThanks, wasQuoted, watchForumReply, watchTopicReply, becomeFriends);
 

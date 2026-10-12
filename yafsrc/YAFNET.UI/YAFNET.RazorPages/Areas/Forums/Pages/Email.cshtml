@@ -9,7 +9,7 @@
         <form method="post" class="needs-validation" novalidate>
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.IconHeader("envelope-open", "IM_EMAIL", "TITLE2", param0: Model.EmailUser.DisplayOrUserName())
+                    @Html.IconHeader("envelope-open", "IM_EMAIL", "TITLE2", param0: Html.Encode(Model.EmailUser.DisplayOrUserName()))
                 </div>
                 <div class="card-body">
                     <div class="mb-3">

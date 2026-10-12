@@ -215,8 +215,8 @@
                         {
                             @if (poll.ObjectPath.IsSet())
                             {
-                                <img data-bs-toggle="tooltip" class="img-thumbnail mb-1" style="max-height: 80px" title="@Html.HtmlEncode(poll.Question)" alt="@Html.Encode(poll.Question)"
-                                     href="@Html.HtmlEncode(poll.ObjectPath)" />
+                                <img data-bs-toggle="tooltip" class="img-thumbnail mb-1" style="max-height: 80px" title="@poll.Question" alt="@poll.Question"
+                                     src="@poll.ObjectPath" />
                             }
 
                             @if (!(!hasVoteAccess && userPollVotes.HasItems()))

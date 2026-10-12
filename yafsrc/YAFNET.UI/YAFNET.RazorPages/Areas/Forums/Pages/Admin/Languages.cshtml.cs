@@ -53,6 +53,19 @@ public class LanguagesModel : AdminPage
     }
 
     /// <summary>
+    /// Only the host admin can use this page: the language files are used by all boards and their texts
+    /// are html, it can't be granted to the admins of a board.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
     /// Creates page links for this page.
     /// </summary>
     public override void CreatePageLinks()

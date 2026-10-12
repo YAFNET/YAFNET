@@ -5,6 +5,8 @@ namespace YAF.Web.TagHelpers;
 
 using System.Collections;
 using System.Diagnostics;
+using System.Net;
+using System.Text.Json;
 
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -263,7 +265,7 @@ public class ChoicesTagHelper : TagHelper
         if (!IsFullNameValid(fullName, htmlAttributeDictionary))
         {
             throw new ArgumentException(
-                $"The name of an HTML field cannot be null or empty. Instead use methods {typeof(IHtmlHelper).FullName}.{nameof(IHtmlHelper.Editor)} or {typeof(IHtmlHelper<>).FullName}.{nameof(IHtmlHelper<object>.EditorFor)} with a non-empty htmlFieldName argument value.",
+                $"The name of an HTML field cannot be null or empty. Instead use methods {typeof(IHtmlHelper).FullName}.{nameof(IHtmlHelper.Editor)} or {typeof(IHtmlHelper<>).FullName}.{nameof(IHtmlHelper<>.EditorFor)} with a non-empty htmlFieldName argument value.",
                 nameof(expression));
         }
 
@@ -434,7 +436,11 @@ public class ChoicesTagHelper : TagHelper
             tagBuilder.Attributes["disabled"] = "disabled";
         }
 
-        tagBuilder.Attributes["data-custom-properties"] = $$"""{ "label": "<i class='fas fa-{{iconItem}} text-secondary'></i>&nbsp;{{item.Text}}" }""";
+        // the label is shown as html by the select script: the text (e.g. the name of a forum) is encoded,
+        // the json is serialized (a quote in a name broke it)
+        var label = $"<i class='fas fa-{WebUtility.HtmlEncode(iconItem)} text-secondary'></i>&nbsp;{WebUtility.HtmlEncode(item.Text)}";
+
+        tagBuilder.Attributes["data-custom-properties"] = JsonSerializer.Serialize(new { label });
 
         return tagBuilder;
     }
@@ -445,7 +451,7 @@ public class ChoicesTagHelper : TagHelper
     /// <param name="item">The item.</param>
     /// <param name="currentValues">The current values.</param>
     /// <returns>IHtmlContent.</returns>
-    private IHtmlContent GenerateOption(SelectListItem item, ICollection<string> currentValues)
+    private TagBuilder GenerateOption(SelectListItem item, ICollection<string> currentValues)
     {
         var selected = item.Selected;
         if (currentValues != null)

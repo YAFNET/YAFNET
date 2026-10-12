@@ -32,24 +32,10 @@ namespace YAF.Types.InputModels;
 public class EmailTopicInputModel
 {
     /// <summary>
-    /// Gets or sets the subject.
+    /// Gets or sets the email address of the recipient.
     /// </summary>
     /// <value>The email.</value>
     [Required]
     [DataType(DataType.EmailAddress)]
     public string Email { get; set; }
-
-    /// <summary>
-    /// Gets or sets the subject.
-    /// </summary>
-    /// <value>The subject.</value>
-    [Required]
-    public string Subject { get; set; }
-
-    /// <summary>
-    /// Gets or sets the body.
-    /// </summary>
-    /// <value>The body.</value>
-    [Required]
-    public string Body { get; set; }
 }

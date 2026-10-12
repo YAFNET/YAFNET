@@ -75,7 +75,7 @@ public class PmModel : AdminPage
     {
         this.Input.Days2 = 180;
 
-        this.Input.Count = this.GetRepository<PrivateMessage>().Count(m => (m.Flags & 2) != 2 || (m.Flags & 4) != 4).ToString();
+        this.Input.Count = this.GetRepository<PrivateMessage>().CountBoardMessages(this.PageBoardContext.PageBoardID).ToString();
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public class PmModel : AdminPage
     /// </summary>
     public async Task OnPostCommitAsync()
     {
-        await this.GetRepository<PrivateMessage>().PruneAllAsync(this.Input.Days2);
+        await this.GetRepository<PrivateMessage>().PruneAllAsync(this.PageBoardContext.PageBoardID, this.Input.Days2);
 
         this.BindData();
     }

@@ -59,44 +59,17 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         output.TagName = null;
 
         var html = new TagBuilder(HtmlTag.Div);
-        var htmlDropDown = new TagBuilder(HtmlTag.Div);
 
-        htmlDropDown.AddCssClass("dropdown d-md-none d-grid gap-2 mb-3");
-
-        var dropDownButton = new TagBuilder(HtmlTag.Button);
-
-        dropDownButton.AddCssClass("btn btn-secondary dropdown-toggle");
-
-        dropDownButton.MergeAttribute(HtmlAttribute.Id, "dropdownMenuButton");
-        dropDownButton.MergeAttribute(HtmlAttribute.Type, HtmlTag.Button);
-        dropDownButton.MergeAttribute("data-bs-toggle", "dropdown");
-        dropDownButton.MergeAttribute(HtmlAttribute.AriaHasPopup, "true");
-        dropDownButton.MergeAttribute(HtmlAttribute.AriaExpanded, "false");
-
-        var icon = new TagBuilder(HtmlTag.I);
-        icon.AddCssClass("fa fa-cogs me-1");
-
-        dropDownButton.InnerHtml.AppendHtml(icon);
-        dropDownButton.InnerHtml.Append(this.GetText("CONTROL_PANEL"));
-
-        htmlDropDown.InnerHtml.AppendHtml(dropDownButton);
-
-        var htmlDropDownMenu = new TagBuilder(HtmlTag.Div);
-        htmlDropDownMenu.AddCssClass("dropdown-menu scrollable-dropdown");
-        htmlDropDownMenu.MergeAttribute(HtmlAttribute.AriaLabelledBy, "dropdownMenuButton");
-
-        html.AddCssClass("list-group list-group-profile-menu d-none d-md-block");
+        html.AddCssClass("nav nav-pills flex-md-column");
 
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "list-group-item list-group-item-action",
+            "nav-link",
             ForumPages.MyAccount,
             this.GetText("YOUR_ACCOUNT"),
             "address-card"));
 
-        this.RenderMenuItem("dropdown-item", ForumPages.MyAccount, this.GetText("YOUR_ACCOUNT"), "address-card");
-
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "list-group-item list-group-item-action",
+            "nav-link",
             ForumPages.UserProfile,
             this.GetText("VIEW_PROFILE"),
             "user",
@@ -106,35 +79,14 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         headerProfile.AddCssClass("dropdown-header");
         headerProfile.InnerHtml.Append(this.GetText("PERSONAL_PROFILE"));
 
-        htmlDropDownMenu.InnerHtml.AppendHtml(headerProfile);
-
-        htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "dropdown-item",
-            ForumPages.UserProfile,
-            this.GetText("VIEW_PROFILE"),
-            "user",
-            new { u = this.PageContext.PageUserID, name = this.PageContext.MembershipUser.UserName }));
-
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "list-group-item list-group-item-action",
-            ForumPages.Profile_EditProfile,
-            this.GetText("EDIT_PROFILE"),
-            "user-edit"));
-
-        htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "dropdown-item",
+            "nav-link",
             ForumPages.Profile_EditProfile,
             this.GetText("EDIT_PROFILE"),
             "user-edit"));
 
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "list-group-item list-group-item-action",
-            ForumPages.Profile_EditSettings,
-            this.GetText("ACCOUNT", "EDIT_SETTINGS"),
-            "user-cog"));
-
-        htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "dropdown-item",
+            "nav-link",
             ForumPages.Profile_EditSettings,
             this.GetText("ACCOUNT", "EDIT_SETTINGS"),
             "user-cog"));
@@ -143,13 +95,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 .Exists(x => x.UserID == this.PageContext.PageUserID))
         {
             html.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "list-group-item list-group-item-action",
-                ForumPages.Profile_Attachments,
-                this.GetText("ATTACHMENTS", "TITLE"),
-                "paperclip"));
-
-            htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "dropdown-item",
+                "nav-link",
                 ForumPages.Profile_Attachments,
                 this.GetText("ATTACHMENTS", "TITLE"),
                 "paperclip"));
@@ -159,13 +105,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             && this.PageContext.BoardSettings.EnableBuddyList && this.PageContext.UserHasBuddies)
         {
             html.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "list-group-item list-group-item-action",
-                ForumPages.MyFriends,
-                this.GetText("EDIT_BUDDIES"),
-                "users"));
-
-            htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "dropdown-item",
+                "nav-link",
                 ForumPages.MyFriends,
                 this.GetText("EDIT_BUDDIES"),
                 "users"));
@@ -175,31 +115,18 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         {
             html.InnerHtml.AppendHtml(
                 this.RenderMenuItem(
-                    "list-group-item list-group-item-action",
+                    "nav-link",
                     ForumPages.Albums,
                     this.GetText("EDIT_ALBUMS"),
                     "images",
                     new { u = this.PageContext.PageUserID }));
-
-            htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "dropdown-item",
-                ForumPages.Albums,
-                this.GetText("EDIT_ALBUMS"),
-                "images",
-                new { u = this.PageContext.PageUserID }));
         }
 
         if (this.PageContext.BoardSettings.AvatarUpload
             || this.PageContext.BoardSettings.AvatarGallery)
         {
             html.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "list-group-item list-group-item-action",
-                ForumPages.Profile_EditAvatar,
-                this.GetText("ACCOUNT", "EDIT_AVATAR"),
-                "user-tie"));
-
-            htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "dropdown-item",
+                "nav-link",
                 ForumPages.Profile_EditAvatar,
                 this.GetText("ACCOUNT", "EDIT_AVATAR"),
                 "user-tie"));
@@ -208,52 +135,27 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         if (this.PageContext.BoardSettings.AllowSignatures)
         {
             html.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "list-group-item list-group-item-action",
+                "nav-link",
                 ForumPages.Profile_EditSignature,
                 this.GetText("ACCOUNT", "SIGNATURE"),
                 "signature"));
-
-            htmlDropDownMenu.InnerHtml.AppendHtml(
-                this.RenderMenuItem(
-                    "dropdown-item",
-                    ForumPages.Profile_EditSignature,
-                    this.GetText("ACCOUNT", "SIGNATURE"),
-                    "signature"));
         }
 
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "list-group-item list-group-item-action",
-            ForumPages.Profile_Subscriptions,
-            this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
-            "envelope"));
-
-        htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "dropdown-item",
+            "nav-link",
             ForumPages.Profile_Subscriptions,
             this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
             "envelope"));
 
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "list-group-item list-group-item-action",
-            ForumPages.Profile_BlockOptions,
-            this.GetText("BLOCK_OPTIONS", "TITLE"),
-            "user-lock"));
-
-        htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "dropdown-item",
+            "nav-link",
             ForumPages.Profile_BlockOptions,
             this.GetText("BLOCK_OPTIONS", "TITLE"),
             "user-lock"));
 
         // Render Change Password Item
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "list-group-item list-group-item-action",
-            ForumPages.Profile_ChangePassword,
-            this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
-            "lock"));
-
-        htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-            "dropdown-item",
+            "nav-link",
             ForumPages.Profile_ChangePassword,
             this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
             "lock"));
@@ -262,22 +164,13 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         {
             // Render Delete Account Item
             html.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "list-group-item list-group-item-action text-danger",
-                ForumPages.Profile_DeleteAccount,
-                this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
-                "user-alt-slash"));
-
-            htmlDropDownMenu.InnerHtml.AppendHtml(this.RenderMenuItem(
-                "dropdown-item",
+                "nav-link text-danger",
                 ForumPages.Profile_DeleteAccount,
                 this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
                 "user-alt-slash"));
         }
 
-        htmlDropDown.InnerHtml.AppendHtml(htmlDropDownMenu);
-
         output.Content.AppendHtml(html);
-        output.Content.AppendHtml(htmlDropDown);
         return Task.CompletedTask;
     }
 
@@ -299,7 +192,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="parameter">
     /// The URL Parameter
     /// </param>
-    private IHtmlContent RenderMenuItem(
+    private TagBuilder RenderMenuItem(
         string cssClass,
         ForumPages page,
         string getText,
@@ -342,7 +235,13 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         link.InnerHtml.AppendHtml(icon);
 
-        link.InnerHtml.Append(getText);
+        var span = new TagBuilder(HtmlTag.Span);
+
+        span.AddCssClass("d-none d-lg-inline-block");
+
+        span.InnerHtml.Append(getText);
+
+        link.InnerHtml.AppendHtml(span);
 
         return link;
     }

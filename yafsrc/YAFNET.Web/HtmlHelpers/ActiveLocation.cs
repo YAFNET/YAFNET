@@ -24,6 +24,8 @@
 
 namespace YAF.Web.HtmlHelpers;
 
+using System.Net;
+
 /// <summary>
 /// The active location html helper.
 /// </summary>
@@ -285,74 +287,59 @@ public static class ActiveLocationHtmlHelper
             return content;
         }
 
-        path = path.Replace("/Album/", "");
+        // the path is /Album/{user id}/{album id}[/{page}]
+        var parts = path.Replace("/Album/", string.Empty).Split('/', StringSplitOptions.RemoveEmptyEntries);
 
-        var albumId = path[(path.IndexOf('/', StringComparison.Ordinal) + 1)..];
+        var album = parts.Length > 1 && int.TryParse(parts[1], out var albumId)
+                        ? context.GetRepository<UserAlbum>().GetById(albumId)
+                        : null;
 
-        var userId = path.Remove(path.IndexOf('/')).ToType<int>();
+        // the album can be deleted or the id can be invalid (the path is the address the user called)
+        var owner = album is null ? null : context.GetRepository<User>().GetById(album.UserID);
 
-         albumId = albumId.Contains('&')
-                       ? albumId[..albumId.IndexOf('&')].Trim()
-                       : albumId[..].Trim();
+        if (owner is null)
+        {
+            content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM"));
+            return content;
+        }
 
-         if (ValidationHelper.IsValidInt(albumId))
-         {
-             // The DataRow should not be missing in the case
-             var userAlbum = context.GetRepository<UserAlbum>().GetById(albumId.Trim().ToType<int>());
+        // If album doesn't have a Title, use his ID (the title is stored html encoded).
+        var albumName = album.Title.IsSet() ? WebUtility.HtmlDecode(album.Title) : album.ID.ToString();
 
-             // If album doesn't have a Title, use his ID.
-             var albumName = userAlbum.Title.IsNotSet() ? userAlbum.Title : userAlbum.ID.ToString();
+        var link = new TagBuilder(HtmlTag.A);
 
-             // Render
-             if (userId != currentUserId)
-             {
-                 var user = context.GetRepository<User>().GetById(userId);
+        link.MergeAttribute(
+            HtmlAttribute.Href,
+            context.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = owner.ID, a = album.ID }));
 
-                 content.Append($"{context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM")} ");
+        link.InnerHtml.Append(albumName);
 
-                 var link = new TagBuilder(HtmlTag.A);
+        if (owner.ID != currentUserId)
+        {
+            content.Append($"{context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM")} ");
 
-                 link.MergeAttribute(
-                     HtmlAttribute.Href,
-                     context.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { a = albumId }));
+            content.AppendHtml(link);
 
-                 link.InnerHtml.Append(albumName);
+            content.Append($" {context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM_OFUSER")} ");
 
-                 content.AppendHtml(link);
+            var linkProfile = new TagBuilder(HtmlTag.A);
 
-                 content.Append($" {context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM_OFUSER")} ");
+            linkProfile.MergeAttribute(
+                HtmlAttribute.Href,
+                context.Get<ILinkBuilder>().GetUserProfileLink(owner.ID, owner.DisplayOrUserName()));
+            linkProfile.MergeAttribute("data-bs-toggle", "tooltip");
+            linkProfile.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
 
-                 var linkProfile = new TagBuilder(HtmlTag.A);
+            linkProfile.InnerHtml.Append(owner.DisplayOrUserName());
 
-                 linkProfile.MergeAttribute(
-                     HtmlAttribute.Href,
-                     context.Get<ILinkBuilder>().GetUserProfileLink(userId, user.DisplayOrUserName()));
-                 link.MergeAttribute("data-bs-toggle", "tooltip");
-                 link.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_USRPROFILE"));
+            content.AppendHtml(linkProfile);
+        }
+        else
+        {
+            content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM_OWN"));
 
-                 linkProfile.InnerHtml.Append(user.DisplayOrUserName());
-
-                 content.AppendHtml(linkProfile);
-             }
-             else
-             {
-                 content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM_OWN"));
-
-                 var link = new TagBuilder(HtmlTag.A);
-
-                 link.MergeAttribute(
-                     HtmlAttribute.Href,
-                     context.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { a = albumId }));
-
-                 link.InnerHtml.Append(albumName);
-
-                 content.AppendHtml(link);
-             }
-         }
-         else
-         {
-             content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUM"));
-         }
+            content.AppendHtml(link);
+        }
 
         return content;
     }
@@ -383,11 +370,17 @@ public static class ActiveLocationHtmlHelper
             return content;
         }
 
-        path = path.Replace("/Albums/", "");
+        // the path is /Albums/{user id}[/{page}] (the name is not in the path)
+        var user = GetPathUser(path.Replace("/Albums/", string.Empty));
 
-        var userName = path[(path.IndexOf('/', StringComparison.Ordinal) + 1)..];
+        if (user is null)
+        {
+            content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "ALBUMS"));
+            return content;
+        }
 
-        var userId = path.Remove(path.IndexOf('/')).ToType<int>();
+        var userId = user.ID;
+        var userName = user.DisplayOrUserName();
 
         if (userId != currentUserId)
         {
@@ -435,11 +428,17 @@ public static class ActiveLocationHtmlHelper
 
         var content = new HtmlContentBuilder();
 
-        path = path.Replace("/UserProfile/", "");
+        // the path is /UserProfile/{user id}/{name}, the name is any text of the address (not shown)
+        var user = GetPathUser(path.Replace("/UserProfile/", string.Empty));
 
-        var userName = path[(path.IndexOf('/', StringComparison.Ordinal) + 1)..];
+        if (user is null)
+        {
+            content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
+            return content;
+        }
 
-        var userId = path.Remove(path.IndexOf('/')).ToType<int>();
+        var userId = user.ID;
+        var userName = user.DisplayOrUserName();
 
         if (userId != currentUserId)
         {
@@ -465,5 +464,24 @@ public static class ActiveLocationHtmlHelper
         }
 
         return content;
+    }
+
+    /// <summary>
+    /// Gets the user of the first part of the path (the user id), null if it is no user of the board.
+    /// </summary>
+    /// <param name="path">The path without the page name.</param>
+    /// <returns>The user or null.</returns>
+    private static User GetPathUser(string path)
+    {
+        var parts = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+        if (parts.Length == 0 || !int.TryParse(parts[0], out var userId))
+        {
+            return null;
+        }
+
+        var user = BoardContext.Current.GetRepository<User>().GetById(userId);
+
+        return user is not null && user.BoardID == BoardContext.Current.PageBoardID ? user : null;
     }
 }

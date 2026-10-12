@@ -214,7 +214,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="output">
     ///     The output.
     /// </param>
-    async protected virtual Task RenderSignatureAsync(TagHelperOutput output)
+    protected async virtual Task RenderSignatureAsync(TagHelperOutput output)
     {
         var hr = new TagBuilder(HtmlTag.Hr) { TagRenderMode = TagRenderMode.SelfClosing };
 

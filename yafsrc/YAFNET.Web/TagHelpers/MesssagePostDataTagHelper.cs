@@ -55,7 +55,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
         {
             if (this.ShowSignature && BoardContext.Current.BoardSettings.AllowSignatures
                                    && this.CurrentMessage.Signature.IsSet()
-                                   && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>")
+                                   && this.CurrentMessage.Signature.ToLowerInvariant() != "<p>&nbsp;</p>")
             {
                 return this.CurrentMessage.Signature;
             }

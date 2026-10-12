@@ -253,9 +253,10 @@ public static class TopicContainerHtmlHelper
 
         infoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("info-circle", "text-secondary"));
 
-        infoLastPost.InnerHtml.AppendHtml(context.Get<ILocalization>().GetTextFormatted("by", context.BoardSettings.EnableDisplayName
+        // the text is html, the name is chosen by the user
+        infoLastPost.InnerHtml.AppendHtml(context.Get<ILocalization>().GetTextFormatted("by", HttpUtility.HtmlEncode(context.BoardSettings.EnableDisplayName
             ? topic.LastUserDisplayName
-            : topic.LastUserName));
+            : topic.LastUserName)));
 
         lastPostDivBody.InnerHtml.AppendHtml(infoLastPost);
 
@@ -452,7 +453,7 @@ public static class TopicContainerHtmlHelper
 
         var topicLabel = new TagBuilder(HtmlTag.Span);
 
-        var topicSubject = context.Get<IBadWordReplace>().Replace(htmlHelper.HtmlEncode(item.Subject));
+        var topicSubject = context.Get<IBadWordReplace>().Replace(htmlHelper.HtmlEncode(item.Subject).ToString());
 
         topicLabel.InnerHtml.AppendHtml(topicSubject);
 
@@ -465,7 +466,8 @@ public static class TopicContainerHtmlHelper
             return topicLabel;
         }
 
-        topicLabel.MergeAttribute(HtmlAttribute.Style, htmlHelper.HtmlEncode(styles));
+        // the tag builder encodes the attribute value itself
+        topicLabel.MergeAttribute(HtmlAttribute.Style, styles);
 
         return topicLabel;
     }
@@ -548,7 +550,7 @@ public static class TopicContainerHtmlHelper
 
         var pagination = new TagBuilder(HtmlTag.Ul);
 
-        pagination.AddCssClass("pagination pagination-sm");
+        pagination.AddCssClass("pagination pagination-sm m-0");
 
         if (pageCount > numToDisplay)
         {

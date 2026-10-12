@@ -73,7 +73,7 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     /// <param name="output">
     ///     The output.
     /// </param>
-    async protected virtual Task RenderSignatureAsync(TagHelperOutput output)
+    protected async virtual Task RenderSignatureAsync(TagHelperOutput output)
     {
         output.TagName = HtmlTag.Div;
 

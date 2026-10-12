@@ -1,4 +1,5 @@
 ﻿@using YAF.Core.Context
+@using YAF.Core.Helpers
 @using YAF.Core.Model
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
@@ -108,6 +109,8 @@
 
 @if (mostActiveUsers.HasItems())
 {
+	var postsText = Current.Get<ILocalization>().GetText("POSTS", "POSTS");
+
     <div class="card mb-3">
         <div class="card-header d-flex align-items-center">
             @Html.Icon("chart-line", "", "fas text-secondary", "fa-2x")
@@ -117,13 +120,13 @@
             <ol class="mb-0">
                 @foreach (var item in mostActiveUsers)
                 {
-                    <li>
-                        @Html.UserLink(
-                            item.ID,
-                            Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name,
-                            item.Suspended,
-                            item.UserStyle)
-                            (@item.NumOfPosts)
+                    <li class="mb-1">
+	                    @Html.UserLink(
+		                    item.ID,
+		                    Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name,
+		                    item.Suspended,
+		                    item.UserStyle,
+		                    postFixText: $"<span class=\"badge text-bg-secondary ms-1\">{item.NumOfPosts} {postsText}</span>")
                     </li>
                 }
             </ol>

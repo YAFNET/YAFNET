@@ -71,7 +71,7 @@ public static class ActiveUserStatsHtmlHelper
         var showGuestTotal = activeGuests > 0 && (context.BoardSettings.ShowGuestsInDetailedActiveList ||
                                                   context.BoardSettings.ShowCrawlersInActiveList);
 
-        if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
+        if (canViewActive && (showGuestTotal || (activeMembers > 0 && activeGuests <= 0)))
         {
             // always show active users...
             var link = new TagBuilder(HtmlTag.A);

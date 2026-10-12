@@ -24,6 +24,9 @@
 
 namespace YAF.Web.TagHelpers;
 
+using System.Net;
+using System.Text.Json;
+
 /// <summary>
 /// The body direction helper.
 /// </summary>
@@ -76,20 +79,25 @@ public class OptionTagHelper : TagHelper, IHaveServiceLocator
     {
         if (this.Item.Value.IsSet())
         {
+            // the label is shown as html by the select script: the texts (e.g. names of forums and categories)
+            // and values are encoded, the json is serialized (a quote in a name broke it)
+            var text = WebUtility.HtmlEncode(this.Item.Text);
+            var value = WebUtility.HtmlEncode(this.Item.Value);
+
+            string label;
+
             if (this.IsFlagIcon)
             {
-                output.Attributes.SetAttribute(
-                    "data-custom-properties",
-                    $$"""{ "label": "<span class='fi fi-{{this.Item.Value.ToLower()}} mx-2'></span>{{this.Item.Text}}" }""");
+                label = $"<span class='fi fi-{value.ToLower()} mx-2'></span>{text}";
             }
             else
             {
-                output.Attributes.SetAttribute(
-                    "data-custom-properties",
-                    this.IconName.IsSet()
-                        ? $$"""{ "label": "<i class='fas fa-{{this.IconName}} text-secondary mx-2'></i>{{this.Item.Text}}" }"""
-                        : $$"""{ "label": "<img src='{{this.Item.Value}}' alt='{{this.Item.Text}}' class='ms-2' />&nbsp;<span class='ms-2'>{{this.Item.Text}}</span>" }""");
+                label = this.IconName.IsSet()
+                            ? $"<i class='fas fa-{WebUtility.HtmlEncode(this.IconName)} text-secondary mx-2'></i>{text}"
+                            : $"<img src='{value}' alt='{text}' class='ms-2' />&nbsp;<span class='ms-2'>{text}</span>";
             }
+
+            output.Attributes.SetAttribute("data-custom-properties", JsonSerializer.Serialize(new { label }));
         }
 
         if (this.Item.Selected)

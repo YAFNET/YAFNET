@@ -129,7 +129,7 @@
                                             <span class="fw-bold">
                                                 @Html.LocalizedText("COMMON", "MESSAGE")
                                             </span>
-                                            @Html.Raw(!item.Item2.Message.IsNullOrEmptyField() ? item.Item2.Message : item.Item1.Message)
+                                            @(!item.Item2.Message.IsNullOrEmptyField() ? item.Item2.Message : item.Item1.Message)
                                         </p>
                                         <small>
                                             <div class="btn-group btn-group-sm">
@@ -148,7 +148,7 @@
                                                         title-localized-tag="REMOVE"
                                                         Icon="trash"
                                                         text-localized-tag="REMOVE"
-                                                        return-confirm-tag="CONFIRM_REMOVE_USER">
+                                                        return-confirm-tag="CONFIRM_REMOVE_GROUP">
                                                 </button>
                                             </div>
                                         </small>
@@ -168,7 +168,7 @@
                                                     title-localized-tag="REMOVE"
                                                     Icon="trash"
                                                     text-localized-tag="REMOVE"
-                                                    return-confirm-tag="@(Model.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER"))">
+                                                    return-confirm-tag="CONFIRM_REMOVE_GROUP">
                                             </button>
                                             <div class="dropdown-divider"></div>
                                             <button bs-toggle="ajax-modal"
@@ -226,7 +226,7 @@
                                             <span class="fw-bold">
                                                 @Html.LocalizedText("COMMON", "MESSAGE")
                                             </span>
-                                            @Html.Raw(item.Item2.Message.IsSet() ? item.Item2.Message : item.Item1.Message)
+                                            @(item.Item2.Message.IsSet() ? item.Item2.Message : item.Item1.Message)
                                         </p>
                                         <small>
                                             <div class="btn-group btn-group-sm">
@@ -242,7 +242,8 @@
                                                         text-localized-tag="REMOVE"
                                                         button-style="Danger"
                                                         button-size="Small"
-                                                        Icon="trash">
+                                                        Icon="trash"
+                                                        return-confirm-tag="CONFIRM_REMOVE_USER">
                                                 </button>
                                             </div>
                                         </small>
@@ -259,7 +260,8 @@
                                                     text-localized-tag="REMOVE"
                                                     button-style="None"
                                                     class="dropdown-item"
-                                                    Icon="trash">
+                                                    Icon="trash"
+                                                    return-confirm-tag="CONFIRM_REMOVE_USER">
                                             </button>
                                             <div class="dropdown-divider"></div>
                                             <button bs-toggle="ajax-modal"

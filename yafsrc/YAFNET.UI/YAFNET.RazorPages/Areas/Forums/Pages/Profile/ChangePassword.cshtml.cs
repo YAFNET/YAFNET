@@ -27,8 +27,11 @@ namespace YAF.Pages.Profile;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Identity;
+
 using YAF.Core.Extensions;
 using YAF.Types.Interfaces.Identity;
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// The Change Password Page.
@@ -77,6 +80,9 @@ public class ChangePasswordModel : ProfilePage
 
         if (result.Succeeded)
         {
+            // the security stamp changed, the other logins end: this login gets the new stamp
+            await this.Get<SignInManager<AspNetUsers>>().RefreshSignInAsync(this.PageBoardContext.MembershipUser);
+
             this.PageBoardContext.Notify(this.GetText("CHANGE_SUCCESS"), MessageTypes.success);
         }
         else

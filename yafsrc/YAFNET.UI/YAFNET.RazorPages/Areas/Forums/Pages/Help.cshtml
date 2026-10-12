@@ -4,14 +4,7 @@
 @model HelpModel
 
 @{
-    @if (Request.RouteValues.ContainsKey("faq") && Request.RouteValues["faq"].ToString() != "index")
-    {
-        Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode($"{Model.Get<ILocalization>().GetText("HELP_INDEX", "SUBTITLE")} &#183; {Model.Get<ILocalization>().GetText("HELP_INDEX", $"{Request.RouteValues["faq"]}TITLE")}");
-    }
-    else
-    {
-        Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode($"{Model.Get<ILocalization>().GetText("HELP_INDEX", "SUBTITLE")} &#183; {Model.Get<ILocalization>().GetText("HELP_INDEX", "SEARCHHELPTITLE")}");
-    }
+    Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode($"{Model.Get<ILocalization>().GetText("HELP_INDEX", "SUBTITLE")} &#183; {Model.Get<ILocalization>().GetText("HELP_INDEX", HelpModel.TitleTag(Request.RouteValues["faq"]?.ToString()))}").ToString();
 }
 
 <div class="container-fluid">

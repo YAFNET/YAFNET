@@ -73,7 +73,7 @@ public static class AdminMenuHtmlHelper
 
         // Admin - Settings Menu
         if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
-                x => x.PageName is "Admin_BoardAnnouncement" or "Admin_Settings" or "Admin_Forums" or "Admin_ReplaceWords" or "Admin_BBCodes" or "Admin_Languages"))
+                x => x.PageName is "Admin_BoardAnnouncement" or "Admin_Settings" or "Admin_Forums" or "Admin_ReplaceWords" or "Admin_BBCodes"))
         {
             content.AppendHtml(RenderAdminSettings(pagesAccess, context));
         }
@@ -114,14 +114,17 @@ public static class AdminMenuHtmlHelper
 
 #if DEBUG
         // Admin Admin
-        content.AppendHtml(
-            RenderMenuItem(
-                "dropdown-item",
-                "Test Generator",
-                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_TestData),
-                context.CurrentForumPage.PageName == ForumPages.Admin_TestData,
-                false,
-                "vial-virus"));
+        if (context.PageUser.UserFlags.IsHostAdmin)
+        {
+            content.AppendHtml(
+                RenderMenuItem(
+                    "dropdown-item",
+                    "Test Generator",
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_TestData),
+                    context.CurrentForumPage.PageName == ForumPages.Admin_TestData,
+                    false,
+                    "vial-virus"));
+        }
 #endif
 
         return content;
@@ -293,8 +296,8 @@ public static class AdminMenuHtmlHelper
                     "plug"));
         }
 
-        // Admin Languages
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Languages"))
+        // Admin Languages (host admin only, the language files are used by all boards)
+        if (context.PageUser.UserFlags.IsHostAdmin)
         {
             list.InnerHtml.AppendHtml(
                 RenderMenuItem(
@@ -710,8 +713,8 @@ public static class AdminMenuHtmlHelper
                     "book"));
         }
 
-        // Admin RestartApp
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_RestartApp"))
+        // Admin RestartApp (host admin only, it stops the application of all boards)
+        if (context.PageUser.UserFlags.IsHostAdmin)
         {
             list.InnerHtml.AppendHtml(
                 RenderMenuItem(

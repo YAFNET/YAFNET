@@ -1,4 +1,4 @@
-@page "{copy:bool}/{fa:?}/{handler?}"
+@page "{copy:bool}/{fa:int?}/{handler?}"
 @using YAF.Types.Constants
 @using YAF.Types.Interfaces
 @using YAF.Types.Extensions
@@ -90,7 +90,7 @@
                         <div class="mb-3 col-md-4">
                             <input type="hidden" asp-for="AccessList[index].GroupID" value="@Model.AccessList[index].GroupID" />
                             <label asp-for="AccessList[index].AccessMaskID">
-                                @Html.Raw(Model.AccessList[index].GroupName)
+                                @Model.AccessList[index].GroupName
                             </label>
                             <select asp-for="AccessList[index].AccessMaskID"
                                     asp-items="Model.AccessMaskList"
@@ -116,7 +116,7 @@
                                localized-tag="SORT_ORDER" localized-page="ADMIN_EDITFORUM"></label>
                         <input type="number" asp-for="Input.SortOrder"
                                class="form-control"
-                               data-min="0" min="1"/>
+                               data-min="0" min="0"/>
                     </div>
                     <div class="mb-3 col-md-6">
                         <label class="form-label" info-button="true"
@@ -224,7 +224,9 @@
             <div class="card-footer text-center">
                 <button class="me-2"
                         asp-page-handler="Save"
-                        asp-route-fa="Model.Re"
+                        asp-route-copy="@Model.Input.Copy"
+                        @* the route needs a forum id before the handler (0 = new forum) *@
+                        asp-route-fa="@Model.Input.Id"
                         button-style="Primary"
                         Icon="save" 
                         text-localized-tag="SAVE">

@@ -90,8 +90,16 @@ public class BoardAnnouncementModel : AdminPage
     {
         var boardAnnouncementUntil = DateTime.Now;
 
-        // number inserted by suspending user
-        var count = this.Input.BoardAnnouncementUntil;
+        // number inserted by the admin (at least 1, at most 100 years, a huge value would fail)
+        var count = Math.Clamp(
+            this.Input.BoardAnnouncementUntil,
+            1,
+            this.Input.BoardAnnouncementUntilUnit switch
+            {
+                2 => 36500 * 24,
+                3 => 1200,
+                _ => 36500
+            });
 
         // what time units are used for suspending
         boardAnnouncementUntil = this.Input.BoardAnnouncementUntilUnit switch

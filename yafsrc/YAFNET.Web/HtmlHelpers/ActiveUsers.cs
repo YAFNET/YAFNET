@@ -90,7 +90,8 @@ public static class ActiveUsersHtmlHelper
                             user.UserID,
                             context.BoardSettings.EnableDisplayName ? user.UserDisplayName : user.UserName,
                             user.Suspended,
-                            user.UserStyle);
+                            user.UserStyle,
+                            isGuest: user.IsGuest);
                     }
 
                     // how many users of this type is present (valid for guests, others have it 1)

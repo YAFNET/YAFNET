@@ -80,6 +80,8 @@ public class DigestModel : AdminPage
         this.PageBoardContext.BoardSettings.ForceDigestSend = true;
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
+        this.BindData();
+
         return this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
     }
 

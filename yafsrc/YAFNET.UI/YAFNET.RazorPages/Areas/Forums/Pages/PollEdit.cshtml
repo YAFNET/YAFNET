@@ -6,6 +6,10 @@
 <div class="row">
     <div class="col">
         <form method="post">
+            @if (Model.TopicUnapproved)
+            {
+                <input type="hidden" name="ra" value="1" />
+            }
             <div class="card mb-3">
                 <div class="card-header">
                     @Html.IconHeader("poll-h", "POLLEDIT", Model.PollId.HasValue ? "EDITPOLL" : "CREATEPOLL")
@@ -20,7 +24,7 @@
                     @if ((Model.PageBoardContext.IsAdmin || Model.PageBoardContext.BoardSettings.AllowUsersImagedPoll) && Model.PageBoardContext.ForumPollAccess)
                     {
                         <div class="mb-3">
-                            <label asp-for="Input.QuestionObjectPath" localized-page="EDIT_PROFILE" localized-tag="POLLIMAGE_TEXT" class="form-label">
+                            <label asp-for="Input.QuestionObjectPath" localized-page="POLLEDIT" localized-tag="POLLIMAGE_TEXT" class="form-label">
                             </label>
                             <input asp-for="Input.QuestionObjectPath" class="form-control" />
                         </div>

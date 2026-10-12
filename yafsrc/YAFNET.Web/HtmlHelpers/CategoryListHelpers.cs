@@ -196,7 +196,7 @@ public static class CategoryListHelpers
             else
             {
                 // no access to this forum
-                content.AppendHtml($"{item.Forum} {BoardContext.Current.Get<ILocalization>().GetText("NO_FORUM_ACCESS")}");
+                content.AppendHtml($"{htmlHelper.HtmlEncode(item.Forum)} {BoardContext.Current.Get<ILocalization>().GetText("NO_FORUM_ACCESS")}");
             }
 
             return content;
@@ -227,6 +227,8 @@ public static class CategoryListHelpers
                 row =>
                 {
                     var listItem = new TagBuilder(HtmlTag.Li);
+
+                    listItem.AddCssClass("mb-2");
 
                     var userLink = htmlHelper.UserLink(
                         row.ModeratorID,
@@ -287,7 +289,7 @@ public static class CategoryListHelpers
             else
             {
                 // no access to this forum
-                content.AppendHtml($"{item.Forum} {BoardContext.Current.Get<ILocalization>().GetText("NO_FORUM_ACCESS")}");
+                content.AppendHtml($"{htmlHelper.HtmlEncode(item.Forum)} {BoardContext.Current.Get<ILocalization>().GetText("NO_FORUM_ACCESS")}");
             }
 
             return content;

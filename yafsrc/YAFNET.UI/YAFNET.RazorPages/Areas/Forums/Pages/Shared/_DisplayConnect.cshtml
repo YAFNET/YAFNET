@@ -13,7 +13,7 @@
                class="alert-link"
                bs-toggle="ajax-modal"
                bs-target-url="@Url.Action("ShowModal", "LoginBox", null)">
-                @Html.LocalizedTextFormatted("LOGIN_CONNECT", Current.BoardSettings.Name)
+                @Html.LocalizedTextFormatted("LOGIN_CONNECT", Html.Encode(Current.BoardSettings.Name))
             </a>
 
             @if (!Current.BoardSettings.DisableRegistrations)

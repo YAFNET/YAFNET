@@ -170,14 +170,14 @@
 
 				    if (Model.Input.CustomProfile[i].Required)
 				    {
-					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@Model.Input.CustomProfile[i].Length" required="required" pattern="\S(.*\S)?" />
+					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@(Model.Input.CustomProfile[i].Length > 0 ? Model.Input.CustomProfile[i].Length : null)" required="required" pattern="\S(.*\S)?" />
 					    <div class="invalid-feedback">
-						    @Html.LocalizedTextFormatted("NEED_CUSTOM", Model.Input.CustomProfile[i].Name)
+						    @Html.LocalizedTextFormatted("NEED_CUSTOM", Html.Encode(Model.Input.CustomProfile[i].Name))
 					    </div>
 				    }
 				    else
 				    {
-                                                <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@Model.Input.CustomProfile[i].Length" />
+                                                <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@(Model.Input.CustomProfile[i].Length > 0 ? Model.Input.CustomProfile[i].Length : null)" />
 				    }
 
 				    break;
@@ -188,14 +188,14 @@
 
 				    if (Model.Input.CustomProfile[i].Required)
 				    {
-					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@Model.Input.CustomProfile[i].Length" required="required" type="number" />
+					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@(Model.Input.CustomProfile[i].Length > 0 ? Model.Input.CustomProfile[i].Length : null)" required="required" type="number" />
 					    <div class="invalid-feedback">
-						    @Html.LocalizedTextFormatted("NEED_CUSTOM", Model.Input.CustomProfile[i].Name)
+						    @Html.LocalizedTextFormatted("NEED_CUSTOM", Html.Encode(Model.Input.CustomProfile[i].Name))
 					    </div>
 				    }
 				    else
 				    {
-					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@Model.Input.CustomProfile[i].Length" type="number" />
+					    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@(Model.Input.CustomProfile[i].Length > 0 ? Model.Input.CustomProfile[i].Length : null)" type="number" />
 				    }
 
 			    }

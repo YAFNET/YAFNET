@@ -144,6 +144,10 @@ public class MyAccountModel : ForumPageRegistered
         bool givenThanks,
         bool becomeFriends)
     {
+        // the values come from the client (the page offers at most 50 entries)
+        page = Math.Max(page, 0);
+        size = Math.Clamp(size, 1, 100);
+
         var stream = this.GetFilteredStream(createdTopic, createdReply, givenThanks, becomeFriends);
 
         var paged = stream.Skip(page * size).Take(size).ToList();

@@ -439,19 +439,21 @@
 </div>
 
 	@{
-		var indexActive = HttpContext.Request.GetQueryOrRouteValue<int>("p").ToTypeOrDefault(1) - 1;
-		var showingFromActive = Model.ActiveUserList[0].UserCount == 0 ? 0 : indexActive * Model.Size + 1;
-		var showingToActive = Math.Min((indexActive + 1) * Model.Size, Model.ActiveUserList[0].UserCount);
+		// the page comes from the url, a page after the last one has no rows
+		var countActive = Model.ActiveUserList.HasItems() ? Model.ActiveUserList[0].UserCount : 0;
+		var indexActive = Math.Max(HttpContext.Request.GetQueryOrRouteValue<int>("p").ToTypeOrDefault(1) - 1, 0);
+		var showingFromActive = Model.ActiveUserList.HasItems() ? (long)indexActive * Model.Size + 1 : 0;
+		var showingToActive = Model.ActiveUserList.HasItems() ? (long)indexActive * Model.Size + Model.ActiveUserList.Count : 0;
 	}
 <div class="row justify-content-between align-items-center">
 		<div class="col-auto">
 			<p class="text-secondary">
-				@Html.LocalizedTextFormatted("SHOWING_X_TO_X_OF_X", showingFromActive, showingToActive, Model.ActiveUserList[0].UserCount)
+				@Html.LocalizedTextFormatted("SHOWING_X_TO_X_OF_X", showingFromActive, showingToActive, countActive)
 			</p>
 		</div>
 		<div class="col-auto">
 			<pager page-size="@Model.Size"
-			       count="@Model.ActiveUserList.HasItems() ? Model.ActiveUserList[0].UserCount : 0"
+			       count="@countActive"
 			       query-name="p" use-submit="false">
 			</pager>
 		</div>
@@ -631,9 +633,10 @@
 		</div>
 	</div>
 	@{
-		var indexUnverified = HttpContext.Request.GetQueryOrRouteValue<int>("p2").ToTypeOrDefault(1) - 1;
-		var showingFromUnverified = Model.ActiveUserList[0].UserCount == 0 ? 0 : indexUnverified * Model.Size + 1;
-		var showingToUnverified = Math.Min((indexUnverified + 1) * Model.Size, Model.ActiveUserList[0].UserCount);
+		// the unverified users have their own page (p2) and page size
+		var indexUnverified = Math.Max(HttpContext.Request.GetQueryOrRouteValue<int>("p2").ToTypeOrDefault(1) - 1, 0);
+		var showingFromUnverified = !Model.UserList.NullOrEmpty() ? (long)indexUnverified * Model.Input.UnverifiedPageSize + 1 : 0;
+		var showingToUnverified = !Model.UserList.NullOrEmpty() ? (long)indexUnverified * Model.Input.UnverifiedPageSize + Model.UserList.Count : 0;
 	}
 	<div class="row justify-content-between align-items-center">
 		<div class="col-auto">

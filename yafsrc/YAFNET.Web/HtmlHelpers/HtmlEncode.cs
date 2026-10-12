@@ -24,34 +24,50 @@
 
 namespace YAF.Web.HtmlHelpers;
 
+using System.Net;
+
 /// <summary>
 /// The html encode html helper.
 /// </summary>
 public static class HtmlEncodeHtmlHelper
 {
-    /// <summary>
-    /// The html encode.
-    /// </summary>
     /// <param name="htmlHelper">
     /// The html helper.
     /// </param>
-    /// <param name="input">
-    /// The input.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static string HtmlEncode(
-        this IHtmlHelper htmlHelper,
-        object input)
+    extension(IHtmlHelper htmlHelper)
     {
-        if (input is null)
+        /// <summary>
+        /// The html encode.
+        /// </summary>
+        /// <param name="input">
+        /// The input.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent HtmlEncode(object input)
         {
-            return string.Empty;
+            if (input is null)
+            {
+                return HtmlString.Empty;
+            }
+
+            // already encoded html: as a string, Razor would encode it again ("O'Brien" was shown as "O&#39;Brien")
+            return new HtmlString(
+                BoardContext.Current is null
+                    ? new UnicodeEncoder().XSSEncode(input.ToString())
+                    : BoardContext.Current.CurrentForumPage.HtmlEncode(input.ToString()));
         }
 
-        return BoardContext.Current is null
-                   ? new UnicodeEncoder().XSSEncode(input.ToString())
-                   : BoardContext.Current.CurrentForumPage.HtmlEncode(input.ToString());
+        /// <summary>
+        /// A text that is stored html encoded (e.g. album titles and image captions), decoded for the output
+        /// with <c>@</c> - Razor encodes it once, otherwise e.g. "&amp;amp;" is shown instead of "&amp;".
+        /// </summary>
+        /// <param name="storedText">The stored (encoded) text.</param>
+        /// <returns>The decoded text (encode it once for the output).</returns>
+        public string StoredText(string storedText)
+        {
+            return storedText is null ? string.Empty : WebUtility.HtmlDecode(storedText);
+        }
     }
 }

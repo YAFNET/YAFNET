@@ -96,6 +96,7 @@ public static class IPagerExtensions
     /// </returns>
     public static int SkipIndex(this IPager pager)
     {
-        return (int)Math.Ceiling((double)pager.CurrentPageIndex * pager.PageSize);
+        // the page index comes from the url: not negative and no overflow
+        return (int)Math.Clamp((double)pager.CurrentPageIndex * pager.PageSize, 0, int.MaxValue);
     }
 }

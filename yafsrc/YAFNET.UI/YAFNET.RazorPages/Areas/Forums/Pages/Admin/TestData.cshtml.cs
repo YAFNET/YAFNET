@@ -114,6 +114,23 @@ public class TestDataModel : AdminPage
     }
 
     /// <summary>
+    /// The test data generator is only available in debug builds and only for the host admin
+    /// (it creates boards and users, private messages and categories in any board), for all handlers.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+#if RELEASE
+        context.Result = this.Get<ILinkBuilder>().AccessDenied();
+#else
+        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+#endif
+    }
+
+    /// <summary>
     /// Creates page links for this page.
     /// </summary>
     public override void CreatePageLinks()
@@ -195,9 +212,6 @@ public class TestDataModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnGetAsync()
     {
-#if RELEASE
-        return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
-#else
         this.Input = new TestDataInputModel {
                                         UsersBoardsList = this.PageBoardContext.PageBoardID,
                                         CategoriesBoardsList = this.PageBoardContext.PageBoardID,
@@ -211,7 +225,6 @@ public class TestDataModel : AdminPage
         await this.BindDataAsync();
 
         return this.Page();
-#endif
     }
 
     /// <summary>
