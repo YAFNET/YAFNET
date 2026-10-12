@@ -85,6 +85,12 @@ public static class TopicTagRepositoryExtensions
                         return;
                     }
 
+                    // MySQL creates the column with 255 characters
+                    if (tag.Length > 255)
+                    {
+                        tag = tag[..255];
+                    }
+
                     // Filter common words
                     var commonWords = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS")
                         .StringToList(',');

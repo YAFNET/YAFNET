@@ -485,6 +485,42 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A tag longer than its column (MySQL creates it with 255 characters) is cut,
+    /// the topic was created but the user got the error page.
+    /// </summary>
+    [Test]
+    public async Task LongTopicTagIsShortenedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                var tag = $"longtag{Random.Shared.Next()}{new string('t', 300)}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{this.TestSettings.TestForumId}");
+
+                await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Long tag test {Random.Shared.Next()}");
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A topic with a long tag");
+
+                await page.Locator("#Input_TagsValue").EvaluateAsync("(input, tag) => input.value = tag", tag);
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(await page.ContentAsync(), Does.Not.Contain("Forum Error"), "The error page is shown");
+
+                Assert.That(page.Url, Does.Contain("/Post"), "The topic was not created");
+
+                Assert.That(await page.ContentAsync(), Does.Contain(tag[..255]), "The tag of the topic was not saved");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+            });
+    }
+
+    /// <summary>
     /// The users reading a topic are listed ("Users browsing this topic", only shown to admins): the flags of the
     /// user were read as the flags of the visit, an approved user was a guest and the list was not shown.
     /// </summary>
