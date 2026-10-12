@@ -22,7 +22,7 @@
                             <label class="form-label" info-button="true"
                                    asp-for="Input.Name"
                                    localized-tag="BBCODE_NAME" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <input type="text" asp-for="Input.Name"
+                            <input type="text" asp-for="Input.Name" maxlength="255"
                                    required="required"
                                    class="form-control"/>
                             <div class="invalid-feedback">
@@ -47,7 +47,7 @@
                             <label class="form-label" info-button="true"
                                    asp-for="Input.Description"
                                    localized-tag="BBCODE_DESC" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea asp-for="Input.Description" class="form-control"></textarea>
+                            <textarea asp-for="Input.Description" maxlength="4000" class="form-control"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" info-button="true"
@@ -81,7 +81,7 @@
                             <label class="form-label" info-button="true"
                                    asp-for="Input.Variables"
                                    localized-tag="REPLACE_VARIABLES" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea type="text" asp-for="Input.Variables"
+                            <textarea type="text" asp-for="Input.Variables" maxlength="1000"
                                       class="form-control"></textarea>
                         </div>
                         <div class="row">
@@ -98,7 +98,7 @@
                                 <label class="form-label" info-button="true"
                                        asp-for="Input.ModuleClass"
                                        localized-tag="CLASS_NAME" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                                <input type="text" asp-for="Input.ModuleClass"
+                                <input type="text" asp-for="Input.ModuleClass" maxlength="255"
                                        class="form-control" />
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                             <label class="form-label" info-button="true"
                                    asp-for="Input.OnClickJS"
                                    localized-tag="ONCLICK_JS" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea type="text" asp-for="Input.OnClickJS"
+                            <textarea type="text" asp-for="Input.OnClickJS" maxlength="1000"
                                       class="form-control"></textarea>
                         </div>
                         <div class="mb-3">

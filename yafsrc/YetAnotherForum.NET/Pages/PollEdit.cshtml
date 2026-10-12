@@ -18,7 +18,7 @@
                     <div class="mb-3">
                         <label asp-for="Input.Question" localized-tag="pollquestion" class="form-label">
                         </label>
-                        <input asp-for="Input.Question" class="form-control" />
+                        <input asp-for="Input.Question" maxlength="256" class="form-control" />
                     </div>
 
                     @if ((Model.PageBoardContext.IsAdmin || Model.PageBoardContext.BoardSettings.AllowUsersImagedPoll) && Model.PageBoardContext.ForumPollAccess)
@@ -26,7 +26,7 @@
                         <div class="mb-3">
                             <label asp-for="Input.QuestionObjectPath" localized-page="POLLEDIT" localized-tag="POLLIMAGE_TEXT" class="form-label">
                             </label>
-                            <input asp-for="Input.QuestionObjectPath" class="form-control" />
+                            <input asp-for="Input.QuestionObjectPath" maxlength="255" class="form-control" />
                         </div>
                     }
 

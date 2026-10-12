@@ -20,7 +20,7 @@
                         <label class="form-label" info-button="true"
                                asp-for="Input.Name"
                                localized-tag="ROLE_NAME" localized-page="ADMIN_EDITGROUP"></label>
-                        <input type="text" asp-for="Input.Name"
+                        <input type="text" asp-for="Input.Name" maxlength="255"
                                required="required"
                                class="form-control"/>
                         <div class="invalid-feedback">
@@ -31,7 +31,7 @@
                         <label class="form-label" info-button="true"
                                asp-for="Input.Description"
                                localized-tag="DESCRIPTION" localized-page="ADMIN_EDITGROUP"></label>
-                        <input type="text" asp-for="Input.Description"
+                        <input type="text" asp-for="Input.Description" maxlength="128"
                                class="form-control"/>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                     <label class="form-label" info-button="true" 
                            asp-for="Input.UsrSigBBCodes"
                            localized-tag="SIG_BBCODES" localized-page="ADMIN_EDITGROUP"></label>
-                    <input type="text" asp-for="Input.UsrSigBBCodes" 
+                    <input type="text" asp-for="Input.UsrSigBBCodes" maxlength="255" 
                            class="form-control"/>
                 </div>
                 <div class="row">
@@ -139,7 +139,7 @@
                     <label class="form-label" info-button="true" 
                            asp-for="Input.Style"
                            localized-tag="STYLE" localized-page="ADMIN_EDITGROUP"></label>
-                    <textarea  asp-for="Input.Style" 
+                    <textarea  asp-for="Input.Style" maxlength="255" 
                                      class="form-control"></textarea>
                 </div>
                     

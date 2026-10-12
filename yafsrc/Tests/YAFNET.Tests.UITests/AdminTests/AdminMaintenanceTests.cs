@@ -110,6 +110,33 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// A name longer than its column (access mask: 50 characters) is limited by the input,
+    /// saving does not fail on SQL Server, MySQL and PostgreSQL.
+    /// </summary>
+    [Test]
+    public async Task LongAccessMaskNameIsLimitedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditAccessMask");
+
+                var name = $"Long mask {Random.Shared.Next()} ".PadRight(60, 'x');
+
+                await page.Locator("#Input_Name").FillAsync(name);
+                await page.Locator("#Input_SortOrder").FillAsync("9");
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction$='/Save'], button[formaction*='handler=Save']").First);
+
+                Assert.That(page.Url, Does.EndWith("Admin/AccessMasks"), "The access mask was not saved");
+                Assert.That(await page.ContentAsync(), Does.Contain(name[..50]), "The access mask is not listed");
+            });
+    }
+
+    /// <summary>
     /// The sorting tools of the forums page re-order the categories (the board of the tests has one category,
     /// the order of the forums is not changed).
     /// </summary>

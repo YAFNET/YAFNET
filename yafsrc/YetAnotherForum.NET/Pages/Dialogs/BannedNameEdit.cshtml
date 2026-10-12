@@ -21,7 +21,7 @@
                         <label info-button="true" class="form-label"
                                asp-for="Mask"
                                localized-tag="MASK" localized-page="ADMIN_BANNEDNAME_EDIT"></label>
-                        <input asp-for="Mask" class="form-control" required="required" type="text"/>
+                        <input asp-for="Mask" maxlength="255" class="form-control" required="required" type="text"/>
                         <div class="invalid-feedback">
                             @Html.LocalizedText("ADMIN_BANNEDNAME_EDIT","NEED_MASK")
                         </div>

@@ -22,7 +22,7 @@
                         <label info-button="true" class="form-label"
                                        asp-for="SpamWord"
                                        localized-tag="BAD" localized-page="ADMIN_SPAMWORDS_EDIT"></label>
-                        <input type="text" asp-for="SpamWord"
+                        <input type="text" asp-for="SpamWord" maxlength="255"
                                class="form-control"
                                required="required"
                                height="100"/>

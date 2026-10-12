@@ -18,7 +18,7 @@
                             <label class="form-label" info-button="true"
                                    asp-for="Input.Name"
                                    localized-tag="RANK_NAME" localized-page="ADMIN_EDITRANK"></label>
-                            <input type="text" asp-for="Input.Name"
+                            <input type="text" asp-for="Input.Name" maxlength="50"
                                    class="form-control"
                                    required="required" />
                             <div class="invalid-feedback">
@@ -29,7 +29,7 @@
                             <label class="form-label" info-button="true"
                                    asp-for="Input.Description"
                                    localized-tag="RANK_DESC" localized-page="ADMIN_EDITRANK"></label>
-                            <input type="text" asp-for="Input.Description"
+                            <input type="text" asp-for="Input.Description" maxlength="128"
                                    class="form-control" />
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                         <label class="form-label" info-button="true"
                                asp-for="Input.Style"
                                localized-tag="RANK_STYLE" localized-page="ADMIN_EDITRANK"></label>
-                        <textarea asp-for="Input.Style"
+                        <textarea asp-for="Input.Style" maxlength="255"
                                   class="form-control"></textarea>
                     </div>
                 </div>

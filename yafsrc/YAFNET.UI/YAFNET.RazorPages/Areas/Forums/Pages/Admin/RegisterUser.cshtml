@@ -18,14 +18,14 @@
                             <label asp-for="Input.UserName" class="form-label"
                                    localized-page="REGISTER" localized-tag="USERNAME">
                             </label>
-                            <input type="text" class="form-control" asp-for="Input.UserName" />
+                            <input type="text" class="form-control" asp-for="Input.UserName" maxlength="50" />
                             <span asp-validation-for="Input.UserName" class="text-danger">User Name is required</span>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label asp-for="Input.Email" class="form-label"
                                    localized-page="REGISTER" localized-tag="EMAIL">
                             </label>
-                            <input type="email" asp-for="Input.Email" class="form-control" />
+                            <input type="email" asp-for="Input.Email" maxlength="100" class="form-control" />
                             <span asp-validation-for="Input.Email" class="text-danger">Email address is required.</span>
                         </div>
                     </div>

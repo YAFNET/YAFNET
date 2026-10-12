@@ -16,7 +16,7 @@
 			            <label class="form-label" info-button="true" 
 			                   asp-for="Input.Name"
 			                   localized-tag="BOARD_NAME" localized-page="ADMIN_BOARDSETTINGS"></label>
-			            <input type="text" asp-for="Input.Name" required="required" 
+			            <input type="text" asp-for="Input.Name" maxlength="50" required="required" 
 			                   class="form-control" />
 			            <div class="invalid-feedback">
 				            @Html.LocalizedText("MSG_NAME_BOARD")

@@ -45,7 +45,7 @@
                         <label asp-for="Input.TopicSubject" class="form-label" localized-tag="new_topic">
                             @Html.LocalizedText("new_topic")
                         </label>
-                        <input type="text" asp-for="Input.TopicSubject" class="form-control" />
+                        <input type="text" asp-for="Input.TopicSubject" maxlength="100" class="form-control" />
                     </div>
                 </div>
                 <div class="card-footer text-center">

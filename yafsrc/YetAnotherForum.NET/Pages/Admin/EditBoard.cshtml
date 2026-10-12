@@ -18,7 +18,7 @@
 			                <label class="form-label" info-button="true"
 			                       asp-for="Input.Name"
 			                       localized-tag="NAME" localized-page="ADMIN_EDITBOARD"></label>
-			                <input type="text" asp-for="Input.Name"
+			                <input type="text" asp-for="Input.Name" maxlength="50"
 			                       required="required"
 			                       class="form-control"/>
 			                <div class="invalid-feedback">
@@ -67,7 +67,7 @@
                                 <label class="form-label" info-button="true"
                                    asp-for="Input.UserName"
                                    localized-tag="USER_NAME" localized-page="ADMIN_EDITBOARD"></label>
-                                <input type="text" asp-for="Input.UserName"
+                                <input type="text" asp-for="Input.UserName" maxlength="50"
                                    required="required"
                                    class="form-control" />
                                 <div class="invalid-feedback">
@@ -78,7 +78,7 @@
                                 <label class="form-label" info-button="true"
                                    asp-for="Input.UserEmail"
                                    localized-tag="USER_MAIL" localized-page="ADMIN_EDITBOARD"></label>
-                                <input type="email" asp-for="Input.UserEmail"
+                                <input type="email" asp-for="Input.UserEmail" maxlength="100"
                                    required="required"
                                    class="form-control" />
                                 <div class="invalid-feedback">

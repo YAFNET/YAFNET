@@ -28,7 +28,7 @@
                         <label class="form-label" info-button="true"
                                asp-for="Input.Name"
                                localized-tag="NAME" localized-page="ADMIN_EDITFORUM"></label>
-                        <input type="text" asp-for="Input.Name"
+                        <input type="text" asp-for="Input.Name" maxlength="50"
                                required="required"
                                class="form-control"/>
                         <div class="invalid-feedback">
@@ -39,7 +39,7 @@
                         <label class="form-label" info-button="true"
                                asp-for="Input.Description"
                                localized-tag="DESCRIPTION" localized-page="ADMIN_EDITFORUM"></label>
-                        <input type="text" asp-for="Input.Description"
+                        <input type="text" asp-for="Input.Description" maxlength="255"
                                class="form-control"
                                required="required"/>
                         <div class="invalid-feedback">
@@ -106,7 +106,7 @@
                            asp-for="Input.RemoteURL"
                            localized-tag="REMOTE_URL" localized-page="ADMIN_EDITFORUM"></label>
 
-                    <input type="text" asp-for="Input.RemoteURL"
+                    <input type="text" asp-for="Input.RemoteURL" maxlength="100"
                            class="form-control"/>
                 </div>
                 <div class="row">
@@ -218,7 +218,7 @@
                     <label class="form-label" info-button="true"
                            asp-for="Input.Styles"
                            localized-tag="STYLES" localized-page="ADMIN_EDITFORUM"></label>
-                    <input type="text" asp-for="Input.Styles" class="form-control"/>
+                    <input type="text" asp-for="Input.Styles" maxlength="255" class="form-control"/>
                 </div>
             </div>
             <div class="card-footer text-center">
