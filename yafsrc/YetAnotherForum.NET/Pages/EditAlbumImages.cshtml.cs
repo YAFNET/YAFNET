@@ -234,7 +234,8 @@ public class EditAlbumImagesModel : ForumPageRegistered
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        this.AlbumTitle = HttpUtility.HtmlEncode(this.AlbumTitle);
+        // stored html encoded, it has to fit into the column
+        this.AlbumTitle = this.AlbumTitle.EncodeToLength(HttpUtility.HtmlEncode, 255);
 
         this.GetRepository<UserAlbum>().UpdateTitle(
             albumId,
@@ -426,9 +427,10 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 return null;
             }
 
+            // the title is stored html encoded (like a changed title)
             albumId = this.GetRepository<UserAlbum>().Save(
                 this.PageBoardContext.PageUserID,
-                this.AlbumTitle,
+                this.AlbumTitle.EncodeToLength(HttpUtility.HtmlEncode, 255),
             null);
         }
 

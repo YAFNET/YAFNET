@@ -276,7 +276,7 @@ public class EditMessageModel : ForumPage
             string.Empty,
             stylesSave,
             subjectSave,
-            this.HtmlEncode(this.Input.ReasonEditor),
+            this.Input.ReasonEditor.EncodeToLength(this.HtmlEncode, 100),
             isModeratorChanged,
             this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess,
             this.PageBoardContext.PageTopic,

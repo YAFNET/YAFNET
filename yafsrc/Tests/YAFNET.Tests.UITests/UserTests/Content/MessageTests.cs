@@ -838,4 +838,62 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     "The post of the locked topic was deleted");
             });
     }
+
+    /// <summary>
+    /// An edit reason with characters that are html encoded (apostrophes, umlauts) is saved: the encoded
+    /// reason was longer than the column (100) and the edit failed, except on Sqlite.
+    /// </summary>
+    [Test]
+    [Description("Edit reason with special characters up to the maximum length")]
+    public async Task EditReasonWithSpecialCharactersTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var id = Guid.NewGuid().ToString("N")[..8];
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                Assert.That(await page.CreateNewTestTopicAsync(this.TestSettings), Is.True, "Topic Creating failed");
+
+                var editLink = await page.Locator("a[href*='EditMessage']").First.GetAttributeAsync("href");
+
+                Assert.That(editLink, Is.Not.Null, "The edit link is missing");
+
+                // 100 characters (the length of the field), 150 html encoded
+                var reason = $"Edit {id} {string.Concat(System.Linq.Enumerable.Repeat("it's ", 17))}".PadRight(100, 'x')[..100];
+
+                await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), editLink).ToString());
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"Edited {id}");
+                await page.Locator("#Input_ReasonEditor").FillAsync(reason);
+
+                var response = await page.RunAndWaitForResponseAsync(
+                                   () => page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync(),
+                                   r => r.Request.Method == "POST");
+
+                await page.WaitForLoadStateAsync(LoadState.Load);
+
+                Assert.That(response.Status, Is.LessThan(500), "Saving the edit failed");
+
+                Assert.That(await page.Locator("body").InnerTextAsync(), Does.Contain($"Edited {id}"), "The edit was not saved");
+
+                // the reason is shown in the history of the message
+                var messageId = System.Text.RegularExpressions.Regex.Match(editLink, @"(\d+)\D*$").Groups[1].Value;
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}MessageHistory?m={messageId}");
+
+                Assert.That(
+                    await page.Locator("body").InnerTextAsync(),
+                    Does.Contain($"Edit {id} it"),
+                    "The edit reason was not saved");
+            });
+    }
 }

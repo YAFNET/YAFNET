@@ -186,7 +186,7 @@ public class DeleteMessageModel : ForumPage
             this.PageBoardContext.PageMessage.TopicID,
             this.PageBoardContext.PageMessage,
             this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID,
-            HttpUtility.HtmlEncode(this.ReasonEditor),
+            this.ReasonEditor.EncodeToLength(HttpUtility.HtmlEncode, 100),
             this.DeleteAllPosts && isModerator,
             this.EraseMessage && this.PageBoardContext.IsAdmin);
 

@@ -172,6 +172,44 @@ public static class StringExtensions
             var r = new Regex(@"\s+", RegexOptions.None, Constants.Constants.RegexTimeout);
             return r.Replace(str, " ");
         }
+
+        /// <summary>
+        /// Encodes the text for a database column of the given length: the text is shortened until the
+        /// encoded text fits (an encoded character can be longer than the character, e.g. "&amp;" or "&#252;").
+        /// </summary>
+        /// <param name="encode">The encode function (e.g. html encode).</param>
+        /// <param name="maxLength">The length of the column.</param>
+        /// <returns>
+        /// The encoded text, <see langword="null" /> for <see langword="null" />.
+        /// </returns>
+        public string EncodeToLength(Func<string, string> encode, int maxLength)
+        {
+            if (str is null)
+            {
+                return null;
+            }
+
+            // the encoded text is never shorter than the text
+            var text = str.Length > maxLength ? str[..maxLength] : str;
+
+            if (text.Length < str.Length && char.IsHighSurrogate(text[^1]))
+            {
+                text = text[..^1];
+            }
+
+            var encoded = encode(text);
+
+            while (encoded.Length > maxLength)
+            {
+                // don't split a surrogate pair (e.g. an emoji)
+                var cut = text.Length > 1 && char.IsLowSurrogate(text[^1]) ? 2 : 1;
+
+                text = text[..^cut];
+                encoded = encode(text);
+            }
+
+            return encoded;
+        }
     }
 
     /// <summary>

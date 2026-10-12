@@ -50,7 +50,8 @@ public class AlbumController : ForumBaseController
     [HttpPost("ChangeAlbumTitle")]
     public IActionResult ChangeAlbumTitle([FromForm] int id, [FromForm] string value)
     {
-        var newCaption = HttpUtility.HtmlEncode(value).Trim();
+        // stored html encoded, it has to fit into the column
+        var newCaption = (value ?? string.Empty).Trim().EncodeToLength(HttpUtility.HtmlEncode, 255);
 
         if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE")))
         {
@@ -68,7 +69,8 @@ public class AlbumController : ForumBaseController
     [HttpPost("ChangeImageCaption")]
     public IActionResult ChangeImageCaption([FromForm] int id, [FromForm] string value)
     {
-        var newCaption = HttpUtility.HtmlEncode(value).Trim();
+        // stored html encoded, it has to fit into the column
+        var newCaption = (value ?? string.Empty).Trim().EncodeToLength(HttpUtility.HtmlEncode, 255);
 
         if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION"))
             || newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION2")))

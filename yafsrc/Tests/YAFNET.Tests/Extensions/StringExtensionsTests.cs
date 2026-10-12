@@ -241,4 +241,38 @@ public class StringExtensionsTests
     {
         input.AppendTrailingSlash().Should().Be(expected);
     }
+
+    [TestCase("Tom & Jerry", 100, "Tom &amp; Jerry")]
+    [TestCase("abc", 3, "abc")]
+    [TestCase("abcdef", 3, "abc")]
+    [TestCase("ab&", 6, "ab")]
+    [TestCase("ab&", 7, "ab&amp;")]
+    [TestCase("Änderung", 8, "&#196;nd")]
+    [TestCase("", 10, "")]
+    [Description("EncodeToLength shortens the text until the encoded text fits into the length")]
+    public void EncodeToLength_Test(string input, int maxLength, string expected)
+    {
+        input.EncodeToLength(System.Net.WebUtility.HtmlEncode, maxLength).Should().Be(expected);
+    }
+
+    [Test]
+    [Description("EncodeToLength keeps null")]
+    public void EncodeToLength_Null_Test()
+    {
+        ((string)null).EncodeToLength(System.Net.WebUtility.HtmlEncode, 10).Should().BeNull();
+    }
+
+    [Test]
+    [Description("EncodeToLength never splits a surrogate pair (emoji) and handles long texts")]
+    public void EncodeToLength_Surrogates_And_Long_Text_Test()
+    {
+        // "a" + emoji (2 chars): a cut at 2 would leave a lone high surrogate
+        "a\U0001F600b".EncodeToLength(s => s, 2).Should().Be("a");
+
+        var encoded = string.Concat(Enumerable.Repeat("Tom's \"best\" & <worst> ", 2000))
+            .EncodeToLength(System.Net.WebUtility.HtmlEncode, 255);
+
+        encoded.Length.Should().BeLessThanOrEqualTo(255);
+        System.Net.WebUtility.HtmlDecode(encoded).Should().StartWith("Tom's \"best\" & <worst> Tom's");
+    }
 }

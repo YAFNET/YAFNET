@@ -685,4 +685,70 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     }
                 });
     }
+
+    /// <summary>
+    /// A long image caption with special characters is saved (it is stored html encoded, the encoded text
+    /// was longer than the column and the database refused it, except Sqlite).
+    /// </summary>
+    [Test, DependsOnTest(nameof(AddNewUserAlbumTest))]
+    public async Task LongImageCaptionWithSpecialCharactersTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(
+                            this.TestSettings,
+                            this.TestSettings.TestUserName,
+                            this.TestSettings.TestUserPassword), Is.True,
+                        "Login failed");
+
+                    // an own album (the other tests delete albums)
+                    var albumTitle = $"Caption album {Random.Shared.Next()}";
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditAlbumImages/new");
+                    await page.Locator("#AlbumTitle").FillAsync(albumTitle);
+                    await page.Locator("#ImageFiles").SetInputFilesAsync(Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png"));
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Back')]"));
+
+                    // "Back" shows the new album
+                    var albumUrl = page.Url;
+                    var albumId = Regex.Match(albumUrl, @"/Album/\d+/(\d+)").Groups[1].Value;
+
+                    Assert.That(albumId, Is.Not.Empty, $"The album was not created ({albumUrl})");
+
+                    // 237 characters, 301 html encoded
+                    var caption = $"Caption {Guid.NewGuid():N} {string.Concat(Enumerable.Repeat("Tom & Jerry ", 16))}".Trim();
+
+                    await page.Locator(".dark-editable-element").First.ClickAsync();
+
+                    var captionTextBox = page.GetByRole(AriaRole.Textbox);
+
+                    await captionTextBox.FillAsync(caption);
+
+                    var response = await page.RunAndWaitForResponseAsync(
+                                       () => captionTextBox.PressAsync("Enter"),
+                                       r => r.Url.Contains("ChangeImageCaption"));
+
+                    Assert.That(response.Status, Is.EqualTo(200), "Saving the caption failed");
+
+                    await page.GotoAsync(albumUrl);
+
+                    var shown = (await page.Locator(".album-image-caption").First.InnerTextAsync()).Trim();
+
+                    Assert.That(shown, Does.StartWith($"Caption "), "The caption was not saved");
+                    Assert.That(caption, Does.StartWith(shown), "The caption is not shown as entered");
+                    Assert.That(
+                        System.Net.WebUtility.HtmlEncode(shown).Length,
+                        Is.LessThanOrEqualTo(255),
+                        "The stored caption is longer than the column");
+
+                    // remove the album again (album limit)
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditAlbumImages/{albumId}");
+                    await page.GetByText("Delete Album").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator(".btn-success"));
+                });
+    }
 }
