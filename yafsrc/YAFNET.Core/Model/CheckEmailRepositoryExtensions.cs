@@ -27,6 +27,8 @@ using System.Threading.Tasks;
 namespace YAF.Core.Model;
 
 using System;
+using System.Security.Cryptography;
+using System.Text;
 
 using YAF.Types.Models;
 
@@ -41,42 +43,61 @@ public static class CheckEmailRepositoryExtensions
     extension(IRepository<CheckEmail> repository)
     {
         /// <summary>
-        /// The save.
+        /// Saves the key of a verification link. Only a hash of the key is stored: the keys (identity tokens)
+        /// are longer than the column, and the stored value can't be used as a link.
         /// </summary>
         /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="hash">
-        /// The hash.
+        /// <param name="key">
+        /// The key of the link.
         /// </param>
         /// <param name="email">
         /// The email.
         /// </param>
         public Task SaveAsync(int userId,
-            string hash,
+            string key,
             string email)
         {
             return repository.InsertAsync(
                 new CheckEmail
                 {
-                    UserID = userId, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
+                    UserID = userId, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = HashKey(key)
                 });
         }
 
         /// <summary>
         /// Very confusingly named function that finds a user record with associated check email and returns a user if it's found.
         /// </summary>
-        /// <param name="hash">
-        /// The hash.
+        /// <param name="key">
+        /// The key of the link.
         /// </param>
         /// <returns>
         /// The <see cref="CheckEmail"/>.
         /// </returns>
-        public async Task<CheckEmail> UpdateAsync(string hash)
+        public async Task<CheckEmail> UpdateAsync(string key)
         {
-            var mail = await repository.GetSingleAsync(c => c.Hash == hash);
+            if (key.IsNotSet())
+            {
+                return null;
+            }
+
+            var hash = HashKey(key);
+
+            // links sent before the update contain the stored key itself
+            var mail = await repository.GetSingleAsync(c => c.Hash == hash || c.Hash == key);
 
             return mail;
         }
+    }
+
+    /// <summary>
+    /// The stored hash of a verification key (hex SHA-256, 64 characters).
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <returns>The hash.</returns>
+    public static string HashKey(string key)
+    {
+        return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(key)));
     }
 }

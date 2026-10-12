@@ -292,4 +292,66 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                     action));
         }
     }
+
+    /// <summary>
+    /// The admin sends the verification mail of a not approved account again (admin dashboard), the link of
+    /// the new mail approves the account (the link contained the stored key, which is a hash now).
+    /// </summary>
+    [Test]
+    public async Task AdminResendsVerificationMailTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = $"TempUser{Random.Shared.Next()}";
+                    var email = $"{userName.ToLower()}@test.com";
+
+                    // register, but don't open the verification link
+                    Assert.That(
+                        await page.SubmitRegistrationAsync(
+                            this.TestSettings,
+                            userName,
+                            email,
+                            this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "Registrations are disabled");
+
+                    Assert.That(
+                        await this.Fixture.SmtpServer.WaitForEmailLinkAsync(email),
+                        Is.Not.Null,
+                        "The verification mail was not sent");
+
+                    // nobody is logged in after the registration
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Admin");
+
+                    var resendButton = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = email })
+                        .Locator("button[formaction*='ResendEmail']").First;
+
+                    Assert.That(await resendButton.CountAsync(), Is.EqualTo(1), "The account is not listed as not approved");
+
+                    this.Fixture.SmtpServer.ClearReceivedEmail();
+
+                    await page.RunAndWaitForNextPageAsync(() => resendButton.EvaluateAsync("b => b.click()"));
+
+                    var confirmLink = await this.Fixture.SmtpServer.WaitForEmailLinkAsync(email);
+
+                    Assert.That(confirmLink, Is.Not.Null, "The verification mail was not sent again");
+
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    // the link approves the account and logs the user in
+                    await page.GotoAsync(confirmLink);
+                    await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                    Assert.That(
+                        await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(), Is.True,
+                        "Verifying the account with the resent link failed");
+                });
+    }
 }

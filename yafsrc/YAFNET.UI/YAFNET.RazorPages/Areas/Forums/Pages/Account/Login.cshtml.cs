@@ -251,8 +251,9 @@ public class LoginModel : AccountPage
         }
 
         var checkMail = await this.GetRepository<CheckEmail>().GetSingleAsync(mail => mail.Email == this.Email);
+        var user = checkMail is null ? null : await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(checkMail.Email);
 
-        if (checkMail is null)
+        if (user is null)
         {
             this.ShowNotApproved = false;
             this.Email = null;
@@ -260,20 +261,10 @@ public class LoginModel : AccountPage
             return this.Page();
         }
 
-        var verifyEmail = new TemplateEmail("VERIFYEMAIL");
+        // a new link (only a hash of the key is stored), the old link is no longer valid
+        await this.GetRepository<CheckEmail>().DeleteAsync(c => c.UserID == checkMail.UserID);
 
-        var subject = this.Get<ILocalization>().GetTextFormatted(
-            "VERIFICATION_EMAIL_SUBJECT",
-            this.PageBoardContext.BoardSettings.Name);
-
-        verifyEmail.TemplateParams["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
-            ForumPages.Account_Approve,
-            new { code = checkMail.Hash });
-        verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-        verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
-        verifyEmail.TemplateParams["{forumlink}"] = this.Get<ILinkBuilder>().ForumUrl;
-
-        await verifyEmail.SendEmailAsync(new MailboxAddress(checkMail.Email, checkMail.Email), subject);
+        await this.Get<ISendNotification>().SendVerificationEmailAsync(user, checkMail.Email, checkMail.UserID);
 
         return this.PageBoardContext.Notify(this.GetText("LOGIN", "MSG_MESSAGE_SEND"), MessageTypes.success);
     }

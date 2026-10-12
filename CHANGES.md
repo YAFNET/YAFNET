@@ -399,6 +399,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Delete post: a member could open the delete page of the own post of a locked topic (or after the lock period), deleting then just showed the page again without the post; the page and its handlers are denied now with the same rules as the delete and restore buttons of the post
 * [FIXED] Admin -> Groups: the guest group could be deleted with a manipulated form (the list has no delete button for it)
 * [FIXED] Admin -> Digest: after "Force Digest Send" the "Last Digest Send" field was empty until the page was opened again
+* [FIXED] Registration and e-mail change failed with an error on SQL Server, MySQL and PostgreSQL (not on Sqlite): the key of the verification link (an identity token, longer since it contains the security stamp of the user) was stored in a column of 255 characters. Only a hash of the key is stored now (links sent before the update still work); "resend the verification mail" (login page and admin dashboard) sends a new link, on the admin dashboard it could send the mail of another user whose name contains the name of the not approved user
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

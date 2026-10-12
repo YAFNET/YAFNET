@@ -125,40 +125,21 @@ public class AdminModel : AdminPage
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        var checkMail = await this.GetRepository<CheckEmail>()
-            .GetSingleAsync(mail => mail.Email == userUnApproved.Email);
+        var user = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userUnApproved.Name);
 
-        if (checkMail != null)
+        if (user is null)
         {
-            var verifyEmail = new TemplateEmail("VERIFYEMAIL");
-
-            var subject = this.Get<ILocalization>().GetTextFormatted(
-                "VERIFICATION_EMAIL_SUBJECT",
-                this.PageBoardContext.BoardSettings.Name);
-
-            verifyEmail.TemplateParams["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
-                ForumPages.Account_Approve,
-                new {code = checkMail.Hash});
-            verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-            verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
-            verifyEmail.TemplateParams["{forumlink}"] = this.Get<ILinkBuilder>().ForumUrl;
-
-            await verifyEmail.SendEmailAsync(new MailboxAddress(userUnApproved.DisplayOrUserName(), checkMail.Email), subject);
-
-            await this.BindDataAsync(p, p2);
-
-            return this.PageBoardContext.Notify(this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"), MessageTypes.success);
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        var userFound = this.Get<IUserDisplayName>().FindUserContainsName(userUnApproved.Name).FirstOrDefault();
+        // a new link (only a hash of the key is stored), the old link is no longer valid
+        await this.GetRepository<CheckEmail>().DeleteAsync(c => c.UserID == userUnApproved.ID);
 
-        var user = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userFound!.Name);
-
-        await this.Get<ISendNotification>().SendVerificationEmailAsync(user, userUnApproved.Email, userFound.ID);
+        await this.Get<ISendNotification>().SendVerificationEmailAsync(user, userUnApproved.Email, userUnApproved.ID);
 
         await this.BindDataAsync(p, p2);
 
-        return this.Page();
+        return this.PageBoardContext.Notify(this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"), MessageTypes.success);
     }
 
     /// <summary>

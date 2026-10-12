@@ -530,7 +530,7 @@ public class SendNotificationTests
     }
 
     [Test]
-    [Description("The verification mail stores the token and links to the approve page")]
+    [Description("The verification mail stores a hash of the key and links to the approve page")]
     public async Task Verification_Mail_Test()
     {
         this.board.Localization.Add("TEMPLATES", "VERIFYEMAIL_TEXT", "Hi {username}, key {key}");
@@ -539,9 +539,32 @@ public class SendNotificationTests
 
         await this.Notifications.SendVerificationEmailAsync(aspNetUser, "new@example.com", this.bob);
 
-        this.Repository<CheckEmail>().GetSingle(c => c.UserID == this.bob).Hash.Should().Be("a%2bb%2fc");
+        this.Repository<CheckEmail>().GetSingle(c => c.UserID == this.bob).Hash
+            .Should().Be(CheckEmailRepositoryExtensions.HashKey("a%2bb%2fc"));
         this.mail.Recipients.Should().Equal("new@example.com");
         this.mail.Sent.Single().TextBody.Should().Be("Hi Bob, key a%2bb%2fc");
+
+        // the key of the link finds the record
+        (await this.Repository<CheckEmail>().UpdateAsync("a%2bb%2fc")).UserID.Should().Be(this.bob);
+    }
+
+    [Test]
+    [Description("A long key (identity tokens with security stamp) fits into the column, old records with the key itself are still found")]
+    public async Task Verification_Key_Hash_Test()
+    {
+        var longKey = new string('x', 400);
+
+        await this.Repository<CheckEmail>().SaveAsync(this.bob, longKey, "bob@example.com");
+
+        var stored = this.Repository<CheckEmail>().GetSingle(c => c.UserID == this.bob);
+        stored.Hash.Length.Should().Be(64);
+        (await this.Repository<CheckEmail>().UpdateAsync(longKey)).ID.Should().Be(stored.ID);
+
+        this.Repository<CheckEmail>().Insert(new CheckEmail { UserID = this.carol, Email = "carol@example.com", Hash = "old-key", Created = DateTime.UtcNow });
+        (await this.Repository<CheckEmail>().UpdateAsync("old-key")).UserID.Should().Be(this.carol);
+
+        (await this.Repository<CheckEmail>().UpdateAsync("unknown")).Should().BeNull();
+        (await this.Repository<CheckEmail>().UpdateAsync(null)).Should().BeNull();
     }
 
     [Test]
