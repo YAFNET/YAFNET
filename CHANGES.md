@@ -403,6 +403,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Album titles, image captions and the reasons of edited and deleted posts are stored html encoded, the encoded text (e.g. "&" -> "&amp;", "'" -> "&#39;", "ä" -> "&#228;") could be longer than the column: saving failed with an error on SQL Server, MySQL and PostgreSQL (e.g. a delete reason with umlauts, an image caption with "&"); the text is shortened to fit now. A new album stores its title html encoded like a changed title
 * [FIXED] The reasons of edited and deleted posts were shown html encoded (e.g. "Tom&amp;#39;s" instead of "Tom's") in the post and in the message history: they are stored encoded and were encoded again for the output
 * [FIXED] Saving a name or text longer than its column failed with an error on SQL Server, MySQL and PostgreSQL (not on Sqlite), e.g. the name of an access mask (50 characters): the inputs of the admin pages (access mask, rank, group, forum, board, bb code, register user, banned e-mail and name, replace and spam words), of the poll and of "move message" are limited to the length of the column now
+* [FIXED] PostgreSQL: the conversations of the private messages were not loaded and could not be deleted, deleting topics in the moderation of a forum failed: the column names of a few sql statements were not quoted
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

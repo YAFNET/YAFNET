@@ -414,6 +414,42 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// A topic deleted in the moderation of a forum (soft deleted) is not listed anymore (failed on PostgreSQL).
+    /// </summary>
+    [Test]
+    public async Task ModerateDeleteTopicTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                var subject = $"Moderate delete {Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{this.TestSettings.TestForumId}");
+                await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync(subject);
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A topic to delete");
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain(subject), "The topic was not created");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Moderate/Forums/{this.TestSettings.TestForumId}");
+
+                var topic = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = subject });
+
+                await topic.Locator("input[type=checkbox]").CheckAsync();
+
+                // confirmed in a dialog
+                await page.Locator("button[formaction*='DeleteTopics']").ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Topic(s) deleted."), "The topic was not deleted");
+                Assert.That(await topic.CountAsync(), Is.Zero, "The deleted topic is listed");
+            });
+    }
+
+    /// <summary>
     /// The moderation of a forum shows the topics again with the warning "nothing selected".
     /// </summary>
     [Test]

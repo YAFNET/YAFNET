@@ -69,7 +69,7 @@ public static class PrivateMessageRepositoryExtensions
                     var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
                     return db.ExecuteSqlAsync(
-                        $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 1 where FromUserId = {toUserId} and ToUserId = {userId}");
+                        $" update {updateExpression.Table<PrivateMessage>()} set {updateExpression.Column<PrivateMessage>(x => x.Flags)} = {updateExpression.Column<PrivateMessage>(x => x.Flags)} | 1 where {updateExpression.Column<PrivateMessage>(x => x.FromUserId)} = {toUserId} and {updateExpression.Column<PrivateMessage>(x => x.ToUserId)} = {userId}");
                 });
 
             var list = await repository.DbAccess.ExecuteAsync(
@@ -93,7 +93,7 @@ public static class PrivateMessageRepositoryExtensions
                     var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
                     return db.ExecuteSqlAsync(
-                        $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 2 where FromUserId = {userId} and ToUserId = {toUserId}");
+                        $" update {updateExpression.Table<PrivateMessage>()} set {updateExpression.Column<PrivateMessage>(x => x.Flags)} = {updateExpression.Column<PrivateMessage>(x => x.Flags)} | 2 where {updateExpression.Column<PrivateMessage>(x => x.FromUserId)} = {userId} and {updateExpression.Column<PrivateMessage>(x => x.ToUserId)} = {toUserId}");
                 });
 
             await repository.DeleteAsync(
@@ -106,7 +106,7 @@ public static class PrivateMessageRepositoryExtensions
                     var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
                     return db.ExecuteSqlAsync(
-                        $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 4 where ToUserId = {userId} and FromUserId = {toUserId}");
+                        $" update {updateExpression.Table<PrivateMessage>()} set {updateExpression.Column<PrivateMessage>(x => x.Flags)} = {updateExpression.Column<PrivateMessage>(x => x.Flags)} | 4 where {updateExpression.Column<PrivateMessage>(x => x.ToUserId)} = {userId} and {updateExpression.Column<PrivateMessage>(x => x.FromUserId)} = {toUserId}");
                 });
 
             await repository.DeleteAsync(

@@ -1316,7 +1316,7 @@ public static class TopicRepositoryExtensions
                         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
                         return db.ExecuteSqlAsync(
-                            $" update {expression.Table<Message>()} set Flags = Flags | 8 where TopicID = {topicId}");
+                            $" update {expression.Table<Message>()} set {expression.Column<Message>(x => x.Flags)} = {expression.Column<Message>(x => x.Flags)} | 8 where {expression.Column<Message>(x => x.TopicID)} = {topicId}");
                     });
             }
 

@@ -42,30 +42,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
             this.TestSettings.TestForumUrl,
             async page =>
                 {
-                    // the id of the admin (from the user list of the admin, the members list can have several pages)
-                    Assert.That(
-                        await page.LoginUserAsync(
-                            this.TestSettings,
-                            this.TestSettings.AdminUserName,
-                            this.TestSettings.AdminPassword),
-                        Is.True,
-                        "Login failed");
-
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
-
-                    var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
-                    await searchNameInput.FillAsync(this.TestSettings.AdminUserName);
-                    await page.RunAndWaitForNextPageAsync(() => searchNameInput.PressAsync("Enter"));
-
-                    var adminLink = await page.Locator(
-                                        "//a[contains(@href,'EditUser')]",
-                                        new PageLocatorOptions { HasText = this.TestSettings.AdminUserName }).First
-                                        .GetAttributeAsync("href");
-
-                    var adminId = adminLink![(adminLink.LastIndexOf('/') + 1)..];
-
-                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+                    var adminId = await this.GetAdminIdAsync(page);
 
                     Assert.That(
                         await page.LoginUserAsync(
@@ -91,5 +68,82 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
                         Is.Zero,
                         "A conversation with the guest account is opened");
                 });
+    }
+
+    /// <summary>
+    /// A sent message is loaded again with the conversation, a deleted conversation is not shown anymore
+    /// (both failed on PostgreSQL).
+    /// </summary>
+    [Test]
+    public async Task ConversationIsLoadedAndDeletedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var adminId = await this.GetAdminIdAsync(page);
+
+                    Assert.That(
+                        await page.LoginUserAsync(
+                            this.TestSettings,
+                            this.TestSettings.TestUserName,
+                            this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages?u={adminId}");
+
+                    var text = $"Chat message {Random.Shared.Next()}";
+                    var message = page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = text });
+
+                    await page.Locator("#txtPrivateMessage").FillAsync(text);
+                    await page.Locator("#btnSendMessage").ClickAsync();
+
+                    await message.WaitForAsync();
+
+                    // the conversation is loaded from the database
+                    await page.ReloadAsync();
+
+                    await message.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+
+                    // deleted for the test user (the page is reloaded)
+                    await page.RunAndWaitForNextPageAsync(() => page.Locator("#deleteConversation").ClickAsync());
+
+                    await page.Locator("#divMessage").WaitForAsync();
+                    await page.WaitForTimeoutAsync(2000);
+
+                    Assert.That(await message.CountAsync(), Is.Zero, "The deleted conversation is shown");
+                });
+    }
+
+    /// <summary>
+    /// Gets the id of the admin (from the user list of the admin, the members list can have several pages),
+    /// the admin is logged out again.
+    /// </summary>
+    private async Task<string> GetAdminIdAsync(IPage page)
+    {
+        Assert.That(
+            await page.LoginUserAsync(
+                this.TestSettings,
+                this.TestSettings.AdminUserName,
+                this.TestSettings.AdminPassword),
+            Is.True,
+            "Login failed");
+
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+
+        var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
+        await searchNameInput.FillAsync(this.TestSettings.AdminUserName);
+        await page.RunAndWaitForNextPageAsync(() => searchNameInput.PressAsync("Enter"));
+
+        var adminLink = await page.Locator(
+                            "//a[contains(@href,'EditUser')]",
+                            new PageLocatorOptions { HasText = this.TestSettings.AdminUserName }).First
+                            .GetAttributeAsync("href");
+
+        Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+        return adminLink![(adminLink.LastIndexOf('/') + 1)..];
     }
 }
