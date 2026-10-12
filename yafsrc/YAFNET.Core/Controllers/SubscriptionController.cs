@@ -66,7 +66,8 @@ public partial class SubscriptionController : ForumBaseController
             return this.BadRequest();
         }
 
-        var userAgent = this.HtmlEncode(this.HttpContext.Request.Headers.UserAgent.ToString());
+        // MySQL creates the columns with 255 characters, the device is part of the key
+        var userAgent = this.HttpContext.Request.Headers.UserAgent.ToString().EncodeToLength(this.HtmlEncode, 255);
 
         var device = UserAgentRegex().Replace(userAgent, "*");
 
@@ -98,7 +99,7 @@ public partial class SubscriptionController : ForumBaseController
         }
 
         // the device is stored from the encoded user agent, see SubscribeDevice
-        var userAgent = this.HtmlEncode(this.HttpContext.Request.Headers.UserAgent.ToString());
+        var userAgent = this.HttpContext.Request.Headers.UserAgent.ToString().EncodeToLength(this.HtmlEncode, 255);
         var device = UserAgentRegex().Replace(userAgent, "*");
 
         await this.GetRepository<DeviceSubscription>().DeleteSubscriptionAsync(device);

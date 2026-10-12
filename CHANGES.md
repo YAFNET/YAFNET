@@ -408,6 +408,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Rarely the first page of a new session failed with "Failure Initializing User/Page" (unique key of the active session): a parallel request of the same session saved the session after it was checked, the session is updated then now
 * [FIXED] MySQL: editing a post a second time in the same second failed with "Duplicate entry" (MySQL saves the time of a version in the message history in whole seconds, the time is part of its key): the new version gets the next second
 * [FIXED] PostgreSQL, SQL Server, MySQL: a visitor coming from a page with a long address (referer longer than 500 characters) got the error page "Failure Initializing User/Page" on every forum page instead of the forum: the referer, path, browser and platform saved in the active users list are cut to the length of their columns
+* [FIXED] MySQL, SQL Server: browsers with a long user agent (e.g. the in-app browsers of Facebook or Instagram) could not subscribe to push notifications (MySQL creates the device and user agent columns with 255 characters, the device is part of the key): the encoded user agent is cut to 255 characters
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

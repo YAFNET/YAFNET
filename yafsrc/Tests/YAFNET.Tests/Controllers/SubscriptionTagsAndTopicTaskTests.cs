@@ -149,6 +149,23 @@ public class SubscriptionTagsAndTopicTaskTests
     }
 
     [Test]
+    [Description("A long user agent (e.g. of an in-app browser) fits the columns (MySQL creates them with 255 characters, the device is part of the key) and can be unsubscribed")]
+    public async Task Subscribe_Long_User_Agent_Test()
+    {
+        this.board.HttpContext.Request.Headers.UserAgent = $"{Chrome} [FBAN/FBIOS;{new string('x', 400)}&]";
+        var controller = this.board.CreateController<SubscriptionController>();
+
+        (await controller.SubscribeDevice(this.Subscription())).Should().BeOfType<OkResult>();
+
+        var stored = this.Subscriptions.Get(_ => true).Single();
+        stored.Device.Length.Should().BeLessThanOrEqualTo(255);
+        stored.UserAgent.Length.Should().BeLessThanOrEqualTo(255);
+
+        (await controller.UnSubscribeDevice(this.Subscription())).Should().BeOfType<OkResult>();
+        this.Subscriptions.Count(_ => true).Should().Be(0);
+    }
+
+    [Test]
     [Description("Without push notifications configured the requests are rejected and nothing is stored")]
     public async Task Subscribe_Pwa_Disabled_Test()
     {
