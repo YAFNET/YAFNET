@@ -75,7 +75,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(
                     $"{editorContent} This messsage was edited.");
 
-                await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
                 pageSource = await page.ContentAsync();
 
@@ -132,7 +132,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         "This is a Test Reply in an Test Topic Created by an automated Unit Test");
 
                     // Post New Topic
-                    await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
                     pageSource = await page.ContentAsync();
 
@@ -191,7 +191,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("  Quoting Test");
 
                     // Post New Topic
-                    await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
                     pageSource = await page.ContentAsync();
 
@@ -248,7 +248,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("Test Reply A");
 
                     // Post New Message
-                    await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
                     url = page.Url;
 
@@ -277,7 +277,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("Test Reply B");
 
                     // Post New Message
-                    await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
                     url = page.Url;
 
@@ -308,7 +308,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("Test Reply C");
 
                     // Post New Message
-                    await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
                     url = page.Url;
 
@@ -352,7 +352,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"{editorContent}  Multi Quoting Test");
 
                     // Post New Topic
-                    await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
                     url = page.Url;
 
