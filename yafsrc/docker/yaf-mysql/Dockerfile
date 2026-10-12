@@ -12,7 +12,7 @@ COPY ["YetAnotherForum.NET/YAF-MySql.csproj", "YetAnotherForum.NET/"]
 
 COPY ["YAF.NET-MySql.slnx", ""]
 COPY ["YAFNET.Core/YAFNET.Core.csproj", "YAFNET.Core/"]
-COPY ["Tests/YAFNET.Tests.CoreTests/YAFNET.Tests.CoreTests.csproj", "Tests/YAFNET.Tests.CoreTests/"]
+COPY ["Tests/YAFNET.Tests/YAFNET.Tests.csproj", "Tests/YAFNET.Tests/"]
 COPY ["ServiceStack/ServiceStack.OrmLite/ServiceStack.OrmLite.Core.csproj", "ServiceStack/ServiceStack.OrmLite/"]
 COPY ["YAFNET.Configuration/YAFNET.Configuration.csproj", "YAFNET.Configuration/"]
 COPY ["YAFNET.Types/YAFNET.Types.csproj", "YAFNET.Types/"]

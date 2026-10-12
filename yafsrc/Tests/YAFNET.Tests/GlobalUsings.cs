@@ -1,11 +1,12 @@
 // Global using directives
 
 global using System;
-global using System.Threading.Tasks;
+global using System.Collections.Generic;
+global using System.Linq;
 
-global using Microsoft.Playwright;
+global using AwesomeAssertions;
 
 global using NUnit.Framework;
 
-global using YAF.Tests.Utils;
-global using YAF.Tests.Utils.Extensions;
+global using YAF.Core.Helpers;
+global using YAF.Types.Extensions;
