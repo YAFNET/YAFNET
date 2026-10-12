@@ -667,6 +667,49 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The name and the default value of a custom field are limited to their columns
+    /// (MySQL creates them with 255 characters, a longer value was not saved).
+    /// </summary>
+    [Test]
+    public async Task LongCustomFieldNameIsLimitedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var fieldName = $"Long field {Random.Shared.Next(1000, 9999)} ".PadRight(300, 'x');
+
+                    await this.LoginAdminAsync(page);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ProfileDefinitions");
+
+                    await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").ClickAsync();
+
+                    var dialog = page.Locator(".modal.show");
+
+                    await dialog.Locator("#Name").FillAsync(fieldName);
+                    await dialog.Locator("#Length").FillAsync("0");
+                    await dialog.Locator("#DefaultValue").FillAsync(new string('d', 300));
+
+                    var response = await page.RunAndWaitForResponseAsync(
+                                       () => dialog.Locator("button[data-bs-save='editModal']").ClickAsync(),
+                                       r => r.Url.Contains("ProfileDefinition/Edit"));
+
+                    Assert.That(response.Status, Is.EqualTo(200), "The definition was not saved");
+
+                    var item = page.Locator(".list-group-item", new PageLocatorOptions { HasText = fieldName[..255] });
+
+                    await item.Locator("h5").WaitForAsync();
+
+                    await item.Locator(".btn-group button[formaction*='Delete']").ClickAsync();
+
+                    await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+
+                    await page.LogOutUserAsync();
+                });
+    }
+
+    /// <summary>
     /// The settings only keep a language of the list and a page size of 1 - 100 (a manipulated form
     /// could break all pages of the user).
     /// </summary>

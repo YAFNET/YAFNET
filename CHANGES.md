@@ -410,6 +410,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] PostgreSQL, SQL Server, MySQL: a visitor coming from a page with a long address (referer longer than 500 characters) got the error page "Failure Initializing User/Page" on every forum page instead of the forum: the referer, path, browser and platform saved in the active users list are cut to the length of their columns
 * [FIXED] MySQL, SQL Server: browsers with a long user agent (e.g. the in-app browsers of Facebook or Instagram) could not subscribe to push notifications (MySQL creates the device and user agent columns with 255 characters, the device is part of the key): the encoded user agent is cut to 255 characters
 * [FIXED] MySQL: a topic tag longer than 255 characters showed the error page "Data too long for column 'TagName'" although the topic was already created (sending it again created the topic twice): a tag is cut to 255 characters
+* [FIXED] MySQL: a custom profile field with a name or default value longer than 255 characters was not saved (Admin > Profile Definitions), the inputs are limited to the length of their columns
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

@@ -28,7 +28,7 @@
                                    asp-for="Name"
                                    localized-tag="NAME"
                                    localized-page="ADMIN_EDIT_PROFILEDEFINITION"></label>
-                    <input type="text" asp-for="Name"
+                    <input type="text" asp-for="Name" maxlength="255"
                                  required="required"
                                  class="form-control" />
                     <div class="invalid-feedback">
@@ -89,7 +89,7 @@
                            asp-for="DefaultValue"
                            localized-tag="DEFAULT"
                            localized-page="ADMIN_EDIT_PROFILEDEFINITION"></label>
-                    <input type="text" asp-for="DefaultValue"
+                    <input type="text" asp-for="DefaultValue" maxlength="255"
                            class="form-control" />
                     
                 </div>
