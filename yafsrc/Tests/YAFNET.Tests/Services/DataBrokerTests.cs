@@ -153,6 +153,41 @@ public class DataBrokerTests
     }
 
     [Test]
+    [Description("A parallel request of the same new session inserts the session row after it was checked: the row is updated, the page load does not fail with the unique key of the session")]
+    public void GetPageLoad_Session_Inserted_By_Parallel_Request_Test()
+    {
+        this.board.Events.OnRaise = e =>
+        {
+            if (e is RepositoryEvent<Active>)
+            {
+                this.board.Events.OnRaise = null;
+
+                this.Repository<Active>().Insert(
+                    new Active
+                    {
+                        SessionID = "s1",
+                        BoardID = TestDatabase.BoardId,
+                        UserID = this.alice,
+                        IP = "10.0.0.2",
+                        Login = DateTime.UtcNow,
+                        LastActive = DateTime.UtcNow
+                    });
+            }
+        };
+
+        var (pageLoad, user, _, _, _, _) = this.Load("s1", "alice-key", forumId: this.forum);
+
+        this.board.Events.OnRaise.Should().BeNull("the session row was inserted while loading");
+        user.ID.Should().Be(this.alice);
+        pageLoad.UserID.Should().Be(this.alice);
+
+        var active = this.Repository<Active>().Get(a => a.SessionID == "s1");
+        active.Should().ContainSingle();
+        active[0].ForumID.Should().Be(this.forum);
+        active[0].Flags.Should().Be((int)(ActiveFlags.Flags.IsActiveNow | ActiveFlags.Flags.IsRegistered));
+    }
+
+    [Test]
     [Description("The access rows are cleared (by a change of the groups) while the page loads: they are created again, the page load data is not missing")]
     public void GetPageLoad_Access_Cleared_While_Loading_Test()
     {

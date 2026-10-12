@@ -28,6 +28,7 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
@@ -434,6 +435,27 @@ public class DataBroker : IHaveServiceLocator
 
         if (!doNotTrack)
         {
+            void UpdateSession()
+            {
+                this.GetRepository<Active>().UpdateOnly(
+                    () => new Active {
+                        UserID = userId,
+                        IP = ip,
+                        LastActive = DateTime.UtcNow,
+                        Referer = referer,
+                        Path = path,
+                        Country = country,
+                        ForumID = forumId,
+                        TopicID = topicId,
+                        Browser = browser,
+                        Platform = platform,
+                        UserAgent = userAgent,
+                        ForumPage = forumPage,
+                        Flags = activeFlags.BitValue
+                    },
+                    a => a.SessionID == sessionId && a.BoardID == boardId);
+            }
+
             // -- crawlers send a new session id with every request, they are found by browser and ip
             var exists = isCrawler
                 ? this.GetRepository<Active>().Exists(
@@ -445,23 +467,7 @@ public class DataBroker : IHaveServiceLocator
                 if (!isCrawler)
                 {
                     // -- user is not a crawler - use his session id
-                    this.GetRepository<Active>().UpdateOnly(
-                        () => new Active {
-                            UserID = userId,
-                            IP = ip,
-                            LastActive = DateTime.UtcNow,
-                            Referer = referer,
-                            Path = path,
-                            Country = country,
-                            ForumID = forumId,
-                            TopicID = topicId,
-                            Browser = browser,
-                            Platform = platform,
-                            UserAgent = userAgent,
-                            ForumPage = forumPage,
-                            Flags = activeFlags.BitValue
-                        },
-                        a => a.SessionID == sessionId && a.BoardID == boardId);
+                    UpdateSession();
                 }
                 else
                 {
@@ -487,26 +493,36 @@ public class DataBroker : IHaveServiceLocator
             }
             else
             {
-                // -- we set @ActiveFlags ready flags
-                this.GetRepository<Active>().Insert(
-                    new Active {
-                        UserID = userId,
-                        SessionID = sessionId,
-                        BoardID = boardId,
-                        IP = ip,
-                        Login = DateTime.UtcNow,
-                        LastActive = DateTime.UtcNow,
-                        Referer = referer,
-                        Path = path,
-                        Country = country,
-                        ForumID = forumId,
-                        TopicID = topicId,
-                        Browser = browser,
-                        Platform = platform,
-                        UserAgent = userAgent,
-                        ForumPage = forumPage,
-                        Flags = activeFlags.BitValue
-                    });
+                try
+                {
+                    // -- we set @ActiveFlags ready flags
+                    this.GetRepository<Active>().Insert(
+                        new Active {
+                            UserID = userId,
+                            SessionID = sessionId,
+                            BoardID = boardId,
+                            IP = ip,
+                            Login = DateTime.UtcNow,
+                            LastActive = DateTime.UtcNow,
+                            Referer = referer,
+                            Path = path,
+                            Country = country,
+                            ForumID = forumId,
+                            TopicID = topicId,
+                            Browser = browser,
+                            Platform = platform,
+                            UserAgent = userAgent,
+                            ForumPage = forumPage,
+                            Flags = activeFlags.BitValue
+                        });
+                }
+                catch (DbException) when (!isCrawler && this.GetRepository<Active>().Exists(
+                                              x => x.BoardID == boardId && x.SessionID == sessionId))
+                {
+                    // -- a parallel request of the same session (e.g. the first page and its requests)
+                    // -- inserted the row after the check above
+                    UpdateSession();
+                }
 
                 // -- update max user stats
                 this.GetRepository<Registry>().UpdateMaxStats(boardId);
