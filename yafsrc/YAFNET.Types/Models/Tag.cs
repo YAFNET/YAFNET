@@ -51,5 +51,6 @@ public class Tag : IEntity, IHaveBoardID, IHaveID
     /// Gets or sets the tag name.
     /// </summary>
     [Required]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string TagName { get; set; }
 }

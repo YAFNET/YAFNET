@@ -485,11 +485,11 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
-    /// A tag longer than its column (MySQL creates it with 255 characters) is cut,
-    /// the topic was created but the user got the error page.
+    /// A long tag is saved (MySQL created the column with 255 characters,
+    /// the topic was created but the user got the error page).
     /// </summary>
     [Test]
-    public async Task LongTopicTagIsShortenedTest()
+    public async Task LongTopicTagIsSavedTest()
     {
         await this.Fixture.Context.GotoPageAsync(
             this.TestSettings.TestForumUrl,
@@ -514,7 +514,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 Assert.That(page.Url, Does.Contain("/Post"), "The topic was not created");
 
-                Assert.That(await page.ContentAsync(), Does.Contain(tag[..255]), "The tag of the topic was not saved");
+                Assert.That(await page.ContentAsync(), Does.Contain(tag), "The tag of the topic was not saved");
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
             });
