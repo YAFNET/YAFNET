@@ -197,6 +197,23 @@ public class BackgroundTaskTests
         return new AppInitTaskManager(this.board.Resolve<IServiceLocator>(), NullLogger<AppInitTaskManager>.Instance);
     }
 
+    [Test]
+    [Description("A task started by a request does not get the execution context of the request (the HttpContext of IHttpContextAccessor is an AsyncLocal), it could use the BoardContext of the request concurrently")]
+    public async Task No_Execution_Context_Of_Caller_Test()
+    {
+        Caller.Value = "request";
+
+        var intermittent = this.Start(new ContextTask { StartDelayMs = 0, RunPeriodMs = Timeout.Infinite });
+        var longTask = this.Start(new LongContextTask());
+
+        Caller.Value = null;
+
+        await WaitUntil(() => intermittent.Seen != ContextTask.NotRun && longTask.Seen != ContextTask.NotRun);
+
+        intermittent.Seen.Should().BeNull();
+        longTask.Seen.Should().BeNull();
+    }
+
     private T Start<T>(T task)
         where T : IBackgroundTask
     {
@@ -218,6 +235,36 @@ public class BackgroundTaskTests
             }
 
             await Task.Delay(10);
+        }
+    }
+
+    private static readonly AsyncLocal<string> Caller = new();
+
+    private class ContextTask : IntermittentBackgroundTask
+    {
+        public const string NotRun = "not run";
+
+        public string Seen { get; private set; } = NotRun;
+
+        public override string TaskName => "test-context";
+
+        public override Task RunOnceAsync()
+        {
+            this.Seen = Caller.Value;
+
+            return Task.CompletedTask;
+        }
+    }
+
+    private class LongContextTask : LongBackgroundTask
+    {
+        public string Seen { get; private set; } = ContextTask.NotRun;
+
+        public override Task RunOnceAsync()
+        {
+            this.Seen = Caller.Value;
+
+            return Task.CompletedTask;
         }
     }
 

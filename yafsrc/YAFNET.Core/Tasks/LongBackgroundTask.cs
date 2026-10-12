@@ -50,7 +50,7 @@ public class LongBackgroundTask : IntermittentBackgroundTask
         // but only report IsRunning as false once the work has actually finished -- otherwise
         // callers relying on IsRunning to avoid overlapping runs (e.g. ForumDeleteTask) would see
         // the task as "done" while it is still executing.
-        _ = Task.Run(
+        _ = StartInBackground(
             async () =>
                 {
                     try

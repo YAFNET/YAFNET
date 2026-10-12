@@ -25,6 +25,7 @@
 namespace YAF.Core.Tasks;
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
@@ -71,7 +72,7 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
     /// </summary>
     public virtual void ExecuteTask()
     {
-        Task.Run(async () => {
+        StartInBackground(async () => {
             // both values are milliseconds: wait before the first run, then between the runs
             await Task.Delay(TimeSpan.FromMilliseconds(Math.Max(0, this.StartDelayMs)));
 
@@ -98,5 +99,20 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
                 await Task.Delay(TimeSpan.FromMilliseconds(this.RunPeriodMs));
             }
         });
+    }
+
+    /// <summary>
+    /// Runs the work on the thread pool without the execution context of the caller: a task started by a
+    /// request would see the HttpContext of that request (IHttpContextAccessor) and could create or replace
+    /// the BoardContext of the request while the page uses it.
+    /// </summary>
+    /// <param name="work">The work.</param>
+    /// <returns>The task of the work.</returns>
+    protected static Task StartInBackground(Func<Task> work)
+    {
+        using (ExecutionContext.SuppressFlow())
+        {
+            return Task.Run(work);
+        }
     }
 }
