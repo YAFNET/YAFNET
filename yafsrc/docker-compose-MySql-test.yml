@@ -20,6 +20,9 @@ services:
     build:
       context: .
       dockerfile: docker/yaf-mysql/Dockerfile
+      labels:
+        # old test images are removed before a new one is built (DockerComposeFixture)
+        - "yafnet.test=true"
     container_name: yafnet
     ports:
       - "8001:89"
