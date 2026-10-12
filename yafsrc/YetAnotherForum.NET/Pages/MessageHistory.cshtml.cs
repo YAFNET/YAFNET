@@ -236,7 +236,8 @@ public class MessageHistoryModel : ForumPageRegistered
     {
         if(message.Edited != message.Posted)
         {
-            return message.EditReason.IsNotSet() ? this.GetText("EDIT_REASON_NA") : message.EditReason;
+            // the reason is stored html encoded, the view encodes it (once)
+            return message.EditReason.IsNotSet() ? this.GetText("EDIT_REASON_NA") : System.Net.WebUtility.HtmlDecode(message.EditReason);
         }
 
         return this.GetText("ORIGINALMESSAGE");

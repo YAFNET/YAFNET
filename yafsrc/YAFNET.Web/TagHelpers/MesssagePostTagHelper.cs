@@ -251,8 +251,9 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     {
         this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
+        // the reason is stored html encoded, the output encodes it (once)
         var deleteText = HttpUtility.HtmlDecode(this.CurrentMessage.DeleteReason).IsSet()
-                             ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason)
+                             ? HttpUtility.HtmlDecode(this.CurrentMessage.DeleteReason)
                              : this.GetText("EDIT_REASON_NA");
 
         // if message was deleted then write that instead of real body
@@ -309,7 +310,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         // reason was specified ?!
         var editReasonText =
-            $"{this.GetText("EDIT_REASON")}: {(HttpUtility.HtmlDecode(editReason).IsSet() ? this.Get<IFormatMessage>().RepairHtml(editReason) : this.GetText("EDIT_REASON_NA"))}";
+            $"{this.GetText("EDIT_REASON")}: {(HttpUtility.HtmlDecode(editReason).IsSet() ? HttpUtility.HtmlDecode(editReason) : this.GetText("EDIT_REASON_NA"))}";
 
         // message has been edited
         // show, why the post was edited or deleted?

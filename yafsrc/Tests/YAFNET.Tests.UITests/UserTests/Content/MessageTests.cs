@@ -892,8 +892,61 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 Assert.That(
                     await page.Locator("body").InnerTextAsync(),
-                    Does.Contain($"Edit {id} it"),
-                    "The edit reason was not saved");
+                    Does.Contain($"Edit {id} it's it's"),
+                    "The edit reason is not shown as entered");
+            });
+    }
+
+    /// <summary>
+    /// The reason of a deleted post is shown as entered (it is stored html encoded and was encoded twice more
+    /// for the output, e.g. "Tom&amp;#39;s").
+    /// </summary>
+    [Test]
+    [Description("Delete reason with special characters is shown as entered")]
+    public async Task DeleteReasonWithSpecialCharactersTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var id = Guid.NewGuid().ToString("N")[..8];
+                var reason = $"Tom's & Jerry's <b>{id}</b>";
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                Assert.That(await page.CreateNewTestTopicAsync(this.TestSettings), Is.True, "Topic Creating failed");
+
+                var topicUrl = page.Url;
+
+                // a reply (the first post would delete the topic)
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'ReplyLink')]").First);
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"Reply {id}");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/Post/(\d+)/|[?&]m=(\d+)");
+                var messageId = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
+
+                Assert.That(messageId, Is.Not.Empty, $"The id of the reply is not in {page.Url}");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}DeleteMessage/{messageId}");
+
+                await page.Locator("#ReasonEditor").FillAsync(reason);
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Delete']"));
+
+                // the deleted post is shown to the admin with the reason
+                await page.GotoAsync(topicUrl);
+
+                var text = await page.Locator("body").InnerTextAsync();
+
+                Assert.That(text, Does.Contain(reason), "The delete reason is not shown as entered");
             });
     }
 }

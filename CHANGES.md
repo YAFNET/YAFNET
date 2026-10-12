@@ -401,6 +401,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Digest: after "Force Digest Send" the "Last Digest Send" field was empty until the page was opened again
 * [FIXED] Registration and e-mail change failed with an error on SQL Server, MySQL and PostgreSQL (not on Sqlite): the key of the verification link (an identity token, longer since it contains the security stamp of the user) was stored in a column of 255 characters. Only a hash of the key is stored now (links sent before the update still work); "resend the verification mail" (login page and admin dashboard) sends a new link, on the admin dashboard it could send the mail of another user whose name contains the name of the not approved user
 * [FIXED] Album titles, image captions and the reasons of edited and deleted posts are stored html encoded, the encoded text (e.g. "&" -> "&amp;", "'" -> "&#39;", "ä" -> "&#228;") could be longer than the column: saving failed with an error on SQL Server, MySQL and PostgreSQL (e.g. a delete reason with umlauts, an image caption with "&"); the text is shortened to fit now. A new album stores its title html encoded like a changed title
+* [FIXED] The reasons of edited and deleted posts were shown html encoded (e.g. "Tom&amp;#39;s" instead of "Tom's") in the post and in the message history: they are stored encoded and were encoded again for the output
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
