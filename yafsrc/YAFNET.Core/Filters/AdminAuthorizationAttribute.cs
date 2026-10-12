@@ -28,6 +28,9 @@ using Microsoft.AspNetCore.Authorization;
 
 using System;
 
+using YAF.Core.Model;
+using YAF.Types.Models;
+
 /// <summary>
 /// Class AdminAuthorizationAttribute.
 /// Implements the <see cref="AuthorizeAttribute" />
@@ -40,6 +43,28 @@ using System;
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public class AdminAuthorizationAttribute : AuthorizeAttribute, IAuthorizationFilter, IHaveServiceLocator
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AdminAuthorizationAttribute"/> class (any admin).
+    /// </summary>
+    public AdminAuthorizationAttribute()
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AdminAuthorizationAttribute"/> class.
+    /// An admin who is no host admin needs the access to the admin page (like the page itself).
+    /// </summary>
+    /// <param name="page">The admin page of the dialogs.</param>
+    public AdminAuthorizationAttribute(ForumPages page)
+    {
+        this.Page = page;
+    }
+
+    /// <summary>
+    /// Gets the admin page whose access is needed (null for any admin).
+    /// </summary>
+    public ForumPages? Page { get; }
+
     /// <summary>
     /// Gets or sets ServiceLocator.
     /// </summary>
@@ -58,11 +83,27 @@ public class AdminAuthorizationAttribute : AuthorizeAttribute, IAuthorizationFil
             return;
         }
 
-        if (BoardContext.Current.IsAdmin)
+        if (BoardContext.Current.IsAdmin && this.HasPageAccess())
         {
             return;
         }
 
         context.Result = new StatusCodeResult((int)HttpStatusCode.Forbidden);
+    }
+
+    /// <summary>
+    /// Checks the access of the admin to the admin page (the host admin has the access to all pages).
+    /// </summary>
+    /// <returns>Returns if the admin can use the page.</returns>
+    private bool HasPageAccess()
+    {
+        if (!this.Page.HasValue || BoardContext.Current.PageUser.UserFlags.IsHostAdmin)
+        {
+            return true;
+        }
+
+        return BoardContext.Current.GetRepository<AdminPageUserAccess>().HasAccess(
+            BoardContext.Current.PageUserID,
+            this.Page.Value.ToString());
     }
 }

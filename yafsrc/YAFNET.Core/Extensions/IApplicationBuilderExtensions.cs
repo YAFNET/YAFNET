@@ -31,6 +31,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
+using YAF.Core.Helpers;
 using YAF.Core.Middleware;
 using YAF.Types;
 using YAF.Types.Objects;
@@ -61,6 +62,10 @@ public static class IApplicationBuilderExtensions
         /// <param name="serviceLocator">The service locator.</param>
         public void UseYafCore(IServiceLocator serviceLocator)
         {
+            // first: the client address of requests of trusted reverse proxies (only their forwarded headers are used)
+            app.UseForwardedHeaders(
+                ForwardedHeadersHelper.CreateOptions(serviceLocator.Get<BoardConfiguration>().TrustedProxies));
+
             app.UseAntiXssMiddleware();
 
             app.UseSecurityHeader(serviceLocator.Get<BoardConfiguration>());

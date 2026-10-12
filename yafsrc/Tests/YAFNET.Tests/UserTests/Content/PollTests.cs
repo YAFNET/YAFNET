@@ -56,6 +56,205 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A poll can only be edited through its own topic (the moderator rights are the ones of the topic's forum).
+    /// </summary>
+    [Test]
+    [Description("A poll can only be edited through its own topic")]
+    public async Task EditPollNeedsItsTopicTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                var topicUrl = await this.CreatePollTopicTestAsync(page, allowMultiVote: false, addPollImages: false);
+
+                await page.GotoAsync(topicUrl);
+
+                var editLink = await page.Locator("a[href*='PollEdit']").First.GetAttributeAsync("href");
+
+                Assert.That(editLink, Is.Not.Null, "Edit poll link not found");
+
+                var url = new Uri(new Uri(this.TestSettings.TestForumUrl), editLink.Replace("&amp;", "&"));
+
+                // with the topic the poll can be edited
+                await page.GotoAsync(url.ToString());
+
+                Assert.That(
+                    await page.Locator("//input[contains(@id,'Question')]").First.InputValueAsync(),
+                    Is.Not.Empty,
+                    "The poll can not be edited");
+
+                // without the topic it is refused
+                var query = System.Web.HttpUtility.ParseQueryString(url.Query);
+                query.Remove("t");
+
+                await page.GotoAsync(new UriBuilder(url) { Query = query.ToString() }.Uri.ToString());
+
+                Assert.That(
+                    await page.ContentAsync(),
+                    Does.Contain("You tried to enter an area where you didn't have access."),
+                    "The poll can be edited without its topic");
+            });
+    }
+
+    /// <summary>
+    /// A poll can still be saved after a warning (the poll id was lost, the second save was refused).
+    /// </summary>
+    [Test]
+    [Description("A poll can still be saved after a warning")]
+    public async Task EditPollAfterWarningTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                var topicUrl = await this.CreatePollTopicTestAsync(page, allowMultiVote: false, addPollImages: false);
+
+                await page.GotoAsync(topicUrl);
+
+                var editLink = await page.Locator("a[href*='PollEdit']").First.GetAttributeAsync("href");
+
+                Assert.That(editLink, Is.Not.Null, "Edit poll link not found");
+
+                await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), editLink.Replace("&amp;", "&")).ToString());
+
+                // without question: the warning
+                await page.Locator("//input[contains(@id,'Question')]").First.FillAsync(string.Empty);
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+
+                Assert.That(
+                    await page.Locator("//button[contains(@formaction,'SavePoll')]").CountAsync(),
+                    Is.EqualTo(1),
+                    "The page is not shown again with the warning");
+
+                var question = $"A changed question {Random.Shared.Next()}?";
+
+                await page.Locator("//input[contains(@id,'Question')]").First.FillAsync(question);
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+
+                var content = await page.ContentAsync();
+
+                Assert.That(
+                    content,
+                    Does.Not.Contain("You tried to enter an area where you didn't have access."),
+                    "The poll can't be saved after the warning");
+                Assert.That(content, Does.Contain(question), "The poll was not changed");
+            });
+    }
+
+    /// <summary>
+    /// The poll of a new topic in a moderated forum: after saving the poll the user is told that the
+    /// topic must be approved (the user was sent to the topic, which is not shown yet).
+    /// </summary>
+    [Test]
+    [Description("The poll of a topic in a moderated forum shows the approval info")]
+    public async Task PollOfModeratedTopicShowsApprovalInfoTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var maskName = $"PollModerated{Random.Shared.Next()}";
+                var forumName = $"Moderated Poll Forum {maskName}";
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a moderated forum where the members can create polls
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditAccessMask");
+
+                await page.Locator("#Input_Name").FillAsync(maskName);
+
+                foreach (var access in new[] { "Read", "Post", "Reply", "Poll", "Vote" })
+                {
+                    await page.Locator($"#Input_{access}Access").CheckAsync();
+                }
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+
+                await page.Locator("#Input_Name").FillAsync(forumName);
+                await page.Locator("#Input_Description").FillAsync("A forum of the moderated poll test");
+                await page.Locator("#Input_SortOrder").FillAsync("99");
+
+                await page.GetByLabel("Registered").First.SelectOptionAsync(new SelectOptionValue { Label = maskName });
+
+                // all posts are moderated (the switch submits the form to show the options, set directly)
+                await page.EvaluateAsync(
+                    """
+                    () => {
+                        const moderated = document.querySelector('#Input_Moderated');
+                        moderated.checked = true;
+                        const all = document.createElement('input');
+                        all.type = 'hidden';
+                        all.name = 'Input.ModerateAllPosts';
+                        all.value = 'true';
+                        moderated.form.appendChild(all);
+                    }
+                    """);
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                                    .First.GetAttributeAsync("href");
+
+                Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the user");
+
+                var forumId = System.Text.RegularExpressions.Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
+
+                await page.Locator("//input[contains(@id,'_AddPoll')]").CheckAsync();
+
+                await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Moderated poll test {Random.Shared.Next()}");
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A poll of a moderated topic");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(page.Url, Does.Contain("PollEdit"), $"The poll page is not shown ({page.Url})");
+
+                await page.Locator("//input[contains(@id,'Question')]").First.FillAsync("A question of a moderated topic?");
+                await page.Locator("//input[contains(@id,'Input_Choices_0__ChoiceName')]").FillAsync("Choice A");
+                await page.Locator("//input[contains(@id,'Input_Choices_1__ChoiceName')]").FillAsync("Choice B");
+
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+
+                Assert.That(
+                    await page.ContentAsync(),
+                    Does.Contain("a forum moderator must approve your post"),
+                    $"The approval info is not shown ({page.Url})");
+            });
+    }
+
+    /// <summary>
     /// Create a new Poll in an existing topic test.
     /// </summary>
     [Test]
@@ -122,7 +321,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await page.Locator("//input[contains(@id,'_ShowVotersCheckBox')]").ClickAsync();
 
                 // Save Poll
-                await page.Locator("//button[contains(@formaction,'SavePoll')]").ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
 
                 pageSource = await page.ContentAsync();
 
@@ -170,7 +369,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(!pageSource.Contains("You already voted"), Is.True, "User has already voted");
 
                 // Vote for Option 3
-                await page.Locator("//button[contains(@id,'VoteButton')]").Nth(1).ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@id,'VoteButton')]").Nth(1));
 
                 pageSource = await page.ContentAsync();
 
@@ -216,7 +415,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(!pageSource.Contains("You already voted"), Is.True, "User has already voted");
 
                 // Vote for Option 3
-                await page.Locator("//button[contains(@id,'VoteButton')]").Nth(2).ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@id,'VoteButton')]").Nth(2));
 
                 pageSource = await page.ContentAsync();
 
@@ -226,7 +425,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await page.Locator(".btn-close").ClickAsync();
 
                 // Vote for Option 5
-                await page.Locator("//button[contains(@id,'VoteButton')]").Nth(2).ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@id,'VoteButton')]").Nth(2));
 
                 pageSource = await page.ContentAsync();
 
@@ -270,7 +469,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.Locator("//*[contains(@formaction,'RemovePoll')]").ClickAsync();
 
-                await page.GetByText("Yes").ClickAsync();
+                await page.SubmitAndWaitAsync(page.GetByText("Yes"));
 
                 var pageSource = await page.ContentAsync();
 
@@ -311,6 +510,118 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(
                     choiceImage2, Is.EqualTo("https://yetanotherforum.net/assets/img/YAFLogo.svg"),
                     "Image Url does not match");
+
+                // the image of the question
+                Assert.That(
+                    await page.Locator("//img[@alt='Is this a Test Question?']").GetAttributeAsync("src"),
+                    Is.EqualTo("https://github.com/YAFNET/YAFNET/releases"),
+                    "The image of the question is missing");
+            });
+    }
+
+    /// <summary>
+    /// A member can't add images to a poll with a manipulated form when image polls are only allowed
+    /// for admins (the default), the images could be loaded from any site.
+    /// </summary>
+    [Test]
+    public async Task PollImagesNeedPermissionTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var maskName = $"PollAccess{Random.Shared.Next()}";
+                var forumName = $"Poll Forum {maskName}";
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a forum where the members can create polls
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditAccessMask");
+
+                await page.Locator("#Input_Name").FillAsync(maskName);
+
+                foreach (var access in new[] { "Read", "Post", "Reply", "Poll", "Vote" })
+                {
+                    await page.Locator($"#Input_{access}Access").CheckAsync();
+                }
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+
+                await page.Locator("#Input_Name").FillAsync(forumName);
+                await page.Locator("#Input_Description").FillAsync("A forum of the poll test");
+                await page.Locator("#Input_SortOrder").FillAsync("99");
+
+                await page.GetByLabel("Registered").First.SelectOptionAsync(new SelectOptionValue { Label = maskName });
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // a new user (the test user may just have posted, flood control)
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                                    .First.GetAttributeAsync("href");
+
+                Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the user");
+
+                var forumId = System.Text.RegularExpressions.Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Add Poll"), "The user has no poll access");
+
+                await page.Locator("//input[contains(@id,'_AddPoll')]").CheckAsync();
+
+                await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Poll image test {Random.Shared.Next()}");
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A poll without images");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(
+                    await page.Locator("//input[contains(@id,'_QuestionObjectPath')]").CountAsync(),
+                    Is.Zero,
+                    "The poll images are allowed (the test needs the default setting)");
+
+                await page.Locator("//input[contains(@id,'Question')]").First.FillAsync("A question without image?");
+                await page.Locator("//input[contains(@id,'Input_Choices_0__ChoiceName')]").FillAsync("Choice A");
+                await page.Locator("//input[contains(@id,'Input_Choices_1__ChoiceName')]").FillAsync("Choice B");
+
+                // the image fields of the admins
+                await page.EvaluateAsync(
+                    """
+                    () => {
+                        const form = document.querySelector("button[formaction*='SavePoll']").form;
+                        for (const name of ['Input.QuestionObjectPath', 'Input.Choices[0].ObjectPath']) {
+                            const field = document.createElement('input');
+                            field.type = 'hidden';
+                            field.name = name;
+                            field.value = 'https://example.com/tracker.png';
+                            form.appendChild(field);
+                        }
+                    }
+                    """);
+
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Choice A"), "The poll was not created");
+
+                Assert.That(
+                    await page.Locator("img[src*='example.com']").CountAsync(),
+                    Is.Zero,
+                    "The poll shows images of another site");
             });
     }
 
@@ -353,7 +664,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
             .FillAsync("This is a test topic to test the Poll Creating");
 
         // Post New Topic
-        await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
+        await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
         pageSource = await page.ContentAsync();
 
@@ -427,7 +738,7 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
         await page.Locator("//input[contains(@id,'_ShowVotersCheckBox')]").CheckAsync();
 
         // Save Poll
-        await page.Locator("//button[contains(@formaction,'SavePoll')]").ClickAsync();
+        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'SavePoll')]"));
 
         pageSource = await page.ContentAsync();
 

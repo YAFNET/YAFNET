@@ -63,11 +63,7 @@ public class ControllerSecurityTests
     /// <summary>
     /// POST actions without an antiforgery token. Keep this list empty if possible.
     /// </summary>
-    private static readonly HashSet<string> PostWithoutAntiforgery =
-    [
-        // the file uploader (wwwroot/lib/fileUploader.ts) does not send the token yet
-        "FileUpload.Upload"
-    ];
+    private static readonly HashSet<string> PostWithoutAntiforgery = [];
 
     private static IEnumerable<(Type Controller, MethodInfo Action)> Actions()
     {

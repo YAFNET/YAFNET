@@ -80,16 +80,23 @@ public class EditSignatureModel : ProfilePage
     }
 
     /// <summary>
-    /// The on get.
+    /// Signatures must be enabled, admins and moderators can always edit their signature (all handlers).
     /// </summary>
-    public async Task<IActionResult> OnGetAsync()
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
     {
         if (!this.PageBoardContext.BoardSettings.AllowSignatures &&
             !(this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator))
         {
-            return this.Get<ILinkBuilder>().AccessDenied();
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
         }
+    }
 
+    /// <summary>
+    /// The on get.
+    /// </summary>
+    public async Task<IActionResult> OnGetAsync()
+    {
         await this.BindDataAsync(true);
 
         return this.Page();
@@ -98,9 +105,9 @@ public class EditSignatureModel : ProfilePage
     /// <summary>
     /// Preview Signature
     /// </summary>
-    public Task OnPostPreviewAsync()
+    public async Task OnPostPreviewAsync()
     {
-        return this.ValidateSignatureAsync();
+        await this.ValidateSignatureAsync();
     }
 
     /// <summary>
@@ -108,60 +115,56 @@ public class EditSignatureModel : ProfilePage
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync()
     {
-        if (this.Signature.Length > 0)
+        if (this.Signature.IsSet())
         {
-            await this.ValidateSignatureAsync();
-
-            if (this.Signature.Length <= this.AllowedNumberOfCharacters)
+            // forbidden bb codes or a too long signature are not saved
+            if (!await this.ValidateSignatureAsync())
             {
-                if (this.PageBoardContext.PageUser.NumPosts <
-                    this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount && this.Get<ISpamWordCheck>().CheckForSpamWord(this.Signature, out var result))
+                return this.Page();
+            }
+
+            if (this.PageBoardContext.PageUser.NumPosts <
+                this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount && this.Get<ISpamWordCheck>().CheckForSpamWord(this.Signature, out var result))
+            {
+                // Check for spam
+                switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
                 {
-                    // Check for spam
-                    switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
+                    // Log and Send Message to Admins
+                    case 1:
+                        this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
+                            this.PageBoardContext.PageUserID,
+                            $"""
+                             Internal Spam Word Check detected a SPAM BOT: (
+                                                                                   user name : '{this.PageBoardContext.PageUser.Name}',
+                                                                                   user id : '{this.PageBoardContext.PageUserID}')
+                                                                              after the user included a spam word in his/her signature: {result}
+                             """);
+                        break;
+                    case 2:
                     {
-                        // Log and Send Message to Admins
-                        case 1:
-                            this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
-                                this.PageBoardContext.PageUserID,
-                                $"""
-                                 Internal Spam Word Check detected a SPAM BOT: (
-                                                                                       user name : '{this.PageBoardContext.PageUser.Name}',
-                                                                                       user id : '{this.PageBoardContext.PageUserID}')
-                                                                                  after the user included a spam word in his/her signature: {result}
-                                 """);
-                            break;
-                        case 2:
-                        {
-                            this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
-                                this.PageBoardContext.PageUserID,
-                                $"""
-                                 Internal Spam Word Check detected a SPAM BOT: (
-                                                                                        user name : '{this.PageBoardContext.PageUser.Name}',
-                                                                                        user id : '{this.PageBoardContext.PageUserID}')
-                                                                                  after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
-                                 """);
+                        this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
+                            this.PageBoardContext.PageUserID,
+                            $"""
+                             Internal Spam Word Check detected a SPAM BOT: (
+                                                                                    user name : '{this.PageBoardContext.PageUser.Name}',
+                                                                                    user id : '{this.PageBoardContext.PageUserID}')
+                                                                              after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
+                             """);
 
-                            await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
-                                this.PageBoardContext.PageUser,
-                                this.PageBoardContext.MembershipUser,
-                                this.PageBoardContext.PageUser.IP);
+                        await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
+                            this.PageBoardContext.PageUser,
+                            this.PageBoardContext.MembershipUser,
+                            this.PageBoardContext.PageUser.IP);
 
-                            break;
-                        }
+                        // the user is deleted and logged out, nothing is saved
+                        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
                     }
                 }
+            }
 
-                await this.GetRepository<User>().SaveSignatureAsync(
-                    this.PageBoardContext.PageUserID,
-                    this.Signature);
-            }
-            else
-            {
-                return this.PageBoardContext.Notify(
-                    this.GetTextFormatted("SIGNATURE_MAX", this.AllowedNumberOfCharacters),
-                    MessageTypes.warning);
-            }
+            await this.GetRepository<User>().SaveSignatureAsync(
+                this.PageBoardContext.PageUserID,
+                this.Signature);
         }
         else
         {
@@ -204,11 +207,14 @@ public class EditSignatureModel : ProfilePage
     /// <summary>
     /// The validate signature.
     /// </summary>
-    private async Task ValidateSignatureAsync()
+    /// <returns>Returns if the signature can be saved.</returns>
+    private async Task<bool> ValidateSignatureAsync()
     {
         await this.BindDataAsync(false);
 
-        var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Signature ?? string.Empty));
+        this.Signature ??= string.Empty;
+
+        var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Signature));
 
         // find forbidden BBCodes in signature
         var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.AllowedBbcodes, ',');
@@ -220,25 +226,26 @@ public class EditSignatureModel : ProfilePage
                 this.PageBoardContext.Notify(
                     this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode),
                     MessageTypes.warning);
-                return;
+                return false;
             }
 
             if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
             {
                 this.PageBoardContext.Notify(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
-                return;
+                return false;
             }
         }
 
         if (this.Signature.Length <= this.AllowedNumberOfCharacters)
         {
             this.Signature = this.Get<IBadWordReplace>().Replace(body);
+            return true;
         }
-        else
-        {
-            this.PageBoardContext.Notify(
-                this.GetTextFormatted("SIGNATURE_MAX", this.AllowedNumberOfCharacters),
-                MessageTypes.warning);
-        }
+
+        this.PageBoardContext.Notify(
+            this.GetTextFormatted("SIGNATURE_MAX", this.AllowedNumberOfCharacters),
+            MessageTypes.warning);
+
+        return false;
     }
 }

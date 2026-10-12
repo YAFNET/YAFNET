@@ -69,7 +69,7 @@ public class ReputationController : ForumBaseController
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
-            if (!this.Get<IReputation>().CheckIfAllowReputationVoting(source.ReputationVoteDate))
+            if (!await this.CanVoteAsync(source, false))
             {
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
             }
@@ -115,7 +115,7 @@ public class ReputationController : ForumBaseController
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
-            if (!this.Get<IReputation>().CheckIfAllowReputationVoting(source.ReputationVoteDate))
+            if (!await this.CanVoteAsync(source, true))
             {
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
             }
@@ -135,5 +135,40 @@ public class ReputationController : ForumBaseController
         {
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
         }
+    }
+
+    /// <summary>
+    /// The same rules the post page uses to show the vote buttons, checked again because the request can be sent directly.
+    /// </summary>
+    /// <param name="source">The voted post.</param>
+    /// <param name="voteDown">Down vote.</param>
+    /// <returns>Returns if the current user can vote for the author of the post.</returns>
+    private async Task<bool> CanVoteAsync(PagedMessage source, bool voteDown)
+    {
+        var settings = this.PageBoardContext.BoardSettings;
+
+        if (!settings.EnableUserReputation || source.IsGuest || source.UserID == this.PageBoardContext.PageUserID)
+        {
+            return false;
+        }
+
+        // the last vote from the database, the session copy of the page is not updated after a vote
+        var lastVote = await this.GetRepository<ReputationVote>().GetSingleAsync(
+            v => v.ReputationFromUserID == this.PageBoardContext.PageUserID && v.ReputationToUserID == source.UserID);
+
+        if (lastVote != null && !this.Get<IReputation>().CheckIfAllowReputationVoting(lastVote.VoteDate))
+        {
+            return false;
+        }
+
+        if (!voteDown)
+        {
+            return true;
+        }
+
+        var author = await this.GetRepository<User>().GetByIdAsync(source.UserID);
+
+        return settings.ReputationAllowNegative && author is { Points: > 0 }
+                                               && this.PageBoardContext.PageUser.Points >= settings.ReputationMinDownVoting;
     }
 }

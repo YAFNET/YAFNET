@@ -40,16 +40,24 @@ public static class SpamWordsRepositoryExtensions
     /// <param name="spamWordId">The spam word identifier.</param>
     /// <param name="spamWord">The spam word.</param>
     /// <param name="boardId">The board identifier.</param>
-    public static Task SaveAsync(
+    public async static Task SaveAsync(
         this IRepository<SpamWords> repository,
         int? spamWordId,
         string spamWord,
         int? boardId = null)
     {
-        return repository.UpsertAsync(
+        // an id of another board is not changed
+        var saveBoardId = boardId ?? repository.BoardID;
+
+        if (spamWordId is > 0 && !await repository.ExistsAsync(x => x.ID == spamWordId && x.BoardID == saveBoardId))
+        {
+            return;
+        }
+
+        await repository.UpsertAsync(
             new SpamWords
             {
-                BoardID = boardId ?? repository.BoardID,
+                BoardID = saveBoardId,
                 ID = spamWordId ?? 0,
                 SpamWord = spamWord
             });

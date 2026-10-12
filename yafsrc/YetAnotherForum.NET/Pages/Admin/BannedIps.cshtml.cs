@@ -141,6 +141,12 @@ public class BannedIpsModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
+        // only bans of the board
+        if (!await this.GetRepository<BannedIP>().ExistsAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         var ipAddress = this.GetIpFromId(id);
 
         await this.GetRepository<BannedIP>().DeleteByIdAsync(id);
@@ -198,7 +204,7 @@ public class BannedIpsModel : AdminPage
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
-        var banned = this.GetRepository<BannedIP>().GetById(id);
+        var banned = this.GetRepository<BannedIP>().GetSingle(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID) ?? new BannedIP();
 
         return new PartialViewResult
                {

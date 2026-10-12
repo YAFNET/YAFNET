@@ -109,6 +109,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         {
             case EditorMode.SCEditor:
                 var language = BoardContext.Current.PageUser.Culture.IsSet()
+                               && BoardContext.Current.PageUser.Culture.Length >= 2
                     ? BoardContext.Current.PageUser.Culture[..2]
                     : this.Get<BoardSettings>().Culture[..2];
 
@@ -266,10 +267,10 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         content.AppendHtml(group2.RenderStartTag());
 
         // Render Undo Button
-        RenderButton(content, "setStyle('undo','')", this.GetText("COMMON", "TT_UNDO"), "rotate-left", "undo");
+        RenderButton(content, "setStyle('undo','')", this.GetText("COMMON", "TT_UNDO"), "rotate-left");
 
         // Render Redo Button
-        RenderButton(content, "setStyle('redo','')", this.GetText("COMMON", "TT_REDO"), "rotate-right", "redo");
+        RenderButton(content, "setStyle('redo','')", this.GetText("COMMON", "TT_REDO"), "rotate-right");
 
         content.AppendHtml(group2.RenderEndTag());
 
@@ -526,9 +527,15 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 customBbCodesWithToolbar.ForEach(
                     row =>
                     {
+                        if (row.Name.Equals("media", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            return;
+                        }
+
                         var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
 
-                        var item = new TagBuilder(HtmlTag.Button) {
+                        var item = new TagBuilder(HtmlTag.Button)
+                        {
                             Attributes = {
                                 [HtmlAttribute.Type] = HtmlTag.Button,
                                 [HtmlAttribute.Class] = "btn btn-primary",
@@ -540,7 +547,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
                         content.AppendHtml(item.RenderStartTag());
 
-                        var icon = new TagBuilder(HtmlTag.I) {
+                        var icon = new TagBuilder(HtmlTag.I)
+                        {
                             Attributes = { [HtmlAttribute.Class] = $"fab fa-{row.Name.ToLower()}" }
                         };
 

@@ -26,13 +26,15 @@ namespace YAF.Pages;
 
 using System.Threading.Tasks;
 
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 using MimeKit;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Services;
-using YAF.Types.Models;
+using YAF.Types.Extensions;
 
 /// <summary>
 /// The Share Topic via email
@@ -40,18 +42,29 @@ using YAF.Types.Models;
 public class EmailTopicModel : ForumPage
 {
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "EmailTopicModel" /> class.
+    /// How many emails a user can send in the time window.
     /// </summary>
-    public EmailTopicModel()
-        : base("EMAILTOPIC", ForumPages.EmailTopic)
-    {
-    }
+    private const int MaxEmailsPerWindow = 5;
 
     /// <summary>
-    /// Gets or sets the email user.
+    /// The time window of the email limit.
     /// </summary>
-    [BindProperty]
-    public User EmailUser { get; set; }
+    private readonly static TimeSpan EmailWindow = TimeSpan.FromHours(1);
+
+    /// <summary>
+    /// The memory cache that keeps the sent emails of the users.
+    /// </summary>
+    private readonly IMemoryCache memoryCache;
+
+    /// <summary>
+    ///   Initializes a new instance of the <see cref = "EmailTopicModel" /> class.
+    /// </summary>
+    /// <param name="memoryCache">The memory cache.</param>
+    public EmailTopicModel(IMemoryCache memoryCache)
+        : base("EMAILTOPIC", ForumPages.EmailTopic)
+    {
+        this.memoryCache = memoryCache;
+    }
 
     /// <summary>
     /// Gets or sets the input.
@@ -60,72 +73,82 @@ public class EmailTopicModel : ForumPage
     public EmailTopicInputModel Input { get; set; }
 
     /// <summary>
-    /// The on get.
+    /// Gets the subject of the email (the topic name, it can not be changed).
     /// </summary>
-    /// <param name="t">
-    /// The t.
-    /// </param>
-    public IActionResult OnGet(int? t)
-    {
-        if (!t.HasValue)
-        {
-            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
+    public string Subject { get; private set; }
 
+    /// <summary>
+    /// Gets the text of the email (the link to the topic, it can not be changed).
+    /// </summary>
+    public string Body { get; private set; }
+
+    /// <summary>
+    /// Checks the access.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
         if (this.PageBoardContext.PageTopic is null)
         {
-            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
+        }
+
+        if (this.PageBoardContext.IsGuest || !this.PageBoardContext.ForumReadAccess
+                                          || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+            return;
         }
 
         this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
-
         this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
-
         this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic);
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("EMAILTOPIC", "TITLE"), string.Empty);
 
-        this.PageBoardContext.PageLinks.AddLink(
-            this.GetText("EMAILTOPIC", "TITLE"),
-            string.Empty);
+        this.BindData();
+    }
 
+    /// <summary>
+    /// Shows the form.
+    /// </summary>
+    public IActionResult OnGet()
+    {
         this.Input = new EmailTopicInputModel();
-
-        if (!this.PageBoardContext.ForumReadAccess || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
-        {
-            return this.Get<ILinkBuilder>().AccessDenied();
-        }
-
-        this.Input.Subject = this.PageBoardContext.PageTopic.TopicName;
-
-        var emailTopic = new TemplateEmail("EMAILTOPIC") {
-                                                             TemplateParams = {
-                                                                                  ["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
-                                                                                      ForumPages.Posts,
-                                                                                      new {
-                                                                                          t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName
-                                                                                      }),
-                                                                                  ["{user}"] = this.PageBoardContext.PageUser.DisplayOrUserName()
-                                                                              }
-                                                         };
-
-        this.Input.Body = emailTopic.ProcessTemplate("EMAILTOPIC");
 
         return this.Page();
     }
 
     /// <summary>
-    /// Send the Email
+    /// Sends the email. Only the recipient comes from the form, the subject and the text are fixed,
+    /// otherwise the forum could be used to send any email (spam).
     /// </summary>
     public async Task<IActionResult> OnPostAsync()
     {
+        var email = this.Input?.Email?.Trim();
+
+        if (email.IsNotSet() || !ValidationHelper.IsValidEmail(email))
+        {
+            return this.PageBoardContext.Notify(this.GetText("EDIT_PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+        }
+
+        if (!SendLimitHelper.TryCount(
+                this.memoryCache,
+                $"EmailTopic_{this.PageBoardContext.PageUserID}",
+                MaxEmailsPerWindow,
+                EmailWindow))
+        {
+            return this.PageBoardContext.Notify(this.GetText("EMAILTOPIC", "TOO_MANY"), MessageTypes.warning);
+        }
+
         try
         {
             var emailTopic = new TemplateEmail("EMAILTOPIC")
                              {
-                                 TemplateParams = { ["{message}"] = this.Input.Body.Trim() }
+                                 TemplateParams = { ["{message}"] = this.Body }
                              };
 
-            // send a change email message...
-            await emailTopic.SendEmailAsync(MailboxAddress.Parse(this.Input.Email.Trim()), this.Input.Subject.Trim());
+            await emailTopic.SendEmailAsync(new MailboxAddress(email, email), this.Subject);
 
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Posts,
@@ -136,5 +159,30 @@ public class EmailTopicModel : ForumPage
             this.Get<ILogger<EmailTopicModel>>().Log(this.PageBoardContext.PageUserID, this, x);
             return this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
         }
+    }
+
+    /// <summary>
+    /// Creates the subject and the text of the email.
+    /// </summary>
+    private void BindData()
+    {
+        this.Subject = this.PageBoardContext.PageTopic.TopicName;
+
+        var emailTopic = new TemplateEmail("EMAILTOPIC")
+                         {
+                             TemplateParams =
+                             {
+                                 ["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
+                                     ForumPages.Posts,
+                                     new
+                                     {
+                                         t = this.PageBoardContext.PageTopicID,
+                                         name = this.PageBoardContext.PageTopic.TopicName
+                                     }),
+                                 ["{user}"] = this.PageBoardContext.PageUser.DisplayOrUserName()
+                             }
+                         };
+
+        this.Body = emailTopic.ProcessTemplate("EMAILTOPIC");
     }
 }

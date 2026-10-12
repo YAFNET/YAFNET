@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2003-2005 BjÃ¸rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -56,11 +56,11 @@ public class BotScout : ICheckForBot
             const string BotScoutUrl = "https://www.botscout.com/test/?multi";
 
             var url =
-                $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.BoardSettings.BotScoutApiKey}" : string.Empty)}";
+                $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={Uri.EscapeDataString(ipAddress)}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={Uri.EscapeDataString(emailAddress)}" : string.Empty)}{(userName.IsSet() ? $"&name={Uri.EscapeDataString(userName)}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={Uri.EscapeDataString(BoardContext.Current.BoardSettings.BotScoutApiKey)}" : string.Empty)}";
 
-            var client = new HttpClient(new HttpClientHandler());
+            var client = BoardContext.Current.Get<IHttpClientFactory>().CreateClient();
 
-            var response = await client.GetAsync(url);
+            using var response = await client.GetAsync(url);
 
             responseText = await response.Content.ReadAsStringAsync();
 

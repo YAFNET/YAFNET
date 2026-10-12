@@ -89,8 +89,17 @@ public class ForumsModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteCategoryAsync(int id)
     {
+        // only categories of the board
+        if (!await this.GetRepository<Category>().ExistsAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         if (!await this.GetRepository<Category>().DeleteByIdAsync(id))
         {
+            // the page is shown again with the list
+            this.BindData();
+
             return this.PageBoardContext.Notify(
                 this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"),
                 MessageTypes.warning);
@@ -104,13 +113,16 @@ public class ForumsModel : AdminPage
     /// <summary>
     /// The sort categories ascending.
     /// </summary>
-    protected IActionResult OnPostSortCategoriesAscending()
+    public IActionResult OnPostSortCategoriesAscending()
     {
-        var listAll = this.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>();
+        // the current forums (the list of the page can be outdated)
+        var listAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
 
         var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
 
         this.GetRepository<Category>().ReOrderAllAscending(categories);
+
+        this.Get<ISessionService>().SetPageData(this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID));
 
         this.BindData();
 
@@ -122,13 +134,16 @@ public class ForumsModel : AdminPage
     /// <summary>
     /// The sort categories descending.
     /// </summary>
-    protected IActionResult OnPostSortCategoriesDescending()
+    public IActionResult OnPostSortCategoriesDescending()
     {
-        var listAll = this.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>();
+        // the current forums (the list of the page can be outdated)
+        var listAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
 
         var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
 
         this.GetRepository<Category>().ReOrderAllDescending(categories);
+
+        this.Get<ISessionService>().SetPageData(this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID));
 
         this.BindData();
 
@@ -140,14 +155,17 @@ public class ForumsModel : AdminPage
     /// <summary>
     /// The sort forums ascending.
     /// </summary>
-    protected IActionResult OnPostSortForumsAscending()
+    public IActionResult OnPostSortForumsAscending()
     {
-        var listAll = this.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>();
+        // the current forums (the list of the page can be outdated)
+        var listAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
 
         var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
 
         if (categories.NullOrEmpty())
         {
+            this.BindData();
+
             return this.Page();
         }
 
@@ -157,6 +175,8 @@ public class ForumsModel : AdminPage
 
                 this.GetRepository<Forum>().ReOrderAllAscending(forums);
             });
+
+        this.Get<ISessionService>().SetPageData(this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID));
 
         this.BindData();
 
@@ -168,14 +188,17 @@ public class ForumsModel : AdminPage
     /// <summary>
     /// The sort forums descending.
     /// </summary>
-    protected IActionResult OnPostSortForumsDescending()
+    public IActionResult OnPostSortForumsDescending()
     {
-        var listAll = this.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>();
+        // the current forums (the list of the page can be outdated)
+        var listAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
 
         var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
 
         if (categories.NullOrEmpty())
         {
+            this.BindData();
+
             return this.Page();
         }
 
@@ -185,6 +208,8 @@ public class ForumsModel : AdminPage
 
                 this.GetRepository<Forum>().ReOrderAllDescending(forums);
             });
+
+        this.Get<ISessionService>().SetPageData(this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID));
 
         this.BindData();
 

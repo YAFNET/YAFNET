@@ -107,6 +107,9 @@ public static class UserForumRepositoryExtensions
                 repository.UpdateOnly(
                     () => new UserForum { AccessMaskID = accessMaskId },
                     x => x.UserID == userId && x.ForumID == forumId);
+
+                // UpdateOnly raises no event, the cached access rights must be refreshed
+                repository.FireUpdated();
             }
             else
             {

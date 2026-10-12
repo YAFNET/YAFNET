@@ -29,6 +29,7 @@ namespace YAF.Pages.Admin.EditUser;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 using MimeKit;
@@ -93,7 +94,7 @@ public class UsersChangePassModel : AdminPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostChangePasswordAsync()
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
@@ -122,7 +123,8 @@ public class UsersChangePassModel : AdminPage
                     MessageTypes.danger);
             }
 
-            var newPass = this.Input.NewPassword.Trim();
+            // the password is used as typed (like on the login)
+            var newPass = this.Input.NewPassword;
 
             var token = await this.Get<IAspNetUsersHelper>().GeneratePasswordResetTokenAsync(this.EditUser.Item2);
 
@@ -131,6 +133,12 @@ public class UsersChangePassModel : AdminPage
             if (!result.Succeeded)
             {
                 return this.PageBoardContext.Notify(result.Errors.FirstOrDefault()?.Description, MessageTypes.danger);
+            }
+
+            if (this.EditUser.Item1.ID == this.PageBoardContext.PageUserID)
+            {
+                // the own password: the other logins end, this login gets the new security stamp
+                await this.Get<SignInManager<AspNetUsers>>().RefreshSignInAsync(this.EditUser.Item2);
             }
 
             if (!this.Input.EmailNotify)
@@ -173,7 +181,7 @@ public class UsersChangePassModel : AdminPage
     /// </summary>
     private IActionResult BindData(int userId)
     {
-       if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+       if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
        {
            return this.Get<ILinkBuilder>().Redirect(
                ForumPages.Admin_EditUser,

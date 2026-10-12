@@ -70,6 +70,12 @@ public class DeleteAccountModel : ProfilePage
     public string Option { get; set; } = "suspend";
 
     /// <summary>
+    /// Gets or sets the current password (needed to suspend or delete the account).
+    /// </summary>
+    [BindProperty]
+    public string CurrentPassword { get; set; }
+
+    /// <summary>
     /// Creates page links for this page.
     /// </summary>
     public override void CreatePageLinks()
@@ -87,9 +93,19 @@ public class DeleteAccountModel : ProfilePage
     /// </summary>
     public IActionResult OnGet()
     {
-        return this.PageBoardContext.PageUser.UserFlags.IsHostAdmin
-            ? this.Get<ILinkBuilder>().AccessDenied()
-            : this.Page();
+        return this.Page();
+    }
+
+    /// <summary>
+    /// Host admins can not suspend or delete their own account (all handlers).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
     }
 
     /// <summary>
@@ -97,15 +113,19 @@ public class DeleteAccountModel : ProfilePage
     /// </summary>
     public async Task<IActionResult> OnPostAsync()
     {
+        // the password is needed, a session alone can not remove the account
+        if (!this.IsCurrentPassword(this.PageBoardContext.MembershipUser))
+        {
+            return this.PageBoardContext.Notify(this.GetText("EDIT_PROFILE", "WRONG_PASSWORD"), MessageTypes.warning);
+        }
+
         switch (this.Option)
         {
             case "suspend":
             {
                 // Suspend User for 30 Days
-                // time until when user is suspended
-                var suspend = this.Get<IDateTimeService>().GetUserDateTime(
-                    DateTime.UtcNow,
-                    this.PageBoardContext.TimeZoneInfoUser).AddDays(30);
+                // time until when user is suspended (UTC, it is compared with the UTC time)
+                var suspend = DateTime.UtcNow.AddDays(30);
 
                 // suspend user by calling appropriate method
                 await this.GetRepository<User>().SuspendAsync(
@@ -154,13 +174,14 @@ public class DeleteAccountModel : ProfilePage
 
                 foreach (var x in messages)
                 {
+                    // only the own posts, not the replies of other users
                     await this.GetRepository<Message>().DeleteAsync(
                         x.Topic.ForumID,
                         x.TopicID,
                         x,
                         true,
                         string.Empty,
-                        true,
+                        false,
                         true);
                 }
 
@@ -179,5 +200,21 @@ public class DeleteAccountModel : ProfilePage
         this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageBoardContext.PageUserID));
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+    }
+
+    /// <summary>
+    /// Checks the entered current password (accounts of external logins have no password).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>Returns if the password is correct.</returns>
+    private bool IsCurrentPassword(AspNetUsers user)
+    {
+        if (user.PasswordHash.IsNotSet())
+        {
+            return true;
+        }
+
+        return this.CurrentPassword.IsSet() && this.Get<IAspNetUsersHelper>().PasswordHasher
+                   .VerifyHashedPassword(user, user.PasswordHash, this.CurrentPassword) != PasswordVerificationResult.Failed;
     }
 }

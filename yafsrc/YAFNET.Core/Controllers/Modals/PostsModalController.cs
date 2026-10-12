@@ -68,6 +68,16 @@ public class PostsModalController : ForumBaseController
                 MessageTypes.danger));
         }
 
+        // the topic can only be moved to a forum the user moderates (of this board)
+        if (!await this.GetRepository<ActiveAccess>().ExistsAsync(
+                x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == model.ForumListSelected &&
+                     (x.ModeratorAccess || x.IsAdmin)))
+        {
+            return this.Ok(new MessageModalNotification(
+                this.GetText("INFO", "TITLE_ACCESSDENIED"),
+                MessageTypes.danger));
+        }
+
         // Ederon : 7/14/2007
         await this.GetRepository<Topic>().MoveAsync(
             this.PageBoardContext.PageTopic,
@@ -75,8 +85,6 @@ public class PostsModalController : ForumBaseController
             model.ForumListSelected,
             model.LeavePointer,
             model.LinkDays);
-
-        this.Get<IDataCache>().Remove("TopicID");
 
         return this.Ok(
             this.Get<ILinkBuilder>().GetLink(
@@ -128,8 +136,8 @@ public class PostsModalController : ForumBaseController
                         MessageTypes.warning));
             }
 
-            // post message...
-            var message = model.QuickReplyEditor;
+            // post message... (prepared like the other post forms, the content of code blocks is encoded)
+            var message = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(model.QuickReplyEditor));
 
             // SPAM Check
 
@@ -188,11 +196,12 @@ public class PostsModalController : ForumBaseController
                             return this.Ok();
                     }
                 }
+            }
 
-                if (!this.PageBoardContext.IsGuest)
-                {
-                    await this.UpdateWatchTopicAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID, model.TopicWatch);
-                }
+            // the watch topic option of the dialog (also for admins and moderators)
+            if (!this.PageBoardContext.IsGuest)
+            {
+                await this.UpdateWatchTopicAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID, model.TopicWatch);
             }
 
             // If Forum is Moderated
@@ -249,6 +258,14 @@ public class PostsModalController : ForumBaseController
 
                 if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
                 {
+                    // the mentioned and quoted users (like for the reply page)
+                    MentionHelper.NotifyMentionedAndQuotedUsers(
+                        message,
+                        this.PageBoardContext.PageForumID,
+                        this.PageBoardContext.PageTopicID,
+                        newMessage.ID,
+                        this.PageBoardContext.PageUserID);
+
                     this.Get<IActivityStream>().AddReplyToStream(
                         this.PageBoardContext.PageUser,
                         this.PageBoardContext.PageTopicID,
@@ -270,9 +287,8 @@ public class PostsModalController : ForumBaseController
                     isPossibleSpamMessage);
             }
 
-            var url = this.Get<ILinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
-
-            return this.Ok(this.Get<ILinkBuilder>().GetLink(ForumPages.Info, new { i = 1, url = HttpUtility.UrlEncode(url) }));
+            // tell the user that the reply has to be approved by a moderator
+            return this.Ok(this.Get<ILinkBuilder>().GetLink(ForumPages.Info, new { info = InfoMessage.Moderated.ToType<int>() }));
         }
         catch (Exception exception)
         {

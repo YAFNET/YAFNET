@@ -25,6 +25,8 @@
 namespace YAF.Core.Membership;
 
 using System;
+using System.Security.Cryptography;
+using System.Text;
 
 using Microsoft.AspNetCore.Identity;
 
@@ -57,67 +59,93 @@ public class SQLPasswordHasher : PasswordHasher<AspNetUsers>
             return PasswordVerificationResult.Failed;
         }
 
-        var passwordProperties = hashedPassword.Split('|');
+        // migrated legacy passwords are stored as "password|format|salt",
+        // the format and the (base64) salt never contain the separator, a clear text password can
+        var lastSeparator = hashedPassword.LastIndexOf('|');
+        var formatSeparator = lastSeparator > 0 ? hashedPassword.LastIndexOf('|', lastSeparator - 1) : -1;
 
-        if (passwordProperties.Length != 3)
+        if (formatSeparator < 0)
         {
             return base.VerifyHashedPassword(user, hashedPassword, providedPassword);
         }
 
-        var passwordHash = passwordProperties[0];
-        var salt = passwordProperties[2];
+        var passwordHash = hashedPassword[..formatSeparator];
+        var format = hashedPassword[(formatSeparator + 1)..lastSeparator];
+        var salt = hashedPassword[(lastSeparator + 1)..];
 
-        var passwordFormat = passwordProperties[1].ToEnum<MembershipPasswordFormat>();
-
-        // Encrypted (legacy machineKey-based) passwords cannot be re-derived here without the
-        // original ASP.NET machineKey configuration. Rather than perform a comparison that can
-        // never validate the real secret, fail closed and require a password reset for these accounts.
-        if (passwordFormat == MembershipPasswordFormat.Encrypted)
+        // unknown formats fail, they must never be compared as clear text
+        if (!Enum.TryParse<MembershipPasswordFormat>(format, out var passwordFormat)
+            || !Enum.IsDefined(passwordFormat))
         {
             return PasswordVerificationResult.Failed;
         }
 
-        var encryptedPassword = EncryptPassword(providedPassword, passwordFormat, salt);
+        return passwordFormat switch
+            {
+                // passwords are case-sensitive
+                MembershipPasswordFormat.Clear => FixedTimeEquals(providedPassword, passwordHash, false),
 
-        // Always compare against the stored hash/cleartext value, never against the
-        // user-supplied password itself, or any password would be accepted as valid.
-        return string.Equals(
-            encryptedPassword,
-            passwordHash,
-            StringComparison.OrdinalIgnoreCase)
-            ? PasswordVerificationResult.SuccessRehashNeeded
-            : PasswordVerificationResult.Failed;
+                // ASP.NET membership hashes (salt + password) and hashes of the old YAF provider (password + salt)
+                MembershipPasswordFormat.Hashed => FixedTimeEquals(Hash(providedPassword, salt, true), passwordHash, Config.LegacyMembershipHashHex)
+                                                   || FixedTimeEquals(Hash(providedPassword, salt, false), passwordHash, Config.LegacyMembershipHashHex),
+
+                // Encrypted (legacy machineKey-based) passwords cannot be re-derived here without the
+                // original ASP.NET machineKey configuration. Rather than perform a comparison that can
+                // never validate the real secret, fail closed and require a password reset for these accounts.
+                _ => false
+            }
+                   ? PasswordVerificationResult.SuccessRehashNeeded
+                   : PasswordVerificationResult.Failed;
     }
 
     /// <summary>
-    /// The encrypt password.
+    /// Hashes the password like the legacy membership provider.
     /// </summary>
-    /// <param name="clearPassword">
-    /// The clear Password.
-    /// </param>
-    /// <param name="passwordFormat">
-    /// The password format.
-    /// </param>
-    /// <param name="salt">
-    /// The salt.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    private static string EncryptPassword(string clearPassword, MembershipPasswordFormat passwordFormat, string salt)
+    /// <param name="clearPassword">The clear password.</param>
+    /// <param name="salt">The salt.</param>
+    /// <param name="standardComp">If the salt is put before the password (ASP.NET membership) or after it (old YAF provider).</param>
+    /// <returns>The hash, or null if the salt is invalid.</returns>
+    private static string Hash(string clearPassword, string salt, bool standardComp)
     {
-        return passwordFormat switch
-            {
-                MembershipPasswordFormat.Clear => clearPassword,
-                MembershipPasswordFormat.Hashed => HashHelper.Hash(
-                    clearPassword,
-                    Config.LegacyMembershipHashAlgorithmType,
-                    salt,
-                    Config.LegacyMembershipHashHex,
-                    Config.LegacyMembershipHashCase,
-                    null,
-                    false),
-                _ => clearPassword
-            };
+        try
+        {
+            return HashHelper.Hash(
+                clearPassword,
+                Config.LegacyMembershipHashAlgorithmType,
+                salt,
+                Config.LegacyMembershipHashHex,
+                Config.LegacyMembershipHashCase,
+                null,
+                standardComp);
+        }
+        catch (FormatException)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Compares the provided value with the stored one in constant time.
+    /// </summary>
+    /// <param name="provided">The provided value.</param>
+    /// <param name="stored">The stored value.</param>
+    /// <param name="ignoreCase">Ignore the case (only for hex hashes).</param>
+    /// <returns>Returns if both are equal.</returns>
+    private static bool FixedTimeEquals(string provided, string stored, bool ignoreCase)
+    {
+        if (provided is null || stored is null)
+        {
+            return false;
+        }
+
+        if (ignoreCase)
+        {
+            provided = provided.ToUpperInvariant();
+            stored = stored.ToUpperInvariant();
+        }
+
+        return CryptographicOperations.FixedTimeEquals(
+            Encoding.UTF8.GetBytes(provided),
+            Encoding.UTF8.GetBytes(stored));
     }
 }

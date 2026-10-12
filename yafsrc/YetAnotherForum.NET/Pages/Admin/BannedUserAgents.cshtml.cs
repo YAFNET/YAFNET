@@ -141,7 +141,7 @@ public class BannedUserAgentsModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<BannedUserAgent>().DeleteByIdAsync(id);
+        await this.GetRepository<BannedUserAgent>().DeleteAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID);
 
         this.SearchInput = string.Empty;
 
@@ -189,7 +189,7 @@ public class BannedUserAgentsModel : AdminPage
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
-        var banned = this.GetRepository<BannedUserAgent>().GetById(id);
+        var banned = this.GetRepository<BannedUserAgent>().GetSingle(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID) ?? new BannedUserAgent();
 
         return new PartialViewResult
                {

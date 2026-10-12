@@ -51,6 +51,20 @@ public class ReportedPostsModel : ModerateForumPage
     public List<ReportedMessage> Reported { get; set; }
 
     /// <summary>
+    /// Only moderators of the forum and admins, and the forum must exist (the page failed without a forum).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        base.OnPageHandlerExecuting(context);
+
+        if (context.Result is null && this.PageBoardContext.PageForum is null)
+        {
+            context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+    }
+
+    /// <summary>
     /// Creates page links for this page.
     /// </summary>
     public override void CreatePageLinks()
@@ -60,8 +74,11 @@ public class ReportedPostsModel : ModerateForumPage
             this.GetText("MODERATE_DEFAULT", "TITLE"),
             this.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Moderate));
 
-        // current page
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
+        // current page (the page links are created before the checks of the page, the forum can be missing)
+        if (this.PageBoardContext.PageForum is not null)
+        {
+            this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
+        }
     }
 
     /// <summary>
@@ -84,7 +101,12 @@ public class ReportedPostsModel : ModerateForumPage
     /// </param>
     public async Task<IActionResult> OnPostCopyOverAsync(int messageId)
     {
-        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
+        var message = await this.GetForumMessageAsync(messageId);
+
+        if (message is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
 
         // update message text
         await this.GetRepository<MessageReported>().ReportCopyOverAsync(message);
@@ -104,11 +126,16 @@ public class ReportedPostsModel : ModerateForumPage
     /// </param>
     public async Task<IActionResult> OnPostDeleteAsync(int messageId, int topicId)
     {
-        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
+        var message = await this.GetForumMessageAsync(messageId);
+
+        if (message is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
 
         await this.GetRepository<Message>().DeleteAsync(
             this.PageBoardContext.PageForumID,
-            topicId,
+            message.TopicID,
             message,
             true,
             string.Empty,
@@ -130,6 +157,11 @@ public class ReportedPostsModel : ModerateForumPage
     /// </param>
     public async Task<IActionResult> OnPostResolvedAsync(int messageId)
     {
+        if (await this.GetForumMessageAsync(messageId) is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         await this.GetRepository<Message>().ReportResolveAsync(messageId, this.PageBoardContext.PageUserID);
 
         // tell user message was flagged as resolved
@@ -150,6 +182,12 @@ public class ReportedPostsModel : ModerateForumPage
     /// </returns>
     public async Task<IActionResult> OnPostViewAsync(int messageId)
     {
+        // only the messages of the moderated forum (the topic name is in the link)
+        if (await this.GetForumMessageAsync(messageId) is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         var topic = await this.GetRepository<Topic>().GetTopicFromMessageAsync(messageId);
 
         return this.Get<ILinkBuilder>().Redirect(
@@ -193,5 +231,24 @@ public class ReportedPostsModel : ModerateForumPage
         this.Reported = reported;
 
         return this.Page();
+    }
+
+    /// <summary>
+    /// Gets the message, only when it is a message of the moderated forum (the id is sent by the client).
+    /// </summary>
+    /// <param name="messageId">The message identifier.</param>
+    /// <returns>Returns the message or null</returns>
+    private async Task<Message> GetForumMessageAsync(int messageId)
+    {
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
+
+        if (message is null)
+        {
+            return null;
+        }
+
+        var topic = await this.GetRepository<Topic>().GetByIdAsync(message.TopicID);
+
+        return topic?.ForumID == this.PageBoardContext.PageForumID ? message : null;
     }
 }

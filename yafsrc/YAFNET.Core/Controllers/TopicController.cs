@@ -56,7 +56,19 @@ public class TopicController : ForumBaseController
     [HttpPost("GetTopics")]
     public IActionResult GetTopics([FromBody] SearchTopic searchTopic)
     {
-        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.IsForumModerator)
+        // only topics of forums the user is admin or moderator of (checked for the requested forum,
+        // not the forum of the current page)
+        if (!this.PageBoardContext.IsAdmin && !this.GetRepository<ActiveAccess>().Exists(
+                x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == searchTopic.ForumId && x.ModeratorAccess))
+        {
+            return this.NotFound();
+        }
+
+        // admins only of the forums of their board
+        var forum = this.GetRepository<Forum>().GetById(searchTopic.ForumId);
+
+        if (forum is null || !this.GetRepository<Category>().Exists(
+                c => c.ID == forum.CategoryID && c.BoardID == this.PageBoardContext.PageBoardID))
         {
             return this.NotFound();
         }
@@ -68,9 +80,9 @@ public class TopicController : ForumBaseController
                 () => this.GetRepository<Topic>().Get(t => t.ForumID == searchTopic.ForumId),
                 TimeSpan.FromMinutes(5));
 
-            topics.RemoveAll(t => t.ID == searchTopic.TopicId);
-
+            // the list is cached, the current topic is skipped instead of removed from the list
             var topicsList = topics
+                .Where(topic => topic.ID != searchTopic.TopicId && !topic.TopicFlags.IsDeleted && !topic.TopicMovedID.HasValue)
                 .Where(topic => topic.TopicName.ToLower().Contains(searchTopic.SearchTerm.ToLower()))
                 .Select(
                     topic => new SelectOptions
@@ -88,11 +100,12 @@ public class TopicController : ForumBaseController
                 searchTopic.ForumId,
                 this.PageBoardContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
-                searchTopic.Page,
+                System.Math.Max(searchTopic.Page, 0),
                 15,
                 false);
 
-            topics.RemoveAll(t => t.TopicID == searchTopic.TopicId);
+            // not the current topic and not the links of moved topics (a message can't be moved there)
+            topics.RemoveAll(t => t.TopicID == searchTopic.TopicId || t.TopicMovedID.HasValue);
 
             var topicsList = (from PagedTopic topic in topics
                               select new SelectOptions

@@ -59,6 +59,12 @@ public static class BuddyRepositoryExtensions
         public bool AddRequest(int fromUserId,
             int toUserId)
         {
+            // nobody can be their own friend
+            if (fromUserId == toUserId)
+            {
+                return false;
+            }
+
             if (repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
             {
                 return false;

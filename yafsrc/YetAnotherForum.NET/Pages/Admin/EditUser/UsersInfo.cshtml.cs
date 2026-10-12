@@ -93,7 +93,7 @@ public class UsersInfoModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync(int userId)
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
@@ -105,12 +105,32 @@ public class UsersInfoModel : AdminPage
 
         this.EditUser = user;
 
-        var userFlags = this.EditUser.Item1.UserFlags;
+        // the current flags are taken from the database, the cached user can be outdated (e.g. approved in the meantime)
+        var currentUser = await this.GetRepository<User>().GetByIdAsync(userId);
 
-        userFlags.IsHostAdmin = this.Input.IsHostAdminX;
-        userFlags.IsGuest = this.Input.IsGuestX;
+        if (currentUser is null)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
+        var userFlags = currentUser.UserFlags;
+
+        // only a host admin can see (and change) the host admin setting,
+        // the guest setting is read only (disabled checkboxes are not posted)
+        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        {
+            userFlags.IsHostAdmin = this.Input.IsHostAdminX;
+        }
+
         userFlags.IsActiveExcluded = this.Input.IsExcludedFromActiveUsers;
         userFlags.Moderated = this.Input.Moderated;
+
+        // the rank must be a rank of this board
+        if (!this.GetRepository<Rank>().Exists(
+                r => r.ID == this.Input.RankID && r.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            this.Input.RankID = currentUser.RankID;
+        }
 
         await this.GetRepository<User>().AdminSaveAsync(
             this.PageBoardContext.PageBoardID,
@@ -126,11 +146,18 @@ public class UsersInfoModel : AdminPage
     /// <summary>
     /// Approve the User
     /// </summary>
-    public async Task OnPostApproveUserAsync(int id)
+    public async Task<IActionResult> OnPostApproveUserAsync(int id)
     {
+        // only the user that is edited (checked by the edit user page) can be approved
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{id}-{this.PageBoardContext.PageUserID}")] is not
+            Tuple<User, AspNetUsers, Rank, VAccess>)
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
+        }
+
         await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
 
-        this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = id, tab = "View1" });
     }
 
     /// <summary>
@@ -138,7 +165,7 @@ public class UsersInfoModel : AdminPage
     /// </summary>
     private IActionResult BindData(int userId)
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,

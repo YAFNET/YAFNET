@@ -69,7 +69,8 @@ public static class CategoryRepositoryExtensions
                 ? [.. repository.Get(
                     category => category.BoardID == (boardId ?? repository.BoardID)
                                 && category.ID == categoryId.Value).OrderBy(o => o.SortOrder)]
-                : repository.Get(category => category.BoardID == (boardId ?? repository.BoardID));
+                : [.. repository.Get(category => category.BoardID == (boardId ?? repository.BoardID))
+                    .OrderBy(o => o.SortOrder).ThenBy(o => o.Name)];
         }
 
         /// <summary>
@@ -96,17 +97,25 @@ public static class CategoryRepositoryExtensions
         /// <returns>
         /// Returns the Category ID of the Updated or new Category
         /// </returns>
-        public Task<int> SaveAsync(int? categoryId,
+        public async Task<int> SaveAsync(int? categoryId,
             string name,
             string categoryImage,
             short sortOrder,
             CategoryFlags flags,
             int? boardId = null)
         {
-            return repository.UpsertAsync(
+            // an id of another board is not changed
+            var saveBoardId = boardId ?? repository.BoardID;
+
+            if (categoryId is > 0 && !await repository.ExistsAsync(x => x.ID == categoryId && x.BoardID == saveBoardId))
+            {
+                return 0;
+            }
+
+            return await repository.UpsertAsync(
                 new Category
                 {
-                    BoardID = boardId ?? repository.BoardID,
+                    BoardID = saveBoardId,
                     ID = categoryId ?? 0,
                     Name = name,
                     SortOrder = sortOrder,

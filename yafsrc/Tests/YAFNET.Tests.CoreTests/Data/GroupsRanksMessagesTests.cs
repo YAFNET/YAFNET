@@ -277,9 +277,19 @@ public class GroupsRanksMessagesTests
         this.AddPm(this.bob, this.alice, "old", DateTime.UtcNow.AddDays(-40));
         var recent = this.AddPm(this.bob, this.alice, "recent", DateTime.UtcNow.AddDays(-1));
 
-        (await this.Messages.PruneAllAsync(30)).Should().Be(1);
+        // a message of another board stays
+        var otherBoardUser = this.db.AddUser("OtherBoardUser", u => u.BoardID = TestDatabase.BoardId + 1);
+        var otherBoard = this.AddPm(otherBoardUser, otherBoardUser, "other board", DateTime.UtcNow.AddDays(-40));
 
-        this.Messages.GetAll().Select(m => m.ID).Should().Equal(recent);
+        this.Messages.CountBoardMessages(TestDatabase.BoardId).Should().Be(2);
+
+        (await this.Messages.PruneAllAsync(TestDatabase.BoardId, 30)).Should().Be(1);
+
+        this.Messages.GetAll().Select(m => m.ID).Should().BeEquivalentTo([recent, otherBoard]);
+
+        // 0 days (or less) would delete everything, at least one day is kept
+        (await this.Messages.PruneAllAsync(TestDatabase.BoardId, 0)).Should().Be(0);
+        this.Messages.GetAll().Select(m => m.ID).Should().Contain(recent);
     }
 
     private IRepository<User> Users => this.board.Current.GetRepository<User>();

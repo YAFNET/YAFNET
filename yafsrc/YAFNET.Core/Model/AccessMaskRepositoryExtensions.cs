@@ -42,7 +42,7 @@ public static class AccessMaskRepositoryExtensions
     /// <param name="flags">The Access Mask Flags</param>
     /// <param name="sortOrder">The sort order.</param>
     /// <param name="boardId">The board id.</param>
-    public static Task SaveAsync(
+    public async static Task SaveAsync(
         this IRepository<AccessMask> repository,
         int? accessMaskId,
         string name,
@@ -50,10 +50,18 @@ public static class AccessMaskRepositoryExtensions
         short sortOrder,
         int? boardId = null)
     {
-        return repository.UpsertAsync(
+        // an id of another board is not changed
+        var saveBoardId = boardId ?? repository.BoardID;
+
+        if (accessMaskId is > 0 && !await repository.ExistsAsync(x => x.ID == accessMaskId && x.BoardID == saveBoardId))
+        {
+            return;
+        }
+
+        await repository.UpsertAsync(
             new AccessMask
             {
-                BoardID = boardId ?? repository.BoardID,
+                BoardID = saveBoardId,
                 ID = accessMaskId ?? 0,
                 Name = name,
                 Flags = flags.BitValue,

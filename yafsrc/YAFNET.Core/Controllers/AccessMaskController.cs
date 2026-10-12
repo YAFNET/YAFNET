@@ -41,7 +41,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_EditGroup)]
 public class AccessMaskController : ForumBaseController
 {
     /// <summary>
@@ -61,6 +61,23 @@ public class AccessMaskController : ForumBaseController
         var forumId = pagedResults.UserId;
         var accessMaskId = pagedResults.PageSize;
         var roleId = pagedResults.PageNumber;
+
+        // groups and access masks are per board, the ids are sent by the client
+        var boardId = this.PageBoardContext.PageBoardID;
+
+        if (!this.GetRepository<Group>().Exists(g => g.ID == roleId && g.BoardID == boardId)
+            || !this.GetRepository<AccessMask>().Exists(a => a.ID == accessMaskId && a.BoardID == boardId))
+        {
+            return this.BadRequest();
+        }
+
+        // the forum too (a forum belongs to the board of its category)
+        var forum = await this.GetRepository<Forum>().GetByIdAsync(forumId);
+
+        if (forum is null || !this.GetRepository<Category>().Exists(c => c.ID == forum.CategoryID && c.BoardID == boardId))
+        {
+            return this.BadRequest();
+        }
 
         await this.GetRepository<ForumAccess>().SaveAsync(
             forumId,

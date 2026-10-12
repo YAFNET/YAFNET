@@ -188,7 +188,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                         // FIX user roles ?!
                         this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(
                             BoardContext.Current.PageBoardID,
-                            BoardContext.Current.MembershipUser);
+                            BoardContext.Current.MembershipUser).GetAwaiter().GetResult();
 
                         this.Get<IAspNetRolesHelper>().DidCreateForumUser(
                             BoardContext.Current.MembershipUser,
@@ -214,7 +214,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
 
                 // fail...
                 break;
-            } while (pageRow == null && userKey != null);
+            } while (pageRow == null);
 
             // add all loaded page data into our data dictionary...
             @event.PageLoadData = pageRow ?? throw new ArgumentException("Unable to find the Guest User!");
@@ -264,17 +264,9 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                 x,
                 $"Failure Initializing User/Page (URL: {this.Get<IHttpContextAccessor>().HttpContext.Request.GetDisplayUrl()}).");
 
-            // log the user out...
-            // FormsAuthentication.SignOut();
-            if (BoardContext.Current.CurrentForumPage is null ||
-                BoardContext.Current.CurrentForumPage.PageName == ForumPages.Info)
-            {
-                // totally failing... just re-throw the exception...
-                throw;
-            }
-
-            // show a failure notice since something is probably up with membership...
-            this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
+            // re-throw the exception: the page can't be shown without the page data
+            // (a redirect can't be returned from here, the page would continue with missing data)
+            throw;
         }
 #else
         catch (Exception)

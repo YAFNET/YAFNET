@@ -48,7 +48,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_BannedNames)]
 public class BannedNameController : ForumBaseController
 {
     /// <summary>
@@ -82,7 +82,7 @@ public class BannedNameController : ForumBaseController
         }
         catch (Exception x)
         {
-            this.Get<ILogger<BannedEmailController>>().Error(
+            this.Get<ILogger<BannedNameController>>().Error(
                 x,
                 string.Format(this.GetText("ADMIN_BANNEDNAME_IMPORT", "IMPORT_FAILED"), x.Message));
 
@@ -105,6 +105,15 @@ public class BannedNameController : ForumBaseController
         if (model.Id is 0)
         {
             model.Id = null;
+        }
+
+        // the masks are regular expressions
+        if (!ValidationHelper.IsValidRegex(model.Mask?.Trim()))
+        {
+            return this.Ok(
+                new MessageModalNotification(
+                    this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
+                    MessageTypes.warning));
         }
 
         if (!this.GetRepository<BannedName>().Save(

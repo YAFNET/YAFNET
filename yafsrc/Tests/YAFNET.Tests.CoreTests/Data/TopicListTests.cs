@@ -313,7 +313,7 @@ public class TopicListTests
     }
 
     [Test]
-    [Description("Watched topics lists only the topics the user watches, with a matching total")]
+    [Description("Watched topics lists only the topics the user watches and still can read, with a matching total")]
     public void ListWatchedPaged_Test()
     {
         var watched1 = this.AddTopic(this.forumA, this.bob, "Watched 1", this.now.AddHours(-1));
@@ -321,10 +321,14 @@ public class TopicListTests
         this.AddTopic(this.forumA, this.bob, "Not watched", this.now.AddHours(-3));
         this.AddTopic(this.forumB, this.bob, "Not watched either", this.now.AddHours(-4));
 
+        // watched, but in a forum Alice can not read (anymore): the list would show its last post
+        var hidden = this.AddTopic(this.hiddenForum, this.bob, "Hidden", this.now.AddMinutes(-30));
+
         using (var connection = this.db.Open())
         {
             connection.Insert(new WatchTopic { UserID = this.alice, TopicID = watched1, Created = this.now });
             connection.Insert(new WatchTopic { UserID = this.alice, TopicID = watched2, Created = this.now });
+            connection.Insert(new WatchTopic { UserID = this.alice, TopicID = hidden, Created = this.now });
             connection.Insert(new WatchTopic { UserID = this.bob, TopicID = watched1, Created = this.now });
         }
 

@@ -91,6 +91,19 @@ public class TopicsModel : ForumPage
     }
 
     /// <summary>
+    /// The post handlers (page size, show list, watch, ...) need read access to the forum,
+    /// the get handler checks it on its own (guests are sent to the login).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (Microsoft.AspNetCore.Http.HttpMethods.IsPost(this.Request.Method) && !this.PageBoardContext.ForumReadAccess)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
     /// The on get.
     /// </summary>
     public async Task<IActionResult> OnGetAsync()
@@ -142,13 +155,18 @@ public class TopicsModel : ForumPage
         {
             return this.NotFound();
         }
+        // the values come from the client (the page offers at most 50 entries)
+        page = Math.Max(page, 0);
+        size = Math.Clamp(size, 1, 100);
 
-        int[] days = [1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356];
+
+        // option 0 shows all topics, option n the topics of the last days[n - 1] days
+        int[] days = [1, 2, 7, 14, 31, 2 * 31, 6 * 31, 365];
 
         var topics = this.GetRepository<Topic>().ListPaged(
             this.PageBoardContext.PageForumID,
             this.PageBoardContext.PageUserID,
-            show == 0 ? DateTimeHelper.SqlDbMinTime() : DateTime.UtcNow.AddDays(-days[show]),
+            show <= 0 || show > days.Length ? DateTimeHelper.SqlDbMinTime() : DateTime.UtcNow.AddDays(-days[show - 1]),
             page,
             size,
             this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
@@ -287,12 +305,13 @@ public class TopicsModel : ForumPage
             10,
             this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
 
-        int[] days = [1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356];
+        // option 0 shows all topics, option n the topics of the last days[n - 1] days
+        int[] days = [1, 2, 7, 14, 31, 2 * 31, 6 * 31, 365];
 
         this.Topics = this.GetRepository<Topic>().ListPaged(
             this.PageBoardContext.PageForumID,
             this.PageBoardContext.PageUserID,
-            this.ShowTopicListSelected == 0 ? DateTimeHelper.SqlDbMinTime() : DateTime.UtcNow.AddDays(-days[this.ShowTopicListSelected]),
+            this.ShowTopicListSelected <= 0 || this.ShowTopicListSelected > days.Length ? DateTimeHelper.SqlDbMinTime() : DateTime.UtcNow.AddDays(-days[this.ShowTopicListSelected - 1]),
             this.PageBoardContext.PageIndex,
             this.Size,
             this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);

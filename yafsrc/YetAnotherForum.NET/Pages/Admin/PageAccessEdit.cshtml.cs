@@ -96,6 +96,16 @@ public class PageAccessEditModel : AdminPage
     }
 
     /// <summary>
+    /// The pages only the host admin can use (they can't be granted to the admins of a board):
+    /// the boards, the host settings, the page access, and the pages that work on the whole database.
+    /// </summary>
+    private static readonly string[] HostPages =
+    [
+        "Admin_Boards", "Admin_EditBoard", "Admin_HostSettings", "Admin_PageAccessList", "Admin_PageAccessEdit", "Admin_RunSql",
+        "Admin_ReIndex", "Admin_Languages", "Admin_EditLanguage", "Admin_RestartApp", "Admin_TestData"
+    ];
+
+    /// <summary>
     /// Handles the Click event of the Save control.
     /// </summary>
     public IActionResult OnPostSave()
@@ -105,6 +115,12 @@ public class PageAccessEditModel : AdminPage
             {
                 var readAccess = userAccess.ReadAccess;
                 var pageName = userAccess.PageName;
+
+                // the pages of the host admin can't be granted (the list is sent by the client)
+                if (HostPages.Contains(pageName))
+                {
+                    readAccess = false;
+                }
 
                 if (readAccess || string.Equals("Admin_Admin", pageName, StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -127,8 +143,8 @@ public class PageAccessEditModel : AdminPage
     /// </summary>
     public IActionResult OnPostGrantAll()
     {
-        // save permissions to table - checked only
-        this.AccessList.ForEach(
+        // save permissions to table - the pages of the host admin can't be granted (the list is sent by the client)
+        this.AccessList.Where(userAccess => !HostPages.Contains(userAccess.PageName)).ToList().ForEach(
             userAccess => this.GetRepository<AdminPageUserAccess>().Save(
                 this.UserId,
                 userAccess.PageName));
@@ -182,9 +198,7 @@ public class PageAccessEditModel : AdminPage
         var pagesAll = new List<AdminPageUserAccess>();
 
         // Protected host-admin pages
-        var hostPages = new[] {
-                                  "Admin_Boards", "Admin_HostSettings", "Admin_PageAccessList", "Admin_PageAccessEdit"
-                              };
+        var hostPages = HostPages;
 
         // Iterate through all admin pages
         listPages.ToList().ForEach(

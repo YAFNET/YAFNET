@@ -24,6 +24,11 @@
 
 namespace YAF.Core.BasePages;
 
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Filters;
+
 /// <summary>
 /// The class that all YAF forum pages are derived from.
 /// </summary>
@@ -61,6 +66,26 @@ public abstract class ForumBaseController : Controller, IHaveServiceLocator, IHa
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+    /// <summary>
+    /// Called before the action is executed: a suspended user can't change anything
+    /// (the forum pages send the user to the info page, the actions are denied here).
+    /// </summary>
+    /// <param name="context">The action executing context.</param>
+    /// <param name="next">The next filter or the action.</param>
+    /// <returns>The <see cref="Task"/>.</returns>
+    public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+    {
+        var method = context.HttpContext.Request.Method;
+
+        if (!HttpMethods.IsGet(method) && !HttpMethods.IsHead(method) && this.PageBoardContext.IsSuspendedNow)
+        {
+            context.Result = this.StatusCode(StatusCodes.Status403Forbidden);
+            return;
+        }
+
+        await next();
+    }
 
     /// <summary>
     /// Encodes the HTML

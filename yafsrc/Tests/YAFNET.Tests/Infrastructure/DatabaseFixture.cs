@@ -149,6 +149,15 @@ public abstract class DatabaseFixture : IAsyncDisposable
         this.Page.Console += (_, msg) => TestContext.Progress.WriteLine($"[browser] {msg.Type}: {msg.Text}");
         this.Page.PageError += (_, err) => TestContext.Progress.WriteLine($"[browser-error] {err}");
 
+        // server errors and refused requests (e.g. 429 of the rate limiter) of all pages of the context
+        this.Context.Response += (_, response) =>
+        {
+            if (response.Status >= 400)
+            {
+                TestContext.Progress.WriteLine($"[http-{response.Status}] {response.Request.Method} {response.Url}");
+            }
+        };
+
         await this.InstallApplicationAsync(testSettings);
     }
 
@@ -183,6 +192,15 @@ public abstract class DatabaseFixture : IAsyncDisposable
 
         this.Page.Console += (_, msg) => TestContext.Progress.WriteLine($"[browser] {msg.Type}: {msg.Text}");
         this.Page.PageError += (_, err) => TestContext.Progress.WriteLine($"[browser-error] {err}");
+
+        // server errors and refused requests (e.g. 429 of the rate limiter) of all pages of the context
+        this.Context.Response += (_, response) =>
+        {
+            if (response.Status >= 400)
+            {
+                TestContext.Progress.WriteLine($"[http-{response.Status}] {response.Request.Method} {response.Url}");
+            }
+        };
 
         await this.InstallApplicationAsync(testSettings);
     }

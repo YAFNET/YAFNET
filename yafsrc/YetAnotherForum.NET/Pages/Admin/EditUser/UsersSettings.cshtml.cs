@@ -32,6 +32,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 using YAF.Core.Context;
+using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Constants;
@@ -107,7 +108,7 @@ public class UsersSettingsModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync()
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
@@ -117,13 +118,22 @@ public class UsersSettingsModel : AdminPage
                 });
         }
 
-        if (this.Input.Email != user.Item1.Email)
+        // the current flags are taken from the database, the cached user can be outdated (e.g. approved in the meantime)
+        var currentUser = await this.GetRepository<User>().GetByIdAsync(this.Input.UserId);
+
+        if (currentUser is null)
         {
-            var newEmail = this.Input.Email.Trim();
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
+        var newEmail = this.Input.Email?.Trim();
+
+        if (!string.Equals(newEmail, currentUser.Email, StringComparison.OrdinalIgnoreCase))
+        {
 
             if (!ValidationHelper.IsValidEmail(newEmail))
             {
-                this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                this.PageBoardContext.SessionNotify(this.GetText("EDIT_PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                 return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View10" });
@@ -133,7 +143,7 @@ public class UsersSettingsModel : AdminPage
 
             if (userFromEmail != null)
             {
-                this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                this.PageBoardContext.SessionNotify(this.GetText("EDIT_PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                 return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View10" });
@@ -172,12 +182,18 @@ public class UsersSettingsModel : AdminPage
             StaticDataHelper.Cultures()
                 .Where(row => culture == row.CultureTag).ForEach(
                     row => language = row.CultureFile);
+
+            // only the cultures of the list (the value is sent by the client)
+            if (language is null)
+            {
+                culture = null;
+            }
         }
 
         // save remaining settings to the DB
         await this.GetRepository<User>().SaveAsync(
             this.Input.UserId,
-            user.Item1.Flags,
+            currentUser.Flags,
             this.Input.TimeZone,
             language,
             culture,
@@ -210,7 +226,7 @@ public class UsersSettingsModel : AdminPage
     /// </summary>
     private IActionResult BindData(int userId)
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
@@ -303,7 +319,8 @@ public class UsersSettingsModel : AdminPage
         }
 
         // Get first default full culture from a language file tag.
-        var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
+        // the language file can be missing (e.g. removed), use the default culture then
+        var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile) ?? "en-US";
         return langFileCulture[..2] == culture4Tag[..2] ? culture4Tag : langFileCulture;
     }
 }

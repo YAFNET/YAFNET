@@ -42,7 +42,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_BannedCountries)]
 public class BannedCountryController : ForumBaseController
 {
     /// <summary>

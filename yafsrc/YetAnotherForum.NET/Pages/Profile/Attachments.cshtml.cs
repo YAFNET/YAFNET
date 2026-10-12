@@ -34,6 +34,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Core.Extensions;
 using Core.Helpers;
+using Core.Model;
 
 using Types.Extensions;
 using Types.Models;
@@ -99,13 +100,17 @@ public class AttachmentsModel : ProfilePage
             return this.Page();
         }
 
-        await this.GetRepository<Attachment>().DeleteByIdsAsync(items);
+        // only own attachments (the ids are sent by the client), the files are deleted too
+        var ownAttachments = await this.GetRepository<Attachment>().GetAsync(
+            a => items.Contains(a.ID) && a.UserID == this.PageBoardContext.PageUserID);
 
-        this.PageBoardContext.Notify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
+        ownAttachments.ForEach(a => this.GetRepository<Attachment>().Delete(a.ID));
 
-        await this.BindDataAsync();
-
-        return this.Page();
+        // reload the page, the posted selection belongs to the old list
+        return this.PageBoardContext.SessionNotify(
+            this.GetTextFormatted("DELETED", ownAttachments.Count),
+            MessageTypes.success,
+            ForumPages.Profile_Attachments);
     }
 
     /// <summary>

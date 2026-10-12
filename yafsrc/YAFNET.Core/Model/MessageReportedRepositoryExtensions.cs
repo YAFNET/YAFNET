@@ -145,6 +145,7 @@ public static class MessageReportedRepositoryExtensions
                     {
                         MessageID = message.ID,
                         UserID = userId,
+                        ReportedNumber = 1,
                         Reported = reportedDateTime,
                         ReportText = $"{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
                     });

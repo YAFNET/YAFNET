@@ -94,10 +94,15 @@ public static class MessageHistoryRepositoryExtensions
             // Load Current Message
             var currentMessage = BoardContext.Current.GetRepository<Message>().GetMessageAsTuple(messageId);
 
+            if (currentMessage is null)
+            {
+                return [];
+            }
+
             var current = new MessageHistoryTopic
             {
                 EditReason = currentMessage.Item2.EditReason,
-                Edited = currentMessage.Item2.Edited.Value,
+                Edited = currentMessage.Item2.Edited ?? currentMessage.Item2.Posted,
                 EditedBy = currentMessage.Item2.UserID,
                 Flags = currentMessage.Item2.Flags,
                 IP = currentMessage.Item2.IP,

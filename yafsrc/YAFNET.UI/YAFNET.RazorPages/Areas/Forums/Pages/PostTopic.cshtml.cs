@@ -156,12 +156,18 @@ public class PostTopicModel : ForumPage
             return false;
         }
 
+        // a guest without a name posts with the name of the guest user (an empty field is not sent)
+        if (this.PageBoardContext.IsGuest && this.Input.From.IsNotSet())
+        {
+            this.Input.From = this.PageBoardContext.PageUser.DisplayOrUserName();
+        }
+
         // Check if the Entered Guest Username is not too long
         if (this.PageBoardContext.IsGuest && this.Input.From.Length > 100)
         {
             this.PageBoardContext.Notify(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
 
-            this.Input.From = this.Input.From[100..];
+            this.Input.From = this.Input.From[..100];
             return false;
         }
 
@@ -182,6 +188,26 @@ public class PostTopicModel : ForumPage
     }
 
     /// <summary>
+    /// The user needs post access in the forum, locked forums only for moderators
+    /// (all handlers, also when saving the topic).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (this.PageBoardContext.PageForumID == 0)
+        {
+            context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
+        }
+
+        if (!this.PageBoardContext.ForumPostAccess
+            || this.PageBoardContext.PageForum.ForumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
     public async Task<IActionResult> OnGetAsync()
@@ -189,6 +215,12 @@ public class PostTopicModel : ForumPage
         this.Input = new PostTopicInputModel {
             Persistent = true
         };
+
+        // the name of a guest (the entered name is kept when the page is shown again)
+        if (this.PageBoardContext.IsGuest)
+        {
+            this.Input.From = this.PageBoardContext.PageUser.DisplayOrUserName();
+        }
 
         if (this.PageBoardContext.PageForumID == 0)
         {
@@ -262,11 +294,16 @@ public class PostTopicModel : ForumPage
             this.PageBoardContext.PageForum,
             HtmlTagHelper.StripHtml(this.Input.TopicSubject),
             string.Empty,
-            HtmlTagHelper.StripHtml(this.Input.TopicStyles),
+            // only moderators and admins can style the topic title (the field is only shown to them)
+            this.PageBoardContext.BoardSettings.UseStyledTopicTitles
+            && (this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin)
+                ? HtmlTagHelper.StripHtml(this.Input.TopicStyles)
+                : string.Empty,
             HtmlTagHelper.StripHtml(this.Input.TopicDescription),
             HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             this.PageBoardContext.PageUser,
-            this.Input.Priority.ToType<short>(),
+            // sticky topics and announcements need priority access
+            this.PageBoardContext.ForumPriorityAccess ? (short)Math.Clamp(this.Input.Priority, 0, 2) : (short)0,
             this.PageBoardContext.IsGuest ? this.Input.From : this.PageBoardContext.PageUser.Name,
             this.PageBoardContext.IsGuest ? this.Input.From : this.PageBoardContext.PageUser.DisplayName,
             this.HttpContext.GetUserRealIPAddress(),
@@ -352,6 +389,12 @@ public class PostTopicModel : ForumPage
         // New Topic
         var newMessage = await this.PostReplyHandleNewTopicAsync();
 
+        // Add tags (also to a topic that needs the approval and without the activity stream of the user)
+        if (this.Input.TagsValue.IsSet())
+        {
+            await this.GetRepository<TopicTag>().AddTagsToTopicAsync(this.Input.TagsValue, newMessage.TopicID);
+        }
+
         // Check if message is approved
         var isApproved = newMessage.MessageFlags.IsApproved;
 
@@ -365,37 +408,13 @@ public class PostTopicModel : ForumPage
 
             if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
             {
-                // Handle Mentions
-                BBCodeHelper.FindMentions(message).ForEach(
-                    user =>
-                    {
-                        var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                        if (userId != this.PageBoardContext.PageUserID)
-                        {
-                            this.Get<IActivityStream>().AddMentionToStream(
-                                userId,
-                                newMessage.TopicID,
-                                newMessage.ID,
-                                this.PageBoardContext.PageUserID);
-                        }
-                    });
-
-                // Handle User Quoting
-                BBCodeHelper.FindUserQuoting(message).ForEach(
-                    user =>
-                    {
-                        var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                        if (userId != this.PageBoardContext.PageUserID)
-                        {
-                            this.Get<IActivityStream>().AddQuotingToStream(
-                                userId,
-                                newMessage.TopicID,
-                                newMessage.ID,
-                                this.PageBoardContext.PageUserID);
-                        }
-                    });
+                // Handle Mentions and User Quoting
+                MentionHelper.NotifyMentionedAndQuotedUsers(
+                    message,
+                    this.PageBoardContext.PageForumID,
+                    newMessage.TopicID,
+                    newMessage.ID,
+                    this.PageBoardContext.PageUserID);
 
                 this.Get<IActivityStream>().AddTopicToStream(
                     this.PageBoardContext.PageUser,
@@ -403,12 +422,6 @@ public class PostTopicModel : ForumPage
                     newMessage.ID,
                     HtmlTagHelper.StripHtml(this.Input.TopicSubject),
                     message);
-
-                // Add tags
-                if (this.Input.TagsValue.IsSet())
-                {
-                    await this.GetRepository<TopicTag>().AddTagsToTopicAsync(this.Input.TagsValue, newMessage.TopicID);
-                }
             }
 
             if (!attachPollParameter || !this.Input.AddPoll)
@@ -440,13 +453,9 @@ public class PostTopicModel : ForumPage
         }
 
         // Tell user that his message will have to be approved by a moderator
-        var url = this.Get<ILinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
-
         if (!attachPollParameter)
         {
-            return this.Get<ILinkBuilder>().Redirect(
-                ForumPages.Info,
-                new {i = 1, url = HttpUtility.UrlEncode(url)});
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
         }
 
         return this.Get<ILinkBuilder>().Redirect(

@@ -128,7 +128,9 @@ public class EditAvatarModel : ProfilePage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostGalleryAsync()
     {
-        if (this.AvatarGallery is null)
+        // only images of the avatar gallery can be selected
+        if (this.AvatarGallery.IsNotSet()
+            || !this.LoadAvatarGallery().Exists(item => item.Value.IsSet() && item.Value == this.AvatarGallery))
         {
             return this.LoadPage();
         }
@@ -149,7 +151,8 @@ public class EditAvatarModel : ProfilePage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostUploadUpdateAsync()
     {
-        if (this.Upload is null || this.Upload.FileName.Trim().Length <= 0 ||
+        // the upload form is only shown with the avatar upload enabled
+        if (!this.PageBoardContext.BoardSettings.AvatarUpload || this.Upload is null || this.Upload.FileName.Trim().Length <= 0 ||
             !this.Upload.FileName.Trim().IsImageName())
         {
             return this.LoadPage();
@@ -172,11 +175,21 @@ public class EditAvatarModel : ProfilePage
 
             if (image.Width > x || image.Height > y)
             {
-                this.PageBoardContext.Notify(
+                // shown after the redirect
+                this.PageBoardContext.SessionNotify(
                     $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", image.Width, image.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
                     MessageTypes.warning);
 
                 resizedImage = ImageHelper.GetResizedImage(image, x, y);
+            }
+            else if (avatarSize > 0 && this.Upload.Length > avatarSize)
+            {
+                // the file is too big (and not resized), the avatar is not saved
+                this.PageBoardContext.Notify(
+                    $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.Upload.Length)}",
+                    MessageTypes.warning);
+
+                return this.LoadPage();
             }
 
             // Delete old first...
@@ -193,13 +206,6 @@ public class EditAvatarModel : ProfilePage
 
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
-
-            if (avatarSize > 0 && this.Upload.Length >= avatarSize && resizedImage is null)
-            {
-                return this.PageBoardContext.Notify(
-                    $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.Upload.Length)}",
-                    MessageTypes.warning);
-            }
 
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
         }
@@ -323,7 +329,7 @@ public class EditAvatarModel : ProfilePage
                 this.PageBoardContext.PageUserID,
                 null,
                 memoryStream,
-                this.Upload.ContentType);
+                "image/webp");
         }
         else
         {
@@ -331,7 +337,7 @@ public class EditAvatarModel : ProfilePage
                 this.PageBoardContext.PageUserID,
                 null,
                 resized,
-                this.Upload.ContentType);
+                "image/webp");
         }
     }
 

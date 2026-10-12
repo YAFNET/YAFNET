@@ -63,13 +63,19 @@ public class FriendsController : ForumBaseController
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
+            // the same rules as for showing the button
+            if (!this.CanSendFriendRequest(this.GetRepository<User>().GetById(source.UserID)))
+            {
+                return this.Get<ILinkBuilder>().AccessDenied();
+            }
+
             var userName = this.PageBoardContext.BoardSettings.EnableDisplayName ? source.DisplayName : source.UserName;
 
             this.PageBoardContext.SessionNotify(
                 this.Get<IFriends>().AddRequest(source.UserID)
                     ? this.GetTextFormatted(
                         "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
-                        userName)
+                        this.HtmlEncode(userName))
                     : this.GetText("NOTIFICATION_BUDDYREQUEST"),
                 MessageTypes.success);
 
@@ -104,11 +110,17 @@ public class FriendsController : ForumBaseController
                     new { info = InfoMessage.Invalid.ToType<int>() });
             }
 
+            // the same rules as for showing the button
+            if (!this.CanSendFriendRequest(user))
+            {
+                return this.Get<ILinkBuilder>().AccessDenied();
+            }
+
             this.PageBoardContext.SessionNotify(
                 this.Get<IFriends>().AddRequest(user.ID)
                     ? this.GetTextFormatted(
                         "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
-                        user.DisplayOrUserName())
+                        this.HtmlEncode(user.DisplayOrUserName()))
                     : this.GetText("NOTIFICATION_BUDDYREQUEST"),
                 MessageTypes.success);
 
@@ -145,12 +157,12 @@ public class FriendsController : ForumBaseController
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
-            this.Get<IFriends>().Remove(source.UserID);
+            var removedName = this.Get<IFriends>().Remove(source.UserID);
 
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted(
                     "REMOVEBUDDY_NOTIFICATION",
-                    this.Get<IFriends>().Remove(source.UserID)),
+                    this.HtmlEncode(removedName)),
                 MessageTypes.success);
 
             return this.Get<ILinkBuilder>().Redirect(
@@ -184,12 +196,12 @@ public class FriendsController : ForumBaseController
                     new { info = InfoMessage.Invalid.ToType<int>() });
             }
 
-            this.Get<IFriends>().Remove(user.ID);
+            var removedName = this.Get<IFriends>().Remove(user.ID);
 
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted(
                     "REMOVEBUDDY_NOTIFICATION",
-                    this.Get<IFriends>().Remove(user.ID)),
+                    this.HtmlEncode(removedName)),
                 MessageTypes.success);
 
             return this.Get<ILinkBuilder>().Redirect(
@@ -202,5 +214,23 @@ public class FriendsController : ForumBaseController
                 ForumPages.Info,
                 new { info = InfoMessage.Invalid.ToType<int>() });
         }
+    }
+
+    /// <summary>
+    /// Checks if the current user can send a friend request to the user (the button is only shown then,
+    /// the request can be sent without it).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>Returns if the request can be sent.</returns>
+    private bool CanSendFriendRequest(User user)
+    {
+        return this.PageBoardContext.BoardSettings.EnableBuddyList && !this.PageBoardContext.IsGuest
+                                                                   && user is not null
+                                                                   && user.ID != this.PageBoardContext.PageUserID
+                                                                   && user.BoardID == this.PageBoardContext.PageBoardID
+                                                                   && !user.UserFlags.IsGuest
+                                                                   && user.UserFlags.IsApproved
+                                                                   && !user.UserFlags.IsDeleted
+                                                                   && !user.Block.BlockFriendRequests;
     }
 }

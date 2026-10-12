@@ -95,6 +95,22 @@ public class UserRepositoryTests
     }
 
     [Test]
+    [Description("The settings keep a page size of 1 - 100, other values (sent by the client) become the default")]
+    public async Task Save_Settings_Page_Size_Test()
+    {
+        var flags = this.Users.GetById(this.alice).UserFlags;
+
+        await this.Users.SaveAsync(this.alice, flags, "UTC", null, null, null, false, true, 50);
+        this.Users.GetById(this.alice).PageSize.Should().Be(50);
+
+        await this.Users.SaveAsync(this.alice, flags, "UTC", null, null, null, false, true, 1000000);
+        this.Users.GetById(this.alice).PageSize.Should().Be(5);
+
+        await this.Users.SaveAsync(this.alice, flags, "UTC", null, null, null, false, true, 0);
+        this.Users.GetById(this.alice).PageSize.Should().Be(5);
+    }
+
+    [Test]
     [Description("AspNetAsync finds existing users by provider key or name and approves them")]
     public async Task AspNet_Existing_User_Test()
     {
@@ -402,11 +418,31 @@ public class UserRepositoryTests
         (await this.Users.GroupEmailsAsync(adminGroup)).Should().Equal("alice@example.com");
         (await this.Users.GroupEmailsAsync(guestGroup)).Should().BeEmpty("guest groups don't get e-mails");
 
+        // disabled, not approved users and users without e-mail are skipped
+        var disabled = this.db.AddUser("Disabled", u => u.Flags = (int)(UserFlags.Flags.IsApproved | UserFlags.Flags.IsDeleted));
+        var unapproved = this.db.AddUser("Unapproved", u => u.Flags = 0);
+        var noEmail = this.db.AddUser("NoEmail", u => u.Email = string.Empty);
+        var memberGroup = this.db.AddForumAccess(this.alice, this.db.AddForum("Member forum"));
+
+        using (var connection = this.db.Open())
+        {
+            connection.Insert(new UserGroup { UserID = disabled, GroupID = memberGroup });
+            connection.Insert(new UserGroup { UserID = unapproved, GroupID = memberGroup });
+            connection.Insert(new UserGroup { UserID = noEmail, GroupID = memberGroup });
+        }
+
+        (await this.Users.GroupEmailsAsync(memberGroup)).Should().Equal("alice@example.com");
+
         (await this.Users.ListAdminsAsync()).Select(u => u.ID).Should().Equal(this.alice);
+
+        // disabled moderators are not listed (and get no moderator notifications)
+        var disabledModerator = this.db.AddUser("Disabled moderator", u => u.Flags = (int)(UserFlags.Flags.IsApproved | UserFlags.Flags.IsDeleted));
+        this.db.AddForumAccess(disabledModerator, forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
 
         var moderators = await this.Users.GetForumModeratorsAsync();
 
         moderators.Should().ContainSingle(m => m.ModeratorID == this.bob).Which.ForumName.Should().Be("Moderated forum");
+        moderators.Should().NotContain(m => m.ModeratorID == disabledModerator);
     }
 
     [Test]
@@ -447,6 +483,28 @@ public class UserRepositoryTests
         data.Quoted.Should().Be(3);
         data.WatchTopic.Should().Be(1);
         data.UserHasBuddies.Should().BeFalse();
+    }
+
+    [Test]
+    [Description("LazyData counts the unread private messages and returns the date of the newest one")]
+    public async Task LazyDataAsync_Unread_Private_Messages_Test()
+    {
+        var older = new DateTime(2026, 1, 1, 10, 0, 0);
+        var newer = new DateTime(2026, 2, 1, 10, 0, 0);
+
+        var messages = this.Repository<PrivateMessage>();
+        messages.Insert(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = older, Body = "a", Flags = 0 });
+        messages.Insert(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = newer, Body = "b", Flags = 0 });
+        messages.Insert(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = newer.AddDays(5), Body = "read", Flags = 1 });
+        messages.Insert(new PrivateMessage { FromUserId = this.alice, ToUserId = this.bob, Created = newer.AddDays(9), Body = "other", Flags = 0 });
+
+        var data = await this.Users.LazyDataAsync(this.alice, TestDatabase.BoardId, false, true, false);
+
+        data.UnreadPrivate.Should().Be(2);
+        data.LastUnreadPrivate.Should().Be(newer, "read messages and messages to others do not count");
+
+        var disabled = await this.Users.LazyDataAsync(this.alice, TestDatabase.BoardId, false, false, false);
+        disabled.UnreadPrivate.Should().Be(0);
     }
 
     [Test]

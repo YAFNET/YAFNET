@@ -31,38 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const selectedText = getSelectedMessageText();
 
                     if (selectedText.length) {
-                        const searchItem = contextMenu.querySelector('.item-search');
-                        const selectedItem = contextMenu.querySelector('.item-selected-quoting');
-                        const selectedDivider = contextMenu.querySelector('.selected-divider');
-
-                        searchItem?.remove();
-                        selectedItem?.remove();
-                        selectedDivider?.remove();
-
-                        if (contextMenu.dataset.url) {
-                            const link = document.createElement('a');
-                            link.classList.add('dropdown-item', 'item-selected-quoting');
-                            link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
-                            link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
-                            contextMenu.appendChild(link);
-                        }
-
-                        const linkSearch = document.createElement('a');
-                        linkSearch.classList.add('dropdown-item', 'item-search');
-                        linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
-                        linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
-                        contextMenu.appendChild(linkSearch);
-
-                        const divider = document.createElement('div');
-
-                        divider.classList.add('dropdown-divider', 'selected-divider');
-
-
-                        const linkSelected = document.createElement('a');
-                        linkSelected.classList.add('dropdown-item','item-search');
-                        linkSelected.href = `javascript:searchText('${selectedText}')`;
-                        linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
-                        contextMenu.appendChild(linkSelected);
+                        addSelectedTextItems(contextMenu, messageId, selectedText);
                     }
                 }
 
@@ -87,53 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const selectedText = getSelectedMessageText();
 
                     if (selectedText.length) {
-                        const searchItem = contextMenu.querySelector('.item-search'),
-                            selectedItem = contextMenu.querySelector('.item-selected-quoting'),
-                            selectedDivider = contextMenu.querySelector('.selected-divider');
-
-                        if (searchItem != null) {
-                            document.querySelectorAll('.item-search').forEach(item => {
-                                item.remove();
-                            });
-                        }
-
-
-                        if (selectedItem != null) {
-                            selectedItem.remove();
-                        }
-
-                        if (selectedDivider != null) {
-                            selectedDivider.remove();
-                        }
-
-                        if (contextMenu.dataset.url) {
-                            const link = document.createElement('a');
-
-                            link.classList.add('dropdown-item', 'item-selected-quoting');
-                            link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
-                            link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
-
-                            contextMenu.appendChild(link);
-                        }
-
-                        const linkSearch = document.createElement('a');
-
-                        linkSearch.classList.add('dropdown-item','item-search');
-                        linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
-                        linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
-
-                        contextMenu.appendChild(linkSearch);
-
-                        const divider = document.createElement('div');
-
-                        divider.classList.add('dropdown-divider','selected-divider');
-
-                        const linkSelected = document.createElement('a');
-
-                        linkSelected.classList.add('dropdown-item','item-search');
-                        linkSelected.href = `javascript:searchText('${selectedText}')`;
-                        linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
-                        contextMenu.appendChild(linkSelected);
+                        addSelectedTextItems(contextMenu, messageId, selectedText);
                     }
                 }
 
@@ -152,10 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         contextMenu.addEventListener('click', event => {
-	        const targetElement = (event.target as HTMLElement);
-            if (targetElement.parentElement && targetElement.parentElement.matches('[data-bs-toggle="confirm"]')) {
+	        const button = (event.target as HTMLElement).closest<HTMLElement>('[data-bs-toggle="confirm"]');
+
+	        // the click after the dialog was confirmed is handled by the document (utilities.ts)
+            if (button && !button.dataset.confirmed) {
 		        event.preventDefault();
-                var button = (event.target as HTMLElement).parentElement!;
+
+		        // only this dialog, not the one of the document
+		        event.stopPropagation();
+
 		        const text = button.dataset.title!;
 		        const yes = button.dataset.yes!;
 		        const no = button.dataset.no!;
@@ -163,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		        Utilities.bootboxConfirm(button, title, text, yes, no, r => {
 			        if (r) {
+				        button.dataset.confirmed = 'true';
 				        button.click();
 			        }
 			        else {
@@ -205,7 +134,49 @@ function getSelectedMessageText(): string {
         }
         text = container.textContent?.trim() ?? '';
     }
-    return text.replace(/<p[^>]*>/ig, '\n').replace(/<\/p>| {2}/ig, '').replace(/["';()]/g, '');
+    return text.replace(/<p[^>]*>/ig, '\n').replace(/<\/p>| {2}/ig, '');
+}
+
+/**
+ * Adds the menu items for the selected text (quote, copy, search).
+ * The text comes from a post (of another user): it is only used as text and as parameter of the
+ * click handlers, never as html or inside a "javascript:" link.
+ */
+function addSelectedTextItems(contextMenu: HTMLElement, messageId: number, selectedText: string): void {
+    contextMenu.querySelectorAll('.item-search, .item-selected-quoting, .selected-divider').forEach(item => {
+        item.remove();
+    });
+
+    const url = contextMenu.dataset.url;
+
+    if (url) {
+        addMenuItem(contextMenu, 'item-selected-quoting', 'fa-quote-left', contextMenu.dataset.quote ?? '',
+            () => goToURL(messageId, selectedText, url));
+    }
+
+    addMenuItem(contextMenu, 'item-search', 'fa-clipboard', contextMenu.dataset.copy ?? '',
+        () => Utilities.copyToClipBoard(selectedText));
+
+    addMenuItem(contextMenu, 'item-search', 'fa-search', `${contextMenu.dataset.search ?? ''} "${selectedText}"`,
+        () => searchText(selectedText));
+}
+
+function addMenuItem(contextMenu: HTMLElement, cssClass: string, icon: string, text: string, onClick: () => void): void {
+    const link = document.createElement('a');
+    link.classList.add('dropdown-item', cssClass);
+    link.href = '#';
+
+    const iconElement = document.createElement('i');
+    iconElement.classList.add('fas', icon);
+
+    link.append(iconElement, ` ${text}`);
+
+    link.addEventListener('click', event => {
+        event.preventDefault();
+        onClick();
+    });
+
+    contextMenu.appendChild(link);
 }
 
 const _global = (window /* browser */ || global /* node */) as any;

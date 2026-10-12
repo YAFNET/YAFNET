@@ -45,24 +45,27 @@ public static class HttpRequestExtensions
             ArgumentNullException.ThrowIfNull(request);
 
             // Check if query string exist
-            T query;
+            object value;
 
             if (request.Query.ContainsKey(queryName))
             {
-                query = request.Query[queryName].FirstOrDefault().ToType<T>();
-
-                return query;
+                value = request.Query[queryName].FirstOrDefault();
             }
-
-            // Check if route value exist
-            if (!request.RouteValues.TryGetValue(queryName, out var value))
+            else if (!request.RouteValues.TryGetValue(queryName, out value))
             {
+                // Check if route value exist
                 return default;
             }
 
-            query = value.ToType<T>();
-
-            return query;
+            try
+            {
+                return value.ToType<T>();
+            }
+            catch (Exception ex) when (ex is FormatException or InvalidCastException or OverflowException)
+            {
+                // invalid values (e.g. ?f=abc) are treated as missing
+                return default;
+            }
         }
 
         /// <summary>

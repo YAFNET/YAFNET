@@ -51,8 +51,12 @@ public class ModerateForumPage : ForumPage
     /// </param>
     public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
     {
-        // Only moderators or admins are allowed here
-        if (!(this.PageBoardContext.IsModeratorInAnyForum || this.PageBoardContext.IsAdmin))
+        // Only moderators (of the forum, on the overview of any forum) or admins are allowed here
+        var isModerator = this.PageBoardContext.PageForumID > 0
+                              ? this.PageBoardContext.ForumModeratorAccess
+                              : this.PageBoardContext.IsModeratorInAnyForum;
+
+        if (!(isModerator || this.PageBoardContext.IsAdmin))
         {
             context.Result = this.Get<ILinkBuilder>().AccessDenied();
         }

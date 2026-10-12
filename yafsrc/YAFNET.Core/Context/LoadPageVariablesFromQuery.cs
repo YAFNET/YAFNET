@@ -73,14 +73,6 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
         @event.PageQueryData.MessageID = context.Request.GetQueryOrRouteValue<int>("m").ToTypeOrDefault(0);
         @event.PageQueryData.PageIndex = context.Request.GetQueryOrRouteValue<int>("p").ToTypeOrDefault(0);
 
-
-        var topicId = this.Get<IDataCache>().Get("TopicID");
-
-        if (topicId != null && @event.PageQueryData.TopicID == 0)
-        {
-            @event.PageQueryData.TopicID = topicId.ToType<int>();
-        }
-
         if (BoardContext.Current.Settings.CategoryID != 0)
         {
             @event.PageQueryData.CategoryID = BoardContext.Current.Settings.CategoryID;

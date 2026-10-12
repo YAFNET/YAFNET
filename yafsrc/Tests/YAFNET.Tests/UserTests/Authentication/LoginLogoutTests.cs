@@ -100,6 +100,52 @@ public class LoginLogoutUser(ComposeScenario scenario) : DatabaseTestBase(scenar
     }
 
     /// <summary>
+    /// The login box trims the user name like the login page (autocomplete can add a space).
+    /// </summary>
+    [Category("Authentication")]
+    [Test]
+    public async Task LoginBoxUserNameWithSpaceTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                if (await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync())
+                {
+                    await page.LogOutUserAsync();
+
+                    await page.GotoAsync(this.TestSettings.TestForumUrl);
+                }
+
+                if (await page.Locator(HtmlTag.Button).Filter(new LocatorFilterOptions { HasText = "Close" })
+                        .IsVisibleAsync())
+                {
+                    await page.Locator(HtmlTag.Button).Filter(new LocatorFilterOptions { HasText = "Close" })
+                        .ClickAsync();
+                }
+
+                await page.Locator("#navbarSupportedContent")
+                    .GetByRole(AriaRole.Button, new LocatorGetByRoleOptions { Name = "Login" })
+                    .ClickAsync();
+
+                await page.Locator("//*[contains(@id, 'UserName')]").WaitForAsync();
+
+                await page.Locator("//*[contains(@id, 'UserName')]").FillAsync($"{this.TestSettings.TestUserName} ");
+                await page.Locator("//input[contains(@id, 'Password')]")
+                    .FillAsync(this.TestSettings.TestUserPassword);
+
+                await page.SubmitAndWaitAsync(page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Forum Login" }));
+
+                Assert.That(
+                    await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(),
+                    Is.True,
+                    "The login with a space after the user name failed");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+            });
+    }
+
+    /// <summary>
     /// Logout User Test
     /// </summary>
     [Category("Authentication")]
@@ -122,6 +168,38 @@ public class LoginLogoutUser(ComposeScenario scenario) : DatabaseTestBase(scenar
                 Assert.That(
                     await page.LogOutUserAsync(), Is.True,
                     "Logout Failed");
+            });
+    }
+
+    /// <summary>
+    /// Opening the logout link (e.g. an image on another site) does not log the user out, only the logout dialog does.
+    /// </summary>
+    [Category("Authentication")]
+    [Test]
+    public async Task LogoutLinkDoesNotLogOutTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                if (!await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync())
+                {
+                    Assert.That(await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName,
+                        this.TestSettings.TestUserPassword), Is.True, "Login Failed");
+                }
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Logout");
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                Assert.That(
+                    await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(),
+                    Is.True,
+                    "The logout link logged the user out");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout Failed");
             });
     }
 }

@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Model;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -176,14 +177,16 @@ public static class PrivateMessageRepositoryExtensions
         }
 
         /// <summary>
-        /// Delete all Private Messages (Chats) older than x days
+        /// Deletes the private messages of the board that are older than the given days.
         /// </summary>
+        /// <param name="boardId">The board (the messages of its users).</param>
         /// <param name="days">
-        /// The days to delete
+        /// The days to delete (at least 1, a lower value would delete all messages)
         /// </param>
-        public Task<int> PruneAllAsync(int days)
+        public Task<int> PruneAllAsync(int boardId, int days)
         {
-            // Delete Read Messages
+            days = Math.Max(days, 1);
+
             return repository.DbAccess.ExecuteAsync(
                 db =>
                 {
@@ -192,7 +195,28 @@ public static class PrivateMessageRepositoryExtensions
                     q.Where(
                         $"{OrmLiteConfig.DialectProvider.DateDiffFunction("dd", q.Column<PrivateMessage>(b1 => b1.Created, true), OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {days}");
 
+                    // only the messages of this board
+                    q.And(m => Sql.In(m.FromUserId, db.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID)));
+
                     return db.DeleteAsync(q);
+                });
+        }
+
+        /// <summary>
+        /// Counts the private messages of the board that are not deleted by both users.
+        /// </summary>
+        /// <param name="boardId">The board (the messages of its users).</param>
+        /// <returns>The number of messages.</returns>
+        public long CountBoardMessages(int boardId)
+        {
+            return repository.DbAccess.Execute(
+                db =>
+                {
+                    var q = db.Connection.From<PrivateMessage>()
+                        .Where(m => (m.Flags & 2) != 2 || (m.Flags & 4) != 4)
+                        .And(m => Sql.In(m.FromUserId, db.Connection.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID)));
+
+                    return db.Connection.Count(q);
                 });
         }
     }

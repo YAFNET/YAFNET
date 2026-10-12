@@ -467,131 +467,169 @@
 
                             @if (Current.BoardSettings.UseCustomContextMenu)
                             {
+                                var canQuoteSelected = !postData.PostDeleted && postData.CanReply && !postData.IsLocked;
+
                                 <div class="dropdown-menu context-menu" aria-labelledby="context menu"
                                      data-search="@(Current.Get<ILocalization>().GetText("COMMON", "SELECTED_SEARCH"))"
                                      data-copy="@(Current.Get<ILocalization>().GetText("COMMON", "SELECTED_COPY"))"
-                                     @(!postData.PostDeleted && postData.CanReply && !postData.IsLocked) ?
-                                     data-url="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID}))"
-                                     data-quote="@(Current.Get<ILocalization>().GetText("COMMON", "SELECTED_QUOTE"))" : @(string.Empty)>
+                                     @* quoting the selected text only where the user can reply (null values are not rendered) *@
+                                     data-url="@(canQuoteSelected ? Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new { t = Current.PageTopicID, f = Current.PageForumID }) : null)"
+                                     data-quote="@(canQuoteSelected ? Current.Get<ILocalization>().GetText("COMMON", "SELECTED_QUOTE") : null)">
+									
+	                                @if (markAsAnswer)
+	                                {
+		                                if (postData.PostIsAnswer)
+		                                {
+			                                <button button-style="None"
+			                                        text-localized-page="POSTS"
+			                                        text-localized-tag="MARK_ANSWER_REMOVE"
+			                                        title-localized-tag="MARK_ANSWER_REMOVE_TITLE"
+			                                        bs-toggle="tooltip"
+			                                        Icon="minus-square"
+			                                        icon-color="text-danger"
+			                                        asp-controller="Posts"
+			                                        asp-action="MarkAsAnswer"
+			                                        asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
+			                                        asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
+			                                        asp-route-m="@postData.MessageId"
+			                                        class="dropdown-item"></button>
+		                                }
+		                                else
+		                                {
+			                                <button button-style="None"
+			                                        text-localized-page="POSTS"
+			                                        text-localized-tag="MARK_ANSWER"
+			                                        title-localized-tag="MARK_ANSWER_TITLE"
+			                                        bs-toggle="tooltip"
+			                                        Icon="check-square"
+			                                        icon-color="text-success"
+			                                        asp-controller="Posts"
+			                                        asp-action="MarkAsAnswer"
+			                                        asp-route-t="@Current.CurrentForumPage.Request.Query["t"]"
+			                                        asp-route-p="@Current.CurrentForumPage.Request.Query["p"]"
+			                                        asp-route-m="@postData.MessageId"
+			                                        class="dropdown-item"></button>
+		                                }
+	                                }
 
-                                    @if (quoteVisible)
-                                    {
-                                        <a button-style="None"
-                                           icon="reply"
-                                           icon-bade="quote-left"
-                                           text-localized-tag="BUTTON_QUOTE_TT"
-                                           bs-toggle="tooltip"
-                                           title-localized-tag="BUTTON_QUOTE_TT"
-                                           class="dropdown-item"
-                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID, q = postData.MessageId}))"></a>
-                                    }
+	                                @if (quoteVisible)
+	                                {
+		                                <a button-style="None"
+		                                   icon="reply"
+		                                   icon-bade="quote-left"
+		                                   text-localized-tag="BUTTON_QUOTE_TT"
+		                                   bs-toggle="tooltip"
+		                                   title-localized-tag="BUTTON_QUOTE_TT"
+		                                   class="dropdown-item"
+		                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new { t = Current.PageTopicID, f = Current.PageForumID, q = postData.MessageId }))"></a>
+	                                }
 
-                                    @if (replyVisible)
-                                    {
-                                        @if (Current.BoardSettings.ShowQuickAnswer)
-                                        {
-	                                        <button button-style="None"
-	                                                text-localized-tag="QUICKREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
-	                                                type="button"
-	                                                Icon="reply"
-	                                                icon-bade="window-maximize"
-                                                    icon-mobile-only="true"
-                                                    bs-toggle="ajax-modal"
-                                                    bs-target="QuickReplyDialog"
-	                                                bs-target-url="@Url.Page("Posts", "QuickReply", new { name = Current.CurrentForumPage.Request.GetQueryOrRouteValue<string>("name"), t = Current.CurrentForumPage.Request.GetQueryOrRouteValue<int>("t"), p =  Current.CurrentForumPage.Request.Query["p"], m = Current.CurrentForumPage.Request.Query["m"]})"
-	                                                class="dropdown-item"></button>
-                                        }
+	                                @if (replyVisible)
+	                                {
+		                                @if (Current.BoardSettings.ShowQuickAnswer)
+		                                {
+			                                <button button-style="None"
+			                                        text-localized-tag="QUICKREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
+			                                        type="button"
+			                                        Icon="reply"
+			                                        icon-bade="window-maximize"
+			                                        icon-mobile-only="true"
+			                                        bs-toggle="ajax-modal"
+			                                        bs-target="QuickReplyDialog"
+			                                        bs-target-url="@Url.Page("Posts", "QuickReply", new { name = Current.CurrentForumPage.Request.GetQueryOrRouteValue<string>("name"), t = Current.PageTopicID, p = Current.CurrentForumPage.Request.Query["p"], m = Current.CurrentForumPage.Request.Query["m"] })"
+			                                        class="dropdown-item"></button>
+		                                }
 
-                                        <a button-style="None"
-                                           text-localized-tag="REPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
-                                           icon="reply"
-                                           class="dropdown-item"
-                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID}))"></a>
+		                                <a button-style="None"
+		                                   text-localized-tag="REPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
+		                                   icon="reply"
+		                                   class="dropdown-item"
+		                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new { t = Current.PageTopicID, f = Current.PageForumID }))"></a>
 
-                                        <div class="dropdown-divider"></div>
-                                    }
+		                                <div class="dropdown-divider"></div>
+	                                }
 
-                                    @if (editVisible)
-                                    {
-                                        <a button-style="None"
-                                           Icon="edit"
-                                           bs-toggle="tooltip"
-                                           text-localized-tag="BUTTON_EDIT"
-                                           title-localized-tag="BUTTON_EDIT_TT"
-                                           class="dropdown-item"
-                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.EditMessage, new {m = postData.MessageId}))"></a>
-                                    }
+	                                @if (editVisible)
+	                                {
+		                                <a button-style="None"
+		                                   Icon="edit"
+		                                   bs-toggle="tooltip"
+		                                   text-localized-tag="BUTTON_EDIT"
+		                                   title-localized-tag="BUTTON_EDIT_TT"
+		                                   class="dropdown-item"
+		                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.EditMessage, new { m = postData.MessageId }))"></a>
+	                                }
 
-                                    @if (moveVisible)
-                                    {
-                                        <a button-style="None"
-                                           Icon="arrows-alt"
-                                           bs-toggle="tooltip"
-                                           text-localized-tag="BUTTON_MOVE"
-                                           title-localized-tag="BUTTON_MOVE_TT"
-                                           class="dropdown-item"
-                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.MoveMessage, new {m = postData.MessageId}))"></a>
-                                    }
+	                                @if (moveVisible)
+	                                {
+		                                <a button-style="None"
+		                                   Icon="arrows-alt"
+		                                   bs-toggle="tooltip"
+		                                   text-localized-tag="BUTTON_MOVE"
+		                                   title-localized-tag="BUTTON_MOVE_TT"
+		                                   class="dropdown-item"
+		                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.MoveMessage, new { m = postData.MessageId }))"></a>
+	                                }
 
-                                    @if (deleteVisible)
-                                    {
-                                        <a button-style="None"
-                                           Icon="trash"
-                                           bs-toggle="tooltip"
-                                           text-localized-tag="BUTTON_DELETE"
-                                           title-localized-tag="BUTTON_DELETE_TT"
-                                           class="dropdown-item"
-                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.DeleteMessage,
-                                                     new {m = postData.MessageId}))"></a>
-                                    }
+	                                @if (deleteVisible)
+	                                {
+		                                <a button-style="None"
+		                                   Icon="trash"
+		                                   bs-toggle="tooltip"
+		                                   text-localized-tag="BUTTON_DELETE"
+		                                   title-localized-tag="BUTTON_DELETE_TT"
+		                                   class="dropdown-item"
+		                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.DeleteMessage,
+			                                         new { m = postData.MessageId }))"></a>
+	                                }
 
-                                    @if (unDeleteVisible)
-                                    {
-                                        <a button-style="None"
-                                           Icon="trash-restore"
-                                           bs-toggle="tooltip"
-                                           text-localized-tag="BUTTON_UNDELETE"
-                                           title-localized-tag="BUTTON_UNDELETE_TT"
-                                           class="dropdown-item"
-                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.DeleteMessage,
-                                                     new {m = postData.MessageId}))"></a>
-                                    }
+	                                @if (unDeleteVisible)
+	                                {
+		                                <a button-style="None"
+		                                   Icon="trash-restore"
+		                                   bs-toggle="tooltip"
+		                                   text-localized-tag="BUTTON_UNDELETE"
+		                                   title-localized-tag="BUTTON_UNDELETE_TT"
+		                                   class="dropdown-item"
+		                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.DeleteMessage,
+			                                         new { m = postData.MessageId }))"></a>
+	                                }
 
-                                    @if (editVisible || moveVisible || deleteVisible || unDeleteVisible)
-                                    {
-                                        <div class="dropdown-divider"></div>
-                                    }
+	                                @if (editVisible || moveVisible || deleteVisible || unDeleteVisible)
+	                                {
+		                                <div class="dropdown-divider"></div>
+	                                }
 
-                                    @if (!postData.IsGuest)
-                                    {
-                                        <a button-style="None" icon="th-list"
-                                           text-localized-page="POSTS" text-localized-tag="SEARCHUSER"
-                                           class="dropdown-item"
-                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search,
-                                                     new {postedby = Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName}))"></a>
+	                                @if (!postData.IsGuest)
+	                                {
+		                                <a button-style="None" icon="th-list"
+		                                   text-localized-page="POSTS" text-localized-tag="SEARCHUSER"
+		                                   class="dropdown-item"
+		                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search,
+			                                         new { postedby = Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName }))"></a>
 
-                                        @if (Current.IsAdmin)
-                                        {
-                                            <a button-style="None" icon="cogs"
-                                               text-localized-page="POSTS" text-localized-tag="EDITUSER"
-                                               class="dropdown-item"
-                                               href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new {u = postData.UserId}))"></a>
-                                        }
+		                                @if (Current.IsAdmin)
+		                                {
+			                                <a button-style="None" icon="cogs"
+			                                   text-localized-page="POSTS" text-localized-tag="EDITUSER"
+			                                   class="dropdown-item"
+			                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = postData.UserId }))"></a>
+		                                }
 
-                                        <div class="dropdown-divider"></div>
-                                    }
+		                                <div class="dropdown-divider"></div>
+	                                }
 
-                                    @if (reportVisible)
-                                    {
-                                        <a button-style="None"
-                                           text-localized-page="POSTS"
-                                           text-localized-tag="REPORTPOST"
-                                           Icon="exclamation-triangle"
-                                           title-localized-tag="REPORTPOST_TITLE"
-                                           bs-toggle="tooltip"
-                                           class="dropdown-item"
-                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.ReportPost, new {m = postData.MessageId}))"></a>
-                                    }
+	                                @if (reportVisible)
+	                                {
+		                                <a button-style="None"
+		                                   text-localized-page="POSTS"
+		                                   text-localized-tag="REPORTPOST"
+		                                   Icon="exclamation-triangle"
+		                                   title-localized-tag="REPORTPOST_TITLE"
+		                                   bs-toggle="tooltip"
+		                                   class="dropdown-item"
+		                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.ReportPost, new { m = postData.MessageId }))"></a>
+	                                }
 
                                 </div>
                             }
@@ -600,9 +638,9 @@
 
                     @if (Model.ThanksNumber > 0 || thankVisible || quoteVisible || multiQuoteVisible)
                     {
-                        var username = Current.CurrentForumPage.HtmlEncode(Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName); 
-                        var thanksInfo = Current.Get<IThankYou>().ThanksInfo(username, postData.MessageId, false); 
-                        
+                        var username = Current.CurrentForumPage.HtmlEncode(Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName);
+                        var thanksInfo = Current.Get<IThankYou>().ThanksInfo(username, postData.MessageId);
+
                         <div class="card-footer py-0">
                             <div class="row">
                                 <div class="col">
@@ -671,7 +709,7 @@
 	                                                   text-localized-tag="QUICKREPLY"
 	                                                   bs-toggle="ajax-modal"
 	                                                   bs-target="QuickReplyDialog"
-	                                                   bs-target-url="@Url.Page("Posts", "QuickReply", new { name = Current.CurrentForumPage.Request.GetQueryOrRouteValue<string>("name"), t = Current.CurrentForumPage.Request.GetQueryOrRouteValue<int>("t"), p = Current.CurrentForumPage.Request.Query["p"], m = Current.CurrentForumPage.Request.Query["m"] })">
+	                                                   bs-target-url="@Url.Page("Posts", "QuickReply", new { name = Current.CurrentForumPage.Request.GetQueryOrRouteValue<string>("name"), t = Current.PageTopicID, p = Current.CurrentForumPage.Request.Query["p"], m = Current.CurrentForumPage.Request.Query["m"] })">
 	                                                </a>
                                                 }
 

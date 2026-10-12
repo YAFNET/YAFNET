@@ -30,6 +30,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using YAF.Core.Context;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Pages.Profile;
 using YAF.Types.EventProxies;
@@ -111,7 +112,7 @@ public class UsersSignatureModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync()
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
@@ -121,9 +122,14 @@ public class UsersSignatureModel : AdminPage
                 });
         }
 
-        if (this.Signature.Length > 0)
+        // the limits of the user (they are not sent with the form)
+        await this.BindDataAsync(this.Input.UserId, false);
+
+        // an empty field is not sent (null), the signature is removed
+        if (this.Signature.IsSet())
         {
-            if (this.ValidateSignature())
+            // forbidden bb codes or a too long signature are not saved (like the own signature page)
+            if (!this.ValidateSignature())
             {
                 return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
@@ -192,7 +198,7 @@ public class UsersSignatureModel : AdminPage
     /// </summary>
     private async Task<IActionResult> BindDataAsync(int userId, bool loadSignature)
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
@@ -227,12 +233,13 @@ public class UsersSignatureModel : AdminPage
     /// </summary>
     private bool ValidateSignature()
     {
-        var body = this.Signature;
+        // prepared like the own signature page (no html, the content of code blocks is encoded)
+        var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.Signature ?? string.Empty));
 
         // find forbidden BBCodes in signature
-        var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.AllowedBbcodes, ',');
+        var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.AllowedBbcodes ?? string.Empty, ',');
 
-        if (this.AllowedBbcodes.IndexOf("ALL", StringComparison.Ordinal) < 0)
+        if ((this.AllowedBbcodes ?? string.Empty).IndexOf("ALL", StringComparison.Ordinal) < 0)
         {
             if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
             {

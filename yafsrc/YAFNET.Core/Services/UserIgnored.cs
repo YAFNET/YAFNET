@@ -70,6 +70,12 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     /// </param>
     public async Task AddIgnoredAsync(int ignoredUserId)
     {
+        // nobody can ignore themselves
+        if (ignoredUserId == BoardContext.Current.PageUserID)
+        {
+            return;
+        }
+
         await this.GetRepository<IgnoreUser>().AddIgnoredUserAsync(BoardContext.Current.PageUserID, ignoredUserId);
         this.ClearIgnoreCache();
     }

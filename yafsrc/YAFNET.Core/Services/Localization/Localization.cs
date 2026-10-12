@@ -519,7 +519,7 @@ public class Localization : ILocalization
 
         string fileName;
 
-        if (this.TransPage.Equals("INSTALL"))
+        if (this.TransPage == "INSTALL")
         {
             var currentCulture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
@@ -556,7 +556,29 @@ public class Localization : ILocalization
 
         fileName ??= "english.json";
 
+        // a language file that does not exist (anymore, e.g. a removed language) must not break the pages
+        if (!LanguageFileExists(fileName))
+        {
+            fileName = LanguageFileExists(BoardContext.Current.BoardSettings.Language)
+                           ? BoardContext.Current.BoardSettings.Language
+                           : "english.json";
+        }
+
         return this.LoadTranslation(fileName);
+    }
+
+    /// <summary>
+    /// Checks if the language file exists in the languages folder.
+    /// </summary>
+    /// <param name="fileName">The file name.</param>
+    /// <returns>Returns if the file exists</returns>
+    private static bool LanguageFileExists(string fileName)
+    {
+        return fileName.IsSet() && File.Exists(
+                   Path.Combine(
+                       BoardContext.Current.Get<BoardInfo>().WebRootPath,
+                       BoardContext.Current.Get<BoardFolders>().Languages,
+                       fileName));
     }
 
     /// <summary>

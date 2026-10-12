@@ -161,18 +161,27 @@ public static class PageLinkExtensions
                 return pageLinks;
             }
 
-            if (forum.ParentID.HasValue)
-            {
-                var parent = BoardContext.Current.GetRepository<Forum>()
-                    .GetById(forum.ParentID.Value);
+            // all parent forums, from the top one down (limited in case of a parent loop)
+            var parents = new List<Forum>();
+            var parentId = forum.ParentID;
 
-                if (parent != null)
+            while (parentId.HasValue && parents.Count < 20)
+            {
+                var parent = BoardContext.Current.GetRepository<Forum>().GetById(parentId.Value);
+
+                if (parent is null || parent.ID == forum.ID || parents.Exists(p => p.ID == parent.ID))
                 {
-                    pageLinks.AddLink(
-                        parent.Name,
-                        BoardContext.Current.Get<ILinkBuilder>().GetForumLink(parent));
+                    break;
                 }
+
+                parents.Insert(0, parent);
+                parentId = parent.ParentID;
             }
+
+            parents.ForEach(
+                parent => pageLinks.AddLink(
+                    parent.Name,
+                    BoardContext.Current.Get<ILinkBuilder>().GetForumLink(parent)));
 
             if (BoardContext.Current.PageForumID == forum.ID)
             {
@@ -197,7 +206,7 @@ public static class PageLinkExtensions
         {
             ArgumentNullException.ThrowIfNull(pageLinks);
 
-            pageLinks.Add(new PageLink { Title = title.Trim(), URL = url?.Trim() });
+            pageLinks.Add(new PageLink { Title = title?.Trim() ?? string.Empty, URL = url?.Trim() });
 
             return pageLinks;
         }

@@ -74,6 +74,9 @@ public static class ServiceCollectionExtensionsExtensions
 
             services.AddHttpContextAccessor();
 
+            // pooled handlers for the web services (spam checks, ip info, latest version)
+            services.AddHttpClient();
+
             services.AddOutputCache();
 
             return services;

@@ -142,7 +142,8 @@ public class DigestSendTask : LongBackgroundTask
 
                 if (!IsTimeToSendDigestForBoard(boardSettings))
                 {
-                    return;
+                    // the other boards can still be due
+                    continue;
                 }
 
                 // get users with digest enabled...
@@ -184,7 +185,7 @@ public class DigestSendTask : LongBackgroundTask
             {
                 if (user.ProviderUserKey == null)
                 {
-                    return;
+                    continue;
                 }
 
                 var digestMail = this.Get<IDigestService>().CreateDigest(

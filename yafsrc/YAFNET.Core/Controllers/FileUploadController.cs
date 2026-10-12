@@ -54,6 +54,7 @@ public class FileUpload : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<FilesUploadStatus>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("Upload")]
+    [ValidateAntiForgeryToken]
     public async Task<ActionResult<List<FilesUploadStatus>>> Upload([FromForm] IFormFile file)
     {
         var statuses = new List<FilesUploadStatus>();
@@ -87,8 +88,10 @@ public class FileUpload : ForumBaseController
 
         try
         {
-            var allowedExtensions =
-                this.Get<BoardSettings>().AllowedFileExtensions.ToLower().Split(',');
+            // the setting can contain spaces and dots ("jpg, .png")
+            var allowedExtensions = this.Get<BoardSettings>().AllowedFileExtensions.ToLower()
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(e => e.TrimStart('.')).ToList();
 
             var fileName = Path.GetFileName(file.FileName);
 
@@ -167,6 +170,18 @@ public class FileUpload : ForumBaseController
 
             int newAttachmentId;
 
+            // resized images are stored as webp: name and content type must match, otherwise
+            // the download check (MimeTypes.FileMatchContentType) rejects the attachment
+            var contentType = file.ContentType;
+            var fileLength = file.Length.ToType<int>();
+
+            if (resized is not null)
+            {
+                fileName = Path.ChangeExtension(fileName, ".webp");
+                contentType = "image/webp";
+                fileLength = resized.Length.ToType<int>();
+            }
+
             if (this.PageBoardContext.BoardSettings.UseFileTable)
             {
                 if (resized is null)
@@ -177,21 +192,17 @@ public class FileUpload : ForumBaseController
                     newAttachmentId = this.GetRepository<Attachment>().Save(
                         yafUserId,
                         fileName,
-                        file.Length.ToType<int>(),
-                        file.ContentType,
+                        fileLength,
+                        contentType,
                         memoryStream.ToArray());
                 }
                 else
                 {
-                    var extensionOld = Path.GetExtension(fileName);
-
-                    fileName = fileName.Replace(extensionOld, ".webp");
-
                     newAttachmentId = this.GetRepository<Attachment>().Save(
                         yafUserId,
                         fileName,
-                        resized.Length.ToType<int>(),
-                        file.ContentType,
+                        fileLength,
+                        contentType,
                         resized.ToArray());
                 }
             }
@@ -208,8 +219,8 @@ public class FileUpload : ForumBaseController
                     newAttachmentId = this.GetRepository<Attachment>().Save(
                         yafUserId,
                         fileName,
-                        file.Length.ToType<int>(),
-                        file.ContentType);
+                        fileLength,
+                        contentType);
 
                     await using var fileStream = new FileStream(
                         $"{uploadFolder}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload",
@@ -221,8 +232,8 @@ public class FileUpload : ForumBaseController
                     newAttachmentId = this.GetRepository<Attachment>().Save(
                         yafUserId,
                         fileName,
-                        resized.Length.ToType<int>(),
-                        file.ContentType);
+                        fileLength,
+                        contentType);
 
                     await using var fs = new FileStream($"{uploadFolder}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
                     var bytes = resized.ToArray();
@@ -231,13 +242,14 @@ public class FileUpload : ForumBaseController
             }
 
             var fullName = Path.GetFileName(fileName);
-            statuses.Add(new FilesUploadStatus(fullName, file.Length.ToType<int>(), newAttachmentId));
+            statuses.Add(new FilesUploadStatus(fullName, fileLength, newAttachmentId));
         }
         catch (Exception ex)
         {
             statuses.Add(new FilesUploadStatus
                              {
-                                 error = ex.Message
+                                 // the upload script shows the error as html
+                                 error = System.Net.WebUtility.HtmlEncode(ex.Message)
                              });
 
             this.Get<ILogger<FileUpload>>().Error(ex, "Error during Attachment upload");

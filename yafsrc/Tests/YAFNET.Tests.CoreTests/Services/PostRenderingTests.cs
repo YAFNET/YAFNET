@@ -76,6 +76,10 @@ public class PostRenderingTests
     [TestCase("[s]strike[/s]", "<s>strike</s>")]
     [TestCase("[h]mark[/h]", "<mark>mark</mark>")]
     [TestCase("[size=5]big[/size]", "<span style=\"font-size:")]
+    [TestCase("[size=1]small[/size]", "<span style=\"font-size:50%\">small</span>")]
+    [TestCase("[size=9]large[/size]", "<span style=\"font-size:180%\">large</span>")]
+    [TestCase("[size=150]big[/size]", "<span style=\"font-size:150%\">big</span>")]
+    [TestCase("[size=99999]huge[/size]", "<span style=\"font-size:400%\">huge</span>")]
     [TestCase("[color=red]red[/color]", "<span style=\"color:red\">red</span>")]
     [TestCase("[color=#ff0000]red[/color]", "<span style=\"color:#ff0000\">red</span>")]
     [TestCase("[font=arial]text[/font]", "<span style=\"font-family:arial\">text</span>")]
@@ -148,6 +152,53 @@ public class PostRenderingTests
         html.Should().Contain("row[td] [b]", "emoji short codes are not applied inside code blocks");
 
         html.Should().Contain("&lt;b&gt;not bold&lt;/b&gt;").And.NotContain("<b>");
+    }
+
+    [Test]
+    [Description("Code blocks with a language get the highlighter markup, the content stays encoded")]
+    [TestCase("cs", "language-csharp")]
+    [TestCase("xml", "language-markup")]
+    [TestCase("plain", "language-markup")]
+    [TestCase("javascript", "language-javascript")]
+    public async Task Code_Language_Test(string language, string cssClass)
+    {
+        var html = await this.FormatAsync(BBCodeHelper.EncodeCodeBlocks($"[code={language}]<script>alert(1)</script>[/code]"));
+
+        html.Should().Contain($"<pre class=\"line-numbers {cssClass}\">").And.Contain($"<code class=\"{cssClass}\">");
+        html.Should().Contain("&lt;script&gt;").And.NotContain("<script>");
+    }
+
+    [Test]
+    [Description("Lines of a code block can be highlighted")]
+    public async Task Code_Highlight_Lines_Test()
+    {
+        var html = await this.FormatAsync(BBCodeHelper.EncodeCodeBlocks("[code=cs;2-3]var a = 1;[/code]"));
+
+        html.Should().Contain("<pre class=\"line-numbers language-csharp\" data-line=\"2-3\">");
+    }
+
+    [Test]
+    [Description("Stack traces are shown as stack trace, without running script")]
+    public async Task Code_Stacktrace_Test()
+    {
+        var html = await this.FormatAsync(BBCodeHelper.EncodeCodeBlocks(
+            "[code=stacktrace]System.Exception: <script>x</script>\r\n   at Foo.Bar() in C:\\Foo.cs:line 1[/code]"));
+
+        html.Should().Contain("<pre class=\"line-numbers stacktrace\">");
+        html.Should().NotContain("<script>");
+    }
+
+    [Test]
+    [Description("The language of a code block can not break out of the html attribute")]
+    [TestCase("x\" onmouseover=\"alert(1)")]
+    [TestCase("x;1\" onmouseover=\"alert(1)")]
+    [TestCase("x><script>alert(1)</script>")]
+    public async Task Code_Language_Injection_Test(string language)
+    {
+        var html = await this.FormatAsync(BBCodeHelper.EncodeCodeBlocks($"[code={language}]text[/code]"));
+
+        html.Should().NotContain("<script>").And.NotContain("onmouseover", "only language and line characters are kept");
+        html.Should().MatchRegex("<pre class=\"line-numbers language-[a-z0-9#+-]*\"( data-line=\"[0-9,-]*\")?>");
     }
 
     [Test]
@@ -261,6 +312,38 @@ public class PostRenderingTests
 
         html.Should().Contain("<strong>Hello</strong>").And.Contain("revealed").And.Contain("bye");
         html.Should().NotContain("secret");
+    }
+
+    [Test]
+    [Description("A plain url becomes a link, the text before it on the line is kept (it was removed)")]
+    public async Task MakeHtml_Plain_Url_Keeps_Text_Test()
+    {
+        var service = this.board.Resolve<IBBCodeService>();
+
+        var html = await service.MakeHtmlAsync("Please see https://forum.example/moderate for details", true, false);
+
+        html.Should().StartWith("Please see <a ").And.Contain("href=\"https://forum.example/moderate\"").And.EndWith("</a> for details");
+
+        html = await service.MakeHtmlAsync("first https://a.example/x and second https://b.example/y end", true, false);
+
+        html.Should().StartWith("first <a ").And.Contain("href=\"https://a.example/x\"").And.Contain(" and second <a ")
+            .And.Contain("href=\"https://b.example/y\"").And.EndWith("</a> end");
+
+        html = await service.MakeHtmlAsync("line one\nline two https://a.example/x", true, false);
+
+        html.Should().Contain("line one").And.Contain("line two <a ");
+    }
+
+    [Test]
+    [Description("A youtube url is embedded, not linked (also with text before it)")]
+    public async Task MakeHtml_Youtube_Url_Test()
+    {
+        var html = await this.board.Resolve<IBBCodeService>().MakeHtmlAsync(
+            "Watch https://www.youtube.com/watch?v=abc123 now",
+            true,
+            false);
+
+        html.Should().StartWith("Watch ").And.Contain("youtube.com/embed/abc123").And.NotContain("href=\"https://www.youtube.com");
     }
 
     [Test]

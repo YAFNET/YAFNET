@@ -35,7 +35,12 @@ using YAF.Types.Objects;
 namespace YAF.Core.Services;
 
 using System;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
+
+using YAF.Core.Helpers;
 
 using YAF.Types.Models;
 
@@ -85,10 +90,7 @@ public class SendPushNotification : IHaveServiceLocator, ISendPushNotification
             ? "data:image/svg+xml,<svg style=\"fill:white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 640\"><!--!Font Awesome Free by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d=\"M416 208C416 305.2 330 384 224 384C197.3 384 171.9 379 148.8 370L67.2 413.2C57.9 418.1 46.5 416.4 39 409C31.5 401.6 29.8 390.1 34.8 380.8L70.4 313.6C46.3 284.2 32 247.6 32 208C32 110.8 118 32 224 32C330 32 416 110.8 416 208zM416 576C321.9 576 243.6 513.9 227.2 432C347.2 430.5 451.5 345.1 463 229.3C546.3 248.5 608 317.6 608 400C608 439.6 593.7 476.2 569.6 505.6L605.2 572.8C610.1 582.1 608.4 593.5 601 601C593.6 608.5 582.1 610.2 572.8 605.2L491.2 562C468.1 571 442.7 576 416 576z\"/></svg>"
             : "data:image/svg+xml,<svg style=\"fill:white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 640\"><!--!Font Awesome Free by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d=\"M576 304C576 436.5 461.4 544 320 544C282.9 544 247.7 536.6 215.9 523.3L97.5 574.1C88.1 578.1 77.3 575.8 70.4 568.3C63.5 560.8 62 549.8 66.8 540.8L115.6 448.6C83.2 408.3 64 358.3 64 304C64 171.5 178.6 64 320 64C461.4 64 576 171.5 576 304z\"/></svg>";
 
-        var postedUserName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
-
-        var body = this.Get<ILocalization>().GetTextFormatted(newTopic ? "WATCH_FORUM_MSG" : "WATCH_TOPIC_MSG",
-            postedUserName, message.Topic.TopicName);
+        var body = this.GetTopicNotificationText(message, newTopic);
 
         // create message
         var notification = new PushNotification()
@@ -118,15 +120,42 @@ public class SendPushNotification : IHaveServiceLocator, ISendPushNotification
     /// </summary>
     /// <param name="deviceSubscription">The device subscription.</param>
     /// <param name="notification">The notification.</param>
+    /// <summary>
+    /// Gets the text of the notification of a new topic or post.
+    /// </summary>
+    /// <param name="message">The message (with its topic).</param>
+    /// <param name="newTopic">If it is a new topic.</param>
+    /// <returns>The text.</returns>
+    public string GetTopicNotificationText(Message message, bool newTopic)
+    {
+        var postedUserName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
+
+        // the notification is text: the topic name is stored html encoded (like in the mail, with the bad words replaced)
+        var topicName = HttpUtility.HtmlDecode(this.Get<IBadWordReplace>().Replace(message.Topic.TopicName));
+
+        return this.Get<ILocalization>().GetTextFormatted(
+            newTopic ? "WATCH_FORUM_MSG" : "WATCH_TOPIC_MSG",
+            postedUserName,
+            topicName);
+    }
+
     private async Task SendPushNotificationAsync(DeviceSubscription deviceSubscription, PushNotification notification)
     {
         var subject = $"mailto:{this.Get<BoardSettings>().ForumEmail}";
         var publicKey = this.Get<VapidConfiguration>().PublicKey;
         var privateKey = this.Get<VapidConfiguration>().PrivateKey;
 
+        // subscriptions stored before the endpoint was checked, the forum must not send requests to any address
+        if (!PushEndpointHelper.IsAllowedEndpoint(deviceSubscription.EndPoint))
+        {
+            await this.DeleteSubscriptionAsync(deviceSubscription);
+            return;
+        }
+
         var vapidDetails = new VapidDetails(subject, publicKey, privateKey);
 
-        var webPushClient = new WebPushClient();
+        // the client of the factory, it is not disposed by the web push client
+        using var webPushClient = new WebPushClient(this.Get<IHttpClientFactory>().CreateClient());
 
         var subscription = new PushSubscription(
             deviceSubscription.EndPoint,
@@ -139,9 +168,25 @@ public class SendPushNotification : IHaveServiceLocator, ISendPushNotification
         {
             await webPushClient.SendNotificationAsync(subscription, payload, vapidDetails);
         }
+        catch (WebPushException x) when (x.StatusCode is HttpStatusCode.Gone or HttpStatusCode.NotFound)
+        {
+            // the subscription expired or the user revoked it in the browser
+            await this.DeleteSubscriptionAsync(deviceSubscription);
+        }
         catch (Exception x)
         {
             this.Get<ILogger<SendPushNotification>>().Log(null, this, x, EventLogTypes.Information);
         }
+    }
+
+    /// <summary>
+    /// Deletes a push subscription that can not be used anymore.
+    /// </summary>
+    /// <param name="deviceSubscription">The device subscription.</param>
+    private Task DeleteSubscriptionAsync(DeviceSubscription deviceSubscription)
+    {
+        return this.GetRepository<DeviceSubscription>().DeleteAsync(
+            d => d.UserID == deviceSubscription.UserID && d.BoardID == deviceSubscription.BoardID
+                                                       && d.Device == deviceSubscription.Device);
     }
 }

@@ -16,7 +16,7 @@
                         <span class="badge text-bg-info">@Model.Input.Count</span>
                     </alert>
                     <div class="mb-3">
-                        <label class="form-label" asp-for="Input.Days2" localized-tag="DELETE_UNREAD">
+                        <label class="form-label" asp-for="Input.Days2" localized-tag="DELETE_OLDER">
                         </label>
                         <div class="input-group">
                             <input type="number" asp-for="Input.Days2"
@@ -31,7 +31,7 @@
                     <button button-style="Danger"
                             Icon="trash" text-localized-tag="DELETE" text-localized-page="COMMON"
                             return-confirm-tag="CONFIRM_DELETE"
-                            asp-page-handler="Confirm">
+                            asp-page-handler="Commit">
                     </button>
                 </div>
             </div>

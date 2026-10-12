@@ -89,10 +89,11 @@ public class CheckBannedIps : IHaveServiceLocator
             return;
         }
 
-        var ipToCheck = context.Connection.RemoteIpAddress.ToString();
+        // the client address, also behind a reverse proxy (like the country check)
+        var ipToCheck = context.GetUserRealIPAddress();
 
         // check for this user in the list...
-        if (bannedIPs is null || !bannedIPs.Exists(row => IPHelper.IsBanned(row, ipToCheck)))
+        if (bannedIPs is null || ipToCheck.IsNotSet() || !bannedIPs.Exists(row => IPHelper.IsBanned(row, ipToCheck)))
         {
             await this.requestDelegate(context);
 

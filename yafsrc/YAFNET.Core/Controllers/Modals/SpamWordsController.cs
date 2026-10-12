@@ -48,7 +48,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_SpamWords)]
 public class SpamWordsController : ForumBaseController
 {
     /// <summary>
@@ -107,14 +107,12 @@ public class SpamWordsController : ForumBaseController
             model.Id = null;
         }
 
-        if (!ValidationHelper.IsValidRegex(model.SpamWord.Trim()))
+        if (!ValidationHelper.IsValidRegex(model.SpamWord?.Trim()))
         {
-            this.Ok(
+            return this.Ok(
                 new MessageModalNotification(
-                this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_REGEX_SPAM"),
-                MessageTypes.danger));
-
-            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_SpamWords);
+                    this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_REGEX_SPAM"),
+                    MessageTypes.danger));
         }
 
         await this.GetRepository<SpamWords>().SaveAsync(

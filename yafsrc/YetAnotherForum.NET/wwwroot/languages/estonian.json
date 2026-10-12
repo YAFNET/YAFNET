@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Lisa/redigeeri medal"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Kas eemaldada sellelt rühmalt medal?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "On heaks kiidetud:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Kasutajakonto on kinnitatud ja kasutaja saab sisse logida."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Kuvatav nimi:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "On külaline:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "See on külaliskonto, seda kasutatakse kõigi külastajate jaoks, kes ei ole sisse logitud."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Valige rämpsposti automaatseks kontrollimiseks rämpspostiteenus:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "päevadel"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Kustutage lugemata kirjad, mis on vanemad kui:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Kustuta kirjad, mis on vanemad kui:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Rakenduse taaskäivitamine laadib uuesti kõik konfiguratsioonifailid."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Taaskäivitage rakendus"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "Taotlus ei tulnud tagasi. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "Rakendus taaskäivitub. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Taaskäivitage rakendus"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Koht:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "Kasutaja auaste, astmelised auastmed muutuvad postituste arvuga."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Roll:"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Teie uus e-posti aadress on kinnitatud."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Teie e-posti aadress on kinnitatud."
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Lisa albumi pilt"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Sisestage olemasolev manus või laadige üles uus fail..."
@@ -8918,6 +8946,10 @@
             "#text": "Kustutamise põhjus"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Kustuta see sõnum"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Kustuta sõnum andmebaasist (pöördumatu)"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Taastamise põhjus"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Taasta see sõnum"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Eemalda avatar"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Praegune avatar"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Sisesta teises serveris oleva avatari URL:"
           },
@@ -9150,12 +9190,24 @@
             "#text": "Muuda E-posti aadressi"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Kinnituslink saadeti aadressile {0}. Teie e-posti aadress muudetakse pärast lingi avamist."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Kinnitage oma uus e-posti aadress {0} foorumi jaoks"
+          },
+          {
             "@tag": "CITY",
             "#text": "Linn:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Riik:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Praegune parool"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} on kohustuslik"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} peab olema arv"
+          },
+          {
             "@tag": "OTHER",
             "#text": "muud"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Kus Te elate?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Sisestatud parool ei ole õige."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Kellele (e-posti aadress):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Olete saatnud liiga palju meile, proovige hiljem uuesti."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Kõik"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Näita kasutajaid, kelle nimi algab tähega {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": " {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Teemasid saab teisaldada ainult foorumisse, palun valige foorum, mitte kategooria."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "E-post:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "Kasutaja e-posti aadress."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Kasutaja lukustus lõpeb:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "Liitus:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "Kasutaja registreerimise kuupäev."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Viimased 10 postitust"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Viimane külastus:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "Kasutaja viimase külastuse kuupäev."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "Teie konto veel ei ole administraatori poolt kinnitatud. Te ei saa oma parooli uuendada, kuni konto on kinnitatud."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Teie konto veel ei ole kinnitatud, kuna te ei ole oma e-posti aadressi kinnitanud. Uus kinnituskiri on saadetud {0}. Palun kinnitage address, et saaksite sisse logida."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Sisestage oma kasutajanimi, et taastada parool:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Teie e-posti aadressile saadeti e-kiri lähtestamislingiga!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Kui selle kasutajanime või e-posti aadressiga konto on olemas, on selle e-posti aadressile saadetud e-kiri."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Nõrk parool, proovige kasutada numbreid ja suurtähti."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Uus parool {0} foorumi jaoks"
           },
           {
             "@tag": "PROFILE",
@@ -12892,6 +12976,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Hele"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

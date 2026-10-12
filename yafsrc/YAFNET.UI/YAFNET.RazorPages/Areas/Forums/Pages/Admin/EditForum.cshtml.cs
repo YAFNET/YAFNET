@@ -142,17 +142,25 @@ public class EditForumModel : AdminPage
         return this.BindData(fa, copy);
     }
 
+    /// <summary>
+    /// The category was changed (the select submits the form): the entered values are kept,
+    /// the parent forums are the ones of the new category.
+    /// </summary>
+    /// <param name="fa">The forum identifier.</param>
+    /// <param name="copy">The copy forum id.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPost(int? fa = null, bool copy = false)
     {
-        return this.BindData(fa, copy);
+        this.BindLists(this.Input.Id == 0 ? null : this.Input.Id);
+
+        return this.Page();
     }
 
     /// <summary>
-    /// Binds the data.
+    /// Binds the lists of the page (also when the page is shown again after a post).
     /// </summary>
-    /// <param name="forumId"></param>
-    /// <param name="copy"></param>
-    private IActionResult BindData(int? forumId, bool copy = false)
+    /// <param name="forumId">The forum identifier.</param>
+    private void BindLists(int? forumId)
     {
         this.AccessMaskList = new SelectList(
             this.GetRepository<AccessMask>().GetByBoardId(),
@@ -167,7 +175,14 @@ public class EditForumModel : AdminPage
         // populate parent forums list with forums according to selected category
         this.BindParentList();
 
-        if (forumId.HasValue)
+        var groups = this.PageBoardContext.GetRepository<Group>().GetByBoardId();
+
+        if (!this.AccessList.NullOrEmpty())
+        {
+            // the posted access masks, the group names are not posted
+            this.AccessList.ForEach(a => a.GroupName = groups.FirstOrDefault(g => g.ID == a.GroupID)?.Name);
+        }
+        else if (forumId.HasValue)
         {
             this.AccessList = [.. this.GetRepository<ForumAccess>().GetForumAccessList(forumId.Value).Select(
                 i => new GroupAccessMask
@@ -175,7 +190,7 @@ public class EditForumModel : AdminPage
         }
         else
         {
-            this.AccessList = [.. this.PageBoardContext.GetRepository<Group>().GetByBoardId().Select(
+            this.AccessList = [.. groups.Select(
                 i => new GroupAccessMask {GroupID = i.ID, GroupName = i.Name, AccessMaskID = this.PageBoardContext.BoardSettings.ForumDefaultAccessMask })];
         }
 
@@ -185,6 +200,28 @@ public class EditForumModel : AdminPage
         themes.Insert(0, new SelectListItem(this.GetText("ADMIN_EDITFORUM", "CHOOSE_THEME"), string.Empty));
 
         this.Themes = themes;
+    }
+
+    /// <summary>
+    /// Shows a warning on the page (with the lists, the page is shown again with the entered values).
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <returns>IActionResult.</returns>
+    private IActionResult Warning(string message)
+    {
+        this.BindLists(this.Input.Id == 0 ? null : this.Input.Id);
+
+        return this.PageBoardContext.Notify(message, MessageTypes.warning);
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    /// <param name="forumId"></param>
+    /// <param name="copy"></param>
+    private IActionResult BindData(int? forumId, bool copy = false)
+    {
+        this.BindLists(forumId);
 
         if (!forumId.HasValue)
         {
@@ -298,7 +335,7 @@ public class EditForumModel : AdminPage
     {
         if (this.Input.CategoryID == 0)
         {
-            return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.warning);
+            return this.Warning(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"));
         }
 
         // Forum
@@ -318,28 +355,33 @@ public class EditForumModel : AdminPage
             // check if parent and forum is the same
             if (parentId.Value == forumId.Value)
             {
-                return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"), MessageTypes.warning);
+                return this.Warning(this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"));
             }
 
-            if (this.GetRepository<Forum>().IsParentsChecker(forumId.Value))
+            // the parent can't be one of the sub forums (a forum with sub forums can still have a parent)
+            if (this.GetRepository<Forum>().IsOwnSubForum(forumId.Value, parentId.Value))
             {
-                return this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"),
-                    MessageTypes.warning);
+                return this.Warning(this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"));
             }
         }
 
         // duplicate name checking...
-        if (!forumId.HasValue && !this.Input.Copy)
-        {
-            var forumList = await this.GetRepository<Forum>().GetAsync(f => f.Name == this.Input.Name.Trim());
+        var forumName = this.Input.Name.Trim();
 
-            if (forumList.Count != 0 && !this.PageBoardContext.BoardSettings.AllowForumsWithSameName)
-            {
-                return this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),
-                    MessageTypes.warning);
-            }
+        // the name must be unique in the category (also when a forum is renamed or copied)
+        var nameExists = await this.GetRepository<Forum>().ExistsAsync(
+            f => f.CategoryID == this.Input.CategoryID && f.Name == forumName && f.ID != (forumId ?? 0));
+
+        // other forums of the board with the same name (if not allowed)
+        if (!nameExists && !forumId.HasValue && !this.Input.Copy && !this.PageBoardContext.BoardSettings.AllowForumsWithSameName)
+        {
+            nameExists = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
+                .Exists(f => f.Item2 != null && f.Item2.Name == forumName);
+        }
+
+        if (nameExists)
+        {
+            return this.Warning(this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"));
         }
 
         var themeUrl = string.Empty;
@@ -409,5 +451,37 @@ public class EditForumModel : AdminPage
         }
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
+    }
+
+    /// <summary>
+    /// Only forums of the current board can be edited, also the category and parent forum must be of the board (all handlers, the id is sent by the client).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        // the forum of the route and the forum of the form (the save uses the form)
+        var id = context.HandlerArguments.TryGetValue("fa", out var argument) && argument is int argumentId ? argumentId : 0;
+
+        if (id > 0 && !this.IsBoardForum(id)
+            || this.Input?.Id is > 0 && !this.IsBoardForum(this.Input.Id)
+            || this.Input is not null && (this.Input.CategoryID > 0 && !this.GetRepository<Category>().Exists(
+                                              c => c.ID == this.Input.CategoryID && c.BoardID == this.PageBoardContext.PageBoardID)
+                                          || this.Input.ParentID is > 0 && !this.IsBoardForum(this.Input.ParentID.Value)))
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
+    /// Checks if the forum belongs to the current board.
+    /// </summary>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <returns>Returns if the forum belongs to the current board.</returns>
+    private bool IsBoardForum(int forumId)
+    {
+        var forum = this.GetRepository<Forum>().GetById(forumId);
+
+        return forum != null && this.GetRepository<Category>().Exists(
+                   c => c.ID == forum.CategoryID && c.BoardID == this.PageBoardContext.PageBoardID);
     }
 }

@@ -61,6 +61,12 @@ public static class ValidationHelper
     /// </returns>
     public static bool IsValidUrl([StringSyntax(StringSyntaxAttribute.Uri)] string url)
     {
+        // quotes, angle brackets and white space are not valid in an url and would break out of html attributes
+        if (url.IsNotSet() || url.Any(c => c is '"' or '<' or '>' || char.IsWhiteSpace(c)))
+        {
+            return false;
+        }
+
         try
         {
             _ = new Uri(url, UriKind.Absolute);

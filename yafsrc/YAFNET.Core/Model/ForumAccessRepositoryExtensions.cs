@@ -108,13 +108,16 @@ public static class ForumAccessRepositoryExtensions
         /// <param name="forumId">The forum identifier.</param>
         /// <param name="groupId">The group identifier.</param>
         /// <param name="accessMaskId">The access mask identifier.</param>
-        public Task SaveAsync(int forumId,
+        public async Task SaveAsync(int forumId,
             int groupId,
             int accessMaskId)
         {
-            return repository.UpdateOnlyAsync(
+            await repository.UpdateOnlyAsync(
                 () => new ForumAccess { AccessMaskID = accessMaskId },
                 f => f.ForumID == forumId && f.GroupID == groupId);
+
+            // UpdateOnly raises no event, the cached access rights must be refreshed
+            repository.FireUpdated();
         }
 
         /// <summary>

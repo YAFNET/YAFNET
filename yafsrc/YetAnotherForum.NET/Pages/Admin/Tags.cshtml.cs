@@ -97,6 +97,12 @@ public class TagsModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
+        // only tags of the board
+        if (!await this.GetRepository<Tag>().ExistsAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         await this.GetRepository<TopicTag>().DeleteAsync(x => x.TagID == id);
 
         await this.GetRepository<Tag>().DeleteByIdAsync(id);

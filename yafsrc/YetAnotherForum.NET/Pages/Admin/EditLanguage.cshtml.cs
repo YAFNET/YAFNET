@@ -69,6 +69,19 @@ public class EditLanguageModel : AdminPage
     }
 
     /// <summary>
+    /// Only the host admin can use this page: the language files are used by all boards and their texts
+    /// are html, it can't be granted to the admins of a board.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
     /// Creates page links for this page.
     /// </summary>
     public override void CreatePageLinks()
@@ -96,7 +109,7 @@ public class EditLanguageModel : AdminPage
                                         Pages = "DEFAULT"
                                     };
 
-        if (x.IsNotSet())
+        if (this.GetLanguageFilePath(x) is null)
         {
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
@@ -119,10 +132,17 @@ public class EditLanguageModel : AdminPage
     /// <summary>
     /// Load Selected Page Resources
     /// </summary>
-    public void OnPostLoadPageLocalization(string x)
+    public IActionResult OnPostLoadPageLocalization(string x)
     {
+        if (this.GetLanguageFilePath(x) is null)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         this.ModelState.Clear();
         this.BindData(x);
+
+        return this.Page();
     }
 
     /// <summary>
@@ -130,7 +150,16 @@ public class EditLanguageModel : AdminPage
     /// </summary>
     public IActionResult OnPostSave(string x)
     {
+        if (this.GetLanguageFilePath(x) is null)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         this.SaveLanguageFile(x);
+
+        // the page is shown again with the saved texts
+        this.ModelState.Clear();
+        this.BindData(x);
 
         return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITLANGUAGE", "SAVED_FILE"), MessageTypes.success);
     }
@@ -236,6 +265,25 @@ public class EditLanguageModel : AdminPage
     private void CreatePageResourceHeader(string name)
     {
         this.PagesList.Add(new SelectListItem(name, name));
+    }
+
+    /// <summary>
+    /// Gets the full path of a language file, only of an existing json file in the languages folder
+    /// (the file name comes from the request, e.g. "../appsettings.json" must not be read or written).
+    /// </summary>
+    /// <param name="x">The language file name.</param>
+    /// <returns>The full path, or null if it is not a language file.</returns>
+    private string GetLanguageFilePath(string x)
+    {
+        if (x.IsNotSet() || Path.GetFileName(x) != x
+                         || !string.Equals(Path.GetExtension(x), ".json", StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        var path = Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Languages, x);
+
+        return System.IO.File.Exists(path) ? path : null;
     }
 
     private void BindData(string x)

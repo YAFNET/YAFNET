@@ -96,6 +96,7 @@
 }
 
 .avatar-stack {
+    margin-top: 5px;
     display: inline-block;
 
     .avatar-item {
@@ -200,34 +201,6 @@
 [data-bs-theme=dark] .card {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
-
-// Profile side navigation
-.list-group-profile-menu {
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
-    width: 15.5rem;
-
-    .list-group-item {
-        border: 0;
-        border-radius: 0 !important;
-        padding: .65rem 1rem;
-        transition: background-color .15s ease;
-
-        &:hover {
-            background: var(--bs-tertiary-bg);
-        }
-
-        &.active {
-            background: var(--bs-primary);
-            color: var(--bs-white, #fff);
-
-            i {
-                color: var(--bs-white, #fff) !important;
-            }
-        }
-    }
-}
-
 
 [data-bs-theme=dark] .list-group-profile-menu {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);

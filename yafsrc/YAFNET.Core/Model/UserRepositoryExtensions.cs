@@ -165,7 +165,7 @@ public static class UserRepositoryExtensions
 
                 expression.Where<User>(u => (u.Flags & 4) != 4 && (u.Flags & 2) == 2 && u.BoardID == boardId && u.Joined >= DateTime.UtcNow.AddMonths(-6));
 
-                expression.OrderByDescending<User>(u => u.Joined);
+                expression.OrderByDescending<User>(u => u.Joined).Take(12);
 
                 return db.SelectAsync(expression);
             });
@@ -588,14 +588,19 @@ public static class UserRepositoryExtensions
         {
             var user = await repository.GetByIdAsync(userId);
 
-            // Delete File if Avatar was uploaded
-            if (user.Avatar.IsSet() && user.Avatar.StartsWith('/')
-                                    && !user.Avatar.Contains(BoardContext.Current.Get<BoardFolders>().Avatars))
+            // Delete File if Avatar was uploaded, only files inside the uploads folder
+            if (user.Avatar.IsSet() && user.Avatar.StartsWith('/'))
             {
-                var filePath =
-                    $"{BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath}{user.Avatar.Replace("/", Path.DirectorySeparatorChar.ToString())}";
+                var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
 
-                if (File.Exists(filePath))
+                var uploadsFolder = Path.GetFullPath(
+                    Path.Combine(webRootPath, BoardContext.Current.Get<BoardFolders>().Uploads))
+                    .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+                var filePath = Path.GetFullPath(
+                    Path.Combine(webRootPath, user.Avatar.TrimStart('/').Replace('/', Path.DirectorySeparatorChar)));
+
+                if (filePath.StartsWith(uploadsFolder, StringComparison.OrdinalIgnoreCase) && File.Exists(filePath))
                 {
                     File.Delete(filePath);
                 }
@@ -657,7 +662,10 @@ public static class UserRepositoryExtensions
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
             expression.Join<UserGroup>((u, b) => b.UserID == u.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
-                .Where<User, UserGroup, Group>((a, b, c) => b.GroupID == groupId && (c.Flags & 2) == 0 && a.Email != null)
+                .Where<User, UserGroup, Group>(
+                    (a, b, c) => b.GroupID == groupId && (c.Flags & 2) == 0 && a.Email != null && a.Email != string.Empty
+                                 // only approved users that are not disabled
+                                 && (a.Flags & 2) == 2 && (a.Flags & 32) == 0)
                 .Select(u => new { u.Email });
 
             return repository.DbAccess.ExecuteAsync(db => db.SqlListAsync<string>(expression));
@@ -763,7 +771,9 @@ public static class UserRepositoryExtensions
             }
             else
             {
-                data.UsrSigBBCodes = groupMax.usrSigBBCodes.IsSet() ? groupMax.usrSigBBCodes : string.Empty;
+                // only one of them allows bb codes (also only the rank)
+                data.UsrSigBBCodes = groupMax.usrSigBBCodes.IsSet() ? groupMax.usrSigBBCodes :
+                                     rankMax.usrSigBBCodes.IsSet() ? rankMax.usrSigBBCodes : string.Empty;
             }
 
             return data;
@@ -865,6 +875,7 @@ public static class UserRepositoryExtensions
                     .ToMergedParamsSelectStatement();
 
                 var countUnreadSql = "0";
+                var lastUnreadSql = "null";
 
                 if (showUnreadPMs)
                 {
@@ -874,6 +885,16 @@ public static class UserRepositoryExtensions
                     countUnreadExpression.Where(x => x.ToUserId == userId && (x.Flags & 1) != 1);
 
                     countUnreadSql = countUnreadExpression.Select(Sql.Count("1"))
+                        .ToMergedParamsSelectStatement();
+
+                    // -- last Unread
+                    var lastUnreadExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>()
+                        .OrderByDescending<PrivateMessage>(x => x.Created).Limit(1);
+
+                    lastUnreadExpression.Where(x => x.ToUserId == userId && (x.Flags & 1) != 1);
+
+                    lastUnreadSql = lastUnreadExpression
+                        .Select(lastUnreadExpression.Column<PrivateMessage>(x => x.Created))
                         .ToMergedParamsSelectStatement();
                 }
 
@@ -932,6 +953,7 @@ public static class UserRepositoryExtensions
                     Mention = Sql.Custom($"({countMentionSql})"),
                     Quoted = Sql.Custom($"({countQuotedSql})"),
                     UnreadPrivate = Sql.Custom($"({countUnreadSql})"),
+                    LastUnreadPrivate = Sql.Custom($"({lastUnreadSql})"),
                     PendingBuddies = Sql.Custom($"({countBuddiesSql})"),
                     LastPendingBuddies = Sql.Custom($"({lastBuddySql})"),
                     NumAlbums = Sql.Custom($"({countAlbumsSql})"),
@@ -989,6 +1011,9 @@ public static class UserRepositoryExtensions
             // -- set user dirty
             flags.IsDirty = true;
             flags.IsActiveExcluded = hideUser;
+
+            // the page size is sent by the client (the lists offer at most 50 entries)
+            pageSize = pageSize is >= 1 and <= 100 ? pageSize : 5;
 
             return repository.UpdateOnlyAsync(
                 () => new User
@@ -1280,7 +1305,10 @@ public static class UserRepositoryExtensions
                     .Join<VaccessGroup>((usr, access) => access.UserID == usr.ID)
                     .Join<VaccessGroup, Forum>((access, f) => f.ID == access.ForumID)
                     .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                    .Where<VaccessGroup, User>((x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID)
+                    .Where<VaccessGroup, User>(
+                        (x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID
+                                  // only approved users that are not disabled
+                                  && (u.Flags & 2) == 2 && (u.Flags & 32) == 0)
                     .Select<User, VaccessGroup, Forum, Category>((usr, access, f, c) => new
                     {
                         CategoryID = c.ID,

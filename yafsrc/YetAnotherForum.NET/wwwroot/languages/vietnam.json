@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Thêm / Chỉnh sửa huy chương"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Xóa huy chương khỏi nhóm này?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "Được chấp thuận:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Tài khoản người dùng đã được duyệt và người dùng có thể đăng nhập."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Tên hiển thị:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Là khách:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Đây là tài khoản khách, được dùng cho tất cả khách truy cập chưa đăng nhập."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Chọn một Dịch vụ SPAM để Tự động Kiểm tra SPAM:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "ngày"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Xóa các tin nhắn chưa đọc cũ hơn:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Xóa các tin nhắn cũ hơn:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Khỏi động lại ưng dụng"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "Ứng dụng đã không quay trở lại. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "Ứng dụng đang khởi động lại. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Khỏi động lại ưng dụng"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Thứ hạng:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "Thứ hạng của người dùng, thứ hạng bậc thang thay đổi theo số bài viết."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Vai diễn:"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Địa chỉ email mới của bạn đã được xác nhận."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Email đã được xác nhận."
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Chèn hình ảnh album"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Chèn Tệp đính kèm hiện có hoặc tải lên Tệp mới ..."
@@ -8918,6 +8946,10 @@
             "#text": "Lý do xoá"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Xóa tin nhắn này"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Xoá khỏi Cơ sở dữ liệu (Không thể khôi phục)"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Lý do khôi phục"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Khôi phục tin nhắn này"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Xóa hình"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Hình đại diện hiện tại"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Nhập đường dẫn hình:"
           },
@@ -9150,12 +9190,24 @@
             "#text": "Đổi email"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Liên kết xác nhận đã được gửi tới {0}. Địa chỉ email của bạn sẽ được thay đổi sau khi bạn mở liên kết."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Xác nhận địa chỉ email mới của bạn cho Diễn đàn {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Thành phố:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Quốc gia:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Mật khẩu hiện tại"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} là bắt buộc"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} phải là một số"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Khác"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Bạn đang ở đâu?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Mật khẩu bạn nhập không chính xác."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Gửi đến (địa chỉ email):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Bạn đã gửi quá nhiều email, vui lòng thử lại sau."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Tất cả các"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Hiển thị người dùng bắt đầu bằng {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "hình đại diện"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "bởi {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Chủ đề chỉ có thể được chuyển đến một diễn đàn, vui lòng chọn một diễn đàn chứ không phải một chuyên mục."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "E-mail:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "Địa chỉ e-mail của người dùng."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Việc tạm ngưng người dùng kết thúc:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "Gia nhập:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "Ngày người dùng đăng ký."
+          },
+          {
             "@tag": "LAST10",
             "#text": "10 bài gần nhất"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Lần cuối đăng nhập:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "Ngày truy cập gần nhất của người dùng."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "Tài khoản của bạn chưa được chấp nhận bởi điều hành.Bạn không thể thay đổi mật khẩu."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Tài khoản của bạn chưa được chấp nhận bởi bạn chưa xác minh Email.Một Email đã được gửi tới {0}. Vui lòng xác minh để có thể đăng nhập."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Nhập tên người dùng lấy lại mật khẩu:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Một email với Liên kết Đặt lại đã được gửi đến địa chỉ email của bạn!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Nếu một tài khoản có tên người dùng hoặc địa chỉ email này tồn tại thì một email đã được gửi đến địa chỉ email của tài khoản đó."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Mật khẩu yếu, hãy thử sử dụng số và chữ viết hoa."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Mật khẩu mới cho Diễn đàn {0}"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Ánh sáng"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

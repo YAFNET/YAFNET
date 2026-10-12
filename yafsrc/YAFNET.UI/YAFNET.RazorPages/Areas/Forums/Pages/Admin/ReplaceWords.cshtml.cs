@@ -106,7 +106,7 @@ public class ReplaceWordsModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<ReplaceWords>().DeleteByIdAsync(id);
+        await this.GetRepository<ReplaceWords>().DeleteAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID);
         this.Get<IObjectStore>().Remove(Constants.Cache.ReplaceWords);
         await this.BindDataAsync();
     }
@@ -148,7 +148,7 @@ public class ReplaceWordsModel : AdminPage
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
-        var replaceWord = this.GetRepository<ReplaceWords>().GetById(id);
+        var replaceWord = this.GetRepository<ReplaceWords>().GetSingle(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID) ?? new ReplaceWords();
 
         return new PartialViewResult {
                                          ViewName = "Dialogs/ReplaceWordsEdit",

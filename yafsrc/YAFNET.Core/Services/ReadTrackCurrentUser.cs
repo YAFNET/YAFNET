@@ -56,7 +56,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
             {
                 var lastForumRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId).MaxBy(t => t.LastAccessDate);
 
-                var lastTopicRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId).MaxBy(t => t.LastAccessDate);
+                var lastTopicRead = this.GetRepository<TopicReadTracking>().Get(t => t.UserID == this.CurrentUserId).MaxBy(t => t.LastAccessDate);
 
                 if (lastForumRead != null && lastTopicRead != null)
                 {

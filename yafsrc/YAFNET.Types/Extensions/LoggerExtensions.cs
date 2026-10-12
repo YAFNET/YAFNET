@@ -232,9 +232,9 @@ public static class LoggerExtensions
         {
             var sourceDescription = "unknown";
 
-            if (source is Type)
+            if (source is Type type)
             {
-                sourceDescription = source.GetType().FullName;
+                sourceDescription = type.FullName;
             }
             else if (source is not null)
             {

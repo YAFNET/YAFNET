@@ -30,6 +30,7 @@ using System.Threading.Tasks;
 using Autofac;
 
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 
 using MimeKit;
 
@@ -42,6 +43,7 @@ using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Tests.CoreTests.TestInfrastructure;
+using YAF.Types.Constants;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
@@ -67,6 +69,8 @@ public class SendNotificationTests
     private RecordingMailService mail;
 
     private IAspNetUsersHelper aspNetUsers;
+
+    private IUserDisplayName displayName;
 
     private int alice;
 
@@ -99,7 +103,7 @@ public class SendNotificationTests
         var environment = Substitute.For<IWebHostEnvironment>();
         environment.WebRootPath.Returns(this.webRoot);
 
-        var displayName = Substitute.For<IUserDisplayName>();
+        var displayName = this.displayName = Substitute.For<IUserDisplayName>();
         displayName.GetNameById(Arg.Any<int>()).Returns(c => $"User {c.Arg<int>()}");
 
         this.mail = new RecordingMailService();
@@ -111,6 +115,7 @@ public class SendNotificationTests
                 b.RegisterType<SendNotification>().As<ISendNotification>();
                 b.RegisterType<ActivityStream>().As<IActivityStream>();
                 b.RegisterType<BadWordReplace>().As<IBadWordReplace>();
+                b.RegisterType<FormatMessage>().As<IFormatMessage>();
                 b.RegisterType<BBCodeService>().As<IBBCodeService>();
                 b.Register<Func<IEnumerable<bool>, IProcessReplaceRules>>(_ => _ => new ProcessReplaceRules());
                 b.RegisterType<DataBroker>().AsSelf();
@@ -175,7 +180,11 @@ public class SendNotificationTests
     [Description("Watchers of the topic and the forum get one mail each, the poster gets none")]
     public async Task ToWatchingUsers_Test()
     {
-        var message = this.db.AddMessage(this.topic, this.alice, "[b]Hello[/b] <i>watchers</i>");
+        var message = this.db.AddMessage(
+            this.topic,
+            this.alice,
+            "[b]Hello[/b] <i>watchers</i>[hide-reply]only for repliers[/hide-reply][hide-thanks]only for thankers[/hide-thanks]");
+        this.GrantReadAccess(this.alice, this.bob, this.carol);
 
         using (var connection = this.db.Open())
         {
@@ -195,6 +204,9 @@ public class SendNotificationTests
         mailToBob.TextBody.Should().Contain("There's a new post in topic \"Watched topic\" at Test Forum")
             .And.Contain($"By User {this.alice}:").And.Contain("\"Hello watchers\"");
 
+        // hidden content is only shown in the forum (to users who replied, thanked, ...)
+        mailToBob.TextBody.Should().NotContain("only for repliers").And.NotContain("only for thankers");
+
         // only Carol has the activity stream enabled
         this.Repository<Activity>().Get(a => a.UserID == this.carol).Should().ContainSingle()
             .Which.Flags.Should().Be(new ActivityFlags { WatchTopicReply = true }.BitValue);
@@ -206,6 +218,7 @@ public class SendNotificationTests
     public async Task ToWatchingUsers_New_Topic_Test()
     {
         var message = this.db.AddMessage(this.topic, this.alice, "first post");
+        this.GrantReadAccess(this.carol);
 
         using (var connection = this.db.Open())
         {
@@ -216,6 +229,27 @@ public class SendNotificationTests
 
         this.Repository<Activity>().GetSingle(a => a.UserID == this.carol).Flags
             .Should().Be(new ActivityFlags { WatchForumReply = true }.BitValue);
+    }
+
+    [Test]
+    [Description("Watchers who can not read the forum (any more) get no mail and no activity with the post")]
+    public async Task ToWatchingUsers_Without_Read_Access_Test()
+    {
+        var message = this.db.AddMessage(this.topic, this.alice, "secret staff post");
+        this.GrantReadAccess(this.bob);
+        this.db.AddForumAccess(this.carol, this.forum, AccessFlags.Flags.None);
+
+        using (var connection = this.db.Open())
+        {
+            connection.Insert(new WatchTopic { UserID = this.bob, TopicID = this.topic, Created = DateTime.UtcNow });
+            connection.Insert(new WatchTopic { UserID = this.carol, TopicID = this.topic, Created = DateTime.UtcNow });
+            connection.Insert(new WatchForum { UserID = this.carol, ForumID = this.forum, Created = DateTime.UtcNow });
+        }
+
+        await this.Notifications.ToWatchingUsersAsync(message);
+
+        this.mail.Recipients.Should().Equal("bob@example.com");
+        this.Repository<Activity>().Count(a => a.UserID == this.carol).Should().Be(0);
     }
 
     [Test]
@@ -269,6 +303,103 @@ public class SendNotificationTests
     }
 
     [Test]
+    [Description("Topic names and names of users are text in the html mail, not html")]
+    public async Task ToWatchingUsers_Html_In_Topic_Name_Test()
+    {
+        this.Repository<Topic>().UpdateOnly(
+            () => new Topic { TopicName = "&lt;a href=\"https://evil.example\"&gt;Click&lt;/a&gt;" },
+            t => t.ID == this.topic);
+        this.displayName.GetNameById(this.alice).Returns("<img src=x onerror=alert(1)>");
+
+        var message = this.db.AddMessage(this.topic, this.alice, "Hello watchers");
+        this.GrantReadAccess(this.alice, this.bob);
+
+        using (var connection = this.db.Open())
+        {
+            connection.Insert(new WatchTopic { UserID = this.bob, TopicID = this.topic, Created = DateTime.UtcNow });
+        }
+
+        await this.Notifications.ToWatchingUsersAsync(message);
+
+        var mailToBob = this.mail.Sent.Should().ContainSingle().Subject;
+
+        mailToBob.TextBody.Should().Contain("<a href=\"https://evil.example\">Click</a>", "the text part is plain text");
+
+        mailToBob.HtmlBody.Should().NotContain("<a href=\"https://evil.example\"").And.NotContain("<img src=x")
+            .And.Contain("&lt;a href=").And.Contain("&lt;img src=x");
+    }
+
+    [Test]
+    [Description("The reason of a report is text in the html mail of the moderators, not html")]
+    public async Task ToModerators_Reported_Html_Reason_Test()
+    {
+        this.board.Localization
+            .Add("COMMON", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE", "Report on {0}")
+            .Add("TEMPLATES", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT", "{reporter} reported: {reason}");
+
+        this.board.Database.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
+
+        await this.Notifications.ToModeratorsThatMessageWasReportedAsync(
+            this.forum,
+            1,
+            this.carol,
+            "<a href='https://evil.example'>log in again</a>");
+
+        var report = this.mail.Sent.Should().ContainSingle().Subject;
+
+        report.HtmlBody.Should().NotContain("<a href='https://evil.example'>")
+            .And.Contain("&lt;a href=&#39;https://evil.example&#39;&gt;log in again&lt;/a&gt;");
+    }
+
+    [Test]
+    [Description("A code block in a value of a user is no html in the mail (the highlighter decodes the code once)")]
+    public async Task ToModerators_Reported_Html_In_Code_Block_Test()
+    {
+        this.board.Localization
+            .Add("COMMON", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE", "Report on {0}")
+            .Add("TEMPLATES", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT", "{reporter} reported: {reason}");
+
+        this.board.Database.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
+
+        await this.Notifications.ToModeratorsThatMessageWasReportedAsync(
+            this.forum,
+            1,
+            this.carol,
+            "[code]<a href='https://evil.example'>log in again</a>[/code]");
+
+        var report = this.mail.Sent.Should().ContainSingle().Subject;
+
+        report.HtmlBody.Should().NotContain("<a href='https://evil.example'>");
+    }
+
+    [Test]
+    [Description("The bb codes of a value of a user are text in the mail (no disguised links)")]
+    public async Task ToModerators_Reported_BBCode_Reason_Test()
+    {
+        this.board.Localization
+            .Add("COMMON", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE", "Report on {0}")
+            .Add("TEMPLATES", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT", "{reporter} reported: {reason} see https://forum.example/moderate");
+
+        this.board.Database.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
+
+        await this.Notifications.ToModeratorsThatMessageWasReportedAsync(
+            this.forum,
+            1,
+            this.carol,
+            "[url=https://evil.example]Your account[/url] [b]bold[/b]");
+
+        var report = this.mail.Sent.Should().ContainSingle().Subject;
+
+        report.TextBody.Should().Contain("[url=https://evil.example]Your account[/url]");
+
+        report.HtmlBody.Should().NotContain("https://evil.example\"").And.NotContain("<b>bold</b>")
+            .And.Contain("&#91;url=https://evil.example&#93;Your account");
+
+        // the links of the template text are still formatted
+        report.HtmlBody.Should().Contain("href=\"https://forum.example/moderate\"");
+    }
+
+    [Test]
     [Description("Reported posts notify the moderators with the reason and reporter")]
     public async Task ToModerators_Reported_Test()
     {
@@ -293,7 +424,7 @@ public class SendNotificationTests
     public async Task ToModerators_Reported_Error_Test()
     {
         this.board.Database.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
-        this.aspNetUsers.GetUserByNameAsync(Arg.Any<string>()).Returns<Task<AspNetUsers>>(_ => throw new InvalidOperationException("boom"));
+        this.displayName.GetNameById(Arg.Any<int>()).Returns<string>(_ => throw new InvalidOperationException("boom"));
 
         await FluentActions.Awaiting(() => this.Notifications.ToModeratorsThatMessageWasReportedAsync(this.forum, 1, this.carol, "x"))
             .Should().NotThrowAsync();
@@ -364,7 +495,7 @@ public class SendNotificationTests
         this.mail.Sent.Should().BeEmpty("there is no admin group");
 
         var adminGroup = this.db.AddForumAccess(this.carol, this.forum, groupFlags: GroupFlags.Flags.IsAdmin);
-        this.Repository<Group>().UpdateOnly(() => new Group { Name = "Administrators" }, g => g.ID == adminGroup);
+        this.Repository<Group>().UpdateOnly(() => new Group { Name = "Team" }, g => g.ID == adminGroup);
 
         await this.Notifications.SendSpamBotNotificationToAdminsAsync(aspNetUser, 9);
 
@@ -413,7 +544,48 @@ public class SendNotificationTests
         this.mail.Sent.Single().TextBody.Should().Be("Hi Bob, key a%2bb%2fc");
     }
 
+    [Test]
+    [Description("New (e.g. imported) users get their user name and generated password")]
+    public async Task Registration_Mail_To_User_Test()
+    {
+        this.board.Localization.Add(
+            "TEMPLATES",
+            "NOTIFICATION_ON_REGISTER_TEXT",
+            "User Name: {user} Auto Generated Password: {pass} User Email: {email}");
+        var aspNetUser = new AspNetUsers { UserName = "Erin", Email = "erin@example.com" };
+
+        await this.Notifications.SendRegistrationNotificationToUserAsync(aspNetUser, "S3cret!", "NOTIFICATION_ON_REGISTER");
+
+        var message = this.mail.Sent.Single();
+        this.mail.Recipients.Should().Equal("erin@example.com");
+        message.TextBody.Should().Contain("User Name: Erin").And.Contain("Auto Generated Password: S3cret!")
+            .And.Contain("User Email: erin@example.com");
+    }
+
+    [Test]
+    [Description("The password reset mail links to the reset page with the token")]
+    public async Task Password_Reset_Mail_Test()
+    {
+        this.board.Localization.Add("TEMPLATES", "RESET_PASS_TEXT", "Reset at {forumname}: {link}");
+        this.board.LinkBuilder
+            .GetAbsoluteLink(ForumPages.Account_ResetPassword, Arg.Any<object>())
+            .Returns(c => $"https://forum.example/Account/ResetPassword?code={new RouteValueDictionary(c.ArgAt<object>(1))["code"]}");
+
+        await this.Notifications.SendPasswordResetAsync(new AspNetUsers { UserName = "Bob", Email = "bob@example.com" }, "tok3n");
+
+        this.mail.Recipients.Should().Equal("bob@example.com");
+        this.mail.Sent.Single().TextBody.Should().Contain("https://forum.example/Account/ResetPassword?code=tok3n");
+    }
+
     private ISendNotification Notifications => this.board.Resolve<ISendNotification>();
+
+    private void GrantReadAccess(params int[] users)
+    {
+        foreach (var user in users)
+        {
+            this.db.AddForumAccess(user, this.forum);
+        }
+    }
 
     private IRepository<T> Repository<T>()
         where T : IEntity

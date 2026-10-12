@@ -321,7 +321,9 @@ public class UserProfileModel : ForumPage
             return;
         }
 
-        var isFriend = this.Get<IFriends>().IsBuddy(this.CombinedUser.Item1.ID);
+        // admins and users in the friend list of the user (not just a request) are excluded from the blocking
+        var isFriend = this.GetRepository<Buddy>().Exists(
+            b => b.FromUserID == this.CombinedUser.Item1.ID && b.ToUserID == this.PageBoardContext.PageUserID && b.Approved);
 
         this.ShowPmLink = !this.CombinedUser.Item1.UserFlags.IsGuest &&
                           this.PageBoardContext.BoardSettings.AllowPrivateMessages;

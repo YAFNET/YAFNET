@@ -142,7 +142,7 @@ public class SubscriptionsModel : ProfilePage
     {
         await this.BindDataAsync();
 
-        var selectedValue = this.Input.NotificationType.ToEnum<UserNotificationSetting>();
+        var selectedValue = this.GetSelectedNotificationType();
 
         await this.BindDataForumsAsync(forums);
         await this.BindDataTopicsAsync(topics);
@@ -166,7 +166,7 @@ public class SubscriptionsModel : ProfilePage
         await this.BindDataForumsAsync(forums);
         await this.BindDataTopicsAsync(topics);
 
-        var selectedValue = this.Input.NotificationType.ToEnum<UserNotificationSetting>();
+        var selectedValue = this.GetSelectedNotificationType();
 
         this.UpdateSubscribeUi(selectedValue);
 
@@ -176,7 +176,7 @@ public class SubscriptionsModel : ProfilePage
         await this.GetRepository<User>().SaveNotificationAsync(
             this.PageBoardContext.PageUserID,
             autoWatchTopicsEnabled,
-            this.Input.NotificationType.ToType<int>(),
+            selectedValue.ToInt(),
             this.Input.DailyDigestEnabled);
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
@@ -199,7 +199,9 @@ public class SubscriptionsModel : ProfilePage
 
         if (items.Count != 0)
         {
-            await this.GetRepository<WatchForum>().DeleteByIdsAsync(items);
+            // only own subscriptions (the ids are sent by the client)
+            await this.GetRepository<WatchForum>().DeleteAsync(
+                w => items.Contains(w.ID) && w.UserID == this.PageBoardContext.PageUserID);
         }
         else
         {
@@ -224,7 +226,9 @@ public class SubscriptionsModel : ProfilePage
 
         if (items.Count != 0)
         {
-            await this.GetRepository<WatchTopic>().DeleteByIdsAsync(items);
+            // only own subscriptions (the ids are sent by the client)
+            await this.GetRepository<WatchTopic>().DeleteAsync(
+                w => items.Contains(w.ID) && w.UserID == this.PageBoardContext.PageUserID);
         }
         else
         {
@@ -232,6 +236,24 @@ public class SubscriptionsModel : ProfilePage
         }
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_Subscriptions);
+    }
+
+    /// <summary>
+    /// Gets the selected notification type, the value is sent by the client: a value that is not
+    /// in the list keeps the current setting of the user.
+    /// </summary>
+    /// <returns>The notification type.</returns>
+    private UserNotificationSetting GetSelectedNotificationType()
+    {
+        var selectedValue =
+            int.TryParse(this.Input.NotificationType, out var value)
+            && Enum.IsDefined(typeof(UserNotificationSetting), value)
+                ? (UserNotificationSetting)value
+                : this.PageBoardContext.PageUser.NotificationSetting;
+
+        this.Input.NotificationType = selectedValue.ToInt().ToString();
+
+        return selectedValue;
     }
 
     /// <summary>

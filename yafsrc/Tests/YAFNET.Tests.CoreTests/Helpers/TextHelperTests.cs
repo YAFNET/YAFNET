@@ -54,6 +54,12 @@ public class TextHelperTests
     [TestCase("ab", "AB")]
     [TestCase("  admin  ", "ADM")]
     [TestCase("Ärger Bob", "AB")]
+    [TestCase("Alice  Smith", "AS")]
+    [TestCase("Иван Петров", "IP")]
+    [TestCase("Tom & Jerry", "T&")]
+    [TestCase("😀😀", "?")]
+    [TestCase("", "?")]
+    [TestCase(null, "?")]
     [Description("GetAbbreviation builds a two or three letter abbreviation")]
     public void GetAbbreviation_Test(string input, string expected)
     {

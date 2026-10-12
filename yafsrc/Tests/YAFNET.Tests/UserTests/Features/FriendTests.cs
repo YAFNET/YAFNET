@@ -55,24 +55,23 @@ public class FriendTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // Do actual test
                     var pageSource = await page.ContentAsync();
 
+                    // the popup about the new friend request leads to the friends page
                     if (pageSource.Contains("New Friend request"))
                     {
                         await page.Locator(".bootbox-accept").ClickAsync();
                     }
-                    else
-                    {
-                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyFriends");
-                    }
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyFriends");
 
                     Assert.That(
                         pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
-                    await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(["3"]);
+                    await page.RunAndWaitForNextPageAsync(() => page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
+                        .SelectOptionAsync(["3"]));
 
                     // Select the First Request
-                    await page.Locator("//button[contains(@formaction,'Approve')]").First.ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Approve')]").First);
 
                     pageSource = await page.ContentAsync();
 
@@ -110,14 +109,13 @@ public class FriendTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // Do actual test
                     var pageSource = await page.ContentAsync();
 
+                    // the popup about the new friend request leads to the friends page
                     if (pageSource.Contains("New Friend request"))
                     {
                         await page.Locator(".bootbox-accept").ClickAsync();
                     }
-                    else
-                    {
-                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyFriends");
-                    }
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyFriends");
 
                     pageSource = await page.ContentAsync();
 
@@ -125,13 +123,13 @@ public class FriendTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
-                    await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(["3"]);
+                    await page.RunAndWaitForNextPageAsync(() => page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
+                        .SelectOptionAsync(["3"]));
 
                     // Select the First Request
                     await page.Locator("//button[contains(@formaction,'Deny')]").First.ClickAsync();
 
-                    await page.GetByText("Yes").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.GetByText("Yes"));
 
                     pageSource = await page.ContentAsync();
 
@@ -163,14 +161,13 @@ public class FriendTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // Do actual test
                     var pageSource = await page.ContentAsync();
 
+                    // the popup about the new friend request leads to the friends page
                     if (pageSource.Contains("New Friend request"))
                     {
                         await page.Locator(".bootbox-accept").ClickAsync();
                     }
-                    else
-                    {
-                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyFriends");
-                    }
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyFriends");
 
                     pageSource = await page.ContentAsync();
 
@@ -178,11 +175,11 @@ public class FriendTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
-                    await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(["3"]);
+                    await page.RunAndWaitForNextPageAsync(() => page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
+                        .SelectOptionAsync(["3"]));
 
                     // Select the First Request
-                    await page.Locator("//button[contains(@formaction,'ApproveAdd')]").First.ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'ApproveAdd')]").First);
 
                     pageSource = await page.ContentAsync();
 

@@ -252,7 +252,8 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
 
         if (routeValues.ContainsKey("name"))
         {
-            routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]!.ToString());
+            // the name can be missing (e.g. of a deleted user)
+            routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]?.ToString() ?? string.Empty);
         }
 
         if (this.Get<BoardConfiguration>().Area.IsSet() && !routeValues.ContainsKey("area"))
@@ -341,7 +342,8 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
 
         if (routeValues.ContainsKey("name"))
         {
-            routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]!.ToString());
+            // the name can be missing (e.g. of a deleted user)
+            routeValues["name"] = UrlRewriteHelper.CleanStringForUrl(routeValues["name"]?.ToString() ?? string.Empty);
         }
 
         if (this.Get<BoardConfiguration>().Area.IsSet())
@@ -359,7 +361,10 @@ public class LinkBuilder : IHaveServiceLocator, ILinkBuilder
             return BoardContext.Current.CurrentForumController.RedirectToPage(page.GetPageName(), null, routeValues);
         }
 
-        this.Get<IHttpContextAccessor>().HttpContext?.Response.Redirect(page.GetPageName());
+        // outside a page or controller (e.g. a middleware) redirect to the full link, including the values
+        var link = this.GetLink(page, values);
+
+        this.Get<IHttpContextAccessor>().HttpContext?.Response.Redirect(link.IsSet() ? link : page.GetPageName());
 
         return new EmptyResult();
     }

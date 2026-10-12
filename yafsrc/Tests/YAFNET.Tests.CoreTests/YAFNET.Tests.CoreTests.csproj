@@ -19,6 +19,7 @@
     <ProjectReference Include="..\..\YAFNET.Data\YAFNET.Data.Sqlite\YAFNET.Data.Sqlite.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Acornima" Version="1.8.0" />
     <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
     <PackageReference Include="coverlet.collector" Version="10.1.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

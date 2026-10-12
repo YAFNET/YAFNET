@@ -28,7 +28,9 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 using YAF.Core.Model;
@@ -40,12 +42,18 @@ using YAF.Types.Objects;
 /// Implements the <see cref="Hub" />
 /// </summary>
 /// <seealso cref="Hub" />
+[Authorize]
 public class ChatHub : Hub, IHaveServiceLocator
 {
     /// <summary>
     /// The connected users, keyed by SignalR connection id.
     /// </summary>
     private readonly static ConcurrentDictionary<string, ChatUser> ConnectedUsers = new();
+
+    /// <summary>
+    /// The user of the conversation that is open in a connection, keyed by SignalR connection id.
+    /// </summary>
+    private readonly static ConcurrentDictionary<string, int> OpenConversations = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SendNotification"/> class.
@@ -64,7 +72,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>Connects the specified username.</summary>
-    /// <param name="avatar">the avatar</param>
+    /// <param name="avatar">the avatar sent by the client (not used, the avatar of the user is taken)</param>
     /// <param name="toUserId">The Sender User Id</param>
     public async Task ConnectAsync(
         string avatar,
@@ -75,6 +83,11 @@ public class ChatHub : Hub, IHaveServiceLocator
         var user = BoardContext.Current.PageUser;
         var userId = BoardContext.Current.PageUserID;
 
+        if (!this.Get<BoardSettings>().AllowPrivateMessages || BoardContext.Current.IsGuest)
+        {
+            return;
+        }
+
         ConnectedUsers.TryAdd(
             id,
             new ChatUser
@@ -83,8 +96,12 @@ public class ChatHub : Hub, IHaveServiceLocator
                     UserName = user.Name,
                     DisplayName = user.DisplayOrUserName(),
                     UserId = userId,
-                    Avatar = avatar
+
+                    // the recipient shows it in the message html, a value of the client could inject script
+                    Avatar = HttpUtility.HtmlEncode(this.Get<IAvatars>().GetAvatarUrlForUser(user))
                 });
+
+        OpenConversations[id] = toUserId;
 
         // Load existing conversations form db
         var conversation = await this.GetRepository<PrivateMessage>().GetConversationAsync(userId, toUserId);
@@ -111,6 +128,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     public override Task OnDisconnectedAsync(Exception exception)
     {
         ConnectedUsers.TryRemove(this.Context.ConnectionId, out _);
+        OpenConversations.TryRemove(this.Context.ConnectionId, out _);
 
         return base.OnDisconnectedAsync(exception);
     }
@@ -128,8 +146,6 @@ public class ChatHub : Hub, IHaveServiceLocator
     {
         var fromUserId = this.Context.ConnectionId;
 
-        var toConnectUser = ConnectedUsers.Values.FirstOrDefault(x => x.UserId == toUserId);
-
         ConnectedUsers.TryGetValue(fromUserId, out var fromConnectUser);
         var currentDateTime = DateTime.UtcNow;
 
@@ -137,7 +153,9 @@ public class ChatHub : Hub, IHaveServiceLocator
                                     ? currentDateTime.ToRelativeTime()
                                     : this.Get<IDateTimeService>().Format(DateTimeFormat.Both, currentDateTime);
 
-        if (fromConnectUser == null)
+        // a suspended user can't send messages (the forum pages send the user to the info page)
+        if (fromConnectUser == null || BoardContext.Current.IsSuspendedNow
+            || !await this.CanSendToAsync(fromConnectUser.UserId, toUserId))
         {
             return;
         }
@@ -154,7 +172,13 @@ public class ChatHub : Hub, IHaveServiceLocator
 
         var bodyFormatted = await this.FormatMessageAsync(body);
 
-        if (toConnectUser != null)
+        // the connections (browser tabs) of the other user that show the conversation with the sender,
+        // otherwise the message stays unread
+        var toConnections = ConnectedUsers.Values.Where(
+            x => x.UserId == toUserId && OpenConversations.TryGetValue(x.ConnectionId, out var openUserId)
+                                      && openUserId == fromConnectUser.UserId).ToList();
+
+        foreach (var toConnectUser in toConnections)
         {
             flags.IsRead = true;
 
@@ -196,6 +220,45 @@ public class ChatHub : Hub, IHaveServiceLocator
     {
         // Delete from sender
         return this.GetRepository<PrivateMessage>().DeleteConversationAsync(BoardContext.Current.PageUserID, toUserId);
+    }
+
+    /// <summary>
+    /// Checks if the user can send a private message to the other user of the board
+    /// (the other user does not block private messages or ignores the sender,
+    /// admins and users in the friend list of the other user are excluded from the blocking).
+    /// </summary>
+    /// <param name="fromUserId">The from user identifier.</param>
+    /// <param name="toUserId">The to user identifier.</param>
+    /// <returns>Returns if the message can be sent.</returns>
+    private async Task<bool> CanSendToAsync(int fromUserId, int toUserId)
+    {
+        if (!this.Get<BoardSettings>().AllowPrivateMessages || fromUserId == toUserId)
+        {
+            return false;
+        }
+
+        var toUser = await this.GetRepository<User>().GetByIdAsync(toUserId);
+
+        if (toUser is null || toUser.BoardID != BoardContext.Current.PageBoardID || toUser.UserFlags.IsGuest
+            || !toUser.UserFlags.IsApproved || toUser.UserFlags.IsDeleted)
+        {
+            return false;
+        }
+
+        if (BoardContext.Current.IsAdmin)
+        {
+            return true;
+        }
+
+        if (toUser.Block.BlockPMs
+            && !await this.GetRepository<Buddy>().ExistsAsync(
+                b => b.FromUserID == toUserId && b.ToUserID == fromUserId && b.Approved))
+        {
+            return false;
+        }
+
+        return !await this.GetRepository<IgnoreUser>()
+                   .ExistsAsync(i => i.UserID == toUserId && i.IgnoredUserID == fromUserId);
     }
 
     /// <summary>

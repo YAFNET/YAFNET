@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Tilføj/Rediger medalje"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Vil du fjerne medalje fra denne gruppe?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "Er godkendt:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Brugerkontoen er godkendt, og brugeren kan logge ind."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Vist navn:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Er gæst:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Dette er gæstekontoen, den bruges til alle besøgende, der ikke er logget ind."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Vælg en SPAM-tjeneste til automatisk SPAM-kontrol:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "dage"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Slet ulæste beskeder ældre end:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Slet beskeder ældre end:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Genstart applikation"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "Ansøgningen kom ikke tilbage. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "Applikationen genstarter. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Genstart applikation"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Rang:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "Brugerens rang, trinrange ændres med antallet af indlæg."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Rolle:"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Din nye e-mailadresse er blevet bekræftet."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Din e-mail adresse er blevet valideret."
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Indsæt et albumbillede"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Indsæt en eksisterende vedhæftet fil, eller upload en ny fil..."
@@ -8918,6 +8946,10 @@
             "#text": "Grunden til sletningen"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Slet denne besked"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Slet besked fra databasen? (Kan ikke genskabes!)"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Gendannelses grund"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Gendan denne besked"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Slet avatar"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Nuværende avatar"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Skriv URL for avatar på en anden server:"
           },
@@ -9150,12 +9190,24 @@
             "#text": "Ændre e-mail adresse"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Et bekræftelseslink blev sendt til {0}. Din e-mailadresse bliver ændret, når du åbner linket."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Bekræft din nye e-mailadresse til {0}-forummet"
+          },
+          {
             "@tag": "CITY",
             "#text": "By:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Land:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Nuværende adgangskode"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} er påkrævet"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} skal være et tal"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Andet"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Hvor bor du?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Den adgangskode, du indtastede, er ikke korrekt."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Send Til (Email Adresse):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Du har sendt for mange e-mails, prøv venligst igen senere."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Alle"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Vis brugere, der begynder med {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "af {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Emner kan kun flyttes til et forum, vælg venligst et forum og ikke en kategori."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "E-mail:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "Brugerens e-mailadresse."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Brugerens suspendering slutter:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "Tilmeldt:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "Datoen, hvor brugeren blev registreret."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Sidste 10 indlæg"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Sidste besøg:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "Datoen for brugerens seneste besøg."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "Din konto er ikke blevet godkendt af en administrator endnu. Du kan ikke resette din adgangskode før du er godkendt."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Din konto er ikke blevet godkendt endnu fordi du ikke har valideret din email adresse, en ny valideringsmail er blevet sendt til {0}. Vær venlig at valider den så du kan ligge ind."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Skriv det brugernavn der skal modtage din adgangskode:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "En e-mail med nulstil-linket blev sendt til din e-mailadresse!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Hvis der findes en konto med dette brugernavn eller e-mailadresse, er der sendt en e-mail til dens e-mailadresse."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Svag adgangskode, prøv at bruge tal og store bogstaver."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Ny adgangskode til {0}-forum"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Lys"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

@@ -26,7 +26,6 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -75,26 +74,20 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
     public async Task ToModeratorsThatMessageNeedsApprovalAsync(int forumId, int newMessageId, bool isSpamMessage)
     {
-        var moderatorsFiltered = (await this.Get<DataBroker>().GetModeratorsAsync()).Where(f => f.ForumID.Equals(forumId));
-        var moderatorUserNames = moderatorsFiltered.Select(moderator => moderator.Name).ToList();
-
-        var cssPath = Path.Combine(
-            this.Get<BoardInfo>().WebRootPath,
-            this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"));
-
-        var inlineCss = await File.ReadAllTextAsync(cssPath);
+        // the moderators by id (the names are only unique per board)
+        var moderatorIds = (await this.Get<DataBroker>().GetModeratorsAsync()).Where(f => f.ForumID.Equals(forumId))
+            .Select(moderator => moderator.ModeratorID).Distinct().ToList();
 
         var forumLink = this.Get<ILinkBuilder>().ForumUrl;
 
         var adminLink = this.Get<ILinkBuilder>().GetAbsoluteLink(ForumPages.Moderate_UnapprovedPosts, new {f = forumId});
 
         // send each message...
-        foreach (var userName in moderatorUserNames.Distinct())
+        foreach (var moderatorId in moderatorIds)
         {
-            // add each member of the group
-            var user = this.GetRepository<User>().GetSingle(x => x.Name == userName);
+            var user = await this.GetRepository<User>().GetByIdAsync(moderatorId);
 
-            if (user == null)
+            if (user == null || user.Email.IsNotSet())
             {
                 continue;
             }
@@ -119,9 +112,8 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                         TemplateLanguageFile = languageFile,
                         TemplateParams =
                             {
-                                ["{user}"] = userName,
+                                ["{user}"] = user.Name,
                                 ["{adminlink}"] = adminLink,
-                                ["{css}"] = inlineCss,
                                 ["{forumlink}"] = forumLink
                             }
                     };
@@ -153,17 +145,19 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     {
         try
         {
-            var moderatorsFiltered = (await this.Get<DataBroker>().GetModeratorsAsync()).Where(f => f.ForumID.Equals(pageForumId));
-            var moderatorUserNames = moderatorsFiltered.Select(moderator => moderator.Name).ToList();
+            // the moderators by id (the names are only unique per board)
+            var moderatorIds = (await this.Get<DataBroker>().GetModeratorsAsync())
+                .Where(f => f.ForumID.Equals(pageForumId)).Select(moderator => moderator.ModeratorID).Distinct().ToList();
 
             // send each message...
-            var moderators = moderatorUserNames.Distinct();
-
-            foreach (var userName in moderators.ToList())
+            foreach (var moderatorId in moderatorIds)
             {
-                // add each member of the group
-                var membershipUser = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName).ConfigureAwait(false);
-                var user = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(membershipUser.Id);
+                var user = await this.GetRepository<User>().GetByIdAsync(moderatorId);
+
+                if (user == null || user.Email.IsNotSet())
+                {
+                    continue;
+                }
 
                 var languageFile = UserHelper.GetUserLanguageFile(user);
 
@@ -180,7 +174,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                     TemplateLanguageFile = languageFile,
                     TemplateParams =
                                                            {
-                                                               ["{user}"] = userName,
+                                                               ["{user}"] = user.Name,
                                                                ["{reason}"] = reportText,
                                                                ["{reporter}"] =
                                                                    this.Get<IUserDisplayName>().GetNameById(reporter),
@@ -192,7 +186,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                 };
 
                 await notifyModerators.SendEmailAsync(
-                    new MailboxAddress(membershipUser.UserName, membershipUser.Email),
+                    new MailboxAddress(user.DisplayOrUserName(), user.Email),
                     subject);
             }
         }
@@ -234,12 +228,24 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         var boardName = this.BoardSettings.Name;
         var forumEmail = this.BoardSettings.ForumEmail;
 
-        // cleaned body as text...
+        // cleaned body as text, without hidden content (hide, hide-reply, hide-thanks, ...): it is only shown in the forum
         var bodyText = this.Get<IBadWordReplace>()
-            .Replace(BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(message.MessageText))))
+            .Replace(
+                BBCodeHelper.StripBBCode(
+                    HtmlTagHelper.StripHtml(
+                        HtmlTagHelper.CleanHtmlString(
+                            this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message.MessageText)))))
             .RemoveMultipleWhitespace();
 
         var watchUsers = await this.GetRepository<User>().WatchMailListAsync(message.TopicID, message.UserID);
+
+        // the mail contains the post, only watchers who (still) can read the forum get it
+        var forumId = message.Topic.ForumID;
+
+        var readers = (await this.GetRepository<VAccess>().GetAsync(v => v.ForumID == forumId && v.ReadAccess > 0))
+            .Select(v => v.UserID).ToHashSet();
+
+        watchUsers.RemoveAll(u => !readers.Contains(u.ID));
 
         var topicLink = this.Get<ILinkBuilder>().GetAbsoluteLink(
             ForumPages.Post,
@@ -481,16 +487,18 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="userId">The user id.</param>
     public async Task SendSpamBotNotificationToAdminsAsync(AspNetUsers user, int userId)
     {
-        // Get Admin Group ID
-        var adminGroupId = this.GetRepository<Group>().List(boardId: BoardContext.Current.PageBoardID)
-            .Where(group => group.Name.Contains("Admin")).Select(group => group.ID).FirstOrDefault();
+        // the admin groups of the board (by the admin flag, the name can be changed)
+        var adminGroupIds = this.GetRepository<Group>().List(boardId: BoardContext.Current.PageBoardID)
+            .Where(group => group.GroupFlags.IsAdmin).Select(group => group.ID).ToList();
 
-        if (adminGroupId <= 0)
+        var emails = new List<string>();
+
+        foreach (var adminGroupId in adminGroupIds)
         {
-            return;
+            emails.AddRange(await this.GetRepository<User>().GroupEmailsAsync(adminGroupId));
         }
 
-        var emails = await this.GetRepository<User>().GroupEmailsAsync(adminGroupId);
+        emails = [.. emails.Distinct(StringComparer.OrdinalIgnoreCase)];
 
         foreach (var email in emails)
         {

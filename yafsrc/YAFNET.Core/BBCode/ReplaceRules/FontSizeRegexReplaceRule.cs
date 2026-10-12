@@ -24,6 +24,8 @@
 
 namespace YAF.Core.BBCode.ReplaceRules;
 
+using System;
+
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -77,10 +79,9 @@ public class FontSizeRegexReplaceRule : VariableRegexReplaceRule
 
         switch (size)
         {
+            // larger values are percent, limited so a post can not cover the page
             case > 9:
-                return $"{size}%";
-            case 9:
-                return $"{size}px";
+                return $"{Math.Min(size, 400)}%";
             case < 1:
                 size = 1;
                 break;

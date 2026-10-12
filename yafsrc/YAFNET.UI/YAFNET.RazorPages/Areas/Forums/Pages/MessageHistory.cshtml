@@ -25,7 +25,7 @@
 
                             @for (var i = 0; i < Model.RevisionsList.Count; i++)
                             {
-                                var message = Model.Get<ISessionService>().GetPageData<List<MessageHistoryTopic>>()[i];
+                                var message = Model.RevisionsList[i];
 
                                 <li class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
@@ -36,7 +36,6 @@
                                                 </label>
                                             </div>
 
-                                            <input type="hidden" asp-for="@Model.RevisionsList[i].Message" value="@Model.RevisionsList[i].Message" />
                                             @Html.LocalizedText("POSTMESSAGE","EDITEREASON"): @Model.GetEditReason(message)
                                             @(i.Equals(Model.RevisionsList.Count - 1) ? $"({Model.GetText("MESSAGEHISTORY", "CURRENTMESSAGE")})" : string.Empty)
                                         </h5>
@@ -69,7 +68,8 @@
                                         </span>
                                     </p>
 
-                                    @if (Model.PageBoardContext.IsAdmin || (Model.PageBoardContext.IsModeratorInAnyForum && !i.Equals(Model.RevisionsList.Count - 1)))
+                                    @* the last entry is the current text, not an old version *@
+                                    @if ((Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess) && !i.Equals(Model.RevisionsList.Count - 1))
                                     {
                                         <small>
                                             <button asp-page-handler="Restore"

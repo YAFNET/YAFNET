@@ -24,6 +24,9 @@
 
 namespace YAF.Core.BasePages;
 
+using System;
+
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 /// <summary>
@@ -51,5 +54,35 @@ public class InstallPage : PageModel, IHaveServiceLocator
     /// </summary>
     protected InstallPage()
     {
+    }
+
+    /// <summary>
+    /// After the installation the install steps can't be used anymore (they would put the forum into
+    /// the install mode, create an admin, send e-mails, ...), only while an installation is running
+    /// (the current step is kept in the cache).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
+    {
+        if (this.Get<IDataCache>().Get("Install") is null && this.IsInstalled())
+        {
+            context.Result = this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+        }
+    }
+
+    /// <summary>
+    /// Checks if the forum is installed (a database that can't be used yet is not installed).
+    /// </summary>
+    /// <returns>Returns if the forum is installed.</returns>
+    private bool IsInstalled()
+    {
+        try
+        {
+            return this.IsForumInstalled;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 }

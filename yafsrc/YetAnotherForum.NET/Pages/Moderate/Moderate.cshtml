@@ -22,7 +22,7 @@
                             {
                                 <div class="list-group-item list-group-item-action moderate-forum-row">
                                     <h5 class="fw-bold">
-                                        @Html.Raw($"{(forum.ParentID.HasValue ? "--" : "-")}{forum.Name}")
+	                                    @forum.Name
                                     </h5>
                                     <form method="post">
                                         @if (forum.MessageCount > 0)

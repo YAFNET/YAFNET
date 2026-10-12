@@ -46,7 +46,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
                     <a class="navbar-brand mb-1" href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Index))">
-                        @Html.Raw(Current.BoardSettings.Name)
+                        @Current.BoardSettings.Name
                     </a>
 
                     <button class="navbar-toggler" type="button"

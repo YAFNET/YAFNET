@@ -91,15 +91,8 @@ public class BBCodesModel : AdminPage
             // export this list as XML...
             var list = await this.GetRepository<BBCode>().GetByBoardIdAsync();
 
-            var selectedList = new List<BBCode>();
-
-            codeIDs.ForEach(
-                id =>
-                {
-                    var found = list.First(e => e.ID == id);
-
-                    selectedList.Add(found);
-                });
+            // only bb codes of the board (unknown ids are skipped)
+            var selectedList = list.Where(e => codeIDs.Contains(e.ID)).ToList();
 
             var element = new XElement(
                 "YafBBCodeList",
@@ -140,7 +133,7 @@ public class BBCodesModel : AdminPage
     /// <param name="b">The b.</param>
     public async Task OnPostDeleteAsync(int b)
     {
-        await this.GetRepository<BBCode>().DeleteByIdAsync(b);
+        await this.GetRepository<BBCode>().DeleteAsync(x => x.ID == b && x.BoardID == this.PageBoardContext.PageBoardID);
         this.BindData();
     }
 

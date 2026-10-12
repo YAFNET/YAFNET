@@ -26,6 +26,7 @@ using YAF.Types.Attributes;
 
 namespace YAF.Core.Controllers;
 
+using System;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.OutputCaching;
@@ -91,6 +92,16 @@ public class SearchController : ForumBaseController
     [HttpPost("GetSearchResults")]
     public async Task<ActionResult<SearchGridDataSet>> GetSearchResults([FromBody] SearchTopic searchTopic)
     {
+        // the same permission as for the search page
+        if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.SearchPermissions))
+        {
+            return this.NotFound();
+        }
+
+        // the page size of the search page is at most 50
+        searchTopic.PageSize = Math.Clamp(searchTopic.PageSize, 1, 50);
+        searchTopic.Page = Math.Max(searchTopic.Page, 0);
+
         var results = await this.Get<ISearch>().SearchPagedAsync(
             searchTopic.ForumId,
             searchTopic.SearchTerm,

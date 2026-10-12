@@ -102,7 +102,7 @@
 	                                    <span class="fw-bold">
 		                                    @Html.LocalizedText("ADMIN_BANNEDIP","REASON")
 	                                    </span>
-	                                    @Html.Raw(item.Reason)
+	                                    @item.Reason
                                         @if (user is not null)
 	                                    {
 		                                    <span class="fw-bold">

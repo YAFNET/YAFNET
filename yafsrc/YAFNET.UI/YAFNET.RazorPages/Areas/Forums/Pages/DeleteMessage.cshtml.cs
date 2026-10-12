@@ -84,21 +84,29 @@ public class DeleteMessageModel : ForumPage
     /// <summary>
     ///   Gets a value indicating whether CanUnDeletePost.
     /// </summary>
-    public bool CanUnDeletePost => this.PageBoardContext.PageMessage.MessageFlags.IsDeleted && this.CanDeletePost;
+    public bool CanUnDeletePost =>
+        this.PageBoardContext.PageMessage.MessageFlags.IsDeleted && this.CanDeletePost
+                                                                 && (!(this.PageBoardContext.PageMessage.IsModeratorChanged ?? false)
+                                                                     || this.PageBoardContext.ForumModeratorAccess);
 
     /// <summary>
     ///   Gets a value indicating whether PostLocked.
     /// </summary>
     private bool PostLocked {
         get {
+            // locked by a moderator
+            if (this.PageBoardContext.PageMessage.MessageFlags.IsLocked)
+            {
+                return true;
+            }
+
             if (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.LockPosts <= 0)
             {
                 return false;
             }
 
-            var edited = this.PageBoardContext.PageMessage.Edited ?? this.PageBoardContext.PageMessage.Posted;
-
-            return edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow;
+            // the lock period starts when the post was written, editing does not extend it
+            return this.PageBoardContext.PageMessage.Posted.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow;
         }
     }
 
@@ -120,6 +128,12 @@ public class DeleteMessageModel : ForumPage
         this.isModeratorChanged = this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID;
 
         if (!this.PageBoardContext.ForumModeratorAccess && this.isModeratorChanged)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
+        // the same rules as the delete and restore buttons of the post (e.g. a locked post or topic)
+        if (this.PageBoardContext.PageMessage.MessageFlags.IsDeleted ? !this.CanUnDeletePost : !this.CanDeletePost)
         {
             return this.Get<ILinkBuilder>().AccessDenied();
         }
@@ -160,17 +174,21 @@ public class DeleteMessageModel : ForumPage
     {
         if (!this.CanDeletePost)
         {
-            return this.Page();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
+
+        // the options are only shown to moderators (linked posts) and admins (erase), the
+        // posted values can not be trusted: users only delete their own post
+        var isModerator = this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin;
 
         await this.GetRepository<Message>().DeleteAsync(
             this.PageBoardContext.PageForumID,
             this.PageBoardContext.PageMessage.TopicID,
             this.PageBoardContext.PageMessage,
-            this.isModeratorChanged,
+            this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID,
             HttpUtility.HtmlEncode(this.ReasonEditor),
-            this.DeleteAllPosts,
-            this.EraseMessage);
+            this.DeleteAllPosts && isModerator,
+            this.EraseMessage && this.PageBoardContext.IsAdmin);
 
         var topic = await this.GetRepository<Topic>().GetByIdAsync(this.PageBoardContext.PageMessage.TopicID);
 
@@ -192,13 +210,15 @@ public class DeleteMessageModel : ForumPage
     {
         if (!this.CanUnDeletePost)
         {
-            return this.Page();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
+        // only moderators restore the replies too, they could have been deleted by a moderator
         await this.GetRepository<Message>().RestoreAsync(
             this.PageBoardContext.PageForumID,
             this.PageBoardContext.PageMessage.TopicID,
-            this.PageBoardContext.PageMessage);
+            this.PageBoardContext.PageMessage,
+            this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin);
 
         return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Post,

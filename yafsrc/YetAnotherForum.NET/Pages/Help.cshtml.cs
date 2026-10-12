@@ -59,7 +59,17 @@ public class HelpModel : ForumPage
     }
 
     /// <summary>
-    /// Called when [get].
+    /// Gets the language tag of the title of a help page (index and search results have the same title).
+    /// </summary>
+    /// <param name="faq">The help page.</param>
+    /// <returns>The language tag.</returns>
+    public static string TitleTag(string faq)
+    {
+        return faq.IsNotSet() || faq is "index" or "search" ? "SEARCHHELPTITLE" : $"{faq}TITLE";
+    }
+
+    /// <summary>
+    /// Shows the help page.
     /// </summary>
     /// <param name="faq">The FAQ.</param>
     /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
@@ -82,9 +92,13 @@ public class HelpModel : ForumPage
 
         var helpContent = this.helpContents.FindAll(check => check.HelpPage.ToLower().Equals(faq));
 
-        this.PageBoardContext.PageLinks.AddLink(
-            this.GetText("HELP_INDEX", faq != "index" ? $"{faq}TITLE" : "SEARCHHELPTITLE"),
-            string.Empty);
+        // unknown help pages (every request would log a missing translation and reload the language file)
+        if (helpContent.Count == 0 && faq is not "index" and not "search")
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("HELP_INDEX", TitleTag(faq)), string.Empty);
 
         this.HelpContents = [];
 
@@ -101,6 +115,12 @@ public class HelpModel : ForumPage
     /// </returns>
     public Task<IActionResult> OnPostAsync()
     {
+        // the search shows the help as well
+        if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowHelpTo))
+        {
+            return Task.FromResult(this.Get<ILinkBuilder>().AccessDenied());
+        }
+
         if (this.Input.Search.IsNotSet())
         {
             return Task.FromResult<IActionResult>(this.Page());

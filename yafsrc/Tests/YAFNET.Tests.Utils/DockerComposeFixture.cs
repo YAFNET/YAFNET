@@ -73,11 +73,20 @@ public sealed class DockerComposeFixture
     public async Task StartAsync()
     {
         await this.RunComposeAsync("up --build -d");
+
+        // the build moved the image tag to the new image, the old one is left untagged (labeled in the compose files)
+        await this.RunDockerAsync("image prune -f --filter label=yafnet.test=true");
         await this.WaitForAppAsync();
     }
 
     public async ValueTask DisposeAsync()
     {
+        // the server log (exceptions of failed requests), before the container is removed
+        if (Environment.GetEnvironmentVariable("YAF_TEST_DOCKER_LOGS") == "1")
+        {
+            await this.RunComposeAsync("logs --no-color", captureOutput: true);
+        }
+
         await this.RunComposeAsync("down -v --remove-orphans");
         this.http.Dispose();
     }
@@ -110,10 +119,13 @@ public sealed class DockerComposeFixture
             $"App did not become reachable at {this.AppBaseUrl} within {StartupTimeout.TotalSeconds}s.");
     }
 
-    private async Task RunComposeAsync(string arguments, bool captureOutput = false)
+    private Task RunComposeAsync(string arguments, bool captureOutput = false)
     {
-        var fullArgs = $"compose -f {this.composeFile} {arguments}";
+        return this.RunDockerAsync($"compose -f {this.composeFile} {arguments}", captureOutput);
+    }
 
+    private async Task RunDockerAsync(string fullArgs, bool captureOutput = false)
+    {
         await TestContext.Progress.WriteLineAsync($"🧪 docker {fullArgs}");
 
         var psi = new ProcessStartInfo("docker", fullArgs)

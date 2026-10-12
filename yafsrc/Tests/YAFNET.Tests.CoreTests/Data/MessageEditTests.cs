@@ -117,6 +117,18 @@ public class MessageEditTests
     }
 
     [Test]
+    [Description("Editing keeps the topic tags in the search index")]
+    public async Task UpdateAsync_Search_Keeps_Tags_Test()
+    {
+        var message = this.AddPost(this.alice, "text", 0);
+        await this.Repository<TopicTag>().AddTagsToTopicAsync("astronomy", this.topic);
+
+        await this.EditAsync(message, "new text", "reason");
+
+        this.board.Search.Indexed[message].TopicTags.Should().Be("astronomy");
+    }
+
+    [Test]
     [Description("Editing an unapproved post approves it in an unmoderated forum")]
     public async Task UpdateAsync_Approves_In_Unmoderated_Forum_Test()
     {

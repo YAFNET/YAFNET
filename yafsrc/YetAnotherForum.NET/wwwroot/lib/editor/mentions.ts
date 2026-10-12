@@ -80,15 +80,32 @@ export default function Mentions(opts: IMentionOptions = {}) {
                 }
             })
                 .then(response => response.json())
-                .then((data: IMentionItem[]) => opts.items = data);
+                .then((data: IMentionItem[]) => {
+                    opts.items = data;
+
+                    // show the loaded users, unless the user typed on in the meantime
+                    if (prevWord === word) {
+                        renderLookup(query);
+                    }
+                });
         }
 
+        // the users loaded before (until the new ones are loaded)
+        renderLookup(query);
+    }
+
+    function renderLookup(query: string) {
         const items = (opts.items || [])
             .filter(e => e.name.toLowerCase().includes(query.toLowerCase()))
-            .map(item => eval(
-                '`<li class="mention-li-nt ${opts.lookup}" data-name="${item.name}" data-id="${item.id}">' +
-                opts.item_template +
-                '</li>`'));
+            .map(mentionItem => {
+                // the names are chosen by the users, the template is html
+                const item = escapeItem(mentionItem);
+
+                return eval(
+                    '`<li class="mention-li-nt ${opts.lookup}" data-name="${item.name}" data-id="${item.id}">' +
+                    opts.item_template +
+                    '</li>`');
+            });
 
         if (!items.length) return hideLookup();
 
@@ -125,6 +142,25 @@ export default function Mentions(opts: IMentionOptions = {}) {
         $parent.value = $parent.value.replace($parent.value.substring(start + 1, end), '');
 
         hideLookup();
+    }
+
+    function escapeHtml(value: unknown): string {
+        return String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function escapeItem(item: IMentionItem): IMentionItem {
+        const escaped: any = {};
+
+        Object.entries(item).forEach(([key, value]) => {
+            escaped[key] = escapeHtml(value);
+        });
+
+        return escaped as IMentionItem;
     }
 
     function onHover(event: Event) {

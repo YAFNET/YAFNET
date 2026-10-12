@@ -135,10 +135,17 @@ public class LoginModel : AccountPage
 
         if (!user.IsApproved)
         {
+            // the state of the account is only shown with the right password
+            if (user.PasswordHash.IsNotSet() || this.Get<IAspNetUsersHelper>().PasswordHasher
+                    .VerifyHashedPassword(user, user.PasswordHash, this.Input.Password) == PasswordVerificationResult.Failed)
+            {
+                return this.PageBoardContext.Notify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+            }
+
             var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
 
             // Ignore Deleted User
-            if (yafUser.UserFlags.IsDeleted)
+            if (yafUser is null || yafUser.UserFlags.IsDeleted)
             {
                 return this.Page();
             }
@@ -147,6 +154,12 @@ public class LoginModel : AccountPage
             this.ShowNotApproved = true;
 
             return this.PageBoardContext.Notify(this.GetText("LOGIN", "ACCOUNT_NOT_APPROVED"), MessageTypes.warning);
+        }
+
+        // Locked out after too many failed attempts, don't even check the password
+        if (user.LockoutEndDateUtc > DateTime.UtcNow)
+        {
+            return this.PageBoardContext.Notify(this.GetText("LOGIN", "ERROR_LOCKEDOUT"), MessageTypes.danger);
         }
 
         // Valid user, verify password
@@ -174,6 +187,8 @@ public class LoginModel : AccountPage
 
                     this.Get<ILogger<LoginModel>>().Info(
                         $"User: {user.UserName} has reached the Limit of 10 failed login attempts and is locked out until {user.LockoutEndDateUtc}");
+
+                    await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
 
                     return this.PageBoardContext.Notify(this.GetText("LOGIN", "ERROR_LOCKEDOUT"), MessageTypes.danger);
                 }
@@ -205,6 +220,9 @@ public class LoginModel : AccountPage
 
         this.Get<ISessionService>().SetPageData(user);
 
+        // the "remember me" choice is used after the two factor code
+        this.HttpContext.Session.SetData(Constants.TwoFactorRememberMeSessionKey, this.Input.RememberMe);
+
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Authorize);
     }
 
@@ -222,7 +240,7 @@ public class LoginModel : AccountPage
     /// <summary>
     /// Handles the OnClick event of the ResendConfirm control.
     /// </summary>
-    async protected Task<ActionResult> OnPostResendConfirmAsync()
+    public async Task<ActionResult> OnPostResendConfirmAsync()
     {
         if (this.Email.IsNotSet())
         {
@@ -255,7 +273,7 @@ public class LoginModel : AccountPage
         verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
         verifyEmail.TemplateParams["{forumlink}"] = this.Get<ILinkBuilder>().ForumUrl;
 
-        await verifyEmail.SendEmailAsync(new MailboxAddress(this.Input.UserName, checkMail.Email), subject);
+        await verifyEmail.SendEmailAsync(new MailboxAddress(checkMail.Email, checkMail.Email), subject);
 
         return this.PageBoardContext.Notify(this.GetText("LOGIN", "MSG_MESSAGE_SEND"), MessageTypes.success);
     }

@@ -115,6 +115,24 @@ public class ForumRepositoryTests
     }
 
     [Test]
+    [Description("A forum can't be moved below itself or one of its sub forums, a forum with sub forums can have a parent")]
+    public void IsOwnSubForum_Test()
+    {
+        var top = this.db.AddForum("Top", this.category);
+        var middle = this.db.AddForum("Middle", this.category, f => f.ParentID = top);
+        var bottom = this.db.AddForum("Bottom", this.category, f => f.ParentID = middle);
+        var other = this.db.AddForum("Other", this.category);
+
+        this.Forums.IsOwnSubForum(middle, middle).Should().BeTrue("the forum itself");
+        this.Forums.IsOwnSubForum(middle, bottom).Should().BeTrue("a sub forum");
+        this.Forums.IsOwnSubForum(top, bottom).Should().BeTrue("a sub forum of a sub forum");
+
+        this.Forums.IsOwnSubForum(middle, top).Should().BeFalse("the forum keeps its parent (and its sub forums)");
+        this.Forums.IsOwnSubForum(middle, other).Should().BeFalse("another forum");
+        this.Forums.IsOwnSubForum(other, bottom).Should().BeFalse();
+    }
+
+    [Test]
     [Description("ListAll returns every category, also without forums, sorted")]
     public void ListAll_Test()
     {
@@ -176,6 +194,19 @@ public class ForumRepositoryTests
         this.Forums.ListAllSorted(TestDatabase.BoardId, this.alice, 1, 2, out var pager).Single().children.Single().id
             .Should().Be(child.ToString());
         pager.PageSize.Should().Be(2);
+    }
+
+    [Test]
+    [Description("The forum jump shows the texts as html: the names of the categories are encoded like the names of the forums")]
+    public void ListAllSorted_Encodes_Category_Name_Test()
+    {
+        var category = this.db.AddCategory("<img src=x onerror=alert(1)>");
+        var forum = this.db.AddForum("Forum", category);
+
+        this.board.GrantAccess(this.bob, forum);
+
+        this.Forums.ListAllSorted(TestDatabase.BoardId, this.bob, 0, 20, out _).Single().text
+            .Should().Be("&lt;img src=x onerror=alert(1)&gt;");
     }
 
     [Test]
@@ -415,6 +446,27 @@ public class ForumRepositoryTests
         this.Repository<Topic>().GetById(topic).ForumID.Should().Be(target);
         this.Repository<UserForum>().GetSingle(u => u.UserID == this.alice).ForumID.Should().Be(target);
         this.Repository<WatchForum>().Count(w => w.ForumID == source).Should().Be(0);
+    }
+
+    [Test]
+    [Description("A user with an own access mask in both forums keeps the one of the new forum")]
+    public async Task MoveAsync_User_Access_In_Both_Forums_Test()
+    {
+        var source = this.db.AddForum("Source", this.category);
+        var target = this.db.AddForum("Target", this.category);
+
+        using (var connection = this.db.Open())
+        {
+            connection.Insert(new UserForum { UserID = this.alice, ForumID = source, AccessMaskID = 1, Accepted = true, Invited = this.now });
+            connection.Insert(new UserForum { UserID = this.alice, ForumID = target, AccessMaskID = 2, Accepted = true, Invited = this.now });
+            connection.Insert(new UserForum { UserID = this.bob, ForumID = source, AccessMaskID = 1, Accepted = true, Invited = this.now });
+        }
+
+        (await this.Forums.MoveAsync(source, target)).Should().BeTrue();
+
+        this.Forums.GetById(source).Should().BeNull();
+        this.Repository<UserForum>().GetSingle(u => u.UserID == this.alice).AccessMaskID.Should().Be(2);
+        this.Repository<UserForum>().GetSingle(u => u.UserID == this.bob).ForumID.Should().Be(target);
     }
 
     [Test]

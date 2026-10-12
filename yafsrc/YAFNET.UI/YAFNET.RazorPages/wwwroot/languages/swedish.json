@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Lägg till/redigera medalj"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Ta bort medaljen från den här gruppen?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "Godkänd:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Användarkontot är godkänt och användaren kan logga in."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Visningsnamn:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Är gäst:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Detta är gästkontot, det används för alla besökare som inte är inloggade."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Välj en SPAM-tjänst för automatisk SPAM-kontroll:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "dagar"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Radera olästa meddelanden som är äldre än:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Radera meddelanden som är äldre än:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Starta om programmet"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "Ansökan kom inte tillbaka. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "Applikationen startar om. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Starta om programmet"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Rang:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "Användarens rang, stegrang ändras med antalet inlägg."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Roll:"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Din nya e-postadress har bekräftats."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Din e-postadress har godkänts."
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Infoga en albumbild"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Infoga en befintlig bilaga eller ladda upp en ny fil..."
@@ -8918,6 +8946,10 @@
             "#text": "Ta bort orsaken"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Ta bort det här meddelandet"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Radera meddelandet från databasen (oåterkalleligt)."
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Återta orsaken till radering"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Återställ detta meddelande"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Rensa Avatar"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Aktuell avatar"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Ange URL för den avatar på fjärrservern som ska användas:"
           },
@@ -9150,12 +9190,24 @@
             "#text": "Ändra e-postadress"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "En bekräftelselänk skickades till {0}. Din e-postadress ändras när du öppnar länken."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Bekräfta din nya e-postadress för {0}-forumet"
+          },
+          {
             "@tag": "CITY",
             "#text": "Stad:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Land:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Aktuellt lösenord"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} krävs"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} måste vara ett nummer"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Övriga"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Vart bor du?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Lösenordet du angav är inte korrekt."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Skicka til (e-postadress):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Du har skickat för många e-postmeddelanden, försök igen senare."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Alla"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Visa användare som börjar med {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "av {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Ämnen kan bara flyttas till ett forum, välj ett forum och inte en kategori."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "E-post:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "Användarens e-postadress."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Användarens avstängning avslutas:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "Registrerade sig:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "Datumet då användaren registrerade sig."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Senaste 10 meddelanden"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Senaste besök:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "Datumet för användarens senaste besök."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "Ditt konto har ännu inte godkänts av administratören. Du kan inte återställa ditt lösenord om du inte är godkänd."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Ditt konto är inte godkänt ännu eftersom du inte har bekräftat din e-postadress. En ny e-postvalidering har skickats till {0}. Vänligen bekräfta så att du kan logga in."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Enter your User Name to retrieve your password:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Ett e-postmeddelande med återställningslänken skickades till din e-postadress!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Om det finns ett konto med detta användarnamn eller e-postadress, har ett e-postmeddelande skickats till dess e-postadress."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Svagt lösenord, prova att använda siffror och stora bokstäver."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Nytt lösenord för {0} Forum"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Ljus"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

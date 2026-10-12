@@ -38,6 +38,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 using YAF.Core.Context;
 using YAF.Core.Extensions;
+using YAF.Core.Model;
 using YAF.Core.Helpers;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces;
@@ -93,6 +94,11 @@ public class UsersAttachmentsModel : AdminPage
             UserId = userId
         };
 
+        if (!this.CanEditUser())
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = userId });
+        }
+
         return this.BindData(userId, p - 1);
     }
 
@@ -101,6 +107,11 @@ public class UsersAttachmentsModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostDeleteSelectedAsync()
     {
+        if (!this.CanEditUser())
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input?.UserId });
+        }
+
         var items = this.Attachments.Where(x => x.Selected).Select(x => x.ID).ToList();
 
         if (items.Count == 0)
@@ -109,9 +120,13 @@ public class UsersAttachmentsModel : AdminPage
                 .Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View11" });
         }
 
-        await this.GetRepository<Attachment>().DeleteByIdsAsync(items);
+        // only attachments of the edited user (the ids are sent by the client), the files are deleted too
+        var userAttachments = await this.GetRepository<Attachment>().GetAsync(
+            a => items.Contains(a.ID) && a.UserID == this.Input.UserId);
 
-        this.PageBoardContext.SessionNotify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
+        userAttachments.ForEach(a => this.GetRepository<Attachment>().Delete(a.ID));
+
+        this.PageBoardContext.SessionNotify(this.GetTextFormatted("DELETED", userAttachments.Count), MessageTypes.success);
 
         return this.Get<ILinkBuilder>()
             .Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View11" });
@@ -153,6 +168,18 @@ public class UsersAttachmentsModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
+    /// <summary>
+    /// Checks if the user can be edited: the edit user page checked the user (board, host admin) and keeps it
+    /// for the admin in the cache, the user id of the form is sent by the client.
+    /// </summary>
+    /// <returns>Returns if the user can be edited</returns>
+    private bool CanEditUser()
+    {
+        return this.Get<IDataCache>()[string.Format(
+                   Constants.Cache.EditUser,
+                   $"{this.Input?.UserId}-{this.PageBoardContext.PageUserID}")] is Tuple<User, AspNetUsers, Rank, VAccess>;
+    }
+
     private PageResult BindData(int userId, int page)
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));

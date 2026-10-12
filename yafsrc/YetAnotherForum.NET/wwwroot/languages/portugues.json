@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Adicionar/Editar Medalha"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Remover a medalha deste grupo?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "É Aprovado:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "A conta do utilizador está aprovada e o utilizador pode iniciar sessão."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Nome de exibição:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "É Convidado:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Esta é a conta de convidado, é usada para todos os visitantes que não iniciaram sessão."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3901,6 +3913,10 @@
             "#text": "Escolher um serviço de SPAM para verificação automática de SPAM:"
           },
           {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+          },
+          {
             "@tag": "CLEAR_CACHE",
             "#text": "Cache claro"
           },
@@ -4458,7 +4474,7 @@
           },
           {
             "@tag": "LOGIN_REDIR_URL_HELP",
-            "#text": "Se o login for desactivado nas AppSettings (AllowLoginAndLogoff precisa de ser definido como \"falso\"), este é o URL para o qual os utilizadores serão redireccionados quando necessitarem de aceder ao fórum. Opcionalmente, adicionar \"{0}\" ao URL para passar o URL de retorno para o URL personalizado. Por exemplo, \"http://mydomain.com/login.aspx?PreviousUrl={{{0}}\"."
+            "#text": "Se o login for desactivado nas AppSettings (AllowLoginAndLogoff precisa de ser definido como \"falso\"), este é o URL para o qual os utilizadores serão redireccionados quando necessitarem de aceder ao fórum. Opcionalmente, adicionar \"{0}\" ao URL para passar o URL de retorno para o URL personalizado. Por exemplo, \"http://mydomain.com/login.aspx?PreviousUrl={{0}}\"."
           },
           {
             "@tag": "MAX_ALLOWED_CHOICES",
@@ -5563,8 +5579,8 @@
             "#text": "dias"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Eliminar mensagens não lidas mais antigas do que:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Eliminar mensagens mais antigas do que:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Aplicação de reinício"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "O aplicativo não voltou. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "O aplicativo está reiniciando. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Aplicação de reinício"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Classificação:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "A classificação do utilizador, as classificações por escalões mudam com o número de mensagens."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Papel:"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Seu novo endereço de e-mail foi confirmado."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Seu endereço de email foi validado."
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Insira uma imagem de álbum"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Inserir um Anexo existente ou carregar um novo Ficheiro..."
@@ -8918,6 +8946,10 @@
             "#text": "Eliminar a razão"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Excluir esta mensagem"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Mensagem de apagamento da base de dados (irreversível)"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Motivo não seleccionado"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Restaurar esta mensagem"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Limpar Avatar"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Avatar atual"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Digita a URL do Avatar a ser utilizado:"
           },
@@ -9150,12 +9190,24 @@
             "#text": "Trocar Endereço de Email"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Um link de confirmação foi enviado para {0}. Seu endereço de e-mail será alterado depois que você abrir o link."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Confirme seu novo endereço de e-mail para o Fórum {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Cidade:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "País:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Senha atual"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} é necessário"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} deve ser um número"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Outros"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Onde você mora?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "A senha que você digitou não está correta."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Enviar para (Endereço de Email):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Você enviou muitos e-mails. Tente novamente mais tarde."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Todos"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Mostrar utilizadores que começam por {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "por {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Os tópicos só podem ser movidos para um fórum, selecione um fórum e não uma categoria."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "E-mail:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "O endereço de e-mail do utilizador."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Suspensão do Usuário termina em:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "Participante:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "A data em que o utilizador se registou."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Últimas 10 Participações"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Última Visita:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "A data da última visita do utilizador."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "A sua conta ainda não foi aprovada pelo administrador. Não pode redefinir a sua palavra-passe a menos que tenha sido aprovado."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "A sua conta ainda não foi aprovada porque ainda não validou o seu correio electrónico. Uma nova validação de correio electrónico foi enviada para {0}. Por favor, verifique para que possa iniciar sessão."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Enter your User Name to retrieve your password:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Um e-mail com o link de reinicialização foi enviado para o seu endereço de e-mail!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Se existir uma conta com este nome de usuário ou endereço de e-mail, um e-mail foi enviado para seu endereço de e-mail."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Senha fraca, tente usar números e letras maiúsculas."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Nova Palavra-passe para {0} Fórum"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Luz"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

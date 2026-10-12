@@ -69,7 +69,7 @@ public class ChangePasswordTests(ComposeScenario scenario) : DatabaseTestBase(sc
                         .FillAsync($"{this.TestSettings.TestUserPassword}ABCDEF");
 
                     // Submit
-                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@type,'submit')]").Last);
 
                     pageSource = await page.ContentAsync();
 
@@ -91,7 +91,7 @@ public class ChangePasswordTests(ComposeScenario scenario) : DatabaseTestBase(sc
                         .FillAsync(this.TestSettings.TestUserPassword);
 
                     // Submit
-                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@type,'submit')]").Last);
 
                     pageSource = await page.ContentAsync();
 

@@ -71,6 +71,16 @@ public class LoginBox : ForumBaseController
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> SignInAsync(LoginModal model)
     {
+        // user name and password are required (like on the login page)
+        if (!this.ModelState.IsValid)
+        {
+            this.PageBoardContext.SessionNotify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+        }
+
+        // the user name is trimmed like on the login page (autocomplete can add a space)
+        model.UserName = model.UserName.Trim();
+
         var user = await this.Get<IAspNetUsersHelper>().ValidateUserAsync(model.UserName);
 
         if (user == null)
@@ -81,15 +91,31 @@ public class LoginBox : ForumBaseController
 
         if (!user.IsApproved)
         {
+            // the state of the account is only shown with the right password
+            if (user.PasswordHash.IsNotSet() || this.Get<IAspNetUsersHelper>().PasswordHasher
+                    .VerifyHashedPassword(user, user.PasswordHash, model.Password) == PasswordVerificationResult.Failed)
+            {
+                this.PageBoardContext.SessionNotify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+            }
+
             var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
 
             // Ignore Deleted User
-            if (yafUser.UserFlags.IsDeleted)
+            if (yafUser is null || yafUser.UserFlags.IsDeleted)
             {
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
             }
 
             this.PageBoardContext.SessionNotify(this.GetText("LOGIN", "ACCOUNT_NOT_APPROVED"), MessageTypes.warning);
+
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+        }
+
+        // Locked out after too many failed attempts, don't even check the password
+        if (user.LockoutEndDateUtc > DateTime.UtcNow)
+        {
+            this.PageBoardContext.SessionNotify(this.GetText("LOGIN", "ERROR_LOCKEDOUT"), MessageTypes.danger);
 
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
         }
@@ -152,6 +178,9 @@ public class LoginBox : ForumBaseController
         }
 
         this.Get<ISessionService>().SetPageData(user);
+
+        // the "remember me" choice is used after the two factor code
+        this.HttpContext.Session.SetData(Constants.TwoFactorRememberMeSessionKey, modal.RememberMe);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Authorize);
     }

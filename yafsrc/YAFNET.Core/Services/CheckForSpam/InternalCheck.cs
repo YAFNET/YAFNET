@@ -65,24 +65,31 @@ public class InternalCheck : ICheckForBot
 
             var isBot = false;
 
-            try
+            // each mask on its own, so an invalid mask does not disable the other e-mail bans
+            foreach (var mask in bannedEmailRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                         .Select(x => x.Mask))
             {
-                var banned = bannedEmailRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
-                    .Find(b => Regex.Match(emailAddress, b.Mask, RegexOptions.None,
-                        Constants.RegexTimeout).Success);
-
-                if (banned != null)
+                try
                 {
+                    if (!Regex.Match(emailAddress, mask, RegexOptions.None, Constants.RegexTimeout).Success)
+                    {
+                        continue;
+                    }
+
                     responseText = $"internal detection found email address {emailAddress}";
                     isBot = true;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    BoardContext.Current.Get<ILogger<InternalCheck>>().Error(
+                        ex,
+                        $"Error while Checking for Bot Email (Check: {mask})");
                 }
             }
-            catch (Exception ex)
-            {
-                BoardContext.Current.Get<ILogger<InternalCheck>>().Error(ex, "Error while Checking for Bot Email");
-            }
 
-            if (bannedIpList.Contains(ipAddress))
+            // masks can contain wildcards (e.g. 192.168.1.*), like the banned IP check of each request
+            if (ipAddress.IsSet() && bannedIpList.Exists(mask => IPHelper.IsBanned(mask, ipAddress)))
             {
                 responseText = $"internal detection found ip address {ipAddress}";
                 isBot = true;
@@ -105,8 +112,7 @@ public class InternalCheck : ICheckForBot
                 }
                 catch (Exception ex)
                 {
-                    isBot = false;
-
+                    // an invalid mask must not cancel a match on the e-mail or ip address
                     BoardContext.Current.Get<ILogger<InternalCheck>>().Error(
                         ex,
                         $"Error while Checking for Bot Name (Check: {mask})");

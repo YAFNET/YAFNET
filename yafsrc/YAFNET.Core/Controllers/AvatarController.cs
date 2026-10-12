@@ -28,6 +28,7 @@ namespace YAF.Core.Controllers;
 
 using System;
 using System.IO;
+using System.Security;
 
 using Microsoft.Extensions.Logging;
 
@@ -51,7 +52,8 @@ public class AvatarController : ForumBaseController
     /// </returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [OutputCache(Duration = int.MaxValue)]
+    // one hour, a changed display name shows the new letters soon (creating the svg is cheap)
+    [OutputCache(Duration = 3600)]
     [HttpGet("GetTextAvatar")]
     public ActionResult GetTextAvatar(int userId)
     {
@@ -65,14 +67,8 @@ public class AvatarController : ForumBaseController
                 return this.NotFound();
             }
 
-            var name = new UnicodeEncoder().XSSEncode(user.DisplayOrUserName());
-
-            if (name.StartsWith('&'))
-            {
-                name = name.Replace("&", string.Empty);
-            }
-
-            var abbreviation = name.GetAbbreviation();
+            // the abbreviation of the name, encoded for the svg (xml), e.g. "T&amp;" for "Tom & Jerry"
+            var abbreviation = SecurityElement.Escape(user.DisplayOrUserName().GetAbbreviation());
 
             var width = this.Get<BoardSettings>().AvatarWidth;
             var height = this.Get<BoardSettings>().AvatarHeight;
@@ -85,11 +81,18 @@ public class AvatarController : ForumBaseController
             {
                 backgroundColor = "#0c7333";
             }
+            else if (ValidationHelper.IsNumeric(user.ProviderUserKey))
+            {
+                backgroundColor = $"#{user.ProviderUserKey.ToGuid().ToString()[..6]}";
+            }
+            else if (user.ProviderUserKey is { Length: >= 6 } key && key[..6].All(char.IsAsciiHexDigit))
+            {
+                backgroundColor = $"#{key[..6]}";
+            }
             else
             {
-                backgroundColor = ValidationHelper.IsNumeric(user.ProviderUserKey)
-                                      ? $"#{user.ProviderUserKey.ToGuid().ToString()[..6]}"
-                                      : $"#{user.ProviderUserKey[..6]}";
+                // no usable provider key, a color from the user id
+                backgroundColor = $"#{(uint)user.ID * 2654435761u % 0xFFFFFF:x6}";
             }
 
             var svg = $@"<?xml version=""1.0"" encoding=""UTF-8""?><svg xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" 
@@ -140,12 +143,15 @@ public class AvatarController : ForumBaseController
             }
 
             var data = user.AvatarImage;
-            var contentType = user.AvatarImageType;
-
-            if (contentType.IsNotSet())
+            // the stored type comes from the upload, only ever serve image types
+            var contentType = user.AvatarImageType?.Trim().ToLowerInvariant() switch
             {
-                contentType = "image/jpeg";
-            }
+                "image/png" or "image/jpeg" or "image/gif" or "image/webp" or "image/bmp" => user.AvatarImageType.Trim()
+                    .ToLowerInvariant(),
+                "image/jpg" or "image/pjpeg" => "image/jpeg",
+                null or "" => "image/jpeg",
+                _ => "image/png"
+            };
 
             var stream = new MemoryStream(data, 0, data.Length);
             return new FileStreamResult(stream, contentType);

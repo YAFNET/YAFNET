@@ -159,16 +159,45 @@ public class PostMessageModel : ForumPage
             return false;
         }
 
+        // a guest without a name posts with the name of the guest user (an empty field is not sent)
+        if (this.PageBoardContext.IsGuest && this.Input.From.IsNotSet())
+        {
+            this.Input.From = this.PageBoardContext.PageUser.DisplayOrUserName();
+        }
+
         // Check if the Entered Guest Username is not too long
         if (this.PageBoardContext.IsGuest && this.Input.From.Length > 100)
         {
             this.PageBoardContext.Notify(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
 
-            this.Input.From = this.Input.From[100..];
+            this.Input.From = this.Input.From[..100];
             return false;
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// The topic must exist and the user needs reply access, locked topics and forums only for moderators
+    /// (all handlers, also when saving the reply).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (this.PageBoardContext.PageTopic is null)
+        {
+            context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
+        }
+
+        // replying needs the reply access (the post access is for new topics)
+        if (this.PageBoardContext.PageForumID == 0 ||
+            !this.PageBoardContext.ForumReplyAccess ||
+            ((this.PageBoardContext.PageTopic.TopicFlags.IsLocked || this.PageBoardContext.PageForum.ForumFlags.IsLocked)
+             && !this.PageBoardContext.ForumModeratorAccess))
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
     }
 
     /// <summary>
@@ -184,8 +213,14 @@ public class PostMessageModel : ForumPage
 
         this.Input = new PostMessageInputModel();
 
+        // the name of a guest (the entered name is kept when the page is shown again)
+        if (this.PageBoardContext.IsGuest)
+        {
+            this.Input.From = this.PageBoardContext.PageUser.DisplayOrUserName();
+        }
+
         if (this.PageBoardContext.PageForumID == 0 ||
-            (!this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess) ||
+            !this.PageBoardContext.ForumReplyAccess ||
             (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess))
         {
             return this.Get<ILinkBuilder>().AccessDenied();
@@ -194,7 +229,7 @@ public class PostMessageModel : ForumPage
         if (this.PageBoardContext.PageForum.ForumFlags.IsLocked
             && !this.PageBoardContext.ForumModeratorAccess)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
         // we reply to a post with a quote
@@ -211,7 +246,7 @@ public class PostMessageModel : ForumPage
                     this.quotedMessage.MessageText = quotedMessageText;
                 }
 
-                if (this.quotedMessage.TopicID != this.PageBoardContext.PageTopicID || !this.CanQuotePostCheck(this.PageBoardContext.PageTopic))
+                if (!this.CanQuoteMessage(this.quotedMessage) || !this.CanQuotePostCheck(this.PageBoardContext.PageTopic))
                 {
                     return this.Get<ILinkBuilder>().AccessDenied();
                 }
@@ -248,8 +283,9 @@ public class PostMessageModel : ForumPage
                     this.Get<ISessionService>().MultiQuoteIds.Add(multiQuote);
                 }
 
+                // the ids of the multi quote list come from the client, only quote what can be quoted here
                 var messages = this.GetRepository<Message>().GetByIds(
-                    this.Get<ISessionService>().MultiQuoteIds.Select(i => i.MessageID));
+                    this.Get<ISessionService>().MultiQuoteIds.Select(i => i.MessageID)).Where(this.CanQuoteMessage);
 
                 foreach (var quoted in messages)
                 {
@@ -405,37 +441,13 @@ public class PostMessageModel : ForumPage
 
             if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
             {
-                // Handle Mentions
-                BBCodeHelper.FindMentions(message).ForEach(
-                    user =>
-                    {
-                        var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                        if (userId != this.PageBoardContext.PageUserID)
-                        {
-                            this.Get<IActivityStream>().AddMentionToStream(
-                                userId,
-                                this.PageBoardContext.PageTopicID,
-                                newMessage.ID,
-                                this.PageBoardContext.PageUserID);
-                        }
-                    });
-
-                // Handle User Quoting
-                BBCodeHelper.FindUserQuoting(message).ForEach(
-                    user =>
-                    {
-                        var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                        if (userId != this.PageBoardContext.PageUserID)
-                        {
-                            this.Get<IActivityStream>().AddQuotingToStream(
-                                userId,
-                                this.PageBoardContext.PageTopicID,
-                                newMessage.ID,
-                                this.PageBoardContext.PageUserID);
-                        }
-                    });
+                // Handle Mentions and User Quoting
+                MentionHelper.NotifyMentionedAndQuotedUsers(
+                    message,
+                    this.PageBoardContext.PageForumID,
+                    this.PageBoardContext.PageTopicID,
+                    newMessage.ID,
+                    this.PageBoardContext.PageUserID);
 
                 this.Get<IActivityStream>().AddReplyToStream(
                     this.PageBoardContext.PageUser,
@@ -462,15 +474,7 @@ public class PostMessageModel : ForumPage
         }
 
         // Tell user that his message will have to be approved by a moderator
-        var url = this.Get<ILinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
-
-        if (this.PageBoardContext.PageTopicID > 0 && this.PageBoardContext.PageTopic.NumPosts > 1)
-        {
-            url = this.Get<ILinkBuilder>().GetTopicLink(
-                this.PageBoardContext.PageTopic);
-        }
-
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Info, new {i = 1, url = HttpUtility.UrlEncode(url)});
+        return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
     }
 
     /// <summary>
@@ -484,14 +488,29 @@ public class PostMessageModel : ForumPage
     }
 
     /// <summary>
-    /// Determines whether this instance [can quote post check] the specified topic info.
+    /// Checks if the message can be quoted by the current user.
     /// </summary>
-    /// <param name="topicInfo">
-    /// The topic info.
-    /// </param>
-    /// <returns>
-    /// The can quote post check.
-    /// </returns>
+    /// <param name="message">The message.</param>
+    /// <returns>Returns if the message can be quoted</returns>
+    private bool CanQuoteMessage(Message message)
+    {
+        // only posts of this topic, deleted and not approved posts (of others) only for moderators
+        if (message.TopicID != this.PageBoardContext.PageTopicID)
+        {
+            return false;
+        }
+
+        return MessageAccessHelper.CanViewMessage(
+            message,
+            this.PageBoardContext.PageUserID,
+            this.PageBoardContext.ForumModeratorAccess);
+    }
+
+    /// <summary>
+    /// Checks if the user can quote posts in the topic.
+    /// </summary>
+    /// <param name="topicInfo">The topic.</param>
+    /// <returns>Returns if posts can be quoted</returns>
     private bool CanQuotePostCheck(Topic topicInfo)
     {
         // get topic and forum information

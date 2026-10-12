@@ -24,28 +24,18 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label asp-for="Input.Subject" class="form-label"
+                        <label for="EmailSubject" class="form-label"
                                localized-page="EMAILTOPIC"
                                localized-tag="SUBJECT">
                         </label>
-                        <input asp-for="Input.Subject" class="form-control" required />
-                        <div class="invalid-feedback">
-                            <span asp-validation-for="Input.Subject">
-                                @Html.LocalizedText("EMAILTOPIC", "NEED_SUBJECT")
-                            </span>
-                        </div>
+                        <input id="EmailSubject" class="form-control" value="@Model.Subject" readonly />
                     </div>
                     <div class="mb-3">
-                        <label asp-for="Input.Body" class="form-label"
+                        <label for="EmailBody" class="form-label"
                                localized-page="EMAILTOPIC"
                                localized-tag="MESSAGE">
                         </label>
-                        <textarea asp-for="Input.Body" class="form-control" required rows="10"></textarea>
-                        <div class="invalid-feedback">
-                            <span asp-validation-for="Input.Body">
-                                @Html.LocalizedText("EMAILTOPIC", "NEED_MESSAGE")
-                            </span>
-                        </div>
+                        <textarea id="EmailBody" class="form-control" rows="6" readonly>@Model.Body</textarea>
                     </div>
                 </div>
                 <div class="card-footer text-center">

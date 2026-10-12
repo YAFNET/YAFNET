@@ -84,6 +84,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         aspNetUser.MobilePIN = twoFactorKey;
 
+        // the other logins of the user end
+        aspNetUser.SecurityStamp = UserStore.NewSecurityStamp();
+
         return this.Get<AspNetUsersManager>().UpdateUsrAsync(aspNetUser);
     }
 
@@ -98,6 +101,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         aspNetUser.TwoFactorEnabled = false;
 
         aspNetUser.MobilePIN = string.Empty;
+
+        // the other logins of the user end
+        aspNetUser.SecurityStamp = UserStore.NewSecurityStamp();
 
         return this.Get<AspNetUsersManager>().UpdateUsrAsync(aspNetUser);
     }
@@ -178,34 +184,15 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// For the admin function: approve all users. Approves all
     /// users waiting for approval
     /// </summary>
-    public async Task ApproveAllAsync()
+    public async Task ApproveAllAsync(int boardId)
     {
-        // get all users...
-        var allUsers = this.Get<IAspNetUsersHelper>().GetAllUsers();
+        // the users listed as not approved on the admin page: of this board and not deleted
+        // (disabled accounts stay disabled)
+        var users = await this.GetRepository<User>().GetUnApprovedUsersAsync(boardId);
 
-        // iterate through each one...
-        foreach (var user in allUsers.Where(user => !user.IsApproved))
+        foreach (var user in users)
         {
-            // approve this user...
-            user.IsApproved = true;
-            await this.Get<AspNetUsersManager>().UpdateUsrAsync(user);
-            var checkUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
-
-            var id = checkUser?.ID ?? 0;
-
-            if (id <= 0)
-            {
-                return;
-            }
-
-            await this.GetRepository<User>().ApproveAsync(checkUser);
-
-            var checkEmail = await this.GetRepository<CheckEmail>().GetSingleAsync(m => m.UserID == id);
-
-            if (checkEmail != null)
-            {
-                await this.GetRepository<CheckEmail>().DeleteByIdAsync(checkEmail.ID);
-            }
+            await this.ApproveUserAsync(user.ID);
         }
     }
 
@@ -226,6 +213,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         }
 
         var user = await this.Get<IAspNetUsersHelper>().GetUserAsync(yafUser.ProviderUserKey);
+
+        if (user is null)
+        {
+            // a forum user without identity can't log in
+            return false;
+        }
 
         if (!user.IsApproved)
         {
@@ -249,33 +242,25 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <summary>
     /// Deletes all Unapproved Users older than Cut Off DateTime
     /// </summary>
+    /// <param name="boardId">The board.</param>
     /// <param name="createdCutoff">
     ///     The created cutoff.
     /// </param>
-    public async Task DeleteAllUnapprovedAsync(DateTime createdCutoff)
+    public async Task DeleteAllUnapprovedAsync(int boardId, DateTime createdCutoff)
     {
-        // get all users...
-        var allUsers = this.Get<IAspNetUsersHelper>().GetAllUsers();
+        // the users listed as not approved on the admin page: of this board and not deleted
+        var users = await this.GetRepository<User>().GetUnApprovedUsersAsync(boardId);
 
-        // iterate through each one...
-        foreach (var user in allUsers.Where(user => !user.IsApproved && user.CreateDate < createdCutoff))
+        foreach (var user in users.Where(u => !u.UserFlags.IsGuest && !u.UserFlags.IsHostAdmin))
         {
-            var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
+            var identity = user.ProviderUserKey.IsSet() ? await this.GetUserAsync(user.ProviderUserKey) : null;
 
-            if (yafUser != null)
+            if ((identity?.CreateDate ?? user.Joined) >= createdCutoff)
             {
-                // delete this user...
-                await this.GetRepository<User>().DeleteAsync(yafUser);
+                continue;
             }
 
-            await this.Get<AspNetUsersManager>().DeleteUserAsync(user);
-
-            if (this.Get<BoardSettings>().LogUserDeleted)
-            {
-                this.Get<ILogger<AspNetUsersHelper>>().UserDeleted(
-                    BoardContext.Current.PageUser.ID,
-                    $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
-            }
+            await this.DeleteUserAsync(user.ID);
         }
     }
 
@@ -289,8 +274,18 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     {
         var allUsers = await this.GetRepository<User>().GetByBoardIdAsync();
 
+        // admins (host admins and members of admin groups) and the current user are never locked
+        var adminGroups = (await this.GetRepository<Group>().GetByBoardIdAsync())
+            .Where(g => g.GroupFlags.IsAdmin).Select(g => g.ID).ToList();
+
+        var admins = (await this.GetRepository<UserGroup>().GetAsync(ug => adminGroups.Contains(ug.GroupID)))
+            .Select(ug => ug.UserID).ToHashSet();
+
+        admins.Add(BoardContext.Current.PageUserID);
+
         // iterate through each one...
-        allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && (user.Flags & 32) != 32 && user.LastVisit < createdCutoff)
+        allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && (user.Flags & 32) != 32 && (user.Flags & 1) != 1
+                               && !admins.Contains(user.ID) && user.LastVisit < createdCutoff)
             .ForEach(
                 user =>
                 {
@@ -306,6 +301,11 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                       Flags = flags.BitValue
                                   },
                         u => u.ID == user.ID);
+
+                    // the login checks the identity, a new security stamp ends the existing logins
+                    this.GetRepository<AspNetUsers>().UpdateOnly(
+                        () => new AspNetUsers { IsApproved = false, SecurityStamp = UserStore.NewSecurityStamp() },
+                        u => u.Id == user.ProviderUserKey);
                 });
     }
 
@@ -333,7 +333,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         var dt = this.GetRepository<UserAlbum>().ListByUser(userId);
 
-        dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDeleteAsync(uploadFolderPath, dr.ID, userId));
+        foreach (var album in dt)
+        {
+            await this.Get<IAlbum>().AlbumDeleteAsync(uploadFolderPath, album.ID, userId);
+        }
 
         // Check if there are any avatar images in the uploads folder
         if (!this.Get<BoardSettings>().UseFileTable && this.Get<BoardSettings>().AvatarUpload)
@@ -380,6 +383,13 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </returns>
     public async Task<bool> DeleteAndBanUserAsync(User user, AspNetUsers aspNetUser, string userIpAddress)
     {
+        // never delete the guest account (that would delete the posts of all guests)
+        if (user is null || aspNetUser is null || user.UserFlags.IsGuest
+            || user.ID == BoardContext.Current.GuestUserID)
+        {
+            return false;
+        }
+
         // Update Anti SPAM Stats
         this.GetRepository<Registry>().IncrementBannedUsers();
 
@@ -396,7 +406,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         var dt = this.GetRepository<UserAlbum>().ListByUser(user.ID);
 
-        dt.ForEach(dr => this.Get<IAlbum>().AlbumImageDeleteAsync(uploadDir, dr.ID, user.ID));
+        foreach (var album in dt)
+        {
+            await this.Get<IAlbum>().AlbumDeleteAsync(uploadDir, album.ID, user.ID);
+        }
 
         // delete posts...
         var messages = this.GetRepository<Message>().GetAllUserMessages(user.ID).Distinct()
@@ -416,6 +429,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         await this.Get<AspNetUsersManager>().DeleteUserAsync(aspNetUser);
         await this.GetRepository<User>().DeleteAsync(user);
+
+        // the spam check deleted the current user (e.g. after a post), the login ends now
+        if (BoardContext.Current?.PageUserID == user.ID)
+        {
+            await this.SignOutAsync();
+        }
 
         if (this.Get<BoardSettings>().LogUserDeleted)
         {
@@ -624,6 +643,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public async Task<bool> UpdateEmailAsync(AspNetUsers user, string newEmail)
     {
         user.Email = newEmail;
+        user.LoweredEmail = newEmail.ToLower();
 
         await this.Get<AspNetUsersManager>().UpdateUsrAsync(user);
 
@@ -1405,21 +1425,16 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <summary>
     /// Imports all AspNetUsers users in to the YAF DB, if they do not already exist.
     /// </summary>
-    public void ImportAllMembershipUsers()
+    public async Task ImportAllMembershipUsersAsync()
     {
         // get all users in membership...
-        var users = BoardContext.Current.GetRepository<AspNetUsers>().Get(x => x.Email != null && x.Id != null);
+        var users = await BoardContext.Current.GetRepository<AspNetUsers>().GetAsync(x => x.Email != null && x.Id != null);
 
-        ParallelOptions parallelOptions = new()
-        {
-            MaxDegreeOfParallelism = 3
-        };
-
-        // create/update users...
-        Parallel.ForEachAsync(users, parallelOptions, async (user, _) =>
+        // create the missing forum users one after the other (they use the services of the current request)
+        foreach (var user in users)
         {
             await this.ImportForumUser(user);
-        });
+        }
     }
 
     /// <summary>

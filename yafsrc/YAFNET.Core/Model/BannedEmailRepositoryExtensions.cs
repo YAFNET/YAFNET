@@ -67,6 +67,9 @@ public static class BannedEmailRepositoryExtensions
                 () => new BannedEmail { Mask = mask, Reason = reason },
                 b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
+            // UpdateOnly raises no event, the cached ban list must be refreshed
+            repository.FireUpdated();
+
             return true;
         }
 

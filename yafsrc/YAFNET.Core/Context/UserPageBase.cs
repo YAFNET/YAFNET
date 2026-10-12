@@ -129,9 +129,20 @@ public abstract class UserPageBase
     public bool IsSuspended => this.PageData.Item3.Suspended.HasValue;
 
     /// <summary>
+    ///   Gets a value indicating whether the suspension of the current user has not ended yet
+    ///   (an ended suspension is lifted by the next forum page the user opens).
+    /// </summary>
+    public bool IsSuspendedNow => this.IsSuspended && this.SuspendedUntil > DateTime.UtcNow;
+
+    /// <summary>
     ///   Gets the number of pending buddy requests.
     /// </summary>
     public DateTime LastPendingBuddies => this.PageData.Item3.LastPendingBuddies;
+
+    /// <summary>
+    ///   Gets the date of the newest unread private message.
+    /// </summary>
+    public DateTime LastUnreadPrivate => this.PageData.Item3.LastUnreadPrivate;
 
     /// <summary>
     ///   Gets the number of albums which a user already has

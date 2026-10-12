@@ -60,24 +60,15 @@ public static class MemoryCacheExtensions
             ArgumentNullException.ThrowIfNull(key);
             ArgumentNullException.ThrowIfNull(getValue);
 
-            var item = cache[key];
-
-            if (!Equals(item, default(T)))
+            if (cache[key] is T cached)
             {
-                return (T)item;
+                return cached;
             }
 
-            item = cache[key];
-
-            if (!Equals(item, default(T)))
-            {
-                return (T)item;
-            }
-
-            item = getValue();
+            var item = getValue();
             cache[key] = item;
 
-            return (T)item;
+            return item;
         }
 
         /// <summary>

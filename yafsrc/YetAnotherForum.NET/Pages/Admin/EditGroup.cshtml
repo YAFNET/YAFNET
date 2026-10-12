@@ -162,13 +162,21 @@
 
                             @for (var index = 0; index < Model.AccessMasksList.Count; index++)
                             {
+                                @* explicit names, the list contains tuples (asp-for names their fields Item1, Item2...) *@
+                                var accessMask = Model.AccessMasksList[index];
+
                                 <div class="mb-3 col-md-4">
-                                    <input type="hidden" asp-for="@Model.AccessMasksList[index].ForumID" value="@Model.AccessMasksList[index].ForumID" />
-                                    <label asp-for="@Model.AccessMasksList[index].AccessMaskID">
-                                        @Model.AccessMasksList[index].ForumName
+                                    <input type="hidden" name="AccessMasks[@index].ForumID" value="@accessMask.ForumID" />
+                                    <label class="form-label" for="AccessMasks_@(index)_AccessMaskID">
+                                        @accessMask.ForumName
                                     </label>
-                                    <select asp-for="@Model.AccessMasksList[index].AccessMaskID" asp-items="Model.NewAccessMasks"
-                                                class="form-select accessMasks"></select>
+                                    <select id="AccessMasks_@(index)_AccessMaskID" name="AccessMasks[@index].AccessMaskID"
+                                            class="form-select accessMasks">
+                                        @foreach (var mask in Model.NewAccessMasks)
+                                        {
+                                            <option value="@mask.Value" selected="@(mask.Value == accessMask.AccessMaskID.ToString())">@mask.Text</option>
+                                        }
+                                    </select>
                                 </div>
                             }
 
@@ -197,8 +205,4 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptPartial")
-
-    <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SetGroupMaskJs));
-    </script>
 }

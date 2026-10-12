@@ -90,7 +90,7 @@ public class BannedEmailsModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<BannedEmail>().DeleteByIdAsync(id);
+        await this.GetRepository<BannedEmail>().DeleteAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID);
 
         this.SearchInput = string.Empty;
 
@@ -137,7 +137,7 @@ public class BannedEmailsModel : AdminPage
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
-        var banned = this.GetRepository<BannedEmail>().GetById(id);
+        var banned = this.GetRepository<BannedEmail>().GetSingle(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID) ?? new BannedEmail();
 
         return new PartialViewResult {
                                          ViewName = "Dialogs/BannedEmailEdit",

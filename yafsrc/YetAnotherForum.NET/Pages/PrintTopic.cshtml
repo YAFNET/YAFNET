@@ -6,25 +6,18 @@
 
 @foreach (var post in Model.Posts)
 {
-    var message = post.Message;
-
-    // Remove HIDDEN Text
-    message = Model.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
-
-    message = Model.Get<IFormatMessage>().RemoveCustomBBCodes(message);
-
-    <table class="table table-bordered" aria-describedby="@Html.Raw(post.Topic)">
+    <table class="table table-bordered" aria-label="@post.Topic">
         <thead>
         <tr>
             <th scope="col">
-                    @Html.Raw($"<strong>{Model.Get<ILocalization>().GetText("postedby")}: {(Model.PageBoardContext.BoardSettings.EnableDisplayName ? post.DisplayName : post.UserName)}</strong> - {Model.Get<IDateTimeService>().FormatDateTime(post.Posted)}")
+                    <strong>@(Model.Get<ILocalization>().GetText("postedby")): @(Model.PageBoardContext.BoardSettings.EnableDisplayName ? post.DisplayName : post.UserName)</strong> - @Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(post.Posted))
             </th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>
-                @Html.Raw(message)
+                @Html.Raw(post.Message)
             </td>
         </tr>
         </tbody>

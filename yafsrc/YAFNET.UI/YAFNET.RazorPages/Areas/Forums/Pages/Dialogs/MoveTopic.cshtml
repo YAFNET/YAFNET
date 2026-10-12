@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-controller="PostsModal" asp-action="MoveTopic">
+                <form asp-controller="PostsModal" asp-action="MoveTopic" asp-route-t="@Current.PageTopicID" asp-route-f="@Current.PageForumID">
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <!-- Modal Content START !-->
                     <div class="mb-3">

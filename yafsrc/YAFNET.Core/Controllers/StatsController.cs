@@ -43,7 +43,7 @@ using YAF.Types.Objects;
 /// The Stats controller.
 /// </summary>
 [Route("api/[controller]")]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_Admin)]
 public class Stats : ForumBaseController
 {
     /// <summary>
@@ -88,7 +88,7 @@ public class Stats : ForumBaseController
 
             var registrations = users
                 .GroupBy(u => new { u.Joined.Date.Year, u.Joined.Date.Month })
-                .Select(g => new StatsData { Label = $"{this.GetText("CALENDER", g.Key.Month.ToString())[..3]} {g.Key.Year}", Data = g.Count() });
+                .Select(g => new StatsData { Label = $"{ShortMonth(this.GetText("CALENDER", g.Key.Month.ToString()))} {g.Key.Year}", Data = g.Count() });
 
             var results = new UserStats
             {
@@ -106,5 +106,15 @@ public class Stats : ForumBaseController
 
             return this.NotFound();
         }
+    }
+
+    /// <summary>
+    /// The first three characters of a month name (some languages have shorter names).
+    /// </summary>
+    /// <param name="monthName">The month name.</param>
+    /// <returns>The short month name.</returns>
+    private static string ShortMonth(string monthName)
+    {
+        return monthName.Length > 3 ? monthName[..3] : monthName;
     }
 }

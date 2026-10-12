@@ -18,7 +18,7 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <span class="fw-bold">@Html.LocalizedText("SUBJECT")</span> @Html.Raw(Model.PageBoardContext.PageTopic.TopicName)
+                        <span class="fw-bold">@Html.LocalizedText("SUBJECT")</span> @Model.PageBoardContext.PageTopic.TopicName
                     </div>
                     <div class="mb-3">
                         @Html.LocalizedText("previewtitle")
@@ -77,7 +77,7 @@
                                 button-style="Danger"
                                 icon="trash"
                                 text-localized-tag="DELETE"
-                                title-localized-tag="DELETE_TT"
+                                title-localized-tag="BUTTON_DELETE_TT"
                                 bs-toggle="tooltip"></button>
                     }
 

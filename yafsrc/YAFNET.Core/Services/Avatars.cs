@@ -111,7 +111,8 @@ public class Avatars : IAvatars, IHaveServiceLocator
                 "Avatar",
                 new { userId });
         }
-        else if (avatarString.IsSet() && avatarString.StartsWith('/'))
+        // only local paths, "//host/..." would load the avatar from another site
+        else if (avatarString.IsSet() && avatarString.StartsWith('/') && !avatarString.StartsWith("//"))
         {
             avatarUrl = avatarString;
         }

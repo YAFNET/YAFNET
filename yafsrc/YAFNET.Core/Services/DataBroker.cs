@@ -339,8 +339,9 @@ public class DataBroker : IHaveServiceLocator
             this.GetRepository<ActiveAccess>().InsertPageAccess(boardId, guestUser.ID, true);
         }
 
-        // -- find missing ForumID/TopicID
-        if (messageId.HasValue && (!forumId.HasValue || !categoryId.HasValue || !topicId.HasValue))
+        // -- find the ForumID/TopicID of the message (also when the request sends others: the access is
+        // -- checked for the forum, a forum id of another forum must not give access to the message/topic)
+        if (messageId.HasValue)
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
@@ -367,7 +368,7 @@ public class DataBroker : IHaveServiceLocator
             }
         }
 
-        if (topicId.HasValue && (!categoryId.HasValue || !forumId.HasValue))
+        if (topicId.HasValue && topic is null)
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
@@ -433,9 +434,13 @@ public class DataBroker : IHaveServiceLocator
 
         if (!doNotTrack)
         {
-            if (this.GetRepository<Active>().Exists(
-                    x => x.BoardID == boardId && x.SessionID == sessionId ||
-                         x.Browser == browser && (x.Flags & 8) == 8))
+            // -- crawlers send a new session id with every request, they are found by browser and ip
+            var exists = isCrawler
+                ? this.GetRepository<Active>().Exists(
+                    x => x.BoardID == boardId && x.Browser == browser && x.IP == ip && (x.Flags & 8) == 8)
+                : this.GetRepository<Active>().Exists(x => x.BoardID == boardId && x.SessionID == sessionId);
+
+            if (exists)
             {
                 if (!isCrawler)
                 {
@@ -477,7 +482,7 @@ public class DataBroker : IHaveServiceLocator
                             ForumPage = forumPage,
                             Flags = activeFlags.BitValue
                         },
-                        a => a.Browser == browser && a.IP == ip && a.BoardID == boardId);
+                        a => a.Browser == browser && a.IP == ip && a.BoardID == boardId && (a.Flags & 8) == 8);
                 }
             }
             else
@@ -499,6 +504,7 @@ public class DataBroker : IHaveServiceLocator
                         Browser = browser,
                         Platform = platform,
                         UserAgent = userAgent,
+                        ForumPage = forumPage,
                         Flags = activeFlags.BitValue
                     });
 
@@ -521,7 +527,38 @@ public class DataBroker : IHaveServiceLocator
         }
 
         // -- return information
-        var pageLoad = this.GetRepository<ActiveAccess>().DbAccess.Execute(
+        var pageLoad = this.SelectPageLoad(userId, forumId, activeUpdate, previousVisit, isCrawler, guestUser.ID);
+
+        if (pageLoad is null)
+        {
+            // -- the access rows were cleared (by a change of the groups/access masks) after they were checked
+            this.GetRepository<ActiveAccess>().InsertPageAccess(boardId, userId, isGuest);
+
+            pageLoad = this.SelectPageLoad(userId, forumId, activeUpdate, previousVisit, isCrawler, guestUser.ID);
+        }
+
+        return Tuple.Create(pageLoad, currentUser, category, forum, topic, message);
+    }
+
+    /// <summary>
+    /// Selects the page load data (the access rights) of the user.
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <param name="activeUpdate">if set to <c>true</c> the active users cache needs to be updated.</param>
+    /// <param name="previousVisit">The previous visit.</param>
+    /// <param name="isCrawler">if set to <c>true</c> the user is a crawler.</param>
+    /// <param name="guestUserId">The guest user identifier.</param>
+    /// <returns>Returns the page load data, or null if the user has no access rows.</returns>
+    private PageLoad SelectPageLoad(
+        int userId,
+        int? forumId,
+        bool activeUpdate,
+        DateTime? previousVisit,
+        bool isCrawler,
+        int guestUserId)
+    {
+        return this.GetRepository<ActiveAccess>().DbAccess.Execute(
             db =>
             {
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
@@ -590,7 +627,7 @@ public class DataBroker : IHaveServiceLocator
                             Sql.Custom(
                                 $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
                         IsCrawler = isCrawler,
-                        GuestUserId = guestUser.ID,
+                        GuestUserId = guestUserId,
                         UploadAccess =
                             Sql.Custom(
                                 $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(uploadAccessSql, 0)})"),
@@ -601,8 +638,6 @@ public class DataBroker : IHaveServiceLocator
 
                 return db.Connection.Single<PageLoad>(expression);
             });
-
-        return Tuple.Create(pageLoad, currentUser, category, forum, topic, message);
     }
 
     /// <summary>

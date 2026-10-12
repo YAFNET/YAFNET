@@ -79,6 +79,20 @@ public class ForumsModel : ModerateForumPage
     public List<ReportedMessage> Reported { get; set; }
 
     /// <summary>
+    /// Only moderators of the forum and admins, and the forum must exist (the page failed without a forum).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        base.OnPageHandlerExecuting(context);
+
+        if (context.Result is null && this.PageBoardContext.PageForum is null)
+        {
+            context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+    }
+
+    /// <summary>
     /// Create the Page links.
     /// </summary>
     public override void CreatePageLinks()
@@ -107,8 +121,13 @@ public class ForumsModel : ModerateForumPage
     /// </summary>
     /// <param name="f">The f.</param>
     /// <returns>PartialViewResult.</returns>
-    public PartialViewResult OnGetAddUser(int f)
+    public IActionResult OnGetAddUser(int f)
     {
+        if (!this.PageBoardContext.IsAdmin)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         return new PartialViewResult
                {
                    ViewName = "Dialogs/ModForumUser",
@@ -127,10 +146,20 @@ public class ForumsModel : ModerateForumPage
     /// <param name="userId">The user identifier.</param>
     /// <param name="f">The f.</param>
     /// <returns>PartialViewResult.</returns>
-    public PartialViewResult OnGetEditUser(int userId, int f)
+    public IActionResult OnGetEditUser(int userId, int f)
     {
+        if (!this.PageBoardContext.IsAdmin)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         // Edit
-        var userForum = this.GetRepository<UserForum>().List(userId, f).FirstOrDefault();
+        var userForum = this.GetRepository<UserForum>().List(userId, this.PageBoardContext.PageForumID).FirstOrDefault();
+
+        if (userForum is null)
+        {
+            return this.NotFound();
+        }
 
         return new PartialViewResult
                {
@@ -140,7 +169,7 @@ public class ForumsModel : ModerateForumPage
                        new ModForumUserModal
                        {
                            ForumId = f,
-                           UserID = userForum!.Item1.ID,
+                           UserID = userForum.Item1.ID,
                            UserName = userForum.Item1.DisplayOrUserName(),
                            AccessMaskID = userForum.Item2.AccessMaskID
                        })
@@ -163,7 +192,10 @@ public class ForumsModel : ModerateForumPage
     /// <param name="f">The f.</param>
     public void OnPostRemoveUser(int id, int f)
     {
-        this.GetRepository<UserForum>().Delete(id, this.PageBoardContext.PageForumID);
+        if (this.PageBoardContext.IsAdmin)
+        {
+            this.GetRepository<UserForum>().Delete(id, this.PageBoardContext.PageForumID);
+        }
 
         this.BindData();
     }
@@ -175,26 +207,34 @@ public class ForumsModel : ModerateForumPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostMoveAsync(int f)
     {
-        int? linkDays = 0;
-        if (this.Input.LeavePointer)
+        // a pointer needs the number of days it is shown
+        if (this.Input.LeavePointer && this.Input.LinkDays < 1)
         {
+            // the page is shown again with the topics
+            this.BindData();
+
             return this.PageBoardContext.Notify(this.GetText("POINTER_DAYS_INVALID"), MessageTypes.warning);
         }
 
         if (this.Input.ForumListSelected <= 0)
         {
+            this.BindData();
+
             return this.PageBoardContext.Notify(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
         }
 
         // only move if it's a destination is a different forum.
         if (this.Input.ForumListSelected != this.PageBoardContext.PageForumID)
         {
-            if (this.Input.LinkDays >= -2)
+            // ... the user moderates (of this board)
+            if (!await this.GetRepository<ActiveAccess>().ExistsAsync(
+                    x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == this.Input.ForumListSelected &&
+                         (x.ModeratorAccess || x.IsAdmin)))
             {
-                linkDays = this.Input.LinkDays;
+                return this.Get<ILinkBuilder>().AccessDenied();
             }
 
-            var list = this.TopicList.Where(x => x.Selected).ToList();
+            var list = this.SelectedForumTopics();
 
             if (list.NullOrEmpty())
             {
@@ -209,7 +249,7 @@ public class ForumsModel : ModerateForumPage
                     this.PageBoardContext.PageForumID,
                     this.Input.ForumListSelected,
                     this.Input.LeavePointer,
-                    linkDays.Value);
+                    this.Input.LinkDays);
             }
 
             this.BindData();
@@ -227,10 +267,12 @@ public class ForumsModel : ModerateForumPage
     /// </summary>
     public async Task<IActionResult> OnPostDeleteTopicsAsync()
     {
-        var list = this.TopicList.Where(x => x.Selected).ToList();
+        var list = this.SelectedForumTopics();
 
         if (list.NullOrEmpty())
         {
+            this.BindData();
+
             return this.PageBoardContext.Notify(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
         }
 
@@ -265,5 +307,16 @@ public class ForumsModel : ModerateForumPage
         this.UserList = this.GetRepository<UserForum>().List(null, this.PageBoardContext.PageForumID);
 
         this.Input.ForumListSelected = 0;
+    }
+
+    /// <summary>
+    /// Gets the selected topics, only the topics of the moderated forum (the list is sent by the client).
+    /// </summary>
+    /// <returns>Returns the selected topics</returns>
+    private List<PagedTopic> SelectedForumTopics()
+    {
+        return [.. (this.TopicList ?? []).Where(
+            x => x.Selected && this.GetRepository<Topic>().Exists(
+                     t => t.ID == x.TopicID && t.ForumID == this.PageBoardContext.PageForumID))];
     }
 }

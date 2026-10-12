@@ -8,6 +8,22 @@ const _global = (window /* browser */ || global /* node */) as any;
 
 _global.Choices = Choices;
 
+// the templates insert the labels as html: texts (e.g. tags, option texts) are encoded,
+// only the labels of the custom properties are html (encoded on the server)
+const escapeHtml = (value: any): string => {
+	// a text entered by the user is already escaped by choices
+	if (value !== null && typeof value === 'object' && 'escaped' in value) {
+		return String(value.escaped);
+	}
+
+	return String(value ?? '')
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;');
+};
+
 // Generic Functions
 document.addEventListener('DOMContentLoaded', () => {
 	_global.loadSelectMenus();
@@ -19,8 +35,9 @@ _global.loadSelectMenus = (): void => {
 	});
 
 	document.querySelectorAll<HTMLElement>('.yafnet .select2-select').forEach(select => {
+		// the texts of the options are texts (e.g. names of groups and ranks), not html
 		const choice = new Choices(select, {
-			allowHTML: true,
+			allowHTML: false,
 			shouldSort: false,
 			placeholderValue: select.getAttribute('placeholder') || '',
 			classNames: { containerOuter: ['choices', 'w-100'] }
@@ -73,7 +90,7 @@ _global.loadSelectMenus = (): void => {
 
 					return {
 						item({ classNames }: { classNames: { item: string; highlightedState: string; itemSelectable: string; button: Array<string>; placeholder: string } }, data: { label: string; customProperties?: string; placeholder: string;highlighted?: boolean; id: string; value: string; active?: boolean; disabled?: boolean }) {
-							let label = data.label;
+							let label = escapeHtml(data.label);
 
 							if (data.customProperties) {
 								let json: any;
@@ -83,7 +100,7 @@ _global.loadSelectMenus = (): void => {
 									json = data.customProperties;
 								}
 
-								label = json.label === undefined ? data.label : json.label;
+								label = json.label === undefined ? escapeHtml(data.label) : json.label;
 							}
 
 							return template(
@@ -106,7 +123,7 @@ _global.loadSelectMenus = (): void => {
 							);
 						},
 						choice({ classNames }: { classNames: Record<string, string> }, data: { disabled: boolean; id: string; value: string; groupId: number; label: string; customProperties: string }) {
-							let label = data.label;
+							let label = escapeHtml(data.label);
 
 							if (data.customProperties) {
 								let json: any;
@@ -116,7 +133,7 @@ _global.loadSelectMenus = (): void => {
 									json = data.customProperties;
 								}
 
-								label = json.label === undefined ? data.label : json.label;
+								label = json.label === undefined ? escapeHtml(data.label) : json.label;
 							}
 
 							return template(
@@ -165,6 +182,7 @@ _global.createTagsSelectTemplates = function(this: any, template: (templateStrin
 
 	return {
 		item({ classNames }: { classNames: { item: string; highlightedState: string; itemSelectable: string; button: Array<string> } }, data: { label: string; customProperties?: string; highlighted?: boolean; id: string; value: string; active?: boolean; disabled?: boolean }) {
+			// a tag is a text (also when it is sent in the custom properties)
 			let label = data.label;
 
 			if (data.customProperties) {
@@ -177,6 +195,8 @@ _global.createTagsSelectTemplates = function(this: any, template: (templateStrin
 
 				label = json.label === undefined ? data.label : json.label;
 			}
+
+			label = escapeHtml(label);
 
 			return template(
 				`

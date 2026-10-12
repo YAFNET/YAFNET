@@ -27,6 +27,7 @@ namespace YAF.Pages;
 using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
@@ -59,16 +60,52 @@ public class ReportPostModel : ForumPage
     }
 
     /// <summary>
+    /// Checks the access for all handlers: the post must exist, its forum must be readable (deleted posts
+    /// only for moderators) and the user must be allowed to report posts.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        var message = this.PageBoardContext.PageMessage;
+
+        // the page shows the message, deleted and not approved posts (of others) only for moderators
+        if (message is null || !this.PageBoardContext.ForumReadAccess
+                            || !MessageAccessHelper.CanViewMessage(
+                                message,
+                                this.PageBoardContext.PageUserID,
+                                this.PageBoardContext.ForumModeratorAccess))
+        {
+            context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
+        }
+
+        if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ReportPostPermissions))
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
     /// Report Message.
     /// </summary>
     public async Task<IActionResult> OnPostReportAsync()
     {
+        this.Report ??= string.Empty;
+
         if (this.Report.Length > this.PageBoardContext.BoardSettings.MaxReportPostChars)
         {
+            // the page is shown again with the author of the message
+            this.MessageAuthor = this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
+
             return this.PageBoardContext.Notify(
                 this.GetTextFormatted("REPORTTEXT_TOOLONG", this.PageBoardContext.BoardSettings.MaxReportPostChars),
                 MessageTypes.danger);
         }
+
+        // the moderators are notified once per user and post (reporting again only counts the report)
+        var reportedBefore = await this.GetRepository<MessageReportedAudit>().ExistsAsync(
+                                 a => a.MessageID == this.PageBoardContext.PageMessage.ID
+                                      && a.UserID == this.PageBoardContext.PageUserID);
 
         // Save the reported message
         await this.GetRepository<MessageReported>().ReportAsync(
@@ -78,7 +115,7 @@ public class ReportPostModel : ForumPage
             this.Report);
 
         // Send Notification to Mods about the Reported Post.
-        if (this.PageBoardContext.BoardSettings.EmailModeratorsOnReportedPost)
+        if (this.PageBoardContext.BoardSettings.EmailModeratorsOnReportedPost && !reportedBefore)
         {
             // not approved, notify moderators
             await this.Get<ISendNotification>().ToModeratorsThatMessageWasReportedAsync(

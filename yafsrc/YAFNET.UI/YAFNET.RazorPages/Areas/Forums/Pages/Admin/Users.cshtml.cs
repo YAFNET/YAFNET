@@ -110,7 +110,9 @@ public class UsersModel : AdminPage
         // we are deleting user
         if (this.PageBoardContext.PageUserID == id)
         {
-            // deleting yourself isn't an option
+            // deleting yourself isn't an option (the page is shown again with the list)
+            this.BindData();
+
             return this.PageBoardContext.Notify(
                 this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
                 MessageTypes.danger);
@@ -121,9 +123,16 @@ public class UsersModel : AdminPage
             id,
             this.PageBoardContext.PageBoardID, true);
 
+        if (userToDelete is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         if (userToDelete.Item1.UserFlags.IsGuest)
         {
             // we cannot delete guest
+            this.BindData();
+
             return this.PageBoardContext.Notify(
                 this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
                 MessageTypes.danger);
@@ -132,6 +141,8 @@ public class UsersModel : AdminPage
         if (userToDelete.Item4.IsAdmin > 0 || userToDelete.Item1.UserFlags.IsHostAdmin)
         {
             // admin are not deletable either
+            this.BindData();
+
             return this.PageBoardContext.Notify(
                 this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
                 MessageTypes.danger);
@@ -190,14 +201,15 @@ public class UsersModel : AdminPage
     {
         var flag = new UserFlags(userFlag);
 
+        // disabled (soft deleted) users first, they can be approved or not
+        if (flag.IsDeleted)
+        {
+            return $"""<span class="badge text-bg-warning">{this.GetText("ADMIN_EDITUSER","DISABLED")}</span>""";
+        }
+
         if (flag.IsApproved)
         {
             return string.Empty;
-        }
-
-        if (flag.IsApproved && flag.IsDeleted)
-        {
-            return $"""<span class="badge text-bg-warning">{this.GetText("ADMIN_EDITUSER","DISABLED")}</span>""";
         }
 
         return $"""<span class="badge text-bg-danger">{this.GetText("NOT_APPROVED")}</span>""";
@@ -261,7 +273,8 @@ public class UsersModel : AdminPage
     /// </summary>
     public async Task OnPostLockAccountsAsync()
     {
-        await this.Get<IAspNetUsersHelper>().LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-this.Input.YearsOld));
+        // at least one year, 0 or a negative value would lock (almost) all users
+        await this.Get<IAspNetUsersHelper>().LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-Math.Clamp(this.Input.YearsOld, 1, 100)));
 
         this.BindData();
     }
@@ -315,12 +328,12 @@ public class UsersModel : AdminPage
          // is any "since"option selected
          if (this.Input.Since.IsSet())
          {
-             // get selected value
-             sinceValue = int.Parse(this.Input.Since);
+             // get selected value (sent by the client, a value that is not a number shows all users)
+             sinceValue = int.TryParse(this.Input.Since, out var since) ? since : 9999;
 
              sinceDate = sinceValue switch {
-                 > 0 => DateTime.UtcNow - TimeSpan.FromDays(sinceValue),
-                 < 0 => DateTime.UtcNow + TimeSpan.FromHours(sinceValue),
+                 > 0 => DateTime.UtcNow.AddDays(-Math.Min(sinceValue, 36500)),
+                 < 0 => DateTime.UtcNow.AddHours(Math.Max(sinceValue, -876000)),
                  _ => null
              };
          }

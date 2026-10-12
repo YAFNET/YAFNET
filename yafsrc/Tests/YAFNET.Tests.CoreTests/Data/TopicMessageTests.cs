@@ -114,6 +114,8 @@ public class TopicMessageTests
         await this.Messages.ApproveAsync(message.ID, this.forumId);
 
         this.Messages.GetById(message.ID).MessageFlags.IsApproved.Should().BeTrue();
+        new MessageFlags(this.board.Search.Indexed[message.ID].Flags).IsApproved.Should()
+            .BeTrue("the search index gets the approved flags, so the post can be found by everybody");
         this.Users.GetById(this.alice).NumPosts.Should().Be(1);
         this.Topics.GetById(topic.ID).LastMessageID.Should().Be(message.ID);
     }
@@ -204,6 +206,9 @@ public class TopicMessageTests
         restored.DeleteReason.Should().BeNull();
         this.Topics.GetById(topic.ID).NumPosts.Should().Be(2);
         this.Users.GetById(this.alice).NumPosts.Should().Be(2);
+
+        // the deleted post was removed from the search index, the restored post is found again
+        new MessageFlags(this.board.Search.Indexed[reply.ID].Flags).IsDeleted.Should().BeFalse();
     }
 
     [Test]
@@ -249,6 +254,117 @@ public class TopicMessageTests
         this.Messages.GetById(replyToReply.ID).MessageFlags.IsDeleted.Should().BeTrue();
         this.Messages.GetById(unrelated.ID).MessageFlags.IsDeleted.Should().BeFalse();
         this.Messages.GetById(first.ID).MessageFlags.IsDeleted.Should().BeFalse();
+    }
+
+    [Test]
+    [Description("Without deleteLinked only the post itself is deleted, the replies (quotes) of others stay")]
+    public async Task Delete_Without_Linked_Replies_Test()
+    {
+        var (topic, _) = await this.PostTopicAsync("Topic", "first");
+        var post = await this.ReplyAsync(topic, "own post");
+        var quote = await this.ReplyAsync(topic, "quote of the post", replyTo: post.ID);
+
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID), false, "test", false, false);
+
+        this.Messages.GetById(post.ID).MessageFlags.IsDeleted.Should().BeTrue();
+        this.Messages.GetById(quote.ID).MessageFlags.IsDeleted.Should().BeFalse();
+    }
+
+    [Test]
+    [Description("Restoring restores the deleted replies too, unless only the post itself is restored")]
+    public async Task Restore_Linked_Replies_Test()
+    {
+        var (topic, _) = await this.PostTopicAsync("Topic", "first");
+        var post = await this.ReplyAsync(topic, "own post");
+        var quote = await this.ReplyAsync(topic, "spam quote", replyTo: post.ID);
+
+        // a moderator deleted the quote, the author later deletes the post
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, "spam", false, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID), false, "test", false, false);
+
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID), restoreLinked: false);
+
+        this.Messages.GetById(post.ID).MessageFlags.IsDeleted.Should().BeFalse();
+        this.Messages.GetById(quote.ID).MessageFlags.IsDeleted.Should().BeTrue("the moderator's delete stays");
+
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID));
+        this.Messages.GetById(quote.ID).MessageFlags.IsDeleted.Should().BeFalse("by default the replies are restored too");
+    }
+
+    [Test]
+    [Description("The post count of the topic only changes when a post is really deleted or restored")]
+    public async Task Topic_Post_Count_Delete_Restore_Test()
+    {
+        var (topic, _) = await this.PostTopicAsync("Topic", "first");
+        var post = await this.ReplyAsync(topic, "own post");
+        var quote = await this.ReplyAsync(topic, "quote", replyTo: post.ID);
+
+        this.Topics.GetById(topic.ID).NumPosts.Should().Be(3);
+
+        // the delete form sent twice
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, "spam", false, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, "spam", false, false);
+
+        this.Topics.GetById(topic.ID).NumPosts.Should().Be(2);
+
+        // the post with its replies, the deleted quote is not counted again
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID), true, "test", true, false);
+
+        this.Topics.GetById(topic.ID).NumPosts.Should().Be(1);
+
+        // the post with its replies, then again (nothing is deleted anymore)
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID));
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID));
+
+        this.Topics.GetById(topic.ID).NumPosts.Should().Be(3);
+
+        // a deleted post erased later (Admin > Restore)
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, "spam", false, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, string.Empty, true, true);
+
+        this.Messages.GetById(quote.ID).Should().BeNull();
+        this.Topics.GetById(topic.ID).NumPosts.Should().Be(2);
+    }
+
+    [Test]
+    [Description("A deleted topic restored with its first post (Admin > Restore) has the post count of before")]
+    public async Task Restore_Topic_Post_Count_Test()
+    {
+        var (topic, first) = await this.PostTopicAsync("Topic", "first");
+        await this.ReplyAsync(topic, "second", replyTo: first.ID);
+        await this.ReplyAsync(topic, "third", replyTo: first.ID);
+
+        this.Topics.GetById(topic.ID).NumPosts.Should().Be(3);
+
+        await this.Topics.DeleteAsync(this.forumId, topic.ID, false);
+
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(first.ID));
+
+        this.Topics.GetById(topic.ID).NumPosts.Should().Be(3);
+    }
+
+    [Test]
+    [Description("Restoring a post counts the posts of the author like deleting, without the posts of test forums")]
+    public async Task Restore_User_Post_Count_Without_Test_Forums_Test()
+    {
+        var normalForum = this.forumId;
+
+        this.forumId = this.db.AddForum("Testing", configure: f => f.Flags = new ForumFlags { IsTest = true }.BitValue);
+
+        await this.PostTopicAsync("Test", "doesn't count");
+
+        this.forumId = normalForum;
+
+        var (topic, _) = await this.PostTopicAsync("Topic", "first");
+        var reply = await this.ReplyAsync(topic, "second");
+
+        await this.DeleteAsync(topic, reply, erase: false);
+
+        this.Users.GetById(this.alice).NumPosts.Should().Be(1);
+
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(reply.ID));
+
+        this.Users.GetById(this.alice).NumPosts.Should().Be(2);
     }
 
     [Test]

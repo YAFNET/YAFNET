@@ -25,6 +25,7 @@
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -193,6 +194,13 @@ public class EditGroupModel : AdminPage
             this.Input.UsrAlbums,
             this.Input.UsrAlbumImages);
 
+        // the access masks of the forums are sent with the form (they were saved with requests of a script,
+        // which were often not done yet when the next page was loaded)
+        if (roleId.HasValue && !this.Input.IsGuestX)
+        {
+            await this.SaveAccessMasksAsync(roleId.Value);
+        }
+
         // see if need to rename an existing role...
         if (oldRoleName.IsSet() && roleName != oldRoleName &&
             await this.Get<IAspNetRolesHelper>().RoleNameExistsAsync(oldRoleName) &&
@@ -228,6 +236,41 @@ public class EditGroupModel : AdminPage
     /// Bind data for this control.
     /// </summary>
     /// <param name="i"></param>
+    /// <summary>
+    /// Saves the changed access masks of the forums.
+    /// </summary>
+    /// <param name="groupId">The group id.</param>
+    private async Task SaveAccessMasksAsync(int groupId)
+    {
+        // the list is posted as AccessMasks[i].ForumID / .AccessMaskID (a list of tuples can't be bound)
+        var form = this.Request.Form;
+
+        // only forums and access masks of the board, the ids are sent by the client
+        var boardForums = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
+            .Where(x => x.Item2 != null).Select(x => x.Item2.ID).ToHashSet();
+        var boardMasks = this.GetRepository<AccessMask>().GetByBoardId().Select(x => x.ID).ToHashSet();
+
+        var currentMasks = this.GetRepository<ForumAccess>().ListByGroups(groupId)
+            .DistinctBy(x => x.ForumID).ToDictionary(x => x.ForumID, x => x.AccessMaskID);
+
+        for (var index = 0; form.ContainsKey($"AccessMasks[{index}].ForumID"); index++)
+        {
+            if (!int.TryParse(form[$"AccessMasks[{index}].ForumID"].ToString(), out var forumId)
+                || !int.TryParse(form[$"AccessMasks[{index}].AccessMaskID"].ToString(), out var accessMaskId))
+            {
+                continue;
+            }
+
+            if (!boardForums.Contains(forumId) || !boardMasks.Contains(accessMaskId)
+                || !currentMasks.TryGetValue(forumId, out var currentMask) || currentMask == accessMaskId)
+            {
+                continue;
+            }
+
+            await this.GetRepository<ForumAccess>().SaveAsync(forumId, groupId, accessMaskId);
+        }
+    }
+
     private void BindData(int? i)
     {
         // set data source of access list (list of forums and role's access masks) if we are editing existing mask
@@ -241,5 +284,20 @@ public class EditGroupModel : AdminPage
             this.GetRepository<AccessMask>().GetByBoardId(),
             nameof(AccessMask.ID),
             nameof(AccessMask.Name));
+    }
+
+    /// <summary>
+    /// Only groups of the current board can be edited (all handlers, the id is sent by the client).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        var id = context.HandlerArguments.TryGetValue("i", out var argument) && argument is int argumentId ? argumentId : this.Input?.Id;
+
+        // a negative id is no new item either (it was not checked and the page failed)
+        if (id is not (null or 0) && !this.GetRepository<Group>().Exists(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
     }
 }

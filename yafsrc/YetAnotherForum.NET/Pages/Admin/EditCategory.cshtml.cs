@@ -118,8 +118,6 @@ public class EditCategoryModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSave()
     {
-        int? c = this.Input.Id == 0 ? null : this.Input.Id;
-
         string categoryImage = null;
 
         if (this.Input.CategoryImage.IsSet() && this.Input.CategoryImage != this.GetText("COMMON", "NONE"))
@@ -127,12 +125,15 @@ public class EditCategoryModel : AdminPage
            categoryImage = this.Input.CategoryImage[(this.Input.CategoryImage.LastIndexOf('/') + 1)..];
         }
 
-        var category = await this.GetRepository<Category>().GetSingleAsync(check => check.Name == this.Input.Name);
+        // the name must be unique in the board (also when an existing category is renamed)
+        var category = await this.GetRepository<Category>().GetSingleAsync(
+            check => check.BoardID == this.PageBoardContext.PageBoardID && check.Name == this.Input.Name
+                     && check.ID != this.PageBoardContext.PageCategoryID);
 
-        // Check Name duplicate only if new Category
-        if (category != null && this.PageBoardContext.PageCategoryID == 0)
+        if (category != null)
         {
-            this.BindData(c);
+            // the page is shown again with the entered values (and the list of the images)
+            this.CreateImagesList();
 
             return this.PageBoardContext.Notify(
                 this.GetText("ADMIN_EDITCATEGORY", "MSG_CATEGORY_EXISTS"),
@@ -208,5 +209,20 @@ public class EditCategoryModel : AdminPage
         }
 
         return this.Page();
+    }
+
+    /// <summary>
+    /// Only categories of the current board can be edited (all handlers, the id is sent by the client).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        var id = context.HandlerArguments.TryGetValue("c", out var argument) && argument is int argumentId ? argumentId : this.Input?.Id;
+
+        // a negative id is no new item either (it was not checked and the page failed)
+        if (id is not (null or 0) && !this.GetRepository<Category>().Exists(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
     }
 }

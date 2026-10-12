@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Přidat/upravit medaili"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Odebrat medaili této skupině?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "Je schváleno:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Uživatelský účet je schválen a uživatel se může přihlásit."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Zobrazovaný název:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Je hostem:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Toto je účet hosta, používá se pro všechny návštěvníky, kteří nejsou přihlášeni."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Vyberte službu SPAM pro automatickou kontrolu SPAMu:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "dní"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Smazat nepřečtené zprávy starší než:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Smazat zprávy starší než:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Restartujte aplikaci"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "Aplikace se nevrátila. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "Aplikace se restartuje. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Restartujte aplikaci"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Hodnost:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "Hodnost uživatele, postupové hodnosti se mění s počtem příspěvků."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Role:"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Vaše nová e-mailová adresa byla potvrzena."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Vaše e-mailová adresa byla ověřena."
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Vložit obrázek z alba"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Vložte existující přílohu nebo nahrajte nový soubor..."
@@ -8918,6 +8946,10 @@
             "#text": "Důvod smazání"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Smazat tuto zprávu"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Vymazat zprávu z databáze (nevratné)"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Obnovit důvod"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Obnovte tuto zprávu"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Zruš personifikaci"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Aktuální avatar"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Vlož URL personifikace na vzdáleném servru:"
           },
@@ -9150,12 +9190,24 @@
             "#text": "Změnit e-mailovou adresu"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Potvrzovací odkaz byl odeslán na adresu {0}. Vaše e-mailová adresa bude změněna po otevření odkazu."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Potvrďte svou novou e-mailovou adresu pro fórum {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Město:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Země:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Aktuální heslo"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} je povinné"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} musí být číslo"
+          },
+          {
             "@tag": "OTHER",
             "#text": "jiný"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Město"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Zadané heslo není správné."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Poslat na (e-mailová adresa):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Odeslali jste příliš mnoho e-mailů, zkuste to prosím znovu později."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Všechno"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Zobrazit uživatele začínající na {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "od {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Témata lze přesunout pouze do fóra, vyberte prosím fórum, nikoli kategorii."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "E-mailem:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "E-mailová adresa uživatele."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Členství přerušeno do:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "Registrován:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "Datum registrace uživatele."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Posledních 10 zpráv"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Poslední návštěva:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "Datum poslední návštěvy uživatele."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "Váš účet ještě nebyl schválen administrátorem. "
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Váš účet ještě není schválen, protože jste neověřili svůj e-mail. "
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Enter your User Name to retrieve your password:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Na vaši e-mailovou adresu byl odeslán e-mail s odkazem Resetovat!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Pokud účet s tímto uživatelským jménem nebo e-mailovou adresou existuje, byl na jeho e-mailovou adresu odeslán e-mail."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Slabé heslo, zkuste použít čísla a velká písmena."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Nové heslo pro fórum {0}"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Světlo"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

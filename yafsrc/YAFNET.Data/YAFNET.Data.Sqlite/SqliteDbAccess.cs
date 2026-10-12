@@ -24,6 +24,8 @@
 
 namespace YAF.Data.Sqlite;
 
+using System.Threading.Tasks;
+
 /// <summary>
 /// The Sqlite Database access.
 /// </summary>
@@ -43,5 +45,75 @@ public class SqliteDbAccess : DbAccessBase
     public SqliteDbAccess(Func<string, DbProviderFactory> dbProviderFactory)
         : base(dbProviderFactory, new SqliteDbInformation())
     {
+    }
+
+    /// <summary>
+    /// The pauses before an operation is tried again after "database is locked" (SQLITE_BUSY).
+    /// </summary>
+    private static readonly int[] BusyRetryDelays = [100, 300, 600];
+
+    /// <summary>
+    /// Executes the command, an operation that fails with "database is locked" is tried again
+    /// (parallel requests, e.g. the tabs of a page loaded at the same time, can still get SQLITE_BUSY
+    /// although the connection waits for the busy timeout). SQLite rejects a statement as a whole,
+    /// the operations of the repositories are single statements.
+    /// </summary>
+    /// <param name="execFunc">The execute function.</param>
+    /// <param name="cmd">The command.</param>
+    /// <param name="dbTransaction">The database transaction.</param>
+    /// <typeparam name="T">The result type.</typeparam>
+    /// <returns>The result.</returns>
+    public override T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, IDbTransaction dbTransaction = null)
+    {
+        // inside a transaction the whole transaction would have to be repeated
+        if (dbTransaction != null)
+        {
+            return base.Execute(execFunc, cmd, dbTransaction);
+        }
+
+        for (var attempt = 0; ; attempt++)
+        {
+            try
+            {
+                return base.Execute(execFunc, cmd, dbTransaction);
+            }
+            catch (SQLiteException ex) when (IsBusy(ex) && attempt < BusyRetryDelays.Length)
+            {
+                System.Threading.Thread.Sleep(BusyRetryDelays[attempt]);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Executes the function with an open connection, an operation that fails with "database is locked"
+    /// is tried again (see <see cref="Execute{T}"/>).
+    /// </summary>
+    /// <param name="execFunc">The execute function.</param>
+    /// <typeparam name="T">The result type.</typeparam>
+    /// <returns>The result.</returns>
+    public async override Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> execFunc)
+    {
+        for (var attempt = 0; ; attempt++)
+        {
+            try
+            {
+                return await base.ExecuteAsync(execFunc);
+            }
+            catch (SQLiteException ex) when (IsBusy(ex) && attempt < BusyRetryDelays.Length)
+            {
+                await Task.Delay(BusyRetryDelays[attempt]);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Checks if the database was locked by another connection.
+    /// </summary>
+    /// <param name="ex">The exception.</param>
+    /// <returns>Returns if the operation can be tried again.</returns>
+    private static bool IsBusy(SQLiteException ex)
+    {
+        return ex.ResultCode is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked
+               || (ex.ResultCode & (SQLiteErrorCode)0xFF) is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked;
     }
 }

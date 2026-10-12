@@ -65,8 +65,9 @@ public class NotifyController : ForumBaseController
     public Task<ActionResult<GridDataSet>> GetNotifications([FromBody] PagedResults pagedResults)
     {
         var userId = this.PageBoardContext.PageUserID;
-        var pageSize = pagedResults.PageSize;
-        var pageNumber = pagedResults.PageNumber;
+        // the values come from the client
+        var pageSize = System.Math.Clamp(pagedResults.PageSize, 1, 100);
+        var pageNumber = System.Math.Max(pagedResults.PageNumber, 0);
 
         var activities = this.GetRepository<Activity>().GetPaged(
             a => a.UserID == userId && a.FromUserID.HasValue && a.Notification,
@@ -74,6 +75,10 @@ public class NotifyController : ForumBaseController
             pageSize);
 
         var attachmentItems = new List<AttachmentItem>();
+
+        // the topic name is shown: only topics the user can (still) read
+        var readableForums = this.GetRepository<VAccess>().Get(v => v.UserID == userId && v.ReadAccess > 0)
+            .Select(v => v.ForumID).ToHashSet();
 
         activities.ForEach(
             activity =>
@@ -87,16 +92,27 @@ public class NotifyController : ForumBaseController
                     var message = string.Empty;
                     var icon = string.Empty;
 
-                    var topic = this.GetRepository<Topic>().GetById(activity.TopicID.Value);
+                    var topic = activity.TopicID.HasValue
+                                    ? this.GetRepository<Topic>().GetById(activity.TopicID.Value)
+                                    : null;
+
+                    if (topic is null || !activity.MessageID.HasValue || topic.TopicFlags.IsDeleted
+                        || !readableForums.Contains(topic.ForumID))
+                    {
+                        // the topic was deleted or moved to a forum the user can't read in the meantime
+                        return;
+                    }
 
                     var topicLink = new TagBuilder(HtmlTag.A);
 
                     topicLink.MergeAttribute(HtmlAttribute.Href, this.Get<ILinkBuilder>().GetLink(
                     ForumPages.Post,
                         new { m = activity.MessageID.Value, name = topic.TopicName }));
-                    topicLink.InnerHtml.Append($"<i class=\"fas fa-comment me-1\"></i>{topic.TopicName}");
+                    topicLink.InnerHtml.AppendHtml("<i class=\"fas fa-comment me-1\"></i>");
+                    topicLink.InnerHtml.AppendHtml(this.HtmlEncode(topic.TopicName));
 
-                    var name = this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value);
+                    // the messages are html, user names are user input
+                    var name = this.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value));
 
                     if (activity.ActivityFlags.ReceivedThanks)
                     {

@@ -68,12 +68,23 @@ public class LogoutModel : AccountPage
     }
 
     /// <summary>
-    /// The on post async.
+    /// A GET does not log out (any other site could log the user out with a link or an image).
+    /// </summary>
+    /// <returns>
+    /// The <see cref="IActionResult"/>.
+    /// </returns>
+    public IActionResult OnGet()
+    {
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+    }
+
+    /// <summary>
+    /// Logs out the user (the form of the logout dialog, with the antiforgery token).
     /// </summary>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IActionResult> OnGetAsync()
+    public async Task<IActionResult> OnPostAsync()
     {
         await this.signInManager.SignOutAsync();
 

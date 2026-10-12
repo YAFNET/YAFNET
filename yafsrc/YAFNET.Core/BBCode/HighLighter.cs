@@ -28,12 +28,13 @@ using StackTraceBeautify;
 
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 
 /// <summary>
 /// The high lighter.
 /// </summary>
-public class HighLighter
+public partial class HighLighter
 {
     /// <summary>
     ///   Initializes a new instance of the <see cref = "HighLighter" /> class.
@@ -64,25 +65,29 @@ public class HighLighter
     {
         language = language.ToLower();
 
+        var highlight = string.Empty;
+
+        // extract highlight (e.g. "cs;2-3"), before the language names are mapped
+        if (language.Contains(';'))
+        {
+            highlight = language[(language.IndexOf(';') + 1)..];
+            language = language[..language.IndexOf(';')];
+        }
+
+        // only characters of language names and line numbers, they are used in html attributes
+        language = LanguageCleaner().Replace(language, string.Empty);
+        highlight = HighlightCleaner().Replace(highlight, string.Empty);
+
         language = language switch
             {
                 "cs" => "csharp",
                 "xml" => "markup",
                 "plain" => "markup",
                 "" => "markup",
-                _ => language.Replace("\"", string.Empty)
+                _ => language
             };
 
         var tmpOutput = new StringBuilder();
-
-        var highlight = string.Empty;
-
-        // extract highlight
-        if (language.Contains(';'))
-        {
-            highlight = language[(language.IndexOf(';') + 1)..];
-            language = language[..language.IndexOf(';')];
-        }
 
         if (language == "stacktrace")
         {
@@ -113,4 +118,10 @@ public class HighLighter
 
         return tmpOutput.ToString();
     }
+
+    [GeneratedRegex("[^a-z0-9#+-]")]
+    private static partial Regex LanguageCleaner();
+
+    [GeneratedRegex("[^0-9,-]")]
+    private static partial Regex HighlightCleaner();
 }

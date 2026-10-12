@@ -158,10 +158,8 @@ public class PostDataHelperWrapper
                 return false;
             }
 
-            var edited = this.DataRow.Edited;
-
-            // check if post is locked according to this rule
-            return edited.AddDays(BoardContext.Current.BoardSettings.LockPosts) < DateTime.UtcNow;
+            // the lock period starts when the post was written, editing does not extend it
+            return this.DataRow.Posted.AddDays(BoardContext.Current.BoardSettings.LockPosts) < DateTime.UtcNow;
         }
     }
 
@@ -196,7 +194,9 @@ public class PostDataHelperWrapper
     /// <summary>
     /// Gets a value indicating whether CanUnDeletePost.
     /// </summary>
-    public bool CanUnDeletePost => this.PostDeleted && this.CanDeletePost;
+    public bool CanUnDeletePost =>
+        this.PostDeleted && this.CanDeletePost
+                         && (!this.DataRow.IsModeratorChanged || BoardContext.Current.ForumModeratorAccess);
 
     /// <summary>
     /// Gets a value indicating whether CanReply.

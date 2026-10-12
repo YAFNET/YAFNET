@@ -72,11 +72,30 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
     public virtual void ExecuteTask()
     {
         Task.Run(async () => {
-            while (true)
-            {
-                await this.RunOnceAsync();
+            // both values are milliseconds: wait before the first run, then between the runs
+            await Task.Delay(TimeSpan.FromMilliseconds(Math.Max(0, this.StartDelayMs)));
 
-                await Task.Delay(TimeSpan.FromSeconds(this.StartDelayMs));
+            // a disposed task is no longer running and stops
+            while (this.IsRunning)
+            {
+                try
+                {
+                    await this.RunOnceAsync();
+                }
+                catch (Exception ex)
+                {
+                    // a failed run must not stop the task for good
+                    this.Logger?.Error(ex, $"Error In {this.TaskName} Task");
+                }
+
+                // no period (e.g. Timeout.Infinite) means the task runs only once
+                if (this.RunPeriodMs <= 0)
+                {
+                    this.IsRunning = false;
+                    return;
+                }
+
+                await Task.Delay(TimeSpan.FromMilliseconds(this.RunPeriodMs));
             }
         });
     }

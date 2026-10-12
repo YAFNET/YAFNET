@@ -118,3 +118,4 @@ yafsrc/YAFNET.UI/YAFNET.RazorPages/yarn.lock
 yafsrc/Tools/GitHubReleaser/YAFNET.json
 yafsrc/YAFNET.UI/YAFNET.UI.Chat/yarn.lock
 /yafsrc/Tests/.vs
+yafsrc/YetAnotherForum.NET/appsettings.Development.json

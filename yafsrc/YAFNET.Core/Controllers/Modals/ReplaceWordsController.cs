@@ -49,7 +49,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_ReplaceWords)]
 public class ReplaceWordsController : ForumBaseController
 {
     /// <summary>
@@ -134,12 +134,13 @@ public class ReplaceWordsController : ForumBaseController
             model.Id = null;
         }
 
-        if (!ValidationHelper.IsValidRegex(model.BadWord.Trim()))
+        if (!ValidationHelper.IsValidRegex(model.BadWord?.Trim()))
         {
             return this.Ok(
                 new MessageModalNotification(
                  this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
-                MessageTypes.warning));        }
+                MessageTypes.warning));
+        }
 
         await this.GetRepository<ReplaceWords>()
             .SaveAsync(

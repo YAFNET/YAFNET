@@ -38,6 +38,8 @@
                         
                         @if (Model.GroupId > 0)
                         {
+                            @* a disabled field is not sent with the form *@
+                            <input type="hidden" name="GroupId" value="@Model.GroupId" />
                             <select asp-for="GroupId" class="select2-select" disabled="disabled" asp-items="groups"></select>
                         }
                         else

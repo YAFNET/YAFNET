@@ -134,7 +134,8 @@
 
 									@foreach (var t in reportString)
 									{
-										var textString = t.Split("??".ToCharArray());
+										// date??text, the text is user input (encoded below)
+										var textString = t.Split("??", 2);
 
 										<p class="card-text">
 											@@
@@ -144,13 +145,13 @@
 										</p>
 
 										<p class="card-text">
-											@if (textString.Length > 2)
+											@if (textString.Length > 1)
 											{
-												@Html.Raw(textString[2])
+												@textString[1]
 											}
 											else
 											{
-												@Html.Raw(t)
+												@t
 											}
 										</p>
 									}

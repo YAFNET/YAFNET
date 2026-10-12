@@ -108,7 +108,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
 
         var blackListUri = new Uri(v2Endpoint, $"blacklist?confidenceMinimum={confidenceMinimum}&limit={limit}");
 
-        var httpClient = new HttpClient(new HttpClientHandler());
+        var httpClient = this.Get<IHttpClientFactory>().CreateClient();
 
         httpClient.DefaultRequestHeaders.Add("Key", apiKey);
         httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
@@ -138,7 +138,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
 
         var checkUri = new Uri(v2Endpoint, $"check?ipAddress={HttpUtility.UrlEncode(ipAddress)}&maxAgeInDays={maxAgeInDays}");
 
-        var httpClient = new HttpClient(new HttpClientHandler());
+        var httpClient = this.Get<IHttpClientFactory>().CreateClient();
 
         httpClient.DefaultRequestHeaders.Add("Key", apiKey);
         httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
@@ -173,9 +173,9 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
             var url = $"{this.Get<BoardSettings>().IPLocatorUrlPath}&format=json";
             var path = string.Format(url, IPHelper.GetIpAddressAsString(ip));
 
-            var client = new HttpClient(new HttpClientHandler());
+            var client = this.Get<IHttpClientFactory>().CreateClient();
 
-           return await client.GetFromJsonAsync<IpLocator>(path);
+            return await client.GetFromJsonAsync<IpLocator>(path);
         }
         catch (Exception)
         {

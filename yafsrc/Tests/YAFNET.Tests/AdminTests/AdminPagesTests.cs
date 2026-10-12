@@ -105,4 +105,80 @@ public class AdminPagesTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 pageSource.Should().Contain("ALBUMIMG");
             });
     }
+
+    /// <summary>
+    /// The language editor only opens files of the languages folder (the file name comes from the address).
+    /// </summary>
+    [Test]
+    public async Task EditLanguageOnlyLanguageFilesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditLanguage/english.json");
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Language Translator"), "The language file can not be edited");
+
+                // a file name from the form is used before the one of the address
+                await page.EvaluateAsync(
+                    """
+                    () => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'x';
+                        input.value = '../../appsettings.json';
+                        document.querySelector('button[formaction*="Save"]').form.appendChild(input);
+                    }
+                    """);
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                Assert.That(
+                    await page.ContentAsync(),
+                    Does.Contain("You've passed an invalid value to the forum."),
+                    "A file outside the languages folder was saved");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditLanguage/missing.json");
+
+                Assert.That(
+                    await page.ContentAsync(),
+                    Does.Contain("You've passed an invalid value to the forum."),
+                    "A missing language file was opened");
+            });
+    }
+
+    /// <summary>
+    /// The page numbers of the lists on the admin start page come from the url, 0 or a page after the
+    /// last one (e.g. a bookmark when fewer users are online) failed with an error.
+    /// </summary>
+    [Test]
+    public Task AdminStartPageWithInvalidPageNumbersTest()
+    {
+        return this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                foreach (var pages in new[] { "0/0", "2/2", "2147483647/2147483647" })
+                {
+                    var response = await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Admin/{pages}");
+
+                    Assert.That(response?.Status, Is.EqualTo(200), $"The admin start page failed for the pages {pages}");
+                }
+            });
+    }
 }

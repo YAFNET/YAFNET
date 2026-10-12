@@ -126,10 +126,18 @@ public class CheckBannedUserAgents : IHaveServiceLocator
     /// <param name="userAgent">The user agent.</param>
     /// <param name="pattern">The pattern.</param>
     /// <returns>bool.</returns>
-    private static bool MachUserAgent(string userAgent, string pattern)
+    private bool MachUserAgent(string userAgent, string pattern)
     {
-        var check = Regex.Match(userAgent, pattern, RegexOptions.IgnoreCase, Constants.RegexTimeout);
+        try
+        {
+            return Regex.Match(userAgent, pattern, RegexOptions.IgnoreCase, Constants.RegexTimeout).Success;
+        }
+        catch (Exception ex) when (ex is ArgumentException or RegexMatchTimeoutException)
+        {
+            // an invalid or too slow pattern must not break every request
+            this.Get<ILogger<CheckBannedUserAgents>>().Error(ex, $"Invalid banned user agent pattern: {pattern}");
 
-        return check.Success;
+            return false;
+        }
     }
 }

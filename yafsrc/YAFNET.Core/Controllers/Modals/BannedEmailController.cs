@@ -48,7 +48,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_BannedEmails)]
 public class BannedEmailController : ForumBaseController
 {
     /// <summary>
@@ -105,6 +105,15 @@ public class BannedEmailController : ForumBaseController
         if (model.Id is 0)
         {
             model.Id = null;
+        }
+
+        // the masks are regular expressions
+        if (!ValidationHelper.IsValidRegex(model.Mask?.Trim()))
+        {
+            return this.Ok(
+                new MessageModalNotification(
+                    this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
+                    MessageTypes.warning));
         }
 
         if (!this.GetRepository<BannedEmail>().Save(

@@ -89,20 +89,18 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
             return false;
         }
 
-        if (!BoardContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
-        {
-            BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+        // the task is not started while another delete is running (or not yet cleaned up)
+        if (!BoardContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames)
+            && BoardContext.Current.Get<ITaskModuleManager>().StartTask(
                 nameof(ForumDeleteTask),
-                () => new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 });
-        }
-        else
+                () => new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 }))
         {
-            failureMessage =
-                $"You can't delete forum while blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
-            return false;
+            return true;
         }
 
-        return true;
+        failureMessage =
+            $"You can't delete forum while blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
+        return false;
     }
 
     /// <summary>
@@ -131,11 +129,18 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
             return false;
         }
 
-        BoardContext.Current.Get<ITaskModuleManager>().StartTask(
-            nameof(ForumDeleteTask),
-            () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
+        // the task is not started while another delete is running (or not yet cleaned up)
+        if (!BoardContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames)
+            && BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+                nameof(ForumDeleteTask),
+                () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId }))
+        {
+            return true;
+        }
 
-        return true;
+        failureMessage =
+            $"You can't delete forum while blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
+        return false;
     }
 
     /// <summary>

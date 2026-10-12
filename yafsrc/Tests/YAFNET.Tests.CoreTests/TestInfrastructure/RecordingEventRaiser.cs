@@ -42,6 +42,11 @@ public class RecordingEventRaiser : IRaiseEvent, IRaiseEventAsync
     public IReadOnlyList<object> Events => this.events;
 
     /// <summary>
+    /// Gets or sets an action that runs for every raised event (e.g. to change data while the code under test runs).
+    /// </summary>
+    public Action<object> OnRaise { get; set; }
+
+    /// <summary>
     /// Gets the raised events of the given type.
     /// </summary>
     public IEnumerable<T> OfType<T>()
@@ -53,18 +58,21 @@ public class RecordingEventRaiser : IRaiseEvent, IRaiseEventAsync
         where T : IAmEvent
     {
         this.events.Add(eventObject);
+        this.OnRaise?.Invoke(eventObject);
     }
 
     public void RaiseIsolated<T>(T eventObject, Action<string, Exception> logExceptionAction)
         where T : IAmEvent
     {
         this.events.Add(eventObject);
+        this.OnRaise?.Invoke(eventObject);
     }
 
     public Task RaiseAsync<T>(T eventObject)
         where T : IAmEventAsync
     {
         this.events.Add(eventObject);
+        this.OnRaise?.Invoke(eventObject);
         return Task.CompletedTask;
     }
 
@@ -72,6 +80,7 @@ public class RecordingEventRaiser : IRaiseEvent, IRaiseEventAsync
         where T : IAmEventAsync
     {
         this.events.Add(eventObject);
+        this.OnRaise?.Invoke(eventObject);
         return Task.CompletedTask;
     }
 }

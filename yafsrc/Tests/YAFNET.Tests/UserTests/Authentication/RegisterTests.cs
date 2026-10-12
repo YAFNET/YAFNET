@@ -53,65 +53,41 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
-    /// Register Random Test User Test
+    /// The user name is saved trimmed (like it is checked and like the login uses it), the password
+    /// as typed (like the login uses it).
     /// </summary>
     [Category("Authentication")]
     [Test]
-    [Ignore("TODO")]
-    public async Task RegisterBotUserTest()
+    public async Task RegisterWithSpacesTest()
     {
-        const string username = "aqiuliqemi";
-        const string email = "ikocec@coveryourpills.org";
-
         await this.Fixture.Context.GotoPageAsync(
             this.TestSettings.TestForumUrl,
             async page =>
                 {
-                    // TODO : Setup spam protection first
+                    var userName = $"TempUser{Random.Shared.Next()}";
+                    var email = $"{userName.ToLower()}@test.com";
+                    var password = $" {this.TestSettings.TestUserPassword} ";
 
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Register");
+                    (await page.SubmitRegistrationAsync(this.TestSettings, $"{userName} ", email, password))
+                        .Should().BeTrue("Registrations are disabled");
 
-                    var pageSource = await page.ContentAsync();
+                    var confirmUrl = await this.Fixture.SmtpServer.WaitForEmailLinkAsync(email);
+
+                    confirmUrl.Should().NotBeNull("the account was not created");
+
+                    await page.GotoAsync(confirmUrl);
+
+                    await page.GotoAsync(this.TestSettings.TestForumUrl);
 
                     if (await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync())
                     {
-                        // Logout First
                         await page.LogOutUserAsync();
-
-                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Register");
                     }
 
-                    // Check if Registrations are Disabled
-                    Assert.That(
-                        pageSource.Contains("You tried to enter an area where you didn't have access"), Is.False,
-                        "Registrations are disabled");
+                    (await page.LoginUserAsync(this.TestSettings, userName, password))
+                        .Should().BeTrue("the login with the password as typed failed");
 
-                    // Accept the Rules
-                    if (pageSource.Contains("Forum Rules"))
-                    {
-                        await page.ReloadAsync();
-                    }
-
-                    // Fill the Register Page
-                    await page.Locator("//input[contains(@id, '_UserName')]").FillAsync(username);
-
-                    if (pageSource.Contains("Display Name") || pageSource.Contains("Anzeigename"))
-                    {
-                        await page.Locator("//input[contains(@id, '_DisplayName')]").FillAsync(username);
-                    }
-
-                    await page.Locator("//input[contains(@id, '_Password')]").FillAsync(this.TestSettings.TestUserPassword);
-                    await page.Locator("//input[contains(@id, '_ConfirmPassword')]").FillAsync(this.TestSettings.TestUserPassword);
-                    await page.Locator("//input[contains(@id, '_Email')]").FillAsync(email);
-
-                    // Create User
-                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
-
-                    pageSource = await page.ContentAsync();
-
-                    Assert.That(
-                        pageSource, Does.Contain("Sorry Spammers are not allowed in the Forum!"),
-                        "Spam Check Failed");
+                    (await page.LogOutUserAsync()).Should().BeTrue("Logout failed");
                 });
     }
 }

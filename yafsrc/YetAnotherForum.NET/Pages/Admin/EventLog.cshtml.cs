@@ -112,15 +112,16 @@ public class EventLogModel : AdminPage
                                           $"""<span class="badge {textBgColor} m-1"><i class="fa-solid fa-code me-1"></i>{this.HtmlEncode((string)json.ExceptionSource)}</span>"""
                                           : "";
 
+                // the url of the request (path, query string) can contain any text
                 var url = ((string)json.Url).IsSet()
-                              ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{HtmlTagHelper.StripHtml((string)json.Url)}</span>"""
+                              ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{this.HtmlEncode((string)json.Url)}</span>"""
                               : "";
 
                 var userIp = ((string)json.UserIP).IsSet()
                                  ? $"""<span class="badge text-bg-info m-1"><i class="fa-solid fa-desktop me-1"></i><a href="{addressLink}" target="_blank">{this.HtmlEncode((string)json.UserIP)}</a></span>"""
                                  : "";
 
-                var userAgent = ((string)json.Url).IsSet()
+                var userAgent = ((string)json.UserAgent).IsSet()
                                     ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-computer me-1"></i>{this.HtmlEncode((string)json.UserAgent)}</span>"""
                                     : "";
 
@@ -143,10 +144,10 @@ public class EventLogModel : AdminPage
     /// <summary>
     /// Delete Selected Event Log Entry
     /// </summary>
-    public void OnPostDeleteAll()
+    public async Task OnPostDeleteAllAsync()
     {
-        this.GetRepository<EventLog>()
-            .DeleteAll();
+        // only the entries of this board (like they are listed)
+        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(this.PageBoardContext.PageBoardID);
 
         // re-bind controls
         this.BindData();
@@ -310,8 +311,8 @@ public class EventLogModel : AdminPage
     /// <param name="id">The identifier.</param>
     public async Task OnPostDeleteAsync(int id)
     {
-        // delete just this particular log entry
-        await this.GetRepository<EventLog>().DeleteByIdAsync(id);
+        // delete just this particular log entry (of this board, the id is sent by the client)
+        await this.GetRepository<EventLog>().DeleteBoardEntriesAsync(this.PageBoardContext.PageBoardID, id);
 
         // re-bind controls
         this.BindData();
@@ -357,7 +358,10 @@ public class EventLogModel : AdminPage
             }
             else
             {
-                DateTime.TryParse(this.Input.SinceDate, ci, DateTimeStyles.None, out sinceDate);
+                if (DateTime.TryParse(this.Input.SinceDate, ci, DateTimeStyles.None, out var parsedSinceDate))
+                {
+                    sinceDate = parsedSinceDate;
+                }
             }
         }
 
@@ -371,7 +375,10 @@ public class EventLogModel : AdminPage
             }
             else
             {
-                DateTime.TryParse(this.Input.ToDate, ci, DateTimeStyles.None, out toDate);
+                if (DateTime.TryParse(this.Input.ToDate, ci, DateTimeStyles.None, out var parsedToDate))
+                {
+                    toDate = parsedToDate;
+                }
             }
         }
 

@@ -44,6 +44,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
                                   IHandleEvent<RepositoryEvent<BannedCountry>>,
                                   IHandleEvent<RepositoryEvent<ReplaceWords>>,
                                   IHandleEvent<RepositoryEvent<SpamWords>>,
+                                  IHandleEvent<RepositoryEvent<ProfileDefinition>>,
                                   IHandleEvent<RepositoryEvent<AccessMask>>,
                                   IHandleEvent<RepositoryEvent<BBCode>>,
                                   IHandleEvent<RepositoryEvent<Group>>,
@@ -53,7 +54,8 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
                                   IHandleEvent<RepositoryEvent<Forum>>,
                                   IHandleEvent<RepositoryEvent<Message>>,
                                   IHandleEvent<RepositoryEvent<Topic>>,
-                                  IHandleEvent<RepositoryEvent<UserGroup>>
+                                  IHandleEvent<RepositoryEvent<UserGroup>>,
+                                  IHandleEvent<RepositoryEvent<ForumAccess>>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ClearCacheOnEvents"/> class.
@@ -206,6 +208,18 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     }
 
     /// <summary>
+    /// The custom profile data of the users contains the field definitions (name, shown in the user info).
+    /// </summary>
+    /// <param name="event">
+    ///     The event.
+    /// </param>
+    public void Handle(RepositoryEvent<ProfileDefinition> @event)
+    {
+        this.DataCache.Remove(
+            k => k.StartsWith(string.Format(Constants.Cache.UserCustomProfileData, string.Empty)));
+    }
+
+    /// <summary>
     /// The handle.
     /// </summary>
     /// <param name="event">
@@ -240,6 +254,9 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         // remove caching in case something got updated...
         this.ClearModeratorsCache();
 
+        // the group flags (admin, moderator, ...) are part of the access rights
+        this.ClearAccess();
+
         // Clearing cache with old permissions data...
         this.DataCache.Remove(
             k => k.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
@@ -268,7 +285,8 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     {
         this.ClearModeratorsCache();
 
-        this.DataCache.Remove(Constants.Cache.BoardModerators);
+        // the access mask of a user in a forum changed
+        this.ClearAccess();
     }
 
     /// <summary>
@@ -341,12 +359,19 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// </param>
     public void Handle(RepositoryEvent<UserGroup> @event)
     {
-        if (!@event.RepositoryEventType.IsIn(RepositoryEventType.New))
-        {
-            return;
-        }
-
+        // joining and leaving a group changes the access rights, leaving must revoke them at once
         this.ClearAccess();
+    }
+
+    /// <summary>
+    /// Handles the specified event.
+    /// </summary>
+    /// <param name="event">The event.</param>
+    public void Handle(RepositoryEvent<ForumAccess> @event)
+    {
+        // the access mask of a group in a forum changed (also who moderates the forum)
+        this.ClearAccess();
+        this.ClearModeratorsCache();
     }
 
     /// <summary>

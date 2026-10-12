@@ -78,7 +78,7 @@ public class InfoModel : ForumPage
                     if (this.PageBoardContext.SuspendedReason.IsSet())
                     {
                         this.InfoLabel =
-                            $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTimeService>().GetUserDateTime(this.PageBoardContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.PageBoardContext.SuspendedReason)}";
+                            $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTimeService>().GetUserDateTime(this.PageBoardContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.HtmlEncode(this.PageBoardContext.SuspendedReason))}";
                     }
                     else
                     {
@@ -124,12 +124,13 @@ public class InfoModel : ForumPage
 
             // exception message
             this.InfoLabel =
-                $"{this.GetText("exception")} <strong>{this.PageBoardContext.PageUser.DisplayOrUserName()}</strong>.";
+                $"{this.GetText("exception")} <strong>{this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName())}</strong>.";
         }
 
+        // the message is part of the url (anybody can send such a link), it is shown as text
         if (message.IsSet())
         {
-            this.InfoLabel = message;
+            this.InfoLabel = this.HtmlEncode(message);
         }
 
         return this.Page();

@@ -39,6 +39,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
                          IUserPhoneNumberStore<AspNetUsers>,
                          IUserTwoFactorStore<AspNetUsers>,
                          IUserPasswordStore<AspNetUsers>,
+                         IUserSecurityStampStore<AspNetUsers>,
                          IUserRoleStore<AspNetUsers>,
                          IQueryableUserStore<AspNetUsers>,
                          IHaveServiceLocator
@@ -140,10 +141,9 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// </returns>
     public virtual Task RemoveLoginAsync(AspNetUsers user, UserLoginInfo login)
     {
-        return Task.FromResult(
-            this.GetRepository<AspNetUserLogins>().DeleteAsync(
-                l => l.UserId == user.Id && l.ProviderKey == login.ProviderKey
-                                         && l.LoginProvider == login.LoginProvider));
+        return this.GetRepository<AspNetUserLogins>().DeleteAsync(
+            l => l.UserId == user.Id && l.ProviderKey == login.ProviderKey
+                                     && l.LoginProvider == login.LoginProvider);
     }
 
     /// <summary>
@@ -271,14 +271,14 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task AddClaimAsync(AspNetUsers user, Claim claim)
+    public async virtual Task AddClaimAsync(AspNetUsers user, Claim claim)
     {
         var userClaim =
-            new AspNetUserClaims { UserId = user.Id, ClaimType = claim.ValueType, ClaimValue = claim.Value };
+            new AspNetUserClaims { UserId = user.Id, ClaimType = claim.Type, ClaimValue = claim.Value };
 
-        this.UpdateUserAsync(user);
+        await this.UpdateUserAsync(user);
 
-        return this.GetRepository<AspNetUserClaims>().InsertAsync(userClaim, false);
+        await this.GetRepository<AspNetUserClaims>().InsertAsync(userClaim, false);
     }
 
     /// <summary>
@@ -310,14 +310,12 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task RemoveClaimAsync(AspNetUsers user, Claim claim)
+    public async virtual Task RemoveClaimAsync(AspNetUsers user, Claim claim)
     {
-        var result = this.GetRepository<AspNetUserClaims>().DeleteAsync(
+        await this.GetRepository<AspNetUserClaims>().DeleteAsync(
             c => c.UserId == user.Id && c.ClaimValue == claim.Value && c.ClaimType == claim.Type);
 
-        this.UpdateUserAsync(user);
-
-        return Task.FromResult(result);
+        await this.UpdateUserAsync(user);
     }
 
     /// <summary>
@@ -503,9 +501,8 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     public Task SetPasswordHashAsync(AspNetUsers user, string passwordHash, CancellationToken cancellationToken)
     {
         user.PasswordHash = passwordHash;
-        this.UpdateUserAsync(user, cancellationToken);
 
-        return Task.FromResult(0);
+        return this.UpdateUserAsync(user, cancellationToken);
     }
 
     /// <summary>
@@ -538,6 +535,50 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     {
         user.SecurityStamp = stamp;
         return this.UpdateUserAsync(user);
+    }
+
+    /// <summary>
+    /// Gets the security stamp of the user, users without a stamp (older or migrated accounts) get one.
+    /// The stamp is checked against the login cookie, a changed stamp (password, e-mail, 2FA) ends the other logins.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>The security stamp.</returns>
+    public async Task<string> GetSecurityStampAsync(AspNetUsers user, CancellationToken cancellationToken)
+    {
+        if (!user.SecurityStamp.IsNotSet())
+        {
+            return user.SecurityStamp;
+        }
+
+        user.SecurityStamp = NewSecurityStamp();
+
+        await this.UpdateUserAsync(user, cancellationToken);
+
+        return user.SecurityStamp;
+    }
+
+    /// <summary>
+    /// Sets the security stamp of the user (saved by the user manager).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="stamp">The stamp.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>Task.</returns>
+    public Task SetSecurityStampAsync(AspNetUsers user, string stamp, CancellationToken cancellationToken)
+    {
+        user.SecurityStamp = stamp;
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Creates a new random security stamp.
+    /// </summary>
+    /// <returns>The security stamp.</returns>
+    public static string NewSecurityStamp()
+    {
+        return Convert.ToHexString(System.Security.Cryptography.RandomNumberGenerator.GetBytes(20));
     }
 
     /// <summary>

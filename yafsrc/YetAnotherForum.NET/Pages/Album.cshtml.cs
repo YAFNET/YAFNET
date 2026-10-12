@@ -86,11 +86,16 @@ public class AlbumModel : ForumPage
     /// <param name="a">
     /// The a.
     /// </param>
-    public void OnPostRemoveCover(int u, int a)
+    public IActionResult OnPostRemoveCover(int u, int a)
     {
+        if (!this.IsOwnAlbum(a))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         this.GetRepository<UserAlbum>().UpdateCover(a, null);
 
-        this.BindData(u, a);
+        return this.BindData(u, a);
     }
 
     /// <summary>
@@ -105,11 +110,28 @@ public class AlbumModel : ForumPage
     /// <param name="a">
     /// The a.
     /// </param>
-    public void OnPostSetCover(int id, int u, int a)
+    public IActionResult OnPostSetCover(int id, int u, int a)
     {
+        // only an image of the album can be the cover
+        if (!this.IsOwnAlbum(a) || !this.GetRepository<UserAlbumImage>().Exists(i => i.ID == id && i.AlbumID == a))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         this.GetRepository<UserAlbum>().UpdateCover(a, id);
 
-        this.BindData(u, a);
+        return this.BindData(u, a);
+    }
+
+    /// <summary>
+    /// Checks if the album belongs to the current user (the cover can only be changed by the owner).
+    /// </summary>
+    /// <param name="albumId">The album identifier.</param>
+    /// <returns>Returns if the album belongs to the current user.</returns>
+    private bool IsOwnAlbum(int albumId)
+    {
+        return this.PageBoardContext.BoardSettings.EnableAlbum && !this.PageBoardContext.IsGuest
+               && this.GetRepository<UserAlbum>().Exists(x => x.ID == albumId && x.UserID == this.PageBoardContext.PageUserID);
     }
 
     /// <summary>
@@ -144,7 +166,7 @@ public class AlbumModel : ForumPage
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<ILinkBuilder>().GetLink(ForumPages.Albums, new { u = this.AlbumUser.ID }));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-        if (album != null)
+        if (album != null && album.UserID == this.AlbumUser.ID)
         {
             this.Album = album;
         }

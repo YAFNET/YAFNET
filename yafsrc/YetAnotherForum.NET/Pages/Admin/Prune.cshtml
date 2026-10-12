@@ -34,7 +34,7 @@
                                    localized-tag="PRUNE_DAYS" localized-page="ADMIN_PRUNE"
                                    asp-for="Input.Days" info-button="true"></label>
                             <div class="input-group">
-                                <input type="number" asp-for="Input.Days"
+                                <input type="number" asp-for="Input.Days" min="1"
                                        class="form-control"/>
                                 <div class="input-group-text">
                                     @Html.LocalizedText("DAYS")

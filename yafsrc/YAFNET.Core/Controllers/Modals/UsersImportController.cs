@@ -44,7 +44,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_Users)]
 public class UsersImportController : ForumBaseController
 {
     /// <summary>
@@ -63,6 +63,7 @@ public class UsersImportController : ForumBaseController
             switch (file.ContentType)
             {
                 case "text/xml":
+                case "application/xml":
                     {
                         importedCount = await this.Get<IDataImporter>().ImportingUsersAsync(file.OpenReadStream(), true);
                     }
@@ -73,6 +74,7 @@ public class UsersImportController : ForumBaseController
                 case "application/vnd.ms-excel":
                 case "application/csv":
                 case "text/comma-separated-values":
+                case "text/csv":
                     {
                         importedCount = await this.Get<IDataImporter>().ImportingUsersAsync(file.OpenReadStream(), false);
                     }
@@ -95,16 +97,24 @@ public class UsersImportController : ForumBaseController
                     : this.GetText("ADMIN_USERS_IMPORT", "IMPORT_NOTHING"),
                 importedCount > 0 ? MessageTypes.success : MessageTypes.info));
         }
+        catch (FormatException)
+        {
+            // the file is no user export / csv with Name and Email columns
+            return this.Ok(
+                new MessageModalNotification(
+                    this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"),
+                    MessageTypes.danger));
+        }
         catch (Exception x)
         {
-            this.Get<ILogger<BannedEmailController>>().Error(
+            this.Get<ILogger<UsersImportController>>().Error(
                 x,
-                string.Format(this.GetText("ADMIN_BANNEDNAME_IMPORT", "IMPORT_FAILED"), x.Message));
+                string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message));
 
             return this.Ok(
                 new MessageModalNotification(
-               string.Format(this.GetText("ADMIN_BANNEDNAME_IMPORT", "IMPORT_FAILED"), x.Message),
-                MessageTypes.danger));
+                    string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message),
+                    MessageTypes.danger));
         }
     }
 }

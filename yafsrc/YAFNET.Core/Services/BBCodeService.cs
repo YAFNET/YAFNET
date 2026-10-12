@@ -27,6 +27,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Microsoft.Extensions.Logging;
+
 using YAF.Core.BBCode;
 using YAF.Core.BBCode.ReplaceRules;
 
@@ -77,7 +79,17 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
            Constants.Cache.CustomBBCodeRegExDictionary, () =>
             {
                 var bbcodeTable = this.GetCustomBBCodes();
-                return bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
+                var moduleCodes = bbcodeTable
+                    .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).ToList();
+
+                // an invalid search expression must not break the rendering of every post
+                moduleCodes.Where(b => !ValidationHelper.IsValidRegex(b.SearchRegex)).ForEach(
+                    b => this.Get<ILogger<BBCodeService>>().Log(
+                        null,
+                        this,
+                        $"Custom BBCode {b.Name} has an invalid search expression and is ignored."));
+
+                return moduleCodes.Where(b => ValidationHelper.IsValidRegex(b.SearchRegex))
                     .ToDictionary(
                         codeRow => codeRow,
                         codeRow => new Regex(codeRow.SearchRegex, Options, Constants.RegexTimeout));
@@ -108,6 +120,18 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         // handle custom bbcodes row by row...
         foreach (var (codeRow, value) in this.CustomBBCode)
         {
+            // a missing module (e.g. extension not installed) leaves the text as it is
+            var module = Type.GetType(codeRow.ModuleClass, false, false);
+
+            if (module is null || !typeof(BBCodeControl).IsAssignableFrom(module))
+            {
+                this.Get<ILogger<BBCodeService>>().Log(
+                    null,
+                    this,
+                    $"The module {codeRow.ModuleClass} of the custom BBCode {codeRow.Name} was not found.");
+                continue;
+            }
+
             Match match;
 
             do
@@ -135,7 +159,6 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 sb.Append(workingMessage[..match.Groups[0].Index]);
 
                 // create/render the control...
-                var module = Type.GetType(codeRow.ModuleClass, true, false);
                 var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
                 // assign parameters...
@@ -570,7 +593,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!")(?<!href=")(?<!src=")(?<inner>(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)""",
+                        """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!")(?<!href=")(?<!src=")(?!\S*youtu)(?<inner>(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)""",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled,
                         Constants.RegexTimeout),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"
@@ -583,7 +606,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?!youtu)(?<!href=")(?<!src=")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)""",
+                        """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href=")(?<!src=")(?!\S*youtu)(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)""",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled,
                         Constants.RegexTimeout),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt\"></i></a>"

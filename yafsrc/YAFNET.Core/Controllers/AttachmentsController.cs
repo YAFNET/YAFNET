@@ -54,84 +54,9 @@ public class Attachments : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetAttachment")]
-    public async Task<ActionResult> GetAttachment(int attachmentId, bool editor = false)
+    public Task<ActionResult> GetAttachment(int attachmentId, bool editor = false)
     {
-        try
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.NotFound();
-            }
-
-            // AttachmentID
-            var attachment = await this.GetRepository<Attachment>().GetByIdAsync(attachmentId);
-
-            if (editor)
-            {
-                // add a download count...
-                await this.GetRepository<Attachment>().IncrementDownloadCounterAsync(attachment.ID);
-            }
-
-            if (!MimeTypes.FileMatchContentType(attachment.FileName, attachment.ContentType))
-            {
-                // Illegal File
-                return this.NotFound();
-            }
-
-            // check download permissions here
-            if (!BoardContext.Current.DownloadAccess)
-            {
-                // tear it down
-                // no permission to download
-                return this.NotFound();
-            }
-
-            if (attachment.FileData == null)
-            {
-                var uploadFolder = Path.Combine(
-                    this.Get<IWebHostEnvironment>().WebRootPath,
-                    this.Get<BoardFolders>().Uploads);
-
-                var oldFileName = Path.Combine(uploadFolder,
-                    $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}");
-
-                var newFileName = Path.Combine(uploadFolder,
-                    $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
-
-                string fileName;
-
-                if (System.IO.File.Exists(oldFileName))
-                {
-                    fileName = oldFileName;
-                }
-                else
-                {
-                    oldFileName =
-                        Path.Combine(uploadFolder,
-                            $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload");
-
-                    // use the new fileName (with extension) if it exists...
-                    fileName = System.IO.File.Exists(newFileName) ? newFileName : oldFileName;
-                }
-
-                // output stream...
-                var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-
-                return File(stream, attachment.ContentType, attachment.FileName);
-            }
-            else
-            {
-                var stream = new MemoryStream(attachment.FileData);
-
-                return File(stream, attachment.ContentType, attachment.FileName);
-            }
-        }
-        catch (Exception x)
-        {
-            this.Get<ILogger<Attachments>>().Log(this.PageBoardContext.PageUserID, this, x, EventLogTypes.Information);
-
-            return this.NotFound();
-        }
+        return this.GetAttachmentFileAsync(attachmentId, editor);
     }
 
     /// <summary>
@@ -143,7 +68,18 @@ public class Attachments : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetResponseAttachment")]
-    public async Task<ActionResult> GetResponseAttachment(int attachmentId, bool editor = false)
+    public Task<ActionResult> GetResponseAttachment(int attachmentId, bool editor = false)
+    {
+        return this.GetAttachmentFileAsync(attachmentId, editor);
+    }
+
+    /// <summary>
+    /// Gets the attachment file (from the database or the uploads folder).
+    /// </summary>
+    /// <param name="attachmentId">The attachment identifier.</param>
+    /// <param name="editor">if set to <c>true</c> the download is counted.</param>
+    /// <returns>ActionResult.</returns>
+    private async Task<ActionResult> GetAttachmentFileAsync(int attachmentId, bool editor)
     {
         try
         {
@@ -154,6 +90,12 @@ public class Attachments : ForumBaseController
 
             // AttachmentID
             var attachment = await this.GetRepository<Attachment>().GetByIdAsync(attachmentId);
+
+            // an unknown attachment is no error (no event log entry)
+            if (attachment is null)
+            {
+                return this.NotFound();
+            }
 
             if (editor)
             {
@@ -195,8 +137,9 @@ public class Attachments : ForumBaseController
                 }
                 else
                 {
-                    oldFileName = Path.Combine(uploadFolder,
-                        $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload");
+                    oldFileName =
+                        Path.Combine(uploadFolder,
+                            $"{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload");
 
                     // use the new fileName (with extension) if it exists...
                     fileName = System.IO.File.Exists(newFileName) ? newFileName : oldFileName;

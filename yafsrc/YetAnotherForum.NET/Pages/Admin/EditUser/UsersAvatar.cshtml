@@ -13,7 +13,8 @@
     @Html.LocalizedText("EDIT_AVATAR", "TITLE")
 </h2>
 
-<form method="post">
+@* one form for all buttons (a nested form is ignored by the browser), the upload needs multipart *@
+<form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
 
     <p class="card-text">
@@ -63,7 +64,6 @@
         }
         @if (Model.PageBoardContext.BoardSettings.AvatarUpload)
     {
-        <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <h4>
                     @Html.LocalizedText("EDIT_AVATAR", "AVATARUPLOAD")
@@ -92,6 +92,5 @@
                         text-localized-page="COMMON"
                         text-localized-tag="SAVE"></button>
             </div>
-        </form>
     }
 </form>

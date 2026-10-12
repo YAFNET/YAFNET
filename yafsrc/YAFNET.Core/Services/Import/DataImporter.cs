@@ -91,6 +91,12 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             {
                 var name = row["Name"].ToString();
 
+                // an invalid search expression would break the rendering of the posts
+                if (row["SearchRegex"].ToString().IsSet() && !ValidationHelper.IsValidRegex(row["SearchRegex"].ToString()))
+                {
+                    continue;
+                }
+
                 var bbCodeExtension = bbcodeList.Find(b => b.Name.Equals(name));
 
                 var updateEntry = new BBCode
@@ -224,7 +230,10 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 continue;
             }
 
-            if (existingBannedIpList.Exists(b => b.Mask == line))
+            line = line.Trim();
+
+            // only ip addresses and masks like 192.168.1.*
+            if (!IPHelper.IsValidBanMask(line) || existingBannedIpList.Exists(b => b.Mask == line))
             {
                 continue;
             }
@@ -300,7 +309,8 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 continue;
             }
 
-            if (existingBannedNameList.Exists(b => b.Mask == line))
+            // the masks are regular expressions
+            if (!ValidationHelper.IsValidRegex(line) || existingBannedNameList.Exists(b => b.Mask == line))
             {
                 continue;
             }
@@ -341,7 +351,8 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 continue;
             }
 
-            if (existingBannedNameList.Exists(b => b.UserAgent == line))
+            // the user agents are regular expressions
+            if (!ValidationHelper.IsValidRegex(line) || existingBannedNameList.Exists(b => b.UserAgent == line))
             {
                 continue;
             }
@@ -420,7 +431,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             {
                 foreach (DataRow row in usersDataSet.Tables["User"].Rows)
                 {
-                    if (await this.Get<IAspNetUsersHelper>().GetUserByNameAsync((string)row["Name"]) == null)
+                    if (await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(Value(row, "Name")) == null)
                     {
                         importedCount = await this.ImportUserAsync(row, importedCount);
                     }
@@ -437,17 +448,37 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
             var streamReader = new StreamReader(inputStream);
 
-            var headers = (await streamReader.ReadLineAsync())?.Split(',');
+            var headers = (await streamReader.ReadLineAsync())?.Split(',').Select(h => h.Trim()).ToArray() ?? [];
+
+            if (!headers.Contains("Name", StringComparer.OrdinalIgnoreCase)
+                || !headers.Contains("Email", StringComparer.OrdinalIgnoreCase))
+            {
+                throw new FormatException("Import stream is not expected format.");
+            }
 
             headers.ForEach(header => usersTable.Columns.Add(header));
 
-            while (streamReader.Peek() >= 0)
+            var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))",
+                RegexOptions.None,
+                Constants.RegexTimeout);
+
+            while (await streamReader.ReadLineAsync() is { } line)
             {
+                if (line.IsNotSet())
+                {
+                    continue;
+                }
+
+                // rows with fewer values than headers get empty values, surrounding quotes are removed
+                var values = regex.Split(line).Take(headers.Length).Select(Unquote).ToList();
+
+                while (values.Count < headers.Length)
+                {
+                    values.Add(string.Empty);
+                }
+
                 var dr = usersTable.NewRow();
-                var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))",
-                    RegexOptions.None,
-                    Constants.RegexTimeout);
-                dr.ItemArray = regex.Split(await streamReader.ReadLineAsync());
+                dr.ItemArray = [.. values];
 
                 usersTable.Rows.Add(dr);
             }
@@ -456,7 +487,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
             foreach (DataRow row in usersTable.Rows)
             {
-                if (await this.Get<IAspNetUsersHelper>().GetUserByNameAsync((string)row["Name"]) == null)
+                if (await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(Value(row, "Name")) == null)
                 {
                     importedCount = await this.ImportUserAsync(row, importedCount);
                 }
@@ -480,8 +511,14 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// </returns>
     private async Task<int> ImportUserAsync(DataRow row, int importCount)
     {
+        // rows without user name or e-mail can not be imported
+        if (Value(row, "Name").IsNotSet() || Value(row, "Email").IsNotSet())
+        {
+            return importCount;
+        }
+
         // Also Check if the Email is unique and exists
-        if (await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync((string)row["Email"]) != null)
+        if (await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(Value(row, "Email")) != null)
         {
             return importCount;
         }
@@ -492,26 +529,26 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         var userProfile = new ProfileInfo();
 
         // Add Profile Fields to User List Table.
-        if (row.Table.Columns.Contains("RealName") && ((string)row["RealName"]).IsSet())
+        if (Value(row, "RealName").IsSet())
         {
-            userProfile.RealName = (string)row["RealName"];
+            userProfile.RealName = Value(row, "RealName");
         }
 
-        if (row.Table.Columns.Contains("Blog") && ((string)row["Blog"]).IsSet())
+        if (Value(row, "Blog").IsSet())
         {
-            userProfile.Blog = (string)row["Blog"];
+            userProfile.Blog = Value(row, "Blog");
         }
 
-        if (row.Table.Columns.Contains("Gender") && ((string)row["Gender"]).IsSet())
+        if (Value(row, "Gender").IsSet())
         {
-            _ = int.TryParse((string)row["Gender"], out var gender);
+            _ = int.TryParse(Value(row, "Gender"), out var gender);
 
             userProfile.Gender = gender;
         }
 
-        if (row.Table.Columns.Contains("Birthday") && ((string)row["Birthday"]).IsSet())
+        if (Value(row, "Birthday").IsSet())
         {
-            _ = DateTime.TryParse((string)row["Birthday"], out var userBirthdate);
+            _ = DateTime.TryParse(Value(row, "Birthday"), out var userBirthdate);
 
             if (userBirthdate > DateTimeHelper.SqlDbMinTime())
             {
@@ -519,48 +556,48 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             }
         }
 
-        if (row.Table.Columns.Contains("Location") && ((string)row["Location"]).IsSet())
+        if (Value(row, "Location").IsSet())
         {
-            userProfile.Location = (string)row["Location"];
+            userProfile.Location = Value(row, "Location");
         }
 
-        if (row.Table.Columns.Contains("Country") && ((string)row["Country"]).IsSet())
+        if (Value(row, "Country").IsSet())
         {
-            userProfile.Country = (string)row["Country"];
+            userProfile.Country = Value(row, "Country");
         }
 
-        if (row.Table.Columns.Contains("Region") && ((string)row["Region"]).IsSet())
+        if (Value(row, "Region").IsSet())
         {
-            userProfile.Region = (string)row["Region"];
+            userProfile.Region = Value(row, "Region");
         }
 
-        if (row.Table.Columns.Contains("City") && ((string)row["City"]).IsSet())
+        if (Value(row, "City").IsSet())
         {
-            userProfile.City = (string)row["City"];
+            userProfile.City = Value(row, "City");
         }
 
-        if (row.Table.Columns.Contains("Interests") && ((string)row["Interests"]).IsSet())
+        if (Value(row, "Interests").IsSet())
         {
-            userProfile.Interests = (string)row["Interests"];
+            userProfile.Interests = Value(row, "Interests");
         }
 
-        if (row.Table.Columns.Contains("Homepage") && ((string)row["Homepage"]).IsSet())
+        if (Value(row, "Homepage").IsSet())
         {
-            userProfile.Homepage = (string)row["Homepage"];
+            userProfile.Homepage = Value(row, "Homepage");
         }
 
-        if (row.Table.Columns.Contains("Occupation") && ((string)row["Occupation"]).IsSet())
+        if (Value(row, "Occupation").IsSet())
         {
-            userProfile.Occupation = (string)row["Occupation"];
+            userProfile.Occupation = Value(row, "Occupation");
         }
 
         var user = new AspNetUsers
         {
             Id = Guid.NewGuid().ToString(),
             ApplicationId = BoardContext.Current.BoardSettings.ApplicationId,
-            UserName = (string)row["Name"],
-            LoweredUserName = (string)row["Name"],
-            Email = (string)row["Email"],
+            UserName = Value(row, "Name"),
+            LoweredUserName = Value(row, "Name").ToLower(),
+            Email = Value(row, "Email"),
             IsApproved = true,
 
             Profile_Birthday = userProfile.Birthday,
@@ -594,25 +631,27 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         await this.Get<ISendNotification>().SendRegistrationNotificationToUserAsync(
             user, pass, "NOTIFICATION_ON_REGISTER");
 
-        var timeZone = 0;
-
-        if (row.Table.Columns.Contains("Timezone") && ((string)row["Timezone"]).IsSet())
-        {
-            _ = int.TryParse((string)row["Timezone"], out timeZone);
-        }
-
         var autoWatchTopicsEnabled = BoardContext.Current.BoardSettings.DefaultNotificationSetting
                                      == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
         var newUser = await this.GetRepository<User>().GetByIdAsync(userId.Value);
 
+        // the time zone id of the export (e.g. "W. Europe Standard Time"), otherwise the default of the new user
+        var timeZone = newUser.TimeZone;
+
+        if (Value(row, "Timezone") is { } timeZoneId
+            && TimeZoneInfo.TryFindSystemTimeZoneById(timeZoneId, out var timeZoneInfo))
+        {
+            timeZone = timeZoneInfo.Id;
+        }
+
         await this.GetRepository<User>().SaveAsync(
             userId.Value,
             newUser.UserFlags,
-            timeZone.ToString(),
-            row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
-            row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
-            row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"].ToString() : null,
+            timeZone,
+            Value(row, "LanguageFile"),
+            Value(row, "Culture"),
+            Value(row, "ThemeFile"),
             false,
             true,
             5);
@@ -628,5 +667,36 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         return importCount;
     }
-}
 
+    /// <summary>
+    /// Gets the text of a column, <c>null</c> when the column is missing or empty.
+    /// </summary>
+    /// <param name="row">The row.</param>
+    /// <param name="column">The column name.</param>
+    /// <returns>Returns the value</returns>
+    private static string Value(DataRow row, string column)
+    {
+        if (!row.Table.Columns.Contains(column) || row[column] is DBNull)
+        {
+            return null;
+        }
+
+        var value = row[column].ToString();
+
+        return value.IsSet() ? value : null;
+    }
+
+    /// <summary>
+    /// Removes the quotes around a csv value.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>Returns the value without quotes</returns>
+    private static string Unquote(string value)
+    {
+        value = value.Trim();
+
+        return value.Length >= 2 && value.StartsWith('"') && value.EndsWith('"')
+                   ? value[1..^1].Replace("\"\"", "\"")
+                   : value;
+    }
+}

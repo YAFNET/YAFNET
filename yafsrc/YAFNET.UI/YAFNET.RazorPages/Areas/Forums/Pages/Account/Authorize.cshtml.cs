@@ -24,12 +24,15 @@
 
 namespace YAF.Pages.Account;
 
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 using YAF.Core.Extensions;
+using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models.Identity;
 
@@ -73,7 +76,7 @@ public class AuthorizeModel : AccountPage
     /// </summary>
     public IActionResult OnGet()
     {
-        var user = this.Get<ISessionService>().GetPageData<AspNetUsers>();
+        var user = this.GetPendingUser();
 
         return user == null ? this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login) : this.Page();
     }
@@ -84,10 +87,43 @@ public class AuthorizeModel : AccountPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostAsync()
     {
-         var user = this.Get<ISessionService>().GetPageData<AspNetUsers>();
+        var pendingUser = this.GetPendingUser();
 
-        if (!this.Get<ITwoFactorAuthService>().ValidatePin(user.MobilePIN, this.ValidationCode.Trim()))
+        // the current lockout state of the user
+        var user = pendingUser is null ? null : await this.Get<IAspNetUsersHelper>().GetUserAsync(pendingUser.Id);
+
+        if (user is null)
         {
+            this.Get<ISessionService>().ClearPageData();
+
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login);
+        }
+
+        // Locked out after too many failed attempts (password or code), don't even check the code
+        if (user.LockoutEndDateUtc > DateTime.UtcNow)
+        {
+            return this.LockedOut();
+        }
+
+        if (!this.Get<ITwoFactorAuthService>().ValidatePin(user.MobilePIN, this.ValidationCode?.Trim() ?? string.Empty))
+        {
+            // wrong codes count like wrong passwords, otherwise the code could be guessed
+            user.AccessFailedCount++;
+
+            if (user.AccessFailedCount >= 10)
+            {
+                user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(15);
+
+                await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
+
+                this.Get<ILogger<AuthorizeModel>>().Info(
+                    $"User: {user.UserName} has reached the Limit of 10 failed login attempts and is locked out until {user.LockoutEndDateUtc}");
+
+                return this.LockedOut();
+            }
+
+            await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
+
             return this.PageBoardContext.Notify(
                     this.GetText("EDIT_SETTINGS", "WRONG_CODE"),
                     MessageTypes.warning);
@@ -95,6 +131,41 @@ public class AuthorizeModel : AccountPage
 
         this.Get<ISessionService>().ClearPageData();
 
-        return await this.Get<IAspNetUsersHelper>().SignInAsync(user);
+        // the "remember me" choice of the login (a session cookie without it)
+        var rememberMe = this.HttpContext.Session.GetData<bool>(Constants.TwoFactorRememberMeSessionKey);
+
+        this.HttpContext.Session.Remove(Constants.TwoFactorRememberMeSessionKey);
+
+        return await this.Get<IAspNetUsersHelper>().SignInAsync(user, rememberMe);
+    }
+
+    /// <summary>
+    /// Gets the user that entered the password and waits for the code.
+    /// </summary>
+    /// <returns>The user or null if there is none (other page data or an expired session).</returns>
+    private AspNetUsers GetPendingUser()
+    {
+        try
+        {
+            return this.Get<ISessionService>().GetPageData<AspNetUsers>();
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// The user has to log in again after the lockout.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
+    private IActionResult LockedOut()
+    {
+        this.Get<ISessionService>().ClearPageData();
+
+        return this.PageBoardContext.SessionNotify(
+            this.GetText("LOGIN", "ERROR_LOCKEDOUT"),
+            MessageTypes.danger,
+            ForumPages.Account_Login);
     }
 }

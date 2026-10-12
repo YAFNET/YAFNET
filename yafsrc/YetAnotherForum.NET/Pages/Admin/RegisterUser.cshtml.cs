@@ -130,7 +130,7 @@ public class RegisterUserModel : AdminPage
 
         // success
         this.PageBoardContext.SessionNotify(
-            this.GetTextFormatted("MSG_CREATED", this.Input.UserName),
+            this.GetTextFormatted("MSG_CREATED", this.HtmlEncode(this.Input.UserName)),
             MessageTypes.success);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);

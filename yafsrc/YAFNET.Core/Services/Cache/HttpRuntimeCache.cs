@@ -27,6 +27,7 @@ namespace YAF.Core.Services.Cache;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
+using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
@@ -178,6 +179,8 @@ public class HttpRuntimeCache : IDataCache
                 MemoryCache.Default.Add(
                     new CacheItem(this.CreateKey(key)) { Value = c },
                     cacheItemPolicy);
+
+                this.RemoveWhenFailed(key, c);
             });
     }
 
@@ -244,6 +247,8 @@ public class HttpRuntimeCache : IDataCache
                 MemoryCache.Default.Add(
                     new CacheItem(this.CreateKey(key)) { Value = c },
                     cacheItemPolicy);
+
+                this.RemoveWhenFailed(key, c);
             });
     }
 
@@ -338,6 +343,30 @@ public class HttpRuntimeCache : IDataCache
     {
         key = key.Replace('$', '.');
         return this._treatCacheKey.Treat($"{Constants.Cache.YafCacheKey}${key}");
+    }
+
+    /// <summary>
+    /// Removes a cached task again when it fails, so the next call loads the value again
+    /// instead of getting the cached exception.
+    /// </summary>
+    /// <param name="key">The key.</param>
+    /// <param name="task">The cached task.</param>
+    private void RemoveWhenFailed(string key, Task task)
+    {
+        var actualKey = this.CreateKey(key);
+
+        task.ContinueWith(
+            t =>
+            {
+                // only remove this task, not a newer value cached in the meantime
+                if (ReferenceEquals(MemoryCache.Default.Get(actualKey), t))
+                {
+                    MemoryCache.Default.Remove(actualKey);
+                }
+            },
+            CancellationToken.None,
+            TaskContinuationOptions.NotOnRanToCompletion | TaskContinuationOptions.ExecuteSynchronously,
+            TaskScheduler.Default);
     }
 
     /// <summary>

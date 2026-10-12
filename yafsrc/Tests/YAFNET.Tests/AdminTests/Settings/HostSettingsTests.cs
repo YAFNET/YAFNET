@@ -64,7 +64,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                     await input.ClearAsync();
                     await input.FillAsync("350");
 
-                    await page.Locator("//button[contains(@formaction,'Save')]").First.ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Save')]").First);
 
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
 
@@ -82,7 +82,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                     await input.ClearAsync();
                     await input.FillAsync(width);
 
-                    await page.Locator("//button[contains(@formaction,'Save')]").First.ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Save')]").First);
 
                     var pageSource = await page.ContentAsync();
 

@@ -61,6 +61,9 @@ public static class BannedUserAgentRepositoryExtensions
                 () => new BannedUserAgent { UserAgent = mask },
                 b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
+            // UpdateOnly raises no event, the cached list must be refreshed
+            repository.FireUpdated();
+
             return true;
         }
 

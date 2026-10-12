@@ -29,9 +29,15 @@ using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Caching.Memory;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
+using YAF.Core.Model;
+using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
+using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// The recover Password Page.
@@ -43,11 +49,29 @@ using YAF.Types.Interfaces.Identity;
 public class ForgotPasswordModel : AccountPage
 {
     /// <summary>
+    /// How many emails (password reset or verification) an account gets in the time window,
+    /// the page can be used by anybody (otherwise the inbox of a user could be flooded).
+    /// </summary>
+    private const int MaxEmailsPerWindow = 3;
+
+    /// <summary>
+    /// The time window of the email limit.
+    /// </summary>
+    private readonly static TimeSpan EmailWindow = TimeSpan.FromHours(1);
+
+    /// <summary>
+    /// The memory cache that keeps the sent emails of the accounts.
+    /// </summary>
+    private readonly IMemoryCache memoryCache;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ForgotPasswordModel"/> class.
     /// </summary>
-    public ForgotPasswordModel()
+    /// <param name="memoryCache">The memory cache.</param>
+    public ForgotPasswordModel(IMemoryCache memoryCache)
         : base("RECOVER_PASSWORD", ForumPages.Account_ForgotPassword)
     {
+        this.memoryCache = memoryCache;
     }
 
     /// <summary>
@@ -78,37 +102,65 @@ public class ForgotPasswordModel : AccountPage
     }
 
     /// <summary>
-    /// The on post async.
+    /// Sends the password reset email (or a new verification email when the email is not verified yet).
+    /// The page can be used by anybody: the answer is the same for every entry, it does not tell
+    /// which user names or email addresses are registered.
     /// </summary>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
     public async Task<IActionResult> OnPostAsync()
     {
-        var user = this.Input.UserName.Contains('@')
-                       ? await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(this.Input.UserName)
-                       : await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(this.Input.UserName);
+        var userName = this.Input?.UserName?.Trim();
 
-        if (user is null)
+        var user = userName.IsNotSet()
+                       ? null
+                       : userName.Contains('@')
+                           ? await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(userName)
+                           : await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName);
+
+        // over the limit nothing is sent (otherwise the inbox of the user could be flooded)
+        if (user is not null
+            && SendLimitHelper.TryCount(this.memoryCache, $"AccountEmail_{user.Id}", MaxEmailsPerWindow, EmailWindow))
         {
-            return this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
+            if (user.IsApproved)
+            {
+                var code = HttpUtility.UrlEncode(
+                    await this.Get<IAspNetUsersHelper>().GeneratePasswordResetTokenAsync(user),
+                    Encoding.UTF8);
+
+                await this.Get<ISendNotification>().SendPasswordResetAsync(user, code);
+            }
+            else
+            {
+                await this.SendNewVerificationEmailAsync(user);
+            }
         }
 
-        // verify the user is approved, etc...
-        if (!user.IsApproved)
-        {
-            // explain they are not approved yet...
-            return this.PageBoardContext.Notify(this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.warning);
-        }
-
-        var code = HttpUtility.UrlEncode(
-            await this.Get<IAspNetUsersHelper>().GeneratePasswordResetTokenAsync(user),
-            Encoding.UTF8);
-
-        await this.Get<ISendNotification>().SendPasswordResetAsync(user, code);
-
-        this.PageBoardContext.SessionNotify(this.GetText("SUCCESS"), MessageTypes.success);
+        this.PageBoardContext.SessionNotify(this.GetText("SUCCESS_IF_EXISTS"), MessageTypes.success);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+    }
+
+    /// <summary>
+    /// Sends a new verification email when the email of the user is not verified yet
+    /// (users waiting for the approval of an admin, e.g. possible spam bots, get no email).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>The <see cref="Task"/>.</returns>
+    private async Task SendNewVerificationEmailAsync(AspNetUsers user)
+    {
+        var forumUser = await this.GetRepository<User>().GetUserByProviderKeyAsync(this.PageBoardContext.PageBoardID, user.Id);
+
+        if (forumUser is null
+            || !await this.GetRepository<CheckEmail>().ExistsAsync(c => c.UserID == forumUser.ID))
+        {
+            return;
+        }
+
+        // the new code replaces the old one
+        await this.GetRepository<CheckEmail>().DeleteAsync(c => c.UserID == forumUser.ID);
+
+        await this.Get<ISendNotification>().SendVerificationEmailAsync(user, user.Email, forumUser.ID);
     }
 }

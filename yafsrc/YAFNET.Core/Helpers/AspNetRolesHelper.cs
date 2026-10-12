@@ -167,6 +167,11 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     {
         var role = await this.Get<IAspNetRoleManager>().FindByRoleNameAsync(roleName);
 
+        if (role is null)
+        {
+            return;
+        }
+
         await this.Get<IAspNetRoleManager>().DeleteRoleAsync(role);
     }
 
@@ -180,7 +185,8 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// </returns>
     public bool DidCreateForumUser(AspNetUsers user, int pageBoardId)
     {
-        var userId = this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, pageBoardId);
+        // ASP.NET Core has no synchronization context, blocking here does not dead lock
+        var userId = this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, pageBoardId).GetAwaiter().GetResult();
         return userId != null;
     }
 
@@ -221,6 +227,11 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     public async Task<List<AspNetUsers>> GetUsersInRoleAsync(string roleName)
     {
         var role = await this.Get<IAspNetRoleManager>().FindByRoleNameAsync(roleName);
+
+        if (role is null)
+        {
+            return [];
+        }
 
         var users = await this.GetRepository<AspNetUserRoles>().GetAsync(r => r.RoleId == role.Id);
 

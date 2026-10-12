@@ -267,28 +267,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
-            var userDisplayName = message.UserDisplayName ?? string.Empty;
-            var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? message.Topic ?? string.Empty;
+            var doc = CreateDocument(message);
 
-            var doc = new Document
-                          {
-                              new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
-                              new TextField("Message", message.Message, Field.Store.YES),
-                              new StoredField("Flags", message.Flags.ToString()),
-                              new StoredField("Posted", message.Posted),
-                              new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                              new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
-                              new TextField("Topic", message.Topic, Field.Store.YES),
-                              new TextField("TopicTags", message.TopicTags, Field.Store.YES),
-                              new StringField("ForumName", message.ForumName, Field.Store.YES),
-                              new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
-                              new TextField("Author", name, Field.Store.YES),
-                              new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
-                              new StoredField("AuthorStyle", userStyle),
-                              new TextField("Description", description, Field.Store.YES)
-                          };
             try
             {
                 this.Writer.AddDocument(doc);
@@ -318,27 +298,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
-            var userDisplayName = message.UserDisplayName ?? string.Empty;
-            var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? message.Topic ?? string.Empty;
-
-            var doc = new Document
-                          {
-                              new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
-                              new TextField("Message", message.Message, Field.Store.YES),
-                              new StoredField("Flags", message.Flags.ToString()),
-                              new StoredField("Posted", message.Posted),
-                              new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                              new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
-                              new TextField("Topic", message.Topic, Field.Store.YES),
-                              new StringField("ForumName", message.ForumName, Field.Store.YES),
-                              new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
-                              new TextField("Author", name, Field.Store.YES),
-                              new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
-                              new StoredField("AuthorStyle", userStyle),
-                              new TextField("Description", description, Field.Store.YES)
-                          };
+            var doc = CreateDocument(message);
 
             try
             {
@@ -483,6 +443,41 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     }
 
     /// <summary>
+    /// Creates the index document for a message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <returns>Returns the document</returns>
+    private Document CreateDocument(SearchMessage message)
+    {
+        // hidden content (hide, hide-reply, hide-thanks, group-hide...) is only shown to some users, it is not
+        // indexed: otherwise every user could find posts by it and see it in the highlighted part of the result
+        var text = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message.Message ?? string.Empty);
+
+        var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
+        var userDisplayName = message.UserDisplayName ?? string.Empty;
+        var userStyle = message.UserStyle ?? string.Empty;
+        var description = message.Description ?? message.Topic ?? string.Empty;
+
+        return
+        [
+            new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
+            new TextField("Message", text ?? string.Empty, Field.Store.YES),
+            new StoredField("Flags", message.Flags.ToString()),
+            new StoredField("Posted", message.Posted ?? string.Empty),
+            new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
+            new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
+            new TextField("Topic", message.Topic ?? string.Empty, Field.Store.YES),
+            new StringField("ForumName", message.ForumName ?? string.Empty, Field.Store.YES),
+            new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
+            new TextField("Author", name, Field.Store.YES),
+            new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
+            new StoredField("AuthorStyle", userStyle),
+            new TextField("Description", description, Field.Store.YES),
+            new TextField("TopicTags", message.TopicTags ?? string.Empty, Field.Store.YES)
+        ];
+    }
+
+    /// <summary>
     /// Parses the query.
     /// </summary>
     /// <param name="searchQuery">The search query.</param>
@@ -556,16 +551,15 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// </returns>
     private SearchMessage MapSearchDocumentToData(Document doc, List<VAccess> userAccessList)
     {
-        var forumId = doc.Get("ForumId").ToType<int>();
-
-        if (userAccessList.Count == 0 || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
+        if (!CanSeeDocument(doc, userAccessList))
         {
             return null;
         }
 
+        // the results are shown with javascript (innerHTML), the texts of the users are html encoded
         return new SearchMessage
                    {
-                       Topic = doc.Get("Topic"),
+                       Topic = HttpUtility.HtmlEncode(doc.Get("Topic")),
                        TopicId = doc.Get("TopicId").ToType<int>(),
                        TopicUrl = this.Get<ILinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
                        Posted = doc.Get("Posted"),
@@ -578,6 +572,36 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                            doc.Get("ForumName")),
                        UserStyle = doc.Get("AuthorStyle")
                    };
+    }
+
+    /// <summary>
+    /// Checks if the user can see the search document: read access to the forum,
+    /// posts that are not approved (yet) or deleted only for moderators of the forum.
+    /// </summary>
+    /// <param name="doc">The document.</param>
+    /// <param name="userAccessList">The user access list.</param>
+    /// <returns>Returns if the user can see the document.</returns>
+    private static bool CanSeeDocument(Document doc, List<VAccess> userAccessList)
+    {
+        var forumId = doc.Get("ForumId").ToType<int>();
+
+        if (userAccessList.Count == 0 || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
+        {
+            return false;
+        }
+
+        // documents of older versions have no flags
+        var flagsValue = doc.Get("Flags");
+
+        if (flagsValue.IsNotSet())
+        {
+            return true;
+        }
+
+        var flags = new MessageFlags(flagsValue.ToType<int>());
+
+        return flags.IsApproved && !flags.IsDeleted
+               || userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0);
     }
 
     /// <summary>
@@ -596,32 +620,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
-            var userDisplayName = message.UserDisplayName ?? string.Empty;
-            var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? message.Topic ?? string.Empty;
-            var topicTags = message.TopicTags.IsNotSet() ? string.Empty : message.TopicTags;
-
-            var doc = new Document
-                          {
-                              new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
-                              new TextField("Message", message.Message, Field.Store.YES),
-                              new StoredField("Flags", message.Flags.ToString()),
-                              new StoredField("Posted", message.Posted),
-                              new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                              new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
-                              new TextField("Topic", message.Topic, Field.Store.YES),
-                              new StringField("ForumName", message.ForumName, Field.Store.YES),
-                              new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
-                              new TextField("Author", name, Field.Store.YES),
-                              new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
-                              new StoredField("AuthorStyle", userStyle),
-                              new TextField("Description", description, Field.Store.YES),
-                              new TextField(
-                                  "TopicTags",
-                                  topicTags,
-                                  Field.Store.YES)
-                          };
+            var doc = CreateDocument(message);
 
             try
             {
@@ -662,7 +661,9 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             return null;
         }
 
-        this.searcherManager = this.indexWriter != null
+        this.searcherManager?.Dispose();
+
+        this.searcherManager = this.indexWriter is { IsClosed: false }
                                    ? new SearcherManager(this.indexWriter, false, null)
                                    : new SearcherManager(FSDirectory.Open(this.searchIndexFolder), null);
 
@@ -687,9 +688,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         Document doc,
         List<VAccess> userAccessList)
     {
-        var forumId = doc.Get("ForumId").ToType<int>();
-
-        if (userAccessList.Count == 0 || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
+        if (!CanSeeDocument(doc, userAccessList))
         {
             return null;
         }
@@ -721,15 +720,19 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         message = formattedMessage;
 
+        // the results are shown with javascript (innerHTML), the texts of the users are html encoded
+        // (before the highlighting, the <mark> tags of the highlighter stay html)
+        var encodedTopic = HttpUtility.HtmlEncode(doc.Get("Topic"));
+
         string topic;
 
         try
         {
-            topic = GetHighlight(highlighter, analyzer, "Topic", doc.Get("Topic"));
+            topic = GetHighlight(highlighter, analyzer, "Topic", encodedTopic);
         }
         catch (Exception)
         {
-            topic = doc.Get("Topic");
+            topic = encodedTopic;
         }
 
         string posted;
@@ -755,10 +758,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
             UserId = doc.Get("UserId").ToType<int>(),
             TopicId = doc.Get("TopicId").ToType<int>(),
-            Topic = topic.IsSet() ? topic : doc.Get("Topic"),
-            TopicTags = doc.Get("TopicTags"),
+            Topic = topic.IsSet() ? topic : encodedTopic,
+            TopicTags = HttpUtility.HtmlEncode(doc.Get("TopicTags")),
             ForumId = doc.Get("ForumId").ToType<int>(),
-            Description = doc.Get("Description"),
+            Description = HttpUtility.HtmlEncode(doc.Get("Description")),
             TopicUrl = this.Get<ILinkBuilder>().GetTopicLink(
                 doc.Get("TopicId").ToType<int>(),
                 doc.Get("Topic")),
@@ -821,7 +824,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         int forumId,
         string searchQuery,
         string searchField = "",
-        int pageIndex = 1,
+        int pageIndex = 0,
         int pageSize = 1000)
     {
         if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
@@ -881,6 +884,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
             analyzer.Dispose();
 
+            this.searcherManager.Release(searcher);
+
             return new Tuple<List<SearchMessage>, int>(results, hits.Length);
         }
         else
@@ -897,7 +902,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             scorer = new QueryScorer(query);
 
             // sort by date
-            var sort = new Sort(new SortField("MessageId", SortFieldType.STRING, true));
+            var sort = new Sort(new SortField("MessageId", FieldCache.DEFAULT_INT32_PARSER, true));
 
             var fil = new BooleanFilter();
 

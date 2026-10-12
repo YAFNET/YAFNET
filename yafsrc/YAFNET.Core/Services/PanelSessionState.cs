@@ -55,20 +55,11 @@ public class PanelSessionState : IPanelSessionState
                 return CollapsiblePanelState.None;
             }
 
-            try
-            {
-                // we must convert string to int, better get is safe
-                return (CollapsiblePanelState)int.Parse(
-                    context.Request.Cookies[sessionPanelID]);
-            }
-            catch
-            {
-                // in case cookie has wrong value
-                context.Request.Cookies.Keys
-                    .Remove(sessionPanelID); // scrap wrong cookie
-
-                return CollapsiblePanelState.None;
-            }
+            // an unreadable cookie counts as no state, it is overwritten the next time the panel is toggled
+            return int.TryParse(context.Request.Cookies[sessionPanelID], out var state)
+                   && Enum.IsDefined(typeof(CollapsiblePanelState), state)
+                       ? (CollapsiblePanelState)state
+                       : CollapsiblePanelState.None;
         }
 
         // Ederon : 7/14/2007

@@ -65,8 +65,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		    if ($subMenu) {
 			    $subMenu.classList.add('show');
 
-			    $subMenu.style.top = `${$el.offsetTop - 10}px`;
-			    $subMenu.style.left = `${$el.offsetWidth - 4}px`;
+			    // open the sub menu on the side with enough space (the user menu is at the right edge)
+			    const itemRect = $el.getBoundingClientRect();
+			    const subMenuWidth = $subMenu.offsetWidth;
+			    const viewportWidth = document.documentElement.clientWidth;
+
+			    if (itemRect.right - 4 + subMenuWidth <= viewportWidth) {
+				    $subMenu.style.top = `${$el.offsetTop - 10}px`;
+				    $subMenu.style.left = `${$el.offsetWidth - 4}px`;
+			    } else if (itemRect.left + 4 - subMenuWidth >= 0) {
+				    $subMenu.style.top = `${$el.offsetTop - 10}px`;
+				    $subMenu.style.left = `${4 - subMenuWidth}px`;
+			    } else {
+				    // no space on either side (small screens), open below the item
+				    $subMenu.style.top = `${$el.offsetTop + $el.offsetHeight}px`;
+				    $subMenu.style.left = '0px';
+			    }
 		    }
 
 		    event.stopPropagation();

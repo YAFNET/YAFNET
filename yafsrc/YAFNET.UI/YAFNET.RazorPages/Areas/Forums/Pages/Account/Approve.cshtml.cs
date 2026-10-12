@@ -30,13 +30,16 @@ using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 using YAF.Core.Extensions;
+using YAF.Core.Identity;
 using YAF.Core.Model;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// The User Account Verification Page.
@@ -127,6 +130,12 @@ public class ApproveModel : AccountPage
 
         var user = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(userEmail.Email);
 
+        // no account has the address yet, the link confirms the new address of an email change
+        if (user is null)
+        {
+            return await this.ConfirmEmailChangeAsync(userEmail);
+        }
+
         var result = await this.Get<IAspNetUsersHelper>().ConfirmUserEmailAsync(user, HttpUtility.UrlDecode(this.Input.Key, Encoding.UTF8));
 
         if (result.Succeeded)
@@ -152,5 +161,61 @@ public class ApproveModel : AccountPage
         this.ErrorMessage = result.Errors.FirstOrDefault()?.Description;
 
         return this.Page();
+    }
+
+    /// <summary>
+    /// Confirms the new email address of a user (requested on the edit settings page).
+    /// </summary>
+    /// <param name="checkEmail">The email change request.</param>
+    /// <returns>IActionResult.</returns>
+    private async Task<IActionResult> ConfirmEmailChangeAsync(CheckEmail checkEmail)
+    {
+        var forumUser = await this.GetRepository<User>().GetByIdAsync(checkEmail.UserID);
+
+        var user = forumUser is null
+                       ? null
+                       : await this.Get<IAspNetUsersHelper>().GetUserAsync(forumUser.ProviderUserKey);
+
+        if (user is null)
+        {
+            this.ErrorMessage = this.GetText("email_verify_failed");
+
+            return this.Page();
+        }
+
+        // the token is only valid for this user and this address
+        var result = await this.Get<AspNetUsersManager>().ChangeEmailAsync(
+            user,
+            checkEmail.Email,
+            HttpUtility.UrlDecode(this.Input.Key, Encoding.UTF8));
+
+        if (!result.Succeeded)
+        {
+            this.ErrorMessage = result.Errors.FirstOrDefault()?.Description;
+
+            return this.Page();
+        }
+
+        user.LoweredEmail = checkEmail.Email.ToLower();
+
+        await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
+
+        await this.GetRepository<User>().UpdateOnlyAsync(
+            () => new User { Email = checkEmail.Email },
+            u => u.ID == forumUser.ID);
+
+        await this.GetRepository<CheckEmail>().DeleteByIdAsync(checkEmail.ID);
+
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(forumUser.ID));
+
+        if (this.PageBoardContext.PageUserID == forumUser.ID)
+        {
+            // the security stamp changed, the other logins end: this login gets the new stamp
+            await this.Get<SignInManager<AspNetUsers>>().RefreshSignInAsync(user);
+        }
+
+        this.PageBoardContext.SessionNotify(this.GetText("EMAIL_CHANGED"), MessageTypes.success);
+
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 }

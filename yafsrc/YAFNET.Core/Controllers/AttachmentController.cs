@@ -54,8 +54,9 @@ public class AttachmentController : ForumBaseController
     public IActionResult GetAttachments([FromBody] PagedResults pagedResults)
     {
         var userId = this.PageBoardContext.PageUserID;
-        var pageSize = pagedResults.PageSize;
-        var pageNumber = pagedResults.PageNumber;
+        // the values come from the client
+        var pageSize = System.Math.Clamp(pagedResults.PageSize, 1, 100);
+        var pageNumber = System.Math.Max(pagedResults.PageNumber, 0);
 
         var attachments = this.GetRepository<Attachment>().GetPaged(
             a => a.UserID == userId,

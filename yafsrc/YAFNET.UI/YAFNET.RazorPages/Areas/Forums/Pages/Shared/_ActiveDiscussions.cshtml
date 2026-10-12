@@ -17,28 +17,30 @@
     // Shows the latest n number of posts on the main forum list page
     const string cacheKey = Constants.Cache.ActiveDiscussions;
 
-    List<LatestTopic> activeTopics = null;
+    List<LatestTopic> LoadActiveTopics() => Current.GetRepository<Topic>().Latest(
+        Current.PageBoardID,
+        Current.PageCategoryID,
+        Current.BoardSettings.ActiveDiscussionsCount,
+        Current.PageUserID,
+        Current.BoardSettings.NoCountForumsInActiveDiscussions,
+        Current.BoardSettings.UseReadTrackingByDatabase);
+
+    List<LatestTopic> activeTopics;
 
     if (Current.IsGuest)
     {
-        // allow caching since this is a guest...
-        activeTopics = Current.Get<IDataCache>()[cacheKey] as List<LatestTopic>;
+        // allow caching since this is a guest, one list per category (the index of a category shows only its topics),
+        // all in one cache entry, so clearing the entry clears all categories
+        var guestLists = Current.Get<IDataCache>().GetOrSet(
+            cacheKey,
+            () => new System.Collections.Concurrent.ConcurrentDictionary<int, List<LatestTopic>>(),
+            TimeSpan.FromMinutes(Current.BoardSettings.ActiveDiscussionsCacheTimeout));
+
+        activeTopics = guestLists.GetOrAdd(Current.PageCategoryID, _ => LoadActiveTopics());
     }
-
-    if (activeTopics is null)
+    else
     {
-        activeTopics = Current.GetRepository<Topic>().Latest(
-            Current.PageBoardID,
-            Current.PageCategoryID,
-            Current.BoardSettings.ActiveDiscussionsCount,
-            Current.PageUserID,
-            Current.BoardSettings.NoCountForumsInActiveDiscussions,
-            Current.BoardSettings.UseReadTrackingByDatabase);
-
-        if (Current.IsGuest)
-        {
-            Current.Get<IDataCache>().Set(cacheKey, activeTopics, TimeSpan.FromMinutes(Current.BoardSettings.ActiveDiscussionsCacheTimeout));
-        }
+        activeTopics = LoadActiveTopics();
     }
 }
 
@@ -61,7 +63,7 @@
                     continue;
                 }
 
-                var topicSubject = Current.Get<IBadWordReplace>().Replace(Html.HtmlEncode(topic.Topic));
+                var topicSubject = Current.Get<IBadWordReplace>().Replace(Html.HtmlEncode(topic.Topic).ToString());
 
                 var topicStyle = topic.Styles;
 
@@ -129,7 +131,7 @@
 
                     <a class="text-body-secondary p-0 text-start"
                        button-style="@ButtonStyle.Link"
-                       text="@Html.Raw($"({topic.Forum})")"
+                       text="@Html.Encode($"({topic.Forum})")"
                        href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(topic.ForumID, topic.Forum))"></a>
 
                 </li>

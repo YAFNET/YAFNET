@@ -97,7 +97,7 @@ public class UsersSuspendModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostRemoveSuspensionAsync()
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
@@ -128,7 +128,7 @@ public class UsersSuspendModel : AdminPage
             this.EditUser.Item1.DisplayOrUserName());
 
         this.PageBoardContext.SessionNotify(
-            $"User {this.EditUser.Item1.DisplayOrUserName()} was un-suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
+            $"User {this.HtmlEncode(this.EditUser.Item1.DisplayOrUserName())} was un-suspended by {this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName())}.",
             MessageTypes.success);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
@@ -139,7 +139,7 @@ public class UsersSuspendModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSuspendAsync()
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
@@ -152,7 +152,7 @@ public class UsersSuspendModel : AdminPage
         this.EditUser = user;
 
         // is user to be suspended admin?
-        if (this.EditUser.Item4.IsAdmin > 0)
+        if (this.EditUser.Item4.IsAdmin > 0 || this.EditUser.Item1.UserFlags.IsHostAdmin)
         {
             // tell user he can't suspend admin
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
@@ -177,11 +177,19 @@ public class UsersSuspendModel : AdminPage
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
         }
 
-        // time until when user is suspended
-        var suspend = this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, this.EditUser.Item1.TimeZoneInfo);
+        // time until when user is suspended (stored and checked as UTC)
+        var suspend = DateTime.UtcNow;
 
-        // number inserted by suspending user
-        var count = this.Input.SuspendCount;
+        // number inserted by suspending user (at most 100 years, a huge value would fail)
+        var count = Math.Clamp(
+            this.Input.SuspendCount,
+            1,
+            this.Input.SuspendUnit switch
+            {
+                2 => 36500 * 24,
+                3 => 36500 * 24 * 60,
+                _ => 36500
+            });
 
         // what time units are used for suspending
         suspend = this.Input.SuspendUnit switch
@@ -197,7 +205,7 @@ public class UsersSuspendModel : AdminPage
             // minutes
             3 =>
                 // add user inserted suspension time to current time
-                suspend.AddHours(count),
+                suspend.AddMinutes(count),
             _ => suspend
         };
 
@@ -217,7 +225,7 @@ public class UsersSuspendModel : AdminPage
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
         await this.Get<ISendNotification>().SendUserSuspensionNotificationAsync(
-            suspend,
+            this.Get<IDateTimeService>().GetUserDateTime(suspend, this.EditUser.Item1.TimeZoneInfo),
             this.Input.SuspendedReason,
             this.EditUser.Item1.Email,
             this.EditUser.Item1.DisplayOrUserName());
@@ -228,7 +236,7 @@ public class UsersSuspendModel : AdminPage
         this.BindData(this.Input.UserId);
 
         this.PageBoardContext.SessionNotify(
-            $"User {this.EditUser.Item1.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
+            $"User {this.HtmlEncode(this.EditUser.Item1.DisplayOrUserName())} was suspended by {this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName())} until: {suspend} (UTC)",
             MessageTypes.success);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
@@ -239,7 +247,7 @@ public class UsersSuspendModel : AdminPage
     /// </summary>
     private IActionResult BindData(int userId)
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,

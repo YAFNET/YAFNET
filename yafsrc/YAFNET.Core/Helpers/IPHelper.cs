@@ -140,32 +140,27 @@ public static class IPHelper
         {
             ArgumentNullException.ThrowIfNull(httpContext);
 
-            IPAddress ipAddress;
-            var ipString = httpContext.Request.Headers["X-Forwarded-For"].ToString();
+            // the forwarded headers middleware already set the client address of requests of trusted proxies
+            // (X-Forwarded-For), the headers of other clients are ignored: they could send any address
+            var remoteAddress = httpContext.Connection.RemoteIpAddress;
 
-            if (ipString.IsSet())
+            if (remoteAddress is { IsIPv4MappedToIPv6: true })
             {
-                var ipAddresses = ipString.Split(',', StringSplitOptions.TrimEntries);
-                var firstNonLocalAddress =
-                    Array.Find(ipAddresses,
-                        ip => IPAddress.TryParse(ip, out ipAddress) && ipAddress.IsRoutable());
-
-                if (firstNonLocalAddress.IsSet())
-                {
-                    return firstNonLocalAddress;
-                }
+                remoteAddress = remoteAddress.MapToIPv4();
             }
 
-            ipString = httpContext.Request.Headers["X-Real-IP"].ToString();
+            // proxies that only send X-Real-IP (e.g. nginx), also only trusted ones
+            var realIp = httpContext.Request.Headers["X-Real-IP"].ToString();
 
-            if (ipString.IsNotSet())
+            if (realIp.IsSet() && ForwardedHeadersHelper.IsTrustedProxy(remoteAddress)
+                               && IPAddress.TryParse(
+                                   realIp.Split(',', StringSplitOptions.TrimEntries).LastOrDefault() ?? string.Empty,
+                                   out var realIpAddress))
             {
-                return httpContext.Connection.RemoteIpAddress.ToString();
+                return realIpAddress.ToString();
             }
 
-            return IPAddress.TryParse((ipString.Split(',', StringSplitOptions.TrimEntries).LastOrDefault() ?? string.Empty), out ipAddress)
-                ? ipAddress.ToString()
-                : httpContext.Connection.RemoteIpAddress.ToString();
+            return remoteAddress?.ToString() ?? string.Empty;
         }
     }
 
@@ -187,10 +182,11 @@ public static class IPHelper
         ArgumentNullException.ThrowIfNull(chk);
 
         var bannedIp = ban.Trim();
+        var ip = chk.Trim();
 
-        if (chk == "::1")
+        if (ip == "::1")
         {
-            chk = "127.0.0.1";
+            ip = "127.0.0.1";
         }
 
         if (bannedIp == "::1")
@@ -198,9 +194,85 @@ public static class IPHelper
             bannedIp = "127.0.0.1";
         }
 
-        var check = Regex.Match(chk, bannedIp, RegexOptions.None, Constants.RegexTimeout);
+        // masks are compared exactly (a wildcard * matches one part of an ipv4 address), invalid masks never match
+        if (bannedIp.Contains('*'))
+        {
+            return TryGetIpV4Parts(ip, out var ipParts) && IsValidIpV4Mask(bannedIp)
+                                                       && bannedIp.Split('.').Select((part, index) => part == "*" || part == ipParts[index])
+                                                           .All(match => match);
+        }
 
-        return check.Success;
+        return TryParseExact(bannedIp, out var banned) && TryParseExact(ip, out var address)
+                                                       && Normalize(banned).Equals(Normalize(address));
+    }
+
+    /// <summary>
+    /// Checks if the value is a valid ip address (v4 or v6) or ipv4 mask with * parts (e.g. 192.168.1.*).
+    /// </summary>
+    /// <param name="mask">The mask.</param>
+    /// <returns>Returns if the mask can be used to ban ip addresses.</returns>
+    public static bool IsValidBanMask(string mask)
+    {
+        if (mask.IsNotSet())
+        {
+            return false;
+        }
+
+        mask = mask.Trim();
+
+        return mask.Contains('*') ? IsValidIpV4Mask(mask) : TryParseExact(mask, out _);
+    }
+
+    private static bool IsValidIpV4Mask(string mask)
+    {
+        var parts = mask.Split('.');
+
+        return parts.Length == 4 && parts.All(part => part == "*" || byte.TryParse(part, out _));
+    }
+
+    private static bool TryGetIpV4Parts(string ip, out string[] parts)
+    {
+        parts = null;
+
+        if (!TryParseExact(ip, out var address))
+        {
+            return false;
+        }
+
+        address = Normalize(address);
+
+        if (address.AddressFamily != System.Net.Sockets.AddressFamily.InterNetwork)
+        {
+            return false;
+        }
+
+        parts = address.ToString().Split('.');
+        return true;
+    }
+
+    /// <summary>
+    /// Parses only complete addresses (IPAddress.TryParse also accepts e.g. "1.2.3" as 1.2.0.3).
+    /// </summary>
+    private static bool TryParseExact(string value, out IPAddress address)
+    {
+        address = null;
+
+        if (value.IsNotSet())
+        {
+            return false;
+        }
+
+        if (!value.Contains(':') && value.Split('.').Length != 4)
+        {
+            return false;
+        }
+
+        return IPAddress.TryParse(value, out address);
+    }
+
+    private static IPAddress Normalize(IPAddress address)
+    {
+        return address.IsIPv4MappedToIPv6 ? address.MapToIPv4() : address;
     }
 
     /// <summary>

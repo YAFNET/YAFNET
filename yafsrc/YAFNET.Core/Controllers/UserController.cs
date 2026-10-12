@@ -116,18 +116,27 @@ public class UserController : ForumBaseController
                 return this.NotFound();
             }
 
-            var searchQuery = users;
+            var searchQuery = users?.Trim();
 
-            var usersList = await this.GetRepository<User>().GetAsync(
-                user => this.PageBoardContext.BoardSettings.EnableDisplayName
-                    ? user.DisplayName.StartsWith(searchQuery)
-                    : user.Name.StartsWith(searchQuery));
+            // the editor asks after 3 characters, a shorter search would list (almost) all users
+            if (searchQuery.IsNotSet() || searchQuery.Length < 3)
+            {
+                return this.Ok(Array.Empty<object>());
+            }
+
+            var boardId = this.PageBoardContext.PageBoardID;
+
+            var usersList = this.PageBoardContext.BoardSettings.EnableDisplayName
+                                ? await this.GetRepository<User>().GetAsync(
+                                      user => user.BoardID == boardId && user.DisplayName.StartsWith(searchQuery))
+                                : await this.GetRepository<User>().GetAsync(
+                                      user => user.BoardID == boardId && user.Name.StartsWith(searchQuery));
 
             var userIgnoredList = await this.Get<IUserIgnored>().UserIgnoredListAsync(BoardContext.Current.PageUserID);
 
             var userList = usersList.AsEnumerable().Where(u =>
                 !userIgnoredList.Contains(u.ID) && u.BoardID == BoardContext.Current.PageBoardID &&
-                !u.UserFlags.IsDeleted && u.UserFlags.IsApproved).Select(
+                !u.UserFlags.IsDeleted && u.UserFlags.IsApproved && !u.UserFlags.IsGuest).Take(20).Select(
                 u => new {
                     id = u.ID,
                     name = u.DisplayOrUserName(),

@@ -64,21 +64,18 @@ public class Albums : ForumBaseController
                 return this.NotFound();
             }
 
+            // Check if user has access
+            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ProfileViewPermissions))
+            {
+                return this.NotFound();
+            }
+
             // ImageID
             var image = await this.GetRepository<UserAlbumImage>()
                 .GetImageAsync(imageId);
 
-            var uploadFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
-
-            var oldFileName =
-                $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}";
-            var newFileName =
-                $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}.yafalbum";
-
-            // use the new fileName (with extension) if it exists...
-            var fileName = System.IO.File.Exists(newFileName) ? newFileName : oldFileName;
-
-            if (image.Item1.ContentType.Contains("text"))
+            // an unknown image is no error (no event log entry)
+            if (image is null || !IsImage(image.Item1))
             {
                 return this.NotFound();
             }
@@ -88,10 +85,9 @@ public class Albums : ForumBaseController
                 imageId);
 
             // output stream...
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            var result = new FileStreamResult(stream, "image/png");
+            var stream = new FileStream(this.GetImageFileName(image), FileMode.Open, FileAccess.Read, FileShare.Read);
 
-            return result;
+            return new FileStreamResult(stream, ImageContentType(image.Item1));
         }
         catch (Exception x)
         {
@@ -119,24 +115,26 @@ public class Albums : ForumBaseController
                 return this.NotFound();
             }
 
+            // Check if user has access
+            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ProfileViewPermissions))
+            {
+                return this.NotFound();
+            }
+
             // ImageID
             var image = await this.GetRepository<UserAlbumImage>()
                 .GetImageAsync(imageId);
 
-            var uploadFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
-
-            var oldFileName = $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}";
-            var newFileName =
-                $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}.yafalbum";
-
-            // use the new fileName (with extension) if it exists...
-            var fileName = System.IO.File.Exists(newFileName) ? newFileName : oldFileName;
+            // an unknown image is no error (no event log entry)
+            if (image is null || !IsImage(image.Item1))
+            {
+                return this.NotFound();
+            }
 
             // output stream...
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            var result = new FileStreamResult(stream, "image/png");
+            var stream = new FileStream(this.GetImageFileName(image), FileMode.Open, FileAccess.Read, FileShare.Read);
 
-            return result;
+            return new FileStreamResult(stream, ImageContentType(image.Item1));
         }
         catch (Exception x)
         {
@@ -171,54 +169,33 @@ public class Albums : ForumBaseController
                 return this.NotFound();
             }
 
+            Tuple<UserAlbumImage, UserAlbum> image = null;
+
             // CoverID
-            var fileName = string.Empty;
             if (coverId == 0)
             {
                 var album = this.GetRepository<UserAlbumImage>().List(albumId);
 
                 if (!album.NullOrEmpty())
                 {
-                    var image = album.Count > 1
-                                    ? await this.GetRepository<UserAlbumImage>()
-                                        .GetImageAsync(album[RandomNumberGenerator.GetInt32(1, album.Count)].ID)
-                                    : await this.GetRepository<UserAlbumImage>()
-                                        .GetImageAsync(album[0].ID);
-
-                    var uploadFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
-
-                    var oldFileName =
-                        $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}";
-                    var newFileName =
-                        $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}.yafalbum";
-
-                    // use the new fileName (with extension) if it exists...
-                    fileName = System.IO.File.Exists(newFileName) ? newFileName : oldFileName;
+                    image = await this.GetRepository<UserAlbumImage>()
+                        .GetImageAsync(album[album.Count > 1 ? RandomNumberGenerator.GetInt32(album.Count) : 0].ID);
                 }
             }
             else
             {
-                var image = await this.GetRepository<UserAlbumImage>()
+                image = await this.GetRepository<UserAlbumImage>()
                     .GetImageAsync(coverId);
-
-                if (image != null)
-                {
-                    var uploadFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
-
-                    var oldFileName =
-                        $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}";
-                    var newFileName =
-                        $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}.yafalbum";
-
-                    // use the new fileName (with extension) if it exists...
-                    fileName = System.IO.File.Exists(newFileName) ? newFileName : oldFileName;
-                }
             }
 
-            var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            var result = new FileStreamResult(stream, "image/png");
+            if (image is null || !IsImage(image.Item1))
+            {
+                return this.NotFound();
+            }
 
-            return result;
+            var stream = new FileStream(this.GetImageFileName(image), FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            return new FileStreamResult(stream, ImageContentType(image.Item1));
         }
         catch (Exception x)
         {
@@ -226,5 +203,46 @@ public class Albums : ForumBaseController
 
             return this.NotFound();
         }
+    }
+
+    /// <summary>
+    /// Only images are served, never files with a text content type (e.g. html uploaded as album image).
+    /// </summary>
+    /// <param name="image">The album image.</param>
+    /// <returns><c>true</c> if the file can be served as image.</returns>
+    private static bool IsImage(UserAlbumImage image)
+    {
+        return image.ContentType.IsNotSet() || !image.ContentType.Contains("text", StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Gets the file name of an album image in the uploads folder (new name with extension, or the old name).
+    /// </summary>
+    /// <param name="image">The image and its album.</param>
+    /// <returns>Returns the full file name</returns>
+    private string GetImageFileName(Tuple<UserAlbumImage, UserAlbum> image)
+    {
+        var uploadFolder = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
+
+        var oldFileName = $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}";
+        var newFileName = $"{oldFileName}.yafalbum";
+
+        // use the new fileName (with extension) if it exists...
+        return System.IO.File.Exists(newFileName) ? newFileName : oldFileName;
+    }
+
+    /// <summary>
+    /// The content type an album image is served with: its own type when it is a raster image, otherwise png
+    /// (never e.g. svg or html, which could contain script).
+    /// </summary>
+    /// <param name="image">The image.</param>
+    /// <returns>Returns the content type</returns>
+    private static string ImageContentType(UserAlbumImage image)
+    {
+        string[] rasterTypes = ["image/png", "image/jpeg", "image/gif", "image/webp", "image/bmp"];
+
+        var contentType = image.ContentType?.Trim().ToLowerInvariant();
+
+        return contentType is not null && rasterTypes.Contains(contentType) ? contentType : "image/png";
     }
 }

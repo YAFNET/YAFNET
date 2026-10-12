@@ -27,6 +27,7 @@ using YAF.Core.Helpers;
 
 namespace YAF.Pages;
 
+using System.Net;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -110,6 +111,18 @@ public class EditAlbumImagesModel : ForumPageRegistered
     }
 
     /// <summary>
+    /// The post handlers (upload, title, delete) need the albums enabled like the get handler.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (!this.PageBoardContext.BoardSettings.EnableAlbum)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
     /// The on get.
     /// </summary>
     /// <param name="a">
@@ -180,6 +193,12 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostUploadAsync(int? albumId)
     {
+        // images can only be added to own albums
+        if (albumId.HasValue && !this.IsOwnAlbum(albumId.Value))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         try
         {
             if (this.CheckValidFiles(this.ImageFiles))
@@ -208,15 +227,20 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// Update Album Title
     /// </summary>
     /// <param name="albumId">The album identifier.</param>
-    public Task OnPostUpdateTitleAsync(int albumId)
+    public async Task<IActionResult> OnPostUpdateTitleAsync(int albumId)
     {
+        if (!this.IsOwnAlbum(albumId))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         this.AlbumTitle = HttpUtility.HtmlEncode(this.AlbumTitle);
 
         this.GetRepository<UserAlbum>().UpdateTitle(
             albumId,
             this.AlbumTitle);
 
-        return this.BindDataAsync(albumId);
+        return await this.BindDataAsync(albumId);
     }
 
     /// <summary>
@@ -237,8 +261,21 @@ public class EditAlbumImagesModel : ForumPageRegistered
     }
 
     /// <summary>
+    /// Checks if the album belongs to the current user.
+    /// </summary>
+    /// <param name="albumId">The album identifier.</param>
+    /// <returns>Returns if it is an own album</returns>
+    private bool IsOwnAlbum(int albumId)
+    {
+        return this.GetRepository<UserAlbum>().Exists(
+            x => x.ID == albumId && x.UserID == this.PageBoardContext.PageUserID);
+    }
+
+    /// <summary>
     /// Binds the data.
     /// </summary>
+    /// <param name="albumId">The album identifier.</param>
+    /// <returns>IActionResult.</returns>
     private async Task<IActionResult> BindDataAsync(int? albumId)
     {
         var data = await this.GetRepository<User>().MaxAlbumDataAsync(
@@ -252,7 +289,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
         if (!albumId.HasValue)
         {
             // Has the user created maximum number of albums?
-            if (this.AllowedImages > 0 && albumSize >= this.AllowedImages)
+            if (data.UserAlbum > 0 && albumSize >= data.UserAlbum)
             {
                 // Albums count. If we reached limit then we go to info page.
                 return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
@@ -262,9 +299,16 @@ public class EditAlbumImagesModel : ForumPageRegistered
         }
         else
         {
+            // only the own albums can be edited
+            if (!this.IsOwnAlbum(albumId.Value))
+            {
+                return this.Get<ILinkBuilder>().AccessDenied();
+            }
+
             this.AlbumId = albumId;
 
-            this.AlbumTitle = this.GetRepository<UserAlbum>().GetTitle(this.AlbumId.Value);
+            // the title is stored html encoded, the input field encodes it itself (otherwise every save encodes it again)
+            this.AlbumTitle = WebUtility.HtmlDecode(this.GetRepository<UserAlbum>().GetTitle(this.AlbumId.Value));
 
             this.Images = this.GetRepository<UserAlbumImage>().List(this.AlbumId.Value);
 
@@ -349,7 +393,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 return true;
             }
 
-            this.PageBoardContext.Notify(this.GetTextFormatted("FILEERROR", extension), MessageTypes.warning);
+            this.PageBoardContext.Notify(this.GetTextFormatted("FILEERROR", this.HtmlEncode(extension)), MessageTypes.warning);
         }
 
         return false;
@@ -378,7 +422,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             // Albums count. If we reached limit then we exit.
             if (allStats >= usrAlbumsAllowed)
             {
-                this.PageBoardContext.Notify(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumsAllowed), MessageTypes.warning);
                 return null;
             }
 
@@ -451,8 +495,6 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 filename,
                 file.Length.ToType<int>(),
                 file.ContentType);
-
-            usrAlbumImagesAllowed++;
         }
 
         return albumId;

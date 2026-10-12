@@ -92,8 +92,8 @@ public static class BoardRepositoryExtensions
             // -- Board
             var newBoardId = await repository.InsertAsync(new Board { Name = boardName, Description = boardDescription });
 
-            BoardContext.Current.GetRepository<Registry>().Save("culture", culture);
-            BoardContext.Current.GetRepository<Registry>().Save("language", languageFile);
+            BoardContext.Current.GetRepository<Registry>().Save("culture", culture, newBoardId);
+            BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, newBoardId);
 
             // -- Rank
             var rankIdAdmin = await BoardContext.Current.GetRepository<Rank>().InsertAsync(
@@ -386,7 +386,8 @@ public static class BoardRepositoryExtensions
                         .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
-                    countPostsExpression.Where<Category>(c => c.BoardID == boardId && (c.Flags & 1) == 1);
+                    countPostsExpression.Where<Message, Topic, Category>(
+                        (a, b, c) => (a.Flags & 8) != 8 && (b.Flags & 8) != 8 && c.BoardID == boardId && (c.Flags & 1) == 1);
 
                     var countPostsSql = countPostsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -396,7 +397,8 @@ public static class BoardRepositoryExtensions
                     countTopicsExpression.Join<Forum>((a, b) => b.ID == a.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
-                    countTopicsExpression.Where<Category>(c => c.BoardID == boardId && (c.Flags & 1) == 1);
+                    countTopicsExpression.Where<Topic, Category>(
+                        (a, c) => (a.Flags & 8) != 8 && a.NumPosts > 0 && c.BoardID == boardId && (c.Flags & 1) == 1);
 
                     var countTopicsSql = countTopicsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -464,7 +466,7 @@ public static class BoardRepositoryExtensions
                     // -- count Posts
                     var countPostsExpression = db.From<Message>();
 
-                    countPostsExpression.Join<Topic>((a, b) => b.ID == a.TopicID && (a.Flags & 8) != 8)
+                    countPostsExpression.Join<Topic>((a, b) => b.ID == a.TopicID && (a.Flags & 8) != 8 && (b.Flags & 8) != 8)
                         .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 

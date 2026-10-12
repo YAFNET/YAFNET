@@ -201,7 +201,8 @@ public class EditProfileModel : ProfilePage
                             this.PageBoardContext.MembershipUser,
                             this.PageBoardContext.PageUser.IP);
 
-                        break;
+                        // the user is deleted and logged out, nothing is saved
+                        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
                     }
                 }
             }
@@ -218,32 +219,43 @@ public class EditProfileModel : ProfilePage
         if (this.PageBoardContext.BoardSettings.EnableDisplayName &&
             this.PageBoardContext.BoardSettings.AllowDisplayNameModification)
         {
+            // an empty field is a too short name
+            var newDisplayName = this.Input.DisplayName?.Trim() ?? string.Empty;
+
             // Check if name matches the required minimum length
-            if (this.Input.DisplayName.Trim().Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
+            if (newDisplayName.Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
             {
                 return this.PageBoardContext.SessionNotify(
-                    this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
+                    this.GetTextFormatted("USERNAME_TOOSMALL", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                     MessageTypes.warning, ForumPages.Profile_EditProfile);
             }
 
-            // Check if name matches the required minimum length
-            if (this.Input.DisplayName.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
+            // Check if name matches the required maximum length
+            if (newDisplayName.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
             {
                 return this.PageBoardContext.SessionNotify(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
                     MessageTypes.warning, ForumPages.Profile_EditProfile);
             }
 
-            if (this.Input.DisplayName.Trim() != this.PageBoardContext.PageUser.DisplayName)
+            if (newDisplayName != this.PageBoardContext.PageUser.DisplayName)
             {
-                if (this.Get<IUserDisplayName>().FindUserByName(this.Input.DisplayName.Trim()) != null)
+                // the same rules as for the registration (e.g. the guest can't be impersonated)
+                if (!await UserHelper.IsAllowedNameAsync(newDisplayName, this.PageBoardContext.PageBoardID))
+                {
+                    return this.PageBoardContext.SessionNotify(
+                        this.GetText("COMMON", "BAD_USERNAME"),
+                        MessageTypes.warning, ForumPages.Profile_EditProfile);
+                }
+
+                if (this.Get<IUserDisplayName>().FindUserByName(newDisplayName) != null)
                 {
                     return this.PageBoardContext.SessionNotify(
                         this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
                         MessageTypes.warning, ForumPages.Profile_EditProfile);
                 }
 
-                displayName = this.Input.DisplayName.Trim();
+                displayName = newDisplayName;
             }
         }
 
@@ -258,6 +270,20 @@ public class EditProfileModel : ProfilePage
         {
             return this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
+                MessageTypes.warning, ForumPages.Profile_EditProfile);
+        }
+
+        // the required fields and the types are taken from the database (the client can leave out fields)
+        var invalidField = CustomProfileHelper.FindInvalidField(
+            this.GetRepository<ProfileDefinition>().GetByBoardId(),
+            this.Input.CustomProfile,
+            true,
+            out var isNumberError);
+
+        if (invalidField is not null)
+        {
+            return this.PageBoardContext.SessionNotify(
+                string.Format(this.GetText("EDIT_PROFILE", isNumberError ? "NEED_CUSTOM_NUMBER" : "NEED_CUSTOM"), this.HtmlEncode(invalidField.Name)),
                 MessageTypes.warning, ForumPages.Profile_EditProfile);
         }
 
@@ -433,11 +459,20 @@ public class EditProfileModel : ProfilePage
     {
         var genders = StaticDataHelper.Gender().ToList();
 
+        // only known countries and regions are saved, the values are sent by the client
+        var country = this.Input.Country.IsSet()
+                      && StaticDataHelper.Countries().Any(c => c.Value.IsSet() && c.Value == this.Input.Country.Trim())
+                          ? this.Input.Country.Trim()
+                          : null;
+
+        var region = country != null && this.Input.Region.IsSet()
+                     && StaticDataHelper.Regions(country).Any(r => r.Value.IsSet() && r.Value == this.Input.Region.Trim())
+                         ? this.Input.Region.Trim()
+                         : string.Empty;
+
         var userProfile = new ProfileInfo {
-                                              Country = this.Input.Country,
-                                              Region = this.Input.Region.IsSet()
-                                                           ? this.Input.Region.Trim()
-                                                           : string.Empty,
+                                              Country = country,
+                                              Region = region,
                                               City = this.Input.City.IsSet() ? this.Input.City.Trim() : null,
                                               Location =
                                                   this.Input.Location.IsSet() ? this.Input.Location.Trim() : null,
@@ -514,10 +549,25 @@ public class EditProfileModel : ProfilePage
 
         this.GetRepository<ProfileCustom>().Delete(x => x.UserID == this.PageBoardContext.PageUserID);
 
+        // the fields of the board are taken from the database, the ids, types and lengths are sent by the client
+        var definitions = this.GetRepository<ProfileDefinition>().GetByBoardId();
+
         this.Input.CustomProfile.ForEach(
             item =>
             {
-                var type = item.DataType.ToEnum<DataType>();
+                var definition = definitions.FirstOrDefault(d => d.ID == item.ID);
+
+                if (definition is null)
+                {
+                    return;
+                }
+
+                if (definition.Length > 0 && item.Value?.Length > definition.Length)
+                {
+                    item.Value = item.Value[..definition.Length];
+                }
+
+                var type = definition.DataType.ToEnum<DataType>();
 
                 switch (type)
                 {

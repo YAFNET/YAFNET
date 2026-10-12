@@ -17,7 +17,7 @@
                 <div class="card border-danger mb-3">
                     <div class="card-header bg-danger-subtle">
                         @Html.Icon("user-alt-slash")
-                            @Html.LocalizedTextFormatted("TITLE", Model.PageBoardContext.PageUser.DisplayOrUserName())
+                            @Html.LocalizedTextFormatted("TITLE", Html.Encode(Model.PageBoardContext.PageUser.DisplayOrUserName()))
                     </div>
                     <div class="card-body">
                         <form method="post">
@@ -40,6 +40,14 @@
                                     </div>
                                 }
                             </div>
+                            @if (Model.PageBoardContext.MembershipUser.PasswordHash.IsSet())
+                            {
+                                <div class="mb-3">
+                                    <label asp-for="CurrentPassword" localized-page="EDIT_PROFILE" localized-tag="CURRENT_PASSWORD" class="form-label">
+                                    </label>
+                                    <input asp-for="CurrentPassword" type="password" class="form-control" autocomplete="current-password" required />
+                                </div>
+                            }
                             <div class="text-lg-center">
                                 <button type="submit" 
                                         class="me-2"

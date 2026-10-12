@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Ajouter/Modifier une médaille"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Supprimer la médaille de ce groupe ?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "Est approuvé :"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Le compte de l'utilisateur est approuvé et l'utilisateur peut se connecter."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Nom d'affichage :"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Est invité :"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "C'est le compte invité, il est utilisé pour tous les visiteurs qui ne sont pas connectés."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Choisissez un service SPAM pour la vérification automatique des SPAM :"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "jours"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Supprimer les messages non lus plus anciens que :"
+            "@tag": "DELETE_OLDER",
+            "#text": "Supprimer les messages plus anciens que :"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Redémarrer l'application"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "La demande n'est pas revenue. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "L'application redémarre. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Redémarrer l'application"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Rang :"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "Le rang de l'utilisateur, les rangs par paliers changent avec le nombre de messages."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Rôle :"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Votre nouvelle adresse e-mail a été confirmée."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Votre adresse courriel a été verifiée."
@@ -7213,6 +7237,10 @@
         "@name": "COMMON",
         "Resource": [
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Insérer une image d'album"
+          },
+          {
             "@tag": "ATTACH_BBCODE",
             "#text": "Insérez une pièce jointe existante ou téléchargez un nouveau fichier..."
           },
@@ -7470,7 +7498,7 @@
           },
           {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{Mise à jour du compte du forum"
+            "#text": "{0} Mise à jour du compte du forum"
           },
           {
             "@tag": "OK",
@@ -8918,6 +8946,10 @@
             "#text": "Raison pour suppression"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Supprimer ce message"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Suppression de la base de données (irréversible)"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Raison de récupération"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Restaurer ce message"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Effacer Avatar"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Avatar actuel"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Entrer l'URL de l'Avatar sur le serveur distant:"
           },
@@ -9150,12 +9190,24 @@
             "#text": "Changer votre adresse courriel"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Un lien de confirmation a été envoyé à {0}. Votre adresse e-mail sera modifiée après l'ouverture du lien."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Confirmez votre nouvelle adresse e-mail pour le forum {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Ville :"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Pays :"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Mot de passe actuel"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} est nécessaire"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} doit être un nombre"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Autre"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Où habitez-vous ?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Le mot de passe que vous avez entré n'est pas correct."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Envoyé à (adresse courriel)&nbsp;:"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Vous avez envoyé trop d'e-mails, veuillez réessayer plus tard."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Tous"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Afficher les utilisateurs commençant par {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "par {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Les sujets ne peuvent être déplacés que vers un forum, veuillez sélectionner un forum et non une catégorie."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "Courriel&nbsp;:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "L'adresse e-mail de l'utilisateur."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Fin de suspension de l'utilisateur&nbsp;:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "Inscrit le&nbsp;:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "La date d'inscription de l'utilisateur."
+          },
+          {
             "@tag": "LAST10",
             "#text": "10 derniers messages"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Dernière visite&nbsp;:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "La date de la dernière visite de l'utilisateur."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "Votre compte n'as pas encore été approuvé par les administrateurs. Vous ne pouvez pas réinitialiser votre mot de passe tant que votre compte n'est pas approuvé."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Votre compte n'est pas encore approuvé car vous n'avez pas encore validé votre adresse email. Un nouvel email de validation a été envoyé à {0}. Veuillez le vérifier pour pouvoir vous connecter."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Entrez votre nom d'utilisateur pour retrouver votre mot de passe:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Un courriel contenant le lien de réinitialisation a été envoyé à votre adresse électronique !"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Si un compte avec ce nom d'utilisateur ou cette adresse e-mail existe, un e-mail a été envoyé à son adresse e-mail."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Mot de passe faible, essayez d'utiliser des chiffres et des lettres majuscules."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Nouveau mot de passe pour le forum {0}"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Lumière"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

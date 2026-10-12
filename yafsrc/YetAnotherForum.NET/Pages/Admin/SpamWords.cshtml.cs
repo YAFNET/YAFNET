@@ -156,7 +156,7 @@ public class SpamWordsModel : AdminPage
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
-        var spamWord = this.GetRepository<SpamWords>().GetById(id);
+        var spamWord = this.GetRepository<SpamWords>().GetSingle(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID) ?? new SpamWords();
 
         return new PartialViewResult {
             ViewName = "Dialogs/SpamWordsEdit",
@@ -205,7 +205,7 @@ public class SpamWordsModel : AdminPage
     /// <param name="id">The identifier.</param>
     public async Task OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<SpamWords>().DeleteByIdAsync(id);
+        await this.GetRepository<SpamWords>().DeleteAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID);
 
         this.Get<IObjectStore>().Remove(Constants.Cache.SpamWords);
 

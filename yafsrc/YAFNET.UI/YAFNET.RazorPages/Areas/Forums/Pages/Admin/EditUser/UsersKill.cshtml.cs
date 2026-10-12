@@ -124,10 +124,42 @@ public class UsersKillModel : AdminPage
     public async Task<IActionResult> OnPostKillAsync()
     {
         var user =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] as
+            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] as
                 Tuple<User, AspNetUsers, Rank, VAccess>;
 
+        if (user is null)
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
+        }
+
         this.EditUser = user.Item1;
+
+        // the checks come first, the bans and the deleted posts can not be undone
+        string notAllowed = null;
+
+        if (this.PageBoardContext.PageUserID == user.Item1.ID)
+        {
+            // deleting or suspending yourself isn't an option
+            notAllowed = this.GetText("ADMIN_USERS", "MSG_SELF_DELETE");
+        }
+        else if (user.Item1.UserFlags.IsGuest)
+        {
+            notAllowed = this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST");
+        }
+        else if (user.Item1.UserFlags.IsHostAdmin || user.Item4.IsAdmin > 0)
+        {
+            // admins are not deletable either
+            notAllowed = this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN");
+        }
+
+        if (notAllowed != null)
+        {
+            this.PageBoardContext.SessionNotify(notAllowed, MessageTypes.danger);
+
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Admin_EditUser,
+                new { u = this.Input.UserId, tab = "View9" });
+        }
 
         // Ban User Email?
         if (this.Input.BanEmail)
@@ -195,49 +227,11 @@ public class UsersKillModel : AdminPage
             case "delete":
                 if (user.Item1.ID > 0)
                 {
-                    // we are deleting user
-                    if (this.PageBoardContext.PageUserID == user.Item1.ID)
-                    {
-                        // deleting yourself isn't an option
-                        this.PageBoardContext.SessionNotify(
-                            this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
-                            MessageTypes.danger);
-
-                        return this.Get<ILinkBuilder>().Redirect(
-                            ForumPages.Admin_EditUser,
-                            new { u = this.Input.UserId, tab = "View9" });
-                    }
-
-                    // get user(s) we are about to delete
-                    if (user.Item1.UserFlags.IsGuest)
-                    {
-                        // we cannot delete guest
-                        this.PageBoardContext.SessionNotify(
-                            this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
-                            MessageTypes.danger);
-
-                        return this.Get<ILinkBuilder>().Redirect(
-                            ForumPages.Admin_EditUser,
-                            new { u = this.Input.UserId, tab = "View9" });
-                    }
-
-                    if (user.Item1.UserFlags.IsHostAdmin)
-                    {
-                        // admin are not deletable either
-                        this.PageBoardContext.SessionNotify(
-                            this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
-                            MessageTypes.danger);
-
-                        return this.Get<ILinkBuilder>().Redirect(
-                            ForumPages.Admin_EditUser,
-                            new {u = this.Input.UserId, tab = "View9"});
-                    }
-
                     // all is good, user can be deleted
                     await this.Get<IAspNetUsersHelper>().DeleteUserAsync(this.Input.UserId);
 
                     this.PageBoardContext.SessionNotify(
-                        this.GetTextFormatted("MSG_USER_KILLED", user.Item1.Name),
+                        this.GetTextFormatted("MSG_USER_KILLED", this.HtmlEncode(user.Item1.Name)),
                         MessageTypes.success);
 
                     return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
@@ -264,7 +258,7 @@ public class UsersKillModel : AdminPage
     private void BindData(int userId)
     {
         var user =
-            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
+            this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] as
                 Tuple<User, AspNetUsers, Rank, VAccess>;
 
         this.EditUser = user.Item1;

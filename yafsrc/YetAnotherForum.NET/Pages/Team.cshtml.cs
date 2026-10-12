@@ -89,14 +89,26 @@ public class TeamModel : ForumPage
     /// </summary>
     public async Task<IActionResult> OnPostAsync()
     {
-        var item = this.CompleteMods.Find(x => x.SelectedForumId.IsSet());
-
-        if (item != null && item.SelectedForumId != "intro" && item.SelectedForumId != "break")
+        // the post shows the team as well
+        if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowTeamTo))
         {
-            var forumId = item.SelectedForumId.ToType<int>();
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
+        var item = this.CompleteMods?.Find(x => x.SelectedForumId.IsSet());
+
+        // the id is sent by the client: only a forum the user can read (its name is in the link)
+        if (item != null && int.TryParse(item.SelectedForumId, out var forumId)
+                         && await this.GetRepository<VAccess>().ExistsAsync(
+                             v => v.UserID == this.PageBoardContext.PageUserID && v.ForumID == forumId
+                                                                                && v.ReadAccess > 0))
+        {
             var forum = await this.GetRepository<Forum>().GetByIdAsync(forumId);
 
-            return this.Get<ILinkBuilder>().Redirect(ForumPages.Topics, new { f = forumId, name = forum.Name });
+            if (forum != null)
+            {
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Topics, new { f = forumId, name = forum.Name });
+            }
         }
 
         await this.BindDataAsync();
@@ -128,7 +140,8 @@ public class TeamModel : ForumPage
             () => this.GetRepository<User>().ListAdminsAsync(),
             TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.BoardModeratorsCacheTimeout));
 
-        return adminList;
+        // disabled or not approved accounts are not shown in the team
+        return [.. adminList.Where(u => u.UserFlags.IsApproved && !u.UserFlags.IsDeleted)];
     }
 
     /// <summary>
@@ -141,23 +154,52 @@ public class TeamModel : ForumPage
     {
         var moderators = await this.Get<DataBroker>().GetModeratorsAsync();
 
+        // only the forums the user can read (the names of hidden forums are not shown)
+        var readableForums = (await this.GetRepository<VAccess>().GetAsync(
+                                  v => v.UserID == this.PageBoardContext.PageUserID && v.ReadAccess > 0))
+            .Select(v => v.ForumID).ToHashSet();
+
         var modsSorted = new List<SimpleModerator>();
 
         moderators.ForEach(
             mod =>
             {
-                var sortedMod = mod;
-
                 // Check if Mod is already in modsSorted
                 if (modsSorted.Find(
-                        s => s.Name.Equals(sortedMod.Name) && s.ModeratorID.Equals(sortedMod.ModeratorID)) != null)
+                        s => s.Name.Equals(mod.Name) && s.ModeratorID.Equals(mod.ModeratorID)) != null)
                 {
                     return;
                 }
 
                 // Get All Items from that MOD
-                var modList = moderators.Where(m => m.Name.Equals(sortedMod.Name)).ToList();
+                var modList = moderators.Where(m => m.Name.Equals(mod.Name) && readableForums.Contains(m.ForumID))
+                    .ToList();
                 var forumsCount = modList.Count;
+
+                if (forumsCount == 0)
+                {
+                    return;
+                }
+
+                // a copy, the moderators list is cached for all users
+                var sortedMod = new SimpleModerator
+                                {
+                                    ForumID = mod.ForumID,
+                                    ParentID = mod.ParentID,
+                                    ForumName = mod.ForumName,
+                                    CategoryID = mod.CategoryID,
+                                    CategoryName = mod.CategoryName,
+                                    ModeratorID = mod.ModeratorID,
+                                    Name = mod.Name,
+                                    Email = mod.Email,
+                                    ModeratorBlockFlags = mod.ModeratorBlockFlags,
+                                    UserBlockFlags = mod.UserBlockFlags,
+                                    Avatar = mod.Avatar,
+                                    AvatarImage = mod.AvatarImage,
+                                    DisplayName = mod.DisplayName,
+                                    Style = mod.Style,
+                                    Suspended = mod.Suspended
+                                };
 
                 sortedMod.ForumIDs = new ModeratorsForums[forumsCount];
 

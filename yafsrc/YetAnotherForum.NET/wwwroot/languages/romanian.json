@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Adăugare/modificare medalie"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Îndepărtați medalia de la acest grup?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "Este aprobată:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Contul utilizatorului este aprobat și utilizatorul se poate autentifica."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Numele afișat:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Este invitat:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Acesta este contul de vizitator, este folosit pentru toți vizitatorii care nu sunt autentificați."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3901,6 +3913,10 @@
             "#text": "Alegeți un serviciu SPAM pentru verificarea automată a SPAM:"
           },
           {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+          },
+          {
             "@tag": "CLEAR_CACHE",
             "#text": "Ștergeți memoria cache"
           },
@@ -4458,7 +4474,7 @@
           },
           {
             "@tag": "LOGIN_REDIR_URL_HELP",
-            "#text": "Dacă autentificarea este dezactivată în AppSettings (AllowLoginAndLogoff trebuie să fie setat la \"false\"), acesta este URL-ul la care vor fi redirecționați utilizatorii atunci când vor trebui să acceseze forumul. Opțional, adăugați \"{0}\" la URL pentru a trece URL-ul de întoarcere la Url-ul personalizat. De exemplu, \"http://mydomain.com/login.aspx?PreviousUrl={{{0}}\""
+            "#text": "Dacă autentificarea este dezactivată în AppSettings (AllowLoginAndLogoff trebuie să fie setat la \"false\"), acesta este URL-ul la care vor fi redirecționați utilizatorii atunci când vor trebui să acceseze forumul. Opțional, adăugați \"{0}\" la URL pentru a trece URL-ul de întoarcere la Url-ul personalizat. De exemplu, \"http://mydomain.com/login.aspx?PreviousUrl={{0}}\""
           },
           {
             "@tag": "MAX_ALLOWED_CHOICES",
@@ -5563,8 +5579,8 @@
             "#text": "zile"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Ștergeți mesajele necitite mai vechi de:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Ștergeți mesajele mai vechi de:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Reporniți aplicația"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "Aplicația nu a revenit. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "Aplicația se repornește. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Reporniți aplicația"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Rang:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "Rangul utilizatorului, rangurile pe trepte se schimbă cu numărul de mesaje."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Rol:"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Noua ta adresă de e-mail a fost confirmată."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Adresa de email a fost verificata."
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Inserați o imagine de album"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Inserați un atașament existent sau încărcați un fișier nou..."
@@ -8918,6 +8946,10 @@
             "#text": "Ștergeți motivul"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Ștergeți acest mesaj"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Sters mesaj din baza de date (irreversibil)"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Motivul ștergerii"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Restabiliți acest mesaj"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Avatar clar"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Avatarul curent"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Introduceți adresa URL a avatarului de pe serverul de la distanță care urmează să fie utilizat:"
           },
@@ -9150,12 +9190,24 @@
             "#text": "Schimba adresa de email."
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Un link de confirmare a fost trimis la {0}. Adresa ta de e-mail va fi schimbată după ce deschizi linkul."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Confirmați noua adresă de e-mail pentru forumul {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Oraș:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Țară:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Parola actuală"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} este necesar"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} trebuie să fie un număr"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Altele"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Unde traiesti?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Parola pe care ați introdus-o nu este corectă."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Trimite la (Adresa email):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Ați trimis prea multe e-mailuri, vă rugăm să încercați din nou mai târziu."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Toate"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Afișează utilizatorii care încep cu {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "de {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Subiectele pot fi mutate doar într-un forum, vă rugăm să selectați un forum și nu o categorie."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "E-mail:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "Adresa de e-mail a utilizatorului."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Suspendarea utilizatorului se termina la:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "A intrat:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "Data la care s-a înregistrat utilizatorul."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Ultimile 10 postari"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Ultima vizita:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "Data ultimei vizite a utilizatorului."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "Contul dvs. nu a fost încă aprobat de către administrator. Nu vă puteți reseta parola decât dacă sunteți aprobat."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Contul dvs. nu este încă aprobat deoarece nu v-ați validat e-mailul. O nouă validare a e-mailului a fost trimisă la {0}. Vă rugăm să verificați pentru a vă putea autentifica."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Enter your User Name to retrieve your password:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Un e-mail cu link-ul de resetare a fost trimis la adresa dvs. de e-mail!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Dacă există un cont cu acest nume de utilizator sau această adresă de e-mail, a fost trimis un e-mail la adresa sa de e-mail."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Parolă slabă, încercați să folosiți numere și litere majuscule."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Parolă nouă pentru {0} Forum"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Aprinde"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

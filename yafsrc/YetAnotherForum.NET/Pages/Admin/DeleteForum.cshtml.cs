@@ -118,6 +118,9 @@ public class DeleteForumModel : AdminPage
 
         if (errorMessage.IsSet())
         {
+            // the page is shown again with the forum (it is not sent with the form)
+            this.Forum = this.GetRepository<Forum>().GetById(fa);
+
             return this.PageBoardContext.Notify(errorMessage, MessageTypes.danger);
         }
 
@@ -127,5 +130,32 @@ public class DeleteForumModel : AdminPage
         }
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
+    }
+
+    /// <summary>
+    /// Only forums of the current board can be deleted, the topics can only be moved to a forum of the board (all handlers, the id is sent by the client).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        var id = context.HandlerArguments.TryGetValue("fa", out var argument) && argument is int argumentId ? argumentId : 0;
+
+        if (id > 0 && !this.IsBoardForum(id) || this.ForumListSelected > 0 && !this.IsBoardForum(this.ForumListSelected))
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
+    /// Checks if the forum belongs to the current board.
+    /// </summary>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <returns>Returns if the forum belongs to the current board.</returns>
+    private bool IsBoardForum(int forumId)
+    {
+        var forum = this.GetRepository<Forum>().GetById(forumId);
+
+        return forum != null && this.GetRepository<Category>().Exists(
+                   c => c.ID == forum.CategoryID && c.BoardID == this.PageBoardContext.PageBoardID);
     }
 }

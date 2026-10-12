@@ -56,7 +56,7 @@ public class DateTimeServiceTests
             .Add("DEFAULT", "FORMAT_TIME", "HH:mm")
             .Add("DEFAULT", "TodayAt", "Today at {0:HH:mm}")
             .Add("DEFAULT", "YesterdayAt", "Yesterday at {0:HH:mm}")
-            .Add("TIMEZONES", "NAME_UTC", " (UTC)");
+            .Add("TIMEZONES", "NAME_UTC", "(UTC{0})");
     }
 
     [TearDown]
@@ -79,12 +79,42 @@ public class DateTimeServiceTests
     }
 
     [Test]
-    [Description("Guests get the time zone name appended")]
+    [Description("A calendar date (a birthday) is the same day in every time zone, also for guests (no time zone appended)")]
+    public void Format_Calendar_Date_Test()
+    {
+        var birthday = new DateTime(1990, 5, 10);
+
+        foreach (var timeZone in new[] { Berlin, "UTC", "Hawaiian Standard Time", "Tokyo Standard Time" })
+        {
+            this.board.User.TimeZoneUser = timeZone;
+
+            this.CreateService().FormatCalendarDate(birthday).Should().Be("10 May 1990", timeZone);
+        }
+
+        this.board.User.IsGuest = true;
+        this.CreateService().FormatCalendarDate(birthday).Should().Be("10 May 1990");
+    }
+
+    [Test]
+    [Description("Guests get the offset of their time zone at that date appended, registered users not")]
     public void Format_Guest_Appends_TimeZone_Test()
     {
         this.board.User.IsGuest = true;
+        var service = this.CreateService();
 
-        this.CreateService().FormatTime(this.summerNoonUtc).Should().Be("14:00 (UTC)");
+        // Berlin: summer time +2, winter time +1
+        service.FormatTime(this.summerNoonUtc).Should().Be("14:00 (UTC+02:00)");
+        service.FormatTime(new DateTime(2026, 1, 15, 12, 0, 0, DateTimeKind.Utc)).Should().Be("13:00 (UTC+01:00)");
+        service.FormatDateShort(this.summerNoonUtc).Should().Be("2026-07-01 (UTC+02:00)");
+
+        this.board.User.TimeZoneUser = "Newfoundland Standard Time";
+        service.FormatTime(new DateTime(2026, 1, 15, 12, 0, 0, DateTimeKind.Utc)).Should().Be("08:30 (UTC-03:30)");
+
+        this.board.User.TimeZoneUser = "UTC";
+        service.FormatTime(this.summerNoonUtc).Should().Be("12:00 (UTC)");
+
+        this.board.User.IsGuest = false;
+        service.FormatTime(this.summerNoonUtc).Should().Be("12:00");
     }
 
     [Test]
@@ -145,6 +175,65 @@ public class DateTimeServiceTests
 
         service.GetUserDateTime(this.summerNoonUtc).Should().Be(new DateTime(2026, 7, 1, 14, 0, 0));
         service.GetUserDateTime(this.summerNoonUtc, TimeZoneInfo.Utc).Should().Be(this.summerNoonUtc);
+    }
+
+    [Test]
+    [Description("Every format method falls back to the standard .NET format when the localized one is invalid")]
+    public void All_Formats_Fall_Back_Test()
+    {
+        foreach (var tag in new[] { "FORMAT_DATE_LONG", "FORMAT_DATE_SHORT", "FORMAT_DATE_TIME_LONG", "FORMAT_DATE_TIME_SHORT" })
+        {
+            this.board.Localization.Add("DEFAULT", tag, "%");
+        }
+
+        this.board.Localization.Add("DEFAULT", "TodayAt", "{0:%}").Add("DEFAULT", "YesterdayAt", "{0:%}");
+
+        var berlin = TimeZoneInfo.ConvertTimeFromUtc(this.summerNoonUtc, TimeZoneInfo.FindSystemTimeZoneById(Berlin));
+        var service = this.CreateService();
+
+        service.FormatDateLong(this.summerNoonUtc).Should().Be(berlin.ToString("D"));
+        service.FormatDateShort(this.summerNoonUtc).Should().Be(berlin.ToString("d"));
+        service.FormatDateTime(this.summerNoonUtc).Should().Be(berlin.ToString("F"));
+        service.FormatDateTimeShort(this.summerNoonUtc).Should().Be(berlin.ToString("G"));
+        service.FormatDateTimeTopic(this.summerNoonUtc).Should().Be(berlin.ToString("G"));
+    }
+
+    [Test]
+    [Description("All format methods use the Persian calendar when the Farsi calendar is enabled")]
+    public void All_Formats_Farsi_Calendar_Test()
+    {
+        this.board.BoardSettings.UseFarsiCalender = true;
+        var service = this.CreateService();
+
+        // 1 July 2026 is 10 Tir 1405
+        service.FormatDateLong(this.summerNoonUtc).Should().Contain("1405");
+        service.FormatDateTime(this.summerNoonUtc).Should().Contain("1405");
+        service.FormatDateTimeShort(this.summerNoonUtc).Should().Contain("1405");
+        service.FormatDateTimeTopic(this.summerNoonUtc).Should().Contain("1405");
+        service.FormatDateLong(this.summerNoonUtc).Should().NotContain("2026");
+    }
+
+    [Test]
+    [Description("Local dates are treated as UTC by the topic format instead of failing")]
+    public void FormatDateTimeTopic_Local_Kind_Test()
+    {
+        this.board.User.TimeZoneUser = "UTC";
+        var older = DateTime.SpecifyKind(new DateTime(2020, 3, 4, 5, 6, 0), DateTimeKind.Local);
+
+        this.CreateService().FormatDateTimeTopic(older).Should().Be("2020-03-04 05:06");
+    }
+
+    [Test]
+    [Description("A negative user offset with minutes is split into hours and minutes")]
+    public void TimeOffset_Negative_Test()
+    {
+        // Newfoundland: -3:30 in winter, -2:30 in summer
+        this.board.User.TimeZoneUser = "Newfoundland Standard Time";
+
+        var offset = this.CreateService().TimeOffset;
+
+        offset.Minutes.Should().Be(-30);
+        offset.Hours.Should().BeOneOf(-2, -3);
     }
 
     private DateTimeService CreateService()

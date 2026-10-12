@@ -568,6 +568,9 @@ public static class MessageRepositoryExtensions
                 },
                 x => x.ID == message.TopicID);
 
+            // the search index has the flags of the post (not approved posts are only found by moderators)
+            await repository.UpdateSearchIndexAsync(message, forumId, flags.BitValue);
+
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
         }
 
@@ -647,14 +650,19 @@ public static class MessageRepositoryExtensions
         /// <param name="message">
         /// The message.
         /// </param>
+        /// <param name="restoreLinked">
+        /// Restore the replies (quotes) of the message too.
+        /// </param>
         public async Task RestoreAsync(int forumId,
             int topicId,
-            Message message)
+            Message message,
+            bool restoreLinked = true)
         {
             await repository.RestoreRecursivelyAsync(
                 forumId,
                 topicId,
-                message);
+                message,
+                restoreLinked);
 
             await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateTopicLastPostEvent(forumId, topicId));
 
@@ -1166,7 +1174,8 @@ public static class MessageRepositoryExtensions
                 Topic = subject.IsSet() ? subject  : topic.TopicName,
                 ForumId = forum.ID,
                 ForumName = forum.Name,
-                Description = description
+                Description = description,
+                TopicTags = BoardContext.Current.GetRepository<TopicTag>().ListAsDelimitedString(originalMessage.TopicID)
             };
 
             BoardContext.Current.Get<ISearch>().UpdateSearchIndexItem(updateMessage, true);
@@ -1294,22 +1303,76 @@ public static class MessageRepositoryExtensions
         /// </param>
         private async Task RestoreRecursivelyAsync(int forumId,
             int topicId,
-            Message message)
+            Message message,
+            bool restoreLinked)
         {
             // Restore replies
-            var replies = (await repository.GetAsync(m => m.ReplyTo == message.ID)).ToList();
+            var replies = restoreLinked ? (await repository.GetAsync(m => m.ReplyTo == message.ID)).ToList() : [];
 
             if (replies.HasItems())
             {
                 foreach (var reply in replies)
                 {
-                    await repository.RestoreRecursivelyAsync(forumId, topicId, reply);
+                    await repository.RestoreRecursivelyAsync(forumId, topicId, reply, true);
                 }
             }
 
             await repository.RestoreInternalAsync(forumId,
                 topicId,
                 message);
+
+            // deleted posts are removed from the search index, the restored post is added again
+            var restored = await repository.GetByIdAsync(message.ID);
+
+            if (restored != null)
+            {
+                await repository.UpdateSearchIndexAsync(restored, forumId, restored.Flags);
+            }
+        }
+
+        /// <summary>
+        /// Adds or updates the message in the search index.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="forumId">The forum identifier.</param>
+        /// <param name="flags">The current flags of the message.</param>
+        private async Task UpdateSearchIndexAsync(Message message, int forumId, int flags)
+        {
+            var topic = await BoardContext.Current.GetRepository<Topic>().GetByIdAsync(message.TopicID);
+            var forum = await BoardContext.Current.GetRepository<Forum>().GetByIdAsync(forumId);
+            var user = await BoardContext.Current.GetRepository<User>().GetByIdAsync(message.UserID);
+
+            if (topic is null || forum is null || user is null)
+            {
+                return;
+            }
+
+            try
+            {
+                BoardContext.Current.Get<ISearch>().UpdateSearchIndexItem(
+                    new SearchMessage
+                    {
+                        MessageId = message.ID,
+                        Message = message.MessageText,
+                        Flags = flags,
+                        Posted = message.Posted.ToString(CultureInfo.InvariantCulture),
+                        UserName = user.Name,
+                        UserDisplayName = user.DisplayName,
+                        UserStyle = user.UserStyle,
+                        UserId = message.UserID,
+                        TopicId = message.TopicID,
+                        Topic = topic.TopicName,
+                        ForumId = forum.ID,
+                        ForumName = forum.Name,
+                        Description = topic.Description,
+                        TopicTags = BoardContext.Current.GetRepository<TopicTag>().ListAsDelimitedString(message.TopicID)
+                    },
+                    true);
+            }
+            catch (Exception ex)
+            {
+                BoardContext.Current.Get<ILogger<IRepository<Message>>>().Error(ex, ex.Message);
+            }
         }
 
         /// <summary>
@@ -1482,9 +1545,7 @@ public static class MessageRepositoryExtensions
                 // -- update topic Post Count
                 if (!isTopicDeleteAction)
                 {
-                    await BoardContext.Current.GetRepository<Topic>().UpdateAddAsync(
-                        () => new Topic {NumPosts = -1},
-                        x => x.ID == topicId);
+                    await repository.UpdateTopicPostCountAsync(topicId);
                 }
             }
             catch (Exception)
@@ -1525,8 +1586,17 @@ public static class MessageRepositoryExtensions
             if (!await BoardContext.Current.GetRepository<Forum>()
                     .ExistsAsync(f => f.ID == forumId && (f.Flags & 4) == 4))
             {
-                var postCount = (await repository.CountAsync(
-                    x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16)).ToType<int>();
+                // the same count as after a delete (the posts of test forums are not counted)
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+                expression.Join<Topic>((m, t) => t.ID == m.TopicID);
+                expression.Join<Topic, Forum>((t, f) => f.ID == t.ForumID);
+
+                expression.Where<Message, Topic, Forum>(
+                    (m, t, f) => m.UserID == message.UserID && (m.Flags & 8) != 8 && (m.Flags & 16) == 16
+                                 && (f.Flags & 4) != 4);
+
+                var postCount = repository.DbAccess.Execute(db => db.Connection.Count(expression)).ToType<int>();
 
                 await BoardContext.Current.GetRepository<User>().UpdateOnlyAsync(
                     () => new User { NumPosts = postCount },
@@ -1536,9 +1606,7 @@ public static class MessageRepositoryExtensions
             try
             {
                 // -- update topic Post Count
-                await BoardContext.Current.GetRepository<Topic>().UpdateAddAsync(
-                    () => new Topic { NumPosts = 1},
-                    x => x.ID == topicId);
+                await repository.UpdateTopicPostCountAsync(topicId);
             }
             catch (Exception)
             {
@@ -1631,13 +1699,23 @@ public static class MessageRepositoryExtensions
             }
 
             // -- update topic Post Count
-            await BoardContext.Current.GetRepository<Topic>().UpdateAddAsync(
-                () => new Topic { NumPosts = -1 },
-                x => x.ID == message.TopicID);
+            await repository.UpdateTopicPostCountAsync(message.TopicID);
+            await repository.UpdateTopicPostCountAsync(moveToTopicId);
+        }
 
-            await BoardContext.Current.GetRepository<Topic>().UpdateAddAsync(
-                () => new Topic { NumPosts = 1 },
-                x => x.ID == moveToTopicId);
+        /// <summary>
+        /// Updates the post count of the topic: the posts that are not deleted (like after approving a post).
+        /// Counting up and down got wrong numbers when a deleted post was deleted again, erased later,
+        /// moved or restored with its replies (a topic with 0 posts is not listed anymore).
+        /// </summary>
+        /// <param name="topicId">The topic identifier.</param>
+        private async Task UpdateTopicPostCountAsync(int topicId)
+        {
+            var numPosts = (await repository.CountAsync(m => m.TopicID == topicId && (m.Flags & 8) != 8)).ToType<int>();
+
+            await BoardContext.Current.GetRepository<Topic>().UpdateOnlyAsync(
+                () => new Topic { NumPosts = numPosts },
+                x => x.ID == topicId);
         }
     }
 

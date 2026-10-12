@@ -229,7 +229,7 @@ public static class RegistryRepositoryExtensions
             repository.Delete(x => x.Name == "topicsperpage");
             repository.Delete(x => x.Name == "memberlistpagesize");
             repository.Delete(x => x.Name == "mytopicslistpagesize");
-            repository.Delete(x => x.Name == "enableTopicdescription");
+            repository.Delete(x => x.Name == "enabletopicdescription");
             repository.Delete(x => x.Name == "maxwordlength");
         }
     }

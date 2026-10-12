@@ -81,7 +81,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                         pageSource, Does.Contain("Watch this topic"),
                         "Watch Topic is disabled, or User already Watches that Topic");
 
-                    await page.Locator("//button[contains(@formaction,'TrackTopic')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'TrackTopic')]"));
 
                     pageSource = await page.ContentAsync();
 
@@ -141,7 +141,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                         pageSource, Does.Contain("Unwatch this topic"),
                         "Watch Topic is disabled, or User doesn't watch this topic");
 
-                    await page.Locator("//button[contains(@formaction,'UnTrackTopic')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UnTrackTopic')]"));
 
                     pageSource = await page.ContentAsync();
 
@@ -194,7 +194,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                     });
 
                     // Watch the Test Forum
-                    await page.Locator("//button[contains(@formaction,'WatchForum')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'WatchForum')]"));
 
                     pageSource = await page.ContentAsync();
 
@@ -247,7 +247,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                         pageSource, Does.Contain("Unwatch Forum"),
                         "Watch Forum is disabled, or User doesn't watch that Forum");
 
-                    await page.Locator("//button[contains(@formaction,'WatchForum')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'WatchForum')]"));
 
                     pageSource = await page.ContentAsync();
 
@@ -295,7 +295,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                     // Subscribe if needed
                     if (pageSource.Contains("Watch this topic"))
                     {
-                        await page.Locator("//button[contains(@formaction,'TrackTopic')]").ClickAsync();
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'TrackTopic')]"));
 
                         pageSource = await page.ContentAsync();
 
@@ -306,7 +306,9 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                     await page.LoginAdminUserAsync(this.TestSettings);
 
                     Assert.That(
-                        await page.CreateNewReplyInTestTopicAsync(this.TestSettings, "Reply Message"), Is.True,
+                        await page.CreateNewReplyInTestTopicAsync(
+                            this.TestSettings,
+                            "Reply Message [hide-reply]Only for repliers[/hide-reply]"), Is.True,
                         "Reply Message as Admin failed");
 
                     // Check if an Email was received
@@ -332,6 +334,11 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                     Assert.That(
                         mail.MessageParts[0].BodyData.StartsWith("There's a new post in topic \""), Is.True,
                         "Body does not match");
+
+                    // hidden content is only shown in the forum
+                    Assert.That(
+                        mail.MessageParts[0].BodyData, Does.Not.Contain("Only for repliers"),
+                        "The mail contains hidden content");
                 });
     }
 
@@ -424,6 +431,105 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                         .Contains($"Active and New Topics - Daily Digest for {this.TestSettings.TestApplicationName}"),
                     Is.True,
                     "Body does not match");
+            });
+    }
+
+    /// <summary>
+    /// A notification type that is not in the list (manipulated form) is not saved and doesn't fail.
+    /// </summary>
+    [Test]
+    public async Task NotificationTypeNotInListTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Subscriptions");
+
+                var select = page.Locator("select[name='Input.NotificationType']");
+
+                var current = await select.InputValueAsync();
+
+                foreach (var value in new[] { "x", "99" })
+                {
+                    await select.EvaluateAsync(
+                        "(select, value) => { select.add(new Option(value, value, true, true)); select.value = value; }",
+                        value);
+
+                    var response = await page.RunAndWaitForResponseAsync(
+                                       () => page.EvaluateAsync("() => document.querySelector(\"button[formaction*='/Save']\").click()"),
+                                       r => r.Request.Method == "POST" && r.Url.Contains("Profile/Subscriptions"));
+
+                    Assert.That(response.Status, Is.EqualTo(200), $"Saving the notification type {value} failed");
+
+                    await page.WaitForURLAsync(url => url.EndsWith("/Save"));
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Subscriptions");
+
+                    Assert.That(await select.InputValueAsync(), Is.EqualTo(current), $"The notification type {value} was saved");
+                }
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+            });
+    }
+
+    /// <summary>
+    /// After "Force send" the digest page still shows when the digest was sent last (the field was empty).
+    /// </summary>
+    [Test]
+    public async Task ForceDigestSendShowsLastSendTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                // the button is only enabled with the digest turned on
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+
+                var digestSwitch = page.Locator("#Input_AllowDigestEmail");
+
+                var digestWasEnabled = await digestSwitch.IsCheckedAsync();
+
+                if (!digestWasEnabled)
+                {
+                    await digestSwitch.CheckAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                }
+
+                try
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Digest");
+
+                    var lastSend = await page.Locator("#LastSend").InputValueAsync();
+
+                    Assert.That(lastSend, Is.Not.Empty, "The last send time is not shown");
+
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForceSend']"));
+
+                    Assert.That(
+                        await page.ContentAsync(), Does.Contain("Digest Send Scheduled for Immediate Sending"),
+                        "The digest was not forced");
+
+                    // not compared with the value before: the digest task can run in between
+                    Assert.That(
+                        await page.Locator("#LastSend").InputValueAsync(),
+                        Is.Not.Empty,
+                        "The last send time is not shown after forcing the digest");
+                }
+                finally
+                {
+                    if (!digestWasEnabled)
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+
+                        await digestSwitch.UncheckAsync();
+                        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                    }
+                }
             });
     }
 }

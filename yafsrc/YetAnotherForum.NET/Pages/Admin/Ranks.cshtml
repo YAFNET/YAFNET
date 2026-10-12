@@ -24,7 +24,7 @@
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1 text-break">
                                             <i class="fa fa-graduation-cap"></i>&nbsp;
-                                            @Html.Raw(rank.Name)
+                                            @rank.Name
                                         </h5>
                                         <small>
                                             @Html.LocalizedText("ADMIN_RANKS","IS_START")
@@ -37,7 +37,7 @@
                                         @if (rank.Description.IsSet())
                                         {
                                             @Html.LocalizedText("ADMIN_EDITGROUP", "DESCRIPTION")
-                                            @Html.Raw(rank.Description)
+                                            @rank.Description
                                         }
                                         <ul class="list-inline">
                                             <li class="list-inline-item">
@@ -69,7 +69,7 @@
                                                 @Html.LocalizedText("ADMIN_EDITGROUP", "STYLE")&nbsp;
                                                 @if (rank.Style.IsSet() && rank.Style.Trim().Length > 0)
                                                 {
-                                                    <code>@Html.Raw(rank.Style)</code>
+                                                    <code>@rank.Style</code>
                                                 }
                                                 else
                                                 {

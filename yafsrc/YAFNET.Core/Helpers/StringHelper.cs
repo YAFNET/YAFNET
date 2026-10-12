@@ -36,11 +36,18 @@ public static class StringHelper
     /// <returns>System.String.</returns>
     public static string GetAbbreviation(this string data)
     {
-        var trimmedData = data.Unidecode().Trim();
+        var trimmedData = (data ?? string.Empty).Unidecode().Trim();
+
+        // e.g. a name of emoji only
+        if (trimmedData.Length == 0)
+        {
+            return "?";
+        }
 
         if (trimmedData.Contains(' '))
         {
-            var splitted = trimmedData.Split(' ');
+            // several spaces between the words are ignored
+            var splitted = trimmedData.Split(" ", System.StringSplitOptions.RemoveEmptyEntries);
             return $"{splitted[0].ToUpper()[0]}{splitted[1].ToUpper()[0]}";
         }
 

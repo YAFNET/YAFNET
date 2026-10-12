@@ -60,17 +60,20 @@ public class PollController : ForumBaseController
                 new { info = InfoMessage.Invalid.ToType<int>() });
         }
 
-        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess
-                                           && this.PageBoardContext.PageUserID != poll.UserID)
+        var topic = this.GetRepository<Topic>().GetSingle(t => t.PollID == pollId);
+
+        if (topic is null)
         {
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Info,
                 new { info = InfoMessage.Invalid.ToType<int>() });
         }
 
-        var topic = this.GetRepository<Topic>().GetSingle(t => t.PollID == pollId);
+        // moderator access of the forum the poll is in, not of the forum the request names
+        var isTopicModerator = this.GetRepository<ActiveAccess>().Exists(
+            x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == topic.ForumID && x.ModeratorAccess);
 
-        if (topic is null)
+        if (!this.PageBoardContext.IsAdmin && !isTopicModerator && this.PageBoardContext.PageUserID != poll.UserID)
         {
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Info,

@@ -138,6 +138,10 @@ public class MyTopicsModel : ForumPageRegistered
     /// </param>
     public IActionResult OnGetLoadMoreTopics(int page, int mode, int show, int size)
     {
+        // the values come from the client (the page offers at most 50 entries)
+        page = Math.Max(page, 0);
+        size = Math.Clamp(size, 1, 100);
+
         var topics = this.GetTopicsList(mode, this.GetSinceDate(show), page, size);
 
         return new PartialViewResult
@@ -160,12 +164,13 @@ public class MyTopicsModel : ForumPageRegistered
             return this.Get<ISessionService>().LastVisit ?? DateTime.UtcNow;
         }
 
+        // the value comes from the client, a huge value would be out of the date range
         return sinceValue switch
         {
             // decrypt selected option
             9999 => DateTimeHelper.SqlDbMinTime(),
-            > 0 => DateTime.UtcNow - TimeSpan.FromDays(sinceValue),
-            < 0 => DateTime.UtcNow + TimeSpan.FromHours(sinceValue),
+            > 0 => DateTime.UtcNow.AddDays(-Math.Min(sinceValue, 36500)),
+            < 0 => DateTime.UtcNow.AddHours(Math.Max(sinceValue, -876000)),
             _ => DateTime.UtcNow
         };
     }
@@ -201,7 +206,9 @@ public class MyTopicsModel : ForumPageRegistered
             TopicListMode.User => this.GetRepository<Topic>()
                 .ListByUserPaged(this.PageBoardContext.PageUserID, sinceDate, DateTime.UtcNow, pageIndex,
                     size, this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase),
-            _ => null
+
+            // the mode comes from the client
+            _ => []
         };
     }
 

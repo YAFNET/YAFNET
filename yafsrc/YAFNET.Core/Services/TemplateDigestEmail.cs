@@ -26,6 +26,7 @@ namespace YAF.Core.Services;
 
 using System.Collections.Generic;
 using System.IO;
+using System.Web;
 
 using MimeKit;
 
@@ -166,19 +167,26 @@ public class TemplateDigestEmail : IHaveServiceLocator
         var commentsText = this.Get<ILocalization>().GetText("DIGEST", "COMMENTS", this.TemplateLanguageFile);
         var starterText = this.Get<ILocalization>().GetText("DIGEST", "STARTEDBY", this.TemplateLanguageFile);
 
-        this.TemplateTopicParams["{topicName}"] = topic.Subject;
-        this.TemplateTopicParams["{forumName}"] = topic.ForumName;
+        // names are user input (e.g. the name a guest chooses), the template is html
+        this.TemplateTopicParams["{topicName}"] = HttpUtility.HtmlEncode(topic.Subject);
+        this.TemplateTopicParams["{forumName}"] = HttpUtility.HtmlEncode(topic.ForumName);
         this.TemplateTopicParams["{replies}"] = string.Format(
             commentsText,
             topic.Replies);
         this.TemplateTopicParams["{starter}"] = string.Format(
             starterText,
-            topic.Starter);
+            HttpUtility.HtmlEncode(topic.Starter));
         this.TemplateTopicParams["{link}"] =
             this.Get<ILocalization>().GetText("DIGEST", "LINK", this.TemplateLanguageFile);
-        this.TemplateTopicParams["{message}"] = BBCodeHelper
-            .StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(topic.LastMessage)))
-            .RemoveMultipleWhitespace().Truncate(200);
+        // decode first, older html posts contain entities (no double encoding)
+        this.TemplateTopicParams["{message}"] = HttpUtility.HtmlEncode(
+            HttpUtility.HtmlDecode(
+                BBCodeHelper.StripBBCode(
+                        HtmlTagHelper.StripHtml(
+                            HtmlTagHelper.CleanHtmlString(
+                                // hidden content (hide, hide-reply, hide-thanks, ...) is only shown in the forum
+                                this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(topic.LastMessage))))
+                    .RemoveMultipleWhitespace().Truncate(200)));
 
         this.TemplateTopicParams["%%topicLink%%"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
             ForumPages.Posts,

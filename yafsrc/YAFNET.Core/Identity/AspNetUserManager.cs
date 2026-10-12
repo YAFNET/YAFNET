@@ -185,7 +185,8 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// </param>
     public void AddToRole(AspNetUsers user, string roleName)
     {
-        this.AddToRoleAsync(user, roleName);
+        // ASP.NET Core has no synchronization context, blocking here does not dead lock
+        this.AddToRoleAsync(user, roleName).GetAwaiter().GetResult();
     }
 
     /// <summary>

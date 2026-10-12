@@ -189,6 +189,32 @@ public static class ForumRepositoryExtensions
         }
 
         /// <summary>
+        /// Checks if a forum would be its own (indirect) parent: the new parent is the forum itself
+        /// or one of its sub forums (the forums would be a loop).
+        /// </summary>
+        /// <param name="forumId">The forum identifier.</param>
+        /// <param name="parentId">The new parent forum identifier.</param>
+        /// <returns>Returns if the parent is the forum or one of its sub forums.</returns>
+        public bool IsOwnSubForum(int forumId, int parentId)
+        {
+            var visited = new HashSet<int>();
+            int? current = parentId;
+
+            // up the parents of the new parent (an existing loop ends the search)
+            while (current.HasValue && visited.Add(current.Value))
+            {
+                if (current.Value == forumId)
+                {
+                    return true;
+                }
+
+                current = repository.GetById(current.Value)?.ParentID;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Lists all forums by Board Id
         /// </summary>
         /// <param name="boardId">
@@ -601,6 +627,17 @@ public static class ForumRepositoryExtensions
 
             await BoardContext.Current.GetRepository<ForumAccess>().DeleteAsync(x => x.ForumID == oldForumId);
 
+            // a user with an own access mask in both forums keeps the one of the new forum
+            // (one access mask per user and forum, the update would fail)
+            var usersOfNewForum = (await BoardContext.Current.GetRepository<UserForum>().GetAsync(x => x.ForumID == newForumId))
+                .Select(x => x.UserID).ToList();
+
+            if (usersOfNewForum.Count != 0)
+            {
+                await BoardContext.Current.GetRepository<UserForum>().DeleteAsync(
+                    x => x.ForumID == oldForumId && usersOfNewForum.Contains(x.UserID));
+            }
+
             await BoardContext.Current.GetRepository<UserForum>().UpdateOnlyAsync(
                 () => new UserForum { ForumID = newForumId },
                 f => f.ForumID == oldForumId);
@@ -854,7 +891,9 @@ public static class ForumRepositoryExtensions
                     var selectGroup = new SelectGroup
                     {
                         id = -category.ID,
-                        text = category.Name,
+
+                        // the select shows the texts as html (like the names of the forums)
+                        text = HttpUtility.HtmlEncode(category.Name),
                         children = [.. forumsByCategory.Select(
                             forum => new SelectOptions
                             {

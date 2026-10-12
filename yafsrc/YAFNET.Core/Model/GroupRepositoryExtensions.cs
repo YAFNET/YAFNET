@@ -153,7 +153,7 @@ public static class GroupRepositoryExtensions
                         UsrAlbums = userAlbums,
                         UsrAlbumImages = userAlbumImages
                     },
-                    g => g.ID == groupId.Value);
+                    g => g.ID == groupId.Value && g.BoardID == boardId);
             }
             else
             {

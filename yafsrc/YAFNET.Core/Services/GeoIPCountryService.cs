@@ -20,7 +20,6 @@
 using System;
 using System.Buffers.Binary;
 using System.IO;
-using System.Threading;
 
 using Microsoft.AspNetCore.Hosting;
 
@@ -32,12 +31,17 @@ namespace YAF.Core.Services;
 /// This code is based on MaxMind's original C# code, which was ported from Java.
 /// This version is very simplified and does not support a majority of features for speed.
 /// </summary>
-public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServiceLocator
+public class GeoIpCountryService : IGeoIpCountryService, IHaveServiceLocator
 {
     /// <summary>
-    /// The geo data
+    /// The size of a record (two 3 byte pointers) in the database.
     /// </summary>
-    private readonly MemoryStream geoData;
+    private const int RecordLength = 6;
+
+    /// <summary>
+    /// The geo data, the cached database is shared by all requests, it is only read (no stream position).
+    /// </summary>
+    private readonly byte[] geoData;
 
     /// <summary>
     /// hard coded position of where country data starts in the data file.
@@ -49,8 +53,6 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
     /// (COUNTRY_EDITION_V6) which contains both IPv4 and IPv6 data.
     /// </summary>
     private const string DatabaseName = "GeoIP.dat";
-
-    private readonly Lock myLock = new();
 
     /// <summary>
     /// The country codes
@@ -211,28 +213,24 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
     }
 
     /// <summary>
-    /// Loads the Geo data file in to a memory stream.
+    /// Loads the Geo data file in to memory.
     /// </summary>
-    /// <returns>MemoryStream of the geo database file</returns>
-    private MemoryStream GeoDataFileToMemory()
+    /// <returns>The geo database file (empty if the file does not exist)</returns>
+    private byte[] GeoDataFileToMemory()
     {
-        var stream = new MemoryStream();
-
         var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, DatabaseName);
 
         var fi = new FileInfo(path);
 
-        if (fi.Exists)
-        {
-            stream = new MemoryStream(File.ReadAllBytes(fi.FullName));
-        }
-
-        return stream;
+        return fi.Exists ? File.ReadAllBytes(fi.FullName) : [];
     }
 
     private int FindIndex(IPAddress ip)
     {
-        return Convert.ToInt32(this.SeekCountry(0, AddressToUInt128(ip), 127));
+        var index = this.SeekCountry(AddressToUInt128(ip));
+
+        // a missing or damaged database gives no country
+        return index < CountryCodes.Length ? Convert.ToInt32(index) : 0;
     }
 
     /// <summary>
@@ -256,72 +254,34 @@ public class GeoIpCountryService : IDisposable, IGeoIpCountryService, IHaveServi
     /// Traverses the GeoIP binary data looking for a country code based
     /// on the IP address mask
     /// </summary>
-    /// <param name="offset">The offset.</param>
     /// <param name="ipNumber">The ip number.</param>
-    /// <param name="depth">The depth.</param>
-    /// <returns>System.Int64.</returns>
-    private long SeekCountry(long offset, UInt128 ipNumber, int depth)
+    /// <returns>The index of the country (0 if the database has no entry).</returns>
+    private long SeekCountry(UInt128 ipNumber)
     {
-        lock (this.myLock)
+        long offset = 0;
+
+        for (var depth = 127; depth >= 0; depth--)
         {
-            var buffer = new byte[6]; // 2 * MAX_RECORD_LENGTH
-            var x = new long[2];
-            if (depth < 0)
+            var position = RecordLength * offset;
+
+            if (position + RecordLength > this.geoData.Length)
             {
-                throw new IOException("Cannot seek GeoIP database");
+                return 0;
             }
 
-            this.geoData.Seek(6 * offset, SeekOrigin.Begin);
-            this.geoData.ReadExactly(buffer, 0, 6);
+            // each record holds the pointers for bit 0 and bit 1 (3 bytes little endian each)
+            var start = (int)position + ((ipNumber & (UInt128.One << depth)) > 0 ? 3 : 0);
 
-            for (var i = 0; i < 2; i++)
+            long next = this.geoData[start] | this.geoData[start + 1] << 8 | this.geoData[start + 2] << 16;
+
+            if (next >= CountryBegin)
             {
-                x[i] = 0;
-                for (var j = 0; j < 3; j++)
-                {
-                    int y = buffer[i * 3 + j];
-
-                    x[i] += y << (j * 8);
-                }
+                return next - CountryBegin;
             }
 
-            if ((ipNumber & (UInt128.One << depth)) > 0)
-            {
-                if (x[1] >= CountryBegin)
-                {
-                    return x[1] - CountryBegin;
-                }
-
-                return this.SeekCountry(x[1], ipNumber, depth - 1);
-            }
-
-            if (x[0] >= CountryBegin)
-            {
-                return x[0] - CountryBegin;
-            }
-
-            return this.SeekCountry(x[0], ipNumber, depth - 1);
+            offset = next;
         }
-    }
 
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-    /// </summary>
-    public void Dispose()
-    {
-        this.Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    /// Releases unmanaged and - optionally - managed resources.
-    /// </summary>
-    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-    protected virtual void Dispose(bool disposing)
-    {
-        lock (this.myLock)
-        {
-            this.geoData.Dispose();
-        }
+        throw new IOException("Cannot seek GeoIP database");
     }
 }

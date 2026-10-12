@@ -117,8 +117,6 @@ public class EditUserModel : AdminPage
 
         var editUser = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(u, includeNonApproved: true);
 
-        this.Get<IDataCache>().Set(string.Format(Constants.Cache.EditUser, u), editUser);
-
         if (editUser is null)
         {
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
@@ -130,6 +128,9 @@ public class EditUserModel : AdminPage
             // user is not host admin and is attempted to edit host admin account...
             return this.Get<ILinkBuilder>().AccessDenied();
         }
+
+        // the tabs edit the user of this cache entry: only after the check, and only for this admin
+        this.Get<IDataCache>().Set(string.Format(Constants.Cache.EditUser, $"{u}-{this.PageBoardContext.PageUserID}"), editUser);
 
         this.EditUser = editUser;
 

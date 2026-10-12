@@ -197,7 +197,7 @@
 
                                             @if (forum.ReadAccess && forum.LastPosted.HasValue)
                                             {
-                                                var topicLinkText = Current.Get<IBadWordReplace>().Replace(Html.HtmlEncode(forum.LastTopicName)).Truncate(50);
+                                                var topicLinkText = Current.Get<IBadWordReplace>().Replace(Html.HtmlEncode(forum.LastTopicName).ToString()).Truncate(50);
 
                                                 @if (Current.BoardSettings.UseStyledTopicTitles)
                                                 {
@@ -212,7 +212,7 @@
 	                                                   title-localized-tag="VIEW_TOPIC"
                                                        href="@(Current.Get<ILinkBuilder>().GetTopicLink(forum.LastTopicID, forum.LastTopicName))"
 	                                                   text="@topicLinkText"
-                                                       style="@Html.Raw(Current.Get<IStyleTransform>().Decode(forum.LastTopicStyles))"></a>
+                                                       style="@(Current.BoardSettings.UseStyledTopicTitles ? Current.Get<IStyleTransform>().Decode(forum.LastTopicStyles) : string.Empty)"></a>
                                                 }
                                                 else
                                                 {
@@ -236,7 +236,7 @@
                                                     </span>
                                                 }
 
-                                                var infoText = string.Format(Current.Get<ILocalization>().GetText("Default", "BY"), Current.BoardSettings.EnableDisplayName ? forum.LastUserDisplayName : forum.LastUser);
+                                                var infoText = string.Format(Current.Get<ILocalization>().GetText("Default", "BY"), Html.Encode(Current.BoardSettings.EnableDisplayName ? forum.LastUserDisplayName : forum.LastUser));
 
                                                 <a icon="info-circle"
                                                    icon-color="text-secondary"

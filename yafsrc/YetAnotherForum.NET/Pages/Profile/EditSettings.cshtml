@@ -64,6 +64,13 @@
 								<label asp-for="InputCode" class="form-label" localized-page="EDIT_SETTINGS" localized-tag="SETUP_CODE"></label>
 								<input type="text" class="form-control" asp-for="InputCode" placeholder="@Html.LocalizedText("TWO_FA_PLACEHOLDER")">
 							</div>
+							@if (Model.PageBoardContext.MembershipUser.PasswordHash.IsSet())
+							{
+								<div class="mb-3">
+									<label for="TwoFactorPassword" class="form-label" localized-page="EDIT_PROFILE" localized-tag="CURRENT_PASSWORD"></label>
+									<input asp-for="CurrentPassword" id="TwoFactorPassword" type="password" class="form-control" autocomplete="current-password" required />
+								</div>
+							}
 							<div class="mb-3">
 								<button type="submit"
 								        button-style="Primary"
@@ -192,6 +199,14 @@
 							</label>
 							<input asp-for="Email" class="form-control" autocomplete="off" />
 						</div>
+						@if (Model.PageBoardContext.MembershipUser.PasswordHash.IsSet())
+						{
+							<div class="mb-3">
+								<label asp-for="CurrentPassword" localized-page="EDIT_PROFILE" localized-tag="CURRENT_PASSWORD" class="form-label">
+								</label>
+								<input asp-for="CurrentPassword" type="password" class="form-control" autocomplete="current-password" />
+							</div>
+						}
 					}
 
 					<div class="text-lg-center">

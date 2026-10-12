@@ -18,7 +18,7 @@
 @{
     var editUser = Model.EditUser;
 
-    var userName = Html.HtmlEncode(editUser.Item1.DisplayOrUserName());
+    var userName = Html.HtmlEncode(editUser.Item1.DisplayOrUserName()).ToString();
 
     var header = string.Format(Model.GetText("ADMIN_EDITUSER", "TITLE"), userName);
 

@@ -55,6 +55,9 @@ public class PmFriendNotification : BaseForumModule, IHandleEvent<ForumPagePostL
                 this.GetText("COMMON", "NO"),
                 this.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages));
 
+            // only tell about these messages once
+            this.Get<ISessionService>().LastUnreadPrivate = this.PageContext.LastUnreadPrivate;
+
             // Avoid Showing Both Popups
             return;
         }
@@ -82,7 +85,8 @@ public class PmFriendNotification : BaseForumModule, IHandleEvent<ForumPagePostL
     /// </returns>
     protected bool DisplayPmPopup()
     {
-        return this.PageContext.UnreadPrivate > 0;
+        return this.PageContext.UnreadPrivate > 0
+               && this.PageContext.LastUnreadPrivate > this.Get<ISessionService>().LastUnreadPrivate;
     }
 
     /// <summary>

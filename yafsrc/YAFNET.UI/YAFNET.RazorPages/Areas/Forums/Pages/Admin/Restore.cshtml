@@ -73,7 +73,7 @@
                             <li class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">
-                                        @Html.Raw(topic.Subject)
+                                        @topic.Subject
 
                                         @if (topic.NumPosts > 0)
                                         {
@@ -194,7 +194,7 @@
                                 <li class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">
-                                            @Html.Raw(message.Topic)
+                                            @message.Topic
 
                                             <a button-style="Link"
                                                Icon="external-link-alt"
@@ -207,7 +207,7 @@
                                         </h5>
                                     </div>
                                     <p class="mb-1">
-                                        @Html.Raw(message.Message)
+                                        @message.Message
                                     </p>
                                     <small>
                                         <div class="btn-group">

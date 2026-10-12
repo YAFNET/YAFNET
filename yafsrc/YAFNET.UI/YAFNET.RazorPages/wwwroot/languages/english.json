@@ -2803,6 +2803,10 @@
                     "#text": "Means that users will be allowed/disallowed to hide this medal."
                 },
                 {
+                    "@tag": "CONFIRM_REMOVE_GROUP",
+                    "#text": "Remove medal from this group?"
+                },
+                {
                     "@tag": "CONFIRM_REMOVE_USER",
                     "#text": "Remove medal from this user?"
                 },
@@ -3199,6 +3203,14 @@
                 {
                     "@tag": "TITLE",
                     "#text": "Edit User \"{0}\""
+                },
+                {
+                    "@tag": "USERINFO_APPROVED_HELP",
+                    "#text": "The User Account is approved and the User can log in."
+                },
+                {
+                    "@tag": "USERINFO_GUEST_HELP",
+                    "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
                 },
                 {
                     "@tag": "USER_AVATAR",
@@ -3885,6 +3897,10 @@
                     "#text": "Choose a SPAM Service for Automatically SPAM Checking:"
                 },
                 {
+	                "@tag": "CHECK_FOR_SPAM_HELP",
+	                "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+                },
+                {
                     "@tag": "CLEAR_CACHE",
                     "#text": "Clear Cache"
                 },
@@ -4105,12 +4121,12 @@
                     "#text": "Search Index Task started."
                 },
                 {
-	                "@tag": "FORUM_BASEURLMASK",
-	                "#text": "Forum Base URL Mask:"
+                    "@tag": "FORUM_BASEURLMASK",
+                    "#text": "Forum Base URL Mask:"
                 },
                 {
-	                "@tag": "FORUM_BASEURLMASK_HELP",
-	                "#text": "The full forward-facing url to this forum."
+                    "@tag": "FORUM_BASEURLMASK_HELP",
+                    "#text": "The full forward-facing url to this forum."
                 },
                 {
                     "@tag": "FORUM_EMAIL",
@@ -5555,8 +5571,8 @@
                     "#text": "days"
                 },
                 {
-                    "@tag": "DELETE_UNREAD",
-                    "#text": "Delete unread messages older than:"
+                    "@tag": "DELETE_OLDER",
+                    "#text": "Delete messages older than:"
                 },
                 {
                     "@tag": "HEADER",
@@ -6274,6 +6290,10 @@
                     "#text": "Rank:"
                 },
                 {
+                    "@tag": "RANK_HELP",
+                    "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+                },
+                {
                     "@tag": "ROLE",
                     "#text": "Role:"
                 },
@@ -6594,6 +6614,10 @@
         {
             "@name": "APPROVE",
             "Resource": [
+                {
+                    "@tag": "EMAIL_CHANGED",
+                    "#text": "Your new email address has been confirmed."
+                },
                 {
                     "@tag": "EMAIL_VERIFIED",
                     "#text": "Your email address has been verified."
@@ -7204,6 +7228,10 @@
         {
             "@name": "COMMON",
             "Resource": [
+                {
+                    "@tag": "ALBUMIMG_CODE",
+                    "#text": "Insert an Album Image"
+                },
                 {
                     "@tag": "ATTACH_BBCODE",
                     "#text": "Insert an existing Attachment or upload a new File..."
@@ -8950,6 +8978,14 @@
                     "#text": "Undelete"
                 },
                 {
+                    "@tag": "DELETE_TT",
+                    "#text": "Delete this message"
+                },
+                {
+                    "@tag": "UNDELETE_TT",
+                    "#text": "Restore this message"
+                },
+                {
                     "@tag": "UNDELETE_REASON",
                     "#text": "Undelete reason"
                 },
@@ -9057,6 +9093,10 @@
                     "#text": "Clear Avatar"
                 },
                 {
+                    "@tag": "AVATARMODEL",
+                    "#text": "Current Avatar"
+                },
+                {
                     "@tag": "AVATARREMOTE",
                     "#text": "Enter URL of Avatar on Remote Server to Use:"
                 },
@@ -9142,12 +9182,24 @@
                     "#text": "Change Email Address"
                 },
                 {
+                    "@tag": "CHANGE_EMAIL_SENT",
+                    "#text": "A confirmation link was sent to {0}. Your email address will be changed after you open the link."
+                },
+                {
+                    "@tag": "CHANGE_EMAIL_SUBJECT",
+                    "#text": "Confirm your new email address for the {0} Forum"
+                },
+                {
                     "@tag": "CITY",
                     "#text": "City:"
                 },
                 {
                     "@tag": "COUNTRY",
                     "#text": "Country:"
+                },
+                {
+                    "@tag": "CURRENT_PASSWORD",
+                    "#text": "Current Password"
                 },
                 {
                     "@tag": "DISPLAYNAME",
@@ -9206,6 +9258,10 @@
                     "#text": "{0} is required"
                 },
                 {
+                    "@tag": "NEED_CUSTOM_NUMBER",
+                    "#text": "{0} must be a number"
+                },
+                {
                     "@tag": "OTHER",
                     "#text": "Other"
                 },
@@ -9252,6 +9308,10 @@
                 {
                     "@tag": "WHERE",
                     "#text": "Where do you live?"
+                },
+                {
+                    "@tag": "WRONG_PASSWORD",
+                    "#text": "The password you entered is not correct."
                 }
             ]
         },
@@ -9359,6 +9419,10 @@
                 {
                     "@tag": "TO",
                     "#text": "Send To (Email Address):"
+                },
+                {
+                    "@tag": "TOO_MANY",
+                    "#text": "You have sent too many emails, please try again later."
                 }
             ]
         },
@@ -10202,6 +10266,10 @@
                     "#text": "All"
                 },
                 {
+                    "@tag": "ALPHABET_FILTER_BY",
+                    "#text": "Show Users starting with {0}"
+                },
+                {
                     "@tag": "AVATAR",
                     "#text": "Avatar"
                 },
@@ -10444,6 +10512,10 @@
                 {
                     "@tag": "BY",
                     "#text": "by {0}"
+                },
+                {
+                    "@tag": "CANNOT_MOVE_TO_CATEGORY",
+                    "#text": "Topics can only be moved to a Forum, please select a Forum and not a Category."
                 },
                 {
                     "@tag": "CONFIRM_DELETE",
@@ -11535,6 +11607,10 @@
                     "#text": "E-mail:"
                 },
                 {
+                    "@tag": "EMAIL_HELP",
+                    "#text": "The E-mail Address of the User."
+                },
+                {
                     "@tag": "ENDS",
                     "#text": "User Suspension Ends:"
                 },
@@ -11575,12 +11651,20 @@
                     "#text": "Joined:"
                 },
                 {
+                    "@tag": "JOINED_HELP",
+                    "#text": "The Date the User registered."
+                },
+                {
                     "@tag": "LAST10",
                     "#text": "Last 10 Posts"
                 },
                 {
                     "@tag": "LASTVISIT",
                     "#text": "Last Visit:"
+                },
+                {
+                    "@tag": "LASTVISIT_HELP",
+                    "#text": "The Date of the last Visit of the User."
                 },
                 {
                     "@tag": "LOCATION",
@@ -11708,16 +11792,12 @@
                     "#text": "Your account has not been approved by the administrator yet. You cannot reset your password unless you are approved."
                 },
                 {
-                    "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-                    "#text": "Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login."
-                },
-                {
                     "@tag": "PAGE1_INSTRUCTIONS",
                     "#text": "Enter your User Name, or email address to retrieve your password:"
                 },
                 {
-                    "@tag": "SUCCESS",
-                    "#text": "An email with the Reset Link was send to your email address!"
+                    "@tag": "SUCCESS_IF_EXISTS",
+                    "#text": "If an account with this user name or email address exists, an email has been sent to its email address."
                 },
                 {
                     "@tag": "TITLE",
@@ -12206,6 +12286,10 @@
                 {
                     "@tag": "PASSWORD",
                     "#text": "Password"
+                },
+                {
+                    "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+                    "#text": "New Password for {0} Forum"
                 },
                 {
                     "@tag": "PASSWORD_GOOD",
@@ -12864,6 +12948,15 @@
                 {
                     "@tag": "VERIFYEMAIL_TEXT",
                     "#text": "\r\nYou have requested to join {forumname}, but before you can join your email address must be verified.\r\n\r\nTo verify your email address open the following link in your web browser:\r\n\r\n{link}\r\n\r\nYour approval key is:\r\n\r\n{key}\r\n\r\nVisit {forumname} at {forumlink}\r\n"
+                }
+            ]
+        },
+        {
+            "@name": "TIMEZONES",
+            "Resource": [
+                {
+                    "@tag": "NAME_UTC",
+                    "#text": "(UTC{0})"
                 }
             ]
         },

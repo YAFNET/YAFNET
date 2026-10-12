@@ -98,7 +98,7 @@ public class BannedCountriesModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<BannedCountry>().DeleteByIdAsync(id);
+        await this.GetRepository<BannedCountry>().DeleteAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID);
 
         this.BindData();
 

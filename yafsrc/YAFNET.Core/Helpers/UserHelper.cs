@@ -25,7 +25,9 @@
 namespace YAF.Core.Helpers;
 
 using System;
+using System.Threading.Tasks;
 
+using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 
 /// <summary>
@@ -50,6 +52,33 @@ public static class UserHelper
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Checks if a name can be used as user name or display name: no semicolon,
+    /// not the name of the guest user and not a bad word (another user can't be impersonated).
+    /// </summary>
+    /// <param name="name">The user name or display name.</param>
+    /// <param name="boardId">The board identifier.</param>
+    /// <returns>Returns if the name is allowed.</returns>
+    public static async Task<bool> IsAllowedNameAsync(string name, int boardId)
+    {
+        name = name?.Trim();
+
+        if (name.IsNotSet() || name.Contains(';'))
+        {
+            return false;
+        }
+
+        var guestUser = await BoardContext.Current.Get<IAspNetUsersHelper>().GuestUserAsync(boardId);
+
+        if (guestUser?.Name is { } guestName && name.Equals(guestName.Trim(), StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        return !BoardContext.Current.Get<IBadWordReplace>().ReplaceItems.Any(
+                   i => name.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
     }
 
     /// <summary>

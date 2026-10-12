@@ -105,7 +105,7 @@ public class UserInfo : ForumBaseController
             var location = user.Item2.Profile_Country.IsSet()
                                ? this.GetText(
                                    "COUNTRY", user.Item2.Profile_Country.Trim())
-                               : HttpUtility.HtmlEncode(user.Item2.Profile_Location);
+                               : user.Item2.Profile_Location;
 
             if (user.Item2.Profile_Region.IsSet() && user.Item2.Profile_Country.IsSet())
             {
@@ -114,15 +114,18 @@ public class UserInfo : ForumBaseController
                 location += $", {this.GetText("REGION", tag)}";
             }
 
+            // country and region are stored as sent, an unknown value comes back as the missing text tag
+            location = HttpUtility.HtmlEncode(location);
+
             var userInfo = new ForumUserInfo
                                {
                                    Name = userName,
                                    RealName = HttpUtility.HtmlEncode(user.Item2.Profile_RealName),
                                    Avatar = avatarUrl,
                                    Interests = HttpUtility.HtmlEncode(user.Item2.Profile_Interests),
-                                   HomePage = user.Item2.Profile_Homepage,
+                                   HomePage = HttpUtility.HtmlEncode(user.Item2.Profile_Homepage),
                                    Posts = $"{user.Item1.NumPosts:N0}",
-                                   Rank = user.Item3.Name,
+                                   Rank = HttpUtility.HtmlEncode(user.Item3.Name),
                                    Location = location,
                                    Joined =
                                        $"{this.GetText("PROFILE", "JOINED")} {this.Get<IDateTimeService>().FormatDateLong(user.Item1.Joined)}",

@@ -412,7 +412,7 @@ public static class IDbAccessExtensions
             {
                 return await dbAccess.ExecuteAsync(
                     db => db.ScalarAsync<string>(
-                        OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, recoveryMode)));
+                        OrmLiteConfig.DialectProvider.ChangeRecoveryMode(db.Database, recoveryMode)));
             }
             catch (Exception)
             {

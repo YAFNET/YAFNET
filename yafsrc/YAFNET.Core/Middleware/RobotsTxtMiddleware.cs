@@ -39,8 +39,7 @@ public class RobotsTxtMiddleware : IHaveServiceLocator
     /// <summary>
     /// The default robots.txt content
     /// </summary>
-    private const string Default =
-        @"User-Agent: *\nAllow: /";
+    private const string Default = "User-Agent: *\nAllow: /";
 
     private readonly string environmentName;
 

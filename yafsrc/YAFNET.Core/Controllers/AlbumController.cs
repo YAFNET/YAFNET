@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Controllers;
 
+using System.Net;
 using System.Collections.Generic;
 using System.Web;
 
@@ -94,8 +95,9 @@ public class AlbumController : ForumBaseController
     public IActionResult GetAlbumImages([FromBody] PagedResults pagedResults)
     {
         var userId = this.PageBoardContext.PageUserID;
-        var pageSize = pagedResults.PageSize;
-        var pageNumber = pagedResults.PageNumber;
+        // the values come from the client
+        var pageSize = System.Math.Clamp(pagedResults.PageSize, 1, 100);
+        var pageNumber = System.Math.Max(pagedResults.PageNumber, 0);
 
         var albumImages = this.GetRepository<UserAlbumImage>().GetUserAlbumImagesPaged(
             userId,
@@ -110,7 +112,8 @@ public class AlbumController : ForumBaseController
                 var url = this.Get<IUrlHelper>()
                     .Action("GetImagePreview", "Albums", new {imageId = image.ID});
 
-                    var caption = this.HtmlEncode(image.Caption.IsSet() ? image.Caption : image.FileName);
+                    // the caption is stored html encoded, encode it only once for the output
+                    var caption = this.HtmlEncode(image.Caption.IsSet() ? WebUtility.HtmlDecode(image.Caption) : image.FileName);
 
                     var attachment = new AttachmentItem
                                          {

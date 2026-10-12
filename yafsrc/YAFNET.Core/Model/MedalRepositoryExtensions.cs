@@ -154,7 +154,7 @@ public static class MedalRepositoryExtensions
                         MedalURL = medalUrl,
                         Flags = flags
                     },
-                    medal => medal.ID == medalId.Value);
+                    medal => medal.ID == medalId.Value && medal.BoardID == (boardId ?? repository.BoardID));
             }
             else
             {

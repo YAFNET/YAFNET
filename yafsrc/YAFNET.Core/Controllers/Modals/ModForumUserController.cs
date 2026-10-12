@@ -57,6 +57,18 @@ public class ModForumUserController : ForumBaseController
                 new MessageModalNotification(this.GetText("MSG_VALID_USER"), MessageTypes.warning));
         }
 
+        // the ids are sent by the client, user, forum and access mask must belong to the board
+        var boardId = this.PageBoardContext.PageBoardID;
+        var forum = this.GetRepository<Forum>().GetById(model.ForumId);
+
+        if (forum is null
+            || !this.GetRepository<Category>().Exists(c => c.ID == forum.CategoryID && c.BoardID == boardId)
+            || !this.GetRepository<User>().Exists(u => u.ID == model.UserID && u.BoardID == boardId)
+            || !this.GetRepository<AccessMask>().Exists(a => a.ID == model.AccessMaskID && a.BoardID == boardId))
+        {
+            return this.BadRequest();
+        }
+
         // save permission
         this.GetRepository<UserForum>().Save(
             model.UserID,

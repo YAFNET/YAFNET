@@ -141,7 +141,7 @@ public class BannedNamesModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<BannedName>().DeleteByIdAsync(id);
+        await this.GetRepository<BannedName>().DeleteAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID);
 
         this.SearchInput = string.Empty;
 
@@ -189,7 +189,7 @@ public class BannedNamesModel : AdminPage
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
-        var banned = this.GetRepository<BannedName>().GetById(id);
+        var banned = this.GetRepository<BannedName>().GetSingle(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID) ?? new BannedName();
 
         return new PartialViewResult
                {

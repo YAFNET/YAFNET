@@ -95,7 +95,15 @@ public class AttachmentsModel : AdminPage
     /// <param name="id">The identifier.</param>
     public async Task OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<Attachment>().DeleteByIdAsync(id);
+        // only attachments of users of the board
+        var attachment = await this.GetRepository<Attachment>().GetByIdAsync(id);
+
+        if (attachment != null
+            && await this.GetRepository<User>().ExistsAsync(u => u.ID == attachment.UserID && u.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            // the file is deleted too
+            this.GetRepository<Attachment>().Delete(id);
+        }
 
         // re-bind controls
         this.BindData();

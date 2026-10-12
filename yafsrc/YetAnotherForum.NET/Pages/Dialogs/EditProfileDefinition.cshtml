@@ -13,7 +13,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    @Html.LocalizedText("ADMIN_EDIT_PROFILEDEFINITION", Model.Id.HasValue ? "TITLE_EDIT" : "TITLE")
+                    @Html.LocalizedText("ADMIN_EDIT_PROFILEDEFINITION", Model.Id is > 0 ? "TITLE_EDIT" : "TITLE")
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
@@ -98,8 +98,8 @@
             </div>
             <div class="modal-footer">
                 <button button-style="Primary" data-bs-save="editModal"
-                        text-localized-tag="@(Model.Id.HasValue ? "SAVE": "ADD_IP")"
-                        text-localized-page="ADMIN_EDIT_PROFILEDEFINITION"
+                        text-localized-tag="@(Model.Id is > 0 ? "SAVE": "NEW_DEF")"
+                        text-localized-page="@(Model.Id is > 0 ? "COMMON" : "ADMIN_PROFILEDEFINITIONS")"
                         Icon="save">
                 </button>
                 <button type="button" button-style="Secondary" icon="xmark" data-bs-dismiss="modal" text-localized-tag="CANCEL"></button>

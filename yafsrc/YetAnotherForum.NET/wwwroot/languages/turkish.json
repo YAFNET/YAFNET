@@ -64,7 +64,7 @@
           },
           {
             "@tag": "GIVEN_THANKS_MSG",
-            "#text": "1} Konusundaki {0} Sayesinde Verilmiştir"
+            "#text": "{1} Konusundaki {0} Sayesinde Verilmiştir"
           },
           {
             "@tag": "GROUPS",
@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Madalya Ekle/Düzenle"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Bu gruptan madalya kaldırılsın mı?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "Onaylandı:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Kullanıcı hesabı onaylandı ve kullanıcı giriş yapabilir."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Ekran adı:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Misafir:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Bu misafir hesabıdır, giriş yapmamış tüm ziyaretçiler için kullanılır."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Otomatik SPAM Kontrolü için bir SPAM Hizmeti seçin:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "günler"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Daha eski okunmamış mesajları sil:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Şundan eski mesajları sil:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Uygulamayı Yeniden Başlat"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "Başvuruya geri dönüş olmadı. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "Uygulama yeniden başlatılıyor. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Uygulamayı Yeniden Başlat"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Rütbe:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "Kullanıcının rütbesi, kademeli rütbeler mesaj sayısına göre değişir."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Rolü:"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Yeni e-posta adresiniz onaylandı."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "E-posta adresinizin geçerliği denetlendi"
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Albüm Resmi Ekle"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Mevcut bir Eki ekleyin veya yeni bir Dosya yükleyin..."
@@ -8918,6 +8946,10 @@
             "#text": "Silme sebebi"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Bu mesajı sil"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Mesajı veritabanından temizle (geri döndürülemez)"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Kurtarma sebebi"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Bu mesajı geri yükle"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Avatarı Sil"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Mevcut Avatar"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Uzak bilgisayardaki avatarın adresini girin (URL):"
           },
@@ -9150,12 +9190,24 @@
             "#text": "E-posta Adresini Değiştir"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "{0} adresine bir onay bağlantısı gönderildi. E-posta adresiniz bağlantıyı açtıktan sonra değiştirilecektir."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "{0} Forumu için yeni e-posta adresinizi doğrulayın"
+          },
+          {
             "@tag": "CITY",
             "#text": "Şehir:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Ülke:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Mevcut Şifre"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} gereklidir"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} bir sayı olmalıdır"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Diğer"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Nerelisiniz?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Girdiğiniz şifre doğru değil."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Gönder (E-posta Adresi):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Çok fazla e-posta gönderdiniz, lütfen daha sonra tekrar deneyin."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Tümü"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "{0} ile başlayan kullanıcıları göster"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "{0} Tarafından "
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Konular yalnızca bir foruma taşınabilir, lütfen bir kategori değil bir forum seçin."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "E-posta:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "Kullanıcının e-posta adresi."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Kullanıcı Askıya Alınması Bitti:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "Katıldı:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "Kullanıcının kayıt olduğu tarih."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Son 10 e-posta"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Son Ziyaret:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "Kullanıcının son ziyaret tarihi."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "Hesabınız yönetim tarafından henüz onaylanmadı. Onaylanmadan şifrenizi sıfırlayamazsınız."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "E-Posta adresinizi onaylamadığınız için hesabınız aktive edilmedi. Yeni onay E-Postası {0} bu adrese gönderildi. Giriş yapabilmek için onaylayınız."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Şifrenizi geri alamk için kullanıcı adınızı girin:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "E-posta adresinize Sıfırlama Bağlantısını içeren bir e-posta gönderildi!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Bu kullanıcı adı veya e-posta adresine sahip bir hesap varsa, e-posta adresine bir e-posta gönderilmiştir."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Zayıf Şifre, sayı ve büyük harf kullanmayı deneyin."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "{0} Forum için Yeni Şifre"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Işık"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

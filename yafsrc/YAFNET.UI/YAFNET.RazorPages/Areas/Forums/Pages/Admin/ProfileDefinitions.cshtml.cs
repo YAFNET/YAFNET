@@ -90,7 +90,7 @@ public class ProfileDefinitionsModel : AdminPage
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
-        var item = this.GetRepository<ProfileDefinition>().GetById(id);
+        var item = this.GetRepository<ProfileDefinition>().GetSingle(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID) ?? new ProfileDefinition();
 
         return new PartialViewResult {
                                          ViewName = "Dialogs/EditProfileDefinition",
@@ -117,9 +117,13 @@ public class ProfileDefinitionsModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<ProfileCustom>().DeleteAsync(x => x.ProfileDefinitionID == id);
+        // only profile definitions of the board
+        if (await this.GetRepository<ProfileDefinition>().ExistsAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            await this.GetRepository<ProfileCustom>().DeleteAsync(x => x.ProfileDefinitionID == id);
 
-        await this.GetRepository<ProfileDefinition>().DeleteByIdAsync(id);
+            await this.GetRepository<ProfileDefinition>().DeleteByIdAsync(id);
+        }
 
         await this.BindDataAsync();
     }

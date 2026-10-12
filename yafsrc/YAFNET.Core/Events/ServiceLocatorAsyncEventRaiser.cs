@@ -90,8 +90,6 @@ public class ServiceLocatorAsyncEventRaiser : IRaiseEventAsync
     {
         foreach (var theAsyncHandler in this.GetAggregatedAndOrderedAsyncEventHandlers<T>())
         {
-            await theAsyncHandler.HandleAsync(eventObject);
-
             try
             {
                 await theAsyncHandler.HandleAsync(eventObject);

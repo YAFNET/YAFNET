@@ -89,11 +89,8 @@ public interface IThankYou
     /// <param name="messageId">
     /// The Message Id.
     /// </param>
-    /// <param name="thanksInfoOnly">
-    /// The thank Info Only.
-    /// </param>
     /// <returns>
     /// The thanks info.
     /// </returns>
-    string ThanksInfo(string username, int messageId, bool thanksInfoOnly);
+    string ThanksInfo(string username, int messageId);
 }

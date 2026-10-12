@@ -45,7 +45,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_BBCodes)]
 public class BBCodeController : ForumBaseController
 {
     /// <summary>

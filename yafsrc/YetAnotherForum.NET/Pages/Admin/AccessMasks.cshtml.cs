@@ -65,6 +65,15 @@ public class AccessMasksModel : AdminPage
     }
 
     /// <summary>
+    /// Creates a new access mask (the item of the context menu).
+    /// </summary>
+    /// <returns>IActionResult.</returns>
+    public IActionResult OnPostNew()
+    {
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditAccessMask);
+    }
+
+    /// <summary>
     /// Called when [post edit].
     /// </summary>
     /// <param name="maskId">The mask identifier.</param>
@@ -86,13 +95,21 @@ public class AccessMasksModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteAsync(int maskId)
     {
+        // only access masks of the board
+        if (!await this.GetRepository<AccessMask>().ExistsAsync(x => x.ID == maskId && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         var isInUse = await this.GetRepository<ForumAccess>().ExistsAsync(x => x.AccessMaskID == maskId)
                       || await this.GetRepository<UserForum>().ExistsAsync(x => x.AccessMaskID == maskId);
 
         // attempt to delete access masks
         if (isInUse)
         {
-            // used masks cannot be deleted
+            // used masks cannot be deleted (the page is shown again with the list)
+            await this.BindDataAsync();
+
             return this.PageBoardContext.Notify(
                 this.GetText("ADMIN_ACCESSMASKS", "MSG_NOT_DELETE"),
                 MessageTypes.warning);

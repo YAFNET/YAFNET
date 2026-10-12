@@ -69,7 +69,7 @@ public class AntiXssMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         // Check XSS in URL
-        if (!string.IsNullOrWhiteSpace(context.Request.Path.Value))
+        if (context.Request.Path.Value.IsSet())
         {
             var url = context.Request.Path.Value;
 
@@ -81,7 +81,7 @@ public class AntiXssMiddleware
         }
 
         // Check XSS in query string
-        if (!string.IsNullOrWhiteSpace(context.Request.QueryString.Value))
+        if (context.Request.QueryString.Value.IsSet())
         {
             var queryString = WebUtility.UrlDecode(context.Request.QueryString.Value);
 
@@ -92,19 +92,22 @@ public class AntiXssMiddleware
             }
         }
 
+        // pages that may post markup (editors, templates, uploads), their body is not checked
+        // and not read into memory (file uploads)
+        var path = context.Request.Path.Value;
+
+        if (path != null && (path.Contains("/api") || path.Contains("/Profile/") || path.Contains("/Admin/")
+                             || path.Contains("/EditAlbumImages/")))
+        {
+            await this.next(context).ConfigureAwait(false);
+            return;
+        }
+
         // Check XSS in request content
         var originalBody = context.Request.Body;
         try
         {
-            var path = context.Request.Path.Value;
             var content = await ReadRequestBodyAsync(context);
-
-            if (path != null && (path.Contains("/api") || path.Contains("/Profile/") || path.Contains("/Admin/")
-                                 || path.Contains("/EditAlbumImages/")))
-            {
-                await this.next(context).ConfigureAwait(false);
-                return;
-            }
 
             if (CrossSiteScriptingValidation.IsDangerousString(content, out _))
             {
@@ -152,7 +155,7 @@ public class AntiXssMiddleware
         context.Response.ContentType = "application/json; charset=utf-8";
         context.Response.StatusCode = StatusCode;
 
-        this.error ??= new ErrorResponse { Description = "Error from AntiXssMiddleware", ErrorCode = 500 };
+        this.error ??= new ErrorResponse { Description = "Error from AntiXssMiddleware", ErrorCode = StatusCode };
 
         return context.Response.WriteAsync(this.error.ToJson(), context.RequestAborted);
     }

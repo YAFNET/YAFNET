@@ -26,6 +26,7 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
@@ -67,26 +68,34 @@ public class PrintTopicModel : ForumPage
     /// Called when [get].
     /// </summary>
     /// <param name="t">The topic Id.</param>
-    public IActionResult OnGet(int? t = null)
-
+    public async Task<IActionResult> OnGetAsync(int? t = null)
     {
         if (!t.HasValue || !this.PageBoardContext.ForumReadAccess)
         {
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        var showDeleted = this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;
-
+        // deleted posts are never printed, the topic only shows a placeholder for them (like the feed)
         var posts = this.GetRepository<Message>().PostListPaged(
             this.PageBoardContext.PageTopicID,
             this.PageBoardContext.PageUserID,
             !this.PageBoardContext.IsCrawler,
-            showDeleted,
+            false,
             DateTimeHelper.SqlDbMinTime(),
             DateTime.UtcNow,
             0,
             500,
             -1);
+
+        // the message text is the stored bb code, it is formatted (and html encoded) like the feed messages,
+        // which also removes hidden and custom bb codes
+        foreach (var post in posts)
+        {
+            post.Message = await this.Get<IFormatMessage>().FormatSyndicationMessageAsync(
+                post.Message,
+                post.MessageID,
+                post.UserID);
+        }
 
         this.Posts = posts;
 

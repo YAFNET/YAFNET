@@ -66,6 +66,19 @@ public class EditBoardModel : AdminPage
     }
 
     /// <summary>
+    /// Only the host admin can use this page (like the list of the boards): it creates boards
+    /// and changes any board, it can't be granted to the admins of a board.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
     /// Creates page links for this page.
     /// </summary>
     public override void CreatePageLinks()
@@ -179,11 +192,7 @@ public class EditBoardModel : AdminPage
     {
         this.Input = new EditBoardInputModel();
 
-        this.Cultures = new SelectList(
-            StaticDataHelper.Cultures().OrderBy(x => x.CultureNativeName),
-            "CultureTag",
-            "CultureNativeName",
-            this.PageBoardContext.BoardSettings.Culture);
+        this.BindCultures(this.PageBoardContext.BoardSettings.Culture);
 
         if (b > 0)
         {
@@ -198,6 +207,14 @@ public class EditBoardModel : AdminPage
 
             this.Input.Name = board.Name;
             this.Input.Description = board.Description;
+
+            // the culture of the edited board (not of the current board)
+            var culture = this.GetRepository<Registry>().GetSingle(r => r.Name == "culture" && r.BoardID == board.ID)?.Value;
+
+            if (culture.IsSet())
+            {
+                this.BindCultures(culture);
+            }
         }
         else
         {
@@ -213,6 +230,9 @@ public class EditBoardModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync()
     {
+        // the page is shown again with a warning
+        this.BindCultures(this.Input.Culture);
+
         int? b = this.Input.Id == 0 ? null : this.Input.Id;
 
         if (!b.HasValue && this.Input.CreateAdminUser && this.Input.UserPass1 != this.Input.UserPass2)
@@ -225,12 +245,14 @@ public class EditBoardModel : AdminPage
         if (b.HasValue)
         {
             var cult = StaticDataHelper.Cultures();
-            var langFile = "en-US";
+
+            // the language file of the culture (like a new board), "en-US" is no language file
+            var langFile = "english.json";
 
             cult.Where(dataRow => dataRow.CultureTag == this.Input.Culture).ForEach(row => langFile = row.CultureFile);
 
-            // Save current board settings
-            this.GetRepository<Board>().Save(b.Value, this.Input.Name.Trim(), this.Input.Description.Trim(), langFile,
+            // Save current board settings (the description is optional, an empty field is not sent)
+            this.GetRepository<Board>().Save(b.Value, this.Input.Name?.Trim() ?? string.Empty, this.Input.Description?.Trim() ?? string.Empty, langFile,
                 this.Input.Culture);
         }
         else
@@ -246,7 +268,7 @@ public class EditBoardModel : AdminPage
                     this.Input.UserPass1,
                     this.Input.UserEmail.Trim(),
                     this.Input.Name.Trim(),
-                    this.Input.Description.Trim(),
+                    (this.Input.Description?.Trim() ?? string.Empty),
                     true);
 
                 boardCreated = result.Result;
@@ -255,7 +277,7 @@ public class EditBoardModel : AdminPage
             else
             {
                 // create admin user from logged-in user...
-                var result = await this.CreateBoardAsync(null, null, null, this.Input.Name.Trim(), this.Input.Description.Trim(), false);
+                var result = await this.CreateBoardAsync(null, null, null, this.Input.Name.Trim(), (this.Input.Description?.Trim() ?? string.Empty), false);
 
                 boardCreated = result.Result;
                 error = result.Error;
@@ -293,6 +315,15 @@ public class EditBoardModel : AdminPage
     /// <returns>
     /// Returns the New Board ID
     /// </returns>
+    private void BindCultures(string selectedCulture)
+    {
+        this.Cultures = new SelectList(
+            StaticDataHelper.Cultures().OrderBy(x => x.CultureNativeName),
+            "CultureTag",
+            "CultureNativeName",
+            selectedCulture);
+    }
+
     private async Task<int> DbCreateBoardAsync(string boardName, string boardDescription, string langFile, AspNetUsers newAdmin)
     {
         var newBoardId = await this.GetRepository<Board>().CreateAsync(

@@ -25,9 +25,12 @@
 
 using System.Threading.Tasks;
 
+using YAF.Types.Extensions;
+
 namespace YAF.Pages.Admin;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Models;
 
@@ -68,6 +71,14 @@ public class EditBBCodeModel : AdminPage
     {
         int? id = this.Input.BBCodeId == 0 ? null : this.Input.BBCodeId;
 
+        // an invalid search expression would break the rendering of the posts
+        if (this.Input.SearchRegEx.IsSet() && !ValidationHelper.IsValidRegex(this.Input.SearchRegEx))
+        {
+            return this.PageBoardContext.Notify(
+                this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
+                MessageTypes.warning);
+        }
+
         await this.GetRepository<BBCode>().SaveAsync(
             id,
             this.Input.Name.Trim(),
@@ -95,6 +106,9 @@ public class EditBBCodeModel : AdminPage
     {
         if (b is null or 0)
         {
+            // a new bb code (the value of an existing bb code is shown, not always 1)
+            this.Input.ExecOrder = 1;
+
             return;
         }
 
@@ -133,5 +147,20 @@ public class EditBBCodeModel : AdminPage
         this.BindData(b);
 
         return this.Page();
+    }
+
+    /// <summary>
+    /// Only bb codes of the current board can be edited (all handlers, the id is sent by the client).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        var id = context.HandlerArguments.TryGetValue("b", out var argument) && argument is int argumentId ? argumentId : this.Input?.BBCodeId;
+
+        // a negative id is no new item either (it was not checked and the page failed)
+        if (id is not (null or 0) && !this.GetRepository<BBCode>().Exists(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
     }
 }

@@ -108,7 +108,7 @@ public class RanksModel : AdminPage
     /// <param name="id">The identifier.</param>
     public async Task OnPostDeleteAsync(int id)
     {
-        await this.GetRepository<Rank>().DeleteByIdAsync(id);
+        await this.GetRepository<Rank>().DeleteAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID);
         await this.BindDataAsync();
     }
 

@@ -26,6 +26,7 @@ namespace YAF.Core.Model;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
@@ -35,6 +36,11 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public static class EventLogRepositoryExtensions
 {
+    /// <summary>
+    /// The event types of the spam log.
+    /// </summary>
+    private readonly static int[] SpamTypes = [1003, 1004, 1005, 2000, 2001, 2002, 2003];
+
     /// <param name="repository">
     /// The repository.
     /// </param>
@@ -141,6 +147,39 @@ public static class EventLogRepositoryExtensions
         }
 
         /// <summary>
+        /// Deletes log entries of a board: the entries of its users and the entries without a user
+        /// (they are listed for every board), like they are listed in the event log of the board.
+        /// </summary>
+        /// <param name="boardId">The board.</param>
+        /// <param name="id">Only this entry (null: all entries of the board).</param>
+        /// <param name="spamOnly">Only the spam entries (the spam log).</param>
+        /// <returns>The number of deleted entries.</returns>
+        public Task<int> DeleteBoardEntriesAsync(int boardId, int? id = null, bool spamOnly = false)
+        {
+            return repository.DbAccess.ExecuteAsync(
+                db =>
+                {
+                    var q = db.From<EventLog>();
+
+                    q.Where(
+                        e => e.UserID == null
+                             || Sql.In(e.UserID, db.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID)));
+
+                    if (id.HasValue)
+                    {
+                        q.And(e => e.ID == id.Value);
+                    }
+
+                    if (spamOnly)
+                    {
+                        q.And(e => Sql.In(e.Type, SpamTypes));
+                    }
+
+                    return db.DeleteAsync(q);
+                });
+        }
+
+        /// <summary>
         /// Delete Old Entries
         /// </summary>
         /// <param name="maxRows">
@@ -157,17 +196,21 @@ public static class EventLogRepositoryExtensions
 
             repository.Delete(x => x.EventTime < agesAgo);
 
+            // -- or if there are more than maxRows (+50 to avoid deleting on every call), trim back to maxRows
+            var total = repository.DbAccess.Execute(db => db.Connection.Count<EventLog>());
+
+            if (total < maxRows + 50)
+            {
+                return;
+            }
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
 
-            expression.OrderBy(x => x.EventTime).Limit(100);
+            expression.OrderBy(x => x.EventTime).ThenBy(x => x.ID).Limit((int)(total - maxRows)).Select(x => x.ID);
 
-            var entries = repository.DbAccess.Execute(db => db.Connection.Select(expression));
+            var oldestIds = repository.DbAccess.Execute(db => db.Connection.Column<int>(expression));
 
-            // -- or if there are more then 1000
-            if (entries.Count >= maxRows + 50)
-            {
-                repository.DbAccess.Execute(db => db.Connection.DeleteAll(entries));
-            }
+            repository.DbAccess.Execute(db => db.Connection.DeleteByIds<EventLog>(oldestIds));
         }
     }
 }

@@ -100,8 +100,8 @@ public class Localizer
     /// <param name="localizedText">The localized text.</param>
     public void GetText(string tag, out string localizedText)
     {
-        // default the out parameters
-        localizedText = string.Empty;
+        // default the out parameters, null means the text is missing
+        localizedText = null;
 
         tag = tag.ToUpper(CultureInfo.InvariantCulture);
 
@@ -199,7 +199,8 @@ public class Localizer
 
         var cultureUser =  BoardContext.Current.PageUser.Culture;
 
-        if (!cultureUser.IsSet())
+        // a culture without language code (saved by older versions without check) is ignored
+        if (!cultureUser.IsSet() || cultureUser.Trim().Length < 2)
         {
             return;
         }

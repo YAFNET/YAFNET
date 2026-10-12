@@ -42,7 +42,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_EditMedal)]
 public class MedalController : ForumBaseController
 {
     /// <summary>
@@ -61,7 +61,18 @@ public class MedalController : ForumBaseController
                 new MessageModalNotification(this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"), MessageTypes.warning));
         }
 
-        if (model.UserName.IsSet())
+        // the ids are sent by the client, medal and user must belong to the board
+        if (!this.IsBoardMedal(model.MedalId)
+            || !this.GetRepository<User>().Exists(u => u.ID == model.UserID && u.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            return this.BadRequest();
+        }
+
+        // a medal can only be awarded once to a user, awarding it again updates the award
+        var alreadyAwarded = this.GetRepository<UserMedal>()
+            .Exists(m => m.UserID == model.UserID && m.MedalID == model.MedalId);
+
+        if (model.UserName.IsSet() || alreadyAwarded)
         {
             // Add Medal to user
             this.GetRepository<UserMedal>().Save(
@@ -69,7 +80,7 @@ public class MedalController : ForumBaseController
                 model.MedalId,
                 model.UserMessage,
                 model.UserHide,
-                model.UserSortOrder.ToType<byte>());
+                (byte)System.Math.Clamp(model.UserSortOrder, 0, 255));
         }
         else
         {
@@ -79,7 +90,7 @@ public class MedalController : ForumBaseController
                 model.MedalId,
                 model.UserMessage,
                 model.UserHide,
-                model.UserSortOrder.ToType<byte>());
+                (byte)System.Math.Clamp(model.UserSortOrder, 0, 255));
 
             if (this.PageBoardContext.BoardSettings.EmailUserOnMedalAward)
             {
@@ -103,14 +114,25 @@ public class MedalController : ForumBaseController
     [HttpPost("EditGroupMedal")]
     public IActionResult EditGroupMedal([FromBody] GroupMedalEditModal model)
     {
-        if (model.GroupName.IsSet())
+        // the ids are sent by the client, medal and group must belong to the board
+        if (!this.IsBoardMedal(model.MedalId)
+            || !this.GetRepository<Group>().Exists(g => g.ID == model.GroupId && g.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            return this.BadRequest();
+        }
+
+        // a medal can only be awarded once to a group, awarding it again updates the award
+        var alreadyAwarded = this.GetRepository<GroupMedal>()
+            .Exists(m => m.GroupID == model.GroupId && m.MedalID == model.MedalId);
+
+        if (model.GroupName.IsSet() || alreadyAwarded)
         {
             this.GetRepository<GroupMedal>().Save(
                 model.GroupId,
                 model.MedalId,
                 model.GroupMessage,
                 model.GroupHide,
-                model.GroupSortOrder.ToType<byte>());
+                (byte)System.Math.Clamp(model.GroupSortOrder, 0, 255));
         }
         else
         {
@@ -119,9 +141,19 @@ public class MedalController : ForumBaseController
                 model.MedalId,
                 model.GroupMessage,
                 model.GroupHide,
-                model.GroupSortOrder.ToType<byte>());
+                (byte)System.Math.Clamp(model.GroupSortOrder, 0, 255));
         }
 
         return this.Ok();
+    }
+
+    /// <summary>
+    /// Checks if the medal belongs to the current board.
+    /// </summary>
+    /// <param name="medalId">The medal identifier.</param>
+    /// <returns>Returns if the medal belongs to the current board.</returns>
+    private bool IsBoardMedal(int medalId)
+    {
+        return this.GetRepository<Medal>().Exists(m => m.ID == medalId && m.BoardID == this.PageBoardContext.PageBoardID);
     }
 }

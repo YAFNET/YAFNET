@@ -147,4 +147,19 @@ public class EditAccessMaskModel : AdminPage
 
         return this.Page();
     }
+
+    /// <summary>
+    /// Only access masks of the current board can be edited (all handlers, the id is sent by the client).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        var id = context.HandlerArguments.TryGetValue("i", out var argument) && argument is int argumentId ? argumentId : this.Input?.Id;
+
+        // a negative id is no new item either (it was not checked and the page failed)
+        if (id is not (null or 0) && !this.GetRepository<AccessMask>().Exists(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
 }

@@ -23,20 +23,20 @@
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1 text-break">
                                             @Html.Raw(Model.RenderImages(medal))
-                                            @Html.Raw(medal.Name)
+                                            @medal.Name
                                         </h5>
                                         <small class="d-none d-md-block">
                                             <span class="fw-bold">
                                                 @Html.LocalizedText("MODERATE_DEFAULT", "CATEGORY"):
                                             </span>
-                                            @Html.Raw(medal.Category)
+                                            @medal.Category
                                         </small>
                                     </div>
                                     <p class="mb-1">
                                         <span class="fw-bold">
                                             @Html.LocalizedText("ADMIN_BBCODE", "DESCRIPTION"):
                                         </span>
-                                        @Html.Raw(medal.Description)
+                                        @medal.Description
                                     </p>
                                     <div class="small">
                                         <div class="btn-group btn-group-sm">

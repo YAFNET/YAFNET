@@ -101,14 +101,14 @@ public class PruneTopicTask : LongBackgroundTask
     /// <summary>
     /// The run once.
     /// </summary>
-    public override Task RunOnceAsync()
+    public async override Task RunOnceAsync()
     {
         try
         {
             this.Logger.Info(
                 $"Starting Prune Task for ForumID {this.ForumId}, {this.Days} Days, Perm Delete {this.PermDelete}.");
 
-            var count = this.GetRepository<Topic>().Prune((int)this.Data, this.ForumId, this.Days);
+            var count = await this.GetRepository<Topic>().PruneAsync((int)this.Data, this.ForumId, this.Days, this.PermDelete);
 
             this.Logger.Info($"Prune Task Complete. Pruned {count} topics.");
         }
@@ -116,7 +116,5 @@ public class PruneTopicTask : LongBackgroundTask
         {
             this.Logger.Error(x, $"Error In Prune Topic Task: {x.Message}");
         }
-
-        return Task.CompletedTask;
     }
 }

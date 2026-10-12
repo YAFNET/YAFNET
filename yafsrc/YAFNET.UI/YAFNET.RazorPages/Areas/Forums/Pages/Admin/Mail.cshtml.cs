@@ -89,6 +89,12 @@ public class MailModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSendAsync()
     {
+        // only groups of the board
+        if (!await this.GetRepository<Group>().ExistsAsync(g => g.ID == this.Input.ToListItem && g.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         var emails = await this.GetRepository<User>().GroupEmailsAsync(this.Input.ToListItem);
 
         foreach (var email in emails)
@@ -139,6 +145,9 @@ public class MailModel : AdminPage
             this.Get<ILogger<MailModel>>().Error(
                 x,
                 x.Message);
+
+            // the page is shown again with the list of the groups
+            this.BindData();
 
             return this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
         }

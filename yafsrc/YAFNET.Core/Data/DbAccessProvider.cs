@@ -92,11 +92,13 @@ public class DbAccessProvider : IDbAccessProvider
 
         set
         {
-            this._dbAccessSafe.Instance = value;
+            // the provider name first, setting it resets the instance
             if (value != null)
             {
                 this.ProviderName = value.Information.ProviderName;
             }
+
+            this._dbAccessSafe.Instance = value;
         }
     }
 

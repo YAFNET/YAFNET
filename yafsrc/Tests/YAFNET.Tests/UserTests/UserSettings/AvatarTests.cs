@@ -151,4 +151,170 @@ public class AvatarTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(src, Does.Contain(".webp"), "Modify Avatar Failed");
                 });
     }
+
+    /// <summary>
+    /// An image file larger than the avatar size setting is not saved (the warning is shown on the avatar page).
+    /// </summary>
+    [Test]
+    public async Task UploadedAvatarTooBigIsNotSavedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // the test image has 5480 bytes
+                await this.SetAvatarSizeAsync(page, "1000");
+
+                try
+                {
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditAvatar");
+
+                    var filePath = Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png");
+
+                    await page.Locator("//input[contains(@id,'Upload')]").SetInputFilesAsync(filePath);
+
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UploadUpdate')]"));
+
+                    var pageSource = await page.ContentAsync();
+
+                    Assert.That(
+                        pageSource,
+                        Does.Contain("The size of your image can't be more than 1000 bytes."),
+                        "The warning is missing");
+
+                    Assert.That(
+                        pageSource,
+                        Does.Contain("Select your Avatar from our Collection"),
+                        "The avatar page is not shown completely");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditAvatar");
+
+                    Assert.That(
+                        await page.Locator(".img-thumbnail").First.GetAttributeAsync(HtmlAttribute.Src),
+                        Does.Contain("GetTextAvatar"),
+                        "The too big avatar was saved");
+                }
+                finally
+                {
+                    await this.SetAvatarSizeAsync(page, "50000");
+                }
+            });
+    }
+
+    /// <summary>
+    /// The admin can select an avatar of the gallery and upload an avatar for a user (admin edit user).
+    /// </summary>
+    [Test]
+    public async Task AdminChangesAvatarOfUserTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // allows uploads, logs in as the admin
+                await this.SetAvatarSizeAsync(page, "50000");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+
+                var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
+                await searchNameInput.FillAsync(userName);
+                await page.RunAndWaitForNextPageAsync(() => searchNameInput.PressAsync("Enter"));
+
+                var editUserUrl = await page.Locator("//a[contains(@href,'EditUser')]", new PageLocatorOptions { HasText = userName })
+                                      .First.GetAttributeAsync("href");
+
+                Assert.That(editUserUrl, Is.Not.Null, $"{userName} not found");
+
+                editUserUrl = new Uri(new Uri(this.TestSettings.TestForumUrl), editUserUrl).ToString();
+
+                // an avatar of the gallery
+                await this.OpenAvatarTabAsync(page, editUserUrl);
+
+                await page.Locator("#View4 select[name='AvatarGallery']").EvaluateAsync(
+                    "select => select.value = [...select.options].find(o => o.text.includes('SampleAvatar')).value");
+
+                await page.SubmitAndWaitAsync(page.Locator("#View4 button[formaction*='Gallery']"));
+
+                await this.OpenAvatarTabAsync(page, editUserUrl);
+
+                Assert.That(
+                    await page.Locator("#View4 .img-thumbnail").GetAttributeAsync(HtmlAttribute.Src),
+                    Does.Contain("SampleAvatar"),
+                    "The avatar of the gallery was not saved");
+
+                // an uploaded avatar
+                var filePath = Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png");
+
+                await page.Locator("#View4 input[type='file']").SetInputFilesAsync(filePath);
+
+                await page.SubmitAndWaitAsync(page.Locator("#View4 button[formaction*='UploadUpdate']"));
+
+                await this.OpenAvatarTabAsync(page, editUserUrl);
+
+                var src = await page.Locator("#View4 .img-thumbnail").GetAttributeAsync(HtmlAttribute.Src);
+
+                Assert.That(src, Does.Not.Contain("SampleAvatar").And.Not.Contain("GetTextAvatar"), "The uploaded avatar was not saved");
+            });
+    }
+
+    /// <summary>
+    /// Opens the avatar tab of the admin edit user page (it is loaded with ajax).
+    /// </summary>
+    private async Task OpenAvatarTabAsync(IPage page, string editUserUrl)
+    {
+        await page.GotoAsync(editUserUrl);
+
+        await page.Locator("//button[contains(@data-bs-target,'#View4')]").ClickAsync();
+
+        await page.Locator("#View4 .img-thumbnail").WaitForAsync();
+    }
+
+    /// <summary>
+    /// Allows avatar uploads and sets the maximum file size of an avatar (logs in as the admin).
+    /// </summary>
+    private async Task SetAvatarSizeAsync(IPage page, string size)
+    {
+        await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+        if (await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync())
+        {
+            await page.LogOutUserAsync();
+        }
+
+        Assert.That(
+            await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+            Is.True,
+            "Login failed");
+
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings/Avatars");
+
+        await page.Locator("#Input_AvatarUpload").CheckAsync(new LocatorCheckOptions { Force = true });
+        await page.Locator("#Input_AvatarSize").FillAsync(size);
+
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']:visible").First);
+
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings/Avatars");
+
+        Assert.That(
+            await page.Locator("#Input_AvatarSize").InputValueAsync(),
+            Is.EqualTo(size),
+            "The avatar size was not saved");
+    }
 }

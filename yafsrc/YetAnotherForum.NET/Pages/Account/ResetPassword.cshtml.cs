@@ -116,6 +116,21 @@ public class ResetPasswordModel : AccountPage
         // Get User again to get updated Password Hash
         user = await this.Get<IAspNetUsersHelper>().GetUserAsync(user.Id);
 
+        // a disabled account is not logged in
+        if (!user.IsApproved)
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login);
+        }
+
+        // with two factor authentication the code is needed too (the e-mail alone must not be enough)
+        if (user.TwoFactorEnabled)
+        {
+            this.Get<ISessionService>().SetPageData(user);
+            this.HttpContext.Session.SetData(Constants.TwoFactorRememberMeSessionKey, false);
+
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Authorize);
+        }
+
         await this.Get<IAspNetUsersHelper>().SignInAsync(user);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);

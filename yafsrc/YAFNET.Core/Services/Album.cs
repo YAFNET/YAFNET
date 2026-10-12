@@ -54,89 +54,56 @@ public class Album : IAlbum, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
-    /// Deletes the specified album.
+    /// Deletes an album with all its images, only the owner's albums.
     /// </summary>
-    /// <param name="uploadFolder">
-    ///     The Upload folder.
-    /// </param>
-    /// <param name="albumId">
-    ///     The album id.
-    /// </param>
-    /// <param name="userId">
-    ///     The user id.
-    /// </param>
+    /// <param name="uploadFolder">The upload folder.</param>
+    /// <param name="albumId">The album id.</param>
+    /// <param name="userId">The user id (the owner of the album).</param>
     public async Task AlbumDeleteAsync(string uploadFolder,
         int albumId,
         int userId)
     {
-        var albums = BoardContext.Current.GetRepository<UserAlbumImage>().List(albumId);
+        var album = await this.GetRepository<UserAlbum>().GetByIdAsync(albumId);
 
-        foreach (var album in albums)
+        // unknown album or not the own one
+        if (album is null || album.UserID != userId)
         {
-            var fullName = $"{uploadFolder}/{userId}.{albumId}.{album.FileName}.yafalbum";
-            var file = new FileInfo(fullName);
-
-            try
-            {
-                if (!file.Exists)
-                {
-                    return;
-                }
-
-                File.SetAttributes(fullName, FileAttributes.Normal);
-                File.Delete(fullName);
-            }
-            finally
-            {
-                var imageIdDelete = album.ID;
-                await BoardContext.Current.GetRepository<UserAlbumImage>().DeleteByIdAsync(imageIdDelete);
-                await BoardContext.Current.GetRepository<UserAlbum>().DeleteCoverAsync(imageIdDelete);
-            }
+            return;
         }
 
-        await this.GetRepository<UserAlbumImage>().DeleteAsync(a => a.AlbumID == albumId.ToType<int>());
+        foreach (var image in this.GetRepository<UserAlbumImage>().List(albumId))
+        {
+            DeleteFile($"{uploadFolder}/{userId}.{albumId}.{image.FileName}.yafalbum");
 
-        await this.GetRepository<UserAlbum>().DeleteAsync(a => a.ID == albumId.ToType<int>());
+            await this.GetRepository<UserAlbum>().DeleteCoverAsync(image.ID);
+        }
+
+        await this.GetRepository<UserAlbumImage>().DeleteAsync(a => a.AlbumID == albumId);
+        await this.GetRepository<UserAlbum>().DeleteAsync(a => a.ID == albumId);
     }
 
     /// <summary>
-    /// Deletes the specified image.
+    /// Deletes an image of an album, only images in the owner's albums.
     /// </summary>
-    /// <param name="uploadFolder">
-    ///     The Upload folder.
-    /// </param>
-    /// <param name="imageId">
-    ///     The image id.
-    /// </param>
-    /// <param name="userId">
-    ///     The user id.
-    /// </param>
+    /// <param name="uploadFolder">The upload folder.</param>
+    /// <param name="imageId">The image id.</param>
+    /// <param name="userId">The user id (the owner of the album).</param>
     public async Task AlbumImageDeleteAsync(string uploadFolder,
         int imageId,
         int userId)
     {
-        var image = await this.GetRepository<UserAlbumImage>().GetByIdAsync(imageId).ConfigureAwait(false);
+        var image = await this.GetRepository<UserAlbumImage>().GetByIdAsync(imageId, true).ConfigureAwait(false);
 
-        var fileName = image.FileName;
-        var imgAlbumId = image.AlbumID.ToString();
-        var fullName = $"{uploadFolder}/{userId}.{imgAlbumId}.{fileName}.yafalbum";
-        var file = new FileInfo(fullName);
-
-        try
+        // unknown image or not in an own album
+        if (image?.UserAlbum is null || image.UserAlbum.UserID != userId)
         {
-            if (!file.Exists)
-            {
-                return;
-            }
+            return;
+        }
 
-            File.SetAttributes(fullName, FileAttributes.Normal);
-            File.Delete(fullName);
-        }
-        finally
-        {
-            await this.GetRepository<UserAlbumImage>().DeleteByIdAsync(imageId);
-            await this.GetRepository<UserAlbum>().DeleteCoverAsync(imageId);
-        }
+        DeleteFile($"{uploadFolder}/{userId}.{image.AlbumID}.{image.FileName}.yafalbum");
+
+        await this.GetRepository<UserAlbumImage>().DeleteByIdAsync(imageId);
+        await this.GetRepository<UserAlbum>().DeleteCoverAsync(imageId);
     }
 
     /// <summary>
@@ -152,7 +119,8 @@ public class Album : IAlbum, IHaveServiceLocator
     {
         var album = this.GetRepository<UserAlbum>().GetById(imageId);
 
-        if (album.UserID != BoardContext.Current.PageUserID)
+        // unknown album or not the own one
+        if (album is null || album.UserID != BoardContext.Current.PageUserID)
         {
             return;
         }
@@ -175,7 +143,8 @@ public class Album : IAlbum, IHaveServiceLocator
     {
         var image = this.GetRepository<UserAlbumImage>().GetById(imageId, true);
 
-        if (image.UserAlbum.UserID != BoardContext.Current.PageUserID)
+        // unknown image or not in an own album
+        if (image?.UserAlbum is null || image.UserAlbum.UserID != BoardContext.Current.PageUserID)
         {
             return;
         }
@@ -183,5 +152,20 @@ public class Album : IAlbum, IHaveServiceLocator
         image.Caption = newCaption;
 
         this.GetRepository<UserAlbumImage>().Update(image);
+    }
+
+    /// <summary>
+    /// Deletes the file of an album image if it exists (images can also be stored in the database).
+    /// </summary>
+    /// <param name="fullName">The full file name.</param>
+    private static void DeleteFile(string fullName)
+    {
+        if (!File.Exists(fullName))
+        {
+            return;
+        }
+
+        File.SetAttributes(fullName, FileAttributes.Normal);
+        File.Delete(fullName);
     }
 }

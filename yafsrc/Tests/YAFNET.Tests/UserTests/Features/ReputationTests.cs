@@ -78,7 +78,7 @@ public class ReputationTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                         await page.Locator("//button[contains(@class,'AddReputation_')]").IsVisibleAsync(), Is.True,
                         "Reputation is deactivated  in yaf or the user has already voted within the last 24 hours, or the user doesn't have enough points to be allowed to vote");
 
-                    await page.Locator("//button[contains(@class,'AddReputation_')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@class,'AddReputation_')]"));
 
                     var pageSource = await page.ContentAsync();
 
@@ -130,7 +130,13 @@ public class ReputationTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Admin" }).ClickAsync();
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Users and Roles" }).ClickAsync();
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Users", Exact = true }).ClickAsync();
-                        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = this.TestSettings.TestUserName }).First.ClickAsync();
+                        // the list is paged (newest first), search the user
+                        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                        await page.Locator("//input[contains(@id,'_Name')]").FillAsync(this.TestSettings.TestUserName);
+                        await page.RunAndWaitForNextPageAsync(
+                            () => page.Locator("//input[contains(@id,'_Name')]").PressAsync("Enter"));
+
+                        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = this.TestSettings.TestUserName, Exact = true }).First.ClickAsync();
                         await page.GetByRole(AriaRole.Tab, new PageGetByRoleOptions { Name = "User Reputation" }).ClickAsync();
                         await page.GetByRole(AriaRole.Spinbutton, new PageGetByRoleOptions { Name = "Set Points:" }).FillAsync("400");
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "GO" }).Nth(1).ClickAsync();
@@ -151,7 +157,7 @@ public class ReputationTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                         await page.Locator("//button[contains(@class,'RemoveReputation_')]").IsVisibleAsync(), Is.True,
                         "Reputation is deactivated (Or negative Reputation) in yaf or the user has already voted within the last 24 hours, or the user doesn't have enough points to be allowed to vote");
 
-                    await page.Locator("//button[contains(@class,'RemoveReputation_')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@class,'RemoveReputation_')]"));
 
                     var pageSource = await page.ContentAsync();
 

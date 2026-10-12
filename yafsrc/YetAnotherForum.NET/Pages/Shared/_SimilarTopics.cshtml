@@ -38,10 +38,11 @@
 
 	                <li class="list-group-item">
                         <a href="@(topic.TopicUrl)">
-                            <strong>@Html.Raw(Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(topic.Topic)))</strong>
+                            @* the topic and the user names of the search results are html encoded *@
+                            <strong>@Html.Raw(Current.Get<IBadWordReplace>().Replace(topic.Topic))</strong>
                         </a> (<a href="@(topic.ForumUrl)">@(topic.ForumName)</a>)
                         @Html.LocalizedText("SEARCH", "BY")
-                        @Html.UserLink(topic.UserId.Value, Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName, topic.Suspended, topic.UserStyle)
+                        @Html.UserLink(topic.UserId.Value, System.Net.WebUtility.HtmlDecode(Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName), topic.Suspended, topic.UserStyle)
                         @Html.IconBadge("calendar-day", "clock")
 						
                         @if (posted != null)

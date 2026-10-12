@@ -83,6 +83,12 @@ public class UsersPointsModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostAddPointsAsync()
     {
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
+            Tuple<User, AspNetUsers, Rank, VAccess>)
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
+        }
+
         await this.GetRepository<User>().AddPointsAsync(this.Input.UserId, null, this.Input.AddPoints);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new {u = this.Input.UserId, tab = "View6"});
@@ -93,6 +99,12 @@ public class UsersPointsModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostRemovePointsAsync()
     {
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
+            Tuple<User, AspNetUsers, Rank, VAccess>)
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
+        }
+
         await this.GetRepository<User>().RemovePointsAsync(this.Input.UserId, null, this.Input.RemovePoints);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View6" });
@@ -103,6 +115,13 @@ public class UsersPointsModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSetUserPointsAsync()
     {
+        // only the user that is edited (checked by the edit user page) can be changed
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
+            Tuple<User, AspNetUsers, Rank, VAccess>)
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
+        }
+
         await this.GetRepository<User>().SetPointsAsync(this.Input.UserId, this.Input.UserPoints);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View6" });
@@ -113,7 +132,7 @@ public class UsersPointsModel : AdminPage
     /// </summary>
     private IActionResult BindData(int userId)
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,

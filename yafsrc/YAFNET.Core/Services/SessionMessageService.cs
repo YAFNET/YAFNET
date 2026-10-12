@@ -40,12 +40,14 @@ public class SessionMessageService
     /// </summary>
     public SessionMessageService()
     {
-        if (!this.SessionLoadString.NullOrEmpty())
-        {
-            this.LoadStringList.AddRange(this.SessionLoadString);
+        var pending = ReadPending();
 
-            // session load string no longer needed
-            this.SessionLoadString.Clear();
+        if (pending.Count != 0)
+        {
+            this.LoadStringList.AddRange(pending);
+
+            // the messages are shown on this page, they are no longer needed
+            Session?.Remove(SessionKey);
         }
 
         BoardContext.Current.Unload += this.CurrentUnload;
@@ -57,24 +59,37 @@ public class SessionMessageService
     public List<MessageNotification> LoadStringList { get; } = [];
 
     /// <summary>
-    /// Gets the session load string.
+    /// The session key of the messages for the next page of this user.
     /// </summary>
-    protected List<MessageNotification> SessionLoadString {
-        get {
-            var context = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext;
+    private const string SessionKey = "SessionMessages";
 
-            var ipAddress = context.GetUserRealIPAddress();
-            if (BoardContext.Current.Get<IDataCache>().Get($"{ipAddress}_LoadStringList") == null)
+    /// <summary>
+    /// Gets the session of the current user (the messages are per user, never per IP address,
+    /// several users can share one address), or <c>null</c> without a session.
+    /// </summary>
+    private static ISession Session
+    {
+        get
+        {
+            try
             {
-                BoardContext.Current.Get<IDataCache>().Set(
-                    $"{ipAddress}_LoadStringList",
-                    new List<MessageNotification>(),
-                    TimeSpan.FromMinutes(5));
+                return BoardContext.Current.Get<IHttpContextAccessor>().HttpContext?.Session;
             }
-
-            return BoardContext.Current.Get<IDataCache>().Get($"{ipAddress}_LoadStringList") as
-                List<MessageNotification>;
+            catch (InvalidOperationException)
+            {
+                // no session configured
+                return null;
+            }
         }
+    }
+
+    /// <summary>
+    /// Reads the messages stored for the next page.
+    /// </summary>
+    /// <returns>Returns the messages</returns>
+    private static List<MessageNotification> ReadPending()
+    {
+        return Session?.GetData<List<MessageNotification>>(SessionKey) ?? [];
     }
 
     /// <summary>
@@ -84,8 +99,18 @@ public class SessionMessageService
     /// <param name="messageType">Type of the message.</param>
     public void AddSession(string message, MessageTypes messageType)
     {
+        var session = Session;
+
+        if (session is null)
+        {
+            return;
+        }
+
         // add it to the session list...
-        this.SessionLoadString.Add(new MessageNotification(message, messageType));
+        var pending = ReadPending();
+        pending.Add(new MessageNotification(message, messageType));
+
+        session.SetData(SessionKey, pending);
     }
 
     /// <summary>

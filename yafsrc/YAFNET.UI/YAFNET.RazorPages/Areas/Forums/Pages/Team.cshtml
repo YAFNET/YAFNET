@@ -39,7 +39,8 @@
 									<form method="post">
 										@if (user.ID != Model.PageBoardContext.PageUserID)
 										{
-											var isFriend = Model.Get<IFriends>().IsBuddy(user.ID);
+											// the user has the current user in the friend list (not just a request)
+											var isFriend = Model.GetRepository<YAF.Types.Models.Buddy>().Exists(b => b.FromUserID == user.ID && b.ToUserID == Model.PageBoardContext.PageUserID && b.Approved);
 
 											@if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowPrivateMessages)
 											{
@@ -160,7 +161,8 @@
 										<form method="post">
 											@if (mod.ModeratorID != Model.PageBoardContext.PageUserID)
 											{
-												var isFriend = Model.Get<IFriends>().IsBuddy(mod.ModeratorID);
+												// the moderator has the current user in the friend list (not just a request)
+												var isFriend = Model.GetRepository<YAF.Types.Models.Buddy>().Exists(b => b.FromUserID == mod.ModeratorID && b.ToUserID == Model.PageBoardContext.PageUserID && b.Approved);
 
 												@if (!Model.PageBoardContext.IsGuest && Model.PageBoardContext.BoardSettings.AllowPrivateMessages)
 												{

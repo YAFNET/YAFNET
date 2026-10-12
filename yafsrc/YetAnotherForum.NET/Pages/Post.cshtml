@@ -55,7 +55,7 @@
                 <button class="dropdown-item"
                         button-style="None"
                         bs-toggle="ajax-modal"
-                        bs-target-url="@Url.Page("Posts", "MoveTopic", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Request.GetQueryOrRouteValue<int>("t"), p =  Request.Query["p"], m = Request.Query["m"]})"
+                        bs-target-url="@Url.Page("Posts", "MoveTopic", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Model.PageBoardContext.PageTopicID, p =  Request.Query["p"], m = Request.Query["m"]})"
                         text-localized-tag="BUTTON_MOVETOPIC" title-localized-tag="BUTTON_MOVETOPIC_TT"
                         Icon="arrows-alt"></button>
 
@@ -66,7 +66,7 @@
                             asp-page-handler="UnlockTopic"
                             asp-page="@ForumPages.Posts.GetPageName()"
                             asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                            asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                            asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                             asp-route-p="@Request.Query["p"]"
                             asp-route-m="@Request.Query["m"]"
                             text-localized-tag="BUTTON_UNLOCKTOPIC" title-localized-tag="BUTTON_UNLOCKTOPIC_TT"
@@ -79,7 +79,7 @@
                             asp-page-handler="LockTopic" 
                             asp-page="@ForumPages.Posts.GetPageName()"
                             asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                            asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                            asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                             asp-route-p="@Request.Query["p"]"
                             asp-route-m="@Request.Query["m"]"
                             text-localized-tag="BUTTON_LOCKTOPIC" title-localized-tag="BUTTON_LOCKTOPIC_TT"
@@ -91,7 +91,7 @@
                         asp-page-handler="DeleteTopic"
                         asp-page="@ForumPages.Posts.GetPageName()"
                         asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                        asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                        asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                         asp-route-p="@Request.Query["p"]"
                         asp-route-m="@Request.Query["m"]"
                         return-confirm-tag="confirm_deletetopic"
@@ -117,7 +117,7 @@
                     asp-page-handler="ReplyLink" 
                     asp-page="@ForumPages.Posts.GetPageName()"
                     asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                    asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                    asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                     asp-route-p="@Request.Query["p"]"
                     asp-route-m="@Request.Query["m"]"
                     text-localized-tag="BUTTON_POSTREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
@@ -133,7 +133,7 @@
             <nav class="navbar navbar-expand-lg card-header">
             <div class="container-fluid">
 	            <a href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(Model.PageBoardContext.PageTopic))" class="navbar-brand pt-0 text-wrap"
-                   title="@Html.Raw(Model.Get<IBadWordReplace>().Replace(Html.HtmlEncode(Model.PageBoardContext.PageTopic.Description)))">
+                   title="@Html.Raw(Model.Get<IBadWordReplace>().Replace(Html.HtmlEncode(Model.PageBoardContext.PageTopic.Description).ToString()))">
                     @Html.Raw(Model.TopicSubject)
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,7 +146,7 @@
                                     asp-page-handler="PrevTopic" 
                                     asp-page="@ForumPages.Posts.GetPageName()"
                                     asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                                    asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                                    asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                                     asp-route-p="@Request.Query["p"]"
                                     asp-route-m="@Request.Query["m"]"
                                     text-localized-tag="PREVTOPIC"
@@ -159,7 +159,7 @@
                                     asp-page-handler="NextTopic" 
                                     asp-page="@ForumPages.Posts.GetPageName()"
                                     asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                                    asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                                    asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                                     asp-route-p="@Request.Query["p"]"
                                     asp-route-m="@Request.Query["m"]"
                                     text-localized-tag="NEXTTOPIC"
@@ -193,7 +193,7 @@
                                                 asp-page-handler="EmailTopic" 
                                                 asp-page="@ForumPages.Posts.GetPageName()"
                                                 asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                                                asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                                                asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                                                 asp-route-p="@Request.Query["p"]"
                                                 asp-route-m="@Request.Query["m"]"></button>
                                     }
@@ -233,7 +233,7 @@
                                                 asp-page-handler="UnTrackTopic" 
                                                 asp-page="@ForumPages.Posts.GetPageName()"
                                                 asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                                                asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                                                asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                                                 asp-route-p="@Request.Query["p"]"
                                                 asp-route-m="@Request.Query["m"]"></button>
                                     }
@@ -246,7 +246,7 @@
                                                 asp-page-handler="TrackTopic" 
                                                 asp-page="@ForumPages.Posts.GetPageName()"
                                                 asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                                                asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                                                asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                                                 asp-route-p="@Request.Query["p"]"
                                                 asp-route-m="@Request.Query["m"]"></button>
                                     }
@@ -338,7 +338,7 @@
                     <button button-style="None"
                             class="dropdown-item"
                             bs-toggle="ajax-modal"
-                            bs-target-url="@Url.Page("Posts", "MoveTopic", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Request.GetQueryOrRouteValue<int>("t"), p =  Request.Query["p"], m = Request.Query["m"]})"
+                            bs-target-url="@Url.Page("Posts", "MoveTopic", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Model.PageBoardContext.PageTopicID, p =  Request.Query["p"], m = Request.Query["m"]})"
                             text-localized-tag="BUTTON_MOVETOPIC" title-localized-tag="BUTTON_MOVETOPIC_TT"
                             icon="arrows-alt"></button>
                     @if (Model.PageBoardContext.PageTopic.TopicFlags.IsLocked)
@@ -348,7 +348,7 @@
                                 asp-page-handler="UnlockTopic" 
                                 asp-page="@ForumPages.Posts.GetPageName()"
                                 asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                                asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                                asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                                 asp-route-p="@Request.Query["p"]"
                                 asp-route-m="@Request.Query["m"]"
                                 text-localized-tag="BUTTON_UNLOCKTOPIC" title-localized-tag="BUTTON_UNLOCKTOPIC_TT"
@@ -361,7 +361,7 @@
                                 asp-page-handler="LockTopic" 
                                 asp-page="@ForumPages.Posts.GetPageName()"
                                 asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                                asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                                asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                                 asp-route-p="@Request.Query["p"]"
                                 asp-route-m="@Request.Query["m"]"
                                 text-localized-tag="BUTTON_LOCKTOPIC" title-localized-tag="BUTTON_LOCKTOPIC_TT"
@@ -373,7 +373,7 @@
                             asp-page-handler="DeleteTopic" 
                             asp-page="@ForumPages.Posts.GetPageName()"
                             asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                            asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                            asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                             asp-route-p="@Request.Query["p"]"
                             asp-route-m="@Request.Query["m"]"
                             return-confirm-tag="confirm_deletetopic"
@@ -399,7 +399,7 @@
                         asp-page-handler="ReplyLink"
                         asp-page="@ForumPages.Posts.GetPageName()"
                         asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
-                        asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
+                        asp-route-t="@(Model.PageBoardContext.PageTopicID)"
                         asp-route-p="@Request.Query["p"]"
                         asp-route-m="@Request.Query["m"]"
                         text-localized-tag="BUTTON_POSTREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"

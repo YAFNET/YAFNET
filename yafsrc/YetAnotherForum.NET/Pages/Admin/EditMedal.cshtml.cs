@@ -88,9 +88,15 @@ public class EditMedalModel : AdminPage
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITMEDAL", "TITLE"), string.Empty);
     }
 
-    public PartialViewResult OnGetAddUser(int medalId)
+    public IActionResult OnGetAddUser(int medalId)
     {
-        var medal = this.GetRepository<Medal>().GetById(medalId);
+        // only medals of this board
+        var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == medalId && m.BoardID == this.PageBoardContext.PageBoardID);
+
+        if (medal is null)
+        {
+            return this.NotFound();
+        }
 
         return new PartialViewResult {
                                          ViewName = "Dialogs/UserMedalEdit",
@@ -119,17 +125,23 @@ public class EditMedalModel : AdminPage
                };
     }
 
-    public PartialViewResult OnGetEditUser(int userId, int medalId)
+    public IActionResult OnGetEditUser(int userId, int medalId)
     {
         // Edit
         var row = this.GetRepository<UserMedal>().List(userId, medalId).FirstOrDefault();
+
+        // only awards of medals of this board
+        if (row is null || row.Item1.BoardID != this.PageBoardContext.PageBoardID)
+        {
+            return this.NotFound();
+        }
 
         return new PartialViewResult {
                                          ViewName = "Dialogs/UserMedalEdit",
                                          ViewData = new ViewDataDictionary<UserMedalEditModal>(
                                              this.ViewData,
                                              new UserMedalEditModal {
-                                                                        MedalId = row!.Item1.ID,
+                                                                        MedalId = row.Item1.ID,
                                                                         UserID = row.Item3.ID,
                                                                         UserName = row.Item3.Name,
                                                                         UserMessage =
@@ -143,10 +155,16 @@ public class EditMedalModel : AdminPage
                                      };
     }
 
-    public PartialViewResult OnGetEditGroup(int groupId, int medalId)
+    public IActionResult OnGetEditGroup(int groupId, int medalId)
     {
         // Edit
         var row = this.GetRepository<GroupMedal>().List(groupId, medalId).FirstOrDefault();
+
+        // only awards of medals of this board
+        if (row is null || row.Item1.BoardID != this.PageBoardContext.PageBoardID)
+        {
+            return this.NotFound();
+        }
 
         // remove all user medals...
         this.Get<IDataCache>().Remove(
@@ -160,7 +178,7 @@ public class EditMedalModel : AdminPage
                        new GroupMedalEditModal
                        {
                            MedalId = medalId,
-                           GroupId = row!.Item2.GroupID,
+                           GroupId = row.Item2.GroupID,
                            GroupName = row.Item3.Name,
                            GroupMessage = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message,
                            GroupSortOrder = row.Item2.SortOrder,
@@ -182,7 +200,7 @@ public class EditMedalModel : AdminPage
     {
         return string.Format(
             "<a href=\"{1}\">{0}</a>",
-            item.Item3.Name,
+            this.HtmlEncode(item.Item3.Name),
             this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditGroup, new {i = item.Item3.ID }));
     }
 
@@ -211,6 +229,13 @@ public class EditMedalModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostRemoveGroupAsync(int id)
     {
+        // only awards of a medal of this board (the medal id is sent by the client)
+        if (!await this.IsBoardMedalAsync())
+        {
+            this.BindData();
+            return;
+        }
+
         await this.GetRepository<GroupMedal>().DeleteAsync(
             medal => medal.GroupID == id
                      && medal.MedalID == this.Input.Id);
@@ -247,6 +272,15 @@ public class EditMedalModel : AdminPage
     {
         if (this.Input.MedalImage.IsNotSet() || this.Input.MedalImage == this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"))
         {
+            // the page is shown again with the entered values (and the lists of the page)
+            this.CreateMedalImagesList();
+
+            if (this.Input.Id > 0)
+            {
+                this.UserList = this.GetRepository<UserMedal>().List(null, this.Input.Id);
+                this.GroupList = this.GetRepository<GroupMedal>().List(null, this.Input.Id);
+            }
+
             return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.warning);
         }
 
@@ -274,6 +308,13 @@ public class EditMedalModel : AdminPage
 
     public async Task OnPostRemoveUserAsync(int id)
     {
+        // only awards of a medal of this board (the medal id is sent by the client)
+        if (!await this.IsBoardMedalAsync())
+        {
+            this.BindData();
+            return;
+        }
+
         // delete user-medal
         await this.GetRepository<UserMedal>().DeleteAsync(
             medal => medal.UserID == id
@@ -283,6 +324,17 @@ public class EditMedalModel : AdminPage
         this.Get<IDataCache>().Remove(
             string.Format(Constants.Cache.UserMedals, id));
         this.BindData();
+    }
+
+    /// <summary>
+    /// Checks if the medal of the form belongs to this board.
+    /// </summary>
+    /// <returns>Returns if the medal belongs to this board</returns>
+    private Task<bool> IsBoardMedalAsync()
+    {
+        var medalId = this.Input?.Id ?? 0;
+
+        return this.GetRepository<Medal>().ExistsAsync(m => m.ID == medalId && m.BoardID == this.PageBoardContext.PageBoardID);
     }
 
     /// <summary>
@@ -338,5 +390,20 @@ public class EditMedalModel : AdminPage
         }
 
         this.MedalImages = list;
+    }
+
+    /// <summary>
+    /// Only medals of the current board can be edited (all handlers, the id is sent by the client).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        var id = context.HandlerArguments.TryGetValue("medalId", out var argument) && argument is int argumentId ? argumentId : this.Input?.Id;
+
+        // a negative id is no new item either (it was not checked and the page failed)
+        if (id is not (null or 0) && !this.GetRepository<Medal>().Exists(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
     }
 }

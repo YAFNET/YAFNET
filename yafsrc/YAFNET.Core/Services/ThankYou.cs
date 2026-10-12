@@ -76,7 +76,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
         return new ThankYouInfo
         {
                        MessageID = messageId,
-                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, false),
+                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId),
                        Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
                        Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
                    };
@@ -109,7 +109,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
         return new ThankYouInfo
         {
                        MessageID = messageId,
-                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId, true),
+                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId),
                        Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
                        Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
                    };
@@ -125,13 +125,10 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <param name="messageId">
     /// The Message ID.
     /// </param>
-    /// <param name="thanksInfoOnly">
-    /// The thank Info Only.
-    /// </param>
     /// <returns>
     /// The thanks number.
     /// </returns>
-    public string ThanksInfo(string username, int messageId, bool thanksInfoOnly)
+    public string ThanksInfo(string username, int messageId)
     {
         var thanksNumber = this.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
 
@@ -140,13 +137,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
             return "&nbsp;";
         }
 
-        var thanks = this.GetThanks(messageId);
-
-        return thanksInfoOnly
-                   ? thanks
-                   : $"""
-                      <i class="fa fa-heart text-danger me-1"></i>{thanks}
-                      """;
+        return this.GetThanks(messageId);
     }
 
     /// <summary>

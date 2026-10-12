@@ -30,19 +30,19 @@
                                         <label ID="LocalizedLabel2" localized-tag="USER" localized-page="MODERATE"></label>:
                                     </span>
                                     
-                                    @Html.Raw(item.Item1.DisplayOrUserName())
+                                    @item.Item1.DisplayOrUserName()
                                     
                                     <span class="fw-bold">
                                         <label ID="LocalizedLabel3" localized-tag="ACCEPTED" localized-page="MODERATE"></label>:
                                     </span>
                                     
-                                    @Html.Raw(item.Item2.Accepted)
+                                    @item.Item2.Accepted
                                     
                                     <span class="fw-bold">
                                         <label ID="LocalizedLabel4" localized-tag="ACCESSMASK" localized-page="MODERATE"></label>:
                                     </span>
                                     
-                                    @Html.Raw(item.Item3.Name)
+                                    @item.Item3.Name
                                     
                                     <button bs-toggle="ajax-modal"
                                             bs-target-url="@(Url.Page("Forums", "EditUser", new {userId = item.Item1.ID, f = Model.PageBoardContext.PageForumID}))"
@@ -115,7 +115,7 @@
                                             <label class="form-check-label" asp-for="TopicList[index].Selected">
                                                 <a asp-page="@ForumPages.Posts.GetPageName()"
                                                    asp-route-t="@Model.TopicList[index].TopicID"
-                                                   asp-route-name="UrlRewriteHelper.CleanStringForUrl(@Model.TopicList[index].Subject)">@Model.TopicList[index].Subject</a>
+                                                   asp-route-name="@UrlRewriteHelper.CleanStringForUrl(Model.TopicList[index].Subject)">@Model.TopicList[index].Subject</a>
                                             </label>
                                         </div>
                                    

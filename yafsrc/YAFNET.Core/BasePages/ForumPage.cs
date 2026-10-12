@@ -67,12 +67,11 @@ public abstract class ForumPage : PageModel,
         // fire preload event...
         this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
 
-        this.Get<IDataCache>().Remove("TopicID");
-
         // no security features for login/logout pages
         if (BoardContext.Current.CurrentForumPage.IsAccountPage)
         {
             await next.Invoke();
+            return;
         }
 
         // check if login is required
@@ -179,6 +178,15 @@ public abstract class ForumPage : PageModel,
             return;
         }
 
+        // the checks of the page itself (e.g. moderator pages); the base class of PageModel calls it
+        // from OnPageHandlerExecutionAsync, which is replaced here
+        this.OnPageHandlerExecuting(context);
+
+        if (context.Result != null)
+        {
+            return;
+        }
+
         // fire preload event...
         this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
 
@@ -262,10 +270,20 @@ public abstract class ForumPage : PageModel,
     public ForumPages PageName { get; set; }
 
     /// <summary>
-    /// Gets or sets the Page Size.
+    /// Gets or sets the Page Size. The value is sent by the client (the lists offer at most 50 entries),
+    /// a value outside 1 - 100 is replaced by the default page size.
     /// </summary>
     [BindProperty]
-    public int Size { get; set; }
+    public int Size
+    {
+        get => this.size;
+        set => this.size = value is >= 1 and <= 100 ? value : 5;
+    }
+
+    /// <summary>
+    /// The page size.
+    /// </summary>
+    private int size;
 
     /// <summary>
     /// Gets or sets the pageSize List.

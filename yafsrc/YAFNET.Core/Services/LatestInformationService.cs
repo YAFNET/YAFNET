@@ -67,7 +67,7 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
 
         try
         {
-            var client = new HttpClient(new HttpClientHandler());
+            var client = this.Get<IHttpClientFactory>().CreateClient();
 
             client.DefaultRequestHeaders.UserAgent.ParseAdd("YAF.NET");
 

@@ -133,18 +133,23 @@ public class RestoreModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostRestoreTopicAsync(int p, int p2, int topicId, int forumId)
     {
+        var topic = await this.GetBoardTopicAsync(topicId);
+
+        if (topic is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         var getFirstMessage = await this.GetRepository<Message>()
             .GetSingleAsync(m => m.TopicID == topicId && m.Position == 0);
 
         if (getFirstMessage != null)
         {
             await this.GetRepository<Message>().RestoreAsync(
-                forumId,
+                topic.ForumID,
                 topicId,
                 getFirstMessage);
         }
-
-        var topic = await this.GetRepository<Topic>().GetByIdAsync(topicId);
 
         var flags = topic.TopicFlags;
 
@@ -169,7 +174,14 @@ public class RestoreModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteTopicAsync(int p, int p2, int topicId, int forumId)
     {
-        await this.GetRepository<Topic>().DeleteAsync(forumId, topicId, true);
+        var topic = await this.GetBoardTopicAsync(topicId);
+
+        if (topic is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
+        await this.GetRepository<Topic>().DeleteAsync(topic.ForumID, topicId, true);
 
         this.BindData(p, p2);
 
@@ -205,9 +217,13 @@ public class RestoreModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteZeroTopicsAsync(int p, int p2)
     {
+        // only the topics of the board
+        var boardForums = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
+            .Where(f => f.Item2 != null).Select(f => f.Item2.ID).ToHashSet();
+
         var deletedTopics = await this.GetRepository<Topic>().GetAsync(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));
 
-        foreach (var topic in deletedTopics)
+        foreach (var topic in deletedTopics.Where(t => boardForums.Contains(t.ForumID)))
         {
             await this.GetRepository<Topic>().DeleteAsync(topic.ForumID, topic.ID, true);
         }
@@ -229,10 +245,16 @@ public class RestoreModel : AdminPage
     public async Task<IActionResult> OnPostRestorePostAsync(int p, int p2, int topicId, int forumId, int messageId)
     {
         var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
+        var topic = message is null ? null : await this.GetBoardTopicAsync(message.TopicID);
+
+        if (topic is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
 
         await this.GetRepository<Message>().RestoreAsync(
-            forumId,
-            topicId,
+            topic.ForumID,
+            topic.ID,
             message);
 
         this.BindData(p, p2);
@@ -252,11 +274,17 @@ public class RestoreModel : AdminPage
     public async Task<IActionResult> OnPostDeletePostAsync(int p, int p2, int topicId, int forumId, int messageId)
     {
         var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
+        var topic = message is null ? null : await this.GetBoardTopicAsync(message.TopicID);
+
+        if (topic is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
 
         // delete message
         await this.GetRepository<Message>().DeleteAsync(
-            forumId,
-            topicId,
+            topic.ForumID,
+            topic.ID,
             message,
             true,
             string.Empty,
@@ -346,5 +374,27 @@ public class RestoreModel : AdminPage
             .GetDeletedMessagesPaged(this.PageBoardContext.PageBoardID, p2 - 1, this.MessagesPageSize);
 
         this.DeletedMessages = deletedMessages;
+    }
+
+    /// <summary>
+    /// Gets the topic if it belongs to the current board (the ids are sent by the client).
+    /// </summary>
+    /// <param name="topicId">The topic identifier.</param>
+    /// <returns>The topic or null.</returns>
+    private async Task<Topic> GetBoardTopicAsync(int topicId)
+    {
+        var topic = await this.GetRepository<Topic>().GetByIdAsync(topicId);
+
+        if (topic is null)
+        {
+            return null;
+        }
+
+        var forum = await this.GetRepository<Forum>().GetByIdAsync(topic.ForumID);
+
+        return forum != null && await this.GetRepository<Category>().ExistsAsync(
+                   c => c.ID == forum.CategoryID && c.BoardID == this.PageBoardContext.PageBoardID)
+                   ? topic
+                   : null;
     }
 }

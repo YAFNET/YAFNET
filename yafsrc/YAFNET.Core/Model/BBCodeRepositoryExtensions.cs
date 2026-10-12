@@ -88,7 +88,7 @@ public static class BBCodeRepositoryExtensions
         /// <param name="boardId">
         /// The board Id.
         /// </param>
-        public Task SaveAsync(int? codeId,
+        public async Task SaveAsync(int? codeId,
             string name,
             string description,
             string onClickJs,
@@ -104,10 +104,18 @@ public static class BBCodeRepositoryExtensions
             int execOrder,
             int? boardId = null)
         {
-            return repository.UpsertAsync(
+            // an id of another board is not changed
+            var saveBoardId = boardId ?? repository.BoardID;
+
+            if (codeId is > 0 && !await repository.ExistsAsync(x => x.ID == codeId && x.BoardID == saveBoardId))
+            {
+                return;
+            }
+
+            await repository.UpsertAsync(
                 new BBCode
                 {
-                    BoardID = boardId ?? repository.BoardID,
+                    BoardID = saveBoardId,
                     ID = codeId ?? 0,
                     Name = name,
                     Description = description,

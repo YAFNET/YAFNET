@@ -55,6 +55,12 @@ public static class BannedCountryRepositoryExtensions
         string mask,
         int? boardId = null)
     {
+        // a country can only be banned once (also when an entry is changed)
+        if (repository.Exists(b => b.BoardID == repository.BoardID && b.Country == mask && b.ID != (id ?? 0)))
+        {
+            return false;
+        }
+
         if (id.HasValue)
         {
             repository.UpdateOnly(
@@ -62,11 +68,6 @@ public static class BannedCountryRepositoryExtensions
                 b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
             return true;
-        }
-
-        if (repository.Exists(b => b.BoardID == repository.BoardID && b.Country == mask))
-        {
-            return false;
         }
 
         repository.Insert(

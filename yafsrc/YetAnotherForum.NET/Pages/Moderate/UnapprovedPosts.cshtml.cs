@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
@@ -51,6 +52,20 @@ public class UnapprovedPostsModel : ModerateForumPage
     public List<Tuple<Topic, Message, User>> Messages { get; set; }
 
     /// <summary>
+    /// Only moderators of the forum and admins, and the forum must exist (the page failed without a forum).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        base.OnPageHandlerExecuting(context);
+
+        if (context.Result is null && this.PageBoardContext.PageForum is null)
+        {
+            context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+    }
+
+    /// <summary>
     /// Creates page links for this page.
     /// </summary>
     public override void CreatePageLinks()
@@ -60,8 +75,11 @@ public class UnapprovedPostsModel : ModerateForumPage
             this.GetText("MODERATE_DEFAULT", "TITLE"),
             this.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Moderate));
 
-        // current page
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
+        // current page (the page links are created before the checks of the page, the forum can be missing)
+        if (this.PageBoardContext.PageForum is not null)
+        {
+            this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
+        }
     }
 
     /// <summary>
@@ -87,11 +105,16 @@ public class UnapprovedPostsModel : ModerateForumPage
     /// </param>
     public async Task<IActionResult> OnPostDeleteAsync(int messageId, int topicId)
     {
-        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
+        var message = await this.GetForumMessageAsync(messageId);
+
+        if (message is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
 
         await this.GetRepository<Message>().DeleteAsync(
             this.PageBoardContext.PageForumID,
-            topicId,
+            message.TopicID,
             message,
             true,
             string.Empty,
@@ -113,9 +136,29 @@ public class UnapprovedPostsModel : ModerateForumPage
     /// </param>
     public async Task<IActionResult> OnPostApproveAsync(int messageId)
     {
+        var message = await this.GetForumMessageAsync(messageId);
+
+        if (message is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         await this.GetRepository<Message>().ApproveAsync(
             messageId,
             this.PageBoardContext.PageForumID);
+
+        // the mentioned and quoted users are notified now (like for a post that doesn't need the approval)
+        var author = await this.GetRepository<User>().GetByIdAsync(message.UserID);
+
+        if (author is not null && !author.UserFlags.IsGuest && author.Activity)
+        {
+            MentionHelper.NotifyMentionedAndQuotedUsers(
+                message.MessageText,
+                this.PageBoardContext.PageForumID,
+                message.TopicID,
+                message.ID,
+                message.UserID);
+        }
 
         // tell user message was approved
         this.PageBoardContext.SessionNotify(this.GetText("APPROVED"), MessageTypes.success);
@@ -172,5 +215,24 @@ public class UnapprovedPostsModel : ModerateForumPage
         this.Messages = messages;
 
         return this.Page();
+    }
+
+    /// <summary>
+    /// Gets the message, only when it is a message of the moderated forum (the id is sent by the client).
+    /// </summary>
+    /// <param name="messageId">The message identifier.</param>
+    /// <returns>Returns the message or null</returns>
+    private async Task<Message> GetForumMessageAsync(int messageId)
+    {
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
+
+        if (message is null)
+        {
+            return null;
+        }
+
+        var topic = await this.GetRepository<Topic>().GetByIdAsync(message.TopicID);
+
+        return topic?.ForumID == this.PageBoardContext.PageForumID ? message : null;
     }
 }

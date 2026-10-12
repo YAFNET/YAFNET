@@ -155,10 +155,18 @@ public class GroupsModel : AdminPage
     /// Called when [post delete net].
     /// </summary>
     /// <param name="role">The role.</param>
-    public void OnPostDeleteNet(string role)
+    public async Task OnPostDeleteNetAsync(string role)
     {
-        // delete role from provider data
-        this.Get<IAspNetRolesHelper>().DeleteRoleAsync(role);
+        // the roles are shared by all boards: only a role that is not the group of any board can be deleted
+        // (the list only contains the roles without a group of this board)
+        var usedByGroup = role.IsNotSet() || this.GetRepository<Group>().Get(_ => true)
+                              .Exists(g => string.Equals(g.Name, role, StringComparison.CurrentCultureIgnoreCase));
+
+        if (!usedByGroup)
+        {
+            // delete role from provider data
+            await this.Get<IAspNetRolesHelper>().DeleteRoleAsync(role);
+        }
 
         // re-bind data
         this.BindData();
@@ -168,11 +176,17 @@ public class GroupsModel : AdminPage
     {
         var groupId = id;
 
-        // delete role
-        this.GetRepository<GroupMedal>().Delete(g => g.GroupID == groupId);
-        this.GetRepository<ForumAccess>().Delete(g => g.GroupID == groupId);
-        this.GetRepository<UserGroup>().Delete(g => g.GroupID == groupId);
-        this.GetRepository<Group>().Delete(g => g.ID == groupId);
+        var group = this.GetRepository<Group>().GetById(groupId);
+
+        // only groups of the board, the guest group can't be deleted (the list has no delete button for it)
+        if (group is not null && group.BoardID == this.PageBoardContext.PageBoardID && !group.GroupFlags.IsGuest)
+        {
+            // delete role
+            this.GetRepository<GroupMedal>().Delete(g => g.GroupID == groupId);
+            this.GetRepository<ForumAccess>().Delete(g => g.GroupID == groupId);
+            this.GetRepository<UserGroup>().Delete(g => g.GroupID == groupId);
+            this.GetRepository<Group>().Delete(g => g.ID == groupId);
+        }
 
         // re-bind data
         this.BindData();

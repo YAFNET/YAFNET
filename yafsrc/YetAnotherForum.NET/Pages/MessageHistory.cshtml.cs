@@ -26,8 +26,12 @@ using System.Threading.Tasks;
 
 namespace YAF.Pages;
 
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
@@ -71,17 +75,7 @@ public class MessageHistoryModel : ForumPageRegistered
     /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int m)
     {
-        if (this.PageBoardContext.IsGuest)
-        {
-            return this.Get<ILinkBuilder>().AccessDenied();
-        }
-
-        if (this.PageBoardContext.PageMessage is null)
-        {
-            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
-
-        return this.BindData();
+        return this.CheckAccess() ?? this.BindData();
     }
 
     /// <summary>
@@ -107,10 +101,29 @@ public class MessageHistoryModel : ForumPageRegistered
     /// </summary>
     public async Task<IActionResult> OnPostRestoreAsync(string edited)
     {
-        var editedDate = edited.ToType<DateTime>();
+        // only admins and moderators of the post's forum can restore an old version
+        if (this.PageBoardContext.PageMessage is null
+            || !(this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
 
-        var messageToRestore = await this.GetRepository<MessageHistory>().GetSingleAsync(
-            m => m.MessageID == this.PageBoardContext.PageMessage.ID && m.Edited == editedDate);
+        // the time is sent with milliseconds in the invariant format (see the view), the database stores it
+        // more exact (ticks): the version is the one with the same formatted time (a time range in the query
+        // depends on how the database compares the stored times and missed versions)
+        if (edited.IsNotSet())
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
+        var messageToRestore = (await this.GetRepository<MessageHistory>().GetAsync(
+                m => m.MessageID == this.PageBoardContext.PageMessage.ID))
+            .FirstOrDefault(m => m.Edited.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) == edited);
+
+        if (messageToRestore is null)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
 
         var messageUser = await this.GetRepository<User>().GetByIdAsync(this.PageBoardContext.PageMessage.UserID);
 
@@ -156,6 +169,29 @@ public class MessageHistoryModel : ForumPageRegistered
     /// </summary>
     public IActionResult OnPostShowDiff()
     {
+        var denied = this.CheckAccess();
+
+        if (denied is not null)
+        {
+            return denied;
+        }
+
+        // the form only contains the check boxes: the versions are loaded again (the list is ordered by
+        // the edit time, new versions are added at the end)
+        var selected = this.RevisionsList ?? [];
+
+        var result = this.BindData();
+
+        if (result is not PageResult)
+        {
+            return result;
+        }
+
+        for (var i = 0; i < this.RevisionsList.Count && i < selected.Count; i++)
+        {
+            this.RevisionsList[i].Selected = selected[i].Selected;
+        }
+
         var dmp = new DiffMatchPatch();
 
         var messages = this.RevisionsList.Where(item => item.Selected).ToList();
@@ -218,6 +254,29 @@ public class MessageHistoryModel : ForumPageRegistered
     }
 
     /// <summary>
+    /// Checks that the user can view the history of the message.
+    /// </summary>
+    /// <returns>The redirect when the access is denied, otherwise <c>null</c>.</returns>
+    private IActionResult CheckAccess()
+    {
+        if (this.PageBoardContext.IsGuest)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
+        // the history contains the current text, deleted and not approved posts (of others) only for moderators
+        if (this.PageBoardContext.PageMessage is null || !MessageAccessHelper.CanViewMessage(
+                this.PageBoardContext.PageMessage,
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.ForumModeratorAccess))
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Binds data to data source
     /// </summary>
     private IActionResult BindData()
@@ -226,8 +285,6 @@ public class MessageHistoryModel : ForumPageRegistered
         this.RevisionsList = this.GetRepository<MessageHistory>().List(
             this.PageBoardContext.PageMessage.ID,
             this.PageBoardContext.BoardSettings.MessageHistoryDaysToLog);
-
-        this.Get<ISessionService>().SetPageData(this.RevisionsList);
 
         if (this.RevisionsList.NullOrEmpty())
         {

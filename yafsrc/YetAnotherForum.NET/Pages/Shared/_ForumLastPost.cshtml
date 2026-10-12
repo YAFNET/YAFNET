@@ -21,7 +21,7 @@
 
     if (Model.LastPosted.HasValue)
     {
-        topicName = Model.LastTopicName.Truncate(50);
+        topicName = Html.Encode(Model.LastTopicName.Truncate(50));
 
         // Last Post Date
         var lastPostedDateTime = Model.LastPosted.Value;
@@ -38,7 +38,7 @@
                 lastPostedDateTime);
 
         // Topic Link
-        topicLink = Current.Get<ILinkBuilder>().GetTopicLink(Model.LastTopicID, topicName);
+        topicLink = Current.Get<ILinkBuilder>().GetTopicLink(Model.LastTopicID, Model.LastTopicName.Truncate(50));
 
         var styles = Current.BoardSettings.UseStyledTopicTitles
             ? Current.Get<IStyleTransform>().Decode(
@@ -66,7 +66,7 @@
 
         infoText = string.Format(
             Current.Get<ILocalization>().GetText("Default", "BY"),
-            Current.BoardSettings.EnableDisplayName ? Model.LastUserDisplayName : Model.LastUser);
+            Html.Encode(Current.BoardSettings.EnableDisplayName ? Model.LastUserDisplayName : Model.LastUser));
     }
 
 }

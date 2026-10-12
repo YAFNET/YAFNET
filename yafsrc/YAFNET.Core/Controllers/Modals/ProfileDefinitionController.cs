@@ -22,6 +22,7 @@
  * under the License.
  */
 
+using System;
 using System.Threading.Tasks;
 
 namespace YAF.Core.Controllers.Modals;
@@ -31,6 +32,7 @@ using YAF.Core.Filters;
 using YAF.Types.Attributes;
 using YAF.Types.Modals;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// Profile Definition Controller
@@ -42,7 +44,7 @@ using YAF.Types.Models;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_ProfileDefinitions)]
 public class ProfileDefinitionController : ForumBaseController
 {
     /// <summary>
@@ -59,15 +61,31 @@ public class ProfileDefinitionController : ForumBaseController
             model.Id = null;
         }
 
+        // only definitions of the current board can be changed
+        if (model.Id.HasValue && !await this.GetRepository<ProfileDefinition>().ExistsAsync(
+                p => p.ID == model.Id.Value && p.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            return this.NotFound();
+        }
+
+        if (model.Name.IsNotSet())
+        {
+            return this.Ok(
+                new MessageModalNotification(
+                    this.GetText("ADMIN_EDIT_PROFILEDEFINITION", "NEED_NAME"),
+                    MessageTypes.warning));
+        }
+
         await this.GetRepository<ProfileDefinition>().UpsertAsync(
             new ProfileDefinition
                 {
                     BoardID = this.PageBoardContext.PageBoardID,
                     ID = model.Id ?? 0,
-                    Name = model.Name,
-                    DataType = model.DataType,
-                    DefaultValue = model.DefaultValue,
-                    Length = model.Length,
+                    Name = model.Name.Trim(),
+                    DataType = Enum.TryParse<DataType>(model.DataType, out var type) ? type.ToString() : nameof(DataType.Text),
+                    // the form leaves out empty fields, the column is not nullable
+                    DefaultValue = model.DefaultValue ?? string.Empty,
+                    Length = Math.Max(model.Length, 0),
                     Required = model.Required,
                     ShowInUserInfo = model.ShowInUserInfo,
                     ShowOnRegisterPage = model.ShowOnRegisterPage

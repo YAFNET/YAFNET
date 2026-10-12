@@ -87,7 +87,7 @@ public class SessionService : ISessionService
     /// </summary>
     public Hashtable ForumRead
     {
-        get => this.SessionState.GetData<Hashtable>("forumread");
+        get => ReadTimes(this.SessionState.GetData<Hashtable>("forumread"));
 
         set => this.SessionState.SetData("forumread", value);
     }
@@ -100,6 +100,16 @@ public class SessionService : ISessionService
         get => this.SessionState.GetString("lastpendingbuddies").IsSet() ? this.SessionState.GetData<DateTime>("lastpendingbuddies") : DateTimeHelper.SqlDbMinTime();
 
         set => this.SessionState.SetData("lastpendingbuddies", value);
+    }
+
+    /// <summary>
+    ///   Gets or sets the date of the newest unread private message the user was told about.
+    /// </summary>
+    public DateTime LastUnreadPrivate
+    {
+        get => this.SessionState.GetString("lastunreadprivate").IsSet() ? this.SessionState.GetData<DateTime>("lastunreadprivate") : DateTimeHelper.SqlDbMinTime();
+
+        set => this.SessionState.SetData("lastunreadprivate", value);
     }
 
     /// <summary>
@@ -127,7 +137,7 @@ public class SessionService : ISessionService
     /// </summary>
     public string InfoMessage
     {
-        get => this.SessionState.GetString("InfoMessage");
+        get => this.SessionState.GetData<string>("InfoMessage");
 
         set => this.SessionState.SetData("InfoMessage", value);
     }
@@ -175,7 +185,7 @@ public class SessionService : ISessionService
     /// </summary>
     public Hashtable TopicRead
     {
-        get => this.SessionState.GetData<Hashtable>("topicread");
+        get => ReadTimes(this.SessionState.GetData<Hashtable>("topicread"));
 
         set => this.SessionState.SetData("topicread", value);
     }
@@ -253,5 +263,28 @@ public class SessionService : ISessionService
 
         t[topicId] = date;
         this.TopicRead = t;
+    }
+
+    /// <summary>
+    /// The session stores the read times as json, which turns the forum / topic ids into strings,
+    /// this restores the int keys and DateTime values.
+    /// </summary>
+    /// <param name="stored">The deserialized hashtable.</param>
+    /// <returns>The read times by id.</returns>
+    private static Hashtable ReadTimes(Hashtable stored)
+    {
+        if (stored is null)
+        {
+            return null;
+        }
+
+        var readTimes = new Hashtable();
+
+        foreach (DictionaryEntry entry in stored)
+        {
+            readTimes[entry.Key.ToType<int>()] = entry.Value.ToType<DateTime>();
+        }
+
+        return readTimes;
     }
 }

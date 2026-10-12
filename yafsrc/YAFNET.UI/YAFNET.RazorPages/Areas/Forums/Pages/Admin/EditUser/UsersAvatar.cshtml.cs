@@ -126,6 +126,11 @@ public class UsersAvatarModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteAvatarAsync()
     {
+        if (!this.CanEditUser())
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId });
+        }
+
         await this.GetRepository<User>().DeleteAvatarAsync(this.Input.UserId);
 
         // clear the cache for this user...
@@ -140,7 +145,14 @@ public class UsersAvatarModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostGalleryAsync()
     {
-        if (!this.AvatarGallery.IsNotSet() || this.AvatarGallery == this.GetText("OURAVATAR"))
+        if (!this.CanEditUser())
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId });
+        }
+
+        // only images of the avatar gallery can be selected
+        if (this.AvatarGallery.IsNotSet()
+            || !this.LoadAvatarGallery().Exists(item => item.Value.IsSet() && item.Value == this.AvatarGallery))
         {
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
@@ -166,7 +178,14 @@ public class UsersAvatarModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostUploadUpdateAsync()
     {
-        if (this.Upload.FileName.Trim().Length <= 0 || !this.Upload.FileName.Trim().IsImageName())
+        if (!this.CanEditUser())
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId });
+        }
+
+        // the upload form is only shown with the avatar upload enabled
+        if (!this.PageBoardContext.BoardSettings.AvatarUpload || this.Upload is null || this.Upload.FileName.Trim().Length <= 0
+            || !this.Upload.FileName.Trim().IsImageName())
         {
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
         }
@@ -194,6 +213,15 @@ public class UsersAvatarModel : AdminPage
 
                 resizedImage = ImageHelper.GetResizedImage(image, x, y);
             }
+            else if (avatarSize > 0 && this.Upload.Length > avatarSize)
+            {
+                // the file is too big (and not resized), the avatar is not saved
+                this.PageBoardContext.SessionNotify(
+                    $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.Upload.Length)}",
+                    MessageTypes.warning);
+
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
+            }
 
             // Delete old first...
             await this.GetRepository<User>().DeleteAvatarAsync(this.Input.UserId);
@@ -210,15 +238,7 @@ public class UsersAvatarModel : AdminPage
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
-            if (avatarSize > 0 && this.Upload.Length >= avatarSize && resizedImage is null)
-            {
-                this.PageBoardContext.SessionNotify(
-                    $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.Upload.Length)}",
-                    MessageTypes.warning);
-                return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
-            }
-
-            return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_EditAvatar);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View4" });
         }
         catch (Exception exception)
         {
@@ -235,7 +255,7 @@ public class UsersAvatarModel : AdminPage
     /// </summary>
     private IActionResult BindData(int userId)
     {
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
@@ -303,6 +323,18 @@ public class UsersAvatarModel : AdminPage
     }
 
     /// <summary>
+    /// Checks if the user can be edited: the edit user page checked the user (board, host admin) and keeps it
+    /// for the admin in the cache, the user id of the form is sent by the client.
+    /// </summary>
+    /// <returns>Returns if the user can be edited</returns>
+    private bool CanEditUser()
+    {
+        return this.Get<IDataCache>()[string.Format(
+                   Constants.Cache.EditUser,
+                   $"{this.Input?.UserId}-{this.PageBoardContext.PageUserID}")] is Tuple<User, AspNetUsers, Rank, VAccess>;
+    }
+
+    /// <summary>
     /// Loads the avatar gallery.
     /// </summary>
     /// <returns>List&lt;SelectListItem&gt;</returns>
@@ -346,7 +378,7 @@ public class UsersAvatarModel : AdminPage
                 this.Input.UserId,
                 null,
                 memoryStream,
-                this.Upload.ContentType);
+                "image/webp");
         }
         else
         {
@@ -354,7 +386,7 @@ public class UsersAvatarModel : AdminPage
                 this.Input.UserId,
                 null,
                 resized,
-                this.Upload.ContentType);
+                "image/webp");
         }
     }
 

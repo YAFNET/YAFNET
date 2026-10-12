@@ -38,20 +38,33 @@ public static class DeviceSubscriptionRepositoryExtensions
     extension(IRepository<DeviceSubscription> repository)
     {
         /// <summary>
-        /// Adds new push subscription for that user and device (if not exist).
+        /// Adds new push subscription for that user and device, or updates the existing one
+        /// (the browser renews the subscription with a new endpoint and keys).
         /// </summary>
         /// <param name="deviceSubscription">The device subscription.</param>
         public async Task AddSubscriptionAsync(DeviceSubscription deviceSubscription )
         {
-            if (await repository.ExistsAsync(x =>
-                    x.UserID == BoardContext.Current.PageUserID && x.BoardID == BoardContext.Current.PageBoardID &&
-                    x.Device == deviceSubscription.Device))
+            var userId = BoardContext.Current.PageUserID;
+            var boardId = BoardContext.Current.PageBoardID;
+            var device = deviceSubscription.Device;
+
+            if (await repository.ExistsAsync(x => x.UserID == userId && x.BoardID == boardId && x.Device == device))
             {
+                await repository.UpdateOnlyAsync(
+                    () => new DeviceSubscription
+                          {
+                              UserAgent = deviceSubscription.UserAgent,
+                              EndPoint = deviceSubscription.EndPoint,
+                              P256dh = deviceSubscription.P256dh,
+                              Auth = deviceSubscription.Auth
+                          },
+                    x => x.UserID == userId && x.BoardID == boardId && x.Device == device);
+
                 return;
             }
 
-            deviceSubscription.BoardID = BoardContext.Current.PageBoardID;
-            deviceSubscription.UserID = BoardContext.Current.PageUserID;
+            deviceSubscription.BoardID = boardId;
+            deviceSubscription.UserID = userId;
 
             await repository.InsertAsync(deviceSubscription);
         }

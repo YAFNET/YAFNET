@@ -69,11 +69,15 @@ public class MedalsModel : AdminPage
     /// <param name="medalId">The medal identifier.</param>
     public void OnPostDelete(int medalId)
     {
-        // delete medal
-        this.GetRepository<UserMedal>().Delete(m => m.MedalID == medalId);
-        this.GetRepository<GroupMedal>().Delete(m => m.MedalID == medalId);
+        // only medals of the board
+        if (this.GetRepository<Medal>().Exists(m => m.ID == medalId && m.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            // delete medal
+            this.GetRepository<UserMedal>().Delete(m => m.MedalID == medalId);
+            this.GetRepository<GroupMedal>().Delete(m => m.MedalID == medalId);
 
-        this.GetRepository<Medal>().Delete(m => m.ID == medalId);
+            this.GetRepository<Medal>().Delete(m => m.ID == medalId);
+        }
 
         // re-bind data
         this.BindData();

@@ -118,7 +118,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContex
                     var newTask = startTask();
                     injectServices.Inject(newTask);
                     newTask.Run();
-                    return task;
+                    return newTask;
                 });
 
         return true;

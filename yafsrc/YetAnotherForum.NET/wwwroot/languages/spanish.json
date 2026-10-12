@@ -2933,6 +2933,10 @@
           {
             "@tag": "TITLE",
             "#text": "Añadir/Editar medalla"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "¿Eliminar medalla a este grupo?"
           }
         ]
       },
@@ -3245,6 +3249,10 @@
             "#text": "Está aprobado:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "La cuenta del usuario está aprobada y el usuario puede iniciar sesión."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Nombre a mostrar:"
           },
@@ -3263,6 +3271,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Es invitado:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Esta es la cuenta de invitado, se usa para todos los visitantes que no han iniciado sesión."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3891,6 +3903,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Selecciona un servicio de SPAM para comprobar SPAM automáticamente."
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5555,8 +5571,8 @@
             "#text": "días"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Eliminar mensajes no leídos más antiguos que:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Eliminar mensajes más antiguos que:"
           },
           {
             "@tag": "HEADER",
@@ -5937,16 +5953,16 @@
             "#text": "Reiniciar la aplicación cargará de nuevo todos los archivos de configuración."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Reiniciar la aplicación."
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "La solicitud no volvió. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "La aplicación se está reiniciando. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Reiniciar la aplicación."
           }
         ]
       },
@@ -6274,6 +6290,10 @@
             "#text": "Rango:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "El rango del usuario, los rangos escalonados cambian con el número de mensajes."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Rol:"
           },
@@ -6594,6 +6614,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Su nueva dirección de correo electrónico ha sido confirmada."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Tu correo electrónico ha sido verificado."
@@ -7204,6 +7228,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Insertar una imagen de álbum"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Insertar un adjunto existente o cargar un nuevo archivo..."
@@ -8910,6 +8938,10 @@
             "#text": "Razón de la eliminación"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Eliminar este mensaje"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Eliminar mensaje de la base de datos (irreversible)"
           },
@@ -8952,6 +8984,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Razón para recuperarlo"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Restaurar este mensaje"
           },
           {
             "@tag": "WAIT",
@@ -9057,6 +9093,10 @@
             "#text": "Eliminar Avatar"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Avatar actual"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Introduce la URL del Avatar en un servidor remoto a usar:"
           },
@@ -9142,12 +9182,24 @@
             "#text": "Cambiar correo electrónico"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Se envió un enlace de confirmación a {0}. Su dirección de correo electrónico se cambiará después de abrir el enlace."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Confirme su nueva dirección de correo electrónico para el foro {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Ciudad:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "País:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Contraseña actual"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9206,6 +9258,10 @@
             "#text": "{0} es necesario"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} debe ser un número"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Otros"
           },
@@ -9252,6 +9308,10 @@
           {
             "@tag": "WHERE",
             "#text": "¿Donde vives?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "La contraseña que ingresó no es correcta."
           }
         ]
       },
@@ -9359,6 +9419,10 @@
           {
             "@tag": "TO",
             "#text": "Enviar a (Correo electrónico):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Has enviado demasiados correos electrónicos, inténtalo de nuevo más tarde."
           }
         ]
       },
@@ -10202,6 +10266,10 @@
             "#text": "Todos"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Mostrar usuarios que empiezan por {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10444,6 +10512,10 @@
           {
             "@tag": "BY",
             "#text": "por {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Los temas solo se pueden mover a un foro, seleccione un foro y no una categoría."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11527,6 +11599,10 @@
             "#text": "Correo:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "La dirección de correo electrónico del usuario."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Suspensión de usuario hasta:"
           },
@@ -11567,12 +11643,20 @@
             "#text": "Registrado:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "La fecha en que se registró el usuario."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Ultimos 10 mensajes"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Ultima visita:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "La fecha de la última visita del usuario."
           },
           {
             "@tag": "LOCATION",
@@ -11700,16 +11784,12 @@
             "#text": "Su cuenta no ha sido aprobada por el administrador todavia. No puede cambiar su clave hasta que la cuenta este aprobada."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Su cuenta no ha sido aprobada porque no ha validado su cuenta de correo. Un nuevo correo de validacion ha sido enviado a {0}. Por favor valide su cuebta de correo para poder iniciar sesion."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Teclee el nombre de usuario para recuperar clave:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Se ha enviado un correo electrónico con el enlace de restablecimiento a su dirección de correo electrónico."
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Si existe una cuenta con este nombre de usuario o dirección de correo electrónico, se ha enviado un correo electrónico a su dirección de correo electrónico."
           },
           {
             "@tag": "TITLE",
@@ -12218,6 +12298,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Contraseña débil, intente usar números y letras mayúsculas."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Nueva contraseña para el foro {0}"
           },
           {
             "@tag": "PROFILE",
@@ -12864,6 +12948,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Luz"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

@@ -54,7 +54,9 @@ public class Theme : ITheme
     /// </returns>
     public static bool IsValidTheme(string theme)
     {
-        return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme));
+        // a theme is a folder name, never a path
+        return theme.IsSet() && theme.IndexOfAny(['/', '\\']) < 0 && !theme.Contains("..")
+               && Directory.Exists(GetMappedThemeFile(theme));
     }
 
     /// <summary>

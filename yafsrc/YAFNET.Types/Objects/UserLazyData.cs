@@ -101,6 +101,11 @@ public class UserLazyData
     public DateTime LastPendingBuddies { get; set; }
 
     /// <summary>
+    /// Gets or sets the date of the newest unread private message.
+    /// </summary>
+    public DateTime LastUnreadPrivate { get; set; }
+
+    /// <summary>
     /// Gets or sets the number of albums.
     /// </summary>
     public int NumAlbums { get; set; }

@@ -66,6 +66,11 @@ public interface ISessionService
     DateTime LastPendingBuddies { get; set; }
 
     /// <summary>
+    ///   Gets or sets the date of the newest unread private message the user was told about.
+    /// </summary>
+    DateTime LastUnreadPrivate { get; set; }
+
+    /// <summary>
     ///   Gets or sets LastVisit.
     /// </summary>
     DateTime? LastVisit { get; set; }

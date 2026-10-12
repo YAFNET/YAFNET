@@ -48,7 +48,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-[AdminAuthorization]
+[AdminAuthorization(ForumPages.Admin_BannedIps)]
 public class BannedIpController : ForumBaseController
 {
     /// <summary>
@@ -83,7 +83,7 @@ public class BannedIpController : ForumBaseController
         }
         catch (Exception x)
         {
-            this.Get<ILogger<BannedEmailController>>().Error(
+            this.Get<ILogger<BannedIpController>>().Error(
                 x,
                 string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_FAILED"), x.Message));
 
@@ -108,55 +108,20 @@ public class BannedIpController : ForumBaseController
             model.Id = null;
         }
 
-        var ipParts = model.Mask.Trim().Split('.');
+        model.Mask = model.Mask?.Trim();
 
-        // do some validation...
-        var ipError = new StringBuilder();
-
-        if (ipParts.Length != 4)
+        // ip addresses (v4 or v6) and masks like 192.168.1.*
+        if (!IPHelper.IsValidBanMask(model.Mask))
         {
-            ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_ADRESS"));
-        }
-
-        foreach (var ip in ipParts)
-        {
-            // see if they are numbers...
-            if (!ulong.TryParse(ip, out var number))
-            {
-                if (ip.Trim() == "*")
-                {
-                    continue;
-                }
-
-                if (ip.Trim().Length != 0)
-                {
-                    ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_SECTION"), ip);
-                }
-                else
-                {
-                    ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_VALUE"));
-                }
-
-                break;
-            }
-
-            // try parse succeeded... verify number amount...
-            if (number > 255)
-            {
-                ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_LESS"), ip);
-            }
-        }
-
-        // show error(s) if not valid...
-        if (ipError.Length > 0)
-        {
-            this.PageBoardContext.SessionNotify(ipError.ToString(), MessageTypes.warning);
-            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_BannedIps);
+            return this.Ok(
+                new MessageModalNotification(
+                    this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_ADRESS"),
+                    MessageTypes.warning));
         }
 
         if (!this.GetRepository<BannedIP>().Save(
                 model.Id,
-                model.Mask.Trim(),
+                model.Mask,
                 model.BanReason.IsSet() ? model.BanReason.Trim() : model.BanReason,
                 this.PageBoardContext.PageUserID))
         {
@@ -169,7 +134,7 @@ public class BannedIpController : ForumBaseController
         if (this.PageBoardContext.BoardSettings.LogBannedIP)
         {
             this.Get<ILogger<BannedIpController>>().Log(
-                $"IP or mask {model.Mask.Trim()} was saved by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
+                $"IP or mask {model.Mask} was saved by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
                 EventLogTypes.IpBanSet);
         }
 

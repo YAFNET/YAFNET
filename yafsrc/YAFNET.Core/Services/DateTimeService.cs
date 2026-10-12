@@ -34,11 +34,6 @@ using FarsiLibrary.Core.Utils;
 public class DateTimeService : IDateTimeService, IHaveServiceLocator
 {
     /// <summary>
-    ///   Time zone suffix for Guests
-    /// </summary>
-    private readonly string timeZoneName = BoardContext.Current.Get<ILocalization>().GetText("TIMEZONES", "NAME_UTC");
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="DateTimeService"/> class.
     /// </summary>
     /// <param name="serviceLocator">
@@ -101,7 +96,37 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("D")
-                   : this.ReturnFormat(dateFormat);
+                   : this.ReturnFormat(dateFormat, dateTime);
+    }
+
+    /// <summary>
+    /// Formats a calendar date (e.g. a birthday) into 7. february 2003, it is no point in time:
+    /// it is not converted into the time zone of the user.
+    /// </summary>
+    /// <param name="date">
+    /// The date to be formatted
+    /// </param>
+    /// <returns>
+    /// The format date long.
+    /// </returns>
+    public string FormatCalendarDate(DateTime date)
+    {
+        string dateFormat;
+
+        try
+        {
+            dateFormat =
+                this.Get<ILocalization>()
+                    .FormatDateTime(this.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), date);
+        }
+        catch (Exception)
+        {
+            dateFormat = date.ToString("D");
+        }
+
+        return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
+                   ? PersianDateConverter.ToPersianDate(date).ToString("D")
+                   : dateFormat;
     }
 
     /// <summary>
@@ -131,7 +156,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("d")
-                   : this.ReturnFormat(dateFormat);
+                   : this.ReturnFormat(dateFormat, dateTime);
     }
 
     /// <summary>
@@ -164,7 +189,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString()
-                   : this.ReturnFormat(dateFormat);
+                   : this.ReturnFormat(dateFormat, dateTime);
     }
 
     /// <summary>
@@ -197,7 +222,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
-                   : this.ReturnFormat(dateFormat);
+                   : this.ReturnFormat(dateFormat, dateTime);
     }
 
     /// <summary>
@@ -253,7 +278,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
-                   : this.ReturnFormat(dateFormat);
+                   : this.ReturnFormat(dateFormat, dateTime);
     }
 
     /// <summary>
@@ -284,7 +309,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
 
         return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                    ? PersianDateConverter.ToPersianDate(dateTime).ToString("T")
-                   : this.ReturnFormat(dateFormat);
+                   : this.ReturnFormat(dateFormat, dateTime);
     }
 
     /// <summary>
@@ -311,14 +336,29 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Returns the format.
+    /// Returns the format, for guests with the time zone (e.g. " (UTC+02:00)") appended.
     /// </summary>
     /// <param name="dateFormat">The date format.</param>
+    /// <param name="userDateTime">The formatted date in the time zone of the user.</param>
     /// <returns>System.String.</returns>
-    private string ReturnFormat(string dateFormat)
+    private string ReturnFormat(string dateFormat, DateTime userDateTime)
     {
-        return BoardContext.Current.IsGuest
-            ? $"{dateFormat}{this.timeZoneName}"
-            : dateFormat;
+        if (!BoardContext.Current.IsGuest)
+        {
+            return dateFormat;
+        }
+
+        // the offset of the date itself, so summer and winter time are right
+        var offset = BoardContext.Current.TimeZoneInfoUser.GetUtcOffset(userDateTime);
+
+        var offsetText = offset == TimeSpan.Zero
+                             ? string.Empty
+                             : $"{(offset < TimeSpan.Zero ? "-" : "+")}{offset:hh\\:mm}";
+
+        // the space is added here, translations would drop a leading space of the text
+        return $"{dateFormat} {string.Format(
+            CultureInfo.InvariantCulture,
+            this.Get<ILocalization>().GetText("TIMEZONES", "NAME_UTC"),
+            offsetText)}";
     }
 }

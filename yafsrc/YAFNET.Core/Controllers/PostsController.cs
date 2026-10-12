@@ -64,7 +64,12 @@ public class PostsController : ForumBaseController
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
-            if (source.IsDeleted || this.PageBoardContext.IsGuest || this.PageBoardContext.MembershipUser == null
+            // the flags of the page data can be outdated (e.g. the post was deleted by a moderator in the meantime),
+            // writing them back would undo such changes
+            var current = await this.GetRepository<Message>().GetByIdAsync(source.MessageID);
+
+            if (current is null || current.MessageFlags.IsDeleted || this.PageBoardContext.IsGuest
+                || this.PageBoardContext.MembershipUser == null
                 || !this.PageBoardContext.PageUserID.Equals(source.TopicOwnerID)
                 || source.UserID.Equals(this.PageBoardContext.PageUserID))
             {
@@ -72,8 +77,7 @@ public class PostsController : ForumBaseController
                     new { m, name = source.Topic, t = source.TopicID });
             }
 
-
-            var messageFlags = new MessageFlags(source.Flags);
+            var messageFlags = new MessageFlags(current.Flags);
 
             if (messageFlags.IsAnswer)
             {

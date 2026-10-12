@@ -102,8 +102,14 @@ public class MyMessagesModel : ForumPageRegistered
         {
             conversationUser = await this.GetRepository<User>().GetByIdAsync(u.Value);
 
+            // only a member of the board (no guest, not deleted or unapproved) can be selected, the page shows
+            // the name, avatar and last visit of the user,
+            // admins and users in the friend list of the user are excluded from the blocking
             if (conversationUser != null && conversationUser.ID != this.PageBoardContext.PageUserID &&
-                !conversationUser.Block.BlockPMs)
+                conversationUser.BoardID == this.PageBoardContext.PageBoardID && !conversationUser.UserFlags.IsGuest &&
+                conversationUser.UserFlags.IsApproved && !conversationUser.UserFlags.IsDeleted &&
+                (!conversationUser.Block.BlockPMs || this.PageBoardContext.IsAdmin || await this.GetRepository<Buddy>().ExistsAsync(
+                     b => b.FromUserID == conversationUser.ID && b.ToUserID == this.PageBoardContext.PageUserID && b.Approved)))
             {
                 return this.OpenUserChat(conversationUser);
             }

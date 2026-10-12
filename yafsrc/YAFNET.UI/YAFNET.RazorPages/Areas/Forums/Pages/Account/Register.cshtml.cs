@@ -122,19 +122,24 @@ public class RegisterModel : AccountPage
             return this.Page();
         }
 
+        // the names are validated trimmed (and trimmed on the login), the password is used as typed
+        // (like on the login)
+        var userName = this.Input.UserName.Trim();
+        var email = this.Input.Email.Trim();
+
         var user = new AspNetUsers {
             Id = Guid.NewGuid().ToString(),
             ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
-            UserName = this.Input.UserName,
-            LoweredUserName = this.Input.UserName.ToLower(),
-            Email = this.Input.Email,
-            LoweredEmail = this.Input.Email.ToLower(),
+            UserName = userName,
+            LoweredUserName = userName.ToLower(),
+            Email = email,
+            LoweredEmail = email.ToLower(),
             IsApproved = false,
             EmailConfirmed = false,
             Profile_Birthday = null
         };
 
-        var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, this.Input.Password.Trim());
+        var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, this.Input.Password);
 
         if (!result.Succeeded)
         {
@@ -145,7 +150,7 @@ public class RegisterModel : AccountPage
         // setup initial roles (if any) for this user
         await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(this.PageBoardContext.PageBoardID, user);
 
-        var displayName = this.Input.DisplayName;
+        var displayName = this.Input.DisplayName?.Trim();
 
         // create the user in the YAF DB as well as sync roles...
         var userId = await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, displayName, this.PageBoardContext.PageBoardID);
@@ -168,8 +173,6 @@ public class RegisterModel : AccountPage
         else
         {
             // handle e-mail verification
-            var email = this.Input.Email.Trim();
-
             await this.Get<ISendNotification>().SendVerificationEmailAsync(user, email, userId.Value);
 
             if (this.PageBoardContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
@@ -197,17 +200,8 @@ public class RegisterModel : AccountPage
     {
         var userName = this.Input.UserName.Trim();
 
-        // username cannot contain semicolon or to be a bad word
-        var badWord = this.Get<IBadWordReplace>().ReplaceItems.Any(
-            i => userName.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
-
-        var guestUser = await this.Get<IAspNetUsersHelper>().GuestUserAsync(this.PageBoardContext.PageBoardID);
-
-        var guestUserName = guestUser.Name;
-
-        guestUserName = guestUserName.IsSet() ? guestUserName.ToLower() : string.Empty;
-
-        if (userName.Contains(';') || badWord || userName.ToLower().Equals(guestUserName))
+        // username cannot contain semicolon, be the guest name or a bad word
+        if (!await UserHelper.IsAllowedNameAsync(userName, this.PageBoardContext.PageBoardID))
         {
             this.PageBoardContext.Notify(this.GetText("BAD_USERNAME"), MessageTypes.warning);
 
@@ -256,11 +250,21 @@ public class RegisterModel : AccountPage
                 return false;
             }
 
+            // the same rules as for the user name (another user or the guest can not be impersonated)
+            if (!await UserHelper.IsAllowedNameAsync(displayName, this.PageBoardContext.PageBoardID))
+            {
+                this.PageBoardContext.Notify(this.GetText("BAD_USERNAME"), MessageTypes.warning);
+
+                return false;
+            }
+
             if (this.Get<IUserDisplayName>().FindUserByName(displayName.Trim()) != null)
             {
                 this.PageBoardContext.Notify(
                     this.GetText("ALREADY_REGISTERED_DISPLAYNAME"),
                     MessageTypes.warning);
+
+                return false;
             }
         }
 
@@ -318,21 +322,21 @@ public class RegisterModel : AccountPage
 
     private bool ValidateCustomProfile()
     {
-        // Save Custom Profile
-        if (this.Input.CustomProfile.NullOrEmpty())
+        // the required fields and the types are taken from the database (the client can leave out fields)
+        var invalidField = CustomProfileHelper.FindInvalidField(
+            this.GetRepository<ProfileDefinition>().GetByBoardId(),
+            this.Input.CustomProfile,
+            true,
+            out var isNumberError);
+
+        if (invalidField is null)
         {
             return true;
         }
 
-        if (!(from item in this.Input.CustomProfile
-              let type = item.DataType.ToEnum<DataType>()
-              where item.Required && type is DataType.Number or DataType.Text
-              select item).Any(item => item.Value.IsNotSet()))
-        {
-            return true;
-        }
-
-        this.PageBoardContext.Notify(this.GetText("NEED_CUSTOM"), MessageTypes.warning);
+        this.PageBoardContext.Notify(
+            string.Format(this.GetText("EDIT_PROFILE", isNumberError ? "NEED_CUSTOM_NUMBER" : "NEED_CUSTOM"), this.HtmlEncode(invalidField.Name)),
+            MessageTypes.warning);
         return false;
     }
 
@@ -368,10 +372,25 @@ public class RegisterModel : AccountPage
             return;
         }
 
+        // the fields of the board are taken from the database, the ids, types and lengths are sent by the client
+        var definitions = this.GetRepository<ProfileDefinition>().GetByBoardId();
+
         this.Input.CustomProfile.ForEach(
             item =>
             {
-                var type = item.DataType.ToEnum<DataType>();
+                var definition = definitions.FirstOrDefault(d => d.ID == item.ID);
+
+                if (definition is null)
+                {
+                    return;
+                }
+
+                if (definition.Length > 0 && item.Value?.Length > definition.Length)
+                {
+                    item.Value = item.Value[..definition.Length];
+                }
+
+                var type = definition.DataType.ToEnum<DataType>();
 
                 switch (type)
                 {

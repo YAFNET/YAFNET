@@ -74,10 +74,7 @@ public class MultiQuoteController : ForumBaseController
         }
         else
         {
-            if (multiQuoteIds.Exists(m => m.MessageID.Equals(messageId)))
-            {
-                multiQuoteIds.Remove(multiQuote);
-            }
+            multiQuoteIds.RemoveAll(m => m.MessageID == messageId);
 
             buttonCssClass = "btn-multiquote form-check btn btn-link";
         }

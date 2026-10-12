@@ -239,7 +239,8 @@ public static class UserLinkHtmlHelper
             {
                 var link = new TagBuilder(HtmlTag.Span);
 
-                link.InnerHtml.AppendHtml(displayName);
+                // guests can enter any name when posting
+                link.InnerHtml.Append(displayName);
 
                 return content.AppendHtml(link);
             }

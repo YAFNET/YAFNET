@@ -13,7 +13,7 @@
 @model UserProfileModel
 
 @{
-	Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName());
+	Model.PageBoardContext.CurrentForumPage.PageTitle = Html.HtmlEncode(Model.CombinedUser.Item1.DisplayOrUserName()).ToString();
 }
 
 @section StyleSheets {
@@ -72,15 +72,16 @@
 						{
 							<span class="badge profile-pill text-bg-secondary">
 								@Html.Icon("cake-candles")
-								@Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(
-									Model.CombinedUser.Item2.Profile_Birthday.Value.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(Model.CombinedUser.Item1.TimeZoneInfo))))
+								@* the birthday is a date, not a point in time (no time zone conversion) *@
+								@Html.Raw(Model.Get<IDateTimeService>().FormatCalendarDate(
+									Model.CombinedUser.Item2.Profile_Birthday.Value.Date))
 							</span>
 						}
 
 						@if (Model.CombinedUser.Item2.Profile_Country.IsSet() && !Model.CombinedUser.Item2.Profile_Country.Equals("N/A"))
 						{
 							<span class="badge profile-pill text-bg-info">
-								@Html.Raw($"<span class=\"fi fi-{Model.CombinedUser.Item2.Profile_Country.Trim().ToLower()}\"></span>")
+								<span class="@($"fi fi-{Model.CombinedUser.Item2.Profile_Country.Trim().ToLower()}")"></span>
 								&nbsp;@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(Model.Get<ILocalization>().GetText("COUNTRY", Model.CombinedUser.Item2.Profile_Country.Trim())))
 							</span>
 						}
@@ -343,8 +344,8 @@
 								<div class="col">
 									<div class="card mb-4 shadow-sm">
 										<a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
-										   target="_parent" title="@Html.HtmlEncode(album.Title)" bs-toggle="tooltip">
-											<img title="@Html.HtmlEncode(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
+										   target="_parent" title="@Html.StoredText(album.Title)" bs-toggle="tooltip">
+											<img title="@Html.StoredText(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
 											     src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums", new { albumId = album.ID, coverId = album.CoverImageID ?? 0 }))'/>
 
 										</a>

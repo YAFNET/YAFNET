@@ -25,6 +25,7 @@
 namespace YAF.Tests.CoreTests.Helpers;
 
 using System.Net;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Http;
 
@@ -32,6 +33,7 @@ using Microsoft.AspNetCore.Http;
 /// YAF.Core.Helpers IPHelper Tests
 /// </summary>
 [TestFixture]
+[NonParallelizable]
 public class IPHelperTests
 {
     [TestCase("43.*.*.*", "43.134.127.238", true)]
@@ -42,10 +44,44 @@ public class IPHelperTests
     [TestCase("::1", "::1", true)]
     [TestCase("127.0.0.1", "::1", true)]
     [TestCase("::1", "127.0.0.1", true)]
-    [Description("IsBanned matches IPs and wildcard masks, treating ::1 as localhost")]
+    [TestCase("1.2.3.*", "1.2.3.99", true)]
+    [TestCase("10.0.0.1", "110.0.0.15", false)]
+    [TestCase("10.0.0.1", "10.0.0.12", false)]
+    [TestCase("10.0.0.1", "210.0.0.1", false)]
+    [TestCase("1.2.3.*", "1.2.30.4", false)]
+    [TestCase("1.2.3.*", "41.2.3.9", false)]
+    [TestCase("2001:db8::1", "2001:db8::1", true)]
+    [TestCase("2001:db8::1", "2001:db8::10", false)]
+    [TestCase("(", "1.2.3.4", false)]
+    [TestCase("not an ip", "1.2.3.4", false)]
+    [Description("IsBanned matches IPs and wildcard masks exactly, treating ::1 as localhost; invalid masks match nothing")]
     public void IsBanned_Test(string ban, string ip, bool expected)
     {
         IPHelper.IsBanned(ban, ip).Should().Be(expected);
+    }
+
+    [TestCase("192.168.1.1", true)]
+    [TestCase(" 192.168.1.* ", true)]
+    [TestCase("*.*.*.*", true)]
+    [TestCase("2001:db8::1", true)]
+    [TestCase("1.2.3", false)]
+    [TestCase("300.1.1.1", false)]
+    [TestCase("1.2.3.4.5", false)]
+    [TestCase("1.2.*", false)]
+    [TestCase("(", false)]
+    [TestCase("", false)]
+    [Description("Only ip addresses and ipv4 masks with * parts are valid ban masks")]
+    public void IsValidBanMask_Test(string mask, bool expected)
+    {
+        IPHelper.IsValidBanMask(mask).Should().Be(expected);
+    }
+
+    [Test]
+    [Description("An ipv4 address in ipv6 notation (::ffff:a.b.c.d) is matched like the ipv4 address")]
+    public void IsBanned_Mapped_IpV4_Test()
+    {
+        IPHelper.IsBanned("203.0.113.10", "::ffff:203.0.113.10").Should().BeTrue();
+        IPHelper.IsBanned("203.0.113.*", "::ffff:203.0.113.10").Should().BeTrue();
     }
 
     [Test]
@@ -89,25 +125,62 @@ public class IPHelperTests
     }
 
     [Test]
-    [Description("GetUserRealIPAddress returns the first routable X-Forwarded-For entry")]
-    public void GetUserRealIPAddress_Forwarded_For_Test()
+    [Description("GetUserRealIPAddress ignores X-Forwarded-For (the middleware uses it for trusted proxies only), a client could send any address")]
+    public void GetUserRealIPAddress_Ignores_Forwarded_For_Test()
     {
-        var context = CreateContext("10.0.0.5");
-        context.Request.Headers["X-Forwarded-For"] = "192.168.1.10, 8.8.8.8, 1.1.1.1";
+        var context = CreateContext("203.0.113.7");
+        context.Request.Headers["X-Forwarded-For"] = "8.8.8.8";
 
-        context.GetUserRealIPAddress().Should().Be("8.8.8.8");
-        context.Request.GetUserRealIPAddress().Should().Be("8.8.8.8");
+        context.GetUserRealIPAddress().Should().Be("203.0.113.7");
+        context.Request.GetUserRealIPAddress().Should().Be("203.0.113.7");
     }
 
     [Test]
-    [Description("GetUserRealIPAddress falls back to X-Real-IP when X-Forwarded-For is only private")]
+    [Description("GetUserRealIPAddress uses X-Real-IP only from a trusted proxy (loopback or private network)")]
     public void GetUserRealIPAddress_Real_Ip_Test()
     {
-        var context = CreateContext("10.0.0.5");
-        context.Request.Headers["X-Forwarded-For"] = "192.168.1.10";
-        context.Request.Headers["X-Real-IP"] = "9.9.9.9";
+        ForwardedHeadersHelper.CreateOptions([]);
 
-        context.GetUserRealIPAddress().Should().Be("9.9.9.9");
+        var proxy = CreateContext("10.0.0.5");
+        proxy.Request.Headers["X-Real-IP"] = "9.9.9.9";
+
+        proxy.GetUserRealIPAddress().Should().Be("9.9.9.9");
+
+        var client = CreateContext("203.0.113.7");
+        client.Request.Headers["X-Real-IP"] = "9.9.9.9";
+
+        client.GetUserRealIPAddress().Should().Be("203.0.113.7", "a client can not choose its address");
+    }
+
+    [Test]
+    [Description("The forwarded headers middleware uses X-Forwarded-For of loopback, private and configured proxies only")]
+    public async Task Forwarded_Headers_Middleware_Test()
+    {
+        async Task<string> ClientAddressAsync(string remoteAddress, string forwardedFor, params string[] trustedProxies)
+        {
+            var context = CreateContext(remoteAddress);
+            context.Request.Headers["X-Forwarded-For"] = forwardedFor;
+
+            var middleware = new Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersMiddleware(
+                _ => Task.CompletedTask,
+                Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.Instance,
+                Microsoft.Extensions.Options.Options.Create(ForwardedHeadersHelper.CreateOptions(trustedProxies)));
+
+            await middleware.Invoke(context);
+
+            return context.GetUserRealIPAddress();
+        }
+
+        (await ClientAddressAsync("10.0.0.5", "8.8.8.8")).Should().Be("8.8.8.8", "a proxy in the private network");
+        (await ClientAddressAsync("127.0.0.1", "8.8.8.8")).Should().Be("8.8.8.8", "a proxy on the same host");
+        (await ClientAddressAsync("10.0.0.5", "8.8.8.8, 192.168.1.2")).Should().Be("8.8.8.8", "a chain of trusted proxies");
+
+        (await ClientAddressAsync("203.0.113.7", "8.8.8.8")).Should().Be("203.0.113.7", "a client can not choose its address");
+
+        (await ClientAddressAsync("173.245.48.10", "8.8.8.8", "173.245.48.0/20")).Should().Be("8.8.8.8", "a configured proxy network");
+        (await ClientAddressAsync("203.0.113.7", "8.8.8.8", "203.0.113.7")).Should().Be("8.8.8.8", "a configured proxy address");
+
+        ForwardedHeadersHelper.CreateOptions([]);
     }
 
     [Test]
@@ -120,6 +193,16 @@ public class IPHelperTests
         invalidRealIp.Request.Headers["X-Real-IP"] = "not-an-ip";
 
         invalidRealIp.GetUserRealIPAddress().Should().Be("203.0.113.7");
+    }
+
+    [Test]
+    [Description("GetUserRealIPAddress returns an empty address for requests without a remote address instead of failing")]
+    public void GetUserRealIPAddress_No_Remote_Address_Test()
+    {
+        var context = CreateContext("203.0.113.7");
+        context.Connection.RemoteIpAddress = null;
+
+        FluentActions.Invoking(() => context.GetUserRealIPAddress()).Should().NotThrow();
     }
 
     [Test]

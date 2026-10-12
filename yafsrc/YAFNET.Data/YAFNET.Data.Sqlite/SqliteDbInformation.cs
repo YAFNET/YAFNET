@@ -44,7 +44,7 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
     /// </summary>
     public SqliteDbInformation()
     {
-        this.ConnectionString = () => this.Get<IConfiguration>().GetConnectionString("DefaultConnection");
+        this.ConnectionString = () => WithConcurrencySettings(this.Get<IConfiguration>().GetConnectionString("DefaultConnection"));
         this.ProviderName = SqliteDbAccess.ProviderTypeName;
     }
 
@@ -62,6 +62,62 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
     /// Gets or sets the DB Provider Name
     /// </summary>
     public string ProviderName { get; protected set; }
+
+    /// <summary>
+    /// Adds the busy timeout and the connection pooling to the connection string, if it does not set them itself:
+    /// a connection waits up to 5 seconds for a lock instead of failing at once with "database is locked",
+    /// and pooled connections keep the WAL index of the database open.
+    /// The WAL journal mode is set once, see <see cref="EnableWalJournalMode"/>.
+    /// </summary>
+    /// <param name="connectionString">The configured connection string.</param>
+    /// <returns>The connection string with the setting.</returns>
+    public static string WithConcurrencySettings(string connectionString)
+    {
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            return connectionString;
+        }
+
+        var builder = new SQLiteConnectionStringBuilder(connectionString);
+
+        if (!builder.ContainsKey("busytimeout"))
+        {
+            builder.BusyTimeout = 5000;
+        }
+
+        // connections stay open: otherwise the last closed connection removes the WAL index and the next one
+        // rebuilds it, while other connections fail with "database is locked" (busy recovery, not retried)
+        if (!builder.ContainsKey("pooling"))
+        {
+            builder.Pooling = true;
+        }
+
+        return builder.ConnectionString;
+    }
+
+    /// <summary>
+    /// Switches the database to the WAL journal mode (readers do not block writers and the other way round),
+    /// unless the connection string sets a journal mode itself. The mode is stored in the database file, it is
+    /// set once with a single connection: switching it needs the database exclusively, as a connection string
+    /// setting every new connection tried it and failed with "database is locked" when others were open.
+    /// </summary>
+    /// <param name="connection">An open connection, the only one of the application.</param>
+    /// <param name="connectionString">The configured connection string.</param>
+    /// <returns>Returns if the journal mode was set.</returns>
+    public static bool EnableWalJournalMode(IDbConnection connection, string connectionString)
+    {
+        if (string.IsNullOrWhiteSpace(connectionString)
+            || new SQLiteConnectionStringBuilder(connectionString).ContainsKey("journal mode"))
+        {
+            return false;
+        }
+
+        using var command = connection.CreateCommand();
+        command.CommandText = "PRAGMA journal_mode=WAL;";
+
+        // an in-memory database stays in its own mode ("memory")
+        return string.Equals(command.ExecuteScalar()?.ToString(), "wal", StringComparison.OrdinalIgnoreCase);
+    }
 
     /// <summary>
     /// Gets the YAF Provider Upgrade Script List.

@@ -102,7 +102,7 @@ public static class ForumPageExtensions
                             BoardContext.Current.Get<ILocalization>().GetTextFormatted(
                                 "DELETE_ACCOUNT",
                                 "TITLE",
-                                BoardContext.Current.PageUser.DisplayOrUserName()));
+                                page.HtmlEncode(BoardContext.Current.PageUser.DisplayOrUserName())));
                     }
 
                     break;
@@ -122,7 +122,7 @@ public static class ForumPageExtensions
                 case ForumPages.Moderate_ReportedPosts:
                 case ForumPages.Moderate_Forums:
                     {
-                        title.Append(page.HtmlEncode(BoardContext.Current.PageForum.Name));
+                        title.Append(page.HtmlEncode(BoardContext.Current.PageForum?.Name ?? string.Empty));
                     }
 
                     break;

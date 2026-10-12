@@ -61,4 +61,64 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(pageSource, Does.Contain(roleName), "Test Role creating failed");
                 });
     }
+
+    /// <summary>
+    /// The guest group can't be deleted, also not with a manipulated form (the list has no delete button for it).
+    /// </summary>
+    [Test]
+    [Description("The guest group can't be deleted")]
+    public async Task GuestGroupCanNotBeDeletedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(
+                            this.TestSettings,
+                            this.TestSettings.AdminUserName,
+                            this.TestSettings.AdminPassword), Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Groups");
+
+                    // the group without delete button
+                    const string findGuestGroupId = """
+                                                    () => {
+                                                        for (const group of document.querySelectorAll('.btn-group')) {
+                                                            const edit = group.querySelector('a[href*="EditGroup"]');
+                                                            if (edit && !group.querySelector('button[formaction*="Delete"]')) {
+                                                                return edit.getAttribute('href').match(/(\d+)\D*$/)[1];
+                                                            }
+                                                        }
+                                                        return null;
+                                                    }
+                                                    """;
+
+                    var guestGroupId = await page.EvaluateAsync<string>(findGuestGroupId);
+
+                    Assert.That(guestGroupId, Is.Not.Null, "The guest group is not listed");
+
+                    // the delete handler with the id of the guest group
+                    var status = await page.EvaluateAsync<int>(
+                        """
+                        async url => {
+                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                            const body = new URLSearchParams({ '__RequestVerificationToken': token });
+                            const response = await fetch(url, { method: 'POST', body: body });
+                            return response.status;
+                        }
+                        """,
+                        $"{this.TestSettings.TestForumUrl}Admin/Groups?handler=Delete&id={guestGroupId}");
+
+                    Assert.That(status, Is.EqualTo(200), "The delete handler failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Groups");
+
+                    Assert.That(
+                        await page.EvaluateAsync<string>(findGuestGroupId),
+                        Is.EqualTo(guestGroupId),
+                        "The guest group was deleted");
+                });
+    }
 }

@@ -363,4 +363,479 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(pageSource, Does.Contain("Multi Quoting Test"), "MultiQuoting Message Failed");
                 });
     }
+
+    /// <summary>
+    /// A member can not edit the message of another user by opening the edit page directly.
+    /// </summary>
+    [Test]
+    [Description("Editing the message of another user is denied")]
+    public async Task EditMessageOfOtherUserIsDeniedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                // the admin creates a topic
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                Assert.That(await page.CreateNewTestTopicAsync(this.TestSettings), Is.True, "Topic Creating failed");
+
+                var editLink = await page.Locator("a[href*='EditMessage']").First.GetAttributeAsync("href");
+
+                Assert.That(editLink, Is.Not.Null, "Edit link of the admin message not found");
+
+                // the test user opens the edit page of that message
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName,
+                        this.TestSettings.TestUserPassword), Is.True,
+                    "Login failed");
+
+                await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), editLink).ToString());
+
+                var pageSource = await page.ContentAsync();
+
+                Assert.That(
+                    pageSource, Does.Contain("You tried to enter an area where you didn't have access."),
+                    "The message of another user can be edited");
+            });
+    }
+
+    /// <summary>
+    /// The history of a deleted message (which contains its text) is only shown to moderators.
+    /// </summary>
+    [Test]
+    [Description("The history of a deleted message is hidden from members")]
+    public async Task MessageHistoryOfDeletedMessageIsHiddenTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var replyText = $"History test reply {Guid.NewGuid():N}";
+
+                // the admin posts a reply and edits it, so it has a history
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                Assert.That(await page.CreateNewTestTopicAsync(this.TestSettings), Is.True, "Topic Creating failed");
+
+                // the reply page (the topic page has its own quick reply editor)
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'ReplyLink')]").First);
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(replyText);
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain(replyText), "Posting the reply failed");
+
+                // after posting, the new message is shown (Post/{id}/... or Posts/{topic}/...?m={id})
+                var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/Post/(\d+)/|[?&]m=(\d+)");
+                var messageId = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
+
+                Assert.That(messageId, Is.Not.Empty, $"The id of the reply is not in {page.Url}");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditMessage/{messageId}");
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"{replyText} edited");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                // a member sees the history of the visible message
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName2,
+                        this.TestSettings.TestUser2Password), Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}MessageHistory?m={messageId}");
+
+                // the original text and the current text (the texts are only shown when compared)
+                Assert.That(
+                    await page.Locator("input[type=checkbox][name$='.Selected']").CountAsync(),
+                    Is.EqualTo(2),
+                    "Message history is not shown");
+
+                // compares the first two versions, sent with a token of the topic list
+                async Task<string> CompareVersionsAsync()
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyTopics");
+
+                    return await page.EvaluateAsync<string>(
+                        """
+                        async url => {
+                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                            const body = new URLSearchParams({
+                                '__RequestVerificationToken': token,
+                                'RevisionsList[0].Selected': 'true',
+                                'RevisionsList[1].Selected': 'true' });
+                            const response = await fetch(url, { method: 'POST', body: body });
+                            return await response.text();
+                        }
+                        """,
+                        $"{this.TestSettings.TestForumUrl}MessageHistory/ShowDiff?m={messageId}");
+                }
+
+                Assert.That(await CompareVersionsAsync(), Does.Contain(replyText), "The versions can not be compared");
+
+                // the admin deletes the reply
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}DeleteMessage/{messageId}");
+
+                await page.Locator("#ReasonEditor").FillAsync("Deleted by a test");
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Delete']"));
+
+                // now the member sees neither the history nor the report page of it
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName2,
+                        this.TestSettings.TestUser2Password), Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}MessageHistory?m={messageId}");
+
+                Assert.That(
+                    await page.Locator("input[type=checkbox][name$='.Selected']").CountAsync(),
+                    Is.EqualTo(0),
+                    "The history of the deleted message is shown");
+
+                // also the compare of its versions (loaded from the database)
+                Assert.That(await CompareVersionsAsync(), Does.Not.Contain(replyText), "The versions of the deleted message can be compared");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}ReportPost/{messageId}");
+
+                Assert.That(
+                    await page.ContentAsync(), Does.Not.Contain(replyText),
+                    "The deleted message is shown on the report page");
+            });
+    }
+
+    /// <summary>
+    /// An older version of an edited message can be restored from the message history.
+    /// </summary>
+    [Test]
+    [Description("Restore an older version of a message")]
+    public async Task RestoreMessageVersionTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var replyText = $"Restore test reply {Guid.NewGuid():N}";
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                Assert.That(await page.CreateNewTestTopicAsync(this.TestSettings), Is.True, "Topic Creating failed");
+
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'ReplyLink')]").First);
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(replyText);
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/Post/(\d+)/|[?&]m=(\d+)");
+                var messageId = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
+
+                Assert.That(messageId, Is.Not.Empty, $"The id of the reply is not in {page.Url}");
+
+                // two edits: the history contains the original text and the first edit (saved with the time of the second edit)
+                foreach (var edit in new[] { "first edit", "second edit" })
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditMessage/{messageId}");
+
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"{replyText} {edit}");
+
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+                }
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}MessageHistory?m={messageId}");
+
+                var restoreButtons = page.Locator("button[formaction*='Restore']");
+
+                // the original text and the first edit, not the current text
+                Assert.That(await restoreButtons.CountAsync(), Is.EqualTo(2), "The restore buttons are missing");
+
+                // restore the first edit (the confirm dialog is added by the script of the page)
+                await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+                var restoreAction = await restoreButtons.Nth(1).GetAttributeAsync("formaction");
+
+                await restoreButtons.Nth(1).ClickAsync();
+
+                // the confirm dialog sends the restore
+                var restoreResponse = await page.RunAndWaitForResponseAsync(
+                                          () => page.Locator(".modal.show")
+                                              .GetByRole(AriaRole.Button, new LocatorGetByRoleOptions { Name = "Yes" }).ClickAsync(),
+                                          r => r.Request.Method == "POST" && r.Url.Contains("Restore"));
+
+                await page.WaitForLoadStateAsync(LoadState.Load);
+
+                Assert.That(
+                    restoreResponse.Status,
+                    Is.EqualTo(200),
+                    $"The restore failed ({restoreResponse.Status} {(restoreResponse.Headers.TryGetValue("location", out var location) ? location : string.Empty)}, {restoreAction})");
+
+                // the editor contains the current text
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditMessage/{messageId}");
+
+                var content = await page.ContentAsync();
+
+                Assert.That(content, Does.Contain($"{replyText} first edit"), "The first edit was not restored");
+                Assert.That(content, Does.Not.Contain($"{replyText} second edit"), "The first edit was not restored");
+            });
+    }
+
+    /// <summary>
+    /// A reply that quotes or mentions a name without user (a guest post, a deleted user or another
+    /// display name) is posted without error (the notification of the quoted user failed).
+    /// </summary>
+    [Test]
+    [Description("Reply with a quote and a mention of unknown users")]
+    public async Task ReplyQuotingUnknownUserTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName,
+                        this.TestSettings.TestUserPassword), Is.True,
+                    "Login failed");
+
+                var replyText = $"Reply with unknown quote {Guid.NewGuid():N}";
+
+                Assert.That(
+                    await page.CreateNewReplyInTestTopicAsync(
+                        this.TestSettings,
+                        $"{replyText} [quote=Nobody Here;1]An old quote[/quote] @[userlink]Nobody Either[/userlink]"),
+                    Is.True,
+                    $"The reply failed ({page.Url})");
+            });
+    }
+
+    /// <summary>
+    /// The message history open in two tabs: comparing the versions in the first tab shows the versions of
+    /// its message (the page took the details of the versions from the session, which contained the list of
+    /// the tab opened last: wrong editors and edit reasons, or an error with fewer versions).
+    /// </summary>
+    [Test]
+    [Description("Compare versions with the history of another message open in a second tab")]
+    public async Task MessageHistoryInTwoTabsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var id = Guid.NewGuid().ToString("N");
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                Assert.That(await page.CreateNewTestTopicAsync(this.TestSettings), Is.True, "Topic Creating failed");
+
+                var topicUrl = page.Url;
+
+                // posts a reply and edits it with the given edit reasons
+                async Task<string> PostEditedReplyAsync(string text, params string[] reasons)
+                {
+                    await page.GotoAsync(topicUrl);
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'ReplyLink')]").First);
+
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync(text);
+
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                    var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/Post/(\d+)/|[?&]m=(\d+)");
+                    var messageId = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
+
+                    Assert.That(messageId, Is.Not.Empty, $"The id of the reply is not in {page.Url}");
+
+                    foreach (var reason in reasons)
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditMessage/{messageId}");
+
+                        await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                        await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"{text} {reason}");
+                        await page.Locator("#Input_ReasonEditor").FillAsync(reason);
+
+                        await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+                    }
+
+                    return messageId;
+                }
+
+                // the first message has 3 versions (original, first edit, current), the second 2
+                var firstId = await PostEditedReplyAsync($"First history {id}", $"ReasonA1{id}", $"ReasonA2{id}");
+                var secondId = await PostEditedReplyAsync($"Second history {id}", $"ReasonB{id}");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}MessageHistory?m={firstId}");
+
+                Assert.That(
+                    await page.Locator("input[type=checkbox][name$='.Selected']").CountAsync(),
+                    Is.EqualTo(3),
+                    "The history of the first message is not shown");
+
+                // the history of the second message in another tab (same session)
+                var secondTab = await page.Context.NewPageAsync();
+
+                try
+                {
+                    await secondTab.GotoAsync($"{this.TestSettings.TestForumUrl}MessageHistory?m={secondId}");
+
+                    Assert.That(
+                        await secondTab.ContentAsync(), Does.Contain($"ReasonB{id}"),
+                        "The history of the second message is not shown");
+                }
+                finally
+                {
+                    await secondTab.CloseAsync();
+                }
+
+                // compare the first and the last version in the first tab
+                var checkBoxes = page.Locator("input[type=checkbox][name$='.Selected']");
+
+                await checkBoxes.Nth(0).CheckAsync();
+                await checkBoxes.Nth(2).CheckAsync();
+
+                var response = await page.RunAndWaitForResponseAsync(
+                                   () => page.Locator("button[formaction*='ShowDiff']").ClickAsync(),
+                                   r => r.Request.Method == "POST" && r.Url.Contains("ShowDiff"));
+
+                await page.WaitForLoadStateAsync(LoadState.Load);
+
+                Assert.That(response.Status, Is.EqualTo(200), "Comparing the versions failed");
+
+                var content = await page.ContentAsync();
+
+                // a version shows the reason of the edit that replaced it
+                Assert.That(content, Does.Contain($"ReasonA2{id}"), "The versions of the first message are not shown");
+                Assert.That(content, Does.Not.Contain($"ReasonB{id}"), "The versions of the second message are shown");
+
+                Assert.That(
+                    await page.Locator("#diffContent").InnerTextAsync(),
+                    Does.Contain($"First history {id}").And.Contain($"ReasonA2{id}"),
+                    "The changes are not shown");
+            });
+    }
+
+    /// <summary>
+    /// A member can't delete the own post of a locked topic: the delete page and its handler are denied
+    /// (the page was shown, deleting just showed it again without the message).
+    /// </summary>
+    [Test]
+    [Description("Deleting the own post of a locked topic is denied")]
+    public async Task DeleteMessageOfLockedTopicIsDeniedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName,
+                        this.TestSettings.TestUserPassword), Is.True,
+                    "Login failed");
+
+                Assert.That(await page.CreateNewTestTopicAsync(this.TestSettings), Is.True, "Topic Creating failed");
+
+                var topicUrl = page.Url;
+
+                var deleteLink = await page.Locator("a[href*='DeleteMessage']").First.GetAttributeAsync("href");
+
+                Assert.That(deleteLink, Is.Not.Null, "The delete link of the own post is missing");
+
+                var deleteUrl = new Uri(new Uri(this.TestSettings.TestForumUrl), deleteLink).ToString();
+
+                // an admin in an own browser locks the topic
+                await using var otherContext = await this.Fixture.Context.Browser!.NewContextAsync(
+                                                   new BrowserNewContextOptions
+                                                       {
+                                                           BaseURL = this.TestSettings.TestForumUrl,
+                                                           IgnoreHTTPSErrors = true
+                                                       });
+
+                var adminPage = await otherContext.NewPageAsync();
+
+                Assert.That(
+                    await adminPage.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await adminPage.GotoAsync(topicUrl);
+
+                await adminPage.RunAndWaitForNextPageAsync(
+                    () => adminPage.EvaluateAsync("() => document.querySelector(\"button[formaction*='LockTopic']\").click()"));
+
+                Assert.That(
+                    await adminPage.Locator("button[formaction*='UnlockTopic']").CountAsync(),
+                    Is.GreaterThan(0),
+                    "The topic was not locked");
+
+                // the member opens the delete page
+                await page.GotoAsync(deleteUrl);
+
+                Assert.That(
+                    await page.ContentAsync(),
+                    Does.Contain("You tried to enter an area where you didn't have access."),
+                    "The delete page of a post in a locked topic is shown");
+
+                // the delete handler, sent with a valid antiforgery token of the topic page
+                await page.GotoAsync(topicUrl);
+
+                var url = await page.EvaluateAsync<string>(
+                    """
+                    async url => {
+                        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                        const body = new URLSearchParams({ '__RequestVerificationToken': token, 'ReasonEditor': 'test' });
+                        const response = await fetch(url, { method: 'POST', body: body });
+                        return response.url;
+                    }
+                    """,
+                    $"{deleteUrl}{(deleteUrl.Contains('?') ? "&" : "?")}handler=Delete");
+
+                Assert.That(url, Does.Not.Contain("DeleteMessage"), "The delete handler shows the page again");
+
+                await page.GotoAsync(topicUrl);
+
+                Assert.That(
+                    await page.ContentAsync(),
+                    Does.Contain("This is a Test Message Created by an automated Unit Test"),
+                    "The post of the locked topic was deleted");
+            });
+    }
 }

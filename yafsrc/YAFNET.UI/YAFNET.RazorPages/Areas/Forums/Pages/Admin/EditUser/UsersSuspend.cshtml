@@ -36,7 +36,7 @@
             </h4>
             <p>
                 <strong>@Html.LocalizedText("PROFILE","SUSPEND_REASON")</strong>
-                @Html.Raw(Model.EditUser.Item1.SuspendedReason)
+                @Model.EditUser.Item1.SuspendedReason
                 <strong>@Html.LocalizedText("PROFILE","SUSPEND_BY")</strong>
                 @Html.UserLink(suspendedByUser)
                 <strong>@Html.LocalizedText("PROFILE","ENDS")</strong>
@@ -66,7 +66,7 @@
         <label asp-for="Input.SuspendCount" localized-page="PROFILE" localized-tag="SUSPEND_USER" class="form-label">
         </label>
         <div class="input-group">
-            <input type="number" asp-for="Input.SuspendCount" class="form-control"/>
+            <input type="number" asp-for="Input.SuspendCount" min="1" class="form-control"/>
             <select asp-for="Input.SuspendUnit" asp-items="Model.SuspendUnits" class="form-select"></select>
         </div>
     </div>

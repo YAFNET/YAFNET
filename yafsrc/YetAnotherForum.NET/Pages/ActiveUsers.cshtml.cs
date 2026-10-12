@@ -76,13 +76,13 @@ public class ActiveUsersModel : ForumPage
     }
 
     /// <summary>
-    /// Called when [post].
+    /// Changes the page size (the view permission is checked when the data is bound).
     /// </summary>
     /// <param name="v">The v.</param>
     /// <returns>IActionResult.</returns>
     public IActionResult OnPost(int? v = null)
     {
-        return !this.PageBoardContext.UploadAccess ? this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied) : this.BindData(v);
+        return this.BindData(v);
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public class ActiveUsersModel : ForumPage
             this.PageBoardContext.PageUserID,
             showGuests,
             showCrawlers,
-            this.PageBoardContext.PageIndex == 0 ? 1 : this.PageBoardContext.PageIndex, this.Size);
+            this.PageBoardContext.PageIndex + 1, this.Size);
 
         return activeUsers;
     }

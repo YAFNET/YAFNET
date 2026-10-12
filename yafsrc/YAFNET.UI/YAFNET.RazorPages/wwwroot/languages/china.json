@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "添加/编辑奖牌"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "移除该组的勋章？"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "被批准："
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "用户帐户已通过审核，用户可以登录。"
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "显示名称："
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "是客人："
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "这是访客帐户，用于所有未登录的访问者。"
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "选择垃圾邮件服务进行自动垃圾邮件检查："
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "天"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "删除早于："
+            "@tag": "DELETE_OLDER",
+            "#text": "删除早于以下时间的消息："
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "重启应用"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "申请没有回来。"
           },
           {
             "@tag": "RESTARTING",
             "#text": "应用程序正在重新启动。"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "重启应用"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "秩："
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "用户的等级，阶梯等级会随发帖数量而变化。"
+          },
+          {
             "@tag": "ROLE",
             "#text": "角色："
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "您的新电子邮件地址已确认。"
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "您的电子邮件地址已经被验证."
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "插入相册图片"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "插入现有附件或上传新文件..."
@@ -8918,6 +8946,10 @@
             "#text": "删除原因"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "删除此消息"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "从数据库中删除消息（不可逆）"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "恢复删除原因"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "恢复此消息"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "清除头像"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "当前头像"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "输入要使用的远程服务器上头像的 URL："
           },
@@ -9150,12 +9190,24 @@
             "#text": "修改电子邮件地址"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "确认链接已发送至 {0}。打开该链接后，您的电子邮件地址将被更改。"
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "确认您在 {0} 论坛的新电子邮件地址"
+          },
+          {
             "@tag": "CITY",
             "#text": "城市:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "本家:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "当前密码"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} 是必需的"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} 必须是数字"
+          },
+          {
             "@tag": "OTHER",
             "#text": "其他"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "您住在哪里?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "您输入的密码不正确。"
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "收件人（电子邮件地址）:"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "您发送的电子邮件过多，请稍后再试。"
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "全部"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "显示以 {0} 开头的用户"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "头像"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "由 {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "主题只能移动到论坛，请选择一个论坛而不是分类。"
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "电子邮件:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "用户的电子邮件地址。"
+          },
+          {
             "@tag": "ENDS",
             "#text": "用户忽略结束时间:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "注册日期:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "用户注册的日期。"
+          },
+          {
             "@tag": "LAST10",
             "#text": "最新 10 个帖子"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "最后登录:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "用户上次访问的日期。"
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "您的帐户尚未获得管理员的批准。"
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "您的帐户尚未获得批准，因为您尚未验证您的电子邮件。"
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Enter your User Name to retrieve your password:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "一封带有重置链接的电子邮件已发送到您的电子邮件地址！"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "如果具有此用户名或电子邮件地址的帐户存在，则会向其电子邮件地址发送一封电子邮件。"
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "弱密码，尝试使用数字和大写字母。"
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "{0} 论坛的新密码"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "光"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

@@ -27,6 +27,7 @@ using YAF.Core.Model;
 namespace YAF.Core.Services;
 
 using System;
+using System.Web;
 
 using YAF.Types.Models;
 
@@ -89,8 +90,8 @@ public class UserMedalService : IUserMedalService, IHaveServiceLocator
 
                 ribbonBar.AppendFormat(
                     "<li class=\"list-inline-item\"><img src=\"/{2}/{0}\" alt=\"{1}\" title=\"{1}\" data-bs-toggle=\"tooltip\"></li>",
-                    medal.MedalURL,
-                    title,
+                    HttpUtility.HtmlAttributeEncode(medal.MedalURL),
+                    HttpUtility.HtmlAttributeEncode(title),
                     this.Get<BoardFolders>().Medals);
             });
 

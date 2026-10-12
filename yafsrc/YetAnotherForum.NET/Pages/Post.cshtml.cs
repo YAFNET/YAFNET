@@ -94,6 +94,30 @@ public class PostModel : ForumPage
     }
 
     /// <summary>
+    /// The post handlers (watch, lock, delete, ...) need the topic and read access to the forum,
+    /// the get handler checks it on its own (guests are sent to the login).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (!Microsoft.AspNetCore.Http.HttpMethods.IsPost(this.Request.Method))
+        {
+            return;
+        }
+
+        if (this.PageBoardContext.PageTopic is null)
+        {
+            context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
+        }
+
+        if (!this.PageBoardContext.ForumReadAccess)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
     /// The on get.
     /// </summary>
     public IActionResult OnGet(string name, int m, int? p = null)
@@ -150,8 +174,6 @@ public class PostModel : ForumPage
     /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetQuickReply()
     {
-        this.Get<IDataCache>().Set("TopicID", this.PageBoardContext.PageTopicID, TimeSpan.FromMinutes(5));
-
         return new PartialViewResult
         {
             ViewName = "Dialogs/QuickReply", ViewData = new ViewDataDictionary<QuickReplyModal>(this.ViewData, new QuickReplyModal())
@@ -165,12 +187,12 @@ public class PostModel : ForumPage
     {
         if (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
         {
-            return this.PageBoardContext.Notify(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
+            return this.StayOnTopic(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
         }
 
         if (this.PageBoardContext.PageForum.ForumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
         {
-            return this.PageBoardContext.Notify(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
+            return this.StayOnTopic(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
         }
 
         return this.Get<ILinkBuilder>().Redirect(
@@ -191,7 +213,7 @@ public class PostModel : ForumPage
 
         if (previousTopic is null)
         {
-            return this.PageBoardContext.Notify(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
+            return this.StayOnTopic(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
         }
 
         return this.Get<ILinkBuilder>().Redirect(
@@ -409,7 +431,7 @@ public class PostModel : ForumPage
 
         if (nextTopic is null)
         {
-            return this.PageBoardContext.Notify(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
+            return this.StayOnTopic(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
         }
 
         return this.Get<ILinkBuilder>().Redirect(
@@ -423,8 +445,6 @@ public class PostModel : ForumPage
     /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetMoveTopic()
     {
-        this.Get<IDataCache>().Set("TopicID", this.PageBoardContext.PageTopicID, TimeSpan.FromMinutes(5));
-
         return new PartialViewResult
                {
                    ViewName = "Dialogs/MoveTopic", ViewData = new ViewDataDictionary<MoveTopicModal>(this.ViewData, new MoveTopicModal())
@@ -530,5 +550,21 @@ public class PostModel : ForumPage
 
         // check if this forum is being watched by this user
         return watchTopicId.HasValue;
+    }
+
+    /// <summary>
+    /// Shows the message on the topic: the topic is loaded again
+    /// (the page shown again by the post handler would have no posts).
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="messageType">The message type.</param>
+    /// <returns>IActionResult.</returns>
+    private IActionResult StayOnTopic(string message, MessageTypes messageType)
+    {
+        this.PageBoardContext.SessionNotify(message, messageType);
+
+        return this.Get<ILinkBuilder>().Redirect(
+            ForumPages.Posts,
+            new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
     }
 }

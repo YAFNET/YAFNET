@@ -119,14 +119,15 @@ public class ThankYouController : ForumBaseController
     [HttpPost("RemoveThanks/{messageId:int}")]
     public async Task<ActionResult<ThankYouInfo>> RemoveThanks([FromRoute] int messageId)
     {
-        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
+        var userId = this.PageBoardContext.PageUserID;
+
+        // only messages the user can read (the answer contains the users who thanked the message)
+        var message = this.GetRepository<Message>().GetMessageWithAccess(messageId, userId)?.Item2;
 
         if (message is null)
         {
             return this.NotFound();
         }
-
-        var userId = this.PageBoardContext.PageUserID;
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 

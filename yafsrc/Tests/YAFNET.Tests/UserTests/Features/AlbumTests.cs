@@ -22,7 +22,10 @@
  * under the License.
  */
 
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 using YAF.Tests.Infrastructure;
 
@@ -92,9 +95,9 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // Enter Test Avatar
                     await page.Locator("#ImageFiles").SetInputFilesAsync(filePath);
 
-                    await page.Locator("//button[contains(@formaction,'Upload')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
 
-                    await page.Locator("//button[contains(@formaction,'Back')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Back')]"));
 
                     pageSource = await page.ContentAsync();
 
@@ -151,7 +154,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     var filePath = Path.GetFullPath(@"..\..\..\..\testfiles\testImage.jpg");
                     await page.Locator("#ImageFiles").SetInputFilesAsync(filePath);
 
-                    await page.Locator("//button[contains(@formaction,'Upload')]").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
 
                     pageSource = await page.ContentAsync();
 
@@ -507,5 +510,179 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 Assert.That(pageSource.Contains(albumTitle), Is.False, "Album deleting failed");
             });
+    }
+
+    /// <summary>
+    /// An album title with special characters is shown as entered (not html encoded twice).
+    /// </summary>
+    [Test]
+    public async Task AlbumTitleWithSpecialCharactersTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(
+                            this.TestSettings,
+                            this.TestSettings.TestUserName,
+                            this.TestSettings.TestUserPassword), Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyAccount");
+                    await page.SubmitAndWaitAsync(page.GetByText("Edit Albums").First);
+
+                    var albumsUrl = page.Url;
+
+                    Assert.That(
+                        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).CountAsync(),
+                        Is.GreaterThan(0),
+                        "The user has no album");
+
+                    await page.SubmitAndWaitAsync(page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).First);
+
+                    var editUrl = page.Url;
+                    var oldTitle = await page.Locator("#AlbumTitle").InputValueAsync();
+                    const string title = "Tom & Jerry <3";
+
+                    await page.Locator("#AlbumTitle").FillAsync(title);
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateTitle')]"));
+
+                    // a new visit of the form (right after the post it shows the posted value)
+                    await page.GotoAsync(editUrl);
+                    var shownInForm = await page.Locator("#AlbumTitle").InputValueAsync();
+
+                    await page.GotoAsync(albumsUrl);
+
+                    var shownInList = await page.Locator("body").InnerTextAsync();
+
+                    // back to the old title for the other tests
+                    await page.GotoAsync(editUrl);
+                    await page.Locator("#AlbumTitle").FillAsync(System.Net.WebUtility.HtmlDecode(oldTitle));
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateTitle')]"));
+
+                    Assert.That(shownInForm, Is.EqualTo(title), "The edit form shows the title encoded");
+                    Assert.That(shownInList, Does.Contain(title), "The album list shows the title encoded");
+                });
+    }
+
+    /// <summary>
+    /// The limit of images per album also applies to an upload of several images at once.
+    /// </summary>
+    [Test, DependsOnTest(nameof(AddNewUserAlbumTest))]
+    public async Task UploadManyImagesRespectsLimitTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    // a new user without albums
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    const int fileCount = 40;
+
+                    var folder = Path.Combine(Path.GetTempPath(), $"yaf-album-{Guid.NewGuid():N}");
+                    Directory.CreateDirectory(folder);
+
+                    try
+                    {
+                        var source = Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png");
+
+                        var files = Enumerable.Range(1, fileCount).Select(
+                            i =>
+                                {
+                                    var file = Path.Combine(folder, $"image{i}.png");
+                                    File.Copy(source, file);
+                                    return file;
+                                }).ToArray();
+
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditAlbumImages/new");
+
+                        await page.Locator("#AlbumTitle").FillAsync("Many images");
+                        await page.Locator("#ImageFiles").SetInputFilesAsync(files);
+
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
+
+                        var info = Regex.Match(await page.Locator("body").InnerTextAsync(), @"allowed to have (\d+) images");
+
+                        Assert.That(info.Success, Is.True, "The image limit is not shown");
+
+                        var allowed = int.Parse(info.Groups[1].Value);
+
+                        Assert.That(allowed, Is.LessThan(fileCount), "The test needs more files than allowed");
+
+                        Assert.That(
+                            await page.Locator("button[formaction*='DeleteImage']").CountAsync(),
+                            Is.EqualTo(allowed),
+                            "More images than allowed were saved");
+                    }
+                    finally
+                    {
+                        Directory.Delete(folder, true);
+                    }
+                });
+    }
+
+    /// <summary>
+    /// The active users page shows the locations of visitors at albums and profiles: an album that does not
+    /// exist (anymore) and the albums of a user (/Albums/{id}, without a name) failed the page, the name of
+    /// a profile location was the text of the address.
+    /// </summary>
+    [Test]
+    public async Task ActiveUsersWithAlbumAndProfileLocationsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var spoofedName = $"Spoofed-Name-{Random.Shared.Next()}";
+
+                    // guests at these addresses, they don't follow the redirects (the location stays)
+                    var contexts = new List<IBrowserContext>();
+
+                    foreach (var path in new[] { "Album/1/999999", "Albums/1", $"UserProfile/1/{spoofedName}" })
+                    {
+                        var guestContext = await this.Fixture.Context.Browser!.NewContextAsync(
+                                               new BrowserNewContextOptions
+                                                   {
+                                                       BaseURL = this.TestSettings.TestForumUrl,
+                                                       IgnoreHTTPSErrors = true
+                                                   });
+
+                        contexts.Add(guestContext);
+
+                        await guestContext.APIRequest.GetAsync(
+                            $"{this.TestSettings.TestForumUrl}{path}",
+                            new APIRequestContextOptions { MaxRedirects = 0 });
+                    }
+
+                    try
+                    {
+                        Assert.That(
+                            await page.LoginUserAsync(
+                                this.TestSettings,
+                                this.TestSettings.AdminUserName,
+                                this.TestSettings.AdminPassword),
+                            Is.True,
+                            "Login failed");
+
+                        var response = await page.GotoAsync($"{this.TestSettings.TestForumUrl}ActiveUsers/2");
+
+                        Assert.That(response?.Status, Is.EqualTo(200), "The active users page failed");
+                        Assert.That(page.Url, Does.Contain("ActiveUsers"), $"The active users page is not shown ({page.Url})");
+
+                        Assert.That(
+                            await page.ContentAsync(),
+                            Does.Not.Contain(spoofedName),
+                            "The text of the address is shown as the name of the user");
+                    }
+                    finally
+                    {
+                        foreach (var context in contexts)
+                        {
+                            await context.DisposeAsync();
+                        }
+                    }
+                });
     }
 }

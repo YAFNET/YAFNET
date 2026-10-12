@@ -102,10 +102,16 @@ public class EditMessageModel : ForumPage
             return false;
         }
 
+        // a guest without a name posts with the name of the guest user (an empty field is not sent)
+        if (this.PageBoardContext.IsGuest && this.Input.From.IsNotSet())
+        {
+            this.Input.From = this.PageBoardContext.PageUser.DisplayOrUserName();
+        }
+
         // Check if the Entered Guest Username is not too long
         if (this.PageBoardContext.IsGuest && this.Input.From.Length > 100)
         {
-            this.Input.From = this.Input.From[100..];
+            this.Input.From = this.Input.From[..100];
 
             this.PageBoardContext.Notify(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
 
@@ -131,6 +137,18 @@ public class EditMessageModel : ForumPage
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Only the author (or a moderator) can edit the post, also when saving (all handlers).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (this.PageBoardContext.PageMessage is null || !this.CanEditPostCheck())
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
     }
 
     /// <summary>
@@ -214,19 +232,21 @@ public class EditMessageModel : ForumPage
     {
         var subjectSave = string.Empty;
         var descriptionSave = string.Empty;
-        var stylesSave = string.Empty;
+        // the topic keeps its styles when the user can not change them (the field is not shown)
+        var stylesSave = this.PageBoardContext.PageTopic.Styles;
 
         if (this.PageBoardContext.PageTopic.UserID == this.PageBoardContext.PageMessage.UserID
             || this.PageBoardContext.ForumModeratorAccess)
         {
-            subjectSave = this.Input.TopicSubject;
-            descriptionSave = this.Input.TopicDescription;
+            // the same as for a new topic: no html
+            subjectSave = HtmlTagHelper.StripHtml(this.Input.TopicSubject);
+            descriptionSave = HtmlTagHelper.StripHtml(this.Input.TopicDescription);
         }
 
         if (this.PageBoardContext.BoardSettings.UseStyledTopicTitles
             && (this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin))
         {
-            stylesSave = this.Input.TopicStyles;
+            stylesSave = HtmlTagHelper.StripHtml(this.Input.TopicStyles);
         }
 
         // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
@@ -247,7 +267,10 @@ public class EditMessageModel : ForumPage
         var messageText = this.Input.Editor;
 
         await this.GetRepository<Message>().UpdateAsync(
-            this.Input.Priority.ToType<short>(),
+            // without priority access (the field is not shown) the topic keeps its priority
+            this.PageBoardContext.ForumPriorityAccess
+                ? (short)Math.Clamp(this.Input.Priority, 0, 2)
+                : this.PageBoardContext.PageTopic.Priority,
             HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             descriptionSave,
             string.Empty,
@@ -262,10 +285,15 @@ public class EditMessageModel : ForumPage
             messageUser,
             this.PageBoardContext.PageUserID);
 
-        // Update Topic Tags?!
-        await this.GetRepository<TopicTag>().DeleteAsync(x => x.TopicID == this.PageBoardContext.PageTopicID);
+        // Update Topic Tags, only when the tags are shown in the form (topic starter or moderator),
+        // otherwise editing a reply would remove the tags of the topic
+        if (this.PageBoardContext.PageTopic.UserID == this.PageBoardContext.PageMessage.UserID
+            || this.PageBoardContext.ForumModeratorAccess)
+        {
+            await this.GetRepository<TopicTag>().DeleteAsync(x => x.TopicID == this.PageBoardContext.PageTopicID);
 
-        await this.GetRepository<TopicTag>().AddTagsToTopicAsync(this.Input.TagsValue, this.PageBoardContext.PageTopicID);
+            await this.GetRepository<TopicTag>().AddTagsToTopicAsync(this.Input.TagsValue, this.PageBoardContext.PageTopicID);
+        }
 
         await this.UpdateWatchTopicAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
 
@@ -366,15 +394,7 @@ public class EditMessageModel : ForumPage
         }
 
         // Tell user that his message will have to be approved by a moderator
-        var url = this.Get<ILinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
-
-        if (this.PageBoardContext.PageTopicID > 0 && this.PageBoardContext.PageTopic.NumPosts > 1)
-        {
-            url = this.Get<ILinkBuilder>().GetTopicLink(
-                this.PageBoardContext.PageTopic);
-        }
-
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Info, new {i = 1, url = HttpUtility.UrlEncode(url)});
+        return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
     }
 
     /// <summary>
@@ -395,25 +415,25 @@ public class EditMessageModel : ForumPage
     /// </returns>
     private bool CanEditPostCheck()
     {
-        var postLocked = false;
+        var message = this.PageBoardContext.PageMessage;
 
-        if (!this.PageBoardContext.IsAdmin && this.PageBoardContext.BoardSettings.LockPosts > 0)
+        // locked by a moderator
+        var postLocked = message.MessageFlags.IsLocked;
+
+        // the lock period starts when the post was written, editing does not extend it
+        if (!postLocked && !this.PageBoardContext.IsAdmin && this.PageBoardContext.BoardSettings.LockPosts > 0
+            && message.Posted.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow)
         {
-            var edited = this.PageBoardContext.PageMessage.Edited ?? this.PageBoardContext.PageMessage.Posted;
-
-            if (edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow)
-            {
-                postLocked = true;
-            }
+            postLocked = true;
         }
 
         // get  forum information
         var forumInfo = this.PageBoardContext.PageForum;
 
-        // Ederon : 9/9/2007 - moderator can edit in locked topics
-        return !postLocked && !forumInfo.ForumFlags.IsLocked && !this.PageBoardContext.PageTopic.TopicFlags.IsLocked
-               && this.PageBoardContext.PageMessage.UserID == this.PageBoardContext.PageUserID
-               || this.PageBoardContext.ForumModeratorAccess && this.PageBoardContext.ForumEditAccess;
+        // moderators can edit in locked topics, everybody needs edit access
+        return (!postLocked && !forumInfo.ForumFlags.IsLocked && !this.PageBoardContext.PageTopic.TopicFlags.IsLocked
+                && message.UserID == this.PageBoardContext.PageUserID
+                || this.PageBoardContext.ForumModeratorAccess) && this.PageBoardContext.ForumEditAccess;
     }
 
     /// <summary>

@@ -39,9 +39,10 @@ using YAF.Types.Models;
 public class PollEditModel : ForumPage
 {
     /// <summary>
-    /// The topic unapproved.
+    /// Gets a value indicating whether the topic should be approved (it is not shown yet,
+    /// the user gets the info instead).
     /// </summary>
-    private bool topicUnapproved;
+    public bool TopicUnapproved { get; private set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PollEditModel"/> class.
@@ -53,9 +54,8 @@ public class PollEditModel : ForumPage
     }
 
     /// <summary>
-    /// Gets or sets PollID.
+    /// Gets or sets PollID (the poll of the topic, null for a new poll).
     /// </summary>
-    [TempData]
     public int? PollId { get; set; }
 
     /// <summary>
@@ -67,38 +67,37 @@ public class PollEditModel : ForumPage
     /// <summary>
     /// The cancel_ click.
     /// </summary>
-    public IActionResult OnPostCancel()
+    public IActionResult OnPostCancel(int? ra = null)
     {
+        this.TopicUnapproved = ra == 1;
+
         return this.ReturnToPage();
     }
 
     /// <summary>
     /// The page_ load.
     /// </summary>
-    public IActionResult OnGet(int? f = null, int? pollId = null, int? t = null)
+    public IActionResult OnGet(int? pollId = null, int? t = null, int? ra = null)
     {
         this.PollId = null;
         this.Input = new PollEditInputModel();
 
-        // we return to a forum (used when a topic should be approved)
-        if (f.HasValue)
-        {
-            this.topicUnapproved = true;
-        }
+        // a new topic which should be approved (kept for the save)
+        this.TopicUnapproved = ra == 1;
 
         if (t.HasValue)
         {
             this.PageBoardContext.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
             this.PageBoardContext.PageLinks.AddTopic(this.PageBoardContext.PageTopic);
-
-            this.Get<IDataCache>().Set("TopicID", this.PageBoardContext.PageTopic.ID);
         }
 
-        // Check if the user has the page access and variables are correct.
-        if (this.PageBoardContext.PageForumID == 0 || !this.PageBoardContext.ForumPollAccess)
+        // Check if the user has the page access and variables are correct (before the poll id is kept for the save)
+        var denied = this.CheckPollAccess(pollId);
+
+        if (denied is not null)
         {
-            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+            return denied;
         }
 
         // handle poll
@@ -197,20 +196,57 @@ public class PollEditModel : ForumPage
     /// <summary>
     /// The save poll_ click.
     /// </summary>
-    public IActionResult OnPostSavePoll()
+    public IActionResult OnPostSavePoll(int? ra = null)
     {
-        if (this.Input.Question.Trim().Length == 0)
+        this.TopicUnapproved = ra == 1;
+
+        // the edited poll is the poll of the topic (a temp data value was lost when the page was shown
+        // again with a warning)
+        this.PollId = this.PageBoardContext.PageTopic?.PollID;
+
+        // the same checks as for showing the page, the post can be sent without it
+        var denied = this.CheckPollAccess(this.PollId);
+
+        if (denied is not null)
+        {
+            return denied;
+        }
+
+        if (this.Input?.Question is null || this.Input.Question.Trim().Length == 0)
         {
             return this.PageBoardContext.Notify(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
         }
 
         this.Input.Question = HtmlTagHelper.StripHtml(this.Input.Question);
 
+        // the form has as many fields as choices are allowed, more can only be posted directly
+        this.Input.Choices = [.. (this.Input.Choices ?? []).Take(this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber)];
+
         var count = this.Input.Choices.Count(choice => choice.ChoiceName.IsSet());
 
         if (count < 2)
         {
             return this.PageBoardContext.Notify(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
+        }
+
+        // the options are only shown with these settings, the values are sent by the client
+        // (the images could be loaded from any site)
+        var boardSettings = this.PageBoardContext.BoardSettings;
+
+        if (!(this.PageBoardContext.IsAdmin || boardSettings.AllowUsersImagedPoll) || !this.PageBoardContext.ForumPollAccess)
+        {
+            this.Input.QuestionObjectPath = null;
+            this.Input.Choices.ForEach(choice => choice.ObjectPath = null);
+        }
+
+        if (!(boardSettings.AllowMultipleChoices || this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess))
+        {
+            this.Input.AllowMultipleChoicesCheckBox = false;
+        }
+
+        if (!(boardSettings.AllowUsersHidePollResults || this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator))
+        {
+            this.Input.IsClosedBoundCheckBox = false;
         }
 
         // Set default value
@@ -232,14 +268,19 @@ public class PollEditModel : ForumPage
     {
         DateTime? datePollExpire = null;
 
-        if (this.Input.PollExpire.IsSet())
+        // the days are sent as text, not a number or a huge value can not be used (no expiry then)
+        if (int.TryParse(this.Input.PollExpire, out var days) && days > 0)
         {
-            datePollExpire = DateTime.UtcNow.AddDays(this.Input.PollExpire.ToType<int>());
+            datePollExpire = DateTime.UtcNow.AddDays(Math.Min(days, 36500));
         }
 
         // we are just using existing poll
         if (this.PollId.HasValue)
         {
+            // only the choices of this poll can be changed or removed
+            var pollChoiceIds = this.GetRepository<Choice>().Get(c => c.PollID == this.PollId.Value).Select(c => c.ID)
+                .ToHashSet();
+
             this.GetRepository<Poll>().Update(
                 this.PollId.Value,
                 this.Input.Question,
@@ -262,7 +303,7 @@ public class PollEditModel : ForumPage
                         // add choice
                         this.GetRepository<Choice>().AddChoice(this.PollId.Value, choiceName, choiceObjectPath);
                     }
-                    else
+                    else if (pollChoiceIds.Contains(choiceId))
                     {
                         if (choiceName.IsSet())
                         {
@@ -314,7 +355,7 @@ public class PollEditModel : ForumPage
     /// </summary>
     private IActionResult ReturnToPage()
     {
-        return this.topicUnapproved
+        return this.TopicUnapproved
                    ?
                    // Tell user that his message will have to be approved by a moderator
                    this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Moderated)
@@ -324,11 +365,50 @@ public class PollEditModel : ForumPage
     }
 
     /// <summary>
-    /// Checks if a user can create poll.
+    /// Checks the access to the poll: poll access in the forum, the poll belongs to the topic and to the
+    /// user (or a moderator), a new poll only for the own topic without a poll.
     /// </summary>
-    /// <returns>
-    /// The can create poll.
-    /// </returns>
+    /// <param name="pollId">The poll identifier (null for a new poll).</param>
+    /// <returns>Returns the redirect when there is no access, otherwise null</returns>
+    private IActionResult CheckPollAccess(int? pollId)
+    {
+        // polls always belong to a topic (all links contain it), the moderator access is the one of its forum
+        var topic = this.PageBoardContext.PageTopic;
+
+        if (this.PageBoardContext.PageForumID == 0 || topic is null || !this.PageBoardContext.ForumPollAccess)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        }
+
+        var isModerator = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess;
+
+        if (pollId.HasValue)
+        {
+            // the poll of the topic, by its owner or a moderator
+            var poll = this.GetRepository<Poll>().GetById(pollId.Value);
+
+            if (poll is null || topic.PollID != poll.ID
+                             || poll.UserID != this.PageBoardContext.PageUserID && !isModerator)
+            {
+                return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
+            return null;
+        }
+
+        // a new poll only for an own topic (moderators: any topic) without a poll
+        if (topic.PollID.HasValue || topic.UserID != this.PageBoardContext.PageUserID && !isModerator)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Checks if a poll can be created.
+    /// </summary>
+    /// <returns>Returns if a poll can be created</returns>
     private bool CanCreatePoll()
     {
         if (this.PageBoardContext.PageTopic != null)

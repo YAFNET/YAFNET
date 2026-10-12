@@ -96,7 +96,7 @@ public class UsersGroupsModel : AdminPage
         var addedRoles = new List<string>();
         var removedRoles = new List<string>();
 
-        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
+        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{this.Input.UserId}-{this.PageBoardContext.PageUserID}")] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
             return this.Get<ILinkBuilder>().Redirect(
@@ -112,8 +112,14 @@ public class UsersGroupsModel : AdminPage
             // get role ID from it
             var roleId = item.GroupID;
 
-            // get role name
+            // get role name (only groups of the board, the ids are sent by the client)
             var role = await this.GetRepository<Group>().GetByIdAsync(roleId);
+
+            if (role is null || role.BoardID != this.PageBoardContext.PageBoardID)
+            {
+                continue;
+            }
+
             var roleName = role.Name;
 
             // is user supposed to be in that role?

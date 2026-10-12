@@ -2933,6 +2933,10 @@
           {
             "@tag": "TITLE",
             "#text": "Medaille bewerken/toevoegen"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Medaille van deze groep weghalen?"
           }
         ]
       },
@@ -3245,6 +3249,10 @@
             "#text": "Is Goedgekeurd:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Het gebruikersaccount is goedgekeurd en de gebruiker kan inloggen."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Weergave naam:"
           },
@@ -3263,6 +3271,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Is Gast:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Dit is het gastaccount, het wordt gebruikt voor alle bezoekers die niet zijn ingelogd."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3891,6 +3903,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Kies een SPAM Service voor Automatische SPAM Controle:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5555,8 +5571,8 @@
             "#text": "dagen"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Verwijder ongelezen berichten ouder dan:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Verwijder berichten ouder dan:"
           },
           {
             "@tag": "HEADER",
@@ -5937,16 +5953,16 @@
             "#text": "Het herstarten van de applicatie laadt alle config bestanden opnieuw."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Herstart Applicatie"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "De aanvraag kwam niet terug. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "De applicatie wordt opnieuw opgestart. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Herstart Applicatie"
           }
         ]
       },
@@ -6274,6 +6290,10 @@
             "#text": "Rang:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "De rang van de gebruiker, ladderrangen veranderen met het aantal berichten."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Rol:"
           },
@@ -6594,6 +6614,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Uw nieuwe e-mailadres is bevestigd."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Je e-mail adres is gevalideerd."
@@ -7204,6 +7228,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Een albumafbeelding invoegen"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Voeg een bestaande bijlage in of upload een nieuw bestand..."
@@ -8910,6 +8938,10 @@
             "#text": "Reden voor verwijderen"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Verwijder dit bericht"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Verwijder definitief uit de database (kan niet ongedaan worden gemaakt)"
           },
@@ -8952,6 +8984,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Reden voor ongedaan maken"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Herstel dit bericht"
           },
           {
             "@tag": "WAIT",
@@ -9057,6 +9093,10 @@
             "#text": "Deze avatar verwijderen"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Huidige avatar"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Voer de URL in van de avatar die naast je berichten zal verschijnen:"
           },
@@ -9142,12 +9182,24 @@
             "#text": "E-mail adres wijzigen"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Er is een bevestigingslink verzonden naar {0}. Uw e-mailadres wordt gewijzigd nadat u de link hebt geopend."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Bevestig uw nieuwe e-mailadres voor het {0}-forum"
+          },
+          {
             "@tag": "CITY",
             "#text": "Plaats:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Land:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Huidig wachtwoord"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9206,6 +9258,10 @@
             "#text": "{0} is vereist"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} moet een getal zijn"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Ander"
           },
@@ -9252,6 +9308,10 @@
           {
             "@tag": "WHERE",
             "#text": "Waar woon je?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Het door u ingevoerde wachtwoord is niet correct."
           }
         ]
       },
@@ -9359,6 +9419,10 @@
           {
             "@tag": "TO",
             "#text": "Verzenden naar (e-mail adres):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "U heeft te veel e-mails verzonden. Probeer het later opnieuw."
           }
         ]
       },
@@ -10202,6 +10266,10 @@
             "#text": "Alle"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Gebruikers tonen die beginnen met {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10444,6 +10512,10 @@
           {
             "@tag": "BY",
             "#text": "door {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Onderwerpen kunnen alleen naar een forum worden verplaatst, selecteer een forum en geen categorie."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11527,6 +11599,10 @@
             "#text": "E-mailadres:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "Het e-mailadres van de gebruiker."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Ban eindigt:"
           },
@@ -11567,12 +11643,20 @@
             "#text": "Lid sinds:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "De datum waarop de gebruiker zich heeft geregistreerd."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Laatste 10 berichten"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Laatste bezoek:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "De datum van het laatste bezoek van de gebruiker."
           },
           {
             "@tag": "LOCATION",
@@ -11700,16 +11784,12 @@
             "#text": "Je account is nog niet goedgekeurd. Je kunt je wachtwoord pas resetten als je bent goedgekeurd."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Je account is nog niet goedgekeurd omdat je je email nog niet hebt gevalideerd. Een nieuwe email is naar {0} gestuurd. Probeer daarmee te valideren zodat je in kunt loggen."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Geef je gebruikersnaam op om je wachtwoord op te vragen:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Er is een e-mail met de Reset-link naar uw e-mailadres gestuurd!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Als er een account met deze gebruikersnaam of dit e-mailadres bestaat, is er een e-mail naar het e-mailadres verzonden."
           },
           {
             "@tag": "TITLE",
@@ -12218,6 +12298,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Zwak wachtwoord, probeer cijfers en hoofdletters te gebruiken."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Nieuw wachtwoord voor {0} Forum"
           },
           {
             "@tag": "PROFILE",
@@ -12864,6 +12948,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Licht"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

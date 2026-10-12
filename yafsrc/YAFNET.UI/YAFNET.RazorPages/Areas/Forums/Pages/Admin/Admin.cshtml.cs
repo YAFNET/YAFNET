@@ -120,6 +120,11 @@ public class AdminModel : AdminPage
 
         var userUnApproved = unApprovedUsers.Find(x => x.ID == id);
 
+        if (userUnApproved is null)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         var checkMail = await this.GetRepository<CheckEmail>()
             .GetSingleAsync(mail => mail.Email == userUnApproved.Email);
 
@@ -199,7 +204,14 @@ public class AdminModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostDeleteAsync(int id, int p, int p2)
     {
-        await this.Get<IAspNetUsersHelper>().DeleteUserAsync(id);
+        // only not approved users of this board, never the guest or an admin (the id is sent by the client)
+        var user = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(id, this.PageBoardContext.PageBoardID, true);
+
+        if (user is not null && !user.Item1.UserFlags.IsApproved && !user.Item1.UserFlags.IsGuest
+            && !user.Item1.UserFlags.IsHostAdmin && !(user.Item4?.IsAdmin > 0))
+        {
+            await this.Get<IAspNetUsersHelper>().DeleteUserAsync(id);
+        }
 
         await this.BindDataAsync(p, p2);
     }
@@ -213,7 +225,13 @@ public class AdminModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostApproveAsync(int id, int p, int p2)
     {
-        await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
+        // only not approved users of the board
+        var unApprovedUsers = await this.GetRepository<User>().GetUnApprovedUsersAsync(this.PageBoardContext.PageBoardID);
+
+        if (unApprovedUsers.Exists(x => x.ID == id))
+        {
+            await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
+        }
 
         await this.BindDataAsync(p, p2);
     }
@@ -228,7 +246,7 @@ public class AdminModel : AdminPage
     {
         var daysValueAll = this.Input.DaysOld;
 
-        await this.Get<IAspNetUsersHelper>().DeleteAllUnapprovedAsync(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
+        await this.Get<IAspNetUsersHelper>().DeleteAllUnapprovedAsync(this.PageBoardContext.PageBoardID, DateTime.UtcNow.AddDays(-Math.Clamp(daysValueAll.ToType<int>(), 0, 36500)));
 
         await this.BindDataAsync(p, p2);
     }
@@ -241,7 +259,7 @@ public class AdminModel : AdminPage
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostApproveAllAsync(int p, int p2)
     {
-        await this.Get<IAspNetUsersHelper>().ApproveAllAsync();
+        await this.Get<IAspNetUsersHelper>().ApproveAllAsync(this.PageBoardContext.PageBoardID);
 
         await this.BindDataAsync(p, p2);
     }

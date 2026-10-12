@@ -89,6 +89,12 @@ public class MoveMessageModel : ForumPageRegistered
             return this.PageBoardContext.Notify(this.GetText("Empty_Topic"), MessageTypes.warning);
         }
 
+        // the new topic can only be created in a forum the user moderates (of this board)
+        if (!await this.CanModerateAsync(this.Input.ForumListSelected))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         var topicId = await this.GetRepository<Topic>().CreateByMessageAsync(
             this.PageBoardContext.PageMessage.ID,
             this.Input.ForumListSelected,
@@ -112,9 +118,19 @@ public class MoveMessageModel : ForumPageRegistered
     {
         var moveTopicId = this.Input.TopicListSelected;
 
-        if (moveTopicId == 0 || moveTopicId == this.PageBoardContext.PageMessage.ID)
+        var topic = moveTopicId == 0 ? null : await this.GetRepository<Topic>().GetByIdAsync(moveTopicId);
+
+        // a message can only be moved to another topic (not deleted, not the link of a moved topic)
+        if (topic is null || topic.ID == this.PageBoardContext.PageTopicID || topic.TopicFlags.IsDeleted
+            || topic.TopicMovedID.HasValue)
         {
             return this.PageBoardContext.Notify(this.GetText("MOVE_TITLE"), MessageTypes.warning);
+        }
+
+        // ... in a forum the user moderates (of this board)
+        if (!await this.CanModerateAsync(topic.ForumID))
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         await this.GetRepository<Message>().MoveAsync(
@@ -123,11 +139,21 @@ public class MoveMessageModel : ForumPageRegistered
             moveTopicId,
             true);
 
-        var topic = await this.GetRepository<Topic>().GetByIdAsync(moveTopicId);
-
         return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Post,
             new {m = this.PageBoardContext.PageMessage.ID, name = topic.TopicName});
+    }
+
+    /// <summary>
+    /// Checks if the current user is moderator (or admin) of the forum.
+    /// </summary>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <returns>Returns if the user can moderate the forum</returns>
+    private Task<bool> CanModerateAsync(int forumId)
+    {
+        return this.GetRepository<ActiveAccess>().ExistsAsync(
+            x => x.UserID == this.PageBoardContext.PageUserID && x.ForumID == forumId &&
+                 (x.ModeratorAccess || x.IsAdmin));
     }
 
     /// <summary>

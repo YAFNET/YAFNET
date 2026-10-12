@@ -54,7 +54,8 @@ public static class CultureInfoHelper
         }
 
         // Get first default full culture from a language file tag.
-        var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
+        // the language file can be missing (e.g. removed), use the default culture then
+        var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile) ?? "en-US";
 
         var langTag =  langFileCulture[..2] == culture4Tag[..2] ? culture4Tag : langFileCulture;
 

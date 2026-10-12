@@ -241,9 +241,12 @@ public static class TopicRepositoryExtensions
             return repository.DbAccess.Execute(
                 db =>
                 {
+                    // only topics of forums the user (still) can read, the list shows the last post
                     expression.Join<User>((t, u) => u.ID == t.UserID)
                         .Join<Topic>((a, b) => b.ID == a.TopicID).Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
-                        .Where<WatchTopic>(b => b.UserID == userId);
+                        .Join<Topic, ActiveAccess>((t, x) => x.ForumID == t.ForumID)
+                        .Where<WatchTopic>(b => b.UserID == userId)
+                        .And<ActiveAccess>(x => x.UserID == userId && x.ReadAccess);
 
                     expression.Where(whereCriteria);
 
@@ -251,7 +254,9 @@ public static class TopicRepositoryExtensions
                     // The parameters are inlined, otherwise they would be bound to the outer query's parameters.
                     var countTotalExpression = db.Connection.From<WatchTopic>().Join<Topic>((w, t) => t.ID == w.TopicID)
                         .Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
-                        .Where<WatchTopic>(w => w.UserID == userId);
+                        .Join<Topic, ActiveAccess>((t, x) => x.ForumID == t.ForumID)
+                        .Where<WatchTopic>(w => w.UserID == userId)
+                        .And<ActiveAccess>(x => x.UserID == userId && x.ReadAccess);
 
                     countTotalExpression.Where(whereCriteria);
 
@@ -1114,7 +1119,8 @@ public static class TopicRepositoryExtensions
                 // -- delete an old link if exists
                 await repository.DeleteAsync(t => t.TopicMovedID == topic.ID);
 
-                var linkDate = DateTime.UtcNow.AddDays(linkDays);
+                // the days are sent by the client: at least one day, a huge value would fail
+                var linkDate = DateTime.UtcNow.AddDays(Math.Clamp(linkDays, 1, 36500));
 
                 // -- create a moved message
                 await repository.InsertAsync(
@@ -1145,24 +1151,32 @@ public static class TopicRepositoryExtensions
         }
 
         /// <summary>
-        /// The prune.
+        /// Deletes the topics that had no new posts for the given number of days
+        /// (sticky and persistent topics are kept).
         /// </summary>
         /// <param name="boardId">
         /// The board id.
         /// </param>
         /// <param name="forumId">
-        /// The forum id.
+        /// The forum id, 0 for all forums of the board.
         /// </param>
         /// <param name="days">
         /// The days.
         /// </param>
+        /// <param name="permDelete">
+        /// Erase the topics instead of flagging them as deleted.
+        /// </param>
         /// <returns>
-        /// The <see cref="int"/>.
+        /// The number of pruned topics.
         /// </returns>
-        public int Prune(int boardId,
+        public async Task<int> PruneAsync(int boardId,
             int forumId,
-            int days)
+            int days,
+            bool permDelete)
         {
+            // 0 or a negative number of days would remove all topics
+            days = Math.Max(days, 1);
+
             var topics = repository.DbAccess.Execute(
                 db =>
                 {
@@ -1189,8 +1203,19 @@ public static class TopicRepositoryExtensions
                                                                     OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {days}
                          """);
 
+                    if (!permDelete)
+                    {
+                        // already soft deleted topics are only removed for good
+                        expression.And(t => (t.Flags & 8) != 8);
+                    }
+
                     return db.Connection.Select(expression);
                 });
+
+            foreach (var topic in topics)
+            {
+                await repository.DeleteAsync(topic.ForumID, topic.ID, permDelete);
+            }
 
             return topics.Count;
         }

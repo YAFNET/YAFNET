@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "הוסף/ערוך מדליה"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "להסיר מדליה מהקבוצה הזו?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "מאושר:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "חשבון המשתמש מאושר והמשתמש יכול להתחבר."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "הצג שם:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "האם אורח:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "זהו חשבון האורח, הוא משמש את כל המבקרים שאינם מחוברים."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "בחר שירות דואר זבל לבדיקת דואר זבל אוטומטית:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "ימים"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "מחיקת הודעות שלא נקראו ישנות יותר מ:"
+            "@tag": "DELETE_OLDER",
+            "#text": "מחיקת הודעות ישנות יותר מ:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "הפעל מחדש את היישום"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "הבקשה לא חזרה. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "היישום מופעל מחדש. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "הפעל מחדש את היישום"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "דַרגָה:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "הדרגה של המשתמש, דרגות סולם משתנות לפי מספר ההודעות."
+          },
+          {
             "@tag": "ROLE",
             "#text": "תַפְקִיד:"
           },
@@ -6603,6 +6623,10 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "כתובת הדוא\"ל החדשה שלך אושרה."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "כתובת הדוא\"ל שלך אומתה."
           },
@@ -6909,7 +6933,7 @@
           },
           {
             "@tag": "REMOVEBUDDY",
-            "#text": "הסר חבר"
+            "#text": "Remove Friend"
           },
           {
             "@tag": "REMOVEBUDDY",
@@ -7216,6 +7240,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "הוסף תמונת אלבום"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "הוסף קובץ מצורף קיים או העלה קובץ חדש..."
@@ -8922,6 +8950,10 @@
             "#text": "סיבת מחיקה"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "מחק את ההודעה הזו"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "מחר הודעה ממסד הנתונים (בלתי הפיך)"
           },
@@ -8966,6 +8998,10 @@
             "#text": "סיבת ביטול מחיקה."
           },
           {
+            "@tag": "UNDELETE_TT",
+            "#text": "שחזר הודעה זו"
+          },
+          {
             "@tag": "WAIT",
             "#text": "אינך יכול/ה לשלוח במשך ה {0:N0} השניות הבאות."
           }
@@ -8980,7 +9016,7 @@
           },
           {
             "@tag": "COMMENTS",
-            "#text": "{0 תגובות"
+            "#text": "{0} תגובות"
           },
           {
             "@tag": "LINK",
@@ -9069,6 +9105,10 @@
             "#text": "נקה דמות"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "אווטאר נוכחי"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "השתמש בדמות מכתובת URL מרוחקת:"
           },
@@ -9154,12 +9194,24 @@
             "#text": "החלף/ת כתובת דוא\"ל"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "קישור אישור נשלח אל {0}. כתובת הדוא\"ל שלך תשתנה לאחר שתפתח את הקישור."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "אשר את כתובת הדוא\"ל החדשה שלך עבור הפורום {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "עִיר:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "מדינה:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "סיסמה נוכחית"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9218,6 +9270,10 @@
             "#text": "נדרש {0}"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} חייב להיות מספר"
+          },
+          {
             "@tag": "OTHER",
             "#text": "אַחֵר"
           },
@@ -9264,6 +9320,10 @@
           {
             "@tag": "WHERE",
             "#text": "היכן את/ה גר/ה?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "הסיסמה שהזנת אינה נכונה."
           }
         ]
       },
@@ -9371,6 +9431,10 @@
           {
             "@tag": "TO",
             "#text": "שלח אל (כתובת דוא\"ל):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "שלחת יותר מדי אימיילים, אנא נסה שוב מאוחר יותר."
           }
         ]
       },
@@ -10222,6 +10286,10 @@
             "#text": "את כל"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "הצג משתמשים שמתחילים ב-{0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "גִלגוּל"
           },
@@ -10464,6 +10532,10 @@
           {
             "@tag": "BY",
             "#text": "ע\"י {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "ניתן להעביר נושאים רק לפורום, אנא בחר פורום ולא קטגוריה."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11555,6 +11627,10 @@
             "#text": "דוא\"ל:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "כתובת הדוא\"ל של המשתמש."
+          },
+          {
             "@tag": "ENDS",
             "#text": "השעית החבר תסתיים:"
           },
@@ -11595,12 +11671,20 @@
             "#text": "הצטרף:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "התאריך שבו המשתמש נרשם."
+          },
+          {
             "@tag": "LAST10",
             "#text": "10 הודעות אחרונות"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "ביקור אחרון:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "תאריך הביקור האחרון של המשתמש."
           },
           {
             "@tag": "LOCATION",
@@ -11728,16 +11812,12 @@
             "#text": "חשבונך אינו מאושר עדיין ע\"י המנהל. ניתן לאפס סיסמא רק לאחר אישור החשבון. "
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "חשבונך עדיין לא מאושר משום שלא אישרת את כתובת הדוא\"ל שלך. הודעת אימות חדשה נשלחה אל {0}. לחץ על הקישור בהודעה זו על מנת לאמת ולהתחבר."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "הזן את שם המשתמש שלך על מנת לשחזר את הסיסמא: "
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "דוא&quot;ל עם קישור איפוס נשלח לכתובת הדוא&quot;ל שלך!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "אם קיים חשבון עם שם משתמש או כתובת דוא\"ל זו, דוא\"ל נשלח לכתובת הדוא\"ל שלו."
           },
           {
             "@tag": "TITLE",
@@ -12246,6 +12326,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "סיסמה חלשה, נסה להשתמש במספרים ובאותיות גדולות."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "סיסמה חדשה לפורום {0}"
           },
           {
             "@tag": "PROFILE",
@@ -12892,6 +12976,15 @@
           {
             "@tag": "LIGHT",
             "#text": "אוֹר"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

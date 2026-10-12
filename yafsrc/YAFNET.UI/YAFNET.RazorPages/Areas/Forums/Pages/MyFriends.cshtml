@@ -79,7 +79,7 @@
 												                                                             item.UserID,
 												                                                             item.Avatar,
 												                                                             item.AvatarImage != null))"
-											                 alt="@Html.Raw(Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name)" />
+											                 alt="@(Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name)" />
 										            </div>
 										            <div class="ms-3">
 											            @Html.UserLink(item.UserID,

@@ -176,6 +176,13 @@ class FileUploader {
         const formData = new FormData();
         xhr.open('POST', url, true);
 
+        // the upload action validates the antiforgery token of the page
+        const token = document.querySelector('input[name="__RequestVerificationToken"]') as HTMLInputElement | null;
+
+        if (token) {
+            xhr.setRequestHeader('RequestVerificationToken', token.value);
+        }
+
         xhr.upload.addEventListener('progress', (e) => {
             this.updateProgress(index, (e.loaded * 100) / e.total || 100);
         });

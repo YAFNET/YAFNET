@@ -50,27 +50,46 @@ export function togglePassword(): void {
 	}
 }
 
-// Confirm Dialog
-document.addEventListener('click', (event) => {
-	const target = event.target as HTMLElement;
-	if (target.parentElement && target.parentElement.matches('[data-bs-toggle="confirm"]')) {
-		event.preventDefault();
-		const button = target.parentElement as HTMLElement;
+// Confirm Dialog, for every click of the button (also on its border, by keyboard or by the enter key in the form).
+// This file is part of several bundles (e.g. forumExtensions and post on the topic page), the handler must
+// only be added once, otherwise a second handler shows a second dialog and blocks the confirmed click.
+const confirmHandlerWindow = window as Window & { yafConfirmHandler?: boolean };
 
-		const text = button.dataset.title || '',
-			yes = button.dataset.yes || '',
-			no = button.dataset.no || '',
-			title = button.innerHTML;
+if (!confirmHandlerWindow.yafConfirmHandler) {
+	confirmHandlerWindow.yafConfirmHandler = true;
 
-		button.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+	document.addEventListener('click', confirmClick, false);
+}
 
-		bootboxConfirm(button, title, text, yes, no, (confirmed: boolean) => {
-			if (confirmed) {
-				button.click();
-			}
-		});
+function confirmClick(event: MouseEvent): void {
+	const button = (event.target as HTMLElement).closest<HTMLElement>('[data-bs-toggle="confirm"]');
+
+	if (!button) {
+		return;
 	}
-}, false);
+
+	// the click after the dialog was confirmed
+	if (button.dataset.confirmed) {
+		delete button.dataset.confirmed;
+		return;
+	}
+
+	event.preventDefault();
+
+	const text = button.dataset.title || '',
+		yes = button.dataset.yes || '',
+		no = button.dataset.no || '',
+		title = button.innerHTML;
+
+	button.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+
+	bootboxConfirm(button, title, text, yes, no, (confirmed: boolean) => {
+		if (confirmed) {
+			button.dataset.confirmed = 'true';
+			button.click();
+		}
+	});
+}
 
 export function bootboxConfirm (button: HTMLElement, title: string, message: string, yes: string, no: string, callback: (result: boolean) => void)  {
 	const options: any = {

@@ -24,9 +24,11 @@
 
 namespace YAF.Core.Services;
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using System.Web;
 
 using MimeKit;
 
@@ -122,7 +124,7 @@ public class TemplateEmail : IHaveServiceLocator
             fromAddress,
             subject,
             textBody,
-            await this.ProcessHtmlAsync(textBody));
+            await this.ProcessHtmlAsync());
     }
 
     /// <summary>
@@ -151,7 +153,7 @@ public class TemplateEmail : IHaveServiceLocator
             fromAddress,
             subject,
             textBody,
-            await this.ProcessHtmlAsync(textBody));
+            await this.ProcessHtmlAsync());
     }
 
     /// <summary>
@@ -165,6 +167,17 @@ public class TemplateEmail : IHaveServiceLocator
     /// </returns>
     public string ProcessTemplate(string templateName)
     {
+        return this.ProcessTemplate(templateName, value => value);
+    }
+
+    /// <summary>
+    /// Creates an email from a template, the values are changed with the format function.
+    /// </summary>
+    /// <param name="templateName">The template Name.</param>
+    /// <param name="formatValue">Changes the values before they are inserted.</param>
+    /// <returns>The process template.</returns>
+    private string ProcessTemplate(string templateName, Func<string, string> formatValue)
+    {
         var email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
 
         if (email.IsSet())
@@ -172,7 +185,7 @@ public class TemplateEmail : IHaveServiceLocator
             email = this.TemplateParams.Keys.Aggregate(
                 email,
                 (current, key) => this.TemplateParams[key].IsSet()
-                                      ? current.Replace(key, this.TemplateParams[key])
+                                      ? current.Replace(key, formatValue(this.TemplateParams[key]))
                                       : current.Replace(key, string.Empty));
         }
 
@@ -182,19 +195,28 @@ public class TemplateEmail : IHaveServiceLocator
     /// <summary>
     /// Load Email Template and inject content
     /// </summary>
-    /// <param name="textBody">
-    /// The text body.
-    /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private async Task<string> ProcessHtmlAsync(string textBody)
+    private async Task<string> ProcessHtmlAsync()
     {
         var path = this.Get<ITheme>().BuildMappedThemePath(this.HtmlTemplateFileName);
 
         var htmlTemplate = File.ReadAllText(path);
 
-        var formattedBody = await this.Get<IBBCodeService>().MakeHtmlAsync(textBody, true, true);
+        // the values are texts of users (topic names, names, report reasons...): the text is html encoded like
+        // the posts, and the brackets of the values are no bb codes (e.g. disguised links or code blocks, which
+        // the highlighter decodes), only the bb codes and links of the template text itself are formatted
+        const string bracketOpen = "\uE000";
+        const string bracketClose = "\uE001";
+
+        var textBody = this.ProcessTemplate(
+            $"{this.TemplateName}_TEXT",
+            value => value.Replace("[", bracketOpen).Replace("]", bracketClose)).Trim();
+
+        var encodedBody = HttpUtility.HtmlEncode(textBody).Replace(bracketOpen, "&#91;").Replace(bracketClose, "&#93;");
+
+        var formattedBody = await this.Get<IBBCodeService>().MakeHtmlAsync(encodedBody, true, true);
 
         this.TemplateParams["{manageText}"] = this.Get<ILocalization>().GetText("DIGEST", "REMOVALTEXT", this.TemplateLanguageFile);
 

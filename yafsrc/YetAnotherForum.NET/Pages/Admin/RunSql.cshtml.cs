@@ -50,6 +50,19 @@ public class RunSqlModel : AdminPage
     }
 
     /// <summary>
+    /// Only the host admin can use this page: it works on the whole database (all boards),
+    /// it can't be granted to the admins of a board.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        {
+            context.Result = this.Get<ILinkBuilder>().AccessDenied();
+        }
+    }
+
+    /// <summary>
     /// Creates page links for this page.
     /// </summary>
     public override void CreatePageLinks()

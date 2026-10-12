@@ -1234,7 +1234,7 @@
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{Úspešne importované nové e-mailové adresy."
+            "#text": "{0} Úspešne importované nové e-mailové adresy."
           },
           {
             "@tag": "NOTE",
@@ -2941,6 +2941,10 @@
           {
             "@tag": "TITLE",
             "#text": "Pridať/upraviť medailu"
+          },
+          {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Odstrániť medailu od tejto skupiny?"
           }
         ]
       },
@@ -3253,6 +3257,10 @@
             "#text": "Je schválená:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "Používateľský účet je schválený a používateľ sa môže prihlásiť."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Zobrazenie názvu:"
           },
@@ -3271,6 +3279,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Je hosťom:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "Toto je účet hosťa, používa sa pre všetkých návštevníkov, ktorí nie sú prihlásení."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -3899,6 +3911,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Vyberte si službu na automatickú kontrolu SPAMu:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5563,8 +5579,8 @@
             "#text": "dni"
           },
           {
-            "@tag": "DELETE_UNREAD",
-            "#text": "Odstránenie neprečítaných správ starších ako:"
+            "@tag": "DELETE_OLDER",
+            "#text": "Odstránenie správ starších ako:"
           },
           {
             "@tag": "HEADER",
@@ -5945,16 +5961,16 @@
             "#text": "Restarting the application will reload all .config files."
           },
           {
-            "@tag": "TITLE",
-            "#text": "Reštartovanie aplikácie"
-          },
-          {
             "@tag": "RESTART_TIMEOUT",
             "#text": "Aplikácia sa nevrátila. "
           },
           {
             "@tag": "RESTARTING",
             "#text": "Aplikácia sa reštartuje. "
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Reštartovanie aplikácie"
           }
         ]
       },
@@ -6282,6 +6298,10 @@
             "#text": "Poradie:"
           },
           {
+            "@tag": "RANK_HELP",
+            "#text": "Hodnosť používateľa, postupové hodnosti sa menia s počtom príspevkov."
+          },
+          {
             "@tag": "ROLE",
             "#text": "Úloha:"
           },
@@ -6602,6 +6622,10 @@
       {
         "@name": "APPROVE",
         "Resource": [
+          {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Vaša nová e-mailová adresa bola potvrdená."
+          },
           {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Vaša e-mailová adresa bola overená."
@@ -7212,6 +7236,10 @@
       {
         "@name": "COMMON",
         "Resource": [
+          {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Vložte obrázok albumu"
+          },
           {
             "@tag": "ATTACH_BBCODE",
             "#text": "Vložte existujúcu prílohu alebo nahrajte nový súbor..."
@@ -8918,6 +8946,10 @@
             "#text": "Dôvod zmazania"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Odstrániť túto správu"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Vymazanie správy z databázy (nezvratné)"
           },
@@ -8960,6 +8992,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Zrušenie dôvodu vymazania"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Obnovte túto správu"
           },
           {
             "@tag": "WAIT",
@@ -9065,6 +9101,10 @@
             "#text": "Zruš personifikáciu"
           },
           {
+            "@tag": "AVATARMODEL",
+            "#text": "Aktuálny avatar"
+          },
+          {
             "@tag": "AVATARREMOTE",
             "#text": "Vlož URL personifikácie na vzdialenom serveri:"
           },
@@ -9150,12 +9190,24 @@
             "#text": "Zmeniť e-mailovú adresu"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Potvrdzovací odkaz bol odoslaný na adresu {0}. Vaša e-mailová adresa bude zmenená po otvorení odkazu."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Potvrďte svoju novú e-mailovú adresu pre fórum {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Mesto:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Krajina:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Aktuálne heslo"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9214,6 +9266,10 @@
             "#text": "{0} je potrebné"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} musí byť číslo"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Iné"
           },
@@ -9260,6 +9316,10 @@
           {
             "@tag": "WHERE",
             "#text": "Mesto"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Zadané heslo nie je správne."
           }
         ]
       },
@@ -9367,6 +9427,10 @@
           {
             "@tag": "TO",
             "#text": "Poslať na (e-mailová adresa):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Odoslali ste príliš veľa e-mailov, skúste to znova neskôr."
           }
         ]
       },
@@ -10218,6 +10282,10 @@
             "#text": "Všetky"
           },
           {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Zobraziť používateľov začínajúcich na {0}"
+          },
+          {
             "@tag": "AVATAR",
             "#text": "Avatar"
           },
@@ -10460,6 +10528,10 @@
           {
             "@tag": "BY",
             "#text": "od {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Témy je možné presunúť iba do fóra, vyberte prosím fórum, nie kategóriu."
           },
           {
             "@tag": "CONFIRM_DELETE",
@@ -11543,6 +11615,10 @@
             "#text": "E-mail:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "E-mailová adresa používateľa."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Členstvo prerušené do:"
           },
@@ -11583,12 +11659,20 @@
             "#text": "Členom od:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "Dátum registrácie používateľa."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Posledných 10 správ"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Posledná návšteva:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "Dátum poslednej návštevy používateľa."
           },
           {
             "@tag": "LOCATION",
@@ -11716,16 +11800,12 @@
             "#text": "Vaše konto ešte nebolo schválené správcom. Heslo si nemôžete obnoviť, kým nebude schválené."
           },
           {
-            "@tag": "ACCOUNT_NOT_APPROVED_VERIFICATION",
-            "#text": "Vaše konto ešte nie je schválené, pretože ste nepotvrdili svoj e-mail. Nové potvrdenie e-mailu bolo odoslané na adresu {0}. Prosím, overte ho, aby ste sa mohli prihlásiť."
-          },
-          {
             "@tag": "PAGE1_INSTRUCTIONS",
             "#text": "Enter your User Name to retrieve your password:"
           },
           {
-            "@tag": "SUCCESS",
-            "#text": "Na vašu e-mailovú adresu bol odoslaný e-mail s odkazom na resetovanie!"
+            "@tag": "SUCCESS_IF_EXISTS",
+            "#text": "Ak účet s týmto používateľským menom alebo e-mailovou adresou existuje, na jeho e-mailovú adresu bol odoslaný e-mail."
           },
           {
             "@tag": "TITLE",
@@ -12234,6 +12314,10 @@
           {
             "@tag": "PASSWORD_WEAK",
             "#text": "Slabé heslo, skúste použiť čísla a veľké písmená."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Nové heslo pre {0} Fórum"
           },
           {
             "@tag": "PROFILE",
@@ -12880,6 +12964,15 @@
           {
             "@tag": "LIGHT",
             "#text": "Osvetlenie"
+          }
+        ]
+      },
+      {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
           }
         ]
       },

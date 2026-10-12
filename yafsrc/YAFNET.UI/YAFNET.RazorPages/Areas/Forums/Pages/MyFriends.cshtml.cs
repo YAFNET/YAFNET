@@ -97,15 +97,22 @@ public class FriendsModel : ForumPageRegistered
     }
 
     /// <summary>
+    /// The friend list must be enabled (all handlers).
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
+    {
+        if (!this.PageBoardContext.BoardSettings.EnableBuddyList)
+        {
+            context.Result = this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+    }
+
+    /// <summary>
     /// The on get.
     /// </summary>
     public IActionResult OnGet()
     {
-        if (!this.PageBoardContext.BoardSettings.EnableBuddyList)
-        {
-            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-        }
-
         this.Mode = FriendMode.Friends.ToInt();
 
         return this.BindData();
@@ -127,7 +134,7 @@ public class FriendsModel : ForumPageRegistered
     public IActionResult OnPostRemove(int userId)
     {
         this.PageBoardContext.SessionNotify(
-            string.Format(this.GetText("REMOVEBUDDY_NOTIFICATION"), this.Get<IFriends>().Remove(userId)),
+            string.Format(this.GetText("REMOVEBUDDY_NOTIFICATION"), this.HtmlEncode(this.Get<IFriends>().Remove(userId))),
             MessageTypes.success);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
@@ -156,14 +163,16 @@ public class FriendsModel : ForumPageRegistered
     {
         var user = this.GetRepository<User>().GetById(userId);
 
-        var buddyUser = new BuddyUser { UserID = user.ID, Activity = user.Activity };
-
-        this.Get<IFriends>().ApproveRequest(buddyUser);
+        // only an existing request of that user can be approved
+        if (user is null || !this.Get<IFriends>().ApproveRequest(new BuddyUser { UserID = user.ID, Activity = user.Activity }))
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
+        }
 
         this.PageBoardContext.SessionNotify(
             string.Format(
                 this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
-                user.DisplayOrUserName()),
+                this.HtmlEncode(user.DisplayOrUserName())),
             MessageTypes.success);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);

@@ -18,7 +18,7 @@
    
     <form method="post">
         <p>
-            @Html.LocalizedTextFormatted("COOKIE", Current.BoardSettings.Name)
+            @Html.LocalizedTextFormatted("COOKIE", Html.Encode(Current.BoardSettings.Name))
             <a asp-page="@ForumPages.Cookies.GetPageName()" button-style="Link"
                text-localized-page="COOKIE" text-localized-tag="COOKIE_DETAILS">
             </a>

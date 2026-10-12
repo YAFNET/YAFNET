@@ -44,6 +44,7 @@ using YAF.Types.Constants;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Identity;
 using YAF.Types.Interfaces.Services;
 using YAF.Types.Modals;
 using YAF.Types.Models;
@@ -66,6 +67,8 @@ public class ControllerActionTests
 
     private ISessionService session;
 
+    private IAspNetUsersHelper aspNetUsers;
+
     private int alice;
 
     private int bob;
@@ -81,12 +84,14 @@ public class ControllerActionTests
     {
         this.spamCheck = Substitute.For<ISpamCheck>();
         this.session = Substitute.For<ISessionService>();
+        this.aspNetUsers = Substitute.For<IAspNetUsersHelper>();
 
         this.board = new TestBoardContext(
             b =>
             {
                 b.RegisterInstance(this.spamCheck).As<ISpamCheck>();
                 b.RegisterInstance(this.session).As<ISessionService>();
+                b.RegisterInstance(this.aspNetUsers).As<IAspNetUsersHelper>();
                 b.RegisterInstance(Substitute.For<IUserDisplayName>()).As<IUserDisplayName>();
                 b.RegisterType<ActivityStream>().As<IActivityStream>();
                 b.RegisterType<ThankYou>().As<IThankYou>();
@@ -116,6 +121,22 @@ public class ControllerActionTests
     public void TearDown()
     {
         this.board?.Dispose();
+    }
+
+    [Test]
+    [Description("A quick reply notifies the mentioned users who can read the forum (like the reply page)")]
+    public async Task QuickReply_Mention_Test()
+    {
+        this.db.AddForumAccess(this.alice, this.forum);
+        this.board.PageUser.Activity = true;
+
+        var alice = this.Repository<User>().GetById(this.alice);
+        this.board.Current.Get<IUserDisplayName>().FindUserByName("Alice").Returns(alice);
+
+        await this.QuickReplyAsync("@[userlink]Alice[/userlink] did you see this?");
+
+        this.Repository<Activity>().Get(a => a.UserID == this.alice && a.FromUserID == this.bob)
+            .Should().ContainSingle(a => new ActivityFlags(a.Flags).WasMentioned);
     }
 
     [Test]
@@ -163,6 +184,46 @@ public class ControllerActionTests
         this.board.SetPage(lockedForum, lockedForumTopic);
 
         AssertDenied(await this.QuickReplyAsync("locked forum"));
+    }
+
+    [Test]
+    [Description("Quick replies in moderated forums need approval, unless the forum only moderates new topics, "
+                 + "the user has enough posts or is a moderator; moderated users always need approval")]
+    [TestCase(false, false, null, 0, false, false, true)]
+    [TestCase(true, false, null, 0, false, false, false)]
+    [TestCase(true, true, null, 0, false, false, true)]
+    [TestCase(true, false, 5, 10, false, false, true)]
+    [TestCase(true, false, 5, 2, false, false, false)]
+    [TestCase(true, false, null, 0, true, false, true)]
+    [TestCase(false, false, null, 0, false, true, false)]
+    public async Task QuickReply_Moderated_Forum_Test(
+        bool moderated,
+        bool newTopicsOnly,
+        int? moderatedPostCount,
+        int userPosts,
+        bool isModerator,
+        bool userModerated,
+        bool approved)
+    {
+        this.board.Current.GetRepository<Forum>().UpdateOnly(
+            () => new Forum
+            {
+                Flags = new ForumFlags { IsModerated = moderated }.BitValue,
+                IsModeratedNewTopicOnly = newTopicsOnly,
+                ModeratedPostCount = moderatedPostCount
+            },
+            f => f.ID == this.forum);
+        this.board.SetPage(this.forum, this.topic);
+
+        this.board.PageUser.NumPosts = userPosts;
+        this.board.PageUser.Flags = userModerated
+            ? this.board.PageUser.Flags | (int)UserFlags.Flags.Moderated
+            : this.board.PageUser.Flags;
+        this.board.PageLoad.ModeratorAccess = isModerator;
+
+        await this.QuickReplyAsync("reply in a moderated forum");
+
+        this.Messages.GetSingle(m => m.UserID == this.bob).MessageFlags.IsApproved.Should().Be(approved);
     }
 
     [Test]
@@ -216,6 +277,81 @@ public class ControllerActionTests
 
         this.Messages.GetSingle(m => m.UserID == this.bob).MessageFlags.IsApproved.Should().BeFalse();
         await this.board.Notifications.Received(1).ToModeratorsThatMessageNeedsApprovalAsync(this.forum, Arg.Any<int>(), false);
+
+        // the info page needs the info route value ("moderated"), otherwise no link can be built
+        this.board.LinkBuilder.Received(1).GetLink(
+            ForumPages.Info,
+            Arg.Is<object>(o => (int)o.GetType().GetProperty("info")!.GetValue(o) == (int)InfoMessage.Moderated));
+    }
+
+    [Test]
+    [Description("A quick reply is saved like the other post forms: no html, the content of code blocks is encoded "
+                 + "(the code highlighter decodes it once when the post is shown)")]
+    public async Task QuickReply_Code_Block_Encoded_Test()
+    {
+        await this.QuickReplyAsync("[code]<b>bold</b>[/code] <i>italic</i>");
+
+        this.Messages.GetSingle(m => m.UserID == this.bob).MessageText
+            .Should().Be("[code]&lt;b&gt;bold&lt;/b&gt;[/code] italic");
+    }
+
+    [Test]
+    [Description("The watch topic option of the quick reply subscribes and unsubscribes members and moderators")]
+    public async Task QuickReply_Watch_Topic_Test()
+    {
+        await this.QuickReplyAsync("watch it", true);
+        this.IsWatching(this.bob).Should().BeTrue();
+
+        this.Messages.Delete(m => m.UserID == this.bob);
+        await this.QuickReplyAsync("stop watching");
+        this.IsWatching(this.bob).Should().BeFalse();
+
+        // moderators skip the spam check, the option still applies
+        this.board.PageLoad.ModeratorAccess = true;
+        this.Messages.Delete(m => m.UserID == this.bob);
+        await this.QuickReplyAsync("moderator watches", true);
+        this.IsWatching(this.bob).Should().BeTrue();
+    }
+
+    [Test]
+    [Description("Users with auto watch get subscribed to the topic they reply to")]
+    public async Task QuickReply_Auto_Watch_Test()
+    {
+        this.board.Current.GetRepository<User>().UpdateOnly(() => new User { AutoWatchTopics = true }, u => u.ID == this.bob);
+        this.board.LoginAs(this.bob);
+        this.board.SetPage(this.forum, this.topic);
+        this.board.PageLoad.ReadAccess = true;
+        this.board.PageLoad.ReplyAccess = true;
+
+        await this.QuickReplyAsync("auto watched");
+
+        this.IsWatching(this.bob).Should().BeTrue();
+    }
+
+    [Test]
+    [Description("Spam is only logged with 'do nothing', with 'delete and ban' the reply is not saved")]
+    public async Task QuickReply_Spam_Log_And_Ban_Test()
+    {
+        this.spamCheck.CheckPostForSpam(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), out Arg.Any<string>())
+            .Returns(
+                c =>
+                {
+                    c[4] = "test";
+                    return true;
+                });
+
+        this.board.BoardSettings.SpamMessageHandling = (int)SpamPostHandling.DoNothing;
+        await this.QuickReplyAsync("logged spam");
+        this.Messages.GetSingle(m => m.UserID == this.bob).MessageFlags.IsApproved.Should().BeTrue("the spam is only logged");
+
+        this.Messages.Delete(m => m.UserID == this.bob);
+        this.board.BoardSettings.SpamMessageHandling = (int)SpamPostHandling.DeleteBanUser;
+        (await this.QuickReplyAsync("ban me")).Should().BeOfType<OkResult>();
+        this.Messages.Count(m => m.UserID == this.bob).Should().Be(0);
+        await this.aspNetUsers.Received(1).DeleteAndBanUserAsync(
+            Arg.Is<User>(u => u.ID == this.bob),
+            Arg.Any<YAF.Types.Models.Identity.AspNetUsers>(),
+            Arg.Any<string>());
     }
 
     [Test]
@@ -249,9 +385,29 @@ public class ControllerActionTests
         Notification(await this.CreateController<PostsModalController>().MoveTopic(new MoveTopicModal { ForumListSelected = this.forum }))
             .Message.Should().Be("pick another forum");
 
+        // only to forums the user moderates (here: bob is moderator of the current forum only)
+        this.board.Localization.Add("INFO", "TITLE_ACCESSDENIED", "access denied");
+        Notification(await this.CreateController<PostsModalController>().MoveTopic(new MoveTopicModal { ForumListSelected = target }))
+            .Message.Should().Be("access denied");
+        this.Topics.GetById(this.topic).ForumID.Should().Be(this.forum);
+
+        this.board.GrantAccess(this.bob, target, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
+
         await this.CreateController<PostsModalController>().MoveTopic(new MoveTopicModal { ForumListSelected = target });
 
         this.Topics.GetById(this.topic).ForumID.Should().Be(target);
+    }
+
+    [Test]
+    [Description("A topic can not be moved to a forum of another board, also not by an admin")]
+    public async Task MoveTopic_Other_Board_Test()
+    {
+        this.board.PageLoad.IsAdmin = true;
+        this.board.Localization.Add("INFO", "TITLE_ACCESSDENIED", "access denied");
+
+        Notification(await this.CreateController<PostsModalController>().MoveTopic(new MoveTopicModal { ForumListSelected = 9999 }))
+            .Message.Should().Be("access denied");
+        this.Topics.GetById(this.topic).ForumID.Should().Be(this.forum);
     }
 
     [Test]
@@ -278,6 +434,27 @@ public class ControllerActionTests
         await this.CreateController<PostsController>().MarkAsAnswer(carolsReply);
 
         this.Topics.GetAnswerMessage(this.topic).Should().BeNull("marking the answer again removes it");
+    }
+
+    [Test]
+    [Description("The flags of the page data can be outdated: a post deleted in the meantime is not undeleted by marking it as answer")]
+    public async Task MarkAsAnswer_Outdated_Page_Data_Test()
+    {
+        var bobsReply = this.db.AddMessage(this.topic, this.bob, "answer");
+        this.board.LoginAs(this.alice);
+
+        // the topic page was loaded before a moderator deleted the post
+        this.SessionMessages(bobsReply);
+
+        var deleted = new MessageFlags(this.Messages.GetById(bobsReply).Flags) { IsDeleted = true };
+        this.Messages.UpdateOnly(() => new Message { Flags = deleted.BitValue }, x => x.ID == bobsReply);
+
+        await this.CreateController<PostsController>().MarkAsAnswer(bobsReply);
+
+        var flags = this.Messages.GetById(bobsReply).MessageFlags;
+        flags.IsDeleted.Should().BeTrue("the post stays deleted");
+        flags.IsAnswer.Should().BeFalse();
+        this.Topics.GetAnswerMessage(this.topic).Should().BeNull();
     }
 
     [Test]
@@ -327,6 +504,27 @@ public class ControllerActionTests
     }
 
     [Test]
+    [Description("Votes are not counted in locked topics and for closed polls")]
+    public async Task Poll_Vote_Locked_And_Closed_Test()
+    {
+        var (pollId, choiceA, _) = this.AddPoll(this.topic, multipleChoice: false);
+        this.board.GrantAccess(this.bob, this.forum, TestDatabase.MemberAccess);
+
+        this.Topics.UpdateOnly(() => new Topic { Flags = (int)TopicFlags.Flags.IsLocked }, t => t.ID == this.topic);
+        await this.VoteAsync(choiceA, this.topic, pollId, this.forum);
+        this.Votes(choiceA).Should().Be(0, "the topic is locked");
+
+        this.Topics.UpdateOnly(() => new Topic { Flags = 0 }, t => t.ID == this.topic);
+        this.Repository<Poll>().UpdateOnly(() => new Poll { Closes = DateTime.UtcNow.AddMinutes(-1) }, p => p.ID == pollId);
+        await this.VoteAsync(choiceA, this.topic, pollId, this.forum);
+        this.Votes(choiceA).Should().Be(0, "the poll is closed");
+
+        this.Repository<Poll>().UpdateOnly(() => new Poll { Closes = DateTime.UtcNow.AddDays(2) }, p => p.ID == pollId);
+        await this.VoteAsync(choiceA, this.topic, pollId, this.forum);
+        this.Votes(choiceA).Should().Be(1, "the poll is open again");
+    }
+
+    [Test]
     [Description("The ids of a vote must belong together and the vote access is checked for the topic's forum")]
     public async Task Poll_Vote_Ids_Test()
     {
@@ -367,6 +565,21 @@ public class ControllerActionTests
         this.CreateController<ThankYouController>().AddThanks(int.MaxValue).Result.Should().BeOfType<NotFoundResult>();
 
         this.Repository<Thanks>().Count(t => true).Should().Be(0);
+    }
+
+    [Test]
+    [Description("Removing a thanks of an unreadable post shows nothing (the answer lists the users who thanked it)")]
+    public async Task Thanks_Remove_Hidden_Post_Test()
+    {
+        var hidden = this.db.AddForum("Hidden");
+        var hiddenPost = this.db.AddMessage(this.db.AddTopic(hidden, this.alice), this.alice, "secret");
+        this.Repository<Thanks>().Insert(
+            new Thanks { MessageID = hiddenPost, ThanksFromUserID = this.alice, ThanksToUserID = this.alice, ThanksDate = DateTime.UtcNow });
+
+        this.board.GrantAccess(this.bob, this.forum);
+
+        (await this.CreateController<ThankYouController>().RemoveThanks(hiddenPost)).Result.Should().BeOfType<NotFoundResult>();
+        (await this.CreateController<ThankYouController>().RemoveThanks(int.MaxValue)).Result.Should().BeOfType<NotFoundResult>();
     }
 
     [Test]
@@ -419,9 +632,14 @@ public class ControllerActionTests
         return this.board.CreateController<T>();
     }
 
-    private Task<IActionResult> QuickReplyAsync(string text)
+    private Task<IActionResult> QuickReplyAsync(string text, bool watch = false)
     {
-        return this.CreateController<PostsModalController>().Reply(new QuickReplyModal { QuickReplyEditor = text });
+        return this.CreateController<PostsModalController>().Reply(new QuickReplyModal { QuickReplyEditor = text, TopicWatch = watch });
+    }
+
+    private bool IsWatching(int userId)
+    {
+        return this.board.Current.GetRepository<WatchTopic>().Exists(w => w.UserID == userId && w.TopicID == this.topic);
     }
 
     private Task<IActionResult> VoteAsync(int choiceId, int topicId, int pollId, int forumId)

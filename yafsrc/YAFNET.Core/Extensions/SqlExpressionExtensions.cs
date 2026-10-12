@@ -36,12 +36,10 @@ public static class SqlExpressionExtensions
     /// </summary>
     /// <typeparam name="T">The type parameter</typeparam>
     /// <param name="expression">The expression.</param>
-    /// <param name="page">The page.</param>
+    /// <param name="page">The page (1 based, a page of 0 or less is the first page).</param>
     /// <param name="pageSize">Size of the page.</param>
     /// <returns>Adds the Limit to the Sql Expression</returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// page - Page must be a number greater than 0.
-    /// or
     /// pageSize - PageSize must be a number greater than 0.
     /// </exception>
     public static SqlExpression<T> Page<T>(this SqlExpression<T> expression, int? page, int? pageSize)
@@ -51,17 +49,14 @@ public static class SqlExpressionExtensions
             return expression;
         }
 
-        if (page <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(page), "Page must be a number greater than 0.");
-        }
-
         if (pageSize <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(pageSize), "PageSize must be a number greater than 0.");
         }
 
-        var skip = (page.Value - 1) * pageSize.Value;
+        // the page comes from the url: a huge page number must not overflow to a negative offset
+        // (the databases refuse it, SQLite shows the first page)
+        var skip = (int)Math.Min((Math.Max(page.Value, 1) - 1L) * pageSize.Value, int.MaxValue);
         var take = pageSize.Value;
 
         return expression.Limit(skip, take);

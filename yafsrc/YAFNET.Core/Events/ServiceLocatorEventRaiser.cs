@@ -90,7 +90,6 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
         this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(
             theHandler =>
             {
-                theHandler.Handle(eventObject);
 
                 try
                 {

@@ -45,7 +45,7 @@
 								<label asp-for="Input.YearsOld"
 								       localized-tag="LOCK_INACTIVE"></label>
 								<div class="input-group">
-									<input type="number" asp-for="Input.YearsOld"
+									<input type="number" asp-for="Input.YearsOld" min="1"
 									       class="form-control"/>
 
 									<div class="input-group-text">
@@ -174,7 +174,7 @@
 						<ul class="list-inline">
 							<li class="list-inline-item">
 								<strong>@Html.LocalizedText("ADMIN_USERS", "EMAIL"):</strong>
-								@Html.Raw(user.Email)
+								@user.Email
 							</li>
 							<li class="list-inline-item">
 								<strong>@Html.LocalizedText("ADMIN_USERS", "RANK") </strong>

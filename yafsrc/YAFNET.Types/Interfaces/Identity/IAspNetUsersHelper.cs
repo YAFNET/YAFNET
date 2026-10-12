@@ -95,9 +95,10 @@ public interface IAspNetUsersHelper
 
     /// <summary>
     /// For the admin function: approve all users. Approves all
-    /// users waiting for approval
+    /// users of the board waiting for approval (not the deleted ones)
     /// </summary>
-    Task ApproveAllAsync();
+    /// <param name="boardId">The board.</param>
+    Task ApproveAllAsync(int boardId);
 
     /// <summary>
     /// Approves the user.
@@ -109,12 +110,13 @@ public interface IAspNetUsersHelper
     Task<bool> ApproveUserAsync(int userId);
 
     /// <summary>
-    /// Deletes all Unapproved Users older then Cut Off DateTime
+    /// Deletes all Unapproved Users of the board older then Cut Off DateTime
     /// </summary>
+    /// <param name="boardId">The board.</param>
     /// <param name="createdCutoff">
     ///     The created cutoff.
     /// </param>
-    Task DeleteAllUnapprovedAsync(DateTime createdCutoff);
+    Task DeleteAllUnapprovedAsync(int boardId, DateTime createdCutoff);
 
     /// <summary>
     /// De-active all User accounts which are not active for x years
@@ -592,5 +594,5 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// Imports all AspNetUsers users in to the YAF DB, if they do not already exist.
     /// </summary>
-    void ImportAllMembershipUsers();
+    Task ImportAllMembershipUsersAsync();
 }

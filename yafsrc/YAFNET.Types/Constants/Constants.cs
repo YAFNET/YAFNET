@@ -36,6 +36,11 @@ public static class Constants
     public static readonly TimeSpan RegexTimeout = TimeSpan.FromSeconds(1);
 
     /// <summary>
+    ///   The session key of the "remember me" choice of the login while the two factor code is asked.
+    /// </summary>
+    public const string TwoFactorRememberMeSessionKey = "TwoFactorRememberMe";
+
+    /// <summary>
     /// Cache key constants
     /// </summary>
     public struct Cache
@@ -64,11 +69,6 @@ public static class Constants
         ///   The banned Country.
         /// </summary>
         public const string BannedCountry = "BannedCountry";
-
-        /// <summary>
-        ///  The board moderators cache.
-        /// </summary>
-        public const string BoardModerators = "BoardModerators";
 
         /// <summary>
         ///   The board admins cache.

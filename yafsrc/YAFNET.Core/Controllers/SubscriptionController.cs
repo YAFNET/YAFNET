@@ -22,6 +22,7 @@
  * under the License.
  */
 
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Attributes;
 
@@ -57,9 +58,12 @@ public partial class SubscriptionController : ForumBaseController
     [HttpPost("SubscribeDevice")]
     public async Task<IActionResult> SubscribeDevice([FromBody] DeviceSubscription deviceSubscription)
     {
-        if (!this.Get<VapidConfiguration>().IsPwaEnabled())
+        // guests get no notifications, the forum sends a request to the endpoint for every notification
+        if (!this.Get<VapidConfiguration>().IsPwaEnabled() || this.PageBoardContext.IsGuest
+            || deviceSubscription is null || !PushEndpointHelper.IsAllowedEndpoint(deviceSubscription.EndPoint)
+            || deviceSubscription.P256dh.IsNotSet() || deviceSubscription.Auth.IsNotSet())
         {
-            this.BadRequest();
+            return this.BadRequest();
         }
 
         var userAgent = this.HtmlEncode(this.HttpContext.Request.Headers.UserAgent.ToString());
@@ -90,12 +94,14 @@ public partial class SubscriptionController : ForumBaseController
     {
         if (!this.Get<VapidConfiguration>().IsPwaEnabled())
         {
-            this.BadRequest();
+            return this.BadRequest();
         }
 
-        var userAgent = UserAgentRegex().Replace(this.HttpContext.Request.Headers.UserAgent.ToString(), "*");
+        // the device is stored from the encoded user agent, see SubscribeDevice
+        var userAgent = this.HtmlEncode(this.HttpContext.Request.Headers.UserAgent.ToString());
+        var device = UserAgentRegex().Replace(userAgent, "*");
 
-        await this.GetRepository<DeviceSubscription>().DeleteSubscriptionAsync(userAgent);
+        await this.GetRepository<DeviceSubscription>().DeleteSubscriptionAsync(device);
 
         return this.Ok();
     }
