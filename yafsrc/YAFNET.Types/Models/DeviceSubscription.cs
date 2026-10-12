@@ -74,6 +74,7 @@ public class DeviceSubscription : IEntity, IHaveBoardID
     /// The end point.
     /// </value>
     [Required]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string EndPoint { get; set; }
 
     /// <summary>
