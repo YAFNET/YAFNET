@@ -72,4 +72,35 @@ public class ActiveUsersTests(ComposeScenario scenario) : DatabaseTestBase(scena
                         "The page size was not changed");
                 });
     }
+
+    /// <summary>
+    /// A visitor coming from a page with a long address (the referer is saved
+    /// in the active list, its column holds 500 characters) gets the forum page.
+    /// </summary>
+    [Test]
+    public async Task LongRefererIsShownTest()
+    {
+        // a new session, so the visitor is inserted into the active list
+        await using var guestContext = await this.Fixture.Context.Browser!.NewContextAsync(
+                                           new BrowserNewContextOptions
+                                               {
+                                                   BaseURL = this.TestSettings.TestForumUrl,
+                                                   IgnoreHTTPSErrors = true
+                                               });
+
+        var page = await guestContext.NewPageAsync();
+
+        var response = await page.GotoAsync(
+                           this.TestSettings.TestForumUrl,
+                           new PageGotoOptions
+                               {
+                                   Referer = $"{this.TestSettings.TestForumUrl}Search?search={new string('a', 600)}"
+                               });
+
+        Assert.That(response, Is.Not.Null, "No response");
+
+        Assert.That(response!.Ok, Is.True, $"The forum answered {response.Status}");
+
+        Assert.That(await page.ContentAsync(), Does.Not.Contain("Forum Error"), "The error page is shown");
+    }
 }

@@ -407,6 +407,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Rarely a page failed with "Object reference not set to an instance of an object" (ForumPage): a background task started by a request (search index, digest, clean up) ran with the context of that request and could replace the board context of the page while it was loaded; the tasks run without the context of the request now
 * [FIXED] Rarely the first page of a new session failed with "Failure Initializing User/Page" (unique key of the active session): a parallel request of the same session saved the session after it was checked, the session is updated then now
 * [FIXED] MySQL: editing a post a second time in the same second failed with "Duplicate entry" (MySQL saves the time of a version in the message history in whole seconds, the time is part of its key): the new version gets the next second
+* [FIXED] PostgreSQL, SQL Server, MySQL: a visitor coming from a page with a long address (referer longer than 500 characters) got the error page "Failure Initializing User/Page" on every forum page instead of the forum: the referer, path, browser and platform saved in the active users list are cut to the length of their columns
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
