@@ -244,6 +244,28 @@ public class UserImportTests
             .SendRegistrationNotificationToUserAsync(default, default, default);
     }
 
+    [Test]
+    [Description("A user refused by the identity (e.g. a name with characters that are not allowed) gets no forum user and no mail")]
+    public async Task Import_Identity_Refuses_User_Test()
+    {
+        this.users.CreateUserAsync(Arg.Is<AspNetUsers>(u => u.UserName == "John Doe"), Arg.Any<string>())
+            .Returns(IdentityResult.Failed(new IdentityError { Code = "InvalidUserName" }));
+
+        var count = await this.importer.ImportingUsersAsync(
+                        Text("Name,Email\r\nJohn Doe,john@example.com\r\nalice,alice@example.com"),
+                        false);
+
+        count.Should().Be(1);
+        this.ForumUser("John Doe").Should().BeNull();
+        this.ForumUser("alice").Should().NotBeNull();
+
+        await this.roles.DidNotReceive().CreateForumUserAsync(Arg.Is<AspNetUsers>(u => u.UserName == "John Doe"), Arg.Any<int>());
+        await this.board.Notifications.Received(1).SendRegistrationNotificationToUserAsync(
+            Arg.Any<AspNetUsers>(),
+            Arg.Any<string>(),
+            "NOTIFICATION_ON_REGISTER");
+    }
+
     private User ForumUser(string name)
     {
         return this.board.Current.GetRepository<User>().GetSingle(u => u.Name == name);

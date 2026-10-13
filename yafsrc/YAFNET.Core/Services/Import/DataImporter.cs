@@ -34,6 +34,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Microsoft.Extensions.Logging;
+
 using YAF.Core.Model;
 using YAF.Types.Models;
 
@@ -613,7 +615,16 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             Profile_RealName = userProfile.RealName
         };
 
-        await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, pass);
+        var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, pass);
+
+        // refused by the identity (e.g. a name with characters that are not allowed or an invalid e-mail)
+        if (!result.Succeeded)
+        {
+            this.Get<ILogger<DataImporter>>().Warn(
+                $"User {user.UserName} not imported: {result.Errors.Select(e => e.Description).ToDelimitedString(", ")}");
+
+            return importCount;
+        }
 
         // setup initial roles (if any) for this user
         await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(BoardContext.Current.PageBoardID, user);
