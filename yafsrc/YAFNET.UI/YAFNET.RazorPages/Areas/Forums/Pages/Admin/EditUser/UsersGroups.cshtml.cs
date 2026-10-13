@@ -157,12 +157,12 @@ public class UsersGroupsModel : AdminPage
             // send notification to user
             if (addedRoles.Count != 0)
             {
-                await this.Get<ISendNotification>().SendRoleAssignmentNotificationAsync(user.Item2, addedRoles);
+                await this.Get<ISendNotification>().SendRoleAssignmentNotificationAsync(user.Item1, addedRoles);
             }
 
             if (removedRoles.Count != 0)
             {
-                await this.Get<ISendNotification>().SendRoleUnAssignmentNotificationAsync(user.Item2, removedRoles);
+                await this.Get<ISendNotification>().SendRoleUnAssignmentNotificationAsync(user.Item1, removedRoles);
             }
         }
 

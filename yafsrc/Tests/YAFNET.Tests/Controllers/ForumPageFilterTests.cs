@@ -221,7 +221,7 @@ public class ForumPageFilterTests
 
         (await this.RunAsync(new TestPage(ForumPages.Index))).Result.Should().BeNull();
         this.board.Current.GetRepository<User>().GetById(this.board.PageLoad.UserID).Suspended.Should().BeNull();
-        await this.board.Notifications.Received(1).SendUserSuspensionEndedNotificationAsync(Arg.Any<string>(), Arg.Any<string>());
+        await this.board.Notifications.Received(1).SendUserSuspensionEndedNotificationAsync(Arg.Any<User>());
     }
 
     [Test]

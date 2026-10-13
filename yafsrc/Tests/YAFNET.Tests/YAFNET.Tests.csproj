@@ -13,6 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\YetAnotherForum.NET\wwwroot\languages\english.json" Link="languages\english.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\YetAnotherForum.NET\wwwroot\languages\german-du.json" Link="languages\german-du.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAFNET.Core\YAFNET.Core.csproj" />

@@ -445,14 +445,14 @@ public class SendNotificationTests
             .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_USER_TEXT", "{user} suspended: {suspendReason}")
             .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT", "{user} is back on {forumname}");
 
-        var aspNetUser = new AspNetUsers { UserName = "Bob", Email = "bob@example.com" };
+        var user = this.board.Current.GetRepository<User>().GetById(this.bob);
 
         await this.Notifications.ToUserWithNewMedalAsync(this.bob, "Gold");
         await this.Notifications.ToUserWithNewMedalAsync(-1, "None");
-        await this.Notifications.SendRoleAssignmentNotificationAsync(aspNetUser, ["Editors", "Testers"]);
-        await this.Notifications.SendRoleUnAssignmentNotificationAsync(aspNetUser, ["Guests"]);
-        await this.Notifications.SendUserSuspensionNotificationAsync(DateTime.UtcNow.AddDays(1), "spam", "bob@example.com", "Bob");
-        await this.Notifications.SendUserSuspensionEndedNotificationAsync("bob@example.com", "Bob");
+        await this.Notifications.SendRoleAssignmentNotificationAsync(user, ["Editors", "Testers"]);
+        await this.Notifications.SendRoleUnAssignmentNotificationAsync(user, ["Guests"]);
+        await this.Notifications.SendUserSuspensionNotificationAsync(DateTime.UtcNow.AddDays(1), "spam", user);
+        await this.Notifications.SendUserSuspensionEndedNotificationAsync(user);
 
         this.mail.Sent.Select(m => m.TextBody).Should().Equal(
             "Bob got Gold",
@@ -464,6 +464,46 @@ public class SendNotificationTests
         this.mail.Sent[0].Subject.Should().Be("Medal on Test Forum");
         this.mail.Recipients.Should().OnlyContain(r => r == "bob@example.com");
         this.mail.Sent[0].HtmlBody.Should().StartWith("<html>").And.Contain("Bob got Gold");
+    }
+
+    [Test]
+    [Description("The role and suspension mails are sent by an admin, they are in the language of the user who gets them (not of the admin)")]
+    public async Task User_Notifications_Language_Of_The_User_Test()
+    {
+        this.board.BoardSettings.AllowUserLanguage = true;
+
+        // the templates are read from the language file of the user
+        File.Copy(
+            Path.Combine(TestContext.CurrentContext.TestDirectory, "languages", "german-du.json"),
+            Path.Combine(this.webRoot, "languages", "german-du.json"));
+
+        this.board.Localization
+            .Add("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT", "Roles on {0}")
+            .Add("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT", "Rollen in {0}", "german-du.json")
+            .Add("TEMPLATES", "NOTIFICATION_ROLE_ASSIGNMENT_TEXT", "{user} added {roles}")
+            .Add("TEMPLATES", "NOTIFICATION_ROLE_UNASSIGNMENT_TEXT", "{user} removed {roles}")
+            .Add("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT", "Suspension on {0}")
+            .Add("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT", "Sperrung in {0}", "german-du.json")
+            .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_USER_TEXT", "{user} suspended: {suspendReason}")
+            .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT", "{user} is back");
+
+        this.board.Current.GetRepository<User>().UpdateOnly(() => new User { LanguageFile = "german-du.json" }, u => u.ID == this.bob);
+
+        var user = this.board.Current.GetRepository<User>().GetById(this.bob);
+
+        await this.Notifications.SendRoleAssignmentNotificationAsync(user, ["Editors"]);
+        await this.Notifications.SendRoleUnAssignmentNotificationAsync(user, ["Guests"]);
+        await this.Notifications.SendUserSuspensionNotificationAsync(DateTime.UtcNow.AddDays(1), "spam", user);
+        await this.Notifications.SendUserSuspensionEndedNotificationAsync(user);
+
+        this.mail.Sent.Select(m => m.Subject).Should().Equal(
+            "Rollen in Test Forum",
+            "Rollen in Test Forum",
+            "Sperrung in Test Forum",
+            "Sperrung in Test Forum");
+
+        // the texts of the language file of the user, not the ones of the current language
+        this.mail.Sent.Should().OnlyContain(m => m.TextBody.TrimStart().StartsWith("Hello Bob"));
     }
 
     [Test]

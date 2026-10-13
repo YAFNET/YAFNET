@@ -96,9 +96,7 @@ public abstract class ForumPage : PageModel,
             {
                 await this.GetRepository<User>().SuspendAsync(BoardContext.Current.PageUserID);
 
-                await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
-                    BoardContext.Current.PageUser.Email,
-                    BoardContext.Current.PageUser.DisplayOrUserName());
+                await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(BoardContext.Current.PageUser);
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(BoardContext.Current.PageUserID));
             }

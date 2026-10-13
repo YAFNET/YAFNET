@@ -104,16 +104,16 @@ public interface ISendNotification
     /// <summary>
     /// Sends the role assignment notification.
     /// </summary>
-    /// <param name="user">The user.</param>
+    /// <param name="user">The user (the mail is in the language of the user).</param>
     /// <param name="addedRoles">The added roles.</param>
-    Task SendRoleAssignmentNotificationAsync(AspNetUsers user, List<string> addedRoles);
+    Task SendRoleAssignmentNotificationAsync(User user, List<string> addedRoles);
 
     /// <summary>
     /// Sends the role un assignment notification.
     /// </summary>
-    /// <param name="user">The user.</param>
+    /// <param name="user">The user (the mail is in the language of the user).</param>
     /// <param name="removedRoles">The removed roles.</param>
-    Task SendRoleUnAssignmentNotificationAsync(AspNetUsers user, List<string> removedRoles);
+    Task SendRoleUnAssignmentNotificationAsync(User user, List<string> removedRoles);
 
     /// <summary>
     /// The send registration notification email.
@@ -153,20 +153,17 @@ public interface ISendNotification
     /// </summary>
     /// <param name="suspendedUntil">The suspended until.</param>
     /// <param name="suspendReason">The suspend reason.</param>
-    /// <param name="email">The email.</param>
-    /// <param name="userName">Name of the user.</param>
+    /// <param name="user">The user (the mail is in the language of the user).</param>
     Task SendUserSuspensionNotificationAsync(
         DateTime suspendedUntil,
         string suspendReason,
-        string email,
-        string userName);
+        User user);
 
     /// <summary>
     /// Sends the user a suspension ended notification.
     /// </summary>
-    /// <param name="email">The email.</param>
-    /// <param name="userName">Name of the user.</param>
-    Task SendUserSuspensionEndedNotificationAsync(string email, string userName);
+    /// <param name="user">The user (the mail is in the language of the user).</param>
+    Task SendUserSuspensionEndedNotificationAsync(User user);
 
     /// <summary>
     /// The send password reset.

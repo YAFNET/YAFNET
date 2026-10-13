@@ -394,49 +394,55 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <summary>
     /// Sends the role un assignment notification.
     /// </summary>
-    /// <param name="user">The user.</param>
+    /// <param name="user">The user (the mail is in the language of the user).</param>
     /// <param name="removedRoles">The removed roles.</param>
-    public Task SendRoleUnAssignmentNotificationAsync(AspNetUsers user, List<string> removedRoles)
+    public Task SendRoleUnAssignmentNotificationAsync(User user, List<string> removedRoles)
     {
-        var subject = this.Get<ILocalization>().GetTextFormatted(
-            "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
+        var languageFile = UserHelper.GetUserLanguageFile(user);
+
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT", languageFile),
             this.BoardSettings.Name);
 
         var templateEmail = new TemplateEmail("NOTIFICATION_ROLE_UNASSIGNMENT")
                                 {
+                                    TemplateLanguageFile = languageFile,
                                     TemplateParams =
                                         {
-                                            ["{user}"] = user.UserName,
+                                            ["{user}"] = user.Name,
                                             ["{roles}"] = removedRoles.ToDelimitedString(","),
                                             ["{forumname}"] = this.BoardSettings.Name
                                         }
                                 };
 
-        return templateEmail.SendEmailAsync(new MailboxAddress(user.UserName, user.Email), subject);
+        return templateEmail.SendEmailAsync(new MailboxAddress(user.Name, user.Email), subject);
     }
 
     /// <summary>
     /// Sends the role assignment notification.
     /// </summary>
-    /// <param name="user">The user.</param>
+    /// <param name="user">The user (the mail is in the language of the user).</param>
     /// <param name="addedRoles">The added roles.</param>
-    public Task SendRoleAssignmentNotificationAsync(AspNetUsers user, List<string> addedRoles)
+    public Task SendRoleAssignmentNotificationAsync(User user, List<string> addedRoles)
     {
-        var subject = this.Get<ILocalization>().GetTextFormatted(
-            "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
+        var languageFile = UserHelper.GetUserLanguageFile(user);
+
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT", languageFile),
             this.BoardSettings.Name);
 
         var templateEmail = new TemplateEmail("NOTIFICATION_ROLE_ASSIGNMENT")
                                 {
+                                    TemplateLanguageFile = languageFile,
                                     TemplateParams =
                                         {
-                                            ["{user}"] = user.UserName,
+                                            ["{user}"] = user.Name,
                                             ["{roles}"] = addedRoles.ToDelimitedString(","),
                                             ["{forumname}"] = this.BoardSettings.Name
                                         }
                                 };
 
-        return templateEmail.SendEmailAsync(new MailboxAddress(user.UserName, user.Email), subject);
+        return templateEmail.SendEmailAsync(new MailboxAddress(user.Name, user.Email), subject);
     }
 
     /// <summary>
@@ -620,20 +626,22 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="suspendedUntil">The suspended until.</param>
     /// <param name="suspendReason">The suspend reason.</param>
-    /// <param name="email">The email.</param>
-    /// <param name="userName">Name of the user.</param>
+    /// <param name="user">The user (the mail is in the language of the user).</param>
     public Task SendUserSuspensionNotificationAsync(
         DateTime suspendedUntil,
         string suspendReason,
-        string email,
-        string userName)
+        User user)
     {
-        var subject = this.Get<ILocalization>().GetTextFormatted(
-            "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
+        var languageFile = UserHelper.GetUserLanguageFile(user);
+        var userName = user.DisplayOrUserName();
+
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT", languageFile),
             this.BoardSettings.Name);
 
         var notifyUser = new TemplateEmail("NOTIFICATION_ON_SUSPENDING_USER")
                              {
+                                 TemplateLanguageFile = languageFile,
                                  TemplateParams =
                                      {
                                          ["{user}"] = userName,
@@ -643,26 +651,29 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        return notifyUser.SendEmailAsync(new MailboxAddress(userName, email), subject);
+        return notifyUser.SendEmailAsync(new MailboxAddress(userName, user.Email), subject);
     }
 
     /// <summary>
     /// Sends the user a suspension notification.
     /// </summary>
-    /// <param name="email">The email.</param>
-    /// <param name="userName">Name of the user.</param>
-    public Task SendUserSuspensionEndedNotificationAsync(string email, string userName)
+    /// <param name="user">The user (the mail is in the language of the user).</param>
+    public Task SendUserSuspensionEndedNotificationAsync(User user)
     {
-        var subject = this.Get<ILocalization>().GetTextFormatted(
-            "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
+        var languageFile = UserHelper.GetUserLanguageFile(user);
+        var userName = user.DisplayOrUserName();
+
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT", languageFile),
             this.BoardSettings.Name);
 
         var notifyUser = new TemplateEmail("NOTIFICATION_ON_SUSPENDING_ENDED_USER")
                              {
+                                 TemplateLanguageFile = languageFile,
                                  TemplateParams = {["{user}"] = userName, ["{forumname}"] = this.BoardSettings.Name}
                              };
 
-        return notifyUser.SendEmailAsync(new MailboxAddress(userName, email), subject);
+        return notifyUser.SendEmailAsync(new MailboxAddress(userName, user.Email), subject);
     }
 
     /// <summary>

@@ -123,9 +123,7 @@ public class UsersSuspendModel : AdminPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
-        await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
-            this.EditUser.Item1.Email,
-            this.EditUser.Item1.DisplayOrUserName());
+        await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(this.EditUser.Item1);
 
         this.PageBoardContext.SessionNotify(
             $"User {this.HtmlEncode(this.EditUser.Item1.DisplayOrUserName())} was un-suspended by {this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName())}.",
@@ -227,8 +225,7 @@ public class UsersSuspendModel : AdminPage
         await this.Get<ISendNotification>().SendUserSuspensionNotificationAsync(
             this.Get<IDateTimeService>().GetUserDateTime(suspend, this.EditUser.Item1.TimeZoneInfo),
             this.Input.SuspendedReason,
-            this.EditUser.Item1.Email,
-            this.EditUser.Item1.DisplayOrUserName());
+            this.EditUser.Item1);
 
         this.Input.SuspendedReason = string.Empty;
 
