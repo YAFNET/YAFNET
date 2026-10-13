@@ -2685,6 +2685,10 @@
             "#text": "Si esto está seleccionado, todos los usuarios nuevos serán miembros de este rol.\r\n<br /><span style=\"color:red\">[b]Advertencia:[/b] Al menos un grupo necesita tener marcado este check o los usuarios nuevos no podrán registrarse.[/b]</span>"
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Ya existe un grupo con ese nombre."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Debe introducir un nombre de función."
           },
@@ -2731,10 +2735,6 @@
           {
             "@tag": "TITLE",
             "#text": "Añadir/Editar rol"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Ya existe un grupo con ese nombre."
           }
         ]
       },
@@ -3046,6 +3046,10 @@
           {
             "@tag": "TITLE",
             "#text": "Añadir/Editar rango"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Ya existe un rango con ese nombre."
           }
         ]
       },

@@ -2689,6 +2689,10 @@
             "#text": "Bu işaretlenirse, tüm yeni kullanıcılar bu rolün bir üyesi olacaktır. <br /><span style=\"color:red\">[b]Uyarı:[/b] en az bir Grupta bu Onay kutusunun etkinleştirilmiş olması gerekir, aksi takdirde yeni kullanıcılar kayıt olamaz[/b]</span>."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Böyle bir ada sahip bir grup zaten mevcut."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Bir Rol adı girmeniz gerekir."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rol Ekle/Düzenle"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Böyle bir ada sahip bir grup zaten mevcut."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rütbe Ekle/Düzenle"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Böyle bir ada sahip bir rütbe zaten mevcut."
           }
         ]
       },

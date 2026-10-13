@@ -2685,6 +2685,10 @@
             "#text": "Als deze is aangevinkt, worden alle nieuwe gebruikers lid van deze rol."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Er bestaat al een groep met een dergelijke naam."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "U moet een rolnaam invoeren."
           },
@@ -2731,10 +2735,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rollen Toevoegen/Bewerken"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Er bestaat al een groep met een dergelijke naam."
           }
         ]
       },
@@ -3046,6 +3046,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rangen bewerken/toevoegen"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Er bestaat al een rang met een dergelijke naam."
           }
         ]
       },

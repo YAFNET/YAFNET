@@ -108,6 +108,13 @@ public class EditRankModel : AdminPage
             rankId = this.Input.Id;
         }
 
+        // the name must be unique in the board (also when a rank is renamed), the database refuses a second one
+        if (await this.GetRepository<Rank>().ExistsAsync(
+                r => r.BoardID == this.PageBoardContext.PageBoardID && r.Name == this.Input.Name && r.ID != (rankId ?? 0)))
+        {
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITRANK", "MSG_RANK_EXISTS"), MessageTypes.warning);
+        }
+
         await this.GetRepository<Rank>().SaveAsync(
             rankId,
             this.PageBoardContext.PageBoardID,

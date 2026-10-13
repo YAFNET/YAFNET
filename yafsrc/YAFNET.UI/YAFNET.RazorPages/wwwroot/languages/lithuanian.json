@@ -2689,6 +2689,10 @@
             "#text": "Jei ši parinktis pažymėta, visi nauji naudotojai taps šio vaidmens nariais. <br /><span style=\"color:red\">[b]Įspėjimas:[/b] šis žymimasis langelis turi būti įjungtas bent vienoje grupėje, kitaip nauji naudotojai negalės registruotis.[/b]</span>"
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Grupė tokiu pavadinimu jau yra."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Reikia įvesti Vaidmens pavadinimą."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Pridėti / redaguoti vaidmenį"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Grupė tokiu pavadinimu jau yra."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Pridėti / redaguoti rangą"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Laipsnis tokiu pavadinimu jau yra."
           }
         ]
       },

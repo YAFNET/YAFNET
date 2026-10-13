@@ -2685,6 +2685,10 @@
             "#text": "If this is checked, all new users will be a member of this role."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Esiste già un gruppo con questo nome."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "È necessario inserire un nome di ruolo."
           },
@@ -2731,10 +2735,6 @@
           {
             "@tag": "TITLE",
             "#text": "Aggiungi/Modifica ruolo"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Esiste già un gruppo con questo nome."
           }
         ]
       },
@@ -3046,6 +3046,10 @@
           {
             "@tag": "TITLE",
             "#text": "Aggiungi/Modifica classifica"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Esiste già un rango con questo nome."
           }
         ]
       },

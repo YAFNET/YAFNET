@@ -2988,6 +2988,10 @@
                     "#text": "Minimum number of posts before users are advanced to this rank."
                 },
                 {
+                    "@tag": "MSG_RANK_EXISTS",
+                    "#text": "A rank with such a name already exists."
+                },
+                {
                     "@tag": "NEED_NAME",
                     "#text": "You must define a rank name."
                 },

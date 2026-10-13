@@ -2689,6 +2689,10 @@
             "#text": "Ak je táto možnosť začiarknutá, všetci noví používatelia budú členmi tejto role. <br /><span style=\"color:red\">[b]Upozornenie:[/b] aspoň jedna skupina musí mať toto políčko povolené, inak sa noví používatelia nebudú môcť zaregistrovať[/b]</span>."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Skupina s takýmto názvom už existuje."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Musíte zadať názov role."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Pridať/upraviť úlohu"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Skupina s takýmto názvom už existuje."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Pridať/upraviť hodnosť"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Hodnosť s takýmto názvom už existuje."
           }
         ]
       },

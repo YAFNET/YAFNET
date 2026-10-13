@@ -2689,6 +2689,10 @@
             "#text": "Hvis dette er markeret, vil alle nye brugere være medlem af denne rolle. "
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "En gruppe med et sådant navn findes allerede."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Du skal indtaste et rollenavn."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Tilføj/rediger rolle"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "En gruppe med et sådant navn findes allerede."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Tilføj/Rediger rang"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "En rang med et sådant navn findes allerede."
           }
         ]
       },

@@ -2689,6 +2689,10 @@
             "#text": "Dacă această opțiune este bifată, toți utilizatorii noi vor fi membri ai acestui rol. <br /><span style=\"color:red\">[b]Atenție:[/b] cel puțin un grup trebuie să aibă această casetă de selectare activată, altfel noii utilizatori nu se vor putea înregistra.[/b]</span>."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Un grup cu un astfel de nume există deja."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Trebuie să introduceți un nume de rol."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Adăugare/modificare rol"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Un grup cu un astfel de nume există deja."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Adăugare/modificare rang"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Un rang cu un astfel de nume există deja."
           }
         ]
       },

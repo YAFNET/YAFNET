@@ -102,6 +102,34 @@ public class RankTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A second rank with the name of an existing rank is refused with a warning: the database refused it (the
+    /// name is unique in the board) and the page failed with an error.
+    /// </summary>
+    [Test]
+    [Description("A rank name can't be used twice")]
+    public async Task RankNameCanNotBeUsedTwiceTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(await page.LoginAdminUserAsync(this.TestSettings), Is.True, "Login failed");
+
+                    var rankName = $"TwiceRank{Random.Shared.Next()}";
+
+                    for (var i = 0; i < 2; i++)
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditRank");
+                        await page.Locator("#Input_Name").FillAsync(rankName);
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'EditRank') and contains(@formaction,'Save')]"));
+                    }
+
+                    Assert.That(await page.ContentAsync(), Does.Contain("A rank with such a name already exists."), "The warning is missing");
+                    Assert.That(page.Url, Does.Contain("EditRank"), "The page is not shown again");
+                });
+    }
+
+    /// <summary>
     /// The signature BBCodes of a rank (e.g. "B,I") can be entered and are kept when the rank is saved again: the
     /// field was a number field, the browser showed it empty and saving the rank removed the BBCodes.
     /// </summary>

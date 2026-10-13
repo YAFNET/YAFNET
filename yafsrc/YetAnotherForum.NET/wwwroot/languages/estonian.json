@@ -2689,6 +2689,10 @@
             "#text": "Kui see on märgitud, on kõik uued kasutajad selle rolli liikmed. "
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Sellise nimega rühm on juba olemas."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Peate sisestama rolli nime."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Lisa/redigeeri rolli"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Sellise nimega rühm on juba olemas."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Lisa/redigeeri asetust"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Sellise nimega auaste on juba olemas."
           }
         ]
       },

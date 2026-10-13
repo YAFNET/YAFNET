@@ -2689,6 +2689,10 @@
             "#text": "Jos tämä on valittuna, kaikki uudet käyttäjät ovat tämän roolin jäseniä. <br /><span style=\"color:red\">[b]Varoitus:[/b] ainakin yhden ryhmän on oltava valittuna tai uudet käyttäjät eivät voi rekisteröityä[/b]</span>."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Ryhmä, jolla on tällainen nimi, on jo olemassa."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Sinun on annettava roolin nimi."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Lisää/muokkaa roolia"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Ryhmä, jolla on tällainen nimi, on jo olemassa."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Lisää/muokkaa sijoitusta"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Tämänniminen sijoitus on jo olemassa."
           }
         ]
       },

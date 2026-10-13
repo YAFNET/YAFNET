@@ -2685,6 +2685,10 @@
             "#text": "Wenn aktiviert werden alle neuen Benutzer ein Mitglied dieser Gruppe sein. <br /><span style=\"color:red\">[b]Warnung:[/b] Mindestens eine Gruppe Muss die Option aktiviert haben ansonsten können sich neue Benutzer nicht registrieren.</span>"
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Eine Gruppe mit einem solchen Namen existiert bereits."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Sie müssen einen Rollennamen eingeben."
           },
@@ -2731,10 +2735,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rolle Hinzufügen / Bearbeiten"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Eine Gruppe mit einem solchen Namen existiert bereits."
           }
         ]
       },
@@ -3046,6 +3046,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rang Hinzufügen / Bearbeiten"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Ein Rang mit einem solchen Namen existiert bereits."
           }
         ]
       },

@@ -2689,6 +2689,10 @@
             "#text": "Nếu điều này được chọn, tất cả người dùng mới sẽ là thành viên của vai trò này.<br /> <span style=\"color:red\">[b] Cảnh báo: [/ b] ít nhất một Nhóm cần bật Hộp kiểm này nếu không người dùng mới sẽ không thể đăng ký. [/ b]</span>"
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Một nhóm có tên như vậy đã tồn tại."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Bạn cần nhập tên Vai trò."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Thêm / Chỉnh sửa vai trò"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Một nhóm có tên như vậy đã tồn tại."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Thêm / Chỉnh sửa Xếp hạng"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Một cấp bậc có tên như vậy đã tồn tại."
           }
         ]
       },

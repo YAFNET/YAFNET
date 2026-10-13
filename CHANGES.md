@@ -441,6 +441,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin Edit Forum: a forum moved to another category left its sub forums in the old category (on their page the old category was shown above the moved parent forum, and the admin forum list showed them in the old category); the sub forums are moved with the forum
 * [FIXED] Admin Forums: copying a forum did not create a new forum, the save changed the copied forum to the values of the copy
 * [FIXED] Admin Edit Group: a new or renamed group with the name of an existing group failed with an error (the name is unique in the board); it is refused with a warning
+* [FIXED] Admin Edit Rank: a new or renamed rank with the name of an existing rank failed with an error (the name is unique in the board); it is refused with a warning
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

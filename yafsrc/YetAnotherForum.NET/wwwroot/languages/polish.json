@@ -2685,6 +2685,10 @@
             "#text": "Jeśli ta opcja jest zaznaczona, wszyscy nowi użytkownicy będą należeć do tej roli. <br /><span style=\"color:red\">[b]Ostrzeżenie:[/b] przynajmniej jedna Grupa musi mieć włączone to pole wyboru, w przeciwnym razie nowi użytkownicy nie będą mogli się zarejestrować.[/b]</span>."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Grupa o takiej nazwie już istnieje."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Należy wprowadzić nazwę roli."
           },
@@ -2731,10 +2735,6 @@
           {
             "@tag": "TITLE",
             "#text": "Dodaj/Edytuj rolę"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Grupa o takiej nazwie już istnieje."
           }
         ]
       },
@@ -3046,6 +3046,10 @@
           {
             "@tag": "TITLE",
             "#text": "Dodaj/Edytuj rangę"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Ranga o takiej nazwie już istnieje."
           }
         ]
       },

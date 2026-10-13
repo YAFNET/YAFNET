@@ -2689,6 +2689,10 @@
             "#text": "Si cette case est cochée, tous les nouveaux utilisateurs seront membres de ce rôle. <br /><span style=\"color:red\">[b]Attention :[/b] au moins un groupe doit avoir cette case à cocher activée, sinon les nouveaux utilisateurs ne pourront pas s'enregistrer.[/b]</span>."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Un groupe portant un tel nom existe déjà."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Vous devez saisir un nom de rôle."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Ajouter/Modifier un rôle"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "Un groupe portant un tel nom existe déjà."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Ajouter/modifier le rang"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Un rang portant un tel nom existe déjà."
           }
         ]
       },

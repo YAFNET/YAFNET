@@ -2689,6 +2689,10 @@
             "#text": "Hvis dette er merket av, vil alle nye brukere være medlemmer av denne rollen.<br /> <span style=\"color:red\">[b]Advarsel:[/b] minst én gruppe må ha denne avmerkingsboksen aktivert, ellers kan ikke nye brukere registrere seg.[/b]</span>"
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "En gruppe med et slikt navn eksisterer allerede."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Du må angi et rollenavn."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Legg til/rediger rolle"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "En gruppe med et slikt navn eksisterer allerede."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Legg til/rediger rangering"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "En rangering med et slikt navn finnes allerede."
           }
         ]
       },

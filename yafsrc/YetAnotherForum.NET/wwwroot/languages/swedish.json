@@ -2689,6 +2689,10 @@
             "#text": "Om detta är markerat kommer alla nya användare att vara medlemmar i denna roll. <br /><span style=\"color:red\">[b]Varning:[/b] minst en grupp måste ha den här kryssrutan aktiverad, annars kan nya användare inte registrera sig.[/b]</span>"
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "En grupp med ett sådant namn finns redan."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Du måste ange ett rollnamn."
           },
@@ -2735,10 +2739,6 @@
           {
             "@tag": "TITLE",
             "#text": "Lägg till/redigera roll"
-          },
-          {
-            "@tag": "MSG_GROUP_EXISTS",
-            "#text": "En grupp med ett sådant namn finns redan."
           }
         ]
       },
@@ -3054,6 +3054,10 @@
           {
             "@tag": "TITLE",
             "#text": "Lägg till/redigera rang"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "En rang med ett sådant namn finns redan."
           }
         ]
       },
