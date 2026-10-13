@@ -73,7 +73,8 @@ public class SendPushNotification : IHaveServiceLocator, ISendPushNotification
     /// <param name="newTopic">if set to <c>true</c> [new topic].</param>
     /// <param name="subject">The subject.</param>
     /// <param name="topicLink">The topic link.</param>
-    public async Task SendTopicPushNotificationAsync(User user, Message message, bool newTopic, string subject, string topicLink)
+    /// <param name="languageFile">The language file of the user.</param>
+    public async Task SendTopicPushNotificationAsync(User user, Message message, bool newTopic, string subject, string topicLink, string languageFile)
     {
         // Get the user's push subscription(s)
         var subscriptions = await this.GetRepository<DeviceSubscription>()
@@ -86,28 +87,9 @@ public class SendPushNotification : IHaveServiceLocator, ISendPushNotification
             return;
         }
 
-        var icon = newTopic
-            ? "data:image/svg+xml,<svg style=\"fill:white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 640\"><!--!Font Awesome Free by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d=\"M416 208C416 305.2 330 384 224 384C197.3 384 171.9 379 148.8 370L67.2 413.2C57.9 418.1 46.5 416.4 39 409C31.5 401.6 29.8 390.1 34.8 380.8L70.4 313.6C46.3 284.2 32 247.6 32 208C32 110.8 118 32 224 32C330 32 416 110.8 416 208zM416 576C321.9 576 243.6 513.9 227.2 432C347.2 430.5 451.5 345.1 463 229.3C546.3 248.5 608 317.6 608 400C608 439.6 593.7 476.2 569.6 505.6L605.2 572.8C610.1 582.1 608.4 593.5 601 601C593.6 608.5 582.1 610.2 572.8 605.2L491.2 562C468.1 571 442.7 576 416 576z\"/></svg>"
-            : "data:image/svg+xml,<svg style=\"fill:white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 640\"><!--!Font Awesome Free by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d=\"M576 304C576 436.5 461.4 544 320 544C282.9 544 247.7 536.6 215.9 523.3L97.5 574.1C88.1 578.1 77.3 575.8 70.4 568.3C63.5 560.8 62 549.8 66.8 540.8L115.6 448.6C83.2 408.3 64 358.3 64 304C64 171.5 178.6 64 320 64C461.4 64 576 171.5 576 304z\"/></svg>";
+        var notification = this.GetTopicNotification(message, newTopic, subject, topicLink, languageFile);
 
-        var body = this.GetTopicNotificationText(message, newTopic);
-
-        // create message
-        var notification = new PushNotification()
-        {
-            Title = subject,
-            Body = body,
-            Image = "/assets/apple-splash-1136-640.webp",
-            UnreadCount = unreadWatchTopics,
-            Icon = icon,
-            Badge = icon,
-            Actions = new PushNotificationAction()
-            {
-                Url = topicLink,
-                Action = this.Get<ILocalization>().GetText("TOMESSAGE"),
-                Close = this.Get<ILocalization>().GetText("CLOSE_TEXT")
-            }
-        };
+        notification.UnreadCount = unreadWatchTopics;
 
         foreach (var deviceSubscription in subscriptions)
         {
@@ -116,29 +98,61 @@ public class SendPushNotification : IHaveServiceLocator, ISendPushNotification
     }
 
     /// <summary>
-    /// Sends the push notification to the device.
+    /// Gets the notification of a new topic or post, in the language of the user (not of the poster).
     /// </summary>
-    /// <param name="deviceSubscription">The device subscription.</param>
-    /// <param name="notification">The notification.</param>
+    /// <param name="message">The message (with its topic).</param>
+    /// <param name="newTopic">If it is a new topic.</param>
+    /// <param name="subject">The subject.</param>
+    /// <param name="topicLink">The topic link.</param>
+    /// <param name="languageFile">The language file of the user.</param>
+    /// <returns>The notification.</returns>
+    public PushNotification GetTopicNotification(Message message, bool newTopic, string subject, string topicLink, string languageFile)
+    {
+        var icon = newTopic
+            ? "data:image/svg+xml,<svg style=\"fill:white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 640\"><!--!Font Awesome Free by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d=\"M416 208C416 305.2 330 384 224 384C197.3 384 171.9 379 148.8 370L67.2 413.2C57.9 418.1 46.5 416.4 39 409C31.5 401.6 29.8 390.1 34.8 380.8L70.4 313.6C46.3 284.2 32 247.6 32 208C32 110.8 118 32 224 32C330 32 416 110.8 416 208zM416 576C321.9 576 243.6 513.9 227.2 432C347.2 430.5 451.5 345.1 463 229.3C546.3 248.5 608 317.6 608 400C608 439.6 593.7 476.2 569.6 505.6L605.2 572.8C610.1 582.1 608.4 593.5 601 601C593.6 608.5 582.1 610.2 572.8 605.2L491.2 562C468.1 571 442.7 576 416 576z\"/></svg>"
+            : "data:image/svg+xml,<svg style=\"fill:white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 640 640\"><!--!Font Awesome Free by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d=\"M576 304C576 436.5 461.4 544 320 544C282.9 544 247.7 536.6 215.9 523.3L97.5 574.1C88.1 578.1 77.3 575.8 70.4 568.3C63.5 560.8 62 549.8 66.8 540.8L115.6 448.6C83.2 408.3 64 358.3 64 304C64 171.5 178.6 64 320 64C461.4 64 576 171.5 576 304z\"/></svg>";
+
+        return new PushNotification
+               {
+                   Title = subject,
+                   Body = this.GetTopicNotificationText(message, newTopic, languageFile),
+                   Image = "/assets/apple-splash-1136-640.webp",
+                   Icon = icon,
+                   Badge = icon,
+                   Actions = new PushNotificationAction
+                             {
+                                 Url = topicLink,
+                                 Action = this.Get<ILocalization>().GetText("MESSAGEHISTORY", "TOMESSAGE", languageFile),
+                                 Close = this.Get<ILocalization>().GetText("POSTS", "CLOSE_TEXT", languageFile)
+                             }
+               };
+    }
+
     /// <summary>
     /// Gets the text of the notification of a new topic or post.
     /// </summary>
     /// <param name="message">The message (with its topic).</param>
     /// <param name="newTopic">If it is a new topic.</param>
+    /// <param name="languageFile">The language file of the user.</param>
     /// <returns>The text.</returns>
-    public string GetTopicNotificationText(Message message, bool newTopic)
+    public string GetTopicNotificationText(Message message, bool newTopic, string languageFile)
     {
         var postedUserName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
         // the notification is text: the topic name is stored html encoded (like in the mail, with the bad words replaced)
         var topicName = HttpUtility.HtmlDecode(this.Get<IBadWordReplace>().Replace(message.Topic.TopicName));
 
-        return this.Get<ILocalization>().GetTextFormatted(
-            newTopic ? "WATCH_FORUM_MSG" : "WATCH_TOPIC_MSG",
+        return string.Format(
+            this.Get<ILocalization>().GetText("ACCOUNT", newTopic ? "WATCH_FORUM_MSG" : "WATCH_TOPIC_MSG", languageFile),
             postedUserName,
             topicName);
     }
 
+    /// <summary>
+    /// Sends the push notification to the device.
+    /// </summary>
+    /// <param name="deviceSubscription">The device subscription.</param>
+    /// <param name="notification">The notification.</param>
     private async Task SendPushNotificationAsync(DeviceSubscription deviceSubscription, PushNotification notification)
     {
         var subject = $"mailto:{this.Get<BoardSettings>().ForumEmail}";

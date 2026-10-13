@@ -39,6 +39,8 @@ public class FakeLocalization : ILocalization
 {
     private readonly Dictionary<string, string> resources = new(StringComparer.OrdinalIgnoreCase);
 
+    private readonly Dictionary<string, string> languageResources = new(StringComparer.OrdinalIgnoreCase);
+
     public CultureInfo Culture { get; set; } = CultureInfo.InvariantCulture;
 
     public string LanguageCode => this.Culture.TwoLetterISOLanguageName;
@@ -55,6 +57,15 @@ public class FakeLocalization : ILocalization
     public FakeLocalization Add(string page, string tag, string text)
     {
         this.resources[Key(page, tag)] = text;
+        return this;
+    }
+
+    /// <summary>
+    /// Adds a text of another language file (only returned by <see cref="GetText(string, string, string)"/>).
+    /// </summary>
+    public FakeLocalization Add(string page, string tag, string text, string languageFile)
+    {
+        this.languageResources[$"{languageFile}:{Key(page, tag)}"] = text;
         return this;
     }
 
@@ -94,7 +105,9 @@ public class FakeLocalization : ILocalization
 
     public string GetText(string page, string tag, string languageFile)
     {
-        return this.GetText(page, tag);
+        return languageFile != null && this.languageResources.TryGetValue($"{languageFile}:{Key(page, tag)}", out var text)
+                   ? text
+                   : this.GetText(page, tag);
     }
 
     public string GetAttributeText(string text)

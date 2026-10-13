@@ -65,7 +65,12 @@ public class SendPushNotificationTests
 
         this.board.Localization
             .Add("DEFAULT", "WATCH_TOPIC_MSG", "{0} replied in {1}")
-            .Add("DEFAULT", "WATCH_FORUM_MSG", "{0} started {1}");
+            .Add("DEFAULT", "WATCH_FORUM_MSG", "{0} started {1}")
+            .Add("ACCOUNT", "WATCH_TOPIC_MSG", "{0} hat in {1} geantwortet", "german.json")
+            .Add("MESSAGEHISTORY", "TOMESSAGE", "Go to message")
+            .Add("MESSAGEHISTORY", "TOMESSAGE", "Zum Beitrag", "german.json")
+            .Add("POSTS", "CLOSE_TEXT", "Close")
+            .Add("POSTS", "CLOSE_TEXT", "Schließen", "german.json");
 
         this.board.Cache[Constants.Cache.ReplaceWords] = new List<BadWordReplaceItem>
         {
@@ -87,7 +92,27 @@ public class SendPushNotificationTests
 
         var push = new SendPushNotification(this.board.Resolve<IServiceLocator>());
 
-        push.GetTopicNotificationText(message, false).Should().Be("Alice replied in Tom & Jerry <3 ****");
-        push.GetTopicNotificationText(message, true).Should().Be("Alice started Tom & Jerry <3 ****");
+        push.GetTopicNotificationText(message, false, null).Should().Be("Alice replied in Tom & Jerry <3 ****");
+        push.GetTopicNotificationText(message, true, null).Should().Be("Alice started Tom & Jerry <3 ****");
+    }
+
+    [Test]
+    [Description("The notification is in the language of the user who gets it, not in the language of the poster")]
+    public void Topic_Notification_Language_Of_The_User_Test()
+    {
+        var message = new Message { UserID = 7, Topic = new Topic { TopicName = "Tom &amp; Jerry" } };
+
+        var push = new SendPushNotification(this.board.Resolve<IServiceLocator>());
+
+        var notification = push.GetTopicNotification(message, false, "Betreff", "https://forum/Post/1", "german.json");
+
+        notification.Title.Should().Be("Betreff");
+        notification.Body.Should().Be("Alice hat in Tom & Jerry geantwortet");
+        notification.Actions.Url.Should().Be("https://forum/Post/1");
+        notification.Actions.Action.Should().Be("Zum Beitrag");
+        notification.Actions.Close.Should().Be("Schließen");
+
+        push.GetTopicNotification(message, false, "Subject", "https://forum/Post/1", "english.json")
+            .Actions.Action.Should().Be("Go to message");
     }
 }

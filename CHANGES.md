@@ -423,6 +423,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Active Users: the pages of the list could not be changed (the pager was outside of the form) and the page size was not kept
 * [FIXED] Albums: an image with the same file name as another image of the album (e.g. phones name every photo "image.jpg") overwrote the file of the other image, both showed the new image and deleting one of them removed the file of the other; the name gets a number now ("image (2).jpg")
 * [FIXED] After a button of a page that shows the page again (e.g. "show posts" of an ignored user, a refused 2FA activation, "send the verification mail again", an album upload), the page stayed at the address of that action and the main button of the page posted to it again: the block options and the settings were not saved, the login sent the verification mail again instead of logging in, "Delete Album" did not delete a new album
+* [FIXED] The push notifications of watched topics and forums had the subject in the language of the user, but the text ("... replied to the topic ...") and the buttons in the language of the poster
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

@@ -308,7 +308,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             if (this.Get<VapidConfiguration>().IsPwaEnabled())
             {
                 await this.Get<ISendPushNotification>()
-                    .SendTopicPushNotificationAsync(user, message, newTopic, subject, topicLink);
+                    .SendTopicPushNotificationAsync(user, message, newTopic, subject, topicLink, languageFile);
             }
 
             watchEmail.TemplateLanguageFile = languageFile;
