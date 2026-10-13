@@ -97,7 +97,6 @@ public class ThankYouController : ForumBaseController
             ? this.NotFound()
             : this.Ok(
                 this.Get<IThankYou>().CreateThankYou(
-                    new UnicodeEncoder().XSSEncode(userName),
                     "BUTTON_THANKSDELETE",
                     "BUTTON_THANKSDELETE_TT",
                     messageId));
@@ -129,8 +128,6 @@ public class ThankYouController : ForumBaseController
             return this.NotFound();
         }
 
-        var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
-
         this.GetRepository<Thanks>().RemoveMessageThanks(
             userId,
             messageId);
@@ -141,6 +138,6 @@ public class ThankYouController : ForumBaseController
                 a => a.MessageID == messageId
                      && (a.Flags == 1024 && a.FromUserID == userId || a.Flags == 2048 && a.UserID == userId));
 
-        return this.Ok(this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));
+        return this.Ok(this.Get<IThankYou>().CreateThankYou("BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));
     }
 }

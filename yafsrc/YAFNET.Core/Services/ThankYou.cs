@@ -52,9 +52,6 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <summary>
     /// Creates an instance of the ThankYou object from the current information.
     /// </summary>
-    /// <param name="username">
-    /// The Current Username
-    /// </param>
     /// <param name="textTag">
     /// Button Text
     /// </param>
@@ -68,7 +65,6 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// Returns ThankYou Info
     /// </returns>
     public ThankYouInfo CreateThankYou(
-        string username,
         string textTag,
         string titleTag,
         int messageId)
@@ -76,7 +72,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
         return new ThankYouInfo
         {
                        MessageID = messageId,
-                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId),
+                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(messageId),
                        Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
                        Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
                    };
@@ -85,9 +81,6 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <summary>
     /// Creates an instance of the ThankYou object from the current information.
     /// </summary>
-    /// <param name="username">
-    /// The Current Username
-    /// </param>
     /// <param name="textTag">
     /// Button Text
     /// </param>
@@ -101,7 +94,6 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// Returns ThankYou Info
     /// </returns>
     public ThankYouInfo GetThankYou(
-        string username,
         string textTag,
         string titleTag,
         int messageId)
@@ -109,7 +101,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
         return new ThankYouInfo
         {
                        MessageID = messageId,
-                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId),
+                       ThanksInfo = this.Get<IThankYou>().ThanksInfo(messageId),
                        Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
                        Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
                    };
@@ -119,16 +111,13 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// This method returns a string which shows how many times users have
     ///   thanked the message with the provided messageID. Returns an empty string.
     /// </summary>
-    /// <param name="username">
-    /// The username.
-    /// </param>
     /// <param name="messageId">
     /// The Message ID.
     /// </param>
     /// <returns>
     /// The thanks number.
     /// </returns>
-    public string ThanksInfo(string username, int messageId)
+    public string ThanksInfo(int messageId)
     {
         var thanksNumber = this.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
 

@@ -136,25 +136,25 @@ public class SocialServicesTests
     {
         var service = this.board.Resolve<IThankYou>();
 
-        service.ThanksInfo("Alice", this.message).Should().Be("&nbsp;");
+        service.ThanksInfo(this.message).Should().Be("&nbsp;");
 
         this.Repository<Thanks>().AddMessageThanks(this.bob, this.alice, this.message);
 
-        var html = service.ThanksInfo("Alice", this.message);
+        var html = service.ThanksInfo(this.message);
 
         html.Should().Contain($"src=\"/avatar/{this.bob}\"");
         html.Should().Contain("alt=\"Bob &lt;b&gt;\"").And.NotContain("Bob <b>");
 
-        service.ThanksInfo("Alice", this.message).Should().StartWith("<span class=\"avatar-stack\">");
+        service.ThanksInfo(this.message).Should().StartWith("<span class=\"avatar-stack\">");
 
         this.board.Localization.Add("BUTTON", "BUTTON_THANKS", "Thanks").Add("BUTTON", "BUTTON_THANKS_TT", "Say thanks");
 
-        var info = service.CreateThankYou("Alice", "BUTTON_THANKS", "BUTTON_THANKS_TT", this.message);
+        var info = service.CreateThankYou("BUTTON_THANKS", "BUTTON_THANKS_TT", this.message);
         info.MessageID.Should().Be(this.message);
         info.Text.Should().Be("Thanks");
         info.Title.Should().Be("Say thanks");
 
-        service.GetThankYou("Alice", "BUTTON_THANKS", "BUTTON_THANKS_TT", this.message).ThanksInfo
+        service.GetThankYou("BUTTON_THANKS", "BUTTON_THANKS_TT", this.message).ThanksInfo
             .Should().NotContain("fa-heart");
     }
 
@@ -166,7 +166,7 @@ public class SocialServicesTests
         this.board.Localization.Add("DEFAULT", "ONDATE", "on {0}").Add("DEFAULT", "FORMAT_DATE_SHORT", "yyyy-MM-dd");
         this.Repository<Thanks>().AddMessageThanks(this.bob, this.alice, this.message);
 
-        this.board.Resolve<IThankYou>().ThanksInfo("Alice", this.message).Should()
+        this.board.Resolve<IThankYou>().ThanksInfo(this.message).Should()
             .Contain($"title=\"Bob &lt;b&gt; on {DateTime.UtcNow:yyyy-MM-dd}\"");
     }
 

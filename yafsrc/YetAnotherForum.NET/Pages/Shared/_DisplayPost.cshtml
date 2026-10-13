@@ -638,8 +638,7 @@
 
                     @if (Model.ThanksNumber > 0 || thankVisible || quoteVisible || multiQuoteVisible)
                     {
-                        var username = Current.CurrentForumPage.HtmlEncode(Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName);
-                        var thanksInfo = Current.Get<IThankYou>().ThanksInfo(username, postData.MessageId);
+                        var thanksInfo = Current.Get<IThankYou>().ThanksInfo(postData.MessageId);
 
                         <div class="card-footer py-0">
                             <div class="row">

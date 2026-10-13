@@ -34,9 +34,6 @@ public interface IThankYou
     /// <summary>
     /// Creates an instance of the thank you object from the current information.
     /// </summary>
-    /// <param name="username">
-    /// The Current Username
-    /// </param>
     /// <param name="textTag">
     /// Button Text
     /// </param>
@@ -50,7 +47,6 @@ public interface IThankYou
     /// Returns ThankYou Info
     /// </returns>
     ThankYouInfo CreateThankYou(
-        string username,
         string textTag,
         string titleTag,
         int messageId);
@@ -58,9 +54,6 @@ public interface IThankYou
     /// <summary>
     /// Creates an instance of the thank you object from the current information.
     /// </summary>
-    /// <param name="username">
-    /// The Current Username
-    /// </param>
     /// <param name="textTag">
     /// Button Text
     /// </param>
@@ -74,7 +67,6 @@ public interface IThankYou
     /// Returns ThankYou Info
     /// </returns>
     ThankYouInfo GetThankYou(
-        string username,
         string textTag,
         string titleTag,
         int messageId);
@@ -83,14 +75,11 @@ public interface IThankYou
     /// This method returns a string which shows how many times users have
     ///   thanked the message with the provided messageID. Returns an empty string.
     /// </summary>
-    /// <param name="username">
-    /// The username.
-    /// </param>
     /// <param name="messageId">
     /// The Message Id.
     /// </param>
     /// <returns>
     /// The thanks info.
     /// </returns>
-    string ThanksInfo(string username, int messageId);
+    string ThanksInfo(int messageId);
 }
