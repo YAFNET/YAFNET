@@ -15,6 +15,7 @@
     @await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
 }
 
+<form method="post">
 <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
@@ -24,7 +25,6 @@
                         @Html.IconHeader("users", "ACTIVEUSERS", "TITLE")
                     </div>
                     <div class="col-auto">
-                        <form method="post">
                             <div class="btn-toolbar" role="toolbar">
                                 <div class="input-group input-group-sm me-2" role="group">
                                     <div class="input-group-text">
@@ -39,7 +39,6 @@
 
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -132,3 +131,4 @@
 {
     @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.UserList[0].UserCount, Size = Model.Size })
 }
+</form>

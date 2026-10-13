@@ -103,4 +103,62 @@ public class ActiveUsersTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
         Assert.That(await page.ContentAsync(), Does.Not.Contain("Forum Error"), "The error page is shown");
     }
+
+    /// <summary>
+    /// The pages of the active users list can be changed (the pager was outside of the form and did nothing).
+    /// </summary>
+    [Test]
+    public async Task ActiveUsersSecondPageTest()
+    {
+        // more active sessions than one page of 5
+        var guests = new System.Collections.Generic.List<IBrowserContext>();
+
+        try
+        {
+            for (var i = 0; i < 6; i++)
+            {
+                var guestContext = await this.Fixture.Context.Browser!.NewContextAsync(
+                                       new BrowserNewContextOptions
+                                           {
+                                               BaseURL = this.TestSettings.TestForumUrl,
+                                               IgnoreHTTPSErrors = true
+                                           });
+
+                guests.Add(guestContext);
+
+                await (await guestContext.NewPageAsync()).GotoAsync(this.TestSettings.TestForumUrl);
+            }
+
+            await this.Fixture.Context.GotoPageAsync(
+                this.TestSettings.TestForumUrl,
+                async page =>
+                    {
+                        Assert.That(
+                            await page.LoginUserAsync(
+                                this.TestSettings,
+                                this.TestSettings.TestUserName,
+                                this.TestSettings.TestUserPassword), Is.True,
+                            "Login failed");
+
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}ActiveUsers/0");
+
+                        await page.SubmitAndWaitAsync(
+                            page.Locator(".pagination .page-link", new PageLocatorOptions { HasTextRegex = new System.Text.RegularExpressions.Regex(@"^\s*2\s*$") }).First);
+
+                        Assert.That(await page.ContentAsync(), Does.Not.Contain("You tried to enter an area where you didn't have access."), "Page 2 was denied");
+
+                        Assert.That(
+                            (await page.Locator(".pagination .page-item.active").InnerTextAsync()).Trim(),
+                            Is.EqualTo("2"),
+                            "Page 2 is not shown");
+                    });
+        }
+        finally
+        {
+            foreach (var guest in guests)
+            {
+                await guest.DisposeAsync();
+            }
+        }
+    }
 }
