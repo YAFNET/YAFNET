@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\YAFNET.Core\YAFNET.Core.csproj" />
     <ProjectReference Include="..\..\YAFNET.Data\YAFNET.Data.Sqlite\YAFNET.Data.Sqlite.csproj" />
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.PostgreSQL\ServiceStack.OrmLite.PostgreSQL.Core.csproj" />
+    <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.MySql\ServiceStack.OrmLite.MySql.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Acornima" Version="1.8.0" />

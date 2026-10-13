@@ -1575,7 +1575,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string GetUtcDateFunction()
     {
-        return "UTC_DATE()";
+        // the current time (UTC_DATE() is the date without the time, midnight)
+        return "UTC_TIMESTAMP()";
     }
 
     /// <summary>

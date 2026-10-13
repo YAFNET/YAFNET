@@ -25,10 +25,11 @@
 namespace YAF.Tests.Data;
 
 using ServiceStack.OrmLite;
+using ServiceStack.OrmLite.MySql;
 using ServiceStack.OrmLite.PostgreSQL;
 
 /// <summary>
-/// The date differences of the dialects, PostgreSQL is not covered by the database tests (they run on SQLite).
+/// The date functions of the dialects, PostgreSQL and MySQL are not covered by the database tests (they run on SQLite).
 /// </summary>
 [TestFixture]
 public class DialectDateDiffTests
@@ -51,5 +52,12 @@ public class DialectDateDiffTests
     {
         PostgreSqlDialect.Provider.DateDiffFunction("dd", "a", "b")
             .Should().Be("EXTRACT(Day from (b::timestamp - a::timestamp))");
+    }
+
+    [Test]
+    [Description("MySQL: the current time is the time, not the date (UTC_DATE() is midnight: the active users of the day were never removed)")]
+    public void MySql_Utc_Now_Is_Time_Test()
+    {
+        MySqlDialect.Provider.GetUtcDateFunction().Should().Be("UTC_TIMESTAMP()");
     }
 }

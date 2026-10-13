@@ -417,6 +417,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Users > Import: a user refused by the login system (e.g. a name with characters that are not allowed, an invalid e-mail) was created as forum user without login and got the registration mail with a password that did not work; such users are skipped now (the reason is logged)
 * [FIXED] PostgreSQL: a difference in minutes was only the minutes part of the time (2:05 hours were 5 minutes): users who left the forum were shown in the active users list until the minutes part was larger than the active time, and the online time of the active users list was wrong
 * [FIXED] Installation: the search index update (started by the first page) could run before the board was created and failed ("Error In UpdateSearchIndexTask", the settings were saved for the board 0); it waits for the board now
+* [FIXED] MySQL: the current time of the database queries was the date without the time (UTC_DATE(), midnight): users who left the forum were shown in the active users list until the end of the day (UTC), the days of the prune of topics, private messages and the message history were counted up to midnight
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
