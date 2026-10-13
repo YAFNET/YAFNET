@@ -147,6 +147,13 @@ public class MedalTagRepositoryTests
 
         this.Repository<Tag>().Get(t => true).Select(t => t.TagName).Should().BeEquivalentTo(["news", "csharp"]);
         this.TopicTags.ListAsDelimitedString(this.topic).Split(',').Should().BeEquivalentTo(["news", "csharp"]);
+
+        // an existing tag twice
+        var otherTopic = this.db.AddTopic(this.db.AddForum(), this.alice);
+
+        await FluentActions.Awaiting(() => this.TopicTags.AddTagsToTopicAsync("csharp,csharp", otherTopic)).Should().NotThrowAsync();
+
+        this.TopicTags.List(otherTopic).Should().ContainSingle().Which.Item2.TagName.Should().Be("csharp");
     }
 
     [Test]
