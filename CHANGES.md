@@ -425,6 +425,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] After a button of a page that shows the page again (e.g. "show posts" of an ignored user, a refused 2FA activation, "send the verification mail again", an album upload), the page stayed at the address of that action and the main button of the page posted to it again: the block options and the settings were not saved, the login sent the verification mail again instead of logging in, "Delete Album" did not delete a new album
 * [FIXED] The push notifications of watched topics and forums had the subject in the language of the user, but the text ("... replied to the topic ...") and the buttons in the language of the poster
 * [FIXED] Mails sent together (digest, notifications of watched topics and forums): a mail the mail server refused (e.g. an unknown recipient address) stopped all mails after it
+* [FIXED] Digest with several boards in one database: the digest task of every application sent the digests of all boards, but with the topics, name and links of its own board (an application serves the board of its configuration), so the users of the other boards got no digest when another application was first; every application sends the digest of its own board now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

@@ -34,6 +34,7 @@ using NSubstitute;
 
 using ServiceStack.OrmLite;
 
+using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Services;
 using YAF.Core.Services.Cache;
@@ -137,8 +138,8 @@ public class DigestSendTaskTests
     }
 
     [Test]
-    [Description("A board that is not due does not stop the digest of the other boards")]
-    public async Task Other_Boards_Test()
+    [Description("Only the digest of the own board is sent: an application serves one board (the board id of the configuration), the digest of another board would have the topics, name and links of this board")]
+    public async Task Only_Own_Board_Test()
     {
         using (var connection = this.db.Open())
         {
@@ -147,11 +148,18 @@ public class DigestSendTaskTests
             connection.Insert(new Registry { BoardID = SecondBoard, Name = "forcedigestsend", Value = "true" });
         }
 
+        this.EnableDigest();
+
+        this.AddDigestUser("Alice");
         this.AddDigestUser("Bob", u => u.BoardID = SecondBoard);
 
         await this.RunAsync();
 
-        this.mail.Sent.Select(m => m.Subject).Should().Equal("digest for Bob");
+        this.mail.Sent.Select(m => m.Subject).Should().Equal("digest for Alice");
+
+        // the digest of the second board stays due for its own application
+        this.board.Current.GetRepository<Registry>()
+            .Count(r => r.BoardID == SecondBoard && r.Name == "lastdigestsend").Should().Be(0);
     }
 
     private void EnableDigest()

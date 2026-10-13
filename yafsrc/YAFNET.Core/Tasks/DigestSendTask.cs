@@ -132,34 +132,29 @@ public class DigestSendTask : LongBackgroundTask
     {
         try
         {
-            var boards = await this.GetRepository<Board>().GetAllAsync();
+            // only the own board: the application serves one board (the board id of the configuration), the digest
+            // has its topics, name and links; the other boards send their digests in their own application
+            var boardId = BoardContext.Current.PageBoardID;
+            var boardSettings = BoardContext.Current.BoardSettings;
 
-            foreach (var board in boards)
+            if (!IsTimeToSendDigestForBoard(boardSettings))
             {
-                var boardSettings = board.ID == BoardContext.Current.PageBoardID
-                    ? BoardContext.Current.BoardSettings
-                    : this.Get<BoardSettingsService>().LoadBoardSettings(board.ID, board);
+                return;
+            }
 
-                if (!IsTimeToSendDigestForBoard(boardSettings))
-                {
-                    // the other boards can still be due
-                    continue;
-                }
+            // get users with digest enabled...
+            var usersWithDigest = await this.GetRepository<User>().GetAsync(
+                u => u.BoardID == boardId && (u.Flags & 2) == 2 && (u.Flags & 4) != 4
+                     && (u.Flags & 32) != 32 && u.DailyDigest);
 
-                // get users with digest enabled...
-                var usersWithDigest = await this.GetRepository<User>().GetAsync(
-                    u => u.BoardID == board.ID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4
-                         && (u.Flags & 32) != 32 && u.DailyDigest);
-
-                if (usersWithDigest.HasItems())
-                {
-                    // start sending...
-                    await this.SendDigestToUsersAsync(usersWithDigest, boardSettings);
-                }
-                else
-                {
-                    this.Get<ILogger<DigestSendTask>>().Info("no user found");
-                }
+            if (usersWithDigest.HasItems())
+            {
+                // start sending...
+                await this.SendDigestToUsersAsync(usersWithDigest, boardSettings);
+            }
+            else
+            {
+                this.Get<ILogger<DigestSendTask>>().Info("no user found");
             }
         }
         catch (Exception ex)
