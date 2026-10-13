@@ -100,4 +100,42 @@ public class RankTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(await page.Locator("body").InnerTextAsync(), Does.Contain(rankName), "The rank was deleted");
                 });
     }
+
+    /// <summary>
+    /// The signature BBCodes of a rank (e.g. "B,I") can be entered and are kept when the rank is saved again: the
+    /// field was a number field, the browser showed it empty and saving the rank removed the BBCodes.
+    /// </summary>
+    [Test]
+    [Description("The signature BBCodes of a rank are kept")]
+    public async Task RankSignatureBBCodesAreKeptTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(await page.LoginAdminUserAsync(this.TestSettings), Is.True, "Login failed");
+
+                    var rankName = $"BBCodeRank{Random.Shared.Next()}";
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditRank");
+                    await page.Locator("#Input_Name").FillAsync(rankName);
+                    await page.Locator("#Input_UsrSigBBCodes").FillAsync("B,I");
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'EditRank') and contains(@formaction,'Save')]"));
+
+                    // the rank is opened and saved again without changes
+                    var editLink = page.Locator("li.list-group-item", new PageLocatorOptions { HasTextString = rankName })
+                        .Locator("a[href*='EditRank']").First;
+                    var editUrl = new Uri(new Uri(page.Url), await editLink.GetAttributeAsync("href")).ToString();
+
+                    await page.GotoAsync(editUrl);
+
+                    Assert.That(await page.Locator("#Input_UsrSigBBCodes").InputValueAsync(), Is.EqualTo("B,I"), "The BBCodes are not shown");
+
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'EditRank') and contains(@formaction,'Save')]"));
+
+                    await page.GotoAsync(editUrl);
+
+                    Assert.That(await page.Locator("#Input_UsrSigBBCodes").InputValueAsync(), Is.EqualTo("B,I"), "The BBCodes were removed");
+                });
+    }
 }

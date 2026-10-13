@@ -437,6 +437,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Album images: when several files were uploaded at once only the files up to the first image were checked, the files after it were saved whatever their type
 * [FIXED] User name styles were only set, never removed: a user taken out of a styled group, the members of a deleted group and the users of a group or rank whose style was removed kept the old style; a user who got another rank (promoted or changed by the admin) did not get the style of the new rank
 * [FIXED] Admin Ranks: deleting a rank that users have failed with an error on SQL Server, MySQL and PostgreSQL (on SQLite the users kept a deleted rank); a rank in use can't be deleted, like an access mask in use
+* [FIXED] Admin Edit Rank: the signature BBCodes field was a number field, BBCodes (e.g. "B,I") could not be entered and saving a rank removed its BBCodes
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
