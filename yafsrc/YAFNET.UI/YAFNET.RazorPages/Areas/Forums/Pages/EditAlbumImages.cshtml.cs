@@ -458,6 +458,9 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 filename = filename[^255..];
             }
 
+            // the file of an image with the same name (a phone names every photo "image.jpg") would be overwritten
+            filename = this.UniqueFileName(albumId.Value, filename);
+
             // verify the size of the attachment
             if (this.PageBoardContext.BoardSettings.AlbumImagesSizeMax > 0
                 && file.Length > this.PageBoardContext.BoardSettings.AlbumImagesSizeMax)
@@ -500,5 +503,31 @@ public class EditAlbumImagesModel : ForumPageRegistered
         }
 
         return albumId;
+    }
+
+    /// <summary>
+    /// Gets a file name that no other image of the album has, e.g. "image (2).jpg" for a second "image.jpg".
+    /// </summary>
+    /// <param name="albumId">The album identifier.</param>
+    /// <param name="filename">The file name.</param>
+    /// <returns>Returns the unique file name</returns>
+    private string UniqueFileName(int albumId, string filename)
+    {
+        var taken = this.GetRepository<UserAlbumImage>().Get(i => i.AlbumID == albumId)
+            .Select(i => i.FileName).ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        var name = Path.GetFileNameWithoutExtension(filename);
+        var extension = Path.GetExtension(filename);
+
+        var unique = filename;
+
+        for (var number = 2; taken.Contains(unique); number++)
+        {
+            var suffix = $" ({number}){extension}";
+
+            unique = $"{name[..Math.Max(0, Math.Min(name.Length, 255 - suffix.Length))]}{suffix}";
+        }
+
+        return unique;
     }
 }

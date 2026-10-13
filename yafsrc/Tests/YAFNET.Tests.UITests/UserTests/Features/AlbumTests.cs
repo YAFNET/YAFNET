@@ -751,4 +751,74 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.SubmitAndWaitAsync(page.Locator(".btn-success"));
                 });
     }
+
+    /// <summary>
+    /// Two images with the same file name (a phone names every photo "image.jpg") are both kept: the second
+    /// upload overwrote the file of the first image and deleting one image removed the file of the other.
+    /// </summary>
+    [Test, DependsOnTest(nameof(AddNewUserAlbumTest))]
+    public async Task ImagesWithSameFileNameTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    // a new user without albums
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    var first = Path.Combine(Path.GetTempPath(), $"yaf-album-{Guid.NewGuid():N}");
+                    var second = Path.Combine(Path.GetTempPath(), $"yaf-album-{Guid.NewGuid():N}");
+                    Directory.CreateDirectory(first);
+                    Directory.CreateDirectory(second);
+
+                    try
+                    {
+                        var firstFile = Path.Combine(first, "image.png");
+                        var secondFile = Path.Combine(second, "image.png");
+                        File.Copy(Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png"), firstFile);
+                        File.Copy(Path.GetFullPath(@"..\..\..\..\testfiles\testImage.jpg"), secondFile);
+
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditAlbumImages/new");
+
+                        await page.Locator("#AlbumTitle").FillAsync("Same names");
+                        await page.Locator("#ImageFiles").SetInputFilesAsync(firstFile);
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
+
+                        await page.Locator("#ImageFiles").SetInputFilesAsync(secondFile);
+                        await page.SubmitAndWaitAsync(page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Upload", Exact = true }));
+
+                        var previews = page.Locator("img.album-image-thumb");
+
+                        Assert.That(await previews.CountAsync(), Is.EqualTo(2), "Both images are listed");
+
+                        var urls = new List<string>();
+                        var shown = new List<byte[]>();
+
+                        for (var i = 0; i < 2; i++)
+                        {
+                            urls.Add(new Uri(new Uri(page.Url), await previews.Nth(i).GetAttributeAsync("src")).ToString());
+                            shown.Add(await (await page.APIRequest.GetAsync(urls[i])).BodyAsync());
+                        }
+
+                        Assert.That(
+                            shown,
+                            Is.EquivalentTo(new[] { await File.ReadAllBytesAsync(firstFile), await File.ReadAllBytesAsync(secondFile) }),
+                            "One image shows the file of the other image");
+
+                        // delete the first listed image, the other one is still there
+                        await page.GetByText("Delete", new PageGetByTextOptions { Exact = true }).First.ClickAsync();
+                        await page.SubmitAndWaitAsync(page.Locator(".btn-success"));
+
+                        var response = await page.APIRequest.GetAsync(urls[1]);
+
+                        Assert.That(response.Status, Is.EqualTo(200), "Deleting one image removed the file of the other image");
+                        Assert.That(await response.BodyAsync(), Is.EqualTo(shown[1]));
+                    }
+                    finally
+                    {
+                        Directory.Delete(first, true);
+                        Directory.Delete(second, true);
+                    }
+                });
+    }
 }

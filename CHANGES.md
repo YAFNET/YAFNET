@@ -421,6 +421,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] My Account > Attachments: the pages of the own attachments could not be changed (the pager was outside of the form) and the page size was not kept
 * [FIXED] My Account > Attachments and Subscriptions: the selection of a page was taken to the next page and the selected attachment or subscription of page 2 deleted the one at the same place of page 1 (like the bb code export and Moderate > Forums)
 * [FIXED] Active Users: the pages of the list could not be changed (the pager was outside of the form) and the page size was not kept
+* [FIXED] Albums: an image with the same file name as another image of the album (e.g. phones name every photo "image.jpg") overwrote the file of the other image, both showed the new image and deleting one of them removed the file of the other; the name gets a number now ("image (2).jpg")
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
