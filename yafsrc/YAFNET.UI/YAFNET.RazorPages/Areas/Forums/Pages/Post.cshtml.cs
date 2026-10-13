@@ -226,9 +226,17 @@ public class PostModel : ForumPage
     /// </summary>
     public async Task<IActionResult> OnPostTrackTopicAsync()
     {
-        await this.GetRepository<WatchTopic>().AddAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
+        // guests can't watch topics (the button is not shown to them)
+        if (this.PageBoardContext.IsGuest)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
 
-        await this.HandleWatchTopicAsync();
+        // a topic is watched once (the page can be outdated, e.g. a second tab)
+        if (!await this.HandleWatchTopicAsync())
+        {
+            await this.GetRepository<WatchTopic>().AddAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
+        }
 
         this.PageBoardContext.SessionNotify(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
 

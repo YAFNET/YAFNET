@@ -532,4 +532,57 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                 }
             });
     }
+
+    /// <summary>
+    /// A topic is watched once: watching it again (e.g. from a second tab) failed with an error (the subscription
+    /// is unique), and guests can't watch topics (the button is not shown to them).
+    /// </summary>
+    [Test]
+    public async Task WatchTopicTwiceTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    var topicId = await page.CreateTopicAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestForumId,
+                        $"Watch twice test {Random.Shared.Next()}",
+                        "A topic for the watch test");
+
+                    Assert.That(topicId, Is.Not.Null, "The topic was not created");
+
+                    // the url of the button (the page is not reloaded, like an outdated second tab)
+                    var trackUrl = (await page.Locator("button[formaction*='TrackTopic']").First.GetAttributeAsync("formaction"))
+                        ?.Replace("UnTrackTopic", "TrackTopic");
+
+                    Assert.That(trackUrl, Does.Contain("TrackTopic"), "The watch button is missing");
+
+                    const string post = """
+                                        async url => {
+                                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                                            const body = new URLSearchParams({ '__RequestVerificationToken': token });
+                                            const response = await fetch(url, { method: 'POST', body: body });
+                                            return [String(response.status), response.url];
+                                        }
+                                        """;
+
+                    var first = await page.EvaluateAsync<string[]>(post, trackUrl);
+                    var second = await page.EvaluateAsync<string[]>(post, trackUrl);
+
+                    Assert.That(first[0], Is.EqualTo("200"), "Watching the topic failed");
+                    Assert.That(second[0], Is.EqualTo("200"), "Watching the topic again failed");
+
+                    // a guest is refused
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{topicId}/topic");
+
+                    var guest = await page.EvaluateAsync<string[]>(post, trackUrl);
+
+                    Assert.That(guest[1], Does.Contain("Info"), $"The guest could watch the topic ({guest[0]} {guest[1]})");
+                });
+    }
 }
