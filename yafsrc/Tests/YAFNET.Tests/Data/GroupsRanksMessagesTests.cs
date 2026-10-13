@@ -275,7 +275,7 @@ public class GroupsRanksMessagesTests
     public async Task PrivateMessage_Prune_Test()
     {
         this.AddPm(this.bob, this.alice, "old", DateTime.UtcNow.AddDays(-40));
-        var recent = this.AddPm(this.bob, this.alice, "recent", DateTime.UtcNow.AddDays(-1));
+        var recent = this.AddPm(this.bob, this.alice, "recent", DateTime.UtcNow.AddHours(-12));
 
         // a message of another board stays
         var otherBoardUser = this.db.AddUser("OtherBoardUser", u => u.BoardID = TestDatabase.BoardId + 1);
