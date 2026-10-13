@@ -39,29 +39,22 @@ public class Migration1005 : MigrationBase
     /// </summary>
     public override void Up()
     {
-        // push services can send endpoints longer than the column, tags are entered by the users
-        // (SQLite has no lengths, PostgreSQL created the columns as unlimited text)
-        switch (OrmLiteConfig.DialectProvider.SQLServerName())
+        if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
         {
-            case "MySQL":
-                // created with 255 characters (the length can't be read: the lookup filters by the schema
-                // "dbo", MySQL has no such schema), the change to unlimited text can be repeated
-                this.Db.AlterColumn<DeviceSubscription>(x => x.EndPoint);
-                this.Db.AlterColumn<Tag>(x => x.TagName);
-                break;
-            case "Microsoft SQL Server":
-                // created with 4000 characters, unlimited text has the length -1
-                if (this.Db.ColumnMaxLength<DeviceSubscription>(x => x.EndPoint) > 0)
-                {
-                    this.Db.AlterColumn<DeviceSubscription>(x => x.EndPoint);
-                }
+            return;
+        }
 
-                if (this.Db.ColumnMaxLength<Tag>(x => x.TagName) > 0)
-                {
-                    this.Db.AlterColumn<Tag>(x => x.TagName);
-                }
+        // push services can send endpoints longer than the column, tags are entered by the users:
+        // MySQL created the columns with 255 characters, SQL Server with 4000
+        // (unlimited text has no length, a negative one or a larger one)
+        if (this.Db.ColumnMaxLength<DeviceSubscription>(x => x.EndPoint) is > 0 and <= 4000)
+        {
+            this.Db.AlterColumn<DeviceSubscription>(x => x.EndPoint);
+        }
 
-                break;
+        if (this.Db.ColumnMaxLength<Tag>(x => x.TagName) is > 0 and <= 4000)
+        {
+            this.Db.AlterColumn<Tag>(x => x.TagName);
         }
     }
 }
