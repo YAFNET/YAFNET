@@ -438,6 +438,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] User name styles were only set, never removed: a user taken out of a styled group, the members of a deleted group and the users of a group or rank whose style was removed kept the old style; a user who got another rank (promoted or changed by the admin) did not get the style of the new rank
 * [FIXED] Admin Ranks: deleting a rank that users have failed with an error on SQL Server, MySQL and PostgreSQL (on SQLite the users kept a deleted rank); a rank in use can't be deleted, like an access mask in use
 * [FIXED] Admin Edit Rank: the signature BBCodes field was a number field, BBCodes (e.g. "B,I") could not be entered and saving a rank removed its BBCodes
+* [FIXED] Admin Edit Forum: a forum moved to another category left its sub forums in the old category (on their page the old category was shown above the moved parent forum, and the admin forum list showed them in the old category); the sub forums are moved with the forum
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

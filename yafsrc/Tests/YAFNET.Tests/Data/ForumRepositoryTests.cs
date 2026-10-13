@@ -104,6 +104,25 @@ public class ForumRepositoryTests
     }
 
     [Test]
+    [Description("A forum moved to another category takes its sub forums (and their sub forums) along")]
+    public void Save_Moves_Sub_Forums_To_The_New_Category_Test()
+    {
+        var parent = this.db.AddForum("Parent", this.category);
+        var child = this.db.AddForum("Child", this.category, f => f.ParentID = parent);
+        var grandChild = this.db.AddForum("Grand child", this.category, f => f.ParentID = child);
+        var other = this.db.AddForum("Other", this.category);
+        var newCategory = this.db.AddCategory("New category");
+
+        this.Forums.Save(
+            parent, newCategory, null, "Parent", "desc", 1, false, false, false, false, null, false, "", null, null, null);
+
+        this.Forums.GetById(parent).CategoryID.Should().Be(newCategory);
+        this.Forums.GetById(child).CategoryID.Should().Be(newCategory, "the sub forum is moved with its parent");
+        this.Forums.GetById(grandChild).CategoryID.Should().Be(newCategory, "also the sub forum of the sub forum");
+        this.Forums.GetById(other).CategoryID.Should().Be(this.category, "other forums stay");
+    }
+
+    [Test]
     [Description("IsParentsChecker detects forums with sub forums")]
     public void IsParentsChecker_Test()
     {

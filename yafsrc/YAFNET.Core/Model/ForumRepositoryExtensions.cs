@@ -153,6 +153,8 @@ public static class ForumRepositoryExtensions
                 return newForumId;
             }
 
+            var oldCategoryId = repository.GetById(forumId.Value)?.CategoryID;
+
             repository.UpdateOnly(
                 () => new Forum
                 {
@@ -170,6 +172,26 @@ public static class ForumRepositoryExtensions
                     IsModeratedNewTopicOnly = isModeratedNewTopicOnly
                 },
                 f => f.ID == forumId);
+
+            // the sub forums are moved with the forum to the other category (they are shown below the forum)
+            if (oldCategoryId.HasValue && oldCategoryId != categoryId)
+            {
+                var forums = repository.Get(f => f.CategoryID == oldCategoryId.Value);
+
+                var moved = new HashSet<int> { forumId.Value };
+                var parents = new List<int> { forumId.Value };
+
+                while (parents.Count > 0)
+                {
+                    parents = [.. forums.Where(f => f.ParentID.HasValue && parents.Contains(f.ParentID.Value) && moved.Add(f.ID))
+                                  .Select(f => f.ID)];
+
+                    foreach (var subForumId in parents)
+                    {
+                        repository.UpdateOnly(() => new Forum { CategoryID = categoryId }, f => f.ID == subForumId);
+                    }
+                }
+            }
 
             return forumId.Value;
         }
