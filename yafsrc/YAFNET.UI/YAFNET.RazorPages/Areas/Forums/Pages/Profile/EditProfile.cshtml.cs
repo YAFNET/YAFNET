@@ -273,6 +273,21 @@ public class EditProfileModel : ProfilePage
                 MessageTypes.warning, ForumPages.Profile_EditProfile);
         }
 
+        // the columns have 255 characters (the homepage with the "https://" added above)
+        var tooLongField = new[]
+                               {
+                                   (this.Input.RealName, "REALNAME2"), (this.Input.Location, "WHERE"),
+                                   (this.Input.City, "CITY"), (this.Input.HomePage, "HOMEPAGE2"),
+                                   (this.Input.Blog, "WEBLOG2")
+                               }.FirstOrDefault(f => f.Item1.IsSet() && f.Item1.Trim().Length > 255).Item2;
+
+        if (tooLongField is not null)
+        {
+            return this.PageBoardContext.SessionNotify(
+                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", tooLongField), 255),
+                MessageTypes.warning, ForumPages.Profile_EditProfile);
+        }
+
         // the required fields and the types are taken from the database (the client can leave out fields)
         var invalidField = CustomProfileHelper.FindInvalidField(
             this.GetRepository<ProfileDefinition>().GetByBoardId(),

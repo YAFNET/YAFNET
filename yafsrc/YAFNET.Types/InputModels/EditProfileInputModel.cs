@@ -46,6 +46,7 @@ public class EditProfileInputModel
     /// Gets or sets the name of the real.
     /// </summary>
     /// <value>The name of the real.</value>
+    [MaxLength(255)]
     public string RealName { get; set; }
 
     /// <summary>
@@ -79,6 +80,7 @@ public class EditProfileInputModel
     /// Gets or sets the location.
     /// </summary>
     /// <value>The location.</value>
+    [MaxLength(255)]
     public string Location { get; set; }
 
     /// <summary>
@@ -97,20 +99,21 @@ public class EditProfileInputModel
     /// Gets or sets the city.
     /// </summary>
     /// <value>The city.</value>
+    [MaxLength(255)]
     public string City { get; set; }
 
     /// <summary>
     /// Gets or sets the home page.
     /// </summary>
     /// <value>The home page.</value>
-    [DataType(DataType.Url)]
+    [DataType(DataType.Url), MaxLength(255)]
     public string HomePage { get; set; }
 
     /// <summary>
     /// Gets or sets the blog.
     /// </summary>
     /// <value>The blog.</value>
-    [DataType(DataType.Url)]
+    [DataType(DataType.Url), MaxLength(255)]
     public string Blog { get; set; }
 
     /// <summary>

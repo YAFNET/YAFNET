@@ -1080,4 +1080,53 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         "The block option was not saved");
                 });
     }
+
+    /// <summary>
+    /// Too long values of the profile fields (real name, location, city, homepage and blog have 255 characters in
+    /// the database) are refused with a warning: they failed the save with an error on SQL Server, MySQL and
+    /// PostgreSQL. The homepage gets "https://" in front, also that has to fit.
+    /// </summary>
+    [Test]
+    public async Task LongProfileFieldsAreRefusedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    var fields = new System.Collections.Generic.Dictionary<string, string>
+                                     {
+                                         ["#Input_RealName"] = new('r', 300),
+                                         ["#Input_Location"] = new('l', 300),
+                                         ["#Input_City"] = new('c', 300),
+                                         ["#Input_HomePage"] = $"{new string('h', 245)}.example",
+                                         ["#Input_Blog"] = $"https://blog.example/{new string('b', 290)}"
+                                     };
+
+                    foreach (var (field, value) in fields)
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
+
+                        // the server has to check the length (the checks of the browser can be removed)
+                        await page.Locator(field).EvaluateAsync("input => { input.removeAttribute('maxlength'); input.type = 'text'; input.form.noValidate = true; }");
+                        await page.Locator(field).FillAsync(value);
+
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+
+                        Assert.That(page.Url, Does.Contain("Profile/EditProfile"), $"{field}: the too long value was not refused ({page.Url})");
+                        Assert.That(
+                            await page.Locator("body").InnerTextAsync(),
+                            Does.Contain("length cannot be more than 255 characters"),
+                            $"{field}: the warning is missing");
+                    }
+
+                    // a value of 255 characters can be saved
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
+                    await page.Locator("#Input_RealName").FillAsync(new string('r', 255));
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UpdateProfile')]"));
+
+                    Assert.That(page.Url, Does.Contain("MyAccount"), "The profile was not saved");
+                });
+    }
 }

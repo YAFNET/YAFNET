@@ -276,6 +276,22 @@ public class UsersProfileModel : AdminPage
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
+        // the columns have 255 characters (the homepage with the "https://" added above)
+        var tooLongField = new[]
+                               {
+                                   (this.Input.RealName, "REALNAME2"), (this.Input.Location, "WHERE"),
+                                   (this.Input.City, "CITY"), (this.Input.HomePage, "HOMEPAGE2"),
+                                   (this.Input.Blog, "WEBLOG2")
+                               }.FirstOrDefault(f => f.Item1.IsSet() && f.Item1.Trim().Length > 255).Item2;
+
+        if (tooLongField is not null)
+        {
+            this.PageBoardContext.SessionNotify(
+                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", tooLongField), 255),
+                MessageTypes.warning);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+        }
+
         // the types are taken from the database, the admin doesn't have to fill the required fields of the user
         var invalidField = CustomProfileHelper.FindInvalidField(
             this.GetRepository<ProfileDefinition>().GetByBoardId(),
