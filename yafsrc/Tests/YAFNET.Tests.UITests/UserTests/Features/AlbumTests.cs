@@ -823,6 +823,47 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// With several files only images are uploaded: the check stopped at the first image, so the files after it
+    /// were saved whatever their type.
+    /// </summary>
+    [Test, DependsOnTest(nameof(AddNewUserAlbumTest))]
+    public async Task OnlyImagesAreUploadedWithSeveralFilesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    // a new user without albums
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditAlbumImages/new");
+
+                    await page.Locator("#AlbumTitle").FillAsync("Image and other file");
+                    await page.Locator("#ImageFiles").SetInputFilesAsync(
+                        new[]
+                            {
+                                new FilePayload
+                                    {
+                                        Name = "image.png",
+                                        MimeType = "image/png",
+                                        Buffer = await File.ReadAllBytesAsync(Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png"))
+                                    },
+                                new FilePayload
+                                    {
+                                        Name = "document.pdf", MimeType = "application/pdf", Buffer = "%PDF-1.4"u8.ToArray()
+                                    }
+                            });
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
+
+                    Assert.That(
+                        await page.Locator("body").InnerTextAsync(),
+                        Does.Contain("'pdf' is not an allowed file type for upload."),
+                        "The warning is missing");
+                    Assert.That(await page.Locator("img.album-image-thumb").CountAsync(), Is.Zero, "The files were uploaded");
+                });
+    }
+
+    /// <summary>
     /// A new album can be deleted right after the upload: the page stayed at the address of the upload handler
     /// and the delete button posted to it (the album was not deleted).
     /// </summary>

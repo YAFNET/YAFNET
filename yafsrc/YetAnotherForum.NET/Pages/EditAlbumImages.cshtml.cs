@@ -387,17 +387,15 @@ public class EditAlbumImagesModel : ForumPageRegistered
             extension = extension.Replace(".", string.Empty);
             var imageExtensions = StaticDataHelper.ImageFormats;
 
-            // If we don't get a match from the db, then the extension is not allowed
-            // also, check to see an image is being uploaded.
-            if (Array.IndexOf(imageExtensions, extension) != -1)
+            // every file has to be an image (with several files, also the files after the first image)
+            if (Array.IndexOf(imageExtensions, extension) == -1)
             {
-                return true;
+                this.PageBoardContext.Notify(this.GetTextFormatted("FILEERROR", this.HtmlEncode(extension)), MessageTypes.warning);
+                return false;
             }
-
-            this.PageBoardContext.Notify(this.GetTextFormatted("FILEERROR", this.HtmlEncode(extension)), MessageTypes.warning);
         }
 
-        return false;
+        return true;
     }
 
     /// <summary>
