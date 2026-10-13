@@ -2996,6 +2996,10 @@
             "#text": "Minimaalne postituste arv, enne kui kasutajad sellele auastmele tõusevad."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Sellise nimega auaste on juba olemas."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Peate määrama auastme nime."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Lisa/redigeeri asetust"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Sellise nimega auaste on juba olemas."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Pealkiri:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Teemaga teema on juba olemas või teema pole lisamiseks piisavalt unikaalne."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Selle pealkirjaga teema on juba olemas."
           },
           {
             "@tag": "TOPICWATCH",

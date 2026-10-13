@@ -2996,6 +2996,10 @@
             "#text": "Số lượng bài viết tối thiểu trước khi người dùng được nâng cao lên xếp hạng này."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Một cấp bậc có tên như vậy đã tồn tại."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Bạn phải xác định tên cấp bậc."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Thêm / Chỉnh sửa Xếp hạng"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Một cấp bậc có tên như vậy đã tồn tại."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Chủ đề:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Một chủ đề với chủ đề đã tồn tại hoặc chủ đề không đủ duy nhất để được thêm vào."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Một chủ đề với tiêu đề này đã tồn tại."
           },
           {
             "@tag": "TOPICWATCH",

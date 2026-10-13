@@ -2988,6 +2988,10 @@
             "#text": "Número mínimo de publicaciones antes de que un usuario pueda alcanzar este rango."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Ya existe un rango con ese nombre."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Debe definir un nombre de rango."
           },
@@ -3046,10 +3050,6 @@
           {
             "@tag": "TITLE",
             "#text": "Añadir/Editar rango"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Ya existe un rango con ese nombre."
           }
         ]
       },
@@ -11143,8 +11143,8 @@
             "#text": "Asunto:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Ya existe un tema con este título o uno parecido."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Ya existe un tema con este título."
           },
           {
             "@tag": "TOPICWATCH",

@@ -2996,6 +2996,10 @@
             "#text": "Mažiausias pranešimų skaičius, prieš pakylant naudotojus į šį rangą."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Laipsnis tokiu pavadinimu jau yra."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Turite apibrėžti rango pavadinimą."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Pridėti / redaguoti rangą"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Laipsnis tokiu pavadinimu jau yra."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Tema: "
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Tema su šia tema jau egzistuoja arba tema nėra pakankamai unikali, kad ją būtų galima pridėti."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Tema su šiuo pavadinimu jau egzistuoja."
           },
           {
             "@tag": "TOPICWATCH",

@@ -2988,6 +2988,10 @@
             "#text": "Numero minimo di messaggi prima che gli utenti passino a questo livello."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Esiste già un rango con questo nome."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "È necessario definire un nome di rango."
           },
@@ -3046,10 +3050,6 @@
           {
             "@tag": "TITLE",
             "#text": "Aggiungi/Modifica classifica"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Esiste già un rango con questo nome."
           }
         ]
       },
@@ -11143,8 +11143,8 @@
             "#text": "Oggetto:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Esiste gia' una discussione con oggetto uguale o molto simile."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Esiste già una discussione con questo oggetto."
           },
           {
             "@tag": "TOPICWATCH",

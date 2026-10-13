@@ -2996,6 +2996,10 @@
             "#text": "用户升级到此级别之前的最少帖子数。"
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "具有这样名称的等级已经存在。"
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "您必须定义等级名称。"
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "添加/编辑排名"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "具有这样名称的等级已经存在。"
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "标题:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "具有主题的主题已存在或主题不够独特，无法添加。"
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "已存在相同标题的主题。"
           },
           {
             "@tag": "TOPICWATCH",

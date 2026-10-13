@@ -11151,8 +11151,8 @@
                     "#text": "Subject:"
                 },
                 {
-                    "@tag": "SUBJECT_DUPLICATE",
-                    "#text": "A topic with the subject already exists or the subject is not unique enough to be added."
+                    "@tag": "SUBJECT_EXISTS",
+                    "#text": "A topic with this subject already exists."
                 },
                 {
                     "@tag": "TOPICWATCH",

@@ -180,7 +180,7 @@ public class PostTopicModel : ForumPage
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName) && this
                 .GetRepository<Topic>().CheckForDuplicate(HtmlTagHelper.StripHtml(this.Input.TopicSubject).Trim()))
         {
-            this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
+            this.PageBoardContext.Notify(this.GetText("SUBJECT_EXISTS"), MessageTypes.warning);
             return false;
         }
 

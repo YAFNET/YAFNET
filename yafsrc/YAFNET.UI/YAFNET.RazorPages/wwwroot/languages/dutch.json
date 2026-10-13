@@ -2988,6 +2988,10 @@
             "#text": "Minimum aantal berichten voordat gebruikers naar deze rang promoveren."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Er bestaat al een rang met een dergelijke naam."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "U moet een rangnaam definiëren."
           },
@@ -3046,10 +3050,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rangen bewerken/toevoegen"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Er bestaat al een rang met een dergelijke naam."
           }
         ]
       },
@@ -11143,8 +11143,8 @@
             "#text": "Onderwerp:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Een topic met deze titel bestaat al, of de titel is niet uniek genoeg."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Er bestaat al een topic met deze titel."
           },
           {
             "@tag": "TOPICWATCH",

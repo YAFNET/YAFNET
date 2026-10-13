@@ -2988,6 +2988,10 @@
             "#text": "Minimale Anzahl an Beiträgen bevor der Benutzer zu diesem Rang aufsteigt."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Ein Rang mit einem solchen Namen existiert bereits."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Sie müssen einen Rangnamen definieren."
           },
@@ -3046,10 +3050,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rang Hinzufügen / Bearbeiten"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Ein Rang mit einem solchen Namen existiert bereits."
           }
         ]
       },
@@ -11143,8 +11143,8 @@
             "#text": "Betreff:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Ein Beitrag mit diesem Namen existiert bereits oder ist nicht eindeutig genug um ihn verwenden zu können."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Ein Thema mit diesem Titel existiert bereits."
           },
           {
             "@tag": "TOPICWATCH",

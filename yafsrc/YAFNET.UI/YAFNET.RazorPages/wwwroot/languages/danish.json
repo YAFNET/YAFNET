@@ -2996,6 +2996,10 @@
             "#text": "Minimum antal indlæg, før brugere rykker op til denne rang."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "En rang med et sådant navn findes allerede."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Du skal definere et rangnavn."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Tilføj/Rediger rang"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "En rang med et sådant navn findes allerede."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Emne:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Et emne med emnet findes allerede, eller emnet er ikke unikt nok til at blive tilføjet."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Et emne med denne titel findes allerede."
           },
           {
             "@tag": "TOPICWATCH",

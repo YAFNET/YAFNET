@@ -2996,6 +2996,10 @@
             "#text": "Minimální počet příspěvků, než budou uživatelé povýšeni na tuto hodnost."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Hodnost s takovým názvem již existuje."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Musíte definovat název hodnosti."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Přidat/Upravit pořadí"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Hodnost s takovým názvem již existuje."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Předmět:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Téma s předmětem již existuje nebo předmět není dostatečně jedinečný, aby jej bylo možné přidat."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Téma s tímto předmětem již existuje."
           },
           {
             "@tag": "TOPICWATCH",

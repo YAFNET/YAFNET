@@ -2996,6 +2996,10 @@
             "#text": "Nombre minimum de messages avant que les utilisateurs ne soient promus à ce rang."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Un rang portant un tel nom existe déjà."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Vous devez définir un nom de rang."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Ajouter/modifier le rang"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Un rang portant un tel nom existe déjà."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Sujet&nbsp;:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Une rubrique avec le sujet existe déjà ou le sujet n'est pas assez unique pour être ajouté."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Un sujet avec ce titre existe déjà."
           },
           {
             "@tag": "TOPICWATCH",

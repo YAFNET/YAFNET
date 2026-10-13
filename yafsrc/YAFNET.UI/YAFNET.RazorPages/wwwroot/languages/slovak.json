@@ -2996,6 +2996,10 @@
             "#text": "Minimálny počet príspevkov, ktoré používateľovi umožnia postúpiť do tejto hodnosti."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Hodnosť s takýmto názvom už existuje."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Musíte definovať názov hodnosti."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Pridať/upraviť hodnosť"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Hodnosť s takýmto názvom už existuje."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Predmet:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Téma s danou témou už existuje alebo téma nie je dostatočne jedinečná na to, aby mohla byť pridaná."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Téma s týmto názvom už existuje."
           },
           {
             "@tag": "TOPICWATCH",

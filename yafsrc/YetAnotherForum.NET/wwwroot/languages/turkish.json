@@ -2996,6 +2996,10 @@
             "#text": "Kullanıcılar bu rütbeye yükseltilmeden önce minimum gönderi sayısı."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Böyle bir ada sahip bir rütbe zaten mevcut."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Bir rütbe adı tanımlamalısınız."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rütbe Ekle/Düzenle"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Böyle bir ada sahip bir rütbe zaten mevcut."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Konu:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Konuyla ilgili bir başlık zaten mevcut veya konu eklenecek kadar benzersiz değil."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Bu başlığa sahip bir konu zaten mevcut."
           },
           {
             "@tag": "TOPICWATCH",

@@ -2996,6 +2996,10 @@
             "#text": "Número mínimo de postos antes de os utilizadores avançarem para esta classificação."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Já existe uma classificação com esse nome."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "É necessário definir um nome de classificação."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Adicionar/Editar Rank"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Já existe uma classificação com esse nome."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Assunto:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Um tópico com o assunto já existe ou o assunto não é único o suficiente para ser acrescentado."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Já existe um tópico com este assunto."
           },
           {
             "@tag": "TOPICWATCH",

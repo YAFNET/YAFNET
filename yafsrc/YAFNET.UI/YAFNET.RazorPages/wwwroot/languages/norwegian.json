@@ -2996,6 +2996,10 @@
             "#text": "Minimum antall innlegg før brukere avanseres til denne rangeringen."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "En rangering med et slikt navn finnes allerede."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Du må definere et rangeringsnavn."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Legg til/rediger rangering"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "En rangering med et slikt navn finnes allerede."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Emne:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Et emne med emnet eksisterer allerede, eller emnet er ikke unikt nok til å legges til."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Et emne med denne tittelen eksisterer allerede."
           },
           {
             "@tag": "TOPICWATCH",

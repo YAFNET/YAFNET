@@ -2996,6 +2996,10 @@
             "#text": "Viestien vähimmäismäärä, ennen kuin käyttäjä nousee tälle tasolle."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Tämänniminen sijoitus on jo olemassa."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Sinun on määriteltävä arvojärjestyksen nimi."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Lisää/muokkaa sijoitusta"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Tämänniminen sijoitus on jo olemassa."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Aihe:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Aihe on jo olemassa, tai aihe ei ole tarpeeksi ainutlaatuinen lisättäväksi."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Aihe tällä otsikolla on jo olemassa."
           },
           {
             "@tag": "TOPICWATCH",

@@ -2996,6 +2996,10 @@
             "#text": "Numărul minim de postări înainte ca utilizatorii să fie avansați la acest rang."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Un rang cu un astfel de nume există deja."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Trebuie să definiți un nume de rang."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Adăugare/modificare rang"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Un rang cu un astfel de nume există deja."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Subiect:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Există deja un subiect cu subiectul respectiv sau subiectul nu este suficient de unic pentru a fi adăugat."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Există deja un subiect cu acest titlu."
           },
           {
             "@tag": "TOPICWATCH",

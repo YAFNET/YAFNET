@@ -2988,6 +2988,10 @@
             "#text": "Minimalna liczba postów, po której użytkownicy awansują do tej rangi."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Ranga o takiej nazwie już istnieje."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Należy określić nazwę rangi."
           },
@@ -3046,10 +3050,6 @@
           {
             "@tag": "TITLE",
             "#text": "Dodaj/Edytuj rangę"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "Ranga o takiej nazwie już istnieje."
           }
         ]
       },
@@ -11147,7 +11147,7 @@
             "#text": "Tytuł:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
+            "@tag": "SUBJECT_EXISTS",
             "#text": "Temat z takim tytułem już istnieje."
           },
           {

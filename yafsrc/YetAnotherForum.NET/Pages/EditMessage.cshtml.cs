@@ -131,7 +131,7 @@ public class EditMessageModel : ForumPage
                 && this.GetRepository<Topic>().CheckForDuplicate(this.Input.TopicSubject.Trim())
                 && this.PageBoardContext.PageMessage is null)
             {
-                this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("SUBJECT_EXISTS"), MessageTypes.warning);
                 return false;
             }
         }

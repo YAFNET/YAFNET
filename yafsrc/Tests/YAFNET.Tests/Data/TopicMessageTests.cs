@@ -400,6 +400,19 @@ public class TopicMessageTests
     }
 
     [Test]
+    [Description("A deleted topic doesn't count as an existing subject")]
+    public async Task CheckForDuplicate_Deleted_Topic_Test()
+    {
+        var (topic, _) = await this.PostTopicAsync("Deleted subject", "first");
+
+        this.Topics.CheckForDuplicate("Deleted subject").Should().BeTrue();
+
+        await this.Topics.DeleteAsync(this.forumId, topic.ID, false);
+
+        this.Topics.CheckForDuplicate("Deleted subject").Should().BeFalse("the topic is deleted");
+    }
+
+    [Test]
     [Description("Topic helpers: lock, answer, duplicates and lookups")]
     public async Task Topic_Helpers_Test()
     {
@@ -414,7 +427,9 @@ public class TopicMessageTests
         this.Topics.GetAnswerMessage(topic.ID).Should().BeNull();
         this.Topics.GetAnswerMessage(-1).Should().BeNull();
 
-        this.Topics.CheckForDuplicate("install YAF").Should().BeTrue();
+        // the same subject (ignoring the case), not a part of it
+        this.Topics.CheckForDuplicate("how do i install yaf? ").Should().BeTrue();
+        this.Topics.CheckForDuplicate("install YAF").Should().BeFalse();
         this.Topics.CheckForDuplicate("something else").Should().BeFalse();
 
         (await this.Topics.GetTopicFromMessageAsync(message.ID)).ID.Should().Be(topic.ID);

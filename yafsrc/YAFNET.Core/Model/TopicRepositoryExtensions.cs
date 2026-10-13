@@ -1345,9 +1345,11 @@ public static class TopicRepositoryExtensions
         /// </returns>
         public bool CheckForDuplicate(string topicSubject)
         {
-            var topic = repository.GetSingle(t => t.TopicName.Contains(topicSubject) && t.TopicMovedID == null);
+            // the same subject (ignoring the case), not a subject that only contains it; deleted topics don't count
+            var subject = topicSubject.Trim().ToUpperInvariant();
 
-            return topic != null;
+            return repository.Exists(
+                t => t.TopicName.ToUpper() == subject && t.TopicMovedID == null && (t.Flags & 8) != 8);
         }
 
         /// <summary>

@@ -2996,6 +2996,10 @@
             "#text": "Minsta antal inlägg innan användare avancerar till denna rang."
           },
           {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "En rang med ett sådant namn finns redan."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Du måste definiera ett namn på en rang."
           },
@@ -3054,10 +3058,6 @@
           {
             "@tag": "TITLE",
             "#text": "Lägg till/redigera rang"
-          },
-          {
-            "@tag": "MSG_RANK_EXISTS",
-            "#text": "En rang med ett sådant namn finns redan."
           }
         ]
       },
@@ -11159,8 +11159,8 @@
             "#text": "Ärende:"
           },
           {
-            "@tag": "SUBJECT_DUPLICATE",
-            "#text": "Ett ämne med samma ämne finns redan eller så är ämnet inte tillräckligt unikt för att läggas till."
+            "@tag": "SUBJECT_EXISTS",
+            "#text": "Ett ämne med denna rubrik finns redan."
           },
           {
             "@tag": "TOPICWATCH",
