@@ -528,18 +528,17 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         var pass = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);
 
         // create empty profile just so they have one
-        var userProfile = new ProfileInfo();
-
-        // Add Profile Fields to User List Table.
-        if (Value(row, "RealName").IsSet())
-        {
-            userProfile.RealName = Value(row, "RealName");
-        }
-
-        if (Value(row, "Blog").IsSet())
-        {
-            userProfile.Blog = Value(row, "Blog");
-        }
+        var userProfile = new ProfileInfo
+                          {
+                              // the values have to fit into the columns of the profile
+                              RealName = Limited(row, "RealName", 255),
+                              Blog = Limited(row, "Blog", 255),
+                              Location = Limited(row, "Location", 255),
+                              City = Limited(row, "City", 255),
+                              Interests = Limited(row, "Interests", 4000),
+                              Homepage = Limited(row, "Homepage", 255),
+                              Occupation = Limited(row, "Occupation", 400)
+                          };
 
         if (Value(row, "Gender").IsSet())
         {
@@ -558,39 +557,19 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             }
         }
 
-        if (Value(row, "Location").IsSet())
-        {
-            userProfile.Location = Value(row, "Location");
-        }
+        // only known countries (the code, e.g. "DE") and regions of the country, like the profile page
+        var country = Value(row, "Country")?.Trim();
 
-        if (Value(row, "Country").IsSet())
+        if (country.IsSet() && StaticDataHelper.Countries().Any(c => c.Value.IsSet() && c.Value == country))
         {
-            userProfile.Country = Value(row, "Country");
-        }
+            userProfile.Country = country;
 
-        if (Value(row, "Region").IsSet())
-        {
-            userProfile.Region = Value(row, "Region");
-        }
+            var region = Value(row, "Region")?.Trim();
 
-        if (Value(row, "City").IsSet())
-        {
-            userProfile.City = Value(row, "City");
-        }
-
-        if (Value(row, "Interests").IsSet())
-        {
-            userProfile.Interests = Value(row, "Interests");
-        }
-
-        if (Value(row, "Homepage").IsSet())
-        {
-            userProfile.Homepage = Value(row, "Homepage");
-        }
-
-        if (Value(row, "Occupation").IsSet())
-        {
-            userProfile.Occupation = Value(row, "Occupation");
+            if (region.IsSet() && StaticDataHelper.Regions(country).Any(r => r.Value.IsSet() && r.Value == region))
+            {
+                userProfile.Region = region;
+            }
         }
 
         var user = new AspNetUsers
@@ -695,6 +674,20 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
         var value = row[column].ToString();
 
         return value.IsSet() ? value : null;
+    }
+
+    /// <summary>
+    /// Gets the value of a column, shortened to the length of the column it is stored in.
+    /// </summary>
+    /// <param name="row">The row.</param>
+    /// <param name="column">The column.</param>
+    /// <param name="maxLength">The length of the column.</param>
+    /// <returns>The value or null.</returns>
+    private static string Limited(DataRow row, string column, int maxLength)
+    {
+        var value = Value(row, column)?.Trim();
+
+        return value.IsSet() ? value.Truncate(maxLength) : null;
     }
 
     /// <summary>

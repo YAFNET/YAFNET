@@ -432,6 +432,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Notification mails to users without an own language (medals, private messages, reported and unapproved posts for moderators, groups, suspension) were in the language of the sender (e.g. the admin), they are in the language of the board now
 * [FIXED] Topic tags: a tag entered twice (the tag field allows the same tag again) or with spaces around it was saved as several tags, an existing tag entered twice failed the save of the post (primary key of the topic tags); every tag is trimmed and added once now
 * [FIXED] Edit profile and Admin > Edit User > Profile: a real name, location, city, homepage or blog longer than 255 characters (the homepage with the added "https://") failed the save with an error on SQL Server, MySQL and PostgreSQL; the fields have a maximum length and too long values are refused with a warning
+* [FIXED] User import (csv): profile values longer than their columns or a country name instead of the country code (the column has 2 characters) failed the import with an error on SQL Server, MySQL and PostgreSQL; the texts are shortened to the columns and only known country and region codes are taken
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

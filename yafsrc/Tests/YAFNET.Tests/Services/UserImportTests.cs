@@ -198,6 +198,25 @@ public class UserImportTests
     }
 
     [Test]
+    [Description("The profile values of a csv file have to fit into the columns (other databases than Sqlite refuse longer values), a country is only taken as its code")]
+    public async Task Import_Csv_Too_Long_Values_Test()
+    {
+        var csv = $"Name,Email,RealName,Interests,Occupation,Country,Region{Environment.NewLine}"
+                  + $"alice,alice@example.com,{new string('r', 300)},{new string('i', 5000)},{new string('o', 500)},Germany,Bavaria";
+
+        var count = await this.importer.ImportingUsersAsync(Text(csv), false);
+
+        count.Should().Be(1);
+
+        var alice = this.created.Single();
+        alice.Profile_RealName.Length.Should().BeLessThanOrEqualTo(255);
+        alice.Profile_Interests.Length.Should().BeLessThanOrEqualTo(4000);
+        alice.Profile_Occupation.Length.Should().BeLessThanOrEqualTo(400);
+        alice.Profile_Country.Should().BeNull("the country column has 2 characters, only a known country code is taken");
+        alice.Profile_Region.Should().BeNull();
+    }
+
+    [Test]
     [Description("csv files with an empty line at the end or rows with missing columns can be imported")]
     public async Task Import_Csv_Empty_Line_And_Short_Rows_Test()
     {
