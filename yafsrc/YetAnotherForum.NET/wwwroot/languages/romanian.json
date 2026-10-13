@@ -2807,6 +2807,10 @@
             "#text": "Înseamnă că utilizatorilor li se va permite/nu li se va permite să ascundă această medalie."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Îndepărtați medalia de la acest grup?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Îndepărtați medalia de la acest utilizator?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Adăugare/modificare medalie"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Îndepărtați medalia de la acest grup?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Clasamente"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Nu puteți șterge acest rang deoarece este în uz."
           }
         ]
       },

@@ -2807,6 +2807,10 @@
             "#text": "Signifie que les utilisateurs seront autorisés/interdits à cacher cette médaille."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Supprimer la médaille de ce groupe ?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Supprimer la médaille de cet utilisateur ?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Ajouter/Modifier une médaille"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Supprimer la médaille de ce groupe ?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rangs"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Vous ne pouvez pas supprimer ce grade car il est en cours d'utilisation."
           }
         ]
       },

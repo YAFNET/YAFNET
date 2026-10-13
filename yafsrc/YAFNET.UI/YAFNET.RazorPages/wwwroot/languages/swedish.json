@@ -2807,6 +2807,10 @@
             "#text": "Innebär att användarna tillåts/förbjuds att dölja denna medalj."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Ta bort medaljen från den här gruppen?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Ta bort medaljen från den här användaren?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Lägg till/redigera medalj"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Ta bort medaljen från den här gruppen?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rangordning"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Du kan inte ta bort denna rang eftersom den används."
           }
         ]
       },

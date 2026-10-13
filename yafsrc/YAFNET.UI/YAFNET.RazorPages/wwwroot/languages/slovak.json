@@ -2807,6 +2807,10 @@
             "#text": "Znamená, že používatelia budú môcť/nemôžu skryť túto medailu."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Odstrániť medailu od tejto skupiny?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Odstrániť medailu od tohto používateľa?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Pridať/upraviť medailu"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Odstrániť medailu od tejto skupiny?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Hodnosti"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Túto hodnosť nemôžete odstrániť, pretože sa používa."
           }
         ]
       },

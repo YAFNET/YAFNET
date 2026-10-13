@@ -2807,6 +2807,10 @@
             "#text": "Tähendab, et kasutajatel lubatakse/keelatakse seda medalit peita."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Kas eemaldada sellelt rühmalt medal?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Kas eemaldada sellelt kasutajalt medal?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Lisa/redigeeri medal"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Kas eemaldada sellelt rühmalt medal?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Auastmed"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Te ei saa seda auastet kustutada, kuna see on kasutusel."
           }
         ]
       },

@@ -2807,6 +2807,10 @@
             "#text": "Tarkoittaa, että käyttäjät saavat/ei saa piilottaa tämän mitalin."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Poista mitali tältä ryhmältä?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Poista mitali tältä käyttäjältä?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Lisää/muokkaa mitalia"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Poista mitali tältä ryhmältä?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Sijoitukset"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Et voi poistaa tätä sijoitusta, koska se on käytössä."
           }
         ]
       },

@@ -2803,6 +2803,10 @@
             "#text": "Gebruikers mogen deze medaille verbergen."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Medaille van deze groep weghalen?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Medaille van deze gebruiker weghalen?"
           },
@@ -2933,10 +2937,6 @@
           {
             "@tag": "TITLE",
             "#text": "Medaille bewerken/toevoegen"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Medaille van deze groep weghalen?"
           }
         ]
       },
@@ -5721,6 +5721,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rangen"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Je kunt deze rang niet verwijderen omdat hij nog in gebruik is."
           }
         ]
       },

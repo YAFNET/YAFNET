@@ -2807,6 +2807,10 @@
             "#text": "Kullanıcıların bu madalyayı gizlemesine izin verileceği/verilmeyeceği anlamına gelir."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Bu gruptan madalya kaldırılsın mı?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Bu kullanıcıdan madalya kaldırılsın mı?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Madalya Ekle/Düzenle"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Bu gruptan madalya kaldırılsın mı?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rütbeler"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Kullanımda olduğu için bu rütbeyi silemezsiniz."
           }
         ]
       },

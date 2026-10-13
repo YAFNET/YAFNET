@@ -2803,6 +2803,10 @@
             "#text": "Oznacza, że użytkownicy będą mogli/nie będą mogli ukrywać ten medal."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Usunąć medal z tej grupy?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Usunąć medal z tego użytkownika?"
           },
@@ -2933,10 +2937,6 @@
           {
             "@tag": "TITLE",
             "#text": "Dodaj/Edytuj Medal"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Usunąć medal z tej grupy?"
           }
         ]
       },
@@ -5721,6 +5721,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rangi"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Nie możesz usunąć tej rangi, ponieważ jest w użyciu."
           }
         ]
       },

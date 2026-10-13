@@ -5707,6 +5707,10 @@
                     "#text": "Is Start"
                 },
                 {
+                    "@tag": "MSG_NOT_DELETE",
+                    "#text": "You cannot delete this rank because it is in use."
+                },
+                {
                     "@tag": "NAME",
                     "#text": "Name"
                 },

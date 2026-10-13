@@ -436,6 +436,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Reporting a post: every report of the same user and post is added to the report text, after some reports (or with a higher maximum report length) it was longer than its column (4000 characters) and the report failed with an error on SQL Server, MySQL and PostgreSQL; the report text is unlimited now (Migration1005)
 * [FIXED] Album images: when several files were uploaded at once only the files up to the first image were checked, the files after it were saved whatever their type
 * [FIXED] User name styles were only set, never removed: a user taken out of a styled group, the members of a deleted group and the users of a group or rank whose style was removed kept the old style; a user who got another rank (promoted or changed by the admin) did not get the style of the new rank
+* [FIXED] Admin Ranks: deleting a rank that users have failed with an error on SQL Server, MySQL and PostgreSQL (on SQLite the users kept a deleted rank); a rank in use can't be deleted, like an access mask in use
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

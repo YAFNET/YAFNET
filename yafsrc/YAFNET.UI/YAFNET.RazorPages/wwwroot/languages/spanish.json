@@ -2803,6 +2803,10 @@
             "#text": "Significa que los usuarios podrán o no ocultar esta medalla."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "¿Eliminar medalla a este grupo?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "¿Eliminar medalla a este usuario?"
           },
@@ -2933,10 +2937,6 @@
           {
             "@tag": "TITLE",
             "#text": "Añadir/Editar medalla"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "¿Eliminar medalla a este grupo?"
           }
         ]
       },
@@ -5721,6 +5721,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rangos"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "No puedes eliminar este rango porque está en uso."
           }
         ]
       },

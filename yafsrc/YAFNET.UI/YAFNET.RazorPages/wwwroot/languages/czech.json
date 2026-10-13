@@ -2807,6 +2807,10 @@
             "#text": "Znamená, že uživatelům bude povoleno/nepovoleno skrýt tuto medaili."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Odebrat medaili této skupině?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Odebrat medaili tomuto uživateli?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Přidat/upravit medaili"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Odebrat medaili této skupině?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Hodnosti"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Toto hodnocení nemůžete odstranit, protože se používá."
           }
         ]
       },

@@ -2807,6 +2807,10 @@
             "#text": "Reiškia, kad naudotojams bus leidžiama/neleidžiama slėpti šį medalį."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Pašalinti šios grupės medalį?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Pašalinti šio naudotojo medalį?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Pridėti / redaguoti medalį"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Pašalinti šios grupės medalį?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rangai"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Šio rango negalima ištrinti, nes jis yra naudojamas."
           }
         ]
       },

@@ -2803,6 +2803,10 @@
             "#text": "Significa che gli utenti possono o non possono nascondere questa medaglia."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Rimuovere la medaglia da questo gruppo?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Rimuovere la medaglia da questo utente?"
           },
@@ -2933,10 +2937,6 @@
           {
             "@tag": "TITLE",
             "#text": "Aggiungi/Modifica medaglia"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Rimuovere la medaglia da questo gruppo?"
           }
         ]
       },
@@ -5721,6 +5721,10 @@
           {
             "@tag": "TITLE",
             "#text": "Gradi"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Non è possibile eliminare questo grado perché è in uso."
           }
         ]
       },

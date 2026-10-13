@@ -2803,6 +2803,10 @@
             "#text": "Erlaubt, dass der Benutzer die Medaille verstecken kann."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Medaille von dieser Gruppe entfernen?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Medaille von diesem Benutzer entfernen?"
           },
@@ -2933,10 +2937,6 @@
           {
             "@tag": "TITLE",
             "#text": "Medaille Hinzufügen / Bearbeiten"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Medaille von dieser Gruppe entfernen?"
           }
         ]
       },
@@ -5721,6 +5721,10 @@
           {
             "@tag": "TITLE",
             "#text": "Ränge"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Du kannst diesen Rang nicht löschen, da er verwendet wird."
           }
         ]
       },

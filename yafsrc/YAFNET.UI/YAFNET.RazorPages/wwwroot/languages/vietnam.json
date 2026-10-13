@@ -2807,6 +2807,10 @@
             "#text": "Có nghĩa là người dùng sẽ được phép / không được phép ẩn huy chương này."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Xóa huy chương khỏi nhóm này?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Xóa huy chương khỏi người dùng này?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Thêm / Chỉnh sửa huy chương"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Xóa huy chương khỏi nhóm này?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Bảng xếp hạng"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Bạn không thể xóa thứ hạng này vì nó đang được sử dụng."
           }
         ]
       },

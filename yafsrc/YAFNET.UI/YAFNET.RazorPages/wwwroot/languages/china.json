@@ -2807,6 +2807,10 @@
             "#text": "表示允许/不允许用户隐藏此奖牌。"
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "移除该组的勋章？"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "移除该用户的勋章？"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "添加/编辑奖牌"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "移除该组的勋章？"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "排名"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "您无法删除此排名，因为它正在使用中。"
           }
         ]
       },

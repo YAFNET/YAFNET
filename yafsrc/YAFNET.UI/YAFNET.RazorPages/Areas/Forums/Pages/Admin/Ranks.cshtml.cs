@@ -106,10 +106,20 @@ public class RanksModel : AdminPage
     /// Called when [post delete].
     /// </summary>
     /// <param name="id">The identifier.</param>
-    public async Task OnPostDeleteAsync(int id)
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
+        // a rank that users have can't be deleted (the users reference it)
+        if (await this.GetRepository<User>().ExistsAsync(u => u.RankID == id))
+        {
+            await this.BindDataAsync();
+
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_RANKS", "MSG_NOT_DELETE"), MessageTypes.warning);
+        }
+
         await this.GetRepository<Rank>().DeleteAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID);
         await this.BindDataAsync();
+
+        return this.Page();
     }
 
     /// <summary>

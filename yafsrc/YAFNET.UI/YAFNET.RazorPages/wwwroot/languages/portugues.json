@@ -2807,6 +2807,10 @@
             "#text": "Significa que os utilizadores serão autorizados/dispensados a esconder esta medalha."
           },
           {
+            "@tag": "CONFIRM_REMOVE_GROUP",
+            "#text": "Remover a medalha deste grupo?"
+          },
+          {
             "@tag": "CONFIRM_REMOVE_USER",
             "#text": "Remover a medalha deste utilizador?"
           },
@@ -2941,10 +2945,6 @@
           {
             "@tag": "TITLE",
             "#text": "Adicionar/Editar Medalha"
-          },
-          {
-            "@tag": "CONFIRM_REMOVE_GROUP",
-            "#text": "Remover a medalha deste grupo?"
           }
         ]
       },
@@ -5729,6 +5729,10 @@
           {
             "@tag": "TITLE",
             "#text": "Posição"
+          },
+          {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Não se pode apagar esta classificação porque está a ser utilizada."
           }
         ]
       },
