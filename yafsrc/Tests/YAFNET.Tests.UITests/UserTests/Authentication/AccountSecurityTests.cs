@@ -354,4 +354,62 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                         "Verifying the account with the resent link failed");
                 });
     }
+
+    /// <summary>
+    /// After the verification mail was sent again, the login on the same page logs in: the page stayed at the
+    /// address of the "send again" handler and the login button sent the mail again instead.
+    /// </summary>
+    [Test]
+    public async Task LoginAfterResendingVerificationMailTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = $"TempUser{Random.Shared.Next()}";
+                    var email = $"{userName.ToLower()}@test.com";
+
+                    Assert.That(
+                        await page.SubmitRegistrationAsync(this.TestSettings, userName, email, this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "Registrations are disabled");
+
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                        Is.False,
+                        "Login of a not approved account");
+
+                    this.Fixture.SmtpServer.ClearReceivedEmail();
+
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ResendConfirm']"));
+
+                    var confirmLink = await this.Fixture.SmtpServer.WaitForEmailLinkAsync(email);
+
+                    Assert.That(confirmLink, Is.Not.Null, "The verification mail was not sent again");
+
+                    // the account is verified in another browser
+                    var otherContext = await this.Fixture.Context.Browser!.NewContextAsync(
+                                           new BrowserNewContextOptions { IgnoreHTTPSErrors = true });
+
+                    try
+                    {
+                        var otherPage = await otherContext.NewPageAsync();
+                        await otherPage.GotoAsync(confirmLink);
+                    }
+                    finally
+                    {
+                        await otherContext.DisposeAsync();
+                    }
+
+                    // the login on the page of the resent mail
+                    await page.Locator("#Input_UserName").FillAsync(userName);
+                    await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                    await page.SubmitAndWaitAsync(page.Locator("#Login"));
+
+                    Assert.That(
+                        await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(),
+                        Is.True,
+                        "The login failed");
+                });
+    }
 }

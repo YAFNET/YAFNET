@@ -257,4 +257,36 @@ public class TwoFactorTests(ComposeScenario scenario) : DatabaseTestBase(scenari
                         "Login with the 2FA code failed");
                 });
     }
+
+    /// <summary>
+    /// The settings are saved after enabling 2FA was refused (wrong password): the page stayed at the address
+    /// of the 2FA handler and the save button of the settings posted to it again.
+    /// </summary>
+    [Test]
+    public async Task SaveSettingsAfterRefusedTwoFactorTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
+
+                    await page.Locator("#InputCode").FillAsync("123456");
+                    await page.Locator("#TwoFactorPassword").FillAsync("WrongPassword123!");
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='EnableTwoFa']"));
+
+                    Assert.That(
+                        await page.ContentAsync(),
+                        Does.Contain("The password you entered is not correct."),
+                        "Enabling 2FA with a wrong password was not refused");
+
+                    // the settings are saved, the user is sent to the account page
+                    await page.SubmitAndWaitAsync(
+                        page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save", Exact = true }));
+
+                    Assert.That(page.Url, Does.Contain("MyAccount"), "The settings were not saved");
+                });
+    }
 }

@@ -1025,4 +1025,59 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(text, Does.Contain("10").And.Contain("1990"), $"The birthday is not the 10th ({text})");
                 });
     }
+
+    /// <summary>
+    /// The block options are saved after an ignored user was removed from the list: the page stayed at the
+    /// address of the "show posts" handler and the save button posted to it again (the options were not saved).
+    /// </summary>
+    [Test]
+    public async Task SaveBlockOptionsAfterRemovingIgnoredUserTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    // a topic of a user that will be ignored
+                    var ignoredUser = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    var topicId = await page.CreateTopicAsync(
+                                      this.TestSettings,
+                                      this.TestSettings.TestForumId,
+                                      $"Block options test {Random.Shared.Next()}",
+                                      "A topic for the block options test");
+
+                    Assert.That(topicId, Is.Not.Null, "The topic was not created");
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{topicId}/topic");
+
+                    await page.RunAndWaitForNextPageAsync(
+                        () => page.Locator("[formaction*='AddIgnoredUser']").First.EvaluateAsync("button => button.click()"));
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/BlockOptions");
+
+                    Assert.That(await page.ContentAsync(), Does.Contain(ignoredUser), "The ignored user is not listed");
+
+                    // show the posts of the user again
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Delete']").First);
+
+                    var option = page.Locator("form input.form-check-input[type=checkbox]").First;
+
+                    Assert.That(await option.IsCheckedAsync(), Is.False, "The option is already set");
+
+                    await option.CheckAsync();
+
+                    await page.SubmitAndWaitAsync(
+                        page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save", Exact = true }));
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/BlockOptions");
+
+                    Assert.That(
+                        await page.Locator("form input.form-check-input[type=checkbox]").First.IsCheckedAsync(),
+                        Is.True,
+                        "The block option was not saved");
+                });
+    }
 }

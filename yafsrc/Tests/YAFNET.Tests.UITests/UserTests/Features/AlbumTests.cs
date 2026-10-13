@@ -821,4 +821,34 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     }
                 });
     }
+
+    /// <summary>
+    /// A new album can be deleted right after the upload: the page stayed at the address of the upload handler
+    /// and the delete button posted to it (the album was not deleted).
+    /// </summary>
+    [Test, DependsOnTest(nameof(AddNewUserAlbumTest))]
+    public async Task DeleteAlbumAfterUploadTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    // a new user without albums
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditAlbumImages/new");
+
+                    await page.Locator("#AlbumTitle").FillAsync("Delete me");
+                    await page.Locator("#ImageFiles").SetInputFilesAsync(Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png"));
+                    await page.SubmitAndWaitAsync(page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Upload", Exact = true }));
+
+                    Assert.That(await page.Locator("img.album-image-thumb").CountAsync(), Is.EqualTo(1), "The image was not uploaded");
+
+                    await page.GetByText("Delete Album").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator(".btn-success"));
+
+                    Assert.That(page.Url, Does.Contain("/Albums/"), "The album was not deleted");
+                    Assert.That(await page.ContentAsync(), Does.Not.Contain("Delete me"), "The album is still listed");
+                });
+    }
 }

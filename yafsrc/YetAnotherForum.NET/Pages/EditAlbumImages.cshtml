@@ -114,6 +114,8 @@
                             {
                                 <button type="submit"
                                         button-style="Danger"
+                                        asp-page="@ForumPages.EditAlbumImages.GetPageName()"
+                                        asp-route-a="@Model.AlbumId"
                                         asp-route-albumId="@Model.AlbumId"
                                         icon="trash"
                                         text-localized-tag="Button_DeleteAlbum"
