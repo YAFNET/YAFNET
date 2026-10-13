@@ -30,6 +30,7 @@ using System.Linq;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
+using YAF.Types.Extensions;
 using YAF.Types.Models;
 
 /// <summary>
@@ -96,14 +97,9 @@ public class PageAccessEditModel : AdminPage
     }
 
     /// <summary>
-    /// The pages only the host admin can use (they can't be granted to the admins of a board):
-    /// the boards, the host settings, the page access, and the pages that work on the whole database.
+    /// The pages only the host admin can use (they can't be granted to the admins of a board).
     /// </summary>
-    private static readonly string[] HostPages =
-    [
-        "Admin_Boards", "Admin_EditBoard", "Admin_HostSettings", "Admin_PageAccessList", "Admin_PageAccessEdit", "Admin_RunSql",
-        "Admin_ReIndex", "Admin_Languages", "Admin_EditLanguage", "Admin_RestartApp", "Admin_TestData"
-    ];
+    private static readonly string[] HostPages = ForumPagesExtensions.HostAdminPages;
 
     /// <summary>
     /// Handles the Click event of the Save control.

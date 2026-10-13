@@ -135,9 +135,10 @@ public abstract class ForumPage : PageModel,
                 BoardContext.Current.PageUserID,
                 BoardContext.Current.CurrentForumPage.PageName.ToString());
 
-            // Check access rights to the page.
+            // Check access rights to the page (the host pages can't be granted, also not by an access stored before).
             if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin &&
-                (!BoardContext.Current.CurrentForumPage.PageName.ToString().IsSet() || !hasAccess))
+                (!BoardContext.Current.CurrentForumPage.PageName.ToString().IsSet() || !hasAccess
+                 || BoardContext.Current.CurrentForumPage.PageName.IsHostAdminPage()))
             {
                 context.Result = this.Get<ILinkBuilder>()
                     .RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);

@@ -44,6 +44,7 @@ using YAF.Core.Handlers;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Constants;
 using YAF.Types.EventProxies;
+using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
@@ -178,6 +179,25 @@ public class ForumPageFilterTests
             new AdminPageUserAccess { UserID = this.board.PageLoad.UserID, PageName = nameof(ForumPages.Admin_Admin) });
 
         (await this.RunAsync(new TestPage(ForumPages.Admin_Admin) { Admin = true })).Result.Should().BeNull();
+    }
+
+    [Test]
+    [Description("The host pages (host settings, boards, run sql...) are only for the host admin, a stored access of a board admin (e.g. granted by an older version) does not open them")]
+    [TestCase(ForumPages.Admin_HostSettings)]
+    [TestCase(ForumPages.Admin_RunSql)]
+    [TestCase(ForumPages.Admin_EditBoard)]
+    public async Task Host_Page_Test(ForumPages hostPage)
+    {
+        this.board.PageLoad.IsAdmin = true;
+
+        this.board.Current.GetRepository<AdminPageUserAccess>().Insert(
+            new AdminPageUserAccess { UserID = this.board.PageLoad.UserID, PageName = hostPage.ToString() });
+
+        (await this.RunAsync(new TestPage(hostPage) { Admin = true })).Result.Should().BeSameAs(this.infoRedirect);
+
+        this.board.PageUser.Flags |= (int)UserFlags.Flags.IsHostAdmin;
+
+        (await this.RunAsync(new TestPage(hostPage) { Admin = true })).Result.Should().BeNull();
     }
 
     [Test]

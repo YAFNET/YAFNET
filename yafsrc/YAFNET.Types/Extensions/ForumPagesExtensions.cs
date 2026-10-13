@@ -32,6 +32,28 @@ using YAF.Types.Constants;
 public static class ForumPagesExtensions
 {
     /// <summary>
+    /// The pages only the host admin can use (they can't be granted to the admins of a board):
+    /// the boards, the host settings, the page access, and the pages that work on the whole database or application.
+    /// </summary>
+    public static readonly string[] HostAdminPages =
+    [
+        nameof(ForumPages.Admin_Boards), nameof(ForumPages.Admin_EditBoard), nameof(ForumPages.Admin_HostSettings),
+        nameof(ForumPages.Admin_PageAccessList), nameof(ForumPages.Admin_PageAccessEdit), nameof(ForumPages.Admin_RunSql),
+        nameof(ForumPages.Admin_ReIndex), nameof(ForumPages.Admin_Languages), nameof(ForumPages.Admin_EditLanguage),
+        nameof(ForumPages.Admin_RestartApp), nameof(ForumPages.Admin_TestData)
+    ];
+
+    /// <summary>
+    /// Checks if only the host admin can use the page.
+    /// </summary>
+    /// <param name="page">The page.</param>
+    /// <returns>Returns if it is a host admin page.</returns>
+    public static bool IsHostAdminPage(this ForumPages page)
+    {
+        return Array.IndexOf(HostAdminPages, page.ToString()) >= 0;
+    }
+
+    /// <summary>
     /// The get page name.
     /// </summary>
     /// <param name="page">
