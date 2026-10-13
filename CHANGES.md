@@ -416,6 +416,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > BB Codes: a code selected on page 2 (or a later page) exported the code at the same place on page 1, and the selection of a page was shown on the next page; the same selection was taken to the next page of the topics of Moderate > Forums (delete or move of topics that were not selected): the pages are changed by a post of the form, the list showed the posted ids and selection instead of the loaded page
 * [FIXED] Admin > Users > Import: a user refused by the login system (e.g. a name with characters that are not allowed, an invalid e-mail) was created as forum user without login and got the registration mail with a password that did not work; such users are skipped now (the reason is logged)
 * [FIXED] PostgreSQL: a difference in minutes was only the minutes part of the time (2:05 hours were 5 minutes): users who left the forum were shown in the active users list until the minutes part was larger than the active time, and the online time of the active users list was wrong
+* [FIXED] Installation: the search index update (started by the first page) could run before the board was created and failed ("Error In UpdateSearchIndexTask", the settings were saved for the board 0); it waits for the board now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

@@ -180,7 +180,7 @@ public sealed class TestBoardContext : IDisposable
     /// <summary>
     /// Gets the board settings.
     /// </summary>
-    public BoardSettings BoardSettings { get; } = new();
+    public BoardSettings BoardSettings { get; } = new() { BoardId = TestDatabase.BoardId };
 
     /// <summary>
     /// Gets the control settings.

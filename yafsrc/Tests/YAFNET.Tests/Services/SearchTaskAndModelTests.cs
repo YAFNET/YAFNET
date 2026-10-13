@@ -106,6 +106,20 @@ public class SearchTaskAndModelTests
     }
 
     [Test]
+    [Description("During the installation (the board settings of no board, the task is started by the first page) nothing is done, the settings were saved for the board 0")]
+    public async Task No_Board_Yet_Test()
+    {
+        this.board.BoardSettings.BoardId = 0;
+        this.board.BoardSettings.ForceUpdateSearchIndex = true;
+
+        await this.NewTask().RunOnceAsync();
+
+        this.board.BoardSettings.ForceUpdateSearchIndex.Should().BeTrue("the update is done when the board exists");
+        this.board.Current.GetRepository<Registry>().Count(r => r.BoardID == 0).Should().Be(0);
+        this.board.Search.Indexed.Should().BeEmpty();
+    }
+
+    [Test]
     [Description("A message built from a post row has the values of the row")]
     public void Message_From_Row_Test()
     {

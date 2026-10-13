@@ -72,7 +72,8 @@ public class UpdateSearchIndexTask : LongBackgroundTask
         {
             Thread.BeginCriticalRegion();
 
-            if (BoardContext.Current == null)
+            // during the installation (the first page starts the task) the board settings are of no board
+            if (BoardContext.Current == null || BoardContext.Current.BoardSettings.BoardId == 0)
             {
                 return;
             }
