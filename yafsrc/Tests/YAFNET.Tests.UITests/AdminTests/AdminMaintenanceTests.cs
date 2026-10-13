@@ -110,6 +110,99 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// The export of the bb codes exports the codes selected on the shown page: the pages are changed by a post
+    /// of the form, the ids and the selection of the posted page were shown (page 1 was exported).
+    /// </summary>
+    [Test]
+    public async Task ExportBBCodeOfSecondPageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BBCodes");
+
+                // 5 codes per page (the select sends the form)
+                await page.EvaluateAsync("() => window.yafTestOldPage = true");
+                await page.Locator("select#Size").SelectOptionAsync(["5"]);
+                await page.WaitForFunctionAsync("() => !window.yafTestOldPage && document.readyState === 'complete'");
+
+                var checkBoxes = page.Locator("input[type='checkbox'][id$='__Selected']");
+
+                Assert.That(await checkBoxes.CountAsync(), Is.EqualTo(5), "The page size was not changed");
+
+                await checkBoxes.First.CheckAsync();
+
+                await page.SubmitAndWaitAsync(page.Locator(".pagination .page-link", new PageLocatorOptions { HasTextRegex = new System.Text.RegularExpressions.Regex(@"^\s*2\s*$") }).First);
+
+                Assert.That(await checkBoxes.First.IsCheckedAsync(), Is.False, "The selection of page 1 is shown on page 2");
+
+                await checkBoxes.Nth(1).CheckAsync();
+
+                var name = (await page.Locator($"label[for='{await checkBoxes.Nth(1).GetAttributeAsync("id")}']").InnerTextAsync()).Trim();
+
+                var download = await page.RunAndWaitForDownloadAsync(
+                                   () => page.Locator(".card-footer button[formaction*='Export']").ClickAsync());
+
+                var xml = await System.IO.File.ReadAllTextAsync(await download.PathAsync());
+
+                Assert.That(xml, Does.Contain($"<Name>{name}</Name>"), $"The selected code {name} was not exported");
+
+                Assert.That(
+                    xml.Split("<Name>").Length - 1,
+                    Is.EqualTo(1),
+                    $"Other codes were exported: {xml}");
+            });
+    }
+
+    /// <summary>
+    /// The selection of the topics of the moderated forum is not taken to the next page (the pages are changed by
+    /// a post of the form, the topics at the same places of the next page were selected and could be deleted).
+    /// </summary>
+    [Test]
+    public async Task ModerateSelectionNotOnNextPageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                // more topics than one page of 5
+                for (var i = 0; i < 6; i++)
+                {
+                    Assert.That(
+                        await page.CreateTopicAsync(
+                            this.TestSettings,
+                            this.TestSettings.TestForumId,
+                            $"Moderate paging {Random.Shared.Next()}",
+                            "A topic of the paging test"),
+                        Is.Not.Null,
+                        "The topic was not created");
+                }
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Moderate/Forums/{this.TestSettings.TestForumId}");
+
+                await page.EvaluateAsync("() => window.yafTestOldPage = true");
+                await page.Locator("select#Size").SelectOptionAsync(["5"]);
+                await page.WaitForFunctionAsync("() => !window.yafTestOldPage && document.readyState === 'complete'");
+
+                var checkBoxes = page.Locator("input[type='checkbox'][id^='TopicList_']");
+
+                Assert.That(await checkBoxes.CountAsync(), Is.EqualTo(5), "The page size was not changed");
+
+                await checkBoxes.First.CheckAsync();
+
+                await page.SubmitAndWaitAsync(
+                    page.Locator(".pagination .page-link", new PageLocatorOptions { HasTextRegex = new System.Text.RegularExpressions.Regex(@"^\s*2\s*$") }).First);
+
+                Assert.That(await checkBoxes.First.IsCheckedAsync(), Is.False, "The selection of page 1 is shown on page 2");
+            });
+    }
+
+    /// <summary>
     /// A name longer than its column (access mask: 50 characters) is limited by the input,
     /// saving does not fail on SQL Server, MySQL and PostgreSQL.
     /// </summary>

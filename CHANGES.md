@@ -413,6 +413,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] MySQL: push notifications could not be subscribed with browsers whose push service sends an endpoint longer than 255 characters (e.g. Firefox), the endpoint column is unlimited text now (database version 1005, the upgrade changes the column on MySQL and SQL Server)
 * [FIXED] MySQL: a topic tag longer than 255 characters showed the error page "Data too long for column 'TagName'" although the topic was already created (sending it again created the topic twice): the tag name column is unlimited text now (database version 1005)
 * [FIXED] MySQL: the database upgrade could not read the length or the type of a column (the lookup searched the schema "dbo", the schema of a MySQL table is its database), a column change depending on it was always or never made
+* [FIXED] Admin > BB Codes: a code selected on page 2 (or a later page) exported the code at the same place on page 1, and the selection of a page was shown on the next page; the same selection was taken to the next page of the topics of Moderate > Forums (delete or move of topics that were not selected): the pages are changed by a post of the form, the list showed the posted ids and selection instead of the loaded page
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
