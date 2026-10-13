@@ -433,6 +433,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Topic tags: a tag entered twice (the tag field allows the same tag again) or with spaces around it was saved as several tags, an existing tag entered twice failed the save of the post (primary key of the topic tags); every tag is trimmed and added once now
 * [FIXED] Edit profile and Admin > Edit User > Profile: a real name, location, city, homepage or blog longer than 255 characters (the homepage with the added "https://") failed the save with an error on SQL Server, MySQL and PostgreSQL; the fields have a maximum length and too long values are refused with a warning
 * [FIXED] User import (csv): profile values longer than their columns or a country name instead of the country code (the column has 2 characters) failed the import with an error on SQL Server, MySQL and PostgreSQL; the texts are shortened to the columns and only known country and region codes are taken
+* [FIXED] Reporting a post: every report of the same user and post is added to the report text, after some reports (or with a higher maximum report length) it was longer than its column (4000 characters) and the report failed with an error on SQL Server, MySQL and PostgreSQL; the report text is unlimited now (Migration1005)
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

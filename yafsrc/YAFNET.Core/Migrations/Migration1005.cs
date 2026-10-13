@@ -31,7 +31,7 @@ using YAF.Types.Models;
 /// <summary>
 /// Version 1005 Migrations
 /// </summary>
-[Description("Increase the push endpoint of the device subscriptions and the tag name to unlimited text.")]
+[Description("Increase the push endpoint of the device subscriptions, the tag name and the report text to unlimited text.")]
 public class Migration1005 : MigrationBase
 {
     /// <summary>
@@ -55,6 +55,12 @@ public class Migration1005 : MigrationBase
         if (this.Db.ColumnMaxLength<Tag>(x => x.TagName) is > 0 and <= 4000)
         {
             this.Db.AlterColumn<Tag>(x => x.TagName);
+        }
+
+        // every report of the same user and post is added to the report text
+        if (this.Db.ColumnMaxLength<MessageReportedAudit>(x => x.ReportText) is > 0 and <= 4000)
+        {
+            this.Db.AlterColumn<MessageReportedAudit>(x => x.ReportText);
         }
     }
 }

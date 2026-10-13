@@ -63,8 +63,8 @@ public class MessageReportedAudit : IEntity
     public int ReportedNumber { get; set; }
 
     /// <summary>
-    /// Gets or sets the report text.
+    /// Gets or sets the report text (the texts of all reports of the user, every report is added).
     /// </summary>
-    [StringLength(4000)]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string ReportText { get; set; }
 }

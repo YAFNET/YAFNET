@@ -143,4 +143,47 @@ public class ReportPostTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     "The view leads to a post of another forum");
             });
     }
+
+    /// <summary>
+    /// Every report of a user is added to the report text of the user and the post: after enough reports (or with
+    /// a higher report length) the text was longer than its column (4000 characters) and the report failed with an
+    /// error on SQL Server, MySQL and PostgreSQL.
+    /// </summary>
+    [Test]
+    public async Task ManyReportsOfTheSamePostTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                Assert.That(
+                    await page.CreateTopicAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestForumId,
+                        $"Many reports test {Random.Shared.Next()}",
+                        "A post for the report test"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                var messageId = await page.Locator(".message .selectionQuoteable").First.GetAttributeAsync("id");
+
+                Assert.That(messageId, Is.Not.Null.And.Not.Empty, "The message id was not found");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                // 30 reports of the longest allowed text (128 characters by default) are more than 4000 characters
+                for (var i = 0; i < 30; i++)
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}ReportPost/{messageId}");
+
+                    var maxLength = int.Parse(await page.Locator("#Report").GetAttributeAsync("maxlength") ?? "128");
+
+                    await ReportAsync(page, this.TestSettings, messageId, new string((char)('a' + i % 26), maxLength));
+                }
+            });
+    }
 }
