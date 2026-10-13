@@ -121,4 +121,93 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         "The guest group was deleted");
                 });
     }
+
+    /// <summary>
+    /// The members of a deleted group lose the name style of the group: the style was only updated when a style
+    /// was set, it was never removed.
+    /// </summary>
+    [Test]
+    [Description("A deleted group's style is removed from its members")]
+    public async Task DeletedGroupStyleIsRemovedFromMembersTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    Assert.That(await page.LoginAdminUserAsync(this.TestSettings), Is.True, "Login failed");
+
+                    var roleName = $"StyledRole{Random.Shared.Next()}";
+
+                    // a group with a style
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditGroup");
+                    await page.Locator("#Input_Name").FillAsync(roleName);
+                    await page.Locator("#Input_Description").FillAsync("Styled test role");
+                    await page.Locator("#Input_Style").FillAsync("color: #123456");
+                    await page.Locator("#Input_NewAccessMaskID").SelectOptionAsync(["3"]);
+                    await page.SubmitAndWaitAsync(page.Locator("#Save"));
+
+                    // the user is added to the group
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                    var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
+                    await searchNameInput.FillAsync(userName);
+                    await searchNameInput.PressAsync("Enter");
+                    await page.Locator("//a[contains(@href,'EditUser')]").First.ClickAsync();
+                    await page.Locator("//button[contains(@data-bs-target,'#View2')]").ClickAsync();
+                    await page.GetByLabel(roleName).First.CheckAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UsersGroups?handler=Save')]"));
+
+                    Assert.That(await UserStyleAsync(page, this.TestSettings, userName), Does.Contain("#123456"), "The user has not the group style");
+
+                    // the group is deleted
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Groups");
+
+                    var groupId = await page.EvaluateAsync<string>(
+                        """
+                        name => {
+                            for (const item of document.querySelectorAll('li.list-group-item')) {
+                                const edit = item.querySelector('a[href*="EditGroup"]');
+                                if (edit && item.textContent.includes(name)) {
+                                    return edit.getAttribute('href').match(/(\d+)\D*$/)[1];
+                                }
+                            }
+                            return null;
+                        }
+                        """,
+                        roleName);
+
+                    Assert.That(groupId, Is.Not.Null, "The group is not listed");
+
+                    var status = await page.EvaluateAsync<int>(
+                        """
+                        async url => {
+                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                            const body = new URLSearchParams({ '__RequestVerificationToken': token });
+                            const response = await fetch(url, { method: 'POST', body: body });
+                            return response.status;
+                        }
+                        """,
+                        $"{this.TestSettings.TestForumUrl}Admin/Groups?handler=Delete&id={groupId}");
+
+                    Assert.That(status, Is.EqualTo(200), "The delete handler failed");
+
+                    Assert.That(await UserStyleAsync(page, this.TestSettings, userName), Is.Null.Or.Not.Contain("#123456"), "The user still has the style of the deleted group");
+                });
+    }
+
+    /// <summary>
+    /// Gets the style of the user link in the members list.
+    /// </summary>
+    private static async Task<string> UserStyleAsync(IPage page, TestConfig testSettings, string userName)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Members");
+
+        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+        await page.Locator("#Input_UserSearchName").FillAsync(userName);
+        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Search')]"));
+
+        return await page.Locator("a", new PageLocatorOptions { HasTextString = userName }).First.GetAttributeAsync("style");
+    }
 }

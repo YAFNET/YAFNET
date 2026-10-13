@@ -90,6 +90,9 @@ public static class UserRepositoryExtensions
             if (newRank != null)
             {
                 await repository.UpdateOnlyAsync(() => new User { RankID = newRank.ID }, u => u.ID == userId);
+
+                // the style of the new rank
+                await repository.UpdateStyleAsync(userId);
             }
         }
 
@@ -120,17 +123,10 @@ public static class UserRepositoryExtensions
             var groupStyle = await BoardContext.Current.GetRepository<UserGroup>().GetGroupStyleForUserAsync(userId);
             var rankStyle = await BoardContext.Current.GetRepository<Rank>().GetRankStyleForUserAsync(userId);
 
-            if (groupStyle.IsSet())
-            {
-                await repository.UpdateOnlyAsync(() => new User { UserStyle = groupStyle }, u => u.ID == userId);
-            }
-            else
-            {
-                if (rankStyle.IsSet())
-                {
-                    await repository.UpdateOnlyAsync(() => new User { UserStyle = rankStyle }, u => u.ID == userId);
-                }
-            }
+            // also without a group or rank style: an old style (e.g. of a group the user was removed from) is cleared
+            var style = groupStyle.IsSet() ? groupStyle : rankStyle.IsSet() ? rankStyle : null;
+
+            await repository.UpdateOnlyAsync(() => new User { UserStyle = style }, u => u.ID == userId);
         }
 
         /// <summary>
@@ -329,12 +325,12 @@ public static class UserRepositoryExtensions
         /// <param name="rankId">
         /// The rank id.
         /// </param>
-        public Task AdminSaveAsync(int boardId,
+        public async Task AdminSaveAsync(int boardId,
             int userId,
             int flags,
             int rankId)
         {
-            return repository.UpdateOnlyAsync(
+            await repository.UpdateOnlyAsync(
                 () => new User
                 {
                     BoardID = boardId,
@@ -342,6 +338,9 @@ public static class UserRepositoryExtensions
                     RankID = rankId
                 },
                 u => u.ID == userId);
+
+            // the style of the rank
+            await repository.UpdateStyleAsync(userId);
         }
 
         /// <summary>

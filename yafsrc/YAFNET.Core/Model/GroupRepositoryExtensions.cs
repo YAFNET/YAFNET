@@ -138,6 +138,9 @@ public static class GroupRepositoryExtensions
             int userAlbums,
             int userAlbumImages)
         {
+            // a removed style has to be removed from the users too
+            var oldStyle = groupId.HasValue ? (await repository.GetByIdAsync(groupId.Value))?.Style : null;
+
             if (groupId.HasValue)
             {
                 await repository.UpdateOnlyAsync(
@@ -175,7 +178,7 @@ public static class GroupRepositoryExtensions
                 await BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroupAsync(groupId.Value, accessMaskId);
             }
 
-            if (style.IsSet())
+            if (style.IsSet() || oldStyle.IsSet())
             {
                 // -- group styles override rank styles
                 await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(boardId));

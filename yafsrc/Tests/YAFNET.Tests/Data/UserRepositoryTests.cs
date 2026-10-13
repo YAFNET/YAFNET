@@ -540,6 +540,61 @@ public class UserRepositoryTests
         this.Users.GetById(this.bob).UserStyle.Should().Be("color: blue");
     }
 
+    [Test]
+    [Description("A user without a group or rank style loses the old style (e.g. removed from the styled group)")]
+    public async Task UpdateStyleAsync_Clears_Old_Style_Test()
+    {
+        var groupId = this.db.AddForumAccess(this.alice, this.db.AddForum());
+        this.Repository<Group>().UpdateOnly(() => new Group { Style = "color: red" }, g => g.ID == groupId);
+
+        await this.Users.UpdateStyleAsync(this.alice);
+        this.Users.GetById(this.alice).UserStyle.Should().Be("color: red");
+
+        this.Repository<UserGroup>().Delete(x => x.UserID == this.alice && x.GroupID == groupId);
+        await this.Users.UpdateStyleAsync(this.alice);
+
+        this.Users.GetById(this.alice).UserStyle.Should().BeNull("the user is no longer in the styled group");
+    }
+
+    [Test]
+    [Description("A promoted user and a user who gets another rank by the admin get the style of the new rank")]
+    public async Task Rank_Change_Updates_Style_Test()
+    {
+        var newbie = this.db.AddRank("Newbie", 0, isLadder: true);
+        var regular = this.db.AddRank("Regular", 10, isLadder: true, configure: r => r.Style = "color: green");
+        var special = this.db.AddRank("Special", configure: r => r.Style = "color: gold");
+
+        this.Users.UpdateOnly(() => new User { RankID = newbie, NumPosts = 12 }, u => u.ID == this.alice);
+
+        await this.Users.PromoteAsync(this.alice);
+
+        this.Users.GetById(this.alice).RankID.Should().Be(regular);
+        this.Users.GetById(this.alice).UserStyle.Should().Be("color: green");
+
+        await this.Users.AdminSaveAsync(TestDatabase.BoardId, this.alice, this.Users.GetById(this.alice).Flags, special);
+
+        this.Users.GetById(this.alice).UserStyle.Should().Be("color: gold");
+    }
+
+    [Test]
+    [Description("Removing the style of a rank or group updates the user styles, saving without any style doesn't")]
+    public async Task Removed_Style_Updates_User_Styles_Test()
+    {
+        var rank = this.db.AddRank("Styled", configure: r => r.Style = "color: blue");
+        var groupId = this.db.AddForumAccess(this.alice, this.db.AddForum());
+        this.Repository<Group>().UpdateOnly(() => new Group { Style = "color: red" }, g => g.ID == groupId);
+
+        await this.Repository<Rank>().SaveAsync(rank, TestDatabase.BoardId, "Styled", new RankFlags(), null, null, 1, null, 0, null, 0, 0);
+        await this.Repository<Group>().SaveAsync(groupId, TestDatabase.BoardId, "Group", new GroupFlags(), 0, null, 1, null, 0, null, 0, 0);
+
+        this.board.Events.Events.OfType<YAF.Types.EventProxies.UpdateUserStylesEvent>().Should().HaveCount(2);
+
+        // saved again without a style: no user has it
+        await this.Repository<Rank>().SaveAsync(rank, TestDatabase.BoardId, "Styled", new RankFlags(), null, null, 1, null, 0, null, 0, 0);
+
+        this.board.Events.Events.OfType<YAF.Types.EventProxies.UpdateUserStylesEvent>().Should().HaveCount(2);
+    }
+
     private IRepository<User> Users => this.board.Current.GetRepository<User>();
 
     private IRepository<T> Repository<T>()

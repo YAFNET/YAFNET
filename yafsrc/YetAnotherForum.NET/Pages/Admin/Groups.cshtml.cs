@@ -31,8 +31,10 @@ using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
+using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Flags;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 
@@ -172,7 +174,7 @@ public class GroupsModel : AdminPage
         this.BindData();
     }
 
-    public void OnPostDelete(int id)
+    public async Task OnPostDeleteAsync(int id)
     {
         var groupId = id;
 
@@ -186,6 +188,12 @@ public class GroupsModel : AdminPage
             this.GetRepository<ForumAccess>().Delete(g => g.GroupID == groupId);
             this.GetRepository<UserGroup>().Delete(g => g.GroupID == groupId);
             this.GetRepository<Group>().Delete(g => g.ID == groupId);
+
+            // the members lose the style of the group
+            if (group.Style.IsSet())
+            {
+                await this.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(this.PageBoardContext.PageBoardID));
+            }
         }
 
         // re-bind data

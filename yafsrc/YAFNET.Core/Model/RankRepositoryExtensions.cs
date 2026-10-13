@@ -99,6 +99,9 @@ public static class RankRepositoryExtensions
                 _ => minPosts
             };
 
+            // a removed style has to be removed from the users too
+            var oldStyle = rankId.HasValue ? (await repository.GetByIdAsync(rankId.Value))?.Style : null;
+
             if (rankId.HasValue)
             {
                 await repository.UpdateOnlyAsync(
@@ -136,7 +139,7 @@ public static class RankRepositoryExtensions
                     });
             }
 
-            if (style.IsSet())
+            if (style.IsSet() || oldStyle.IsSet())
             {
                 await BoardContext.Current.Get<IRaiseEventAsync>().RaiseAsync(new UpdateUserStylesEvent(boardId));
             }
