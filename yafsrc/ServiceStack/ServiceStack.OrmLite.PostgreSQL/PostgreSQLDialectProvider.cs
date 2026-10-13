@@ -2336,8 +2336,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override string DateDiffFunction(string interval, string date1, string date2)
     {
         // Matches the SqlServer/Sqlite convention of computing date2 - date1.
+        // The minutes are the whole difference: EXTRACT(Minute) is only the minutes part of the interval
+        // (2:05 hours are 5), the days part of the difference of two timestamps are the whole days;
+        // no CAST: the expressions are used in where fragments, SqlVerifyFragment refuses "cast"
         return interval == "minute"
-            ? $"EXTRACT(Minute from ({date2}::timestamp - {date1}::timestamp))"
+            ? $"FLOOR(EXTRACT(EPOCH FROM ({date2}::timestamp - {date1}::timestamp)) / 60)::integer"
             : $"EXTRACT(Day from ({date2}::timestamp - {date1}::timestamp))";
     }
 
