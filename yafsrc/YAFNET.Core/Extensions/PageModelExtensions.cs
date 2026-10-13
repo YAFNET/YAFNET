@@ -24,6 +24,9 @@
 
 namespace YAF.Core.Extensions;
 
+using System;
+using System.Linq;
+
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 /// <summary>
@@ -106,6 +109,23 @@ public static class PageModelExtensions
             tempData["_confirm.link"] = link;
 
             return pageModel;
+        }
+
+        /// <summary>
+        /// Removes the posted values of a list from the model state, the inputs show the loaded list.
+        /// The pagers send the form: without it the next page showed the posted ids and selection
+        /// of the page before (and the selected items of the page before were deleted, exported...).
+        /// </summary>
+        /// <param name="listName">
+        /// The name of the list property (e.g. "List" or "Input.Topics").
+        /// </param>
+        public void ClearPostedList(string listName)
+        {
+            foreach (var key in pageModel.ModelState.Keys
+                         .Where(k => k.StartsWith($"{listName}[", StringComparison.Ordinal)).ToList())
+            {
+                pageModel.ModelState.Remove(key);
+            }
         }
     }
 }

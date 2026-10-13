@@ -418,6 +418,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] PostgreSQL: a difference in minutes was only the minutes part of the time (2:05 hours were 5 minutes): users who left the forum were shown in the active users list until the minutes part was larger than the active time, and the online time of the active users list was wrong
 * [FIXED] Installation: the search index update (started by the first page) could run before the board was created and failed ("Error In UpdateSearchIndexTask", the settings were saved for the board 0); it waits for the board now
 * [FIXED] MySQL: the current time of the database queries was the date without the time (UTC_DATE(), midnight): users who left the forum were shown in the active users list until the end of the day (UTC), the days of the prune of topics, private messages and the message history were counted up to midnight
+* [FIXED] My Account > Attachments: the pages of the own attachments could not be changed (the pager was outside of the form) and the page size was not kept
+* [FIXED] My Account > Attachments and Subscriptions: the selection of a page was taken to the next page and the selected attachment or subscription of page 2 deleted the one at the same place of page 1 (like the bb code export and Moderate > Forums)
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

@@ -174,11 +174,6 @@ public class BBCodesModel : AdminPage
 
         this.List = list;
 
-        // the pages are changed by a post of the form: the inputs show the loaded page,
-        // not the posted ids and selection of the page before
-        foreach (var key in this.ModelState.Keys.Where(k => k.StartsWith("List[", StringComparison.Ordinal)).ToList())
-        {
-            this.ModelState.Remove(key);
-        }
+        this.ClearPostedList(nameof(this.List));
     }
 }

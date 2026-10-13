@@ -14,6 +14,7 @@
 		<profileMenu></profileMenu>
 	</div>
 	<div class="col">
+		<form method="post">
 		<div class="row">
 			<div class="col">
 				<div class="card mb-3">
@@ -23,7 +24,6 @@
 								@Html.IconHeader("paperclip", "ATTACHMENTS", "TITLE")
 							</div>
 							<div class="col-auto">
-								<form method="post">
 									<div class="input-group input-group-sm me-2" role="group">
 										<div class="input-group-text">
 											@Html.LocalizedText("SHOW"):
@@ -37,12 +37,10 @@
 										        onchange="this.form.submit();"></select>
                                   
 									</div>
-								</form>
 							</div>
 						</div>
 					</div>
 					<div class="card-body">
-						<form method="post">
 							<ul class="list-group list-group-flush">
 								@for (var i = 0; i < Model.Attachments.Count; i++)
 								{
@@ -76,7 +74,6 @@
 								        return-confirm-tag="CONFIRM_DELETE"></button>
 							}
 
-						</form>
 					</div>
 				</div>
 				@if (!Model.Attachments.NullOrEmpty())
@@ -85,6 +82,7 @@
 				}
 			</div>
 		</div>
+		</form>
 	</div>
 </div>
 

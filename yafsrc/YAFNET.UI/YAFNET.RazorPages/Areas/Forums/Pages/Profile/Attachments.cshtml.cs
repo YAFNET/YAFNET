@@ -170,5 +170,7 @@ public class AttachmentsModel : ProfilePage
             this.Size);
 
         this.Attachments = list;
+
+        this.ClearPostedList(nameof(this.Attachments));
     }
 }

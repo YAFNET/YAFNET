@@ -304,12 +304,7 @@ public class ForumsModel : ModerateForumPage
             baseSize,
             this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
 
-        // the pages are changed by a post of the form: the inputs show the loaded page,
-        // not the posted ids and selection of the page before
-        foreach (var key in this.ModelState.Keys.Where(k => k.StartsWith("TopicList[", StringComparison.Ordinal)).ToList())
-        {
-            this.ModelState.Remove(key);
-        }
+        this.ClearPostedList(nameof(this.TopicList));
 
         this.UserList = this.GetRepository<UserForum>().List(null, this.PageBoardContext.PageForumID);
 

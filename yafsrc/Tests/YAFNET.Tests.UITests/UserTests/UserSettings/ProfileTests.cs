@@ -582,6 +582,165 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The own attachments can be paged and the selected attachment of page 2 is deleted (the pager was outside of
+    /// the form and did nothing, the ids and the selection of the page before were shown).
+    /// </summary>
+    [Test]
+    public async Task DeleteAttachmentOfSecondPageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await this.LoginAdminAsync(page);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Attachments");
+
+                    // more attachments than one page of 5 (the default page size)
+                    var image = Convert.ToBase64String(
+                        await System.IO.File.ReadAllBytesAsync(System.IO.Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png")));
+                    var prefix = $"paging{Random.Shared.Next()}";
+
+                    var statuses = await page.EvaluateAsync<int[]>(
+                        """
+                        async ([baseUrl, image, prefix]) => {
+                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                            const bytes = Uint8Array.from(atob(image), c => c.charCodeAt(0));
+                            const statuses = [];
+                            for (let i = 0; i < 7; i++) {
+                                const data = new FormData();
+                                data.append('file', new File([bytes], prefix + '-' + i + '.png', { type: 'image/png' }));
+                                const response = await fetch(baseUrl + 'api/FileUpload/Upload', {
+                                    method: 'POST', headers: { 'RequestVerificationToken': token }, body: data });
+                                statuses.push(response.status);
+                            }
+                            return statuses;
+                        }
+                        """,
+                        new object[] { this.TestSettings.TestForumUrl, image, prefix });
+
+                    Assert.That(statuses, Is.All.EqualTo(200), "The attachments were not uploaded");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Attachments");
+
+                    var items = page.Locator("li.list-group-item:has(input[type='checkbox'])");
+                    var firstOfPage1 = (await items.First.InnerTextAsync()).Trim();
+
+                    await items.First.Locator("input[type='checkbox']").CheckAsync();
+
+                    await page.SubmitAndWaitAsync(
+                        page.Locator(".pagination .page-link", new PageLocatorOptions { HasTextRegex = new System.Text.RegularExpressions.Regex(@"^\s*2\s*$") }).First);
+
+                    var firstOfPage2 = (await items.First.InnerTextAsync()).Trim();
+
+                    Assert.That(firstOfPage2, Is.Not.EqualTo(firstOfPage1), "Page 2 is not shown");
+                    Assert.That(await items.First.Locator("input[type='checkbox']").IsCheckedAsync(), Is.False, "The selection of page 1 is shown on page 2");
+
+                    await items.First.Locator("input[type='checkbox']").CheckAsync();
+
+                    // confirmed in a dialog
+                    await page.Locator("button[formaction*='DeleteSelected']").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+
+                    // all attachments on one page
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Attachments");
+                    await page.EvaluateAsync("() => window.yafTestOldPage = true");
+                    await page.Locator("select#Size").SelectOptionAsync(["50"]);
+                    await page.WaitForFunctionAsync("() => !window.yafTestOldPage && document.readyState === 'complete'");
+
+                    var pageSource = await page.ContentAsync();
+
+                    Assert.That(pageSource, Does.Not.Contain(firstOfPage2.Split(' ')[0]), "The selected attachment of page 2 was not deleted");
+                    Assert.That(pageSource, Does.Contain(firstOfPage1.Split(' ')[0]), "The attachment of page 1 was deleted");
+                });
+    }
+
+    /// <summary>
+    /// The selected topic subscription of page 2 is removed, not the one at the same place of page 1
+    /// (the ids and the selection of the page before were shown).
+    /// </summary>
+    [Test]
+    public async Task UnsubscribeTopicOfSecondPageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await this.LoginAdminAsync(page);
+
+                    // more watched topics than one page of 5
+                    for (var i = 0; i < 6; i++)
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{this.TestSettings.TestForumId}");
+                        await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Watched paging {Random.Shared.Next()}");
+                        await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A watched topic");
+                        await page.Locator("#Input_TopicWatch").CheckAsync();
+                        await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+                    }
+
+                    // the subscriptions are only listed with notifications
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Subscriptions");
+
+                    var notification = await page.Locator("select#Input_NotificationType").InputValueAsync();
+
+                    // the select sends the form, the setting is saved by the button
+                    await page.EvaluateAsync("() => window.yafTestOldPage = true");
+                    await page.Locator("select#Input_NotificationType").SelectOptionAsync(["0"]);
+                    await page.WaitForFunctionAsync("() => !window.yafTestOldPage && document.readyState === 'complete'");
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                    try
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Subscriptions");
+
+                        await page.EvaluateAsync("() => window.yafTestOldPage = true");
+                        await page.Locator("select#SizeTopics").SelectOptionAsync(["5"]);
+                        await page.WaitForFunctionAsync("() => !window.yafTestOldPage && document.readyState === 'complete'");
+
+                        var topics = page.Locator("li.list-group-item:has(input[id^='Input_Topics_'][type='checkbox'])");
+
+                        Assert.That(await topics.CountAsync(), Is.EqualTo(5), "The page size was not changed");
+
+                        var firstOfPage1 = (await topics.First.Locator("a").InnerTextAsync()).Trim();
+
+                        await topics.First.Locator("input[type='checkbox']").CheckAsync();
+
+                        // the pager of the topics is the last one (the forums have their own)
+                        await page.SubmitAndWaitAsync(
+                            page.Locator(".pagination").Last.Locator(".page-link", new LocatorLocatorOptions { HasTextRegex = new System.Text.RegularExpressions.Regex(@"^\s*2\s*$") }));
+
+                        Assert.That(await topics.First.Locator("input[type='checkbox']").IsCheckedAsync(), Is.False, "The selection of page 1 is shown on page 2");
+
+                        var firstOfPage2 = (await topics.First.Locator("a").InnerTextAsync()).Trim();
+
+                        Assert.That(firstOfPage2, Is.Not.EqualTo(firstOfPage1), "Page 2 is not shown");
+
+                        await topics.First.Locator("input[type='checkbox']").CheckAsync();
+                        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='UnsubscribeTopics']"));
+
+                        // all subscriptions on one page
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Subscriptions");
+                        await page.EvaluateAsync("() => window.yafTestOldPage = true");
+                        await page.Locator("select#SizeTopics").SelectOptionAsync(["50"]);
+                        await page.WaitForFunctionAsync("() => !window.yafTestOldPage && document.readyState === 'complete'");
+
+                        var names = await topics.Locator("a").AllInnerTextsAsync();
+
+                        Assert.That(System.Linq.Enumerable.Select(names, n => n.Trim()), Does.Not.Contain(firstOfPage2), "The selected subscription of page 2 was not removed");
+                        Assert.That(System.Linq.Enumerable.Select(names, n => n.Trim()), Does.Contain(firstOfPage1), "The subscription of page 1 was removed");
+                    }
+                    finally
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Subscriptions");
+                        await page.EvaluateAsync("() => window.yafTestOldPage = true");
+                        await page.Locator("select#Input_NotificationType").SelectOptionAsync([notification]);
+                        await page.WaitForFunctionAsync("() => !window.yafTestOldPage && document.readyState === 'complete'");
+                        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                    }
+                });
+    }
+
+    /// <summary>
     /// The name of a custom field (set by the admin of the board) is a text: the message of an invalid value
     /// showed it as html (the notification and the hint of required fields are html).
     /// </summary>

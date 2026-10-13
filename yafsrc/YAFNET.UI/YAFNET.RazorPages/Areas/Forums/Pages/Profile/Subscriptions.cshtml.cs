@@ -316,6 +316,8 @@ public class SubscriptionsModel : ProfilePage
             pageIndex,
             this.SizeForums);
 
+        this.ClearPostedList("Input.Forums");
+
         if (list is null)
         {
             return;
@@ -341,6 +343,8 @@ public class SubscriptionsModel : ProfilePage
             this.PageBoardContext.PageUserID,
             pageIndex,
             this.SizeTopics);
+
+        this.ClearPostedList("Input.Topics");
 
         if (list is null)
         {
