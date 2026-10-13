@@ -376,9 +376,10 @@ public class SendNotificationTests
     [Description("The bb codes of a value of a user are text in the mail (no disguised links)")]
     public async Task ToModerators_Reported_BBCode_Reason_Test()
     {
-        this.board.Localization
-            .Add("COMMON", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE", "Report on {0}")
-            .Add("TEMPLATES", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT", "{reporter} reported: {reason} see https://forum.example/moderate");
+        // the template of the board language (english.json) with the link to the reported posts
+        this.board.Localization.Add("COMMON", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE", "Report on {0}");
+        this.board.LinkBuilder.GetAbsoluteLink(ForumPages.Moderate_ReportedPosts, Arg.Any<object>())
+            .Returns("https://forum.example/moderate");
 
         this.board.Database.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
 
@@ -403,9 +404,8 @@ public class SendNotificationTests
     [Description("Reported posts notify the moderators with the reason and reporter")]
     public async Task ToModerators_Reported_Test()
     {
-        this.board.Localization
-            .Add("COMMON", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE", "Report on {0}")
-            .Add("TEMPLATES", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT", "{reporter} reported: {reason}");
+        // the template is the one of the board language (english.json)
+        this.board.Localization.Add("COMMON", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE", "Report on {0}");
 
         this.board.Database.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
 
@@ -416,7 +416,8 @@ public class SendNotificationTests
 
         var report = this.mail.Sent.Should().ContainSingle().Subject;
         report.Subject.Should().Be("Report on Test Forum");
-        report.TextBody.Should().Be($"User {this.carol} reported: spam!");
+        report.TextBody.Should().Contain($"A message was reported by User {this.carol} for the following reason: spam!")
+            .And.Contain("The Message was posted in the Test Forum forum.");
     }
 
     [Test]
@@ -433,17 +434,12 @@ public class SendNotificationTests
     }
 
     [Test]
-    [Description("Medal, role and suspension notifications go to the user with the template filled in")]
+    [Description("Medal, role and suspension notifications go to the user with the template filled in (the user has no own language: the templates of the board language)")]
     public async Task User_Notifications_Test()
     {
         this.board.Localization
             .Add("COMMON", "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT", "Medal on {0}")
-            .Add("TEMPLATES", "NOTIFICATION_ON_MEDAL_AWARDED_TEXT", "{user} got {medalname}")
-            .Add("DEFAULT", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT", "Roles on {0}")
-            .Add("TEMPLATES", "NOTIFICATION_ROLE_ASSIGNMENT_TEXT", "{user} added {roles}")
-            .Add("TEMPLATES", "NOTIFICATION_ROLE_UNASSIGNMENT_TEXT", "{user} removed {roles}")
-            .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_USER_TEXT", "{user} suspended: {suspendReason}")
-            .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT", "{user} is back on {forumname}");
+            .Add("DEFAULT", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT", "Roles on {0}");
 
         var user = this.board.Current.GetRepository<User>().GetById(this.bob);
 
@@ -454,16 +450,18 @@ public class SendNotificationTests
         await this.Notifications.SendUserSuspensionNotificationAsync(DateTime.UtcNow.AddDays(1), "spam", user);
         await this.Notifications.SendUserSuspensionEndedNotificationAsync(user);
 
-        this.mail.Sent.Select(m => m.TextBody).Should().Equal(
-            "Bob got Gold",
-            "Bob added Editors,Testers",
-            "Bob removed Guests",
-            "Bob suspended: spam",
-            "Bob is back on Test Forum");
+        var texts = this.mail.Sent.Select(m => m.TextBody).ToList();
+
+        texts.Should().HaveCount(5);
+        texts[0].Should().Contain("Hello Bob.").And.Contain("awarded with the Gold on the Test Forum forum");
+        texts[1].Should().Contain("Hello Bob,").And.Contain("include access to the following Group(s)").And.Contain("Editors,Testers");
+        texts[2].Should().Contain("restrict access to the following Groups(s)").And.Contain("Guests");
+        texts[3].Should().Contain("Your forum account on the Test Forum forum has been temporarily suspended").And.Contain("spam");
+        texts[4].Should().Contain("The suspension of your forum account has ended");
 
         this.mail.Sent[0].Subject.Should().Be("Medal on Test Forum");
         this.mail.Recipients.Should().OnlyContain(r => r == "bob@example.com");
-        this.mail.Sent[0].HtmlBody.Should().StartWith("<html>").And.Contain("Bob got Gold");
+        this.mail.Sent[0].HtmlBody.Should().StartWith("<html>").And.Contain("awarded with the Gold");
     }
 
     [Test]
@@ -504,6 +502,25 @@ public class SendNotificationTests
 
         // the texts of the language file of the user, not the ones of the current language
         this.mail.Sent.Should().OnlyContain(m => m.TextBody.TrimStart().StartsWith("Hello Bob"));
+    }
+
+    [Test]
+    [Description("A user without an own language gets the mails in the language of the board, not in the language of the sender (the current user)")]
+    public async Task User_Notifications_Board_Language_Test()
+    {
+        this.board.BoardSettings.Language = "english.json";
+
+        // the current language (of the admin) is german, the board language english
+        this.board.Localization
+            .Add("COMMON", "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT", "Medaille in {0}")
+            .Add("COMMON", "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT", "Medal on {0}", "english.json")
+            .Add("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT", "Sperrung in {0}")
+            .Add("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT", "Suspension on {0}", "english.json");
+
+        await this.Notifications.ToUserWithNewMedalAsync(this.bob, "Gold");
+        await this.Notifications.SendUserSuspensionEndedNotificationAsync(this.board.Current.GetRepository<User>().GetById(this.bob));
+
+        this.mail.Sent.Select(m => m.Subject).Should().Equal("Medal on Test Forum", "Suspension on Test Forum");
     }
 
     [Test]

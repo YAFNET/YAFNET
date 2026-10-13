@@ -42,7 +42,8 @@ public static class UserHelper
     /// The user.
     /// </param>
     /// <returns>
-    /// language file name. If null -- use default language
+    /// The language file of the user, or the language of the board (not the language of the current user,
+    /// e.g. the admin or the sender of a notification)
     /// </returns>
     public static string GetUserLanguageFile(User user)
     {
@@ -51,7 +52,7 @@ public static class UserHelper
             return user.LanguageFile;
         }
 
-        return null;
+        return BoardContext.Current.BoardSettings.Language;
     }
 
     /// <summary>

@@ -429,6 +429,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Upgrade (Migration1000): the old columns of the private message limits (ranks and groups) were never removed (the default constraint was looked up on the users table), and on MySQL, PostgreSQL and Sqlite also not the old notification setting of the users (a column was only removed with a default constraint, which only SQL Server has); existing databases keep the unused columns
 * [FIXED] The mails about added or removed groups and about the suspension of an account (sent when an admin changes the user) were in the language of the admin, they are in the language of the user now (like the medal and private message mails)
 * [FIXED] Security: The host pages (host settings, boards, page access, run sql, reindex, languages, restart, test data) can not be granted to the admins of a board, but an access stored before (e.g. by an older version) still opened them (Host Settings only checked the host admin when it was opened, not when it was saved); they are refused for everybody except the host admin now
+* [FIXED] Notification mails to users without an own language (medals, private messages, reported and unapproved posts for moderators, groups, suspension) were in the language of the sender (e.g. the admin), they are in the language of the board now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
