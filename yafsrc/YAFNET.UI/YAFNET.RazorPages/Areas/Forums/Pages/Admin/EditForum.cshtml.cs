@@ -338,8 +338,8 @@ public class EditForumModel : AdminPage
             return this.Warning(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"));
         }
 
-        // Forum
-        int? forumId = this.Input.Id == 0 ? null : this.Input.Id;
+        // Forum (a copy is a new forum, the id is the one of the copied forum)
+        int? forumId = this.Input.Id == 0 || this.Input.Copy ? null : this.Input.Id;
 
         int? parentId = null;
 

@@ -73,6 +73,36 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// Copying a forum creates a new forum: the save updated the copied forum with the values of the copy.
+    /// </summary>
+    [Test]
+    public async Task CopyForumCreatesNewForumTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var suffix = Random.Shared.Next();
+
+                var source = await this.SaveForumAsync(page, null, $"CopySource{suffix}", null);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/true/{source}");
+                await page.Locator("#Input_Name").FillAsync($"CopyTarget{suffix}");
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                var copy = await this.ForumIdAsync(page, $"CopyTarget{suffix}");
+
+                Assert.That(copy, Is.Not.EqualTo(source), "The copied forum was changed instead of a new forum");
+                Assert.That(await this.ForumIdAsync(page, $"CopySource{suffix}"), Is.EqualTo(source), "The copied forum is missing");
+            });
+    }
+
+    /// <summary>
     /// The names of the sub forums in the forum list are shown as entered (not encoded twice).
     /// </summary>
     [Test]
