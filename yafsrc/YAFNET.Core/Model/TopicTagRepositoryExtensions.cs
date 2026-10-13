@@ -75,12 +75,15 @@ public static class TopicTagRepositoryExtensions
 
             var boardTags = await BoardContext.Current.GetRepository<Tag>().GetByBoardIdAsync();
 
+            // a tag entered twice is added once (the topic tag has a primary key of tag and topic)
+            var added = new HashSet<string>();
+
             tags.ForEach(
                 tag =>
                 {
-                    tag = HtmlTagHelper.StripHtml(tag);
+                    tag = HtmlTagHelper.StripHtml(tag).Trim();
 
-                    if (tag.IsNotSet())
+                    if (tag.IsNotSet() || !added.Add(tag))
                     {
                         return;
                     }
@@ -105,6 +108,8 @@ public static class TopicTagRepositoryExtensions
                     {
                         // save new Tag
                         var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+
+                        boardTags.Add(new Tag { ID = newTagId, TagName = tag });
 
                         // add to topic
                         repository.Add(newTagId, topicId);

@@ -140,6 +140,16 @@ public class MedalTagRepositoryTests
     }
 
     [Test]
+    [Description("A tag that is entered twice (also a new one, and with spaces around it) is added once: the second insert of the topic tag failed (primary key) and the post could not be saved")]
+    public async Task AddTagsToTopic_Duplicate_Test()
+    {
+        await this.TopicTags.AddTagsToTopicAsync("news,news, news ,csharp", this.topic);
+
+        this.Repository<Tag>().Get(t => true).Select(t => t.TagName).Should().BeEquivalentTo(["news", "csharp"]);
+        this.TopicTags.ListAsDelimitedString(this.topic).Split(',').Should().BeEquivalentTo(["news", "csharp"]);
+    }
+
+    [Test]
     [Description("Empty input, html-only tags and common words add nothing")]
     [TestCase(null)]
     [TestCase("")]
