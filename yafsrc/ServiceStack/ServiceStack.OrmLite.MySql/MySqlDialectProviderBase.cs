@@ -827,18 +827,13 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         string columnName,
         TableRef tableRef)
     {
-        var tableName = this.GetTableNameOnly(tableRef);
-        var schema = this.GetSchemaName(tableRef);
+        var tableName = this.UnquotedTable(tableRef);
+
+        // the schema of a MySQL table is its database (see DoesColumnExist)
         var sql =
-            "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
-                .SqlFmt(this, this.GetTableNameOnly(new TableRef(schema, tableName)), columnName);
+            "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName AND TABLE_SCHEMA = @schema";
 
-        if (schema != null)
-        {
-            sql += " AND TABLE_SCHEMA = @schema";
-        }
-
-        return db.SqlScalar<string>(sql, new { tableName, columnName, schema });
+        return db.SqlScalar<string>(sql, new { tableName, columnName, schema = db.Database });
     }
 
     /// <summary>
@@ -853,18 +848,13 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         string columnName,
         TableRef tableRef)
     {
-        var tableName = this.GetTableNameOnly(tableRef);
+        var tableName = this.UnquotedTable(tableRef);
+
+        // the schema of a MySQL table is its database (see DoesColumnExist)
         var sql =
-            "SELECT character_maximum_length FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
-                .SqlFmt(this, tableName, columnName);
+            "SELECT character_maximum_length FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName AND TABLE_SCHEMA = @schema";
 
-        var schema = this.GetSchemaName(tableRef);
-        if (schema != null)
-        {
-            sql += " AND TABLE_SCHEMA = @schema";
-        }
-
-        return db.SqlScalar<long>(sql, new { tableName, columnName, schema });
+        return db.SqlScalar<long>(sql, new { tableName, columnName, schema = db.Database });
     }
 
     /// <summary>

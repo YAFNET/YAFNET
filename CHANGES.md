@@ -412,6 +412,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] MySQL: a custom profile field with a name or default value longer than 255 characters was not saved (Admin > Profile Definitions), the inputs are limited to the length of their columns
 * [FIXED] MySQL: push notifications could not be subscribed with browsers whose push service sends an endpoint longer than 255 characters (e.g. Firefox), the endpoint column is unlimited text now (database version 1005, the upgrade changes the column on MySQL and SQL Server)
 * [FIXED] MySQL: a topic tag longer than 255 characters showed the error page "Data too long for column 'TagName'" although the topic was already created (sending it again created the topic twice): the tag name column is unlimited text now (database version 1005)
+* [FIXED] MySQL: the database upgrade could not read the length or the type of a column (the lookup searched the schema "dbo", the schema of a MySQL table is its database), a column change depending on it was always or never made
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
