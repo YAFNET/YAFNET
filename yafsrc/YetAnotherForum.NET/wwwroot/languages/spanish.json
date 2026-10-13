@@ -2731,6 +2731,10 @@
           {
             "@tag": "TITLE",
             "#text": "Añadir/Editar rol"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Ya existe un grupo con ese nombre."
           }
         ]
       },
@@ -5707,6 +5711,10 @@
             "#text": "Es inicio"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "No puedes eliminar este rango porque está en uso."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nombre"
           },
@@ -5721,10 +5729,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rangos"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "No puedes eliminar este rango porque está en uso."
           }
         ]
       },

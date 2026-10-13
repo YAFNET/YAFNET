@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Adicionar/Editar o papel"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Já existe um grupo com esse nome."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "É Início"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Não se pode apagar esta classificação porque está a ser utilizada."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nome"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Posição"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Não se pode apagar esta classificação porque está a ser utilizada."
           }
         ]
       },

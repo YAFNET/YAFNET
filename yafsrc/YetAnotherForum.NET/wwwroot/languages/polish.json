@@ -2731,6 +2731,10 @@
           {
             "@tag": "TITLE",
             "#text": "Dodaj/Edytuj rolę"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Grupa o takiej nazwie już istnieje."
           }
         ]
       },
@@ -5707,6 +5711,10 @@
             "#text": "Jest początek"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Nie możesz usunąć tej rangi, ponieważ jest w użyciu."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nazwa"
           },
@@ -5721,10 +5729,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rangi"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Nie możesz usunąć tej rangi, ponieważ jest w użyciu."
           }
         ]
       },

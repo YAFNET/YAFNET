@@ -63,6 +63,31 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A second group with the name of an existing group is refused with a warning: the database refused it (the
+    /// name is unique in the board) and the page failed with an error.
+    /// </summary>
+    [Test]
+    [Description("A group name can't be used twice")]
+    public async Task GroupNameCanNotBeUsedTwiceTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(await page.LoginAdminUserAsync(this.TestSettings), Is.True, "Login failed");
+
+                    var roleName = $"TwiceRole{Random.Shared.Next()}";
+
+                    Assert.That(await page.CreateNewRole(this.TestSettings, roleName), Does.Contain(roleName), "The group was not created");
+
+                    var pageSource = await page.CreateNewRole(this.TestSettings, roleName);
+
+                    Assert.That(pageSource, Does.Contain("A group with such a name already exists."), "The warning is missing");
+                    Assert.That(page.Url, Does.Contain("EditGroup"), "The page is not shown again");
+                });
+    }
+
+    /// <summary>
     /// The guest group can't be deleted, also not with a manipulated form (the list has no delete button for it).
     /// </summary>
     [Test]

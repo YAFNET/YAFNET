@@ -170,6 +170,16 @@ public class EditGroupModel : AdminPage
             oldRoleName = group.Name;
         }
 
+        // the name must be unique in the board (also when a group is renamed), the database refuses a second one
+        if (await this.GetRepository<Group>().ExistsAsync(
+                g => g.BoardID == this.PageBoardContext.PageBoardID && g.Name == roleName && g.ID != (roleId ?? 0)))
+        {
+            // the page is shown again with the entered values
+            this.BindData(roleId);
+
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITGROUP", "MSG_GROUP_EXISTS"), MessageTypes.warning);
+        }
+
         var groupFlags = new GroupFlags {
                                                 IsGuest = this.Input.IsGuestX,
                                                 IsAdmin = this.Input.IsAdminX,

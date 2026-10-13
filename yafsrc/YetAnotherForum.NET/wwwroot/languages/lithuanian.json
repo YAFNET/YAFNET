@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Pridėti / redaguoti vaidmenį"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Grupė tokiu pavadinimu jau yra."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "Ar pradėti"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Šio rango negalima ištrinti, nes jis yra naudojamas."
+          },
+          {
             "@tag": "NAME",
             "#text": "Pavadinimas"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rangai"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Šio rango negalima ištrinti, nes jis yra naudojamas."
           }
         ]
       },

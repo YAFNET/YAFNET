@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rol Ekle/Düzenle"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Böyle bir ada sahip bir grup zaten mevcut."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "Başlıyor"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Kullanımda olduğu için bu rütbeyi silemezsiniz."
+          },
+          {
             "@tag": "NAME",
             "#text": "İsim"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rütbeler"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Kullanımda olduğu için bu rütbeyi silemezsiniz."
           }
         ]
       },

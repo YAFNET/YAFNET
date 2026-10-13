@@ -2685,6 +2685,10 @@
                     "#text": "If this is checked, all new users will be a member of this role. [br][b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register."
                 },
                 {
+                    "@tag": "MSG_GROUP_EXISTS",
+                    "#text": "A group with such a name already exists."
+                },
+                {
                     "@tag": "MSG_NAME",
                     "#text": "You need to enter a Role name."
                 },

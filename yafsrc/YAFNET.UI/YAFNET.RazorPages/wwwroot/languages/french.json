@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Ajouter/Modifier un rôle"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Un groupe portant un tel nom existe déjà."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "Est Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Vous ne pouvez pas supprimer ce grade car il est en cours d'utilisation."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nom"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rangs"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Vous ne pouvez pas supprimer ce grade car il est en cours d'utilisation."
           }
         ]
       },

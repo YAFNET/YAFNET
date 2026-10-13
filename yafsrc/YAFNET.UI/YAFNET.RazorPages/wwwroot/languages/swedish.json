@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Lägg till/redigera roll"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "En grupp med ett sådant namn finns redan."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "Är Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Du kan inte ta bort denna rang eftersom den används."
+          },
+          {
             "@tag": "NAME",
             "#text": "Namn"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rangordning"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Du kan inte ta bort denna rang eftersom den används."
           }
         ]
       },

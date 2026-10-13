@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Pridať/upraviť úlohu"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Skupina s takýmto názvom už existuje."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "Je Štart"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Túto hodnosť nemôžete odstrániť, pretože sa používa."
+          },
+          {
             "@tag": "NAME",
             "#text": "Názov"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Hodnosti"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Túto hodnosť nemôžete odstrániť, pretože sa používa."
           }
         ]
       },

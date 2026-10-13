@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Lisa/redigeeri rolli"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Sellise nimega rühm on juba olemas."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "On Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Te ei saa seda auastet kustutada, kuna see on kasutusel."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nimi"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Auastmed"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Te ei saa seda auastet kustutada, kuna see on kasutusel."
           }
         ]
       },

@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Adăugare/modificare rol"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Un grup cu un astfel de nume există deja."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "Este Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Nu puteți șterge acest rang deoarece este în uz."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nume"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Clasamente"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Nu puteți șterge acest rang deoarece este în uz."
           }
         ]
       },

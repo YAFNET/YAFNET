@@ -2731,6 +2731,10 @@
           {
             "@tag": "TITLE",
             "#text": "Rolle Hinzufügen / Bearbeiten"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Eine Gruppe mit einem solchen Namen existiert bereits."
           }
         ]
       },
@@ -5707,6 +5711,10 @@
             "#text": "Ist Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Du kannst diesen Rang nicht löschen, da er verwendet wird."
+          },
+          {
             "@tag": "NAME",
             "#text": "Name"
           },
@@ -5721,10 +5729,6 @@
           {
             "@tag": "TITLE",
             "#text": "Ränge"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Du kannst diesen Rang nicht löschen, da er verwendet wird."
           }
         ]
       },

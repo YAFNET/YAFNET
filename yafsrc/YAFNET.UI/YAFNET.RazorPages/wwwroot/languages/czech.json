@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Přidat/upravit roli"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Skupina s takovým názvem již existuje."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "Je Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Toto hodnocení nemůžete odstranit, protože se používá."
+          },
+          {
             "@tag": "NAME",
             "#text": "název"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Hodnosti"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Toto hodnocení nemůžete odstranit, protože se používá."
           }
         ]
       },

@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Thêm / Chỉnh sửa vai trò"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Một nhóm có tên như vậy đã tồn tại."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "Đang bắt đầu"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Bạn không thể xóa thứ hạng này vì nó đang được sử dụng."
+          },
+          {
             "@tag": "NAME",
             "#text": "Tên"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Bảng xếp hạng"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Bạn không thể xóa thứ hạng này vì nó đang được sử dụng."
           }
         ]
       },

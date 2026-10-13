@@ -2731,6 +2731,10 @@
           {
             "@tag": "TITLE",
             "#text": "Aggiungi/Modifica ruolo"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Esiste già un gruppo con questo nome."
           }
         ]
       },
@@ -5707,6 +5711,10 @@
             "#text": "È Avvio"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Non è possibile eliminare questo grado perché è in uso."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nome"
           },
@@ -5721,10 +5729,6 @@
           {
             "@tag": "TITLE",
             "#text": "Gradi"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Non è possibile eliminare questo grado perché è in uso."
           }
         ]
       },

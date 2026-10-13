@@ -2735,6 +2735,10 @@
           {
             "@tag": "TITLE",
             "#text": "Legg til/rediger rolle"
+          },
+          {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "En gruppe med et slikt navn eksisterer allerede."
           }
         ]
       },
@@ -5715,6 +5719,10 @@
             "#text": "Er Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Du kan ikke slette denne rangeringen fordi den er i bruk."
+          },
+          {
             "@tag": "NAME",
             "#text": "Navn"
           },
@@ -5729,10 +5737,6 @@
           {
             "@tag": "TITLE",
             "#text": "Rangerer"
-          },
-          {
-            "@tag": "MSG_NOT_DELETE",
-            "#text": "Du kan ikke slette denne rangeringen fordi den er i bruk."
           }
         ]
       },
