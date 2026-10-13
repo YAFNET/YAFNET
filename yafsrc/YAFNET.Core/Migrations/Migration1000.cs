@@ -39,45 +39,30 @@ public class Migration1000 : MigrationBase
     /// </summary>
     public override void Up()
     {
-        const string pmNotificationColumnName = "PMNotification";
-        const string pmLimitColumnName = "PMLimit";
+        this.DropColumn<User>("PMNotification");
+        this.DropColumn<Rank>("PMLimit");
+        this.DropColumn<Group>("PMLimit");
+    }
 
-        if (this.Db.ColumnExists<User>(pmNotificationColumnName))
+    /// <summary>
+    /// Drops a column if it exists, with its default constraint (SQL Server, other databases have none).
+    /// </summary>
+    /// <typeparam name="T">The table model.</typeparam>
+    /// <param name="columnName">The column name.</param>
+    private void DropColumn<T>(string columnName)
+    {
+        if (!this.Db.ColumnExists<T>(columnName))
         {
-            var constraintName = this.Db.GetConstraint<User>(pmNotificationColumnName);
-
-            if (constraintName.IsSet())
-            {
-                this.Db.DropConstraint<User>(constraintName);
-
-                this.Db.DropColumn<User>(pmNotificationColumnName);
-            }
+            return;
         }
 
-        if (this.Db.ColumnExists<Rank>(pmLimitColumnName))
+        var constraintName = this.Db.GetConstraint<T>(columnName);
+
+        if (constraintName.IsSet())
         {
-            var constraintName = this.Db.GetConstraint<User>(pmLimitColumnName);
-
-            if (constraintName.IsSet())
-            {
-                this.Db.DropConstraint<Rank>(constraintName);
-
-                this.Db.DropColumn<Rank>(pmLimitColumnName);
-            }
+            this.Db.DropConstraint<T>(constraintName);
         }
 
-        if (this.Db.ColumnExists<Group>(pmLimitColumnName))
-        {
-            var constraintName = this.Db.GetConstraint<User>(pmLimitColumnName);
-
-            if (!constraintName.IsSet())
-            {
-                return;
-            }
-
-            this.Db.DropConstraint<Group>(constraintName);
-
-            this.Db.DropColumn<Group>(pmLimitColumnName);
-        }
+        this.Db.DropColumn<T>(columnName);
     }
 }

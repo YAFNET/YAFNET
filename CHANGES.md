@@ -426,6 +426,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The push notifications of watched topics and forums had the subject in the language of the user, but the text ("... replied to the topic ...") and the buttons in the language of the poster
 * [FIXED] Mails sent together (digest, notifications of watched topics and forums): a mail the mail server refused (e.g. an unknown recipient address) stopped all mails after it
 * [FIXED] Digest with several boards in one database: the digest task of every application sent the digests of all boards, but with the topics, name and links of its own board (an application serves the board of its configuration), so the users of the other boards got no digest when another application was first; every application sends the digest of its own board now
+* [FIXED] Upgrade (Migration1000): the old columns of the private message limits (ranks and groups) were never removed (the default constraint was looked up on the users table), and on MySQL, PostgreSQL and Sqlite also not the old notification setting of the users (a column was only removed with a default constraint, which only SQL Server has); existing databases keep the unused columns
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
