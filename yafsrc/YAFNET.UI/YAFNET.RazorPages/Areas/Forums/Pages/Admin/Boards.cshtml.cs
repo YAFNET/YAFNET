@@ -81,6 +81,12 @@ public class BoardsModel : AdminPage
     /// <returns>IActionResult.</returns>
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
+        // the forum runs on its board, the board can not be deleted from itself
+        if (id == this.PageBoardContext.PageBoardID)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
+
         await this.GetRepository<Board>().DeleteBoardAsync(id);
         return await this.BindDataAsync();
     }

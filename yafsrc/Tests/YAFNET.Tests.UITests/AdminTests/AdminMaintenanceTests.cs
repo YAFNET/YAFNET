@@ -1297,6 +1297,50 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
             });
     }
 
+    /// <summary>
+    /// The board the forum runs on can not be deleted (the forum was broken afterwards):
+    /// no delete button for it, and the delete request is refused.
+    /// </summary>
+    [Test]
+    public async Task CurrentBoardCanNotBeDeletedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Boards");
+
+                var current = page.Locator("li.list-group-item.active");
+
+                var idText = await current.Locator("small").First.InnerTextAsync();
+                var boardId = idText[(idText.LastIndexOf(':') + 1)..].Trim();
+
+                Assert.That(
+                    await current.Locator("button[formaction*='Delete']").CountAsync(),
+                    Is.Zero,
+                    "The current board has a delete button");
+
+                var deleteStatus = await page.EvaluateAsync<int>(
+                    """
+                    async url => {
+                        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                        const response = await fetch(url, { method: 'POST', body: new URLSearchParams({ '__RequestVerificationToken': token }) });
+                        return response.status;
+                    }
+                    """,
+                    $"{this.TestSettings.TestForumUrl}Admin/Boards/Delete?id={boardId}");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Boards");
+
+                Assert.That(
+                    await page.Locator("li.list-group-item.active").CountAsync(),
+                    Is.EqualTo(1),
+                    $"The current board was deleted ({deleteStatus})");
+            });
+    }
+
     private async Task LoginAdminAsync(IPage page)
     {
         Assert.That(

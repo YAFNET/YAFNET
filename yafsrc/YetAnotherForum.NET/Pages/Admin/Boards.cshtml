@@ -39,7 +39,7 @@
                                                     Icon="edit">
                                             </a>
 
-                                            @if (Model.List.Count > 1)
+                                            @if (board.ID != Model.PageBoardContext.PageBoardID)
                                             {
                                                 <button button-style="Danger"
                                                         button-size="Small"
@@ -62,15 +62,18 @@
                                                 text-localized-tag="EDIT"
                                                 Icon="edit">
                                         </a>
-                                        <button button-style="None"
-                                                class="dropdown-item"
-                                                asp-page-handler="Delete"
-                                                asp-route-id="@Html.Raw(board.ID)"
-                                                title-localized-tag="DELETE"
-                                                text-localized-tag="DELETE"
-                                                Icon="trash"
-                                                return-confirm-tag="CONFIRM_DELETE">
-                                        </button>
+                                        @if (board.ID != Model.PageBoardContext.PageBoardID)
+                                        {
+                                            <button button-style="None"
+                                                    class="dropdown-item"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-id="@Html.Raw(board.ID)"
+                                                    title-localized-tag="DELETE"
+                                                    text-localized-tag="DELETE"
+                                                    Icon="trash"
+                                                    return-confirm-tag="CONFIRM_DELETE">
+                                            </button>
+                                        }
                                         <div class="dropdown-divider"></div>
                                         <button 
                                             button-style="None"

@@ -470,6 +470,7 @@ YetAnotherForum.NET Changelog
 * Admin Register User: when the verification mail could not be sent the user was created, but the default notification settings were not saved and an error page was shown, the settings are saved first now and the mail error is shown as message
 * Delete user: the medals and the push subscriptions of the user were not deleted, on PostgreSQL, SQL Server and MySQL the delete of a user with a medal or a push subscription failed (after the login of the user was already deleted). Ignore entries of other users for the deleted user are removed too
 * Delete board: the tags, profile definitions, banned countries, banned user agents and push subscriptions of the board were not deleted, on PostgreSQL, SQL Server and MySQL the delete of such a board failed half way
+* Admin Boards: the board the forum runs on could be deleted (the context menu always had the delete), the forum was broken afterwards. The delete is not shown for the current board and refused
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
