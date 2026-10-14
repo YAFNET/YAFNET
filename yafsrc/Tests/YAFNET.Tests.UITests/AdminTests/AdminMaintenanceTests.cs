@@ -478,6 +478,48 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// A new custom BBCode works in the posts at once (the cached rule engines, which contain the
+    /// custom BBCodes, were not cleared when a BBCode was added or changed).
+    /// </summary>
+    [Test]
+    public async Task NewCustomBBCodeIsUsedAtOnceTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var id = Guid.NewGuid().ToString("N")[..8];
+                var tag = $"xt{id}";
+
+                await this.LoginAdminAsync(page);
+
+                // the post is shown before the BBCode exists, the rule engine is cached
+                var topicId = await page.CreateTopicAsync(
+                                  this.TestSettings,
+                                  this.TestSettings.TestForumId,
+                                  $"Custom BBCode {id}",
+                                  $"[{tag}]custom {id}[/{tag}]");
+
+                Assert.That(topicId, Is.Not.Null, "The topic was not created");
+                Assert.That(await page.Locator($"span.{tag}").CountAsync(), Is.Zero, "The BBCode already exists");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditBBCode/0");
+
+                await page.Locator("#Input_Name").FillAsync(tag.ToUpperInvariant());
+                await page.Locator("#Input_Description").FillAsync("Test BBCode");
+                await page.Locator("#Input_SearchRegEx").FillAsync($@"\[{tag}\](?<inner>(.*?))\[/{tag}\]");
+                await page.Locator("#Input_ReplaceRegEx").FillAsync($"<span class=\"{tag}\">${{inner}}</span>");
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Add']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{topicId}/topic");
+
+                Assert.That(
+                    await page.Locator($"span.{tag}").CountAsync(), Is.EqualTo(1),
+                    "The new BBCode is not used in the post");
+            });
+    }
+
+    /// <summary>
     /// After saving a language file the texts are shown again.
     /// </summary>
     [Test]

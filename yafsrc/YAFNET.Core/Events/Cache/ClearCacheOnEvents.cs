@@ -239,8 +239,12 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// </param>
     public void Handle(RepositoryEvent<BBCode> @event)
     {
-        this.Get<IObjectStore>().Clear();
-        this.Get<IDataCache>().Clear();
+        this.DataCache.Remove(Constants.Cache.CustomBBCode);
+        this.Get<IObjectStore>().Remove(Constants.Cache.CustomBBCodeRegExDictionary);
+
+        // the custom BBCodes without a module are compiled into the cached rule engines (one per flag combination)
+        this.Get<IObjectStore>().RemoveOf<object>(
+            k => k.Key.StartsWith(string.Format(Constants.Cache.ReplaceRules, string.Empty)));
     }
 
     /// <summary>

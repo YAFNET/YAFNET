@@ -137,6 +137,24 @@ public class CacheHandlersAndBoardInfoTests
     }
 
     [Test]
+    [Description("Changes of the custom BBCodes drop the cached rule engines (they contain the custom BBCodes), nothing else")]
+    public void BBCode_Replace_Rules_Test()
+    {
+        var other = Constants.Cache.SpamWords;
+
+        this.Fill(
+            Constants.Cache.CustomBBCode,
+            Constants.Cache.CustomBBCodeRegExDictionary,
+            string.Format(Constants.Cache.ReplaceRules, 1),
+            string.Format(Constants.Cache.ReplaceRules, 13),
+            other);
+
+        this.handlers.Handle(new RepositoryEvent<BBCode>(RepositoryEventType.New));
+
+        this.Cached().Should().BeEquivalentTo([other]);
+    }
+
+    [Test]
     [Description("Changes of the custom profile definitions drop the cached custom profile data of all users")]
     public void Profile_Definition_Test()
     {
