@@ -463,6 +463,7 @@ YetAnotherForum.NET Changelog
 * Guests (all are the same user) shared one flood delay: the post of one guest blocked all other guests, the delay of guests is now checked per address
 * Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
 * Mail: a refused single mail (test mail of the admin and install pages, mail to a user, test digest) was reported as sent, the error is shown again when no mail was sent
+* Admin mail to a group: a mail that could not be sent showed an error page and stopped the mails to the other members, all mails are sent in one connection now and an error is shown as message
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

@@ -97,21 +97,35 @@ public class MailModel : AdminPage
 
         var emails = await this.GetRepository<User>().GroupEmailsAsync(this.Input.ToListItem);
 
-        foreach (var email in emails)
+        var from = new MailboxAddress(
+            this.PageBoardContext.BoardSettings.Name,
+            this.PageBoardContext.BoardSettings.ForumEmail);
+
+        var mails = emails.Select(
+            email =>
+            {
+                var mail = new MimeMessage();
+
+                mail.Populate(from, new MailboxAddress(email, email), from, this.Input.Subject, this.Input.Body, null);
+
+                return mail;
+            }).ToList();
+
+        // all mails in one connection: a refused mail does not stop the other mails
+        if (mails.Count != 0)
         {
-            var from = new MailboxAddress(
-                this.PageBoardContext.BoardSettings.Name,
-                this.PageBoardContext.BoardSettings.ForumEmail);
+            try
+            {
+                await this.Get<IMailService>().SendAllAsync(mails);
+            }
+            catch (Exception x)
+            {
+                this.Get<ILogger<MailModel>>().Error(x, x.Message);
 
-            var to = new MailboxAddress(email, email);
+                this.BindData();
 
-            await this.Get<IMailService>().SendAsync(
-                from,
-                to,
-                from,
-                this.Input.Subject,
-                this.Input.Body,
-                null);
+                return this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
+            }
         }
 
         this.Input.Subject = string.Empty;

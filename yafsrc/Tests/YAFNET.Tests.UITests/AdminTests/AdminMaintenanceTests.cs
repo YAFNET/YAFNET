@@ -489,6 +489,63 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// A group mail that can't be sent (the mail server is not reachable) shows the error instead of an error page.
+    /// </summary>
+    [Test]
+    public async Task FailedGroupMailShowsErrorTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Mail");
+
+                await page.Locator("#Input_Subject").FillAsync("Group mail test");
+                await page.Locator("#Input_Body").FillAsync("A mail to the group");
+
+                this.Fixture.SmtpServer.Stop();
+
+                try
+                {
+                    IResponse response = null;
+
+                    // the mail is confirmed in a dialog
+                    await page.Locator("#Send").ClickAsync();
+
+                    await page.RunAndWaitForNextPageAsync(
+                        async () => response = await page.RunAndWaitForResponseAsync(
+                                        () => page.Locator(".bootbox .btn-success").ClickAsync(),
+                                        r => r.Request.Method == "POST" && r.Url.Contains("/Admin/Mail")));
+
+                    Assert.That(response.Status, Is.LessThan(400), $"The group mail failed with an error page ({response.Status})");
+                    Assert.That(await page.ContentAsync(), Does.Not.Contain("Forum Error"), "The group mail failed with an error page");
+                }
+                finally
+                {
+                    this.Fixture.SmtpServer = netDumbster.smtp.SimpleSmtpServer.Start(this.TestSettings.TestMailPort);
+                }
+
+                // with the mail server the group gets the mail
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Mail");
+
+                await page.Locator("#Input_Subject").FillAsync("Group mail test");
+                await page.Locator("#Input_Body").FillAsync("A mail to the group");
+
+                await page.Locator("#Send").ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+
+                for (var wait = 0; wait < 20 && this.Fixture.SmtpServer.ReceivedEmailCount == 0; wait++)
+                {
+                    await Task.Delay(500);
+                }
+
+                Assert.That(this.Fixture.SmtpServer.ReceivedEmailCount, Is.GreaterThan(0), "The group mail was not sent");
+            });
+    }
+
+    /// <summary>
     /// The execution order of a bb code is shown and saved (the field always showed 1,
     /// saving a bb code changed its order).
     /// </summary>
