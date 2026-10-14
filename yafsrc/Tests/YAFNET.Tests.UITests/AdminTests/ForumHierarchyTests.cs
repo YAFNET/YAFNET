@@ -296,6 +296,49 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// A deleted category is removed from the forum list (the list of the page is kept in the session,
+    /// the deleted category was still shown).
+    /// </summary>
+    [Test]
+    public async Task DeletedCategoryIsRemovedFromListTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var categoryName = $"DeleteCategory{Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditCategory/0");
+                await page.Locator("#Input_Name").FillAsync(categoryName);
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                var item = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = categoryName });
+
+                Assert.That(await item.CountAsync(), Is.GreaterThan(0), "The category was not created");
+
+                // the confirm dialog of the button is skipped
+                IResponse response = null;
+
+                await page.RunAndWaitForNextPageAsync(
+                    async () => response = await page.RunAndWaitForResponseAsync(
+                                    () => item.Locator("button[formaction*='DeleteCategory']").First.EvaluateAsync("b => b.form.requestSubmit(b)"),
+                                    r => r.Request.Method == "POST"));
+
+                Assert.That(response.Status, Is.LessThan(500), "Deleting the category failed");
+
+                Assert.That(
+                    await page.Locator("li.list-group-item", new PageLocatorOptions { HasText = categoryName }).CountAsync(),
+                    Is.Zero,
+                    "The deleted category is still shown");
+            });
+    }
+
+    /// <summary>
     /// Creates (forumId null) or edits a forum, returns the id of the forum.
     /// </summary>
     private async Task<int> SaveForumAsync(IPage page, int? forumId, string name, int? parentId, string description = "A forum of the hierarchy test", int? parentOfNew = null)

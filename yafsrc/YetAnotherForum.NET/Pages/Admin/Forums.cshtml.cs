@@ -105,6 +105,9 @@ public class ForumsModel : AdminPage
                 MessageTypes.warning);
         }
 
+        // the list of the page is kept in the session, it still contains the deleted category
+        this.Get<ISessionService>().SetPageData(this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID));
+
         this.BindData();
 
         return this.Page();
