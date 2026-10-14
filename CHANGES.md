@@ -459,6 +459,7 @@ YetAnotherForum.NET Changelog
 * Admin database maintenance: "Shrink" on MySQL showed a database error instead of "not supported"
 * Guests (all are the same user) could edit and delete every guest post and add or edit the polls of every guest topic by the address of the page, now only the guest posts of the own address (like the buttons of the post)
 * Guests (all are the same user) saw the uploads of all other guests in the attachment list of the editor, the list is no longer shown to guests
+* Admin database maintenance: "Re-index" and "Shrink" on MySQL run OPTIMIZE TABLE for the forum tables (they were not supported)
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

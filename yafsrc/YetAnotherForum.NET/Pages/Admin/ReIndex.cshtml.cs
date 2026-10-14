@@ -171,7 +171,7 @@ public class ReIndexModel : AdminPage
         {
             var result = new StringBuilder();
 
-            result.Append(await this.Get<IDbAccess>().ShrinkDatabaseAsync());
+            result.Append(await this.Get<IDbAccess>().ShrinkDatabaseAsync(this.Get<BoardConfiguration>().DatabaseObjectQualifier));
 
             result.Append("&nbsp;");
 

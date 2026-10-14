@@ -60,7 +60,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
     /// <summary>
     /// The database maintenance buttons work on every database: the re-index and shrink of MySQL (and on PostgreSQL without
-    /// the rights) failed with an error page instead of a message.
+    /// the rights) failed with an error page instead of a message, on MySQL both run OPTIMIZE TABLE.
     /// </summary>
     [Test]
     public async Task DatabaseMaintenanceButtonsWorkTest()
@@ -94,10 +94,15 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                                         r => r.Request.Method == "POST" && r.Url.Contains($"/Admin/ReIndex/{handler}")));
 
                     Assert.That(response.Status, Is.LessThan(400), $"{handler} failed ({response.Status})");
-                    Assert.That(
-                        await page.ContentAsync(),
-                        Does.Not.Contain("Forum Error").And.Not.Contain("Something went wrong"),
-                        $"{handler} failed");
+                    var content = await page.ContentAsync();
+
+                    Assert.That(content, Does.Not.Contain("Forum Error").And.Not.Contain("Something went wrong"), $"{handler} failed");
+
+                    // (MySQL has no recovery mode)
+                    if (handler is "ReIndex" or "Shrink")
+                    {
+                        Assert.That(content, Does.Not.Contain("Not Supported by MySQL"), $"{handler} is not supported");
+                    }
                 }
             });
     }
