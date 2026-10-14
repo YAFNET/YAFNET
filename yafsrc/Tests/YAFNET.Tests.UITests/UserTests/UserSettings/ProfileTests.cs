@@ -922,6 +922,57 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The settings only keep a theme and a time zone of the lists: a manipulated theme longer than
+    /// the column failed the save with an error (not on Sqlite, which ignores the column length).
+    /// </summary>
+    [Test]
+    public async Task SettingsWithUnknownThemeAndTimeZoneTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
+
+                    await page.EvaluateAsync(
+                        """
+                        () => {
+                            const form = document.querySelector("select[name='Size']").form;
+                            const set = (name, value) => {
+                                let field = form.querySelector(`[name='${name}']`);
+                                if (field && field.tagName === 'SELECT') {
+                                    field.add(new Option(value, value, true, true));
+                                    field.value = value;
+                                } else {
+                                    field = document.createElement('input');
+                                    field.type = 'hidden';
+                                    field.name = name;
+                                    field.value = value;
+                                    form.appendChild(field);
+                                }
+                            };
+                            set('Theme', 'x'.repeat(60));
+                            set('TimeZone', 'Unknown/Zone');
+                        }
+                        """);
+
+                    var response = await page.RunAndWaitForResponseAsync(
+                                       () => page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save" }).Last.ClickAsync(),
+                                       r => r.Request.Method == "POST" && r.Url.Contains("EditSettings"));
+
+                    Assert.That(response.Status, Is.LessThan(500), "Saving the settings failed");
+
+                    var reload = await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
+
+                    Assert.That(reload?.Status, Is.EqualTo(200), "The pages of the user fail");
+
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+                });
+    }
+
+    /// <summary>
     /// A user can't hide from the active users list with a manipulated settings form when
     /// "allow users to hide themselves" is disabled (the default).
     /// </summary>

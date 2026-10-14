@@ -226,10 +226,17 @@ public class EditSettingsModel : ProfilePage
         var culture = this.Language;
         var theme = this.Theme;
 
-        if (this.Theme.IsNotSet())
+        // only the themes of the list, when the users can choose a theme (the value is sent by the client)
+        if (this.Theme.IsNotSet() || !this.PageBoardContext.BoardSettings.AllowUserTheme
+                                  || StaticDataHelper.Themes().All(x => x.Value != this.Theme))
         {
             theme = null;
         }
+
+        // only the time zones of the list, otherwise the user keeps the time zone
+        var timeZone = StaticDataHelper.TimeZones().Any(x => x.Value == this.TimeZone)
+                           ? this.TimeZone
+                           : this.PageBoardContext.PageUser.TimeZone;
 
         if (this.Language.IsNotSet())
         {
@@ -255,7 +262,7 @@ public class EditSettingsModel : ProfilePage
         await this.GetRepository<User>().SaveAsync(
             this.PageBoardContext.PageUserID,
             this.PageBoardContext.PageUser.UserFlags,
-            this.TimeZone,
+            timeZone,
             language,
             culture,
             theme,
@@ -265,7 +272,7 @@ public class EditSettingsModel : ProfilePage
 
         if (this.PageBoardContext.PageUser.UserFlags.IsGuest)
         {
-            this.GetRepository<Registry>().Save("timezone", this.TimeZone, this.PageBoardContext.PageBoardID);
+            this.GetRepository<Registry>().Save("timezone", timeZone, this.PageBoardContext.PageBoardID);
         }
 
         // clear the cache for this user...

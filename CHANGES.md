@@ -447,6 +447,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Board index "Watch all forums" watched nothing (the forums were filtered by an empty category) and only looked at the forums loaded so far; it now watches all forums the user can read (of the shown category), and guests are refused
 * [FIXED] Edit Message: the topic subject could be changed to the subject of another topic (the duplicate subject check never ran on edit); a changed subject is checked like for a new topic, the topic itself does not count
 * [FIXED] Custom BBCodes: a new or changed custom BBCode was not used in the posts until the application restarted (the cached rule engines, which contain the custom BBCodes, were not cleared); only these and the BBCode lists are cleared now, not the whole cache (that broke the installation)
+* [FIXED] Profile Edit Settings: the theme and time zone were saved as sent (a manipulated theme longer than the column failed the save on PostgreSQL/SQL Server/MySQL, a theme was saved even when users can not choose one); only themes and time zones of the lists are saved
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
