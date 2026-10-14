@@ -90,6 +90,20 @@ public class MedalTagRepositoryTests
     }
 
     [Test]
+    [Description("A medal without a message is saved (the message is optional in the form, the column is not nullable)")]
+    public void Medal_Save_Without_Message_Test()
+    {
+        this.Medals.Save(null, "Bronze", null, null, null, "bronze.png", 1);
+
+        var bronze = this.Medals.GetSingle(m => m.Name == "Bronze");
+        bronze.Message.Should().BeEmpty();
+
+        this.Medals.Save(bronze.ID, "Bronze 2", null, null, null, "bronze.png", 1);
+
+        this.Medals.GetById(bronze.ID).Name.Should().Be("Bronze 2");
+    }
+
+    [Test]
     [Description("A user's medals include personal and group medals, the award message overrides the medal message")]
     public void Medal_ListUserMedals_Test()
     {

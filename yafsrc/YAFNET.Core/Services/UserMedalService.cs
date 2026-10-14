@@ -86,7 +86,7 @@ public class UserMedalService : IUserMedalService, IHaveServiceLocator
                     return;
                 }
 
-                var title = $"{medal.Name}{(flags.ShowMessage ? $": {medal.Message}" : string.Empty)}";
+                var title = $"{medal.Name}{(flags.ShowMessage && medal.Message.IsSet() ? $": {medal.Message}" : string.Empty)}";
 
                 ribbonBar.AppendFormat(
                     "<li class=\"list-inline-item\"><img src=\"/{2}/{0}\" alt=\"{1}\" title=\"{1}\" data-bs-toggle=\"tooltip\"></li>",

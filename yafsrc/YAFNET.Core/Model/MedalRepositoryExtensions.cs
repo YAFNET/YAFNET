@@ -141,6 +141,9 @@ public static class MedalRepositoryExtensions
                 medalId = null;
             }
 
+            // the message is optional, the column is not nullable
+            message ??= string.Empty;
+
             if (medalId.HasValue)
             {
                 repository.UpdateOnly(
