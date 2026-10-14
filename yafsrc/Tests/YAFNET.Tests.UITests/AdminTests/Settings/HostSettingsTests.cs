@@ -89,4 +89,106 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                     Assert.That(pageSource, Does.Contain("Who is Online"));
                 });
     }
+
+    /// <summary>
+    /// The cached user data (unread private messages, pending friends, albums) only contains the counts of the
+    /// enabled features: after a feature was enabled the counts stayed empty until the cache expired (the menu
+    /// entry "My albums" was missing for up to 10 minutes).
+    /// </summary>
+    [Test]
+    public async Task EnabledAlbumsAreShownAtOnceTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                var albumsEnabled = await page.Locator("#Input_EnableAlbum").IsCheckedAsync();
+
+                try
+                {
+                    await SetAlbumsAsync(page, this.TestSettings, true);
+
+                    // an album of the admin
+                    await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                    await page.RunAndWaitForNextPageAsync(
+                        () => page.EvaluateAsync(
+                            """
+                            () => {
+                                const form = document.createElement('form');
+                                form.method = 'post';
+                                form.enctype = 'multipart/form-data';
+                                form.action = '/EditAlbumImages/new/Upload';
+                                form.appendChild(document.querySelector("input[name='__RequestVerificationToken']").cloneNode());
+
+                                const title = document.createElement('input');
+                                title.name = 'AlbumTitle';
+                                title.value = 'Album of the admin';
+                                form.appendChild(title);
+
+                                const file = document.createElement('input');
+                                file.type = 'file';
+                                file.name = 'ImageFiles';
+                                const png = Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='), c => c.charCodeAt(0));
+                                const files = new DataTransfer();
+                                files.items.add(new File([png], 'album.png', { type: 'image/png' }));
+                                file.files = files.files;
+                                form.appendChild(file);
+
+                                document.body.appendChild(form);
+                                form.submit();
+                            }
+                            """));
+
+                    // with the albums disabled the user data is loaded (and cached) without the albums
+                    await SetAlbumsAsync(page, this.TestSettings, false);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+                    await page.RunAndWaitForNextPageAsync(
+                        () => page.EvaluateAsync(
+                            "() => document.querySelector(\"button[formaction*='UserLazyDataCacheReset']\").click()"));
+
+                    await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                    await SetAlbumsAsync(page, this.TestSettings, true);
+
+                    await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                    Assert.That(
+                        await page.Locator("a.dropdown-item[href*='/Albums/']").CountAsync(),
+                        Is.GreaterThan(0),
+                        "The albums of the user are not shown after the albums were enabled");
+                }
+                finally
+                {
+                    await SetAlbumsAsync(page, this.TestSettings, albumsEnabled);
+                }
+            });
+    }
+
+    private static async Task SetAlbumsAsync(IPage page, TestConfig testSettings, bool enabled)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
+
+        // the check box and the save button are on a hidden tab
+        await page.RunAndWaitForNextPageAsync(
+            () => page.EvaluateAsync(
+                """
+                enabled => {
+                    document.querySelector('#Input_EnableAlbum').checked = enabled;
+                    document.querySelector("button[formaction*='Save']").click();
+                }
+                """,
+                enabled));
+    }
 }

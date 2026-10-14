@@ -370,6 +370,10 @@ public class HostSettingsModel : AdminPage
         // save the settings to the database
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
+        // the cached user data only contains the counts of the enabled features (private messages, friends, albums)
+        this.Get<IDataCache>().RemoveOf<object>(
+            k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
+
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Admin);
     }
 
