@@ -280,4 +280,48 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 Assert.That(response.Status, Is.EqualTo(200), "Lock inactive accounts failed");
             });
     }
+
+    /// <summary>
+    /// When the verification mail can not be sent the user is created anyway: the admin gets a message
+    /// instead of an error page.
+    /// </summary>
+    [Test]
+    public async Task AdminRegisterUserWithFailedMailTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var userName = $"TempUser{Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/RegisterUser");
+
+                await page.Locator("#Input_UserName").FillAsync(userName);
+                await page.Locator("#Input_Email").FillAsync($"{userName.ToLower()}@test.com");
+                await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                await page.Locator("#Input_Password2").FillAsync(this.TestSettings.TestUserPassword);
+
+                this.Fixture.SmtpServer.Stop();
+
+                try
+                {
+                    var response = await page.RunAndWaitForResponseAsync(
+                                       () => page.Locator("button[formaction*='ForumRegister']").ClickAsync(),
+                                       r => r.Request.Method == "POST" && r.Url.Contains("/Admin/RegisterUser"));
+
+                    Assert.That(response.Status, Is.LessThan(400), $"Registering the user failed with an error page ({response.Status})");
+                }
+                finally
+                {
+                    this.Fixture.SmtpServer = netDumbster.smtp.SimpleSmtpServer.Start(this.TestSettings.TestMailPort);
+                }
+
+                await page.GetByText($"User {userName} Created Successfully.").WaitForAsync();
+            });
+    }
 }

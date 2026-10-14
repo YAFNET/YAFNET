@@ -27,6 +27,8 @@ namespace YAF.Pages.Admin;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.Extensions.Logging;
+
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
@@ -120,18 +122,30 @@ public class RegisterUserModel : AdminPage
         var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
             .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
-        await this.Get<ISendNotification>().SendVerificationEmailAsync(user, newEmail, userId.Value, newUsername);
-
         await this.GetRepository<User>().SaveNotificationAsync(
             userId.Value,
             autoWatchTopicsEnabled,
             this.PageBoardContext.BoardSettings.DefaultNotificationSetting.ToInt(),
             this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);
 
+        var created = this.GetTextFormatted("MSG_CREATED", this.HtmlEncode(this.Input.UserName));
+
+        try
+        {
+            await this.Get<ISendNotification>().SendVerificationEmailAsync(user, newEmail, userId.Value, newUsername);
+        }
+        catch (Exception x)
+        {
+            // the user is created, the verification mail can be sent again on the admin index
+            this.Get<ILogger<RegisterUserModel>>().Error(x, $"Verification mail to {newEmail} failed");
+
+            this.PageBoardContext.SessionNotify($"{created} {this.HtmlEncode(x.Message)}", MessageTypes.warning);
+
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
+        }
+
         // success
-        this.PageBoardContext.SessionNotify(
-            this.GetTextFormatted("MSG_CREATED", this.HtmlEncode(this.Input.UserName)),
-            MessageTypes.success);
+        this.PageBoardContext.SessionNotify(created, MessageTypes.success);
 
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
     }
