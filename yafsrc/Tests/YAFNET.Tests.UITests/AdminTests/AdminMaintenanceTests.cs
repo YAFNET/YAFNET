@@ -520,6 +520,62 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// A medal can be deleted (every post of the medals page failed, the medal list was bound).
+    /// </summary>
+    [Test]
+    public async Task MedalCanBeDeletedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var name = $"Delete medal {Guid.NewGuid().ToString("N")[..8]}";
+
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditMedal");
+                await this.SaveMedalAsync(page, name);
+
+                var item = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = name });
+
+                Assert.That(await item.CountAsync(), Is.EqualTo(1), "The medal was not created");
+
+                // the confirm dialog of the button is skipped
+                await item.Locator("button[formaction*='Delete']").First.EvaluateAsync("b => b.removeAttribute('onclick')");
+
+                var response = await page.RunAndWaitForResponseAsync(
+                                   () => item.Locator("button[formaction*='Delete']").First.EvaluateAsync("b => b.form.requestSubmit(b)"),
+                                   r => r.Request.Method == "POST");
+
+                await page.WaitForLoadStateAsync(LoadState.Load);
+
+                Assert.That(response.Status, Is.LessThan(500), "Deleting the medal failed");
+                Assert.That(
+                    await page.Locator("li.list-group-item", new PageLocatorOptions { HasText = name }).CountAsync(),
+                    Is.Zero,
+                    "The medal was not deleted");
+            });
+    }
+
+    /// <summary>
+    /// Saves the medal form with the name and the first image.
+    /// </summary>
+    private async Task SaveMedalAsync(IPage page, string name)
+    {
+        await page.Locator("#Input_Name").FillAsync(name);
+        await page.EvaluateAsync(
+            """
+            () => {
+                const select = document.querySelector('#Input_MedalImage');
+                if (select.selectedIndex < 1) {
+                    select.selectedIndex = 1;
+                }
+            }
+            """);
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+    }
+
+    /// <summary>
     /// After saving a language file the texts are shown again.
     /// </summary>
     [Test]

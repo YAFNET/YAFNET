@@ -37,9 +37,8 @@ using YAF.Types.Models;
 public class MedalsModel : AdminPage
 {
     /// <summary>
-    /// Gets or sets the attachments.
+    /// Gets or sets the medals (only shown, a bound IOrderedEnumerable can not be created and every post failed).
     /// </summary>
-    [BindProperty]
     public IOrderedEnumerable<Medal> MedalList { get; set; }
 
     /// <summary>
