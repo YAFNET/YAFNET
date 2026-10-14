@@ -382,13 +382,17 @@ public class PollEditModel : ForumPage
 
         var isModerator = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess;
 
+        // all guests are the same user: a guest only owns the guest topic (and its poll) of the own address
+        var isOwnTopic = topic.UserID == this.PageBoardContext.PageUserID
+                         && (!this.PageBoardContext.IsGuest || this.IsTopicOfOwnAddress(topic));
+
         if (pollId.HasValue)
         {
             // the poll of the topic, by its owner or a moderator
             var poll = this.GetRepository<Poll>().GetById(pollId.Value);
 
             if (poll is null || topic.PollID != poll.ID
-                             || poll.UserID != this.PageBoardContext.PageUserID && !isModerator)
+                             || (poll.UserID != this.PageBoardContext.PageUserID || !isOwnTopic) && !isModerator)
             {
                 return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
@@ -397,12 +401,24 @@ public class PollEditModel : ForumPage
         }
 
         // a new poll only for an own topic (moderators: any topic) without a poll
-        if (topic.PollID.HasValue || topic.UserID != this.PageBoardContext.PageUserID && !isModerator)
+        if (topic.PollID.HasValue || !isOwnTopic && !isModerator)
         {
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
         return null;
+    }
+
+    /// <summary>
+    /// Checks if the first post of the topic was written from the address of the current user.
+    /// </summary>
+    /// <param name="topic">The topic.</param>
+    /// <returns>Returns if the topic was started from the address of the user</returns>
+    private bool IsTopicOfOwnAddress(Topic topic)
+    {
+        var ip = this.HttpContext.GetUserRealIPAddress();
+
+        return this.GetRepository<Message>().Exists(m => m.TopicID == topic.ID && m.Position == 0 && m.IP == ip);
     }
 
     /// <summary>

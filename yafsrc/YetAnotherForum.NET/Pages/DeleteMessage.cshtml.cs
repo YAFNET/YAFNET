@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Web;
 
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Extensions;
 using YAF.Types.Flags;
@@ -79,6 +80,8 @@ public class DeleteMessageModel : ForumPage
         (!this.PostLocked && !this.PageBoardContext.PageForum.ForumFlags.IsLocked
                           && !this.PageBoardContext.PageTopic.TopicFlags.IsLocked
                           && this.PageBoardContext.PageMessage.UserID == this.PageBoardContext.PageUserID
+                          && (!this.PageBoardContext.IsGuest
+                              || this.PageBoardContext.PageMessage.IP == this.HttpContext.GetUserRealIPAddress())
          || this.PageBoardContext.ForumModeratorAccess) && this.PageBoardContext.ForumDeleteAccess;
 
     /// <summary>

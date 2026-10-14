@@ -22,6 +22,7 @@
  * under the License.
  */
 
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using YAF.Tests.UITests.Infrastructure;
@@ -102,6 +103,115 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Is.Zero,
                     $"The post of a guest without name failed ({page.Url})");
                 Assert.That(page.Url, Does.Not.Contain("PostTopic"), "The topic was not created");
+            });
+    }
+
+    /// <summary>
+    /// All guests are the same user: a guest can only edit and delete the guest posts of the own address
+    /// (like the buttons of the post), the pages allowed every guest to change all guest posts.
+    /// </summary>
+    [Test]
+    public async Task GuestCanOnlyChangeOwnGuestPostsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var forumName = $"Guest Edit Forum {Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a forum where guests can post, edit, delete and add polls (the default masks have no poll
+                // access without moderator access)
+                var maskName = $"Guest Poll Access {Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditAccessMask");
+
+                await page.Locator("#Input_Name").FillAsync(maskName);
+                await page.Locator("#Input_SortOrder").FillAsync("9");
+
+                foreach (var access in new[] { "Read", "Post", "Reply", "Poll", "Edit", "Delete" })
+                {
+                    await page.Locator($"#Input_{access}Access").CheckAsync();
+                }
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+
+                await page.Locator("#Input_Name").FillAsync(forumName);
+                await page.Locator("#Input_Description").FillAsync("A forum of the guest edit test");
+                await page.Locator("#Input_SortOrder").FillAsync("99");
+
+                await page.GetByLabel("Guest").First.SelectOptionAsync(new SelectOptionValue { Label = maskName });
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                                    .First.GetAttributeAsync("href");
+
+                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
+
+                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // the first guest
+                await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string> { ["X-Real-IP"] = "10.20.30.40" });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
+
+                await page.Locator("#Input_From").FillAsync("First Guest");
+                await page.Locator("//input[contains(@id,'_TopicSubject')]").First.FillAsync($"Guest edit topic {Random.Shared.Next()}");
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A topic of the first guest");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                var messageId = await page.Locator(".message .selectionQuoteable").First.GetAttributeAsync("id");
+
+                Assert.That(messageId, Is.Not.Null.And.Not.Empty, $"The topic was not created ({page.Url})");
+
+                var topicId = Regex.Match(page.Url, @"/Posts/(\d+)").Groups[1].Value;
+
+                Assert.That(topicId, Is.Not.Empty, $"The topic id was not found ({page.Url})");
+
+                const string denied = "You tried to enter an area where you didn't have access.";
+                var pollQuestion = page.Locator("//input[contains(@id,'Question')]");
+
+                // another guest
+                await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string> { ["X-Real-IP"] = "10.50.60.70" });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditMessage/{messageId}");
+                Assert.That(await page.ContentAsync(), Does.Contain(denied), "Another guest can edit the post");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}DeleteMessage/{messageId}");
+                Assert.That(await page.ContentAsync(), Does.Contain(denied), "Another guest can delete the post");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PollEdit?t={topicId}");
+                Assert.That(await pollQuestion.CountAsync(), Is.Zero, "Another guest can add a poll to the topic");
+
+                // the guest of the post
+                await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string> { ["X-Real-IP"] = "10.20.30.40" });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditMessage/{messageId}");
+                Assert.That(await page.ContentAsync(), Does.Not.Contain(denied), "The guest can't edit the own post");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}DeleteMessage/{messageId}");
+                Assert.That(await page.ContentAsync(), Does.Not.Contain(denied), "The guest can't delete the own post");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PollEdit?t={topicId}");
+                Assert.That(await pollQuestion.CountAsync(), Is.GreaterThan(0), "The guest can't add a poll to the own topic");
+
+                await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string>());
             });
     }
 

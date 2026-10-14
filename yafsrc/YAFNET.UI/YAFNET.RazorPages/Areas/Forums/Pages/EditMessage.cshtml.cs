@@ -433,9 +433,11 @@ public class EditMessageModel : ForumPage
         // get  forum information
         var forumInfo = this.PageBoardContext.PageForum;
 
-        // moderators can edit in locked topics, everybody needs edit access
+        // moderators can edit in locked topics, everybody needs edit access (all guests are the same user:
+        // a guest can only edit the guest posts of the own address, like the edit button of the post)
         return (!postLocked && !forumInfo.ForumFlags.IsLocked && !this.PageBoardContext.PageTopic.TopicFlags.IsLocked
                 && message.UserID == this.PageBoardContext.PageUserID
+                && (!this.PageBoardContext.IsGuest || message.IP == this.HttpContext.GetUserRealIPAddress())
                 || this.PageBoardContext.ForumModeratorAccess) && this.PageBoardContext.ForumEditAccess;
     }
 
