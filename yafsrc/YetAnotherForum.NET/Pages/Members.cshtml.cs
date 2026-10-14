@@ -175,7 +175,8 @@ public class MembersModel : ForumPage
                                         SortRankNameField = 0,
                                         SortJoinedField = 0,
                                         SortNumPostsField = 0,
-                                        SortLastVisitField = 0
+                                        SortLastVisitField = 0,
+                                        NumPostValue = 3
                                     };
 
         this.BindData();
@@ -349,7 +350,11 @@ public class MembersModel : ForumPage
     /// </summary>
     private void BindData()
     {
-        this.Input.NumPostValue = 3;
+        // the selected comparison of the number of posts (more or equal by default, the value comes from the client)
+        if (this.Input.NumPostValue is < 1 or > 3)
+        {
+            this.Input.NumPostValue = 3;
+        }
 
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 

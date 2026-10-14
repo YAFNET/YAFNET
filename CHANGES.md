@@ -461,6 +461,7 @@ YetAnotherForum.NET Changelog
 * Guests (all are the same user) saw the uploads of all other guests in the attachment list of the editor, the list is no longer shown to guests
 * Admin database maintenance: "Re-index" and "Shrink" on MySQL run OPTIMIZE TABLE for the forum tables (they were not supported)
 * Guests (all are the same user) shared one flood delay: the post of one guest blocked all other guests, the delay of guests is now checked per address
+* Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
