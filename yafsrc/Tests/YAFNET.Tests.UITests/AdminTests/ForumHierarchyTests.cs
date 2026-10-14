@@ -178,6 +178,124 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// "Mark all forums read" on the board index marks all forums, not only the first forums the index
+    /// has loaded (20, the others are loaded with "show more").
+    /// </summary>
+    [Test]
+    public async Task MarkAllMarksForumsNotLoadedYetTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var suffix = Random.Shared.Next();
+                var categoryName = $"MarkAllCategory{suffix}";
+
+                // a category with more forums than the index loads at once, shown after all other categories
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditCategory/0");
+                await page.Locator("#Input_Name").FillAsync(categoryName);
+                await page.Locator("#Input_SortOrder").FillAsync("999");
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                var categoryId = await page.EvaluateAsync<string>(
+                                     """
+                                     name => {
+                                         const item = [...document.querySelectorAll('li.list-group-item')]
+                                             .find(li => li.querySelector('h5')?.textContent.trim() === name);
+                                         const href = item?.querySelector("a[href*='EditCategory/']")?.getAttribute('href');
+                                         return href ? href.match(/EditCategory\/(\d+)/)[1] : null;
+                                     }
+                                     """,
+                                     categoryName);
+
+                Assert.That(categoryId, Is.Not.Null, "The category was not created");
+
+                for (var i = 1; i <= 21; i++)
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+                    await page.Locator("#Input_Name").FillAsync($"MarkAll{suffix}_{i:00}");
+                    await page.Locator("#Input_Description").FillAsync("A forum of the mark all test");
+                    await page.Locator("#Input_SortOrder").FillAsync(i.ToString());
+                    await page.EvaluateAsync(
+                        """
+                        id => {
+                            const select = document.querySelector('#Input_CategoryID');
+                            select.add(new Option('', id, true, true));
+                            select.value = id;
+                        }
+                        """,
+                        categoryId);
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                }
+
+                // the last forum of the category is only loaded with "show more"
+                const string lastForumRow = """
+                                            async ([url, name]) => {
+                                                await fetch(url);
+                                                const response = await fetch(url + '&handler=ShowMore&index=1');
+                                                const html = new DOMParser().parseFromString(await response.text(), 'text/html');
+                                                const link = [...html.querySelectorAll("a[href*='/Topics/']")]
+                                                    .find(a => a.textContent.trim() === name);
+                                                if (!link) {
+                                                    return null;
+                                                }
+                                                const row = link.closest('.forum-row');
+                                                return [link.getAttribute('href'), String(row.querySelector('.fa-comments.text-success') !== null)];
+                                            }
+                                            """;
+
+                var categoryUrl = $"{this.TestSettings.TestForumUrl}?c={categoryId}";
+                var lastForum = $"MarkAll{suffix}_21";
+
+                var row = await page.EvaluateAsync<string[]>(lastForumRow, new[] { categoryUrl, lastForum });
+
+                Assert.That(row, Is.Not.Null, "The last forum is not loaded with show more");
+
+                var forumId = int.Parse(Regex.Match(row[0], @"/Topics/(\d+)/").Groups[1].Value);
+
+                Assert.That(
+                    await page.CreateTopicAsync(this.TestSettings, forumId, $"Mark all {suffix}", "a new post"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.TestUserName, this.TestSettings.TestUserPassword),
+                    Is.True,
+                    "Login failed");
+
+                row = await page.EvaluateAsync<string[]>(lastForumRow, new[] { categoryUrl, lastForum });
+
+                Assert.That(row[1], Is.EqualTo("true"), "The forum has no new posts for the user");
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction$='/MarkAll']"));
+
+                row = await page.EvaluateAsync<string[]>(lastForumRow, new[] { categoryUrl, lastForum });
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // the forums of the category are hidden again for the other tests
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditCategory/{categoryId}");
+                await page.Locator("#Input_Active").UncheckAsync();
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                Assert.That(row[1], Is.EqualTo("false"), "Mark all did not mark the forum that was not loaded yet");
+            });
+    }
+
+    /// <summary>
     /// Creates (forumId null) or edits a forum, returns the id of the forum.
     /// </summary>
     private async Task<int> SaveForumAsync(IPage page, int? forumId, string name, int? parentId, string description = "A forum of the hierarchy test", int? parentOfNew = null)

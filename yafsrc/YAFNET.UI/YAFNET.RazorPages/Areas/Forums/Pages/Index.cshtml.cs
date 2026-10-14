@@ -127,13 +127,11 @@ public class IndexModel : ForumPage
     }
 
     /// <summary>
-    /// Mark all Forums as Read
+    /// Mark all Forums (of the current category) as Read, not only the forums loaded so far
     /// </summary>
     public Task OnPostMarkAllAsync()
     {
-        var forums = this.Get<ISessionService>().Forums;
-
-        this.Get<IReadTrackCurrentUser>().SetForumRead(forums.Select(f => f.ForumID));
+        this.Get<IReadTrackCurrentUser>().SetForumRead(this.ReadableForums().Select(f => f.ID));
 
         this.PageBoardContext.Notify(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
 
@@ -150,11 +148,7 @@ public class IndexModel : ForumPage
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        var categoryId = this.PageBoardContext.PageCategoryID;
-
-        var forums = this.GetRepository<Forum>()
-            .ListAllWithAccess(this.PageBoardContext.PageBoardID, this.PageBoardContext.PageUserID)
-            .Select(x => x.Item1).Where(forum => categoryId == 0 || forum.CategoryID == categoryId);
+        var forums = this.ReadableForums();
 
         var watchForums = await this.GetRepository<WatchForum>().ListAsync(this.PageBoardContext.PageUserID);
 
@@ -169,6 +163,19 @@ public class IndexModel : ForumPage
         await this.BindDataAsync();
 
         return this.Page();
+    }
+
+    /// <summary>
+    /// All forums the user can read, of the current category if one is shown
+    /// </summary>
+    /// <returns>Returns the forums</returns>
+    private IEnumerable<Forum> ReadableForums()
+    {
+        var categoryId = this.PageBoardContext.PageCategoryID;
+
+        return this.GetRepository<Forum>()
+            .ListAllWithAccess(this.PageBoardContext.PageBoardID, this.PageBoardContext.PageUserID)
+            .Select(x => x.Item1).Where(forum => categoryId == 0 || forum.CategoryID == categoryId);
     }
 
     /// <summary>
