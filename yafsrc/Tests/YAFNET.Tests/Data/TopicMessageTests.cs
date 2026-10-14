@@ -506,6 +506,20 @@ public class TopicMessageTests
         this.Messages.GetUserLastPosted(this.bob).Should().BeNull();
     }
 
+    [Test]
+    [Description("GetUserLastPosted with an address only returns the posts of that address (all guests are the same user)")]
+    public void GetUserLastPosted_Of_Address_Test()
+    {
+        var now = DateTime.UtcNow;
+        var topic = this.db.AddTopic(this.forumId, this.alice);
+        this.db.AddMessage(topic, this.alice, posted: now.AddDays(-2), configure: m => m.IP = "10.0.0.1");
+        this.db.AddMessage(topic, this.alice, posted: now.AddDays(-1), configure: m => m.IP = "10.0.0.2");
+
+        this.Messages.GetUserLastPosted(this.alice, "10.0.0.1").Should().BeCloseTo(now.AddDays(-2), TimeSpan.FromSeconds(1));
+        this.Messages.GetUserLastPosted(this.alice, "10.0.0.3").Should().BeNull();
+        this.Messages.GetUserLastPosted(this.alice).Should().BeCloseTo(now.AddDays(-1), TimeSpan.FromSeconds(1));
+    }
+
     private IRepository<Topic> Topics => this.board.Current.GetRepository<Topic>();
 
     private IRepository<Message> Messages => this.board.Current.GetRepository<Message>();

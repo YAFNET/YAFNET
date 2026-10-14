@@ -212,10 +212,78 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(await pollQuestion.CountAsync(), Is.GreaterThan(0), "The guest can't add a poll to the own topic");
 
                 await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string>());
+            });
+    }
 
-                // the flood delay (30 seconds) is checked per user: all guests have to wait for the next guest post
-                // (the next guest test)
-                await Task.Delay(TimeSpan.FromSeconds(31));
+    /// <summary>
+    /// The flood delay of guests is checked per address: all guests are the same user, the post of one guest
+    /// blocked all other guests.
+    /// </summary>
+    [Test]
+    public async Task GuestFloodDelayPerAddressTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var forumName = $"Guest Flood Forum {Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a forum where guests can post
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+
+                await page.Locator("#Input_Name").FillAsync(forumName);
+                await page.Locator("#Input_Description").FillAsync("A forum of the guest flood test");
+                await page.Locator("#Input_SortOrder").FillAsync("99");
+
+                await page.GetByLabel("Guest").First.SelectOptionAsync(new SelectOptionValue { Label = "Member Access" });
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                                    .First.GetAttributeAsync("href");
+
+                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
+
+                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                async Task PostAsGuestAsync(string ip)
+                {
+                    await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string> { ["X-Real-IP"] = ip });
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
+
+                    await page.Locator("#Input_From").FillAsync($"Guest {ip}");
+                    await page.Locator("//input[contains(@id,'_TopicSubject')]").First.FillAsync($"Guest flood topic {Random.Shared.Next()}");
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                    await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A topic of a guest");
+
+                    await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+                }
+
+                await PostAsGuestAsync("10.80.1.1");
+                Assert.That(page.Url, Does.Not.Contain("PostTopic"), $"The first guest can't post ({page.Url})");
+
+                // another guest at once
+                await PostAsGuestAsync("10.80.2.2");
+                Assert.That(page.Url, Does.Not.Contain("PostTopic"), $"The other guest has to wait for the first guest ({page.Url})");
+
+                // the first guest again
+                await PostAsGuestAsync("10.80.1.1");
+                Assert.That(await page.ContentAsync(), Does.Contain("You can't post in the next"), "The flood delay of the guest is not checked");
+
+                await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string>());
             });
     }
 

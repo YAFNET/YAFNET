@@ -1205,14 +1205,22 @@ public static class MessageRepositoryExtensions
         /// Gets the user last posted date time.
         /// </summary>
         /// <param name="userId">The user identifier.</param>
+        /// <param name="ip">Only the posts of this address (all guests are the same user), null for all posts.</param>
         /// <returns>System.Nullable&lt;System.DateTime&gt;.</returns>
-        public DateTime? GetUserLastPosted(int userId)
+        public DateTime? GetUserLastPosted(int userId, string ip = null)
         {
             // No try/catch here: a genuine DB failure must propagate rather than being treated as
             // "user has no post history", which callers use to skip the anti-flood posting delay.
             var lastPostedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-            lastPostedExpression.Where(a => a.UserID == userId).Select(x => x.Posted).OrderByDescending(x => x.Posted)
+            lastPostedExpression.Where(a => a.UserID == userId);
+
+            if (ip is not null)
+            {
+                lastPostedExpression.And(a => a.IP == ip);
+            }
+
+            lastPostedExpression.Select(x => x.Posted).OrderByDescending(x => x.Posted)
                 .Take(1)
                 .ToMergedParamsSelectStatement();
 

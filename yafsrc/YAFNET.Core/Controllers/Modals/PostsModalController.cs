@@ -33,6 +33,7 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.BasePages;
 using YAF.Core.Filters;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Attributes;
 using YAF.Types.Modals;
@@ -121,16 +122,23 @@ public class PostsModalController : ForumBaseController
                 return this.Ok(new MessageModalNotification(this.GetText("ISEXCEEDED"), MessageTypes.warning));
             }
 
+            // all guests are the same user: the delay of a guest is the one of the address
+            var lastPosted = this.PageBoardContext.IsGuest
+                                 ? this.GetRepository<Message>().GetUserLastPosted(
+                                     this.PageBoardContext.PageUserID,
+                                     this.HttpContext.GetUserRealIPAddress())
+                                 : this.PageBoardContext.LastPosted;
+
             if (!(this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
                 && this.PageBoardContext.BoardSettings.PostFloodDelay > 0
-                && this.PageBoardContext.LastPosted.HasValue && this.PageBoardContext.LastPosted
+                && lastPosted.HasValue && lastPosted
                 > DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
             {
                 return this.Ok(
                     new MessageModalNotification(
                         this.GetTextFormatted(
                             "wait",
-                            (this.PageBoardContext.LastPosted.Value
+                            (lastPosted.Value
                              - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
                             .Seconds),
                         MessageTypes.warning));

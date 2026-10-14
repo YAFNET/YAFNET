@@ -111,7 +111,10 @@ public class PostMessageModel : ForumPage
             return false;
         }
 
-        var lastPosted = this.GetRepository<Message>().GetUserLastPosted(this.PageBoardContext.PageUserID);
+        // all guests are the same user: the delay of a guest is the one of the address
+        var lastPosted = this.GetRepository<Message>().GetUserLastPosted(
+            this.PageBoardContext.PageUserID,
+            this.PageBoardContext.IsGuest ? this.HttpContext.GetUserRealIPAddress() : null);
 
         if (!lastPosted.HasValue)
         {
