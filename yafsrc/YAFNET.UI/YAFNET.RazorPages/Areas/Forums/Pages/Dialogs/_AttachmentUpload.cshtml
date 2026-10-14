@@ -50,6 +50,9 @@
 						</div>
 					</div>
 				</div>
+				@* all guests are the same user: the list would show the uploads of the other guests *@
+				@if (!Current.IsGuest)
+				{
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title">@Html.LocalizedText("ATTACHMENTS", "CURRENT_UPLOADS")</h5>
@@ -68,6 +71,7 @@
 						</form>
 					</div>
 				</div>
+				}
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" icon="xmark" data-bs-dismiss="modal" text-localized-tag="CLOSE_TEXT"></button>

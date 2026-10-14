@@ -198,6 +198,22 @@ public class AttachmentAccessTests
         data.AttachmentList.Should().ContainSingle().Which.DataURL.Should().NotBeNull("images get a preview");
     }
 
+    [Test]
+    [Description("All guests are the same user: a guest gets no list, it would show the uploads of the other guests")]
+    public void GetAttachments_Not_For_Guests_Test()
+    {
+        this.AddAttachment(this.alice, messageId: 0, fileName: "guest.png", contentType: "image/png");
+        this.board.LoginAs(this.alice);
+        this.board.User.IsGuest = true;
+
+        var result = (OkObjectResult)this.board.CreateController<AttachmentController>()
+            .GetAttachments(new PagedResults { PageNumber = 0, PageSize = 10 });
+
+        var data = (GridDataSet)result.Value;
+        data.TotalRecords.Should().Be(0);
+        data.AttachmentList.Should().BeEmpty();
+    }
+
     private int AddPost(int forumId)
     {
         return this.db.AddMessage(this.db.AddTopic(forumId, this.alice), this.alice);

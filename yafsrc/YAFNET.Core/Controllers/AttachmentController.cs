@@ -54,6 +54,13 @@ public class AttachmentController : ForumBaseController
     public IActionResult GetAttachments([FromBody] PagedResults pagedResults)
     {
         var userId = this.PageBoardContext.PageUserID;
+
+        // all guests are the same user: the list would show the uploads of the other guests
+        if (this.PageBoardContext.IsGuest)
+        {
+            return this.Ok(new GridDataSet { AttachmentList = [] });
+        }
+
         // the values come from the client
         var pageSize = System.Math.Clamp(pagedResults.PageSize, 1, 100);
         var pageNumber = System.Math.Max(pagedResults.PageNumber, 0);
