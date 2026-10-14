@@ -638,11 +638,12 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                 // the confirm dialog of the button is skipped
                 await item.Locator("button[formaction*='Delete']").First.EvaluateAsync("b => b.removeAttribute('onclick')");
 
-                var response = await page.RunAndWaitForResponseAsync(
-                                   () => item.Locator("button[formaction*='Delete']").First.EvaluateAsync("b => b.form.requestSubmit(b)"),
-                                   r => r.Request.Method == "POST");
+                IResponse response = null;
 
-                await page.WaitForLoadStateAsync(LoadState.Load);
+                await page.RunAndWaitForNextPageAsync(
+                    async () => response = await page.RunAndWaitForResponseAsync(
+                                    () => item.Locator("button[formaction*='Delete']").First.EvaluateAsync("b => b.form.requestSubmit(b)"),
+                                    r => r.Request.Method == "POST"));
 
                 Assert.That(response.Status, Is.LessThan(500), "Deleting the medal failed");
                 Assert.That(
