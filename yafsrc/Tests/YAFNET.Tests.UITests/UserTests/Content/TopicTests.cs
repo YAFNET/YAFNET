@@ -212,6 +212,10 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(await pollQuestion.CountAsync(), Is.GreaterThan(0), "The guest can't add a poll to the own topic");
 
                 await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string>());
+
+                // the flood delay (30 seconds) is checked per user: all guests have to wait for the next guest post
+                // (the next guest test)
+                await Task.Delay(TimeSpan.FromSeconds(31));
             });
     }
 
