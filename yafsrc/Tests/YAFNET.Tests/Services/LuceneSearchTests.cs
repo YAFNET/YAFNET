@@ -171,12 +171,17 @@ public class LuceneSearchTests
         this.Index(1, 10, this.forumA, "Public", "secret sauce");
         this.Index(2, 20, this.hiddenForum, "Staff", "secret plans");
 
-        var (results, _) = await this.NewSearch().SearchPagedAsync(0, "secret", 0, 10);
+        var (results, total) = await this.NewSearch().SearchPagedAsync(0, "secret", 0, 10);
         results.Select(r => r.MessageId).Should().Equal(1);
+        total.Should().Be(1, "the hits that can't be seen are not counted (the pager showed empty pages)");
+
+        // a search inside the hidden forum does not tell the number of hits
+        (await this.NewSearch().SearchPagedAsync(this.hiddenForum, "secret", 0, 10)).Item2.Should().Be(0);
 
         this.board.LoginAs(this.eve);
-        var (none, _) = await this.NewSearch().SearchPagedAsync(0, "secret", 0, 10);
+        var (none, noneTotal) = await this.NewSearch().SearchPagedAsync(0, "secret", 0, 10);
         none.Should().BeEmpty();
+        noneTotal.Should().Be(0);
     }
 
     [Test]
@@ -187,8 +192,9 @@ public class LuceneSearchTests
         this.Index(2, 20, this.forumA, "Waiting", "moderation word", new MessageFlags { IsApproved = false });
         this.Index(3, 30, this.forumA, "Deleted", "moderation word", new MessageFlags { IsApproved = true, IsDeleted = true });
 
-        var (results, _) = await this.NewSearch().SearchPagedAsync(0, "moderation", 0, 10);
+        var (results, total) = await this.NewSearch().SearchPagedAsync(0, "moderation", 0, 10);
         results.Select(r => r.MessageId).Should().Equal(1);
+        total.Should().Be(1);
 
         this.board.GrantAccess(this.alice, this.forumA, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
 

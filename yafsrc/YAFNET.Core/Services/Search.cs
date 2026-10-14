@@ -787,9 +787,9 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <param name="pageSize">Size of the page.</param>
     /// <param name="userAccessList">The user access list.</param>
     /// <returns>
-    /// Returns the search list
+    /// Returns the search list of the page and the number of hits the user can see
     /// </returns>
-    private async Task<List<SearchMessage>> MapSearchToDataListAsync(
+    private async Task<Tuple<List<SearchMessage>, int>> MapSearchToDataListAsync(
         Highlighter highlighter,
         Analyzer analyzer,
         IndexSearcher searcher,
@@ -798,15 +798,18 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         int pageSize,
         List<VAccess> userAccessList)
     {
-        var skip = pageSize * pageIndex;
-        return await hits.ToAsyncEnumerable()
-            .Select(async (hit, _, _) => await this.MapSearchDocumentToDataAsync(
-                highlighter,
-                analyzer,
-                searcher.Doc(hit.Doc),
-                userAccessList)
-            ).Where(item => item != null)
-            .OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize).ToListAsync();
+        // only the hits the user can see are counted (and paged), only the page is formatted
+        var visible = hits.Select(hit => searcher.Doc(hit.Doc)).Where(doc => CanSeeDocument(doc, userAccessList))
+            .OrderByDescending(doc => doc.Get("MessageId").ToType<int>()).ToList();
+
+        var results = new List<SearchMessage>();
+
+        foreach (var doc in visible.Skip(pageSize * pageIndex).Take(pageSize))
+        {
+            results.Add(await this.MapSearchDocumentToDataAsync(highlighter, analyzer, doc, userAccessList));
+        }
+
+        return new Tuple<List<SearchMessage>, int>(results, visible.Count);
     }
 
     /// <summary>
@@ -886,7 +889,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
             this.searcherManager.Release(searcher);
 
-            return new Tuple<List<SearchMessage>, int>(results, hits.Length);
+            return results;
         }
         else
         {
@@ -939,7 +942,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
             this.searcherManager.Release(searcher);
 
-            return new Tuple<List<SearchMessage>, int>(results, hits.Length);
+            return results;
         }
     }
 

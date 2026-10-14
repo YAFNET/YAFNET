@@ -472,6 +472,7 @@ YetAnotherForum.NET Changelog
 * Delete board: the tags, profile definitions, banned countries, banned user agents and push subscriptions of the board were not deleted, on PostgreSQL, SQL Server and MySQL the delete of such a board failed half way
 * Admin Boards: the board the forum runs on could be deleted (the context menu always had the delete), the forum was broken afterwards. The delete is not shown for the current board and refused
 * Group medals: after a user joined or left a group (or the group was deleted) the medals of the group were still shown or missing for up to 10 minutes
+* Search: the number of results counted the hits the user can not see (forums without read access, not approved or deleted posts), the pager showed empty pages and a search in a hidden forum told the number of hits. Only the shown page is formatted now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
