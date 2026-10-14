@@ -380,8 +380,18 @@ public static class IDbAccessExtensions
         public Task<string> ShrinkDatabaseAsync()
         {
             return dbAccess.ExecuteAsync(
-                db => db.ScalarAsync<string>(
-                    OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Database)));
+                async db =>
+                {
+                    var sql = OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Database);
+
+                    // an empty statement can not be run (MySQL has no shrink)
+                    if (string.IsNullOrWhiteSpace(sql))
+                    {
+                        return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+                    }
+
+                    return await db.ScalarAsync<string>(sql);
+                });
         }
 
         /// <summary>
