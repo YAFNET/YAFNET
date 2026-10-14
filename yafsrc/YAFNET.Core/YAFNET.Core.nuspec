@@ -31,7 +31,7 @@
 			<dependency id="MailKit" version="4.18.1" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNet.WebApi.Client" version="6.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="10.0.12" exclude="Build,Analyzers" />
-			<dependency id="Microsoft.Bcl.AsyncInterfaces" version="10.0.12" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.Bcl.AsyncInterfaces" version="10.0.13" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNetCore.Identity.UI" version="10.0.12" exclude="Build,Analyzers" />
 			<dependency id="Newtonsoft.Json" version="13.0.4" exclude="Build,Analyzers" />
 			<dependency id="OEmbed.Core" version="2.0.7" exclude="Build,Analyzers" />
