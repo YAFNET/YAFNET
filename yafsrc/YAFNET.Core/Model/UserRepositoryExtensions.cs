@@ -569,8 +569,11 @@ public static class UserRepositoryExtensions
             await BoardContext.Current.GetRepository<UserGroup>().DeleteAsync(x => x.UserID == user.ID);
 
             await BoardContext.Current.GetRepository<UserForum>().DeleteAsync(x => x.UserID == user.ID);
-            await BoardContext.Current.GetRepository<IgnoreUser>().DeleteAsync(x => x.UserID == user.ID);
+            await BoardContext.Current.GetRepository<IgnoreUser>()
+                .DeleteAsync(x => x.UserID == user.ID || x.IgnoredUserID == user.ID);
             await BoardContext.Current.GetRepository<AdminPageUserAccess>().DeleteAsync(x => x.UserID == user.ID);
+            await BoardContext.Current.GetRepository<UserMedal>().DeleteAsync(x => x.UserID == user.ID);
+            await BoardContext.Current.GetRepository<DeviceSubscription>().DeleteAsync(x => x.UserID == user.ID);
 
             await BoardContext.Current.GetRepository<ProfileCustom>().DeleteAsync(x => x.UserID == user.ID);
 

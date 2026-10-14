@@ -355,9 +355,31 @@ public class UserRepositoryTests
         var topic = this.db.AddTopic(forum, this.bob);
         var message = this.db.AddMessage(topic, this.bob);
         await this.Repository<IgnoreUser>().AddIgnoredUserAsync(this.bob, this.alice);
+        await this.Repository<IgnoreUser>().AddIgnoredUserAsync(this.alice, this.bob);
         this.board.GrantAccess(this.bob, forum);
 
+        // rows with a foreign key to the user (the delete failed on PostgreSQL, SQL Server and MySQL)
+        var medal = (int)this.Repository<Medal>().Insert(
+            new Medal { BoardID = TestDatabase.BoardId, Name = "Hero", Message = "m", MedalURL = "hero.png", Flags = 0 },
+            true);
+        this.Repository<UserMedal>().Insert(new UserMedal { UserID = this.bob, MedalID = medal, DateAwarded = this.now, SortOrder = 1 });
+        this.Repository<DeviceSubscription>().Insert(
+            new DeviceSubscription
+                {
+                    UserID = this.bob,
+                    BoardID = TestDatabase.BoardId,
+                    Device = "Mozilla/*",
+                    UserAgent = "Mozilla/5.0",
+                    EndPoint = "https://fcm.googleapis.com/fcm/send/bob",
+                    P256dh = "key",
+                    Auth = "key"
+                });
+
         await this.Users.DeleteAsync(await this.Users.GetByIdAsync(this.bob));
+
+        (await this.Repository<UserMedal>().CountAsync(m => m.UserID == this.bob)).Should().Be(0);
+        (await this.Repository<DeviceSubscription>().CountAsync(d => d.UserID == this.bob)).Should().Be(0);
+        (await this.Repository<IgnoreUser>().CountAsync(i => i.IgnoredUserID == this.bob)).Should().Be(0);
 
         (await this.Users.GetByIdAsync(this.bob)).Should().BeNull();
 

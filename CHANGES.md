@@ -468,6 +468,7 @@ YetAnotherForum.NET Changelog
 * Unapproved posts: approving an already approved post (another moderator, the button sent twice) counted the post again for the user and sent the notifications again
 * Register: when the verification mail can not be sent the account is created anyway, the page now tells it and points to "Resend Email Verification" on the login instead of showing an error page
 * Admin Register User: when the verification mail could not be sent the user was created, but the default notification settings were not saved and an error page was shown, the settings are saved first now and the mail error is shown as message
+* Delete user: the medals and the push subscriptions of the user were not deleted, on PostgreSQL, SQL Server and MySQL the delete of a user with a medal or a push subscription failed (after the login of the user was already deleted). Ignore entries of other users for the deleted user are removed too
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
