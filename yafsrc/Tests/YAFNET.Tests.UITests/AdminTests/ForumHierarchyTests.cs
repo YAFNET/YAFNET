@@ -202,7 +202,14 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                 await page.Locator("#Input_SortOrder").FillAsync("999");
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                var categoryId = await page.EvaluateAsync<string>(
+                // the list is paged (the forums of the other tests come first)
+                string categoryId = null;
+
+                for (var p = 1; p <= 50 && categoryId is null; p++)
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
+
+                    categoryId = await page.EvaluateAsync<string>(
                                      """
                                      name => {
                                          const item = [...document.querySelectorAll('li.list-group-item')]
@@ -212,6 +219,7 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                                      }
                                      """,
                                      categoryName);
+                }
 
                 Assert.That(categoryId, Is.Not.Null, "The category was not created");
 
