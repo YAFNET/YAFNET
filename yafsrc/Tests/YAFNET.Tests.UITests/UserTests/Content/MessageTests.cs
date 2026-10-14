@@ -731,11 +731,12 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await checkBoxes.Nth(0).CheckAsync();
                 await checkBoxes.Nth(2).CheckAsync();
 
-                var response = await page.RunAndWaitForResponseAsync(
-                                   () => page.Locator("button[formaction*='ShowDiff']").ClickAsync(),
-                                   r => r.Request.Method == "POST" && r.Url.Contains("ShowDiff"));
+                IResponse response = null;
 
-                await page.WaitForLoadStateAsync(LoadState.Load);
+                await page.RunAndWaitForNextPageAsync(
+                    async () => response = await page.RunAndWaitForResponseAsync(
+                                    () => page.Locator("button[formaction*='ShowDiff']").ClickAsync(),
+                                    r => r.Request.Method == "POST" && r.Url.Contains("ShowDiff")));
 
                 Assert.That(response.Status, Is.EqualTo(200), "Comparing the versions failed");
 
@@ -875,11 +876,12 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"Edited {id}");
                 await page.Locator("#Input_ReasonEditor").FillAsync(reason);
 
-                var response = await page.RunAndWaitForResponseAsync(
-                                   () => page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync(),
-                                   r => r.Request.Method == "POST");
+                IResponse response = null;
 
-                await page.WaitForLoadStateAsync(LoadState.Load);
+                await page.RunAndWaitForNextPageAsync(
+                    async () => response = await page.RunAndWaitForResponseAsync(
+                                    () => page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync(),
+                                    r => r.Request.Method == "POST"));
 
                 Assert.That(response.Status, Is.LessThan(500), "Saving the edit failed");
 
