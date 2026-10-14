@@ -143,6 +143,13 @@ public class UnapprovedPostsModel : ModerateForumPage
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
+        // approved once (by another moderator, the button sent twice): the post would be counted
+        // and the users notified again
+        if (message.MessageFlags.IsApproved)
+        {
+            return await this.BindDataAsync(this.PageBoardContext.PageForumID);
+        }
+
         await this.GetRepository<Message>().ApproveAsync(
             messageId,
             this.PageBoardContext.PageForumID);

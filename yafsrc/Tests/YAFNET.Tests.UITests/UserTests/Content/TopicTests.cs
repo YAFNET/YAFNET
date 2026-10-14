@@ -399,6 +399,122 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A post is approved once: approving it again (a second moderator, the button sent twice) counted the post
+    /// again for the user and sent the notifications again.
+    /// </summary>
+    [Test]
+    public async Task ApprovedPostIsNotApprovedAgainTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var forumName = $"Moderated Twice Forum {Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a moderated forum (all posts)
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+
+                await page.Locator("#Input_Name").FillAsync(forumName);
+                await page.Locator("#Input_Description").FillAsync("A forum of the approval test");
+                await page.Locator("#Input_SortOrder").FillAsync("99");
+
+                await page.EvaluateAsync(
+                    """
+                    () => {
+                        const moderated = document.querySelector('#Input_Moderated');
+                        moderated.checked = true;
+                        const all = document.createElement('input');
+                        all.type = 'hidden';
+                        all.name = 'Input.ModerateAllPosts';
+                        all.value = 'true';
+                        moderated.form.appendChild(all);
+                    }
+                    """);
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                                    .First.GetAttributeAsync("href");
+
+                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
+
+                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // a new user posts a topic that needs the approval
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
+
+                await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Approve twice {Random.Shared.Next()}");
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A topic which needs the approval");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Moderate/UnapprovedPosts/{forumId}");
+
+                var approve = page.Locator("button[formaction*='Approve']").First;
+                var approveAction = await approve.GetAttributeAsync("formaction");
+
+                await page.SubmitAndWaitAsync(approve);
+
+                // the same approval again
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                await page.RunAndWaitForNextPageAsync(
+                    () => page.EvaluateAsync(
+                        """
+                        action => {
+                            const form = document.createElement('form');
+                            form.method = 'post';
+                            form.action = action;
+                            form.appendChild(document.querySelector("input[name='__RequestVerificationToken']").cloneNode());
+                            document.body.appendChild(form);
+                            form.submit();
+                        }
+                        """,
+                        approveAction));
+
+                // the user has one post
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Members");
+
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                await page.Locator("#Input_UserSearchName").FillAsync(userName);
+                await page.Locator("#Input_NumPosts").FillAsync("1");
+                await page.EvaluateAsync("() => document.querySelector('#Input_NumPostValue').value = '1'");
+
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Search')]"));
+
+                Assert.That(
+                    await page.Locator("li.member-row", new PageLocatorOptions { HasTextString = userName }).CountAsync(),
+                    Is.EqualTo(1),
+                    "The post was counted again");
+            });
+    }
+
+    /// <summary>
     /// Create the new topic in forum test.
     /// </summary>
     [Test]
