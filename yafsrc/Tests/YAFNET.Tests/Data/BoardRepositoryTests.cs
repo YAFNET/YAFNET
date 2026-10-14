@@ -245,7 +245,22 @@ public class BoardRepositoryTests
         var boardId = await this.CreateBoardAsync();
         this.Repository<Registry>().Save("theme", "dark", boardId);
 
+        // the board's data with a foreign key to the board (the delete failed on PostgreSQL, SQL Server and MySQL)
+        var boardUser = (await this.Repository<User>().GetSingleAsync(u => u.BoardID == boardId)).ID;
+        this.Repository<Tag>().Insert(new Tag { BoardID = boardId, TagName = "tag" });
+        this.Repository<BannedCountry>().Insert(new BannedCountry { BoardID = boardId, Country = "XX" });
+        this.Repository<BannedUserAgent>().Insert(new BannedUserAgent { BoardID = boardId, UserAgent = "bot" });
+        var definition = (int)this.Repository<ProfileDefinition>().Insert(
+            new ProfileDefinition { BoardID = boardId, Name = "Field", DataType = "Text", DefaultValue = string.Empty },
+            true);
+        this.Repository<ProfileCustom>().Insert(new ProfileCustom { ProfileDefinitionID = definition, UserID = boardUser, Value = "v" });
+
         await this.Repository<Board>().DeleteBoardAsync(boardId);
+
+        (await this.Repository<Tag>().CountAsync(t => t.BoardID == boardId)).Should().Be(0);
+        (await this.Repository<BannedCountry>().CountAsync(b => b.BoardID == boardId)).Should().Be(0);
+        (await this.Repository<BannedUserAgent>().CountAsync(b => b.BoardID == boardId)).Should().Be(0);
+        (await this.Repository<ProfileDefinition>().CountAsync(p => p.BoardID == boardId)).Should().Be(0);
 
         (await this.Repository<Board>().GetByIdAsync(boardId)).Should().BeNull();
         (await this.Repository<User>().CountAsync(u => u.BoardID == boardId)).Should().Be(0);

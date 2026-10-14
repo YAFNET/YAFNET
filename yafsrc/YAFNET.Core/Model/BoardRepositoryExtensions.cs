@@ -569,6 +569,11 @@ public static class BoardRepositoryExtensions
             await BoardContext.Current.GetRepository<BannedIP>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<BannedName>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<BannedEmail>().DeleteAsync(x => x.BoardID == boardId);
+            await BoardContext.Current.GetRepository<BannedCountry>().DeleteAsync(x => x.BoardID == boardId);
+            await BoardContext.Current.GetRepository<BannedUserAgent>().DeleteAsync(x => x.BoardID == boardId);
+            await BoardContext.Current.GetRepository<Tag>().DeleteAsync(x => x.BoardID == boardId);
+            await BoardContext.Current.GetRepository<ProfileDefinition>().DeleteAsync(x => x.BoardID == boardId);
+            await BoardContext.Current.GetRepository<DeviceSubscription>().DeleteAsync(x => x.BoardID == boardId);
             await BoardContext.Current.GetRepository<Registry>().DeleteAsync(x => x.BoardID == boardId);
 
             await repository.DeleteAsync(x => x.ID == boardId);
