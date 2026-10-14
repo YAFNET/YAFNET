@@ -444,6 +444,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin Edit Rank: a new or renamed rank with the name of an existing rank failed with an error (the name is unique in the board); it is refused with a warning
 * [FIXED] Topic "Watch this topic": watching an already watched topic again (e.g. from a second tab) failed with an error (the subscription is unique), and guests could watch topics with a sent form; a topic is watched once and guests are refused
 * [FIXED] New topic: when topics with the same subject are not allowed, a subject was refused when any topic contained it ("Help" was refused because of "Need help with X") and deleted topics counted; only the same subject (ignoring the case) of a not deleted topic is refused now (new text POSTMESSAGE.SUBJECT_EXISTS instead of SUBJECT_DUPLICATE)
+* [FIXED] Board index "Watch all forums" watched nothing (the forums were filtered by an empty category) and only looked at the forums loaded so far; it now watches all forums the user can read (of the shown category), and guests are refused
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

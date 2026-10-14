@@ -585,4 +585,53 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                     Assert.That(guest[1], Does.Contain("Info"), $"The guest could watch the topic ({guest[0]} {guest[1]})");
                 });
     }
+
+    /// <summary>
+    /// "Watch all forums" on the board index watched nothing (the forums were filtered by an empty category),
+    /// and guests could send it.
+    /// </summary>
+    [Test]
+    public async Task WatchAllForumsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                    var watchAllUrl = await page.Locator("button[formaction*='WatchAll']").GetAttributeAsync("formaction");
+
+                    Assert.That(watchAllUrl, Does.Contain("WatchAll"), "The watch all button is missing");
+
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='WatchAll']"));
+
+                    await page.GotoAsync(
+                        $"{this.TestSettings.TestForumUrl}Topics/{this.TestSettings.TestForumId}/testForum");
+
+                    Assert.That(
+                        await page.ContentAsync(), Does.Contain("Unwatch Forum"),
+                        "The test forum is not watched after watch all");
+
+                    // a guest is refused
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    // a page with an antiforgery token
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/login");
+
+                    const string post = """
+                                        async url => {
+                                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                                            const body = new URLSearchParams({ '__RequestVerificationToken': token });
+                                            const response = await fetch(url, { method: 'POST', body: body });
+                                            return [String(response.status), response.url];
+                                        }
+                                        """;
+
+                    var guest = await page.EvaluateAsync<string[]>(post, watchAllUrl);
+
+                    Assert.That(guest[1], Does.Contain("Info"), $"The guest could watch all forums ({guest[0]} {guest[1]})");
+                });
+    }
 }

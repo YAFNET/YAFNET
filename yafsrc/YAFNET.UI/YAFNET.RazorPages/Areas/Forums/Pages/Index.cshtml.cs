@@ -141,25 +141,34 @@ public class IndexModel : ForumPage
     }
 
     /// <summary>
-    /// Watch All Forums
+    /// Watch All Forums (of the current category) the user can read
     /// </summary>
-    public async Task OnPostWatchAllAsync()
+    public async Task<IActionResult> OnPostWatchAllAsync()
     {
-        int? categoryId = this.PageBoardContext.PageCategoryID != 0 ? this.PageBoardContext.PageCategoryID : null;
+        if (this.PageBoardContext.IsGuest)
+        {
+            return this.Get<ILinkBuilder>().AccessDenied();
+        }
 
-        var forums = this.Get<ISessionService>().Forums.Where(x => x.CategoryID == categoryId);
+        var categoryId = this.PageBoardContext.PageCategoryID;
+
+        var forums = this.GetRepository<Forum>()
+            .ListAllWithAccess(this.PageBoardContext.PageBoardID, this.PageBoardContext.PageUserID)
+            .Select(x => x.Item1).Where(forum => categoryId == 0 || forum.CategoryID == categoryId);
 
         var watchForums = await this.GetRepository<WatchForum>().ListAsync(this.PageBoardContext.PageUserID);
 
         foreach (var forum in forums.Where(forum => !watchForums.Exists(
-                     w => w.ForumID == forum.ForumID && w.UserID == this.PageBoardContext.PageUserID)))
+                     w => w.ForumID == forum.ID && w.UserID == this.PageBoardContext.PageUserID)))
         {
-            await this.GetRepository<WatchForum>().AddAsync(this.PageBoardContext.PageUserID, forum.ForumID);
+            await this.GetRepository<WatchForum>().AddAsync(this.PageBoardContext.PageUserID, forum.ID);
         }
 
         this.PageBoardContext.Notify(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
         await this.BindDataAsync();
+
+        return this.Page();
     }
 
     /// <summary>
