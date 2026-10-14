@@ -172,9 +172,6 @@ public class SettingsModel : AdminPage
         // save the settings to the database
         this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
-        // Clearing cache with old users permissions data to get new default styles...
-        this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
-
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Admin);
     }
 
