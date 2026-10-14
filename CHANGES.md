@@ -445,6 +445,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Topic "Watch this topic": watching an already watched topic again (e.g. from a second tab) failed with an error (the subscription is unique), and guests could watch topics with a sent form; a topic is watched once and guests are refused
 * [FIXED] New topic: when topics with the same subject are not allowed, a subject was refused when any topic contained it ("Help" was refused because of "Need help with X") and deleted topics counted; only the same subject (ignoring the case) of a not deleted topic is refused now (new text POSTMESSAGE.SUBJECT_EXISTS instead of SUBJECT_DUPLICATE)
 * [FIXED] Board index "Watch all forums" watched nothing (the forums were filtered by an empty category) and only looked at the forums loaded so far; it now watches all forums the user can read (of the shown category), and guests are refused
+* [FIXED] Edit Message: the topic subject could be changed to the subject of another topic (the duplicate subject check never ran on edit); a changed subject is checked like for a new topic, the topic itself does not count
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

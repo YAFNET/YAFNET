@@ -413,6 +413,19 @@ public class TopicMessageTests
     }
 
     [Test]
+    [Description("An edited topic doesn't count as an existing subject for itself, another topic does")]
+    public async Task CheckForDuplicate_Edited_Topic_Test()
+    {
+        var (topic, _) = await this.PostTopicAsync("Edited subject", "first");
+
+        this.Topics.CheckForDuplicate("edited subject", topic.ID).Should().BeFalse("it is the edited topic itself");
+
+        var (other, _) = await this.PostTopicAsync("Other subject", "second");
+
+        this.Topics.CheckForDuplicate("Edited subject", other.ID).Should().BeTrue("another topic has the subject");
+    }
+
+    [Test]
     [Description("Topic helpers: lock, answer, duplicates and lookups")]
     public async Task Topic_Helpers_Test()
     {

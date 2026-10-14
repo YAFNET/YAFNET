@@ -127,9 +127,12 @@ public class EditMessageModel : ForumPage
                 return false;
             }
 
+            // a changed subject must not be the subject of another topic (the same check as for a new topic)
+            var subject = HtmlTagHelper.StripHtml(this.Input.TopicSubject).Trim();
+
             if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
-                && this.GetRepository<Topic>().CheckForDuplicate(this.Input.TopicSubject.Trim())
-                && this.PageBoardContext.PageMessage is null)
+                && !subject.Equals(this.PageBoardContext.PageTopic.TopicName.Trim(), StringComparison.OrdinalIgnoreCase)
+                && this.GetRepository<Topic>().CheckForDuplicate(subject, this.PageBoardContext.PageTopicID))
             {
                 this.PageBoardContext.Notify(this.GetText("SUBJECT_EXISTS"), MessageTypes.warning);
                 return false;

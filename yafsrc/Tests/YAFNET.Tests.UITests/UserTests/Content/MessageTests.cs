@@ -949,4 +949,63 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(text, Does.Contain(reason), "The delete reason is not shown as entered");
             });
     }
+
+    /// <summary>
+    /// The subject of a topic can't be changed to the subject of another topic by editing the first post
+    /// (the duplicate check only ran for new topics); the unchanged subject is still saved. Admins may always
+    /// use an existing subject, so the topic is edited by a member.
+    /// </summary>
+    [Test]
+    [Description("Edit the topic subject to the subject of another topic")]
+    public async Task EditSubjectToExistingSubjectTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var id = Guid.NewGuid().ToString("N")[..8];
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                var first = await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, $"First {id}", "first");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                var second = await page.CreateTopicAsync(this.TestSettings, this.TestSettings.TestForumId, $"Second {id}", "second");
+
+                Assert.That(first, Is.Not.Null, "The first topic was not created");
+                Assert.That(second, Is.Not.Null, "The second topic was not created");
+
+                var editLink = await page.Locator("a[href*='EditMessage']").First.GetAttributeAsync("href");
+                var editUrl = new Uri(new Uri(this.TestSettings.TestForumUrl), editLink).ToString();
+
+                // the subject of the other topic (other case) is refused
+                await page.GotoAsync(editUrl);
+                await page.Locator("#Input_TopicSubject").FillAsync($"first {id}");
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(
+                    await page.ContentAsync(), Does.Contain("A topic with this subject already exists."),
+                    "The subject of the other topic was saved");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{second}/topic");
+
+                Assert.That(await page.TitleAsync(), Does.Contain($"Second {id}"), "The subject was changed");
+
+                // saving the unchanged subject works
+                await page.GotoAsync(editUrl);
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"Edited {id}");
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(await page.Locator("body").InnerTextAsync(), Does.Contain($"Edited {id}"), "The edit was not saved");
+            });
+    }
 }
