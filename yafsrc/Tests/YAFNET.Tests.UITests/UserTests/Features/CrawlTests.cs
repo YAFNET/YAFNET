@@ -726,7 +726,8 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-        await page.GotoAsync(this.TestSettings.TestForumUrl);
+        // the page of the category (the index only shows the first forums, other tests add forums too)
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Category/{categoryId}/crawl");
 
         Assert.That(await page.ContentAsync(), Does.Contain("Crawl forum").And.Contain("Crawl category"), "The forum or the category was not created");
 
