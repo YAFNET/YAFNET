@@ -462,6 +462,7 @@ YetAnotherForum.NET Changelog
 * Admin database maintenance: "Re-index" and "Shrink" on MySQL run OPTIMIZE TABLE for the forum tables (they were not supported)
 * Guests (all are the same user) shared one flood delay: the post of one guest blocked all other guests, the delay of guests is now checked per address
 * Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
+* Mail: a refused single mail (test mail of the admin and install pages, mail to a user, test digest) was reported as sent, the error is shown again when no mail was sent
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

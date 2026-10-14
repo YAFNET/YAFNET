@@ -85,16 +85,22 @@ public class MailService : IMailService, IHaveServiceLocator
             await smtpClient.AuthenticateAsync(this.mailConfig.UserName, this.mailConfig.Password);
         }
 
+        var sent = 0;
+        Exception firstError = null;
+
         foreach (var m in mailMessages.Where(m => m != null))
         {
             // a refused mail (e.g. an unknown recipient) does not stop the other mails
             try
             {
                 await smtpClient.SendAsync(m);
+                sent++;
             }
             catch (Exception ex)
             {
                 this.Get<ILogger<MailService>>().Error(ex, "Mail Error");
+
+                firstError ??= ex;
 
                 if (!smtpClient.IsConnected)
                 {
@@ -106,6 +112,12 @@ public class MailService : IMailService, IHaveServiceLocator
         if (smtpClient.IsConnected)
         {
             await smtpClient.DisconnectAsync(true);
+        }
+
+        // no mail was sent (e.g. the only mail, a test mail or a mail to a user): the caller reports the error
+        if (sent == 0 && firstError is not null)
+        {
+            System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(firstError).Throw();
         }
     }
 }

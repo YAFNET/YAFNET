@@ -79,6 +79,21 @@ public class MailServiceTests
         server.Delivered.Should().Equal("first@example.com", "third@example.com");
     }
 
+    [Test]
+    [Description("When no mail was sent the error is thrown: a single mail (test mail, mail to a user) is not reported as sent")]
+    public async Task Refused_Single_Mail_Throws_Test()
+    {
+        using var server = new FakeSmtpServer("refused@example.com");
+
+        var service = new MailService(
+            Options.Create(new MailConfiguration { Host = "127.0.0.1", Port = server.Port }));
+
+        await service.Invoking(s => s.SendAllAsync([Mail("refused@example.com")]))
+            .Should().ThrowAsync<MailKit.Net.Smtp.SmtpCommandException>();
+
+        server.Delivered.Should().BeEmpty();
+    }
+
     private static MimeMessage Mail(string to)
     {
         var message = new MimeMessage();
