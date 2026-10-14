@@ -318,6 +318,29 @@ public class LocalizationTests
         localization.LanguageFileName.Should().Be(GermanFile.ToLower());
     }
 
+    [Test]
+    [Description("A language file is read once (not for every request), a changed file is read again")]
+    public void Language_File_Is_Cached_Until_Changed_Test()
+    {
+        this.UseGerman();
+
+        new Localization("COMMON").GetText("OK").Should().Be("Okay");
+
+        // new content, the same file time: the cached texts are used
+        var file = Path.Combine(this.webRoot, "languages", GermanFile);
+        var written = File.GetLastWriteTimeUtc(file);
+
+        File.WriteAllText(file, GermanJson.Replace("\"Okay\"", "\"Alles klar\""));
+        File.SetLastWriteTimeUtc(file, written);
+
+        new Localization("COMMON").GetText("OK").Should().Be("Okay", "the file was read again for another request");
+
+        // the file was changed (e.g. by the language editor): the new texts are used
+        File.SetLastWriteTimeUtc(file, written.AddSeconds(1));
+
+        new Localization("COMMON").GetText("OK").Should().Be("Alles klar");
+    }
+
     private void UseGerman()
     {
         this.board.BoardSettings.Language = GermanFile;

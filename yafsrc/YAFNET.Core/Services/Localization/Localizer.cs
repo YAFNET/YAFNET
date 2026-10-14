@@ -232,7 +232,12 @@ public class Localizer
             throw new ArgumentException($"Invalid language file {this.fileName}");
         }
 
-        var json = BoardContext.Current.Get<ILocalization>().LoadLanguageFile(this.fileName);
+        // the file is read once (not for every request), a changed file (e.g. by the language editor) again,
+        // the texts are only read
+        var json = BoardContext.Current.Get<IDataCache>().GetOrSet(
+            $"LanguageFile.{this.fileName}.{File.GetLastWriteTimeUtc(this.fileName).Ticks}",
+            () => BoardContext.Current.Get<ILocalization>().LoadLanguageFile(this.fileName),
+            TimeSpan.FromHours(1));
 
         this.localizationLanguageResources = json;
 
