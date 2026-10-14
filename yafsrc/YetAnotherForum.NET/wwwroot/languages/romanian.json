@@ -12240,6 +12240,10 @@
         "@name": "REGISTER",
         "Resource": [
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Contul dvs. a fost creat, dar e-mailul de verificare nu a putut fi trimis. Vă rugăm să vă autentificați mai târziu și să folosiți \"Reîntoarceți verificarea e-mailului\" sau să contactați administratorul forumului.[/center]"
+          },
+          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Contul tau a fost creat cu succes. Dar intai trebuie sa confirmi adresa de mail. Te rugam sa verifici casuta de mail, si urmareste pasii pentru confirmare.[/center]"
           },

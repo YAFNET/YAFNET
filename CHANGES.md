@@ -466,6 +466,7 @@ YetAnotherForum.NET Changelog
 * Admin mail to a group: a mail that could not be sent showed an error page and stopped the mails to the other members, all mails are sent in one connection now and an error is shown as message
 * Notification mails (watched topics, approval, medals, roles, suspension, admin notices) failed the action with an error page when the mail could not be sent (e.g. the mail server is down): the post was saved, but the mentions and the activity stream were skipped. The error is logged now
 * Unapproved posts: approving an already approved post (another moderator, the button sent twice) counted the post again for the user and sent the notifications again
+* Register: when the verification mail can not be sent the account is created anyway, the page now tells it and points to "Resend Email Verification" on the login instead of showing an error page
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

@@ -12224,6 +12224,10 @@
         "@name": "REGISTER",
         "Resource": [
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Su cuenta ha sido creada, pero no se pudo enviar el correo de verificación. Inicie sesión más tarde y use \"Reenviar la verificación del correo electrónico\", o contacte con el administrador del foro.[/center]"
+          },
+          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Su cuenta ha sido creada, sin embargo, aun necesita confirmar su cuenta de correo antes de iniciar sesion. Por favor revise sus correos para leer las instrucciones de verificacion.[/center]"
           },

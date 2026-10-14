@@ -163,6 +163,8 @@ public class RegisterModel : AccountPage
 
         this.SaveCustomProfile(userId.Value);
 
+        var verificationText = "ACCOUNT_CREATED_VERIFICATION";
+
         if (this.IsPossibleSpamBot)
         {
             if (this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(1))
@@ -172,18 +174,28 @@ public class RegisterModel : AccountPage
         }
         else
         {
-            // handle e-mail verification
-            await this.Get<ISendNotification>().SendVerificationEmailAsync(user, email, userId.Value);
-
             if (this.PageBoardContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
             {
                 // send user register notification to the following admin users...
                 await this.Get<ISendNotification>().SendRegistrationNotificationEmailAsync(user, userId.Value);
             }
+
+            // handle e-mail verification
+            try
+            {
+                await this.Get<ISendNotification>().SendVerificationEmailAsync(user, email, userId.Value);
+            }
+            catch (Exception x)
+            {
+                // the account is created, the verification mail can be sent again on the login page
+                this.Get<ILogger<RegisterModel>>().Error(x, $"Verification mail to {email} failed");
+
+                verificationText = "ACCOUNT_CREATED_MAIL_FAILED";
+            }
         }
 
         this.ErrorMessage = await this.Get<IBBCodeService>().MakeHtmlAsync(
-            this.GetText("ACCOUNT_CREATED_VERIFICATION"),
+            this.GetText(verificationText),
             true,
             true);
 

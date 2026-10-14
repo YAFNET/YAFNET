@@ -12240,6 +12240,10 @@
         "@name": "REGISTER",
         "Resource": [
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Hesabınız oluşturuldu, ancak doğrulama e-postası gönderilemedi. Lütfen daha sonra giriş yapın ve \"E-posta Doğrulamasını Yeniden Gönder\" seçeneğini kullanın veya forum yöneticisine başvurun.[/center]"
+          },
+          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Hesabınız başarıyla oluşturuldu. Kaydınızın tamamlanması için E-Posta adresinizi onaylamanız gerekmekte. Onay için size gönderilen E-Postaki açıklamaları okuyunuz.[/center]"
           },

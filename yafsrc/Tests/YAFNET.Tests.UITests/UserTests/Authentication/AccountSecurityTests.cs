@@ -100,6 +100,70 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
     }
 
     /// <summary>
+    /// When the verification mail can not be sent the account is created anyway: the register page tells it
+    /// (instead of an error page) and the mail can be sent again on the login.
+    /// </summary>
+    [Test]
+    public async Task RegistrationWithFailedVerificationMailTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = $"TempUser{Random.Shared.Next()}";
+                    var email = $"{userName.ToLower()}@test.com";
+
+                    this.Fixture.SmtpServer.Stop();
+
+                    try
+                    {
+                        var response = await page.RunAndWaitForResponseAsync(
+                                           async () => Assert.That(
+                                               await page.SubmitRegistrationAsync(
+                                                   this.TestSettings,
+                                                   userName,
+                                                   email,
+                                                   this.TestSettings.TestUserPassword),
+                                               Is.True,
+                                               "Registrations are disabled"),
+                                           r => r.Request.Method == "POST" && r.Url.Contains("/Account/Register"));
+
+                        Assert.That(response.Status, Is.LessThan(400), $"The registration failed with an error page ({response.Status})");
+
+                        await page.GetByText("the verification email could not be sent").WaitForAsync();
+
+                        Assert.That(
+                            await page.ContentAsync(),
+                            Does.Contain("the verification email could not be sent"),
+                            "The failed verification mail is not shown");
+                    }
+                    finally
+                    {
+                        this.Fixture.SmtpServer = netDumbster.smtp.SimpleSmtpServer.Start(this.TestSettings.TestMailPort);
+                    }
+
+                    // the verification mail can be sent again on the login
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                        Is.False,
+                        "Login of a not approved account");
+
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ResendConfirm']"));
+
+                    var confirmLink = await this.Fixture.SmtpServer.WaitForEmailLinkAsync(email);
+
+                    Assert.That(confirmLink, Is.Not.Null, "The verification mail was not sent again");
+
+                    await page.GotoAsync(confirmLink);
+                    await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                    Assert.That(
+                        await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(), Is.True,
+                        "Verifying the account with the resent link failed");
+                });
+    }
+
+    /// <summary>
     /// A password reset link can only be used once.
     /// </summary>
     [Test]

@@ -12224,6 +12224,10 @@
         "@name": "REGISTER",
         "Resource": [
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Il tuo account è stato creato, ma non è stato possibile inviare l'email di verifica. Accedi più tardi e usa \"Reinvio dell'e-mail di verifica\", oppure contatta l'amministratore del forum.[/center]"
+          },
+          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Account creato, ora conferma la tua e-mail seguendo le istruzioni che ti sono state inviate.[/center]"
           },

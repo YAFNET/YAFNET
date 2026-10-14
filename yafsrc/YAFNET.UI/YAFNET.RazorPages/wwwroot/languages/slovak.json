@@ -12240,6 +12240,10 @@
         "@name": "REGISTER",
         "Resource": [
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Váš účet bol vytvorený, ale overovací e-mail sa nepodarilo odoslať. Prihláste sa neskôr a použite \"Opätovné odoslanie overenia e-mailu\", alebo kontaktujte správcu fóra.[/center]"
+          },
+          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
           },

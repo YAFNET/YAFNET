@@ -12240,6 +12240,10 @@
         "@name": "REGISTER",
         "Resource": [
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Tài khoản của bạn đã được tạo, nhưng không thể gửi email xác minh. Vui lòng đăng nhập sau và sử dụng \"Gửi lại xác minh email\", hoặc liên hệ với quản trị viên diễn đàn.[/center]"
+          },
+          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
           },

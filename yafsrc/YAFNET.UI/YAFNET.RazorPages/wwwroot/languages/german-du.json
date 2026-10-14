@@ -12224,6 +12224,10 @@
         "@name": "REGISTER",
         "Resource": [
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Dein Konto wurde erstellt, aber die Bestätigungs-E-Mail konnte nicht gesendet werden. Bitte melde dich später an und nutze \"E-Mail-Bestätigung erneut senden\", oder kontaktiere den Administrator des Forums.[/center]"
+          },
+          {
             "@tag": "ACCOUNT_CREATED_VERIFICATION",
             "#text": "[center]Dein Zugang wurde erfolgreich angelegt. Du musst aber Deine E-Mail-Adresse bestätigen, bevor Du Dich einloggen kannst. Bitte schau in Deine E-Mails und befolge die eben gesendete Anleitung.[/center]"
           },
