@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -584,6 +584,42 @@ public class SendNotificationTests
         pm.FromUserId.Should().Be(this.carol);
         pm.Body.Should().Be("Welcome Bob!");
         this.mail.Sent.Should().ContainSingle("the private message replaces the mail");
+    }
+
+    [Test]
+    [Description("A mail error (e.g. the mail server is down) does not fail the action the notification is sent for (the post, the role change, ...), only the account mails the user needs fail")]
+    public async Task Mail_Error_Does_Not_Fail_Notifications_Test()
+    {
+        this.board.Database.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
+        this.GrantReadAccess(this.alice, this.bob);
+
+        var message = this.db.AddMessage(this.topic, this.alice, "A new post");
+
+        using (var connection = this.db.Open())
+        {
+            connection.Insert(new WatchTopic { UserID = this.bob, TopicID = this.topic, Created = DateTime.UtcNow });
+        }
+
+        var user = await this.board.Current.GetRepository<User>().GetByIdAsync(this.bob);
+
+        this.mail.Delay = Task.FromException(new System.IO.IOException("The mail server is down"));
+
+        await this.Notifications.Invoking(n => n.ToWatchingUsersAsync(message)).Should().NotThrowAsync();
+        await this.Notifications.Invoking(n => n.ToModeratorsThatMessageNeedsApprovalAsync(this.forum, message, false))
+            .Should().NotThrowAsync();
+        await this.Notifications.Invoking(n => n.ToUserWithNewMedalAsync(this.bob, "Gold")).Should().NotThrowAsync();
+        await this.Notifications.Invoking(n => n.SendRoleAssignmentNotificationAsync(user, ["Editors"])).Should().NotThrowAsync();
+        await this.Notifications.Invoking(n => n.SendRoleUnAssignmentNotificationAsync(user, ["Editors"])).Should().NotThrowAsync();
+        await this.Notifications.Invoking(n => n.SendUserSuspensionNotificationAsync(DateTime.UtcNow.AddDays(1), "spam", user))
+            .Should().NotThrowAsync();
+        await this.Notifications.Invoking(n => n.SendUserSuspensionEndedNotificationAsync(user)).Should().NotThrowAsync();
+
+        // the user needs the mail
+        var aspNetUser = new AspNetUsers { UserName = "Bob", Email = "bob@example.com" };
+        this.aspNetUsers.GenerateEmailConfirmationResetTokenAsync(aspNetUser).Returns("key");
+
+        await this.Notifications.Invoking(n => n.SendVerificationEmailAsync(aspNetUser, "bob@example.com", this.bob))
+            .Should().ThrowAsync<System.IO.IOException>();
     }
 
     [Test]

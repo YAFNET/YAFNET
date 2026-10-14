@@ -464,6 +464,7 @@ YetAnotherForum.NET Changelog
 * Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
 * Mail: a refused single mail (test mail of the admin and install pages, mail to a user, test digest) was reported as sent, the error is shown again when no mail was sent
 * Admin mail to a group: a mail that could not be sent showed an error page and stopped the mails to the other members, all mails are sent in one connection now and an error is shown as message
+* Notification mails (watched topics, approval, medals, roles, suspension, admin notices) failed the action with an error page when the mail could not be sent (e.g. the mail server is down): the post was saved, but the mentions and the activity stream were skipped. The error is logged now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

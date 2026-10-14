@@ -118,7 +118,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                             }
                     };
 
-            await notifyModerators.SendEmailAsync(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject);
+            await this.SendNotificationMailAsync(
+                () => notifyModerators.SendEmailAsync(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject),
+                "Approval");
         }
     }
 
@@ -325,7 +327,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         if (mailMessages.HasItems())
         {
             // Now send all mails
-            await this.Get<IMailService>().SendAllAsync(mailMessages);
+            await this.SendNotificationMailAsync(() => this.Get<IMailService>().SendAllAsync(mailMessages), "Watch");
         }
     }
 
@@ -388,7 +390,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                  TemplateParams = {["{user}"] = toUser.DisplayOrUserName(), ["{medalname}"] = medalName}
                              };
 
-        await notifyUser.SendEmailAsync(new MailboxAddress(toUser.DisplayOrUserName(), toUser.Email), subject);
+        await this.SendNotificationMailAsync(
+            () => notifyUser.SendEmailAsync(new MailboxAddress(toUser.DisplayOrUserName(), toUser.Email), subject),
+            "Medal");
     }
 
     /// <summary>
@@ -415,7 +419,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                         }
                                 };
 
-        return templateEmail.SendEmailAsync(new MailboxAddress(user.Name, user.Email), subject);
+        return this.SendNotificationMailAsync(
+            () => templateEmail.SendEmailAsync(new MailboxAddress(user.Name, user.Email), subject),
+            "Role");
     }
 
     /// <summary>
@@ -442,7 +448,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                         }
                                 };
 
-        return templateEmail.SendEmailAsync(new MailboxAddress(user.Name, user.Email), subject);
+        return this.SendNotificationMailAsync(
+            () => templateEmail.SendEmailAsync(new MailboxAddress(user.Name, user.Email), subject),
+            "Role");
     }
 
     /// <summary>
@@ -482,7 +490,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
         foreach (var email in emails.Where(email => email.Trim().IsSet()))
         {
-            await notifyAdmin.SendEmailAsync(MailboxAddress.Parse(email.Trim()), subject);
+            await this.SendNotificationMailAsync(
+                () => notifyAdmin.SendEmailAsync(MailboxAddress.Parse(email.Trim()), subject),
+                "Registration");
         }
     }
 
@@ -530,7 +540,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                           }
                                   };
 
-            await notifyAdmin.SendEmailAsync(MailboxAddress.Parse(email), subject);
+            await this.SendNotificationMailAsync(
+                () => notifyAdmin.SendEmailAsync(MailboxAddress.Parse(email), subject),
+                "Spam Bot");
         }
     }
 
@@ -579,7 +591,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         }
         else
         {
-            await notifyUser.SendEmailAsync(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject);
+            await this.SendNotificationMailAsync(
+                () => notifyUser.SendEmailAsync(new MailboxAddress(user.DisplayOrUserName(), user.Email), subject),
+                "Welcome");
         }
     }
 
@@ -651,7 +665,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        return notifyUser.SendEmailAsync(new MailboxAddress(userName, user.Email), subject);
+        return this.SendNotificationMailAsync(
+            () => notifyUser.SendEmailAsync(new MailboxAddress(userName, user.Email), subject),
+            "Suspension");
     }
 
     /// <summary>
@@ -673,7 +689,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                  TemplateParams = {["{user}"] = userName, ["{forumname}"] = this.BoardSettings.Name}
                              };
 
-        return notifyUser.SendEmailAsync(new MailboxAddress(userName, user.Email), subject);
+        return this.SendNotificationMailAsync(
+            () => notifyUser.SendEmailAsync(new MailboxAddress(userName, user.Email), subject),
+            "Suspension");
     }
 
     /// <summary>
@@ -702,5 +720,23 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         verifyEmail.TemplateParams["{forumlink}"] = $"{this.Get<ILinkBuilder>().ForumUrl}";
 
         return verifyEmail.SendEmailAsync(new MailboxAddress(user.UserName, user.Email), subject);
+    }
+
+    /// <summary>
+    /// Sends a notification mail: a mail error (e.g. the mail server is down) is logged, it does not fail
+    /// the action the notification is sent for (the post, the role change, ...).
+    /// </summary>
+    /// <param name="send">Sends the mail.</param>
+    /// <param name="notification">The name of the notification (for the log).</param>
+    private async Task SendNotificationMailAsync(Func<Task> send, string notification)
+    {
+        try
+        {
+            await send();
+        }
+        catch (Exception x)
+        {
+            this.Get<ILogger<SendNotification>>().Error(x, $"{notification} Notification Error");
+        }
     }
 }
