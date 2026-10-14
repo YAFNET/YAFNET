@@ -142,11 +142,21 @@ public class ReIndexModel : AdminPage
 
         const string result = "Done";
 
-        var stats = await this.Get<IDbAccess>().ReIndexDatabaseAsync(this.Get<BoardConfiguration>().DatabaseObjectQualifier);
-
         this.IndexStatistics = string.Empty;
 
-        return this.PageBoardContext.Notify(stats.IsSet() ? stats : result, MessageTypes.success);
+        try
+        {
+            var stats = await this.Get<IDbAccess>().ReIndexDatabaseAsync(this.Get<BoardConfiguration>().DatabaseObjectQualifier);
+
+            return this.PageBoardContext.Notify(stats.IsSet() ? stats : result, MessageTypes.success);
+        }
+        catch (Exception error)
+        {
+            // e.g. the database user is not allowed to re-index
+            return this.PageBoardContext.Notify(
+                this.GetTextFormatted("INDEX_STATS_FAIL", error.Message),
+                MessageTypes.danger);
+        }
     }
 
     /// <summary>

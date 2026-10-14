@@ -396,8 +396,18 @@ public static class IDbAccessExtensions
         public Task<string> ReIndexDatabaseAsync(string objectQualifier)
         {
             return dbAccess.ExecuteAsync(
-                db => db.ScalarAsync<string>(
-                    OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, objectQualifier)));
+                async db =>
+                {
+                    var sql = OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, objectQualifier);
+
+                    // an empty statement can not be run (MySQL has no re-index)
+                    if (string.IsNullOrWhiteSpace(sql))
+                    {
+                        return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+                    }
+
+                    return await db.ScalarAsync<string>(sql);
+                });
         }
 
         /// <summary>

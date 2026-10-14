@@ -59,6 +59,47 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// The database maintenance buttons work on every database: the re-index of MySQL (and on PostgreSQL without
+    /// the rights) failed with an error page instead of a message.
+    /// </summary>
+    [Test]
+    public async Task DatabaseMaintenanceButtonsWorkTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                foreach (var (handler, confirm) in new[] { ("GetStats", false), ("RecoveryMode", true), ("ReIndex", true), ("Shrink", true) })
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ReIndex");
+
+                    var button = page.Locator($"button[formaction$='/{handler}']");
+
+                    IResponse response = null;
+
+                    await page.RunAndWaitForNextPageAsync(
+                        async () => response = await page.RunAndWaitForResponseAsync(
+                                        async () =>
+                                        {
+                                            await button.ClickAsync();
+
+                                            // the change is confirmed in a dialog
+                                            if (confirm)
+                                            {
+                                                await page.Locator(".bootbox .btn-success").ClickAsync();
+                                            }
+                                        },
+                                        r => r.Request.Method == "POST" && r.Url.Contains($"/Admin/ReIndex/{handler}")));
+
+                    Assert.That(response.Status, Is.LessThan(400), $"{handler} failed ({response.Status})");
+                    Assert.That(await page.ContentAsync(), Does.Not.Contain("Forum Error"), $"{handler} failed");
+                }
+            });
+    }
+
+    /// <summary>
     /// The points of a user can be set, added and removed.
     /// </summary>
     [Test]

@@ -455,6 +455,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin Forums: a deleted category was still shown in the list (the list of the page is kept in the session and was not reloaded)
 * Message history: the button back to the reported posts was never shown (the forum id is in the query string, not in the route)
 * Host settings: after enabling private messages, friends or albums the counts of the users (unread messages, friend requests, "My albums") were missing until the cached user data expired
+* Admin database maintenance: "Re-index" failed with an error page on MySQL (and on errors of the database), now a message is shown
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
