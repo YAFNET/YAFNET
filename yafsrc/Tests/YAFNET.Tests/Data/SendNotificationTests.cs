@@ -208,9 +208,9 @@ public class SendNotificationTests
         mailToBob.TextBody.Should().NotContain("only for repliers").And.NotContain("only for thankers");
 
         // only Carol has the activity stream enabled
-        this.Repository<Activity>().Get(a => a.UserID == this.carol).Should().ContainSingle()
+        (await this.Repository<Activity>().GetAsync(a => a.UserID == this.carol)).Should().ContainSingle()
             .Which.Flags.Should().Be(new ActivityFlags { WatchTopicReply = true }.BitValue);
-        this.Repository<Activity>().Count(a => a.UserID == this.bob).Should().Be(0);
+        (await this.Repository<Activity>().CountAsync(a => a.UserID == this.bob)).Should().Be(0);
     }
 
     [Test]
@@ -227,7 +227,7 @@ public class SendNotificationTests
 
         await this.Notifications.ToWatchingUsersAsync(this.Repository<Message>().GetMessage(message), true);
 
-        this.Repository<Activity>().GetSingle(a => a.UserID == this.carol).Flags
+        (await this.Repository<Activity>().GetSingleAsync(a => a.UserID == this.carol)).Flags
             .Should().Be(new ActivityFlags { WatchForumReply = true }.BitValue);
     }
 
@@ -249,7 +249,7 @@ public class SendNotificationTests
         await this.Notifications.ToWatchingUsersAsync(message);
 
         this.mail.Recipients.Should().Equal("bob@example.com");
-        this.Repository<Activity>().Count(a => a.UserID == this.carol).Should().Be(0);
+        (await this.Repository<Activity>().CountAsync(a => a.UserID == this.carol)).Should().Be(0);
     }
 
     [Test]
@@ -306,7 +306,7 @@ public class SendNotificationTests
     [Description("Topic names and names of users are text in the html mail, not html")]
     public async Task ToWatchingUsers_Html_In_Topic_Name_Test()
     {
-        this.Repository<Topic>().UpdateOnly(
+        await this.Repository<Topic>().UpdateOnlyAsync(
             () => new Topic { TopicName = "&lt;a href=\"https://evil.example\"&gt;Click&lt;/a&gt;" },
             t => t.ID == this.topic);
         this.displayName.GetNameById(this.alice).Returns("<img src=x onerror=alert(1)>");
@@ -410,7 +410,7 @@ public class SendNotificationTests
         this.board.Database.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
 
         this.aspNetUsers.GetUserByNameAsync("Bob").Returns(new AspNetUsers { Id = "bob-key", UserName = "Bob", Email = "bob@example.com" });
-        this.aspNetUsers.GetUserFromProviderUserKeyAsync("bob-key").Returns(this.Repository<User>().GetById(this.bob));
+        this.aspNetUsers.GetUserFromProviderUserKeyAsync("bob-key").Returns(await this.Repository<User>().GetByIdAsync(this.bob));
 
         await this.Notifications.ToModeratorsThatMessageWasReportedAsync(this.forum, 1, this.carol, "spam!");
 
@@ -441,7 +441,7 @@ public class SendNotificationTests
             .Add("COMMON", "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT", "Medal on {0}")
             .Add("DEFAULT", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT", "Roles on {0}");
 
-        var user = this.board.Current.GetRepository<User>().GetById(this.bob);
+        var user = await this.board.Current.GetRepository<User>().GetByIdAsync(this.bob);
 
         await this.Notifications.ToUserWithNewMedalAsync(this.bob, "Gold");
         await this.Notifications.ToUserWithNewMedalAsync(-1, "None");
@@ -485,9 +485,9 @@ public class SendNotificationTests
             .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_USER_TEXT", "{user} suspended: {suspendReason}")
             .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT", "{user} is back");
 
-        this.board.Current.GetRepository<User>().UpdateOnly(() => new User { LanguageFile = "german-du.json" }, u => u.ID == this.bob);
+        await this.board.Current.GetRepository<User>().UpdateOnlyAsync(() => new User { LanguageFile = "german-du.json" }, u => u.ID == this.bob);
 
-        var user = this.board.Current.GetRepository<User>().GetById(this.bob);
+        var user = await this.board.Current.GetRepository<User>().GetByIdAsync(this.bob);
 
         await this.Notifications.SendRoleAssignmentNotificationAsync(user, ["Editors"]);
         await this.Notifications.SendRoleUnAssignmentNotificationAsync(user, ["Guests"]);
@@ -518,7 +518,7 @@ public class SendNotificationTests
             .Add("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT", "Suspension on {0}", "english.json");
 
         await this.Notifications.ToUserWithNewMedalAsync(this.bob, "Gold");
-        await this.Notifications.SendUserSuspensionEndedNotificationAsync(this.board.Current.GetRepository<User>().GetById(this.bob));
+        await this.Notifications.SendUserSuspensionEndedNotificationAsync(await this.board.Current.GetRepository<User>().GetByIdAsync(this.bob));
 
         this.mail.Sent.Select(m => m.Subject).Should().Equal("Medal on Test Forum", "Suspension on Test Forum");
     }
@@ -552,7 +552,7 @@ public class SendNotificationTests
         this.mail.Sent.Should().BeEmpty("there is no admin group");
 
         var adminGroup = this.db.AddForumAccess(this.carol, this.forum, groupFlags: GroupFlags.Flags.IsAdmin);
-        this.Repository<Group>().UpdateOnly(() => new Group { Name = "Team" }, g => g.ID == adminGroup);
+        await this.Repository<Group>().UpdateOnlyAsync(() => new Group { Name = "Team" }, g => g.ID == adminGroup);
 
         await this.Notifications.SendSpamBotNotificationToAdminsAsync(aspNetUser, 9);
 
@@ -565,7 +565,7 @@ public class SendNotificationTests
     public async Task Welcome_Notification_Test()
     {
         this.board.Localization.Add("TEMPLATES", "NOTIFICATION_ON_WELCOME_USER_TEXT", "Welcome {user}!");
-        var bobUser = this.Repository<User>().GetById(this.bob);
+        var bobUser = await this.Repository<User>().GetByIdAsync(this.bob);
 
         this.board.BoardSettings.SendWelcomeNotificationAfterRegister = 0;
         await this.Notifications.SendUserWelcomeNotificationAsync(bobUser);
@@ -575,12 +575,12 @@ public class SendNotificationTests
         await this.Notifications.SendUserWelcomeNotificationAsync(bobUser);
         this.mail.Sent.Single().TextBody.Should().Be("Welcome Bob!");
 
-        this.Repository<User>().UpdateOnly(() => new User { Flags = (int)(UserFlags.Flags.IsApproved | UserFlags.Flags.IsHostAdmin) }, u => u.ID == this.carol);
+        await this.Repository<User>().UpdateOnlyAsync(() => new User { Flags = (int)(UserFlags.Flags.IsApproved | UserFlags.Flags.IsHostAdmin) }, u => u.ID == this.carol);
         this.board.BoardSettings.SendWelcomeNotificationAfterRegister = 2;
         this.board.BoardSettings.AllowPrivateMessages = true;
         await this.Notifications.SendUserWelcomeNotificationAsync(bobUser);
 
-        var pm = this.Repository<PrivateMessage>().GetSingle(p => p.ToUserId == this.bob);
+        var pm = await this.Repository<PrivateMessage>().GetSingleAsync(p => p.ToUserId == this.bob);
         pm.FromUserId.Should().Be(this.carol);
         pm.Body.Should().Be("Welcome Bob!");
         this.mail.Sent.Should().ContainSingle("the private message replaces the mail");
@@ -596,7 +596,7 @@ public class SendNotificationTests
 
         await this.Notifications.SendVerificationEmailAsync(aspNetUser, "new@example.com", this.bob);
 
-        this.Repository<CheckEmail>().GetSingle(c => c.UserID == this.bob).Hash
+        (await this.Repository<CheckEmail>().GetSingleAsync(c => c.UserID == this.bob)).Hash
             .Should().Be(CheckEmailRepositoryExtensions.HashKey("a%2bb%2fc"));
         this.mail.Recipients.Should().Equal("new@example.com");
         this.mail.Sent.Single().TextBody.Should().Be("Hi Bob, key a%2bb%2fc");
@@ -613,11 +613,11 @@ public class SendNotificationTests
 
         await this.Repository<CheckEmail>().SaveAsync(this.bob, longKey, "bob@example.com");
 
-        var stored = this.Repository<CheckEmail>().GetSingle(c => c.UserID == this.bob);
+        var stored = await this.Repository<CheckEmail>().GetSingleAsync(c => c.UserID == this.bob);
         stored.Hash.Length.Should().Be(64);
         (await this.Repository<CheckEmail>().UpdateAsync(longKey)).ID.Should().Be(stored.ID);
 
-        this.Repository<CheckEmail>().Insert(new CheckEmail { UserID = this.carol, Email = "carol@example.com", Hash = "old-key", Created = DateTime.UtcNow });
+        await this.Repository<CheckEmail>().InsertAsync(new CheckEmail { UserID = this.carol, Email = "carol@example.com", Hash = "old-key", Created = DateTime.UtcNow });
         (await this.Repository<CheckEmail>().UpdateAsync("old-key")).UserID.Should().Be(this.carol);
 
         (await this.Repository<CheckEmail>().UpdateAsync("unknown")).Should().BeNull();

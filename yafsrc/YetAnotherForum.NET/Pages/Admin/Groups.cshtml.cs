@@ -161,7 +161,7 @@ public class GroupsModel : AdminPage
     {
         // the roles are shared by all boards: only a role that is not the group of any board can be deleted
         // (the list only contains the roles without a group of this board)
-        var usedByGroup = role.IsNotSet() || this.GetRepository<Group>().Get(_ => true)
+        var usedByGroup = role.IsNotSet() || (await this.GetRepository<Group>().GetAsync(_ => true))
                               .Exists(g => string.Equals(g.Name, role, StringComparison.CurrentCultureIgnoreCase));
 
         if (!usedByGroup)
@@ -178,16 +178,16 @@ public class GroupsModel : AdminPage
     {
         var groupId = id;
 
-        var group = this.GetRepository<Group>().GetById(groupId);
+        var group = await this.GetRepository<Group>().GetByIdAsync(groupId);
 
         // only groups of the board, the guest group can't be deleted (the list has no delete button for it)
         if (group is not null && group.BoardID == this.PageBoardContext.PageBoardID && !group.GroupFlags.IsGuest)
         {
             // delete role
-            this.GetRepository<GroupMedal>().Delete(g => g.GroupID == groupId);
-            this.GetRepository<ForumAccess>().Delete(g => g.GroupID == groupId);
-            this.GetRepository<UserGroup>().Delete(g => g.GroupID == groupId);
-            this.GetRepository<Group>().Delete(g => g.ID == groupId);
+            await this.GetRepository<GroupMedal>().DeleteAsync(g => g.GroupID == groupId);
+            await this.GetRepository<ForumAccess>().DeleteAsync(g => g.GroupID == groupId);
+            await this.GetRepository<UserGroup>().DeleteAsync(g => g.GroupID == groupId);
+            await this.GetRepository<Group>().DeleteAsync(g => g.ID == groupId);
 
             // the members lose the style of the group
             if (group.Style.IsSet())

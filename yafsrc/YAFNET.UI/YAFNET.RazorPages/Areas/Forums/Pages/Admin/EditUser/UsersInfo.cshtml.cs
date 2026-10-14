@@ -126,7 +126,7 @@ public class UsersInfoModel : AdminPage
         userFlags.Moderated = this.Input.Moderated;
 
         // the rank must be a rank of this board
-        if (!this.GetRepository<Rank>().Exists(
+        if (!await this.GetRepository<Rank>().ExistsAsync(
                 r => r.ID == this.Input.RankID && r.BoardID == this.PageBoardContext.PageBoardID))
         {
             this.Input.RankID = currentUser.RankID;

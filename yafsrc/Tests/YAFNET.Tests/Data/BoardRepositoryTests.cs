@@ -71,15 +71,15 @@ public class BoardRepositoryTests
     {
         var boardId = await this.CreateBoardAsync(isHostAdmin: false, rolePrefix: "B2 ");
 
-        this.Repository<Board>().GetById(boardId).Name.Should().Be("Second");
+        (await this.Repository<Board>().GetByIdAsync(boardId)).Name.Should().Be("Second");
 
-        this.Repository<Rank>().Get(r => r.BoardID == boardId).Select(r => r.Name).Should()
+        (await this.Repository<Rank>().GetAsync(r => r.BoardID == boardId)).Select(r => r.Name).Should()
             .BeEquivalentTo(["Administration", "Guest", "Newbie", "Member", "Advanced Member"]);
-        this.Repository<AccessMask>().Count(m => m.BoardID == boardId).Should().Be(5);
-        this.Repository<Group>().Get(g => g.BoardID == boardId).Select(g => g.Name).Should()
+        (await this.Repository<AccessMask>().CountAsync(m => m.BoardID == boardId)).Should().Be(5);
+        (await this.Repository<Group>().GetAsync(g => g.BoardID == boardId)).Select(g => g.Name).Should()
             .BeEquivalentTo(["B2 Administrators", "Guests", "B2 Registered Users"]);
 
-        var users = this.Repository<User>().Get(u => u.BoardID == boardId);
+        var users = await this.Repository<User>().GetAsync(u => u.BoardID == boardId);
         var guest = users.Single(u => u.Name == "Guest");
         guest.UserFlags.IsGuest.Should().BeTrue();
 
@@ -88,16 +88,16 @@ public class BoardRepositoryTests
         admin.UserFlags.IsHostAdmin.Should().BeFalse();
         admin.UserFlags.IsApproved.Should().BeTrue();
 
-        var adminGroup = this.Repository<Group>().GetSingle(g => g.Name == "B2 Administrators");
-        this.Repository<UserGroup>().Get(x => x.UserID == admin.ID).Select(x => x.GroupID).Should().Equal(adminGroup.ID);
+        var adminGroup = await this.Repository<Group>().GetSingleAsync(g => g.Name == "B2 Administrators");
+        (await this.Repository<UserGroup>().GetAsync(x => x.UserID == admin.ID)).Select(x => x.GroupID).Should().Equal(adminGroup.ID);
 
-        var forum = this.Repository<Forum>().GetSingle(f => f.Name == "Test Forum");
-        this.Repository<ForumAccess>().Count(a => a.ForumID == forum.ID).Should().Be(3);
+        var forum = await this.Repository<Forum>().GetSingleAsync(f => f.Name == "Test Forum");
+        (await this.Repository<ForumAccess>().CountAsync(a => a.ForumID == forum.ID)).Should().Be(3);
 
-        var welcome = this.Repository<Topic>().GetSingle(t => t.ForumID == forum.ID);
+        var welcome = await this.Repository<Topic>().GetSingleAsync(t => t.ForumID == forum.ID);
         welcome.TopicName.Should().Contain("Hello from YAF.NET");
         welcome.UserID.Should().Be(admin.ID);
-        this.Repository<Message>().Count(m => m.TopicID == welcome.ID).Should().Be(1);
+        (await this.Repository<Message>().CountAsync(m => m.TopicID == welcome.ID)).Should().Be(1);
 
         this.board.Events.OfType<UpdateUserStylesEvent>().Should().ContainSingle();
     }
@@ -108,7 +108,7 @@ public class BoardRepositoryTests
     {
         var boardId = await this.CreateBoardAsync(isHostAdmin: true);
 
-        this.Repository<User>().GetSingle(u => u.BoardID == boardId && u.Name == "admin2").UserFlags.IsHostAdmin
+        (await this.Repository<User>().GetSingleAsync(u => u.BoardID == boardId && u.Name == "admin2")).UserFlags.IsHostAdmin
             .Should().BeTrue();
     }
 
@@ -122,12 +122,12 @@ public class BoardRepositoryTests
 
         var boardId = await this.CreateBoardAsync(culture: "de-DE", language: "german.json");
 
-        registry.GetSingle(r => r.Name == "culture" && r.BoardID == null).Value
+        (await registry.GetSingleAsync(r => r.Name == "culture" && r.BoardID == null)).Value
             .Should().Be("en-US", "creating a board must not change the culture of the other boards");
-        registry.GetSingle(r => r.Name == "language" && r.BoardID == null).Value.Should().Be("english.json");
+        (await registry.GetSingleAsync(r => r.Name == "language" && r.BoardID == null)).Value.Should().Be("english.json");
 
-        registry.GetSingle(r => r.Name == "culture" && r.BoardID == boardId).Value.Should().Be("de-DE");
-        registry.GetSingle(r => r.Name == "language" && r.BoardID == boardId).Value.Should().Be("german.json");
+        (await registry.GetSingleAsync(r => r.Name == "culture" && r.BoardID == boardId)).Value.Should().Be("de-DE");
+        (await registry.GetSingleAsync(r => r.Name == "language" && r.BoardID == boardId)).Value.Should().Be("german.json");
     }
 
     [Test]
@@ -247,18 +247,18 @@ public class BoardRepositoryTests
 
         await this.Repository<Board>().DeleteBoardAsync(boardId);
 
-        this.Repository<Board>().GetById(boardId).Should().BeNull();
-        this.Repository<User>().Count(u => u.BoardID == boardId).Should().Be(0);
-        this.Repository<Group>().Count(g => g.BoardID == boardId).Should().Be(0);
-        this.Repository<Rank>().Count(r => r.BoardID == boardId).Should().Be(0);
-        this.Repository<AccessMask>().Count(m => m.BoardID == boardId).Should().Be(0);
-        this.Repository<Category>().Count(c => c.BoardID == boardId).Should().Be(0);
-        this.Repository<Registry>().Count(r => r.BoardID == boardId).Should().Be(0);
-        this.Repository<Forum>().Count(f => f.Name == "Test Forum").Should().Be(0);
+        (await this.Repository<Board>().GetByIdAsync(boardId)).Should().BeNull();
+        (await this.Repository<User>().CountAsync(u => u.BoardID == boardId)).Should().Be(0);
+        (await this.Repository<Group>().CountAsync(g => g.BoardID == boardId)).Should().Be(0);
+        (await this.Repository<Rank>().CountAsync(r => r.BoardID == boardId)).Should().Be(0);
+        (await this.Repository<AccessMask>().CountAsync(m => m.BoardID == boardId)).Should().Be(0);
+        (await this.Repository<Category>().CountAsync(c => c.BoardID == boardId)).Should().Be(0);
+        (await this.Repository<Registry>().CountAsync(r => r.BoardID == boardId)).Should().Be(0);
+        (await this.Repository<Forum>().CountAsync(f => f.Name == "Test Forum")).Should().Be(0);
 
-        this.Repository<User>().GetById(this.alice).Should().NotBeNull();
-        this.Repository<Forum>().GetById(keptForum).Should().NotBeNull();
-        this.Repository<Message>().Count(m => m.UserID == this.alice).Should().Be(1);
+        (await this.Repository<User>().GetByIdAsync(this.alice)).Should().NotBeNull();
+        (await this.Repository<Forum>().GetByIdAsync(keptForum)).Should().NotBeNull();
+        (await this.Repository<Message>().CountAsync(m => m.UserID == this.alice)).Should().Be(1);
     }
 
     private IRepository<T> Repository<T>()

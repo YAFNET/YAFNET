@@ -55,7 +55,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
 
                     var pages = await this.CollectPagesAsync(page);
 
-                    TestContext.Progress.WriteLine($"[forms] {pages.Count} pages");
+                    await TestContext.Progress.WriteLineAsync($"[forms] {pages.Count} pages");
 
                     var saved = 0;
 
@@ -127,7 +127,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
 
                             if (!string.IsNullOrEmpty(invalid))
                             {
-                                TestContext.Progress.WriteLine($"[forms] not valid as loaded: {url} ({action}) {invalid}");
+                                await TestContext.Progress.WriteLineAsync($"[forms] not valid as loaded: {url} ({action}) {invalid}");
                                 continue;
                             }
 
@@ -155,7 +155,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
                             }
 
                             saved++;
-                            TestContext.Progress.WriteLine($"[forms] saved {url} ({action})");
+                            await TestContext.Progress.WriteLineAsync($"[forms] saved {url} ({action})");
 
                             if (response is { Status: >= 500 } || await page.Locator("h1", new PageLocatorOptions { HasText = "Forum Error" }).CountAsync() > 0)
                             {
@@ -190,7 +190,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
                         }
                     }
 
-                    TestContext.Progress.WriteLine($"[forms] {saved} forms saved");
+                    await TestContext.Progress.WriteLineAsync($"[forms] {saved} forms saved");
                 });
 
         Assert.That(failures, Is.Empty, string.Join(Environment.NewLine, failures));
@@ -255,7 +255,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
                                 continue;
                             }
 
-                            TestContext.Progress.WriteLine($"[persist] {url}: {string.Join(", ", fields.Select(f => f[0]))}");
+                            await TestContext.Progress.WriteLineAsync($"[persist] {url}: {string.Join(", ", fields.Select(f => f[0]))}");
 
                             await SetFieldsAsync(page, index, fields.Select(f => new[] { f[0], f[2] }).ToArray());
 

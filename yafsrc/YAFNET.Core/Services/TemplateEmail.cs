@@ -202,7 +202,7 @@ public class TemplateEmail : IHaveServiceLocator
     {
         var path = this.Get<ITheme>().BuildMappedThemePath(this.HtmlTemplateFileName);
 
-        var htmlTemplate = File.ReadAllText(path);
+        var htmlTemplate = await File.ReadAllTextAsync(path);
 
         // the values are texts of users (topic names, names, report reasons...): the text is html encoded like
         // the posts, and the brackets of the values are no bb codes (e.g. disguised links or code blocks, which

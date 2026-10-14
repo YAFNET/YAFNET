@@ -82,7 +82,7 @@ public class SearchTaskAndModelTests
         var topic = this.db.AddTopic(forum, alice, "Searchable");
         var first = this.db.AddMessage(topic, alice, "first post");
         var second = this.db.AddMessage(topic, alice, "second post");
-        this.board.Current.GetRepository<Forum>().UpdateOnly(() => new Forum { LastPosted = DateTime.UtcNow }, f => f.ID == forum);
+        await this.board.Current.GetRepository<Forum>().UpdateOnlyAsync(() => new Forum { LastPosted = DateTime.UtcNow }, f => f.ID == forum);
 
         this.board.BoardSettings.ForceUpdateSearchIndex = true;
 
@@ -115,7 +115,7 @@ public class SearchTaskAndModelTests
         await this.NewTask().RunOnceAsync();
 
         this.board.BoardSettings.ForceUpdateSearchIndex.Should().BeTrue("the update is done when the board exists");
-        this.board.Current.GetRepository<Registry>().Count(r => r.BoardID == 0).Should().Be(0);
+        (await this.board.Current.GetRepository<Registry>().CountAsync(r => r.BoardID == 0)).Should().Be(0);
         this.board.Search.Indexed.Should().BeEmpty();
     }
 

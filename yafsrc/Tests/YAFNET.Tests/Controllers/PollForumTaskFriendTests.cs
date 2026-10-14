@@ -165,13 +165,13 @@ public class PollForumTaskFriendTests
 
         await NewTask(this.forum, target).RunOnceAsync();
 
-        this.Repository<Forum>().GetById(this.forum).Should().BeNull();
-        this.Repository<Topic>().GetById(moved).ForumID.Should().Be(target);
+        (await this.Repository<Forum>().GetByIdAsync(this.forum)).Should().BeNull();
+        (await this.Repository<Topic>().GetByIdAsync(moved)).ForumID.Should().Be(target);
 
         await NewTask(other, -1).RunOnceAsync();
 
-        this.Repository<Forum>().GetById(other).Should().BeNull();
-        this.Repository<Topic>().Count(t => t.ForumID == other).Should().Be(0);
+        (await this.Repository<Forum>().GetByIdAsync(other)).Should().BeNull();
+        (await this.Repository<Topic>().CountAsync(t => t.ForumID == other)).Should().Be(0);
     }
 
     [Test]

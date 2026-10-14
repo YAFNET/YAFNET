@@ -87,13 +87,13 @@ public class MessageEditTests
         await this.EditAsync(message, "version 2", "typo");
         await this.EditAsync(message, "version 3", "more");
 
-        var saved = this.Messages.GetById(message);
+        var saved = await this.Messages.GetByIdAsync(message);
         saved.MessageText.Should().Be("version 3");
         saved.EditReason.Should().Be("more");
         saved.EditedBy.Should().Be(this.bob);
         saved.Edited.Should().NotBeNull();
 
-        var history = this.Repository<MessageHistory>().Get(h => h.MessageID == message).OrderBy(h => h.Edited).ToList();
+        var history = (await this.Repository<MessageHistory>().GetAsync(h => h.MessageID == message)).OrderBy(h => h.Edited).ToList();
 
         history.Select(h => h.Message).Should().Equal("version 1", "version 2");
         history[0].EditedBy.Should().Be(this.alice, "the first entry is the original post");
@@ -110,7 +110,7 @@ public class MessageEditTests
         await this.EditAsync(message, "version 3", "second");
         await this.EditAsync(message, "version 4", "third");
 
-        var history = this.Repository<MessageHistory>().Get(h => h.MessageID == message).OrderBy(h => h.Edited).ToList();
+        var history = (await this.Repository<MessageHistory>().GetAsync(h => h.MessageID == message)).OrderBy(h => h.Edited).ToList();
 
         history.Select(h => h.Message).Should().Equal("version 1", "version 2", "version 3");
         (history[2].Edited - history[1].Edited).Should().BeGreaterThanOrEqualTo(TimeSpan.FromSeconds(1));
@@ -124,7 +124,7 @@ public class MessageEditTests
 
         await this.EditAsync(message, "new text", "reason", subject: "New subject", priority: 2);
 
-        var savedTopic = this.Repository<Topic>().GetById(this.topic);
+        var savedTopic = await this.Repository<Topic>().GetByIdAsync(this.topic);
         savedTopic.TopicName.Should().Be("New subject");
         savedTopic.Priority.Should().Be(2);
 
@@ -152,15 +152,15 @@ public class MessageEditTests
 
         await this.EditAsync(message, "edited", "reason");
 
-        this.Messages.GetById(message).MessageFlags.IsApproved.Should().BeTrue();
-        this.board.Search.Indexed[message].Flags.Should().Be(this.Messages.GetById(message).Flags);
+        (await this.Messages.GetByIdAsync(message)).MessageFlags.IsApproved.Should().BeTrue();
+        this.board.Search.Indexed[message].Flags.Should().Be((await this.Messages.GetByIdAsync(message)).Flags);
     }
 
     [Test]
     [Description("In a moderated forum an edit only approves the post with override approval")]
     public async Task UpdateAsync_Moderated_Forum_Test()
     {
-        this.Repository<Forum>().UpdateOnly(
+        await this.Repository<Forum>().UpdateOnlyAsync(
             () => new Forum { Flags = new ForumFlags { IsModerated = true }.BitValue },
             f => f.ID == this.forum);
 
@@ -168,12 +168,12 @@ public class MessageEditTests
 
         await this.EditAsync(message, "edited", "reason");
 
-        this.Messages.GetById(message).MessageFlags.IsApproved.Should().BeFalse();
+        (await this.Messages.GetByIdAsync(message)).MessageFlags.IsApproved.Should().BeFalse();
         this.board.Events.OfType<UpdateTopicLastPostEvent>().Should().ContainSingle();
 
         await this.EditAsync(message, "edited by a moderator", "reason", overrideApproval: true);
 
-        this.Messages.GetById(message).MessageFlags.IsApproved.Should().BeTrue();
+        (await this.Messages.GetByIdAsync(message)).MessageFlags.IsApproved.Should().BeTrue();
     }
 
     [Test]
@@ -188,19 +188,19 @@ public class MessageEditTests
         var t1 = this.db.AddMessage(target, this.bob, "target 1", posted: this.start.AddMinutes(5));
         var t2 = this.db.AddMessage(target, this.bob, "target 2", posted: this.start.AddMinutes(15));
 
-        await this.Messages.MoveAsync(this.Repository<Topic>().GetById(this.topic), this.Messages.GetById(moved), target, false);
+        await this.Messages.MoveAsync(await this.Repository<Topic>().GetByIdAsync(this.topic), await this.Messages.GetByIdAsync(moved), target, false);
 
-        var movedMessage = this.Messages.GetById(moved);
+        var movedMessage = await this.Messages.GetByIdAsync(moved);
         movedMessage.TopicID.Should().Be(target);
         movedMessage.Position.Should().Be(1, "it sits between the target posts by date");
         movedMessage.ReplyTo.Should().Be(t1, "it replies to the first post of the new topic");
 
-        this.Messages.GetById(t2).Position.Should().Be(2);
-        this.Messages.GetById(after).Position.Should().Be(1, "the old topic closed the gap");
-        this.Messages.GetById(first).Position.Should().Be(0);
+        (await this.Messages.GetByIdAsync(t2)).Position.Should().Be(2);
+        (await this.Messages.GetByIdAsync(after)).Position.Should().Be(1, "the old topic closed the gap");
+        (await this.Messages.GetByIdAsync(first)).Position.Should().Be(0);
 
-        this.Repository<Topic>().GetById(this.topic).NumPosts.Should().Be(2);
-        this.Repository<Topic>().GetById(target).NumPosts.Should().Be(3);
+        (await this.Repository<Topic>().GetByIdAsync(this.topic)).NumPosts.Should().Be(2);
+        (await this.Repository<Topic>().GetByIdAsync(target)).NumPosts.Should().Be(3);
 
         this.board.Events.OfType<UpdateTopicLastPostEvent>().Should().HaveCount(2);
         this.board.Events.OfType<UpdateForumStatsEvent>().Should().NotBeEmpty();
@@ -217,10 +217,10 @@ public class MessageEditTests
         var target = this.db.AddTopic(this.forum, this.bob, "Target");
         this.db.AddMessage(target, this.bob, "target", posted: this.start.AddMinutes(-10));
 
-        await this.Messages.MoveAsync(this.Repository<Topic>().GetById(this.topic), this.Messages.GetById(root), target, true);
+        await this.Messages.MoveAsync(await this.Repository<Topic>().GetByIdAsync(this.topic), await this.Messages.GetByIdAsync(root), target, true);
 
         new[] { root, reply, replyToReply }.Should().OnlyContain(id => this.Messages.GetById(id).TopicID == target);
-        this.Repository<Topic>().GetById(this.topic).Should().BeNull("the empty topic is erased");
+        (await this.Repository<Topic>().GetByIdAsync(this.topic)).Should().BeNull("the empty topic is erased");
     }
 
     [Test]
@@ -228,7 +228,7 @@ public class MessageEditTests
     public async Task ReportResolveAsync_Test()
     {
         var message = this.AddPost(this.alice, "reported", 0);
-        this.Messages.UpdateOnly(
+        await this.Messages.UpdateOnlyAsync(
             () => new Message { Flags = new MessageFlags { IsApproved = true, IsReported = true }.BitValue },
             m => m.ID == message);
 
@@ -239,10 +239,10 @@ public class MessageEditTests
 
         await this.Messages.ReportResolveAsync(message, this.bob);
 
-        this.Messages.GetById(message).MessageFlags.IsReported.Should().BeFalse();
-        this.Messages.GetById(message).MessageFlags.IsApproved.Should().BeTrue();
+        (await this.Messages.GetByIdAsync(message)).MessageFlags.IsReported.Should().BeFalse();
+        (await this.Messages.GetByIdAsync(message)).MessageFlags.IsApproved.Should().BeTrue();
 
-        var report = this.Repository<MessageReported>().GetSingle(r => r.ID == message);
+        var report = await this.Repository<MessageReported>().GetSingleAsync(r => r.ID == message);
         report.Resolved.Should().BeTrue();
         report.ResolvedBy.Should().Be(this.bob);
     }

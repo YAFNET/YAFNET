@@ -113,7 +113,7 @@ public class ChatHubTests
 
         await this.Hub("alice-tab").SendPrivateMessageAsync(this.bob, "Hello Bob");
 
-        var message = this.Messages.GetSingle(m => m.FromUserId == this.alice);
+        var message = await this.Messages.GetSingleAsync(m => m.FromUserId == this.alice);
         message.Body.Should().Be("Hello Bob");
         message.PrivateMessageFlags.IsRead.Should().BeTrue();
 
@@ -134,7 +134,7 @@ public class ChatHubTests
 
         await this.Hub("alice-tab").SendPrivateMessageAsync(this.bob, "Hello Bob");
 
-        this.Messages.GetSingle(m => m.FromUserId == this.alice).PrivateMessageFlags.IsRead.Should().BeFalse();
+        (await this.Messages.GetSingleAsync(m => m.FromUserId == this.alice)).PrivateMessageFlags.IsRead.Should().BeFalse();
         await this.clients["bob-tab"].DidNotReceive().SendCoreAsync("sendPrivateMessage", Arg.Any<object[]>(), Arg.Any<CancellationToken>());
     }
 
@@ -146,10 +146,10 @@ public class ChatHubTests
         var hub = this.Hub("alice-tab");
 
         var users = this.board.Current.GetRepository<User>();
-        users.UpdateOnly(() => new User { BlockFlags = (int)UserBlockFlags.Flags.BlockPMs }, u => u.ID == this.bob);
+        await users.UpdateOnlyAsync(() => new User { BlockFlags = (int)UserBlockFlags.Flags.BlockPMs }, u => u.ID == this.bob);
         await hub.SendPrivateMessageAsync(this.bob, "blocked");
 
-        this.board.Current.GetRepository<IgnoreUser>().Insert(new IgnoreUser { UserID = this.carol, IgnoredUserID = this.alice });
+        await this.board.Current.GetRepository<IgnoreUser>().InsertAsync(new IgnoreUser { UserID = this.carol, IgnoredUserID = this.alice });
         await hub.SendPrivateMessageAsync(this.carol, "ignored");
 
         await hub.SendPrivateMessageAsync(this.alice, "myself");
@@ -161,36 +161,36 @@ public class ChatHubTests
         var otherBoard = this.board.Database.AddUser("Other", u => u.BoardID = 2);
         await hub.SendPrivateMessageAsync(otherBoard, "other board");
 
-        this.Messages.Count(_ => true).Should().Be(0);
+        (await this.Messages.CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
     [Description("Admins and users in the friend list of the recipient are excluded from the blocking, a friend request is not enough")]
     public async Task Blocking_Exceptions_Test()
     {
-        this.board.Current.GetRepository<User>().UpdateOnly(
+        await this.board.Current.GetRepository<User>().UpdateOnlyAsync(
             () => new User { BlockFlags = (int)UserBlockFlags.Flags.BlockPMs },
             u => u.ID == this.bob);
 
         await this.ConnectAsync("alice-tab", this.alice, this.bob);
 
         // only Alice asked to be friends
-        this.board.Current.GetRepository<Buddy>().Insert(
+        await this.board.Current.GetRepository<Buddy>().InsertAsync(
             new Buddy { FromUserID = this.alice, ToUserID = this.bob, Approved = false, Requested = DateTime.UtcNow });
         await this.Hub("alice-tab").SendPrivateMessageAsync(this.bob, "request only");
-        this.Messages.Count(_ => true).Should().Be(0);
+        (await this.Messages.CountAsync(_ => true)).Should().Be(0);
 
         // Bob has Alice in the friend list
-        this.board.Current.GetRepository<Buddy>().Insert(
+        await this.board.Current.GetRepository<Buddy>().InsertAsync(
             new Buddy { FromUserID = this.bob, ToUserID = this.alice, Approved = true, Requested = DateTime.UtcNow });
         await this.Hub("alice-tab").SendPrivateMessageAsync(this.bob, "friend");
-        this.Messages.GetSingle(m => m.FromUserId == this.alice).Body.Should().Be("friend");
+        (await this.Messages.GetSingleAsync(m => m.FromUserId == this.alice)).Body.Should().Be("friend");
 
         // admins
         await this.ConnectAsync("carol-tab", this.carol, this.bob);
         this.board.PageLoad.IsAdmin = true;
         await this.Hub("carol-tab").SendPrivateMessageAsync(this.bob, "admin");
-        this.Messages.GetSingle(m => m.FromUserId == this.carol).Body.Should().Be("admin");
+        (await this.Messages.GetSingleAsync(m => m.FromUserId == this.carol)).Body.Should().Be("admin");
     }
 
     [Test]
@@ -205,7 +205,7 @@ public class ChatHubTests
         this.board.BoardSettings.AllowPrivateMessages = false;
         await this.Hub("alice-tab").SendPrivateMessageAsync(this.bob, "disabled");
 
-        this.Messages.Count(_ => true).Should().Be(0);
+        (await this.Messages.CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -217,12 +217,12 @@ public class ChatHubTests
         this.board.User.Suspended = DateTime.UtcNow.AddDays(1);
         await this.Hub("alice-tab").SendPrivateMessageAsync(this.bob, "while suspended");
 
-        this.Messages.Count(_ => true).Should().Be(0);
+        (await this.Messages.CountAsync(_ => true)).Should().Be(0);
 
         this.board.User.Suspended = DateTime.UtcNow.AddMinutes(-1);
         await this.Hub("alice-tab").SendPrivateMessageAsync(this.bob, "suspension ended");
 
-        this.Messages.Count(_ => true).Should().Be(1);
+        (await this.Messages.CountAsync(_ => true)).Should().Be(1);
     }
 
     [Test]
@@ -240,11 +240,11 @@ public class ChatHubTests
             Arg.Is<object[]>(a => (int)a[0] == this.alice && ((List<PrivateMessage>)a[1]).Single().Body == "<p>first</p>"),
             Arg.Any<CancellationToken>());
 
-        this.Messages.GetSingle(m => m.FromUserId == this.alice).PrivateMessageFlags.IsRead.Should().BeTrue("Bob has read it");
+        (await this.Messages.GetSingleAsync(m => m.FromUserId == this.alice)).PrivateMessageFlags.IsRead.Should().BeTrue("Bob has read it");
 
         await this.Hub("bob-tab").DeleteConversationAsync(this.alice);
 
-        this.Messages.GetSingle(m => m.FromUserId == this.alice).Should().NotBeNull("Alice still has the message");
+        (await this.Messages.GetSingleAsync(m => m.FromUserId == this.alice)).Should().NotBeNull("Alice still has the message");
     }
 
     private IRepository<PrivateMessage> Messages => this.board.Current.GetRepository<PrivateMessage>();

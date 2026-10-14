@@ -85,7 +85,7 @@ public class UserRepositoryTests
     {
         var id = await this.Users.AspNetAsync(TestDatabase.BoardId, "carol", null, "carol@example.com", "key-carol", 15, true);
 
-        var user = this.Users.GetById(id);
+        var user = await this.Users.GetByIdAsync(id);
         user.Name.Should().Be("carol");
         user.DisplayName.Should().Be("carol", "the user name is the fallback display name");
         user.RankID.Should().Be(TestDatabase.RankId);
@@ -98,16 +98,16 @@ public class UserRepositoryTests
     [Description("The settings keep a page size of 1 - 100, other values (sent by the client) become the default")]
     public async Task Save_Settings_Page_Size_Test()
     {
-        var flags = this.Users.GetById(this.alice).UserFlags;
+        var flags = (await this.Users.GetByIdAsync(this.alice)).UserFlags;
 
         await this.Users.SaveAsync(this.alice, flags, "UTC", null, null, null, false, true, 50);
-        this.Users.GetById(this.alice).PageSize.Should().Be(50);
+        (await this.Users.GetByIdAsync(this.alice)).PageSize.Should().Be(50);
 
         await this.Users.SaveAsync(this.alice, flags, "UTC", null, null, null, false, true, 1000000);
-        this.Users.GetById(this.alice).PageSize.Should().Be(5);
+        (await this.Users.GetByIdAsync(this.alice)).PageSize.Should().Be(5);
 
         await this.Users.SaveAsync(this.alice, flags, "UTC", null, null, null, false, true, 0);
-        this.Users.GetById(this.alice).PageSize.Should().Be(5);
+        (await this.Users.GetByIdAsync(this.alice)).PageSize.Should().Be(5);
     }
 
     [Test]
@@ -123,7 +123,7 @@ public class UserRepositoryTests
         (await this.Users.AspNetAsync(TestDatabase.BoardId, "dave-renamed", "", "new@example.com", "key-dave", 20, true))
             .Should().Be(dave);
 
-        var user = this.Users.GetById(dave);
+        var user = await this.Users.GetByIdAsync(dave);
         user.UserFlags.IsApproved.Should().BeTrue();
         user.Email.Should().Be("new@example.com");
         user.DisplayName.Should().Be("Dave");
@@ -145,7 +145,7 @@ public class UserRepositoryTests
         await this.Users.ApproveAsync(pending);
         await this.Users.ApproveAsync(pending);
 
-        this.Users.GetById(pending).UserFlags.IsApproved.Should().BeTrue();
+        (await this.Users.GetByIdAsync(pending)).UserFlags.IsApproved.Should().BeTrue();
         await this.board.Notifications.Received(1).SendUserWelcomeNotificationAsync(Arg.Is<User>(u => u.ID == pending));
     }
 
@@ -165,12 +165,12 @@ public class UserRepositoryTests
 
         await this.Users.PromoteAsync(user);
 
-        this.Users.GetById(user).RankID.Should().Be(member);
+        (await this.Users.GetByIdAsync(user)).RankID.Should().Be(member);
 
-        this.Users.UpdateOnly(() => new User { NumPosts = 60 }, u => u.ID == user);
+        await this.Users.UpdateOnlyAsync(() => new User { NumPosts = 60 }, u => u.ID == user);
         await this.Users.PromoteAsync(user);
 
-        this.Users.GetById(user).RankID.Should().Be(veteran);
+        (await this.Users.GetByIdAsync(user)).RankID.Should().Be(veteran);
     }
 
     [Test]
@@ -195,8 +195,8 @@ public class UserRepositoryTests
         await this.Users.PromoteAsync(fewPosts);
         await this.Users.PromoteAsync(notOnLadder);
 
-        this.Users.GetById(fewPosts).RankID.Should().Be(newbie);
-        this.Users.GetById(notOnLadder).RankID.Should().Be(special);
+        (await this.Users.GetByIdAsync(fewPosts)).RankID.Should().Be(newbie);
+        (await this.Users.GetByIdAsync(notOnLadder)).RankID.Should().Be(special);
     }
 
     [Test]
@@ -247,24 +247,24 @@ public class UserRepositoryTests
     [Description("Reputation points are added and removed and the vote is recorded")]
     public async Task Points_And_Reputation_Vote_Test()
     {
-        var start = this.Users.GetById(this.bob).Points;
+        var start = (await this.Users.GetByIdAsync(this.bob)).Points;
 
         await this.Users.AddPointsAsync(this.bob, this.alice, 5);
-        this.Users.GetById(this.bob).Points.Should().Be(start + 5);
+        (await this.Users.GetByIdAsync(this.bob)).Points.Should().Be(start + 5);
 
-        this.Repository<ReputationVote>()
-            .GetSingle(v => v.ReputationFromUserID == this.alice && v.ReputationToUserID == this.bob)
+        (await this.Repository<ReputationVote>()
+                .GetSingleAsync(v => v.ReputationFromUserID == this.alice && v.ReputationToUserID == this.bob))
             .Should().NotBeNull("the vote date is used to limit voting to once a day");
 
         await this.Users.RemovePointsAsync(this.bob, this.alice, 2);
-        this.Users.GetById(this.bob).Points.Should().Be(start + 3);
-        this.Repository<ReputationVote>().Count(v => v.ReputationToUserID == this.bob).Should().Be(1);
+        (await this.Users.GetByIdAsync(this.bob)).Points.Should().Be(start + 3);
+        (await this.Repository<ReputationVote>().CountAsync(v => v.ReputationToUserID == this.bob)).Should().Be(1);
 
         await this.Users.AddPointsAsync(this.bob, null, 1);
         await this.Users.SetPointsAsync(this.alice, 42);
 
-        this.Users.GetById(this.bob).Points.Should().Be(start + 4);
-        this.Users.GetById(this.alice).Points.Should().Be(42);
+        (await this.Users.GetByIdAsync(this.bob)).Points.Should().Be(start + 4);
+        (await this.Users.GetByIdAsync(this.alice)).Points.Should().Be(42);
     }
 
     [Test]
@@ -277,7 +277,7 @@ public class UserRepositoryTests
         await this.Users.UpdateBlockFlagsAsync(this.alice, 3);
         await this.Users.SuspendAsync(this.alice, this.now.AddDays(1), "spam", this.bob);
 
-        var user = this.Users.GetById(this.alice);
+        var user = await this.Users.GetByIdAsync(this.alice);
         user.UserFlags.IsDirty.Should().BeTrue();
         user.UserFlags.IsActiveExcluded.Should().BeTrue();
         user.UserFlags.IsApproved.Should().BeTrue();
@@ -296,10 +296,10 @@ public class UserRepositoryTests
         user.SuspendedBy.Should().Be(this.bob);
 
         await this.Users.SuspendAsync(this.alice);
-        this.Users.GetById(this.alice).Suspended.Should().BeNull();
+        (await this.Users.GetByIdAsync(this.alice)).Suspended.Should().BeNull();
 
         await this.Users.AdminSaveAsync(TestDatabase.BoardId, this.alice, (int)UserFlags.Flags.IsHostAdmin, TestDatabase.RankId);
-        this.Users.GetById(this.alice).UserFlags.IsHostAdmin.Should().BeTrue();
+        (await this.Users.GetByIdAsync(this.alice)).UserFlags.IsHostAdmin.Should().BeTrue();
     }
 
     [Test]
@@ -311,18 +311,18 @@ public class UserRepositoryTests
             await this.Users.SaveAvatarAsync(this.alice, null, stream, "image/png");
         }
 
-        var user = this.Users.GetById(this.alice);
+        var user = await this.Users.GetByIdAsync(this.alice);
         user.AvatarImage.Should().Equal(1, 2, 3);
         user.AvatarImageType.Should().Be("image/png");
 
         await this.Users.SaveAvatarAsync(this.alice, "https://example.com/a.png", null, null);
 
-        user = this.Users.GetById(this.alice);
+        user = await this.Users.GetByIdAsync(this.alice);
         user.Avatar.Should().Be("https://example.com/a.png");
         user.AvatarImage.Should().BeNull();
 
         await this.Users.DeleteAvatarAsync(this.alice);
-        this.Users.GetById(this.alice).Avatar.Should().BeNull();
+        (await this.Users.GetByIdAsync(this.alice)).Avatar.Should().BeNull();
     }
 
     [Test]
@@ -333,18 +333,18 @@ public class UserRepositoryTests
         var topic = this.db.AddTopic(forum, this.alice, configure: t => t.UserDisplayName = "Alice");
         var message = this.db.AddMessage(topic, this.alice, configure: m => m.UserDisplayName = "Alice");
         var custom = this.db.AddMessage(topic, this.alice, configure: m => m.UserDisplayName = "Guest name");
-        this.Repository<Topic>().UpdateOnly(() => new Topic { LastUserDisplayName = "Alice" }, t => t.ID == topic);
+        await this.Repository<Topic>().UpdateOnlyAsync(() => new Topic { LastUserDisplayName = "Alice" }, t => t.ID == topic);
 
-        await this.Users.UpdateDisplayNameAsync(this.Users.GetById(this.alice), "Alice Smith");
+        await this.Users.UpdateDisplayNameAsync(await this.Users.GetByIdAsync(this.alice), "Alice Smith");
 
-        this.Users.GetById(this.alice).DisplayName.Should().Be("Alice Smith");
-        this.Repository<Topic>().GetById(topic).UserDisplayName.Should().Be("Alice Smith");
-        this.Repository<Topic>().GetById(topic).LastUserDisplayName.Should().Be("Alice Smith");
-        this.Repository<Message>().GetById(message).UserDisplayName.Should().Be("Alice Smith");
-        this.Repository<Message>().GetById(custom).UserDisplayName.Should().Be("Guest name");
+        (await this.Users.GetByIdAsync(this.alice)).DisplayName.Should().Be("Alice Smith");
+        (await this.Repository<Topic>().GetByIdAsync(topic)).UserDisplayName.Should().Be("Alice Smith");
+        (await this.Repository<Topic>().GetByIdAsync(topic)).LastUserDisplayName.Should().Be("Alice Smith");
+        (await this.Repository<Message>().GetByIdAsync(message)).UserDisplayName.Should().Be("Alice Smith");
+        (await this.Repository<Message>().GetByIdAsync(custom)).UserDisplayName.Should().Be("Guest name");
 
-        await this.Users.UpdateDisplayNameAsync(this.Users.GetById(this.alice), "");
-        this.Users.GetById(this.alice).DisplayName.Should().Be("Alice Smith");
+        await this.Users.UpdateDisplayNameAsync(await this.Users.GetByIdAsync(this.alice), "");
+        (await this.Users.GetByIdAsync(this.alice)).DisplayName.Should().Be("Alice Smith");
     }
 
     [Test]
@@ -357,20 +357,20 @@ public class UserRepositoryTests
         await this.Repository<IgnoreUser>().AddIgnoredUserAsync(this.bob, this.alice);
         this.board.GrantAccess(this.bob, forum);
 
-        await this.Users.DeleteAsync(this.Users.GetById(this.bob));
+        await this.Users.DeleteAsync(await this.Users.GetByIdAsync(this.bob));
 
-        this.Users.GetById(this.bob).Should().BeNull();
+        (await this.Users.GetByIdAsync(this.bob)).Should().BeNull();
 
-        var post = this.Repository<Message>().GetById(message);
+        var post = await this.Repository<Message>().GetByIdAsync(message);
         post.UserID.Should().Be(this.guest);
         post.UserName.Should().Be("Bob");
-        this.Repository<Topic>().GetById(topic).UserID.Should().Be(this.guest);
-        this.Repository<Topic>().GetById(topic).LastUserID.Should().Be(this.guest);
-        this.Repository<IgnoreUser>().Count(i => i.UserID == this.bob).Should().Be(0);
-        this.Repository<UserGroup>().Count(g => g.UserID == this.bob).Should().Be(0);
+        (await this.Repository<Topic>().GetByIdAsync(topic)).UserID.Should().Be(this.guest);
+        (await this.Repository<Topic>().GetByIdAsync(topic)).LastUserID.Should().Be(this.guest);
+        (await this.Repository<IgnoreUser>().CountAsync(i => i.UserID == this.bob)).Should().Be(0);
+        (await this.Repository<UserGroup>().CountAsync(g => g.UserID == this.bob)).Should().Be(0);
 
-        await this.Users.DeleteAsync(this.Users.GetById(this.guest));
-        this.Users.GetById(this.guest).Should().NotBeNull("the guest user can't be deleted");
+        await this.Users.DeleteAsync(await this.Users.GetByIdAsync(this.guest));
+        (await this.Users.GetByIdAsync(this.guest)).Should().NotBeNull("the guest user can't be deleted");
     }
 
     [Test]
@@ -388,7 +388,7 @@ public class UserRepositoryTests
         });
 
         // TopicsISubscribeTo
-        this.Users.UpdateOnly(() => new User { NotificationType = 0 }, u => u.Name != "No mails" && u.Name != "Pending");
+        await this.Users.UpdateOnlyAsync(() => new User { NotificationType = 0 }, u => u.Name != "No mails" && u.Name != "Pending");
 
         using (var connection = this.db.Open())
         {
@@ -473,7 +473,7 @@ public class UserRepositoryTests
             this.AddActivity(connection, new ActivityFlags { WasQuoted = true }, notification: false);
         }
 
-        this.Users.UpdateOnly(() => new User { TimeZone = "Europe/Berlin" }, u => u.ID == this.alice);
+        await this.Users.UpdateOnlyAsync(() => new User { TimeZone = "Europe/Berlin" }, u => u.ID == this.alice);
 
         var data = await this.Users.LazyDataAsync(this.alice, TestDatabase.BoardId, false, false, false);
 
@@ -493,10 +493,10 @@ public class UserRepositoryTests
         var newer = new DateTime(2026, 2, 1, 10, 0, 0);
 
         var messages = this.Repository<PrivateMessage>();
-        messages.Insert(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = older, Body = "a", Flags = 0 });
-        messages.Insert(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = newer, Body = "b", Flags = 0 });
-        messages.Insert(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = newer.AddDays(5), Body = "read", Flags = 1 });
-        messages.Insert(new PrivateMessage { FromUserId = this.alice, ToUserId = this.bob, Created = newer.AddDays(9), Body = "other", Flags = 0 });
+        await messages.InsertAsync(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = older, Body = "a", Flags = 0 });
+        await messages.InsertAsync(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = newer, Body = "b", Flags = 0 });
+        await messages.InsertAsync(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = newer.AddDays(5), Body = "read", Flags = 1 });
+        await messages.InsertAsync(new PrivateMessage { FromUserId = this.alice, ToUserId = this.bob, Created = newer.AddDays(9), Body = "other", Flags = 0 });
 
         var data = await this.Users.LazyDataAsync(this.alice, TestDatabase.BoardId, false, true, false);
 
@@ -528,16 +528,16 @@ public class UserRepositoryTests
     public async Task UpdateStyleAsync_Test()
     {
         var styledRank = this.db.AddRank("Styled", configure: r => r.Style = "color: blue");
-        this.Users.UpdateOnly(() => new User { RankID = styledRank }, u => u.ID == this.bob);
-        this.Users.UpdateOnly(() => new User { RankID = styledRank }, u => u.ID == this.alice);
+        await this.Users.UpdateOnlyAsync(() => new User { RankID = styledRank }, u => u.ID == this.bob);
+        await this.Users.UpdateOnlyAsync(() => new User { RankID = styledRank }, u => u.ID == this.alice);
 
         var groupId = this.db.AddForumAccess(this.alice, this.db.AddForum());
-        this.Repository<Group>().UpdateOnly(() => new Group { Style = "color: red" }, g => g.ID == groupId);
+        await this.Repository<Group>().UpdateOnlyAsync(() => new Group { Style = "color: red" }, g => g.ID == groupId);
 
         await this.Users.UpdateStylesAsync(TestDatabase.BoardId);
 
-        this.Users.GetById(this.alice).UserStyle.Should().Be("color: red");
-        this.Users.GetById(this.bob).UserStyle.Should().Be("color: blue");
+        (await this.Users.GetByIdAsync(this.alice)).UserStyle.Should().Be("color: red");
+        (await this.Users.GetByIdAsync(this.bob)).UserStyle.Should().Be("color: blue");
     }
 
     [Test]
@@ -545,15 +545,15 @@ public class UserRepositoryTests
     public async Task UpdateStyleAsync_Clears_Old_Style_Test()
     {
         var groupId = this.db.AddForumAccess(this.alice, this.db.AddForum());
-        this.Repository<Group>().UpdateOnly(() => new Group { Style = "color: red" }, g => g.ID == groupId);
+        await this.Repository<Group>().UpdateOnlyAsync(() => new Group { Style = "color: red" }, g => g.ID == groupId);
 
         await this.Users.UpdateStyleAsync(this.alice);
-        this.Users.GetById(this.alice).UserStyle.Should().Be("color: red");
+        (await this.Users.GetByIdAsync(this.alice)).UserStyle.Should().Be("color: red");
 
-        this.Repository<UserGroup>().Delete(x => x.UserID == this.alice && x.GroupID == groupId);
+        await this.Repository<UserGroup>().DeleteAsync(x => x.UserID == this.alice && x.GroupID == groupId);
         await this.Users.UpdateStyleAsync(this.alice);
 
-        this.Users.GetById(this.alice).UserStyle.Should().BeNull("the user is no longer in the styled group");
+        (await this.Users.GetByIdAsync(this.alice)).UserStyle.Should().BeNull("the user is no longer in the styled group");
     }
 
     [Test]
@@ -564,16 +564,16 @@ public class UserRepositoryTests
         var regular = this.db.AddRank("Regular", 10, isLadder: true, configure: r => r.Style = "color: green");
         var special = this.db.AddRank("Special", configure: r => r.Style = "color: gold");
 
-        this.Users.UpdateOnly(() => new User { RankID = newbie, NumPosts = 12 }, u => u.ID == this.alice);
+        await this.Users.UpdateOnlyAsync(() => new User { RankID = newbie, NumPosts = 12 }, u => u.ID == this.alice);
 
         await this.Users.PromoteAsync(this.alice);
 
-        this.Users.GetById(this.alice).RankID.Should().Be(regular);
-        this.Users.GetById(this.alice).UserStyle.Should().Be("color: green");
+        (await this.Users.GetByIdAsync(this.alice)).RankID.Should().Be(regular);
+        (await this.Users.GetByIdAsync(this.alice)).UserStyle.Should().Be("color: green");
 
-        await this.Users.AdminSaveAsync(TestDatabase.BoardId, this.alice, this.Users.GetById(this.alice).Flags, special);
+        await this.Users.AdminSaveAsync(TestDatabase.BoardId, this.alice, (await this.Users.GetByIdAsync(this.alice)).Flags, special);
 
-        this.Users.GetById(this.alice).UserStyle.Should().Be("color: gold");
+        (await this.Users.GetByIdAsync(this.alice)).UserStyle.Should().Be("color: gold");
     }
 
     [Test]
@@ -582,7 +582,7 @@ public class UserRepositoryTests
     {
         var rank = this.db.AddRank("Styled", configure: r => r.Style = "color: blue");
         var groupId = this.db.AddForumAccess(this.alice, this.db.AddForum());
-        this.Repository<Group>().UpdateOnly(() => new Group { Style = "color: red" }, g => g.ID == groupId);
+        await this.Repository<Group>().UpdateOnlyAsync(() => new Group { Style = "color: red" }, g => g.ID == groupId);
 
         await this.Repository<Rank>().SaveAsync(rank, TestDatabase.BoardId, "Styled", new RankFlags(), null, null, 1, null, 0, null, 0, 0);
         await this.Repository<Group>().SaveAsync(groupId, TestDatabase.BoardId, "Group", new GroupFlags(), 0, null, 1, null, 0, null, 0, 0);

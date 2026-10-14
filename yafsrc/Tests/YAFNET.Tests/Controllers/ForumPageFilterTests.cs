@@ -175,7 +175,7 @@ public class ForumPageFilterTests
         this.board.PageLoad.IsAdmin = true;
         (await this.RunAsync(new TestPage(ForumPages.Admin_Admin) { Admin = true })).Result.Should().BeSameAs(this.infoRedirect);
 
-        this.board.Current.GetRepository<AdminPageUserAccess>().Insert(
+        await this.board.Current.GetRepository<AdminPageUserAccess>().InsertAsync(
             new AdminPageUserAccess { UserID = this.board.PageLoad.UserID, PageName = nameof(ForumPages.Admin_Admin) });
 
         (await this.RunAsync(new TestPage(ForumPages.Admin_Admin) { Admin = true })).Result.Should().BeNull();
@@ -190,7 +190,7 @@ public class ForumPageFilterTests
     {
         this.board.PageLoad.IsAdmin = true;
 
-        this.board.Current.GetRepository<AdminPageUserAccess>().Insert(
+        await this.board.Current.GetRepository<AdminPageUserAccess>().InsertAsync(
             new AdminPageUserAccess { UserID = this.board.PageLoad.UserID, PageName = hostPage.ToString() });
 
         (await this.RunAsync(new TestPage(hostPage) { Admin = true })).Result.Should().BeSameAs(this.infoRedirect);
@@ -235,12 +235,12 @@ public class ForumPageFilterTests
         (await this.RunAsync(new TestPage(ForumPages.Index))).Result.Should().BeSameAs(this.infoRedirect);
 
         this.board.User.Suspended = DateTime.UtcNow.AddDays(-1);
-        this.board.Current.GetRepository<User>().UpdateOnly(
+        await this.board.Current.GetRepository<User>().UpdateOnlyAsync(
             () => new User { Suspended = DateTime.UtcNow.AddDays(-1) },
             u => u.ID == this.board.PageLoad.UserID);
 
         (await this.RunAsync(new TestPage(ForumPages.Index))).Result.Should().BeNull();
-        this.board.Current.GetRepository<User>().GetById(this.board.PageLoad.UserID).Suspended.Should().BeNull();
+        (await this.board.Current.GetRepository<User>().GetByIdAsync(this.board.PageLoad.UserID)).Suspended.Should().BeNull();
         await this.board.Notifications.Received(1).SendUserSuspensionEndedNotificationAsync(Arg.Any<User>());
     }
 

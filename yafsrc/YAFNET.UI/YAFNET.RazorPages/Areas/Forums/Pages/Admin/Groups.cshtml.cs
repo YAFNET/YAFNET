@@ -184,10 +184,10 @@ public class GroupsModel : AdminPage
         if (group is not null && group.BoardID == this.PageBoardContext.PageBoardID && !group.GroupFlags.IsGuest)
         {
             // delete role
-            this.GetRepository<GroupMedal>().Delete(g => g.GroupID == groupId);
-            this.GetRepository<ForumAccess>().Delete(g => g.GroupID == groupId);
-            this.GetRepository<UserGroup>().Delete(g => g.GroupID == groupId);
-            this.GetRepository<Group>().Delete(g => g.ID == groupId);
+            await this.GetRepository<GroupMedal>().DeleteAsync(g => g.GroupID == groupId);
+            await this.GetRepository<ForumAccess>().DeleteAsync(g => g.GroupID == groupId);
+            await this.GetRepository<UserGroup>().DeleteAsync(g => g.GroupID == groupId);
+            await this.GetRepository<Group>().DeleteAsync(g => g.ID == groupId);
 
             // the members lose the style of the group
             if (group.Style.IsSet())

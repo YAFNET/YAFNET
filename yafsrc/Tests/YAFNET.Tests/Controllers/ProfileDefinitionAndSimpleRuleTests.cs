@@ -70,7 +70,7 @@ public class ProfileDefinitionAndSimpleRuleTests
 
         (await controller.Edit(Modal(0, "Hobby"))).Should().BeOfType<OkResult>();
 
-        var added = this.Definitions.GetSingle(p => p.Name == "Hobby");
+        var added = await this.Definitions.GetSingleAsync(p => p.Name == "Hobby");
         added.BoardID.Should().Be(TestDatabase.BoardId);
         added.DataType.Should().Be("Text");
         added.Length.Should().Be(50);
@@ -78,10 +78,10 @@ public class ProfileDefinitionAndSimpleRuleTests
 
         (await controller.Edit(Modal(added.ID, "Hobbies", required: true))).Should().BeOfType<OkResult>();
 
-        var edited = this.Definitions.GetById(added.ID);
+        var edited = await this.Definitions.GetByIdAsync(added.ID);
         edited.Name.Should().Be("Hobbies");
         edited.Required.Should().BeTrue();
-        this.Definitions.Count(_ => true).Should().Be(1);
+        (await this.Definitions.CountAsync(_ => true)).Should().Be(1);
     }
 
     [Test]
@@ -93,35 +93,35 @@ public class ProfileDefinitionAndSimpleRuleTests
         (await controller.Edit(new EditProfileDefinitionModal { Id = 0, Name = " Age ", DataType = "Number", Length = 0 }))
             .Should().BeOfType<OkResult>();
 
-        var added = this.Definitions.GetSingle(p => p.Name == "Age");
+        var added = await this.Definitions.GetSingleAsync(p => p.Name == "Age");
         added.DefaultValue.Should().BeEmpty();
         added.DataType.Should().Be("Number");
 
         (await controller.Edit(new EditProfileDefinitionModal { Id = 0, Name = "Color", DataType = "<b>", Length = -5 }))
             .Should().BeOfType<OkResult>();
 
-        var color = this.Definitions.GetSingle(p => p.Name == "Color");
+        var color = await this.Definitions.GetSingleAsync(p => p.Name == "Color");
         color.DataType.Should().Be("Text");
         color.Length.Should().Be(0);
 
         var result = await controller.Edit(new EditProfileDefinitionModal { Id = 0, DataType = "Text", Length = 10 });
 
         ((result as OkObjectResult)?.Value as MessageModalNotification).Should().NotBeNull("the name is required");
-        this.Definitions.Count(_ => true).Should().Be(2);
+        (await this.Definitions.CountAsync(_ => true)).Should().Be(2);
     }
 
     [Test]
     [Description("Definitions of another board can not be changed")]
     public async Task Edit_Other_Board_Test()
     {
-        var other = this.Definitions.Insert(
+        var other = await this.Definitions.InsertAsync(
             new ProfileDefinition { BoardID = 2, Name = "Other", DataType = "Text", Length = 10, DefaultValue = string.Empty },
             true);
 
         var result = await this.board.CreateController<ProfileDefinitionController>().Edit(Modal((int)other, "Hijacked"));
 
         result.Should().BeOfType<NotFoundResult>();
-        var unchanged = this.Definitions.GetById((int)other);
+        var unchanged = await this.Definitions.GetByIdAsync((int)other);
         unchanged.Name.Should().Be("Other");
         unchanged.BoardID.Should().Be(2);
     }

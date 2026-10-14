@@ -226,10 +226,10 @@ public class RolesTests
         var userId = await this.roles.CreateForumUserAsync(alice, "Alice W.", TestDatabase.BoardId);
 
         userId.Should().NotBeNull();
-        var user = this.Repository<User>().GetById(userId.Value);
+        var user = await this.Repository<User>().GetByIdAsync(userId.Value);
         user.ProviderUserKey.Should().Be(alice.Id);
         user.DisplayName.Should().Be("Alice W.");
-        this.Repository<UserGroup>().Get(x => x.UserID == userId.Value).Select(x => x.GroupID).Should().Contain(group);
+        (await this.Repository<UserGroup>().GetAsync(x => x.UserID == userId.Value)).Select(x => x.GroupID).Should().Contain(group);
     }
 
     [Test]
@@ -239,7 +239,7 @@ public class RolesTests
         var alice = await this.CreateIdentityAsync("alice");
 
         this.roles.DidCreateForumUser(alice, TestDatabase.BoardId).Should().BeTrue();
-        this.Repository<User>().Count(u => u.ProviderUserKey == alice.Id).Should().Be(1);
+        (await this.Repository<User>().CountAsync(u => u.ProviderUserKey == alice.Id)).Should().Be(1);
 
         var broken = new AspNetUsers { Id = "broken", UserName = null, Email = null };
         this.roles.DidCreateForumUser(broken, TestDatabase.BoardId).Should().BeFalse("the forum user could not be created");

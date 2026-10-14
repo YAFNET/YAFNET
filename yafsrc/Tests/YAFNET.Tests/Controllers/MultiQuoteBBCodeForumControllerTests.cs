@@ -130,7 +130,7 @@ public class MultiQuoteBBCodeForumControllerTests
         var imported = Notification(await controller.Import(File(Export, "text/xml")));
         imported.MessageType.Should().Be(MessageTypes.success.ToString());
         imported.Message.Should().Contain("IMPORT_SUCESS");
-        this.board.Current.GetRepository<BBCode>().Count(b => b.Name == "NEW").Should().Be(1);
+        (await this.board.Current.GetRepository<BBCode>().CountAsync(b => b.Name == "NEW")).Should().Be(1);
 
         Notification(await controller.Import(File(Export, "text/xml"))).Message.Should()
             .Contain("IMPORT_NOTHING", "the extension exists already");

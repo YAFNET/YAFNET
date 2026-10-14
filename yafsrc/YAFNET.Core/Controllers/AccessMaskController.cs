@@ -65,8 +65,8 @@ public class AccessMaskController : ForumBaseController
         // groups and access masks are per board, the ids are sent by the client
         var boardId = this.PageBoardContext.PageBoardID;
 
-        if (!this.GetRepository<Group>().Exists(g => g.ID == roleId && g.BoardID == boardId)
-            || !this.GetRepository<AccessMask>().Exists(a => a.ID == accessMaskId && a.BoardID == boardId))
+        if (!await this.GetRepository<Group>().ExistsAsync(g => g.ID == roleId && g.BoardID == boardId)
+            || !await this.GetRepository<AccessMask>().ExistsAsync(a => a.ID == accessMaskId && a.BoardID == boardId))
         {
             return this.BadRequest();
         }
@@ -74,7 +74,7 @@ public class AccessMaskController : ForumBaseController
         // the forum too (a forum belongs to the board of its category)
         var forum = await this.GetRepository<Forum>().GetByIdAsync(forumId);
 
-        if (forum is null || !this.GetRepository<Category>().Exists(c => c.ID == forum.CategoryID && c.BoardID == boardId))
+        if (forum is null || !await this.GetRepository<Category>().ExistsAsync(c => c.ID == forum.CategoryID && c.BoardID == boardId))
         {
             return this.BadRequest();
         }

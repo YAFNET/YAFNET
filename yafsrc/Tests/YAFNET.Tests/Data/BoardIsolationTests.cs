@@ -64,18 +64,18 @@ public class BoardIsolationTests
     {
         var spamWord = this.Insert(new SpamWords { BoardID = OtherBoard, SpamWord = "other" });
         await this.Repository<SpamWords>().SaveAsync(spamWord, "changed");
-        this.Repository<SpamWords>().GetById(spamWord).Should().BeEquivalentTo(new { BoardID = OtherBoard, SpamWord = "other" });
+        (await this.Repository<SpamWords>().GetByIdAsync(spamWord)).Should().BeEquivalentTo(new { BoardID = OtherBoard, SpamWord = "other" });
 
         await this.Repository<SpamWords>().SaveAsync(null, "new");
-        this.Repository<SpamWords>().GetSingle(x => x.SpamWord == "new").BoardID.Should().Be(TestDatabase.BoardId);
+        (await this.Repository<SpamWords>().GetSingleAsync(x => x.SpamWord == "new")).BoardID.Should().Be(TestDatabase.BoardId);
 
         var replaceWord = this.Insert(new ReplaceWords { BoardID = OtherBoard, BadWord = "bad", GoodWord = "good" });
         await this.Repository<ReplaceWords>().SaveAsync(replaceWord, "changed", "changed");
-        this.Repository<ReplaceWords>().GetById(replaceWord).BadWord.Should().Be("bad");
+        (await this.Repository<ReplaceWords>().GetByIdAsync(replaceWord)).BadWord.Should().Be("bad");
 
         var own = this.Insert(new ReplaceWords { BoardID = TestDatabase.BoardId, BadWord = "bad", GoodWord = "good" });
         await this.Repository<ReplaceWords>().SaveAsync(own, "worse", "better");
-        this.Repository<ReplaceWords>().GetById(own).BadWord.Should().Be("worse", "the own board can be changed");
+        (await this.Repository<ReplaceWords>().GetByIdAsync(own)).BadWord.Should().Be("worse", "the own board can be changed");
     }
 
     [Test]
@@ -84,15 +84,15 @@ public class BoardIsolationTests
     {
         var mask = this.Insert(new AccessMask { BoardID = OtherBoard, Name = "Other", Flags = 1, SortOrder = 1 });
         await this.Repository<AccessMask>().SaveAsync(mask, "Changed", new AccessFlags(), 1);
-        this.Repository<AccessMask>().GetById(mask).Should().BeEquivalentTo(new { BoardID = OtherBoard, Name = "Other" });
+        (await this.Repository<AccessMask>().GetByIdAsync(mask)).Should().BeEquivalentTo(new { BoardID = OtherBoard, Name = "Other" });
 
         var code = this.Insert(new BBCode { BoardID = OtherBoard, Name = "OTHER", ExecOrder = 1 });
         await this.Repository<BBCode>().SaveAsync(code, "CHANGED", null, null, null, null, null, null, null, null, false, false, null, 1);
-        this.Repository<BBCode>().GetById(code).Name.Should().Be("OTHER");
+        (await this.Repository<BBCode>().GetByIdAsync(code)).Name.Should().Be("OTHER");
 
         var category = this.Insert(new Category { BoardID = OtherBoard, Name = "Other", SortOrder = 1, Flags = 1 });
         (await this.Repository<Category>().SaveAsync(category, "Changed", null, 1, new CategoryFlags())).Should().Be(0);
-        this.Repository<Category>().GetById(category).Should().BeEquivalentTo(new { BoardID = OtherBoard, Name = "Other" });
+        (await this.Repository<Category>().GetByIdAsync(category)).Should().BeEquivalentTo(new { BoardID = OtherBoard, Name = "Other" });
     }
 
     [Test]
@@ -101,15 +101,15 @@ public class BoardIsolationTests
     {
         var rank = this.Insert(new Rank { BoardID = OtherBoard, Name = "Other", Flags = 0, SortOrder = 1 });
         await this.Repository<Rank>().SaveAsync(rank, TestDatabase.BoardId, "Changed", new RankFlags(), null, null, 1, null, 0, null, 0, 0);
-        this.Repository<Rank>().GetById(rank).Name.Should().Be("Other");
+        (await this.Repository<Rank>().GetByIdAsync(rank)).Name.Should().Be("Other");
 
         var group = this.Insert(new Group { BoardID = OtherBoard, Name = "Other", Flags = 0, SortOrder = 1 });
         await this.Repository<Group>().SaveAsync(group, TestDatabase.BoardId, "Changed", new GroupFlags(), 1, null, 1, null, 0, null, 0, 0);
-        this.Repository<Group>().GetById(group).Name.Should().Be("Other");
+        (await this.Repository<Group>().GetByIdAsync(group)).Name.Should().Be("Other");
 
         var medal = this.Insert(new Medal { BoardID = OtherBoard, Name = "Other", Message = "m", MedalURL = "other.png", Flags = 0 });
         this.Repository<Medal>().Save(medal, "Changed", null, "m", null, "other.png", 0);
-        this.Repository<Medal>().GetById(medal).Should().BeEquivalentTo(new { BoardID = OtherBoard, Name = "Other" });
+        (await this.Repository<Medal>().GetByIdAsync(medal)).Should().BeEquivalentTo(new { BoardID = OtherBoard, Name = "Other" });
     }
 
     private IRepository<T> Repository<T>()

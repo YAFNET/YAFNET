@@ -89,9 +89,9 @@ public class ModerationRepositoryTests
         await this.Reported.ReportAsync(this.Message(messageId), this.bob, DateTime.UtcNow, "is spam");
 
         this.Message(messageId).MessageFlags.IsReported.Should().BeTrue();
-        this.Reported.GetById(messageId).Message.Should().Be("spam spam");
+        (await this.Reported.GetByIdAsync(messageId)).Message.Should().Be("spam spam");
 
-        var audit = this.Audits.Get(a => a.MessageID == messageId).Should().ContainSingle().Subject;
+        var audit = (await this.Audits.GetAsync(a => a.MessageID == messageId)).Should().ContainSingle().Subject;
         audit.UserID.Should().Be(this.bob);
         audit.ReportedNumber.Should().Be(1);
         audit.ReportText.Should().EndWith("??is spam");
@@ -106,9 +106,9 @@ public class ModerationRepositoryTests
         await this.Reported.ReportAsync(this.Message(messageId), this.bob, DateTime.UtcNow, "first");
         await this.Reported.ReportAsync(this.Message(messageId), this.bob, DateTime.UtcNow, null);
 
-        this.Reported.Count(r => r.ID == messageId).Should().Be(1, "the report row is shared by all reporters");
+        (await this.Reported.CountAsync(r => r.ID == messageId)).Should().Be(1, "the report row is shared by all reporters");
 
-        var audit = this.Audits.Get(a => a.MessageID == messageId).Should().ContainSingle().Subject;
+        var audit = (await this.Audits.GetAsync(a => a.MessageID == messageId)).Should().ContainSingle().Subject;
         audit.ReportedNumber.Should().Be(2);
         audit.ReportText.Should().Contain("??first|").And.EndWith("??", "a null report text is stored as empty");
     }
@@ -165,7 +165,7 @@ public class ModerationRepositoryTests
 
         await this.Reported.ReportCopyOverAsync(message);
 
-        this.Reported.GetById(messageId).Message.Should().Be("after");
+        (await this.Reported.GetByIdAsync(messageId)).Message.Should().Be("after");
     }
 
     [Test]
@@ -271,19 +271,19 @@ public class ModerationRepositoryTests
         this.AddEvent(now, EventLogTypes.Error, otherBoardUser);
         this.AddEvent(now, EventLogTypes.SpamBotDetected, otherBoardUser);
 
-        var otherBoardEntry = this.EventLog.GetSingle(e => e.UserID == otherBoardUser && e.Type == (int)EventLogTypes.Error).ID;
+        var otherBoardEntry = (await this.EventLog.GetSingleAsync(e => e.UserID == otherBoardUser && e.Type == (int)EventLogTypes.Error)).ID;
 
         // a single entry of another board is not deleted
         (await this.EventLog.DeleteBoardEntriesAsync(TestDatabase.BoardId, otherBoardEntry)).Should().Be(0);
 
         // the spam log deletes only spam entries of the board
         (await this.EventLog.DeleteBoardEntriesAsync(TestDatabase.BoardId, spamOnly: true)).Should().Be(1);
-        this.EventLog.Count(e => e.Type == (int)EventLogTypes.Error).Should().Be(3);
+        (await this.EventLog.CountAsync(e => e.Type == (int)EventLogTypes.Error)).Should().Be(3);
 
         // the event log deletes the entries of the board and the ones without a user
         (await this.EventLog.DeleteBoardEntriesAsync(TestDatabase.BoardId)).Should().Be(2);
 
-        this.EventLog.Get(_ => true).Select(e => e.UserID).Should().OnlyContain(id => id == otherBoardUser).And.HaveCount(2);
+        (await this.EventLog.GetAsync(_ => true)).Select(e => e.UserID).Should().OnlyContain(id => id == otherBoardUser).And.HaveCount(2);
     }
 
     [Test]

@@ -92,7 +92,7 @@ public class AccessMaskControllerTests
         // a forum of another board
         var otherForum = this.board.Database.AddForum("Other", this.board.Database.AddCategory("Other", c => c.BoardID = 2));
         (await this.SetAsync(this.AddMask(TestDatabase.BoardId), forum: otherForum)).Should().BeOfType<BadRequestResult>();
-        this.board.Current.GetRepository<ForumAccess>().Exists(a => a.ForumID == otherForum).Should().BeFalse();
+        (await this.board.Current.GetRepository<ForumAccess>().ExistsAsync(a => a.ForumID == otherForum)).Should().BeFalse();
 
         this.Access.AccessMaskID.Should().Be(before);
     }

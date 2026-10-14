@@ -148,7 +148,7 @@ public class MedalTagRepositoryTests
         var otherTopic = this.db.AddTopic(this.db.AddForum(), this.alice);
         await this.TopicTags.AddTagsToTopicAsync("csharp", otherTopic);
 
-        this.Repository<Tag>().Get(t => true).Select(t => t.TagName).Should().BeEquivalentTo(["csharp", "sql"]);
+        (await this.Repository<Tag>().GetAsync(t => true)).Select(t => t.TagName).Should().BeEquivalentTo(["csharp", "sql"]);
         this.TopicTags.ListAsDelimitedString(this.topic).Split(',').Should().BeEquivalentTo(["csharp", "sql"]);
         this.TopicTags.List(otherTopic).Should().ContainSingle().Which.Item2.TagName.Should().Be("csharp");
     }
@@ -159,7 +159,7 @@ public class MedalTagRepositoryTests
     {
         await this.TopicTags.AddTagsToTopicAsync("news,news, news ,csharp", this.topic);
 
-        this.Repository<Tag>().Get(t => true).Select(t => t.TagName).Should().BeEquivalentTo(["news", "csharp"]);
+        (await this.Repository<Tag>().GetAsync(t => true)).Select(t => t.TagName).Should().BeEquivalentTo(["news", "csharp"]);
         this.TopicTags.ListAsDelimitedString(this.topic).Split(',').Should().BeEquivalentTo(["news", "csharp"]);
 
         // an existing tag twice
@@ -180,8 +180,8 @@ public class MedalTagRepositoryTests
     {
         await this.TopicTags.AddTagsToTopicAsync(tags, this.topic);
 
-        this.Repository<Tag>().Count(_ => true).Should().Be(0);
-        this.TopicTags.Count(_ => true).Should().Be(0);
+        (await this.Repository<Tag>().CountAsync(_ => true)).Should().Be(0);
+        (await this.TopicTags.CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]

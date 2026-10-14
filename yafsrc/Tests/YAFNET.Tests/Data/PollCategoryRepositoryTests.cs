@@ -137,7 +137,7 @@ public class PollCategoryRepositoryTests
 
         await this.Categories.SaveAsync(id, "Latest News", "news.png", 7, new CategoryFlags { IsActive = false });
 
-        var saved = this.Categories.GetById(id);
+        var saved = await this.Categories.GetByIdAsync(id);
         saved.Name.Should().Be("Latest News");
         saved.CategoryFlags.IsActive.Should().BeFalse();
 

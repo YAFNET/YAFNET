@@ -72,7 +72,7 @@ public class AlbumMedalUserForumRepositoryTests
         var first = albums.Save(this.alice, "First", null);
         var second = albums.Save(this.alice, "Second", null);
         albums.Save(this.bob, "Bob's", null);
-        albums.UpdateOnly(() => new UserAlbum { Updated = DateTime.UtcNow.AddDays(-1) }, a => a.ID == first);
+        await albums.UpdateOnlyAsync(() => new UserAlbum { Updated = DateTime.UtcNow.AddDays(-1) }, a => a.ID == first);
 
         albums.ListByUser(this.alice).Select(a => a.Title).Should().Equal("Second", "First");
         albums.ListByUserPaged(this.alice, 0, 1).Should().ContainSingle();
@@ -87,10 +87,10 @@ public class AlbumMedalUserForumRepositoryTests
         var cover = images.List(second).Single();
 
         albums.UpdateCover(second, cover.ID);
-        albums.GetById(second).CoverImageID.Should().Be(cover.ID);
+        (await albums.GetByIdAsync(second)).CoverImageID.Should().Be(cover.ID);
 
         await albums.DeleteCoverAsync(cover.ID);
-        albums.GetById(second).CoverImageID.Should().BeNull();
+        (await albums.GetByIdAsync(second)).CoverImageID.Should().BeNull();
     }
 
     [Test]

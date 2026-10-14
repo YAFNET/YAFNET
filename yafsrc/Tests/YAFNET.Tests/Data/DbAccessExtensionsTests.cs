@@ -67,20 +67,20 @@ public class DbAccessExtensionsTests
     public async Task Update_And_Exists_Test()
     {
         var id = this.board.Database.AddUser("Alice");
-        var user = this.board.Current.GetRepository<User>().GetById(id);
+        var user = await this.board.Current.GetRepository<User>().GetByIdAsync(id);
 
         user.DisplayName = "Alice A";
-        this.db.Update(user).Should().Be(1);
+        (await this.db.UpdateAsync(user)).Should().Be(1);
 
         user.DisplayName = "Alice B";
         (await this.db.UpdateAsync(user)).Should().Be(1);
 
-        this.db.UpdateOnly(() => new User { NumPosts = 5 }, u => u.ID == id).Should().Be(1);
-        this.db.UpdateAdd(() => new User { NumPosts = 2 }, u => u.ID == id).Should().Be(1);
+        (await this.db.UpdateOnlyAsync(() => new User { NumPosts = 5 }, u => u.ID == id)).Should().Be(1);
+        (await this.db.UpdateAddAsync(() => new User { NumPosts = 2 }, u => u.ID == id)).Should().Be(1);
         (await this.db.UpdateAddAsync(() => new User { NumPosts = 1 }, u => u.ID == id)).Should().Be(1);
         (await this.db.UpdateOnlyAsync(() => new User { Points = 9 }, u => u.ID == id)).Should().Be(1);
 
-        var stored = this.board.Current.GetRepository<User>().GetById(id);
+        var stored = await this.board.Current.GetRepository<User>().GetByIdAsync(id);
         stored.DisplayName.Should().Be("Alice B");
         stored.NumPosts.Should().Be(8);
         stored.Points.Should().Be(9);
@@ -88,9 +88,9 @@ public class DbAccessExtensionsTests
         this.db.Upsert(new Registry { Name = "upsert", Value = "1" }, r => r.Name == "upsert");
         this.db.Upsert(new Registry { Name = "upsert", Value = "2" }, r => r.Name == "upsert");
 
-        this.db.Exists<Registry>(r => r.Name == "upsert" && r.Value == "2").Should().BeTrue();
+        (await this.db.ExistsAsync<Registry>(r => r.Name == "upsert" && r.Value == "2")).Should().BeTrue();
         (await this.db.ExistsAsync<Registry>(r => r.Name == "nope")).Should().BeFalse();
-        this.db.TableExists<User>().Should().BeTrue();
+        (await this.db.TableExistsAsync<User>()).Should().BeTrue();
         (await this.db.TableExistsAsync<User>()).Should().BeTrue();
     }
 

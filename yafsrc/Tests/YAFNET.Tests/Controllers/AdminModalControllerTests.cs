@@ -116,7 +116,7 @@ public class AdminModalControllerTests
         (await controller.Edit(new ReplaceWordsEditModal { GoodWord = "x" })).Should().BeOfType<OkObjectResult>("an empty word is left out by the form");
         (await this.board.CreateController<SpamWordsController>().Edit(new SpamWordsEditModal())).Should().BeOfType<OkObjectResult>();
 
-        this.Repository<ReplaceWords>().Get(_ => true).Select(w => w.BadWord).Should().Equal("darn");
+        (await this.Repository<ReplaceWords>().GetAsync(_ => true)).Select(w => w.BadWord).Should().Equal("darn");
     }
 
     [Test]
@@ -136,7 +136,7 @@ public class AdminModalControllerTests
         var result = await this.board.CreateController<ReplaceWordsController>().Import(File(Xml, "text/xml"));
 
         Notification(result).MessageType.Should().Be(MessageTypes.success.ToString());
-        this.Repository<ReplaceWords>().Get(_ => true).Select(w => w.BadWord).Should().BeEquivalentTo(["darn", "heck"]);
+        (await this.Repository<ReplaceWords>().GetAsync(_ => true)).Select(w => w.BadWord).Should().BeEquivalentTo(["darn", "heck"]);
     }
 
     [Test]
@@ -149,7 +149,7 @@ public class AdminModalControllerTests
         Notification(await controller.Import(File("<root><other>1</other></root>", "text/xml"))).MessageType.Should().Be(MessageTypes.warning.ToString());
         Notification(await controller.Import(File("not xml", "text/plain"))).MessageType.Should().Be(MessageTypes.danger.ToString());
 
-        this.Repository<ReplaceWords>().Count(_ => true).Should().Be(0);
+        (await this.Repository<ReplaceWords>().CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -159,7 +159,7 @@ public class AdminModalControllerTests
         (await this.board.CreateController<SpamWordsController>().Edit(new SpamWordsEditModal { SpamWord = "casino" }))
             .Should().BeOfType<OkResult>();
 
-        this.Repository<SpamWords>().Get(_ => true).Select(w => w.SpamWord).Should().Equal("casino");
+        (await this.Repository<SpamWords>().GetAsync(_ => true)).Select(w => w.SpamWord).Should().Equal("casino");
     }
 
     [Test]
@@ -169,7 +169,7 @@ public class AdminModalControllerTests
         var result = await this.board.CreateController<SpamWordsController>().Edit(new SpamWordsEditModal { SpamWord = "([" });
 
         Notification(result).Should().NotBeNull();
-        this.Repository<SpamWords>().Count(_ => true).Should().Be(0);
+        (await this.Repository<SpamWords>().CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -225,12 +225,12 @@ public class AdminModalControllerTests
 
         await controller.EditUserMedalAsync(new UserMedalEditModal { MedalId = medal, UserID = this.bob, MedalName = "Gold", UserMessage = "well done" });
 
-        this.Repository<UserMedal>().GetSingle(m => m.UserID == this.bob).Message.Should().Be("well done");
+        (await this.Repository<UserMedal>().GetSingleAsync(m => m.UserID == this.bob)).Message.Should().Be("well done");
         await this.board.Notifications.Received(1).ToUserWithNewMedalAsync(this.bob, "Gold");
 
         await controller.EditUserMedalAsync(new UserMedalEditModal { MedalId = medal, UserID = this.bob, UserName = "Bob", UserMessage = "updated", UserSortOrder = 3 });
 
-        var award = this.Repository<UserMedal>().GetSingle(m => m.UserID == this.bob);
+        var award = await this.Repository<UserMedal>().GetSingleAsync(m => m.UserID == this.bob);
         award.Message.Should().Be("updated");
         award.SortOrder.Should().Be(3);
     }
@@ -247,7 +247,7 @@ public class AdminModalControllerTests
         await controller.Invoking(c => c.EditUserMedalAsync(new UserMedalEditModal { MedalId = medal, UserID = this.bob, MedalName = "Gold" }))
             .Should().NotThrowAsync();
 
-        this.Repository<UserMedal>().Count(m => m.UserID == this.bob).Should().Be(1);
+        (await this.Repository<UserMedal>().CountAsync(m => m.UserID == this.bob)).Should().Be(1);
     }
 
     [Test]
@@ -278,8 +278,8 @@ public class AdminModalControllerTests
         controller.EditGroupMedal(new GroupMedalEditModal { GroupId = 99999, MedalId = medal })
             .Should().BeOfType<BadRequestResult>();
 
-        this.Repository<UserMedal>().Count(_ => true).Should().Be(0);
-        this.Repository<GroupMedal>().Count(_ => true).Should().Be(0);
+        (await this.Repository<UserMedal>().CountAsync(_ => true)).Should().Be(0);
+        (await this.Repository<GroupMedal>().CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -394,13 +394,13 @@ public class AdminModalControllerTests
         var controller = this.board.CreateController<IgnoredUserController>();
 
         await controller.AddIgnoredUser(post);
-        this.Repository<IgnoreUser>().Count(i => i.UserID == this.alice && i.IgnoredUserID == this.bob).Should().Be(1);
+        (await this.Repository<IgnoreUser>().CountAsync(i => i.UserID == this.alice && i.IgnoredUserID == this.bob)).Should().Be(1);
 
         await controller.RemoveIgnoredUser(post);
-        this.Repository<IgnoreUser>().Count(_ => true).Should().Be(0);
+        (await this.Repository<IgnoreUser>().CountAsync(_ => true)).Should().Be(0);
 
         await controller.AddIgnoredUser(99999);
-        this.Repository<IgnoreUser>().Count(_ => true).Should().Be(0, "only shown posts");
+        (await this.Repository<IgnoreUser>().CountAsync(_ => true)).Should().Be(0, "only shown posts");
     }
 
     [Test]
@@ -411,7 +411,7 @@ public class AdminModalControllerTests
 
         await this.board.CreateController<IgnoredUserController>().AddIgnoredUser(post);
 
-        this.Repository<IgnoreUser>().Count(_ => true).Should().Be(0);
+        (await this.Repository<IgnoreUser>().CountAsync(_ => true)).Should().Be(0);
     }
 
     private static MessageModalNotification Notification(IActionResult result)

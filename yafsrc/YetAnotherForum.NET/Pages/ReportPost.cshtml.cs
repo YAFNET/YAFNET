@@ -95,7 +95,7 @@ public class ReportPostModel : ForumPage
         if (this.Report.Length > this.PageBoardContext.BoardSettings.MaxReportPostChars)
         {
             // the page is shown again with the author of the message
-            this.MessageAuthor = this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
+            this.MessageAuthor = await this.GetRepository<User>().GetByIdAsync(this.PageBoardContext.PageMessage.UserID);
 
             return this.PageBoardContext.Notify(
                 this.GetTextFormatted("REPORTTEXT_TOOLONG", this.PageBoardContext.BoardSettings.MaxReportPostChars),

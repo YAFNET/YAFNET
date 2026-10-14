@@ -97,7 +97,7 @@ public class ReputationControllerTests
         await this.Controller().AddReputation(this.post);
 
         this.Points(this.author).Should().Be(11);
-        this.board.Current.GetRepository<ReputationVote>().Count(v => v.ReputationFromUserID == this.voter).Should().Be(1);
+        (await this.board.Current.GetRepository<ReputationVote>().CountAsync(v => v.ReputationFromUserID == this.voter)).Should().Be(1);
     }
 
     [Test]

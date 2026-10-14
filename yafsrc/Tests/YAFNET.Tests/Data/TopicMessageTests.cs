@@ -75,28 +75,28 @@ public class TopicMessageTests
     [Description("A new topic gets its first message at position 0 and all counters are updated")]
     public async Task SaveNewTopic_Test()
     {
-        var startPoints = this.Users.GetById(this.alice).Points;
+        var startPoints = (await this.Users.GetByIdAsync(this.alice)).Points;
 
         var (topic, message) = await this.PostTopicAsync("Hello World", "first post");
 
         message.Position.Should().Be(0);
         message.UserDisplayName.Should().Be("Alice");
 
-        var savedTopic = this.Topics.GetById(topic.ID);
+        var savedTopic = await this.Topics.GetByIdAsync(topic.ID);
         savedTopic.TopicName.Should().Be("Hello World");
         savedTopic.NumPosts.Should().Be(1);
         savedTopic.LastMessageID.Should().Be(message.ID);
         savedTopic.LastUserID.Should().Be(this.alice);
 
-        var forum = this.Forums.GetById(this.forumId);
+        var forum = await this.Forums.GetByIdAsync(this.forumId);
         forum.LastMessageID.Should().Be(message.ID);
         forum.LastTopicID.Should().Be(topic.ID);
 
-        var user = this.Users.GetById(this.alice);
+        var user = await this.Users.GetByIdAsync(this.alice);
         user.NumPosts.Should().Be(1);
         user.Points.Should().Be(startPoints + 3);
 
-        this.Messages.GetById(message.ID).MessageFlags.IsApproved.Should().BeTrue();
+        (await this.Messages.GetByIdAsync(message.ID)).MessageFlags.IsApproved.Should().BeTrue();
         this.board.Search.Indexed.Should().ContainKey(message.ID).WhoseValue.Topic.Should().Be("Hello World");
         this.board.Events.OfType<UpdateForumStatsEvent>().Should().NotBeEmpty();
     }
@@ -107,17 +107,17 @@ public class TopicMessageTests
     {
         var (topic, message) = await this.PostTopicAsync("Moderated", "needs approval", approved: false);
 
-        this.Messages.GetById(message.ID).MessageFlags.IsApproved.Should().BeFalse();
-        this.Users.GetById(this.alice).NumPosts.Should().Be(0);
-        this.Topics.GetById(topic.ID).LastMessageID.Should().BeNull();
+        (await this.Messages.GetByIdAsync(message.ID)).MessageFlags.IsApproved.Should().BeFalse();
+        (await this.Users.GetByIdAsync(this.alice)).NumPosts.Should().Be(0);
+        (await this.Topics.GetByIdAsync(topic.ID)).LastMessageID.Should().BeNull();
 
         await this.Messages.ApproveAsync(message.ID, this.forumId);
 
-        this.Messages.GetById(message.ID).MessageFlags.IsApproved.Should().BeTrue();
+        (await this.Messages.GetByIdAsync(message.ID)).MessageFlags.IsApproved.Should().BeTrue();
         new MessageFlags(this.board.Search.Indexed[message.ID].Flags).IsApproved.Should()
             .BeTrue("the search index gets the approved flags, so the post can be found by everybody");
-        this.Users.GetById(this.alice).NumPosts.Should().Be(1);
-        this.Topics.GetById(topic.ID).LastMessageID.Should().Be(message.ID);
+        (await this.Users.GetByIdAsync(this.alice)).NumPosts.Should().Be(1);
+        (await this.Topics.GetByIdAsync(topic.ID)).LastMessageID.Should().Be(message.ID);
     }
 
     [Test]
@@ -132,7 +132,7 @@ public class TopicMessageTests
         reply.Position.Should().Be(1);
         reply.ReplyTo.Should().Be(first.ID);
 
-        var savedTopic = this.Topics.GetById(topic.ID);
+        var savedTopic = await this.Topics.GetByIdAsync(topic.ID);
         savedTopic.NumPosts.Should().Be(2);
         savedTopic.LastMessageID.Should().Be(reply.ID);
         savedTopic.LastUserID.Should().Be(this.bob);
@@ -146,14 +146,14 @@ public class TopicMessageTests
     public async Task Guest_Post_Test()
     {
         var guest = this.db.AddUser("Guest");
-        var startPoints = this.Users.GetById(guest).Points;
+        var startPoints = (await this.Users.GetByIdAsync(guest)).Points;
         this.LoginAs(guest);
         this.board.User.IsGuest = true;
 
         var (_, message) = await this.PostTopicAsync("From a guest", "hi", userName: "Visitor");
 
         message.UserDisplayName.Should().Be("Visitor");
-        this.Users.GetById(guest).Points.Should().Be(startPoints);
+        (await this.Users.GetByIdAsync(guest)).Points.Should().Be(startPoints);
     }
 
     [Test]
@@ -164,7 +164,7 @@ public class TopicMessageTests
 
         await this.PostTopicAsync("Test", "doesn't count");
 
-        this.Users.GetById(this.alice).NumPosts.Should().Be(0);
+        (await this.Users.GetByIdAsync(this.alice)).NumPosts.Should().Be(0);
     }
 
     [Test]
@@ -176,14 +176,14 @@ public class TopicMessageTests
 
         await this.DeleteAsync(topic, reply, erase: false);
 
-        this.Messages.GetById(reply.ID).MessageFlags.IsDeleted.Should().BeTrue();
-        this.Messages.GetById(reply.ID).DeleteReason.Should().Be("test");
-        this.Users.GetById(this.alice).NumPosts.Should().Be(1);
-        this.Topics.GetById(topic.ID).NumPosts.Should().Be(1);
+        (await this.Messages.GetByIdAsync(reply.ID)).MessageFlags.IsDeleted.Should().BeTrue();
+        (await this.Messages.GetByIdAsync(reply.ID)).DeleteReason.Should().Be("test");
+        (await this.Users.GetByIdAsync(this.alice)).NumPosts.Should().Be(1);
+        (await this.Topics.GetByIdAsync(topic.ID)).NumPosts.Should().Be(1);
         this.board.Search.DeletedMessageIds.Should().Equal(reply.ID);
 
         // the deleted post was the last one, the last post columns are cleared for the UpdateTopicLastPostEvent handler
-        this.Topics.GetById(topic.ID).LastMessageID.Should().BeNull();
+        (await this.Topics.GetByIdAsync(topic.ID)).LastMessageID.Should().BeNull();
         this.board.Events.OfType<UpdateTopicLastPostEvent>().Should().ContainSingle();
 
         this.Messages.LastPosts(topic.ID).Select(p => p.Item1.ID).Should().Equal(first.ID);
@@ -197,15 +197,15 @@ public class TopicMessageTests
         var reply = await this.ReplyAsync(topic, "second");
 
         await this.DeleteAsync(topic, reply, erase: false);
-        this.Users.GetById(this.alice).NumPosts.Should().Be(1);
+        (await this.Users.GetByIdAsync(this.alice)).NumPosts.Should().Be(1);
 
-        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(reply.ID));
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(reply.ID));
 
-        var restored = this.Messages.GetById(reply.ID);
+        var restored = await this.Messages.GetByIdAsync(reply.ID);
         restored.MessageFlags.IsDeleted.Should().BeFalse();
         restored.DeleteReason.Should().BeNull();
-        this.Topics.GetById(topic.ID).NumPosts.Should().Be(2);
-        this.Users.GetById(this.alice).NumPosts.Should().Be(2);
+        (await this.Topics.GetByIdAsync(topic.ID)).NumPosts.Should().Be(2);
+        (await this.Users.GetByIdAsync(this.alice)).NumPosts.Should().Be(2);
 
         // the deleted post was removed from the search index, the restored post is found again
         new MessageFlags(this.board.Search.Indexed[reply.ID].Flags).IsDeleted.Should().BeFalse();
@@ -222,9 +222,9 @@ public class TopicMessageTests
 
         await this.DeleteAsync(topic, second, erase: true);
 
-        this.Messages.GetById(second.ID).Should().BeNull();
-        this.Messages.GetById(third.ID).Position.Should().Be(1);
-        this.Topics.GetById(topic.ID).Should().NotBeNull();
+        (await this.Messages.GetByIdAsync(second.ID)).Should().BeNull();
+        (await this.Messages.GetByIdAsync(third.ID)).Position.Should().Be(1);
+        (await this.Topics.GetByIdAsync(topic.ID)).Should().NotBeNull();
     }
 
     [Test]
@@ -235,8 +235,8 @@ public class TopicMessageTests
 
         await this.DeleteAsync(topic, message, erase: true);
 
-        this.Topics.GetById(topic.ID).Should().BeNull();
-        this.Messages.Count(m => m.TopicID == topic.ID).Should().Be(0);
+        (await this.Topics.GetByIdAsync(topic.ID)).Should().BeNull();
+        (await this.Messages.CountAsync(m => m.TopicID == topic.ID)).Should().Be(0);
     }
 
     [Test]
@@ -248,12 +248,12 @@ public class TopicMessageTests
         var replyToReply = await this.ReplyAsync(topic, "reply to reply", replyTo: reply.ID);
         var unrelated = await this.ReplyAsync(topic, "unrelated");
 
-        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(reply.ID), false, "test", true, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(reply.ID), false, "test", true, false);
 
-        this.Messages.GetById(reply.ID).MessageFlags.IsDeleted.Should().BeTrue();
-        this.Messages.GetById(replyToReply.ID).MessageFlags.IsDeleted.Should().BeTrue();
-        this.Messages.GetById(unrelated.ID).MessageFlags.IsDeleted.Should().BeFalse();
-        this.Messages.GetById(first.ID).MessageFlags.IsDeleted.Should().BeFalse();
+        (await this.Messages.GetByIdAsync(reply.ID)).MessageFlags.IsDeleted.Should().BeTrue();
+        (await this.Messages.GetByIdAsync(replyToReply.ID)).MessageFlags.IsDeleted.Should().BeTrue();
+        (await this.Messages.GetByIdAsync(unrelated.ID)).MessageFlags.IsDeleted.Should().BeFalse();
+        (await this.Messages.GetByIdAsync(first.ID)).MessageFlags.IsDeleted.Should().BeFalse();
     }
 
     [Test]
@@ -264,10 +264,10 @@ public class TopicMessageTests
         var post = await this.ReplyAsync(topic, "own post");
         var quote = await this.ReplyAsync(topic, "quote of the post", replyTo: post.ID);
 
-        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID), false, "test", false, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(post.ID), false, "test", false, false);
 
-        this.Messages.GetById(post.ID).MessageFlags.IsDeleted.Should().BeTrue();
-        this.Messages.GetById(quote.ID).MessageFlags.IsDeleted.Should().BeFalse();
+        (await this.Messages.GetByIdAsync(post.ID)).MessageFlags.IsDeleted.Should().BeTrue();
+        (await this.Messages.GetByIdAsync(quote.ID)).MessageFlags.IsDeleted.Should().BeFalse();
     }
 
     [Test]
@@ -279,16 +279,16 @@ public class TopicMessageTests
         var quote = await this.ReplyAsync(topic, "spam quote", replyTo: post.ID);
 
         // a moderator deleted the quote, the author later deletes the post
-        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, "spam", false, false);
-        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID), false, "test", false, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(quote.ID), true, "spam", false, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(post.ID), false, "test", false, false);
 
-        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID), restoreLinked: false);
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(post.ID), restoreLinked: false);
 
-        this.Messages.GetById(post.ID).MessageFlags.IsDeleted.Should().BeFalse();
-        this.Messages.GetById(quote.ID).MessageFlags.IsDeleted.Should().BeTrue("the moderator's delete stays");
+        (await this.Messages.GetByIdAsync(post.ID)).MessageFlags.IsDeleted.Should().BeFalse();
+        (await this.Messages.GetByIdAsync(quote.ID)).MessageFlags.IsDeleted.Should().BeTrue("the moderator's delete stays");
 
-        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID));
-        this.Messages.GetById(quote.ID).MessageFlags.IsDeleted.Should().BeFalse("by default the replies are restored too");
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(post.ID));
+        (await this.Messages.GetByIdAsync(quote.ID)).MessageFlags.IsDeleted.Should().BeFalse("by default the replies are restored too");
     }
 
     [Test]
@@ -299,31 +299,31 @@ public class TopicMessageTests
         var post = await this.ReplyAsync(topic, "own post");
         var quote = await this.ReplyAsync(topic, "quote", replyTo: post.ID);
 
-        this.Topics.GetById(topic.ID).NumPosts.Should().Be(3);
+        (await this.Topics.GetByIdAsync(topic.ID)).NumPosts.Should().Be(3);
 
         // the delete form sent twice
-        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, "spam", false, false);
-        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, "spam", false, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(quote.ID), true, "spam", false, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(quote.ID), true, "spam", false, false);
 
-        this.Topics.GetById(topic.ID).NumPosts.Should().Be(2);
+        (await this.Topics.GetByIdAsync(topic.ID)).NumPosts.Should().Be(2);
 
         // the post with its replies, the deleted quote is not counted again
-        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID), true, "test", true, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(post.ID), true, "test", true, false);
 
-        this.Topics.GetById(topic.ID).NumPosts.Should().Be(1);
+        (await this.Topics.GetByIdAsync(topic.ID)).NumPosts.Should().Be(1);
 
         // the post with its replies, then again (nothing is deleted anymore)
-        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID));
-        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(post.ID));
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(post.ID));
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(post.ID));
 
-        this.Topics.GetById(topic.ID).NumPosts.Should().Be(3);
+        (await this.Topics.GetByIdAsync(topic.ID)).NumPosts.Should().Be(3);
 
         // a deleted post erased later (Admin > Restore)
-        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, "spam", false, false);
-        await this.Messages.DeleteAsync(this.forumId, topic.ID, this.Messages.GetById(quote.ID), true, string.Empty, true, true);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(quote.ID), true, "spam", false, false);
+        await this.Messages.DeleteAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(quote.ID), true, string.Empty, true, true);
 
-        this.Messages.GetById(quote.ID).Should().BeNull();
-        this.Topics.GetById(topic.ID).NumPosts.Should().Be(2);
+        (await this.Messages.GetByIdAsync(quote.ID)).Should().BeNull();
+        (await this.Topics.GetByIdAsync(topic.ID)).NumPosts.Should().Be(2);
     }
 
     [Test]
@@ -334,13 +334,13 @@ public class TopicMessageTests
         await this.ReplyAsync(topic, "second", replyTo: first.ID);
         await this.ReplyAsync(topic, "third", replyTo: first.ID);
 
-        this.Topics.GetById(topic.ID).NumPosts.Should().Be(3);
+        (await this.Topics.GetByIdAsync(topic.ID)).NumPosts.Should().Be(3);
 
         await this.Topics.DeleteAsync(this.forumId, topic.ID, false);
 
-        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(first.ID));
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(first.ID));
 
-        this.Topics.GetById(topic.ID).NumPosts.Should().Be(3);
+        (await this.Topics.GetByIdAsync(topic.ID)).NumPosts.Should().Be(3);
     }
 
     [Test]
@@ -360,11 +360,11 @@ public class TopicMessageTests
 
         await this.DeleteAsync(topic, reply, erase: false);
 
-        this.Users.GetById(this.alice).NumPosts.Should().Be(1);
+        (await this.Users.GetByIdAsync(this.alice)).NumPosts.Should().Be(1);
 
-        await this.Messages.RestoreAsync(this.forumId, topic.ID, this.Messages.GetById(reply.ID));
+        await this.Messages.RestoreAsync(this.forumId, topic.ID, await this.Messages.GetByIdAsync(reply.ID));
 
-        this.Users.GetById(this.alice).NumPosts.Should().Be(2);
+        (await this.Users.GetByIdAsync(this.alice)).NumPosts.Should().Be(2);
     }
 
     [Test]
@@ -376,11 +376,11 @@ public class TopicMessageTests
 
         await this.Topics.DeleteAsync(this.forumId, topic.ID);
 
-        this.Topics.GetById(topic.ID).TopicFlags.IsDeleted.Should().BeTrue();
-        this.Messages.Get(m => m.TopicID == topic.ID).Should().HaveCount(2)
+        (await this.Topics.GetByIdAsync(topic.ID)).TopicFlags.IsDeleted.Should().BeTrue();
+        (await this.Messages.GetAsync(m => m.TopicID == topic.ID)).Should().HaveCount(2)
             .And.OnlyContain(m => m.MessageFlags.IsDeleted);
         this.board.Search.DeletedTopicIds.Should().Equal(topic.ID);
-        this.Forums.GetById(this.forumId).LastTopicID.Should().BeNull();
+        (await this.Forums.GetByIdAsync(this.forumId)).LastTopicID.Should().BeNull();
     }
 
     [Test]
@@ -394,9 +394,9 @@ public class TopicMessageTests
 
         await this.Topics.DeleteAsync(this.forumId, topic.ID, true);
 
-        this.Topics.GetById(topic.ID).Should().BeNull();
-        this.Messages.Count(m => m.TopicID == topic.ID).Should().Be(0);
-        this.Messages.Count(m => m.TopicID == otherTopic).Should().Be(1);
+        (await this.Topics.GetByIdAsync(topic.ID)).Should().BeNull();
+        (await this.Messages.CountAsync(m => m.TopicID == topic.ID)).Should().Be(0);
+        (await this.Messages.CountAsync(m => m.TopicID == otherTopic)).Should().Be(1);
     }
 
     [Test]
@@ -432,7 +432,7 @@ public class TopicMessageTests
         var (topic, message) = await this.PostTopicAsync("How do I install YAF?", "question");
 
         this.Topics.Lock(topic.ID, new TopicFlags { IsLocked = true }.BitValue);
-        this.Topics.GetById(topic.ID).TopicFlags.IsLocked.Should().BeTrue();
+        (await this.Topics.GetByIdAsync(topic.ID)).TopicFlags.IsLocked.Should().BeTrue();
 
         await this.Topics.SetAnswerMessageAsync(topic.ID, message.ID);
         this.Topics.GetAnswerMessage(topic.ID).Should().Be(message.ID);
@@ -486,11 +486,11 @@ public class TopicMessageTests
             posted: now.AddMinutes(-1),
             configure: m => m.Flags = new MessageFlags { IsApproved = true, IsDeleted = true }.BitValue);
 
-        this.Topics.GetById(topic).LastMessageID.Should().Be(newer);
+        (await this.Topics.GetByIdAsync(topic)).LastMessageID.Should().Be(newer);
 
         await this.Topics.UpdateLastPostAsync(topic);
 
-        this.Topics.GetById(topic).LastMessageID.Should().Be(older);
+        (await this.Topics.GetByIdAsync(topic)).LastMessageID.Should().Be(older);
     }
 
     [Test]

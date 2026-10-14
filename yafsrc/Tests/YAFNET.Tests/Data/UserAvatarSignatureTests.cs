@@ -103,7 +103,7 @@ public class UserAvatarSignatureTests
         await this.Users.DeleteAvatarAsync(this.alice);
 
         File.Exists(file).Should().BeFalse();
-        var user = this.Users.GetById(this.alice);
+        var user = await this.Users.GetByIdAsync(this.alice);
         user.Avatar.Should().BeNull();
         user.AvatarImage.Should().BeNull();
     }
@@ -122,7 +122,7 @@ public class UserAvatarSignatureTests
         await this.Users.DeleteAvatarAsync(this.alice);
 
         File.Exists(file).Should().BeTrue($"the avatar {avatar} must not delete {protectedFile}");
-        this.Users.GetById(this.alice).Avatar.Should().BeNull("the avatar is cleared anyway");
+        (await this.Users.GetByIdAsync(this.alice)).Avatar.Should().BeNull("the avatar is cleared anyway");
     }
 
     [Test]
@@ -136,10 +136,10 @@ public class UserAvatarSignatureTests
             r.UsrSigChars = 100;
             r.UsrSigBBCodes = "B";
         });
-        this.Users.UpdateOnly(() => new User { RankID = rank }, u => u.ID == this.alice);
+        await this.Users.UpdateOnlyAsync(() => new User { RankID = rank }, u => u.ID == this.alice);
 
         var group = this.db.AddForumAccess(this.alice, this.db.AddForum());
-        this.board.Current.GetRepository<Group>().UpdateOnly(
+        await this.board.Current.GetRepository<Group>().UpdateOnlyAsync(
             () => new Group { UsrAlbums = 5, UsrAlbumImages = 3, UsrSigChars = 50, UsrSigBBCodes = "B,I,URL" },
             g => g.ID == group);
 
@@ -152,7 +152,7 @@ public class UserAvatarSignatureTests
         ((string)signature.UsrSigBBCodes).Should().Be("B,I,URL");
 
         // the groups allow no bb codes, the codes of the rank are used
-        this.board.Current.GetRepository<Group>().UpdateOnly(
+        await this.board.Current.GetRepository<Group>().UpdateOnlyAsync(
             () => new Group { UsrSigBBCodes = null },
             g => g.ID == group);
 

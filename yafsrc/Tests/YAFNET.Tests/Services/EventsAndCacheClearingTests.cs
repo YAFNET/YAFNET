@@ -169,7 +169,7 @@ public class EventsAndCacheClearingTests
         var group = this.db.AddForumAccess(this.alice, this.forum);
         this.board.RefreshActiveAccess(this.alice);
 
-        var readOnly = this.board.Current.GetRepository<AccessMask>().Insert(
+        var readOnly = await this.board.Current.GetRepository<AccessMask>().InsertAsync(
             new AccessMask { BoardID = TestDatabase.BoardId, Name = "Read only", Flags = (int)AccessFlags.Flags.ReadAccess, SortOrder = 1 });
         this.board.RefreshActiveAccess(this.alice);
 

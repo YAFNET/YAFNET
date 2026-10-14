@@ -101,7 +101,7 @@ public class SubscriptionTagsAndTopicTaskTests
         (await controller.SubscribeDevice(this.Subscription(userId: 999))).Should().BeOfType<OkResult>();
         (await controller.SubscribeDevice(this.Subscription())).Should().BeOfType<OkResult>();
 
-        var stored = this.Subscriptions.Get(_ => true).Single();
+        var stored = (await this.Subscriptions.GetAsync(_ => true)).Single();
         stored.UserID.Should().Be(this.alice, "the user is taken from the request, not the body");
         stored.BoardID.Should().Be(TestDatabase.BoardId);
         stored.Device.Should().Be("Mozilla/* (Windows NT *) Chrome/*");
@@ -110,7 +110,7 @@ public class SubscriptionTagsAndTopicTaskTests
         (await this.Subscriptions.GetSubscriptionsByUserAsync(this.alice)).Should().ContainSingle();
 
         (await controller.UnSubscribeDevice(this.Subscription())).Should().BeOfType<OkResult>();
-        this.Subscriptions.Count(_ => true).Should().Be(0);
+        (await this.Subscriptions.CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -131,7 +131,7 @@ public class SubscriptionTagsAndTopicTaskTests
         this.board.User.IsGuest = true;
         (await controller.SubscribeDevice(this.Subscription())).Should().BeOfType<BadRequestResult>();
 
-        this.Subscriptions.Count(_ => true).Should().Be(0);
+        (await this.Subscriptions.CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -142,10 +142,10 @@ public class SubscriptionTagsAndTopicTaskTests
         var controller = this.board.CreateController<SubscriptionController>();
 
         await controller.SubscribeDevice(this.Subscription());
-        this.Subscriptions.Count(_ => true).Should().Be(1);
+        (await this.Subscriptions.CountAsync(_ => true)).Should().Be(1);
 
         await controller.UnSubscribeDevice(this.Subscription());
-        this.Subscriptions.Count(_ => true).Should().Be(0);
+        (await this.Subscriptions.CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -157,12 +157,12 @@ public class SubscriptionTagsAndTopicTaskTests
 
         (await controller.SubscribeDevice(this.Subscription())).Should().BeOfType<OkResult>();
 
-        var stored = this.Subscriptions.Get(_ => true).Single();
+        var stored = (await this.Subscriptions.GetAsync(_ => true)).Single();
         stored.Device.Length.Should().BeLessThanOrEqualTo(255);
         stored.UserAgent.Length.Should().BeLessThanOrEqualTo(255);
 
         (await controller.UnSubscribeDevice(this.Subscription())).Should().BeOfType<OkResult>();
-        this.Subscriptions.Count(_ => true).Should().Be(0);
+        (await this.Subscriptions.CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -176,7 +176,7 @@ public class SubscriptionTagsAndTopicTaskTests
         (await controller.SubscribeDevice(this.Subscription())).Should().BeOfType<BadRequestResult>();
         (await controller.UnSubscribeDevice(this.Subscription())).Should().BeOfType<BadRequestResult>();
 
-        this.Subscriptions.Count(_ => true).Should().Be(0);
+        (await this.Subscriptions.CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -187,11 +187,11 @@ public class SubscriptionTagsAndTopicTaskTests
 
         for (var i = 1; i <= 25; i++)
         {
-            tags.Insert(new Tag { BoardID = TestDatabase.BoardId, TagName = $"tag{i:00}" });
+            await tags.InsertAsync(new Tag { BoardID = TestDatabase.BoardId, TagName = $"tag{i:00}" });
         }
 
-        tags.Insert(new Tag { BoardID = TestDatabase.BoardId, TagName = "CSharp" });
-        tags.Insert(new Tag { BoardID = 2, TagName = "csharp-other-board" });
+        await tags.InsertAsync(new Tag { BoardID = TestDatabase.BoardId, TagName = "CSharp" });
+        await tags.InsertAsync(new Tag { BoardID = 2, TagName = "csharp-other-board" });
 
         var controller = this.board.CreateController<TagsController>();
 
@@ -234,8 +234,8 @@ public class SubscriptionTagsAndTopicTaskTests
 
         await task.RunOnceAsync();
 
-        this.Topics.GetById(old).Should().BeNull();
-        this.Topics.GetById(recent).Should().NotBeNull();
+        (await this.Topics.GetByIdAsync(old)).Should().BeNull();
+        (await this.Topics.GetByIdAsync(recent)).Should().NotBeNull();
 
         PruneTopicTask.Start(TestDatabase.BoardId, this.forum, 30, false).Should().BeTrue();
         this.tasks.Received(1).StartTask(nameof(PruneTopicTask), Arg.Any<Func<IBackgroundTask>>());
@@ -267,9 +267,9 @@ public class SubscriptionTagsAndTopicTaskTests
 
         await task.RunOnceAsync();
 
-        this.Topics.GetById(expired).Should().BeNull();
-        this.Topics.GetById(active).Should().NotBeNull();
-        this.Topics.GetById(target).Should().NotBeNull();
+        (await this.Topics.GetByIdAsync(expired)).Should().BeNull();
+        (await this.Topics.GetByIdAsync(active)).Should().NotBeNull();
+        (await this.Topics.GetByIdAsync(target)).Should().NotBeNull();
     }
 
     private IRepository<DeviceSubscription> Subscriptions => this.board.Current.GetRepository<DeviceSubscription>();

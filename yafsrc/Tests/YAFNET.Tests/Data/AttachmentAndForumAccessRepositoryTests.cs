@@ -146,7 +146,7 @@ public class AttachmentAndForumAccessRepositoryTests
         await this.Attachments.IncrementDownloadCounterAsync(first);
         await this.Attachments.IncrementDownloadCounterAsync(first);
 
-        this.Attachments.GetById(first).Downloads.Should().Be(2);
+        (await this.Attachments.GetByIdAsync(first)).Downloads.Should().Be(2);
         this.Attachments.GetMessageAttachments().Select(m => m.ID).Distinct().Should().Equal(withFiles);
     }
 
@@ -176,7 +176,7 @@ public class AttachmentAndForumAccessRepositoryTests
 
         var group = this.db.AddForumAccess(this.alice, first);
         var forumAccess = this.board.Current.GetRepository<ForumAccess>();
-        var mask = forumAccess.GetSingle(a => a.GroupID == group).AccessMaskID;
+        var mask = (await forumAccess.GetSingleAsync(a => a.GroupID == group)).AccessMaskID;
         forumAccess.Create(second, group, mask);
 
         var list = forumAccess.ListByGroups(group);
@@ -185,8 +185,8 @@ public class AttachmentAndForumAccessRepositoryTests
         list.Select(l => l.ForumID).Should().Equal(first, second);
         list.Should().OnlyContain(l => l.AccessMaskID == mask);
 
-        var otherMask = this.board.Current.GetRepository<AccessMask>()
-            .Insert(new AccessMask { BoardID = TestDatabase.BoardId, Name = "Read only", Flags = 1 }, true);
+        var otherMask = await this.board.Current.GetRepository<AccessMask>()
+            .InsertAsync(new AccessMask { BoardID = TestDatabase.BoardId, Name = "Read only", Flags = 1 }, true);
 
         await forumAccess.SaveAsync(second, group, (int)otherMask);
 

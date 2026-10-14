@@ -155,7 +155,7 @@ public class AlbumServiceTests
         var albumId = this.AddAlbum(this.alice);
         var image = this.AddImage(albumId, "a.png", withFile: true, userId: this.alice);
         var kept = this.AddImage(albumId, "b.png");
-        this.board.Current.GetRepository<UserAlbum>().UpdateOnly(() => new UserAlbum { CoverImageID = image }, a => a.ID == albumId);
+        await this.board.Current.GetRepository<UserAlbum>().UpdateOnlyAsync(() => new UserAlbum { CoverImageID = image }, a => a.ID == albumId);
 
         await this.album.AlbumImageDeleteAsync(this.uploads, image, this.alice);
 

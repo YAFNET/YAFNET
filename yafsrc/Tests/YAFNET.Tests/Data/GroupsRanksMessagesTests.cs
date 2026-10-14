@@ -82,14 +82,14 @@ public class GroupsRanksMessagesTests
         await ranks.SaveAsync(null, TestDatabase.BoardId, "Ladder", new RankFlags { IsLadder = true }, null, null, 2, "d", 100, "b", 1, 2);
         await ranks.SaveAsync(null, TestDatabase.BoardId, "Fixed", new RankFlags(), 50, "color: red", 3, "d", 100, "b", 1, 2);
 
-        ranks.GetSingle(r => r.Name == "Ladder").MinPosts.Should().Be(0, "a ladder rank without MinPosts starts at 0");
-        ranks.GetSingle(r => r.Name == "Fixed").MinPosts.Should().BeNull("only ladder ranks use MinPosts");
+        (await ranks.GetSingleAsync(r => r.Name == "Ladder")).MinPosts.Should().Be(0, "a ladder rank without MinPosts starts at 0");
+        (await ranks.GetSingleAsync(r => r.Name == "Fixed")).MinPosts.Should().BeNull("only ladder ranks use MinPosts");
         this.board.Events.OfType<UpdateUserStylesEvent>().Should().ContainSingle("only the styled rank refreshes styles");
 
-        var id = ranks.GetSingle(r => r.Name == "Ladder").ID;
+        var id = (await ranks.GetSingleAsync(r => r.Name == "Ladder")).ID;
         await ranks.SaveAsync(id, TestDatabase.BoardId, "Ladder 2", new RankFlags { IsLadder = true }, 25, null, 2, "d", 200, "b", 1, 2);
 
-        var updated = ranks.GetById(id);
+        var updated = await ranks.GetByIdAsync(id);
         updated.Name.Should().Be("Ladder 2");
         updated.MinPosts.Should().Be(25);
         updated.UsrSigChars.Should().Be(200);
@@ -100,7 +100,7 @@ public class GroupsRanksMessagesTests
     public async Task Rank_User_Lookups_Test()
     {
         var styled = this.db.AddRank("Styled", configure: r => r.Style = "color: blue");
-        this.Users.UpdateOnly(() => new User { RankID = styled }, u => u.ID == this.bob);
+        await this.Users.UpdateOnlyAsync(() => new User { RankID = styled }, u => u.ID == this.bob);
 
         var (user, rank) = await this.Repository<Rank>().GetUserAndRankAsync(this.bob);
         user.ID.Should().Be(this.bob);
@@ -121,13 +121,13 @@ public class GroupsRanksMessagesTests
         var groupId = await this.Repository<Group>().SaveAsync(
             null, TestDatabase.BoardId, "Readers", new GroupFlags(), maskId, null, 5, "desc", 0, null, 0, 0);
 
-        this.Repository<ForumAccess>().Get(a => a.GroupID == groupId).Select(a => (a.ForumID, a.AccessMaskID))
+        (await this.Repository<ForumAccess>().GetAsync(a => a.GroupID == groupId)).Select(a => (a.ForumID, a.AccessMaskID))
             .Should().BeEquivalentTo([(forumA, maskId), (forumB, maskId)]);
 
         await this.Repository<Group>().SaveAsync(
             groupId, TestDatabase.BoardId, "Readers", new GroupFlags { IsModerator = true }, maskId, "color: green", 5, "desc", 0, null, 0, 0);
 
-        this.Repository<Group>().GetById(groupId).GroupFlags.IsModerator.Should().BeTrue();
+        (await this.Repository<Group>().GetByIdAsync(groupId)).GroupFlags.IsModerator.Should().BeTrue();
         this.board.Events.OfType<UpdateUserStylesEvent>().Should().ContainSingle();
 
         this.Repository<Group>().List(groupId, TestDatabase.BoardId).Single().Style.Should().Be("color: green");
@@ -210,8 +210,8 @@ public class GroupsRanksMessagesTests
         var forum = this.db.AddForum();
         var low = this.db.AddForumAccess(this.alice, forum);
         var high = this.db.AddForumAccess(this.alice, forum);
-        this.Repository<Group>().UpdateOnly(() => new Group { Style = "color: red", SortOrder = 1 }, g => g.ID == low);
-        this.Repository<Group>().UpdateOnly(() => new Group { Style = "color: blue", SortOrder = 9 }, g => g.ID == high);
+        await this.Repository<Group>().UpdateOnlyAsync(() => new Group { Style = "color: red", SortOrder = 1 }, g => g.ID == low);
+        await this.Repository<Group>().UpdateOnlyAsync(() => new Group { Style = "color: blue", SortOrder = 9 }, g => g.ID == high);
 
         (await this.Repository<UserGroup>().GetGroupStyleForUserAsync(this.alice)).Should().Be("color: red");
         (await this.Repository<UserGroup>().GetGroupStyleForUserAsync(this.bob)).Should().BeNull();
@@ -229,9 +229,9 @@ public class GroupsRanksMessagesTests
         var conversation = await this.Messages.GetConversationAsync(this.alice, this.bob);
 
         conversation.Select(m => m.ID).Should().Equal(m1, m2, m3);
-        this.Messages.Get(m => m.ToUserId == this.alice && m.FromUserId == this.bob)
+        (await this.Messages.GetAsync(m => m.ToUserId == this.alice && m.FromUserId == this.bob))
             .Should().OnlyContain(m => (m.Flags & 1) == 1, "received messages are now read");
-        this.Messages.GetById(m2).Flags.Should().Be(0, "sent messages are untouched");
+        (await this.Messages.GetByIdAsync(m2)).Flags.Should().Be(0, "sent messages are untouched");
         this.board.Events.OfType<UpdateUserEvent>().Should().NotBeEmpty();
     }
 
@@ -249,7 +249,7 @@ public class GroupsRanksMessagesTests
 
         await this.Messages.DeleteConversationAsync(this.bob, this.alice);
 
-        this.Messages.Count(m => true).Should().Be(0);
+        (await this.Messages.CountAsync(m => true)).Should().Be(0);
     }
 
     [Test]
@@ -285,11 +285,11 @@ public class GroupsRanksMessagesTests
 
         (await this.Messages.PruneAllAsync(TestDatabase.BoardId, 30)).Should().Be(1);
 
-        this.Messages.GetAll().Select(m => m.ID).Should().BeEquivalentTo([recent, otherBoard]);
+        (await this.Messages.GetAllAsync()).Select(m => m.ID).Should().BeEquivalentTo([recent, otherBoard]);
 
         // 0 days (or less) would delete everything, at least one day is kept
         (await this.Messages.PruneAllAsync(TestDatabase.BoardId, 0)).Should().Be(0);
-        this.Messages.GetAll().Select(m => m.ID).Should().Contain(recent);
+        (await this.Messages.GetAllAsync()).Select(m => m.ID).Should().Contain(recent);
     }
 
     private IRepository<User> Users => this.board.Current.GetRepository<User>();

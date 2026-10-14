@@ -367,7 +367,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
             }
         }
 
-        TestContext.Progress.WriteLine($"[crawl] {role}: {visited.Count} pages, {failures.Count} failures");
+        await TestContext.Progress.WriteLineAsync($"[crawl] {role}: {visited.Count} pages, {failures.Count} failures");
 
         // the kinds of pages that were reached (to see what the crawl covers)
         var kinds = visited.Select(url => new Uri(url).AbsolutePath.Trim('/'))
@@ -376,7 +376,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                                 : path.Split('/')[0])
             .Distinct(StringComparer.OrdinalIgnoreCase).Order();
 
-        TestContext.Progress.WriteLine($"[crawl] {role} pages: {string.Join(", ", kinds)}");
+        await TestContext.Progress.WriteLineAsync($"[crawl] {role} pages: {string.Join(", ", kinds)}");
 
         this.lastVisited.Clear();
         this.lastVisited.AddRange(visited);
@@ -452,7 +452,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
             }
         }
 
-        TestContext.Progress.WriteLine($"[invalid ids] {role}: {shapes.Count} kinds of pages, {checkedUrls} addresses, {failures.Count} failures");
+        await TestContext.Progress.WriteLineAsync($"[invalid ids] {role}: {shapes.Count} kinds of pages, {checkedUrls} addresses, {failures.Count} failures");
 
         return failures;
     }

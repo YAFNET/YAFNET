@@ -107,13 +107,13 @@ public class DisplayNameCleanUpAndCacheTests
 
         await task.RunOnceAsync();
 
-        var lifted = users.GetById(expired);
+        var lifted = await users.GetByIdAsync(expired);
         lifted.Suspended.Should().BeNull();
         lifted.SuspendedReason.Should().BeNull();
         lifted.SuspendedBy.Should().Be(0);
 
-        users.GetById(running).Suspended.Should().NotBeNull();
-        users.GetById(normal).Suspended.Should().BeNull();
+        (await users.GetByIdAsync(running)).Suspended.Should().NotBeNull();
+        (await users.GetByIdAsync(normal)).Suspended.Should().BeNull();
     }
 
     [Test]

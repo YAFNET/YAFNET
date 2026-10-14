@@ -116,7 +116,7 @@ public class DataImporterTests
             ]);
 
         count.Should().Be(1);
-        this.board.Current.GetRepository<BannedIP>().GetSingle(_ => true).Reason.Should().Contain("100");
+        (await this.board.Current.GetRepository<BannedIP>().GetSingleAsync(_ => true)).Reason.Should().Contain("100");
     }
 
     [Test]
@@ -161,7 +161,7 @@ public class DataImporterTests
 
         (await this.importer.BBCodeExtensionImportAsync(Board, Text(Xml))).Should().Be(1);
 
-        var codes = this.board.Current.GetRepository<BBCode>().Get(_ => true);
+        var codes = await this.board.Current.GetRepository<BBCode>().GetAsync(_ => true);
         codes.Single(c => c.Name == "OLD").Description.Should().Be("updated");
         codes.Single(c => c.Name == "NEW").ExecOrder.Should().Be(3);
 

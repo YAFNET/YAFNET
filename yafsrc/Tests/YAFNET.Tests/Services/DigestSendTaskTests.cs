@@ -158,8 +158,8 @@ public class DigestSendTaskTests
         this.mail.Sent.Select(m => m.Subject).Should().Equal("digest for Alice");
 
         // the digest of the second board stays due for its own application
-        this.board.Current.GetRepository<Registry>()
-            .Count(r => r.BoardID == SecondBoard && r.Name == "lastdigestsend").Should().Be(0);
+        (await this.board.Current.GetRepository<Registry>()
+            .CountAsync(r => r.BoardID == SecondBoard && r.Name == "lastdigestsend")).Should().Be(0);
     }
 
     private void EnableDigest()

@@ -94,9 +94,9 @@ public class TopicMaintenanceTests
 
         await this.Topics.MoveAsync(topic, this.forum, target, true, 7);
 
-        this.Topics.GetById(topic).ForumID.Should().Be(target);
+        (await this.Topics.GetByIdAsync(topic)).ForumID.Should().Be(target);
 
-        var link = this.Topics.GetSingle(t => t.TopicMovedID == topic);
+        var link = await this.Topics.GetSingleAsync(t => t.TopicMovedID == topic);
         link.ForumID.Should().Be(this.forum);
         link.TopicName.Should().Be("Moving");
         link.LinkDate.Should().BeCloseTo(DateTime.UtcNow.AddDays(7), TimeSpan.FromMinutes(1));
@@ -115,9 +115,9 @@ public class TopicMaintenanceTests
         await this.Topics.MoveAsync(first, this.forum, target, true, -5);
         await this.Topics.MoveAsync(second, this.forum, target, true, int.MaxValue);
 
-        this.Topics.GetSingle(t => t.TopicMovedID == first).LinkDate
+        (await this.Topics.GetSingleAsync(t => t.TopicMovedID == first)).LinkDate
             .Should().BeCloseTo(DateTime.UtcNow.AddDays(1), TimeSpan.FromMinutes(1));
-        this.Topics.GetSingle(t => t.TopicMovedID == second).LinkDate
+        (await this.Topics.GetSingleAsync(t => t.TopicMovedID == second)).LinkDate
             .Should().BeCloseTo(DateTime.UtcNow.AddDays(36500), TimeSpan.FromMinutes(1));
     }
 
@@ -132,12 +132,12 @@ public class TopicMaintenanceTests
         await this.Topics.MoveAsync(topic, this.forum, second, true, 7);
         await this.Topics.MoveAsync(topic, second, third, true, 7);
 
-        this.Topics.Get(t => t.TopicMovedID == topic).Should().ContainSingle().Which.ForumID.Should().Be(second);
+        (await this.Topics.GetAsync(t => t.TopicMovedID == topic)).Should().ContainSingle().Which.ForumID.Should().Be(second);
 
         var other = this.db.AddTopic(this.forum, this.alice);
         await this.Topics.MoveAsync(other, this.forum, second, false, 7);
 
-        this.Topics.Count(t => t.TopicMovedID == other).Should().Be(0);
+        (await this.Topics.CountAsync(t => t.TopicMovedID == other)).Should().Be(0);
     }
 
     [Test]
@@ -151,7 +151,7 @@ public class TopicMaintenanceTests
 
         var newTopic = await this.Topics.CreateByMessageAsync(message, target, "Split off");
 
-        var created = this.Topics.GetById(newTopic);
+        var created = await this.Topics.GetByIdAsync(newTopic);
         created.TopicName.Should().Be("Split off");
         created.ForumID.Should().Be(target);
         created.UserID.Should().Be(this.bob);
@@ -177,11 +177,11 @@ public class TopicMaintenanceTests
         var count = await this.Topics.PruneAsync(TestDatabase.BoardId, this.forum, 30, false);
 
         count.Should().Be(1);
-        this.Topics.GetById(old).TopicFlags.IsDeleted.Should().BeTrue("pruned topics are soft deleted");
-        this.Topics.GetById(recent).TopicFlags.IsDeleted.Should().BeFalse();
-        this.Topics.GetById(sticky).TopicFlags.IsDeleted.Should().BeFalse("sticky topics are never pruned");
-        this.Topics.GetById(persistent).TopicFlags.IsDeleted.Should().BeFalse("persistent topics are never pruned");
-        this.Topics.GetById(otherOld).TopicFlags.IsDeleted.Should().BeFalse("only the selected forum is pruned");
+        (await this.Topics.GetByIdAsync(old)).TopicFlags.IsDeleted.Should().BeTrue("pruned topics are soft deleted");
+        (await this.Topics.GetByIdAsync(recent)).TopicFlags.IsDeleted.Should().BeFalse();
+        (await this.Topics.GetByIdAsync(sticky)).TopicFlags.IsDeleted.Should().BeFalse("sticky topics are never pruned");
+        (await this.Topics.GetByIdAsync(persistent)).TopicFlags.IsDeleted.Should().BeFalse("persistent topics are never pruned");
+        (await this.Topics.GetByIdAsync(otherOld)).TopicFlags.IsDeleted.Should().BeFalse("only the selected forum is pruned");
     }
 
     [Test]
@@ -193,7 +193,7 @@ public class TopicMaintenanceTests
         (await this.Topics.PruneAsync(TestDatabase.BoardId, this.forum, -1, false)).Should().Be(0);
         (await this.Topics.PruneAsync(TestDatabase.BoardId, this.forum, 0, false)).Should().Be(0);
 
-        this.Topics.GetById(today).TopicFlags.IsDeleted.Should().BeFalse();
+        (await this.Topics.GetByIdAsync(today)).TopicFlags.IsDeleted.Should().BeFalse();
     }
 
     [Test]
@@ -206,9 +206,9 @@ public class TopicMaintenanceTests
 
         (await this.Topics.PruneAsync(TestDatabase.BoardId, 0, 30, true)).Should().Be(2);
 
-        this.Topics.GetById(a).Should().BeNull();
-        this.Topics.GetById(b).Should().BeNull();
-        this.Repository<Message>().Count(m => m.TopicID == a || m.TopicID == b).Should().Be(0);
+        (await this.Topics.GetByIdAsync(a)).Should().BeNull();
+        (await this.Topics.GetByIdAsync(b)).Should().BeNull();
+        (await this.Repository<Message>().CountAsync(m => m.TopicID == a || m.TopicID == b)).Should().Be(0);
     }
 
     [Test]
@@ -221,10 +221,10 @@ public class TopicMaintenanceTests
             t => t.Flags = (int)TopicFlags.Flags.IsDeleted);
 
         (await this.Topics.PruneAsync(TestDatabase.BoardId, 0, 30, false)).Should().Be(0);
-        this.Topics.GetById(deleted).Should().NotBeNull();
+        (await this.Topics.GetByIdAsync(deleted)).Should().NotBeNull();
 
         (await this.Topics.PruneAsync(TestDatabase.BoardId, 0, 30, true)).Should().Be(1);
-        this.Topics.GetById(deleted).Should().BeNull();
+        (await this.Topics.GetByIdAsync(deleted)).Should().BeNull();
     }
 
     [Test]

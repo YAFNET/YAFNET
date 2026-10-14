@@ -174,8 +174,8 @@ public class BannedIpAndAlbumImagesTests
         Notification(await ips.Import(File("10.0.0.1", "text/plain"))).MessageType.Should().Be(MessageTypes.success.ToString(), "nothing new is no error");
         Notification(await names.Import(File("^casino", "text/plain"))).MessageType.Should().Be(MessageTypes.success.ToString());
 
-        this.Repository<BannedIP>().Count(_ => true).Should().Be(2);
-        this.Repository<BannedName>().Count(_ => true).Should().Be(1);
+        (await this.Repository<BannedIP>().CountAsync(_ => true)).Should().Be(2);
+        (await this.Repository<BannedName>().CountAsync(_ => true)).Should().Be(1);
     }
 
     [TestCase("203.0.113.10", false)]

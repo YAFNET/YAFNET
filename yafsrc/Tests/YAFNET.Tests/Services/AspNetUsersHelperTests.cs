@@ -214,8 +214,8 @@ public class AspNetUsersHelperTests
         (await this.helper.ApproveUserAsync(userId)).Should().BeTrue();
 
         (await this.helper.GetUserAsync("bob-key")).IsApproved.Should().BeTrue();
-        this.Repository<User>().GetById(userId).UserFlags.IsApproved.Should().BeTrue();
-        this.Repository<CheckEmail>().Count(c => c.UserID == userId).Should().Be(0);
+        (await this.Repository<User>().GetByIdAsync(userId)).UserFlags.IsApproved.Should().BeTrue();
+        (await this.Repository<CheckEmail>().CountAsync(c => c.UserID == userId)).Should().Be(0);
     }
 
     [Test]
@@ -234,22 +234,22 @@ public class AspNetUsersHelperTests
         var disabled = await this.AddMemberAsync("d-disabled", "disabled", "disabled@example.com", approved: false);
         var otherBoard = await this.AddMemberAsync("e-other", "other", "other@example.com", approved: false);
 
-        this.Repository<User>().UpdateOnly(() => new User { Flags = (int)UserFlags.Flags.IsDeleted }, u => u.ID == disabled);
-        this.Repository<User>().UpdateOnly(() => new User { BoardID = TestDatabase.BoardId + 1 }, u => u.ID == otherBoard);
+        await this.Repository<User>().UpdateOnlyAsync(() => new User { Flags = (int)UserFlags.Flags.IsDeleted }, u => u.ID == disabled);
+        await this.Repository<User>().UpdateOnlyAsync(() => new User { BoardID = TestDatabase.BoardId + 1 }, u => u.ID == otherBoard);
 
         // a forum user without identity is skipped
         var noIdentity = this.db.AddUser("NoIdentity", u => u.Flags = 0);
 
         await this.helper.ApproveAllAsync(TestDatabase.BoardId);
 
-        this.Repository<User>().GetById(bob).UserFlags.IsApproved.Should().BeTrue();
-        this.Repository<User>().GetById(carol).UserFlags.IsApproved.Should().BeTrue();
+        (await this.Repository<User>().GetByIdAsync(bob)).UserFlags.IsApproved.Should().BeTrue();
+        (await this.Repository<User>().GetByIdAsync(carol)).UserFlags.IsApproved.Should().BeTrue();
 
-        this.Repository<User>().GetById(disabled).UserFlags.IsApproved.Should().BeFalse("disabled accounts stay disabled");
+        (await this.Repository<User>().GetByIdAsync(disabled)).UserFlags.IsApproved.Should().BeFalse("disabled accounts stay disabled");
         (await this.helper.GetUserAsync("d-disabled")).IsApproved.Should().BeFalse();
 
-        this.Repository<User>().GetById(otherBoard).UserFlags.IsApproved.Should().BeFalse("a user of another board");
-        this.Repository<User>().GetById(noIdentity).UserFlags.IsApproved.Should().BeFalse();
+        (await this.Repository<User>().GetByIdAsync(otherBoard)).UserFlags.IsApproved.Should().BeFalse("a user of another board");
+        (await this.Repository<User>().GetByIdAsync(noIdentity)).UserFlags.IsApproved.Should().BeFalse();
     }
 
     [Test]
@@ -261,15 +261,15 @@ public class AspNetUsersHelperTests
         var approved = await this.AddMemberAsync("ok-key", "ok", "ok@example.com", created: DateTime.UtcNow.AddDays(-10));
 
         var otherBoard = await this.AddMemberAsync("other-key", "other", "other@example.com", approved: false, created: DateTime.UtcNow.AddDays(-10));
-        this.Repository<User>().UpdateOnly(() => new User { BoardID = TestDatabase.BoardId + 1 }, u => u.ID == otherBoard);
+        await this.Repository<User>().UpdateOnlyAsync(() => new User { BoardID = TestDatabase.BoardId + 1 }, u => u.ID == otherBoard);
 
         await this.helper.DeleteAllUnapprovedAsync(TestDatabase.BoardId, DateTime.UtcNow.AddDays(-5));
 
-        this.Repository<User>().GetById(otherBoard).Should().NotBeNull("a user of another board");
-        this.Repository<User>().GetById(old).Should().BeNull();
+        (await this.Repository<User>().GetByIdAsync(otherBoard)).Should().NotBeNull("a user of another board");
+        (await this.Repository<User>().GetByIdAsync(old)).Should().BeNull();
         (await this.helper.GetUserAsync("old-key")).Should().BeNull();
-        this.Repository<User>().GetById(fresh).Should().NotBeNull();
-        this.Repository<User>().GetById(approved).Should().NotBeNull();
+        (await this.Repository<User>().GetByIdAsync(fresh)).Should().NotBeNull();
+        (await this.Repository<User>().GetByIdAsync(approved)).Should().NotBeNull();
     }
 
     [Test]
@@ -278,7 +278,7 @@ public class AspNetUsersHelperTests
     {
         var guest = this.AddGuest(configure: u => u.LastVisit = DateTime.UtcNow.AddYears(-2));
         var inactive = await this.AddMemberAsync("inactive-key", "Inactive", "inactive@example.com");
-        this.Repository<User>().UpdateOnly(() => new User { LastVisit = DateTime.UtcNow.AddYears(-2) }, u => u.ID == inactive);
+        await this.Repository<User>().UpdateOnlyAsync(() => new User { LastVisit = DateTime.UtcNow.AddYears(-2) }, u => u.ID == inactive);
         var active = this.db.AddUser("Active", u => u.LastVisit = DateTime.UtcNow);
         var stamp = (await this.helper.GetUserAsync("inactive-key")).SecurityStamp;
 
@@ -287,7 +287,7 @@ public class AspNetUsersHelperTests
 
         await this.helper.LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-1));
 
-        var locked = this.Repository<User>().GetById(inactive).UserFlags;
+        var locked = (await this.Repository<User>().GetByIdAsync(inactive)).UserFlags;
         locked.IsApproved.Should().BeFalse();
         locked.IsDeleted.Should().BeTrue();
 
@@ -296,8 +296,8 @@ public class AspNetUsersHelperTests
         identity.IsApproved.Should().BeFalse();
         identity.SecurityStamp.Should().NotBe(stamp, "the existing logins end");
 
-        this.Repository<User>().GetById(active).UserFlags.IsApproved.Should().BeTrue();
-        this.Repository<User>().GetById(guest).UserFlags.IsApproved.Should().BeTrue("the guest is never locked");
+        (await this.Repository<User>().GetByIdAsync(active)).UserFlags.IsApproved.Should().BeTrue();
+        (await this.Repository<User>().GetByIdAsync(guest)).UserFlags.IsApproved.Should().BeTrue("the guest is never locked");
     }
 
     [Test]
@@ -320,10 +320,10 @@ public class AspNetUsersHelperTests
 
         await this.helper.LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-1));
 
-        this.Repository<User>().GetById(hostAdmin).UserFlags.IsApproved.Should().BeTrue();
-        this.Repository<User>().GetById(admin).UserFlags.IsApproved.Should().BeTrue();
-        this.Repository<User>().GetById(current).UserFlags.IsApproved.Should().BeTrue();
-        this.Repository<User>().GetById(inactive).UserFlags.IsApproved.Should().BeFalse();
+        (await this.Repository<User>().GetByIdAsync(hostAdmin)).UserFlags.IsApproved.Should().BeTrue();
+        (await this.Repository<User>().GetByIdAsync(admin)).UserFlags.IsApproved.Should().BeTrue();
+        (await this.Repository<User>().GetByIdAsync(current)).UserFlags.IsApproved.Should().BeTrue();
+        (await this.Repository<User>().GetByIdAsync(inactive)).UserFlags.IsApproved.Should().BeFalse();
     }
 
     [Test]
@@ -336,7 +336,7 @@ public class AspNetUsersHelperTests
         (await this.helper.UpdateEmailAsync(user, "new@example.com")).Should().BeTrue();
 
         (await this.helper.GetUserByEmailAsync("new@example.com")).Id.Should().Be("alice-key");
-        this.Repository<User>().GetById(userId).Email.Should().Be("new@example.com");
+        (await this.Repository<User>().GetByIdAsync(userId)).Email.Should().Be("new@example.com");
     }
 
     [Test]
@@ -367,12 +367,12 @@ public class AspNetUsersHelperTests
     {
         await this.AddMemberAsync("alice-key", "alice", "alice@example.com");
 
-        this.helper.GetUser().Should().BeNull("the request is anonymous");
+        (await this.helper.GetUserAsync()).Should().BeNull("the request is anonymous");
 
         this.board.HttpContext.User = new ClaimsPrincipal(
             new ClaimsIdentity([new Claim(ClaimTypes.Name, "Alice")], "test"));
 
-        this.helper.GetUser().Id.Should().Be("alice-key");
+        (await this.helper.GetUserAsync()).Id.Should().Be("alice-key");
         (await this.helper.GetUserAsync()).Id.Should().Be("alice-key");
     }
 
@@ -432,7 +432,7 @@ public class AspNetUsersHelperTests
         this.helper.AddLogin("alice-key", new UserLoginInfo("Google", "g-1", "Google"));
         this.helper.AddLogin("alice-key", new UserLoginInfo("Google", "g-1", "Google"));
 
-        this.Repository<AspNetUserLogins>().Count(l => l.UserId == "alice-key").Should().Be(1);
+        (await this.Repository<AspNetUserLogins>().CountAsync(l => l.UserId == "alice-key")).Should().Be(1);
         this.helper.Invoking(h => h.AddLogin(null, new UserLoginInfo("Google", "g", "Google"))).Should().Throw<ArgumentNullException>();
     }
 
@@ -462,7 +462,7 @@ public class AspNetUsersHelperTests
         var bob = await this.AddMemberAsync("b", "bob", "bob@other.org");
         await this.AddMemberAsync("c", "carol", "carol@example.com", approved: false);
 
-        this.Repository<User>().UpdateOnly(() => new User { Suspended = DateTime.UtcNow.AddDays(1) }, u => u.ID == bob);
+        await this.Repository<User>().UpdateOnlyAsync(() => new User { Suspended = DateTime.UtcNow.AddDays(1) }, u => u.ID == bob);
         var groupId = this.db.AddForumAccess(alice, this.db.AddForum());
 
         Names(this.helper.GetUsersPaged(null, 0, 10, null, null, null, false, null, null)).Should().Equal("alice", "bob", "zguest");
@@ -488,7 +488,7 @@ public class AspNetUsersHelperTests
         var alice = await this.AddMemberAsync("a", "alice", "alice@example.com", numPosts: 5);
         await this.AddMemberAsync("b", "bob", "bob@example.com", numPosts: 20);
         var deleted = await this.AddMemberAsync("d", "dave", "dave@example.com");
-        this.Repository<User>().UpdateOnly(
+        await this.Repository<User>().UpdateOnlyAsync(
             () => new User { Flags = (int)(UserFlags.Flags.IsApproved | UserFlags.Flags.IsDeleted) },
             u => u.ID == deleted);
 

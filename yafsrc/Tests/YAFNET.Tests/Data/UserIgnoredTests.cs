@@ -91,7 +91,7 @@ public class UserIgnoredTests
         await service.AddIgnoredAsync(this.bob);
         await service.AddIgnoredAsync(this.bob);
 
-        this.board.Current.GetRepository<IgnoreUser>().Count(x => x.UserID == this.alice).Should().Be(1);
+        (await this.board.Current.GetRepository<IgnoreUser>().CountAsync(x => x.UserID == this.alice)).Should().Be(1);
     }
 
     [Test]
@@ -106,7 +106,7 @@ public class UserIgnoredTests
         await service.RemoveIgnoredAsync(this.bob);
 
         (await service.UserIgnoredListAsync(this.alice)).Should().BeEmpty();
-        this.board.Current.GetRepository<IgnoreUser>().Count(x => x.UserID == this.alice).Should().Be(0);
+        (await this.board.Current.GetRepository<IgnoreUser>().CountAsync(x => x.UserID == this.alice)).Should().Be(0);
     }
 
     [Test]

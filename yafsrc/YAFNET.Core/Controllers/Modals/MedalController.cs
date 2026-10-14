@@ -63,14 +63,14 @@ public class MedalController : ForumBaseController
 
         // the ids are sent by the client, medal and user must belong to the board
         if (!this.IsBoardMedal(model.MedalId)
-            || !this.GetRepository<User>().Exists(u => u.ID == model.UserID && u.BoardID == this.PageBoardContext.PageBoardID))
+            || !await this.GetRepository<User>().ExistsAsync(u => u.ID == model.UserID && u.BoardID == this.PageBoardContext.PageBoardID))
         {
             return this.BadRequest();
         }
 
         // a medal can only be awarded once to a user, awarding it again updates the award
-        var alreadyAwarded = this.GetRepository<UserMedal>()
-            .Exists(m => m.UserID == model.UserID && m.MedalID == model.MedalId);
+        var alreadyAwarded = await this.GetRepository<UserMedal>()
+            .ExistsAsync(m => m.UserID == model.UserID && m.MedalID == model.MedalId);
 
         if (model.UserName.IsSet() || alreadyAwarded)
         {

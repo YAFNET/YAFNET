@@ -147,14 +147,14 @@ public class UserDeleteTests
         this.db.AddMessage(topic, this.guest, "first guest post");
         this.db.AddMessage(topic, this.guest, "second guest post");
 
-        var guestUser = this.Repository<User>().GetById(this.guest);
+        var guestUser = await this.Repository<User>().GetByIdAsync(this.guest);
 
         (await this.helper.DeleteAndBanUserAsync(guestUser, null, "1.2.3.4")).Should().BeFalse();
         (await this.helper.DeleteAndBanUserAsync(guestUser, new AspNetUsers { Id = "x", UserName = "Guest" }, "1.2.3.4"))
             .Should().BeFalse();
 
-        this.Repository<Message>().Count(m => m.UserID == this.guest).Should().Be(2);
-        this.Repository<User>().GetById(this.guest).Should().NotBeNull();
+        (await this.Repository<Message>().CountAsync(m => m.UserID == this.guest)).Should().Be(2);
+        (await this.Repository<User>().GetByIdAsync(this.guest)).Should().NotBeNull();
     }
 
     [Test]
@@ -169,13 +169,13 @@ public class UserDeleteTests
         // the spam check found it in a post of the spammer
         this.board.LoginAs(spammer);
 
-        (await this.helper.DeleteAndBanUserAsync(this.Repository<User>().GetById(spammer), aspNetUser, "1.2.3.4"))
+        (await this.helper.DeleteAndBanUserAsync(await this.Repository<User>().GetByIdAsync(spammer), aspNetUser, "1.2.3.4"))
             .Should().BeTrue();
 
-        this.Repository<User>().GetById(spammer).Should().BeNull();
-        this.Repository<Message>().Count(m => m.UserID == spammer).Should().Be(0);
-        this.Repository<UserAlbum>().GetById(album).Should().BeNull();
-        this.Repository<UserAlbumImage>().Count(i => i.AlbumID == album).Should().Be(0);
+        (await this.Repository<User>().GetByIdAsync(spammer)).Should().BeNull();
+        (await this.Repository<Message>().CountAsync(m => m.UserID == spammer)).Should().Be(0);
+        (await this.Repository<UserAlbum>().GetByIdAsync(album)).Should().BeNull();
+        (await this.Repository<UserAlbumImage>().CountAsync(i => i.AlbumID == album)).Should().Be(0);
         File.Exists(file).Should().BeFalse();
 
         await this.board.Resolve<SignInManager<AspNetUsers>>().Received(1).SignOutAsync();
@@ -190,7 +190,7 @@ public class UserDeleteTests
 
         this.board.LoginAs(admin);
 
-        (await this.helper.DeleteAndBanUserAsync(this.Repository<User>().GetById(spammer), aspNetUser, "1.2.3.4"))
+        (await this.helper.DeleteAndBanUserAsync(await this.Repository<User>().GetByIdAsync(spammer), aspNetUser, "1.2.3.4"))
             .Should().BeTrue();
 
         await this.board.Resolve<SignInManager<AspNetUsers>>().DidNotReceive().SignOutAsync();
@@ -208,10 +208,10 @@ public class UserDeleteTests
 
         (await this.helper.DeleteUserAsync(alice)).Should().BeTrue();
 
-        this.Repository<UserAlbum>().GetById(aliceAlbum).Should().BeNull();
+        (await this.Repository<UserAlbum>().GetByIdAsync(aliceAlbum)).Should().BeNull();
         File.Exists(aliceFile).Should().BeFalse();
 
-        this.Repository<UserAlbum>().GetById(bobAlbum).Should().NotBeNull();
+        (await this.Repository<UserAlbum>().GetByIdAsync(bobAlbum)).Should().NotBeNull();
         File.Exists(bobFile).Should().BeTrue();
 
         (await this.helper.DeleteUserAsync(9999)).Should().BeFalse();

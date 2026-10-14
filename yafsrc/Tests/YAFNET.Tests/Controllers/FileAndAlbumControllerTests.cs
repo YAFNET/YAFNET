@@ -137,7 +137,7 @@ public class FileAndAlbumControllerTests
 
         status.error.Should().BeNull();
 
-        var attachment = this.Repository<Attachment>().GetById(status.fileID);
+        var attachment = await this.Repository<Attachment>().GetByIdAsync(status.fileID);
         attachment.FileName.Should().Be("my.photo.webp");
         attachment.ContentType.Should().Be("image/webp");
 
@@ -158,7 +158,7 @@ public class FileAndAlbumControllerTests
 
         var status = await this.UploadAsync(png, "small.png", "image/png");
 
-        var attachment = this.Repository<Attachment>().GetById(status.fileID);
+        var attachment = await this.Repository<Attachment>().GetByIdAsync(status.fileID);
         attachment.FileName.Should().Be("small.png");
         attachment.ContentType.Should().Be("image/png");
         attachment.Bytes.Should().Be(png.Length);
@@ -176,7 +176,7 @@ public class FileAndAlbumControllerTests
         (await this.UploadAsync([1, 2, 3], "photo", "image/png")).error.Should().Be("Invalid File");
         (await this.UploadAsync(Png(10, 10), "photo.jpg", "image/jpeg")).error.Should().Be("Invalid File");
 
-        this.Repository<Attachment>().Count(a => true).Should().Be(1);
+        (await this.Repository<Attachment>().CountAsync(a => true)).Should().Be(1);
     }
 
     [Test]
@@ -191,7 +191,7 @@ public class FileAndAlbumControllerTests
         this.board.PageLoad.UploadAccess = false;
         (await this.UploadAsync(Png(10, 10), "photo.png", "image/png")).error.Should().Be("Invalid File");
 
-        this.Repository<Attachment>().Count(a => true).Should().Be(0);
+        (await this.Repository<Attachment>().CountAsync(a => true)).Should().Be(0);
     }
 
     [Test]
@@ -210,11 +210,11 @@ public class FileAndAlbumControllerTests
         this.board.BoardSettings.UseFileTable = true;
 
         var cleaned = await this.UploadAsync(Png(10, 10), "my\0photo.png", "image/png");
-        this.Repository<Attachment>().GetById(cleaned.fileID).FileName.Should().Be("myphoto.png");
+        (await this.Repository<Attachment>().GetByIdAsync(cleaned.fileID)).FileName.Should().Be("myphoto.png");
 
         var longName = $"{new string('a', 300)}.png";
         var shortened = await this.UploadAsync(Png(10, 10), longName, "image/png");
-        var stored = this.Repository<Attachment>().GetById(shortened.fileID).FileName;
+        var stored = (await this.Repository<Attachment>().GetByIdAsync(shortened.fileID)).FileName;
 
         stored.Should().HaveLength(220).And.EndWith(".png");
     }
@@ -229,7 +229,7 @@ public class FileAndAlbumControllerTests
         var status = await this.UploadAsync(Png(10, 10), "photo.png", "image/png");
 
         status.error.Should().Contain("UPLOAD_TOOBIG");
-        this.Repository<Attachment>().Count(_ => true).Should().Be(0);
+        (await this.Repository<Attachment>().CountAsync(_ => true)).Should().Be(0);
     }
 
     [Test]
@@ -242,7 +242,7 @@ public class FileAndAlbumControllerTests
         var status = await this.UploadAsync(png, "folder.png", "image/png");
 
         var path = Path.Combine(this.webRoot, "uploads", $"u{this.alice}-{status.fileID}.folder.png.yafupload");
-        File.ReadAllBytes(path).Should().Equal(png);
+        (await File.ReadAllBytesAsync(path)).Should().Equal(png);
     }
 
     [Test]
@@ -254,7 +254,7 @@ public class FileAndAlbumControllerTests
     [TestCase(77, "{message}.{name}")]
     public async Task Download_File_Names_Test(int messageId, string pattern)
     {
-        var id = (int)this.Repository<Attachment>().Insert(
+        var id = (int)await this.Repository<Attachment>().InsertAsync(
             new Attachment { UserID = this.alice, MessageID = messageId, FileName = "pic.png", ContentType = "image/png", Bytes = 3 },
             true);
 
@@ -273,7 +273,7 @@ public class FileAndAlbumControllerTests
 
         file.ContentType.Should().Be("image/png");
         file.FileDownloadName.Should().Be("pic.png");
-        this.Repository<Attachment>().GetById(id).Downloads.Should().Be(1, "only the editor download is counted");
+        (await this.Repository<Attachment>().GetByIdAsync(id)).Downloads.Should().Be(1, "only the editor download is counted");
     }
 
     [Test]
@@ -282,7 +282,7 @@ public class FileAndAlbumControllerTests
     {
         (await this.board.CreateController<Attachments>().GetAttachment(9999)).Should().BeOfType<NotFoundResult>();
 
-        var id = (int)this.Repository<Attachment>().Insert(
+        var id = (int)await this.Repository<Attachment>().InsertAsync(
             new Attachment { UserID = this.alice, FileName = "gone.png", ContentType = "image/png", Bytes = 3 },
             true);
 
@@ -325,7 +325,7 @@ public class FileAndAlbumControllerTests
         await ((FileStreamResult)await albums.GetImage(first)).FileStream.DisposeAsync();
         await ((FileStreamResult)await albums.GetImagePreview(first)).FileStream.DisposeAsync();
 
-        this.Repository<UserAlbumImage>().GetById(first).Downloads.Should().Be(1);
+        (await this.Repository<UserAlbumImage>().GetByIdAsync(first)).Downloads.Should().Be(1);
 
         // without a cover one of the album images is used
         for (var i = 0; i < 3; i++)
@@ -333,7 +333,7 @@ public class FileAndAlbumControllerTests
             await ((FileStreamResult)await albums.GetAlbumCover(album, 0)).FileStream.DisposeAsync();
         }
 
-        this.Repository<UserAlbumImage>().GetById(second).Downloads.Should().Be(0, "covers are not counted");
+        (await this.Repository<UserAlbumImage>().GetByIdAsync(second)).Downloads.Should().Be(0, "covers are not counted");
 
         (await albums.GetAlbumCover(this.AddAlbum(this.alice), 0)).Should().BeOfType<NotFoundResult>();
         (await albums.GetAlbumCover(album, 9999)).Should().BeOfType<NotFoundResult>();
