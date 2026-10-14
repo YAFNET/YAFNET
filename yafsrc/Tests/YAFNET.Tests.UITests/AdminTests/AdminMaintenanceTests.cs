@@ -520,6 +520,101 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// A changed or deleted medal is shown at once in the profiles (the medals of the users are cached).
+    /// </summary>
+    [Test]
+    public async Task ChangedMedalIsShownAtOnceTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var id = Guid.NewGuid().ToString("N")[..8];
+
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
+
+                var profileLink = await page.Locator("a", new PageLocatorOptions { HasText = "View Profile" }).First.GetAttributeAsync("href");
+                var userId = System.Text.RegularExpressions.Regex.Match(profileLink ?? string.Empty, @"/UserProfile/(\d+)/").Groups[1].Value;
+                var profileUrl = new Uri(new Uri(this.TestSettings.TestForumUrl), profileLink).ToString();
+
+                Assert.That(userId, Is.Not.Empty, "The id of the admin was not found");
+
+                // a new medal
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditMedal");
+                await this.SaveMedalAsync(page, $"Medal {id}");
+
+                var medalId = await page.EvaluateAsync<string>(
+                                  """
+                                  name => {
+                                      const node = [...document.querySelectorAll("a[href*='medalId=']")]
+                                          .find(a => a.closest('li')?.textContent.includes(name));
+                                      return node ? node.getAttribute('href').match(/medalId=(\d+)/)[1] : null;
+                                  }
+                                  """,
+                                  $"Medal {id}");
+
+                Assert.That(medalId, Is.Not.Null, "The medal was not created");
+
+                // awarded to the admin (this clears the cached medals of the user)
+                var award = await page.EvaluateAsync<string>(
+                                """
+                                async ([medalId, userId]) => {
+                                    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                                    const response = await fetch('/api/Medal/EditUserMedal', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': token },
+                                        body: JSON.stringify({ medalId: Number(medalId), userID: Number(userId), medalName: 'x' })
+                                    });
+                                    return String(response.status);
+                                }
+                                """,
+                                new[] { medalId, userId });
+
+                Assert.That(award, Is.EqualTo("200"), "The medal was not awarded");
+
+                await page.GotoAsync(profileUrl);
+
+                // the tooltip moves the title, the alt text is the same
+                Assert.That(await page.Locator($"img[alt='Medal {id}']").CountAsync(), Is.EqualTo(1), "The awarded medal is not shown");
+
+                // renamed
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditMedal?medalId={medalId}");
+                await this.SaveMedalAsync(page, $"Renamed {id}");
+
+                await page.GotoAsync(profileUrl);
+
+                var renamed = await page.Locator($"img[alt='Renamed {id}']").CountAsync();
+
+                // deleted
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Medals");
+
+                var deleteUrl = await page.Locator($"button[formaction*='medalId={medalId}'][formaction*='Delete']").First.GetAttributeAsync("formaction");
+
+                var deleteStatus = await page.EvaluateAsync<string>(
+                    """
+                    async url => {
+                        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                        const response = await fetch(url, { method: 'POST', body: new URLSearchParams({ '__RequestVerificationToken': token }) });
+                        return String(response.status) + ' ' + response.url + ' ' + (await response.text()).includes('Renamed');
+                    }
+                    """,
+                    deleteUrl);
+
+                Assert.That(deleteStatus, Does.StartWith("200"), $"The medal was not deleted {deleteUrl} {deleteStatus}");
+                Assert.That(deleteStatus, Does.EndWith("false"), $"The medal was not deleted {deleteUrl} {deleteStatus}");
+
+                await page.GotoAsync(profileUrl);
+
+                var deleted = await page.Locator($"img[alt*='{id}']").CountAsync();
+
+                Assert.That(renamed, Is.EqualTo(1), "The renamed medal is not shown");
+                Assert.That(deleted, Is.Zero, "The deleted medal is still shown");
+            });
+    }
+
+    /// <summary>
     /// A medal can be deleted (every post of the medals page failed, the medal list was bound).
     /// </summary>
     [Test]

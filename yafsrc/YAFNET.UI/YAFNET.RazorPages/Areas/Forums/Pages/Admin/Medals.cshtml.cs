@@ -76,6 +76,9 @@ public class MedalsModel : AdminPage
             this.GetRepository<GroupMedal>().Delete(m => m.MedalID == medalId);
 
             this.GetRepository<Medal>().Delete(m => m.ID == medalId);
+
+            // the medals of the users are cached
+            this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
         }
 
         // re-bind data

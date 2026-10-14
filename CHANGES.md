@@ -451,6 +451,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Board index "Mark all forums read" marked only the forums loaded so far (the first 20, the others are loaded with "show more"); it now marks all forums the user can read (of the shown category)
 * [FIXED] Admin Edit Medal: a medal without a message (the field is optional) could not be saved (error page, the column is not nullable); a medal without a message is shown with its name only
 * [FIXED] Admin Medals: a medal could not be deleted (every post of the page failed with an error, the shown medal list was bound and can not be created)
+* [FIXED] Medals: a medal awarded to a group, a changed medal and a deleted medal were shown in the old way for up to 10 minutes (the cached medals of the users were not cleared)
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

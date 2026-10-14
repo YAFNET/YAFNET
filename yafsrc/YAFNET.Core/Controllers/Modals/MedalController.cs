@@ -144,6 +144,9 @@ public class MedalController : ForumBaseController
                 (byte)System.Math.Clamp(model.GroupSortOrder, 0, 255));
         }
 
+        // the medals of all members of the group are cached
+        this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+
         return this.Ok();
     }
 

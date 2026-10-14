@@ -302,6 +302,9 @@ public class EditMedalModel : AdminPage
             medalImage,
             flags.BitValue);
 
+        // the medals of the users are cached (name, image and message)
+        this.RemoveMedalsFromCache();
+
         // go back to medals administration
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Medals);
     }

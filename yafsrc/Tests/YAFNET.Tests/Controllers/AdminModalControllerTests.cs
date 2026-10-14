@@ -299,6 +299,22 @@ public class AdminModalControllerTests
     }
 
     [Test]
+    [Description("Awarding a medal to a group drops the cached medals of the users (the members of the group)")]
+    public void GroupMedal_Clears_User_Medals_Cache_Test()
+    {
+        var medal = this.AddMedal();
+        var group = this.db.AddForumAccess(this.bob, this.forum);
+        var controller = this.board.CreateController<MedalController>();
+
+        var key = string.Format(YAF.Types.Constants.Constants.Cache.UserMedals, this.bob);
+        this.board.Cache.Set(key, "cached");
+
+        controller.EditGroupMedal(new GroupMedalEditModal { GroupId = group, MedalId = medal, GroupMessage = "team" });
+
+        this.board.Cache.GetAll<object>().Select(e => e.Key).Should().NotContain(key);
+    }
+
+    [Test]
     [Description("Awarding a medal to a group again updates the award, sort orders out of range are limited to 0..255")]
     public void GroupMedal_Award_Again_Test()
     {
