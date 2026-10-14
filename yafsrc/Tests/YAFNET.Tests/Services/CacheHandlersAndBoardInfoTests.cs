@@ -229,6 +229,19 @@ public class CacheHandlersAndBoardInfoTests
     }
 
     [Test]
+    [Description("Joining or leaving a group (also deleting the group) changes the medals of the group shown for the user")]
+    public void Group_Membership_Clears_User_Medals_Test()
+    {
+        var medals = string.Format(Constants.Cache.UserMedals, 5);
+
+        this.Fill(medals, Constants.Cache.BoardStats);
+
+        this.handlers.Handle(new RepositoryEvent<UserGroup>(RepositoryEventType.Delete));
+
+        this.Cached().Should().Equal(Constants.Cache.BoardStats);
+    }
+
+    [Test]
     [Description("The version name contains the version and, for pre-releases, the build date")]
     public void Version_Test()
     {

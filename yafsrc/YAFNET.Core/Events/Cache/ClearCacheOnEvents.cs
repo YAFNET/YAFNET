@@ -365,6 +365,9 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     {
         // joining and leaving a group changes the access rights, leaving must revoke them at once
         this.ClearAccess();
+
+        // ... and the medals of the group shown for the user
+        this.DataCache.Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
     }
 
     /// <summary>
