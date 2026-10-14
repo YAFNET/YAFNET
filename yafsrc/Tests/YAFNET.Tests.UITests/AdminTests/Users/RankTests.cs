@@ -58,8 +58,9 @@ public class RankTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
                     var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
                     await searchNameInput.FillAsync(userName);
-                    await searchNameInput.PressAsync("Enter");
-                    await page.Locator("//a[contains(@href,'EditUser')]").First.ClickAsync();
+                    await page.RunAndWaitForNextPageAsync(() => searchNameInput.PressAsync("Enter"));
+                    await page.RunAndWaitForNextPageAsync(
+                        () => page.Locator("//a[contains(@href,'EditUser')]", new PageLocatorOptions { HasText = userName }).First.ClickAsync());
                     await page.Locator("#Input_RankID").SelectOptionAsync(new SelectOptionValue { Label = rankName });
                     await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UsersInfo') and contains(@formaction,'Save')]"));
 
