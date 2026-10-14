@@ -109,7 +109,7 @@
                             icon="external-link-square-alt">
                     </button>
                     
-                    @if (Request.RouteValues.ContainsKey("f"))
+                    @if (Request.Query.ContainsKey("f"))
                     {
                         <button class="mb-1"
                                 asp-page-handler="ReturnForum"

@@ -145,6 +145,61 @@ public class ReportPostTests(ComposeScenario scenario) : DatabaseTestBase(scenar
     }
 
     /// <summary>
+    /// The history of a reported post (opened from the reported posts with the forum id) leads back to the
+    /// reported posts: the button was only shown with the forum id in the route, but it is in the query string.
+    /// </summary>
+    [Test]
+    public async Task MessageHistoryLeadsBackToReportedPostsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                Assert.That(
+                    await page.CreateTopicAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestForumId,
+                        $"History test {Random.Shared.Next()}",
+                        "A post for the history test"),
+                    Is.Not.Null,
+                    "The topic was not created");
+
+                var messageId = await page.Locator(".message .selectionQuoteable").First.GetAttributeAsync("id");
+
+                Assert.That(messageId, Is.Not.Null.And.Not.Empty, "The message id was not found");
+
+                // the address the "view history" of the reported posts redirects to
+                await page.GotoAsync(
+                    $"{this.TestSettings.TestForumUrl}MessageHistory?f={this.TestSettings.TestForumId}&m={messageId}");
+
+                var returnForum = page.Locator("button[formaction*='ReturnForum']");
+
+                Assert.That(await returnForum.CountAsync(), Is.EqualTo(1), "The button to the reported posts is missing");
+
+                // (the reported posts send on to the moderation index when the forum has no reported posts)
+                IResponse response = null;
+
+                await page.RunAndWaitForNextPageAsync(
+                    async () => response = await page.RunAndWaitForResponseAsync(
+                                    () => returnForum.ClickAsync(),
+                                    r => r.Request.Method == "POST" && r.Url.Contains("ReturnForum")));
+
+                Assert.That(
+                    response.Headers.TryGetValue("location", out var location) ? location : string.Empty,
+                    Does.Contain($"Moderate/ReportedPosts/{this.TestSettings.TestForumId}"),
+                    "The button does not lead to the reported posts");
+            });
+    }
+
+    /// <summary>
     /// Every report of a user is added to the report text of the user and the post: after enough reports (or with
     /// a higher report length) the text was longer than its column (4000 characters) and the report failed with an
     /// error on SQL Server, MySQL and PostgreSQL.
