@@ -28,7 +28,6 @@ using YAF.Types.Attributes;
 
 namespace YAF.Core.Controllers;
 
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.OutputCaching;
@@ -45,7 +44,7 @@ using YAF.Types.Objects;
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
 [ApiController]
-public partial class SubscriptionController : ForumBaseController
+public class SubscriptionController : ForumBaseController
 {
     /// <summary>
     /// Subscribes the device to the push Notifications.
@@ -66,10 +65,9 @@ public partial class SubscriptionController : ForumBaseController
             return this.BadRequest();
         }
 
-        // MySQL creates the columns with 255 characters, the device is part of the key
-        var userAgent = this.HttpContext.Request.Headers.UserAgent.ToString().EncodeToLength(this.HtmlEncode, 255);
+        var userAgent = PushEndpointHelper.EncodeUserAgent(this.HttpContext.Request.Headers.UserAgent.ToString());
 
-        var device = UserAgentRegex().Replace(userAgent, "*");
+        var device = PushEndpointHelper.GetDevice(userAgent);
 
         deviceSubscription.Device = device;
         deviceSubscription.UserAgent = userAgent;
@@ -78,9 +76,6 @@ public partial class SubscriptionController : ForumBaseController
 
         return this.Ok();
     }
-
-    [GeneratedRegex("[\\d|.]+")]
-    private static partial Regex UserAgentRegex();
 
     /// <summary>
     /// Unsubscribe the device for the current user from push Notifications.
@@ -98,9 +93,8 @@ public partial class SubscriptionController : ForumBaseController
             return this.BadRequest();
         }
 
-        // the device is stored from the encoded user agent, see SubscribeDevice
-        var userAgent = this.HttpContext.Request.Headers.UserAgent.ToString().EncodeToLength(this.HtmlEncode, 255);
-        var device = UserAgentRegex().Replace(userAgent, "*");
+        var device = PushEndpointHelper.GetDevice(
+            PushEndpointHelper.EncodeUserAgent(this.HttpContext.Request.Headers.UserAgent.ToString()));
 
         await this.GetRepository<DeviceSubscription>().DeleteSubscriptionAsync(device);
 

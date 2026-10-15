@@ -34,10 +34,12 @@ using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 
 using YAF.Core.Controllers;
+using YAF.Core.Events;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Tasks;
 using YAF.Tests.TestInfrastructure;
+using YAF.Types.EventProxies;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Tasks;
@@ -111,6 +113,33 @@ public class SubscriptionTagsAndTopicTaskTests
 
         (await controller.UnSubscribeDevice(this.Subscription())).Should().BeOfType<OkResult>();
         (await this.Subscriptions.CountAsync(_ => true)).Should().Be(0);
+    }
+
+    [Test]
+    [Description("Logging out removes the push subscription of the browser for that user (the next user of the browser got the notifications of both users)")]
+    public async Task Logout_Removes_Device_Subscription_Test()
+    {
+        const string Firefox = "Mozilla/5.0 (Windows NT 10.0; rv:121.0) Gecko/20100101 Firefox/121.0";
+
+        var bob = this.db.AddUser("Bob");
+
+        // Alice subscribed on Firefox and on Chrome, Bob on Chrome
+        this.board.HttpContext.Request.Headers.UserAgent = Firefox;
+        await this.board.CreateController<SubscriptionController>().SubscribeDevice(this.Subscription());
+
+        this.board.HttpContext.Request.Headers.UserAgent = Chrome;
+        await this.board.CreateController<SubscriptionController>().SubscribeDevice(this.Subscription());
+
+        this.board.LoginAs(bob);
+        await this.board.CreateController<SubscriptionController>().SubscribeDevice(this.Subscription());
+
+        // Alice logs out on Chrome
+        this.board.LoginAs(this.alice);
+        new RemoveDeviceSubscriptionOnLogout(this.board.Resolve<IServiceLocator>()).Handle(new UserLogoutEvent(this.alice));
+
+        (await this.Subscriptions.GetSubscriptionsByUserAsync(this.alice)).Select(s => s.UserAgent).Should()
+            .Equal([Firefox], "only the subscription of the browser is removed");
+        (await this.Subscriptions.GetSubscriptionsByUserAsync(bob)).Should().ContainSingle("the other user keeps the subscription");
     }
 
     [Test]

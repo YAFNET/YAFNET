@@ -26,12 +26,15 @@ namespace YAF.Core.Helpers;
 
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
+
+using YAF.Core.Utilities.StringUtils;
 
 /// <summary>
 /// Checks the endpoints of web push subscriptions, they are sent by the browser (the client)
 /// and the forum sends a request to them for every notification.
 /// </summary>
-public static class PushEndpointHelper
+public static partial class PushEndpointHelper
 {
     /// <summary>
     /// The push services of the browsers (Chrome, Edge, Firefox, Safari, ...).
@@ -64,4 +67,29 @@ public static class PushEndpointHelper
         return PushServiceHosts.Any(
             service => host == service || host.EndsWith($".{service}", StringComparison.Ordinal));
     }
+
+    /// <summary>
+    /// Gets the stored user agent of a browser (encoded, MySQL creates the columns with 255 characters).
+    /// </summary>
+    /// <param name="userAgent">The user agent header.</param>
+    /// <returns>Returns the user agent as it is stored.</returns>
+    public static string EncodeUserAgent(string userAgent)
+    {
+        var encoder = new UnicodeEncoder();
+
+        return userAgent.EncodeToLength(encoder.XSSEncode, 255);
+    }
+
+    /// <summary>
+    /// Gets the device of a subscription (the stored user agent without version numbers, part of the key).
+    /// </summary>
+    /// <param name="encodedUserAgent">The stored user agent, see <see cref="EncodeUserAgent"/>.</param>
+    /// <returns>Returns the device.</returns>
+    public static string GetDevice(string encodedUserAgent)
+    {
+        return VersionRegex().Replace(encodedUserAgent, "*");
+    }
+
+    [GeneratedRegex("[\\d|.]+")]
+    private static partial Regex VersionRegex();
 }
