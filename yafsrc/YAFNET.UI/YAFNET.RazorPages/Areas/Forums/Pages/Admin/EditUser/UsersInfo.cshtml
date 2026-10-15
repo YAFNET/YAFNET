@@ -48,17 +48,17 @@
         <select asp-for="Input.RankID" asp-items="Model.Ranks" class="form-select"></select>
     </div>
     
-    @if (Current.PageUser.UserFlags.IsHostAdmin)
-    {
-        <div class="row">
-            <div class="mb-3 col-md-6">
-                <div class="form-check form-switch">
-                    <input type="checkbox" asp-for="Input.Moderated" class="form-check-input" />
-                    <label info-button="true" class="form-check-label"
-                           asp-for="Input.Moderated"
-                           localized-tag="MODERATE" localized-page="ADMIN_EDITUSER"></label>
-                </div>
+    <div class="row">
+        <div class="mb-3 col-md-6">
+            <div class="form-check form-switch">
+                <input type="checkbox" asp-for="Input.Moderated" class="form-check-input" />
+                <label info-button="true" class="form-check-label"
+                       asp-for="Input.Moderated"
+                       localized-tag="MODERATE" localized-page="ADMIN_EDITUSER"></label>
             </div>
+        </div>
+        @if (Current.PageUser.UserFlags.IsHostAdmin)
+        {
             <div class="mb-3 col-md-6">
                 <div class="form-check form-switch">
                     <input type="checkbox" asp-for="Input.IsHostAdminX" class="form-check-input" />
@@ -67,8 +67,8 @@
                            localized-tag="USERINFO_HOST" localized-page="ADMIN_EDITUSER"></label>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 
     <div class="row">
         <div class="mb-3 col-md-6">

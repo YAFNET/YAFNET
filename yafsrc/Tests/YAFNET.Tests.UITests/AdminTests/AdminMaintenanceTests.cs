@@ -950,11 +950,11 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
-    /// A board admin (not the host admin) doesn't see the "moderated" setting of a user, saving the user info (e.g.
-    /// the rank) keeps it: the posts of the user were not moderated anymore.
+    /// A board admin (not the host admin) sees and changes the "moderated" setting of a user: the setting was only
+    /// shown to the host admin, saving the user info (e.g. the rank) as board admin removed it.
     /// </summary>
     [Test]
-    public async Task BoardAdminKeepsModeratedSettingTest()
+    public async Task BoardAdminChangesModeratedSettingTest()
     {
         await this.Fixture.Context.GotoPageAsync(
             this.TestSettings.TestForumUrl,
@@ -998,17 +998,24 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                 // the tab is loaded with ajax
                 await page.Locator("#Input_RankID").WaitForAsync();
 
-                Assert.That(await page.Locator("#Input_Moderated").CountAsync(), Is.Zero, "The setting is shown to the board admin");
+                Assert.That(await page.Locator("#Input_Moderated").CountAsync(), Is.EqualTo(1), "The setting is not shown to the board admin");
+                Assert.That(await page.Locator("#Input_Moderated").IsCheckedAsync(), Is.True, "The setting is not shown as saved");
+                Assert.That(await page.Locator("#Input_IsHostAdminX").CountAsync(), Is.Zero, "The host admin setting is shown to the board admin");
 
+                // saved unchanged: the user stays moderated
                 await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UsersInfo') and contains(@formaction,'Save')]"));
-
-                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
-
-                await this.LoginAdminAsync(page);
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{moderatedUserId}");
 
                 Assert.That(await page.Locator("#Input_Moderated").IsCheckedAsync(), Is.True, "The user is not moderated anymore");
+
+                // the board admin ends the moderation
+                await page.Locator("#Input_Moderated").UncheckAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UsersInfo') and contains(@formaction,'Save')]"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{moderatedUserId}");
+
+                Assert.That(await page.Locator("#Input_Moderated").IsCheckedAsync(), Is.False, "The board admin can't end the moderation");
             });
     }
 
