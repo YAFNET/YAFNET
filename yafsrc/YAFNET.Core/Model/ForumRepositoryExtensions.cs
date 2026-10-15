@@ -639,6 +639,19 @@ public static class ForumRepositoryExtensions
             await BoardContext.Current.GetRepository<WatchForum>().DeleteAsync(x => x.ForumID == oldForumId);
             await BoardContext.Current.GetRepository<ForumReadTracking>().DeleteAsync(x => x.ForumID == oldForumId);
 
+            // -- the links of moved topics to topics of the new forum are removed (they were shown next to the topic)
+            var newForumTopics = (await BoardContext.Current.GetRepository<Topic>().GetAsync(
+                    t => t.ForumID == newForumId && t.TopicMovedID == null)).Select(t => t.ID).ToHashSet();
+
+            var links = (await BoardContext.Current.GetRepository<Topic>().GetAsync(
+                    t => t.ForumID == oldForumId && t.TopicMovedID != null))
+                .Where(t => newForumTopics.Contains(t.TopicMovedID!.Value)).Select(t => t.ID).ToList();
+
+            if (links.Count != 0)
+            {
+                await BoardContext.Current.GetRepository<Topic>().DeleteAsync(t => links.Contains(t.ID));
+            }
+
             // -- Move topics, messages and attachments
             var topics = await BoardContext.Current.GetRepository<Topic>().GetAsync(t => t.ForumID == oldForumId);
 

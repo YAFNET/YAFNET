@@ -468,6 +468,27 @@ public class ForumRepositoryTests
     }
 
     [Test]
+    [Description("The links of moved topics to topics of the new forum are removed, other links are moved")]
+    public async Task MoveAsync_Moved_Topic_Links_Test()
+    {
+        var source = this.db.AddForum("Source", this.category);
+        var target = this.db.AddForum("Target", this.category);
+        var other = this.db.AddForum("Other", this.category);
+
+        var inTarget = this.db.AddTopic(target, this.bob, "In target");
+        var inOther = this.db.AddTopic(other, this.bob, "In other");
+
+        var linkToTarget = this.db.AddTopic(source, this.bob, "In target", t => t.TopicMovedID = inTarget);
+        var linkToOther = this.db.AddTopic(source, this.bob, "In other", t => t.TopicMovedID = inOther);
+
+        (await this.Forums.MoveAsync(source, target)).Should().BeTrue();
+
+        (await this.Repository<Topic>().GetByIdAsync(linkToTarget)).Should().BeNull("the link would be next to the topic");
+        (await this.Repository<Topic>().GetByIdAsync(linkToOther)).ForumID.Should().Be(target);
+        (await this.Repository<Topic>().GetByIdAsync(inTarget)).Should().NotBeNull();
+    }
+
+    [Test]
     [Description("A user with an own access mask in both forums keeps the one of the new forum")]
     public async Task MoveAsync_User_Access_In_Both_Forums_Test()
     {
