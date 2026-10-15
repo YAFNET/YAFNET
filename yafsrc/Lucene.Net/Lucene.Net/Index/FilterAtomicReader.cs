@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary>
         /// Get the wrapped instance by <paramref name="reader"/> as long as this reader is
-        /// an intance of <see cref="FilterAtomicReader"/>.
+        /// an instance of <see cref="FilterAtomicReader"/>.
         /// </summary>
         public static AtomicReader Unwrap(AtomicReader reader)
         {

@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Search
     using Terms = YAF.Lucene.Net.Index.Terms;
     using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
-    public abstract class TermCollectingRewrite<Q> : MultiTermQuery.RewriteMethod where Q : Query // LUCENENET NOTE: Class was made public instaed of internal because it has public derived types
+    public abstract class TermCollectingRewrite<Q> : MultiTermQuery.RewriteMethod where Q : Query // LUCENENET NOTE: Class was made public instead of internal because it has public derived types
     {
         /// <summary>
         /// Return a suitable top-level <see cref="Query"/> for holding all expanded terms. </summary>

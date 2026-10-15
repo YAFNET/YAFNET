@@ -111,7 +111,7 @@ namespace YAF.Lucene.Net.Analysis.Pattern
                 {
                     do
                     {
-                        // We have alredy parsed from this index, go to the next token.
+                        // We have already parsed from this index, go to the next token.
                         if (!isReset && matcher.Groups[group].Index == index)
                         {
                             continue;

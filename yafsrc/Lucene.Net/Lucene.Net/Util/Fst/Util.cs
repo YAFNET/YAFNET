@@ -116,7 +116,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// works when the outputs are ascending in order with
         /// the inputs.
         /// For example, simple ordinals (0, 1,
-        /// 2, ...), or file offets (when appending to a file)
+        /// 2, ...), or file offsets (when appending to a file)
         /// fit this.
         /// </summary>
         public static Int32sRef GetByOutput(FST<Int64> fst, long targetOutput)
@@ -969,7 +969,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// Just maps each UTF16 unit (char) to the <see cref="int"/>s in an
         /// <see cref="Int32sRef"/>.
         /// </summary>
-        public static Int32sRef ToUTF16(string s, Int32sRef scratch)
+        public static Int32sRef ToUTF16(ReadOnlySpan<char> s, Int32sRef scratch)
         {
             int charLimit = s.Length;
             scratch.Offset = 0;
@@ -984,10 +984,10 @@ namespace YAF.Lucene.Net.Util.Fst
 
         /// <summary>
         /// Decodes the Unicode codepoints from the provided
-        /// <see cref="ICharSequence"/> and places them in the provided scratch
+        /// <see cref="ReadOnlySpan{Char}"/> and places them in the provided scratch
         /// <see cref="Int32sRef"/>, which must not be <c>null</c>, returning it.
         /// </summary>
-        public static Int32sRef ToUTF32(string s, Int32sRef scratch)
+        public static Int32sRef ToUTF32(ReadOnlySpan<char> s, Int32sRef scratch)
         {
             int charIdx = 0;
             int intIdx = 0;
@@ -996,28 +996,6 @@ namespace YAF.Lucene.Net.Util.Fst
             {
                 scratch.Grow(intIdx + 1);
                 int utf32 = Character.CodePointAt(s, charIdx);
-                scratch.Int32s[intIdx] = utf32;
-                charIdx += Character.CharCount(utf32);
-                intIdx++;
-            }
-            scratch.Length = intIdx;
-            return scratch;
-        }
-
-        /// <summary>
-        /// Decodes the Unicode codepoints from the provided
-        /// <see cref="T:char[]"/> and places them in the provided scratch
-        /// <see cref="Int32sRef"/>, which must not be <c>null</c>, returning it.
-        /// </summary>
-        public static Int32sRef ToUTF32(char[] s, int offset, int length, Int32sRef scratch)
-        {
-            int charIdx = offset;
-            int intIdx = 0;
-            int charLimit = offset + length;
-            while (charIdx < charLimit)
-            {
-                scratch.Grow(intIdx + 1);
-                int utf32 = Character.CodePointAt(s, charIdx, charLimit);
                 scratch.Int32s[intIdx] = utf32;
                 charIdx += Character.CharCount(utf32);
                 intIdx++;
