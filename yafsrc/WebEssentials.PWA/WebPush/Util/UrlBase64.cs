@@ -19,7 +19,7 @@ static internal class UrlBase64
 
         base64StringBuilder.Append(base64.Replace('-', '+').Replace('_', '/'));
 
-        while (base64.Length % 4 != 0)
+        while (base64StringBuilder.Length % 4 != 0)
         {
             base64StringBuilder.Append('=');
         }
