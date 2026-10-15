@@ -423,6 +423,32 @@ public class AdminModalControllerTests
     }
 
     [Test]
+    [Description("Guests can not ignore users, posts that are not shown are ignored")]
+    public async Task IgnoredUser_Guest_And_Unknown_Post_Test()
+    {
+        var post = this.ShowPost(this.bob);
+
+        this.board.User.IsGuest = true;
+        this.board.PageLoad.GuestUserID = this.alice;
+
+        await this.board.CreateController<IgnoredUserController>().AddIgnoredUser(post);
+        (await this.Repository<IgnoreUser>().CountAsync(_ => true)).Should().Be(0, "guests can not ignore users");
+
+        this.board.User.IsGuest = false;
+        this.board.PageLoad.GuestUserID = 99999;
+
+        await this.board.CreateController<IgnoredUserController>().AddIgnoredUser(post);
+        await this.board.CreateController<IgnoredUserController>().RemoveIgnoredUser(99999);
+        (await this.Repository<IgnoreUser>().CountAsync(_ => true)).Should().Be(1, "only shown posts");
+
+        this.board.User.IsGuest = true;
+        this.board.PageLoad.GuestUserID = this.alice;
+
+        await this.board.CreateController<IgnoredUserController>().RemoveIgnoredUser(post);
+        (await this.Repository<IgnoreUser>().CountAsync(_ => true)).Should().Be(1);
+    }
+
+    [Test]
     [Description("Users can not ignore themselves")]
     public async Task IgnoredUser_Self_Test()
     {
