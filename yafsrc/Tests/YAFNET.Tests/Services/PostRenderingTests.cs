@@ -211,6 +211,17 @@ public class PostRenderingTests
     }
 
     [Test]
+    [Description("The good words are text: html in a good word is encoded in the message (it was added as html)")]
+    public async Task Bad_Words_Html_Good_Word_Test()
+    {
+        await this.board.Current.GetRepository<ReplaceWords>().SaveAsync(null, "darn", "<b onmouseover=alert(1)>nice</b>");
+
+        var html = await this.FormatAsync("Oh darn it");
+
+        html.Should().NotContain("<b onmouseover").And.Contain("&lt;b onmouseover=alert(1)&gt;nice&lt;/b&gt;");
+    }
+
+    [Test]
     [Description("Ascii smileys become emoji")]
     public async Task Emoji_Test()
     {

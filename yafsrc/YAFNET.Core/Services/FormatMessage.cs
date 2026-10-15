@@ -204,7 +204,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                 useNoFollow);
         }
 
-        message = this.Get<IBadWordReplace>().Replace(message);
+        // the good words are text in the html of the message
+        message = this.Get<IBadWordReplace>().ReplaceHtml(message);
 
         // process...
         message = await ruleEngine.ProcessAsync(message);

@@ -26,6 +26,7 @@ namespace YAF.Core.Services;
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text.RegularExpressions;
 
 using Microsoft.Extensions.Logging;
@@ -110,6 +111,38 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
     /// </exception>
     public string Replace(string searchText)
     {
+        return this.Replace(searchText, item => item.GoodWord);
+    }
+
+    /// <summary>
+    /// Replaces the "bad words" in html (e.g. an encoded topic subject or a formatted message),
+    ///   the "good words" are html encoded (they are text, entered by the admin).
+    /// </summary>
+    /// <param name="html">
+    /// The html to search through.
+    /// </param>
+    /// <returns>
+    /// The html with the replaced words.
+    /// </returns>
+    public string ReplaceHtml(string html)
+    {
+        return this.Replace(html, item => WebUtility.HtmlEncode(item.GoodWord));
+    }
+
+    /// <summary>
+    /// Replaces the "bad words" with the replacement of the item.
+    /// </summary>
+    /// <param name="searchText">
+    /// The string to search through.
+    /// </param>
+    /// <param name="replacement">
+    /// The replacement of an item.
+    /// </param>
+    /// <returns>
+    /// The string with the replaced words.
+    /// </returns>
+    private string Replace(string searchText, Func<BadWordReplaceItem, string> replacement)
+    {
         if (searchText.IsNotSet())
         {
             return searchText;
@@ -124,7 +157,7 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
                     {
                         if (item.BadWordRegEx != null && item.Active)
                         {
-                            strReturn = item.BadWordRegEx.Replace(strReturn, item.GoodWord);
+                            strReturn = item.BadWordRegEx.Replace(strReturn, replacement(item));
                         }
                     }
 

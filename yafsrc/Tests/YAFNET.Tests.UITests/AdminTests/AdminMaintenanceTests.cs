@@ -1020,6 +1020,80 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// The good word of a replace word is text: html is removed when it is saved (and encoded in the pages), it was
+    /// added as html to the topic subject (the topic page and the topic list) and the message.
+    /// </summary>
+    [Test]
+    public async Task ReplaceWordGoodWordIsEncodedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                var id = Random.Shared.Next();
+                var badWord = $"zzbad{id}";
+                var marker = $"goodword{id}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ReplaceWords");
+
+                var status = await page.EvaluateAsync<string>(
+                                 """
+                                 async ([badWord, goodWord]) => {
+                                     const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                                     const response = await fetch('/api/ReplaceWords/Edit', {
+                                         method: 'POST',
+                                         headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': token },
+                                         body: JSON.stringify({ id: 0, badWord: badWord, goodWord: goodWord })
+                                     });
+                                     return String(response.status);
+                                 }
+                                 """,
+                                 new[] { badWord, $"<b id=\"{marker}\">nice</b>" });
+
+                Assert.That(status, Is.EqualTo("200"), "The replace word was not saved");
+
+                try
+                {
+                    var topicId = await page.CreateTopicAsync(
+                                      this.TestSettings,
+                                      this.TestSettings.TestForumId,
+                                      $"Replace {badWord} subject",
+                                      $"Replace {badWord} message");
+
+                    Assert.That(topicId, Is.Not.Null, "The topic was not created");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{topicId}/topic");
+
+                    Assert.That(await page.Locator($"#{marker}").CountAsync(), Is.Zero, "The good word is html on the topic page");
+                    Assert.That(await page.Locator("body").InnerTextAsync(), Does.Contain("Replace nice subject"), "The good word is not shown");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Topics/{this.TestSettings.TestForumId}/testForum");
+
+                    Assert.That(await page.Locator($"#{marker}").CountAsync(), Is.Zero, "The good word is html in the topic list");
+                }
+                finally
+                {
+                    // the replace word is removed again
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ReplaceWords");
+
+                    var deleteUrl = await page.Locator("li.list-group-item", new PageLocatorOptions { HasText = badWord })
+                                        .Locator("button[formaction*='Delete']").First.GetAttributeAsync("formaction");
+
+                    await page.EvaluateAsync(
+                        """
+                        async url => {
+                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                            await fetch(url, { method: 'POST', body: new URLSearchParams({ '__RequestVerificationToken': token }) });
+                        }
+                        """,
+                        deleteUrl);
+                }
+            });
+    }
+
+    /// <summary>
     /// The edit page of a board shows the language of that board (not the one of the current board),
     /// otherwise every save changed the language of the board; a board without a description can be saved.
     /// </summary>

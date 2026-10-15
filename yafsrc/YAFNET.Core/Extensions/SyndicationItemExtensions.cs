@@ -80,7 +80,7 @@ public static class SyndicationItemExtensions
         var si = new SyndicationItem(
             BoardContext.Current.Get<IBadWordReplace>().Replace(title),
             new TextSyndicationContent(
-                BoardContext.Current.Get<IBadWordReplace>().Replace(content),
+                BoardContext.Current.Get<IBadWordReplace>().ReplaceHtml(content),
                 TextSyndicationContentKind.Html),
             new Uri(link),
             id,
@@ -92,13 +92,13 @@ public static class SyndicationItemExtensions
         if (summary.IsNotSet())
         {
             si.Summary = new TextSyndicationContent(
-                BoardContext.Current.Get<IBadWordReplace>().Replace(content),
+                BoardContext.Current.Get<IBadWordReplace>().ReplaceHtml(content),
                 TextSyndicationContentKind.Html);
         }
         else
         {
             si.Summary = new TextSyndicationContent(
-                BoardContext.Current.Get<IBadWordReplace>().Replace(summary),
+                BoardContext.Current.Get<IBadWordReplace>().ReplaceHtml(summary),
                 TextSyndicationContentKind.Html);
         }
 

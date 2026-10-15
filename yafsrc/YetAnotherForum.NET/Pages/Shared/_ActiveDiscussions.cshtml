@@ -63,7 +63,7 @@
                     continue;
                 }
 
-                var topicSubject = Current.Get<IBadWordReplace>().Replace(Html.HtmlEncode(topic.Topic).ToString());
+                var topicSubject = Current.Get<IBadWordReplace>().ReplaceHtml(Html.HtmlEncode(topic.Topic).ToString());
 
                 var topicStyle = topic.Styles;
 

@@ -69,6 +69,7 @@ public class SyndicationFeedsTests
 
         var badWords = Substitute.For<IBadWordReplace>();
         badWords.Replace(Arg.Any<string>()).Returns(c => c.Arg<string>());
+        badWords.ReplaceHtml(Arg.Any<string>()).Returns(c => c.Arg<string>());
 
         var dateTime = Substitute.For<IDateTimeService>();
         dateTime.TimeOffset.Returns(Offset);

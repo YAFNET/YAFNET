@@ -453,7 +453,7 @@ public static class TopicContainerHtmlHelper
 
         var topicLabel = new TagBuilder(HtmlTag.Span);
 
-        var topicSubject = context.Get<IBadWordReplace>().Replace(htmlHelper.HtmlEncode(item.Subject).ToString());
+        var topicSubject = context.Get<IBadWordReplace>().ReplaceHtml(htmlHelper.HtmlEncode(item.Subject).ToString());
 
         topicLabel.InnerHtml.AppendHtml(topicSubject);
 

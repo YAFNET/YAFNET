@@ -52,4 +52,16 @@ public interface IBadWordReplace
     /// <c>Exception</c>.
     /// </exception>
     string Replace(string searchText);
+
+    /// <summary>
+    /// Replaces the "bad words" in html (e.g. an encoded topic subject or a formatted message),
+    ///   the "good words" are html encoded.
+    /// </summary>
+    /// <param name="html">
+    /// The html to search through.
+    /// </param>
+    /// <returns>
+    /// The html with the replaced words.
+    /// </returns>
+    string ReplaceHtml(string html);
 }

@@ -140,6 +140,25 @@ public class AdminModalControllerTests
     }
 
     [Test]
+    [Description("Replace words: the good word is text, html is removed when it is saved or imported")]
+    public async Task ReplaceWords_Good_Word_Html_Is_Removed_Test()
+    {
+        await this.board.CreateController<ReplaceWordsController>()
+            .Edit(new ReplaceWordsEditModal { BadWord = "darn", GoodWord = "<b onmouseover=\"alert(1)\">nice</b>" });
+
+        const string Xml = """
+            <YafReplaceWordsList>
+              <YafReplaceWords><badword>heck</badword><goodword>&lt;i&gt;good&lt;/i&gt; &amp; fine</goodword></YafReplaceWords>
+            </YafReplaceWordsList>
+            """;
+
+        await this.board.CreateController<ReplaceWordsController>().Import(File(Xml, "text/xml"));
+
+        (await this.Repository<ReplaceWords>().GetAsync(_ => true)).Select(w => w.GoodWord).Should()
+            .BeEquivalentTo(["nice", "good & fine"]);
+    }
+
+    [Test]
     [Description("Replace words import rejects binary files and files without the expected columns")]
     public async Task ReplaceWords_Import_Invalid_Test()
     {

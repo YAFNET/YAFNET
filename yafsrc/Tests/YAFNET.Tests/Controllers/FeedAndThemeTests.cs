@@ -85,6 +85,7 @@ public class FeedAndThemeTests
 
         var badWords = Substitute.For<IBadWordReplace>();
         badWords.Replace(Arg.Any<string>()).Returns(c => c.Arg<string>());
+        badWords.ReplaceHtml(Arg.Any<string>()).Returns(c => c.Arg<string>());
 
         var urlHelper = Substitute.For<IUrlHelper>();
         urlHelper.Action(Arg.Any<UrlActionContext>()).Returns("/api/Feed/GetLatestPosts");

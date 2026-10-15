@@ -159,11 +159,11 @@ public class PostModel : ForumPage
             this.Get<ISessionService>().MultiQuoteIds = null;
         }
 
-        var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.PageBoardContext.PageTopic.TopicName));
+        var topicSubject = this.Get<IBadWordReplace>().ReplaceHtml(this.HtmlEncode(this.PageBoardContext.PageTopic.TopicName));
 
         this.TopicSubject = this.PageBoardContext.PageTopic.Description.IsSet()
-                                ? $"{topicSubject} - <em>{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.PageBoardContext.PageTopic.Description))}</em>"
-                                : this.Get<IBadWordReplace>().Replace(topicSubject);
+                                ? $"{topicSubject} - <em>{this.Get<IBadWordReplace>().ReplaceHtml(this.HtmlEncode(this.PageBoardContext.PageTopic.Description))}</em>"
+                                : topicSubject;
 
         return this.BindData(m, p);
     }

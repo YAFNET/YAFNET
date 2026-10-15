@@ -33,6 +33,7 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.BasePages;
 using YAF.Core.Filters;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Attributes;
 using YAF.Types.Modals;
@@ -87,16 +88,16 @@ public class ReplaceWordsController : ForumBaseController
 
             var replaceWordsList = await this.GetRepository<ReplaceWords>().GetByBoardIdAsync();
 
-            // import any extensions that don't exist...
+            // import any extensions that don't exist (the good words are text, without html)...
             foreach (var row in replaceWords.Tables["YafReplaceWords"].Rows.Cast<DataRow>().Where(row => !replaceWordsList.Any(
                          w => w.BadWord == row["badword"].ToString()
-                              && w.GoodWord == row["goodword"].ToString())))
+                              && w.GoodWord == HtmlTagHelper.StripHtml(row["goodword"].ToString()))))
             {
                 // add this...
                 await this.GetRepository<ReplaceWords>().SaveAsync(
                     null,
                     row["badword"].ToString(),
-                    row["goodword"].ToString());
+                    HtmlTagHelper.StripHtml(row["goodword"].ToString()));
                 importedCount++;
             }
 
@@ -142,11 +143,12 @@ public class ReplaceWordsController : ForumBaseController
                 MessageTypes.warning));
         }
 
+        // the good word is text (it is encoded in the pages), html is removed
         await this.GetRepository<ReplaceWords>()
             .SaveAsync(
                 model.Id,
                 model.BadWord,
-                model.GoodWord);
+                HtmlTagHelper.StripHtml(model.GoodWord));
 
         return this.Ok();
     }

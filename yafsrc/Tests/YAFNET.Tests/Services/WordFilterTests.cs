@@ -75,6 +75,22 @@ public class WordFilterTests
     }
 
     [Test]
+    [Description("BadWordReplace encodes the good words in html, in text they stay unchanged (the text is encoded later)")]
+    public void BadWordReplace_ReplaceHtml_Test()
+    {
+        this.board.Cache[Constants.Cache.ReplaceWords] = new List<BadWordReplaceItem>
+        {
+            new("<i>nice</i> & \"good\"", "darn", Options)
+        };
+
+        var service = this.CreateBadWordReplace();
+
+        service.ReplaceHtml("Oh <b>darn</b>").Should().Be("Oh <b>&lt;i&gt;nice&lt;/i&gt; &amp; &quot;good&quot;</b>");
+        service.Replace("Oh darn").Should().Be("Oh <i>nice</i> & \"good\"");
+        service.ReplaceHtml(null).Should().BeNull();
+    }
+
+    [Test]
     [Description("BadWordReplace skips inactive and invalid expressions")]
     public void BadWordReplace_Skips_Inactive_And_Invalid_Test()
     {

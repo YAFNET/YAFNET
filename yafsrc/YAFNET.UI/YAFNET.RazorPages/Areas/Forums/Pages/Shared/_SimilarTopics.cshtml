@@ -39,7 +39,7 @@
 	                <li class="list-group-item">
                         <a href="@(topic.TopicUrl)">
                             @* the topic and the user names of the search results are html encoded *@
-                            <strong>@Html.Raw(Current.Get<IBadWordReplace>().Replace(topic.Topic))</strong>
+                            <strong>@Html.Raw(Current.Get<IBadWordReplace>().ReplaceHtml(topic.Topic))</strong>
                         </a> (<a href="@(topic.ForumUrl)">@(topic.ForumName)</a>)
                         @Html.LocalizedText("SEARCH", "BY")
                         @Html.UserLink(topic.UserId.Value, System.Net.WebUtility.HtmlDecode(Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName), topic.Suspended, topic.UserStyle)
