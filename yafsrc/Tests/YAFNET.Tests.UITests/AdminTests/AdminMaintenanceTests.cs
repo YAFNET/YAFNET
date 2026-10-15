@@ -1481,6 +1481,65 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// The group names in the select of the group medal dialog are text: a group name with html was shown as html.
+    /// </summary>
+    [Test]
+    public async Task GroupNameInMedalDialogIsTextTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                var id = Random.Shared.Next();
+                var groupName = $"<b id=\"grp{id}\">G</b>";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditGroup");
+                await page.Locator("#Input_Name").FillAsync(groupName);
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                try
+                {
+                    var medalName = $"Group name medal {id}";
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditMedal");
+                    await this.SaveMedalAsync(page, medalName);
+
+                    var editLink = await page.Locator(".list-group-item", new PageLocatorOptions { HasText = medalName })
+                                       .Locator("a[href*='EditMedal']").First.GetAttributeAsync("href");
+
+                    await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), editLink).ToString());
+
+                    await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").First.ClickAsync();
+
+                    var dialog = page.Locator(".modal.show");
+
+                    await dialog.Locator(".choices").First.WaitForAsync();
+
+                    Assert.That(await dialog.Locator(".choices").First.EvaluateAsync<string>("e => e.textContent"), Does.Contain("Administrators"), "The groups are not listed");
+                    Assert.That(await page.Locator($"#grp{id}").CountAsync(), Is.Zero, "The group name is html");
+                }
+                finally
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Groups");
+
+                    var deleteUrl = await page.Locator("li.list-group-item", new PageLocatorOptions { HasText = groupName })
+                                        .Locator("button[formaction*='Delete']").First.GetAttributeAsync("formaction");
+
+                    await page.EvaluateAsync(
+                        """
+                        async url => {
+                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                            await fetch(url, { method: 'POST', body: new URLSearchParams({ '__RequestVerificationToken': token }) });
+                        }
+                        """,
+                        deleteUrl);
+                }
+            });
+    }
+
+    /// <summary>
     /// Clicks the save button of a modal dialog and waits until the page is loaded again.
     /// </summary>
     private async Task SaveDialogAsync(IPage page, ILocator dialog, string marker)

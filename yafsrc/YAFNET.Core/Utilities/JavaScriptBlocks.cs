@@ -1809,12 +1809,12 @@ public static class JavaScriptBlocks
                                           """;
 
     /// <summary>
-    /// Select load js.
+    /// Select load js (the texts of the options are text, e.g. group or access mask names, not html).
     /// </summary>
     public const string ChoicesLoadJs = """
                                          if (document.querySelector(".select2-select") != null) {
                                          const choice = new window.Choices(document.querySelector(".select2-select"), {
-                                            allowHTML: true,
+                                            allowHTML: false,
                                             shouldSort: false,
                                             placeholderValue: document.querySelector(".select2-select").getAttribute("placeholder"),
                                             classNames: {
