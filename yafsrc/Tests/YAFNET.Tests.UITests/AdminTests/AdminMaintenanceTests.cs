@@ -346,6 +346,42 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// Only the images of the medals folder can be the image of a medal: any value of the form was saved and shown as
+    /// html on the medals page.
+    /// </summary>
+    [Test]
+    public async Task EditMedalRefusesOtherImageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                var id = Random.Shared.Next();
+                var name = $"Image medal {id}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditMedal");
+
+                await page.Locator("#Input_Name").FillAsync(name);
+
+                // a value that is not an image of the list (the select is a script control)
+                await page.Locator("#Input_MedalImage").EvaluateAsync(
+                    "(select, value) => { select.add(new Option(value, value, true, true)); select.value = value; }",
+                    $"medal.webp\" id=\"medalimage{id}");
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Medal image must be specified!"), "The image was not refused");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Medals");
+
+                Assert.That(await page.Locator($"#medalimage{id}").CountAsync(), Is.Zero, "The image is html on the medals page");
+                Assert.That(await page.ContentAsync(), Does.Not.Contain(name), "The medal was saved");
+            });
+    }
+
+    /// <summary>
     /// A new category with the name of an existing category shows the warning
     /// (the page is shown again with the list of the images).
     /// </summary>

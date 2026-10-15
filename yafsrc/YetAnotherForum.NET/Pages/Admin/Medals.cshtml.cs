@@ -26,6 +26,7 @@ namespace YAF.Pages.Admin;
 
 using System.Linq;
 using System.Text;
+using System.Web;
 
 using YAF.Core.Extensions;
 using YAF.Core.Services;
@@ -110,8 +111,8 @@ public class MedalsModel : AdminPage
         // image of medal
         output.AppendFormat(
             "<img src=\"/{2}/{0}\" alt=\"{1}\" />",
-            medal.MedalURL,
-            this.GetText("ADMIN_MEDALS", "DISPLAY_BOX"),
+            HttpUtility.HtmlAttributeEncode(medal.MedalURL),
+            HttpUtility.HtmlAttributeEncode(this.GetText("ADMIN_MEDALS", "DISPLAY_BOX")),
             this.Get<BoardFolders>().Medals);
 
         return output.ToString();

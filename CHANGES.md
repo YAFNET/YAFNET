@@ -483,6 +483,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin Edit User: the "moderated" setting of a user was only shown to the host admin, when a board admin saved the user info (e.g. the rank) the user was not moderated anymore; all admins see and change the setting now
 * [FIXED] Edit message: the persistent option is only shown to admins and moderators, when the author edited a persistent message it was not persistent anymore; it is kept now
 * [FIXED] Replace words: the good word was added as html to the messages, topic subjects and descriptions (it is text entered by the admin), html in it ran on the pages; it is encoded now and html is removed when a replace word is saved or imported. The topic subject on the topic page was replaced twice
+* [FIXED] Admin Edit Medal: the image of a medal was saved as sent by the form and shown as html on the medals page; only the images of the medals folder are accepted now and the image is encoded
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

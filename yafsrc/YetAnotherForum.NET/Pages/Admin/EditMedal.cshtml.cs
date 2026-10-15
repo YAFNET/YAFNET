@@ -270,7 +270,11 @@ public class EditMedalModel : AdminPage
     /// </summary>
     public IActionResult OnPostSave()
     {
-        if (this.Input.MedalImage.IsNotSet() || this.Input.MedalImage == this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"))
+        this.CreateMedalImagesList();
+
+        // only the images of the medals folder (the value is sent by the client, it is shown in the pages)
+        if (this.Input.MedalImage.IsNotSet()
+            || !this.MedalImages.Exists(x => x.Value.IsSet() && x.Text == this.Input.MedalImage))
         {
             // the page is shown again with the entered values (and the lists of the page)
             this.BindLists();
