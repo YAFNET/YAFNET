@@ -222,7 +222,16 @@ public abstract class DatabaseFixture : IAsyncDisposable
             });
         }
 
-        await this.Context.DisposeAsync();
+        // the browser is closed with the docker stack, a context that does not close in time does not keep the
+        // stack running (the run hung and the port stayed in use)
+        try
+        {
+            await this.Context.DisposeAsync().AsTask().WaitAsync(TimeSpan.FromMinutes(2));
+        }
+        catch (TimeoutException)
+        {
+            await TestContext.Progress.WriteLineAsync("The browser context did not close within 2 minutes.");
+        }
 
         if (testConfig.UseDocker)
         {

@@ -47,26 +47,35 @@ public static class IBrowserContextExtensions
 
             Assert.That(page, Is.Not.Null);
 
-            // Navigate to the given URL and wait until loading
-            // network activity is done.
-            var gotoResult = await page.GotoAsync(url);
-
-            Assert.That(gotoResult, Is.Not.Null);
-
-            await gotoResult.FinishedAsync();
-
-            Assert.That(gotoResult.Ok, Is.True);
-
-            var closeButton = page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Close" })
-                .Filter(new LocatorFilterOptions { HasText = "Close" });
-
-            if (await closeButton.IsVisibleAsync())
+            try
             {
-                await closeButton.ClickAsync();
-            }
+                // Navigate to the given URL and wait until loading
+                // network activity is done.
+                var gotoResult = await page.GotoAsync(url);
 
-            // Run the actual test logic.
-            await testHandler(page);
+                Assert.That(gotoResult, Is.Not.Null);
+
+                await gotoResult.FinishedAsync();
+
+                Assert.That(gotoResult.Ok, Is.True);
+
+                var closeButton = page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Close" })
+                    .Filter(new LocatorFilterOptions { HasText = "Close" });
+
+                if (await closeButton.IsVisibleAsync())
+                {
+                    await closeButton.ClickAsync();
+                }
+
+                // Run the actual test logic.
+                await testHandler(page);
+            }
+            finally
+            {
+                // the page of the test is closed: the pages of all tests stayed open (a browser process each, many
+                // GB), closing the context after a full run never ended and the run hung
+                await page.CloseAsync();
+            }
         }
     }
 }
