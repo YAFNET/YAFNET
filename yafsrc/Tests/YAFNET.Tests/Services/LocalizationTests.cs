@@ -139,6 +139,20 @@ public class LocalizationTests
         localization.LanguageCode.Should().Be("en");
     }
 
+    [TestCase("de-DE", "test-german.json", "Okay")]
+    [TestCase("de-AT", "test-german.json", "Okay")]
+    [TestCase("fr-FR", "english.json", "OK")]
+    [Description("The installation (no board yet) uses the language file of the language of the browser, else english")]
+    public void Install_Page_Language_Test(string browserCulture, string languageFile, string ok)
+    {
+        CultureInfo.CurrentCulture = new CultureInfo(browserCulture);
+
+        var localization = new Localization("INSTALL");
+
+        localization.GetText("COMMON", "OK").Should().Be(ok);
+        localization.LanguageFileName.Should().Be(languageFile);
+    }
+
     [Test]
     [Description("Tags are case insensitive")]
     public void GetText_Case_Insensitive_Test()
