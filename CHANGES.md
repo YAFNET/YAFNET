@@ -499,6 +499,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Forum statistics: the topic and post counts of a forum include its sub forums, but a new post in a sub forum only updated the counts of the sub forum; the parent forum is updated too now
 * [FIXED] Guests can't post with the name (user name or display name) of a member anymore (also in other case), the post looked like a post of the member
 * [FIXED] Admin Groups: the administrators group could be deleted, then the board had no admins anymore (only the host admin); it is protected like the guest group now
+* [FIXED] Install: the installation waits until the default BBCodes are imported (errors of the import were lost and the forum could be used before the import was finished)
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
