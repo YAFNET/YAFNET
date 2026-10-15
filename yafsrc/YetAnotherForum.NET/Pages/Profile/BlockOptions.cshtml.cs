@@ -95,11 +95,17 @@ public class BlockOptionsModel : ProfilePage
     /// </summary>
     public async Task<IActionResult> OnPostAsync()
     {
+        // the options of disabled features are not shown (and not sent), they keep their value
+        var settings = this.PageBoardContext.BoardSettings;
+        var currentFlags = this.PageBoardContext.PageUser.Block;
+
         var blockFlags = new UserBlockFlags
                          {
-                             BlockEmails = this.BlockEmails,
-                             BlockFriendRequests = this.BlockFriendRequests,
-                             BlockPMs = this.BlockPMs
+                             BlockEmails = settings.AllowEmailSending ? this.BlockEmails : currentFlags.BlockEmails,
+                             BlockFriendRequests = settings.EnableBuddyList
+                                                       ? this.BlockFriendRequests
+                                                       : currentFlags.BlockFriendRequests,
+                             BlockPMs = settings.AllowPrivateMessages ? this.BlockPMs : currentFlags.BlockPMs
                          };
 
         await this.GetRepository<User>().UpdateBlockFlagsAsync(this.PageBoardContext.PageUserID, blockFlags.BitValue);

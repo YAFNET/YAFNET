@@ -176,6 +176,101 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
             });
     }
 
+    /// <summary>
+    /// The block options of disabled features (not shown on the page) keep their value when the block options are
+    /// saved: the friend requests were not blocked anymore after the user saved the page while the buddy list was
+    /// turned off.
+    /// </summary>
+    [Test]
+    public async Task HiddenBlockOptionsAreKeptTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                var buddyListEnabled = await page.Locator("#Input_EnableBuddyList").IsCheckedAsync();
+
+                try
+                {
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_EnableBuddyList", true);
+
+                    // the friend requests are blocked
+                    await SaveBlockOptionsAsync(page, this.TestSettings, ("#BlockFriendRequests", true), ("#BlockPMs", false));
+
+                    // the buddy list is turned off, the option is not shown, the other options are saved
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_EnableBuddyList", false);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/BlockOptions");
+
+                    Assert.That(await page.Locator("#BlockFriendRequests").CountAsync(), Is.Zero, "The option of the buddy list is shown");
+
+                    await SaveBlockOptionsAsync(page, this.TestSettings, ("#BlockPMs", true));
+
+                    // turned on again
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_EnableBuddyList", true);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/BlockOptions");
+
+                    Assert.That(await page.Locator("#BlockPMs").IsCheckedAsync(), Is.True, "The shown option was not saved");
+                    Assert.That(await page.Locator("#BlockFriendRequests").IsCheckedAsync(), Is.True, "The hidden option was reset");
+                }
+                finally
+                {
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_EnableBuddyList", true);
+                    await SaveBlockOptionsAsync(page, this.TestSettings, ("#BlockFriendRequests", false), ("#BlockPMs", false));
+
+                    if (!buddyListEnabled)
+                    {
+                        await SetCheckBoxAsync(page, this.TestSettings, "#Input_EnableBuddyList", false);
+                    }
+                }
+            });
+    }
+
+    /// <summary>
+    /// Sets the block options of the logged-in user and saves them.
+    /// </summary>
+    private static async Task SaveBlockOptionsAsync(IPage page, TestConfig testSettings, params (string Selector, bool Value)[] options)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Profile/BlockOptions");
+
+        foreach (var (selector, value) in options)
+        {
+            await page.Locator(selector).SetCheckedAsync(value);
+        }
+
+        await page.SubmitAndWaitAsync(page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save", Exact = true }));
+    }
+
+    /// <summary>
+    /// Sets a check box of the host settings and saves them.
+    /// </summary>
+    private static async Task SetCheckBoxAsync(IPage page, TestConfig testSettings, string selector, bool enabled)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
+
+        // the check box and the save button are on a hidden tab
+        await page.RunAndWaitForNextPageAsync(
+            () => page.EvaluateAsync(
+                """
+                ([selector, enabled]) => {
+                    document.querySelector(selector).checked = enabled;
+                    document.querySelector("button[formaction*='Save']").click();
+                }
+                """,
+                new object[] { selector, enabled }));
+    }
+
     private static async Task SetAlbumsAsync(IPage page, TestConfig testSettings, bool enabled)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
