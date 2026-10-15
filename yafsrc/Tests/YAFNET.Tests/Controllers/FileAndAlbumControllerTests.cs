@@ -246,6 +246,22 @@ public class FileAndAlbumControllerTests
     }
 
     [Test]
+    [Description("An error while storing the upload is returned to the upload script (html encoded), nothing is saved")]
+    public async Task Upload_Storage_Error_Test()
+    {
+        this.board.BoardSettings.UseFileTable = false;
+
+        // the uploads folder can not be created
+        await File.WriteAllTextAsync(Path.Combine(this.webRoot, "uploads"), "<not a folder>");
+
+        var status = await this.UploadAsync(Png(10, 10), "folder.png", "image/png");
+
+        status.error.Should().NotBeNullOrEmpty();
+        status.fileID.Should().Be(0);
+        (await this.Repository<Attachment>().CountAsync(a => a.UserID == this.alice)).Should().Be(0);
+    }
+
+    [Test]
     [Description("Attachments stored in the uploads folder are found under the current and the legacy file names")]
     [TestCase(0, "u{user}-{id}.{name}.yafupload")]
     [TestCase(0, "u{user}.{name}.yafupload")]
@@ -373,6 +389,46 @@ public class FileAndAlbumControllerTests
 
         (await albums.GetImagePreview(cover)).Should().BeOfType<FileStreamResult>();
         (await albums.GetAlbumCover(album, cover)).Should().BeOfType<FileStreamResult>();
+    }
+
+    [Test]
+    [Description("An album image without its file is not found")]
+    public async Task Album_Image_Missing_File_Test()
+    {
+        var album = this.AddAlbum(this.alice);
+        var image = this.AddAlbumImage(album, "gone.png", "image/png");
+
+        File.Delete(
+            Path.Combine(this.webRoot, this.board.Resolve<BoardFolders>().Uploads, $"{this.alice}.{album}.gone.png.yafalbum"));
+
+        var albums = this.board.CreateController<Albums>();
+
+        (await albums.GetImage(image)).Should().BeOfType<NotFoundResult>();
+        (await albums.GetImagePreview(image)).Should().BeOfType<NotFoundResult>();
+        (await albums.GetAlbumCover(album, image)).Should().BeOfType<NotFoundResult>();
+    }
+
+    [Test]
+    [Description("Album images need the permission to view profiles and a valid request")]
+    public async Task Album_Image_Permission_Test()
+    {
+        var album = this.AddAlbum(this.alice);
+        var image = this.AddAlbumImage(album, "pic.png", "image/png");
+
+        var albums = this.board.CreateController<Albums>();
+        albums.ModelState.AddModelError("imageId", "invalid");
+
+        (await albums.GetImage(image)).Should().BeOfType<NotFoundResult>();
+        (await albums.GetImagePreview(image)).Should().BeOfType<NotFoundResult>();
+        (await albums.GetAlbumCover(album, image)).Should().BeOfType<NotFoundResult>();
+
+        this.board.Resolve<IPermissions>().Check(Arg.Any<YAF.Types.Constants.ViewPermissions>()).Returns(false);
+
+        albums = this.board.CreateController<Albums>();
+
+        (await albums.GetImage(image)).Should().BeOfType<NotFoundResult>();
+        (await albums.GetImagePreview(image)).Should().BeOfType<NotFoundResult>();
+        (await albums.GetAlbumCover(album, image)).Should().BeOfType<NotFoundResult>();
     }
 
     [Test]
