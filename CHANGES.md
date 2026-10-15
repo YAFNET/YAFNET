@@ -479,6 +479,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Block options: the options of turned off features (private messages, buddy list, e-mails) are not shown, saving the page reset them (e.g. the blocked e-mails were sent again after the admin turned the e-mails on again); they keep their value now
 * [FIXED] Edit settings: when the users can't choose a theme or a language (or hide themselves) the options are not shown, saving the settings reset the theme and the language of the user to the board defaults (and showed the hidden user again); they keep their values now
 * [FIXED] Subscriptions: the daily digest option was always shown unchecked, saving the notification settings turned the digest off; and while the digest is turned off (the option is not shown) saving reset it. The option shows the saved value and keeps it now
+* [FIXED] Admin Edit User settings: when the users can't change their e-mail address the field is not shown, the empty address was refused and the settings could not be saved; when the users can't choose a theme or a language saving reset them. The hidden values are kept now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

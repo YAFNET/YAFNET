@@ -128,7 +128,10 @@ public class UsersSettingsModel : AdminPage
 
         var newEmail = this.Input.Email?.Trim();
 
-        if (!string.Equals(newEmail, currentUser.Email, StringComparison.OrdinalIgnoreCase))
+        // the fields of turned off options are not shown (and not sent), the user keeps the values
+        var settings = this.PageBoardContext.BoardSettings;
+
+        if (settings.AllowEmailChange && !string.Equals(newEmail, currentUser.Email, StringComparison.OrdinalIgnoreCase))
         {
 
             if (!ValidationHelper.IsValidEmail(newEmail))
@@ -168,12 +171,21 @@ public class UsersSettingsModel : AdminPage
         var culture = this.Input.Language;
         var theme = this.Input.Theme;
 
-        if (this.Input.Theme.IsNotSet())
+        if (!settings.AllowUserTheme)
+        {
+            theme = currentUser.ThemeFile;
+        }
+        else if (this.Input.Theme.IsNotSet())
         {
             theme = null;
         }
 
-        if (this.Input.Language.IsNotSet())
+        if (!settings.AllowUserLanguage)
+        {
+            language = currentUser.LanguageFile;
+            culture = currentUser.Culture;
+        }
+        else if (this.Input.Language.IsNotSet())
         {
             culture = null;
         }

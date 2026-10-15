@@ -327,6 +327,120 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
     }
 
     /// <summary>
+    /// The settings of a user can be saved by the admin while the users can't change their e-mail address or theme
+    /// (the fields are not shown): the empty e-mail address was refused ("bad e-mail") and nothing was saved, and the
+    /// theme of the user was reset.
+    /// </summary>
+    [Test]
+    public async Task AdminSavesUserSettingsWithHiddenFieldsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
+
+                var profileLink = await page.Locator("a", new PageLocatorOptions { HasText = "View Profile" }).First.GetAttributeAsync("href");
+                var userId = System.Text.RegularExpressions.Regex.Match(profileLink ?? string.Empty, @"/UserProfile/(\d+)/").Groups[1].Value;
+
+                Assert.That(userId, Is.Not.Empty, "The id of the admin was not found");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                var emailChangeEnabled = await page.Locator("#Input_AllowEmailChange").IsCheckedAsync();
+                var themeEnabled = await page.Locator("#Input_AllowUserTheme").IsCheckedAsync();
+
+                var settingsUrl = $"{this.TestSettings.TestForumUrl}Admin/EditUser/UsersSettings?userId={userId}";
+                string oldTheme = null, oldSize = null;
+
+                try
+                {
+                    // the admin has another theme
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", true);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
+
+                    oldTheme = await page.Locator("#Theme").InputValueAsync();
+
+                    var theme = await page.Locator("#Theme").EvaluateAsync<string>(
+                                    "select => [...select.options].map(o => o.value).find(v => v && v !== select.value)");
+
+                    await SaveSettingsAsync(page, this.TestSettings, theme, null);
+
+                    // the e-mail address and the theme can't be changed, the admin changes the page size of the user
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowEmailChange", false);
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", false);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
+                    await page.GotoAsync(settingsUrl);
+
+                    oldSize = await page.Locator("#Input_Size").InputValueAsync();
+
+                    var size = await page.Locator("#Input_Size").EvaluateAsync<string>(
+                                   """
+                                   select => {
+                                       const value = [...select.options].map(o => o.value).find(v => v && v !== select.value);
+                                       select.value = value;
+                                       return value;
+                                   }
+                                   """);
+
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                    Assert.That(await page.ContentAsync(), Does.Not.Contain("illegal e-mail address"), "The e-mail address was refused");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
+                    await page.GotoAsync(settingsUrl);
+
+                    Assert.That(await page.Locator("#Input_Size").InputValueAsync(), Is.EqualTo(size), "The settings were not saved");
+
+                    // the theme is kept
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", true);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
+
+                    Assert.That(await page.Locator("#Theme").InputValueAsync(), Is.EqualTo(theme), "The theme was reset");
+                }
+                finally
+                {
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowEmailChange", true);
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", true);
+
+                    if (oldSize != null)
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
+                        await page.GotoAsync(settingsUrl);
+                        await page.Locator("#Input_Size").EvaluateAsync("(select, value) => select.value = value", oldSize);
+                        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                    }
+
+                    if (oldTheme != null)
+                    {
+                        await SaveSettingsAsync(page, this.TestSettings, oldTheme, null);
+                    }
+
+                    if (!emailChangeEnabled)
+                    {
+                        await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowEmailChange", false);
+                    }
+
+                    if (!themeEnabled)
+                    {
+                        await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", false);
+                    }
+                }
+            });
+    }
+
+    /// <summary>
     /// Sets the theme and the language (when not null) of the logged-in user and saves the settings.
     /// </summary>
     private static async Task SaveSettingsAsync(IPage page, TestConfig testSettings, string theme, string language)
