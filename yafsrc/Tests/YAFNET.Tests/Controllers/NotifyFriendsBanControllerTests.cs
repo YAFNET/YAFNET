@@ -225,6 +225,23 @@ public class NotifyFriendsBanControllerTests
     }
 
     [Test]
+    [Description("A friend request from a post follows the rules of the button too")]
+    public void AddFriend_From_Post_Refused_Test()
+    {
+        var blocking = this.db.AddUser("Blocking", u => u.BlockFlags = new UserBlockFlags { BlockFriendRequests = true }.BitValue);
+        this.ShowPost(blocking, "Blocking");
+
+        this.board.CreateController<FriendsController>().AddFriend(this.message);
+
+        this.Buddies().Should().BeEmpty();
+
+        this.ShowPost(this.mallory, "Mallory");
+        this.board.CreateController<FriendsController>().AddFriend(this.message);
+
+        this.Buddies().Should().ContainSingle().Which.ToUserID.Should().Be(this.mallory);
+    }
+
+    [Test]
     [Description("A friend request to an unknown user is ignored")]
     public void AddFriendRequest_Unknown_Test()
     {
