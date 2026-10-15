@@ -1212,6 +1212,95 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// After an award of a medal is removed the other awards are still listed: the lists of the page were empty
+    /// after the removal.
+    /// </summary>
+    [Test]
+    public async Task MedalAwardsAreListedAfterRemovalTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                var medalName = $"Removal Medal {Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditMedal");
+                await this.SaveMedalAsync(page, medalName);
+
+                var editLink = await page.Locator(".list-group-item", new PageLocatorOptions { HasText = medalName })
+                                   .Locator("a[href*='EditMedal']").First.GetAttributeAsync("href");
+
+                Assert.That(editLink, Is.Not.Null, "The medal was not saved");
+
+                var medalUrl = new Uri(new Uri(this.TestSettings.TestForumUrl), editLink).ToString();
+
+                // awarded to two groups
+                foreach (var (group, message) in new[] { ("Registered Users", "Registered award"), ("Administrators", "Administrators award") })
+                {
+                    await page.GotoAsync(medalUrl);
+                    await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").First.ClickAsync();
+
+                    var dialog = page.Locator(".modal.show");
+
+                    await dialog.Locator("select[name='GroupId']").EvaluateAsync(
+                        "(select, name) => select.value = [...select.options].find(o => o.text.trim() === name).value",
+                        group);
+                    await dialog.Locator("#GroupMessage").FillAsync(message);
+
+                    await this.SaveDialogAsync(page, dialog, "MedalRemovalGroup");
+                }
+
+                // awarded to two users
+                foreach (var (user, message) in new[] { (this.TestSettings.TestUserName, "First user award"), (this.TestSettings.AdminUserName, "Second user award") })
+                {
+                    var userId = await this.FindUserIdAsync(page, user);
+
+                    await page.GotoAsync(medalUrl);
+                    await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").Last.ClickAsync();
+
+                    var dialog = page.Locator(".modal.show");
+
+                    await dialog.Locator("input[name='UserID']").EvaluateAsync($"input => input.value = '{userId}'");
+                    await dialog.Locator("#UserMessage").FillAsync(message);
+
+                    await this.SaveDialogAsync(page, dialog, "MedalRemovalUser");
+                }
+
+                await page.GotoAsync(medalUrl);
+
+                var content = await page.ContentAsync();
+
+                Assert.That(content, Does.Contain("Administrators award"), "The medal was not awarded to the group");
+                Assert.That(content, Does.Contain("Second user award"), "The medal was not awarded to the user");
+
+                // one group award is removed
+                await page.Locator(".list-group-item", new PageLocatorOptions { HasText = "Registered award" })
+                    .Locator(".btn-group button[formaction*='RemoveGroup']").ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+
+                content = await page.ContentAsync();
+
+                Assert.That(content, Does.Not.Contain("Registered award"), "The group award was not removed");
+                Assert.That(content, Does.Contain("Administrators award"), "The other group award is not listed");
+                Assert.That(content, Does.Contain("Second user award"), "The user awards are not listed");
+
+                // one user award is removed
+                await page.Locator(".list-group-item", new PageLocatorOptions { HasText = "First user award" })
+                    .Locator(".btn-group button[formaction*='RemoveUser']").ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+
+                content = await page.ContentAsync();
+
+                Assert.That(content, Does.Not.Contain("First user award"), "The user award was not removed");
+                Assert.That(content, Does.Contain("Second user award"), "The other user award is not listed");
+                Assert.That(content, Does.Contain("Administrators award"), "The group awards are not listed");
+                Assert.That(await page.Locator("#Input_Name").InputValueAsync(), Is.EqualTo(medalName), "The medal is not shown");
+            });
+    }
+
+    /// <summary>
     /// Clicks the save button of a modal dialog and waits until the page is loaded again.
     /// </summary>
     private async Task SaveDialogAsync(IPage page, ILocator dialog, string marker)

@@ -475,6 +475,7 @@ YetAnotherForum.NET Changelog
 * Search: the number of results counted the hits the user can not see (forums without read access, not approved or deleted posts), the pager showed empty pages and a search in a hidden forum told the number of hits. Only the shown page is formatted now
 * Localization: the language file (and the english file for the fallback) was read and parsed again for every request, the cache was overwritten right away. The parsed file is cached now until the file is changed (e.g. by the language editor)
 * Logout: the push notification subscription of the browser is removed for the user, the next user of the browser got the notifications of both users
+* Admin Edit Medal: after an award was removed from a group or user the other awards of the medal were not listed anymore
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

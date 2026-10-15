@@ -243,7 +243,7 @@ public class EditMedalModel : AdminPage
         // remove all user medals...
         this.RemoveMedalsFromCache();
 
-        this.BindData();
+        this.BindLists();
     }
 
     /// <summary>
@@ -273,13 +273,7 @@ public class EditMedalModel : AdminPage
         if (this.Input.MedalImage.IsNotSet() || this.Input.MedalImage == this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"))
         {
             // the page is shown again with the entered values (and the lists of the page)
-            this.CreateMedalImagesList();
-
-            if (this.Input.Id > 0)
-            {
-                this.UserList = this.GetRepository<UserMedal>().List(null, this.Input.Id);
-                this.GroupList = this.GetRepository<GroupMedal>().List(null, this.Input.Id);
-            }
+            this.BindLists();
 
             return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.warning);
         }
@@ -326,7 +320,8 @@ public class EditMedalModel : AdminPage
         // clear cache...
         this.Get<IDataCache>().Remove(
             string.Format(Constants.Cache.UserMedals, id));
-        this.BindData();
+
+        this.BindLists();
     }
 
     /// <summary>
@@ -373,6 +368,23 @@ public class EditMedalModel : AdminPage
         this.Input.ShowMessage = medal.MedalFlags.ShowMessage;
         this.Input.AllowHiding = medal.MedalFlags.AllowHiding;
         this.Input.MedalImage = medal.MedalURL;
+    }
+
+    /// <summary>
+    /// Binds the lists of the page, the medal is shown with the entered values (the remaining
+    /// awards were not shown after an award was removed).
+    /// </summary>
+    private void BindLists()
+    {
+        this.CreateMedalImagesList();
+
+        if (this.Input.Id <= 0)
+        {
+            return;
+        }
+
+        this.UserList = this.GetRepository<UserMedal>().List(null, this.Input.Id);
+        this.GroupList = this.GetRepository<GroupMedal>().List(null, this.Input.Id);
     }
 
     /// <summary>
