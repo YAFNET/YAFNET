@@ -155,6 +155,26 @@ public class PostRenderingTests
     }
 
     [Test]
+    [Description("BBCodes inside [noparse] are shown as text, tabs and line breaks are kept")]
+    public async Task NoParse_Test()
+    {
+        var html = await this.FormatAsync("before [noparse][b]not bold[/b]\tx\r\n[url]y[/url][/noparse] [b]bold[/b]");
+
+        html.Should().Contain("&#91;b&#93;not bold&#91;/b&#93;&nbsp; &nbsp;&nbsp;x<br />&#91;url&#93;y&#91;/url&#93;");
+        html.Should().NotContain("<strong>not bold</strong>").And.Contain("<strong>bold</strong>");
+        html.Should().NotContain("[noparse]");
+    }
+
+    [Test]
+    [Description("Html inside [noparse] is shown as text")]
+    public async Task NoParse_Html_Test()
+    {
+        var html = await this.FormatAsync("[noparse]<script>alert(1)</script>[/noparse] [noparse][i]two[/i][/noparse]");
+
+        html.Should().NotContain("<script>").And.Contain("&#91;i&#93;two&#91;/i&#93;");
+    }
+
+    [Test]
     [Description("Code blocks with a language get the highlighter markup, the content stays encoded")]
     [TestCase("cs", "language-csharp")]
     [TestCase("xml", "language-markup")]
