@@ -1146,6 +1146,9 @@ public static class TopicRepositoryExtensions
             // -- move the topic
             await repository.UpdateOnlyAsync(() => new Topic { ForumID = newForumId }, t => t.ID == topic.ID);
 
+            // the search index has the forum of the posts (the read access is checked with it)
+            await BoardContext.Current.GetRepository<Message>().UpdateSearchIndexOfTopicAsync(topic.ID);
+
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(newForumId));
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(oldForumId));
         }

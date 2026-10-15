@@ -36,6 +36,7 @@ using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// Topic maintenance: moving, pruning, deleted topics, RSS lists and subject fix-ups.
@@ -102,6 +103,21 @@ public class TopicMaintenanceTests
         link.LinkDate.Should().BeCloseTo(DateTime.UtcNow.AddDays(7), TimeSpan.FromMinutes(1));
 
         this.board.Events.OfType<UpdateForumStatsEvent>().Select(e => e.ForumId).Should().BeEquivalentTo([target, this.forum]);
+    }
+
+    [Test]
+    [Description("The search index entries of a moved topic get the new forum (the read access is checked with it, a topic moved to a staff forum was still found)")]
+    public async Task Move_Updates_Search_Index_Test()
+    {
+        var target = this.db.AddForum();
+        var topic = this.db.AddTopic(this.forum, this.alice, "Moving");
+        var message = this.db.AddMessage(topic, this.alice);
+
+        this.board.Search.Indexed[message] = new SearchMessage { MessageId = message, TopicId = topic, ForumId = this.forum };
+
+        await this.Topics.MoveAsync(topic, this.forum, target, false, 0);
+
+        this.board.Search.Indexed[message].ForumId.Should().Be(target);
     }
 
     [Test]

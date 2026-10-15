@@ -718,6 +718,9 @@ public static class MessageRepositoryExtensions
                 await repository.UpdateFlagsAsync(answerId, answerFlags.BitValue);
             }
 
+            // the moved posts are in the other topic (and maybe forum) now
+            await repository.UpdateSearchIndexOfTopicAsync(moveToTopicId);
+
             var topic = await BoardContext.Current.GetRepository<Topic>().GetByIdAsync(moveToTopicId);
 
             var newForumId = topic.ForumID;
@@ -1384,6 +1387,30 @@ public static class MessageRepositoryExtensions
             if (restored != null)
             {
                 await repository.UpdateSearchIndexAsync(restored, forumId, restored.Flags);
+            }
+        }
+
+        /// <summary>
+        /// Updates the search index entries of the posts of a topic after the topic or posts were moved: the entries
+        /// keep the topic and the forum, the read access is checked with the forum of the entry (a topic moved to a
+        /// forum the users can't read was still found).
+        /// </summary>
+        /// <param name="topicId">The topic identifier.</param>
+        public async Task UpdateSearchIndexOfTopicAsync(int topicId)
+        {
+            var topic = await BoardContext.Current.GetRepository<Topic>().GetByIdAsync(topicId);
+
+            if (topic is null)
+            {
+                return;
+            }
+
+            // deleted posts are removed from the index
+            var messages = await repository.GetAsync(m => m.TopicID == topicId && (m.Flags & 8) != 8);
+
+            foreach (var message in messages)
+            {
+                await repository.UpdateSearchIndexAsync(message, topic.ForumID, message.Flags);
             }
         }
 

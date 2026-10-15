@@ -36,6 +36,7 @@ using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// Editing, moving, reporting and the admin lists of MessageRepositoryExtensions.
@@ -204,6 +205,25 @@ public class MessageEditTests
 
         this.board.Events.OfType<UpdateTopicLastPostEvent>().Should().HaveCount(2);
         this.board.Events.OfType<UpdateForumStatsEvent>().Should().NotBeEmpty();
+    }
+
+    [Test]
+    [Description("The search index entry of a moved post gets the new topic and forum (the read access is checked with the forum)")]
+    public async Task MoveAsync_Updates_Search_Index_Test()
+    {
+        this.AddPost(this.alice, "first", 0);
+        var moved = this.AddPost(this.bob, "moved", 10);
+
+        var otherForum = this.db.AddForum("Staff");
+        var target = this.db.AddTopic(otherForum, this.bob, "Target");
+        this.db.AddMessage(target, this.bob, "target", posted: this.start.AddMinutes(5));
+
+        this.board.Search.Indexed[moved] = new SearchMessage { MessageId = moved, TopicId = this.topic, ForumId = this.forum };
+
+        await this.Messages.MoveAsync(await this.Repository<Topic>().GetByIdAsync(this.topic), await this.Messages.GetByIdAsync(moved), target, false);
+
+        this.board.Search.Indexed[moved].TopicId.Should().Be(target);
+        this.board.Search.Indexed[moved].ForumId.Should().Be(otherForum);
     }
 
     [Test]
