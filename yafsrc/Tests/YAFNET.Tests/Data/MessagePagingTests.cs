@@ -212,6 +212,29 @@ public class MessagePagingTests
     }
 
     [Test]
+    [Description("Posts of the same second (MySQL saves whole seconds) are listed by id, the page of each is found")]
+    public void FindUnread_Page_Of_Posts_Of_The_Same_Second_Test()
+    {
+        var posts = Enumerable.Range(0, 12).Select(i => this.AddPost(this.bob, i)).ToList();
+
+        // all at the same time
+        using (var connection = this.db.Open())
+        {
+            connection.UpdateOnly(() => new Message { Posted = this.start }, m => m.TopicID == this.topic);
+        }
+
+        this.List(pageSize: 10).Select(p => p.MessageID).Should().Equal(posts.Take(10), "the posts are listed by id");
+
+        foreach (var post in posts)
+        {
+            var found = this.Messages.FindUnread(this.topic, post, Since, false);
+
+            this.List(pageSize: 10, messagePosition: found.MessagePosition).Select(p => p.MessageID).Should()
+                .Contain(post, $"the page of the post at position {found.MessagePosition} shows it");
+        }
+    }
+
+    [Test]
     [Description("The page of a message is found among the posts the user sees: deleted and not approved posts before it moved the link to the wrong page")]
     public void FindUnread_Page_Of_Message_With_Hidden_Posts_Test()
     {

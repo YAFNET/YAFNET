@@ -314,11 +314,12 @@ public static class MessageRepositoryExtensions
                     if (pageIndexCheck > totalPages)
                     {
                         // Fix if position is wrong
-                        expression.OrderBy<Message>(m => m.Posted).Page(totalPages, pageSize);
+                        expression.OrderBy<Message>(m => m.Posted).ThenBy<Message>(m => m.ID).Page(totalPages, pageSize);
                     }
                     else
                     {
-                        expression.OrderBy<Message>(m => m.Posted).Page(queryPageIndex + 1, pageSize);
+                        // posts of the same second (MySQL saves whole seconds) in the order they were posted
+                        expression.OrderBy<Message>(m => m.Posted).ThenBy<Message>(m => m.ID).Page(queryPageIndex + 1, pageSize);
                     }
 
                     var reputationExpression = db.Connection.From<ReputationVote>(db.Connection.TableAlias("x"));
@@ -776,13 +777,16 @@ public static class MessageRepositoryExtensions
                 }
 
                 var posted = repository.GetById(found.MessageID).Posted;
+                var id = found.MessageID;
 
+                // the posts are listed by date and id (posts of the same second, MySQL saves whole seconds)
                 var position = showDeleted
                                    ? repository.Count(
-                                       m => m.TopicID == topicId && (m.Flags & 16) == 16 && m.Posted < posted)
+                                       m => m.TopicID == topicId && (m.Flags & 16) == 16
+                                            && (m.Posted < posted || m.Posted == posted && m.ID < id))
                                    : repository.Count(
                                        m => m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8
-                                            && m.Posted < posted);
+                                            && (m.Posted < posted || m.Posted == posted && m.ID < id));
 
                 return ((int)position, found.MessageID);
             }
