@@ -491,6 +491,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Answer of a topic: when the answer was erased or moved to another topic the topic kept it, the link to the answer showed an error and no new answer could be marked (the moved post was shown as answer in the other topic)
 * [FIXED] Topic page: a link to a post (e.g. a notification, the last post or a search result) opened the wrong page when deleted or not approved posts came before it (the position of the post counted them), the post was not shown
 * [FIXED] Admin Host Settings: an empty number field was saved as 0, and a page size could be 0 (e.g. 0 posts per page failed every topic page); an empty or invalid number keeps the setting now and the page sizes are at least 1
+* [FIXED] Suspension: the mail that the suspension ended was only sent when the user visited the forum before the hourly clean up task lifted the suspension; the task sends it too now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

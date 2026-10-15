@@ -98,6 +98,12 @@ public class UserCleanUpTask : IntermittentBackgroundTask
         foreach (var user in users)
         {
             await this.GetRepository<User>().SuspendAsync(user.ID);
+
+            // like when the user visits the forum after the suspension (then the mail was only sent when the user
+            // came back before this task ran)
+            await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(user);
+
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(user.ID));
         }
     }
 }

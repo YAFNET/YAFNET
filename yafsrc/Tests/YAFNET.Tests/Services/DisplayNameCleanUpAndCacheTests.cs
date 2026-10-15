@@ -114,6 +114,10 @@ public class DisplayNameCleanUpAndCacheTests
 
         (await users.GetByIdAsync(running)).Suspended.Should().NotBeNull();
         (await users.GetByIdAsync(normal)).Suspended.Should().BeNull();
+
+        // the user is told that the suspension ended (it was only told when visiting the forum before the task ran)
+        await this.board.Notifications.Received(1).SendUserSuspensionEndedNotificationAsync(Arg.Is<User>(u => u.ID == expired));
+        await this.board.Notifications.DidNotReceive().SendUserSuspensionEndedNotificationAsync(Arg.Is<User>(u => u.ID == running));
     }
 
     [Test]
