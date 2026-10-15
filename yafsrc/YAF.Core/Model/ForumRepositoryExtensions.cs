@@ -567,8 +567,6 @@ public static class ForumRepositoryExtensions
     /// </returns>
     public static bool Delete(this IRepository<Forum> repository, int forumId)
     {
-        
-
         if (repository.Exists(f => f.ParentID == forumId))
         {
             repository.UpdateOnly(() => new Forum {ParentID = null}, f => f.ParentID == forumId);
@@ -578,7 +576,7 @@ public static class ForumRepositoryExtensions
 
         BoardContext.Current.GetRepository<Topic>().UpdateOnly(
             () => new Topic { LastMessageID = null },
-            f => f.ID == forumId);
+            f => f.ForumID== forumId);
 
         BoardContext.Current.GetRepository<Active>().Delete(x => x.ForumID == forumId);
 

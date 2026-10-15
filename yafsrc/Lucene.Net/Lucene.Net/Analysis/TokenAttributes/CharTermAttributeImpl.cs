@@ -26,13 +26,13 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
     * limitations under the License.
     */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
-    using Attribute = Lucene.Net.Util.Attribute;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using IAttribute = Lucene.Net.Util.IAttribute;
-    using IAttributeReflector = Lucene.Net.Util.IAttributeReflector;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using UnicodeUtil = Lucene.Net.Util.UnicodeUtil;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using Attribute = YAF.Lucene.Net.Util.Attribute;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
+    using IAttributeReflector = YAF.Lucene.Net.Util.IAttributeReflector;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Default implementation of <see cref="ICharTermAttribute"/>.
@@ -58,9 +58,6 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
         public CharTermAttribute()
         {
         }
-
-        // LUCENENET specific - ICharSequence member from J2N
-        bool ICharSequence.HasValue => termBuffer != null;
 
         public void CopyBuffer(char[] buffer, int offset, int length)
         {
@@ -166,28 +163,10 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
             }
         }
 
-        public ICharSequence Subsequence(int startIndex, int length)
-        {
-            // From Apache Harmony String class
-            if (termBuffer is null || (startIndex == 0 && length == termBuffer.Length))
-            {
-                return new CharArrayCharSequence(termBuffer);
-            }
-            if (startIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(startIndex), $"{nameof(startIndex)} must not be negative.");
-            if (length < 0)
-                throw new ArgumentOutOfRangeException(nameof(length), $"{nameof(length)} must not be negative.");
-            if (startIndex > Length - length) // Checks for int overflow
-                throw new ArgumentOutOfRangeException(nameof(length), $"Index and length must refer to a location within the string. For example {nameof(startIndex)} + {nameof(length)} <= {nameof(Length)}.");
-
-            char[] result = new char[length];
-            Arrays.Copy(termBuffer, startIndex, result, 0, length);
-            return new CharArrayCharSequence(result);
-        }
-
         // *** Appendable interface ***
 
-        public CharTermAttribute Append(string value, int startIndex, int charCount)
+#nullable enable
+        public CharTermAttribute Append(string? value, int startIndex, int charCount)
         {
             // LUCENENET: Changed semantics to be the same as the StringBuilder in .NET
             if (startIndex < 0)
@@ -211,6 +190,7 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
 
             return this;
         }
+#nullable restore
 
         public CharTermAttribute Append(char value)
         {
@@ -256,10 +236,21 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
             return this;
         }
 
-        public CharTermAttribute Append(string value)
+#nullable enable
+        public CharTermAttribute Append(string? value)
         {
-            return Append(value, 0, value?.Length ?? 0);
+            if (value is null) // needed for Appendable compliance
+            {
+                //return AppendNull();
+                return this; // No-op
+            }
+
+            int len = value.Length;
+            value.CopyTo(0, InternalResizeBuffer(termLength + len), termLength, len);
+            Length += len;
+            return this;
         }
+#nullable restore
 
         public CharTermAttribute Append(StringBuilder value)
         {
@@ -309,42 +300,6 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
             int len = value.Length;
             Arrays.Copy(value.Buffer, 0, ResizeBuffer(termLength + len), termLength, len);
             termLength += len;
-            return this;
-        }
-
-        public CharTermAttribute Append(ICharSequence value)
-        {
-            if (value is null)
-                //return AppendNull();
-                return this; // No-op
-
-            return Append(value, 0, value.Length);
-        }
-
-        public CharTermAttribute Append(ICharSequence value, int startIndex, int charCount)
-        {
-            // LUCENENET: Changed semantics to be the same as the StringBuilder in .NET
-            if (startIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(startIndex), $"{nameof(startIndex)} must not be negative.");
-            if (charCount < 0)
-                throw new ArgumentOutOfRangeException(nameof(charCount), $"{nameof(charCount)} must not be negative.");
-
-            if (value is null)
-            {
-                if (startIndex == 0 && charCount == 0)
-                    return this;
-                throw new ArgumentNullException(nameof(value));
-            }
-            if (charCount == 0)
-                return this;
-            if (startIndex > value.Length - charCount)
-                throw new ArgumentOutOfRangeException(nameof(startIndex), $"Index and length must refer to a location within the string. For example {nameof(startIndex)} + {nameof(charCount)} <= {nameof(Length)}.");
-
-            ResizeBuffer(termLength + charCount);
-
-            for (int i = 0; i < charCount; i++)
-                termBuffer[termLength++] = value[startIndex + i];
-
             return this;
         }
 
@@ -478,10 +433,6 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
 
         #region ICharTermAttribute Members
 
-        ICharTermAttribute ICharTermAttribute.Append(ICharSequence value) => Append(value);
-
-        ICharTermAttribute ICharTermAttribute.Append(ICharSequence value, int startIndex, int count) => Append(value, startIndex, count);
-
         ICharTermAttribute ICharTermAttribute.Append(char value) => Append(value);
 
         ICharTermAttribute ICharTermAttribute.Append(char[] value) => Append(value);
@@ -518,9 +469,9 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
 
         IAppendable IAppendable.Append(char[] value, int startIndex, int count) => Append(value, startIndex, count);
 
-        IAppendable IAppendable.Append(ICharSequence value) => Append(value);
+        IAppendable IAppendable.Append(ICharSequence value) => Append(value?.ToString());
 
-        IAppendable IAppendable.Append(ICharSequence value, int startIndex, int count) => Append(value, startIndex, count);
+        IAppendable IAppendable.Append(ICharSequence value, int startIndex, int count) => Append(value == null ? ReadOnlySpan<char>.Empty : value.ToString().AsSpan(startIndex, count));
 
         #endregion
 

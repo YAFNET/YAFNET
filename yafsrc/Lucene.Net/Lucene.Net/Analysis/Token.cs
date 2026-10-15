@@ -27,8 +27,8 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using CharTermAttribute = Lucene.Net.Analysis.TokenAttributes.CharTermAttribute;
-    using IAttributeReflector = Lucene.Net.Util.IAttributeReflector;
+    using CharTermAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.CharTermAttribute;
+    using IAttributeReflector = YAF.Lucene.Net.Util.IAttributeReflector;
 
     /// <summary>
     /// A <see cref="Token"/> is an occurrence of a term from the text of a field.  It consists of

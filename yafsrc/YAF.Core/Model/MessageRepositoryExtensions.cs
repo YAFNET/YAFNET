@@ -1625,8 +1625,6 @@ public static class MessageRepositoryExtensions
         int topicId,
         Message message)
     {
-        
-
         var flags = message.MessageFlags;
 
         flags.IsDeleted = false;
@@ -1641,7 +1639,7 @@ public static class MessageRepositoryExtensions
 
         // -- update user post count
         if (!BoardContext.Current.GetRepository<Forum>()
-                .Exists(f => f.ID == forumId && (f.Flags & 4) != 4))
+                .Exists(f => f.ID == forumId && (f.Flags & 4) == 4))
         {
             var postCount = repository.Count(
                 x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16).ToType<int>();

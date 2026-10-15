@@ -53,7 +53,7 @@ public static class PasswordGenerator
         const int PASSWORD_LENGTH_MIN = 8;
         const int PASSWORD_LENGTH_MAX = 128;
 
-        if (lengthOfPassword < PASSWORD_LENGTH_MIN || lengthOfPassword > PASSWORD_LENGTH_MAX)
+        if (lengthOfPassword is < PASSWORD_LENGTH_MIN or > PASSWORD_LENGTH_MAX)
         {
             return "Password length must be between 8 and 128.";
         }
