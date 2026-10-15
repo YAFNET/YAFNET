@@ -84,6 +84,17 @@ public class IPHelperTests
         IPHelper.IsBanned("203.0.113.*", "::ffff:203.0.113.10").Should().BeTrue();
     }
 
+    [TestCase("1.2.3.*", "2001:db8::1")]
+    [TestCase("1.2.3.4", "2001:db8::1")]
+    [TestCase("1.2.3.*", "")]
+    [TestCase("1.2.3.4", "")]
+    [TestCase("1.2.3.*", "1.2.3")]
+    [Description("An ipv6 address, an empty or incomplete address never matches an ipv4 ban")]
+    public void IsBanned_Not_IpV4_Test(string ban, string ip)
+    {
+        IPHelper.IsBanned(ban, ip).Should().BeFalse();
+    }
+
     [Test]
     [Description("IsBanned throws on null arguments")]
     public void IsBanned_Null_Throws_Test()
@@ -193,6 +204,13 @@ public class IPHelperTests
         invalidRealIp.Request.Headers["X-Real-IP"] = "not-an-ip";
 
         invalidRealIp.GetUserRealIPAddress().Should().Be("203.0.113.7");
+    }
+
+    [Test]
+    [Description("A connection address of an ipv4 client in ipv6 notation is returned as ipv4 address (the bans are ipv4)")]
+    public void GetUserRealIPAddress_Mapped_IpV4_Test()
+    {
+        CreateContext("::ffff:203.0.113.7").GetUserRealIPAddress().Should().Be("203.0.113.7");
     }
 
     [Test]
