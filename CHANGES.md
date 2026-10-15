@@ -497,6 +497,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Delete topic: the posts of a deleted topic were still counted for their authors (deleted posts are not counted), e.g. a deleted spam topic still counted for the rank; the post counts are updated now
 * [FIXED] Forum statistics: the topic and post counts of a forum include its sub forums, but a new post in a sub forum only updated the counts of the sub forum; the parent forum is updated too now
 * [FIXED] Guests can't post with the name (user name or display name) of a member anymore (also in other case), the post looked like a post of the member
+* [FIXED] Admin Groups: the administrators group could be deleted, then the board had no admins anymore (only the host admin); it is protected like the guest group now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

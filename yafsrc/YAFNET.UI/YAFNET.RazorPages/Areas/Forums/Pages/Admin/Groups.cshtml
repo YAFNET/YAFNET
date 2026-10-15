@@ -178,7 +178,7 @@
                                                text-localized-tag="EDIT">
                                             </a>
 
-                                            @if (!role.GroupFlags.IsGuest)
+                                            @if (!role.GroupFlags.IsGuest && !role.GroupFlags.IsAdmin)
                                             {
                                                 <button button-style="Danger"
                                                         button-size="Small"
@@ -201,7 +201,7 @@
                                                text-localized-tag="EDIT">
                                             </a>
                                             
-                                            @if (!role.GroupFlags.IsGuest)
+                                            @if (!role.GroupFlags.IsGuest && !role.GroupFlags.IsAdmin)
                                             {
                                                 <button button-style="None"
                                                         class="dropdown-item"

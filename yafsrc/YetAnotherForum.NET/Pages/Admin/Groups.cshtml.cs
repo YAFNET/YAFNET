@@ -180,8 +180,10 @@ public class GroupsModel : AdminPage
 
         var group = await this.GetRepository<Group>().GetByIdAsync(groupId);
 
-        // only groups of the board, the guest group can't be deleted (the list has no delete button for it)
-        if (group is not null && group.BoardID == this.PageBoardContext.PageBoardID && !group.GroupFlags.IsGuest)
+        // only groups of the board, the guest group and the administrators group can't be deleted (the list has no
+        // delete button for them, without the administrators group the board has no admins)
+        if (group is not null && group.BoardID == this.PageBoardContext.PageBoardID && !group.GroupFlags.IsGuest
+            && !group.GroupFlags.IsAdmin)
         {
             // delete role
             await this.GetRepository<GroupMedal>().DeleteAsync(g => g.GroupID == groupId);
