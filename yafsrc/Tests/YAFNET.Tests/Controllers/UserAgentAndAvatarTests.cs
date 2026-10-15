@@ -30,6 +30,9 @@ using System.Threading.Tasks;
 using Autofac;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+using NSubstitute;
 
 using ServiceStack.OrmLite;
 
@@ -58,14 +61,19 @@ public class UserAgentAndAvatarTests
 
     private TestDatabase db;
 
+    private ILogger<AvatarController> avatarLogger;
+
     [SetUp]
     public void SetUp()
     {
+        this.avatarLogger = Substitute.For<ILogger<AvatarController>>();
+
         this.board = new TestBoardContext(
             b =>
             {
                 b.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>();
                 b.RegisterType<ClearCacheOnEvents>().AsImplementedInterfaces();
+                b.RegisterInstance(this.avatarLogger).As<ILogger<AvatarController>>();
             },
             useDatabase: true);
 
@@ -192,6 +200,9 @@ public class UserAgentAndAvatarTests
 
         this.board.CreateController<AvatarController>().GetResponseLocalAvatar(this.db.AddUser("NoAvatar"))
             .Should().BeOfType<NotFoundResult>();
+
+        // anyone can request it, every request wrote an error (exception) to the event log
+        this.avatarLogger.ReceivedCalls().Should().BeEmpty("a user without uploaded avatar is no error");
     }
 
     [Test]

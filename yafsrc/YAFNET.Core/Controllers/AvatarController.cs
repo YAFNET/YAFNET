@@ -143,6 +143,12 @@ public class AvatarController : ForumBaseController
             }
 
             var data = user.AvatarImage;
+
+            // a user without uploaded avatar (the link is only used for uploaded avatars)
+            if (data is null)
+            {
+                return this.NotFound();
+            }
             // the stored type comes from the upload, only ever serve image types
             var contentType = user.AvatarImageType?.Trim().ToLowerInvariant() switch
             {

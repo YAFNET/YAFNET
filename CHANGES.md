@@ -485,6 +485,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Edit message: the persistent option is only shown to admins and moderators, when the author edited a persistent message it was not persistent anymore; it is kept now
 * [FIXED] Replace words: the good word was added as html to the messages, topic subjects and descriptions (it is text entered by the admin), html in it ran on the pages; it is encoded now and html is removed when a replace word is saved or imported. The topic subject on the topic page was replaced twice
 * [FIXED] Admin Edit Medal: the image of a medal was saved as sent by the form and shown as html on the medals page; only the images of the medals folder are accepted now and the image is encoded
+* [FIXED] Avatar: the uploaded avatar of a user without uploaded avatar failed with an error, every request (by anyone) wrote it to the event log; it is not found now without an error
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
