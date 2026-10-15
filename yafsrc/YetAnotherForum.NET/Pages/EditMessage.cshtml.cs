@@ -255,10 +255,15 @@ public class EditMessageModel : ForumPage
         // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
         // Ederon : now it should be better, but all this code around forum/topic/message flags needs revamp
         // retrieve message flags
+        // only admins and moderators see (and change) the persistent option, the message keeps it otherwise
+        var currentFlags = this.PageBoardContext.PageMessage.MessageFlags;
+
         var messageFlags = new MessageFlags(this.PageBoardContext.PageMessage.Flags) {
                                IsHtml = false,
                                IsBBCode = true,
-                               IsPersistent = this.Input.Persistent
+                               IsPersistent = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess
+                                                  ? this.Input.Persistent
+                                                  : currentFlags.IsPersistent
                            };
 
         this.PageBoardContext.PageMessage.Flags = messageFlags.BitValue;

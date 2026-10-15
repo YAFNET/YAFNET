@@ -408,6 +408,76 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A message marked as persistent by a moderator stays persistent when its author edits it (the option is only
+    /// shown to moderators): the edit removed it.
+    /// </summary>
+    [Test]
+    [Description("Editing a persistent message keeps it persistent")]
+    public async Task PersistentMessageStaysPersistentAfterEditTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                // the test user creates a topic
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName,
+                        this.TestSettings.TestUserPassword), Is.True,
+                    "Login failed");
+
+                Assert.That(await page.CreateNewTestTopicAsync(this.TestSettings), Is.True, "Topic Creating failed");
+
+                var editLink = await page.Locator("a[href*='EditMessage']").First.GetAttributeAsync("href");
+
+                Assert.That(editLink, Is.Not.Null, "Edit link of the message not found");
+
+                var editUrl = new Uri(new Uri(this.TestSettings.TestForumUrl), editLink).ToString();
+
+                // the admin marks the message as persistent
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                await page.GotoAsync(editUrl);
+                await page.Locator("#Input_Persistent").CheckAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                // the author edits the message
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.TestUserName,
+                        this.TestSettings.TestUserPassword), Is.True,
+                    "Login failed");
+
+                await page.GotoAsync(editUrl);
+
+                Assert.That(await page.Locator("#Input_Persistent").CountAsync(), Is.Zero, "The option is shown to the author");
+
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync($"Edited {Guid.NewGuid():N}");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword), Is.True,
+                    "Login failed");
+
+                await page.GotoAsync(editUrl);
+
+                Assert.That(await page.Locator("#Input_Persistent").IsCheckedAsync(), Is.True, "The message is not persistent anymore");
+            });
+    }
+
+    /// <summary>
     /// The history of a deleted message (which contains its text) is only shown to moderators.
     /// </summary>
     [Test]

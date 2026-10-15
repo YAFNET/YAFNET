@@ -481,6 +481,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Subscriptions: the daily digest option was always shown unchecked, saving the notification settings turned the digest off; and while the digest is turned off (the option is not shown) saving reset it. The option shows the saved value and keeps it now
 * [FIXED] Admin Edit User settings: when the users can't change their e-mail address the field is not shown, the empty address was refused and the settings could not be saved; when the users can't choose a theme or a language saving reset them. The hidden values are kept now
 * [FIXED] Admin Edit User: the "moderated" setting of a user was only shown to the host admin, when a board admin saved the user info (e.g. the rank) the user was not moderated anymore; all admins see and change the setting now
+* [FIXED] Edit message: the persistent option is only shown to admins and moderators, when the author edited a persistent message it was not persistent anymore; it is kept now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
