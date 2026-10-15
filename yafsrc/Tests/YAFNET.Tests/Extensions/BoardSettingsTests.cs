@@ -147,4 +147,22 @@ public class BoardSettingsTests
 
         throw new NotSupportedException($"No test value for {type}");
     }
+
+    [Test]
+    [Description("The host settings page reads and writes the settings by type: every setting is in one list")]
+    public void Setting_Collection_Test()
+    {
+        var collection = new BoardSettingCollection(new BoardSettings());
+
+        collection.SettingsString.Should().ContainKey(nameof(BoardSettings.Name));
+        collection.SettingsBool.Should().ContainKey(nameof(BoardSettings.AllowDigestEmail));
+        collection.SettingsInt.Should().ContainKey(nameof(BoardSettings.AvatarWidth));
+        collection.SettingsOther.Should().ContainKeys(nameof(BoardSettings.MaxUsersWhen), nameof(BoardSettings.EditorEnterMode));
+
+        var all = collection.SettingsString.Keys.Concat(collection.SettingsBool.Keys).Concat(collection.SettingsInt.Keys)
+            .Concat(collection.SettingsOther.Keys).ToList();
+
+        all.Should().OnlyHaveUniqueItems().And.BeEquivalentTo(typeof(BoardSettings).GetProperties().Select(p => p.Name));
+    }
 }
+
