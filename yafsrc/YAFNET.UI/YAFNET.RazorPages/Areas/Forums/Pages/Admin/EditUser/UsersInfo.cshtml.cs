@@ -115,15 +115,15 @@ public class UsersInfoModel : AdminPage
 
         var userFlags = currentUser.UserFlags;
 
-        // only a host admin can see (and change) the host admin setting,
-        // the guest setting is read only (disabled checkboxes are not posted)
+        // only a host admin can see (and change) the host admin and the moderated setting (for other admins they
+        // are not shown and the user keeps them), the guest setting is read only (disabled checkboxes are not posted)
         if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
         {
             userFlags.IsHostAdmin = this.Input.IsHostAdminX;
+            userFlags.Moderated = this.Input.Moderated;
         }
 
         userFlags.IsActiveExcluded = this.Input.IsExcludedFromActiveUsers;
-        userFlags.Moderated = this.Input.Moderated;
 
         // the rank must be a rank of this board
         if (!await this.GetRepository<Rank>().ExistsAsync(

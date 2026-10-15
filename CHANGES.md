@@ -480,6 +480,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Edit settings: when the users can't choose a theme or a language (or hide themselves) the options are not shown, saving the settings reset the theme and the language of the user to the board defaults (and showed the hidden user again); they keep their values now
 * [FIXED] Subscriptions: the daily digest option was always shown unchecked, saving the notification settings turned the digest off; and while the digest is turned off (the option is not shown) saving reset it. The option shows the saved value and keeps it now
 * [FIXED] Admin Edit User settings: when the users can't change their e-mail address the field is not shown, the empty address was refused and the settings could not be saved; when the users can't choose a theme or a language saving reset them. The hidden values are kept now
+* [FIXED] Admin Edit User: the "moderated" setting of a user is only shown to the host admin, when a board admin saved the user info (e.g. the rank) the user was not moderated anymore; it is kept now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

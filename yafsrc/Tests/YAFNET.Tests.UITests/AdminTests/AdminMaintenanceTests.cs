@@ -950,6 +950,69 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// A board admin (not the host admin) doesn't see the "moderated" setting of a user, saving the user info (e.g.
+    /// the rank) keeps it: the posts of the user were not moderated anymore.
+    /// </summary>
+    [Test]
+    public async Task BoardAdminKeepsModeratedSettingTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var boardAdmin = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                var moderatedUser = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await this.LoginAdminAsync(page);
+
+                var boardAdminId = await this.FindUserIdAsync(page, boardAdmin);
+                var moderatedUserId = await this.FindUserIdAsync(page, moderatedUser);
+
+                // the user becomes an admin of the board with all pages
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{boardAdminId}");
+                await page.Locator("//button[contains(@data-bs-target,'#View2')]").ClickAsync();
+                await page.GetByLabel("Administrators").First.CheckAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UsersGroups?handler=Save')]"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/PageAccessEdit/{boardAdminId}");
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='GrantAll']").First);
+
+                // the host admin moderates the other user
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{moderatedUserId}");
+                await page.Locator("#Input_Moderated").CheckAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UsersInfo') and contains(@formaction,'Save')]"));
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // the board admin saves the user info
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, boardAdmin, this.TestSettings.TestUserPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{moderatedUserId}");
+
+                // the tab is loaded with ajax
+                await page.Locator("#Input_RankID").WaitForAsync();
+
+                Assert.That(await page.Locator("#Input_Moderated").CountAsync(), Is.Zero, "The setting is shown to the board admin");
+
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UsersInfo') and contains(@formaction,'Save')]"));
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{moderatedUserId}");
+
+                Assert.That(await page.Locator("#Input_Moderated").IsCheckedAsync(), Is.True, "The user is not moderated anymore");
+            });
+    }
+
+    /// <summary>
     /// The edit page of a board shows the language of that board (not the one of the current board),
     /// otherwise every save changed the language of the board; a board without a description can be saved.
     /// </summary>
