@@ -116,7 +116,8 @@ public class SubscriptionsModel : ProfilePage
     {
         this.Input = new SubscriptionsInputModel
         {
-                                        NotificationType = this.PageBoardContext.PageUser.NotificationSetting.ToInt().ToString()
+                                        NotificationType = this.PageBoardContext.PageUser.NotificationSetting.ToInt().ToString(),
+                                        DailyDigestEnabled = this.PageBoardContext.PageUser.DailyDigest
                                     };
 
         await this.BindDataAsync();
@@ -172,12 +173,17 @@ public class SubscriptionsModel : ProfilePage
 
         var autoWatchTopicsEnabled = selectedValue == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
+        // the digest option is not shown (and not sent) when the digest is turned off, the user keeps the value
+        var dailyDigest = this.PageBoardContext.BoardSettings.AllowDigestEmail
+                              ? this.Input.DailyDigestEnabled
+                              : this.PageBoardContext.PageUser.DailyDigest;
+
         // save the settings...
         await this.GetRepository<User>().SaveNotificationAsync(
             this.PageBoardContext.PageUserID,
             autoWatchTopicsEnabled,
             selectedValue.ToInt(),
-            this.Input.DailyDigestEnabled);
+            dailyDigest);
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 

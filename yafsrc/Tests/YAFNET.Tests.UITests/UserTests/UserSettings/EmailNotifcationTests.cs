@@ -476,6 +476,87 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
     }
 
     /// <summary>
+    /// The daily digest option shows the saved value and keeps it while the digest is turned off: the option was
+    /// always shown unchecked, saving the notification settings turned the digest off.
+    /// </summary>
+    [Test]
+    public async Task DailyDigestOptionIsKeptTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+
+                var digestWasEnabled = await page.Locator("#Input_AllowDigestEmail").IsCheckedAsync();
+
+                try
+                {
+                    await SetDigestAsync(page, this.TestSettings, true);
+
+                    await SaveDailyDigestAsync(page, this.TestSettings, true);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Subscriptions");
+
+                    Assert.That(await page.Locator("#Input_DailyDigestEnabled").IsCheckedAsync(), Is.True, "The saved digest option is not shown");
+
+                    // the digest is turned off, the notification settings are saved
+                    await SetDigestAsync(page, this.TestSettings, false);
+
+                    await SaveDailyDigestAsync(page, this.TestSettings, null);
+
+                    await SetDigestAsync(page, this.TestSettings, true);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Subscriptions");
+
+                    Assert.That(await page.Locator("#Input_DailyDigestEnabled").IsCheckedAsync(), Is.True, "The digest option was reset");
+                }
+                finally
+                {
+                    await SetDigestAsync(page, this.TestSettings, true);
+                    await SaveDailyDigestAsync(page, this.TestSettings, false);
+
+                    if (!digestWasEnabled)
+                    {
+                        await SetDigestAsync(page, this.TestSettings, false);
+                    }
+                }
+            });
+    }
+
+    /// <summary>
+    /// Sets the daily digest option of the logged-in user (when not null) and saves the notification settings.
+    /// </summary>
+    private static async Task SaveDailyDigestAsync(IPage page, TestConfig testSettings, bool? enabled)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Profile/Subscriptions");
+
+        if (enabled.HasValue)
+        {
+            await page.Locator("#Input_DailyDigestEnabled").SetCheckedAsync(enabled.Value);
+        }
+        else
+        {
+            Assert.That(await page.Locator("#Input_DailyDigestEnabled").CountAsync(), Is.Zero, "The digest option is shown");
+        }
+
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']").First);
+    }
+
+    /// <summary>
+    /// Turns the digest of the board on or off.
+    /// </summary>
+    private static async Task SetDigestAsync(IPage page, TestConfig testSettings, bool enabled)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/Settings");
+
+        await page.Locator("#Input_AllowDigestEmail").SetCheckedAsync(enabled);
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+    }
+
+    /// <summary>
     /// After "Force send" the digest page still shows when the digest was sent last (the field was empty).
     /// </summary>
     [Test]
