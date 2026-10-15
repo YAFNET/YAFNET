@@ -441,6 +441,53 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
     }
 
     /// <summary>
+    /// An empty number field or a page size of 0 keeps the setting: it was saved as 0, with 0 posts per page every topic
+    /// page failed.
+    /// </summary>
+    [Test]
+    public async Task EmptyOrZeroPageSizeKeepsSettingTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                var postsPerPage = await page.Locator("#Input_PostsPerPage").InputValueAsync();
+                var albumsPerPage = await page.Locator("#Input_AlbumsPerPage").InputValueAsync();
+
+                // the fields and the save button are on hidden tabs
+                await page.RunAndWaitForNextPageAsync(
+                    () => page.EvaluateAsync(
+                        """
+                        () => {
+                            document.querySelector('#Input_PostsPerPage').value = '';
+                            document.querySelector('#Input_AlbumsPerPage').value = '0';
+                            document.querySelector("button[formaction*='Save']").click();
+                        }
+                        """));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                Assert.That(await page.Locator("#Input_PostsPerPage").InputValueAsync(), Is.EqualTo(postsPerPage), "The empty field was saved");
+                Assert.That(await page.Locator("#Input_AlbumsPerPage").InputValueAsync(), Is.EqualTo(albumsPerPage), "The page size 0 was saved");
+
+                var response = await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{this.TestSettings.TestTopicId}/topic");
+
+                Assert.That(response!.Status, Is.LessThan(500), "The topic page failed");
+                Assert.That(await page.Locator("[id^='post']").CountAsync(), Is.GreaterThan(0), "The topic page shows no posts");
+            });
+    }
+
+    /// <summary>
     /// Sets the theme and the language (when not null) of the logged-in user and saves the settings.
     /// </summary>
     private static async Task SaveSettingsAsync(IPage page, TestConfig testSettings, string theme, string language)

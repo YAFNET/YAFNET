@@ -346,11 +346,23 @@ public class HostSettingsModel : AdminPage
                     return;
                 }
 
+                // an empty or invalid number keeps the setting (it was saved as 0), a page size is at least 1
+                // (0 failed every page with the list, e.g. 0 posts per page all topics)
+                if (this.ModelState.TryGetValue($"Input.{name}", out var entry) && entry.Errors.Count > 0)
+                {
+                    return;
+                }
+
                 switch (propertyInfo.PropertyType.Name)
                 {
                     case "Int32":
                     {
-                        var value = propertyInfo.GetValue(this.Input, null);
+                        var value = (int)propertyInfo.GetValue(this.Input, null)!;
+
+                        if (name.EndsWith("PerPage") && value < 1)
+                        {
+                            return;
+                        }
 
                         settingCollection.SettingsInt[name].SetValue(this.PageBoardContext.BoardSettings, value, null);
                         break;
