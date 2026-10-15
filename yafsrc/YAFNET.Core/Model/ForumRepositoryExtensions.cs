@@ -893,9 +893,8 @@ public static class ForumRepositoryExtensions
                 forum => new ForumSorted
                 {
                     Category = forum.CategoryName,
-                    Forum = forum.ParentID.HasValue
-                        ? $" - {HttpUtility.HtmlEncode(forum.ForumName)}"
-                        : HttpUtility.HtmlEncode(forum.ForumName),
+                    // text, the select encodes it
+                    Forum = forum.ParentID.HasValue ? $" - {forum.ForumName}" : forum.ForumName,
                     ForumID = forum.ForumID,
                     Icon = "comments",
                     ForumLink = BoardContext.Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)

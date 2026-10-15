@@ -419,7 +419,9 @@ public class ChoicesTagHelper : TagHelper
     private static TagBuilder GenerateOption(SelectListItem item, string text, bool selected, string iconItem)
     {
         var tagBuilder = new TagBuilder(HtmlTag.Option);
-        tagBuilder.InnerHtml.AppendHtml(text);
+
+        // the text (e.g. the name of a forum) is encoded like the label
+        tagBuilder.InnerHtml.Append(text);
 
         if (item.Value != null)
         {

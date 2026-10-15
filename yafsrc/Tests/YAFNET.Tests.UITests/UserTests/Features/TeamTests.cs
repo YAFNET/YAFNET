@@ -136,6 +136,51 @@ public class TeamTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The names of the moderated forums are shown once encoded in the forum select of the team page
+    /// ("Tom &amp; Jerry" was shown for "Tom & Jerry").
+    /// </summary>
+    [Test]
+    public async Task TeamPageForumNameEncodingTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var forumName = $"Tom & Jerry's \"Team\" {Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a forum moderated by the admins
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+
+                await page.Locator("#Input_Name").FillAsync(forumName);
+                await page.Locator("#Input_Description").FillAsync("A forum of the team page test");
+                await page.Locator("#Input_SortOrder").FillAsync("98");
+
+                await page.GetByLabel("Administrators").First.SelectOptionAsync(new SelectOptionValue { Label = "Admin Access" });
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Team");
+
+                // the choices of the forum select (shown by the select script)
+                var choices = await page.Locator(".choices__item--choice").EvaluateAllAsync<string[]>(
+                                  "items => items.map(i => i.textContent.trim())");
+
+                Assert.That(
+                    choices,
+                    Has.Some.Contains(forumName),
+                    $"The forum is not shown with its name: {string.Join(" | ", System.Linq.Enumerable.Where(choices, c => c.Contains("Jerry")))}");
+            });
+    }
+
+    /// <summary>
     /// The post of the team page (forum select) is denied like the page when the team page is only
     /// for admins (the default), it showed the team.
     /// </summary>

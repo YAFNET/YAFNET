@@ -504,6 +504,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Push notifications were never sent: creating the VAPID signature failed with the current BouncyCastle version
 * [FIXED] Text avatars: all users with a numeric provider key (old membership) got a black avatar
 * [FIXED] Upgrade: the upgrade waits until the default BBCodes are imported (errors of the import were lost and the forum could be used before the import was finished)
+* [FIXED] Team page: the names of the moderated forums were shown double encoded in the forum select ("Tom &amp; Jerry")
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
