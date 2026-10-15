@@ -11075,6 +11075,10 @@
             "#text": "Od:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Toto jméno patří registrovanému členovi, zadejte prosím jiné jméno."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Uživatelské jméno hosta nesmí mít více než 100 znaků."
           },

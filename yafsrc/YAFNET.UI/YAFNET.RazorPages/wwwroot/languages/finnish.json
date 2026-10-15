@@ -11075,6 +11075,10 @@
             "#text": "Keneltä:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Tämä nimi kuuluu rekisteröityneelle jäsenelle, anna toinen nimi."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Vieraan käyttäjänimi voi olla enintään 100 merkkiä."
           },

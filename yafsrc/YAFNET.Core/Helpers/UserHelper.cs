@@ -56,6 +56,27 @@ public static class UserHelper
     }
 
     /// <summary>
+    /// Checks if the name is the user name or display name of a member of the board (not the guest user, case is
+    /// ignored): guests can't post with the name of a member (the post looked like a post of the member).
+    /// </summary>
+    /// <param name="name">The name entered by the guest.</param>
+    /// <param name="boardId">The board identifier.</param>
+    /// <returns>Returns if a member has the name.</returns>
+    public static bool IsMemberName(string name, int boardId)
+    {
+        if (name.IsNotSet())
+        {
+            return false;
+        }
+
+        var lowerName = name.Trim().ToLower();
+
+        return BoardContext.Current.GetRepository<User>().Exists(
+            u => u.BoardID == boardId && (u.Flags & 4) != 4
+                 && (u.Name.ToLower() == lowerName || u.DisplayName.ToLower() == lowerName));
+    }
+
+    /// <summary>
     /// Checks if a name can be used as user name or display name: no semicolon,
     /// not the name of the guest user and not a bad word (another user can't be impersonated).
     /// </summary>

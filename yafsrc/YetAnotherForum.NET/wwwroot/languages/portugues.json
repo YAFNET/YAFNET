@@ -11075,6 +11075,10 @@
             "#text": "De:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Este nome pertence a um membro registado, introduza outro nome."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "O nome de utilizador convidado não pode ser superior a 100 caracteres."
           },

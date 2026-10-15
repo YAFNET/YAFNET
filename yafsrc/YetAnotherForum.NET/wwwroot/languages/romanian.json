@@ -11075,6 +11075,10 @@
             "#text": "De la :"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Acest nume aparține unui membru înregistrat, vă rugăm să introduceți alt nume."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Numele de utilizator al oaspeților nu poate avea mai mult de 100 de caractere."
           },

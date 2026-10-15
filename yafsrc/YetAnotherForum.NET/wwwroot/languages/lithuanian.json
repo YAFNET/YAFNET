@@ -11075,6 +11075,10 @@
             "#text": "Nuo: "
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Šis vardas priklauso registruotam nariui, įveskite kitą vardą."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Svečio vartotojo vardas negali būti ilgesnis nei 100 simbolių."
           },

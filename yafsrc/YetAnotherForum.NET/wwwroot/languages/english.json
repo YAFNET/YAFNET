@@ -11067,6 +11067,10 @@
                     "#text": "From:"
                 },
                 {
+                    "@tag": "GUEST_NAME_EXISTS",
+                    "#text": "This name belongs to a registered member, please enter another name."
+                },
+                {
                     "@tag": "GUEST_NAME_TOOLONG",
                     "#text": "Guest Username cannot be more than 100 characters."
                 },

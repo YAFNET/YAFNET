@@ -11075,6 +11075,10 @@
             "#text": "发信人:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "此名称属于已注册的会员，请输入其他名称。"
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "来宾用户名不能超过 100 个字符。"
           },

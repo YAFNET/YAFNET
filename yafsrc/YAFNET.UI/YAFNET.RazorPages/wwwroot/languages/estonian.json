@@ -11075,6 +11075,10 @@
             "#text": "Kellelt:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "See nimi kuulub registreeritud liikmele, palun sisestage teine nimi."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Külalise kasutajanimi ei tohi olla pikem kui 100 tähemärki."
           },

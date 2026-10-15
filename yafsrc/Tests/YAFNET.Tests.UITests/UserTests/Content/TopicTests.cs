@@ -107,6 +107,81 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A guest can't post with the name of a member (also in other case): the post looked like a post of the member.
+    /// </summary>
+    [Test]
+    public async Task GuestCanNotUseMemberNameTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var forumName = $"Guest Name Forum {Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a forum where guests can post
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+
+                await page.Locator("#Input_Name").FillAsync(forumName);
+                await page.Locator("#Input_Description").FillAsync("A forum of the guest name test");
+                await page.Locator("#Input_SortOrder").FillAsync("99");
+
+                await page.GetByLabel("Guest").First.SelectOptionAsync(new SelectOptionValue { Label = "Member Access" });
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
+
+                var editLink = await page.Locator("li.list-group-item", new PageLocatorOptions { HasText = forumName })
+                                   .Locator("a[href*='EditForum/false/']").First.GetAttributeAsync("href");
+
+                Assert.That(editLink, Is.Not.Null, "The forum was not created");
+
+                var forumId = Regex.Match(editLink, @"EditForum/false/(\d+)").Groups[1].Value;
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // a guest address of its own (the flood delay of guests is checked per address, other tests post as guest)
+                await page.SetExtraHTTPHeadersAsync(
+                    new Dictionary<string, string> { ["X-Real-IP"] = $"10.66.{Random.Shared.Next(1, 255)}.{Random.Shared.Next(1, 255)}" });
+
+                // the name of the admin (in other case)
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
+
+                await page.Locator("#Input_From").FillAsync(this.TestSettings.AdminUserName.ToUpperInvariant());
+                await page.Locator("//input[contains(@id,'_TopicSubject')]").First.FillAsync($"Guest name topic {Random.Shared.Next()}");
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A topic of a guest");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(
+                    await page.ContentAsync(),
+                    Does.Contain("This name belongs to a registered member, please enter another name."),
+                    "The name of the member was accepted");
+                Assert.That(page.Url, Does.Contain("PostTopic"), "The topic was created");
+
+                // another name
+                await page.Locator("#Input_From").FillAsync($"Guest Writer {Random.Shared.Next()}");
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").ClickAsync();
+                await page.FrameLocator(".sceditor-container >> iframe").Locator("body").FillAsync("A topic of a guest");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                Assert.That(page.Url, Does.Not.Contain("PostTopic"), "The topic with another name was not created");
+
+                await page.SetExtraHTTPHeadersAsync(new Dictionary<string, string>());
+            });
+    }
+
+    /// <summary>
     /// All guests are the same user: a guest can only edit and delete the guest posts of the own address
     /// (like the buttons of the post), the pages allowed every guest to change all guest posts.
     /// </summary>

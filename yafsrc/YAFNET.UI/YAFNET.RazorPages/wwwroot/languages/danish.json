@@ -11075,6 +11075,10 @@
             "#text": "Fra:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Dette navn tilhører et registreret medlem, indtast venligst et andet navn."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Gæstebrugernavn må ikke være mere end 100 tegn."
           },

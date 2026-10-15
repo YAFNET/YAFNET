@@ -11075,6 +11075,10 @@
             "#text": "Från:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Det här namnet tillhör en registrerad medlem, ange ett annat namn."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Användarnamn för gäst kan inte innehålla mer än 100 tecken."
           },

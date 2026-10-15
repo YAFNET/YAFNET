@@ -177,6 +177,13 @@ public class PostMessageModel : ForumPage
             return false;
         }
 
+        // a guest can't use the name of a member (the post looked like a post of the member)
+        if (this.PageBoardContext.IsGuest && UserHelper.IsMemberName(this.Input.From, this.PageBoardContext.PageBoardID))
+        {
+            this.PageBoardContext.Notify(this.GetText("POSTMESSAGE", "GUEST_NAME_EXISTS"), MessageTypes.warning);
+            return false;
+        }
+
         return true;
     }
 

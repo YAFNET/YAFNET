@@ -31,7 +31,9 @@ using Autofac;
 
 using NSubstitute;
 
+using YAF.Core.Helpers;
 using YAF.Tests.TestInfrastructure;
+using YAF.Types.Flags;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
@@ -68,6 +70,25 @@ public class UserHelperTests
     public void TearDown()
     {
         this.board?.Dispose();
+    }
+
+    [Test]
+    [Description("The user names and display names of members are member names (case is ignored), the name of the guest user not")]
+    public void IsMemberName_Test()
+    {
+        this.board.Dispose();
+        this.board = new TestBoardContext(useDatabase: true);
+
+        var db = this.board.Database;
+        db.AddUser("alice", u => u.DisplayName = "Alice Display");
+        db.AddUser("Guest", u => u.Flags = (int)(UserFlags.Flags.IsApproved | UserFlags.Flags.IsGuest));
+
+        UserHelper.IsMemberName("alice", TestDatabase.BoardId).Should().BeTrue();
+        UserHelper.IsMemberName(" ALICE ", TestDatabase.BoardId).Should().BeTrue();
+        UserHelper.IsMemberName("alice display", TestDatabase.BoardId).Should().BeTrue();
+        UserHelper.IsMemberName("Guest", TestDatabase.BoardId).Should().BeFalse("the guest name is the default name of guests");
+        UserHelper.IsMemberName("Somebody", TestDatabase.BoardId).Should().BeFalse();
+        UserHelper.IsMemberName(null, TestDatabase.BoardId).Should().BeFalse();
     }
 
     [TestCase("Alice")]
