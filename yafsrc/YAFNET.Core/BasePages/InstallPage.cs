@@ -58,16 +58,26 @@ public class InstallPage : PageModel, IHaveServiceLocator
 
     /// <summary>
     /// After the installation the install steps can't be used anymore (they would put the forum into
-    /// the install mode, create an admin, send e-mails, ...), only while an installation is running
-    /// (the current step is kept in the cache).
+    /// the install mode, create an admin, send e-mails, ...), only the last step (complete) of a running
+    /// installation. An installation that was not completed (the finish button was not clicked, the step
+    /// stays in the cache) is ended: all pages were sent to the install steps and anyone could create an admin.
     /// </summary>
     /// <param name="context">The context.</param>
     public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
     {
-        if (this.Get<IDataCache>().Get("Install") is null && this.IsInstalled())
+        if (!this.IsInstalled())
         {
-            context.Result = this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+            return;
         }
+
+        if (this.Get<IDataCache>().Get("Install") is not null && context.HandlerMethod?.Name == "Complete")
+        {
+            return;
+        }
+
+        this.Get<IDataCache>().Remove("Install");
+
+        context.Result = this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 
     /// <summary>
