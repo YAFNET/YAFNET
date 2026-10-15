@@ -115,6 +115,17 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                             Is.True,
                             "Login failed");
 
+                        // only the errors of the crawl are checked (other tests log errors on purpose, e.g. a mail
+                        // that can't be sent)
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EventLog");
+                        await page.EvaluateAsync(
+                            """
+                            async () => {
+                                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                                await fetch(location.pathname + '?handler=DeleteAll', { method: 'POST', body: new URLSearchParams({ '__RequestVerificationToken': token }) });
+                            }
+                            """);
+
                         await page.CreateTopicAsync(
                             this.TestSettings,
                             this.TestSettings.TestForumId,
