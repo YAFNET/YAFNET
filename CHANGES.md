@@ -453,29 +453,29 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin Medals: a medal could not be deleted (every post of the page failed with an error, the shown medal list was bound and can not be created)
 * [FIXED] Medals: a medal awarded to a group, a changed medal and a deleted medal were shown in the old way for up to 10 minutes (the cached medals of the users were not cleared)
 * [FIXED] Admin Forums: a deleted category was still shown in the list (the list of the page is kept in the session and was not reloaded)
-* Message history: the button back to the reported posts was never shown (the forum id is in the query string, not in the route)
-* Host settings: after enabling private messages, friends or albums the counts of the users (unread messages, friend requests, "My albums") were missing until the cached user data expired
-* Admin database maintenance: "Re-index" failed with an error page on MySQL (and on errors of the database), now a message is shown
-* Admin database maintenance: "Shrink" on MySQL showed a database error instead of "not supported"
-* Guests (all are the same user) could edit and delete every guest post and add or edit the polls of every guest topic by the address of the page, now only the guest posts of the own address (like the buttons of the post)
-* Guests (all are the same user) saw the uploads of all other guests in the attachment list of the editor, the list is no longer shown to guests
-* Admin database maintenance: "Re-index" and "Shrink" on MySQL run OPTIMIZE TABLE for the forum tables (they were not supported)
-* Guests (all are the same user) shared one flood delay: the post of one guest blocked all other guests, the delay of guests is now checked per address
-* Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
-* Mail: a refused single mail (test mail of the admin and install pages, mail to a user, test digest) was reported as sent, the error is shown again when no mail was sent
-* Admin mail to a group: a mail that could not be sent showed an error page and stopped the mails to the other members, all mails are sent in one connection now and an error is shown as message
-* Notification mails (watched topics, approval, medals, roles, suspension, admin notices) failed the action with an error page when the mail could not be sent (e.g. the mail server is down): the post was saved, but the mentions and the activity stream were skipped. The error is logged now
-* Unapproved posts: approving an already approved post (another moderator, the button sent twice) counted the post again for the user and sent the notifications again
-* Register: when the verification mail can not be sent the account is created anyway, the page now tells it and points to "Resend Email Verification" on the login instead of showing an error page
-* Admin Register User: when the verification mail could not be sent the user was created, but the default notification settings were not saved and an error page was shown, the settings are saved first now and the mail error is shown as message
-* Delete user: the medals and the push subscriptions of the user were not deleted, on PostgreSQL, SQL Server and MySQL the delete of a user with a medal or a push subscription failed (after the login of the user was already deleted). Ignore entries of other users for the deleted user are removed too
-* Delete board: the tags, profile definitions, banned countries, banned user agents and push subscriptions of the board were not deleted, on PostgreSQL, SQL Server and MySQL the delete of such a board failed half way
-* Admin Boards: the board the forum runs on could be deleted (the context menu always had the delete), the forum was broken afterwards. The delete is not shown for the current board and refused
-* Group medals: after a user joined or left a group (or the group was deleted) the medals of the group were still shown or missing for up to 10 minutes
-* Search: the number of results counted the hits the user can not see (forums without read access, not approved or deleted posts), the pager showed empty pages and a search in a hidden forum told the number of hits. Only the shown page is formatted now
-* Localization: the language file (and the english file for the fallback) was read and parsed again for every request, the cache was overwritten right away. The parsed file is cached now until the file is changed (e.g. by the language editor)
-* Logout: the push notification subscription of the browser is removed for the user, the next user of the browser got the notifications of both users
-* Admin Edit Medal: after an award was removed from a group or user the other awards of the medal were not listed anymore
+* [FIXED] Message history: the button back to the reported posts was never shown (the forum id is in the query string, not in the route)
+* [FIXED] Host settings: after enabling private messages, friends or albums the counts of the users (unread messages, friend requests, "My albums") were missing until the cached user data expired
+* [FIXED] Admin database maintenance: "Re-index" failed with an error page on MySQL (and on errors of the database), now a message is shown
+* [FIXED] Admin database maintenance: "Shrink" on MySQL showed a database error instead of "not supported"
+* [FIXED] Guests (all are the same user) could edit and delete every guest post and add or edit the polls of every guest topic by the address of the page, now only the guest posts of the own address (like the buttons of the post)
+* [FIXED] Guests (all are the same user) saw the uploads of all other guests in the attachment list of the editor, the list is no longer shown to guests
+* [FIXED] Admin database maintenance: "Re-index" and "Shrink" on MySQL run OPTIMIZE TABLE for the forum tables (they were not supported)
+* [FIXED] Guests (all are the same user) shared one flood delay: the post of one guest blocked all other guests, the delay of guests is now checked per address
+* [FIXED] Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
+* [FIXED] Mail: a refused single mail (test mail of the admin and install pages, mail to a user, test digest) was reported as sent, the error is shown again when no mail was sent
+* [FIXED] Admin mail to a group: a mail that could not be sent showed an error page and stopped the mails to the other members, all mails are sent in one connection now and an error is shown as message
+* [FIXED] Notification mails (watched topics, approval, medals, roles, suspension, admin notices) failed the action with an error page when the mail could not be sent (e.g. the mail server is down): the post was saved, but the mentions and the activity stream were skipped. The error is logged now
+* [FIXED] Unapproved posts: approving an already approved post (another moderator, the button sent twice) counted the post again for the user and sent the notifications again
+* [FIXED] Register: when the verification mail can not be sent the account is created anyway, the page now tells it and points to "Resend Email Verification" on the login instead of showing an error page
+* [FIXED] Admin Register User: when the verification mail could not be sent the user was created, but the default notification settings were not saved and an error page was shown, the settings are saved first now and the mail error is shown as message
+* [FIXED] Delete user: the medals and the push subscriptions of the user were not deleted, on PostgreSQL, SQL Server and MySQL the delete of a user with a medal or a push subscription failed (after the login of the user was already deleted). Ignore entries of other users for the deleted user are removed too
+* [FIXED] Delete board: the tags, profile definitions, banned countries, banned user agents and push subscriptions of the board were not deleted, on PostgreSQL, SQL Server and MySQL the delete of such a board failed half way
+* [FIXED] Admin Boards: the board the forum runs on could be deleted (the context menu always had the delete), the forum was broken afterwards. The delete is not shown for the current board and refused
+* [FIXED] Group medals: after a user joined or left a group (or the group was deleted) the medals of the group were still shown or missing for up to 10 minutes
+* [FIXED] Search: the number of results counted the hits the user can not see (forums without read access, not approved or deleted posts), the pager showed empty pages and a search in a hidden forum told the number of hits. Only the shown page is formatted now
+* [FIXED] Localization: the language file (and the english file for the fallback) was read and parsed again for every request, the cache was overwritten right away. The parsed file is cached now until the file is changed (e.g. by the language editor)
+* [FIXED] Logout: the push notification subscription of the browser is removed for the user, the next user of the browser got the notifications of both users
+* [FIXED] Admin Edit Medal: after an award was removed from a group or user the other awards of the medal were not listed anymore
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
