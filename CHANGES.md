@@ -477,6 +477,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Logout: the push notification subscription of the browser is removed for the user, the next user of the browser got the notifications of both users
 * [FIXED] Admin Edit Medal: after an award was removed from a group or user the other awards of the medal were not listed anymore
 * [FIXED] Block options: the options of turned off features (private messages, buddy list, e-mails) are not shown, saving the page reset them (e.g. the blocked e-mails were sent again after the admin turned the e-mails on again); they keep their value now
+* [FIXED] Edit settings: when the users can't choose a theme or a language (or hide themselves) the options are not shown, saving the settings reset the theme and the language of the user to the board defaults (and showed the hidden user again); they keep their values now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

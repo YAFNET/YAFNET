@@ -226,10 +226,16 @@ public class EditSettingsModel : ProfilePage
         var culture = this.Language;
         var theme = this.Theme;
 
-        // only the themes of the list, when the users can choose a theme (the value is sent by the client)
-        if (this.Theme.IsNotSet() || !this.PageBoardContext.BoardSettings.AllowUserTheme
-                                  || StaticDataHelper.Themes().All(x => x.Value != this.Theme))
+        // the selects of turned off options are not shown (and not sent), the user keeps the values
+        var user = this.PageBoardContext.PageUser;
+
+        if (!this.PageBoardContext.BoardSettings.AllowUserTheme)
         {
+            theme = user.ThemeFile;
+        }
+        else if (this.Theme.IsNotSet() || StaticDataHelper.Themes().All(x => x.Value != this.Theme))
+        {
+            // only the themes of the list (the value is sent by the client)
             theme = null;
         }
 
@@ -238,7 +244,12 @@ public class EditSettingsModel : ProfilePage
                            ? this.TimeZone
                            : this.PageBoardContext.PageUser.TimeZone;
 
-        if (this.Language.IsNotSet())
+        if (!this.PageBoardContext.BoardSettings.AllowUserLanguage)
+        {
+            language = user.LanguageFile;
+            culture = user.Culture;
+        }
+        else if (this.Language.IsNotSet())
         {
             culture = null;
         }
@@ -255,8 +266,9 @@ public class EditSettingsModel : ProfilePage
         }
 
         // the option is only shown when the users can hide themselves (the value is sent by the client)
-        var hideMe = this.HideMe
-                     && (this.PageBoardContext.BoardSettings.AllowUserHideHimself || this.PageBoardContext.IsAdmin);
+        var hideMe = this.PageBoardContext.BoardSettings.AllowUserHideHimself || this.PageBoardContext.IsAdmin
+                         ? this.HideMe
+                         : user.UserFlags.IsActiveExcluded;
 
         // save remaining settings to the DB
         await this.GetRepository<User>().SaveAsync(

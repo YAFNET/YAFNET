@@ -238,6 +238,116 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
     }
 
     /// <summary>
+    /// The theme and the language of a user are kept when the settings are saved while the users can't choose them
+    /// (the selects are not shown): they were reset to the board defaults.
+    /// </summary>
+    [Test]
+    public async Task HiddenThemeAndLanguageAreKeptTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                var themeEnabled = await page.Locator("#Input_AllowUserTheme").IsCheckedAsync();
+                var languageEnabled = await page.Locator("#Input_AllowUserLanguage").IsCheckedAsync();
+
+                string oldTheme = null, oldLanguage = null;
+
+                try
+                {
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", true);
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserLanguage", true);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
+
+                    oldTheme = await page.Locator("#Theme").InputValueAsync();
+                    oldLanguage = await page.Locator("#Language").InputValueAsync();
+
+                    // another theme and another english culture
+                    var theme = await page.Locator("#Theme").EvaluateAsync<string>(
+                                    "select => [...select.options].map(o => o.value).find(v => v && v !== select.value)");
+                    var language = await page.Locator("#Language").EvaluateAsync<string>(
+                                       "select => [...select.options].map(o => o.value).find(v => v.startsWith('en-') && v !== select.value)");
+
+                    Assert.That(theme, Is.Not.Null, "There is no other theme");
+                    Assert.That(language, Is.Not.Null, "There is no other language");
+
+                    await SaveSettingsAsync(page, this.TestSettings, theme, language);
+
+                    // the users can't choose them anymore, the other settings are saved
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", false);
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserLanguage", false);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
+
+                    Assert.That(await page.Locator("#Theme").CountAsync(), Is.Zero, "The theme select is shown");
+
+                    await SaveSettingsAsync(page, this.TestSettings, null, null);
+
+                    // they can choose them again
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", true);
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserLanguage", true);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditSettings");
+
+                    Assert.That(await page.Locator("#Theme").InputValueAsync(), Is.EqualTo(theme), "The theme was reset");
+                    Assert.That(await page.Locator("#Language").InputValueAsync(), Is.EqualTo(language), "The language was reset");
+                }
+                finally
+                {
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", true);
+                    await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserLanguage", true);
+
+                    if (oldTheme != null)
+                    {
+                        await SaveSettingsAsync(page, this.TestSettings, oldTheme, oldLanguage);
+                    }
+
+                    if (!themeEnabled)
+                    {
+                        await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserTheme", false);
+                    }
+
+                    if (!languageEnabled)
+                    {
+                        await SetCheckBoxAsync(page, this.TestSettings, "#Input_AllowUserLanguage", false);
+                    }
+                }
+            });
+    }
+
+    /// <summary>
+    /// Sets the theme and the language (when not null) of the logged-in user and saves the settings.
+    /// </summary>
+    private static async Task SaveSettingsAsync(IPage page, TestConfig testSettings, string theme, string language)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Profile/EditSettings");
+
+        // the selects are replaced by script controls
+        if (theme != null)
+        {
+            await page.Locator("#Theme").EvaluateAsync("(select, value) => select.value = value", theme);
+        }
+
+        if (language != null)
+        {
+            await page.Locator("#Language").EvaluateAsync("(select, value) => select.value = value", language);
+        }
+
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction$='EditSettings']"));
+    }
+
+    /// <summary>
     /// Sets the block options of the logged-in user and saves them.
     /// </summary>
     private static async Task SaveBlockOptionsAsync(IPage page, TestConfig testSettings, params (string Selector, bool Value)[] options)
