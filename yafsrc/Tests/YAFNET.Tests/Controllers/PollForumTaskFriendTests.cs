@@ -182,7 +182,13 @@ public class PollForumTaskFriendTests
         this.tasks.StartTask(nameof(ForumDeleteTask), Arg.Any<Func<IBackgroundTask>>()).Returns(true);
 
         ForumDeleteTask.Start(TestDatabase.BoardId, this.forum, out _).Should().BeTrue();
-        this.tasks.Received(1).StartTask(nameof(ForumDeleteTask), Arg.Any<Func<IBackgroundTask>>());
+        ForumDeleteTask.Start(TestDatabase.BoardId, this.forum, this.db.AddForum(), out var moveMessage).Should().BeTrue();
+        moveMessage.Should().BeEmpty();
+        this.tasks.Received(2).StartTask(nameof(ForumDeleteTask), Arg.Any<Func<IBackgroundTask>>());
+
+        var task = new ForumDeleteTask();
+        task.TaskName.Should().Be(nameof(ForumDeleteTask));
+        task.TaskDescription.Should().NotBeNullOrEmpty();
 
         // a finished delete that is not cleaned up yet: the task manager does not start the new one
         this.tasks.StartTask(nameof(ForumDeleteTask), Arg.Any<Func<IBackgroundTask>>()).Returns(false);
