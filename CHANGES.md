@@ -495,6 +495,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Delete forum with moving the topics: the links of moved topics were moved too, a link to a topic of the new forum was shown next to the topic itself; these links are removed now
 * [FIXED] Topic page: posts of the same second (MySQL saves whole seconds) were listed in any order and a link to such a post could open the page before it; they are listed in the order they were posted now
 * [FIXED] Delete topic: the posts of a deleted topic were still counted for their authors (deleted posts are not counted), e.g. a deleted spam topic still counted for the rank; the post counts are updated now
+* [FIXED] Forum statistics: the topic and post counts of a forum include its sub forums, but a new post in a sub forum only updated the counts of the sub forum; the parent forum is updated too now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

@@ -69,5 +69,12 @@ public class UpdateForumStats : IHaveServiceLocator, IHandleEvent<UpdateForumSta
     {
         this.GetRepository<Forum>().UpdateStats(@event.ForumId);
         this.GetRepository<Forum>().UpdateLastPost(@event.ForumId);
+
+        // the counts of the parent forum include the topics of its sub forums (they were only updated with a
+        // change in the parent forum itself)
+        if (this.GetRepository<Forum>().GetById(@event.ForumId)?.ParentID is { } parentId)
+        {
+            this.GetRepository<Forum>().UpdateStats(parentId);
+        }
     }
 }

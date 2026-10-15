@@ -28,9 +28,11 @@ using System.Threading.Tasks;
 
 using ServiceStack.OrmLite;
 
+using YAF.Core.Events;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Tests.TestInfrastructure;
+using YAF.Types.EventProxies;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
@@ -318,6 +320,27 @@ public class ForumRepositoryTests
         var forum = this.Forums.GetById(parent);
         forum.NumTopics.Should().Be(2);
         forum.NumPosts.Should().Be(3);
+    }
+
+    [Test]
+    [Description("The forum stats event updates the parent forum too, its counts include the sub forums")]
+    public void Stats_Event_Updates_Parent_Test()
+    {
+        var parent = this.db.AddForum("Parent", this.category);
+        var child = this.db.AddForum("Child", this.category, f => f.ParentID = parent);
+
+        this.Forums.UpdateStats(parent);
+
+        var topic = this.db.AddTopic(child, this.bob);
+        this.db.AddMessage(topic, this.bob);
+
+        new UpdateForumStats(this.board.Resolve<IServiceLocator>()).Handle(new UpdateForumStatsEvent(child));
+
+        this.Forums.GetById(child).NumTopics.Should().Be(1);
+
+        var forum = this.Forums.GetById(parent);
+        forum.NumTopics.Should().Be(1, "the parent counts the topics of its sub forums");
+        forum.NumPosts.Should().Be(1);
     }
 
     [Test]
