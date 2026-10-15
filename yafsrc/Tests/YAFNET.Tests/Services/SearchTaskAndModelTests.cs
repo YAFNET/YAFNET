@@ -94,6 +94,34 @@ public class SearchTaskAndModelTests
     }
 
     [Test]
+    [Description("A forced update works with an unreadable time of the last update, forums without posts are skipped")]
+    public async Task Forced_Update_Invalid_Last_Update_Test()
+    {
+        var alice = this.db.AddUser("Alice");
+        var forum = this.db.AddForum();
+        var topic = this.db.AddTopic(forum, alice, "Searchable");
+        var message = this.db.AddMessage(topic, alice, "a post");
+        await this.board.Current.GetRepository<Forum>().UpdateOnlyAsync(() => new Forum { LastPosted = DateTime.UtcNow }, f => f.ID == forum);
+
+        // a forum without posts (no last post time)
+        var empty = this.db.AddForum();
+        await this.board.Current.GetRepository<Forum>().UpdateOnlyAsync(() => new Forum { LastPosted = null }, f => f.ID == empty);
+
+        this.board.BoardSettings.LastSearchIndexUpdated = "not a date";
+        this.board.BoardSettings.ForceUpdateSearchIndex = true;
+
+        var task = this.NewTask();
+        await task.RunOnceAsync();
+
+        this.board.Search.Indexed.Keys.Should().BeEquivalentTo([message]);
+        DateTime.Parse(this.board.BoardSettings.LastSearchIndexUpdated, System.Globalization.CultureInfo.InvariantCulture)
+            .Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+
+        task.TaskName.Should().Be(nameof(UpdateSearchIndexTask));
+        task.TaskDescription.Should().NotBeNullOrEmpty();
+    }
+
+    [Test]
     [Description("Without a forced update nothing is indexed outside of the nightly window")]
     public async Task Not_Due_Test()
     {
