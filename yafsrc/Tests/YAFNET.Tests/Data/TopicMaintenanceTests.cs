@@ -106,6 +106,24 @@ public class TopicMaintenanceTests
     }
 
     [Test]
+    [Description("The posts of a deleted topic are not counted anymore (like deleted posts), they counted for the rank of the user")]
+    public async Task Delete_Topic_Updates_Post_Counts_Test()
+    {
+        var other = this.db.AddTopic(this.forum, this.alice, "Kept");
+        this.db.AddMessage(other, this.alice);
+
+        var topic = this.db.AddTopic(this.forum, this.alice, "Deleted");
+        this.db.AddMessage(topic, this.alice);
+        this.db.AddMessage(topic, this.alice);
+
+        await this.Repository<User>().UpdateOnlyAsync(() => new User { NumPosts = 3 }, u => u.ID == this.alice);
+
+        await this.Topics.DeleteAsync(this.forum, topic, false);
+
+        (await this.Repository<User>().GetByIdAsync(this.alice)).NumPosts.Should().Be(1);
+    }
+
+    [Test]
     [Description("The search index entries of a moved topic get the new forum (the read access is checked with it, a topic moved to a staff forum was still found)")]
     public async Task Move_Updates_Search_Index_Test()
     {

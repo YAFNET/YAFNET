@@ -1395,6 +1395,29 @@ public static class MessageRepositoryExtensions
         }
 
         /// <summary>
+        /// Counts the posts of a user again (approved, not deleted, not in test forums), e.g. after a topic was
+        /// deleted.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        public async Task UpdateUserPostCountAsync(int userId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID);
+            expression.Join<Topic, Forum>((t, f) => f.ID == t.ForumID);
+
+            expression.Where<Message, Topic, Forum>(
+                (m, t, f) => m.UserID == userId && (m.Flags & 8) != 8 && (m.Flags & 16) == 16
+                             && (f.Flags & 4) != 4);
+
+            var postCount = repository.DbAccess.Execute(db => db.Connection.Count(expression)).ToType<int>();
+
+            await BoardContext.Current.GetRepository<User>().UpdateOnlyAsync(
+                () => new User { NumPosts = postCount },
+                u => u.ID == userId);
+        }
+
+        /// <summary>
         /// Updates the search index entries of the posts of a topic after the topic or posts were moved: the entries
         /// keep the topic and the forum, the read access is checked with the forum of the entry (a topic moved to a
         /// forum the users can't read was still found).

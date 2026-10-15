@@ -1321,6 +1321,15 @@ public static class TopicRepositoryExtensions
                         return db.ExecuteSqlAsync(
                             $" update {expression.Table<Message>()} set {expression.Column<Message>(x => x.Flags)} = {expression.Column<Message>(x => x.Flags)} | 8 where {expression.Column<Message>(x => x.TopicID)} = {topicId}");
                     });
+
+                // the deleted posts are not counted anymore (like when a post is deleted)
+                var authors = (await BoardContext.Current.GetRepository<Message>().GetAsync(m => m.TopicID == topicId))
+                    .Select(m => m.UserID).Distinct().ToList();
+
+                foreach (var authorId in authors)
+                {
+                    await BoardContext.Current.GetRepository<Message>().UpdateUserPostCountAsync(authorId);
+                }
             }
 
             BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
