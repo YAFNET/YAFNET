@@ -341,6 +341,35 @@ public class LocalizationTests
         new Localization("COMMON").GetText("OK").Should().Be("Alles klar");
     }
 
+    [TestCase("de-AT", "de-AT")]
+    [TestCase(" de-CH ", "de-CH")]
+    [TestCase("fr-FR", "de-DE")]
+    [TestCase("d", "de-DE")]
+    [TestCase("", "de-DE")]
+    [TestCase("de-CH-1996", "de")]
+    [Description("The culture of the user refines the culture of the same language, other languages are ignored")]
+    public void User_Culture_Test(string userCulture, string expected)
+    {
+        this.UseGerman();
+        this.board.PageUser.Culture = userCulture;
+
+        new Localization(string.Empty).Culture.Name.Should().Be(expected);
+    }
+
+    [Test]
+    [Description("A language file with a long culture code uses its language")]
+    public void Long_Language_Code_Test()
+    {
+        File.WriteAllText(
+            Path.Combine(this.webRoot, "languages", "chinese.json"),
+            GermanJson.Replace("\"@code\": \"de\"", "\"@code\": \"zh-Hans\""));
+
+        this.board.BoardSettings.Language = "chinese.json";
+        this.board.BoardSettings.Culture = "en-US";
+
+        new Localization(string.Empty).Culture.Name.Should().Be("zh");
+    }
+
     private void UseGerman()
     {
         this.board.BoardSettings.Language = GermanFile;
