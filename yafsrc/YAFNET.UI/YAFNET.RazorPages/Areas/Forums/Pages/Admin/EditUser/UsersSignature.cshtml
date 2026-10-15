@@ -17,7 +17,7 @@
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
     
 
-    <signature display-user-id="@Model.PageBoardContext.PageUserID"
+    <signature display-user-id="@Model.Input.UserId"
                signature="@Model.Signature"></signature>
             
     <textarea asp-for="Signature"

@@ -39,6 +39,7 @@ using NSubstitute;
 using ServiceStack.OrmLite;
 
 using YAF.Core.Controllers;
+using YAF.Core.Helpers;
 using YAF.Core.Extensions;
 using YAF.Core.Utilities;
 using YAF.Core.Services;
@@ -48,7 +49,8 @@ using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
-/// Attachment downloads: only for users with download access who can read the post the file is attached to.
+/// Attachment downloads: only for users with download access and only with the signed links of the forum (an
+/// attachment can be shown in any post, the ids are counted up).
 /// </summary>
 [TestFixture]
 [NonParallelizable]
@@ -119,29 +121,42 @@ public class AttachmentAccessTests
     }
 
     [Test]
-    [Ignore("Known issue: attachment downloads only check the download permission, not the read access of the post. Behavior intentionally unchanged for now.")]
-    [Description("Attachments of posts in forums the user can not read are not served")]
-    public async Task Unreadable_Post_Test()
+    [Description("An attachment is only served with the signature of its link: any id could be downloaded by counting up")]
+    public async Task Unsigned_Link_Test()
     {
         var attachment = this.AddAttachment(this.alice, this.AddPost(this.staffForum));
+        var other = this.AddAttachment(this.bob, this.AddPost(this.publicForum));
         this.board.LoginAs(this.bob);
 
-        (await this.DownloadAsync(attachment)).Should().BeNull("bob has no access to the staff forum");
-        (await this.DownloadAsync(attachment, response: true)).Should().BeNull();
+        (await this.DownloadAsync(attachment, signature: string.Empty)).Should().BeNull("the id alone is not enough");
+        (await this.DownloadAsync(attachment, response: true, signature: string.Empty)).Should().BeNull();
+        (await this.DownloadAsync(attachment, signature: AttachmentLinkHelper.Sign(other))).Should()
+            .BeNull("the signature of another attachment");
+        (await this.DownloadAsync(attachment, signature: "not+base64%")).Should().BeNull();
+        (await this.DownloadAsync(attachment, signature: new string('A', 200))).Should().BeNull();
+
+        (await this.DownloadAsync(attachment)).Should().Be("file content", "the link shown by the forum");
     }
 
     [Test]
-    [Ignore("Known issue: attachment downloads only check the download permission, not the read access of the post. Behavior intentionally unchanged for now.")]
-    [Description("Uploads not attached to a post yet are only served to their owner")]
-    public async Task Unattached_Upload_Test()
+    [Description("The key of the signatures is created once and stored, the signatures stay the same")]
+    public void Signature_Key_Is_Stored_Test()
     {
-        var attachment = this.AddAttachment(this.alice, messageId: 0);
+        var signature = AttachmentLinkHelper.Sign(42);
 
-        this.board.LoginAs(this.alice);
-        (await this.DownloadAsync(attachment)).Should().Be("file content");
+        signature.Should().NotBe(AttachmentLinkHelper.Sign(43));
+        signature.Length.Should().BeGreaterThan(20);
 
-        this.board.LoginAs(this.bob);
-        (await this.DownloadAsync(attachment)).Should().BeNull("it is alice's upload");
+        this.board.Current.GetRepository<Registry>().Count(r => r.Name == "attachmentlinkkey" && r.BoardID == null)
+            .Should().Be(1);
+
+        // the cached key is loaded again from the database
+        this.board.Cache.Clear();
+
+        AttachmentLinkHelper.Sign(42).Should().Be(signature);
+        AttachmentLinkHelper.IsValid(42, signature).Should().BeTrue();
+        AttachmentLinkHelper.IsValid(43, signature).Should().BeFalse();
+        AttachmentLinkHelper.IsValid(42, null).Should().BeFalse();
     }
 
     [Test]
@@ -167,17 +182,20 @@ public class AttachmentAccessTests
     }
 
     [Test]
-    [Ignore("Known issue: attachment downloads only check the download permission, not the read access of the post. Behavior intentionally unchanged for now.")]
-    [Description("Downloading through a file link counts the download, a denied request does not")]
+    [Description("Downloading through a file link counts the download, a refused request does not")]
     public async Task Download_Counter_Test()
     {
-        var attachment = this.AddAttachment(this.alice, this.AddPost(this.staffForum));
-
+        var attachment = this.AddAttachment(this.alice, this.AddPost(this.publicForum));
         this.board.LoginAs(this.bob);
-        await this.DownloadAsync(attachment, editor: true);
-        this.Downloads(attachment).Should().Be(0, "denied downloads are not counted");
 
-        this.board.LoginAs(this.alice);
+        await this.DownloadAsync(attachment, editor: true, signature: string.Empty);
+        this.Downloads(attachment).Should().Be(0, "a request without signature is no download");
+
+        this.board.PageLoad.DownloadAccess = false;
+        await this.DownloadAsync(attachment, editor: true);
+        this.Downloads(attachment).Should().Be(0, "a request without download access is no download");
+
+        this.board.PageLoad.DownloadAccess = true;
         await this.DownloadAsync(attachment, editor: true);
         this.Downloads(attachment).Should().Be(1);
     }
@@ -241,13 +259,18 @@ public class AttachmentAccessTests
         return this.board.Current.GetRepository<Attachment>().GetById(attachmentId).Downloads;
     }
 
-    private async Task<string> DownloadAsync(int attachmentId, bool response = false, bool editor = false)
+    /// <summary>
+    /// Downloads the attachment with the signed link of the forum, or with another signature.
+    /// </summary>
+    private async Task<string> DownloadAsync(int attachmentId, bool response = false, bool editor = false, string signature = null)
     {
         var controller = this.board.CreateController<Attachments>();
 
+        signature ??= AttachmentLinkHelper.Sign(attachmentId);
+
         var result = response
-            ? await controller.GetResponseAttachment(attachmentId, editor)
-            : await controller.GetAttachment(attachmentId, editor);
+            ? await controller.GetResponseAttachment(attachmentId, editor, signature)
+            : await controller.GetAttachment(attachmentId, editor, signature);
 
         if (result is not FileStreamResult file)
         {

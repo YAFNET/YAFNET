@@ -120,10 +120,7 @@ public class AttachmentsModel : AdminPage
 
         var fileName = attach.FileName;
         var isImage = fileName.IsImageName();
-        var url = this.Get<IUrlHelper>().Action(
-            "GetAttachment",
-            "Attachments",
-            new { attachmentId = attach.ID, editor = true });
+        var url = AttachmentLinkHelper.GetUrl(attach.ID, true);
 
         return isImage
                    ? $"<img src=\"{url}\" alt=\"{this.HtmlEncode(fileName)}\" title=\"{this.HtmlEncode(fileName)}\" data-url=\"{url}\" style=\"max-width:30px\" class=\"me-2 img-thumbnail attachments-preview\" />"

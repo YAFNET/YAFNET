@@ -33,7 +33,7 @@
                             @Html.LocalizedText("previewtitle")
                         </h5>
                         <alert type="light">
-                            <message message-flags="@(new MessageFlags{IsBBCode = true})" message-id="0" message="@Model.Input.PreviewMessage"></message>
+                            <message message-flags="@(new MessageFlags{IsBBCode = true})" message-id="0" display-user-id="@Model.PageBoardContext.PageUserID" message="@Model.Input.PreviewMessage"></message>
                         </alert>
                     }
                     @if (Model.PageBoardContext.IsGuest)

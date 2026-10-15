@@ -112,7 +112,7 @@ public class ChatHub : Hub, IHaveServiceLocator
                                    ? message.Created.ToRelativeTime()
                                    : this.Get<IDateTimeService>().Format(DateTimeFormat.Both, message.Created);
 
-            message.Body = await this.FormatMessageAsync(message.Body);
+            message.Body = await this.FormatMessageAsync(message.Body, message.FromUserId);
         }
 
         // send to caller
@@ -170,7 +170,7 @@ public class ChatHub : Hub, IHaveServiceLocator
 
         var flags = new PrivateMessageFlags();
 
-        var bodyFormatted = await this.FormatMessageAsync(body);
+        var bodyFormatted = await this.FormatMessageAsync(body, fromConnectUser.UserId);
 
         // the connections (browser tabs) of the other user that show the conversation with the sender,
         // otherwise the message stays unread
@@ -265,10 +265,11 @@ public class ChatHub : Hub, IHaveServiceLocator
     /// Formats the message with BBCode.
     /// </summary>
     /// <param name="inputMessage">The input message.</param>
+    /// <param name="authorId">The user id of the author (its attachments are shown).</param>
     /// <returns>System.Threading.Tasks.Task&lt;System.String&gt;.</returns>
-    private Task<string> FormatMessageAsync(string inputMessage)
+    private Task<string> FormatMessageAsync(string inputMessage, int authorId)
     {
         return this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
-            inputMessage, 0, 0);
+            inputMessage, 0, authorId);
     }
 }

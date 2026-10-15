@@ -48,7 +48,12 @@ public class Attach : BBCodeControl
 
         var attachment = this.GetRepository<Attachment>().GetById(attachId.ToType<int>());
 
-        if (attachment is null)
+        // only the attachments of the author of the post (or signature): the id of any attachment could be
+        // entered, it was shown with its download link (the author of a guest post is the guest user)
+        var authorId = this.DisplayUserID
+                       ?? (this.MessageID is > 0 ? this.GetRepository<Message>().GetById(this.MessageID.Value)?.UserID : null);
+
+        if (attachment is null || attachment.UserID != authorId)
         {
             return Task.CompletedTask;
         }
@@ -83,13 +88,13 @@ public class Attach : BBCodeControl
 
                 stringBuilder.AppendFormat(
                     """<a href="{0}" title="{1}" data-toggle="lightbox" data-gallery="gallery-{2}">""",
-                    this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = false }),
+                    AttachmentLinkHelper.GetUrl(attachment.ID, false),
                     HtmlEncode(attachment.FileName),
                     this.MessageID.Value);
 
                 stringBuilder.AppendFormat(
                     """<img src="{0}" alt="{1}" class="img-user-posted card-img-top" style="max-height:{2}px;max-width:{3}px;object-fit:contain">""",
-                    this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
+                    AttachmentLinkHelper.GetUrl(attachment.ID, true),
                     HtmlEncode(attachment.FileName),
                     PageContext.BoardSettings.ImageThumbnailMaxHeight,
                     PageContext.BoardSettings.ImageThumbnailMaxWidth);
@@ -108,7 +113,7 @@ public class Attach : BBCodeControl
             {
                 stringBuilder.AppendFormat(
                     """<img src="{0}" alt="{1}" class="img-user-posted img-thumbnail" style="max-height:{2}px">""",
-                    this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
+                    AttachmentLinkHelper.GetUrl(attachment.ID, true),
                     HtmlEncode(attachment.FileName),
                     PageContext.BoardSettings.ImageThumbnailMaxHeight);
             }
@@ -124,7 +129,7 @@ public class Attach : BBCodeControl
                                          <a href="{0}">{1}</a>
                                          <span>{2}</span>
                 """,
-                this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
+                AttachmentLinkHelper.GetUrl(attachment.ID, true),
                 HtmlEncode(attachment.FileName),
                 this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads));
         }

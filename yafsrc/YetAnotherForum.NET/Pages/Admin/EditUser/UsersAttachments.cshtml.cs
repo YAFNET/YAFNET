@@ -147,7 +147,7 @@ public class UsersAttachmentsModel : AdminPage
         var isImage = fileName.IsImageName();
 
         var url =
-            this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attach.ID, editor = true });
+            AttachmentLinkHelper.GetUrl(attach.ID, true);
 
         var icon = new TagBuilder(HtmlTag.I);
         icon.AddCssClass("far fa-file-alt attachment-icon me-2");

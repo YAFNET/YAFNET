@@ -76,7 +76,7 @@ public class AttachmentController : ForumBaseController
             attach =>
                 {
                     var url =
-                        this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attach.ID, editor = true });
+                        AttachmentLinkHelper.GetUrl(attach.ID, true);
 
                     var description = this.HtmlEncode($"{attach.FileName} ({attach.Bytes / 1024} kb)");
 

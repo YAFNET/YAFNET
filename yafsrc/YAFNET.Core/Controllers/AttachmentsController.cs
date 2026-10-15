@@ -38,6 +38,7 @@ using Model;
 using Types.Models;
 
 using YAF.Core.BasePages;
+using YAF.Core.Helpers;
 
 /// <summary>
 /// The Attachments controller.
@@ -50,13 +51,14 @@ public class Attachments : ForumBaseController
     /// </summary>
     /// <param name="attachmentId">The attachment identifier.</param>
     /// <param name="editor">if set to <c>true</c> [editor].</param>
+    /// <param name="sig">The signature of the link (see <see cref="AttachmentLinkHelper"/>).</param>
     /// <returns>ActionResult.</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetAttachment")]
-    public Task<ActionResult> GetAttachment(int attachmentId, bool editor = false)
+    public Task<ActionResult> GetAttachment(int attachmentId, bool editor = false, string sig = null)
     {
-        return this.GetAttachmentFileAsync(attachmentId, editor);
+        return this.GetAttachmentFileAsync(attachmentId, editor, sig);
     }
 
     /// <summary>
@@ -64,13 +66,14 @@ public class Attachments : ForumBaseController
     /// </summary>
     /// <param name="attachmentId">The attachment identifier.</param>
     /// <param name="editor">if set to <c>true</c> [editor].</param>
+    /// <param name="sig">The signature of the link (see <see cref="AttachmentLinkHelper"/>).</param>
     /// <returns>ActionResult.</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetResponseAttachment")]
-    public Task<ActionResult> GetResponseAttachment(int attachmentId, bool editor = false)
+    public Task<ActionResult> GetResponseAttachment(int attachmentId, bool editor = false, string sig = null)
     {
-        return this.GetAttachmentFileAsync(attachmentId, editor);
+        return this.GetAttachmentFileAsync(attachmentId, editor, sig);
     }
 
     /// <summary>
@@ -78,12 +81,19 @@ public class Attachments : ForumBaseController
     /// </summary>
     /// <param name="attachmentId">The attachment identifier.</param>
     /// <param name="editor">if set to <c>true</c> the download is counted.</param>
+    /// <param name="signature">The signature of the link.</param>
     /// <returns>ActionResult.</returns>
-    private async Task<ActionResult> GetAttachmentFileAsync(int attachmentId, bool editor)
+    private async Task<ActionResult> GetAttachmentFileAsync(int attachmentId, bool editor, string signature)
     {
         try
         {
             if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
+            // only the links shown by the forum (the ids are counted up, any attachment could be downloaded)
+            if (!AttachmentLinkHelper.IsValid(attachmentId, signature))
             {
                 return this.NotFound();
             }
@@ -95,12 +105,6 @@ public class Attachments : ForumBaseController
             if (attachment is null)
             {
                 return this.NotFound();
-            }
-
-            if (editor)
-            {
-                // add a download count...
-                await this.GetRepository<Attachment>().IncrementDownloadCounterAsync(attachment.ID);
             }
 
             if (!MimeTypes.FileMatchContentType(attachment.FileName, attachment.ContentType))
@@ -115,6 +119,12 @@ public class Attachments : ForumBaseController
                 // tear it down
                 // no permission to download
                 return this.NotFound();
+            }
+
+            // the download is counted when it is served (a refused request is no download)
+            if (editor)
+            {
+                await this.GetRepository<Attachment>().IncrementDownloadCounterAsync(attachment.ID);
             }
 
             if (attachment.FileData == null)

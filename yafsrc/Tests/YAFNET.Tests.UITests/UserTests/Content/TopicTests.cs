@@ -107,6 +107,86 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// An attachment is shown with a signed download link in the posts of its owner, the id alone is not enough to
+    /// download it and another user can't show it in a post: any attachment could be downloaded by counting up the id.
+    /// </summary>
+    [Test]
+    public async Task AttachmentNeedsSignedLinkTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.TestSettings,
+                        this.TestSettings.AdminUserName,
+                        this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                // the admin uploads an image
+                var image = Convert.ToBase64String(
+                    await System.IO.File.ReadAllBytesAsync(System.IO.Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png")));
+
+                var attachmentId = await page.EvaluateAsync<int>(
+                    """
+                    async ([baseUrl, image]) => {
+                        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                        const bytes = Uint8Array.from(atob(image), c => c.charCodeAt(0));
+                        const data = new FormData();
+                        data.append('file', new File([bytes], 'signed-' + Date.now() + '.png', { type: 'image/png' }));
+                        const response = await fetch(baseUrl + 'api/FileUpload/Upload', {
+                            method: 'POST', headers: { 'RequestVerificationToken': token }, body: data });
+                        return (await response.json())[0].fileID;
+                    }
+                    """,
+                    new object[] { this.TestSettings.TestForumUrl, image });
+
+                Assert.That(attachmentId, Is.GreaterThan(0), "The attachment was not uploaded");
+
+                var attachmentLinks = $"[href*='attachmentId={attachmentId}&'], [src*='attachmentId={attachmentId}&']";
+
+                // the post of the owner shows the attachment with a signed link
+                var topicId = await page.CreateTopicAsync(
+                                  this.TestSettings,
+                                  this.TestSettings.TestForumId,
+                                  $"Attachment topic {Random.Shared.Next()}",
+                                  $"[attach]{attachmentId}[/attach]");
+
+                Assert.That(topicId, Is.Not.Null, "The topic was not created");
+
+                var link = await page.Locator(attachmentLinks).First.EvaluateAsync<string>("e => e.href || e.src");
+
+                Assert.That(link, Does.Contain("sig="), "The link is not signed");
+
+                const string status = "async url => (await fetch(url)).status";
+
+                Assert.That(await page.EvaluateAsync<int>(status, link), Is.EqualTo(200), "The signed link does not work");
+                Assert.That(
+                    await page.EvaluateAsync<int>(status, $"{this.TestSettings.TestForumUrl}api/Attachments/GetAttachment?attachmentId={attachmentId}&editor=false"),
+                    Is.EqualTo(404),
+                    "The attachment is served with its id alone");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                // another user shows the attachment in a post
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                var otherTopicId = await page.CreateTopicAsync(
+                                       this.TestSettings,
+                                       this.TestSettings.TestForumId,
+                                       $"Foreign attachment {Random.Shared.Next()}",
+                                       $"Look: [attach]{attachmentId}[/attach]");
+
+                Assert.That(otherTopicId, Is.Not.Null, "The topic was not created");
+                Assert.That(await page.Locator(attachmentLinks).CountAsync(), Is.Zero, "The attachment of another user is shown");
+            });
+    }
+
+    /// <summary>
     /// A guest can't post with the name of a member (also in other case): the post looked like a post of the member.
     /// </summary>
     [Test]

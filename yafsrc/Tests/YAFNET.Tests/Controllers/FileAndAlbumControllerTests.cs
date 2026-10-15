@@ -267,7 +267,7 @@ public class FileAndAlbumControllerTests
 
         (await this.DownloadAsync(id)).Should().Equal(1, 2, 3);
 
-        var response = await this.board.CreateController<Attachments>().GetResponseAttachment(id, editor: true);
+        var response = await this.board.CreateController<Attachments>().GetResponseAttachment(id, editor: true, sig: AttachmentLinkHelper.Sign(id));
         var file = response.Should().BeOfType<FileStreamResult>().Subject;
         await file.FileStream.DisposeAsync();
 
@@ -280,13 +280,13 @@ public class FileAndAlbumControllerTests
     [Description("Unknown attachments and attachments without a file are not found")]
     public async Task Download_Missing_Test()
     {
-        (await this.board.CreateController<Attachments>().GetAttachment(9999)).Should().BeOfType<NotFoundResult>();
+        (await this.board.CreateController<Attachments>().GetAttachment(9999, sig: AttachmentLinkHelper.Sign(9999))).Should().BeOfType<NotFoundResult>();
 
         var id = (int)await this.Repository<Attachment>().InsertAsync(
             new Attachment { UserID = this.alice, FileName = "gone.png", ContentType = "image/png", Bytes = 3 },
             true);
 
-        (await this.board.CreateController<Attachments>().GetResponseAttachment(id)).Should().BeOfType<NotFoundResult>();
+        (await this.board.CreateController<Attachments>().GetResponseAttachment(id, sig: AttachmentLinkHelper.Sign(id))).Should().BeOfType<NotFoundResult>();
     }
 
     [Test]
@@ -511,7 +511,7 @@ public class FileAndAlbumControllerTests
 
     private async Task<byte[]> DownloadAsync(int attachmentId)
     {
-        var result = await this.board.CreateController<Attachments>().GetAttachment(attachmentId);
+        var result = await this.board.CreateController<Attachments>().GetAttachment(attachmentId, sig: AttachmentLinkHelper.Sign(attachmentId));
 
         if (result is not FileStreamResult file)
         {
