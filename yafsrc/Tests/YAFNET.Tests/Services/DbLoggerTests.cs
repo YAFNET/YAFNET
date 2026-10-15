@@ -125,6 +125,22 @@ public class DbLoggerTests
     }
 
     [Test]
+    [Description("Errors of the exception handler page are logged with the address and path of the failed request")]
+    public void Exception_Handler_Path_Test()
+    {
+        this.board.HttpContext.Request.Host = new Microsoft.AspNetCore.Http.HostString("forum.example.com");
+        this.board.HttpContext.Request.QueryString = new Microsoft.AspNetCore.Http.QueryString("?p=2");
+        this.board.HttpContext.Features.Set<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>(
+            new Microsoft.AspNetCore.Diagnostics.ExceptionHandlerFeature { Path = "/Topics/7" });
+
+        this.logger.Error(new InvalidOperationException("boom"), "error message");
+
+        var entry = this.Entries().Should().ContainSingle().Subject;
+        entry.Source.Should().Be("/Topics/7", "the failed page is the source");
+        Description(entry)["Url"].ToString().Should().Be("forum.example.com/Topics/7?p=2");
+    }
+
+    [Test]
     [Description("The scopes of the logging framework (external scope provider) carry the log entry too")]
     public void External_Scope_Provider_Test()
     {
