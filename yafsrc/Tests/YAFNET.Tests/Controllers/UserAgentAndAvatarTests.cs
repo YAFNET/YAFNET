@@ -223,6 +223,54 @@ public class UserAgentAndAvatarTests
         result.ContentType.Should().BeOneOf("image/png", "image/jpeg", "image/gif", "image/webp", "image/bmp");
     }
 
+    [Test]
+    [Description("Users of the old membership (numeric provider key) get their own colors, all of them were black")]
+    public async Task Text_Avatar_Numeric_Key_Test()
+    {
+        var first = this.db.AddUser("Old Member", u => u.ProviderUserKey = "42");
+        var second = this.db.AddUser("Other Member", u => u.ProviderUserKey = "43");
+        var longKey = this.db.AddUser("Long Member", u => u.ProviderUserKey = "1234567");
+
+        var colors = new List<string>();
+
+        foreach (var user in new[] { first, second })
+        {
+            var svg = await ReadAsync(this.board.CreateController<AvatarController>().GetTextAvatar(user));
+            colors.Add(System.Text.RegularExpressions.Regex.Match(svg, "<rect fill=\"(#[0-9a-f]{6})\"").Groups[1].Value);
+        }
+
+        colors.Should().NotContain("#000000").And.OnlyHaveUniqueItems();
+
+        (await ReadAsync(this.board.CreateController<AvatarController>().GetTextAvatar(longKey))).Should()
+            .Contain("fill=\"#123456\"");
+    }
+
+    [TestCase("image/jpg", "image/jpeg")]
+    [TestCase("image/pjpeg", "image/jpeg")]
+    [TestCase(" IMAGE/GIF ", "image/gif")]
+    [TestCase("", "image/jpeg")]
+    [TestCase(null, "image/jpeg")]
+    [Description("Old and unusual names of the image types are served with the standard type")]
+    public void Local_Avatar_Type_Names_Test(string storedType, string expected)
+    {
+        var user = this.db.AddUser("Alice", u =>
+        {
+            u.AvatarImage = [1, 2, 3];
+            u.AvatarImageType = storedType;
+        });
+
+        ((FileStreamResult)this.board.CreateController<AvatarController>().GetResponseLocalAvatar(user)).ContentType
+            .Should().Be(expected);
+    }
+
+    [Test]
+    [Description("The avatar of an unknown user is not found")]
+    public void Local_Avatar_Unknown_User_Test()
+    {
+        this.board.CreateController<AvatarController>().GetResponseLocalAvatar(99999).Should().BeOfType<NotFoundResult>();
+        this.avatarLogger.ReceivedCalls().Should().BeEmpty();
+    }
+
     private void Ban(string pattern)
     {
         using var connection = this.db.Open();

@@ -81,10 +81,6 @@ public class AvatarController : ForumBaseController
             {
                 backgroundColor = "#0c7333";
             }
-            else if (ValidationHelper.IsNumeric(user.ProviderUserKey))
-            {
-                backgroundColor = $"#{user.ProviderUserKey.ToGuid().ToString()[..6]}";
-            }
             else if (user.ProviderUserKey is { Length: >= 6 } key && key[..6].All(char.IsAsciiHexDigit))
             {
                 backgroundColor = $"#{key[..6]}";
