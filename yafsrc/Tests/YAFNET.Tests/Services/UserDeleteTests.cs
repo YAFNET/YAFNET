@@ -33,6 +33,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 
@@ -43,6 +44,8 @@ using YAF.Core.Helpers;
 using YAF.Core.Identity;
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
+using YAF.Types.Constants;
+using YAF.Types.EventProxies;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
@@ -74,6 +77,8 @@ public class UserDeleteTests
 
     private SignInManager<AspNetUsers> signInManager;
 
+    private ILogger<AspNetUsersHelper> logger;
+
     [SetUp]
     public void SetUp()
     {
@@ -83,9 +88,14 @@ public class UserDeleteTests
         var environment = Substitute.For<IWebHostEnvironment>();
         environment.WebRootPath.Returns(this.webRoot);
 
+        // NUnit keeps the fixture instance between the tests
+        this.signInManager = null;
+        this.logger = Substitute.For<ILogger<AspNetUsersHelper>>();
+
         this.board = new TestBoardContext(
             b =>
             {
+                b.RegisterInstance(this.logger).As<ILogger<AspNetUsersHelper>>();
                 b.Register(
                     c => new AspNetUsersManager(
                         new UserStore(c.Resolve<IServiceLocator>()),
@@ -215,6 +225,136 @@ public class UserDeleteTests
         File.Exists(bobFile).Should().BeTrue();
 
         (await this.helper.DeleteUserAsync(9999)).Should().BeFalse();
+    }
+
+    [Test]
+    [Description("Deleting a user removes the uploaded avatar files of the user (in every image format), not of others")]
+    public async Task Delete_User_Avatar_Files_Test()
+    {
+        var (alice, _) = this.AddIdentityUser("alice");
+        var (bob, _) = this.AddIdentityUser("bob");
+
+        this.board.BoardSettings.AvatarUpload = true;
+        this.board.BoardSettings.UseFileTable = false;
+
+        var uploads = Path.Combine(this.webRoot, "uploads");
+        string[] aliceFiles = [Path.Combine(uploads, $"{alice}.png"), Path.Combine(uploads, $"{alice}.webp")];
+        var bobFile = Path.Combine(uploads, $"{bob}.png");
+
+        foreach (var file in aliceFiles.Append(bobFile))
+        {
+            File.WriteAllBytes(file, [1]);
+        }
+
+        (await this.helper.DeleteUserAsync(alice)).Should().BeTrue();
+
+        aliceFiles.Should().AllSatisfy(file => File.Exists(file).Should().BeFalse());
+        File.Exists(bobFile).Should().BeTrue();
+    }
+
+    [Test]
+    [Description("Avatar files are only deleted when the avatars are uploaded to the folder")]
+    public async Task Delete_User_Keeps_Files_Without_Avatar_Upload_Test()
+    {
+        var (alice, _) = this.AddIdentityUser("alice");
+        var (bob, _) = this.AddIdentityUser("bob");
+
+        var aliceFile = Path.Combine(this.webRoot, "uploads", $"{alice}.png");
+        var bobFile = Path.Combine(this.webRoot, "uploads", $"{bob}.png");
+        File.WriteAllBytes(aliceFile, [1]);
+        File.WriteAllBytes(bobFile, [1]);
+
+        this.board.BoardSettings.AvatarUpload = false;
+        (await this.helper.DeleteUserAsync(alice)).Should().BeTrue();
+        File.Exists(aliceFile).Should().BeTrue();
+
+        this.board.BoardSettings.AvatarUpload = true;
+        this.board.BoardSettings.UseFileTable = true;
+        (await this.helper.DeleteUserAsync(bob)).Should().BeTrue();
+        File.Exists(bobFile).Should().BeTrue();
+    }
+
+    [Test]
+    [Description("Deleting a user removes the identity and is logged with the name of the admin or the spam check")]
+    public async Task Delete_User_Log_Test()
+    {
+        var (admin, _) = this.AddIdentityUser("admin");
+        var (alice, _) = this.AddIdentityUser("alice");
+        var (bob, _) = this.AddIdentityUser("bob");
+
+        this.board.LoginAs(admin);
+        this.board.BoardSettings.LogUserDeleted = true;
+
+        (await this.helper.DeleteUserAsync(alice)).Should().BeTrue();
+        (await this.helper.DeleteUserAsync(bob, isBotAutoDelete: true)).Should().BeTrue();
+
+        (await this.Repository<AspNetUsers>().CountAsync(u => u.Id == "alice-key")).Should().Be(0);
+
+        this.LoggedDeletions().Should().Equal(
+            (admin, "User alice was deleted by admin."),
+            (admin, "User bob was deleted by the automatic spam check system."));
+
+        this.board.BoardSettings.LogUserDeleted = false;
+        this.logger.ClearReceivedCalls();
+
+        var (carol, _) = this.AddIdentityUser("carol");
+        (await this.helper.DeleteUserAsync(carol)).Should().BeTrue();
+
+        this.LoggedDeletions().Should().BeEmpty();
+    }
+
+    [Test]
+    [Description("Delete and ban counts the banned user, bans the IP when enabled and logs the deletion")]
+    public async Task Delete_And_Ban_Event_And_Log_Test()
+    {
+        var (admin, _) = this.AddIdentityUser("admin");
+        var (spammer, aspNetUser) = this.AddIdentityUser("spammer");
+        var (other, otherAspNetUser) = this.AddIdentityUser("other");
+
+        this.board.LoginAs(admin);
+        this.board.BoardSettings.LogUserDeleted = true;
+        this.board.BoardSettings.BanBotIpOnDetection = true;
+        this.board.BoardSettings.BannedUsers = 0;
+
+        (await this.helper.DeleteAndBanUserAsync(await this.Repository<User>().GetByIdAsync(spammer), aspNetUser, "1.2.3.4"))
+            .Should().BeTrue();
+
+        var ban = this.board.Events.OfType<BanUserEvent>().Should().ContainSingle().Subject;
+        ban.UserId.Should().Be(spammer);
+        ban.Name.Should().Be("spammer");
+        ban.IpAddress.Should().Be("1.2.3.4");
+
+        this.board.BoardSettings.BannedUsers.Should().Be(1);
+        this.LoggedDeletions().Should().Equal((admin, "User spammer was deleted by the automatic spam check system."));
+
+        // without banning the ip and logging
+        this.board.BoardSettings.LogUserDeleted = false;
+        this.board.BoardSettings.BanBotIpOnDetection = false;
+        this.logger.ClearReceivedCalls();
+
+        (await this.helper.DeleteAndBanUserAsync(await this.Repository<User>().GetByIdAsync(other), otherAspNetUser, "5.6.7.8"))
+            .Should().BeTrue();
+
+        this.board.Events.OfType<BanUserEvent>().Should().ContainSingle();
+        this.board.BoardSettings.BannedUsers.Should().Be(2);
+        this.LoggedDeletions().Should().BeEmpty();
+    }
+
+    /// <summary>
+    /// The user deleted log entries: the user id of the scope and the message.
+    /// </summary>
+    private List<(int?, string)> LoggedDeletions()
+    {
+        var calls = this.logger.ReceivedCalls().ToList();
+        var scopes = calls.Where(c => c.GetMethodInfo().Name == nameof(ILogger.BeginScope))
+            .Select(c => c.GetArguments()[0]).OfType<EventLog>()
+            .Where(e => e.Type == EventLogTypes.UserDeleted.ToInt()).ToList();
+        var messages = calls.Where(c => c.GetMethodInfo().Name == nameof(ILogger.Log))
+            .Select(c => c.GetArguments()[2].ToString()).ToList();
+
+        scopes.Should().HaveSameCount(messages);
+
+        return scopes.Zip(messages, (scope, message) => (scope.UserID, message)).ToList();
     }
 
     private (int UserId, AspNetUsers AspNetUser) AddIdentityUser(string name)

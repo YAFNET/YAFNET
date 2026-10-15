@@ -377,6 +377,54 @@ public class AspNetUsersHelperTests
     }
 
     [Test]
+    [Description("The current identity (sync): none without identity, none for anonymous requests, the user by name")]
+    public async Task GetUser_Sync_From_HttpContext_Test()
+    {
+        await this.AddMemberAsync("alice-key", "alice", "alice@example.com");
+
+        this.helper.GetUser().Should().BeNull("the request is anonymous");
+
+        this.board.HttpContext.User = new ClaimsPrincipal();
+        this.helper.GetUser().Should().BeNull("the request has no identity");
+        (await this.helper.GetUserAsync()).Should().BeNull();
+
+        this.board.HttpContext.User = new ClaimsPrincipal(
+            new ClaimsIdentity([new Claim(ClaimTypes.Name, "ALICE")], "test"));
+
+        this.helper.GetUser().Id.Should().Be("alice-key");
+    }
+
+    [Test]
+    [Description("The board user is only found for approved users, unless the not approved users are included")]
+    public async Task GetBoardUser_Not_Approved_Test()
+    {
+        var bob = await this.AddMemberAsync("bob-key", "bob", "bob@example.com", approved: false);
+
+        (await this.helper.GetBoardUserAsync(bob)).Should().BeNull();
+
+        var boardUser = await this.helper.GetBoardUserAsync(bob, includeNonApproved: true);
+        boardUser.Item1.ID.Should().Be(bob);
+        boardUser.Item2.Id.Should().Be("bob-key");
+        boardUser.Item3.ID.Should().Be(TestDatabase.RankId);
+
+        (await this.helper.GetBoardUserAsync(bob, TestDatabase.BoardId + 1, includeNonApproved: true))
+            .Should().BeNull("the user of another board");
+    }
+
+    [Test]
+    [Description("A forum user without identity can't be approved")]
+    public async Task ApproveUser_Without_Identity_Test()
+    {
+        var noKey = this.db.AddUser("NoKey", u => u.Flags = 0);
+        var missing = this.db.AddUser("Missing", u => { u.Flags = 0; u.ProviderUserKey = "missing-key"; });
+
+        (await this.helper.ApproveUserAsync(noKey)).Should().BeFalse();
+        (await this.helper.ApproveUserAsync(missing)).Should().BeFalse();
+
+        (await this.Repository<User>().GetByIdAsync(missing)).UserFlags.IsApproved.Should().BeFalse();
+    }
+
+    [Test]
     [Description("Two factor authentication stores the key when enabled and removes it when disabled")]
     public async Task Two_Factor_Test()
     {
