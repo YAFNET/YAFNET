@@ -186,6 +186,185 @@ public class DiffMatchPatchTests
             "<p>a<br></p><p class=\"bg-danger text-light\">&lt;b&gt;</p><p class=\"bg-success text-light\">c&amp;d</p>");
     }
 
+    [Test]
+    [Description("Random edits: every diff (char and line mode, with the semantic cleanup) reconstructs both texts")]
+    public void Random_Edits_Reconstruct_Texts_Test()
+    {
+        var random = new Random(4711);
+        const string Alphabet = "ab c\nxy.";
+
+        for (var i = 0; i < 500; i++)
+        {
+            var text1 = RandomText(random, Alphabet, random.Next(0, 150));
+            var text2 = Mutate(random, text1, Alphabet);
+            var checkLines = i % 2 == 0;
+
+            var diffs = this.dmp.DiffMain(text1, text2, checkLines);
+
+            Source(diffs).Should().Be(text1, $"case {i}");
+            Target(diffs).Should().Be(text2, $"case {i}");
+
+            this.dmp.CleanupSemantic(diffs);
+
+            Source(diffs).Should().Be(text1, $"case {i} after the cleanup");
+            Target(diffs).Should().Be(text2, $"case {i} after the cleanup");
+            diffs.Should().NotContain(d => d.Text.Length == 0, $"case {i}");
+        }
+    }
+
+    [Test]
+    [Description("Without a time limit the diff is complete")]
+    public void No_Timeout_Test()
+    {
+        this.dmp.DiffTimeout = 0;
+
+        var diffs = this.dmp.DiffMain("the quick brown fox", "the quick red fox jumps", false);
+
+        Source(diffs).Should().Be("the quick brown fox");
+        Target(diffs).Should().Be("the quick red fox jumps");
+    }
+
+    [TestCaseSource(nameof(CleanupMergeCases))]
+    [Description("CleanupMerge (cases of the original library): common prefixes and suffixes, sliding edits")]
+    public void CleanupMerge_Cases_Test(List<Diff> diffs, List<Diff> expected)
+    {
+        DiffMatchPatch.CleanupMerge(diffs);
+
+        diffs.Should().BeEquivalentTo(expected, o => o.WithStrictOrdering());
+    }
+
+    [TestCaseSource(nameof(CleanupSemanticCases))]
+    [Description("CleanupSemantic (cases of the original library): overlaps, word boundaries, back pass")]
+    public void CleanupSemantic_Cases_Test(List<Diff> diffs, List<Diff> expected)
+    {
+        this.dmp.CleanupSemantic(diffs);
+
+        diffs.Should().BeEquivalentTo(expected, o => o.WithStrictOrdering());
+    }
+
+    [TestCaseSource(nameof(CleanupSemanticLosslessCases))]
+    [Description("CleanupSemanticLossless (cases of the original library): blank lines, lines, words, start and end")]
+    public void CleanupSemanticLossless_Cases_Test(List<Diff> diffs, List<Diff> expected)
+    {
+        this.dmp.CleanupSemanticLossless(diffs);
+
+        diffs.Should().BeEquivalentTo(expected, o => o.WithStrictOrdering());
+    }
+
+    private static IEnumerable<TestCaseData> CleanupMergeCases()
+    {
+        yield return Case("prefix and suffix", [Del("a"), Ins("abc"), Del("dc")], [Eq("a"), Del("d"), Ins("b"), Eq("c")]);
+        yield return Case(
+            "prefix and suffix with equalities",
+            [Eq("x"), Del("a"), Ins("abc"), Del("dc"), Eq("y")],
+            [Eq("xa"), Del("d"), Ins("b"), Eq("cy")]);
+        yield return Case("slide edit left", [Eq("a"), Ins("ba"), Eq("c")], [Ins("ab"), Eq("ac")]);
+        yield return Case("slide edit right", [Eq("c"), Ins("ab"), Eq("a")], [Eq("ca"), Ins("ba")]);
+        yield return Case(
+            "slide edit left recursive",
+            [Eq("a"), Del("b"), Eq("c"), Del("ac"), Eq("x")],
+            [Del("abc"), Eq("acx")]);
+        yield return Case(
+            "slide edit right recursive",
+            [Eq("x"), Del("ca"), Eq("c"), Del("b"), Eq("a")],
+            [Eq("xca"), Del("cba")]);
+        yield return Case("empty merge", [Del("b"), Ins("ab"), Eq("c")], [Ins("a"), Eq("bc")]);
+        yield return Case("empty equality", [Eq(string.Empty), Ins("a"), Eq("b")], [Ins("a"), Eq("b")]);
+    }
+
+    private static IEnumerable<TestCaseData> CleanupSemanticCases()
+    {
+        yield return Case("no overlap elimination", [Del("abcxx"), Ins("xxdef")], [Del("abcxx"), Ins("xxdef")]);
+        yield return Case("overlap elimination", [Del("abcxxx"), Ins("xxxdef")], [Del("abc"), Eq("xxx"), Ins("def")]);
+        yield return Case(
+            "reverse overlap elimination",
+            [Del("xxxabc"), Ins("defxxx")],
+            [Ins("def"), Eq("xxx"), Del("abc")]);
+        yield return Case(
+            "two overlap eliminations",
+            [Del("abcd1212"), Ins("1212efghi"), Eq("----"), Del("A3"), Ins("3BC")],
+            [Del("abcd"), Eq("1212"), Ins("efghi"), Eq("----"), Del("A"), Eq("3"), Ins("BC")]);
+        yield return Case(
+            "multiple eliminations",
+            [Ins("1"), Eq("A"), Del("B"), Ins("2"), Eq("_"), Ins("1"), Eq("A"), Del("B"), Ins("2")],
+            [Del("AB_AB"), Ins("1A2_1A2")]);
+        yield return Case(
+            "word boundaries",
+            [Eq("The c"), Del("ow and the c"), Eq("at.")],
+            [Eq("The "), Del("cow and the "), Eq("cat.")]);
+        yield return Case(
+            "back pass elimination",
+            [Del("ab"), Eq("cd"), Del("e"), Eq("f"), Ins("g")],
+            [Del("abcdef"), Ins("cdfg")]);
+    }
+
+    private static IEnumerable<TestCaseData> CleanupSemanticLosslessCases()
+    {
+        yield return Case(
+            "blank lines",
+            [Eq("AAA\r\n\r\nBBB"), Ins("\r\nDDD\r\n\r\nBBB"), Eq("\r\nEEE")],
+            [Eq("AAA\r\n\r\n"), Ins("BBB\r\nDDD\r\n\r\n"), Eq("BBB\r\nEEE")]);
+        yield return Case(
+            "line boundaries",
+            [Eq("AAA\r\nBBB"), Ins(" DDD\r\nBBB"), Eq(" EEE")],
+            [Eq("AAA\r\n"), Ins("BBB DDD\r\n"), Eq("BBB EEE")]);
+        yield return Case(
+            "alphanumeric boundaries",
+            [Eq("The-c"), Ins("ow-and-the-c"), Eq("at.")],
+            [Eq("The-"), Ins("cow-and-the-"), Eq("cat.")]);
+        yield return Case("hitting the start", [Eq("a"), Del("a"), Eq("ax")], [Del("a"), Eq("aax")]);
+        yield return Case("hitting the end", [Eq("xa"), Del("a"), Eq("a")], [Eq("xaa"), Del("a")]);
+        yield return Case(
+            "sentence boundaries",
+            [Eq("The xxx. The "), Ins("zzz. The "), Eq("yyy.")],
+            [Eq("The xxx."), Ins(" The zzz."), Eq(" The yyy.")]);
+    }
+
+    private static TestCaseData Case(string name, List<Diff> diffs, List<Diff> expected)
+    {
+        return new TestCaseData(diffs, expected).SetArgDisplayNames(name);
+    }
+
+    private static Diff Eq(string text) => new(Operation.Equal, text);
+
+    private static Diff Ins(string text) => new(Operation.Insert, text);
+
+    private static Diff Del(string text) => new(Operation.Delete, text);
+
+    private static string RandomText(Random random, string alphabet, int length)
+    {
+        return new string(Enumerable.Range(0, length).Select(_ => alphabet[random.Next(alphabet.Length)]).ToArray());
+    }
+
+    /// <summary>
+    /// Inserts, deletes and replaces some parts of the text.
+    /// </summary>
+    private static string Mutate(Random random, string text, string alphabet)
+    {
+        var result = new System.Text.StringBuilder(text);
+
+        for (var edits = random.Next(0, 6); edits > 0; edits--)
+        {
+            var position = random.Next(0, result.Length + 1);
+            var length = Math.Min(random.Next(0, 10), result.Length - position);
+
+            switch (random.Next(3))
+            {
+                case 0:
+                    result.Insert(position, RandomText(random, alphabet, random.Next(1, 10)));
+                    break;
+                case 1:
+                    result.Remove(position, length);
+                    break;
+                default:
+                    result.Remove(position, length).Insert(position, RandomText(random, alphabet, length));
+                    break;
+            }
+        }
+
+        return result.ToString();
+    }
+
     private static string Source(IEnumerable<Diff> diffs)
     {
         return string.Concat(diffs.Where(d => d.Operation != Operation.Insert).Select(d => d.Text));
