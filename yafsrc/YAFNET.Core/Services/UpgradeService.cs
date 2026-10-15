@@ -308,37 +308,44 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
     /// </summary>
     private async Task AddOrUpdateExtensionsAsync()
     {
-        var loadWrapper = new Action<string, Action<Stream>>(
-            (file, streamAction) =>
-                {
-                    var fullFile = Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Resources, file);
-
-                    if (!File.Exists(fullFile))
-                    {
-                        return;
-                    }
-
-                    // import into board...
-                    using var stream = new StreamReader(fullFile);
-                    streamAction(stream.BaseStream);
-                    stream.Close();
-                });
-
         // get all boards...
         var boardIds = await this.GetRepository<Board>().GetAllBoardIdsAsync();
 
         // Upgrade all Boards
-        boardIds.ForEach(
-            boardId =>
+        foreach (var boardId in boardIds)
+        {
+            this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
+
+            // load default bbcode if available...
+            await using (var stream = this.OpenResource(BbcodeImport))
+            {
+                if (stream != null)
                 {
-                    this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
+                    await this.Get<IDataImporter>().BBCodeExtensionImportAsync(boardId, stream);
+                }
+            }
 
-                    // load default bbcode if available...
-                    loadWrapper(BbcodeImport, s => this.Get<IDataImporter>().BBCodeExtensionImportAsync(boardId, s));
+            // load default spam word if available...
+            await using (var stream = this.OpenResource(SpamWordsImport))
+            {
+                if (stream != null)
+                {
+                    this.Get<IDataImporter>().SpamWordsImport(boardId, stream);
+                }
+            }
+        }
+    }
 
-                    // load default spam word if available...
-                    loadWrapper(SpamWordsImport, s => this.Get<IDataImporter>().SpamWordsImport(boardId, s));
-                });
+    /// <summary>
+    /// Opens a file of the resources folder.
+    /// </summary>
+    /// <param name="file">The file name.</param>
+    /// <returns>The stream, or null if the file does not exist.</returns>
+    private FileStream OpenResource(string file)
+    {
+        var fullFile = Path.Combine(this.Get<BoardInfo>().WebRootPath, this.Get<BoardFolders>().Resources, file);
+
+        return File.Exists(fullFile) ? File.OpenRead(fullFile) : null;
     }
 
     /// <summary>
