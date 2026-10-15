@@ -125,6 +125,32 @@ public class DbLoggerTests
     }
 
     [Test]
+    [Description("The scopes of the logging framework (external scope provider) carry the log entry too")]
+    public void External_Scope_Provider_Test()
+    {
+        var provider = new DbLoggerProvider(this.board.Resolve<IInjectServices>());
+        ((ISupportExternalScope)provider).SetScopeProvider(new LoggerExternalScopeProvider());
+
+        provider.CreateLogger("YAF.Tests.Category").UserDeleted(5, "user deleted");
+
+        this.Entries().Should().ContainSingle().Which.UserID.Should().Be(5);
+    }
+
+    [Test]
+    [Description("The provider can be disposed more than once")]
+    public void Dispose_Test()
+    {
+        var provider = new DbLoggerProvider(this.board.Resolve<IInjectServices>());
+
+        provider.IsDisposed.Should().BeFalse();
+
+        ((IDisposable)provider).Dispose();
+        FluentActions.Invoking(() => ((IDisposable)provider).Dispose()).Should().NotThrow();
+
+        provider.IsDisposed.Should().BeTrue();
+    }
+
+    [Test]
     [Description("Log with a source object uses its name, a Type its full name")]
     public void Log_Source_Test()
     {
