@@ -501,6 +501,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin Groups: the administrators group could be deleted, then the board had no admins anymore (only the host admin); it is protected like the guest group now
 * [FIXED] Install: the installation waits until the default BBCodes are imported (errors of the import were lost and the forum could be used before the import was finished)
 * [FIXED] Push notifications: sending a notification ran in an endless loop until the server was out of memory (keys without base64 padding, like the VAPID keys)
+* [FIXED] Push notifications were never sent: creating the VAPID signature failed with the current BouncyCastle version
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
