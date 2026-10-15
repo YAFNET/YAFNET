@@ -244,6 +244,61 @@ public class MessageEditTests
     }
 
     [Test]
+    [Description("Create and move: the post becomes the first post of the new topic, its replies follow")]
+    public async Task MoveAsync_To_New_Topic_Test()
+    {
+        var first = this.AddPost(this.alice, "first", 0);
+        var moved = this.AddPost(this.bob, "moved", 10, replyTo: first);
+        var reply = this.AddPost(this.alice, "reply", 20, replyTo: moved);
+
+        var newTopic = await this.Repository<Topic>().CreateByMessageAsync(moved, this.forum, "Split topic");
+
+        await this.Messages.MoveAsync(await this.Repository<Topic>().GetByIdAsync(this.topic), await this.Messages.GetByIdAsync(moved), newTopic, true);
+
+        var movedMessage = await this.Messages.GetByIdAsync(moved);
+        movedMessage.TopicID.Should().Be(newTopic);
+        movedMessage.Position.Should().Be(0);
+        movedMessage.ReplyTo.Should().BeNull("it is the first post of the new topic");
+
+        var replyMessage = await this.Messages.GetByIdAsync(reply);
+        replyMessage.TopicID.Should().Be(newTopic);
+        replyMessage.Position.Should().Be(1);
+        replyMessage.ReplyTo.Should().Be(moved);
+
+        (await this.Messages.GetByIdAsync(first)).Position.Should().Be(0);
+        (await this.Repository<Topic>().GetByIdAsync(this.topic)).NumPosts.Should().Be(1);
+        (await this.Repository<Topic>().GetByIdAsync(newTopic)).NumPosts.Should().Be(2);
+    }
+
+    [Test]
+    [Description("A post older than all posts of the target topic becomes its first post, the old first post replies to it")]
+    public async Task MoveAsync_Older_Than_Target_Posts_Test()
+    {
+        this.AddPost(this.alice, "first", 0);
+        var moved = this.AddPost(this.bob, "moved", 10);
+
+        var target = this.db.AddTopic(this.forum, this.bob, "Target");
+        var t1 = this.db.AddMessage(target, this.bob, "target 1", posted: this.start.AddMinutes(30));
+        var t2 = this.db.AddMessage(target, this.bob, "target 2", posted: this.start.AddMinutes(40), replyTo: t1);
+
+        await this.Messages.MoveAsync(await this.Repository<Topic>().GetByIdAsync(this.topic), await this.Messages.GetByIdAsync(moved), target, false);
+
+        var movedMessage = await this.Messages.GetByIdAsync(moved);
+        movedMessage.Position.Should().Be(0);
+        movedMessage.ReplyTo.Should().BeNull();
+
+        var oldFirst = await this.Messages.GetByIdAsync(t1);
+        oldFirst.Position.Should().Be(1);
+        oldFirst.ReplyTo.Should().Be(moved);
+
+        var second = await this.Messages.GetByIdAsync(t2);
+        second.Position.Should().Be(2);
+        second.ReplyTo.Should().Be(t1, "the other replies stay");
+
+        (await this.Repository<Topic>().GetByIdAsync(target)).NumPosts.Should().Be(3);
+    }
+
+    [Test]
     [Description("An erased answer is no answer of the topic anymore (the link to the answer showed an error)")]
     public async Task Erase_Answer_Test()
     {
