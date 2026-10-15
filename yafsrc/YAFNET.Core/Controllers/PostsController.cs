@@ -93,10 +93,13 @@ public class PostsController : ForumBaseController
                 // Check for duplicates
                 var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(source.TopicID);
 
-                if (answerMessageId != null)
-                {
-                    var message = await this.GetRepository<Message>().GetByIdAsync(answerMessageId.Value);
+                // the previous answer can be erased (then the topic got no new answer)
+                var message = answerMessageId is null
+                                  ? null
+                                  : await this.GetRepository<Message>().GetByIdAsync(answerMessageId.Value);
 
+                if (message != null)
+                {
                     var oldMessageFlags = new MessageFlags(message.Flags) { IsAnswer = false };
 
                     await this.GetRepository<Message>().UpdateFlagsAsync(message.ID, oldMessageFlags.BitValue);

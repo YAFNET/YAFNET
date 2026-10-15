@@ -486,6 +486,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Replace words: the good word was added as html to the messages, topic subjects and descriptions (it is text entered by the admin), html in it ran on the pages; it is encoded now and html is removed when a replace word is saved or imported. The topic subject on the topic page was replaced twice
 * [FIXED] Admin Edit Medal: the image of a medal was saved as sent by the form and shown as html on the medals page; only the images of the medals folder are accepted now and the image is encoded
 * [FIXED] Avatar: the uploaded avatar of a user without uploaded avatar failed with an error, every request (by anyone) wrote it to the event log; it is not found now without an error
+* [FIXED] Answer of a topic: when the answer was erased or moved to another topic the topic kept it, the link to the answer showed an error and no new answer could be marked (the moved post was shown as answer in the other topic)
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

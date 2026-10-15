@@ -437,6 +437,25 @@ public class ControllerActionTests
     }
 
     [Test]
+    [Description("A new answer can be marked when the old answer was erased (the topic kept the id of the erased post and no new answer could be marked)")]
+    public async Task MarkAsAnswer_Old_Answer_Erased_Test()
+    {
+        var bobsReply = this.db.AddMessage(this.topic, this.bob, "answer 1");
+        var carolsReply = this.db.AddMessage(this.topic, this.db.AddUser("Carol"), "answer 2");
+
+        // the topic points to an answer that does not exist anymore (erased before it was cleared)
+        await this.Topics.SetAnswerMessageAsync(this.topic, 999999);
+
+        this.board.LoginAs(this.alice);
+        this.SessionMessages(bobsReply, carolsReply);
+
+        await this.CreateController<PostsController>().MarkAsAnswer(carolsReply);
+
+        this.Topics.GetAnswerMessage(this.topic).Should().Be(carolsReply);
+        (await this.Messages.GetByIdAsync(carolsReply)).MessageFlags.IsAnswer.Should().BeTrue();
+    }
+
+    [Test]
     [Description("The flags of the page data can be outdated: a post deleted in the meantime is not undeleted by marking it as answer")]
     public async Task MarkAsAnswer_Outdated_Page_Data_Test()
     {

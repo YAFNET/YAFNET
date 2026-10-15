@@ -224,6 +224,41 @@ public class MessageEditTests
     }
 
     [Test]
+    [Description("An erased answer is no answer of the topic anymore (the link to the answer showed an error)")]
+    public async Task Erase_Answer_Test()
+    {
+        this.AddPost(this.alice, "question", 0);
+        var answer = this.AddPost(this.bob, "answer", 10);
+
+        await this.Repository<Topic>().SetAnswerMessageAsync(this.topic, answer);
+
+        await this.Messages.DeleteAsync(this.forum, this.topic, await this.Messages.GetByIdAsync(answer), true, "spam", false, true);
+
+        (await this.Repository<Topic>().GetByIdAsync(this.topic)).AnswerMessageId.Should().BeNull();
+    }
+
+    [Test]
+    [Description("A moved answer is no answer of the old topic and no answer in the new topic")]
+    public async Task MoveAsync_Answer_Test()
+    {
+        this.AddPost(this.alice, "question", 0);
+        var answer = this.AddPost(this.bob, "answer", 10);
+
+        await this.Repository<Topic>().SetAnswerMessageAsync(this.topic, answer);
+        await this.Messages.UpdateFlagsAsync(
+            answer,
+            new MessageFlags((await this.Messages.GetByIdAsync(answer)).Flags) { IsAnswer = true }.BitValue);
+
+        var target = this.db.AddTopic(this.forum, this.bob, "Target");
+        this.db.AddMessage(target, this.bob, "target", posted: this.start.AddMinutes(-10));
+
+        await this.Messages.MoveAsync(await this.Repository<Topic>().GetByIdAsync(this.topic), await this.Messages.GetByIdAsync(answer), target, false);
+
+        (await this.Repository<Topic>().GetByIdAsync(this.topic)).AnswerMessageId.Should().BeNull();
+        (await this.Messages.GetByIdAsync(answer)).MessageFlags.IsAnswer.Should().BeFalse();
+    }
+
+    [Test]
     [Description("Resolving a report clears the reported flag")]
     public async Task ReportResolveAsync_Test()
     {

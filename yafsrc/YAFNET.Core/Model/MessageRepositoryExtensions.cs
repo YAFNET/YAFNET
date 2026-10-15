@@ -703,6 +703,21 @@ public static class MessageRepositoryExtensions
                 }
             }
 
+            // the answer of the old topic was moved: the old topic has no answer anymore, the message is no
+            // answer in the new topic
+            if (oldTopic.AnswerMessageId is { } answerId
+                && await repository.ExistsAsync(m => m.ID == answerId && m.TopicID != oldTopic.ID))
+            {
+                await BoardContext.Current.GetRepository<Topic>().RemoveAnswerMessageAsync(oldTopic.ID);
+
+                var answer = await repository.GetByIdAsync(answerId);
+                var answerFlags = answer.MessageFlags;
+
+                answerFlags.IsAnswer = false;
+
+                await repository.UpdateFlagsAsync(answerId, answerFlags.BitValue);
+            }
+
             var topic = await BoardContext.Current.GetRepository<Topic>().GetByIdAsync(moveToTopicId);
 
             var newForumId = topic.ForumID;
@@ -1515,6 +1530,11 @@ public static class MessageRepositoryExtensions
                         () => new Message { ReplyTo = null },
                         x => x.TopicID == topicId && x.ID == replyMessage.ID);
                 }
+
+                // -- the topic has no answer anymore (the link to the answer showed an error)
+                await BoardContext.Current.GetRepository<Topic>().UpdateOnlyAsync(
+                    () => new Topic { AnswerMessageId = null },
+                    x => x.ID == topicId && x.AnswerMessageId == message.ID);
 
                 // -- finally delete the message we want to delete
                 await repository.DeleteByIdAsync(message.ID);
