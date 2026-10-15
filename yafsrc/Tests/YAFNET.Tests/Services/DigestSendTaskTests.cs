@@ -162,6 +162,54 @@ public class DigestSendTaskTests
             .CountAsync(r => r.BoardID == SecondBoard && r.Name == "lastdigestsend")).Should().Be(0);
     }
 
+    [Test]
+    [Description("An unreadable time of the last digest counts as never sent")]
+    public async Task Invalid_Last_Send_Test()
+    {
+        this.board.BoardSettings.AllowDigestEmail = true;
+        this.board.BoardSettings.LastDigestSend = "not a date";
+
+        this.AddDigestUser("Alice");
+
+        await this.RunAsync();
+
+        this.mail.Sent.Select(m => m.Subject).Should().Equal("digest for Alice");
+        DateTime.Parse(this.board.BoardSettings.LastDigestSend, System.Globalization.CultureInfo.InvariantCulture)
+            .Should().BeCloseTo(DateTime.Now, TimeSpan.FromMinutes(1));
+    }
+
+    [Test]
+    [Description("An error in the digest of one user does not stop the digests of the others")]
+    public async Task Digest_Error_Of_One_User_Test()
+    {
+        this.EnableDigest();
+
+        this.digest.CreateDigest(Arg.Is<User>(u => u.Name == "Broken"), Arg.Any<MailboxAddress>(), Arg.Any<string>(), Arg.Any<string>())
+            .Returns(_ => throw new InvalidOperationException("broken"));
+
+        this.AddDigestUser("Broken");
+        this.AddDigestUser("Alice");
+
+        await this.RunAsync();
+
+        this.mail.Sent.Select(m => m.Subject).Should().Equal("digest for Alice");
+    }
+
+    [Test]
+    [Description("Without users who want a digest nothing is sent, the task has a name and description")]
+    public async Task No_Users_Test()
+    {
+        this.EnableDigest();
+
+        await this.RunAsync();
+
+        this.mail.Sent.Should().BeEmpty();
+
+        var task = new DigestSendTask();
+        task.TaskName.Should().Be(nameof(DigestSendTask));
+        task.TaskDescription.Should().NotBeNullOrEmpty();
+    }
+
     private void EnableDigest()
     {
         this.board.BoardSettings.AllowDigestEmail = true;
