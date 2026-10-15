@@ -488,6 +488,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin Edit Medal: the image of a medal was saved as sent by the form and shown as html on the medals page; only the images of the medals folder are accepted now and the image is encoded
 * [FIXED] Avatar: the uploaded avatar of a user without uploaded avatar failed with an error, every request (by anyone) wrote it to the event log; it is not found now without an error
 * [FIXED] Answer of a topic: when the answer was erased or moved to another topic the topic kept it, the link to the answer showed an error and no new answer could be marked (the moved post was shown as answer in the other topic)
+* [FIXED] Topic page: a link to a post (e.g. a notification, the last post or a search result) opened the wrong page when deleted or not approved posts came before it (the position of the post counted them), the post was not shown
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

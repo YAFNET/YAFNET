@@ -763,6 +763,27 @@ public static class MessageRepositoryExtensions
         {
             var minDateTime = DateTimeHelper.SqlDbMinTime().AddYears(-1);
 
+            // the position of the message among the posts the user sees (the pages list only these), the stored
+            // position also counts the deleted and not approved posts: the page of the message was wrong
+            (int MessagePosition, int MessageID) VisiblePosition((int MessagePosition, int MessageID) found)
+            {
+                if (found.MessageID <= 0)
+                {
+                    return found;
+                }
+
+                var posted = repository.GetById(found.MessageID).Posted;
+
+                var position = showDeleted
+                                   ? repository.Count(
+                                       m => m.TopicID == topicId && (m.Flags & 16) == 16 && m.Posted < posted)
+                                   : repository.Count(
+                                       m => m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8
+                                            && m.Posted < posted);
+
+                return ((int)position, found.MessageID);
+            }
+
             (int MessagePosition, int MessageID) message;
 
             if (messageId.HasValue)
@@ -795,7 +816,7 @@ public static class MessageRepositoryExtensions
 
                 if (message.MessageID > 0)
                 {
-                    return message;
+                    return VisiblePosition(message);
                 }
             }
 
@@ -831,7 +852,7 @@ public static class MessageRepositoryExtensions
 
                 if (message.MessageID > 0)
                 {
-                    return message;
+                    return VisiblePosition(message);
                 }
             }
 
@@ -867,7 +888,7 @@ public static class MessageRepositoryExtensions
                     return db.Connection.Single<(int MessagePosition, int MessageID)>(expression);
                 });
 
-            return message;
+            return VisiblePosition(message);
         }
 
         /// <summary>

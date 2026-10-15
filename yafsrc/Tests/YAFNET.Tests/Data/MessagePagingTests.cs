@@ -206,8 +206,29 @@ public class MessagePagingTests
         // a deleted message the user can't see: falls back to the first post
         this.Messages.FindUnread(this.topic, deleted, Since, false).MessagePosition.Should().Be(0);
 
-        // a message of another topic: falls back as well
-        this.Messages.FindUnread(this.topic, -1, this.start.AddMinutes(10), false).Should().Be((3, last));
+        // a message of another topic: falls back as well (the third post the user sees, the deleted one is hidden)
+        this.Messages.FindUnread(this.topic, -1, this.start.AddMinutes(10), false).Should().Be((2, last));
+        this.Messages.FindUnread(this.topic, last, Since, true).Should().Be((3, last));
+    }
+
+    [Test]
+    [Description("The page of a message is found among the posts the user sees: deleted and not approved posts before it moved the link to the wrong page")]
+    public void FindUnread_Page_Of_Message_With_Hidden_Posts_Test()
+    {
+        for (var i = 0; i < 6; i++)
+        {
+            this.AddPost(this.alice, i, new MessageFlags { IsApproved = i % 2 == 0, IsDeleted = i % 2 == 1 });
+        }
+
+        var posts = Enumerable.Range(6, 20).Select(i => this.AddPost(this.bob, i)).ToList();
+
+        foreach (var post in posts)
+        {
+            var found = this.Messages.FindUnread(this.topic, post, Since, false);
+
+            this.List(pageSize: 10, messagePosition: found.MessagePosition).Select(p => p.MessageID).Should()
+                .Contain(post, $"the page of the post at position {found.MessagePosition} shows it");
+        }
     }
 
     [Test]
