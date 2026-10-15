@@ -31,6 +31,11 @@ using Autofac;
 
 using Microsoft.AspNetCore.Hosting;
 
+using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Documents;
+using Lucene.Net.Index;
+using Lucene.Net.Util;
+
 using NSubstitute;
 
 using YAF.Core.Services;
@@ -452,6 +457,94 @@ public class LuceneSearchTests
 
         search.AddSearchIndexItem(this.Message(2, 20, this.forumA, "Two", "written"));
         search.CountHits("written").Should().Be(2);
+    }
+
+    [Test]
+    [Description("Documents of older versions have no flags: they are found in readable forums, an unreadable date is shown as stored")]
+    public async Task Document_Without_Flags_Test()
+    {
+        this.IndexWithoutFlags(1, this.forumA, "an old fox");
+        this.IndexWithoutFlags(2, this.hiddenForum, "a hidden fox");
+
+        var (results, total) = await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10);
+
+        total.Should().Be(1);
+        var hit = results.Single();
+        hit.MessageId.Should().Be(1);
+        hit.Posted.Should().Be("some day");
+    }
+
+    [Test]
+    [Description("A write lock left by a crashed process is removed, the index can be written again")]
+    public async Task Stale_Write_Lock_Test()
+    {
+        this.Index(1, 10, this.forumA, "first", "the first fox");
+
+        File.WriteAllText(Path.Combine(this.webRoot, "Search_Data", "write.lock"), string.Empty);
+
+        this.Index(2, 11, this.forumA, "second", "the second fox");
+
+        (await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10)).Item2.Should().Be(2);
+    }
+
+    [Test]
+    [Description("Without a maximum of search results one page of results is returned")]
+    public async Task No_Search_Maximum_Test()
+    {
+        for (var i = 1; i <= 3; i++)
+        {
+            this.Index(i, 10 + i, this.forumA, $"topic {i}", "fox");
+        }
+
+        this.board.BoardSettings.ReturnSearchMax = 0;
+
+        var (results, total) = await this.NewSearch().SearchPagedAsync(0, "fox", 0, 2);
+
+        total.Should().Be(2);
+        results.Select(r => r.MessageId).Should().Equal(3, 2);
+    }
+
+    [Test]
+    [Description("The date of a result is shown relative when the board shows relative times")]
+    public async Task Relative_Time_Test()
+    {
+        this.Index(1, 10, this.forumA, "Lucene rocks", "the quick brown fox");
+
+        this.board.BoardSettings.ShowRelativeTime = true;
+
+        var hit = (await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10)).Item1.Single();
+
+        hit.Posted.Should().NotBe(this.Message(1, 10, this.forumA, "Lucene rocks", "fox").Posted)
+            .And.NotBeNullOrEmpty();
+    }
+
+    /// <summary>
+    /// Indexes a message like older versions did, without the flags.
+    /// </summary>
+    private void IndexWithoutFlags(int messageId, int forumId, string text)
+    {
+        using var directory = Lucene.Net.Store.FSDirectory.Open(Path.Combine(this.webRoot, "Search_Data"));
+        using var analyzer = new StandardAnalyzer(LuceneVersion.LUCENE_48);
+        using var writer = new IndexWriter(directory, new IndexWriterConfig(LuceneVersion.LUCENE_48, analyzer));
+
+        writer.AddDocument(
+        [
+            new StringField("MessageId", messageId.ToString(), Field.Store.YES),
+            new TextField("Message", text, Field.Store.YES),
+            new StoredField("Posted", "some day"),
+            new StringField("UserId", this.alice.ToString(), Field.Store.YES),
+            new StringField("TopicId", "10", Field.Store.YES),
+            new TextField("Topic", "Old topic", Field.Store.YES),
+            new StringField("ForumName", "Forum", Field.Store.YES),
+            new StringField("ForumId", forumId.ToString(), Field.Store.YES),
+            new TextField("Author", "Alice", Field.Store.YES),
+            new TextField("AuthorDisplay", "Alice", Field.Store.YES),
+            new StoredField("AuthorStyle", string.Empty),
+            new TextField("Description", string.Empty, Field.Store.YES),
+            new TextField("TopicTags", string.Empty, Field.Store.YES)
+        ]);
+
+        writer.Commit();
     }
 
     private Search NewSearch()
