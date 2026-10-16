@@ -8943,7 +8943,7 @@
                 },
                 {
                     "@tag": "DELETE_ALL",
-                    "#text": "Delete All Posts?"
+                    "#text": "Delete all linked posts?"
                 },
                 {
                     "@tag": "DELETE_REASON",
