@@ -905,7 +905,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             scorer = new QueryScorer(query);
 
             // sort by date
-            var sort = new Sort(new SortField("MessageId", FieldCache.DEFAULT_INT32_PARSER, true));
+            var sort = new Sort(new SortField("MessageId", StringInt32Parser.Instance, true));
 
             var fil = new BooleanFilter();
 
@@ -1008,5 +1008,37 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     private void DisposeWriter()
     {
         this.indexWriter?.Dispose(true);
+    }
+
+    /// <summary>
+    /// Parses <see cref="int"/> values that are indexed as plain strings (e.g. via <see cref="StringField"/>).
+    /// Replaces the obsolete <see cref="FieldCache.DEFAULT_INT32_PARSER"/>.
+    /// </summary>
+    private sealed class StringInt32Parser : FieldCache.IInt32Parser
+    {
+        /// <summary>
+        /// The singleton instance (required so the field cache can be reused).
+        /// </summary>
+        public static readonly StringInt32Parser Instance = new();
+
+        /// <summary>
+        /// Parses the term to an <see cref="int"/>.
+        /// </summary>
+        /// <param name="term">The term.</param>
+        /// <returns>Returns the parsed value.</returns>
+        public int ParseInt32(BytesRef term)
+        {
+            return int.Parse(term.Utf8ToString(), System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        /// Gets the terms enumerator.
+        /// </summary>
+        /// <param name="terms">The terms.</param>
+        /// <returns>Returns the terms enumerator.</returns>
+        public TermsEnum GetTermsEnum(Terms terms)
+        {
+            return terms.GetEnumerator();
+        }
     }
 }
