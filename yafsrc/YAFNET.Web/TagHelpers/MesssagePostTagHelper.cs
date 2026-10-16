@@ -398,6 +398,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         var link = new TagBuilder(HtmlTag.A);
 
         link.MergeAttribute(HtmlAttribute.Title, this.GetText("GO_TO_ANSWER"));
+        link.AddCssClass("alert-link");
         link.MergeAttribute(
             HtmlAttribute.Href,
             this.Get<ILinkBuilder>().GetMessageLink(BoardContext.Current.PageTopic, answerMessageId));

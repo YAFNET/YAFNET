@@ -160,7 +160,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
                         : name;
 
                     filler.Append(
-                        $"""<a href="" class="avatar-item"><img src="{this.Get<IAvatars>()
+                        $"""<i class="fas fa-heart text-danger me-1"></i><a href="" class="avatar-item"><img src="{this.Get<IAvatars>()
                             .GetAvatarUrlForUser(dr.Item2.ID, dr.Item2.Avatar, dr.Item2.AvatarImage != null)}" alt="{name}" title="{title}" class="avatar border rounded img-fluid" />""");
 
                     filler.Append("</a>");
