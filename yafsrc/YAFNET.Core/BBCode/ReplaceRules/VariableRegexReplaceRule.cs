@@ -35,12 +35,12 @@ public class VariableRegexReplaceRule : SimpleRegexReplaceRule
     /// <summary>
     ///   The variable defaults.
     /// </summary>
-    readonly protected string[] VariableDefaults;
+    protected readonly string[] VariableDefaults;
 
     /// <summary>
     ///   The variables.
     /// </summary>
-    readonly protected string[] Variables;
+    protected readonly string[] Variables;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.

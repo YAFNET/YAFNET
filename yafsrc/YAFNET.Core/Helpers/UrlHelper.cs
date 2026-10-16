@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Helpers;
 
-using System;
 using System.Text.RegularExpressions;
 
 /// <summary>

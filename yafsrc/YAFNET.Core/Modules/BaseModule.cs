@@ -43,7 +43,7 @@ public abstract class BaseModule : Autofac.Module, IHaveSortOrder
     /// <summary>
     ///     Gets or sets ExtensionAssemblies.
     /// </summary>
-    readonly static protected Assembly[] ExtensionAssemblies;
+    protected readonly static Assembly[] ExtensionAssemblies;
 
     /// <summary>
     /// Initializes static members of the <see cref="BaseModule"/> class.

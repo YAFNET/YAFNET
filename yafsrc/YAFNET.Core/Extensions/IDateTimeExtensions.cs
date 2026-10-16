@@ -65,7 +65,6 @@ public static class IDateTimeServiceExtensions
                     DateTimeFormat.DateLong => dateTimeInstance.FormatDateLong(dateTime),
                     DateTimeFormat.DateShort => dateTimeInstance.FormatDateShort(dateTime),
                     DateTimeFormat.Time => dateTimeInstance.FormatTime(dateTime),
-                    DateTimeFormat.Both => dateTimeInstance.FormatDateTime(dateTime),
                     _ => dateTimeInstance.FormatDateTime(dateTime)
                 };
             }

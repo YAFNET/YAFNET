@@ -24,7 +24,6 @@
 
 namespace YAF.Core.BBCode.ReplaceRules;
 
-using System;
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -35,12 +34,12 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
     /// <summary>
     ///   The replace regex.
     /// </summary>
-    readonly protected string RegExReplace;
+    protected readonly string RegExReplace;
 
     /// <summary>
     ///   The search regex.
     /// </summary>
-    readonly protected Regex RegExSearch;
+    protected readonly Regex RegExSearch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleRegexReplaceRule"/> class.

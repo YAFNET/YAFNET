@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Extensions;
 
-using System;
 using System.Text.RegularExpressions;
 
 /// <summary>

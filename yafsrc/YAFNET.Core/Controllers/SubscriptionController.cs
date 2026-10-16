@@ -22,7 +22,6 @@
  * under the License.
  */
 
-using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Attributes;
 

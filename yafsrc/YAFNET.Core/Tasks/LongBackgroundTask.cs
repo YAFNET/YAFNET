@@ -25,7 +25,6 @@
 namespace YAF.Core.Tasks;
 
 using System.Threading;
-using System.Threading.Tasks;
 
 /// <summary>
 /// The long background task.

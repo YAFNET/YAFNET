@@ -238,7 +238,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Initialize the user data and page data...
     /// </summary>
-    override protected void InitUserAndPage()
+    protected override void InitUserAndPage()
     {
         if (this.UserPageDataLoaded)
         {

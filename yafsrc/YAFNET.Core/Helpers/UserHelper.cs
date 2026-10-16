@@ -83,7 +83,7 @@ public static class UserHelper
     /// <param name="name">The user name or display name.</param>
     /// <param name="boardId">The board identifier.</param>
     /// <returns>Returns if the name is allowed.</returns>
-    public static async Task<bool> IsAllowedNameAsync(string name, int boardId)
+    public async static Task<bool> IsAllowedNameAsync(string name, int boardId)
     {
         name = name?.Trim();
 

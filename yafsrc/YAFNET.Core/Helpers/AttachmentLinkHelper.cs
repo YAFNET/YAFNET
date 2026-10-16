@@ -55,7 +55,7 @@ public static class AttachmentLinkHelper
     /// <summary>
     /// Only one request creates the key.
     /// </summary>
-    private static readonly Lock KeyLock = new();
+    private readonly static Lock KeyLock = new();
 
     /// <summary>
     /// Gets the download link of an attachment.

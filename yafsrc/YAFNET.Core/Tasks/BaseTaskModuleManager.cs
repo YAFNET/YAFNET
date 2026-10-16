@@ -36,7 +36,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <summary>
     /// The task manager.
     /// </summary>
-    readonly static protected ConcurrentDictionary<string, IBackgroundTask> TaskManager = new();
+    protected readonly static ConcurrentDictionary<string, IBackgroundTask> TaskManager = new();
 
     /// <summary>
     ///     Gets TaskCount.

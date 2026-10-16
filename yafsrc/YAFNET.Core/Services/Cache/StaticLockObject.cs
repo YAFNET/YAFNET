@@ -35,7 +35,7 @@ public class StaticLockObject : IHaveLockObject
     /// <summary>
     /// The lock cache items.
     /// </summary>
-    readonly protected object[] LockCacheItems;
+    protected readonly object[] LockCacheItems;
 
     /// <summary>
     /// The lock object count.

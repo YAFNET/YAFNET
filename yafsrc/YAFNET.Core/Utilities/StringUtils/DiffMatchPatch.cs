@@ -26,7 +26,7 @@ using System.Text.RegularExpressions;
 /// <summary>
 /// The compatibility extensions.
 /// </summary>
-static internal class CompatibilityExtensions
+internal static class CompatibilityExtensions
 {
     /// <summary>
     /// JScript splice function
@@ -574,7 +574,7 @@ public class DiffMatchPatch
     /// <returns>Three element Object array, containing the encoded text1, the
     /// encoded text2 and the List of unique strings.  The zeroth element
     /// of the List of unique strings is intentionally blank.</returns>
-    static protected object[] LinesToChars(string text1, string text2)
+    protected static object[] LinesToChars(string text1, string text2)
     {
         var lineArray = new List<string>();
         var lineHash = new Dictionary<string, int>();
@@ -650,7 +650,7 @@ public class DiffMatchPatch
     /// </summary>
     /// <param name="diffs">diffs List of Diff objects.</param>
     /// <param name="lineArray">Array List of unique strings.</param>
-    static protected void CharsToLines(ICollection<Diff> diffs, IList<string> lineArray)
+    protected static void CharsToLines(ICollection<Diff> diffs, IList<string> lineArray)
     {
         foreach (var diff in diffs)
         {
@@ -716,7 +716,7 @@ public class DiffMatchPatch
     /// <returns>The number of characters common to the end of the first
     /// string and the start of the second string.
     /// </returns>
-    static protected int CommonOverlap(string text1, string text2)
+    protected static int CommonOverlap(string text1, string text2)
     {
         // Cache the text lengths to prevent multiple calls.
         var text1Length = text1.Length;

@@ -31,7 +31,6 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-using YAF.Core.Helpers;
 using YAF.Core.Middleware;
 using YAF.Types;
 using YAF.Types.Objects;

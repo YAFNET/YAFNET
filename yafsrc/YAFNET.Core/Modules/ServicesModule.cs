@@ -46,7 +46,7 @@ public class ServicesModule : BaseModule
     /// Loads the specified container builder.
     /// </summary>
     /// <param name="builder">The container builder.</param>
-    override protected void Load(ContainerBuilder builder)
+    protected override void Load(ContainerBuilder builder)
     {
         RegisterServices(builder);
         RegisterMigrationServices(builder);

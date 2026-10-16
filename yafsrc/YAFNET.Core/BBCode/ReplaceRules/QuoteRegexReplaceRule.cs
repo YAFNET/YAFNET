@@ -195,7 +195,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
     /// <returns>
     /// The get inner value.
     /// </returns>
-    override protected string GetInnerValue(string innerValue)
+    protected override string GetInnerValue(string innerValue)
     {
         return innerValue;
     }

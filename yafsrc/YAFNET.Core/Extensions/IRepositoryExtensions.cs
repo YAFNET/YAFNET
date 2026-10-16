@@ -33,7 +33,6 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using YAF.Types.Interfaces.Data;
-using static Lucene.Net.Search.FieldValueHitQueue;
 
 /// <summary>
 ///     The repository extensions.

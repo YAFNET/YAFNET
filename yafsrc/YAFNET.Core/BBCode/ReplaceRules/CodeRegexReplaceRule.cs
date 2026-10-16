@@ -78,7 +78,7 @@ public class CodeRegexReplaceRule : SimpleRegexReplaceRule
     /// <returns>
     /// The get inner value.
     /// </returns>
-    override protected string GetInnerValue(string innerValue)
+    protected override string GetInnerValue(string innerValue)
     {
         innerValue = innerValue.Replace("\t", "&nbsp; &nbsp;&nbsp;");
         innerValue = innerValue.Replace("[", "&#91;");

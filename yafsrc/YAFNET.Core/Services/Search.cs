@@ -1019,7 +1019,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         /// <summary>
         /// The singleton instance (required so the field cache can be reused).
         /// </summary>
-        public static readonly StringInt32Parser Instance = new();
+        public readonly static StringInt32Parser Instance = new();
 
         /// <summary>
         /// Parses the term to an <see cref="int"/>.
