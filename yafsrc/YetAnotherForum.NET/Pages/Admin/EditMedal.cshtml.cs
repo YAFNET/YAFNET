@@ -33,6 +33,8 @@ using System.Linq;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Services;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Flags;
 using YAF.Types.Models;
 
@@ -167,8 +169,7 @@ public class EditMedalModel : AdminPage
         }
 
         // remove all user medals...
-        this.Get<IDataCache>().Remove(
-            k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+        this.Get<IRaiseEvent>().Raise(new ClearMedalsCacheEvent());
 
         return new PartialViewResult
                {
@@ -262,7 +263,7 @@ public class EditMedalModel : AdminPage
     protected void RemoveMedalsFromCache()
     {
         // remove all user medals...
-        this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+        this.Get<IRaiseEvent>().Raise(new ClearMedalsCacheEvent());
     }
 
     /// <summary>

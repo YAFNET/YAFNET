@@ -38,6 +38,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
                                   IHandleEvent<SuccessfulUserLoginEvent>,
                                   IHandleEvent<UpdateUserEvent>,
                                   IHandleEvent<UserLogoutEvent>,
+                                  IHandleEvent<ClearMedalsCacheEvent>,
                                   IHandleEvent<RepositoryEvent<User>>,
                                   IHandleEvent<RepositoryEvent<BannedIP>>,
                                   IHandleEvent<RepositoryEvent<BannedUserAgent>>,
@@ -133,6 +134,17 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         // Clearing user cache with permissions data and active users cache
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
         this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
+    }
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    ///     The event.
+    /// </param>
+    void IHandleEvent<ClearMedalsCacheEvent>.Handle(ClearMedalsCacheEvent @event)
+    {
+        this.ClearMedalsCache();
     }
 
     /// <summary>
@@ -367,7 +379,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         this.ClearAccess();
 
         // ... and the medals of the group shown for the user
-        this.DataCache.Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+        this.ClearMedalsCache();
     }
 
     /// <summary>
@@ -387,6 +399,14 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     private void ClearModeratorsCache()
     {
         this.DataCache.Remove(Constants.Cache.ForumModerators);
+    }
+
+    /// <summary>
+    /// clear the medals cache of all users
+    /// </summary>
+    private void ClearMedalsCache()
+    {
+        this.DataCache.Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
     }
 
     /// <summary>

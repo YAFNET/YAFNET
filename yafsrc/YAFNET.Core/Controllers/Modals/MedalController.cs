@@ -145,7 +145,7 @@ public class MedalController : ForumBaseController
         }
 
         // the medals of all members of the group are cached
-        this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+        this.Get<IRaiseEvent>().Raise(new ClearMedalsCacheEvent());
 
         return this.Ok();
     }

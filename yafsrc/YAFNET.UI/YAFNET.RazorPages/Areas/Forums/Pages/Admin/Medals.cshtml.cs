@@ -30,6 +30,8 @@ using System.Web;
 
 using YAF.Core.Extensions;
 using YAF.Core.Services;
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 
 /// <summary>
@@ -79,7 +81,7 @@ public class MedalsModel : AdminPage
             this.GetRepository<Medal>().Delete(m => m.ID == medalId);
 
             // the medals of the users are cached
-            this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+            this.Get<IRaiseEvent>().Raise(new ClearMedalsCacheEvent());
         }
 
         // re-bind data

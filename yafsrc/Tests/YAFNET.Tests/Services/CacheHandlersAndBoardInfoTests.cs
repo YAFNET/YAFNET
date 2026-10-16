@@ -242,6 +242,20 @@ public class CacheHandlersAndBoardInfoTests
     }
 
     [Test]
+    [Description("The clear medals cache event drops the cached medals of all users, nothing else")]
+    public void Clear_Medals_Cache_Event_Test()
+    {
+        var medals = string.Format(Constants.Cache.UserMedals, 5);
+        var other = string.Format(Constants.Cache.UserMedals, 6);
+
+        this.Fill(medals, other, Constants.Cache.BoardStats);
+
+        ((IHandleEvent<ClearMedalsCacheEvent>)this.handlers).Handle(new ClearMedalsCacheEvent());
+
+        this.Cached().Should().Equal(Constants.Cache.BoardStats);
+    }
+
+    [Test]
     [Description("The version name contains the version and, for pre-releases, the build date")]
     public void Version_Test()
     {
