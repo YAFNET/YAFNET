@@ -161,7 +161,7 @@ public class GroupsModel : AdminPage
     {
         // the roles are shared by all boards: only a role that is not the group of any board can be deleted
         // (the list only contains the roles without a group of this board)
-        var usedByGroup = role.IsNotSet() || this.GetRepository<Group>().Get(_ => true)
+        var usedByGroup = role.IsNotSet() || (await this.GetRepository<Group>().GetAsync(_ => true))
                               .Exists(g => string.Equals(g.Name, role, StringComparison.CurrentCultureIgnoreCase));
 
         if (!usedByGroup)
@@ -178,7 +178,7 @@ public class GroupsModel : AdminPage
     {
         var groupId = id;
 
-        var group = this.GetRepository<Group>().GetById(groupId);
+        var group = await this.GetRepository<Group>().GetByIdAsync(groupId);
 
         // only groups of the board, the guest group and the administrators group can't be deleted (the list has no
         // delete button for them, without the administrators group the board has no admins)

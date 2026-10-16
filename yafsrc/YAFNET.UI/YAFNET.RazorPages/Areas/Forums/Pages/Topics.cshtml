@@ -160,7 +160,8 @@
                  data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
                 @if (!Model.Announcements.HasItems() && !Model.Topics.HasItems())
                 {
-                    <alert type="info" localized-tag="NO_TOPICS"></alert>
+	                <p class="text-center">@Html.Icon("comments", "text-secondary", iconSize: "fa-5x")</p>
+                    <p class="text-center lead">@Html.LocalizedText("TOPICS", "NO_TOPICS")</p>
                 }
 
                 @foreach (var topic in Model.Announcements)

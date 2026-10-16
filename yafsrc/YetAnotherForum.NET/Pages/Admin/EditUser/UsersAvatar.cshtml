@@ -13,7 +13,6 @@
     @Html.LocalizedText("EDIT_AVATAR", "TITLE")
 </h2>
 
-@* one form for all buttons (a nested form is ignored by the browser), the upload needs multipart *@
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
 

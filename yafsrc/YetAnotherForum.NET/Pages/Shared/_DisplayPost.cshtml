@@ -472,7 +472,6 @@
                                 <div class="dropdown-menu context-menu" aria-labelledby="context menu"
                                      data-search="@(Current.Get<ILocalization>().GetText("COMMON", "SELECTED_SEARCH"))"
                                      data-copy="@(Current.Get<ILocalization>().GetText("COMMON", "SELECTED_COPY"))"
-                                     @* quoting the selected text only where the user can reply (null values are not rendered) *@
                                      data-url="@(canQuoteSelected ? Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new { t = Current.PageTopicID, f = Current.PageForumID }) : null)"
                                      data-quote="@(canQuoteSelected ? Current.Get<ILocalization>().GetText("COMMON", "SELECTED_QUOTE") : null)">
 									

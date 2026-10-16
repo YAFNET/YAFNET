@@ -119,7 +119,7 @@ public class DeleteForumModel : AdminPage
         if (errorMessage.IsSet())
         {
             // the page is shown again with the forum (it is not sent with the form)
-            this.Forum = this.GetRepository<Forum>().GetById(fa);
+            this.Forum = await this.GetRepository<Forum>().GetByIdAsync(fa);
 
             return this.PageBoardContext.Notify(errorMessage, MessageTypes.danger);
         }

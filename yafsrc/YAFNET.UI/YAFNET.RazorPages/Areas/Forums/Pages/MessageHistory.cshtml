@@ -68,7 +68,6 @@
                                         </span>
                                     </p>
 
-                                    @* the last entry is the current text, not an old version *@
                                     @if ((Model.PageBoardContext.IsAdmin || Model.PageBoardContext.ForumModeratorAccess) && !i.Equals(Model.RevisionsList.Count - 1))
                                     {
                                         <small>
