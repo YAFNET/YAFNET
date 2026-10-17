@@ -79,18 +79,21 @@ public partial class BoardAnnouncement : AdminPage
     {
         var boardAnnouncementUntil = DateTime.Now;
 
-        // number inserted by suspending user
-        var count = int.Parse(this.BoardAnnouncementUntil.Text);
+        // the duration is 1 unit - 100 years (a bigger number failed with an error, 0 or less was already expired)
+        if (!int.TryParse(this.BoardAnnouncementUntil.Text.Trim(), out var count))
+        {
+            count = 1;
+        }
 
         // what time units are used for suspending
         boardAnnouncementUntil = this.BoardAnnouncementUntilUnit.SelectedValue switch
             {
                 // days
-                "1" => boardAnnouncementUntil.AddDays(count),
+                "1" => boardAnnouncementUntil.AddDays(Math.Min(Math.Max(count, 1), 36500)),
                 // hours
-                "2" => boardAnnouncementUntil.AddHours(count),
+                "2" => boardAnnouncementUntil.AddHours(Math.Min(Math.Max(count, 1), 876000)),
                 // month
-                "3" => boardAnnouncementUntil.AddMonths(count),
+                "3" => boardAnnouncementUntil.AddMonths(Math.Min(Math.Max(count, 1), 1200)),
                 _ => boardAnnouncementUntil
             };
 

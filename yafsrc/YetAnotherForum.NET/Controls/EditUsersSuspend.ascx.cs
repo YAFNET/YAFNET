@@ -213,21 +213,21 @@ public partial class EditUsersSuspend : BaseUserControl
             return;
         }
 
-        // what time units are used for suspending
+        // what time units are used for suspending (at most 100 years, a bigger number failed with an error)
         suspend = this.SuspendUnit.SelectedValue switch
             {
                 // days
                 "1" =>
                     // add user inserted suspension time to current time
-                    suspend.AddDays(count),
+                    suspend.AddDays(Math.Min(count, 36500)),
                 // hours
                 "2" =>
                     // add user inserted suspension time to current time
-                    suspend.AddHours(count),
+                    suspend.AddHours(Math.Min(count, 876000)),
                 // minutes
                 "3" =>
                     // add user inserted suspension time to current time
-                    suspend.AddMinutes(count),
+                    suspend.AddMinutes(Math.Min(count, 52560000)),
                 _ => suspend
             };
 

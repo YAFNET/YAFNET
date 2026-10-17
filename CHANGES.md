@@ -310,6 +310,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Posting (new topic, reply, quick reply): the message of the flood delay showed only the seconds part of the remaining time (e.g. 30 instead of 90 seconds with a delay over a minute)
 * [FIXED] Admin > Edit User > Kill: banning the addresses of the user also banned the own address of the admin (e.g. a user of the same network), the admin was locked out of the forum
 * [FIXED] Admin > Event Log / Spam Log: a date filter that is not a date was used as the smallest date (error page with SQL Server)
+* [FIXED] Admin > Board Announcement and Admin > Edit User > Suspend: a huge duration showed an error page (date overflow) and a board announcement with 0 or less was saved already expired; the duration is limited to 1 unit - 100 years
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
