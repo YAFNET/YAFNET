@@ -426,14 +426,13 @@ public class Album : IAlbum, IHaveServiceLocator
                 input.Close();
             }
 
-            context.Response.ContentType = image.Item1.ContentType;
+            // the content type comes from the browser of the uploader: only images are sent with their type,
+            // other types (e.g. svg or xhtml with scripts) as png, the browser must not run them in the forum
+            context.Response.ContentType = Attachments.IsInlineImage(image.Item1.ContentType)
+                                               ? image.Item1.ContentType
+                                               : "image/png";
+            context.Response.AppendHeader("X-Content-Type-Options", "nosniff");
 
-            if (context.Response.ContentType.Contains("text"))
-            {
-                context.Response.Write(
-                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
-            }
-            else
             {
                 context.Response.OutputStream.Write(data, 0, data.Length);
 

@@ -221,6 +221,92 @@ public class ContentFeatureTests : ForumTestBase
         (await this.Page.InnerTextAsync("body")).Should().Contain(title);
     }
 
+    [Test]
+    [Description("Only images are shown in the page, other attachments (e.g. xml with scripts) are always downloaded")]
+    public async Task Attachment_Xml_Is_Downloaded_Test()
+    {
+        await this.LoginAsAdminAsync();
+
+        await this.GotoAsync("PostTopic?f=1");
+
+        var subject = $"Xml attachment {Guid.NewGuid():N}";
+        await this.Control("TopicSubjectTextBox").FillAsync(subject);
+
+        await this.Page.Locator("[data-bs-target='#UploadDialog']").First.ClickAsync();
+        await this.Page.Locator("#UploadDialog").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+
+        await this.Page.Locator("#fileElem").SetInputFilesAsync(
+            new FilePayload
+            {
+                Name = "evil.xml",
+                MimeType = "text/xml",
+                Buffer = System.Text.Encoding.UTF8.GetBytes(
+                    "<html xmlns=\"http://www.w3.org/1999/xhtml\"><script>alert(1)</script></html>")
+            });
+
+        await this.Page.WaitForFunctionAsync(
+            "() => document.querySelector(\"[id$='_YafTextEditor']\").value.toLowerCase().includes('[attach]')");
+
+        var attachmentId = Regex.Match(
+                await this.Control("YafTextEditor").InputValueAsync(),
+                @"\[attach\](\d+)\[/attach\]",
+                RegexOptions.IgnoreCase)
+            .Groups[1].Value;
+
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.GotoAsync("Topics/1-Test Forum");
+        var topicHref = await this.Page.Locator("a[href*='/Posts/t']", new () { HasTextString = subject }).First
+                            .GetAttributeAsync("href");
+        await this.GotoAsync(topicHref.TrimStart('/'));
+
+        var link = await this.Page.Locator($"a[href*='resource.ashx'][href*='a={attachmentId}&']").First.GetAttributeAsync("href");
+
+        // the same file with the address of an image
+        var imageLink = link.Replace($"a={attachmentId}&", $"i={attachmentId}&");
+
+        var response = await this.Page.APIRequest.GetAsync(imageLink);
+
+        response.Headers.Should().ContainKey("content-disposition");
+        response.Headers["content-disposition"].Should().StartWith("attachment");
+        response.Headers["x-content-type-options"].Should().Be("nosniff");
+    }
+
+    [Test]
+    [Description("An album image is only sent with an image type, a declared type with scripts (e.g. xhtml) is sent as png")]
+    public async Task Album_Image_Content_Type_Test()
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        await this.GotoAsync("EditAlbumImages?a=new");
+        await this.Control("txtTitle").FillAsync("Album with a script");
+        await this.Control("File").SetInputFilesAsync(
+            new FilePayload
+            {
+                Name = "image.png",
+                MimeType = "application/xhtml+xml",
+                Buffer = System.Text.Encoding.UTF8.GetBytes(
+                    "<html xmlns=\"http://www.w3.org/1999/xhtml\"><script>alert(1)</script></html>")
+            });
+        await this.ClickAndWaitAsync(this.Control("Upload"));
+
+        // the album page shows the previews of the images
+        var albumId = Regex.Match(this.Page.Url, @"[?&]a=(\d+)").Groups[1].Value;
+        var albumsHref = await this.Page.Locator("a[href*='Albums']").First.GetAttributeAsync("href");
+        await this.GotoAsync(albumsHref.TrimStart('/'));
+
+        var albumHref = await this.Page.Locator($"a[href*='a={albumId}']").First.GetAttributeAsync("href");
+        await this.GotoAsync(albumHref.TrimStart('/'));
+
+        var preview = await this.Page.Locator("img[src*='imgprv=']").First.GetAttributeAsync("src");
+        var imageId = Regex.Match(preview, @"imgprv=(\d+)").Groups[1].Value;
+
+        var response = await this.Page.APIRequest.GetAsync($"{TestConfig.BaseUrl}resource.ashx?image={imageId}");
+
+        response.Headers["content-type"].Should().StartWith("image/png");
+        response.Headers["x-content-type-options"].Should().Be("nosniff");
+    }
+
     private static int TopicIdOf(string topicHref)
     {
         return int.Parse(Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value);
