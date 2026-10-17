@@ -174,6 +174,69 @@ public class AvatarTests : ForumTestBase
     /// <summary>
     /// Opens the avatar tab of the admin edit user page of the user.
     /// </summary>
+    [Test]
+    [Description("An avatar of the gallery, an avatar saved in the database (served by the resource handler), an invalid image and back")]
+    public async Task Gallery_Database_And_Invalid_Test()
+    {
+        var member = $"Avg{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsAdminAsync();
+
+        // the gallery
+        var userId = await this.OpenEditUserAvatarAsync(member);
+
+        if (await this.Control("AvatarEditControl_AvatarGallery").CountAsync() > 0)
+        {
+            await this.Control("AvatarEditControl_AvatarGallery").SelectOptionAsync(
+                new SelectOptionValue { Index = 1 },
+                new LocatorSelectOptionOptions { Force = true });
+            await this.ClickAndWaitAsync(this.Control("AvatarEditControl_UpdateGallery"));
+
+            await this.OpenEditUserAvatarAsync(member);
+            (await this.Control("AvatarEditControl_DeleteAvatar").CountAsync()).Should().Be(1, "the gallery avatar is saved");
+        }
+
+        // an invalid image
+        await this.OpenEditUserAvatarAsync(member);
+        await this.Control("AvatarEditControl_File").SetInputFilesAsync(
+            new FilePayload { Name = "broken.png", MimeType = "image/png", Buffer = [65, 66, 67, 68] });
+        await this.ClickAndWaitAsync(this.Control("AvatarEditControl_UpdateUpload"));
+        (await this.Page.ContentAsync()).Should().Contain("toast-body");
+
+        // in the database
+        await this.SetUseFileTableAsync(true);
+
+        try
+        {
+            await this.OpenEditUserAvatarAsync(member);
+            await this.UploadAsync(CreatePng(60, 60, noise: false));
+
+            await this.OpenEditUserAvatarAsync(member);
+            var avatar = await this.Control("AvatarEditControl_AvatarImg").GetAttributeAsync("src");
+            avatar.Should().Contain($"resource.ashx?u={userId}");
+
+            var response = await this.Page.APIRequest.GetAsync(avatar);
+            response.Status.Should().Be(200);
+            response.Headers["content-type"].Should().StartWith("image/");
+        }
+        finally
+        {
+            await this.SetUseFileTableAsync(false);
+        }
+
+        await this.OpenEditUserAvatarAsync(member);
+        await this.ClickAndWaitAsync(this.Control("AvatarEditControl_Back"));
+        this.Page.Url.Should().Contain("Admin/Users");
+    }
+
+    private async Task SetUseFileTableAsync(bool enabled)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("UseFileTable").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
     private async Task<int> OpenEditUserAvatarAsync(string userName)
     {
         var userId = await this.OpenAdminEditUserAsync(userName);
