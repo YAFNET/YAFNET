@@ -141,6 +141,41 @@ public class SecurityTests : ForumTestBase
     }
 
     [Test]
+    [Description("The return address of the login only leads to pages of the forum, not to another site")]
+    public async Task Login_Return_Url_Test()
+    {
+        await this.LogoutAsync();
+
+        await this.GotoAsync("Account/Login?ReturnUrl=https%3A%2F%2Fevil.example%2Fphishing");
+        await this.Control("UserName").FillAsync(TestConfig.AdminUserName);
+        await this.Control("Password").FillAsync(TestConfig.AdminPassword);
+
+        // the browser would go to the other site (the test site has no internet): only the address is checked
+        var redirected = string.Empty;
+        this.Page.Request += (_, request) =>
+            {
+                if (request.IsNavigationRequest)
+                {
+                    redirected = request.Url;
+                }
+            };
+
+        await this.ClickAndWaitAsync(this.Control("LoginButton"));
+
+        redirected.Should().StartWith(TestConfig.BaseUrl);
+        (await this.IsLoggedInAsAsync(TestConfig.AdminUserName)).Should().BeTrue();
+
+        // a page of the forum
+        await this.LogoutAsync();
+        await this.GotoAsync("Account/Login?ReturnUrl=%2FTeam");
+        await this.Control("UserName").FillAsync(TestConfig.AdminUserName);
+        await this.Control("Password").FillAsync(TestConfig.AdminPassword);
+        await this.ClickAndWaitAsync(this.Control("LoginButton"));
+
+        this.Page.Url.Should().EndWith("/Team");
+    }
+
+    [Test]
     [Description("A member can not open the delete page of a post of another user")]
     public async Task Delete_Other_Users_Post_Is_Denied_Test()
     {

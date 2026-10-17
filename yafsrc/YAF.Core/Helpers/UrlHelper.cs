@@ -32,6 +32,28 @@ using System.Text.RegularExpressions;
 public static class UrlHelper
 {
     /// <summary>
+    /// Checks if an address is an address of this site (a path), not of another site: a return address of the
+    /// login (sent by the client) would send the user to any site after the login.
+    /// </summary>
+    /// <param name="url">The address.</param>
+    /// <returns>Returns if the address is local.</returns>
+    public static bool IsLocalUrl(string url)
+    {
+        if (url.IsNotSet())
+        {
+            return false;
+        }
+
+        // "/path" or "~/path", not "//host" or "/\host" (the browsers read both as another host)
+        if (url[0] == '/')
+        {
+            return url.Length == 1 || url[1] != '/' && url[1] != '\\';
+        }
+
+        return url.Length > 1 && url[0] == '~' && url[1] == '/';
+    }
+
+    /// <summary>
     /// Counts the URLs.
     /// </summary>
     /// <param name="message">The message.</param>

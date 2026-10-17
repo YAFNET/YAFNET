@@ -291,10 +291,11 @@ public partial class Login : AccountPage
     {
         this.Get<IAspNetUsersHelper>().SignIn(user, this.RememberMe.Checked);
 
-        if (this.Get<HttpRequestBase>().QueryString.Exists("ReturnUrl"))
-        {
-            var returnUrl = this.HtmlEncode(this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")));
+        // only addresses of the forum (the return address is sent by the client, any site could be entered)
+        var returnUrl = this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl"));
 
+        if (UrlHelper.IsLocalUrl(returnUrl))
+        {
             this.Page.Response.Redirect(returnUrl);
         }
         else

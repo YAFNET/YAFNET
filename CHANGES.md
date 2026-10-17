@@ -278,6 +278,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] [hide-posts=] and [hide-thanks=] with an empty or too big number failed with an error and broke the topic page for every reader; an empty number is 0, a too big one hides the content from all users but the author and the admins
 * [FIXED] [attach] and [albumimg] with an id that is a number but no whole number (e.g. 1.5, 1e3, (5) or a too big number) failed with an error and broke the topic page for every reader
 * [FIXED] The team page (and the admin page access list) listed disabled and not approved admins
+* [FIXED] Security: The return address of the login page (ReturnUrl) was followed after the login whatever it was, a link to the login of the forum could send the user to another site (open redirect, e.g. a fake login page); only addresses of the forum are followed now, the address is no longer html encoded (an address with several parameters was broken)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

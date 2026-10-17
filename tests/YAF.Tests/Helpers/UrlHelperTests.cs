@@ -42,4 +42,20 @@ public class UrlHelperTests
 
         UrlHelper.CountUrls(testMessage).Should().Be(3);
     }
+
+    [TestCase("/", true)]
+    [TestCase("/Posts/t1-Topic?p=2&x=1", true)]
+    [TestCase("~/Board", true)]
+    [TestCase("//evil.example/login", false)]
+    [TestCase("/\\evil.example/login", false)]
+    [TestCase("https://evil.example/", false)]
+    [TestCase("javascript:alert(1)", false)]
+    [TestCase("evil.example", false)]
+    [TestCase("", false)]
+    [TestCase(null, false)]
+    [Description("Only paths of the site are local, the return address of the login can not lead to another site")]
+    public void IsLocalUrl_Test(string url, bool expected)
+    {
+        UrlHelper.IsLocalUrl(url).Should().Be(expected);
+    }
 }
