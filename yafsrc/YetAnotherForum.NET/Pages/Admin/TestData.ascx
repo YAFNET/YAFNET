@@ -378,7 +378,7 @@
             Choose forum:
         </asp:Label>
         <asp:DropDownList ID="PostsForum" runat="server" DataValueField="ForumID" AutoPostBack="true"
-                          DataTextField="Forum" OnSelectedIndexChanged="PostsForum_OnSelectedIndexChanged" CssClass="select2-select">
+                          DataTextField="Forum" OnDataBound="PostsForum_OnSelectedIndexChanged" OnSelectedIndexChanged="PostsForum_OnSelectedIndexChanged" CssClass="select2-select">
         </asp:DropDownList>
     </div>
 

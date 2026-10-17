@@ -116,7 +116,8 @@ namespace YAF.Pages.Admin
                 this.CreateTopics(
                     this.TopicsForum.SelectedValue.ToType<int>(),
                     this.TopicsNumber.Text.ToType<int>(),
-                    this.TopicsMessagesNumber.Text.ToType<int>()));
+                    this.TopicsMessagesNumber.Text.ToType<int>(),
+                    this.TopicsPriorityList.SelectedValue.ToType<short>()));
 
             var topic = this.GetRepository<Topic>().GetById(this.PostsTopic.SelectedValue.ToType<int>());
 
@@ -651,12 +652,8 @@ namespace YAF.Pages.Admin
                 return 0;
             }
 
-            if (forumId <= 0)
-            {
-                return 0;
-            }
-
-            if (topic.ID <= 0)
+            // no forum or topic selected
+            if (forum == null || topic == null)
             {
                 return 0;
             }
@@ -694,16 +691,18 @@ namespace YAF.Pages.Admin
         /// <param name="messagesToCreate">
         /// The _messages to create.
         /// </param>
+        /// <param name="priority">
+        /// The priority of the topics (only the topics of the topics tab).
+        /// </param>
         /// <returns>
         /// Number of created topics.
         /// </returns>
-        private int CreateTopics(int forumId, int numTopics, int messagesToCreate)
+        private int CreateTopics(int forumId, int numTopics, int messagesToCreate, short priority = 0)
         {
             var forum = this.GetRepository<Forum>().GetById(forumId);
 
-            var priority = forumId <= 0 ? this.TopicsPriorityList.SelectedValue.ToType<short>() : (short)0;
-
-            if (numTopics <= 0)
+            // no forum selected
+            if (numTopics <= 0 || forum == null)
             {
                 return 0;
             }

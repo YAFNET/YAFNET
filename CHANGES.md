@@ -324,6 +324,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Medal: the user select of the dialog to give the medal to a user did not work (script error), no user could be selected
 * [FIXED] Moderate > Forum: the dialog to add a moderator to a forum was available to moderators (hidden), the posted user and access mask were not checked
 * [FIXED] Email Topic, Moderate > Reported Posts and Unapproved Posts: an unknown or missing topic/forum id caused a server error instead of the info page
+* [FIXED] Admin > Test Data: the priority (sticky, announcement) of the generated topics was ignored
+* [FIXED] Admin > Test Data: the topics of the messages tab were only loaded after another forum was chosen, no forum or topic caused an error
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
