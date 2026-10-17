@@ -273,6 +273,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Every attachment could be opened with the image address of the resource handler and was then shown in the browser with its content type, an uploaded xml file (allowed by default) with scripts ran them in the forum (stored XSS); only images are shown in the page now (no svg), other files are downloaded, the browser must not guess the type (nosniff). A refused download is not counted anymore
 * [FIXED] Security: Album images were sent with the content type of the upload (sent by the browser of the uploader, only text types were refused), an image file with the type xhtml or svg ran its scripts in the forum (stored XSS); other types than images are sent as png now
 * [FIXED] The guest and admin users of a new board got the join and last visit date in the time of the server (all dates are stored in UTC), and the "popular topic" icon compared the time of the last post (UTC) with the time of the server
+* [FIXED] The paged lists of the editor (attachments, album images) and of the notification menu accepted any page size and page number from the client: a negative value failed with an error, a huge page size loaded all rows; the page size is limited to 1 - 100 now
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

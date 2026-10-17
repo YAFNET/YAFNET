@@ -117,6 +117,29 @@ public class SecurityTests : ForumTestBase
         return (await response.TextAsync()).Trim();
     }
 
+    [TestCase("Notify/GetNotifications")]
+    [TestCase("Attachment/GetAttachments")]
+    [TestCase("Album/GetAlbumImages")]
+    [Description("The paged api lists accept no page size and number from the client that load everything or fail")]
+    public async Task Api_Page_Size_Is_Limited_Test(string action)
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        foreach (var body in new[] { "{\"PageSize\":-5,\"PageNumber\":-1}", "{\"PageSize\":100000,\"PageNumber\":0}" })
+        {
+            var response = await this.Page.APIRequest.PostAsync(
+                $"{TestConfig.BaseUrl}api/{action}",
+                new APIRequestContextOptions
+                {
+                    Headers = new Dictionary<string, string> { ["Content-Type"] = "application/json;charset=utf-8" },
+                    Data = body
+                });
+
+            response.Status.Should().Be(200, body);
+            (await response.TextAsync()).Should().NotContain("\"PageSize\":100000").And.NotContain("\"PageSize\":-5");
+        }
+    }
+
     [Test]
     [Description("A member can not open the delete page of a post of another user")]
     public async Task Delete_Other_Users_Post_Is_Denied_Test()

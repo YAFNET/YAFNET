@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Controllers;
 
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -55,8 +56,9 @@ public class AttachmentController : ApiController, IHaveServiceLocator
     public IHttpActionResult GetAttachments(PagedResults pagedResults)
     {
         var userId = BoardContext.Current.PageUserID;
-        var pageSize = pagedResults.PageSize;
-        var pageNumber = pagedResults.PageNumber;
+        // the page size and number come from the client (a huge or negative page size loaded all rows or failed)
+        var pageSize = Math.Max(1, Math.Min(pagedResults.PageSize, 100));
+        var pageNumber = Math.Max(0, pagedResults.PageNumber);
 
         // guests are all the same user, a guest saw the uploads of all other guests
         if (BoardContext.Current.IsGuest)
