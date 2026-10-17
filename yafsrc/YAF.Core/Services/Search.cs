@@ -551,6 +551,15 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             return null;
         }
 
+        // posts that wait for approval (e.g. spam) or are deleted only for the moderators of the forum
+        var documentFlags = new MessageFlags(doc.Get("Flags").ToType<int>());
+
+        if ((!documentFlags.IsApproved || documentFlags.IsDeleted)
+            && !userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0))
+        {
+            return null;
+        }
+
         // the results are shown as html (also by javascript): the texts are encoded
         return new SearchMessage
                    {
@@ -682,6 +691,15 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         var forumId = doc.Get("ForumId").ToType<int>();
 
         if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
+        {
+            return null;
+        }
+
+        // posts that wait for approval (e.g. spam) or are deleted only for the moderators of the forum
+        var documentFlags = new MessageFlags(doc.Get("Flags").ToType<int>());
+
+        if ((!documentFlags.IsApproved || documentFlags.IsDeleted)
+            && !userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0))
         {
             return null;
         }

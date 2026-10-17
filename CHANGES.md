@@ -137,6 +137,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The moderators of any forum could restore old versions of the posts of every forum (message history), the restore was not checked on the server
 * [FIXED] Security: The forgot password page showed the full e-mail address of not yet approved accounts to anybody who entered the user name (as html in the notification), the address is now masked
 * [FIXED] Security: Private messages could be sent to users who block private messages or ignore the sender and to unapproved, deleted users and users of other boards; only approved friendships are an exception of the block (new text PMESSAGE.RECIPIENT_NOT_ALLOWED)
+* [FIXED] Security: The search api did not check the search permission of the board (the results were still limited to readable forums), and the page size of the search was not limited; the search returned posts that were not approved yet (e.g. spam waiting for moderation) to everybody with read access, now only moderators of the forum find them
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

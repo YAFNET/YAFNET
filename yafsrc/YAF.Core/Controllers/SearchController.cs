@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Controllers;
 
+using System;
 using System.Web.Http;
 
 using YAF.Types.Objects;
@@ -88,6 +89,15 @@ public class SearchController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult GetSearchResults(SearchTopic searchTopic)
     {
+        // the search permission of the board, and a limited page size
+        if (!this.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.SearchPermissions))
+        {
+            return this.NotFound();
+        }
+
+        searchTopic.PageSize = Math.Max(1, Math.Min(searchTopic.PageSize, 100));
+        searchTopic.Page = Math.Max(0, searchTopic.Page);
+
         var results = this.Get<ISearch>().SearchPaged(
             out var totalHits,
             searchTopic.ForumId,
