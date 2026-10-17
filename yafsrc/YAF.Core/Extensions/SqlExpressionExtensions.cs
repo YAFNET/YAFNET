@@ -51,17 +51,14 @@ public static class SqlExpressionExtensions
             return expression;
         }
 
-        if (page <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(page), "Page must be a number greater than 0.");
-        }
-
         if (pageSize <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(pageSize), "PageSize must be a number greater than 0.");
         }
 
-        var skip = (page.Value - 1) * pageSize.Value;
+        // the page comes from the url: a huge page number must not overflow to a negative offset
+        // (the databases refuse it, SQLite shows the first page)
+        var skip = (int)Math.Min((Math.Max(page.Value, 1) - 1L) * pageSize.Value, int.MaxValue);
         var take = pageSize.Value;
 
         return expression.Limit(skip, take);
