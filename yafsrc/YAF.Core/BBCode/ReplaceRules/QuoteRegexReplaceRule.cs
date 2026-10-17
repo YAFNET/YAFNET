@@ -80,8 +80,12 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
             var localQuoteWrote = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
             var localQuotePosted = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
 
-            // extract post id if exists
-            if (quote.Contains(";"))
+            // a plain [quote] has no author line
+            if (quote.IsNotSet())
+            {
+                quote = string.Empty;
+            }
+            else if (quote.Contains(";"))
             {
                 string postId, userName, topicLink = string.Empty;
 

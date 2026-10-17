@@ -915,7 +915,8 @@ public class BBCode : IBBCode, IHaveServiceLocator
 
         ruleEngine.AddRule(
             new QuoteRegexReplaceRule(
-                @"\[quote=(?<quote>(.*?))](?<inner>(.*?))\[/quote\]\r\n|\[quote=(?<quote>(.*?))](?<inner>(.*?))\[/quote\]",
+                // the innermost quote first, so nested quotes keep their order and attributions
+                @"\[quote(?:=(?<quote>[^\]]*))?\](?<inner>(?:(?!\[quote[=\]]).)*?)\[/quote\](?:\r\n)?",
                 """
                 <div class="card mx-3 mb-3 border-secondary shadow-sm" >
                     <div class="card-body">
