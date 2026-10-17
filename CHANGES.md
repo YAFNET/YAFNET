@@ -85,6 +85,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The "block e-mails" option and the ignore list of the users were never checked by the e-mail form, and the user id was only checked when the page was shown (not when sending), so mails could be sent to unapproved and deleted users and users of other boards; a user can send at most 5 such e-mails per hour, and a missing subject or text shows a warning instead of an error
 * [FIXED] Security: The e-mail topic form sent the posted subject and text to any address (also for guests), the forum could be used to send spam; only the recipient can be chosen now (the subject is the topic name, the text the link to the topic), guests can't use it and a user can send at most 5 such e-mails per hour
 * [FIXED] Security: The password reset page (usable by anybody) sent an email for every request, so the inbox of a user could be flooded; an account gets at most 3 reset emails per hour, further requests show the same message
+* [FIXED] New topic / reply: mentioning or quoting a name without user (a guest post, a deleted user, a changed display name) failed with an error after the post was saved; mentioned and quoted users are only notified when they can read the forum, and also for quick replies and posts approved by a moderator
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

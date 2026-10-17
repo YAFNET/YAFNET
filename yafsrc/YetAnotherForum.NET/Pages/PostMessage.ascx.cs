@@ -486,37 +486,13 @@ public partial class PostMessage : ForumPage
 
             if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
             {
-                // Handle Mentions
-                BBCodeHelper.FindMentions(message).ForEach(
-                    user =>
-                        {
-                            var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                            if (userId != this.PageBoardContext.PageUserID)
-                            {
-                                this.Get<IActivityStream>().AddMentionToStream(
-                                    userId,
-                                    this.PageBoardContext.PageTopicID,
-                                    newMessage.ID,
-                                    this.PageBoardContext.PageUserID);
-                            }
-                        });
-
-                // Handle User Quoting
-                BBCodeHelper.FindUserQuoting(message).ForEach(
-                    user =>
-                        {
-                            var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                            if (userId != this.PageBoardContext.PageUserID)
-                            {
-                                this.Get<IActivityStream>().AddQuotingToStream(
-                                    userId,
-                                    this.PageBoardContext.PageTopicID,
-                                    newMessage.ID,
-                                    this.PageBoardContext.PageUserID);
-                            }
-                        });
+                // Handle Mentions and User Quoting (only existing users who can read the forum)
+                MentionHelper.NotifyMentionedAndQuotedUsers(
+                    message,
+                    this.PageBoardContext.PageForumID,
+                    this.PageBoardContext.PageTopicID,
+                    newMessage.ID,
+                    this.PageBoardContext.PageUserID);
 
                 this.Get<IActivityStream>().AddReplyToStream(
                     Config.IsDotNetNuke ? this.PageBoardContext.PageForumID : this.PageBoardContext.PageUserID,

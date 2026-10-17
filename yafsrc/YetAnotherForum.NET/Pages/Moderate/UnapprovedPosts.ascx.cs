@@ -159,6 +159,20 @@ public partial class UnapprovedPosts : ModerateForumPage
                     e.CommandArgument.ToType<int>(),
                     this.PageBoardContext.PageForumID);
 
+                // the mentioned and quoted users are notified now (like for a post that doesn't need the approval)
+                var approved = this.GetRepository<Message>().GetById(e.CommandArgument.ToType<int>());
+                var author = approved == null ? null : this.GetRepository<User>().GetById(approved.UserID);
+
+                if (author != null && !author.UserFlags.IsGuest && author.Activity)
+                {
+                    MentionHelper.NotifyMentionedAndQuotedUsers(
+                        approved.MessageText,
+                        this.PageBoardContext.PageForumID,
+                        approved.TopicID,
+                        approved.ID,
+                        approved.UserID);
+                }
+
                 // re-bind data
                 this.BindData();
 

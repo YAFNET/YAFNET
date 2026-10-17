@@ -261,6 +261,14 @@ public partial class QuickReply : BaseUserControl
 
                 if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
                 {
+                    // the mentioned and quoted users are notified like for the reply page
+                    MentionHelper.NotifyMentionedAndQuotedUsers(
+                        message,
+                        this.PageBoardContext.PageForumID,
+                        this.PageBoardContext.PageTopicID,
+                        newMessage.ID,
+                        this.PageBoardContext.PageUserID);
+
                     this.Get<IActivityStream>().AddReplyToStream(
                         Config.IsDotNetNuke ? this.PageBoardContext.PageForumID : this.PageBoardContext.PageUserID,
                         this.PageBoardContext.PageTopicID,

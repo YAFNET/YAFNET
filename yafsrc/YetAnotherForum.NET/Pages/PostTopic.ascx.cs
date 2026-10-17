@@ -462,37 +462,13 @@ public partial class PostTopic : ForumPage
 
             if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
             {
-                // Handle Mentions
-                BBCodeHelper.FindMentions(message).ForEach(
-                    user =>
-                    {
-                        var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                        if (userId != this.PageBoardContext.PageUserID)
-                        {
-                            this.Get<IActivityStream>().AddMentionToStream(
-                                userId,
-                                newMessage.TopicID,
-                                newMessage.ID,
-                                this.PageBoardContext.PageUserID);
-                        }
-                    });
-
-                // Handle User Quoting
-                BBCodeHelper.FindUserQuoting(message).ForEach(
-                    user =>
-                    {
-                        var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
-
-                        if (userId != this.PageBoardContext.PageUserID)
-                        {
-                            this.Get<IActivityStream>().AddQuotingToStream(
-                                userId,
-                                newMessage.TopicID,
-                                newMessage.ID,
-                                this.PageBoardContext.PageUserID);
-                        }
-                    });
+                // Handle Mentions and User Quoting (only existing users who can read the forum)
+                MentionHelper.NotifyMentionedAndQuotedUsers(
+                    message,
+                    this.PageBoardContext.PageForumID,
+                    newMessage.TopicID,
+                    newMessage.ID,
+                    this.PageBoardContext.PageUserID);
 
                 this.Get<IActivityStream>().AddTopicToStream(
                     Config.IsDotNetNuke ? this.PageBoardContext.PageForumID : this.PageBoardContext.PageUserID,
