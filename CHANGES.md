@@ -197,6 +197,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] One custom BBCode with an invalid search expression broke the display of all posts, and a custom BBCode whose module class is missing broke the posts using it; such BBCodes are now skipped and logged, the BBCode editor and import validate the search expression
 * [FIXED] Admin -> Users -> Import: csv files sent as text/csv and xml files sent as application/xml were rejected as wrong format
 * [FIXED] Admin -> Groups: deleting an unknown role (e.g. deleted in the meantime) caused an error
+* [FIXED] Search: results were sorted by message id as text ("9" before "10"), so with more hits than "Return Search Max" the newest posts were cut off; the default search (e.g. similar topics) skipped the first 1000 results (the page index started at 1)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

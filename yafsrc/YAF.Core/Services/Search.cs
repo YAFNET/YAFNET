@@ -850,7 +850,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         int forumId,
         string searchQuery,
         string searchField = "",
-        int pageIndex = 1,
+        int pageIndex = 0,
         int pageSize = 1000)
     {
         if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
@@ -930,8 +930,9 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             var query = ParseQuery(searchQuery, parser);
             scorer = new QueryScorer(query);
 
-            // sort by date
-            var sort = new Sort(new SortField("MessageId", SortFieldType.STRING, true));
+            // sort by date (the message id as number, as text "9" came before "10" and the newest posts were
+            // cut off with more hits than "Return Search Max")
+            var sort = new Sort(new SortField("MessageId", StringInt32Parser.Instance, true));
 
             var fil = new BooleanFilter();
 
@@ -1035,5 +1036,36 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     private void DisposeWriter()
     {
         this.indexWriter?.Dispose(true);
+    }
+
+    /// <summary>
+    /// Parses the message id (indexed as text) as number for the sort.
+    /// </summary>
+    private sealed class StringInt32Parser : FieldCache.IInt32Parser
+    {
+        /// <summary>
+        /// The singleton instance (required so the field cache can be reused).
+        /// </summary>
+        public readonly static StringInt32Parser Instance = new();
+
+        /// <summary>
+        /// Parses the term to an <see cref="int"/>.
+        /// </summary>
+        /// <param name="term">The term.</param>
+        /// <returns>Returns the parsed value.</returns>
+        public int ParseInt32(BytesRef term)
+        {
+            return int.Parse(term.Utf8ToString(), System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        /// Gets the terms enumerator.
+        /// </summary>
+        /// <param name="terms">The terms.</param>
+        /// <returns>Returns the terms enumerator.</returns>
+        public TermsEnum GetTermsEnum(Terms terms)
+        {
+            return terms.GetEnumerator();
+        }
     }
 }
