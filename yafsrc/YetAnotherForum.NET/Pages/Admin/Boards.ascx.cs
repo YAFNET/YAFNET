@@ -113,7 +113,12 @@ public partial class Boards : AdminPage
                 this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditBoard, new { b = e.CommandArgument });
                 break;
             case "delete":
-                this.GetRepository<Board>().DeleteBoard(e.CommandArgument.ToType<int>());
+                // the board the forum runs on can't be deleted (the forum was broken afterwards)
+                if (e.CommandArgument.ToType<int>() != this.PageBoardContext.PageBoardID)
+                {
+                    this.GetRepository<Board>().DeleteBoard(e.CommandArgument.ToType<int>());
+                }
+
                 this.BindData();
                 break;
         }

@@ -236,6 +236,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Guests (all are the same user) could add, edit and remove the polls of every guest topic, now only of the guest topics started from the own address (like the buttons of the posts)
 * [FIXED] Guests (all are the same user) saw the uploads of all other guests in the attachment list of the editor, the list is empty for guests now
 * [FIXED] Unapproved posts: approving an already approved post (another moderator, the button sent twice) counted the post again for the user and sent the notifications again
+* [FIXED] Admin -> Boards: the board the forum runs on could be deleted (the context menu always had the delete), the forum was broken afterwards; the delete is not shown for the current board and refused
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

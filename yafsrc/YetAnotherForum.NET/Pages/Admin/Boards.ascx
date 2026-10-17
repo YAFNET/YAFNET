@@ -51,7 +51,7 @@
                                          TextLocalizedTag="DELETE"
                                          Icon="trash"
                                          ReturnConfirmTag="CONFIRM_DELETE"
-                                         Visible="<%# this.List.Items.Count > 1  %>">
+                                         Visible='<%# this.List.Items.Count > 1 && (int)this.Eval("ID") != this.PageBoardContext.PageBoardID %>'>
                         </YAF:ThemeButton>
                     </div>
                 </small>
@@ -73,7 +73,8 @@
                                          TitleLocalizedTag="DELETE"
                                          TextLocalizedTag="DELETE"
                                          Icon="trash"
-                                         ReturnConfirmTag='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'>
+                                         ReturnConfirmTag='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'
+                                         Visible='<%# (int)this.Eval("ID") != this.PageBoardContext.PageBoardID %>'>
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="New" runat="server"
