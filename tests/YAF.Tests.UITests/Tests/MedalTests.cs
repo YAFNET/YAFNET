@@ -103,4 +103,64 @@ public class MedalTests : ForumTestBase
 
         (await this.Page.InnerTextAsync("body")).Should().NotContain(name);
     }
+
+    [Test]
+    [Description("A medal is given to a user found with the user select of the dialog, the message is changed and the user is removed")]
+    public async Task Medal_For_User_Test()
+    {
+        var name = $"Medal {Guid.NewGuid():N}".Substring(0, 16);
+        var userName = $"Med{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(userName, TestConfig.TestUserPassword);
+        await this.LoginAsAdminAsync();
+
+        await this.GotoAsync("Admin/EditMedal");
+        await this.Control("Name").FillAsync(name);
+        await this.Control("Category").FillAsync("UI tests");
+        await this.Control("Description").FillAsync("A medal of the UI test");
+        await this.Control("Message").FillAsync("Thanks for testing");
+        await this.Control("MedalImage").SelectOptionAsync(
+            new SelectOptionValue { Index = 1 },
+            new LocatorSelectOptionOptions { Force = true });
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        var row = this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = name });
+        await this.ClickAndWaitAsync(row.Locator("[id$='_ThemeButtonEdit']"));
+
+        // the user is searched with the select of the dialog
+        await this.ClickAndWaitAsync(this.Control("AddUser").Filter(new LocatorFilterOptions { Visible = true }).First);
+        await this.Control("UserEditDialog_AddUserSave").WaitForAsync(
+            new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+
+        await this.Page.Locator("#UserEditDialog .choices").ClickAsync();
+        await this.Page.Locator("#UserEditDialog .choices__input--cloned").PressSequentiallyAsync(userName);
+        await this.Page.Locator("#UserEditDialog .choices__item--choice", new PageLocatorOptions { HasTextString = userName })
+            .ClickAsync();
+
+        await this.Control("UserEditDialog_UserMessage").FillAsync("For the user");
+        await this.ClickAndWaitAsync(this.Control("UserEditDialog_AddUserSave"));
+
+        var users = this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = userName });
+        (await users.CountAsync()).Should().Be(1);
+        (await users.InnerTextAsync()).Should().Contain("For the user");
+
+        // edit: the user can't be changed
+        await this.ClickAndWaitAsync(users.Locator(".btn-group a", new LocatorLocatorOptions { HasTextString = "Edit" }));
+        await this.Control("UserEditDialog_AddUserSave").WaitForAsync(
+            new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+
+        (await this.Control("UserEditDialog_UserName").InputValueAsync()).Should().Be(userName);
+        (await this.Control("UserEditDialog_UserName").IsDisabledAsync()).Should().BeTrue();
+
+        await this.Control("UserEditDialog_UserMessage").FillAsync("Changed for the user");
+        await this.ClickAndWaitAsync(this.Control("UserEditDialog_AddUserSave"));
+
+        (await users.InnerTextAsync()).Should().Contain("Changed for the user");
+
+        // the user is removed
+        await this.ClickAndWaitAsync(users.Locator(".btn-group a", new LocatorLocatorOptions { HasTextString = "Remove" }));
+        (await users.CountAsync()).Should().Be(0);
+
+        this.BrowserErrors.Should().BeEmpty();
+    }
 }

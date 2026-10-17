@@ -98,6 +98,23 @@ public class ModerateForumTests : ForumTestBase
         (await this.Page.ContentAsync()).Should().Contain("toast-body");
     }
 
+    [Test]
+    [Description("The reported and the unapproved posts of an unknown forum (or of none) show the info page")]
+    public async Task Unknown_Forum_Test()
+    {
+        await this.LoginAsAdminAsync();
+
+        foreach (var url in new[]
+                     {
+                         "Moderate/ReportedPosts?f=999999", "Moderate/ReportedPosts", "Moderate/UnapprovedPosts?f=999999",
+                         "Moderate/UnapprovedPosts"
+                     })
+        {
+            await this.GotoAsync(url);
+            this.Page.Url.Should().Contain("Info", url);
+        }
+    }
+
     private async Task CreateTopicAsync(string subject)
     {
         await this.GotoAsync("PostTopic?f=1");
