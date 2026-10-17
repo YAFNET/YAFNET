@@ -68,6 +68,24 @@ public class AuthenticationTests : ForumTestBase
     }
 
     [Test]
+    [Description("A member logs in with the e-mail address instead of the user name")]
+    public async Task Login_With_Email_Test()
+    {
+        var userName = $"Eml{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(userName, TestConfig.TestUserPassword);
+
+        await this.LoginAsync(EmailOf(userName).ToUpperInvariant(), TestConfig.TestUserPassword);
+
+        (await this.IsLoggedInAsAsync(userName)).Should().BeTrue();
+
+        // not with a wrong password
+        await this.LoginAsync(EmailOf(userName), "wrong password");
+
+        (await this.IsLoggedInAsAsync(userName)).Should().BeFalse();
+    }
+
+    [Test]
     [Description("An account that was not confirmed yet can not log in")]
     public async Task Unconfirmed_Account_Can_Not_Login_Test()
     {
