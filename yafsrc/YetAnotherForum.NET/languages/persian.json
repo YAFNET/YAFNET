@@ -3154,12 +3154,12 @@
             "#text": "حداقل ارسال ها که لازمه دریافت این رتبه است."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "اولویت رتبه می بایست عددی صحیح و کوچک باشد."
-          },
-          {
             "@tag": "MSG_RANK_EXISTS",
             "#text": "رتبه ای با چنین نامی در حال حاضر وجود دارد."
+          },
+          {
+            "@tag": "MSG_RANK_INTEGER",
+            "#text": "اولویت رتبه می بایست عددی صحیح و کوچک باشد."
           },
           {
             "@tag": "NEED_NAME",
@@ -6981,16 +6981,16 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "آدرس ایمیل جدید شما تایید شده است."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "ایمیل شما تائید شد."
           },
           {
             "@tag": "EMAIL_VERIFY_FAILED",
             "#text": "خطا در تائید ایمیل."
-          },
-          {
-            "@tag": "EMAIL_CHANGED",
-            "#text": "آدرس ایمیل جدید شما تایید شده است."
           },
           {
             "@tag": "ENTER_KEY",
@@ -9527,10 +9527,6 @@
             "#text": "این پیام را پاک کنید"
           },
           {
-            "@tag": "UNDELETE_TT",
-            "#text": "این پیام را بازیابی کنید"
-          },
-          {
             "@tag": "ERASEMESSAGE",
             "#text": "پاک سازی پیام از داخل بانک اطلاعاتی (غیر قابل بازگشت)"
           },
@@ -9573,6 +9569,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "دلیل بازیابی پیام"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "این پیام را بازیابی کنید"
           },
           {
             "@tag": "WAIT",
@@ -10199,90 +10199,6 @@
           {
             "@tag": "OTHER",
             "#text": "دیگر"
-          },
-          {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Trans Man"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Trans Woman"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -12158,10 +12074,6 @@
             "#text": "امکان ارسال پیام خصوصی به کاربر میهمان وجود ندارد."
           },
           {
-            "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
-          },
-          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "صندوق پیام خصوصی شما پر است. حداکثر مجاز {0} پیام است. لطفا پیام ها را حذف کنید تا فضا آزاد شود."
           },
@@ -12172,6 +12084,10 @@
           {
             "@tag": "PREVIEWTITLE",
             "#text": "پیش نمایش:"
+          },
+          {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -13785,12 +13701,12 @@
             "#text": "[center]حساب کاربری شما با موفقیت ایجاد شد.[/center]"
           },
           {
-            "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "#text": "[center]حساب کاربری شما با موفقیت ایجاد شد با این وجود قبل از اینکه بتوانید وارد انجمن شوید باید حساب کاربری خود را توسط ایمیلی که برای شما ارسال شد، تائید کنید. صندوق ایمیل خود را برای دستورالعمل چگونگی تائید بررسی کنید.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
             "#text": "[center]حساب شما ایجاد شد، اما ایمیل تأیید ارسال نشد. لطفاً بعداً وارد شوید و از \"ارسال مجدد ایمیل تایید\" استفاده کنید، یا با مدیر انجمن تماس بگیرید.[/center]"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_VERIFICATION",
+            "#text": "[center]حساب کاربری شما با موفقیت ایجاد شد با این وجود قبل از اینکه بتوانید وارد انجمن شوید باید حساب کاربری خود را توسط ایمیلی که برای شما ارسال شد، تائید کنید. صندوق ایمیل خود را برای دستورالعمل چگونگی تائید بررسی کنید.[/center]"
           },
           {
             "@tag": "ALREADY_REGISTERED",

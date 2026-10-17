@@ -3154,12 +3154,12 @@
             "#text": "Минимальное количество сообщений для получения этого статуса, если это - автостатус."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Приоритет статуса должен быть целым числом."
-          },
-          {
             "@tag": "MSG_RANK_EXISTS",
             "#text": "Звание с таким названием уже существует."
+          },
+          {
+            "@tag": "MSG_RANK_INTEGER",
+            "#text": "Приоритет статуса должен быть целым числом."
           },
           {
             "@tag": "NEED_NAME",
@@ -6981,16 +6981,16 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Ваш новый адрес электронной почты подтвержден."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Ваш адрес электронной почты был успешно подтверждён."
           },
           {
             "@tag": "EMAIL_VERIFY_FAILED",
             "#text": "Невозможно проверить адрес электронной почты."
-          },
-          {
-            "@tag": "EMAIL_CHANGED",
-            "#text": "Ваш новый адрес электронной почты подтвержден."
           },
           {
             "@tag": "ENTER_KEY",
@@ -9531,10 +9531,6 @@
             "#text": "Удалить это сообщение"
           },
           {
-            "@tag": "UNDELETE_TT",
-            "#text": "Восстановить это сообщение"
-          },
-          {
             "@tag": "ERASEMESSAGE",
             "#text": "Удалить сообщение из базы данных(не восстанавливается)"
           },
@@ -9577,6 +9573,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Причина восстановления"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Восстановить это сообщение"
           },
           {
             "@tag": "WAIT",
@@ -10203,90 +10203,6 @@
           {
             "@tag": "OTHER",
             "#text": "Другое"
-          },
-          {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Trans Man"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Trans Woman"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -12162,10 +12078,6 @@
             "#text": "Нельзя послать личное сообщение Гостю."
           },
           {
-            "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
-          },
-          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Ваш ящик с личными сообщениями переполнен. Максимально разрешённое кол-во сообщений: {0}. Пожалуйста, удалите какие-нибудь сообщения для освобождения места."
           },
@@ -12176,6 +12088,10 @@
           {
             "@tag": "PREVIEWTITLE",
             "#text": "Предпросмотр:"
+          },
+          {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -13789,12 +13705,12 @@
             "#text": "[center]Ваша учётная запись успешно создана.[/center]"
           },
           {
-            "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "#text": "[center]Ваша учётная запись успешно создана. Однако вы должны подтвердить существование адреса электронной почты перед тем как сможете войти на форум. Пожалуйста, проверьте ваш почтовый ящик для дальнейших инструкций.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
             "#text": "[center]Ваша учётная запись создана, но письмо для подтверждения не удалось отправить. Пожалуйста, войдите позже и используйте \"Повторная отправка проверки электронной почты\" или свяжитесь с администратором форума.[/center]"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_VERIFICATION",
+            "#text": "[center]Ваша учётная запись успешно создана. Однако вы должны подтвердить существование адреса электронной почты перед тем как сможете войти на форум. Пожалуйста, проверьте ваш почтовый ящик для дальнейших инструкций.[/center]"
           },
           {
             "@tag": "ALREADY_REGISTERED",

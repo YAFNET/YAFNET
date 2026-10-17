@@ -3162,12 +3162,12 @@
             "#text": "מספר מינימלי של פוסטים לפני שהמשתמשים יעברו לדרגה זו."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "דירוג עדיפות צריך להיות מספר שלם קטן."
-          },
-          {
             "@tag": "MSG_RANK_EXISTS",
             "#text": "דרגה עם שם כזה כבר קיימת."
+          },
+          {
+            "@tag": "MSG_RANK_INTEGER",
+            "#text": "דירוג עדיפות צריך להיות מספר שלם קטן."
           },
           {
             "@tag": "NEED_NAME",
@@ -6989,16 +6989,16 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "כתובת הדוא\"ל החדשה שלך אושרה."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "כתובת הדוא\"ל שלך אומתה."
           },
           {
             "@tag": "EMAIL_VERIFY_FAILED",
             "#text": "אימות כתובת הדוא\"ל נכשל."
-          },
-          {
-            "@tag": "EMAIL_CHANGED",
-            "#text": "כתובת הדוא\"ל החדשה שלך אושרה."
           },
           {
             "@tag": "ENTER_KEY",
@@ -9543,10 +9543,6 @@
             "#text": "מחק את ההודעה הזו"
           },
           {
-            "@tag": "UNDELETE_TT",
-            "#text": "שחזר הודעה זו"
-          },
-          {
             "@tag": "ERASEMESSAGE",
             "#text": "מחר הודעה ממסד הנתונים (בלתי הפיך)"
           },
@@ -9589,6 +9585,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "סיבת ביטול מחיקה."
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "שחזר הודעה זו"
           },
           {
             "@tag": "WAIT",
@@ -10215,90 +10215,6 @@
           {
             "@tag": "OTHER",
             "#text": "אַחֵר"
-          },
-          {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Trans Man"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Trans Woman"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -12182,10 +12098,6 @@
             "#text": "לא ניתן לשלוח הודעות פרטיות לאורח."
           },
           {
-            "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
-          },
-          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "תיבת ההודעות הפרטיות שלך מלאה. מקסימום ההודעות המורשות הוא {0}. נא מחק/י הודעות על מנת לפנות מקום."
           },
@@ -12196,6 +12108,10 @@
           {
             "@tag": "PREVIEWTITLE",
             "#text": "תצוגה מקדימה:"
+          },
+          {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -13817,12 +13733,12 @@
             "#text": "[center]חשבונך נוצר בהצלחה.[/center]"
           },
           {
-            "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "#text": "[center]חשבונך נוצר בהצלחה. עלייך עדיין לאשר את כתובת הדוא\"ל על מנת להתחבר. בדוק/י את חשבון הדוא\"ל להוראות אימות. [/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
             "#text": "[center]החשבון שלך נוצר, אך לא ניתן היה לשלוח את הודעת האימות. אנא התחבר מאוחר יותר והשתמש באפשרות 'שלח שוב אימות דוא&quot;ל', או פנה למנהל הפורום.[/center]"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_VERIFICATION",
+            "#text": "[center]חשבונך נוצר בהצלחה. עלייך עדיין לאשר את כתובת הדוא\"ל על מנת להתחבר. בדוק/י את חשבון הדוא\"ל להוראות אימות. [/center]"
           },
           {
             "@tag": "ALREADY_REGISTERED",

@@ -3162,12 +3162,12 @@
             "#text": "Minsta antal inlägg innan användare avancerar till denna rang."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Rang Prioritet ska vara ett litet heltal."
-          },
-          {
             "@tag": "MSG_RANK_EXISTS",
             "#text": "En rang med ett sådant namn finns redan."
+          },
+          {
+            "@tag": "MSG_RANK_INTEGER",
+            "#text": "Rang Prioritet ska vara ett litet heltal."
           },
           {
             "@tag": "NEED_NAME",
@@ -6989,16 +6989,16 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Din nya e-postadress har bekräftats."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Din e-postadress har godkänts."
           },
           {
             "@tag": "EMAIL_VERIFY_FAILED",
             "#text": "Kunde inte verifiera e-postadress."
-          },
-          {
-            "@tag": "EMAIL_CHANGED",
-            "#text": "Din nya e-postadress har bekräftats."
           },
           {
             "@tag": "ENTER_KEY",
@@ -9539,10 +9539,6 @@
             "#text": "Ta bort det här meddelandet"
           },
           {
-            "@tag": "UNDELETE_TT",
-            "#text": "Återställ detta meddelande"
-          },
-          {
             "@tag": "ERASEMESSAGE",
             "#text": "Radera meddelandet från databasen (oåterkalleligt)."
           },
@@ -9585,6 +9581,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Återta orsaken till radering"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Återställ detta meddelande"
           },
           {
             "@tag": "WAIT",
@@ -10211,90 +10211,6 @@
           {
             "@tag": "OTHER",
             "#text": "Övriga"
-          },
-          {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Trans Man"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Trans Woman"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -12178,10 +12094,6 @@
             "#text": "Du kan inte skicka ett privat meddelande till en gäst."
           },
           {
-            "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
-          },
-          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Din privata meddelanderuta är full. Högsta tillåtna antal är {0}. Ta bort meddelanden för att frigöra utrymme."
           },
@@ -12192,6 +12104,10 @@
           {
             "@tag": "PREVIEWTITLE",
             "#text": "Förhandsgranska:"
+          },
+          {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -13805,12 +13721,12 @@
             "#text": "[center]Ditt konto har skapats.[/center]"
           },
           {
-            "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
             "#text": "[center]Ditt konto har skapats, men verifieringsmejlet kunde inte skickas. Logga in senare och använd \"Skicka e-postbekräftelse på nytt\", eller kontakta forumets administratör.[/center]"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_VERIFICATION",
+            "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
           },
           {
             "@tag": "ALREADY_REGISTERED",

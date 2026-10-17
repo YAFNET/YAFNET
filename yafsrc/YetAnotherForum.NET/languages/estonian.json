@@ -3162,12 +3162,12 @@
             "#text": "Minimaalne postituste arv, enne kui kasutajad sellele auastmele tõusevad."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Asetuse prioriteet peaks olema väike täisarv."
-          },
-          {
             "@tag": "MSG_RANK_EXISTS",
             "#text": "Sellise nimega auaste on juba olemas."
+          },
+          {
+            "@tag": "MSG_RANK_INTEGER",
+            "#text": "Asetuse prioriteet peaks olema väike täisarv."
           },
           {
             "@tag": "NEED_NAME",
@@ -6989,16 +6989,16 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Teie uus e-posti aadress on kinnitatud."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Teie e-posti aadress on kinnitatud."
           },
           {
             "@tag": "EMAIL_VERIFY_FAILED",
             "#text": "E-posti aadressi kinnitamine ebaõnnestus."
-          },
-          {
-            "@tag": "EMAIL_CHANGED",
-            "#text": "Teie uus e-posti aadress on kinnitatud."
           },
           {
             "@tag": "ENTER_KEY",
@@ -9539,10 +9539,6 @@
             "#text": "Kustuta see sõnum"
           },
           {
-            "@tag": "UNDELETE_TT",
-            "#text": "Taasta see sõnum"
-          },
-          {
             "@tag": "ERASEMESSAGE",
             "#text": "Kustuta sõnum andmebaasist (pöördumatu)"
           },
@@ -9585,6 +9581,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Taastamise põhjus"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Taasta see sõnum"
           },
           {
             "@tag": "WAIT",
@@ -10211,90 +10211,6 @@
           {
             "@tag": "OTHER",
             "#text": "muud"
-          },
-          {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Trans Man"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Trans Woman"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -12178,10 +12094,6 @@
             "#text": "Privaatsõnumi saatmine Külalisele ei ole võimalik."
           },
           {
-            "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
-          },
-          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Teie privaatsõnumite postkast on täis. Lubatud on maksimaalselt {0} sõnumit. Palun kustutage sõnumid, et tekitada ruumi."
           },
@@ -12192,6 +12104,10 @@
           {
             "@tag": "PREVIEWTITLE",
             "#text": "Eelvaade:"
+          },
+          {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -13805,12 +13721,12 @@
             "#text": "[center]Konto on edukalt loodud.[/center]"
           },
           {
-            "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "#text": "[center]Konto on edukalt loodud. Enne sisselogimist tuleb e-postiaadress kinnitada Palun kontrolli e-posti verifitseerimise instruktsioonideks.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
             "#text": "[center]Teie konto on loodud, kuid kinnitusmeili ei õnnestunud saata. Palun logige hiljem sisse ja kasutage valikut \"Saada e-posti kinnitus uuesti\" või võtke ühendust foorumi administraatoriga.[/center]"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_VERIFICATION",
+            "#text": "[center]Konto on edukalt loodud. Enne sisselogimist tuleb e-postiaadress kinnitada Palun kontrolli e-posti verifitseerimise instruktsioonideks.[/center]"
           },
           {
             "@tag": "ALREADY_REGISTERED",

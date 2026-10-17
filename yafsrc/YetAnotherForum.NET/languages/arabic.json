@@ -3154,12 +3154,12 @@
             "#text": "الحد الأدنى من المشاركات قبل أن يتقدم المستخدمون إلى هذا التصنيف."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "يجب أن تكون أولوية الترتيب عددًا صحيحًا صغيرًا."
-          },
-          {
             "@tag": "MSG_RANK_EXISTS",
             "#text": "توجد بالفعل رتبة بهذا الاسم."
+          },
+          {
+            "@tag": "MSG_RANK_INTEGER",
+            "#text": "يجب أن تكون أولوية الترتيب عددًا صحيحًا صغيرًا."
           },
           {
             "@tag": "NEED_NAME",
@@ -6981,16 +6981,16 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "تم تأكيد عنوان بريدك الإلكتروني الجديد."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "وقد تم التحقق من عنوان البريد الإلكتروني الخاص بك."
           },
           {
             "@tag": "EMAIL_VERIFY_FAILED",
             "#text": "فشل التحقق من عنوان البريد الإلكتروني."
-          },
-          {
-            "@tag": "EMAIL_CHANGED",
-            "#text": "تم تأكيد عنوان بريدك الإلكتروني الجديد."
           },
           {
             "@tag": "ENTER_KEY",
@@ -9527,10 +9527,6 @@
             "#text": "احذف هذه الرسالة"
           },
           {
-            "@tag": "UNDELETE_TT",
-            "#text": "استعادة هذه الرسالة"
-          },
-          {
             "@tag": "ERASEMESSAGE",
             "#text": "حذف الرسالة من قاعدة البيانات "
           },
@@ -9573,6 +9569,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "سبب  عدم الحذف "
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "استعادة هذه الرسالة"
           },
           {
             "@tag": "WAIT",
@@ -10199,90 +10199,6 @@
           {
             "@tag": "OTHER",
             "#text": "آخر"
-          },
-          {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Trans Man"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Trans Woman"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -12158,10 +12074,6 @@
             "#text": "لايمكن   ارسال  رسالة  خاصة   الى   زائر."
           },
           {
-            "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
-          },
-          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "الرسائل  الخاصة   ممتلئة {0}. الرجاء حذفمن الرسائل الخاصة ."
           },
@@ -12172,6 +12084,10 @@
           {
             "@tag": "PREVIEWTITLE",
             "#text": "عرض:"
+          },
+          {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -13785,12 +13701,12 @@
             "#text": "[center]تم التسجيل  بنجاح .[/center]"
           },
           {
-            "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "#text": "[center]لقد تم  التسجيل بنجاح,يرجى إكمال عملية التسجيل من خلال البريد الإلكتروني.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
             "#text": "[center]تم إنشاء حسابك، ولكن تعذر إرسال رسالة التحقق بالبريد الإلكتروني. يرجى تسجيل الدخول لاحقًا واستخدام \"إعادة إرسال التحقق من البريد الإلكتروني\"، أو الاتصال بمسؤول المنتدى.[/center]"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_VERIFICATION",
+            "#text": "[center]لقد تم  التسجيل بنجاح,يرجى إكمال عملية التسجيل من خلال البريد الإلكتروني.[/center]"
           },
           {
             "@tag": "ALREADY_REGISTERED",

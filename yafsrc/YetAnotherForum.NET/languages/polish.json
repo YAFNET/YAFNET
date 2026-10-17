@@ -3154,12 +3154,12 @@
             "#text": "Minimalna liczba postów, po której użytkownicy awansują do tej rangi."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Priorytet rangi powinien być małą liczbą całkowitą."
-          },
-          {
             "@tag": "MSG_RANK_EXISTS",
             "#text": "Ranga o takiej nazwie już istnieje."
+          },
+          {
+            "@tag": "MSG_RANK_INTEGER",
+            "#text": "Priorytet rangi powinien być małą liczbą całkowitą."
           },
           {
             "@tag": "NEED_NAME",
@@ -6981,16 +6981,16 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Twój nowy adres e-mail został potwierdzony."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Twój adres email został zweryfikowany."
           },
           {
             "@tag": "EMAIL_VERIFY_FAILED",
             "#text": "Błąd weryfikacji adresu email."
-          },
-          {
-            "@tag": "EMAIL_CHANGED",
-            "#text": "Twój nowy adres e-mail został potwierdzony."
           },
           {
             "@tag": "ENTER_KEY",
@@ -9535,10 +9535,6 @@
             "#text": "Usuń tę wiadomość"
           },
           {
-            "@tag": "UNDELETE_TT",
-            "#text": "Przywróć tę wiadomość"
-          },
-          {
             "@tag": "ERASEMESSAGE",
             "#text": "Usuń post z bazy danych"
           },
@@ -9581,6 +9577,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Powód przywrócenia"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Przywróć tę wiadomość"
           },
           {
             "@tag": "WAIT",
@@ -10207,90 +10207,6 @@
           {
             "@tag": "OTHER",
             "#text": "Inne"
-          },
-          {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Trans Man"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Trans Woman"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -12166,10 +12082,6 @@
             "#text": "Nie możesz wysłać prywatnej wiadomości do gościa."
           },
           {
-            "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
-          },
-          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Twoja skrzynka prywatnych wiadomości jest pełna. Maksymalna ilość wiadomości to {0}. Proszę usuń nieco wiadomości."
           },
@@ -12180,6 +12092,10 @@
           {
             "@tag": "PREVIEWTITLE",
             "#text": "Podgląd:"
+          },
+          {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -13793,12 +13709,12 @@
             "#text": "[center]Twoje konto zostało stworzone.[/center]"
           },
           {
-            "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "#text": "[center]Twoje konto zostało stworzone, jednak wymagane jest potwierdzenie Twojego adresu e-mail. Proszę sprawdzić skrzynkę pocztową, aby znaleźć instrukcje.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
             "#text": "[center]Twoje konto zostało utworzone, ale nie udało się wysłać e-maila weryfikacyjnego. Zaloguj się później i użyj \"Wyślij ponownie weryfikację e-mail\" lub skontaktuj się z administratorem forum.[/center]"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_VERIFICATION",
+            "#text": "[center]Twoje konto zostało stworzone, jednak wymagane jest potwierdzenie Twojego adresu e-mail. Proszę sprawdzić skrzynkę pocztową, aby znaleźć instrukcje.[/center]"
           },
           {
             "@tag": "ALREADY_REGISTERED",

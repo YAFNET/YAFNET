@@ -3162,12 +3162,12 @@
             "#text": "Minimální počet příspěvků, než budou uživatelé povýšeni na tuto hodnost."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Priorita pozice by měla být malé celé číslo."
-          },
-          {
             "@tag": "MSG_RANK_EXISTS",
             "#text": "Hodnost s takovým názvem již existuje."
+          },
+          {
+            "@tag": "MSG_RANK_INTEGER",
+            "#text": "Priorita pozice by měla být malé celé číslo."
           },
           {
             "@tag": "NEED_NAME",
@@ -6989,16 +6989,16 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Vaše nová e-mailová adresa byla potvrzena."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Vaše e-mailová adresa byla ověřena."
           },
           {
             "@tag": "EMAIL_VERIFY_FAILED",
             "#text": "Vaši e-mailovou adresu se nepodařilo ověřit."
-          },
-          {
-            "@tag": "EMAIL_CHANGED",
-            "#text": "Vaše nová e-mailová adresa byla potvrzena."
           },
           {
             "@tag": "ENTER_KEY",
@@ -9543,10 +9543,6 @@
             "#text": "Smazat tuto zprávu"
           },
           {
-            "@tag": "UNDELETE_TT",
-            "#text": "Obnovte tuto zprávu"
-          },
-          {
             "@tag": "ERASEMESSAGE",
             "#text": "Vymazat zprávu z databáze (nevratné)"
           },
@@ -9589,6 +9585,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Obnovit důvod"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Obnovte tuto zprávu"
           },
           {
             "@tag": "WAIT",
@@ -10215,90 +10215,6 @@
           {
             "@tag": "OTHER",
             "#text": "jiný"
-          },
-          {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Trans Man"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Trans Woman"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -12182,10 +12098,6 @@
             "#text": "Soukromé vzkazy nelze odesílat pro kategorii „Host”."
           },
           {
-            "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
-          },
-          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Vaše schránka soukromých zpráv je plná. "
           },
@@ -12196,6 +12108,10 @@
           {
             "@tag": "PREVIEWTITLE",
             "#text": "Náhled:"
+          },
+          {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -13809,12 +13725,12 @@
             "#text": "[center]Váš účet byl úspěšně vytvořen.[/center]"
           },
           {
-            "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
             "#text": "[center]Váš účet byl vytvořen, ale ověřovací e-mail nemohl být odeslán. Přihlaste se prosím později a použijte \"Znovu odeslat ověření e-mailu\", nebo kontaktujte správce fóra.[/center]"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_VERIFICATION",
+            "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
           },
           {
             "@tag": "ALREADY_REGISTERED",

@@ -3154,12 +3154,12 @@
             "#text": "Minimum aantal berichten voordat gebruikers naar deze rang promoveren."
           },
           {
-            "@tag": "MSG_RANK_INTEGER",
-            "#text": "Rang prioriteit is een geheel getal, kleiner dan 256."
-          },
-          {
             "@tag": "MSG_RANK_EXISTS",
             "#text": "Er bestaat al een rang met een dergelijke naam."
+          },
+          {
+            "@tag": "MSG_RANK_INTEGER",
+            "#text": "Rang prioriteit is een geheel getal, kleiner dan 256."
           },
           {
             "@tag": "NEED_NAME",
@@ -6981,16 +6981,16 @@
         "@name": "APPROVE",
         "Resource": [
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Uw nieuwe e-mailadres is bevestigd."
+          },
+          {
             "@tag": "EMAIL_VERIFIED",
             "#text": "Je e-mail adres is gevalideerd."
           },
           {
             "@tag": "EMAIL_VERIFY_FAILED",
             "#text": "E-mail adres kon niet worden gevalideerd."
-          },
-          {
-            "@tag": "EMAIL_CHANGED",
-            "#text": "Uw nieuwe e-mailadres is bevestigd."
           },
           {
             "@tag": "ENTER_KEY",
@@ -9531,10 +9531,6 @@
             "#text": "Verwijder dit bericht"
           },
           {
-            "@tag": "UNDELETE_TT",
-            "#text": "Herstel dit bericht"
-          },
-          {
             "@tag": "ERASEMESSAGE",
             "#text": "Verwijder definitief uit de database (kan niet ongedaan worden gemaakt)"
           },
@@ -9577,6 +9573,10 @@
           {
             "@tag": "UNDELETE_REASON",
             "#text": "Reden voor ongedaan maken"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Herstel dit bericht"
           },
           {
             "@tag": "WAIT",
@@ -10203,90 +10203,6 @@
           {
             "@tag": "OTHER",
             "#text": "Ander"
-          },
-          {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trans"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Trans Man"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Trans Woman"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -12162,10 +12078,6 @@
             "#text": "Je kunt geen privé-bericht verzenden naar de gastgebruiker."
           },
           {
-            "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
-          },
-          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Je PM box is vol. Het maximum is {0}. Om meer berichten te kunnen ontvangen moet je berichten verwijderen."
           },
@@ -12176,6 +12088,10 @@
           {
             "@tag": "PREVIEWTITLE",
             "#text": "Voorbeeld:"
+          },
+          {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -13789,12 +13705,12 @@
             "#text": "[center]Je account is aangemaakt.[/center]"
           },
           {
-            "@tag": "ACCOUNT_CREATED_VERIFICATION",
-            "#text": "[center]Je account is aangemaakt. Je dient nu het account te verifiëren voordat je kunt inloggen. Kijk in de e-mail die je ontvangt voor verdere instructies..[/center]"
-          },
-          {
             "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
             "#text": "[center]Uw account is aangemaakt, maar de verificatie-e-mail kon niet worden verzonden. Log later in en gebruik \"E-mailverificatie opnieuw verzenden\", of neem contact op met de beheerder van het forum.[/center]"
+          },
+          {
+            "@tag": "ACCOUNT_CREATED_VERIFICATION",
+            "#text": "[center]Je account is aangemaakt. Je dient nu het account te verifiëren voordat je kunt inloggen. Kijk in de e-mail die je ontvangt voor verdere instructies..[/center]"
           },
           {
             "@tag": "ALREADY_REGISTERED",
