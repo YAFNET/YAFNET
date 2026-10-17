@@ -13653,6 +13653,10 @@
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]A sua conta foi criada, mas não foi possível enviar o e-mail de verificação. Inicie sessão mais tarde e utilize \"Reenviar verificação de e-mail\", ou contacte o administrador do fórum.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "Seu nome de usuário ou email já cadastrado."
           },

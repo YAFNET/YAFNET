@@ -13653,6 +13653,10 @@
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Ditt konto har skapats, men verifieringsmejlet kunde inte skickas. Logga in senare och använd \"Skicka e-postbekräftelse på nytt\", eller kontakta forumets administratör.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "Ditt användarnamn eller din e-postadress är redan registrerad."
           },

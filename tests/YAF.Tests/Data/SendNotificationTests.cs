@@ -321,6 +321,24 @@ public class SendNotificationTests
         html.Should().Contain("&#91;url=javascript:x&#93;");
     }
 
+    [Test]
+    [Description("A mail error does not fail the role change or the suspension, the account mails the user needs fail")]
+    public void Notification_Mail_Errors_Test()
+    {
+        this.mail.Error = new SmtpException("the server is down");
+
+        var user = new AspNetUsers { Id = "bob-key", UserName = "Bob", Email = "bob@example.com" };
+
+        FluentActions.Invoking(() => this.Notifications.SendRoleAssignmentNotification(user, ["Moderators"])).Should().NotThrow();
+        FluentActions.Invoking(() => this.Notifications.SendRoleUnAssignmentNotification(user, ["Moderators"])).Should().NotThrow();
+        FluentActions.Invoking(() => this.Notifications.SendUserSuspensionNotification(DateTime.UtcNow, "x", "bob@example.com", "Bob"))
+            .Should().NotThrow();
+        FluentActions.Invoking(() => this.Notifications.SendUserSuspensionEndedNotification("bob@example.com", "Bob")).Should().NotThrow();
+        FluentActions.Invoking(() => this.Notifications.ToUserWithNewMedal(this.bob, "Hero")).Should().NotThrow();
+
+        FluentActions.Invoking(() => this.Notifications.SendPasswordReset(user, "token")).Should().Throw<SmtpException>();
+    }
+
     private ISendNotification Notifications => this.board.Resolve<ISendNotification>();
 
     private Message Post(int userId, string text)

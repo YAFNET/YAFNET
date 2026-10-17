@@ -13653,6 +13653,10 @@
             "#text": "[center]Konto on edukalt loodud. Enne sisselogimist tuleb e-postiaadress kinnitada Palun kontrolli e-posti verifitseerimise instruktsioonideks.[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Teie konto on loodud, kuid kinnitusmeili ei õnnestunud saata. Palun logige hiljem sisse ja kasutage valikut \"Saada e-posti kinnitus uuesti\" või võtke ühendust foorumi administraatoriga.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "Kasutajanimi või e-post on juba kasutusel."
           },

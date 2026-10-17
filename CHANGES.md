@@ -71,6 +71,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] Moderator mails (approval and reported posts): a mail error failed the post that needs the approval, an error stopped the mails to the other moderators, and the parallel sending removed the request context of the post
 * [FIXED] Mails: the role and suspension mails (sent by an admin) were in the language of the admin, mails to users without an own language were in the language of the current user instead of the board language
 * [FIXED] Html mails: topic names, names of users, posts and report reasons were inserted as html into the html mails (html and script of users in the mail), and their brackets were formatted as bb codes (disguised links)
+* [FIXED] Mails: every mail error was ignored (e.g. the registration said the verification mail was sent, the SMTP test of the admin always succeeded); when no mail could be sent the error is shown now (registration, admin register user, forgot password, resend verification, admin mail and its test), the notification mails (roles, medals, suspension, welcome, registration and spam bot notifications) log the error without failing the action, the users import continues
+* [FIXED] Admin -> Mail: the group mail was sent in parallel without the context of the request (errors of the services), the spam bot notification went to the first group whose name contains "Admin" instead of the admin groups
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

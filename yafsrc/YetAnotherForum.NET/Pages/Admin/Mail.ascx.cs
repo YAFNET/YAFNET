@@ -80,24 +80,29 @@ public partial class Mail : AdminPage
     {
         var emails = this.GetRepository<User>().GroupEmails(this.ToList.SelectedValue.ToType<int>());
 
-        Parallel.ForEach(
-            emails,
-            email =>
-                {
-                    var from = new MailAddress(
-                        this.PageBoardContext.BoardSettings.ForumEmail,
-                        this.PageBoardContext.BoardSettings.Name);
+        var from = new MailAddress(
+            this.PageBoardContext.BoardSettings.ForumEmail,
+            this.PageBoardContext.BoardSettings.Name);
 
-                    var to = new MailAddress(email);
-
-                    this.Get<IMailService>().Send(
+        try
+        {
+            // all mails in one go (the services use the context of the request)
+            this.Get<IMailService>().SendAll(
+                emails.Select(
+                    email => this.Get<IMailService>().CreateMessage(
                         from,
-                        to,
+                        new MailAddress(email),
                         from,
                         this.Subject.Text.Trim(),
                         this.Body.Text.Trim(),
-                        null);
-                });
+                        null)).ToList());
+        }
+        catch (Exception x)
+        {
+            this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
+
+            return;
+        }
 
         this.Subject.Text = string.Empty;
         this.Body.Text = string.Empty;

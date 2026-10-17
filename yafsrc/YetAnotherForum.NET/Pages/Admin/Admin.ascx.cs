@@ -91,7 +91,16 @@ public partial class Admin : AdminPage
                     this.GetRepository<CheckEmail>().DeleteById(checkMail.ID);
                 }
 
-                this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.ID);
+                try
+                {
+                    this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.ID);
+                }
+                catch (Exception x)
+                {
+                    this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
+
+                    break;
+                }
 
                 this.PageBoardContext.Notify(
                     this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),

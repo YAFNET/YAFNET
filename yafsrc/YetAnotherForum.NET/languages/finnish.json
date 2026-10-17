@@ -13653,6 +13653,10 @@
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Tilisi on luotu, mutta vahvistussähköpostia ei voitu lähettää. Kirjaudu myöhemmin sisään ja käytä toimintoa \"Lähetä sähköpostivarmennus uudelleen\", tai ota yhteyttä foorumin ylläpitäjään.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "Käyttäjätunnuksesi tai sähköpostiosoitteesi löytyi jo rekisteröityneiden käyttäjien joukosta."
           },

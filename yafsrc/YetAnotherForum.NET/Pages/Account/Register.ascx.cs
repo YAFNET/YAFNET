@@ -194,6 +194,8 @@ public partial class Register : AccountPage
 
             this.SaveCustomProfile(userId.Value);
 
+            var verificationText = "ACCOUNT_CREATED_VERIFICATION";
+
             if (this.IsPossibleSpamBot)
             {
                 if (this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(1))
@@ -206,7 +208,17 @@ public partial class Register : AccountPage
                 // handle e-mail verification
                 var email = this.Email.Text.Trim();
 
-                this.Get<ISendNotification>().SendVerificationEmail(user, email, userId);
+                try
+                {
+                    this.Get<ISendNotification>().SendVerificationEmail(user, email, userId);
+                }
+                catch (Exception x)
+                {
+                    // the account is created, the verification mail can be sent again on the login page
+                    this.Get<ILoggerService>().Error(x, $"Verification mail to {email} failed");
+
+                    verificationText = "ACCOUNT_CREATED_MAIL_FAILED";
+                }
 
                 if (this.PageBoardContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
                 {
@@ -221,7 +233,7 @@ public partial class Register : AccountPage
             // success notification localization
             this.Message.Visible = true;
             this.AccountCreated.Text = this.Get<IBBCode>().MakeHtml(
-                this.GetText("ACCOUNT_CREATED_VERIFICATION"),
+                this.GetText(verificationText),
                 true,
                 true);
         }

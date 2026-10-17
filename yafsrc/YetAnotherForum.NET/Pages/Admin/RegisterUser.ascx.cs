@@ -100,7 +100,19 @@ public partial class RegisterUser : AdminPage
         var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
             .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
-        this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
+        var created = this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim());
+
+        try
+        {
+            this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
+        }
+        catch (Exception x)
+        {
+            // the user is created, the verification mail can be sent again on the admin index
+            this.Get<ILoggerService>().Error(x, $"Verification mail to {newEmail} failed");
+
+            created = $"{created} {x.Message}";
+        }
 
         this.GetRepository<User>().SaveNotification(
             this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID,
@@ -110,9 +122,7 @@ public partial class RegisterUser : AdminPage
             this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);
 
         // success
-        this.PageBoardContext.LoadMessage.AddSession(
-            this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim()),
-            MessageTypes.success);
+        this.PageBoardContext.LoadMessage.AddSession(created, MessageTypes.success);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
     }

@@ -24,8 +24,11 @@
 
 namespace YAF.Core.Services;
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
+using System.Runtime.ExceptionServices;
 
 using YAF.Types.Constants;
 
@@ -52,24 +55,30 @@ public class MailService : IMailService, IHaveServiceLocator
 
         using var smtpClient = new SmtpClient();
 
-        // send the message...
-        mailMessages.ToList().ForEach(
+        var sent = 0;
+        Exception firstError = null;
+
+        // a refused mail (e.g. an unknown recipient) does not stop the other mails
+        mailMessages.Where(m => m != null).ForEach(
             m =>
                 {
                     try
                     {
-                        if (m != null)
-                        {
-                            // send the message...
-                            smtpClient.Send(m);
-                        }
+                        smtpClient.Send(m);
+                        sent++;
                     }
-                    catch (SmtpException ex)
+                    catch (Exception ex)
                     {
                         this.Get<ILoggerService>().Log("Mail Error", EventLogTypes.Error, null, null, ex);
+
+                        firstError ??= ex;
                     }
                 });
 
-        smtpClient.Dispose();
+        // no mail was sent (e.g. the only mail, a test mail or a mail to a user): the caller reports the error
+        if (sent == 0 && firstError != null)
+        {
+            ExceptionDispatchInfo.Capture(firstError).Throw();
+        }
     }
 }

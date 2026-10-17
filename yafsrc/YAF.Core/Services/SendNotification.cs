@@ -528,7 +528,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        notifyUser.SendEmail(new MailAddress(toUser.Email, toUser.DisplayOrUserName()), subject);
+        this.SendNotificationMail(
+            () => notifyUser.SendEmail(new MailAddress(toUser.Email, toUser.DisplayOrUserName()), subject),
+            "Medal");
     }
 
     /// <summary>
@@ -557,7 +559,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                         }
                                 };
 
-        templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
+        this.SendNotificationMail(
+            () => templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject),
+            "Role");
     }
 
     /// <summary>
@@ -586,7 +590,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                         }
                                 };
 
-        templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
+        this.SendNotificationMail(
+            () => templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject),
+            "Role");
     }
 
     /// <summary>
@@ -624,8 +630,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                       }
                               };
 
-        emails.Where(email => email.Trim().IsSet())
-            .ForEach(email => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject));
+        emails.Where(email => email.Trim().IsSet()).ForEach(
+            email => this.SendNotificationMail(
+                () => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject),
+                "Registration"));
     }
 
     /// <summary>
@@ -635,16 +643,11 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="userId">The user id.</param>
     public void SendSpamBotNotificationToAdmins(AspNetUsers user, int userId)
     {
-        // Get Admin Group ID
-        var adminGroupId = this.GetRepository<Group>().List(boardId: BoardContext.Current.PageBoardID)
-            .Where(group => group.Name.Contains("Admin")).Select(group => group.ID).FirstOrDefault();
-
-        if (adminGroupId <= 0)
-        {
-            return;
-        }
-
-        var emails = this.GetRepository<User>().GroupEmails(adminGroupId);
+        // the admin groups of the board (by the admin flag, the name can be changed)
+        var emails = this.GetRepository<Group>().List(boardId: BoardContext.Current.PageBoardID)
+            .Where(group => group.GroupFlags.IsAdmin)
+            .SelectMany(group => this.GetRepository<User>().GroupEmails(group.ID))
+            .Distinct(StringComparer.OrdinalIgnoreCase).ToList();
 
         emails.ForEach(
             email =>
@@ -673,7 +676,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                                   }
                                           };
 
-                    notifyAdmin.SendEmail(new MailAddress(emailAddress), subject);
+                    this.SendNotificationMail(
+                        () => notifyAdmin.SendEmail(new MailAddress(emailAddress), subject),
+                        "Spam Bot");
                 });
     }
 
@@ -727,7 +732,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         }
         else
         {
-            notifyUser.SendEmail(new MailAddress(user.Email, user.DisplayOrUserName()), subject);
+            this.SendNotificationMail(
+                () => notifyUser.SendEmail(new MailAddress(user.Email, user.DisplayOrUserName()), subject),
+                "Welcome");
         }
     }
 
@@ -802,7 +809,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        notifyUser.SendEmail(new MailAddress(email, userName), subject);
+        this.SendNotificationMail(() => notifyUser.SendEmail(new MailAddress(email, userName), subject), "Suspension");
     }
 
     /// <summary>
@@ -828,7 +835,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        notifyUser.SendEmail(new MailAddress(email, userName), subject);
+        this.SendNotificationMail(() => notifyUser.SendEmail(new MailAddress(email, userName), subject), "Suspension");
     }
 
     /// <summary>

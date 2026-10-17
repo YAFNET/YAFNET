@@ -241,7 +241,16 @@ public partial class Login : AccountPage
         // only a hash of the key is stored: the mail gets a new key
         this.GetRepository<CheckEmail>().DeleteById(checkMail.ID);
 
-        this.Get<ISendNotification>().SendVerificationEmail(user, checkMail.Email, checkMail.UserID);
+        try
+        {
+            this.Get<ISendNotification>().SendVerificationEmail(user, checkMail.Email, checkMail.UserID);
+        }
+        catch (Exception x)
+        {
+            this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
+
+            return;
+        }
 
         this.PageBoardContext.Notify(
             this.GetText("LOGIN", "MSG_MESSAGE_SEND"),

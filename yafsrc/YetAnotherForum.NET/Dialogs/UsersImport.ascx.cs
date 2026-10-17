@@ -295,9 +295,16 @@ public partial class UsersImport : BaseUserControl
             return importCount;
         }
 
-        // send user register notification to the new users
-        this.Get<ISendNotification>().SendRegistrationNotificationToUser(
-            user, pass, "NOTIFICATION_ON_REGISTER");
+        // send user register notification to the new users (a mail error does not stop the import)
+        try
+        {
+            this.Get<ISendNotification>().SendRegistrationNotificationToUser(
+                user, pass, "NOTIFICATION_ON_REGISTER");
+        }
+        catch (Exception x)
+        {
+            this.Get<ILoggerService>().Error(x, $"Registration mail to {user.Email} failed");
+        }
 
         var timeZone = 0;
 

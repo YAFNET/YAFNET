@@ -13657,6 +13657,10 @@
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Váš účet byl vytvořen, ale ověřovací e-mail nemohl být odeslán. Přihlaste se prosím později a použijte \"Znovu odeslat ověření e-mailu\", nebo kontaktujte správce fóra.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "Vaše uživatelské jméno nebo e-mailová adresa již byla použita."
           },

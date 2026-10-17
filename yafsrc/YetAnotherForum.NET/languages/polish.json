@@ -13641,6 +13641,10 @@
             "#text": "[center]Twoje konto zostało stworzone, jednak wymagane jest potwierdzenie Twojego adresu e-mail. Proszę sprawdzić skrzynkę pocztową, aby znaleźć instrukcje.[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Twoje konto zostało utworzone, ale nie udało się wysłać e-maila weryfikacyjnego. Zaloguj się później i użyj \"Wyślij ponownie weryfikację e-mail\" lub skontaktuj się z administratorem forum.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "Twoja nazwa użytkownika jest już zajęta."
           },

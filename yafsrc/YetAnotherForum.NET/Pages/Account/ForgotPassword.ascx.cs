@@ -105,7 +105,18 @@ public partial class ForgotPassword : AccountPage
 
         var code = HttpUtility.UrlEncode(this.Get<IAspNetUsersHelper>().GeneratePasswordResetToken(user.Id));
 
-        this.Get<ISendNotification>().SendPasswordReset(user, code);
+        try
+        {
+            this.Get<ISendNotification>().SendPasswordReset(user, code);
+        }
+        catch (Exception x)
+        {
+            this.Get<ILoggerService>().Error(x, $"Password reset mail to {user.Email} failed");
+
+            this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
+
+            return;
+        }
 
         this.PageBoardContext.LoadMessage.AddSession(this.GetText("SUCCESS"), MessageTypes.success);
 

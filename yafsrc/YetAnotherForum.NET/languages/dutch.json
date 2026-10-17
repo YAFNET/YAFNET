@@ -13637,6 +13637,10 @@
             "#text": "[center]Je account is aangemaakt. Je dient nu het account te verifiëren voordat je kunt inloggen. Kijk in de e-mail die je ontvangt voor verdere instructies..[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Uw account is aangemaakt, maar de verificatie-e-mail kon niet worden verzonden. Log later in en gebruik \"E-mailverificatie opnieuw verzenden\", of neem contact op met de beheerder van het forum.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "Je gebruikersnaam of e-mail adres is reeds geregistreerd."
           },

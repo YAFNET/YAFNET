@@ -13653,6 +13653,10 @@
             "#text": "[center]Din konto er blevet oprettet, men du skal stadig bekræfte din email. Tjek din email og følg validerings instruktionerne.[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Din konto er oprettet, men bekræftelsesmailen kunne ikke sendes. Log venligst ind senere og brug \"Send e-mailbekræftelse igen\", eller kontakt forummets administrator.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "Dit brugernavn eller e-mail er allerede tilmeldt."
           },

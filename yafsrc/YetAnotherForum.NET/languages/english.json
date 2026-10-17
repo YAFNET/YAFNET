@@ -13767,6 +13767,10 @@
 							"[center]Your account has been successfully created. Although, you still need to confirm your email account before you can login. Please check your email account for verification instructions.[/center]"
 					},
 					{
+						"@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+						"#text": "[center]Your account has been created, but the verification email could not be sent. Please log in later and use \"Resend Email Verification\", or contact the forum administrator.[/center]"
+					},
+					{
 						"@tag": "ALREADY_REGISTERED",
 						"#text": "Your username or email is already registered."
 					},

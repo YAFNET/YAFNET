@@ -13653,6 +13653,10 @@
             "#text": "[center]Your account has been successfully created. Although, you still need to confirm your e-mail account before you can login. Please check your e-mail account for verification instructions.[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Jūsų paskyra sukurta, tačiau patvirtinimo el. laiško išsiųsti nepavyko. Prisijunkite vėliau ir naudokite \"Pakartotinis el. pašto siuntimo tikrinimas\" arba susisiekite su forumo administratoriumi.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "\r\n      Jūsų vardas arba elektroninio pašto adresas jau\r\n\r\n      užregistruotas.\r\n    "
           },

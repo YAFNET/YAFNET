@@ -13653,6 +13653,10 @@
             "#text": "[center]Votre compte a été crée correctement. Vous devez confirmer votre adresse e-mail avant de vous connecter. Vérifiez votre boîte aux lettres e-mail pour les instructions.[/center]"
           },
           {
+            "@tag": "ACCOUNT_CREATED_MAIL_FAILED",
+            "#text": "[center]Votre compte a été créé, mais l'e-mail de vérification n'a pas pu être envoyé. Veuillez vous connecter plus tard et utiliser \"Renvoi de la vérification de l'e-mail\", ou contacter l'administrateur du forum.[/center]"
+          },
+          {
             "@tag": "ALREADY_REGISTERED",
             "#text": "Votre nom d'utilisateur ou votre adresse courriel est déjà enregistré."
           },
