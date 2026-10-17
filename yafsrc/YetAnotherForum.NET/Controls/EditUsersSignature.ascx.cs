@@ -289,6 +289,12 @@ public partial class EditUsersSignature : BaseUserControl
                                     this.user,
                                     membershipUser,
                                     this.user.IP);
+
+                                // the user is deleted: logged out, nothing is saved
+                                this.Get<IAspNetUsersHelper>().SignOut();
+                                System.Web.Security.FormsAuthentication.SignOut();
+                                this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+                                return;
                             }
 
                             break;

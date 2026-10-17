@@ -301,6 +301,12 @@ public partial class EditUsersProfile : BaseUserControl
                                 this.User.Item1,
                                 this.User.Item2,
                                 this.User.Item1.IP);
+
+                            // the user is deleted: logged out, nothing is saved
+                            this.Get<IAspNetUsersHelper>().SignOut();
+                            System.Web.Security.FormsAuthentication.SignOut();
+                            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+                            return;
                         }
 
                         break;

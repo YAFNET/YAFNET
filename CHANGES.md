@@ -159,6 +159,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Albums: the page for a new album compared the number of albums with the allowed images per album (instead of the allowed albums), and the limits of albums and images were only checked when the page was shown (not for the upload)
 * [FIXED] Reporting the same post again sent the moderators another email each time (a user could flood their inboxes); the moderators are notified once per user and post, further reports are only counted; a report without text (only spaces) was saved
 * [FIXED] Profile and admin edit user: a too short (or empty) display name showed the "too long" message
+* [FIXED] When the spam check deleted a user (signature, profile homepage), the user stayed logged in and the signature and profile pages still saved the changes
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
