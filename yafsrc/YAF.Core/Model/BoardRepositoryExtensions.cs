@@ -85,8 +85,9 @@ public static class BoardRepositoryExtensions
         // -- Board
         var newBoardId = repository.Insert(new Board { Name = boardName });
 
-        BoardContext.Current.GetRepository<Registry>().Save("culture", culture);
-        BoardContext.Current.GetRepository<Registry>().Save("language", languageFile);
+        // the culture and language of the new board (not of all boards)
+        BoardContext.Current.GetRepository<Registry>().Save("culture", culture, newBoardId);
+        BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, newBoardId);
 
         // -- Rank
         var rankIdAdmin = BoardContext.Current.GetRepository<Rank>().Insert(
