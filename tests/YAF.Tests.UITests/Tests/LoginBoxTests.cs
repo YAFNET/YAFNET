@@ -24,6 +24,7 @@
 
 namespace YAF.Tests.UITests.Tests;
 
+using System;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;
@@ -71,6 +72,70 @@ public class LoginBoxTests : ForumTestBase
 
         await this.GotoAsync(string.Empty);
         (await this.IsLoggedInAsAsync(TestConfig.AdminUserName)).Should().BeTrue();
+    }
+
+    [Test]
+    [Description("An unknown user is refused, a not verified user gets the verification again, 10 wrong passwords lock the account, the links open the pages")]
+    public async Task Login_Checks_Test()
+    {
+        var unverified = $"Lbu{DateTime.UtcNow:HHmmssfff}";
+        var locked = $"Lbl{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(locked, TestConfig.TestUserPassword);
+
+        // a member that did not verify the e-mail address
+        await this.LogoutAsync();
+        await this.GotoAsync("Account/Register");
+        await this.Control("UserName").FillAsync(unverified);
+        await this.Control("Email").FillAsync(EmailOf(unverified));
+        await this.Control("Password").FillAsync(TestConfig.TestUserPassword);
+        await this.Control("ConfirmPassword").FillAsync(TestConfig.TestUserPassword);
+        await this.ClickAndWaitAsync(this.Control("CreateUser"));
+
+        // unknown
+        await this.LoginWithDialogAsync($"Unknown{unverified}", TestConfig.TestUserPassword);
+        (await this.IsLoggedInAsAsync($"Unknown{unverified}")).Should().BeFalse();
+
+        // not verified: the verification is sent again
+        await this.LoginWithDialogAsync(unverified, TestConfig.TestUserPassword);
+        var resend = this.Page.Locator("#LoginBox [id$='_ResendConfirm']");
+        await resend.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+
+        var started = DateTime.UtcNow;
+        await this.Page.RunAndWaitForResponseAsync(() => resend.ClickAsync(), r => r.Request.Method == "POST");
+        (await TestMail.WaitForAsync(EmailOf(unverified), started)).Should().NotBeNull();
+
+        // ten wrong passwords lock the account
+        for (var i = 0; i < 10; i++)
+        {
+            await this.LoginWithDialogAsync(locked, "wrong password");
+        }
+
+        await this.LoginWithDialogAsync(locked, TestConfig.TestUserPassword);
+        await this.GotoAsync(string.Empty);
+        (await this.IsLoggedInAsAsync(locked)).Should().BeFalse("the account is locked");
+
+        // the links of the dialog
+        foreach (var (link, page) in new[] { ("PasswordRecovery", "ForgotPassword"), ("RegisterLink", "Register") })
+        {
+            await this.GotoAsync("Topics/1-Test Forum");
+            await this.OpenDialogAsync();
+            await this.ClickAndWaitAsync(this.Page.Locator($"#LoginBox [id$='_{link}']"));
+            this.Page.Url.Should().ContainAny(page, "RulesAndPrivacy");
+        }
+    }
+
+    private async Task LoginWithDialogAsync(string userName, string password)
+    {
+        await this.GotoAsync("Topics/1-Test Forum");
+        await this.OpenDialogAsync();
+        await this.Page.Locator("#LoginBox [id$='_UserName']").FillAsync(userName);
+        await this.Page.Locator("#LoginBox [id$='_Password']").FillAsync(password);
+
+        await this.Page.RunAndWaitForResponseAsync(
+            () => this.Page.Locator("#LoginBox [id$='_LoginButton']").ClickAsync(),
+            r => r.Request.Method == "POST");
+        await this.Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
     }
 
     private async Task OpenDialogAsync()
