@@ -11,6 +11,12 @@ YetAnotherForum.NET Changelog
 * [FIXED] User styles: an old style (e.g. of a group the user was removed from or a removed group or rank style) was never removed, the style was not updated when the rank changed, and deleting a group with a style didn't update the styles of its members
 * [FIXED] Topic list: the "show topics of the last ..." filter used the wrong period (e.g. "Last Day" showed two days, "Last Six Months" a year) and "Last Year" was missing
 * [FIXED] Active users: the crawlers were taken from the wrong flag (members excluded from captchas were shown as crawlers, real crawlers were missing), with guests but without crawlers the crawlers were shown anyway
+* [FIXED] Prune topics: 0 or a negative number of days removed all topics, already deleted topics were deleted and counted again, pruning all forums failed with an error when the topics were deleted for good
+* [FIXED] Deleting a topic didn't count the posts of its authors again
+* [FIXED] Moving posts: the post counts of the topics were wrong when deleted posts were moved, a moved answer stayed the answer of the old topic, and the search index kept the old topic and forum (a post moved to a forum the user can't read was still found)
+* [FIXED] Moving a topic: the search index kept the old forum, an invalid number of days for the link of the moved topic caused an error
+* [FIXED] Editing a post removed the tags of the topic from the search index
+* [FIXED] Tags: a tag entered twice (also with spaces around it) was added twice and the post could not be saved; a tag longer than its column (MySQL) failed
 * [FIXED] Message history: the comparison of two versions failed with an error for most texts
 * [FIXED] Album titles, image captions and the reasons of edited and deleted posts are stored html encoded, saving failed when the encoded text was longer than its column; a changed album title was encoded twice
 * [FIXED] Text avatars: a name with "&" created an invalid image, names with several spaces, empty names or names of emoji only failed, a provider key that is no color created an invalid color
@@ -25,6 +31,10 @@ YetAnotherForum.NET Changelog
 * [FIXED] MySQL: the current time of the queries was the date only (midnight), e.g. the active users of the day were never removed
 * [FIXED] PostgreSQL: the difference of two times in minutes was only the minutes part (2:05 hours were 5 minutes)
 * [FIXED] Deleting all rows of a table reported no success when exactly one row was deleted
+* [FIXED] Editing a post never approved it (also in forums that are not moderated, or by a moderator), the flags were changed on a copy; the search index kept the old flags
+* [FIXED] Editing a post twice in the same second failed on MySQL (the versions of the history have a key of the post and the time)
+* [FIXED] Erasing the answer of a topic left the link to the answer (an error), marking a new answer after that failed
+* [FIXED] Topic page: the link to a post opened the wrong page when deleted or not approved posts were before it; posts of the same second (MySQL) were listed in a random order
 * [FIXED] Deleting a user failed when the user had medals or was ignored by other users (SQL Server, MySQL, PostgreSQL)
 * [FIXED] Group e-mails were also sent to disabled and not approved users and users without e-mail address
 * [FIXED] Disabled and not approved moderators were listed on the team page and got moderator notifications
@@ -33,6 +43,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Notifications: the number of quotes was the number of received thanks
 * [FIXED] Edit settings: the page size (sent by the client) was not checked, it is 1 - 100 now
 * [FIXED] Active users of a forum or topic: users that hide their online status were shown, guests were shown as members, members excluded from the captcha as crawlers
+* [FIXED] My Topics (watched topics): topics of forums the user can't read anymore were listed, the number of topics for the pager was the number of all topics
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

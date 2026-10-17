@@ -335,11 +335,12 @@ public static class MessageRepositoryExtensions
                     if (pageIndexCheck > totalPages)
                     {
                         // Fix if position is wrong
-                        expression.OrderBy<Message>(m => m.Posted).Page(totalPages, pageSize);
+                        expression.OrderBy<Message>(m => m.Posted).ThenBy<Message>(m => m.ID).Page(totalPages, pageSize);
                     }
                     else
                     {
-                        expression.OrderBy<Message>(m => m.Posted).Page(pageIndex + 1, pageSize);
+                        // posts of the same second (MySQL saves whole seconds) in the order they were posted
+                        expression.OrderBy<Message>(m => m.Posted).ThenBy<Message>(m => m.ID).Page(pageIndex + 1, pageSize);
                     }
 
                     var reputationExpression = db.Connection.From<ReputationVote>(db.Connection.TableAlias("x"));
@@ -769,6 +770,23 @@ public static class MessageRepositoryExtensions
             replies.ForEach(reply => repository.MoveRecursively(reply, moveToTopicId));
         }
 
+        // the answer of the old topic was moved: the old topic has no answer anymore, the message is no
+        // answer in the new topic
+        if (oldTopic.AnswerMessageId is { } answerId
+            && repository.Exists(m => m.ID == answerId && m.TopicID != oldTopic.ID))
+        {
+            BoardContext.Current.GetRepository<Topic>().RemoveAnswerMessage(oldTopic.ID);
+
+            var answerFlags = repository.GetById(answerId).MessageFlags;
+
+            answerFlags.IsAnswer = false;
+
+            repository.UpdateFlags(answerId, answerFlags.BitValue);
+        }
+
+        // the moved posts are in the other topic (and maybe forum) now
+        repository.UpdateSearchIndexOfTopic(moveToTopicId);
+
         var newForumId = BoardContext.Current.GetRepository<Topic>().GetById(moveToTopicId).ForumID;
         
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(newForumId, moveToTopicId));
@@ -830,6 +848,30 @@ public static class MessageRepositoryExtensions
 
         var minDateTime = DateTimeHelper.SqlDbMinTime().AddYears(-1);
 
+        // the position of the message among the posts the user sees (the pages list only these), the stored
+        // position also counts the deleted and not approved posts: the page of the message was wrong
+        (int MessagePosition, int MessageID) VisiblePosition((int MessagePosition, int MessageID) found)
+        {
+            if (found.MessageID <= 0)
+            {
+                return found;
+            }
+
+            var posted = repository.GetById(found.MessageID).Posted;
+            var id = found.MessageID;
+
+            // the posts are listed by date and id (posts of the same second, MySQL saves whole seconds)
+            var position = showDeleted
+                               ? repository.Count(
+                                   m => m.TopicID == topicId && (m.Flags & 16) == 16
+                                        && (m.Posted < posted || m.Posted == posted && m.ID < id))
+                               : repository.Count(
+                                   m => m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8
+                                        && (m.Posted < posted || m.Posted == posted && m.ID < id));
+
+            return ((int)position, found.MessageID);
+        }
+
         (int MessagePosition, int MessageID) message;
 
         if (messageId.HasValue)
@@ -862,7 +904,7 @@ public static class MessageRepositoryExtensions
 
             if (message.MessageID > 0)
             {
-                return message;
+                return VisiblePosition(message);
             }
         }
 
@@ -898,7 +940,7 @@ public static class MessageRepositoryExtensions
 
             if (message.MessageID > 0)
             {
-                return message;
+                return VisiblePosition(message);
             }
         }
 
@@ -934,7 +976,7 @@ public static class MessageRepositoryExtensions
                     return db.Connection.Single<(int MessagePosition, int MessageID)>(expression);
                 });
 
-        return message;
+        return VisiblePosition(message);
     }
 
     /// <summary>
@@ -1194,14 +1236,30 @@ public static class MessageRepositoryExtensions
     {
         
 
+        // the flags object of the message is created for every access, it has to be kept
+        var flags = originalMessage.MessageFlags;
+
         if (overrideApproval || !forum.ForumFlags.IsModerated)
         {
-            originalMessage.MessageFlags.IsApproved = true;
+            flags.IsApproved = true;
         }
 
-        if (BoardContext.Current.GetRepository<MessageHistory>()
-            .Exists(m => m.MessageID == originalMessage.ID))
+        // -- the newest version in the history (the key of a version is the message and the time of the edit)
+        var lastEdited = BoardContext.Current.GetRepository<MessageHistory>().DbAccess.Execute(
+            db => db.Connection.Scalar<MessageHistory, DateTime?>(
+                m => Sql.Max(m.Edited),
+                m => m.MessageID == originalMessage.ID));
+
+        if (lastEdited.HasValue)
         {
+            // -- MySQL saves whole seconds: an edit in the same second as the newest version gets the next second
+            var edited = DateTime.UtcNow;
+
+            if (edited < lastEdited.Value.AddSeconds(1))
+            {
+                edited = lastEdited.Value.AddSeconds(1);
+            }
+
             // -- insert current message variant - use OriginalMessage in future
             BoardContext.Current.GetRepository<MessageHistory>().Insert(
                 new MessageHistory
@@ -1209,7 +1267,7 @@ public static class MessageRepositoryExtensions
                         MessageID = originalMessage.ID,
                         Message = originalMessage.MessageText,
                         IP = originalMessage.IP,
-                        Edited = DateTime.UtcNow,
+                        Edited = edited,
                         EditedBy = editedBy,
                         EditReason = reasonOfEdit,
                         IsModeratorChanged = originalMessage.IsModeratorChanged.Value,
@@ -1239,7 +1297,7 @@ public static class MessageRepositoryExtensions
                           MessageText = message,
                           Edited = DateTime.UtcNow,
                           EditedBy = editedBy,
-                          Flags = originalMessage.MessageFlags.BitValue,
+                          Flags = flags.BitValue,
                           IsModeratorChanged = isModeratorChanged,
                           EditReason = reasonOfEdit
                       },
@@ -1267,7 +1325,7 @@ public static class MessageRepositoryExtensions
                                 {
                                     MessageId = originalMessage.ID,
                                     Message = message,
-                                    Flags = originalMessage.Flags,
+                                    Flags = flags.BitValue,
                                     Posted = originalMessage.Posted.ToString(CultureInfo.InvariantCulture),
                                     UserName = originalMessageUser.Name,
                                     UserDisplayName = originalMessageUser.DisplayName,
@@ -1277,7 +1335,9 @@ public static class MessageRepositoryExtensions
                                     Topic = subject.IsSet() ? subject : topic.TopicName,
                                     ForumId = forum.ID,
                                     ForumName = forum.Name,
-                                    Description = description
+                                    Description = description,
+                                    TopicTags = BoardContext.Current.GetRepository<TopicTag>()
+                                        .ListAsDelimitedString(originalMessage.TopicID)
                                 };
 
         BoardContext.Current.Get<ISearch>().UpdateSearchIndexItem(updateMessage, true);
@@ -1543,6 +1603,11 @@ public static class MessageRepositoryExtensions
                     x => x.TopicID == topicId && x.ID == replyMessage.ID);
             }
 
+            // -- the topic has no answer anymore (the link to the answer showed an error)
+            BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+                () => new Topic { AnswerMessageId = null },
+                x => x.ID == topicId && x.AnswerMessageId == message.ID);
+
             // -- finally delete the message we want to delete
             repository.DeleteById(message.ID);
 
@@ -1641,12 +1706,8 @@ public static class MessageRepositoryExtensions
         if (!BoardContext.Current.GetRepository<Forum>()
                 .Exists(f => f.ID == forumId && (f.Flags & 4) == 4))
         {
-            var postCount = repository.Count(
-                x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16).ToType<int>();
-
-            BoardContext.Current.GetRepository<User>().UpdateOnly(
-                () => new User { NumPosts = postCount },
-                u => u.ID == message.UserID);
+            // the posts of test forums are not counted
+            repository.UpdateUserPostCount(message.UserID);
         }
 
         try
@@ -1750,14 +1811,27 @@ public static class MessageRepositoryExtensions
             BoardContext.Current.GetRepository<Topic>().Delete(forumId, message.TopicID, true);
         }
 
-        // -- update topic Post Count
-        BoardContext.Current.GetRepository<Topic>().UpdateAdd(
-            () => new Topic { NumPosts = -1 },
-            x => x.ID == message.TopicID);
+        // -- update topic Post Count (deleted posts are not counted)
+        repository.UpdateTopicPostCount(message.TopicID);
+        repository.UpdateTopicPostCount(moveToTopicId);
+    }
 
-        BoardContext.Current.GetRepository<Topic>().UpdateAdd(
-            () => new Topic { NumPosts = 1 },
-            x => x.ID == moveToTopicId);
+    /// <summary>
+    /// Counts the posts of the topic again (deleted posts are not counted).
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic id.
+    /// </param>
+    private static void UpdateTopicPostCount(this IRepository<Message> repository, int topicId)
+    {
+        var numPosts = repository.Count(m => m.TopicID == topicId && (m.Flags & 8) != 8).ToType<int>();
+
+        BoardContext.Current.GetRepository<Topic>().UpdateOnly(
+            () => new Topic { NumPosts = numPosts },
+            x => x.ID == topicId);
     }
 
     private static int GetMessageCount(
@@ -1785,5 +1859,104 @@ public static class MessageRepositoryExtensions
 
                     return db.Connection.SqlScalar<int>(countTotalExpression);
                 });
+    }
+
+    /// <summary>
+    /// Updates the search index entries of the posts of a topic after the topic or posts were moved: the entries
+    /// keep the topic and the forum, the read access is checked with the forum of the entry (a topic moved to a
+    /// forum the users can't read was still found).
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="topicId">
+    /// The topic id.
+    /// </param>
+    public static void UpdateSearchIndexOfTopic(this IRepository<Message> repository, int topicId)
+    {
+        var topic = BoardContext.Current.GetRepository<Topic>().GetById(topicId);
+
+        if (topic is null)
+        {
+            return;
+        }
+
+        var forum = BoardContext.Current.GetRepository<Forum>().GetById(topic.ForumID);
+
+        if (forum is null)
+        {
+            return;
+        }
+
+        var tags = BoardContext.Current.GetRepository<TopicTag>().ListAsDelimitedString(topicId);
+
+        // deleted posts are removed from the index
+        repository.Get(m => m.TopicID == topicId && (m.Flags & 8) != 8).ForEach(
+            message =>
+            {
+                var user = BoardContext.Current.GetRepository<User>().GetById(message.UserID);
+
+                if (user is null)
+                {
+                    return;
+                }
+
+                try
+                {
+                    BoardContext.Current.Get<ISearch>().UpdateSearchIndexItem(
+                        new SearchMessage
+                            {
+                                MessageId = message.ID,
+                                Message = message.MessageText,
+                                Flags = message.Flags,
+                                Posted = message.Posted.ToString(CultureInfo.InvariantCulture),
+                                UserName = user.Name,
+                                UserDisplayName = user.DisplayName,
+                                UserStyle = user.UserStyle,
+                                UserId = message.UserID,
+                                TopicId = message.TopicID,
+                                Topic = topic.TopicName,
+                                ForumId = forum.ID,
+                                ForumName = forum.Name,
+                                Description = topic.Description,
+                                TopicTags = tags
+                            },
+                        true);
+                }
+                catch (Exception ex)
+                {
+                    BoardContext.Current.Get<ILoggerService>().Log(
+                        BoardContext.Current.PageUserID,
+                        "UpdateSearchIndexOfTopic",
+                        ex);
+                }
+            });
+    }
+
+    /// <summary>
+    /// Counts the posts of the user again: approved, not deleted posts outside of test forums.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    public static void UpdateUserPostCount(this IRepository<Message> repository, int userId)
+    {
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+        expression.Join<Topic>((m, t) => t.ID == m.TopicID);
+        expression.Join<Topic, Forum>((t, f) => f.ID == t.ForumID);
+
+        expression.Where<Message, Topic, Forum>(
+            (m, t, f) => m.UserID == userId && (m.Flags & 8) != 8 && (m.Flags & 16) == 16
+                         && (f.Flags & 4) != 4);
+
+        var postCount = repository.DbAccess.Execute(db => db.Connection.Count(expression)).ToType<int>();
+
+        BoardContext.Current.GetRepository<User>().UpdateOnly(
+            () => new User { NumPosts = postCount },
+            u => u.ID == userId);
     }
 }

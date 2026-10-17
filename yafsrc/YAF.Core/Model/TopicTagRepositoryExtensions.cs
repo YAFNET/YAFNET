@@ -76,12 +76,21 @@ public static class TopicTagRepositoryExtensions
 
         var boardTags = BoardContext.Current.GetRepository<Tag>().GetByBoardId();
 
+        // a tag entered twice is added once (the topic tag has a primary key of tag and topic)
+        var added = new HashSet<string>();
+
         tags.ForEach(
             tag =>
             {
-                tag = HtmlTagHelper.StripHtml(tag);
+                tag = HtmlTagHelper.StripHtml(tag).Trim();
 
-                if (tag.IsNotSet())
+                // MySQL creates the column with 255 characters
+                if (tag.Length > 255)
+                {
+                    tag = tag.Substring(0, 255).Trim();
+                }
+
+                if (tag.IsNotSet() || !added.Add(tag))
                 {
                     return;
                 }
@@ -105,6 +114,8 @@ public static class TopicTagRepositoryExtensions
                 {
                     // save new Tag
                     var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+
+                    boardTags.Add(new Tag { ID = newTagId, TagName = tag });
 
                     // add to topic
                     repository.Add(newTagId, topicId);
@@ -135,10 +146,25 @@ public static class TopicTagRepositoryExtensions
     }
 
     /// <summary>
-    /// Lists all topic tags by topic.
+    /// Lists the tags of the topic as comma separated string.
     /// </summary>
     /// <param name="repository">The repository.</param>
-    /// <returns>List with all tags as delimited string.</returns>
+    /// <param name="topicId">The topic id.</param>
+    /// <returns>The tags of the topic, separated by comma.</returns>
+    public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
+    {
+        return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
+    }
+
+    /// <summary>
+    /// Lists the tags of all topics (the tags of a topic as comma separated string).
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <returns>
+    /// The topics (the topic id as id) with their tags.
+    /// </returns>
     public static List<Tag> ListAll(
         this IRepository<TopicTag> repository)
     {

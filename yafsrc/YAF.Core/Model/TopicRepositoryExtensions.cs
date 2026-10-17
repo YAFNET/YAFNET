@@ -278,23 +278,30 @@ public static class TopicRepositoryExtensions
         return repository.DbAccess.Execute(
             db =>
                 {
+                    // only topics of forums the user (still) can read, the list shows the last post
                     expression.Join<User>((t, u) => u.ID == t.UserID)
                         .Join<Topic>((a, b) => b.ID == a.TopicID).Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
-                        .Where<WatchTopic>(b => b.UserID == userId);
+                        .Join<Topic, ActiveAccess>((t, x) => x.ForumID == t.ForumID)
+                        .Where<WatchTopic>(b => b.UserID == userId)
+                        .And<ActiveAccess>(x => x.UserID == userId && x.ReadAccess);
 
                     expression.Where(whereCriteria);
 
-                    // -- count total
-                    var countTotalExpression = db.Connection.From<Topic>().Join<Forum>((t, f) => f.ID == t.ForumID)
-                        .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID)
-                        .Join<Forum, Category>((f, c) => c.ID == f.CategoryID);
+                    // -- count total (the user's watched topics, same filter as the list).
+                    // The parameters are inlined, otherwise they would be bound to the outer query's parameters.
+                    var countTotalExpression = db.Connection.From<WatchTopic>().Join<Topic>((w, t) => t.ID == w.TopicID)
+                        .Join<Topic, Forum>((t, f) => f.ID == t.ForumID)
+                        .Join<Topic, ActiveAccess>((t, x) => x.ForumID == t.ForumID)
+                        .Where<WatchTopic>(w => w.UserID == userId)
+                        .And<ActiveAccess>(x => x.UserID == userId && x.ReadAccess);
 
                     countTotalExpression.Where(whereCriteria);
 
                     expression.OrderByDescending<Topic>(t => t.LastPosted).Page(pageIndex + 1, pageSize);
 
                     var countTotalSql = countTotalExpression
-                        .Select(Sql.Count($"{countTotalExpression.Column<Topic>(x => x.ID)}")).ToSelectStatement();
+                        .Select(Sql.Count($"{countTotalExpression.Column<Topic>(x => x.ID, true)}"))
+                        .ToMergedParamsSelectStatement();
 
                     // -- count deleted posts
                     var countDeletedExpression = db.Connection.From<Message>(db.Connection.TableAlias("mes"));
@@ -1210,7 +1217,8 @@ public static class TopicRepositoryExtensions
             // -- delete an old link if exists
             repository.Delete(t => t.TopicMovedID == topic.ID);
 
-            var linkDate = DateTime.UtcNow.AddDays(linkDays);
+            // the days are sent by the client: at least one day, a huge value would fail
+            var linkDate = DateTime.UtcNow.AddDays(Math.Min(Math.Max(linkDays, 1), 36500));
 
             // -- create a moved message
             repository.Insert(
@@ -1235,6 +1243,9 @@ public static class TopicRepositoryExtensions
 
         // -- move the topic
         repository.UpdateOnly(() => new Topic { ForumID = newForumId }, t => t.ID == topic.ID);
+
+        // the search index has the forum of the posts (the read access is checked with it)
+        BoardContext.Current.GetRepository<Message>().UpdateSearchIndexOfTopic(topic.ID);
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(newForumId));
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(oldForumId));
@@ -1268,6 +1279,9 @@ public static class TopicRepositoryExtensions
         int days,
         bool permDelete)
     {
+        // 0 or a negative number of days would remove all topics
+        days = Math.Max(days, 1);
+
         var topics = repository.DbAccess.Execute(
             db =>
                 {
@@ -1294,10 +1308,17 @@ public static class TopicRepositoryExtensions
                                                                     OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {days}
                          """);
 
+                    if (!permDelete)
+                    {
+                        // already soft deleted topics are only removed for good
+                        expression.And(t => (t.Flags & 8) != 8);
+                    }
+
                     return db.Connection.Select(expression);
                 });
 
-        topics.ForEach(x => repository.Delete(forumId, x.ID, permDelete));
+        // the forum of each topic (forum id 0 prunes all forums)
+        topics.ForEach(x => repository.Delete(x.ForumID, x.ID, permDelete));
 
         return topics.Count;
     }
@@ -1406,6 +1427,11 @@ public static class TopicRepositoryExtensions
                         return db.Connection.ExecuteSql(
                             $@" update {expression.Table<Message>()} set Flags = Flags | 8 where TopicID = {topicId}");
                     });
+
+            // the deleted posts are not counted anymore (like when a post is deleted)
+            BoardContext.Current.GetRepository<Message>().Get(m => m.TopicID == topicId).Select(m => m.UserID)
+                .Distinct().ToList().ForEach(
+                    authorId => BoardContext.Current.GetRepository<Message>().UpdateUserPostCount(authorId));
         }
 
         BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);

@@ -326,10 +326,13 @@ public partial class DisplayPost : BaseUserControl
             // Check for duplicates
             var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageBoardContext.PageTopicID);
 
-            if (answerMessageId != null)
-            {
-                var message = this.GetRepository<Message>().GetById(answerMessageId.Value);
+            // the previous answer can be erased (then the topic got no new answer)
+            var message = answerMessageId is null
+                              ? null
+                              : this.GetRepository<Message>().GetById(answerMessageId.Value);
 
+            if (message != null)
+            {
                 var oldMessageFlags = new MessageFlags(message.Flags) { IsAnswer = false };
 
                 this.GetRepository<Message>().UpdateFlags(message.ID, oldMessageFlags.BitValue);
