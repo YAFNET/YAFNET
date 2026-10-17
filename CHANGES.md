@@ -301,6 +301,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Friends: a removed friend was still shown in the friend list (the approved request of the friend was listed as friendship)
 * [FIXED] Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
 * [FIXED] Members: a number of posts that is too big for a number showed an error page
+* [FIXED] Security: the buttons of the forum (ThemeButton) did not use the event validation, a made up post could click a button that was not shown to the user (e.g. hidden for the user's rights or a turned off feature like the avatar upload)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

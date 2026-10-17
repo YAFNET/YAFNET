@@ -398,6 +398,9 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// </param>
     void IPostBackEventHandler.RaisePostBackEvent(string eventArgument)
     {
+        // only a button that was shown (and enabled) on the page, the button of the event is sent by the client
+        this.Page.ClientScript.ValidateEvent(this.UniqueID, eventArgument);
+
         if (this.CausesValidation)
         {
             if (this.ValidationGroup.IsSet())
@@ -503,7 +506,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
                 "href",
                 this.NavigateUrl.IsSet()
                     ? this.NavigateUrl.Replace("&", "&amp;")
-                    : this.Page.ClientScript.GetPostBackClientHyperlink(this, string.Empty));
+                    : this.Page.ClientScript.GetPostBackClientHyperlink(this, string.Empty, this.Enabled));
         }
 
         // handle additional attributes (if any)
