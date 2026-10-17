@@ -189,6 +189,25 @@ public class RepositoryTests
     }
 
     [Test]
+    [Description("A topic or forum is watched once, watching it again (e.g. from a second tab) does not fail")]
+    public void Watch_Twice_Test()
+    {
+        var db = this.board.Database;
+        var user = db.AddUser("Watcher");
+        var forum = db.AddForum("Watched");
+        var topic = db.AddTopic(forum, user);
+
+        this.Repository<WatchTopic>().Add(user, topic);
+        this.Repository<WatchTopic>().Invoking(r => r.Add(user, topic)).Should().NotThrow();
+
+        this.Repository<WatchForum>().Add(user, forum);
+        this.Repository<WatchForum>().Invoking(r => r.Add(user, forum)).Should().NotThrow();
+
+        this.Repository<WatchTopic>().Count(w => w.UserID == user).Should().Be(1);
+        this.Repository<WatchForum>().Count(w => w.UserID == user).Should().Be(1);
+    }
+
+    [Test]
     [Description("The legacy settings are deleted also when they were saved in mixed case")]
     public void Registry_DeleteLegacy_Test()
     {

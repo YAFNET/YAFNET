@@ -50,6 +50,12 @@ public static class WatchForumRepositoryExtensions
     {
         
 
+        // a forum is watched once (watching it again, e.g. from a second tab, failed with an error)
+        if (repository.Exists(w => w.ForumID == forumId && w.UserID == userId))
+        {
+            return;
+        }
+
         var watchForum = new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow };
 
         repository.Insert(watchForum);

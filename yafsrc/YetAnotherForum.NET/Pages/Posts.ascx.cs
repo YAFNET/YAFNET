@@ -442,6 +442,12 @@ public partial class Posts : ForumPage
     /// </param>
     protected void TrackTopicClick(object sender, EventArgs e)
     {
+        // guests are all the same user, they can't watch topics
+        if (this.PageBoardContext.IsGuest)
+        {
+            return;
+        }
+
         this.GetRepository<WatchTopic>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
         this.PageBoardContext.Notify(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
 

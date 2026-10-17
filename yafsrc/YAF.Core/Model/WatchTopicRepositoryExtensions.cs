@@ -44,6 +44,12 @@ public static class WatchTopicRepositoryExtensions
     {
         
 
+        // a topic is watched once (watching it again, e.g. from a second tab, failed with an error)
+        if (repository.Exists(w => w.TopicID == topicId && w.UserID == userId))
+        {
+            return;
+        }
+
         var watchTopic = new WatchTopic { TopicID = topicId, UserID = userId, Created = DateTime.UtcNow };
 
         repository.Insert(watchTopic);

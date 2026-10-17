@@ -227,6 +227,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] MySQL: a custom profile field with a name or default value longer than 255 characters was not saved (Admin -> Profile Definitions), the inputs are limited to the length of their columns
 * [FIXED] Admin -> Edit Group and Edit Rank: a new or renamed group or rank with the name of an existing one failed with an error (the name is unique in the board); it is refused with a warning now
 * [FIXED] Board index: "Watch all forums" watched nothing (the forums were filtered by an empty category) and "Mark all forums read" only marked the forums loaded so far (the first 20, the others are loaded with "show more"); both use all forums the user can read (of the shown category) now, guests are refused
+* [FIXED] Watching an already watched topic or forum again (e.g. from a second tab) failed with an error (the subscription is unique), and guests could watch topics with a sent form; a topic or forum is watched once and guests are refused
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
