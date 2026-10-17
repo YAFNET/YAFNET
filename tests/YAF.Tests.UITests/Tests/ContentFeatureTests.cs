@@ -253,6 +253,9 @@ public class ContentFeatureTests : ForumTestBase
                 RegexOptions.IgnoreCase)
             .Groups[1].Value;
 
+        // the upload dialog is closed (it covers the button while it fades out)
+        await this.Page.Locator(".modal.show").WaitForAsync(new () { State = WaitForSelectorState.Detached });
+
         await this.ClickAndWaitAsync(this.Control("PostReply"));
 
         await this.GotoAsync("Topics/1-Test Forum");

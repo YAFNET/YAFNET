@@ -108,7 +108,7 @@ public class AdminAccessTests : ForumTestBase
         // the user select (the access masks are a select of the same kind)
         var userSelect = this.Page.Locator("#ModForumUserDialog .choices:has(#UserSelect)");
         await userSelect.ClickAsync();
-        await userSelect.Locator(".choices__input--cloned").PressSequentiallyAsync(userName);
+        await userSelect.Locator(".choices__input--cloned").FillAsync(userName);
         await userSelect.Locator(".choices__item--choice", new LocatorLocatorOptions { HasTextString = userName }).ClickAsync();
 
         await this.Control("ModForumUserDialog_AccessMaskID").SelectOptionAsync(

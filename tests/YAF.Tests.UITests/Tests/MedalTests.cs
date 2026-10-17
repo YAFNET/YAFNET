@@ -133,7 +133,7 @@ public class MedalTests : ForumTestBase
             new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
 
         await this.Page.Locator("#UserEditDialog .choices").ClickAsync();
-        await this.Page.Locator("#UserEditDialog .choices__input--cloned").PressSequentiallyAsync(userName);
+        await this.Page.Locator("#UserEditDialog .choices__input--cloned").FillAsync(userName);
         await this.Page.Locator("#UserEditDialog .choices__item--choice", new PageLocatorOptions { HasTextString = userName })
             .ClickAsync();
 
