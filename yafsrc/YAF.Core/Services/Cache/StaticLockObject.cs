@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services.Cache;
 
+using System.Threading;
+
 /// <summary>
 /// The static lock object.
 /// </summary>
@@ -58,18 +60,12 @@ public class StaticLockObject : IHaveLockObject
     /// </returns>
     public object Get(string originalKey)
     {
-        var keyHash = originalKey.GetHashCode();
+        // get the lock item id (value between 0 and objectCount), unsigned so int.MinValue works too
+        var lockItemId = (int)((uint)originalKey.GetHashCode() % LockObjectCount);
 
-        // make positive if negative...
-        if (keyHash < 0)
-        {
-            keyHash = -keyHash;
-        }
-
-        // get the lock item id (value between 0 and objectCount)
-        var lockItemId = keyHash % LockObjectCount;
-
-        // init the lock object if it hasn't been created yet...
-        return this.LockCacheItems[lockItemId] ?? (this.LockCacheItems[lockItemId] = new object());
+        // init the lock object if it hasn't been created yet, thread safe so every thread gets the same object
+        return this.LockCacheItems[lockItemId]
+               ?? Interlocked.CompareExchange(ref this.LockCacheItems[lockItemId], new object(), null)
+               ?? this.LockCacheItems[lockItemId];
     }
 }

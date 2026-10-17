@@ -178,6 +178,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Missing translations were shown as empty text, translations without a text did not fall back to English
 * [FIXED] A new installation on SQL Server, SQLite or PostgreSQL did not create the identity tables (AspNetUsers etc.), they were only created for MySQL
 * [FIXED] User claims were stored with the value type instead of the claim type and could not be removed
+* [FIXED] The lock objects of the cache were created without synchronization (parallel requests could load the same cache entry at the same time), a key with the hash int.MinValue caused an error
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
