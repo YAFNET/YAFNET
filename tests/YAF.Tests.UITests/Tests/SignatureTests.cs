@@ -27,6 +27,8 @@ namespace YAF.Tests.UITests.Tests;
 using System;
 using System.Threading.Tasks;
 
+using Microsoft.Playwright;
+
 using YAF.Tests.UITests.Infrastructure;
 
 /// <summary>
@@ -59,6 +61,70 @@ public class SignatureTests : ForumTestBase
         await this.SaveAsync(string.Empty);
         await this.GotoAsync("Profile/EditSignature");
         (await this.Control("SignatureEditor_YafTextEditor").InputValueAsync()).Should().BeEmpty();
+    }
+
+    [Test]
+    [Description("The preview shows the signature (a forbidden bb code and a too long one are refused), a spam word is logged, cancel goes to the profile")]
+    public async Task Preview_Spam_And_Cancel_Test()
+    {
+        var member = $"Sgp{DateTime.UtcNow:HHmmssfff}";
+        var word = $"spamsig{Guid.NewGuid():N}".Substring(0, 15);
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        // a spam word, the bots are logged
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("Admin/SpamWords");
+        await this.ClickAndWaitAsync(
+            this.Page.Locator("a", new PageLocatorOptions { HasTextString = "Add New Word" })
+                .Filter(new LocatorFilterOptions { Visible = true }).First);
+        await this.Page.Locator("[id$='_EditDialog_Save']").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+        await this.Control("EditDialog_spamword").FillAsync(word);
+        await this.ClickAndWaitAsync(this.Control("EditDialog_Save"));
+        await this.SetBotHandlingAsync("1");
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+            await this.PreviewAsync("[url=https://example.com]My preview[/url]");
+            (await this.Page.InnerTextAsync("body")).Should().Contain("My preview");
+
+            await this.PreviewAsync("[b]bold[/b]");
+            (await this.Page.ContentAsync()).Should().Contain("toast-body");
+
+            await this.PreviewAsync(new string('x', 300));
+            (await this.Page.ContentAsync()).Should().Contain("toast-body");
+
+            // the spam word is logged, the signature is saved
+            await this.SaveAsync($"Visit {word}");
+            await this.GotoAsync("Profile/EditSignature");
+            (await this.Control("SignatureEditor_YafTextEditor").InputValueAsync()).Should().Contain(word);
+
+            await this.ClickAndWaitAsync(this.Control("SignatureEditor_cancel"));
+            this.Page.Url.Should().Contain("MyAccount");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetBotHandlingAsync("0");
+        }
+    }
+
+    private async Task PreviewAsync(string signature)
+    {
+        await this.GotoAsync("Profile/EditSignature");
+
+        await this.Control("SignatureEditor_YafTextEditor").EvaluateAsync("e => e.removeAttribute('maxlength')");
+        await this.Control("SignatureEditor_YafTextEditor").FillAsync(signature);
+        await this.ClickAndWaitAsync(this.Control("SignatureEditor_preview"));
+    }
+
+    private async Task SetBotHandlingAsync(string value)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("BotHandlingOnRegister").EvaluateAsync("(e, v) => e.value = v", value);
+        await this.ClickAndWaitAsync(this.Control("Save"));
     }
 
     private async Task SaveAsync(string signature)
