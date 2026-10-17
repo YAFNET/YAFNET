@@ -12268,6 +12268,10 @@
             "#text": "Từ:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Tên này thuộc về một thành viên đã đăng ký, vui lòng nhập tên khác."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Tên người dùng khách không được nhiều hơn 100 ký tự."
           },

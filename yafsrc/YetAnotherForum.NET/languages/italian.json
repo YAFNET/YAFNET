@@ -12252,6 +12252,10 @@
             "#text": "Da:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Questo nome appartiene a un membro registrato, inserisci un altro nome."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Il nome dell'utente ospite non può essere più lungo di 100 caratteri."
           },

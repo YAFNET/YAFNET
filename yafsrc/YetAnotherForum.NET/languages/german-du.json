@@ -12252,6 +12252,10 @@
             "#text": "Von:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Dieser Name gehört einem registrierten Mitglied, bitte gib einen anderen Namen ein."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Gast Benutzername darf nicht mehr als 10 Zeichen lang sein."
           },

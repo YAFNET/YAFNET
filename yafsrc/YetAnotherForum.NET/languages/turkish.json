@@ -12268,6 +12268,10 @@
             "#text": "Kimden:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Bu ad kayıtlı bir üyeye ait, lütfen başka bir ad girin."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Misafir Kullanıcı Adı 100 karakterden fazla olamaz."
           },

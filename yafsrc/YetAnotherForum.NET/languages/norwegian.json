@@ -12268,6 +12268,10 @@
             "#text": "Fra:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Dette navnet tilhører et registrert medlem, skriv inn et annet navn."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Gjestebrukernavnet kan ikke være mer enn 100 tegn."
           },

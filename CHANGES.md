@@ -80,6 +80,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Approving or restoring a post did not update the search index, approved posts kept their not approved flags and restored posts were only found again after rebuilding the index
 * [FIXED] A too long guest name was replaced with the characters after the first 100 instead of being shortened to 100 characters (post topic, post and edit message)
 * [FIXED] Security: The registration showed a warning for a display name that is already used but registered the user anyway (other users could be impersonated), and a display name (registration, profile and admin edit user) was not checked like the user name, so a user could use the guest name, a bad word or a name with a semicolon; the rules are now in UserHelper.IsAllowedName and used everywhere
+* [FIXED] Post topic / reply / edit as guest: a guest could post with the user name or display name of a member (the post looked like a post of the member), and a guest who cleared the name field posted with an empty name (the name of the guest user is used now)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

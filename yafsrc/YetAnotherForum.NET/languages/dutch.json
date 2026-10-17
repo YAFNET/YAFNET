@@ -12252,6 +12252,10 @@
             "#text": "Van:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Deze naam is van een geregistreerd lid, voer een andere naam in."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Gast-naam kan niet langer zijn dan 100 tekens."
           },

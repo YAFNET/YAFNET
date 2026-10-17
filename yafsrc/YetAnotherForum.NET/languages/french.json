@@ -12268,6 +12268,10 @@
             "#text": "De&nbsp;:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Ce nom appartient à un membre inscrit, veuillez saisir un autre nom."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Le nom d'utilisateur de l'invité ne peut pas comporter plus de 100 caractères."
           },

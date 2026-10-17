@@ -87,6 +87,12 @@ public partial class EditMessage : ForumPage
             return false;
         }
 
+        // a guest without a name posts with the name of the guest user
+        if (this.PageBoardContext.IsGuest && this.From.Text.IsNotSet())
+        {
+            this.From.Text = this.PageBoardContext.PageUser.DisplayOrUserName();
+        }
+
         // Check if the Entered Guest Username is not too long
         if (this.FromRow.Visible && this.From.Text.Trim().Length > 100)
         {
@@ -94,6 +100,14 @@ public partial class EditMessage : ForumPage
 
             // the first 100 characters (not the rest after them)
             this.From.Text = this.From.Text.Trim().Substring(0, 100);
+            return false;
+        }
+
+        // a guest can't use the name of a member (the post looked like a post of the member)
+        if (this.PageBoardContext.IsGuest
+            && UserHelper.IsMemberName(this.From.Text, this.PageBoardContext.PageBoardID))
+        {
+            this.PageBoardContext.Notify(this.GetText("POSTMESSAGE", "GUEST_NAME_EXISTS"), MessageTypes.warning);
             return false;
         }
 

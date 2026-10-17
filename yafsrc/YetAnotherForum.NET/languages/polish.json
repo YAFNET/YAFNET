@@ -12256,6 +12256,10 @@
             "#text": "Od:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Ta nazwa należy do zarejestrowanego użytkownika, wpisz inną nazwę."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Nazwa gościa nie może być dłuższa niż 100 znaków."
           },

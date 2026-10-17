@@ -12268,6 +12268,10 @@
             "#text": "Od:"
           },
           {
+            "@tag": "GUEST_NAME_EXISTS",
+            "#text": "Toto meno patrí registrovanému členovi, zadajte prosím iné meno."
+          },
+          {
             "@tag": "GUEST_NAME_TOOLONG",
             "#text": "Používateľské meno hosťa nemôže mať viac ako 100 znakov."
           },
