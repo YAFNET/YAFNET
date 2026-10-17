@@ -90,10 +90,14 @@ public partial class Pm : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     private void CommitClick(object sender, EventArgs e)
     {
-        this.GetRepository<PMessage>().PruneAll(
-            this.PageBoardContext.PageBoardID,
-            this.Days1.Text.ToType<int>(),
-            this.Days2.Text.ToType<int>());
+        if (!int.TryParse(this.Days1.Text.Trim(), out var daysRead)
+            || !int.TryParse(this.Days2.Text.Trim(), out var daysUnread))
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"), MessageTypes.warning);
+            return;
+        }
+
+        this.GetRepository<PMessage>().PruneAll(this.PageBoardContext.PageBoardID, daysRead, daysUnread);
 
         this.BindData();
     }

@@ -52,6 +52,12 @@ public partial class BBCode_Edit : AdminPage
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected void Add_Click(object sender, EventArgs e)
     {
+        if (!short.TryParse(this.txtExecOrder.Text.Trim(), out var execOrder) || execOrder < 0)
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_BBCODE_EDIT", "MSG_NUMBER"), MessageTypes.warning);
+            return;
+        }
+
         // an invalid search expression would skip the bb code in all posts
         if (this.txtSearchRegEx.Text.IsSet() && !ValidationHelper.IsValidRegex(this.txtSearchRegEx.Text))
         {
@@ -75,7 +81,7 @@ public partial class BBCode_Edit : AdminPage
             this.chkUseModule.Checked,
             this.UseToolbar.Checked,
             this.txtModuleClass.Text,
-            this.txtExecOrder.Text.ToType<short>());
+            execOrder);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
     }

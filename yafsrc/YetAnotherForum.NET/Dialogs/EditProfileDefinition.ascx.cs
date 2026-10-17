@@ -122,6 +122,14 @@ public partial class EditProfileDefinition : BaseUserControl
             return;
         }
 
+        if (!int.TryParse(this.Length.Text.Trim(), out var length) || length < 1)
+        {
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_EDIT_PROFILEDEFINITION", "NEED_LENGTH"),
+                MessageTypes.warning);
+            return;
+        }
+
         this.GetRepository<ProfileDefinition>().Upsert(
             new ProfileDefinition
                 {
@@ -130,7 +138,7 @@ public partial class EditProfileDefinition : BaseUserControl
                     Name = this.Name.Text,
                     DataType = this.DataTypes.SelectedValue,
                     DefaultValue = this.DefaultValue.Text,
-                    Length = this.Length.Text.ToType<int>(),
+                    Length = length,
                     Required = this.Required.Checked,
                     ShowInUserInfo = this.ShowInUserInfo.Checked,
                     ShowOnRegisterPage = this.ShowOnRegisterPage.Checked

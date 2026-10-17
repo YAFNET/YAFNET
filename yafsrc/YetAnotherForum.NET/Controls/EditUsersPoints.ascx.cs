@@ -48,7 +48,12 @@ public partial class EditUsersPoints : BaseUserControl
     /// </param>
     protected void AddPoints_Click(object sender, EventArgs e)
     {
-        this.GetRepository<User>().AddPoints(this.User.ID, null, this.txtAddPoints.Text.ToType<int>());
+        if (!this.TryGetPoints(this.txtAddPoints, "ADD_POINTS", out var points))
+        {
+            return;
+        }
+
+        this.GetRepository<User>().AddPoints(this.User.ID, null, points);
 
         this.BindData();
     }
@@ -83,10 +88,12 @@ public partial class EditUsersPoints : BaseUserControl
     /// </param>
     protected void RemovePoints_Click(object sender, EventArgs e)
     {
-        this.GetRepository<User>().RemovePoints(
-            this.User.ID,
-            null,
-            this.txtRemovePoints.Text.ToType<int>());
+        if (!this.TryGetPoints(this.txtRemovePoints, "REMOVE_POINTS", out var points))
+        {
+            return;
+        }
+
+        this.GetRepository<User>().RemovePoints(this.User.ID, null, points);
         this.BindData();
     }
 
@@ -101,9 +108,37 @@ public partial class EditUsersPoints : BaseUserControl
     /// </param>
     protected void SetUserPoints_Click(object sender, EventArgs e)
     {
-        this.GetRepository<User>().SetPoints(this.User.ID, this.txtUserPoints.Text.ToType<int>());
+        if (!this.TryGetPoints(this.txtUserPoints, "SET_POINTS", out var points))
+        {
+            return;
+        }
+
+        this.GetRepository<User>().SetPoints(this.User.ID, points);
 
         this.BindData();
+    }
+
+    /// <summary>
+    /// Gets the points of the field (a value that is not a number is refused).
+    /// </summary>
+    /// <param name="field">The field.</param>
+    /// <param name="labelTag">The tag of the label of the field.</param>
+    /// <param name="points">The points.</param>
+    /// <returns>Returns if the value is a number.</returns>
+    private bool TryGetPoints(TextBox field, string labelTag, out int points)
+    {
+        if (int.TryParse(field.Text.Trim(), out points))
+        {
+            return true;
+        }
+
+        this.PageBoardContext.Notify(
+            string.Format(
+                this.GetText("EDIT_PROFILE", "NEED_CUSTOM_NUMBER"),
+                this.GetText("ADMIN_EDITUSER", labelTag).TrimEnd(':')),
+            MessageTypes.warning);
+
+        return false;
     }
 
     /// <summary>

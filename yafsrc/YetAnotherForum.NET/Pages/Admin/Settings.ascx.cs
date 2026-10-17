@@ -111,10 +111,18 @@ public partial class Settings : AdminPage
         boardSettings.DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
         boardSettings.DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
         boardSettings.DefaultCollapsiblePanelState = this.DefaultCollapsiblePanelState.SelectedValue.ToEnum<CollapsiblePanelState>();
-        boardSettings.PageSizeDefault = this.DefaultPageSize.Text.ToType<int>();
+        // an invalid number keeps the setting
+        if (int.TryParse(this.DefaultPageSize.Text.Trim(), out var pageSize) && pageSize > 0)
+        {
+            boardSettings.PageSizeDefault = pageSize;
+        }
+
         boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
         boardSettings.ForumEmail = this.ForumEmail.Text;
-        boardSettings.DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>();
+        if (int.TryParse(this.DigestSendEveryXHours.Text.Trim(), out var digestHours))
+        {
+            boardSettings.DigestSendEveryXHours = digestHours;
+        }
 
         if (this.BoardLogo.SelectedIndex > 0)
         {

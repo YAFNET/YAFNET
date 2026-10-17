@@ -211,7 +211,8 @@ public partial class EditGroup : AdminPage
             return;
         }
 
-        if (!ValidationHelper.IsValidInt(this.Priority.Text.Trim()))
+        // the priority is a small number
+        if (!short.TryParse(this.Priority.Text.Trim(), out _))
         {
             this.PageBoardContext.Notify(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"), MessageTypes.warning);
             return;

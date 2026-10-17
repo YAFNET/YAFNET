@@ -126,7 +126,18 @@ public partial class EditRank : AdminPage
             return;
         }
 
-        if (!ValidationHelper.IsValidInt(this.RankPriority.Text.Trim()))
+        if (!int.TryParse(this.MinPosts.Text.Trim(), out var minPosts))
+        {
+            this.PageBoardContext.Notify(
+                string.Format(
+                    this.GetText("EDIT_PROFILE", "NEED_CUSTOM_NUMBER"),
+                    this.GetText("ADMIN_EDITRANK", "MIN_POSTS").TrimEnd(':')),
+                MessageTypes.danger);
+            return;
+        }
+
+        // the priority is a small number
+        if (!short.TryParse(this.RankPriority.Text.Trim(), out _))
         {
             this.PageBoardContext.Notify(
                 this.GetText("ADMIN_EDITRANK", "MSG_RANK_INTEGER"),
@@ -179,7 +190,7 @@ public partial class EditRank : AdminPage
             this.PageBoardContext.PageBoardID,
             rankName,
             new RankFlags { IsStart = this.IsStart.Checked, IsLadder = this.IsLadder.Checked },
-            this.MinPosts.Text.ToType<int>(),
+            minPosts,
             this.PMLimit.Text.Trim().ToType<int>(),
             this.Style.Text.Trim(),
             this.RankPriority.Text.Trim().ToType<short>(),

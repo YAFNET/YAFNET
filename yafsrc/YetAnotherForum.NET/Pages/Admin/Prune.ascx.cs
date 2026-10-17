@@ -97,11 +97,17 @@ public partial class Prune : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void CommitClick(object sender, EventArgs e)
     {
+        if (!int.TryParse(this.days.Text.Trim(), out var days))
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"), MessageTypes.warning);
+            return;
+        }
+
         // the task is not started while another prune task is running
         if (!PruneTopicTask.Start(
                 this.PageBoardContext.PageBoardID,
                 this.ForumListSelected.Value.ToType<int>(),
-                this.days.Text.ToType<int>(),
+                days,
                 this.permDeleteChkBox.Checked))
         {
             this.PageBoardContext.Notify(this.GetText("ADMIN_PRUNE", "PRUNE_INFO"), MessageTypes.warning);
