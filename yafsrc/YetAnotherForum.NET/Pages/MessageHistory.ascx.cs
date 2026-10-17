@@ -162,6 +162,13 @@ public partial class MessageHistory : ForumPage
         switch (e.CommandName)
         {
             case "restore":
+                // only admins and the moderators of the forum of the post
+                if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
+                {
+                    this.Get<LinkBuilder>().AccessDenied();
+                    return;
+                }
+
                 var edited = e.CommandArgument.ToType<DateTime>();
 
                 var messageToRestore = this.GetRepository<Types.Models.MessageHistory>().GetSingle(
