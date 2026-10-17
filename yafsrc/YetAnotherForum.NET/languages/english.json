@@ -7217,7 +7217,7 @@
 					},
 					{
 						"@tag": "HIDEGROUPMOD_DESCRIPTION",
-						"#text": "Hide the Content from Guests, or other Roles if defined."
+						"#text": "Shows the content only to the members of the given roles (separated by ;), without roles to all members (not to guests)."
 					},
 					{
 						"@tag": "HIDEMOD_DESCRIPTION",

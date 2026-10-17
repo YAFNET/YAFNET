@@ -108,7 +108,7 @@
   </YafBBCode>
   <YafBBCode>
     <Name>GROUP-HIDE</Name>
-    <Description>[GROUP-HIDE][localization=HIDEGROUPMOD_DESCRIPTION]The tag hides from Guests[/localization][/GROUP-HIDE]</Description>
+    <Description>[GROUP-HIDE][localization=HIDEGROUPMOD_DESCRIPTION]Shows the content only to the members of the given roles (separated by ;), without roles to all members (not to guests).[/localization][/GROUP-HIDE]</Description>
     <OnClickJS></OnClickJS>
     <DisplayJS></DisplayJS>
     <EditJS></EditJS>
