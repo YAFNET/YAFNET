@@ -214,16 +214,20 @@ public static class EventLogRepositoryExtensions
 
         repository.Delete(x => x.EventTime < agesAgo);
 
+        // -- or if there are more than maxRows (+50 to avoid deleting on every call), trim back to maxRows
+        var total = repository.DbAccess.Execute(db => db.Connection.Count<EventLog>());
+
+        if (total < maxRows + 50)
+        {
+            return;
+        }
+
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
 
-        expression.OrderBy(x => x.EventTime).Limit(100);
+        expression.OrderBy(x => x.EventTime).ThenBy(x => x.ID).Limit((int)(total - maxRows)).Select(x => x.ID);
 
-        var entries = repository.DbAccess.Execute(db => db.Connection.Select(expression));
+        var oldestIds = repository.DbAccess.Execute(db => db.Connection.Column<int>(expression));
 
-        // -- or if there are more then 1000
-        if (entries.Count >= maxRows + 50)
-        {
-            repository.DbAccess.Execute(db => db.Connection.DeleteAll(entries));
-        }
+        repository.DbAccess.Execute(db => db.Connection.DeleteByIds<EventLog>(oldestIds));
     }
 }
