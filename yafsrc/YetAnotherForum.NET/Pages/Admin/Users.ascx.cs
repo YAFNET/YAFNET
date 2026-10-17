@@ -172,14 +172,15 @@ public partial class Users : AdminPage
     {
         var flag = new UserFlags(userFlag);
 
-        if (flag.IsApproved)
-        {
-            return string.Empty;
-        }
-
+        // the disabled check first (a disabled user is still approved)
         if (flag.IsApproved && flag.IsDeleted)
         {
             return $@"<span class=""badge text-bg-warning"">{this.GetText("ADMIN_EDITUSER","DISABLED")}</span>";
+        }
+
+        if (flag.IsApproved)
+        {
+            return string.Empty;
         }
 
         return $@"<span class=""badge text-bg-danger"">{this.GetText("NOT_APPROVED")}</span>";
