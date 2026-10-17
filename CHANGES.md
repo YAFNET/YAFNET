@@ -58,6 +58,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Message history: the history of a post that was never edited, or of a post that doesn't exist, showed an error
 * [FIXED] Event log: the log was never trimmed to the maximum number of entries (only 100 entries were checked)
 * [FIXED] Admin -> Private messages: pruning deleted the messages of all boards, 0 days deleted all messages
+* [FIXED] A new group created for a role (e.g. of an imported or external user) got the guest access to all forums (also staff forums) instead of the access of the start groups
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
