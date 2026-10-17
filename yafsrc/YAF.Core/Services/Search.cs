@@ -552,10 +552,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         }
 
         // posts that wait for approval (e.g. spam) or are deleted only for the moderators of the forum
-        var documentFlags = new MessageFlags(doc.Get("Flags").ToType<int>());
-
-        if ((!documentFlags.IsApproved || documentFlags.IsDeleted)
-            && !userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0))
+        if (IsHiddenPost(doc) && !userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0))
         {
             return null;
         }
@@ -638,7 +635,11 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             return null;
         }
 
-        this.searcherManager = this.indexWriter != null
+        // the manager of the previous search (its searcher was released), it keeps the index files open
+        this.searcherManager?.Dispose();
+
+        // the writer is disposed after the index was optimized (e.g. a search after a new post with the same instance)
+        this.searcherManager = this.indexWriter is { IsClosed: false }
                                    ? new SearcherManager(this.indexWriter, false, null)
                                    : new SearcherManager(FSDirectory.Open(SearchIndexFolder), null);
 
@@ -671,10 +672,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         }
 
         // posts that wait for approval (e.g. spam) or are deleted only for the moderators of the forum
-        var documentFlags = new MessageFlags(doc.Get("Flags").ToType<int>());
-
-        if ((!documentFlags.IsApproved || documentFlags.IsDeleted)
-            && !userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0))
+        if (IsHiddenPost(doc) && !userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0))
         {
             return null;
         }
@@ -831,10 +829,27 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             return false;
         }
 
-        var documentFlags = new MessageFlags(doc.Get("Flags").ToType<int>());
+        return !IsHiddenPost(doc) || userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0);
+    }
 
-        return documentFlags.IsApproved && !documentFlags.IsDeleted
-               || userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0);
+    /// <summary>
+    /// Checks if the post of a document waits for approval or is deleted.
+    /// </summary>
+    /// <param name="doc">The document.</param>
+    /// <returns>Returns if the post is only shown to moderators.</returns>
+    private static bool IsHiddenPost(Document doc)
+    {
+        // documents of older versions have no flags
+        var flagsValue = doc.Get("Flags");
+
+        if (flagsValue.IsNotSet())
+        {
+            return false;
+        }
+
+        var flags = new MessageFlags(flagsValue.ToType<int>());
+
+        return !flags.IsApproved || flags.IsDeleted;
     }
 
     /// <summary>

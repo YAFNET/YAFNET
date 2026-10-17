@@ -263,6 +263,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Banned IPs: behind a reverse proxy the address of the proxy was checked instead of the client address (the address saved with the posts), the bans did not work; the client address of the forwarded header is only taken from trusted proxies
 * [FIXED] Admin start page: "Approve all" approved and "Delete all" deleted also the disabled accounts (e.g. locked as inactive), which are not listed as not approved users; both only work on the listed users now
 * [FIXED] Security: The search index task (it indexes the posts in bulk) still indexed the hidden content of the posts (hide, hide-reply, hide-thanks, ...), every user could find posts by it and see it in the highlighted part of the result; it uses the same index document as a single post now
+* [FIXED] Search: a search with the search service that had just written to the index failed (the closed index writer was used), the index readers of earlier searches stayed open, and documents of older versions without flags were never found
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
