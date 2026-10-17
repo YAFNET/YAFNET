@@ -24,6 +24,7 @@
 
 namespace YAF.Tests.UITests.Tests;
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -215,4 +216,30 @@ public class SecurityTests : ForumTestBase
         links.Should().NotContain(url);
     }
 
+    [Test]
+    [Description("The api refuses the requests of a suspended user (the pages show the suspension)")]
+    public async Task Suspended_User_Api_Test()
+    {
+        var member = $"Susp{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        await this.OpenAdminEditUserAsync(member);
+        await this.Page.Locator("a.nav-link[href='#View8']").ClickAsync();
+        await this.Control("SuspendUserControl_SuspendCount").FillAsync("2");
+        await this.ClickAndWaitAsync(this.Control("SuspendUserControl_Suspend"));
+
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        var response = await this.Page.APIRequest.PostAsync(
+            $"{TestConfig.BaseUrl}api/ThankYou/AddThanks/1",
+            new APIRequestContextOptions
+                {
+                    Headers = new Dictionary<string, string> { ["Content-Type"] = "application/json;charset=utf-8" },
+                    Data = "{}"
+                });
+
+        response.Status.Should().Be(403);
+    }
 }

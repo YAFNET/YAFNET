@@ -64,5 +64,8 @@ public static class WebApiConfig
 
         // the api requests of other web sites with the login cookie of the user are refused
         config.Filters.Add(new CrossSiteRequestFilter());
+
+        // and the api requests of suspended users
+        config.Filters.Add(new SuspendedUserFilter());
     }
 }

@@ -31,6 +31,7 @@ using System.IO;
 using System.Web.Script.Serialization;
 using System.Web.SessionState;
 
+using YAF.Core.Context.Start;
 using YAF.Core.Model;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -144,7 +145,8 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
         var yafUserId = BoardContext.Current.PageUserID;
         var uploadFolder = BoardContext.Current.Get<BoardFolders>().Uploads;
 
-        if (!BoardContext.Current.UploadAccess)
+        // suspended users can't upload files (like the api requests)
+        if (!BoardContext.Current.UploadAccess || SuspendedUserFilter.IsSuspended(BoardContext.Current))
         {
             throw new HttpRequestValidationException("No Access");
         }
