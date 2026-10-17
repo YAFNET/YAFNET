@@ -70,9 +70,17 @@ public class SuspendCheckForumModule : SimpleBaseForumModule
         {
             this.GetRepository<User>().Suspend(this.PageBoardContext.PageUserID);
 
-            this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
-                this.PageBoardContext.PageUser.Email,
-                this.PageBoardContext.PageUser.DisplayOrUserName());
+            // a mail error does not fail the page
+            try
+            {
+                this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
+                    this.PageBoardContext.PageUser.Email,
+                    this.PageBoardContext.PageUser.DisplayOrUserName());
+            }
+            catch (Exception x)
+            {
+                this.Get<ILoggerService>().Error(x, $"Suspension ended mail to {this.PageBoardContext.PageUser.Email} failed");
+            }
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
         }

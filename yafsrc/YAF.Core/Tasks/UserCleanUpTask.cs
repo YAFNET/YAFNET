@@ -66,8 +66,24 @@ public class UserCleanUpTask : IntermittentBackgroundTask
                         var users = this.GetRepository<User>().Get(
                             u => u.BoardID == id && u.Suspended.HasValue && u.Suspended < DateTime.UtcNow);
 
-                        // un-suspend these users...
-                        users.ForEach(user => this.GetRepository<User>().Suspend(user.ID));
+                        // un-suspend these users, they get the mail that the suspension ended (it was only sent
+                        // when the user visited the forum before this task lifted the suspension)
+                        users.ForEach(
+                            user =>
+                                {
+                                    this.GetRepository<User>().Suspend(user.ID);
+
+                                    try
+                                    {
+                                        this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
+                                            user.Email,
+                                            user.DisplayOrUserName());
+                                    }
+                                    catch (Exception x)
+                                    {
+                                        this.Logger.Error(x, $"Suspension ended mail to {user.Email} failed");
+                                    }
+                                });
                     });
         }
         catch (Exception x)

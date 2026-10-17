@@ -241,6 +241,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Avatar: the uploaded avatar of a user without uploaded avatar failed with an error, every request (by anyone) wrote it to the event log; it is not found now without an error
 * [FIXED] Admin -> Host Settings: an empty number field was saved as 0, and a page size could be 0 (e.g. 0 posts per page failed every topic page); an empty or invalid number keeps the setting now and the page sizes are at least 1
 * [FIXED] Admin -> Groups: the administrators group could be deleted, then the board had no admins anymore (only the host admin); it is protected like the guest group now (also on the server)
+* [FIXED] Suspension: the mail that the suspension ended was only sent when the user visited the forum before the hourly clean up task lifted the suspension; the task sends it too now, a mail error does not fail the page
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
