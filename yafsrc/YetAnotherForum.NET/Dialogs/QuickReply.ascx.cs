@@ -79,6 +79,17 @@ public partial class QuickReply : BaseUserControl
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void QuickReplyClick(object sender, EventArgs e)
     {
+        // the same access as the reply page: reply access, and no locked topic or forum (except for moderators)
+        var topic = this.PageBoardContext.PageTopic;
+
+        if (topic == null || !this.PageBoardContext.ForumReplyAccess
+                          || !this.PageBoardContext.ForumModeratorAccess
+                          && (topic.TopicFlags.IsLocked || this.PageBoardContext.PageForum.ForumFlags.IsLocked))
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+            return;
+        }
+
         try
         {
             if (this.quickReplyEditor.Text.Length <= 0)
@@ -135,8 +146,8 @@ public partial class QuickReply : BaseUserControl
 
             this.PageBoardContext.Get<ISession>().LastPost = DateTime.UtcNow;
 
-            // post message...
-            var message = this.quickReplyEditor.Text;
+            // post message... (prepared like the reply page: the content of code blocks is encoded, html removed)
+            var message = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.quickReplyEditor.Text.Trim()));
 
             // SPAM Check
 

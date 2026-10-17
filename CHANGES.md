@@ -124,6 +124,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] A plain url (without [url]) in a post or an e-mail removed the text before it on the same line (e.g. "Please see https://..." became only the link), the youtube check consumed the line
 * [FIXED] [size=...] had no upper limit (e.g. [size=99999] covered the whole page), larger values are limited to 400% now; [size=9] was 9 pixels (smaller than size 1) instead of the largest size of the list (180%)
 * [FIXED] Emoji short codes and ascii smileys inside code blocks were turned into emoji (e.g. a table row "[td]" in code became a flag)
+* [FIXED] Security: Quick reply accepted replies to any topic, also without reply access (read-only forums) and to locked topics and forums; quick replies were saved without the preparation of the other post forms (html removed, content of code blocks encoded), markup inside a code block of a quick reply was shown as html to everybody reading the topic (stored XSS)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
