@@ -15,6 +15,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Generated passwords could contain three identical characters in a row
 * [FIXED] Topic names with " & " became "AandB" in the url instead of "A-and-B"
 * [FIXED] Paging: a huge page number in the url caused an error (negative offset)
+* [FIXED] Deleting all rows of a table reported no success when exactly one row was deleted
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
