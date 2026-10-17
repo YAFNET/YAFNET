@@ -25,6 +25,7 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -95,5 +96,63 @@ public class NotificationsTests : ForumTestBase
     /// <summary>
     /// Gets the "mark as read" buttons of the notifications of the list (not of the menu of the header).
     /// </summary>
+    [Test]
+    [Description("The notification menu (api) lists a thanks, a quote, a mention and a reply in a watched topic")]
+    public async Task Notification_Menu_Test()
+    {
+        var member = $"Nmn{DateTime.UtcNow:HHmmssfff}";
+        var subject = $"Notified {Guid.NewGuid():N}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        // a watched topic
+        await this.GotoAsync("PostTopic?f=1");
+        await this.Control("TopicSubjectTextBox").FillAsync(subject);
+        await this.Control("YafTextEditor").FillAsync("A post for the notifications.");
+        await this.Control("TopicWatch").CheckAsync();
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        var ids = await this.Page.Locator("a[id^='post']").EvaluateAllAsync<string[]>("es => es.map(e => e.id)");
+        var messageId = ids.Select(id => Regex.Match(id, @"^post(\d+)$")).Where(m => m.Success).Select(m => m.Groups[1].Value).First();
+        var topicHref = new Uri(this.Page.Url).PathAndQuery.TrimStart('/');
+
+        await this.GotoAsync("Topics/1-Test Forum");
+        var href = await this.Page.Locator("a[href*='/Posts/t']", new PageLocatorOptions { HasTextString = subject }).First
+                       .GetAttributeAsync("href");
+        var topicId = Regex.Match(href, @"Posts/t(\d+)").Groups[1].Value;
+
+        // another member thanks, quotes and mentions the member
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync(topicHref);
+        await this.Page.Locator("a[href^='javascript:addThanks']").First.ClickAsync();
+        await this.Page.Locator("a[href^='javascript:removeThanks']").First
+            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+
+        await this.GotoAsync($"PostMessage?t={topicId}&f=1&q={messageId}");
+        await this.Control("YafTextEditor").EvaluateAsync(
+            "(e, member) => e.value = e.value + ' Hello @[userlink]' + member + '[/userlink]'",
+            member);
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        // the menu of the member
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+        await this.GotoAsync(string.Empty);
+
+        var response = await this.Page.APIRequest.PostAsync(
+            $"{TestConfig.BaseUrl}api/Notify/GetNotifications",
+            new APIRequestContextOptions
+                {
+                    Headers = new System.Collections.Generic.Dictionary<string, string>
+                                  {
+                                      ["Content-Type"] = "application/json;charset=utf-8"
+                                  },
+                    Data = "{\"PageNumber\":0,\"PageSize\":20}"
+                });
+
+        var json = await response.TextAsync();
+        json.Should().Contain(subject).And.Contain("fa-heart").And.Contain("fa-at").And.Contain("fa-quote-left");
+    }
+
     private ILocator ItemButtons => this.Page.Locator("[id*='_ActivityStream_'][id$='_MarkRead']");
 }
