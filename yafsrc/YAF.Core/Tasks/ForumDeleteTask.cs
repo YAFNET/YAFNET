@@ -79,11 +79,18 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
             return false;
         }
 
+        RemoveFinishedTask();
+
         if (!BoardContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
         {
-            BoardContext.Current.Get<ITaskModuleManager>().StartTask(
-                TaskName,
-                () => new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 });
+            // a running forum delete is not replaced, the delete is not reported as success then
+            if (!BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+                    TaskName,
+                    () => new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 }))
+            {
+                failureMessage = "You can't delete forum while another forum delete task is running.";
+                return false;
+            }
         }
         else
         {
@@ -121,11 +128,33 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
             return false;
         }
 
-        BoardContext.Current.Get<ITaskModuleManager>().StartTask(
-            TaskName,
-            () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
+        RemoveFinishedTask();
+
+        // a running forum delete is not replaced, the delete is not reported as success then
+        if (!BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+                TaskName,
+                () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId }))
+        {
+            failureMessage = "You can't delete forum while another forum delete task is running.";
+            return false;
+        }
 
         return true;
+    }
+
+    /// <summary>
+    /// Removes a finished forum delete task that was not cleaned up yet, otherwise the next delete was not started
+    /// (and reported as success).
+    /// </summary>
+    private static void RemoveFinishedTask()
+    {
+        var taskManager = BoardContext.Current.Get<ITaskModuleManager>();
+
+        if (taskManager.TryGetTask(TaskName, out var task) && task is { IsRunning: false })
+        {
+            taskManager.TryRemoveTask(TaskName);
+            task.Dispose();
+        }
     }
 
     /// <summary>

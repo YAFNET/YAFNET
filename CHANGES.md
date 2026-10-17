@@ -209,6 +209,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Missing texts were added: members list letter filter, the login buttons of the external providers, the album image button of the editor, the tooltips of the delete post page and the message for moving topics to a category
 * [FIXED] Moving topics (move dialog and Moderate -> Forum) with "Leave Pointer" and a number of days below -2 failed with an error instead of the "invalid number of days" message
 * [FIXED] A language file of a user or of the board that does not exist (anymore) broke every page (Invalid language file), the board language or english is used instead; a culture of a user shorter than two characters failed the page
+* [FIXED] Deleting a forum reported success but did nothing when the previous forum delete task was finished but not yet cleaned up (or still running); a replaced task in the task manager kept the old (disposed) task
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
