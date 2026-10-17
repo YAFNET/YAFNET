@@ -255,6 +255,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] A quote of a post that does not exist (anymore) showed "Posted by" with a link to the missing post, it shows "wrote" like a quote without post now
 * [FIXED] Editing or quoting older HTML posts lost list items, kept formatting inside links as raw HTML, lost the type of notes and turned paragraph ends into flag emojis ([br])
 * [FIXED] Listing the users of a role that does not exist caused an error, e.g. the moderator notification of a new post in a forum with a moderator group without role failed
+* [FIXED] Arabic: the activity text of a reply had a broken placeholder ("{text {0"), showing it failed; a unit test now checks the placeholders of all translations
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
