@@ -294,6 +294,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Private messages: a message the recipient deleted disappeared from the outbox of the sender and a message the sender deleted from the outbox disappeared from the inbox of the recipient, the sender could not delete a sent message on the message page, and a message to all users was removed for all recipients when one recipient and the sender deleted it
 * [FIXED] Private messages: export all exported only the messages of the current page and export selected could export other messages than the selected ones
 * [FIXED] a click on the border of a delete button (not on its icon or text) deleted without the confirmation dialog
+* [FIXED] the answer to a post report (private message to the reporter) showed the report text of any post to the moderators of any forum, now only to the moderators of the forum of the post
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

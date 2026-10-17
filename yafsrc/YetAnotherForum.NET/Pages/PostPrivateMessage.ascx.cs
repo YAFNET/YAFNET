@@ -376,8 +376,13 @@ public partial class PostPrivateMessage : ForumPage
                  && this.Get<HttpRequestBase>().QueryString.Exists("r"))
         {
             // PM is being send as a quoted reply to a reported post
-            // We check here if the user have access to the option
-            if (!this.PageBoardContext.IsModeratorInAnyForum && !this.PageBoardContext.IsForumModerator)
+            // We check here if the user is a moderator of the forum of the reported post
+            var reportedMessageId = this.Get<LinkBuilder>().StringToIntOrRedirect(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"));
+
+            var reportedMessage = this.GetRepository<Message>().GetById(reportedMessageId);
+
+            if (reportedMessage == null || !ModerationHelper.CanModerateTopic(reportedMessage.TopicID))
             {
                 return;
             }
@@ -385,8 +390,7 @@ public partial class PostPrivateMessage : ForumPage
             // get quoted message
             var reporter =
                 this.GetRepository<User>().MessageReporter(
-                        this.Get<LinkBuilder>().StringToIntOrRedirect(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")),
+                        reportedMessageId,
                         this.Get<LinkBuilder>().StringToIntOrRedirect(
                             this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")))
                     .FirstOrDefault();
