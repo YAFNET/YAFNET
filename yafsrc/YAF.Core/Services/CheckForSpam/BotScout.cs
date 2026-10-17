@@ -70,7 +70,7 @@ public class BotScout : ICheckForBot
             const string BotScoutUrl = "https://www.botscout.com/test/?multi";
 
             var url =
-                $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.BoardSettings.BotScoutApiKey}" : string.Empty)}";
+                $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={Uri.EscapeDataString(ipAddress)}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={Uri.EscapeDataString(emailAddress)}" : string.Empty)}{(userName.IsSet() ? $"&name={Uri.EscapeDataString(userName)}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={Uri.EscapeDataString(BoardContext.Current.BoardSettings.BotScoutApiKey)}" : string.Empty)}";
 
             var webRequest = (HttpWebRequest)WebRequest.Create(url);
 

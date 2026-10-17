@@ -72,7 +72,7 @@ public class StopForumSpam : ICheckForBot
         try
         {
             var url =
-                $"https://www.stopforumspam.com/api?{(ipAddress.IsSet() ? $"ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&email={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&username={userName}" : string.Empty)}&f=json";
+                $"https://www.stopforumspam.com/api?f=json{(ipAddress.IsSet() ? $"&ip={Uri.EscapeDataString(ipAddress)}" : string.Empty)}{(emailAddress.IsSet() ? $"&email={Uri.EscapeDataString(emailAddress)}" : string.Empty)}{(userName.IsSet() ? $"&username={Uri.EscapeDataString(userName)}" : string.Empty)}";
 
             var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -84,25 +84,18 @@ public class StopForumSpam : ICheckForBot
 
             var stopForumResponse = responseText.FromJson<StopForumSpamResponse>();
 
-            if (!stopForumResponse.Success)
+            if (stopForumResponse is not { Success: true })
             {
                 return false;
             }
 
-            // Match name + email address
-            if (stopForumResponse.UserName.Appears && stopForumResponse.Email.Appears)
-            {
-                return true;
-            }
+            // the parts that were not checked are missing in the response
+            var userNameAppears = stopForumResponse.UserName is { Appears: true };
+            var emailAppears = stopForumResponse.Email is { Appears: true };
+            var ipAppears = stopForumResponse.IPAddress is { Appears: true };
 
-            // Match name + IP address
-            if (stopForumResponse.UserName.Appears && stopForumResponse.IPAddress.Appears)
-            {
-                return true;
-            }
-
-            // Match IP + email address
-            return stopForumResponse.IPAddress.Appears && stopForumResponse.Email.Appears;
+            // Match name + email address, name + IP address or IP + email address
+            return userNameAppears && emailAppears || userNameAppears && ipAppears || ipAppears && emailAppears;
         }
         catch (Exception ex)
         {
@@ -125,7 +118,7 @@ public class StopForumSpam : ICheckForBot
         string userName)
     {
         var parameters =
-            $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={BoardContext.Current.BoardSettings.StopForumSpamApiKey}";
+            $"username={Uri.EscapeDataString(userName ?? string.Empty)}&ip_addr={Uri.EscapeDataString(ipAddress ?? string.Empty)}&email={Uri.EscapeDataString(emailAddress ?? string.Empty)}&api_key={Uri.EscapeDataString(BoardContext.Current.BoardSettings.StopForumSpamApiKey ?? string.Empty)}";
 
         var result = new HttpClient().PostRequest(
             new Uri("https://www.stopforumspam.com/add.php"),
