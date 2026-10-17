@@ -290,7 +290,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         }
 
         // Delete the images/albums both from database and physically.
-        var uploadFolderPath = HttpContext.Current.Server.MapPath(
+        var uploadFolderPath = this.Get<HttpServerUtilityBase>().MapPath(
             string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
 
         var dt = this.GetRepository<UserAlbum>().ListByUser(userID);
@@ -358,7 +358,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         }
 
         // Delete the images/albums both from database and physically.
-        var uploadDir = HttpContext.Current.Server.MapPath(
+        var uploadDir = this.Get<HttpServerUtilityBase>().MapPath(
             string.Concat(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads));
 
         var dt = this.GetRepository<UserAlbum>().ListByUser(user.ID);
