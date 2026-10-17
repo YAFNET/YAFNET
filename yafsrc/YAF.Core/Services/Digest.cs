@@ -67,18 +67,18 @@ public class Digest : IDigest, IHaveServiceLocator
         // get topic hours...
         var topicHours = -this.Get<BoardSettings>().DigestSendEveryXHours;
 
+        // the times of the posts are utc (the local time of the server moved the period by its time zone)
+        var since = DateTime.UtcNow.AddHours(topicHours);
+
         var topicsData = this.Get<DataBroker>().GetDigestTopics(
             BoardContext.Current.PageBoardID,
             user.ID,
-            DateTime.Now.AddHours(topicHours),
+            since,
             9999);
 
-        var activeTopics = topicsData.Where(
-                t => t.LastPosted > DateTime.Now.AddHours(topicHours) && t.Posted < DateTime.Now.AddHours(topicHours))
-            .ToList();
+        var activeTopics = topicsData.Where(t => t.LastPosted > since && t.Posted < since).ToList();
 
-        var newTopics = topicsData.Where(t => t.Posted > DateTime.Now.AddHours(topicHours))
-            .OrderByDescending(x => x.LastPosted).ToList();
+        var newTopics = topicsData.Where(t => t.Posted > since).OrderByDescending(x => x.LastPosted).ToList();
 
         if (!newTopics.Any() && !activeTopics.Any())
         {
