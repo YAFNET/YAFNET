@@ -1,0 +1,138 @@
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2026 Ingo Herbote
+ * https://www.yetanotherforum.net/
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * https://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+namespace YAF.Tests.UITests.Tests;
+
+using System;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+using Microsoft.Playwright;
+
+using YAF.Tests.UITests.Infrastructure;
+
+/// <summary>
+/// Reported posts, moderated forums and the search.
+/// </summary>
+[TestFixture]
+public class ModerationTests : ForumTestBase
+{
+    [Test]
+    [Description("A member reports a post, the report is shown to the moderators")]
+    public async Task Report_Post_Test()
+    {
+        var reason = $"Report {Guid.NewGuid():N}";
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+
+        // the first post of the forum (by the admin)
+        await this.GotoAsync("ReportPost?m=1");
+        await this.Control("Report").FillAsync(reason);
+
+        // the report is confirmed in a dialog
+        await this.Control("btnReport").ClickAsync();
+        await this.ClickAndWaitAsync(
+            this.Page.Locator(".modal.show button", new PageLocatorOptions { HasTextString = "Yes" }));
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("Moderate/ReportedPosts?f=1");
+
+        (await this.Page.InnerTextAsync("body")).Should().Contain(reason);
+    }
+
+    [Test]
+    [Description("A post in a moderated forum is only shown after a moderator approved it")]
+    public async Task Moderated_Forum_Test()
+    {
+        var forumName = $"Moderated {Guid.NewGuid():N}".Substring(0, 22);
+        var subject = $"Moderated topic {Guid.NewGuid():N}";
+
+        // a moderated forum (all posts need the approval)
+        await this.LoginAsAdminAsync();
+
+        await this.GotoAsync("Admin/EditForum");
+        await this.Control("Name").FillAsync(forumName);
+        await this.Control("Description").FillAsync("A moderated forum created by the UI test");
+        await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = "Test Category" });
+        await this.Control("SortOrder").FillAsync("5");
+
+        // the option posts the page back
+        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.GotoAsync(string.Empty);
+        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = forumName })
+                            .First.GetAttributeAsync("href");
+        var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+
+        // a member posts a topic
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        await this.GotoAsync($"PostTopic?f={forumId}");
+        await this.Control("TopicSubjectTextBox").FillAsync(subject);
+        await this.Control("YafTextEditor").FillAsync("This topic waits for the approval.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        // other members don't see it
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync(forumHref.TrimStart('/'));
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(subject);
+
+        // the moderator approves it
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync($"Moderate/UnapprovedPosts?f={forumId}");
+        (await this.Page.InnerTextAsync("body")).Should().Contain("This topic waits for the approval.");
+
+        await this.ClickAndWaitAsync(this.Control("ApproveBtn"));
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync(forumHref.TrimStart('/'));
+        (await this.Page.InnerTextAsync("body")).Should().Contain(subject);
+    }
+
+    [Test]
+    [Description("A new post is found by the search")]
+    public async Task Search_Test()
+    {
+        var word = $"searchword{Guid.NewGuid():N}".Substring(0, 24);
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        await this.GotoAsync("PostTopic?f=1");
+        await this.Control("TopicSubjectTextBox").FillAsync($"Search topic {word}");
+        await this.Control("YafTextEditor").FillAsync($"The text contains the word {word}.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.GotoAsync("Search");
+        await this.Control("searchInput").FillAsync(word);
+
+        // the results are loaded with script
+        await this.Control("GoSearch").ClickAsync();
+
+        await this.Page.Locator("body", new PageLocatorOptions { HasTextString = $"Search topic {word}" })
+            .WaitForAsync(new LocatorWaitForOptions { Timeout = 30000 });
+
+        await this.AssertNoServerErrorAsync();
+    }
+}
