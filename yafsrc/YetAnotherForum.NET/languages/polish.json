@@ -3515,6 +3515,10 @@
             "#text": "Jest zatwierdzony:"
           },
           {
+            "@tag": "USERINFO_APPROVED_HELP",
+            "#text": "The User Account is approved and the User can log in."
+          },
+          {
             "@tag": "USERINFO_DISPLAYNAME",
             "#text": "Wyświetlana nazwa:"
           },
@@ -3533,6 +3537,10 @@
           {
             "@tag": "USERINFO_GUEST",
             "#text": "Jest gościem:"
+          },
+          {
+            "@tag": "USERINFO_GUEST_HELP",
+            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4161,6 +4169,10 @@
           {
             "@tag": "CHECK_FOR_SPAM",
             "#text": "Wybierz usługę SPAM Service dla automatycznego sprawdzania SPAM-u:"
+          },
+          {
+            "@tag": "CHECK_FOR_SPAM_HELP",
+            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5483,6 +5495,10 @@
             "#text": "Wymagaj SSL"
           },
           {
+            "@tag": "SSL_REQUIRE_HELP",
+            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+          },
+          {
             "@tag": "STATS_CACHE_TIMEOUT",
             "#text": "Limit czasu pamięci podręcznej statystyk forum:"
           },
@@ -6646,6 +6662,10 @@
           {
             "@tag": "RANK",
             "#text": "Ranga:"
+          },
+          {
+            "@tag": "RANK_HELP",
+            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
           },
           {
             "@tag": "ROLE",
@@ -13056,6 +13076,10 @@
             "#text": "E-mail:"
           },
           {
+            "@tag": "EMAIL_HELP",
+            "#text": "The E-mail Address of the User."
+          },
+          {
             "@tag": "ENDS",
             "#text": "Zawieszenie użytkownika kończy się:"
           },
@@ -13100,12 +13124,20 @@
             "#text": "Przystąpił:"
           },
           {
+            "@tag": "JOINED_HELP",
+            "#text": "The Date the User registered."
+          },
+          {
             "@tag": "LAST10",
             "#text": "Ostatnie 10 Postów"
           },
           {
             "@tag": "LASTVISIT",
             "#text": "Ostania wizyta:"
+          },
+          {
+            "@tag": "LASTVISIT_HELP",
+            "#text": "The Date of the last Visit of the User."
           },
           {
             "@tag": "LOCATION",
