@@ -130,6 +130,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Uploaded avatars (stored in the database) were saved and served with the content type sent by the browser (e.g. text/html), now the type of the image is saved and only image types are served
 * [FIXED] Security (hardening): Theme names were not checked for path characters, a theme like ".." pointed outside the themes folder
 * [FIXED] Security: The album edit page used the album id of the address without checking the owner, any user could rename the albums of other users, upload images into them and delete them with their images; the cover of an album could be set to images of other albums, and the albums and album images were shown without checking the profile view permission
+* [FIXED] Security: The user hover card showed the country, region and rank as html and used any home page url (also with quotes and "javascript:") as link, the country of the profile was written unencoded into the flag icon of the profile page; a crafted country sent with the profile form ran script for every visitor (stored XSS). Only web addresses are used as home page link, the values are encoded
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

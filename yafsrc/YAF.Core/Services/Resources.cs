@@ -113,10 +113,12 @@ public class Resources : IResources, IHaveServiceLocator
 
             userName = HttpUtility.HtmlEncode(userName);
 
+            // the card shows the values as html: they are encoded (the country and region come from the profile
+            // form, an unknown value is shown as it is)
             var location = user.Item2.Profile_Country.IsSet()
                                ? BoardContext.Current.Get<IHaveLocalization>().GetText(
                                    "COUNTRY", user.Item2.Profile_Country.Trim())
-                               : HttpUtility.HtmlEncode(user.Item2.Profile_Location);
+                               : user.Item2.Profile_Location;
 
             if (user.Item2.Profile_Region.IsSet() && user.Item2.Profile_Country.IsSet())
             {
@@ -125,15 +127,24 @@ public class Resources : IResources, IHaveServiceLocator
                 location += $", {this.Get<IHaveLocalization>().GetText("REGION", tag)}";
             }
 
+            location = HttpUtility.HtmlEncode(location);
+
+            // only web addresses as home page (it is a link of the card)
+            var homePage = user.Item2.Profile_Homepage.IsSet()
+                           && Uri.TryCreate(user.Item2.Profile_Homepage.Trim(), UriKind.Absolute, out var homePageUri)
+                           && (homePageUri.Scheme == Uri.UriSchemeHttp || homePageUri.Scheme == Uri.UriSchemeHttps)
+                               ? HttpUtility.HtmlEncode(homePageUri.AbsoluteUri)
+                               : null;
+
             var userInfo = new ForumUserInfo
                                {
                                    Name = userName,
                                    RealName = HttpUtility.HtmlEncode(user.Item2.Profile_RealName),
                                    Avatar = avatarUrl,
                                    Interests = HttpUtility.HtmlEncode(user.Item2.Profile_Interests),
-                                   HomePage = user.Item2.Profile_Homepage,
+                                   HomePage = homePage,
                                    Posts = $"{user.Item1.NumPosts:N0}",
-                                   Rank = user.Item3.Name,
+                                   Rank = HttpUtility.HtmlEncode(user.Item3.Name),
                                    Location = location,
                                    Joined =
                                        $"{this.Get<IHaveLocalization>().GetText("PROFILE", "JOINED")} {this.Get<IDateTimeService>().FormatDateLong(user.Item1.Joined)}",

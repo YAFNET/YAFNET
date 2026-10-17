@@ -25,6 +25,7 @@
 namespace YAF.Pages;
 
 using System.Text;
+using System.Text.RegularExpressions;
 
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
@@ -429,7 +430,8 @@ public partial class UserProfile : ForumPage
         {
             this.CountryTR.Visible = true;
             this.CountryLabel.Text =
-                $"<span class=\"fi fi-{user.Item2.Profile_Country.Trim().ToLower()}\"></span>&nbsp;{this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", user.Item2.Profile_Country.Trim())))}";
+                // the country code is used in the class of the flag: only letters
+                $"<span class=\"fi fi-{Regex.Replace(user.Item2.Profile_Country.Trim().ToLower(), "[^a-z]", string.Empty)}\"></span>&nbsp;{this.HtmlEncode(this.Get<IBadWordReplace>().Replace(this.GetText("COUNTRY", user.Item2.Profile_Country.Trim())))}";
         }
 
         if (user.Item2.Profile_Region.IsSet())
