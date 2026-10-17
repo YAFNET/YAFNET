@@ -211,6 +211,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] A language file of a user or of the board that does not exist (anymore) broke every page (Invalid language file), the board language or english is used instead; a culture of a user shorter than two characters failed the page
 * [FIXED] Deleting a forum reported success but did nothing when the previous forum delete task was finished but not yet cleaned up (or still running); a replaced task in the task manager kept the old (disposed) task
 * [FIXED] Admin -> Prune: a second prune after a finished one (not yet cleaned up) did nothing but showed "Prune Task Scheduled", a prune while another one is running now shows the running message
+* [FIXED] Delete post: a member could open the delete page of the own post of a locked topic (or after the lock period), deleting then just showed the page again; the page and its handlers are denied now with the same rules as the delete and restore buttons of the post
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

@@ -145,6 +145,13 @@ public partial class DeleteMessage : ForumPage
             this.Get<LinkBuilder>().AccessDenied();
         }
 
+        // the same rules as the delete and restore buttons of the post (e.g. a locked topic or after the lock
+        // period the own post can't be deleted)
+        if (!this.CanDeletePost)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
         if (this.IsPostBack)
         {
             return;
@@ -228,7 +235,7 @@ public partial class DeleteMessage : ForumPage
     {
         if (!this.CanDeletePost)
         {
-            return;
+            this.Get<LinkBuilder>().AccessDenied();
         }
 
         var deleteAllLinked = false;
