@@ -156,6 +156,12 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     {
         var role = this.Get<IAspNetRoleManager>().FindByName(roleName);
 
+        // an unknown role (e.g. deleted in the meantime) is ignored
+        if (role == null)
+        {
+            return;
+        }
+
         this.Get<IAspNetRoleManager>().Delete(role);
     }
 
