@@ -977,6 +977,11 @@ public static class JavaScriptBlocks
                          passwordConfirm = document.getElementById("{{confirmPasswordClientId}}"),
                          progressBar = document.getElementById("progress-password");
                  
+                     // the fields are not shown after the account was created
+                     if (!password || !passwordConfirm) {
+                         return;
+                     }
+                 
                      password.addEventListener("keyup",
                          () => {
                              checkPassword();
