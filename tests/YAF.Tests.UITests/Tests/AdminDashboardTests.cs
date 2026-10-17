@@ -74,6 +74,45 @@ public class AdminDashboardTests : ForumTestBase
         list.Should().NotContain(deleted).And.NotContain(approved).And.Contain(resent);
     }
 
+    [Test]
+    [Description("The edit item opens the user, an invalid number of days is refused, old not approved users are deleted, all are approved")]
+    public async Task Edit_Delete_Old_And_Approve_All_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var first = $"Aal{id}A";
+        var second = $"Aal{id}B";
+
+        foreach (var name in new[] { first, second })
+        {
+            await this.RegisterWithoutConfirmAsync(name);
+        }
+
+        await this.LoginAsAdminAsync();
+
+        // edit
+        await this.UserActionAsync(first, "Edit");
+        this.Page.Url.Should().Contain("EditUser");
+
+        // an invalid number of days, then the users older than 14 days (none of the test)
+        foreach (var days in new[] { "abc", "14" })
+        {
+            await this.GotoAsync("Admin/Admin");
+            await this.Control("DaysOld").EvaluateAsync("(e, v) => { e.type = 'text'; e.value = v; }", days);
+            await this.Page.Locator(".card-footer a", new PageLocatorOptions { HasTextString = "Delete All" }).First.ClickAsync();
+            await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        }
+
+        (await this.Page.InnerTextAsync("body")).Should().Contain(first).And.Contain(second);
+
+        // approve all
+        await this.GotoAsync("Admin/Admin");
+        await this.Page.Locator(".card-footer a", new PageLocatorOptions { HasTextString = "Approve All" }).First.ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        await this.LoginAsync(second, TestConfig.TestUserPassword);
+        (await this.IsLoggedInAsAsync(second)).Should().BeTrue("the user is approved");
+    }
+
     private async Task RegisterWithoutConfirmAsync(string userName)
     {
         await this.LogoutAsync();
