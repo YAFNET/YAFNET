@@ -108,6 +108,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Editing a topic did not remove html from the new subject, description and styles (only new topics did), and the delete message page showed the topic title without encoding
 * [FIXED] Security: Stored XSS with topic titles: the search results and the similar titles (shown with javascript) used the topic title, description, tags and forum name without html encoding; the search results are now html encoded (ISearch results: Topic, Description, TopicTags, ForumName)
 * [FIXED] Security: XSS with the context menu of posts: the selected text of a post was inserted as html and into "javascript:" links (only quotes, semicolons and brackets were removed, which also changed quoted text like "don't"); the menu items are now created as elements with click handlers
+* [FIXED] Security: XSS with the mention list of the editors (@name): display names were inserted as html; the guest user was listed
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

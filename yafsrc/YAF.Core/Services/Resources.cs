@@ -228,12 +228,13 @@ public class Resources : IResources, IHaveServiceLocator
                             ? user.DisplayName.StartsWith(searchQuery)
                             : user.Name.StartsWith(searchQuery));
 
+            // the mention lists of the editors insert the name and the avatar as html: they are encoded
             var users = usersList.AsEnumerable().Where(u =>
                 !this.Get<IUserIgnored>().IsIgnored(u.ID) && u.BoardID == BoardContext.Current.PageBoardID &&
-                !u.UserFlags.IsDeleted && u.UserFlags.IsApproved).Select(
+                !u.UserFlags.IsDeleted && u.UserFlags.IsApproved && !u.UserFlags.IsGuest).Select(
                 u => new {
-                    id = u.ID, name = u.DisplayOrUserName(),
-                    avatar = this.Get<IAvatars>().GetAvatarUrlForUser(u)
+                    id = u.ID, name = HttpUtility.HtmlEncode(u.DisplayOrUserName()),
+                    avatar = HttpUtility.HtmlEncode(this.Get<IAvatars>().GetAvatarUrlForUser(u))
                 });
 
             context.Response.Clear();
