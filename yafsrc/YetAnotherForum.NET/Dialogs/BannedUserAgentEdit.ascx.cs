@@ -111,6 +111,20 @@ public partial class BannedUserAgentEdit : BaseUserControl
             return;
         }
 
+        // the masks are regular expressions, an invalid one would break the ban check
+        if (!ValidationHelper.IsValidRegex(this.mask.Text.Trim()))
+        {
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
+                MessageTypes.danger);
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("EditDialog"));
+
+            return;
+        }
+
         if (!this.GetRepository<BannedUserAgent>().Save(this.BannedId, this.mask.Text.Trim()))
         {
             this.PageBoardContext.LoadMessage.AddSession(

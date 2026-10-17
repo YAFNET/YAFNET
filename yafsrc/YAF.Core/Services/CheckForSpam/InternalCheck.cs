@@ -82,20 +82,31 @@ public class InternalCheck : ICheckForBot
 
             var isBot = false;
 
-            try
+            // each mask on its own: an invalid mask does not disable the other e-mail bans
+            if (emailAddress.IsSet())
             {
-                var banned = bannedEmailRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
-                    .Find(b => Regex.Match(emailAddress, b.Mask).Success);
-
-                if (banned != null)
+                foreach (var mask in bannedEmailRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                             .Select(x => x.Mask))
                 {
-                    responseText = $"internal detection found email address {emailAddress}";
-                    isBot = true;
+                    try
+                    {
+                        if (!Regex.Match(emailAddress, mask, RegexOptions.None, TimeSpan.FromMilliseconds(100))
+                                .Success)
+                        {
+                            continue;
+                        }
+
+                        responseText = $"internal detection found email address {emailAddress}";
+                        isBot = true;
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        BoardContext.Current.Get<ILoggerService>().Error(
+                            ex,
+                            $"Error while Checking for Bot Email (Check: {mask})");
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot Email");
             }
 
             // also the bans with wildcards (e.g. 192.168.1.*)
@@ -110,7 +121,8 @@ public class InternalCheck : ICheckForBot
             {
                 try
                 {
-                    if (!Regex.Match(userName, mask).Success)
+                    if (userName.IsNotSet()
+                        || !Regex.Match(userName, mask, RegexOptions.None, TimeSpan.FromMilliseconds(100)).Success)
                     {
                         continue;
                     }

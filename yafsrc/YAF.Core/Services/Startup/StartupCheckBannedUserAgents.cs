@@ -148,8 +148,19 @@ public class StartupCheckBannedUserAgents : BaseStartupService
     /// <returns>bool.</returns>
     private static bool MachUserAgent(string userAgent, string pattern)
     {
-        var check = Regex.Match(userAgent, pattern, RegexOptions.None, TimeSpan.FromMilliseconds(100));
-
-        return check.Success;
+        // an invalid pattern (or a timeout) does not disable the other bans
+        try
+        {
+            return pattern.IsSet()
+                   && Regex.Match(userAgent, pattern, RegexOptions.None, TimeSpan.FromMilliseconds(100)).Success;
+        }
+        catch (ArgumentException)
+        {
+            return false;
+        }
+        catch (RegexMatchTimeoutException)
+        {
+            return false;
+        }
     }
 }

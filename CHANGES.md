@@ -183,6 +183,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Editing a banned IP did not refresh the cached ban list, the old mask stayed banned until the application restarted
 * [FIXED] Isolated events (RaiseIssolated, e.g. the application start) were handled twice, and an exception in a handler was not isolated
 * [FIXED] Event log entries logged with a Type as source showed "System.RuntimeType"
+* [FIXED] One invalid banned e-mail mask disabled all banned e-mail checks (one invalid user agent pattern all user agent bans), banned e-mail, name and user agent masks are now validated as regular expressions
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
