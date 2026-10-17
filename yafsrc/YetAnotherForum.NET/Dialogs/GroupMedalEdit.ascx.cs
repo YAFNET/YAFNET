@@ -138,12 +138,27 @@ public partial class GroupMedalEdit : BaseUserControl
         }
         else
         {
-            this.GetRepository<GroupMedal>().SaveNew(
-                this.AvailableGroupList.SelectedValue.ToType<int>(),
-                this.MedalId,
-                this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
-                this.GroupHide.Checked,
-                this.SortOrder);
+            var groupId = this.AvailableGroupList.SelectedValue.ToType<int>();
+
+            if (this.GetRepository<GroupMedal>().Exists(g => g.GroupID == groupId && g.MedalID == this.MedalId))
+            {
+                // the role already has the medal (adding it again failed with a database error), the settings are updated
+                this.GetRepository<GroupMedal>().Save(
+                    groupId,
+                    this.MedalId,
+                    this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
+                    this.GroupHide.Checked,
+                    this.SortOrder);
+            }
+            else
+            {
+                this.GetRepository<GroupMedal>().SaveNew(
+                    groupId,
+                    this.MedalId,
+                    this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
+                    this.GroupHide.Checked,
+                    this.SortOrder);
+            }
         }
 
         // the medals of the members of the group are cached

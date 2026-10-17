@@ -38,7 +38,7 @@ using YAF.Tests.UITests.Infrastructure;
 public class MedalTests : ForumTestBase
 {
     [Test]
-    [Description("A medal is created and given to a role, an empty sort order is 0, the role and the medal are removed")]
+    [Description("A medal is created and given to a role (twice: the settings are updated), an empty sort order is 0, the role and the medal are removed")]
     public async Task Medal_For_Role_Test()
     {
         var name = $"Medal {Guid.NewGuid():N}".Substring(0, 16);
@@ -62,7 +62,7 @@ public class MedalTests : ForumTestBase
         await this.ClickAndWaitAsync(row.Locator("[id$='_ThemeButtonEdit']"));
 
         // the role gets the medal, the sort order is empty
-        await this.ClickAndWaitAsync(this.Control("AddGroup").First);
+        await this.ClickAndWaitAsync(this.Control("AddGroup").Filter(new LocatorFilterOptions { Visible = true }).First);
         await this.Control("GroupEditDialog_AddGroupSave").WaitForAsync(
             new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
 
@@ -74,6 +74,19 @@ public class MedalTests : ForumTestBase
 
         var groups = this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = "Registered Users" });
         (await groups.CountAsync()).Should().Be(1, "the role has the medal");
+
+        // the same role again: the settings are updated (it failed with a database error)
+        await this.ClickAndWaitAsync(this.Control("AddGroup").Filter(new LocatorFilterOptions { Visible = true }).First);
+        await this.Control("GroupEditDialog_AddGroupSave").WaitForAsync(
+            new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+        await this.Control("GroupEditDialog_AvailableGroupList").SelectOptionAsync(
+            new SelectOptionValue { Label = "Registered Users" },
+            new LocatorSelectOptionOptions { Force = true });
+        await this.Control("GroupEditDialog_GroupMessage").FillAsync("For all members");
+        await this.ClickAndWaitAsync(this.Control("GroupEditDialog_AddGroupSave"));
+
+        (await groups.CountAsync()).Should().Be(1);
+        (await groups.InnerTextAsync()).Should().Contain("For all members");
 
         // the role is removed
         await groups.Locator("[id$='_ThemeButtonDelete']").ClickAsync();
