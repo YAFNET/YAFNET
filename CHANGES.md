@@ -128,6 +128,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The edit page let authors edit their posts without edit access in the forum, and authors could still edit and delete posts locked by a moderator and restore their posts that were deleted by a moderator; every guest could edit and delete the posts of all guests with the edit and delete pages (the address was only checked for the buttons), and a reply with only a message id in the address (quote) did not check the reply access
 * [FIXED] Security: The login page and the login box showed "account not approved" (and allowed resending the verification mail) for any password, so the state of an account could be found out with the user name only; accounts disabled by "lock inactive accounts" could still log in (only the forum flags were changed, not the login account)
 * [FIXED] Security: Uploaded avatars (stored in the database) were saved and served with the content type sent by the browser (e.g. text/html), now the type of the image is saved and only image types are served
+* [FIXED] Security (hardening): Theme names were not checked for path characters, a theme like ".." pointed outside the themes folder
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

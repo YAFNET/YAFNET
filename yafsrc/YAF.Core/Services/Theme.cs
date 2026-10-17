@@ -55,7 +55,9 @@ public class Theme : ITheme
     /// </returns>
     public static bool IsValidTheme(string theme)
     {
-        return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme))
+        // only a folder of the themes folder (no path characters)
+        return theme.IsSet() && theme.IndexOfAny(['/', '\\', ':']) < 0 && !theme.Contains("..")
+               && Directory.Exists(GetMappedThemeFile(theme))
                              && File.Exists(Path.Combine(GetMappedThemeFile(theme), "bootstrap-forum.min.css"));
     }
 
