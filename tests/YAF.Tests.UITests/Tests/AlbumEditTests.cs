@@ -99,6 +99,41 @@ public class AlbumEditTests : ForumTestBase
     }
 
     [Test]
+    [Description("A file that is not an image is refused, back goes to the album (or to the albums for a new one)")]
+    public async Task Refused_File_And_Back_Test()
+    {
+        var member = $"Alr{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        // back of a new album
+        await this.GotoAsync("EditAlbumImages?a=new");
+        await this.ClickAndWaitAsync(this.Control("Back"));
+        this.Page.Url.Should().Contain("Albums");
+
+        var albumId = await this.CreateAlbumAsync($"Refused {Guid.NewGuid():N}".Substring(0, 20), images: 1);
+
+        // a text file and a file with another extension
+        foreach (var file in new[]
+                     {
+                         new FilePayload { Name = "notes.txt", MimeType = "text/plain", Buffer = [65, 66] },
+                         new FilePayload { Name = "program.exe", MimeType = "application/octet-stream", Buffer = [77, 90] }
+                     })
+        {
+            await this.GotoAsync($"EditAlbumImages?a={albumId}");
+            await this.Control("File").SetInputFilesAsync(file);
+            await this.ClickAndWaitAsync(this.Control("Upload"));
+
+            (await this.Control("ImageDelete").CountAsync()).Should().Be(1, file.Name);
+        }
+
+        await this.GotoAsync($"EditAlbumImages?a={albumId}");
+        await this.ClickAndWaitAsync(this.Control("Back"));
+        this.Page.Url.Should().Contain("Album");
+    }
+
+    [Test]
     [Description("The cover of an album without images and an unknown cover are not found (no error)")]
     public async Task Cover_Of_Empty_Album_Test()
     {
