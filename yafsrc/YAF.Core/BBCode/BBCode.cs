@@ -358,7 +358,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 RegexOptions.Singleline));
 
         // bullets
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<li>", "[*]", Options));
+        // the [*] rule needs a line break at the end of the item;
+        // inline tags run first (rank 0), rules that wrap an inner part protect the html inside it
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<li>", "[*]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</li>", "\r\n", Options) { RuleRank = 0 });
 
         // alignment
         ruleEngine.AddRule(
@@ -401,20 +404,20 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 "[indent]${inner}[/indent]",
                 Options));
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<b>", "[b]", Options) { RuleRank = 4 });
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</b>", "[/b]", Options) { RuleRank = 5 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<b>", "[b]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</b>", "[/b]", Options) { RuleRank = 0 });
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<strong>", "[b]", Options) { RuleRank = 3 });
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</strong>", "[/b]", Options) { RuleRank = 4 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<strong>", "[b]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</strong>", "[/b]", Options) { RuleRank = 0 });
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<s>", "[s]", Options));
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</s>", "[/s]", Options));
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<s>", "[s]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</s>", "[/s]", Options) { RuleRank = 0 });
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<em>", "[i]", Options));
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</em>", "[/i]", Options));
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<em>", "[i]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</em>", "[/i]", Options) { RuleRank = 0 });
 
-        ruleEngine.AddRule(new SingleRegexReplaceRule("<u>", "[u]", Options));
-        ruleEngine.AddRule(new SingleRegexReplaceRule("</u>", "[/u]", Options));
+        ruleEngine.AddRule(new SingleRegexReplaceRule("<u>", "[u]", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule("</u>", "[/u]", Options) { RuleRank = 0 });
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
                 """<span style="text-decoration: underline;">(?<inner>(.*?))</span>""",
@@ -477,21 +480,23 @@ public class BBCode : IBBCode, IHaveServiceLocator
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
                     """<div class="alert alert-(?<type>(.*?))" role="alert">(?<inner>(.*?))</div>""",
-                    "[note=${size}]${inner}[/note]",
+                    "[note=${type}]${inner}[/note]",
                     Options,
                     [
                         "type"
                     ])
-                { RuleRank = 101 });
+                { RuleRank = 99 });
 
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options));
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options) { RuleRank = 0 });
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options) { RuleRank = 0 });
 
-        // Format paragraphs
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("<p>", "\r\n\r\n", Options));
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("</p>", "[br]", Options));
+        // Format paragraphs (after the aligned paragraphs, equal ranks have no fixed order)
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("<p>", "\r\n\r\n", Options) { RuleRank = 90 });
 
-        ruleEngine.AddRule(new SimpleRegexReplaceRule("&nbsp;", string.Empty, Options));
+        // there is no [br] BBCode ([br] is an emoji short code), <p> already adds the line breaks
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("</p>", string.Empty, Options) { RuleRank = 90 });
+
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("&nbsp;", string.Empty, Options) { RuleRank = 90 });
 
         // remove remaining tags
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<[^>]+>", string.Empty, Options) { RuleRank = 100 });

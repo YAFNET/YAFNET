@@ -253,6 +253,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The albums page of a user failed with a parser error (the edit button of the album list had the runat attribute twice)
 * [FIXED] Nested quotes with a user name were rendered in the wrong order with swapped attributions
 * [FIXED] A quote of a post that does not exist (anymore) showed "Posted by" with a link to the missing post, it shows "wrote" like a quote without post now
+* [FIXED] Editing or quoting older HTML posts lost list items, kept formatting inside links as raw HTML, lost the type of notes and turned paragraph ends into flag emojis ([br])
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

@@ -121,7 +121,12 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
         {
             lock (this.rulesLock)
             {
-                this.rulesList.Sort();
+                // stable sort: rules with the same rank keep the order they were added in
+                // (List.Sort is unstable, so that order changed whenever rules were added or re-ranked)
+                var sorted = this.rulesList.OrderBy(rule => rule, Comparer<IReplaceRule>.Default).ToList();
+
+                this.rulesList.Clear();
+                this.rulesList.AddRange(sorted);
                 this.needSort = false;
             }
         }
