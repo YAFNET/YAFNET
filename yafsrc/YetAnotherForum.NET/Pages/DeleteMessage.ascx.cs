@@ -132,6 +132,12 @@ public partial class DeleteMessage : ForumPage
             nameof(JavaScriptBlocks.FormValidatorJs),
             JavaScriptBlocks.FormValidatorJs(this.Delete.ClientID));
 
+        // a message that does not exist (an unknown message in the address)
+        if (this.PageBoardContext.PageMessage == null)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         this.isModeratorChanged = this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID;
 
         if (!this.PageBoardContext.ForumModeratorAccess
