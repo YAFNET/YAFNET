@@ -337,7 +337,7 @@ public static class IDbAccessExtensions
         {
             return dbAccess.Execute(
                 db => db.Connection.Scalar<string>(
-                    OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, recoveryMode)));
+                    OrmLiteConfig.DialectProvider.ChangeRecoveryMode(db.Connection.Database, recoveryMode)));
         }
         catch (Exception)
         {

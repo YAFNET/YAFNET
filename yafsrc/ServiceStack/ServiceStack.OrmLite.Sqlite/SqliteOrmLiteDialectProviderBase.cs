@@ -777,8 +777,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override bool DoesTableExist(IDbCommand dbCmd, TableRef tableRef)
     {
         // The names of tables aren't case sensitive
+        // the real table name (with naming strategy / prefix), tableRef.Name is not set for model types
         var sql = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name = {0} COLLATE NOCASE"
-            .SqlFmt(tableRef.Name);
+            .SqlFmt(this.GetTableNameOnly(tableRef));
 
         dbCmd.CommandText = sql;
         var result = dbCmd.LongScalar();
@@ -797,7 +798,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override bool DoesColumnExist(IDbConnection db, string columnName, TableRef tableRef)
     {
         var sql = "PRAGMA table_info({0})"
-            .SqlFmt(tableRef.Name);
+            .SqlFmt(this.GetTableNameOnly(tableRef));
 
         var columns = db.SqlList<Dictionary<string, object>>(sql);
         foreach (var column in columns)

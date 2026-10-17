@@ -16,6 +16,10 @@ YetAnotherForum.NET Changelog
 * [FIXED] Generated passwords could contain three identical characters in a row
 * [FIXED] Topic names with " & " became "AandB" in the url instead of "A-and-B"
 * [FIXED] Paging: a huge page number in the url caused an error (negative offset)
+* [FIXED] Admin -> Database: "Change recovery mode" re-indexed the database instead of changing the recovery mode
+* [FIXED] SQLite: the table and column checks used by the database migrations never found existing tables and columns
+* [FIXED] MySQL: the current time of the queries was the date only (midnight), e.g. the active users of the day were never removed
+* [FIXED] PostgreSQL: the difference of two times in minutes was only the minutes part (2:05 hours were 5 minutes)
 * [FIXED] Deleting all rows of a table reported no success when exactly one row was deleted
 
 # YetAnotherForum.NET v3.2.15
