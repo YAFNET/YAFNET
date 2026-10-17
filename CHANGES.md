@@ -140,6 +140,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The search api did not check the search permission of the board (the results were still limited to readable forums), and the page size of the search was not limited; the search returned posts that were not approved yet (e.g. spam waiting for moderation) to everybody with read access, now only moderators of the forum find them
 * [FIXED] Security: The "delete selected" of the own attachments deleted the attachments of any id sent with the form (the id is a hidden field), also of other users
 * [FIXED] Security: The "delete selected" of the private messages deleted the messages of any id sent with the form (the id is a hidden field), also the messages of other users
+* [FIXED] Security: The forum access of the edit forum and edit group pages used the group and forum ids of hidden fields without checking the board, admins could change the forum access of groups and forums of other boards
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

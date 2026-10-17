@@ -520,6 +520,13 @@ public partial class EditForum : AdminPage
                     {
                         var groupId = int.Parse(item.FindControlAs<HiddenField>("GroupID").Value);
 
+                        // only the groups of the board (the id is a hidden field)
+                        if (!this.GetRepository<Group>().Exists(
+                                g => g.ID == groupId && g.BoardID == this.PageBoardContext.PageBoardID))
+                        {
+                            return;
+                        }
+
                         this.GetRepository<ForumAccess>().Save(
                             newForumId.ToType<int>(),
                             groupId,
@@ -532,6 +539,13 @@ public partial class EditForum : AdminPage
                 item =>
                     {
                         var groupId = int.Parse(item.FindControlAs<HiddenField>("GroupID").Value);
+
+                        // only the groups of the board (the id is a hidden field)
+                        if (!this.GetRepository<Group>().Exists(
+                                g => g.ID == groupId && g.BoardID == this.PageBoardContext.PageBoardID))
+                        {
+                            return;
+                        }
 
                         this.GetRepository<ForumAccess>().Create(
                             newForumId.ToType<int>(),

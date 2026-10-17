@@ -325,6 +325,12 @@ public partial class EditGroup : AdminPage
             // get forum ID
             var forumId = int.Parse(item.FindControlAs<HiddenField>("ForumID").Value);
 
+            // only the forums of the board (the id is a hidden field)
+            if (!this.IsBoardForum(forumId))
+            {
+                continue;
+            }
+
             // save forum access masks for this role
             this.GetRepository<ForumAccess>().Save(
                 forumId,

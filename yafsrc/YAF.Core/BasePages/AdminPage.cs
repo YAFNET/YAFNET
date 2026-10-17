@@ -93,9 +93,24 @@ public class AdminPage : ForumPage
             return;
         }
 
-        var forum = this.GetRepository<Forum>().GetById(forumId.Value);
+        if (!this.IsBoardForum(forumId.Value))
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+    }
 
-        this.CheckBoardRecord<Category>(forum?.CategoryID ?? 0);
+    /// <summary>
+    /// Checks if the forum belongs to the board of the page.
+    /// </summary>
+    /// <param name="forumId">The forum id.</param>
+    /// <returns>Returns if the forum belongs to the board.</returns>
+    protected bool IsBoardForum(int forumId)
+    {
+        var forum = this.GetRepository<Forum>().GetById(forumId);
+        var boardId = this.PageBoardContext.PageBoardID;
+
+        return forum != null && this.GetRepository<Category>()
+                   .Exists(c => c.ID == forum.CategoryID && c.BoardID == boardId);
     }
 
     /// <summary>
