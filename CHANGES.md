@@ -171,6 +171,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The StopForumSpam and BotScout bot checks sent the user name, e-mail and ip without url encoding (e.g. a + in an e-mail address became a space, an & in a name cut off the request), a StopForumSpam response without a user name caused an error
 * [FIXED] The forgot password page said that a new verification e-mail was sent to not yet approved accounts, but none was sent; it is sent now (only while the e-mail verification is pending, accounts waiting for the approval of an admin get no e-mail)
 * [FIXED] Creating a category or forum failed when a category or forum with the same name existed on another board, renaming a category or forum to a name that already exists (in the board or the category) caused an error instead of the "name exists" message
+* [FIXED] Exporting the selected bb codes failed when an id was not found
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

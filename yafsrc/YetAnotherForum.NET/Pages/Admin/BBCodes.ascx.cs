@@ -180,9 +180,13 @@ public partial class BBCodes : AdminPage
 
             codeIDs.ForEach(id =>
                 {
-                    var found = list.First(e => e.ID == id);
+                    // a bb code deleted in the meantime (or of another board) is skipped
+                    var found = list.FirstOrDefault(e => e.ID == id);
 
-                    selectedList.Add(found);
+                    if (found != null)
+                    {
+                        selectedList.Add(found);
+                    }
                 });
 
             var element = new XElement(
