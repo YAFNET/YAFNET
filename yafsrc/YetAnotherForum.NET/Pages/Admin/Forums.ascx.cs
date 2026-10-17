@@ -206,7 +206,9 @@ public partial class Forums : AdminPage
     /// </param>
     protected void SortCategoriesAscending(object sender, EventArgs e)
     {
-        var categories = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
+        // all categories of the board (the list of the page has only the entries of the current page)
+        var listAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
+        var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.ID).ToList();
 
         this.GetRepository<Category>().ReOrderAllAscending(categories);
 
@@ -228,7 +230,9 @@ public partial class Forums : AdminPage
     /// </param>
     protected void SortCategoriesDescending(object sender, EventArgs e)
     {
-        var categories = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
+        // all categories of the board (the list of the page has only the entries of the current page)
+        var listAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
+        var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.ID).ToList();
 
         this.GetRepository<Category>().ReOrderAllDescending(categories);
 
@@ -250,7 +254,9 @@ public partial class Forums : AdminPage
     /// </param>
     protected void SortForumsAscending(object sender, EventArgs e)
     {
-        var categories = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
+        // all categories of the board (the list of the page has only the entries of the current page)
+        var listAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
+        var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.ID).ToList();
 
         if (categories.NullOrEmpty())
         {
@@ -259,7 +265,7 @@ public partial class Forums : AdminPage
 
         categories.ForEach(category =>
             {
-                var forums = this.ListAll.Select(x => x.Item2).Where(x => x.CategoryID == category.ID).ToList();
+                var forums = listAll.Select(x => x.Item2).Where(x => x.CategoryID == category.ID).ToList();
 
                 this.GetRepository<Forum>().ReOrderAllAscending(forums);
             });
@@ -282,7 +288,9 @@ public partial class Forums : AdminPage
     /// </param>
     protected void SortForumsDescending(object sender, EventArgs e)
     {
-        var categories = this.ListAll.Select(x => x.Item1).DistinctBy(x => x.Name).ToList();
+        // all categories of the board (the list of the page has only the entries of the current page)
+        var listAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
+        var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.ID).ToList();
 
         if (categories.NullOrEmpty())
         {
@@ -291,7 +299,7 @@ public partial class Forums : AdminPage
 
         categories.ForEach(category =>
             {
-                var forums = this.ListAll.Select(x => x.Item2).Where(x => x.CategoryID == category.ID).ToList();
+                var forums = listAll.Select(x => x.Item2).Where(x => x.CategoryID == category.ID).ToList();
 
                 this.GetRepository<Forum>().ReOrderAllDescending(forums);
             });

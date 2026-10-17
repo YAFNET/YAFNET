@@ -329,6 +329,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Albums: the cover of an album without images (or an unknown cover) wrote an event log entry on every view instead of returning not found
 * [FIXED] Attachments: an upload without the upload access was a server error instead of forbidden
 * [FIXED] Attachments: the upload status showed the size 0 for an attachment saved in the database
+* [FIXED] Admin > Forums: sorting the categories or forums by name only sorted the entries of the current page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
