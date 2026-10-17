@@ -1506,6 +1506,10 @@
             "#text": "افزونه های BBCode"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "درون‌ریزی از XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "موردی برای برون‌بری انتخاب نشده"
           },

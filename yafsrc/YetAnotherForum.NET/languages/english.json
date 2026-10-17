@@ -1514,6 +1514,10 @@
 						"#text": "BBCode Extensions"
 					},
 					{
+						"@tag": "IMPORT",
+						"#text": "Import from XML"
+					},
+					{
 						"@tag": "MSG_NOTHING_SELECTED",
 						"#text": "Nothing selected to export."
 					},

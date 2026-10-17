@@ -1506,6 +1506,10 @@
             "#text": "BBCode plėtiniai"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Importas iš XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Eksportuoti nepasirinkta nieko."
           },

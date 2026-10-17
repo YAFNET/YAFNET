@@ -1506,6 +1506,10 @@
             "#text": "Rozšíření BBCode"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Import z XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Nebylo vybráno nic k exportu."
           },

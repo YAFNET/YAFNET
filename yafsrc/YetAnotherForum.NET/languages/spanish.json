@@ -1506,6 +1506,10 @@
             "#text": "Extensiones BBCode"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Importar desde XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "No se ha seleccionado nada para exportar."
           },

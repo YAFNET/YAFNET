@@ -1506,6 +1506,10 @@
             "#text": "Rozšírenia kódu BBC"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Import z XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Na export nie je vybrané nič."
           },

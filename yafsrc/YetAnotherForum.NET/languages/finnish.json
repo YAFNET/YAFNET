@@ -1506,6 +1506,10 @@
             "#text": "BBCode-laajennukset"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Tuo XML:stä"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Mitään ei ole valittu vietäväksi."
           },

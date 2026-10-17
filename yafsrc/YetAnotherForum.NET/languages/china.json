@@ -1506,6 +1506,10 @@
             "#text": "BBCode 扩展"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "从 XML 导入"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "没有选择导出。"
           },

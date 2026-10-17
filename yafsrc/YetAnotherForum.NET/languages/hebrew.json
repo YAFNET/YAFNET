@@ -1506,6 +1506,10 @@
             "#text": "הרחבות BBCode"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "ייבוא מ-XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "שום דבר לא נבחר לייצוא."
           },

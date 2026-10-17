@@ -1506,6 +1506,10 @@
             "#text": "ملحقات BBCode"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "الاستيراد من XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "لم يتم تحديد أي شيء للتصدير."
           },

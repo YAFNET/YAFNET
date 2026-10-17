@@ -1506,6 +1506,10 @@
             "#text": "BBCode-utvidelser"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Importer fra XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Ingenting er valgt å eksportere."
           },

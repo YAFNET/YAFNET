@@ -319,6 +319,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Delete Forum: after the forum was deleted the page showed the "invalid" info page instead of going back to the forum list
 * [FIXED] Admin > Banned Emails/IPs/Names/User Agents and Spam Words: the pager of a search counted all entries instead of the found ones
 * [FIXED] Admin > BBCodes, Replace Words and Spam Words: after a failed import the import dialog was not opened again (script error)
+* [FIXED] Admin > BBCodes and Replace Words: the import button showed the text "Import List" of another page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

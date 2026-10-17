@@ -1506,6 +1506,10 @@
             "#text": "Extensii BBCode"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Import din XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Nu este selectat nimic pentru export."
           },

@@ -1506,6 +1506,10 @@
             "#text": "BBCode Extensies"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Importeer vanuit XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Er is niets geselecteerd om te exporteren."
           },

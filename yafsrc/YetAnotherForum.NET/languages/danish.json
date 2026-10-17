@@ -1506,6 +1506,10 @@
             "#text": "BBCode-udvidelser"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Importer fra XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Der er ikke valgt noget til eksport."
           },

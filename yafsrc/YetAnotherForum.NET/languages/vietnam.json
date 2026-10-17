@@ -1506,6 +1506,10 @@
             "#text": "Phần mở rộng BBCode"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Nhập từ XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Không có gì được chọn để xuất."
           },

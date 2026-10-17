@@ -1506,6 +1506,10 @@
             "#text": "BBCode-tillägg"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Importera från XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Inget valt att exportera."
           },

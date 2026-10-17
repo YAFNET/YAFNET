@@ -99,7 +99,7 @@
                                      Type="None"
                                      CssClass="dropdown-item"
                                      TextLocalizedTag="IMPORT"
-                                     TextLocalizedPage="ADMIN_REPACEWORDS">
+                                     TextLocalizedPage="ADMIN_REPLACEWORDS">
                     </YAF:ThemeButton>
                     <YAF:ThemeButton runat="server"
                                      CommandName="export"
@@ -134,7 +134,7 @@
                                  ID="Linkbutton5"
                                  Type="Info"
                                  TextLocalizedTag="IMPORT"
-                                 TextLocalizedPage="ADMIN_REPACEWORDS">
+                                 TextLocalizedPage="ADMIN_REPLACEWORDS">
                 </YAF:ThemeButton>
                 <YAF:ThemeButton runat="server"
                                  CssClass="mb-1"

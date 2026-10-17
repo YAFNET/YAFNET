@@ -1506,6 +1506,10 @@
             "#text": "BBCode wtyczki"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Importuj z XML"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Nic nie wybrano do eksportu."
           },

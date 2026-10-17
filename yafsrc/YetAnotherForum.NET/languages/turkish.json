@@ -1506,6 +1506,10 @@
             "#text": "BBCode Uzantıları"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "XML'den içe aktarma"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Dışa aktarmak için hiçbir şey seçilmedi."
           },

@@ -1506,6 +1506,10 @@
             "#text": "BBCode laiendused"
           },
           {
+            "@tag": "IMPORT",
+            "#text": "Import XML-ist"
+          },
+          {
             "@tag": "MSG_NOTHING_SELECTED",
             "#text": "Midagi pole eksportimiseks valitud."
           },
