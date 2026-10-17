@@ -72,6 +72,37 @@ public class UsersImportTests : ForumTestBase
     }
 
     [Test]
+    [Description("The profile of an imported user (all columns), an invalid time zone, a name that is not allowed is refused")]
+    public async Task Profile_Columns_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var xml = $"""
+                   <?xml version="1.0" encoding="utf-8"?>
+                   <YafUserList>
+                     <User>
+                       <Name>Prf{id}</Name><Email>prf{id}@localhost.com</Email>
+                       <RealName>Imported Real Name</RealName><Blog>https://blog.example.com</Blog>
+                       <Birthday>1980-05-17</Birthday><Location>Imported Location</Location><Country>US</Country>
+                       <Region>CA</Region><City>Imported City</City><Interests>Imported Interests</Interests>
+                       <Homepage>https://www.example.com</Homepage><XMPP>imported@example.com</XMPP>
+                       <Occupation>Imported Occupation</Occupation><Facebook>https://www.facebook.com/imported</Facebook>
+                       <TimeZone>Not a time zone</TimeZone>
+                     </User>
+                     <User><Name>&lt;bad name{id}&gt;</Name><Email>bad{id}@localhost.com</Email></User>
+                   </YafUserList>
+                   """;
+
+        await this.LoginAsAdminAsync();
+        await this.ImportAsync("users.xml", "text/xml", xml);
+
+        var userId = await this.OpenAdminEditUserAsync($"Prf{id}");
+
+        await this.GotoAsync($"UserProfile/{userId}-Prf{id}");
+        (await this.Page.InnerTextAsync("body")).Should().Contain("Imported Real Name").And.Contain("Imported City")
+            .And.Contain("Imported Occupation").And.Contain("Imported Interests");
+    }
+
+    [Test]
     [Description("A file that is no users file is refused with a message")]
     public async Task Wrong_File_Test()
     {
