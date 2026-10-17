@@ -102,18 +102,15 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             ForumPages.Moderate_UnapprovedPosts,
             new { f = forumId });
 
-        var currentContext = HttpContext.Current;
-
-        // send each message...
-        moderatorUserNames.Distinct().AsParallel().ForAll(
+        // send each message... (sequential: the services use the context of the request)
+        moderatorUserNames.Distinct().ForEach(
             userName =>
                 {
-                    HttpContext.Current = currentContext;
-
                     try
                     {
                         // add each member of the group
-                        var user = this.GetRepository<User>().GetSingle(x => x.Name == userName);
+                        var user = this.GetRepository<User>().GetSingle(
+                            x => x.BoardID == this.BoardSettings.BoardId && x.Name == userName);
 
                         if (user == null)
                         {
@@ -150,9 +147,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
 
                         notifyModerators.SendEmail(new MailAddress(user.Email, user.DisplayOrUserName()), subject);
                     }
-                    finally
+                    catch (Exception x)
                     {
-                        HttpContext.Current = null;
+                        // a mail error does not fail the post, the other moderators get their mail
+                        this.Get<ILoggerService>().Error(x, $"Approval Notification Error for {userName}");
                     }
                 });
     }
@@ -199,14 +197,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                         }
                     });
 
-            var currentContext = HttpContext.Current;
-
-            // send each message...
-            moderatorUserNames.Distinct().AsParallel().ForAll(
+            // send each message... (sequential: the services use the context of the request)
+            moderatorUserNames.Distinct().ForEach(
                 userName =>
                     {
-                        HttpContext.Current = currentContext;
-
                         try
                         {
                             // add each member of the group
@@ -244,9 +238,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                 new MailAddress(membershipUser.Email, membershipUser.UserName),
                                 subject);
                         }
-                        finally
+                        catch (Exception x)
                         {
-                            HttpContext.Current = null;
+                            // the other moderators get their mail
+                            this.Get<ILoggerService>().Error(x, $"Report Notification Error for {userName}");
                         }
                     });
         }

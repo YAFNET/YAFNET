@@ -37,6 +37,7 @@ using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
+using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Identity;
@@ -82,6 +83,10 @@ public class SendNotificationTests
         var displayName = Substitute.For<IUserDisplayName>();
         displayName.GetNameById(Arg.Any<int>()).Returns(c => $"User {c.Arg<int>()}");
 
+        // the members of the moderator groups are found in the identity
+        var roles = Substitute.For<IAspNetRolesHelper>();
+        roles.GetUsersInRole(Arg.Any<string>()).Returns(new List<AspNetUsers>());
+
         this.mail = new RecordingMailService();
         this.aspNetUsers = Substitute.For<IAspNetUsersHelper>();
 
@@ -99,7 +104,7 @@ public class SendNotificationTests
                 b.RegisterInstance(displayName).As<IUserDisplayName>();
                 b.RegisterInstance(this.mail).As<IMailService>();
                 b.RegisterInstance(this.aspNetUsers).As<IAspNetUsersHelper>();
-                b.RegisterInstance(Substitute.For<IAspNetRolesHelper>()).As<IAspNetRolesHelper>();
+                b.RegisterInstance(roles).As<IAspNetRolesHelper>();
             },
             useDatabase: true);
 
@@ -209,6 +214,55 @@ public class SendNotificationTests
         this.mail.Error = new SmtpException("the server is down");
 
         FluentActions.Invoking(() => this.Notifications.ToWatchingUsers(this.Post(this.alice, "Hello")))
+            .Should().NotThrow();
+
+        this.board.Logger.ReceivedWithAnyArgs().Log(default);
+    }
+
+    [Test]
+    [Description("Every moderator of the forum gets one approval mail")]
+    public void ToModeratorsThatMessageNeedsApproval_Test()
+    {
+        this.db.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
+        this.db.AddForumAccess(this.carol, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
+
+        var message = this.db.AddMessage(this.topic, this.alice);
+
+        this.Notifications.ToModeratorsThatMessageNeedsApproval(this.forum, message, false);
+
+        this.mail.Recipients.Should().BeEquivalentTo("bob@example.com", "carol@example.com");
+        this.mail.Sent.Should().OnlyContain(m => m.Subject == "Approval needed on Test Forum");
+    }
+
+    [Test]
+    [Description("A mail error does not fail the post that needs the approval")]
+    public void ToModeratorsThatMessageNeedsApproval_Mail_Error_Test()
+    {
+        this.db.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
+
+        this.mail.Error = new SmtpException("the server is down");
+
+        FluentActions.Invoking(
+                () => this.Notifications.ToModeratorsThatMessageNeedsApproval(
+                    this.forum,
+                    this.db.AddMessage(this.topic, this.alice),
+                    false))
+            .Should().NotThrow();
+    }
+
+    [Test]
+    [Description("Errors while notifying about reports are logged, not thrown")]
+    public void ToModeratorsThatMessageWasReported_Error_Test()
+    {
+        this.db.AddForumAccess(this.bob, this.forum, TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess);
+
+        // the moderator is not found in the identity
+        FluentActions.Invoking(
+                () => this.Notifications.ToModeratorsThatMessageWasReported(
+                    this.forum,
+                    this.db.AddMessage(this.topic, this.alice),
+                    this.carol,
+                    "spam"))
             .Should().NotThrow();
 
         this.board.Logger.ReceivedWithAnyArgs().Log(default);
