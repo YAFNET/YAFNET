@@ -58,6 +58,19 @@ public class AttachmentController : ApiController, IHaveServiceLocator
         var pageSize = pagedResults.PageSize;
         var pageNumber = pagedResults.PageNumber;
 
+        // guests are all the same user, a guest saw the uploads of all other guests
+        if (BoardContext.Current.IsGuest)
+        {
+            return this.Ok(
+                new GridDataSet
+                    {
+                        PageNumber = pageNumber,
+                        TotalRecords = 0,
+                        PageSize = pageSize,
+                        AttachmentList = []
+                    });
+        }
+
         var attachments = this.GetRepository<Attachment>().GetPaged(
             a => a.UserID == userId,
             pageNumber,
