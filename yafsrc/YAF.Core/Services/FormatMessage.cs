@@ -190,7 +190,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         // check to see if no follow should be disabled since the message is properly aged
         if (useNoFollow && boardSettings.DisableNoFollowLinksAfterDay > 0)
         {
-            var messageAge = messageLastEdited - DateTime.UtcNow;
+            var messageAge = DateTime.UtcNow - messageLastEdited;
             if (messageAge.Days > boardSettings.DisableNoFollowLinksAfterDay)
             {
                 // disable no follow
