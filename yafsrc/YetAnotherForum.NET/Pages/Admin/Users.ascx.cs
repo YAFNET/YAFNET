@@ -338,7 +338,13 @@ public partial class Users : AdminPage
     /// </param>
     protected void LockAccountsClick(object sender, EventArgs e)
     {
-        this.Get<IAspNetUsersHelper>().LockInactiveAccounts(DateTime.UtcNow.AddYears(-this.YearsOld.Text.ToType<int>()));
+        // at least one year (0 or less would lock almost all users), at most 100 years (a date overflow)
+        if (!int.TryParse(this.YearsOld.Text.Trim(), out var years) || years < 1)
+        {
+            return;
+        }
+
+        this.Get<IAspNetUsersHelper>().LockInactiveAccounts(DateTime.UtcNow.AddYears(-Math.Min(years, 100)));
     }
 
     /// <summary>

@@ -238,7 +238,14 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         var allUsers = this.GetRepository<User>().GetByBoardId();
 
         // iterate through each one...
-        allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && (user.Flags & 32) != 32 && user.LastVisit < createdCutoff)
+        // not the host admins, admins and the current user
+        var admins = new HashSet<int>(
+            this.GetRepository<VAccess>().Get(v => v.IsAdmin > 0).Select(v => v.UserID));
+
+        allUsers.Where(
+                user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && (user.Flags & 32) != 32
+                        && (user.Flags & 1) != 1 && !admins.Contains(user.ID)
+                        && user.ID != BoardContext.Current.PageUserID && user.LastVisit < createdCutoff)
             .ForEach(
                 user =>
                 {
