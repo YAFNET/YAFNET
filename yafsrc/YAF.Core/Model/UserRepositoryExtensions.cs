@@ -1327,7 +1327,9 @@ public static class UserRepositoryExtensions
 
         expression.Join<VAccess>((u, v) => v.UserID == u.ID).Where<VAccess, User>(
             (v, u) => u.BoardID == (boardId ?? repository.BoardID) && (u.Flags & 4) != 4 && v.IsAdmin > 0 &&
-                      v.ForumID == 0).OrderBy<User>(u => u.DisplayName);
+                      v.ForumID == 0
+                      // only approved users that are not deleted (the team page listed disabled admins)
+                      && (u.Flags & 2) == 2 && (u.Flags & 32) == 0).OrderBy<User>(u => u.DisplayName);
 
         return repository.DbAccess.Execute(db => db.Connection.Select(expression));
     }
