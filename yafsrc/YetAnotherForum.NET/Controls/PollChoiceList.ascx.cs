@@ -139,9 +139,12 @@ public partial class PollChoiceList : BaseUserControl
 
         var choiceId = e.CommandArgument.ToType<int>();
 
-        this.GetRepository<Choice>().Vote(choiceId);
-
-        this.GetRepository<PollVote>().Vote(choiceId, this.PageBoardContext.PageUserID, this.PollId);
+        // counted only once per user and only for a choice of this poll
+        if (!this.GetRepository<PollVote>().Vote(choiceId, this.PageBoardContext.PageUserID, this.PollId))
+        {
+            this.PageBoardContext.Notify(this.GetText("WARN_ALREADY_VOTED"), MessageTypes.warning);
+            return;
+        }
 
         this.BindData();
 

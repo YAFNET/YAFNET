@@ -248,7 +248,8 @@ public partial class PollList : BaseUserControl
     /// </param>
     protected void RemoveClick(object sender, EventArgs e)
     {
-        if (this.PageBoardContext.ForumVoteAccess)
+        // the owner of the poll, a moderator of the forum of the topic or an admin (not every user with vote access)
+        if (this.poll != null && this.CanRemovePoll())
         {
             this.GetRepository<Poll>().Remove(this.poll.ID);
         }

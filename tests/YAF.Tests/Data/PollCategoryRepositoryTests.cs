@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -122,6 +122,29 @@ public class PollCategoryRepositoryTests
         this.Repository<Topic>().GetById(topic).PollID.Should().BeNull();
 
         this.Repository<Choice>().Count(c => c.PollID == otherPoll).Should().Be(1, "other polls are kept");
+    }
+
+    [Test]
+    [Description("A vote is counted once per user and poll, and only for a choice of the poll")]
+    public void Poll_Vote_Test()
+    {
+        var pollId = this.Polls.Create(this.alice, "Q", null, false, false, false, null);
+        var otherPoll = this.Polls.Create(this.alice, "Other", null, false, false, false, null);
+        var red = this.AddChoice(pollId, "Red");
+        var blue = this.AddChoice(pollId, "Blue");
+        var green = this.AddChoice(otherPoll, "Green");
+
+        var votes = this.Repository<PollVote>();
+
+        votes.Vote(green, this.alice, pollId).Should().BeFalse("the choice belongs to another poll");
+        votes.Vote(red, this.alice, pollId).Should().BeTrue();
+        votes.Vote(red, this.alice, pollId).Should().BeFalse("the user voted already");
+        votes.Vote(blue, this.alice, pollId).Should().BeFalse("the user voted already");
+
+        this.Repository<Choice>().GetById(red).Votes.Should().Be(1);
+        this.Repository<Choice>().GetById(blue).Votes.Should().Be(0);
+        this.Repository<Choice>().GetById(green).Votes.Should().Be(0);
+        votes.Count(v => v.PollID == pollId).Should().Be(1);
     }
 
     [Test]

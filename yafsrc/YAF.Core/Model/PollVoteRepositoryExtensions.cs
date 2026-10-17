@@ -99,16 +99,25 @@ public static class PollVoteRepositoryExtensions
     /// <param name="pollId">
     /// The poll id.
     /// </param>
-    public static void Vote(
+    /// <returns>
+    /// Returns if the vote was counted (not for a choice of another poll and not twice).
+    /// </returns>
+    public static bool Vote(
         this IRepository<PollVote> repository,
         int choiceId,
         int userId,
         int pollId)
     {
+        // only a choice of the poll (the choice id is sent by the client)
+        if (!BoardContext.Current.GetRepository<Choice>().Exists(c => c.ID == choiceId && c.PollID == pollId))
+        {
+            return false;
+        }
+
         // re-check immediately before inserting to narrow the double-vote race window
         if (repository.Exists(p => p.UserID == userId && p.PollID == pollId))
         {
-            return;
+            return false;
         }
 
         var entity = new PollVote { PollID = pollId, UserID = userId, ChoiceID = choiceId };
@@ -116,5 +125,10 @@ public static class PollVoteRepositoryExtensions
         repository.Insert(entity);
 
         repository.FireNew(entity);
+
+        // the vote is counted for the choice
+        BoardContext.Current.GetRepository<Choice>().Vote(choiceId);
+
+        return true;
     }
 }

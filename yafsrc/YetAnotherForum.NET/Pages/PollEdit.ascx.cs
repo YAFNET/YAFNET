@@ -112,9 +112,7 @@ public partial class PollEdit : ForumPage
     {
         this.InitializeVariables();
 
-        this.PollObjectRow1.Visible =
-            (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.AllowUsersImagedPoll) &&
-            this.PageBoardContext.ForumPollAccess;
+        this.PollObjectRow1.Visible = this.CanUseImages;
     }
 
     /// <summary>
@@ -168,10 +166,17 @@ public partial class PollEdit : ForumPage
     {
         DateTime? datePollExpire = null;
 
-        if (this.PollExpire.Text.IsSet())
+        // an invalid value (not a number) is no expiry
+        if (int.TryParse(this.PollExpire.Text.Trim(), out var expireDays) && expireDays > 0)
         {
-            datePollExpire = DateTime.UtcNow.AddDays(this.PollExpire.Text.ToType<int>());
+            datePollExpire = DateTime.UtcNow.AddDays(Math.Min(expireDays, 3650));
         }
+
+        // the options the settings don't allow for the user are not taken from the form
+        var allowImages = this.CanUseImages;
+        var questionPath = allowImages ? this.QuestionObjectPath.Text.Trim() : null;
+        var isClosedBound = this.CanHideResults && this.IsClosedBoundCheckBox.Checked;
+        var allowMultipleChoices = this.CanUseMultipleChoices && this.AllowMultipleChoicesCheckBox.Checked;
 
         // we are just using existing poll
         if (this.PollId != null)
@@ -180,10 +185,14 @@ public partial class PollEdit : ForumPage
                 this.PollId.Value,
                 this.Question.Text,
                 datePollExpire,
-                this.IsClosedBoundCheckBox.Checked,
-                this.AllowMultipleChoicesCheckBox.Checked,
+                isClosedBound,
+                allowMultipleChoices,
                 this.ShowVotersCheckBox.Checked,
-                this.QuestionObjectPath.Text);
+                questionPath);
+
+            // only the choices of this poll (the ids are sent by the client)
+            var pollChoices = this.GetRepository<Choice>().Get(c => c.PollID == this.PollId.Value).Select(c => c.ID)
+                .ToList();
 
             this.ChoiceRepeater.Items.Cast<RepeaterItem>().ForEach(
                 item =>
@@ -191,7 +200,12 @@ public partial class PollEdit : ForumPage
                         var choiceId = item.FindControlAs<HiddenField>("PollChoiceID").Value.ToType<int>();
 
                         var choiceName = item.FindControlAs<TextBox>("PollChoice").Text.Trim();
-                        var choiceObjectPath = item.FindControlAs<TextBox>("ObjectPath").Text.Trim();
+                        var choiceObjectPath = allowImages ? item.FindControlAs<TextBox>("ObjectPath").Text.Trim() : null;
+
+                        if (choiceId != 0 && !pollChoices.Contains(choiceId))
+                        {
+                            return;
+                        }
 
                         if (choiceId == 0 && choiceName.IsSet())
                         {
@@ -221,16 +235,16 @@ public partial class PollEdit : ForumPage
             this.PageBoardContext.PageUserID,
             this.Question.Text,
             datePollExpire,
-            this.IsClosedBoundCheckBox.Checked,
-            this.AllowMultipleChoicesCheckBox.Checked,
+            isClosedBound,
+            allowMultipleChoices,
             this.ShowVotersCheckBox.Checked,
-            this.QuestionObjectPath.Text);
+            questionPath);
 
         this.ChoiceRepeater.Items.Cast<RepeaterItem>().ForEach(
             item =>
                 {
                     var choiceName = item.FindControlAs<TextBox>("PollChoice").Text.Trim();
-                    var choiceObjectPath = item.FindControlAs<TextBox>("ObjectPath").Text.Trim();
+                    var choiceObjectPath = allowImages ? item.FindControlAs<TextBox>("ObjectPath").Text.Trim() : null;
 
                     if (choiceName.IsSet())
                     {
@@ -264,10 +278,12 @@ public partial class PollEdit : ForumPage
             // we edit existing poll
             var pollAndChoices = this.GetRepository<Poll>().GetPollAndChoices(this.PollId.Value);
 
-            var poll = pollAndChoices.FirstOrDefault().Item1;
+            var poll = pollAndChoices.FirstOrDefault()?.Item1;
 
-            if (poll.UserID != this.PageBoardContext.PageUserID &&
-                !this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
+            // only the poll of the topic (the moderator access is the access of the forum of the topic)
+            if (poll == null || this.PageBoardContext.PageTopic?.PollID != poll.ID
+                             || poll.UserID != this.PageBoardContext.PageUserID && !this.PageBoardContext.IsAdmin
+                                                                                && !this.PageBoardContext.ForumModeratorAccess)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
@@ -335,12 +351,30 @@ public partial class PollEdit : ForumPage
         this.SavePoll.Visible = true;
         this.Cancel.Visible = true;
         this.PollRowExpire.Visible = true;
-        this.IsClosedBound.Visible =
-            this.PageBoardContext.BoardSettings.AllowUsersHidePollResults || this.PageBoardContext.IsAdmin ||
-            this.PageBoardContext.IsForumModerator;
-        this.tr_AllowMultipleChoices.Visible = this.PageBoardContext.BoardSettings.AllowMultipleChoices ||
-                                               this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess;
+        this.IsClosedBound.Visible = this.CanHideResults;
+        this.tr_AllowMultipleChoices.Visible = this.CanUseMultipleChoices;
     }
+
+    /// <summary>
+    /// Gets a value indicating whether the user can add images to the poll.
+    /// </summary>
+    private bool CanUseImages =>
+        (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.AllowUsersImagedPoll)
+        && this.PageBoardContext.ForumPollAccess;
+
+    /// <summary>
+    /// Gets a value indicating whether the user can hide the results until the poll is closed.
+    /// </summary>
+    private bool CanHideResults =>
+        this.PageBoardContext.BoardSettings.AllowUsersHidePollResults || this.PageBoardContext.IsAdmin
+                                                                      || this.PageBoardContext.ForumModeratorAccess;
+
+    /// <summary>
+    /// Gets a value indicating whether the user can allow multiple choices.
+    /// </summary>
+    private bool CanUseMultipleChoices =>
+        this.PageBoardContext.BoardSettings.AllowMultipleChoices || this.PageBoardContext.IsAdmin
+                                                                 || this.PageBoardContext.ForumModeratorAccess;
 
     /// <summary>
     /// Initializes page context query variables.
@@ -408,27 +442,15 @@ public partial class PollEdit : ForumPage
     /// </returns>
     private bool CanCreatePoll()
     {
-        if (this.PageBoardContext.PageTopic != null)
-        {
-            return true;
-        }
+        // the poll is added to the topic: a topic without a poll, of the user (or a moderator of the forum)
+        var topic = this.PageBoardContext.PageTopic;
 
-        // admins can add any number of polls
-        if (this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
-        {
-            return true;
-        }
-
-        if (!this.PageBoardContext.ForumPollAccess)
+        if (topic == null || topic.PollID.HasValue || !this.PageBoardContext.ForumPollAccess)
         {
             return false;
         }
 
-        if (this.PageBoardContext.ForumPollAccess)
-        {
-            return true;
-        }
-
-        return this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber > 0;
+        return topic.UserID == this.PageBoardContext.PageUserID || this.PageBoardContext.IsAdmin
+                                                                || this.PageBoardContext.ForumModeratorAccess;
     }
 }
