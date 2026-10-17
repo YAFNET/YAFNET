@@ -214,6 +214,9 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     {
         this.DataCache.Remove(Constants.Cache.CustomBBCode);
         this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
+
+        // the custom bb codes with a module (they were only used after the application restarted)
+        this.Get<IObjectStore>().Remove("CustomBBCodeRegExDictionary");
     }
 
     /// <summary>
