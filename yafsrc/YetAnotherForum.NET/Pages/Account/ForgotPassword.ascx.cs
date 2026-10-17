@@ -30,6 +30,16 @@ namespace YAF.Pages.Account;
 public partial class ForgotPassword : AccountPage
 {
     /// <summary>
+    /// How many reset emails an account gets in the time window.
+    /// </summary>
+    private const int MaxEmailsPerWindow = 3;
+
+    /// <summary>
+    /// The time window of the email limit.
+    /// </summary>
+    private static readonly TimeSpan EmailWindow = TimeSpan.FromHours(1);
+
+    /// <summary>
     ///   Initializes a new instance of the <see cref = "ForgotPassword" /> class.
     /// </summary>
     public ForgotPassword()
@@ -100,6 +110,15 @@ public partial class ForgotPassword : AccountPage
             this.PageBoardContext.LoadMessage.AddSession(
                 this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.warning);
 
+            return;
+        }
+
+        // over the limit nothing is sent (otherwise the inbox of the user could be flooded), the page shows the same
+        if (!SendLimitHelper.TryCount($"AccountEmail_{user.Id}", MaxEmailsPerWindow, EmailWindow))
+        {
+            this.PageBoardContext.LoadMessage.AddSession(this.GetText("SUCCESS"), MessageTypes.success);
+
+            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
             return;
         }
 
