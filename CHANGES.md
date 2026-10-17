@@ -276,6 +276,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The paged lists of the editor (attachments, album images) and of the notification menu accepted any page size and page number from the client: a negative value failed with an error, a huge page size loaded all rows; the page size is limited to 1 - 100 now
 * [FIXED] The [hide-thanks=x] BBCode counted the thanks the reader gave instead of the thanks received (as the BBCode and its message describe), the hidden content was shown to users who just thanked often enough
 * [FIXED] [hide-posts=] and [hide-thanks=] with an empty or too big number failed with an error and broke the topic page for every reader; an empty number is 0, a too big one hides the content from all users but the author and the admins
+* [FIXED] [attach] and [albumimg] with an id that is a number but no whole number (e.g. 1.5, 1e3, (5) or a too big number) failed with an error and broke the topic page for every reader
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

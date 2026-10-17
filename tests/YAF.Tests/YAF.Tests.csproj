@@ -50,5 +50,6 @@
     <ProjectReference Include="..\..\yafsrc\YAF.Core\YAF.Core.csproj" />
     <ProjectReference Include="..\..\yafsrc\YAF.Data\YAF.Data.Sqlite\YAF.Data.Sqlite.csproj" />
     <ProjectReference Include="..\..\yafsrc\YAF.Types\YAF.Types.csproj" />
+    <ProjectReference Include="..\..\yafsrc\YAF.Web\YAF.Web.csproj" />
   </ItemGroup>
 </Project>

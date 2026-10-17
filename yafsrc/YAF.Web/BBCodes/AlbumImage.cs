@@ -39,12 +39,13 @@ public class AlbumImage : BBCodeControl
     {
         var imageId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 
-        if (!ValidationHelper.IsNumeric(imageId))
+        // only whole numbers ("1.5" or a too big number counted as numeric and failed the post)
+        if (!int.TryParse(imageId, out var id))
         {
             return;
         }
 
-        var albumImage = this.GetRepository<UserAlbumImage>().GetById(imageId.ToType<int>());
+        var albumImage = this.GetRepository<UserAlbumImage>().GetById(id);
 
         if (albumImage is null || !this.PageBoardContext.BoardSettings.EnableAlbum)
         {
