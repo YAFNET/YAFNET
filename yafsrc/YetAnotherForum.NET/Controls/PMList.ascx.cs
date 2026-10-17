@@ -478,15 +478,10 @@ public partial class PMList : BaseUserControl
     /// </param>
     private void SetSort(string field, bool ascending)
     {
-        if (this.ViewState["SortField"] != null && this.ViewState["SortField"].ToString() == field)
-        {
-            this.ViewState["SortAsc"] = !this.ViewState["SortAsc"].ToType<bool>();
-        }
-        else
-        {
-            this.ViewState["SortField"] = field;
-            this.ViewState["SortAsc"] = ascending;
-        }
+        // the chosen order (it was turned around when the field was sorted before, e.g. "date descending" sorted
+        // the list ascending)
+        this.ViewState["SortField"] = field;
+        this.ViewState["SortAsc"] = ascending;
 
         switch (field)
         {

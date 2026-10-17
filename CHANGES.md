@@ -333,6 +333,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Forum/Edit Category: a sort order above 32767 (or an invalid moderated post count) was a server error
 * [FIXED] Admin: a too big number in the number fields (role/rank priority, minimum posts, prune days, board settings, bb code order, profile field length, user points) was a server error
 * [FIXED] The form validation script failed (script error) when its button was not shown, e.g. on the page to restore a deleted post
+* [FIXED] Private Messages: choosing a sort order of the field that was sorted already turned the order around (e.g. date descending sorted ascending)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
