@@ -315,6 +315,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] Identity: HasPasswordAsync of the user store returned the opposite (true for users without a password)
 * [FIXED] Admin > Edit Medal: awarding a medal to a role that already has it failed with a database error, the settings are updated now
 * [FIXED] Security: suspended users were only sent to the info page by the forum pages, but could still use the api (thank posts, vote, upload files, ...); the api and the file upload refuse their requests now
+* [FIXED] Admin > Delete Forum: after the forum was deleted the page showed the "invalid" info page instead of going back to the forum list
+* [FIXED] Admin > Delete Forum: after the forum was deleted the page showed the "invalid" info page instead of going back to the forum list
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

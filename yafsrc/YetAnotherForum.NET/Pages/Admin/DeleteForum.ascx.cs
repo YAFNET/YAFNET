@@ -77,6 +77,13 @@ public partial class DeleteForum : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        // the forum was deleted by the task (the timer of the page asks until it is done): back to the list
+        if (this.IsPostBack && this.GetRepository<Forum>()
+                .GetById(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("fa")) == null)
+        {
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
+        }
+
         // only the records of the board (the id is in the address)
         this.CheckBoardForum(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa"));
 
