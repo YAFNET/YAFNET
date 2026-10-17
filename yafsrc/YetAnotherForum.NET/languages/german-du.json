@@ -6005,6 +6005,10 @@
             "#text": "Ist Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Du kannst diesen Rang nicht löschen, da er verwendet wird."
+          },
+          {
             "@tag": "NAME",
             "#text": "Name"
           },

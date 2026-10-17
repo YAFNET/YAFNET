@@ -6005,6 +6005,10 @@
             "#text": "Is Begin"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Je kunt deze rang niet verwijderen omdat hij nog in gebruik is."
+          },
+          {
             "@tag": "NAME",
             "#text": "Naam"
           },

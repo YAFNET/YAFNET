@@ -6013,6 +6013,10 @@
             "#text": "Er Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Du kan ikke slette denne rangeringen fordi den er i bruk."
+          },
+          {
             "@tag": "NAME",
             "#text": "Navn"
           },

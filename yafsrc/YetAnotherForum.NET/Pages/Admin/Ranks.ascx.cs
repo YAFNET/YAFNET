@@ -156,7 +156,21 @@ public partial class Ranks : AdminPage
                 this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank, new { r = e.CommandArgument });
                 break;
             case "delete":
-                this.GetRepository<Rank>().DeleteById(e.CommandArgument.ToType<int>());
+                var rankId = e.CommandArgument.ToType<int>();
+
+                // a rank that users have can't be deleted (it failed with an error, on SQLite the users kept a
+                // deleted rank), like an access mask in use
+                if (this.GetRepository<User>().Exists(u => u.RankID == rankId))
+                {
+                    this.PageBoardContext.Notify(
+                        this.GetText("ADMIN_RANKS", "MSG_NOT_DELETE"),
+                        MessageTypes.warning);
+                }
+                else
+                {
+                    this.GetRepository<Rank>().DeleteById(rankId);
+                }
+
                 this.BindData();
                 break;
         }

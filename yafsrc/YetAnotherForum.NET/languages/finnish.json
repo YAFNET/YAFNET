@@ -6013,6 +6013,10 @@
             "#text": "On alku"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Et voi poistaa tätä sijoitusta, koska se on käytössä."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nimi"
           },

@@ -6005,6 +6005,10 @@
             "#text": "È Avvio"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Non è possibile eliminare questo grado perché è in uso."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nome"
           },

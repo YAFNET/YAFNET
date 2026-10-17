@@ -6013,6 +6013,10 @@
             "#text": "Est Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Vous ne pouvez pas supprimer ce grade car il est en cours d'utilisation."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nom"
           },

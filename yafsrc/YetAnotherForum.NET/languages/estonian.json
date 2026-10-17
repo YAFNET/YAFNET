@@ -6013,6 +6013,10 @@
             "#text": "On Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Te ei saa seda auastet kustutada, kuna see on kasutusel."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nimi"
           },

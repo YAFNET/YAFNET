@@ -6013,6 +6013,10 @@
             "#text": "Başlıyor"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Kullanımda olduğu için bu rütbeyi silemezsiniz."
+          },
+          {
             "@tag": "NAME",
             "#text": "İsim"
           },

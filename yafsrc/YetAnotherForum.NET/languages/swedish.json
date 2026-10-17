@@ -6013,6 +6013,10 @@
             "#text": "Är Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Du kan inte ta bort denna rang eftersom den används."
+          },
+          {
             "@tag": "NAME",
             "#text": "Namn"
           },

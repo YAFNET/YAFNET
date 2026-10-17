@@ -6013,6 +6013,10 @@
             "#text": "É Início"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Não se pode apagar esta classificação porque está a ser utilizada."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nome"
           },

@@ -6013,6 +6013,10 @@
             "#text": "Je Start"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Toto hodnocení nemůžete odstranit, protože se používá."
+          },
+          {
             "@tag": "NAME",
             "#text": "název"
           },

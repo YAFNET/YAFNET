@@ -6005,6 +6005,10 @@
             "#text": "Jest początek"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Nie możesz usunąć tej rangi, ponieważ jest w użyciu."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nazwa"
           },

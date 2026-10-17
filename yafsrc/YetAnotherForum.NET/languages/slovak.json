@@ -6013,6 +6013,10 @@
             "#text": "Je Štart"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Túto hodnosť nemôžete odstrániť, pretože sa používa."
+          },
+          {
             "@tag": "NAME",
             "#text": "Názov"
           },

@@ -6013,6 +6013,10 @@
             "#text": "Đang bắt đầu"
           },
           {
+            "@tag": "MSG_NOT_DELETE",
+            "#text": "Bạn không thể xóa thứ hạng này vì nó đang được sử dụng."
+          },
+          {
             "@tag": "NAME",
             "#text": "Tên"
           },
