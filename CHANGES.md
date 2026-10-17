@@ -304,6 +304,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: the buttons of the forum (ThemeButton) did not use the event validation, a made up post could click a button that was not shown to the user (e.g. hidden for the user's rights or a turned off feature like the avatar upload)
 * [FIXED] Avatar upload: an image file larger than the "Avatar size" setting was saved anyway (the warning was shown afterwards), and the profile upload did not check that the avatar upload is turned on; a too big file is not saved now
 * [FIXED] Admin > Edit Medal: an empty, negative or too big sort order (0 - 255) of a user or role medal showed an error page
+* [FIXED] Admin > Edit Medal: after opening the role dialog the page had a script error (the scripts of the hidden user dialog were added)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

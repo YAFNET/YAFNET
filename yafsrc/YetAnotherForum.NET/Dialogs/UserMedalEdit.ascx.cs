@@ -121,16 +121,16 @@ public partial class UserMedalEdit : BaseUserControl
     }
 
     /// <summary>
-    /// The page_ load.
+    /// Registers the scripts of the dialog (only when the dialog is shown, a hidden control is not pre-rendered:
+    /// the elements of the scripts are missing on the page).
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load(object sender, EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
+        base.OnPreRender(e);
+
         if (!this.IsPostBack)
         {
             return;
