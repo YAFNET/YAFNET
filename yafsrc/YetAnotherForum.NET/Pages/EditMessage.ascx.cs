@@ -92,7 +92,8 @@ public partial class EditMessage : ForumPage
         {
             this.PageBoardContext.Notify(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
 
-            this.From.Text = this.From.Text.Substring(100);
+            // the first 100 characters (not the rest after them)
+            this.From.Text = this.From.Text.Trim().Substring(0, 100);
             return false;
         }
 

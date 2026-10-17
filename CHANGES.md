@@ -78,6 +78,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Restoring the own post also restored all replies, also the ones deleted by a moderator; only moderators restore the replies too, the restore button of the delete message page checks the access
 * [FIXED] The post count of a topic got wrong when a deleted post was deleted again (e.g. the form sent twice) or erased later (Admin > Restore) and when a post or a deleted topic was restored with its replies (counted twice), a topic with a count of 0 was not listed anymore
 * [FIXED] Approving or restoring a post did not update the search index, approved posts kept their not approved flags and restored posts were only found again after rebuilding the index
+* [FIXED] A too long guest name was replaced with the characters after the first 100 instead of being shortened to 100 characters (post topic, post and edit message)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
