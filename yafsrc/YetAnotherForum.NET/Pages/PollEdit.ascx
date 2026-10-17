@@ -40,7 +40,7 @@
                             </asp:Label>
                             <asp:HiddenField ID="PollChoiceID"
                                              Value='<%# DataBinder.Eval(Container.DataItem, "ID") %>' runat="server" />
-                            <asp:TextBox ID="PollChoice" MaxLength="50" runat="server"
+                            <asp:TextBox ID="PollChoice" runat="server"
                                          Text='<%# DataBinder.Eval(Container.DataItem, "ChoiceName") %>'
                                          CssClass="form-control"
                                          MaxLength="50" />
@@ -51,7 +51,7 @@
                                 <asp:Label runat="server" AssociatedControlID="ObjectPath">
                                     <YAF:LocalizedLabel ID="PollChoiceObjectLabel"  runat="server" LocalizedTag="POLLIMAGE_TEXT" />
                                 </asp:Label>
-                                <asp:TextBox ID="ObjectPath" MaxLength="255" runat="server"
+                                <asp:TextBox ID="ObjectPath" runat="server"
                                              Text='<%# DataBinder.Eval(Container.DataItem, "ObjectPath") %>'
                                              CssClass="form-control" MaxLength="255" />
                             </div>
