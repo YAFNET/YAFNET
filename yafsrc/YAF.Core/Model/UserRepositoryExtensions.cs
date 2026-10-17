@@ -79,13 +79,16 @@ public static class UserRepositoryExtensions
             // -- See if user got enough posts for next ladder group
             newRank = BoardContext.Current.GetRepository<Rank>().Get(
                     x => x.BoardID == rankInfo.Item2.BoardID && (x.Flags & 2) == 2 &&
-                         x.MinPosts <= rankInfo.Item1.NumPosts && x.MinPosts == rankInfo.Item2.MinPosts)
+                         x.MinPosts <= rankInfo.Item1.NumPosts && x.MinPosts > rankInfo.Item2.MinPosts)
                 .OrderByDescending(x => x.MinPosts).FirstOrDefault();
         }
 
         if (newRank != null)
         {
             repository.UpdateOnly(() => new User { RankID = newRank.ID }, u => u.ID == userId);
+
+            // the style of the new rank
+            repository.UpdateStyle(userId);
         }
     }
 
@@ -120,17 +123,10 @@ public static class UserRepositoryExtensions
         var groupStyle = BoardContext.Current.GetRepository<UserGroup>().GetGroupStyleForUser(userId);
         var rankStyle = BoardContext.Current.GetRepository<Rank>().GetRankStyleForUser(userId);
 
-        if (groupStyle.IsSet())
-        {
-            repository.UpdateOnly(() => new User { UserStyle = groupStyle }, u => u.ID == userId);
-        }
-        else
-        {
-            if (rankStyle.IsSet())
-            {
-                repository.UpdateOnly(() => new User { UserStyle = rankStyle }, u => u.ID == userId);
-            }
-        }
+        // also without a group or rank style: an old style (e.g. of a group the user was removed from) is cleared
+        var style = groupStyle.IsSet() ? groupStyle : rankStyle.IsSet() ? rankStyle : null;
+
+        repository.UpdateOnly(() => new User { UserStyle = style }, u => u.ID == userId);
     }
 
     /// <summary>
@@ -282,7 +278,7 @@ public static class UserRepositoryExtensions
                                                          {expression.Column<User>(u => u.Suspended, true)},
                                                          {expression.Column<User>(u => u.UserStyle, true)},
                                                          counter.{provider.GetQuotedName("NumOfPosts")}
-                             """).Take(displayNumber);
+                             """).OrderBy($"counter.{provider.GetQuotedName("NumOfPosts")} DESC").Take(displayNumber);
 
                     return db.Connection
                         .Select<LastActive>(expression).OrderByDescending(x => x.NumOfPosts).ToList();
@@ -380,6 +376,9 @@ public static class UserRepositoryExtensions
                           RankID = rankId
                       },
             u => u.ID == userId);
+
+        // the style of the rank
+        repository.UpdateStyle(userId);
     }
 
     /// <summary>
@@ -631,7 +630,8 @@ public static class UserRepositoryExtensions
         BoardContext.Current.GetRepository<UserGroup>().Delete(x => x.UserID == user.ID);
 
         BoardContext.Current.GetRepository<UserForum>().Delete(x => x.UserID == user.ID);
-        BoardContext.Current.GetRepository<IgnoreUser>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<IgnoreUser>().Delete(x => x.UserID == user.ID || x.IgnoredUserID == user.ID);
+        BoardContext.Current.GetRepository<UserMedal>().Delete(x => x.UserID == user.ID);
         BoardContext.Current.GetRepository<AdminPageUserAccess>().Delete(x => x.UserID == user.ID);
 
         BoardContext.Current.GetRepository<ProfileCustom>().Delete(x => x.UserID == user.ID);
@@ -654,15 +654,28 @@ public static class UserRepositoryExtensions
     {
         var user = repository.GetById(userId);
 
-        // Delete File if Avatar was uploaded
-        if (user.Avatar.IsSet() && user.Avatar.StartsWith("/")
-                                && !user.Avatar.Contains(BoardContext.Current.Get<BoardFolders>().Avatars))
+        // Delete File if Avatar was uploaded, only files inside the uploads folder
+        if (user.Avatar.IsSet() && user.Avatar.StartsWith("/"))
         {
-            var filePath = BoardContext.Current.Get<HttpRequestBase>().MapPath(user.Avatar);
-
-            if (File.Exists(filePath))
+            try
             {
-                File.Delete(filePath);
+                var request = BoardContext.Current.Get<HttpRequestBase>();
+
+                var uploadsFolder = Path.GetFullPath(
+                                        request.MapPath(
+                                            $"{BoardInfo.ForumServerFileRoot}{BoardContext.Current.Get<BoardFolders>().Uploads}"))
+                                    .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+                var filePath = Path.GetFullPath(request.MapPath(user.Avatar));
+
+                if (filePath.StartsWith(uploadsFolder, StringComparison.OrdinalIgnoreCase) && File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }
+            catch (HttpException)
+            {
+                // a path outside the application
             }
         }
 
@@ -754,7 +767,9 @@ public static class UserRepositoryExtensions
 
         expression.Join<UserGroup>((u, b) => b.UserID == u.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
             .Where<User, UserGroup, Group>(
-                (a, b, c) => b.GroupID == groupId && (c.Flags & 2) == 0 && a.Email != null)
+                (a, b, c) => b.GroupID == groupId && (c.Flags & 2) == 0 && a.Email != null && a.Email != string.Empty
+                             // only approved users that are not deleted
+                             && (a.Flags & 2) == 2 && (a.Flags & 32) == 0)
             .Select(u => new { u.Email });
 
         return repository.DbAccess.Execute(db => db.Connection.SqlList<string>(expression));
@@ -873,7 +888,9 @@ public static class UserRepositoryExtensions
         }
         else
         {
-            data.UsrSigBBCodes = groupMax.usrSigBBCodes.IsSet() ? groupMax.usrSigBBCodes : string.Empty;
+            // the codes of the groups or the rank, whichever has codes
+            data.UsrSigBBCodes = groupMax.usrSigBBCodes.IsSet() ? groupMax.usrSigBBCodes :
+                                 rankMax.usrSigBBCodes.IsSet() ? rankMax.usrSigBBCodes : string.Empty;
         }
 
         return data;
@@ -970,7 +987,7 @@ public static class UserRepositoryExtensions
                 var countQuotedExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
                 countQuotedExpression.Where(
-                    a => a.UserID == userId && (a.Flags & 1024) == 1024 && a.Notification);
+                    a => a.UserID == userId && (a.Flags & 4096) == 4096 && a.Notification);
 
                 var countQuotedSql = countQuotedExpression.Select(Sql.Count("1"))
                     .ToMergedParamsSelectStatement();
@@ -1120,6 +1137,9 @@ public static class UserRepositoryExtensions
         // -- set user dirty
         flags.IsDirty = true;
         flags.IsActiveExcluded = hideUser;
+
+        // the page size is sent by the client (the lists offer at most 50 entries)
+        pageSize = pageSize is >= 1 and <= 100 ? pageSize : 5;
 
         repository.UpdateOnly(
             () => new User
@@ -1484,7 +1504,10 @@ public static class UserRepositoryExtensions
                         .Join<vaccess_group>((usr, access) => access.UserID == usr.ID)
                         .Join<vaccess_group, Forum>((access, f) => f.ID == access.ForumID)
                         .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                        .Where<vaccess_group, User>((x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID)
+                        .Where<vaccess_group, User>(
+                            (x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID
+                                      // only approved users that are not deleted
+                                      && (u.Flags & 2) == 2 && (u.Flags & 32) == 0)
                         .Select<User, vaccess_group, Forum, Category>(
                             (usr, access, f, c) => new
                                                        {

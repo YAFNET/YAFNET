@@ -26,6 +26,8 @@ namespace YAF.Pages.Admin;
 
 using System.Collections.Specialized;
 
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 
 /// <summary>
@@ -234,11 +236,19 @@ public partial class Groups : AdminPage
 
                 var groupId = e.CommandArgument.ToType<int>();
 
+                var group = this.GetRepository<Group>().GetById(groupId);
+
                 // delete role
                 this.GetRepository<GroupMedal>().Delete(g => g.GroupID == groupId);
                 this.GetRepository<ForumAccess>().Delete(g => g.GroupID == groupId);
                 this.GetRepository<UserGroup>().Delete(g => g.GroupID == groupId);
                 this.GetRepository<Group>().Delete(g => g.ID == groupId);
+
+                // the members lose the style of the group
+                if (group != null && group.Style.IsSet())
+                {
+                    this.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(this.PageBoardContext.PageBoardID));
+                }
 
                 // re-bind data
                 this.BindData();

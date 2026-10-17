@@ -162,6 +162,9 @@ public static class GroupRepositoryExtensions
     {
         
 
+        // a removed style has to be removed from the users too
+        var oldStyle = groupId.HasValue ? repository.GetById(groupId.Value)?.Style : null;
+
         if (groupId.HasValue)
         {
             repository.UpdateOnly(
@@ -205,7 +208,7 @@ public static class GroupRepositoryExtensions
             BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroup(groupId.Value, accessMaskId);
         }
 
-        if (style.IsSet())
+        if (style.IsSet() || oldStyle.IsSet())
         {
             // -- group styles override rank styles
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));

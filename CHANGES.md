@@ -6,6 +6,9 @@ YetAnotherForum.NET Changelog
 * [FIXED] IP bans could be bypassed: any client could send an X-Forwarded-For header with another address, and the header of several proxies was always read at its first address
 * [FIXED] IP bans: a ban matched every address that contained it (e.g. the ban 10.0.0.1 also banned 110.0.0.15 and 10.0.0.12), an invalid mask caused an error; masks are compared exactly, a * matches one part of an ipv4 address
 * [FIXED] Login of migrated legacy membership passwords: clear text passwords were compared ignoring the case, base64 hashes were compared ignoring the case, hashes of the ASP.NET membership (salt + password) did not match, a clear text password with a "|" could not be used, unknown formats were compared as clear text
+* [FIXED] Deleting an avatar could delete any file of the forum (e.g. /Content/... or a path with ..); only files in the uploads folder are deleted
+* [FIXED] Ladder ranks: users were never promoted to the next rank by their number of posts
+* [FIXED] User styles: an old style (e.g. of a group the user was removed from or a removed group or rank style) was never removed, the style was not updated when the rank changed, and deleting a group with a style didn't update the styles of its members
 * [FIXED] Topic list: the "show topics of the last ..." filter used the wrong period (e.g. "Last Day" showed two days, "Last Six Months" a year) and "Last Year" was missing
 * [FIXED] Message history: the comparison of two versions failed with an error for most texts
 * [FIXED] Album titles, image captions and the reasons of edited and deleted posts are stored html encoded, saving failed when the encoded text was longer than its column; a changed album title was encoded twice
@@ -21,6 +24,13 @@ YetAnotherForum.NET Changelog
 * [FIXED] MySQL: the current time of the queries was the date only (midnight), e.g. the active users of the day were never removed
 * [FIXED] PostgreSQL: the difference of two times in minutes was only the minutes part (2:05 hours were 5 minutes)
 * [FIXED] Deleting all rows of a table reported no success when exactly one row was deleted
+* [FIXED] Deleting a user failed when the user had medals or was ignored by other users (SQL Server, MySQL, PostgreSQL)
+* [FIXED] Group e-mails were also sent to disabled and not approved users and users without e-mail address
+* [FIXED] Disabled and not approved moderators were listed on the team page and got moderator notifications
+* [FIXED] Most active users: the users were not taken by their number of posts
+* [FIXED] Signature: the BB codes of the rank were not allowed when the groups allowed none
+* [FIXED] Notifications: the number of quotes was the number of received thanks
+* [FIXED] Edit settings: the page size (sent by the client) was not checked, it is 1 - 100 now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
