@@ -19,7 +19,7 @@
                             <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 
                                            AssociatedControlID="badword"
                                            LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
-                            <asp:TextBox ID="badword" runat="server" 
+                            <asp:TextBox ID="badword" MaxLength="255" runat="server" 
                                          CssClass="form-control"
                                          required="required"
                                          Height="100"
@@ -34,7 +34,7 @@
                             <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
                                            AssociatedControlID="goodword"
                                            LocalizedTag="GOOD" LocalizedPage="ADMIN_REPLACEWORDS_EDIT" />
-                            <asp:TextBox ID="goodword" runat="server" 
+                            <asp:TextBox ID="goodword" MaxLength="255" runat="server" 
                                          CssClass="form-control"
                                          Height="100"
                                          TextMode="MultiLine"></asp:TextBox>

@@ -18,7 +18,7 @@
                             <YAF:HelpLabel ID="HelpLabel3" runat="server" 
                                            AssociatedControlID="Name"
                                            LocalizedTag="NAME" LocalizedPage="ADMIN_EDITFORUM" />
-                            <asp:TextBox ID="Name" runat="server" 
+                            <asp:TextBox ID="Name" MaxLength="50" runat="server" 
                                          required="required"
                                          CssClass="form-control"></asp:TextBox>
                             <div class="invalid-feedback">
@@ -93,7 +93,7 @@
                                        AssociatedControlID="remoteurl"
                                        LocalizedTag="REMOTE_URL" LocalizedPage="ADMIN_EDITFORUM" />
              
-                        <asp:TextBox ID="remoteurl" runat="server" 
+                        <asp:TextBox ID="remoteurl" MaxLength="100" runat="server" 
                                      CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="row">
@@ -195,7 +195,7 @@
                     <YAF:HelpLabel ID="HelpLabel6" runat="server" 
                                    AssociatedControlID="Styles"
                                    LocalizedTag="STYLES" LocalizedPage="ADMIN_EDITFORUM" />
-                    <asp:TextBox ID="Styles" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="Styles" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
                 </asp:Panel>
                 <div class="card-footer text-center">

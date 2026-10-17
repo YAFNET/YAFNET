@@ -59,7 +59,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                             LocalizedTag="new_topic" />
                     </asp:Label>
-                    <asp:TextBox ID="TopicSubject" runat="server" CssClass="form-control" />
+                    <asp:TextBox ID="TopicSubject" MaxLength="100" runat="server" CssClass="form-control" />
                 </div>
             </div>
             <div class="card-footer text-center">

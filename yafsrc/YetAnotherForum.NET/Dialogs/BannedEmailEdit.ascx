@@ -19,7 +19,7 @@
                                            AssociatedControlID="mask"
                                            LocalizedTag="MASK" 
                                            LocalizedPage="ADMIN_BANNEDEMAIL_EDIT" />
-                            <asp:TextBox ID="mask" runat="server" 
+                            <asp:TextBox ID="mask" MaxLength="255" runat="server" 
                                          CssClass="form-control" 
                                          required="required"
                                          TextMode="Email"></asp:TextBox>

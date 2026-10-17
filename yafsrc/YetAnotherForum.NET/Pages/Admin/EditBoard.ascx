@@ -18,7 +18,7 @@
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="Name"
                                            LocalizedTag="NAME" LocalizedPage="ADMIN_EDITBOARD" />
-                            <asp:TextBox ID="Name" runat="server"
+                            <asp:TextBox ID="Name" MaxLength="50" runat="server"
                                          required="required" 
                                          CssClass="form-control" />
                             <div class="invalid-feedback">

@@ -19,7 +19,7 @@
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="mask"
                                            LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDIP_EDIT" />
-                            <asp:TextBox ID="mask" runat="server"
+                            <asp:TextBox ID="mask" MaxLength="56" runat="server"
                                          CssClass="form-control" 
                                          required="required"/>
                             <div class="invalid-feedback">

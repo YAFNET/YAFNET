@@ -18,7 +18,7 @@
                             <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                            AssociatedControlID="Name"
                                            LocalizedTag="RANK_NAME" LocalizedPage="ADMIN_EDITRANK" />
-                            <asp:TextBox ID="Name" runat="server"
+                            <asp:TextBox ID="Name" MaxLength="50" runat="server"
                                           CssClass="form-control"
                                          required="required" />
                             <div class="invalid-feedback">
@@ -30,7 +30,7 @@
                             <YAF:HelpLabel ID="HelpLabel6" runat="server"
                                            AssociatedControlID="Description"
                                            LocalizedTag="RANK_DESC" LocalizedPage="ADMIN_EDITRANK" />
-                            <asp:TextBox ID="Description" runat="server"
+                            <asp:TextBox ID="Description" MaxLength="128" runat="server"
                                          CssClass="form-control" />
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                         <YAF:HelpLabel ID="HelpLabel8" runat="server"
                                        AssociatedControlID="UsrSigBBCodes"
                                        LocalizedTag="SIG_BBCODE" LocalizedPage="ADMIN_EDITRANK" />
-                        <asp:TextBox ID="UsrSigBBCodes" runat="server"
+                        <asp:TextBox ID="UsrSigBBCodes" MaxLength="255" runat="server"
                                      CssClass="form-control" />
                     </div>
                     <div class="row">
@@ -123,7 +123,7 @@
                         <YAF:HelpLabel ID="HelpLabel13" runat="server"
                                        AssociatedControlID="Style"
                                        LocalizedTag="RANK_STYLE" LocalizedPage="ADMIN_EDITRANK" />
-                        <asp:TextBox ID="Style" runat="server"
+                        <asp:TextBox ID="Style" MaxLength="255" runat="server"
                                      CssClass="form-control"
                                      TextMode="MultiLine" />
                     </div>

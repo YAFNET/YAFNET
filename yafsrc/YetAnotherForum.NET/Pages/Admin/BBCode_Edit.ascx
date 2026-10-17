@@ -22,7 +22,7 @@
                             <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                            AssociatedControlID="txtName"
                                            LocalizedTag="BBCODE_NAME" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
-                            <asp:TextBox id="txtName" runat="server"
+                            <asp:TextBox id="txtName" MaxLength="255" runat="server"
                                          required="required"
                                          CssClass="form-control"></asp:TextBox>
                             <div class="invalid-feedback">
@@ -50,7 +50,7 @@
                             <YAF:HelpLabel ID="HelpLabel3" runat="server"
                                            AssociatedControlID="txtDescription"
                                            LocalizedTag="BBCODE_DESC" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
-                            <asp:TextBox ID="txtDescription" runat="server"
+                            <asp:TextBox ID="txtDescription" MaxLength="4000" runat="server"
                                          TextMode="MultiLine"
                                          CssClass="form-control"></asp:TextBox>
                         </div>
@@ -88,7 +88,7 @@
                             <YAF:HelpLabel ID="HelpLabel8" runat="server"
                                            AssociatedControlID="txtVariables"
                                            LocalizedTag="REPLACE_VARIABLES" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
-                            <asp:TextBox ID="txtVariables" runat="server"
+                            <asp:TextBox ID="txtVariables" MaxLength="1000" runat="server"
                                          TextMode="MultiLine"
                                          CssClass="form-control"></asp:TextBox>
                         </div>
@@ -106,7 +106,7 @@
                                 <YAF:HelpLabel ID="HelpLabel7" runat="server"
                                                AssociatedControlID="txtModuleClass"
                                                LocalizedTag="CLASS_NAME" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
-                                <asp:TextBox ID="txtModuleClass" runat="server"
+                                <asp:TextBox ID="txtModuleClass" MaxLength="255" runat="server"
                                              CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                             <YAF:HelpLabel ID="HelpLabel9" runat="server"
                                            AssociatedControlID="txtOnClickJS"
                                            LocalizedTag="ONCLICK_JS" LocalizedPage="ADMIN_EXTENSIONS_EDIT" />
-                            <asp:TextBox ID="txtOnClickJS" runat="server"
+                            <asp:TextBox ID="txtOnClickJS" MaxLength="1000" runat="server"
                                          TextMode="MultiLine"
                                          CssClass="form-control"></asp:TextBox>
                         </div>

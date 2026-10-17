@@ -19,7 +19,7 @@
                             <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 
                                            LocalizedTag="SPAM" 
                                            LocalizedPage="ADMIN_SPAMWORDS_EDIT" />
-                            <asp:TextBox ID="spamword" runat="server" 
+                            <asp:TextBox ID="spamword" MaxLength="255" runat="server" 
                                          CssClass="form-control" 
                                          required="required"/>
                             <div class="invalid-feedback">
