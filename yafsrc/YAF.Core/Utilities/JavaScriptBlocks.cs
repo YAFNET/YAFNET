@@ -1204,6 +1204,12 @@ public static class JavaScriptBlocks
                          var form = document.forms[0];
                  
                          const test = document.getElementById("{{buttonClientId}}");
+
+                         // the button is not shown (e.g. the delete button of a deleted post)
+                         if (test === null) {
+                             return;
+                         }
+
                          test.addEventListener("click", function (event) {
                              if (form.checkValidity() === false) {
                                  event.preventDefault();
