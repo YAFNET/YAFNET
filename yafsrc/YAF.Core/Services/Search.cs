@@ -551,9 +551,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             return null;
         }
 
+        // the results are shown as html (also by javascript): the texts are encoded
         return new SearchMessage
                    {
-                       Topic = doc.Get("Topic"),
+                       Topic = HttpUtility.HtmlEncode(doc.Get("Topic")),
                        TopicId = doc.Get("TopicId").ToType<int>(),
                        TopicUrl = this.Get<LinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
                        Posted = doc.Get("Posted"),
@@ -722,13 +723,16 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         string topic;
 
+        // the results are shown as html by javascript: the texts are encoded (the highlight adds its own html)
+        var encodedTopic = HttpUtility.HtmlEncode(doc.Get("Topic"));
+
         try
         {
-            topic = GetHighlight(highlighter, analyzer, "Topic", doc.Get("Topic"));
+            topic = GetHighlight(highlighter, analyzer, "Topic", encodedTopic);
         }
         catch (Exception)
         {
-            topic = doc.Get("Topic");
+            topic = encodedTopic;
         }
 
         string posted;
@@ -755,10 +759,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                        UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
                        UserId = doc.Get("UserId").ToType<int>(),
                        TopicId = doc.Get("TopicId").ToType<int>(),
-                       Topic = topic.IsSet() ? topic : doc.Get("Topic"),
-                       TopicTags = doc.Get("TopicTags"),
+                       Topic = topic.IsSet() ? topic : encodedTopic,
+                       TopicTags = HttpUtility.HtmlEncode(doc.Get("TopicTags")),
                        ForumId = doc.Get("ForumId").ToType<int>(),
-                       Description = doc.Get("Description"),
+                       Description = HttpUtility.HtmlEncode(doc.Get("Description")),
                        TopicUrl =
                            this.Get<LinkBuilder>().GetTopicLink(
                                doc.Get("TopicId").ToType<int>(),
@@ -776,7 +780,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                                doc.Get("ForumId").ToType<int>(),
                                doc.Get("ForumName")),
                        UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
-                       ForumName = doc.Get("ForumName"),
+                       ForumName = HttpUtility.HtmlEncode(doc.Get("ForumName")),
                        UserStyle = doc.Get("AuthorStyle")
                    };
     }

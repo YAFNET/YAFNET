@@ -106,6 +106,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security (hardening): The event log showed the request url of an entry only with html tags removed (an unclosed tag stays), it is now html encoded
 * [FIXED] Security: The spam log showed the request url of an entry as html, a visitor could put script into the address of a request that was logged as spam and run it in the browser of the admin (stored XSS)
 * [FIXED] Security: Editing a topic did not remove html from the new subject, description and styles (only new topics did), and the delete message page showed the topic title without encoding
+* [FIXED] Security: Stored XSS with topic titles: the search results and the similar titles (shown with javascript) used the topic title, description, tags and forum name without html encoding; the search results are now html encoded (ISearch results: Topic, Description, TopicTags, ForumName)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
