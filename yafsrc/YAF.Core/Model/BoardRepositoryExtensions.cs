@@ -587,6 +587,15 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
         BoardContext.Current.GetRepository<BannedIP>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<BannedName>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<BannedEmail>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<BannedUserAgent>().Delete(x => x.BoardID == boardId);
+        BoardContext.Current.GetRepository<Tag>().Delete(x => x.BoardID == boardId);
+
+        // -- the custom profile fields and their values
+        BoardContext.Current.GetRepository<ProfileDefinition>().Get(x => x.BoardID == boardId).ForEach(
+            definition => BoardContext.Current.GetRepository<ProfileCustom>()
+                .Delete(x => x.ProfileDefinitionID == definition.ID));
+
+        BoardContext.Current.GetRepository<ProfileDefinition>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<Registry>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<Board>().Delete(x => x.ID == boardId);
     }

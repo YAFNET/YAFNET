@@ -65,6 +65,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Multiple boards: an admin could change (and move to the own board) the spam and replace words, access masks, BB codes, categories, ranks and groups of another board with their id
 * [FIXED] Admin -> Boards: creating a board changed the culture and language of all boards
 * [FIXED] Board statistics: deleted posts, the posts of deleted topics and deleted topics were counted
+* [FIXED] Admin -> Boards: deleting a board failed when it had tags, banned user agents or custom profile fields (SQL Server, MySQL, PostgreSQL)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
