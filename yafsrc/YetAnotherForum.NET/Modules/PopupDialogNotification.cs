@@ -68,7 +68,7 @@ public class PopupDialogNotification : BaseUserControl
                                     }
               
                                     new Notify({
-                                                 title: "{{this.PageBoardContext.BoardSettings.Name}}",
+                                                 title: "{{HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlEncode(this.PageBoardContext.BoardSettings.Name))}}",
                                                  message: newErrorStr,
                                                  icon: iconFA
                                           },

@@ -278,9 +278,9 @@ public static class JavaScriptBlocks
                      document.querySelectorAll('a[data-bs-toggle="collapse"]').forEach(button => {
                          button.addEventListener("click", event => {
                              if (button.getAttribute("aria-expanded") === "false") {
-                                 button.innerHTML = '<i class="fa fa-caret-square-down"></i>&nbsp;{{showText}}';
+                                 button.innerHTML = '<i class="fa fa-caret-square-down"></i>&nbsp;{{JsEncode(showText)}}';
                              } else {
-                                 button.innerHTML = '<i class="fa fa-caret-square-up"></i>&nbsp;{{hideText}}';
+                                 button.innerHTML = '<i class="fa fa-caret-square-up"></i>&nbsp;{{JsEncode(hideText)}}';
                              }
                          });
                      });
@@ -435,8 +435,8 @@ public static class JavaScriptBlocks
         string typeTitle)
     {
         return $$$"""
-                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}", 
-                                                   "{{{mediaTitle}}}", "{{{insertNote}}}", "{{{typeTitle}}}");
+                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{JsEncode(urlTitle)}}}", "{{{JsEncode(urlDescription)}}}", "{{{JsEncode(urlImageTitle)}}}", "{{{JsEncode(urlImageDescription)}}}", "{{{JsEncode(description)}}}", 
+                                                   "{{{JsEncode(mediaTitle)}}}", "{{{JsEncode(insertNote)}}}", "{{{JsEncode(typeTitle)}}}");
                                     function setStyle(style,option) {
                                              {{{editorId}}}.FormatText(style,option);
                                     }
@@ -540,7 +540,7 @@ public static class JavaScriptBlocks
          if (data.length) {
             if (data[0].error) {
                 const _ = new Notify({
-                        title: "{{BoardContext.Current.BoardSettings.Name}}",
+                        title: "{{NotifyTitle()}}",
                         message: data[0].error,
                         icon: "fa fa-exclamation-triangle"
                     },
@@ -630,7 +630,7 @@ public static class JavaScriptBlocks
                                  if (data.length) {
                                      if (data[0].error) {
                                          const _ = new Notify({
-                                                 title: "{{BoardContext.Current.BoardSettings.Name}}",
+                                                 title: "{{NotifyTitle()}}",
                                                  message: data[0].error,
                                                  icon: "fa fa-exclamation-triangle"
                                              },
@@ -674,7 +674,7 @@ public static class JavaScriptBlocks
                          dropZone: "drop-area",
                          url: "{{fileUploaderUrl}}",
                          fileInput: ".fileinput-button",
-                         errorTitle: "{{BoardContext.Current.BoardSettings.Name}}",
+                         errorTitle: "{{NotifyTitle()}}",
                          errorDelay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}}
                      });
                  });
@@ -710,7 +710,7 @@ public static class JavaScriptBlocks
                      allowHTML: false,
                      shouldSort: false,
                      classNames: { containerOuter: ['choices', 'w-100'] },
-                     placeholderValue: "{{placeHolder}}",
+                     placeholderValue: "{{JsEncode(placeHolder)}}",
                      resetScrollPosition: false
                  });
                  
@@ -870,7 +870,7 @@ public static class JavaScriptBlocks
         // all forums option
         var allForumsOptionJs = allForumsOption ? "AllForumsOption: true," : string.Empty;
 
-        var placeholderValue = allForumsOption ? string.Empty : $"""placeholderValue: "{placeHolder}",""";
+        var placeholderValue = allForumsOption ? string.Empty : $"""placeholderValue: "{JsEncode(placeHolder)}",""";
 
         return $$"""
                  var forumsSelect = new Choices("#{{forumDropDownId}}", {
@@ -996,7 +996,7 @@ public static class JavaScriptBlocks
                              passwordConfirm.classList.remove("is-invalid");
                          } else {
                              invalid.style.display = "block";
-                             invalid.innerText = "{{notMatchText}}";
+                             invalid.innerText = "{{JsEncode(notMatchText)}}";
                  
                              password.classList.add("is-invalid");
                              passwordConfirm.classList.add("is-invalid");
@@ -1014,17 +1014,17 @@ public static class JavaScriptBlocks
                          const passwordHelp = document.getElementById("passwordHelp");
                  
                          if (okRegex.test(password.value) === false) {
-                             passwordHelp.innerText = "{{passwordMinText}}";
+                             passwordHelp.innerText = "{{JsEncode(passwordMinText)}}";
                              progressBar.className = "progress-bar bg-danger w-25";
                          } else if (strongRegex.test(password.value)) {
-                             passwordHelp.innerText = "{{passwordGoodText}}";
+                             passwordHelp.innerText = "{{JsEncode(passwordGoodText)}}";
                  
                              progressBar.className = "progress-bar bg-success w-100";
                          } else if (mediumRegex.test(password.value)) {
-                             passwordHelp.innerText = "{{passwordStrongerText}}";
+                             passwordHelp.innerText = "{{JsEncode(passwordStrongerText)}}";
                              progressBar.className = "progress-bar bg-warning w-75";
                          } else {
-                             passwordHelp.innerText = "{{passwordWeakText}}";
+                             passwordHelp.innerText = "{{JsEncode(passwordWeakText)}}";
                              progressBar.classList.add("progress-bar", "bg-warning", "w-50");
                          }
                      }
@@ -1127,7 +1127,7 @@ public static class JavaScriptBlocks
                                        var popoverTriggerModsList = [].slice.call(document.querySelectorAll('{{cssClass}}'));
                                        var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {
                                             return new bootstrap.Popover(popoverTriggerEl,{
-                                            title: "{{title}}",
+                                            title: "{{JsEncode(title)}}",
                                             html: true,
                                             trigger: "{{trigger}}",
                                             template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
@@ -1153,7 +1153,7 @@ public static class JavaScriptBlocks
                                        var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
                                        var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {
                                             return new bootstrap.Popover(popoverTriggerEl,{
-                                            title: '{{title}}',
+                                            title: '{{JsEncode(title)}}',
                                             html: true,
                                             trigger: 'focus',
                                             template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
@@ -1267,21 +1267,21 @@ public static class JavaScriptBlocks
                  document.addEventListener("DOMContentLoaded", function () {
                      bootbox.confirm({
                              centerVertical: true,
-                             title: "{{title}}",
-                             message: "{{text}}",
+                             title: "{{JsEncode(title)}}",
+                             message: "{{JsEncode(text)}}",
                              buttons: {
                                  confirm: {
-                                     label: '<i class="fa fa-check"></i> ' + "{{yes}}",
+                                     label: '<i class="fa fa-check"></i> ' + "{{JsEncode(yes)}}",
                                      className: "btn-success"
                                  },
                                  cancel: {
-                                     label: '<i class="fa fa-times"></i> ' + "{{no}}",
+                                     label: '<i class="fa fa-times"></i> ' + "{{JsEncode(no)}}",
                                      className: "btn-danger"
                                  }
                              },
                              callback: function (confirmed) {
                                  if (confirmed) {
-                                     document.location.href = "{{link}}";
+                                     document.location.href = "{{JsEncode(link)}}";
                                  }
                              }
                          }
@@ -1320,10 +1320,10 @@ public static class JavaScriptBlocks
     {
         return $$"""
                  bootbox.prompt({
-                     title: '{{title}}',
-                     message: '{{message}}',
-                     value: '{{value}}',
-                     buttons: { cancel: { label: '{{cancel}}' }, confirm: { label: '{{ok}}' } },
+                     title: '{{JsEncode(title)}}',
+                     message: '{{JsEncode(message)}}',
+                     value: '{{JsEncode(value)}}',
+                     buttons: { cancel: { label: '{{JsEncode(cancel)}}' }, confirm: { label: '{{JsEncode(ok)}}' } },
                      callback: function() {}
                  });
                  """;
@@ -1356,7 +1356,7 @@ public static class JavaScriptBlocks
                      allowHTML: false,
                      shouldSort: false,
                      classNames: { containerOuter: ['choices', 'w-100'] },
-                     placeholderValue: "{{placeHolder}}",
+                     placeholderValue: "{{JsEncode(placeHolder)}}",
                      resetScrollPosition: false
                  });
 
@@ -1456,21 +1456,21 @@ public static class JavaScriptBlocks
                  function LogOutClick() {
                      bootbox.confirm({
                              centerVertical: true,
-                             title: "{{title}}",
-                             message: "{{text}}",
+                             title: "{{JsEncode(title)}}",
+                             message: "{{JsEncode(text)}}",
                              buttons: {
                                  confirm: {
-                                     label: '<i class="fa fa-check"></i> ' + "{{yes}}",
+                                     label: '<i class="fa fa-check"></i> ' + "{{JsEncode(yes)}}",
                                      className: "btn-success"
                                  },
                                  cancel: {
-                                     label: '<i class="fa fa-times"></i> ' + "{{no}}",
+                                     label: '<i class="fa fa-times"></i> ' + "{{JsEncode(no)}}",
                                      className: "btn-danger"
                                  }
                              },
                              callback: function (confirmed) {
                                  if (confirmed) {
-                                     document.location.href = "{{link}}";
+                                     document.location.href = "{{JsEncode(link)}}";
                                  }
                              }
                          }
@@ -1518,9 +1518,29 @@ public static class JavaScriptBlocks
                  function toggleSelection(source) {
                      if (document.querySelectorAll("input[id*='Compare']:checked").length > 2) {
                      source.checked = false;
-                     bootbox.alert("{{message}}");
+                     bootbox.alert("{{JsEncode(message)}}");
                      }
                  }
                  """;
+    }
+
+    /// <summary>
+    /// The title of the notifications (the name of the board): the notify script shows it as html.
+    /// </summary>
+    /// <returns>The encoded title for a quoted JavaScript string.</returns>
+    private static string NotifyTitle()
+    {
+        return JsEncode(HttpUtility.HtmlEncode(BoardContext.Current.BoardSettings.Name));
+    }
+
+    /// <summary>
+    /// Encodes a text (translations, names, messages) for a quoted JavaScript string,
+    /// quotes, line breaks and html characters are escaped.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>The encoded value.</returns>
+    private static string JsEncode(string value)
+    {
+        return HttpUtility.JavaScriptStringEncode(value ?? string.Empty);
     }
 }

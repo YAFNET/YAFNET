@@ -87,6 +87,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The password reset page (usable by anybody) sent an email for every request, so the inbox of a user could be flooded; an account gets at most 3 reset emails per hour, further requests show the same message
 * [FIXED] New topic / reply: mentioning or quoting a name without user (a guest post, a deleted user, a changed display name) failed with an error after the post was saved; mentioned and quoted users are only notified when they can read the forum, and also for quick replies and posts approved by a moderator
 * [FIXED] Custom profile fields: the profile page (and admin edit user) did not check the required fields at all, number fields accepted any text, the value was not limited to the length of the field and a manipulated field id caused an error; the register page showed a missing text (REGISTER.NEED_CUSTOM) without the name of the field and required fields that are not shown on the register page blocked the registration. They are checked against the field definitions of the board now (new text EDIT_PROFILE.NEED_CUSTOM_NUMBER)
+* [FIXED] Security: The texts of the script blocks (translations, names, dialog titles and messages, placeholders) were written into the JavaScript strings without encoding, a quote broke the script (e.g. a translation like "l'URL") and a text with </script> could end the script element; the name of the board was shown as html in the title of the notifications. The texts are encoded now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
