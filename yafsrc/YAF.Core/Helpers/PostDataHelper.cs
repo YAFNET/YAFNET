@@ -203,7 +203,9 @@ public class PostDataHelperWrapper
     /// <summary>
     /// Gets a value indicating whether CanUnDeletePost.
     /// </summary>
-    public bool CanUnDeletePost => this.PostDeleted && this.CanDeletePost;
+    public bool CanUnDeletePost =>
+        this.PostDeleted && this.CanDeletePost
+                         && (BoardContext.Current.ForumModeratorAccess || !this.DataRow.IsModeratorChanged);
 
     /// <summary>
     /// Gets a value indicating whether CanReply.

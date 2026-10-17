@@ -513,9 +513,14 @@ public partial class EditMessage : ForumPage
         var forumInfo = this.PageBoardContext.PageForum;
 
         // Ederon : 9/9/2007 - moderator can edit in locked topics
+        // the author needs the edit access of the forum too, and a post locked by a moderator can't be edited
         return !postLocked && !forumInfo.ForumFlags.IsLocked
                            && !topicInfo.TopicFlags.IsLocked
+                           && !message.MessageFlags.IsLocked
                            && message.UserID == this.PageBoardContext.PageUserID
+                           && (!this.PageBoardContext.IsGuest
+                               || message.IP == this.Get<HttpRequestBase>().GetUserRealIPAddress())
+                           && this.PageBoardContext.ForumEditAccess
                || this.PageBoardContext.ForumModeratorAccess && this.PageBoardContext.ForumEditAccess;
     }
 

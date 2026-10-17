@@ -125,6 +125,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] [size=...] had no upper limit (e.g. [size=99999] covered the whole page), larger values are limited to 400% now; [size=9] was 9 pixels (smaller than size 1) instead of the largest size of the list (180%)
 * [FIXED] Emoji short codes and ascii smileys inside code blocks were turned into emoji (e.g. a table row "[td]" in code became a flag)
 * [FIXED] Security: Quick reply accepted replies to any topic, also without reply access (read-only forums) and to locked topics and forums; quick replies were saved without the preparation of the other post forms (html removed, content of code blocks encoded), markup inside a code block of a quick reply was shown as html to everybody reading the topic (stored XSS)
+* [FIXED] Security: The edit page let authors edit their posts without edit access in the forum, and authors could still edit and delete posts locked by a moderator and restore their posts that were deleted by a moderator; every guest could edit and delete the posts of all guests with the edit and delete pages (the address was only checked for the buttons), and a reply with only a message id in the address (quote) did not check the reply access
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

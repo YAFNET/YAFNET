@@ -49,13 +49,19 @@ public partial class DeleteMessage : ForumPage
     /// </summary>
     public bool CanDeletePost =>
         (!this.PostLocked && !this.PageBoardContext.PageForum.ForumFlags.IsLocked && !this.PageBoardContext.PageTopic.TopicFlags.IsLocked
+         && !this.PageBoardContext.PageMessage.MessageFlags.IsLocked
          && this.PageBoardContext.PageMessage.UserID == this.PageBoardContext.PageUserID
+         && (!this.PageBoardContext.IsGuest
+             || this.PageBoardContext.PageMessage.IP == this.Get<HttpRequestBase>().GetUserRealIPAddress())
          || this.PageBoardContext.ForumModeratorAccess) && this.PageBoardContext.ForumDeleteAccess;
 
     /// <summary>
     ///   Gets a value indicating whether CanUnDeletePost.
     /// </summary>
-    public bool CanUnDeletePost => this.PageBoardContext.PageMessage.MessageFlags.IsDeleted && this.CanDeletePost;
+    public bool CanUnDeletePost =>
+        this.PageBoardContext.PageMessage.MessageFlags.IsDeleted && this.CanDeletePost
+                                                                 && (this.PageBoardContext.ForumModeratorAccess
+                                                                     || this.PageBoardContext.PageMessage.IsModeratorChanged != true);
 
     /// <summary>
     ///   Gets a value indicating whether PostLocked.

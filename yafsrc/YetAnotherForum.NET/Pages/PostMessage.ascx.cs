@@ -219,13 +219,10 @@ public partial class PostMessage : ForumPage
             this.Get<LinkBuilder>().AccessDenied();
         }
 
-        if (this.Get<HttpRequestBase>()["t"] == null && this.Get<HttpRequestBase>()["m"] == null
-                                                     && !this.PageBoardContext.ForumPostAccess)
-        {
-            this.Get<LinkBuilder>().AccessDenied();
-        }
-
-        if (this.Get<HttpRequestBase>()["t"] != null && !this.PageBoardContext.ForumReplyAccess)
+        // a reply (the topic also comes from the message of the address) needs the reply access
+        if (this.PageBoardContext.PageTopic == null
+                ? !this.PageBoardContext.ForumPostAccess
+                : !this.PageBoardContext.ForumReplyAccess)
         {
             this.Get<LinkBuilder>().AccessDenied();
         }
