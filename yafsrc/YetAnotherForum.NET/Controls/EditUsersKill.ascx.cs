@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.EventProxies;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 
 namespace YAF.Controls;
@@ -167,6 +169,9 @@ public partial class EditUsersKill : BaseUserControl
                     this.GetRepository<User>().Suspend(
                         this.User.Item1.ID,
                         DateTime.UtcNow.AddYears(5));
+
+                    // the cached data of the user (otherwise the suspension works only after the cache expires)
+                    this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.Item1.ID));
                 }
 
                 break;

@@ -335,6 +335,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The form validation script failed (script error) when its button was not shown, e.g. on the page to restore a deleted post
 * [FIXED] Private Messages: choosing a sort order of the field that was sorted already turned the order around (e.g. date descending sorted ascending)
 * [FIXED] Login dialog: an account locked after 10 wrong passwords was locked for 60 minutes (the login page locks it for 15 minutes)
+* [FIXED] Admin > Edit User > Kill: the suspend option only worked after the cache of the user expired
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
