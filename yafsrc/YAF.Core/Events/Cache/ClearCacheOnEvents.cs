@@ -49,6 +49,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
                                   IHandleEvent<RepositoryEvent<Message>>,
                                   IHandleEvent<RepositoryEvent<Topic>>,
                                   IHandleEvent<RepositoryEvent<UserGroup>>,
+                                  IHandleEvent<RepositoryEvent<ForumAccess>>,
                                   IHandleEvent<UpdateUserPrivateMessageEvent>
 {
     /// <summary>
@@ -223,6 +224,9 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         // remove caching in case something got updated...
         this.ClearModeratorsCache();
 
+        // the access rights of the members (e.g. the admin flag of the group)
+        this.ClearAccess();
+
         // Clearing cache with old permissions data...
         this.DataCache.Remove(
             k => k.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
@@ -252,6 +256,19 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         this.ClearModeratorsCache();
 
         this.DataCache.Remove(Constants.Cache.BoardModerators);
+
+        // the access mask of a single user in a forum, a revoked access must not keep working
+        this.ClearAccess();
+    }
+
+    /// <summary>
+    /// The access mask of a group in a forum was changed: the access rights are refreshed.
+    /// </summary>
+    /// <param name="event">The event.</param>
+    public void Handle(RepositoryEvent<ForumAccess> @event)
+    {
+        this.ClearModeratorsCache();
+        this.ClearAccess();
     }
 
     /// <summary>
@@ -324,11 +341,8 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// </param>
     public void Handle(RepositoryEvent<UserGroup> @event)
     {
-        if (!@event.RepositoryEventType.IsIn(RepositoryEventType.New))
-        {
-            return;
-        }
-
+        // also when a user is removed from a group (e.g. a removed moderator)
+        this.ClearModeratorsCache();
         this.ClearAccess();
     }
 

@@ -121,6 +121,9 @@ public static class ForumAccessRepositoryExtensions
         repository.UpdateOnly(
             () => new ForumAccess { AccessMaskID = accessMaskId },
             f => f.ForumID == forumId && f.GroupID == groupId);
+
+        // the cached access rights are refreshed
+        repository.FireUpdated(forumId);
     }
 
     /// <summary>
@@ -145,6 +148,9 @@ public static class ForumAccessRepositoryExtensions
         int accessMaskId)
     {
         repository.Insert(new ForumAccess { AccessMaskID = accessMaskId, GroupID = groupId, ForumID = forumId });
+
+        // the cached access rights are refreshed
+        repository.FireNew(forumId);
     }
 
     /// <summary>
