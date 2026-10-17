@@ -45,12 +45,18 @@ public static class ReplaceWordsRepositoryExtensions
         string goodWord,
         int? boardId = null)
     {
-        
+        // an id of another board is not changed
+        var saveBoardId = boardId ?? repository.BoardID;
+
+        if (replaceWordId is > 0 && !repository.Exists(x => x.ID == replaceWordId && x.BoardID == saveBoardId))
+        {
+            return;
+        }
 
         repository.Upsert(
             new Replace_Words
                 {
-                    BoardID = boardId ?? repository.BoardID,
+                    BoardID = saveBoardId,
                     ID = replaceWordId ?? 0,
                     BadWord = badWord,
                     GoodWord = goodWord

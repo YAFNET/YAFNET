@@ -43,12 +43,18 @@ public static class SpamWordsRepositoryExtensions
         string spamWord,
         int? boardId = null)
     {
-        
+        // an id of another board is not changed
+        var saveBoardId = boardId ?? repository.BoardID;
+
+        if (spamWordId is > 0 && !repository.Exists(x => x.ID == spamWordId && x.BoardID == saveBoardId))
+        {
+            return;
+        }
 
         repository.Upsert(
             new Spam_Words
                 {
-                    BoardID = boardId ?? repository.BoardID,
+                    BoardID = saveBoardId,
                     ID = spamWordId ?? 0,
                     SpamWord = spamWord
                 });

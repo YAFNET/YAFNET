@@ -121,12 +121,18 @@ public static class CategoryRepositoryExtensions
         CategoryFlags flags,
         int? boardId = null)
     {
-        
+        // an id of another board is not changed
+        var saveBoardId = boardId ?? repository.BoardID;
+
+        if (categoryId is > 0 && !repository.Exists(x => x.ID == categoryId && x.BoardID == saveBoardId))
+        {
+            return 0;
+        }
 
         return repository.Upsert(
             new Category
                 {
-                    BoardID = boardId ?? repository.BoardID,
+                    BoardID = saveBoardId,
                     ID = categoryId ?? 0,
                     Name = name,
                     SortOrder = sortOrder,

@@ -101,12 +101,18 @@ public static class BBCodeRepositoryExtensions
         int execOrder,
         int? boardId = null)
     {
-        
+        // an id of another board is not changed
+        var saveBoardId = boardId ?? repository.BoardID;
+
+        if (codeId is > 0 && !repository.Exists(x => x.ID == codeId && x.BoardID == saveBoardId))
+        {
+            return;
+        }
 
         repository.Upsert(
             new BBCode
                 {
-                    BoardID = boardId ?? repository.BoardID,
+                    BoardID = saveBoardId,
                     ID = codeId ?? 0,
                     Name = name,
                     Description = description,

@@ -62,6 +62,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Friends: "Approve all" and "Deny all" did nothing (the received requests were never found)
 * [FIXED] Thanks: posts of forums the user can't read (and the own posts) could be thanked and their thanks listed, the name of the author was not encoded in the box after removing a thanks, removing a thanks didn't remove its notifications
 * [FIXED] Notifications: replies in watched topics and forums didn't update the notification counter of the user until its cache expired
+* [FIXED] Multiple boards: an admin could change (and move to the own board) the spam and replace words, access masks, BB codes, categories, ranks and groups of another board with their id
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

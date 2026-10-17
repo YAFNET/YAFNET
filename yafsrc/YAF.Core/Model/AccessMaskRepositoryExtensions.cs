@@ -47,12 +47,18 @@ public static class AccessMaskRepositoryExtensions
         short sortOrder,
         int? boardId = null)
     {
-        
+        // an id of another board is not changed
+        var saveBoardId = boardId ?? repository.BoardID;
+
+        if (accessMaskId is > 0 && !repository.Exists(x => x.ID == accessMaskId && x.BoardID == saveBoardId))
+        {
+            return;
+        }
 
         var newId = repository.Upsert(
             new AccessMask
                 {
-                    BoardID = boardId ?? repository.BoardID,
+                    BoardID = saveBoardId,
                     ID = accessMaskId ?? 0,
                     Name = name,
                     Flags = flags.BitValue,

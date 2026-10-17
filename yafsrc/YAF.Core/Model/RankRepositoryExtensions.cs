@@ -124,7 +124,7 @@ public static class RankRepositoryExtensions
                               UsrAlbums = userAlbums,
                               UsrAlbumImages = userAlbumImages
                           },
-                g => g.ID == rankId.Value);
+                g => g.ID == rankId.Value && g.BoardID == boardId);
 
             repository.FireUpdated(rankId);
         }
