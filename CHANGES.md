@@ -254,6 +254,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Nested quotes with a user name were rendered in the wrong order with swapped attributions
 * [FIXED] A quote of a post that does not exist (anymore) showed "Posted by" with a link to the missing post, it shows "wrote" like a quote without post now
 * [FIXED] Editing or quoting older HTML posts lost list items, kept formatting inside links as raw HTML, lost the type of notes and turned paragraph ends into flag emojis ([br])
+* [FIXED] Listing the users of a role that does not exist caused an error, e.g. the moderator notification of a new post in a forum with a moderator group without role failed
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

@@ -217,6 +217,12 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     {
         var role = this.Get<IAspNetRoleManager>().FindByName(roleName);
 
+        // a group without role (e.g. a moderator group) has no users in the role
+        if (role is null)
+        {
+            return [];
+        }
+
         var users = this.GetRepository<AspNetUserRoles>().Get(r => r.RoleId == role.Id);
 
         var userList = new List<AspNetUsers>();
