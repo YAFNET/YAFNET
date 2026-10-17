@@ -139,32 +139,9 @@ public static partial class EmojiOne
     /// <returns>Returns the converted string</returns>
     static internal string ToUnicode(string codepoint)
     {
-        if (Enumerable.Contains(codepoint, '-'))
-        {
-            var pair = codepoint.Split('-');
-            var hilos = new string[pair.Length];
-            var chars = new char[pair.Length];
-            for (var i = 0; i < pair.Length; i++)
-            {
-                var part = Convert.ToInt32(pair[i], 16);
-                if (part is >= 0x10000 and <= 0x10FFFF)
-                {
-                    var hi = Math.Floor((decimal)(part - 0x10000) / 0x400) + 0xD800;
-                    var lo = (part - 0x10000) % 0x400 + 0xDC00;
-                    hilos[i] = new string([(char)hi, (char)lo]);
-                }
-                else
-                {
-                    chars[i] = (char)part;
-                }
-            }
-
-            return hilos.Exists(x => x != null) ? string.Concat(hilos) : new string(chars);
-        }
-        else
-        {
-            var i = Convert.ToInt32(codepoint, 16);
-            return char.ConvertFromUtf32(i);
-        }
+        // every part of a sequence (e.g. "270b-1f3fb", raised hand + skin tone) is converted, characters inside
+        // and outside the basic plane alike (a sequence of both lost the characters of the basic plane)
+        return string.Concat(
+            codepoint.Split('-').Select(part => char.ConvertFromUtf32(Convert.ToInt32(part, 16))));
     }
 }

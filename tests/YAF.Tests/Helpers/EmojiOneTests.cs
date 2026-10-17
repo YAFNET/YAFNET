@@ -45,4 +45,16 @@ public class EmojiOneTests
 
         actual.Should().Be(expected);
     }
+
+    /// <summary>
+    /// An emoji with a skin tone keeps the emoji (a character of the basic plane) and the tone.
+    /// </summary>
+    [Test]
+    [Description("Emoji with skin tone")]
+    public void Skin_Tone_Test()
+    {
+        var expected = char.ConvertFromUtf32(0x270B) + char.ConvertFromUtf32(0x1F3FB);
+
+        EmojiOne.ShortNameToUnicode("[raised_hand_tone1]").Should().Be(expected);
+    }
 }
