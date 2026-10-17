@@ -92,7 +92,7 @@ public class GuestPostingTests : ForumTestBase
                             .GetAttributeAsync("href");
         var topicId = Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value;
 
-        foreach (var name in new[] { TestConfig.AdminUserName, string.Empty })
+        foreach (var name in new[] { TestConfig.AdminUserName, $"Replier {id}" })
         {
             await this.GotoAsync($"PostMessage?t={topicId}&f={forumId}");
             await this.Control("From").FillAsync(name);
@@ -100,7 +100,9 @@ public class GuestPostingTests : ForumTestBase
             await this.ClickAndWaitAsync(this.Control("PostReply"));
         }
 
+        // the names of the guests are shown with their posts
         await this.GotoAsync(topicHref.TrimStart('/'));
-        (await this.Page.InnerTextAsync("body")).Should().Contain("The reply of a guest.");
+        (await this.Page.InnerTextAsync("body")).Should().Contain("The reply of a guest.").And.Contain($"Visitor {id}")
+            .And.Contain($"Replier {id}");
     }
 }
