@@ -108,7 +108,8 @@ public partial class ForgotPassword : AccountPage
         {
             // explain they are not approved yet...
             this.PageBoardContext.LoadMessage.AddSession(
-                this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.warning);
+                this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", this.HtmlEncode(MaskEmail(user.Email))),
+                MessageTypes.warning);
 
             return;
         }
@@ -140,5 +141,23 @@ public partial class ForgotPassword : AccountPage
         this.PageBoardContext.LoadMessage.AddSession(this.GetText("SUCCESS"), MessageTypes.success);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+    }
+
+    /// <summary>
+    /// Masks the e-mail address: anybody can enter a user name on this page, the address must not be shown
+    /// (e.g. "j***@example.com").
+    /// </summary>
+    /// <param name="email">The e-mail address.</param>
+    /// <returns>The masked address.</returns>
+    private static string MaskEmail(string email)
+    {
+        if (email.IsNotSet())
+        {
+            return string.Empty;
+        }
+
+        var at = email.IndexOf('@');
+
+        return at <= 0 ? "***" : $"{email[0]}***{email.Substring(at)}";
     }
 }

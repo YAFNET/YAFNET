@@ -135,6 +135,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: With the spam handling "delete and ban user", a spam post of a guest deleted the posts of all guests and the guest account (or failed with an error); the guest account is never deleted and banned now, the spam post is still rejected
 * [FIXED] Security: The moderator pages (reported and unapproved posts, forum topics) only checked that the user is a moderator of any forum, moderators of one forum could moderate every forum; moving a topic or a post (also into a new topic, also several topics in the moderator forum view) did not check the target, moderators could move topics and posts into forums they do not moderate or of other boards, and the move topic dialog did not check the moderator access at all
 * [FIXED] Security: The moderators of any forum could restore old versions of the posts of every forum (message history), the restore was not checked on the server
+* [FIXED] Security: The forgot password page showed the full e-mail address of not yet approved accounts to anybody who entered the user name (as html in the notification), the address is now masked
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
