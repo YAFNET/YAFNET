@@ -80,6 +80,9 @@ public partial class Medals : AdminPage
 
                 this.GetRepository<Medal>().Delete(m => m.ID == medalId);
 
+                // the medals of the users are cached (a deleted medal was still shown)
+                this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+
                 // re-bind data
                 this.BindData();
                 break;

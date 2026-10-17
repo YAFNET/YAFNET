@@ -146,6 +146,9 @@ public partial class GroupMedalEdit : BaseUserControl
                 this.GroupSortOrder.Text.ToType<byte>());
         }
 
+        // the medals of the members of the group are cached
+        this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+
         // re-bind data
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId });
     }

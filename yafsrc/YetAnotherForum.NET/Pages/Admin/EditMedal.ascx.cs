@@ -249,6 +249,9 @@ public partial class EditMedal : AdminPage
             this.MedalImage.SelectedItem.Text,
             flags.BitValue);
 
+        // the medals of the users are cached (a changed medal was shown in the old way)
+        this.RemoveMedalsFromCache();
+
         // go back to medals administration
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Medals);
     }

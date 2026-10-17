@@ -233,6 +233,9 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         // the access rights of the members (e.g. the admin flag of the group)
         this.ClearAccess();
 
+        // the medals of the group (e.g. a deleted group)
+        this.DataCache.Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
+
         // Clearing cache with old permissions data...
         this.DataCache.Remove(
             k => k.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
@@ -350,6 +353,9 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         // also when a user is removed from a group (e.g. a removed moderator)
         this.ClearModeratorsCache();
         this.ClearAccess();
+
+        // the medals of the groups of the user
+        this.DataCache.Remove(k => k.StartsWith(string.Format(Constants.Cache.UserMedals, string.Empty)));
     }
 
     /// <summary>
