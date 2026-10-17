@@ -279,19 +279,20 @@ public partial class EditMessage : ForumPage
         var descriptionSave = string.Empty;
         var stylesSave = string.Empty;
 
+        // html is removed like for a new topic
         if (this.TopicSubjectTextBox.Enabled)
         {
-            subjectSave = this.TopicSubjectTextBox.Text;
+            subjectSave = HtmlTagHelper.StripHtml(this.TopicSubjectTextBox.Text.Trim());
         }
 
         if (this.TopicDescriptionTextBox.Enabled)
         {
-            descriptionSave = this.TopicDescriptionTextBox.Text;
+            descriptionSave = HtmlTagHelper.StripHtml(this.TopicDescriptionTextBox.Text.Trim());
         }
 
         if (this.TopicStylesTextBox.Enabled)
         {
-            stylesSave = this.TopicStylesTextBox.Text;
+            stylesSave = HtmlTagHelper.StripHtml(this.TopicStylesTextBox.Text.Trim());
         }
 
         // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.

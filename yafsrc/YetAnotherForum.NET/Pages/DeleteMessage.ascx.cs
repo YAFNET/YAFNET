@@ -179,7 +179,7 @@ public partial class DeleteMessage : ForumPage
             this.Delete.Visible = true;
         }
 
-        this.Subject.Text = this.PageBoardContext.PageTopic.TopicName;
+        this.Subject.Text = this.HtmlEncode(this.PageBoardContext.PageTopic.TopicName);
         this.ReasonEditor.Text = this.PageBoardContext.PageMessage.DeleteReason;
 
         // populate the message preview with the message data-row...

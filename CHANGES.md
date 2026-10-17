@@ -105,6 +105,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The admin pages did not check the board of the records in the address, an admin of one board could edit or delete the categories, forums, groups, ranks, medals, access masks and bb codes of other boards; "approve all" and "delete all" of the unapproved users (admin dashboard) approved and deleted the login accounts of all boards, and "delete all topics without posts" (Admin > Restore) deleted the deleted topics of all boards
 * [FIXED] Security (hardening): The event log showed the request url of an entry only with html tags removed (an unclosed tag stays), it is now html encoded
 * [FIXED] Security: The spam log showed the request url of an entry as html, a visitor could put script into the address of a request that was logged as spam and run it in the browser of the admin (stored XSS)
+* [FIXED] Security: Editing a topic did not remove html from the new subject, description and styles (only new topics did), and the delete message page showed the topic title without encoding
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
