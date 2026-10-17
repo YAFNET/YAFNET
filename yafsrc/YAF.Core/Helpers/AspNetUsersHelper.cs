@@ -335,6 +335,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </returns>
     public bool DeleteAndBanUser(User user, AspNetUsers aspNetUser, string userIpAddress)
     {
+        // never delete the guest account (that would delete the posts of all guests)
+        if (user is null || aspNetUser is null || user.UserFlags.IsGuest)
+        {
+            return false;
+        }
+
         // Update Anti SPAM Stats
         this.GetRepository<Registry>().IncrementBannedUsers();
 
