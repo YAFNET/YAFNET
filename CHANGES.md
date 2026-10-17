@@ -213,6 +213,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Prune: a second prune after a finished one (not yet cleaned up) did nothing but showed "Prune Task Scheduled", a prune while another one is running now shows the running message
 * [FIXED] Delete post: a member could open the delete page of the own post of a locked topic (or after the lock period), deleting then just showed the page again; the page and its handlers are denied now with the same rules as the delete and restore buttons of the post
 * [FIXED] Saving a name or text longer than its column failed with an error on SQL Server, MySQL and PostgreSQL (not on Sqlite), e.g. the name of an access mask (50 characters): the inputs of the admin pages (access mask, rank, group, forum, board, bb code, banned e-mail, name and ip, replace and spam words), of the poll choices and of "move message" are limited to the length of the column now
+* [FIXED] PostgreSQL: deleting a topic (without erasing) failed, the column names of the sql statement that flags its posts as deleted were not quoted
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

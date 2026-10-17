@@ -1424,8 +1424,9 @@ public static class TopicRepositoryExtensions
                     {
                         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
+                        // the column names are quoted (PostgreSQL)
                         return db.Connection.ExecuteSql(
-                            $@" update {expression.Table<Message>()} set Flags = Flags | 8 where TopicID = {topicId}");
+                            $@" update {expression.Table<Message>()} set {expression.Column<Message>(x => x.Flags)} = {expression.Column<Message>(x => x.Flags)} | 8 where {expression.Column<Message>(x => x.TopicID)} = {topicId}");
                     });
 
             // the deleted posts are not counted anymore (like when a post is deleted)
