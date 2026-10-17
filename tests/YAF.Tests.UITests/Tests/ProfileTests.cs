@@ -148,6 +148,94 @@ public class ProfileTests : ForumTestBase
     }
 
     [Test]
+    [Description("With display names a too short and a taken display name are refused, a new one is shown; too long texts are refused")]
+    public async Task Display_Name_And_Text_Length_Test()
+    {
+        var member = $"Dsp{DateTime.UtcNow:HHmmssfff}";
+        var other = $"Dso{DateTime.UtcNow:HHmmssfff}";
+        var displayName = $"Shown {Guid.NewGuid():N}".Substring(0, 16);
+
+        await this.RegisterAsync(other, TestConfig.TestUserPassword);
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        await this.SetHostSettingsAsync("{ EnableDisplayName: true, AllowDisplayNameModification: true }");
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+            foreach (var refused in new[] { "ab", other })
+            {
+                await this.GotoAsync("Profile/EditProfile");
+                await this.Control("ProfileEditor_DisplayName").FillAsync(refused);
+                await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+                this.Page.Url.Should().Contain("EditProfile", refused);
+            }
+
+            // too long texts (the length of the fields is removed)
+            foreach (var (field, length) in new[] { ("Interests", 4001), ("Occupation", 401) })
+            {
+                await this.GotoAsync("Profile/EditProfile");
+                await this.Control($"ProfileEditor_{field}").EvaluateAsync("e => e.removeAttribute('maxlength')");
+                await this.Control($"ProfileEditor_{field}").FillAsync(new string('x', length));
+                await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+                this.Page.Url.Should().Contain("EditProfile", field);
+            }
+
+            await this.GotoAsync("Profile/EditProfile");
+            await this.Control("ProfileEditor_DisplayName").FillAsync(displayName);
+            await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+
+            await this.OpenOwnProfileAsync();
+            (await this.Page.InnerTextAsync("body")).Should().Contain(displayName);
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetHostSettingsAsync("{ EnableDisplayName: false, AllowDisplayNameModification: false }");
+        }
+    }
+
+    [Test]
+    [Description("A home page with a spam word is logged as a bot (the profile is saved)")]
+    public async Task Spam_Home_Page_Test()
+    {
+        var word = $"spamhome{Guid.NewGuid():N}".Substring(0, 16);
+        var member = $"Sph{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("Admin/SpamWords");
+        await this.ClickAndWaitAsync(
+            this.Page.Locator("a", new PageLocatorOptions { HasTextString = "Add New Word" })
+                .Filter(new LocatorFilterOptions { Visible = true }).First);
+        await this.Page.Locator("[id$='_EditDialog_Save']").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+        await this.Control("EditDialog_spamword").FillAsync(word);
+        await this.ClickAndWaitAsync(this.Control("EditDialog_Save"));
+
+        // log the bots
+        await this.SetHostSettingsAsync("{ BotHandlingOnRegister: '1' }");
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.GotoAsync("Profile/EditProfile");
+            await this.Control("ProfileEditor_HomePage").FillAsync($"https://{word}.example.com");
+            await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+
+            await this.GotoAsync("Profile/EditProfile");
+            (await this.Control("ProfileEditor_HomePage").InputValueAsync()).Should().Contain(word);
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetHostSettingsAsync("{ BotHandlingOnRegister: '0' }");
+        }
+    }
+
+    [Test]
     [Description("The addresses of the profile are checked, a home page without a scheme gets https")]
     public async Task Address_Checks_Test()
     {
@@ -262,6 +350,24 @@ public class ProfileTests : ForumTestBase
 
         await row.Locator("[id$='_ThemeButtonDelete']").ClickAsync();
         await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+    }
+
+    /// <summary>
+    /// Sets values of the host settings (check boxes and lists, the fields are in hidden tabs).
+    /// </summary>
+    private async Task SetHostSettingsAsync(string values)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+
+        await this.Page.EvaluateAsync(
+            $@"() => {{
+                const values = {values};
+                for (const [id, value] of Object.entries(values)) {{
+                    const e = document.querySelector(`[id$='_${{id}}']`);
+                    if (e.type === 'checkbox') {{ e.checked = value; }} else {{ e.value = value; }}
+                }}
+            }}");
+        await this.ClickAndWaitAsync(this.Control("Save"));
     }
 
     private async Task OpenOwnProfileAsync()
