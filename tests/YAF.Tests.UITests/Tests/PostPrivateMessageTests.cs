@@ -227,6 +227,101 @@ public class PostPrivateMessageTests : ForumTestBase
         this.Page.Url.Should().Contain("MyMessages");
     }
 
+    [Test]
+    [Description("A member sends a message to all friends (the friends are the recipients)")]
+    public async Task All_Friends_Test()
+    {
+        var alice = $"Afa{DateTime.UtcNow:HHmmssfff}";
+        var bob = $"Afb{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(alice, TestConfig.TestUserPassword);
+        await this.RegisterAsync(bob, TestConfig.TestUserPassword);
+
+        // alice asks bob, bob approves
+        var bobId = await this.UserIdAsync(bob);
+
+        await this.LoginAsync(alice, TestConfig.TestUserPassword);
+        await this.GotoAsync($"UserProfile/{bobId}-{bob}");
+        await this.ClickAndWaitAsync(this.Control("lnkBuddy"));
+
+        await this.LoginAsync(bob, TestConfig.TestUserPassword);
+        await this.GotoAsync("Friends");
+        await this.Page.Locator("a.nav-link[href='#PendingRequestsTab']").ClickAsync();
+        await this.ClickAndWaitAsync(
+            this.Page.Locator("#PendingRequestsTab a", new PageLocatorOptions { HasTextString = "Approve" }).First);
+
+        await this.LoginAsync(alice, TestConfig.TestUserPassword);
+        await this.GotoAsync("PostPrivateMessage");
+        await this.ClickAndWaitAsync(this.Control("AllBuddies"));
+        (await this.Control("To").InputValueAsync()).Should().Contain(bob);
+
+        await this.Control("PmSubjectTextBox").FillAsync("To all friends");
+        await this.Control("YafTextEditor").FillAsync("A message to all friends.");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+        this.Page.Url.Should().Contain("MyMessages");
+    }
+
+    [Test]
+    [Description("A member who blocks private messages gets none from other members")]
+    public async Task Blocked_Recipient_Test()
+    {
+        var blocker = $"Blk{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(blocker, TestConfig.TestUserPassword);
+        await this.LoginAsync(blocker, TestConfig.TestUserPassword);
+
+        await this.GotoAsync("Profile/BlockOptions");
+        await this.Control("BlockPMs").CheckAsync();
+        await this.ClickAndWaitAsync(this.Control("SaveUser"));
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync("PostPrivateMessage");
+        await this.Control("To").FillAsync(blocker);
+        await this.Control("PmSubjectTextBox").FillAsync("Blocked");
+        await this.Control("YafTextEditor").FillAsync("A message that is not allowed.");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        this.Page.Url.Should().Contain("PostPrivateMessage", "the recipient blocks the messages");
+    }
+
+    [Test]
+    [Description("A message of a new member with a spam word is checked (logged, the message is sent)")]
+    public async Task Spam_Word_Message_Test()
+    {
+        var word = $"spampm{Guid.NewGuid():N}".Substring(0, 14);
+        var sender = $"Sps{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(sender, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("Admin/SpamWords");
+        await this.ClickAndWaitAsync(
+            this.Page.Locator("a", new PageLocatorOptions { HasTextString = "Add New Word" })
+                .Filter(new LocatorFilterOptions { Visible = true }).First);
+        await this.Page.Locator("[id$='_EditDialog_Save']").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+        await this.Control("EditDialog_spamword").FillAsync(word);
+        await this.ClickAndWaitAsync(this.Control("EditDialog_Save"));
+
+        await this.LoginAsync(sender, TestConfig.TestUserPassword);
+        await this.GotoAsync("PostPrivateMessage");
+        await this.Control("To").FillAsync(TestConfig.AdminUserName);
+        await this.Control("PmSubjectTextBox").FillAsync("Spam check");
+        await this.Control("YafTextEditor").FillAsync($"A message with {word} in it.");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.AssertNoServerErrorAsync();
+    }
+
+    /// <summary>
+    /// The id of a user (admin users list).
+    /// </summary>
+    private async Task<int> UserIdAsync(string userName)
+    {
+        await this.LoginAsAdminAsync();
+
+        return await this.OpenAdminEditUserAsync(userName);
+    }
+
     /// <summary>
     /// Sends a message from the admin to a new member.
     /// </summary>
