@@ -103,6 +103,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Topic subjects, forum names and starter names (e.g. the name a guest chooses) were not encoded in the digest e-mail, so html like links could be injected into the digest of other users; the digest contained the hidden content of posts (hide-reply, hide-thanks, ...) as plain text, also for users who do not meet the condition
 * [FIXED] Digest: the period of the topics was compared with the local time of the server (the posts are utc), on a server in another time zone than UTC new topics were missing or old topics were sent again
 * [FIXED] Security: The admin pages did not check the board of the records in the address, an admin of one board could edit or delete the categories, forums, groups, ranks, medals, access masks and bb codes of other boards; "approve all" and "delete all" of the unapproved users (admin dashboard) approved and deleted the login accounts of all boards, and "delete all topics without posts" (Admin > Restore) deleted the deleted topics of all boards
+* [FIXED] Security (hardening): The event log showed the request url of an entry only with html tags removed (an unclosed tag stays), it is now html encoded
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
