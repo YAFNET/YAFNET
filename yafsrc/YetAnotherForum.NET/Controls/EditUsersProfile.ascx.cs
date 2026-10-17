@@ -748,7 +748,7 @@ public partial class EditUsersProfile : BaseUserControl
         var dt = StaticDataHelper.Region(country);
 
         // The first row is empty
-        if (dt.Any())
+        if (dt.Count > 1)
         {
             this.Region.DataSource = dt;
             this.Region.DataValueField = "Value";

@@ -297,6 +297,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] the answer to a post report (private message to the reporter) showed the report text of any post to the moderators of any forum, now only to the moderators of the forum of the post
 * [FIXED] Private messages: the mailbox of the recipient was full one message before the limit
 * [FIXED] Profile: the region was not saved when the country was selected (or changed) at the same time
+* [FIXED] Profile: countries without regions showed an empty region list
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
