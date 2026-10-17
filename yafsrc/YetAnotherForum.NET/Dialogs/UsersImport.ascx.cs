@@ -120,13 +120,9 @@ public partial class UsersImport : BaseUserControl
             var usersDataSet = new DataSet();
             usersDataSet.ReadXml(inputStream);
 
-            if (usersDataSet.Tables["User"] != null)
+            if (usersDataSet.Tables["User"] != null && HasRequiredColumns(usersDataSet.Tables["User"]))
             {
-                importedCount =
-                    usersDataSet.Tables["User"].Rows.Cast<DataRow>().Where(
-                            row => this.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null)
-                        .Aggregate(
-                            importedCount, (current, row) => this.ImportUser(row, current));
+                importedCount = this.ImportRows(usersDataSet.Tables["User"]);
             }
             else
             {
@@ -139,25 +135,113 @@ public partial class UsersImport : BaseUserControl
 
             var streamReader = new StreamReader(inputStream);
 
+            var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+
             var headers = streamReader.ReadLine()?.Split(',');
 
-            headers.ForEach(header => usersTable.Columns.Add(header));
+            headers?.ForEach(header => usersTable.Columns.Add(Unquote(header)));
+
+            // a file without the name and e-mail column is not a users file
+            if (!HasRequiredColumns(usersTable))
+            {
+                throw new ArgumentNullException(nameof(inputStream), "Import stream is not expected format.");
+            }
 
             while (streamReader.Peek() >= 0)
             {
+                var line = streamReader.ReadLine();
+
+                // empty lines (e.g. the last line of the file) are skipped
+                if (line.IsNotSet())
+                {
+                    continue;
+                }
+
+                // the values without their quotes, a row with more values than columns keeps the first ones
+                var values = regex.Split(line).Select(Unquote).Take(usersTable.Columns.Count).Cast<object>()
+                    .ToArray();
+
                 var dr = usersTable.NewRow();
-                var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-                dr.ItemArray = regex.Split(streamReader.ReadLine());
+                dr.ItemArray = values;
 
                 usersTable.Rows.Add(dr);
             }
 
             streamReader.Close();
 
-            importedCount =
-                usersTable.Rows.Cast<DataRow>().Where(
-                    row => this.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null).Aggregate(
-                    importedCount, (current, row) => this.ImportUser(row, current));
+            importedCount = this.ImportRows(usersTable);
+        }
+
+        return importedCount;
+    }
+
+    /// <summary>
+    /// Checks if the table has the name and e-mail column.
+    /// </summary>
+    /// <param name="table">The table.</param>
+    /// <returns>Returns if the users can be imported.</returns>
+    private static bool HasRequiredColumns(DataTable table)
+    {
+        return table.Columns.Contains("Name") && table.Columns.Contains("Email");
+    }
+
+    /// <summary>
+    /// Removes the quotes of a csv value ("a ""b""" -> a "b").
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>Returns the value.</returns>
+    private static string Unquote(string value)
+    {
+        value = value?.Trim() ?? string.Empty;
+
+        if (value.Length >= 2 && value[0] == '"' && value[value.Length - 1] == '"')
+        {
+            value = value.Substring(1, value.Length - 2).Replace("\"\"", "\"");
+        }
+
+        return value;
+    }
+
+    /// <summary>
+    /// Gets the text of a column (null for a missing column or value).
+    /// </summary>
+    /// <param name="row">The row.</param>
+    /// <param name="column">The column.</param>
+    /// <returns>Returns the text.</returns>
+    private static string GetValue(DataRow row, string column)
+    {
+        return row.Table.Columns.Contains(column) && row[column] != DBNull.Value
+                   ? row[column].ToString().Trim()
+                   : null;
+    }
+
+    /// <summary>
+    /// Imports the rows with a name and e-mail of users that don't exist yet, a failing row does not stop the import.
+    /// </summary>
+    /// <param name="table">The table.</param>
+    /// <returns>Returns how many users where imported.</returns>
+    private int ImportRows(DataTable table)
+    {
+        var importedCount = 0;
+
+        foreach (DataRow row in table.Rows)
+        {
+            var name = GetValue(row, "Name");
+
+            if (name.IsNotSet() || GetValue(row, "Email").IsNotSet()
+                                || this.Get<IAspNetUsersHelper>().GetUserByName(name) != null)
+            {
+                continue;
+            }
+
+            try
+            {
+                importedCount = this.ImportUser(row, importedCount);
+            }
+            catch (Exception x)
+            {
+                this.Get<ILoggerService>().Error(x, $"Import of the user {name} failed");
+            }
         }
 
         return importedCount;
@@ -178,7 +262,7 @@ public partial class UsersImport : BaseUserControl
     private int ImportUser(DataRow row, int importCount)
     {
         // Also Check if the Email is unique and exists
-        if (this.Get<IAspNetUsersHelper>().GetUserByEmail((string)row["Email"]) != null)
+        if (this.Get<IAspNetUsersHelper>().GetUserByEmail(GetValue(row, "Email")) != null)
         {
             return importCount;
         }
@@ -189,26 +273,26 @@ public partial class UsersImport : BaseUserControl
         var userProfile = new ProfileInfo();
 
         // Add Profile Fields to User List Table.
-        if (row.Table.Columns.Contains("RealName") && ((string)row["RealName"]).IsSet())
+        if (row.Table.Columns.Contains("RealName") && GetValue(row, "RealName").IsSet())
         {
-            userProfile.RealName = (string)row["RealName"];
+            userProfile.RealName = GetValue(row, "RealName");
         }
 
-        if (row.Table.Columns.Contains("Blog") && ((string)row["Blog"]).IsSet())
+        if (row.Table.Columns.Contains("Blog") && GetValue(row, "Blog").IsSet())
         {
-            userProfile.Blog = (string)row["Blog"];
+            userProfile.Blog = GetValue(row, "Blog");
         }
 
-        if (row.Table.Columns.Contains("Gender") && ((string)row["Gender"]).IsSet())
+        if (row.Table.Columns.Contains("Gender") && GetValue(row, "Gender").IsSet())
         {
-            int.TryParse((string)row["Gender"], out var gender);
+            int.TryParse(GetValue(row, "Gender"), out var gender);
 
             userProfile.Gender = gender;
         }
 
-        if (row.Table.Columns.Contains("Birthday") && ((string)row["Birthday"]).IsSet())
+        if (row.Table.Columns.Contains("Birthday") && GetValue(row, "Birthday").IsSet())
         {
-            DateTime.TryParse((string)row["Birthday"], out var userBirthdate);
+            DateTime.TryParse(GetValue(row, "Birthday"), out var userBirthdate);
 
             if (userBirthdate > DateTimeHelper.SqlDbMinTime())
             {
@@ -216,58 +300,58 @@ public partial class UsersImport : BaseUserControl
             }
         }
 
-        if (row.Table.Columns.Contains("Location") && ((string)row["Location"]).IsSet())
+        if (row.Table.Columns.Contains("Location") && GetValue(row, "Location").IsSet())
         {
-            userProfile.Location = (string)row["Location"];
+            userProfile.Location = GetValue(row, "Location");
         }
 
-        if (row.Table.Columns.Contains("Country") && ((string)row["Country"]).IsSet())
+        if (row.Table.Columns.Contains("Country") && GetValue(row, "Country").IsSet())
         {
-            userProfile.Country = (string)row["Country"];
+            userProfile.Country = GetValue(row, "Country");
         }
 
-        if (row.Table.Columns.Contains("Region") && ((string)row["Region"]).IsSet())
+        if (row.Table.Columns.Contains("Region") && GetValue(row, "Region").IsSet())
         {
-            userProfile.Region = (string)row["Region"];
+            userProfile.Region = GetValue(row, "Region");
         }
 
-        if (row.Table.Columns.Contains("City") && ((string)row["City"]).IsSet())
+        if (row.Table.Columns.Contains("City") && GetValue(row, "City").IsSet())
         {
-            userProfile.City = (string)row["City"];
+            userProfile.City = GetValue(row, "City");
         }
 
-        if (row.Table.Columns.Contains("Interests") && ((string)row["Interests"]).IsSet())
+        if (row.Table.Columns.Contains("Interests") && GetValue(row, "Interests").IsSet())
         {
-            userProfile.Interests = (string)row["Interests"];
+            userProfile.Interests = GetValue(row, "Interests");
         }
 
-        if (row.Table.Columns.Contains("Homepage") && ((string)row["Homepage"]).IsSet())
+        if (row.Table.Columns.Contains("Homepage") && GetValue(row, "Homepage").IsSet())
         {
-            userProfile.Homepage = (string)row["Homepage"];
+            userProfile.Homepage = GetValue(row, "Homepage");
         }
 
-        if (row.Table.Columns.Contains("XMPP") && ((string)row["XMPP"]).IsSet())
+        if (row.Table.Columns.Contains("XMPP") && GetValue(row, "XMPP").IsSet())
         {
-            userProfile.XMPP = (string)row["XMPP"];
+            userProfile.XMPP = GetValue(row, "XMPP");
         }
 
-        if (row.Table.Columns.Contains("Occupation") && ((string)row["Occupation"]).IsSet())
+        if (row.Table.Columns.Contains("Occupation") && GetValue(row, "Occupation").IsSet())
         {
-            userProfile.Occupation = (string)row["Occupation"];
+            userProfile.Occupation = GetValue(row, "Occupation");
         }
 
-        if (row.Table.Columns.Contains("Facebook") && ((string)row["Facebook"]).IsSet())
+        if (row.Table.Columns.Contains("Facebook") && GetValue(row, "Facebook").IsSet())
         {
-            userProfile.Facebook = (string)row["Facebook"];
+            userProfile.Facebook = GetValue(row, "Facebook");
         }
 
         var user = new AspNetUsers
                        {
                            Id = Guid.NewGuid().ToString(),
                            ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
-                           UserName = (string)row["Name"],
-                           LoweredUserName = (string)row["Name"],
-                           Email = (string)row["Email"],
+                           UserName = GetValue(row, "Name"),
+                           LoweredUserName = GetValue(row, "Name"),
+                           Email = GetValue(row, "Email"),
                            IsApproved = true,
 
                            Profile_Birthday = userProfile.Birthday,
@@ -310,11 +394,16 @@ public partial class UsersImport : BaseUserControl
             this.Get<ILoggerService>().Error(x, $"Registration mail to {user.Email} failed");
         }
 
-        var timeZone = 0;
+        // the export contains the id of the time zone (e.g. "W. Europe Standard Time"), it was parsed as number
+        var timeZone = GetValue(row, "TimeZone");
 
-        if (row.Table.Columns.Contains("Timezone") && ((string)row["Timezone"]).IsSet())
+        try
         {
-            int.TryParse((string)row["Timezone"], out timeZone);
+            timeZone = timeZone.IsSet() ? TimeZoneInfo.FindSystemTimeZoneById(timeZone).Id : TimeZoneInfo.Local.Id;
+        }
+        catch (Exception)
+        {
+            timeZone = TimeZoneInfo.Local.Id;
         }
 
         var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
@@ -322,7 +411,7 @@ public partial class UsersImport : BaseUserControl
 
         this.GetRepository<User>().Save(
             userId.Value,
-            timeZone.ToString(),
+            timeZone,
             row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
             row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
             row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"].ToString() : null,

@@ -201,6 +201,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] Unticking the multi-quote button of a post did not remove the post from the multi-quote list
 * [FIXED] Logged-in users without any forum access got an error page ("Unable to find the Guest User") instead of falling back to the guest permissions
 * [FIXED] SimpleReplaceRule with an empty search text never finished
+* [FIXED] Admin -> Users -> Import: csv files with an empty last line, rows with fewer or more values than columns or rows without name or e-mail failed the whole import, quoted values kept their quotes, a file without Name/Email column showed a technical error, one failing user stopped the import
+* [FIXED] Admin -> Users -> Import: the time zone of the exported users was lost (the import expected a number instead of the time zone name)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
