@@ -285,6 +285,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Active users: Android phones were shown as Linux and iPods as iPhones (their user agents contain "Linux" and "iPhone OS")
 * [FIXED] a number in the address that is too big for an int (e.g. ActiveUsers?v=2147483648) shows an error page
 * [FIXED] pages with an unknown forum or topic in the address (e.g. Moderate/Forums, PostTopic, MoveMessage) show an error page
+* [FIXED] the reply page of an unknown topic shows an error page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

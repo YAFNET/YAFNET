@@ -227,6 +227,12 @@ public partial class PostMessage : ForumPage
             this.Get<LinkBuilder>().AccessDenied();
         }
 
+        // a reply needs a topic (an unknown topic or message in the address)
+        if (this.PageBoardContext.PageTopic == null)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         this.topic = this.PageBoardContext.PageTopic;
 
         // we reply to a post with a quote
