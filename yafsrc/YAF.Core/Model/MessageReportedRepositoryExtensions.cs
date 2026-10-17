@@ -133,6 +133,7 @@ public static class MessageReportedRepositoryExtensions
                 new MessageReportedAudit {
                     MessageID = message.Item2.ID,
                     UserID = userId,
+                    ReportedNumber = 1,
                     Reported = reportedDateTime,
                     ReportText = $"{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
                 });
