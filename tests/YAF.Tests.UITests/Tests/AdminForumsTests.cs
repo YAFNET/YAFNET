@@ -212,6 +212,36 @@ public class AdminForumsTests : ForumTestBase
         return Regex.Match(href, @"/Topics/(\d+)").Groups[1].Value;
     }
 
+    [Test]
+    [Description("The buttons of the list open the edit pages (new, edit, copy, delete), the other sort orders")]
+    public async Task List_Buttons_Test()
+    {
+        await this.LoginAsAdminAsync();
+
+        foreach (var (button, page) in new[]
+                     {
+                         ("[id$='_NewCategory']", "EditCategory"), ("[id$='_NewForum']", "EditForum"),
+                         ("[id*='_CategoryList_'][id$='_ThemeButtonEdit']", "EditCategory?c="),
+                         ("[id$='_btnEdit']", "EditForum?fa="), ("[id$='_btnDuplicate']", "EditForum?copy="),
+                         ("[id$='_btnDelete']", "DeleteForum?fa=")
+                     })
+        {
+            await this.GotoAsync("Admin/Forums");
+            await this.ClickAndWaitAsync(
+                this.Page.Locator(button).Filter(new LocatorFilterOptions { Visible = true }).First);
+            this.Page.Url.Should().Contain(page, button);
+        }
+
+        // sort the categories descending and the forums ascending (and back)
+        foreach (var sort in new[] { "SortCategoriesDesc", "SortForumsAsc", "SortCategoriesAsc" })
+        {
+            await this.GotoAsync("Admin/Forums");
+            await this.Page.Locator("a.dropdown-toggle[aria-label='tools']").ClickAsync();
+            await this.Control(sort).ClickAsync();
+            await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        }
+    }
+
     private async Task CreateCategoryAsync(string name, string sortOrder)
     {
         await this.GotoAsync("Admin/EditCategory");
