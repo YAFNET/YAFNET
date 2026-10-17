@@ -444,8 +444,8 @@ public static class PMessageRepositoryExtensions
         }
 
         return !includeReplies
-                   ? [.. messages.OrderBy(m => m.Created)]
-                   : [.. repository.GetReplies(messages).OrderBy(m => m.Created)];
+                   ? [.. messages.OrderBy(m => m.Created).ThenBy(m => m.PMessageID)]
+                   : [.. repository.GetReplies(messages).OrderBy(m => m.Created).ThenBy(m => m.PMessageID)];
     }
 
     /// <summary>
@@ -561,6 +561,6 @@ public static class PMessageRepositoryExtensions
                     return db.Connection.Select<PagedPm>(expression);
                 });
 
-        return [.. messages.OrderBy(m => m.Created)];
+        return [.. messages.OrderBy(m => m.Created).ThenBy(m => m.PMessageID)];
     }
 }
