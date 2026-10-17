@@ -381,6 +381,13 @@ public class Resources : IResources, IHaveServiceLocator
 
             context.Response.Clear();
 
+            // a user without uploaded avatar: not found (it failed with an error, every request was logged)
+            if (data == null || data.Length == 0)
+            {
+                context.Response.StatusCode = 404;
+                return;
+            }
+
             // only image types (the type of older avatars was sent by the browser, e.g. text/html)
             if (contentType.IsNotSet() || !contentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)
                                        || contentType.IndexOf("svg", StringComparison.OrdinalIgnoreCase) >= 0)
