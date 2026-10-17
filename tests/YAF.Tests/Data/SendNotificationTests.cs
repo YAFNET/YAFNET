@@ -339,6 +339,35 @@ public class SendNotificationTests
         FluentActions.Invoking(() => this.Notifications.SendPasswordReset(user, "token")).Should().Throw<SmtpException>();
     }
 
+    [Test]
+    [Description("The verification mail stores a hash of the key (an identity token can be longer than the column), old records with the key itself are still found")]
+    public void Verification_Key_Hash_Test()
+    {
+        var token = new string('k', 400);
+        this.aspNetUsers.GenerateEmailConfirmationResetToken(Arg.Any<string>()).Returns(token);
+        this.board.Localization.Add("TEMPLATES", "VERIFYEMAIL_TEXT", "Verify: {link}");
+
+        this.Notifications.SendVerificationEmail(
+            new AspNetUsers { Id = "bob-key", UserName = "Bob", Email = "bob@example.com" },
+            "bob@example.com",
+            this.bob);
+
+        var stored = this.Repository<CheckEmail>().Get(c => c.UserID == this.bob).Should().ContainSingle().Subject;
+        stored.Hash.Should().HaveLength(64).And.NotBe(token);
+
+        this.Repository<CheckEmail>().Update(token).ID.Should().Be(stored.ID);
+        this.Repository<CheckEmail>().Update("wrong").Should().BeNull();
+        this.Repository<CheckEmail>().Update((string)null).Should().BeNull();
+
+        // a record of the old version contains the key itself
+        this.Repository<CheckEmail>().Insert(
+            new CheckEmail { UserID = this.carol, Email = "carol@example.com", Created = DateTime.UtcNow, Hash = "old-key" });
+
+        this.Repository<CheckEmail>().Update("old-key").UserID.Should().Be(this.carol);
+
+        RecordingMailService.TextOf(this.mail.Sent.Should().ContainSingle().Subject).Should().Contain(token);
+    }
+
     private ISendNotification Notifications => this.board.Resolve<ISendNotification>();
 
     private Message Post(int userId, string text)
