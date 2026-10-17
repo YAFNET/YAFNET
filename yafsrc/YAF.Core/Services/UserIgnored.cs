@@ -72,6 +72,12 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     /// </param>
     public void AddIgnored(int ignoredUserId)
     {
+        // nobody can ignore themselves
+        if (ignoredUserId == BoardContext.Current.PageUserID)
+        {
+            return;
+        }
+
         this.GetRepository<IgnoreUser>().AddIgnoredUser(BoardContext.Current.PageUserID, ignoredUserId);
         this.ClearIgnoreCache();
     }
@@ -81,7 +87,8 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     /// </summary>
     public void ClearIgnoreCache()
     {
-        // clear for the session
+        // clear for the request and the session
+        this._userIgnoreList = null;
         this.SessionStateBase.Remove(string.Format(Constants.Cache.UserIgnoreList, BoardContext.Current.PageUserID));
     }
 
