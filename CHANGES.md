@@ -119,6 +119,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Print view and feeds: a post with a spoiler was replaced by the content of the first spoiler (the rest of the post was lost), the posts of the feeds were formatted twice (the html of the first pass was shown as text)
 * [FIXED] Security: The good words of the bad word list were inserted as html into posts, topic names and descriptions (the text is html at that point), a replacement with html changed every post; the good words are texts now (IBadWordReplace.ReplaceHtml)
 * [FIXED] Links of posts older than "disable nofollow links after days" still got rel=nofollow, the age of the post was computed negative
+* [FIXED] Security (hardening): BBCode [url] links allowed control characters in the url (browsers remove them, e.g. in front of "javascript:"), they end the link now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
