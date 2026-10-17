@@ -282,9 +282,10 @@ public class TopicContainer : BaseControl
 
             infoLastPost.TextLocalizedTag = "by";
             infoLastPost.TextLocalizedPage = "DEFAULT";
-            infoLastPost.ParamText0 = this.PageBoardContext.BoardSettings.EnableDisplayName
-                                          ? this.TopicItem.LastUserDisplayName
-                                          : this.TopicItem.LastUserName;
+            infoLastPost.ParamText0 = this.HtmlEncode(
+                this.PageBoardContext.BoardSettings.EnableDisplayName
+                    ? this.TopicItem.LastUserDisplayName
+                    : this.TopicItem.LastUserName);
 
             writer.Write(infoLastPost.RenderToString());
 

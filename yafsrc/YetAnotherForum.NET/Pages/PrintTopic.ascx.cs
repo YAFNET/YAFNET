@@ -73,7 +73,7 @@ public partial class PrintTopic : ForumPage
     {
         var row = (PagedMessage)o;
         return
-            $"<strong>{this.GetText("postedby")}: {(this.PageBoardContext.BoardSettings.EnableDisplayName ? row.DisplayName : row.UserName)}</strong> - {this.Get<IDateTimeService>().FormatDateTime(row.Posted)}";
+            $"<strong>{this.GetText("postedby")}: {this.HtmlEncode(this.PageBoardContext.BoardSettings.EnableDisplayName ? row.DisplayName : row.UserName)}</strong> - {this.Get<IDateTimeService>().FormatDateTime(row.Posted)}";
     }
 
     /// <summary>

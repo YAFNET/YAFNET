@@ -96,7 +96,7 @@ public partial class ActiveDiscussion : BaseUserControl
             ForumPages.Posts,
             new { t = item.TopicID, name = topicSubject });
 
-        forumLink.Text = $"({item.Forum})";
+        forumLink.Text = $"({this.HtmlEncode(item.Forum)})";
         forumLink.NavigateUrl = this.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum);
 
         lastUserLink.UserID = item.LastUserID.Value;
@@ -132,9 +132,8 @@ public partial class ActiveDiscussion : BaseUserControl
 
         info.TextLocalizedTag = "by";
         info.TextLocalizedPage = "DEFAULT";
-        info.ParamText0 = this.PageBoardContext.BoardSettings.EnableDisplayName
-                              ? item.LastUserDisplayName
-                              : item.LastUserName;
+        info.ParamText0 = this.HtmlEncode(
+            this.PageBoardContext.BoardSettings.EnableDisplayName ? item.LastUserDisplayName : item.LastUserName);
 
         info.DataContent = $"""
                                                       {lastUserLink.RenderToString()}

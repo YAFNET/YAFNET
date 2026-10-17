@@ -69,7 +69,7 @@
                                     </li>
                                 </asp:PlaceHolder>
                                 <li class="list-inline-item d-block">
-                                    <span class="badge text-bg-secondary"><%# this.DataSource.RankName%></span>
+                                    <span class="badge text-bg-secondary"><%#: this.DataSource.RankName%></span>
                                     <asp:Label ID="TopicStarterBadge" runat="server"
                                            CssClass="badge text-bg-dark mb-2"
                                            Visible="<%# this.DataSource.TopicOwnerID.Equals(this.PostData.UserId) %>"
@@ -90,7 +90,7 @@
                                     <asp:Repeater runat="server" ID="UserCustomProfile" Visible="False">
                                         <ItemTemplate>
                                             <span class="badge text-bg-secondary">
-                                                <%# this.Eval("Item2.Name") %>:&nbsp;<%# this.Eval("Item1.Value") %>
+                                                <%#: this.Eval("Item2.Name") %>:&nbsp;<%#: this.Eval("Item1.Value") %>
                                             </span>
                                         </ItemTemplate>
                                     </asp:Repeater>

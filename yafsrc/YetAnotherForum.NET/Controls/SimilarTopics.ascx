@@ -23,7 +23,7 @@
             <li class="list-group-item">
                    <a href="<%# ((SearchMessage)Container.DataItem).TopicUrl%>">
                        <strong><%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(((SearchMessage)Container.DataItem).Topic)) %></strong>
-                   </a> (<a href="<%# ((SearchMessage)Container.DataItem).ForumUrl%>"><%# ((SearchMessage)Container.DataItem).ForumName %></a>)
+                   </a> (<a href="<%# ((SearchMessage)Container.DataItem).ForumUrl%>"><%#: ((SearchMessage)Container.DataItem).ForumName %></a>)
                 <YAF:LocalizedLabel runat="server" LocalizedPage="SEARCH" LocalizedTag="BY">
                    </YAF:LocalizedLabel> 
                     <YAF:UserLink ID="UserName" runat="server" 

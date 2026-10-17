@@ -48,7 +48,7 @@
         </span> <asp:Repeater ID="Groups" runat="server">
             <ItemTemplate>
                 <span runat="server" style='<%# DataBinder.Eval(Container.DataItem,"Style") %>'>
-                    <%# DataBinder.Eval(Container.DataItem,"Name") %></span>
+                    <%#: DataBinder.Eval(Container.DataItem,"Name") %></span>
             </ItemTemplate>
             <SeparatorTemplate>
                 ,

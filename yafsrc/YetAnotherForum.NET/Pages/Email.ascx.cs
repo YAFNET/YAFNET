@@ -86,8 +86,8 @@ public partial class Email : ForumPage
         this.PageBoardContext.PageLinks.AddUser(this.UserId, user.DisplayOrUserName());
         this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-        this.LocalizedLabel6.Param0 = user.DisplayOrUserName();
-        this.IconHeader.Param0 = user.DisplayOrUserName();
+        this.LocalizedLabel6.Param0 = this.HtmlEncode(user.DisplayOrUserName());
+        this.IconHeader.Param0 = this.HtmlEncode(user.DisplayOrUserName());
     }
 
     /// <summary>

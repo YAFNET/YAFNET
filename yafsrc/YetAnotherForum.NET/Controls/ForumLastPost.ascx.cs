@@ -128,7 +128,10 @@ public partial class ForumLastPost : BaseUserControl
 
             this.Info.Text = string.Format(
                 this.GetText("Default", "BY"),
-                this.PageBoardContext.BoardSettings.EnableDisplayName ? this.DataSource.LastUserDisplayName : this.DataSource.LastUser);
+                this.HtmlEncode(
+                    this.PageBoardContext.BoardSettings.EnableDisplayName
+                        ? this.DataSource.LastUserDisplayName
+                        : this.DataSource.LastUser));
 
             if (this.DataSource.LastPosted.Value > lastRead)
             {

@@ -19,7 +19,7 @@
                                    CssClass="img-fluid me-1"
                                    data-bs-toggle="tooltip"
                                    style="max-height:80px"/>
-                        <%# this.Get<IBadWordReplace>().Replace(this.Eval("Item2.ChoiceName").ToString()) %>
+                        <%#: this.Get<IBadWordReplace>().Replace(this.Eval("Item2.ChoiceName").ToString()) %>
                     </h5>
                     <small>
                         <asp:Label id="YourChoice" visible="false" runat="server" 

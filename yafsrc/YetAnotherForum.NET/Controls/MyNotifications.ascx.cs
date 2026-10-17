@@ -144,7 +144,7 @@ public partial class MyNotifications : BaseUserControl
                                         ForumPages.Posts,
                                         new { m = activity.Item1.MessageID.Value, name = activity.Item3.TopicName }),
                                 Type = ButtonStyle.None,
-                                Text = activity.Item3.TopicName,
+                                Text = this.HtmlEncode(activity.Item3.TopicName),
                                 Icon = "comment",
                                 IconCssClass = "far"
                             };

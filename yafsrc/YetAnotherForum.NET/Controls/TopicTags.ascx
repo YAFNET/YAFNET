@@ -19,7 +19,7 @@
                     <a href="<%# this.Get<LinkBuilder>().GetLink(
                                      ForumPages.Search,
                                      new { tag = this.Eval("Item2.TagName")} ) %>"
-                       class="link-light"><%# this.Eval("Item2.TagName") %>
+                       class="link-light"><%#: this.Eval("Item2.TagName") %>
                     </a>
                 </span>
             </ItemTemplate>

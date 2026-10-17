@@ -32,7 +32,7 @@
                           Text="&nbsp;"
                           CssClass="form-check d-inline-flex align-middle" />
             <%# this.GetPreviewImage(Container.DataItem) %>
-            <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
+            <%#: this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
                             
             <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
                              CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>' 

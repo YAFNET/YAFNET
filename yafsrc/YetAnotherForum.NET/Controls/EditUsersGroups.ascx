@@ -15,7 +15,7 @@
         <ItemTemplate>
               <div class="mb-3 col-md-4">
                 <asp:Label runat="server" AssociatedControlID="GroupMember">
-                    <%# (Container.DataItem as GroupMember).Name %>
+                    <%#: (Container.DataItem as GroupMember).Name %>
                 </asp:Label>
                 <div class="form-check form-switch">
                     <asp:CheckBox Text="&nbsp;" runat="server" ID="GroupMember"

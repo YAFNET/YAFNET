@@ -119,7 +119,7 @@ public partial class ProfileTimeline : BaseUserControl
                             {
                                 NavigateUrl = this.Get<LinkBuilder>().GetTopicLink(activity.Item2.ID, activity.Item2.TopicName),
                                 Type = ButtonStyle.None,
-                                Text = activity.Item2.TopicName,
+                                Text = this.HtmlEncode(activity.Item2.TopicName),
                                 Icon = "comment",
                                 IconCssClass = "far"
                             };
