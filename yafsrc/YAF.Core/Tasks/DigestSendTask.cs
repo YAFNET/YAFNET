@@ -118,33 +118,30 @@ public class DigestSendTask : LongBackgroundTask
     {
         try
         {
-            var boards = this.GetRepository<Board>().GetAll();
+            // only the own board: the application serves one board (the board id of the configuration), the digest
+            // has its topics, name and links; the other boards send their digests in their own application
+            var boardId = BoardContext.Current.PageBoardID;
+            var boardSettings = BoardContext.Current.BoardSettings;
 
-            boards.ForEach(
-                board =>
-                    {
-                        var boardSettings = this.Get<BoardSettingsService>().LoadBoardSettings(board.ID, board);
+            if (!IsTimeToSendDigestForBoard(boardSettings))
+            {
+                return;
+            }
 
-                        if (!IsTimeToSendDigestForBoard(boardSettings))
-                        {
-                            return;
-                        }
+            // get users with digest enabled...
+            var usersWithDigest = this.GetRepository<User>().Get(
+                u => u.BoardID == boardId && (u.Flags & 2) == 2 && (u.Flags & 4) != 4
+                     && (u.Flags & 32) != 32 && u.DailyDigest);
 
-                        // get users with digest enabled...
-                        var usersWithDigest = this.GetRepository<User>().Get(
-                            u => u.BoardID == board.ID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4
-                                 && (u.Flags & 32) != 32 && u.DailyDigest);
-
-                        if (usersWithDigest.Any())
-                        {
-                            // start sending...
-                            this.SendDigestToUsers(usersWithDigest, boardSettings);
-                        }
-                        else
-                        {
-                            this.Get<ILoggerService>().Info("no user found");
-                        }
-                    });
+            if (usersWithDigest.Any())
+            {
+                // start sending...
+                this.SendDigestToUsers(usersWithDigest, boardSettings);
+            }
+            else
+            {
+                this.Get<ILoggerService>().Info("no user found");
+            }
         }
         catch (Exception ex)
         {

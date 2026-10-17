@@ -216,6 +216,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] PostgreSQL: deleting a topic (without erasing) failed, the column names of the sql statement that flags its posts as deleted were not quoted
 * [FIXED] SQL Server, MySQL, PostgreSQL: a request with a long location parameter, browser, platform or user agent (longer than the columns of the active session) got the error page "Failure Initializing User/Page" instead of the forum; the values are shortened to their columns now
 * [FIXED] Albums: an image with the same file name as another image of the album (e.g. phones name every photo "image.jpg") overwrote the file of the other image, both showed the new image and deleting one of them removed the file of the other; the name gets a number now ("image (2).jpg"), the album limit message showed the image limit
+* [FIXED] Digest with several boards in one database: the digest task of every application sent the digests of all boards, but with the topics, name and links of its own board, so the users of the other boards got the wrong digest; every application sends the digest of its own board now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
