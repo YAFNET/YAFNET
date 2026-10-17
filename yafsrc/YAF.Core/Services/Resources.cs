@@ -369,7 +369,10 @@ public class Resources : IResources, IHaveServiceLocator
             var contentType = user.AvatarImageType;
 
             context.Response.Clear();
-            if (contentType.IsNotSet())
+
+            // only image types (the type of older avatars was sent by the browser, e.g. text/html)
+            if (contentType.IsNotSet() || !contentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)
+                                       || contentType.IndexOf("svg", StringComparison.OrdinalIgnoreCase) >= 0)
             {
                 contentType = "image/jpeg";
             }

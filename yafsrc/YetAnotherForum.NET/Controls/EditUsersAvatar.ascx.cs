@@ -170,11 +170,12 @@ public partial class EditUsersAvatar : BaseUserControl
                 image.Save(memoryStream, image.RawFormat);
                 memoryStream.Position = 0;
 
+                // the type of the image, not the type sent by the browser
                 this.GetRepository<User>().SaveAvatar(
                     this.currentUserId,
                     null,
                     memoryStream,
-                    this.File.PostedFile.ContentType);
+                    GetImageContentType(image));
 
                 image.Dispose();
             }
@@ -350,5 +351,27 @@ public partial class EditUsersAvatar : BaseUserControl
 
         this.AvatarImg.Attributes.CssStyle.Add("max-width", this.PageBoardContext.BoardSettings.AvatarWidth.ToString());
         this.AvatarImg.Attributes.CssStyle.Add("max-height", this.PageBoardContext.BoardSettings.AvatarHeight.ToString());
+    }
+
+    /// <summary>
+    /// Gets the content type of the image format.
+    /// </summary>
+    /// <param name="image">The image.</param>
+    /// <returns>The content type.</returns>
+    private static string GetImageContentType(Image image)
+    {
+        var format = image.RawFormat;
+
+        if (format.Equals(System.Drawing.Imaging.ImageFormat.Png))
+        {
+            return "image/png";
+        }
+
+        if (format.Equals(System.Drawing.Imaging.ImageFormat.Gif))
+        {
+            return "image/gif";
+        }
+
+        return format.Equals(System.Drawing.Imaging.ImageFormat.Bmp) ? "image/bmp" : "image/jpeg";
     }
 }
