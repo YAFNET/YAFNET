@@ -147,6 +147,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] New topic: the tags were only saved for approved topics of users with the activity stream enabled (not for guests, moderated forums and users who turned the activity stream off)
 * [FIXED] Move message: the topic list offered deleted topics and the links of moved topics as targets, a message moved there was no longer visible; such topics are no longer listed or accepted
 * [FIXED] Attachments: the allowed file extensions setting is read with spaces and dots ("jpg, .png"), before such an entry never matched and the files were rejected as "Invalid File"
+* [FIXED] Requests for unknown album images wrote an event log entry each time (the event log could be flooded), they now only return "not found"
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

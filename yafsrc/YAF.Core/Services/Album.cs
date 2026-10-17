@@ -248,6 +248,13 @@ public class Album : IAlbum, IHaveServiceLocator
             var image = this.GetRepository<UserAlbumImage>()
                 .GetImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("imgprv"));
 
+            // an unknown image is not found (no event log entry for every request)
+            if (image == null)
+            {
+                context.Response.StatusCode = 404;
+                return;
+            }
+
             var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
             var oldFileName = context.Server.MapPath(
@@ -429,6 +436,13 @@ public class Album : IAlbum, IHaveServiceLocator
             // ImageID
             var image = this.GetRepository<UserAlbumImage>()
                 .GetImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));
+
+            // an unknown image is not found (no event log entry for every request)
+            if (image == null)
+            {
+                context.Response.StatusCode = 404;
+                return;
+            }
 
             byte[] data;
 
