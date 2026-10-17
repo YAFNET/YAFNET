@@ -28,6 +28,8 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
+using Microsoft.AspNet.Identity;
+
 using YAF.Core.Identity;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Interfaces;
@@ -85,5 +87,111 @@ public class UserStoreTests
         await this.store.RemoveClaimAsync(user, claim);
 
         (await this.store.GetClaimsAsync(user)).Should().BeEmpty();
+    }
+
+    [Test]
+    [Description("An external login finds its user, an unknown login finds nobody (it failed when it was awaited)")]
+    public async Task Logins_Test()
+    {
+        var user = await this.CreateUserAsync("u2", "Bob");
+        var login = new UserLoginInfo("Google", "google-key-1");
+
+        (await this.store.FindAsync(login)).Should().BeNull();
+
+        await this.store.AddLoginAsync(user, login);
+
+        (await this.store.FindAsync(login)).Id.Should().Be("u2");
+        (await this.store.GetLoginsAsync(user)).Should().ContainSingle(l => l.ProviderKey == "google-key-1");
+
+        await this.store.RemoveLoginAsync(user, login);
+
+        (await this.store.GetLoginsAsync(user)).Should().BeEmpty();
+        (await this.store.FindAsync(login)).Should().BeNull();
+    }
+
+    [Test]
+    [Description("The roles of a user: an unknown role is ignored")]
+    public async Task Roles_Test()
+    {
+        var user = await this.CreateUserAsync("u3", "Carol");
+
+        using (var roles = new RoleStore(this.board.Resolve<IServiceLocator>()))
+        {
+            await roles.CreateAsync(new AspNetRoles { Id = Guid.NewGuid().ToString(), Name = "Editors" });
+        }
+
+        await this.store.AddToRoleAsync(user, "Unknown");
+        await this.store.AddToRoleAsync(user, "Editors");
+
+        (await this.store.GetRolesAsync(user)).Should().Equal("Editors");
+        (await this.store.IsInRoleAsync(user, "Editors")).Should().BeTrue();
+        (await this.store.IsInRoleAsync(user, "Unknown")).Should().BeFalse();
+
+        await this.store.RemoveFromRoleAsync(user, "Unknown");
+        await this.store.RemoveFromRoleAsync(user, "Editors");
+
+        (await this.store.GetRolesAsync(user)).Should().BeEmpty();
+    }
+
+    [Test]
+    [Description("The values of the identity (e-mail, phone, two factor, lockout, password, security stamp) are stored")]
+    public async Task Properties_Test()
+    {
+        var user = await this.CreateUserAsync("u4", "Dave");
+
+        await this.store.SetEmailAsync(user, "dave@example.com");
+        await this.store.SetEmailConfirmedAsync(user, true);
+        await this.store.SetPhoneNumberAsync(user, "+49 123");
+        await this.store.SetPhoneNumberConfirmedAsync(user, true);
+        await this.store.SetTwoFactorEnabledAsync(user, true);
+        await this.store.SetLockoutEnabledAsync(user, true);
+        await this.store.SetLockoutEndDateAsync(user, new DateTimeOffset(2030, 1, 1, 0, 0, 0, TimeSpan.Zero));
+        await this.store.SetPasswordHashAsync(user, "hash");
+        await this.store.SetSecurityStampAsync(user, "stamp");
+        await this.store.UpdateAsync(user);
+
+        (await this.store.IncrementAccessFailedCountAsync(user)).Should().Be(1);
+        (await this.store.IncrementAccessFailedCountAsync(user)).Should().Be(2);
+
+        var stored = await this.store.FindByEmailAsync("dave@example.com");
+        stored.Id.Should().Be("u4");
+
+        (await this.store.GetEmailAsync(stored)).Should().Be("dave@example.com");
+        (await this.store.GetEmailConfirmedAsync(stored)).Should().BeTrue();
+        (await this.store.GetPhoneNumberAsync(stored)).Should().Be("+49 123");
+        (await this.store.GetPhoneNumberConfirmedAsync(stored)).Should().BeTrue();
+        (await this.store.GetTwoFactorEnabledAsync(stored)).Should().BeTrue();
+        (await this.store.GetLockoutEnabledAsync(stored)).Should().BeTrue();
+        (await this.store.GetLockoutEndDateAsync(stored)).Year.Should().Be(2030);
+        (await this.store.GetPasswordHashAsync(stored)).Should().Be("hash");
+        (await this.store.HasPasswordAsync(stored)).Should().BeTrue();
+        (await this.store.GetSecurityStampAsync(stored)).Should().Be("stamp");
+        (await this.store.GetAccessFailedCountAsync(user)).Should().Be(2);
+
+        await this.store.ResetAccessFailedCountAsync(user);
+        (await this.store.GetAccessFailedCountAsync(user)).Should().Be(0);
+
+        (await this.store.FindByNameAsync("Dave")).Id.Should().Be("u4");
+
+        await this.store.DeleteAsync(user);
+        (await this.store.FindByIdAsync("u4")).Should().BeNull();
+    }
+
+    private async Task<AspNetUsers> CreateUserAsync(string id, string name)
+    {
+        var user = new AspNetUsers
+                       {
+                           Id = id,
+                           UserName = name,
+                           LoweredUserName = name.ToLowerInvariant(),
+                           Email = $"{name.ToLowerInvariant()}@example.com",
+                           LoweredEmail = $"{name.ToLowerInvariant()}@example.com",
+                           ApplicationId = Guid.NewGuid(),
+                           IsApproved = true
+                       };
+
+        await this.store.CreateAsync(user);
+
+        return user;
     }
 }

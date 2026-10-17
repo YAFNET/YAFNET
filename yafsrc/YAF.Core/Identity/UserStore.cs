@@ -421,7 +421,9 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     public async virtual Task<bool> HasPasswordAsync(AspNetUsers user)
     {
         var passwordHash = await this.GetPasswordHashAsync(user);
-        return passwordHash.IsNotSet();
+
+        // a user has a password with a password hash (it returned the opposite)
+        return passwordHash.IsSet();
     }
 
     /// <summary>
