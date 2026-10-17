@@ -10270,6 +10270,86 @@
 						"#text": "Agender"
 					},
 					{
+						"@tag": "ANDROGYNE",
+						"#text": "Androgyne"
+					},
+					{
+						"@tag": "BIGENDER",
+						"#text": "Bigender"
+					},
+					{
+						"@tag": "CISGENDER",
+						"#text": "Cisgender"
+					},
+					{
+						"@tag": "FEMALETOMALE",
+						"#text": "Female to Male"
+					},
+					{
+						"@tag": "GENDERFLUID",
+						"#text": "Gender Fluid"
+					},
+					{
+						"@tag": "GENDERNONCONFORMING",
+						"#text": "Gender Nonconforming"
+					},
+					{
+						"@tag": "GENDERQUESTIONING",
+						"#text": "Gender Questioning"
+					},
+					{
+						"@tag": "GENDERQUEER",
+						"#text": "Genderqueer"
+					},
+					{
+						"@tag": "INTERSEX",
+						"#text": "Intersex"
+					},
+					{
+						"@tag": "MALETOFEMALE",
+						"#text": "Male to Female"
+					},
+					{
+						"@tag": "NONBINARY",
+						"#text": "Non-binary"
+					},
+					{
+						"@tag": "PANGENDER",
+						"#text": "Pangender"
+					},
+					{
+						"@tag": "TRANS",
+						"#text": "Trans"
+					},
+					{
+						"@tag": "TRANSGENDER",
+						"#text": "Transgender"
+					},
+					{
+						"@tag": "TRANSMAN",
+						"#text": "Trans Man"
+					},
+					{
+						"@tag": "TRANSWOMAN",
+						"#text": "Trans Woman"
+					},
+					{
+						"@tag": "TRANSFEMININE",
+						"#text": "Transfeminine"
+					},
+					{
+						"@tag": "TRANSMASCULINE",
+						"#text": "Transmasculine"
+					},
+					{
+						"@tag": "TRANSSEXUAL",
+						"#text": "Transsexual"
+					},
+					{
+						"@tag": "TWOSPIRIT",
+						"#text": "Two-Spirit"
+					},
+					{
 						"@tag": "WOMAN",
 						"#text": "Woman"
 					}
