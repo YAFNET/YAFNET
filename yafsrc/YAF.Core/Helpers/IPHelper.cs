@@ -28,13 +28,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text.RegularExpressions;
 
 /// <summary>
 ///     The IP Helper Class.
 /// </summary>
 public static class IPHelper
 {
+    /// <summary>
+    /// The networks of the reverse proxies that are always trusted (loopback and private networks).
+    /// </summary>
+    private readonly static List<string> TrustedProxyNetworks = [
+        "127.0.0.0/8",
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16",
+        "::1/128",
+        "fc00::/7"
+    ];
+
     /// <summary>
     /// The non routable IP v4 networks.
     /// </summary>
@@ -125,7 +136,9 @@ public static class IPHelper
     }
 
     /// <summary>
-    /// Gets User IP considering X-Forwarded-For and X-Real-IP HTTP headers
+    /// Gets the client address. The X-Forwarded-For and X-Real-IP headers are only used for requests of
+    /// trusted proxies (loopback and private networks, and the proxies of the YAF.TrustedProxies setting),
+    /// the headers of other clients are ignored: they could send any address.
     /// </summary>
     /// <param name="httpRequest">The HTTP request.</param>
     /// <returns>
@@ -133,42 +146,89 @@ public static class IPHelper
     /// </returns>
     /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
     /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
-    /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
     public static string GetUserRealIPAddress(this HttpRequestBase httpRequest)
     {
-        IPAddress ipAddress;
-        var ipString = httpRequest.Headers["X-Forwarded-For"];
+        CodeContracts.ThrowIfNull(httpRequest);
 
-        if (ipString.IsSet())
+        if (!IPAddress.TryParse(httpRequest.UserHostAddress ?? string.Empty, out var remoteAddress))
         {
-            var ipAddresses = ipString.Split(',');
-            var firstNonLocalAddress =
-                ipAddresses.Find(
-                    ip => IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
+            return httpRequest.UserHostAddress ?? string.Empty;
+        }
 
-            if (firstNonLocalAddress.IsSet())
+        remoteAddress = Normalize(remoteAddress);
+
+        if (!IsTrustedProxy(remoteAddress))
+        {
+            return remoteAddress.ToString();
+        }
+
+        var forwardedFor = httpRequest.Headers["X-Forwarded-For"];
+
+        if (forwardedFor.IsSet())
+        {
+            // the proxies add the address of their client at the end, all trusted proxies of the
+            // chain are skipped, up to the first untrusted address
+            var clientAddress = remoteAddress;
+
+            foreach (var entry in forwardedFor.Split(',').Select(e => e.Trim()).Reverse())
             {
-                return firstNonLocalAddress;
+                if (!IPAddress.TryParse(entry, out var address))
+                {
+                    break;
+                }
+
+                clientAddress = Normalize(address);
+
+                if (!IsTrustedProxy(clientAddress))
+                {
+                    break;
+                }
             }
+
+            return clientAddress.ToString();
         }
 
-        ipString = httpRequest.Headers["X-Real-IP"];
+        // proxies that only send X-Real-IP (e.g. nginx)
+        var realIp = httpRequest.Headers["X-Real-IP"];
 
-        if (!ipString.IsSet())
+        return realIp.IsSet() && IPAddress.TryParse(
+                   (realIp.Split(',').LastOrDefault() ?? string.Empty).Trim(),
+                   out var realIpAddress)
+                   ? Normalize(realIpAddress).ToString()
+                   : remoteAddress.ToString();
+    }
+
+    /// <summary>
+    /// Checks if the address is a trusted reverse proxy: an address of the loopback or a private network,
+    /// or an address or network of the YAF.TrustedProxies setting.
+    /// </summary>
+    /// <param name="address">The address.</param>
+    /// <returns>Returns if the proxy is trusted.</returns>
+    public static bool IsTrustedProxy(IPAddress address)
+    {
+        if (address is null)
         {
-            return httpRequest.UserHostAddress;
+            return false;
         }
 
-        return IPAddress.TryParse((ipString.Split(',').LastOrDefault() ?? string.Empty).Trim(), out ipAddress)
-                   ? ipString
-                   : httpRequest.UserHostAddress;
+        address = Normalize(address);
+
+        var addressBytes = address.GetAddressBytes();
+
+        return TrustedProxyNetworks.Concat(Config.TrustedProxies.Split([','], StringSplitOptions.RemoveEmptyEntries))
+            .Select(entry => entry.Trim())
+            .Select(entry => entry.Contains("/") ? entry : $"{entry}/{(entry.Contains(":") ? 128 : 32)}")
+            .Any(
+                network => IPAddress.TryParse(network.Split('/')[0], out var networkAddress)
+                           && networkAddress.AddressFamily == address.AddressFamily
+                           && IsIpAddressInRange(addressBytes, network));
     }
 
     /// <summary>
     /// Verifies that an IP and mask aren't banned
     /// </summary>
     /// <param name="ban">
-    /// Banned IP
+    /// Banned IP (an address, or an ipv4 mask with * for a part of the address)
     /// </param>
     /// <param name="chk">
     /// IP to Check
@@ -178,11 +238,15 @@ public static class IPHelper
     /// </returns>
     public static bool IsBanned(string ban, string chk)
     {
-        var bannedIp = ban.Trim();
+        CodeContracts.ThrowIfNull(ban);
+        CodeContracts.ThrowIfNull(chk);
 
-        if (chk == "::1")
+        var bannedIp = ban.Trim();
+        var ip = chk.Trim();
+
+        if (ip == "::1")
         {
-            chk = "127.0.0.1";
+            ip = "127.0.0.1";
         }
 
         if (bannedIp == "::1")
@@ -190,11 +254,83 @@ public static class IPHelper
             bannedIp = "127.0.0.1";
         }
 
-        var check = Regex.Match(chk, bannedIp, RegexOptions.None, TimeSpan.FromMilliseconds(100));
+        // masks are compared exactly (a wildcard * matches one part of an ipv4 address), invalid masks never match
+        if (bannedIp.Contains("*"))
+        {
+            return TryGetIpV4Parts(ip, out var ipParts) && IsValidIpV4Mask(bannedIp) && bannedIp.Split('.')
+                       .Select((part, index) => part == "*" || part == ipParts[index]).All(match => match);
+        }
 
-        return check.Success;
+        return TryParseExact(bannedIp, out var banned) && TryParseExact(ip, out var address)
+                                                       && Normalize(banned).Equals(Normalize(address));
     }
 
+    /// <summary>
+    /// Checks if the mask is a valid ban mask: an ip address, or an ipv4 mask with * for a part of the address.
+    /// </summary>
+    /// <param name="mask">The mask.</param>
+    /// <returns>Returns if the mask is valid.</returns>
+    public static bool IsValidBanMask(string mask)
+    {
+        if (mask.IsNotSet())
+        {
+            return false;
+        }
+
+        mask = mask.Trim();
+
+        return mask.Contains("*") ? IsValidIpV4Mask(mask) : TryParseExact(mask, out _);
+    }
+
+    private static bool IsValidIpV4Mask(string mask)
+    {
+        var parts = mask.Split('.');
+
+        return parts.Length == 4 && parts.All(part => part == "*" || byte.TryParse(part, out _));
+    }
+
+    private static bool TryGetIpV4Parts(string ip, out string[] parts)
+    {
+        parts = null;
+
+        if (!TryParseExact(ip, out var address))
+        {
+            return false;
+        }
+
+        address = Normalize(address);
+
+        if (address.AddressFamily != AddressFamily.InterNetwork)
+        {
+            return false;
+        }
+
+        parts = address.ToString().Split('.');
+        return true;
+    }
+
+    private static bool TryParseExact(string value, out IPAddress address)
+    {
+        address = null;
+
+        if (value.IsNotSet())
+        {
+            return false;
+        }
+
+        // IPAddress.TryParse accepts incomplete addresses like "1.2.3"
+        if (!value.Contains(":") && value.Split('.').Length != 4)
+        {
+            return false;
+        }
+
+        return IPAddress.TryParse(value, out address);
+    }
+
+    private static IPAddress Normalize(IPAddress address)
+    {
+        return address.IsIPv4MappedToIPv6 ? address.MapToIPv4() : address;
+    }
     /// <summary>
     /// Converts to byte array.
     /// </summary>
@@ -316,6 +452,8 @@ public static class IPHelper
     /// </returns>
     public static bool IsRoutable(this IPAddress ipAddress)
     {
+        CodeContracts.ThrowIfNull(ipAddress);
+
         // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
         var ipAddressBytes = ipAddress.GetAddressBytes();
 

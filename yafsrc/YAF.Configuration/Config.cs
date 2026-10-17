@@ -225,6 +225,12 @@ public static class Config
     public static int SqlCommandTimeout => GetConfigValueAsInt("YAF.SqlCommandTimeout", 99999);
 
     /// <summary>
+    ///     Gets the reverse proxies (addresses or CIDR networks, separated by comma) whose X-Forwarded-For and
+    ///     X-Real-IP headers are used as the client address. Proxies in loopback and private networks are always trusted.
+    /// </summary>
+    public static string TrustedProxies => GetConfigValueAsString("YAF.TrustedProxies") ?? string.Empty;
+
+    /// <summary>
     ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
     /// </summary>
     public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
