@@ -59,7 +59,7 @@ public partial class DisplayConnect : BaseUserControl
                                 {
                                     TextLocalizedTag = "LOGIN_CONNECT",
                                     TextLocalizedPage = "TOOLBAR",
-                                    ParamText0 = this.PageBoardContext.BoardSettings.Name,
+                                    ParamText0 = this.HtmlEncode(this.PageBoardContext.BoardSettings.Name),
                                     TitleLocalizedTag = "LOGIN",
                                     TitleLocalizedPage = "TOOLBAR",
                                     Type = ButtonStyle.None,

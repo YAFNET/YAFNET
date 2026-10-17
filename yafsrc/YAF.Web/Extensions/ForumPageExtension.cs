@@ -57,8 +57,9 @@ public static class ForumPageExtensions
                     {
                         // Tack on the topic we're viewing
                         title.Append(
-                            BoardContext.Current.Get<IBadWordReplace>()
-                                .Replace(BoardContext.Current.PageTopic.TopicName.Truncate(80)));
+                            page.HtmlEncode(
+                                BoardContext.Current.Get<IBadWordReplace>()
+                                    .Replace(BoardContext.Current.PageTopic.TopicName.Truncate(80))));
                     }
 
                     // Append Current Page

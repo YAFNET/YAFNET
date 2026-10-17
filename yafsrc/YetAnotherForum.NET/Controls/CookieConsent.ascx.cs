@@ -36,7 +36,7 @@ public partial class CookieConsent : BaseUserControl
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        this.Label1.Param0 = this.PageBoardContext.BoardSettings.Name;
+        this.Label1.Param0 = this.HtmlEncode(this.PageBoardContext.BoardSettings.Name);
 
         this.MoreDetails.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Cookies);
     }
