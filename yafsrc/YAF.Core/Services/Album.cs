@@ -342,6 +342,13 @@ public class Album : IAlbum, IHaveServiceLocator
                 }
             }
 
+            // an album without images or an unknown cover is not found (no event log entry for every request)
+            if (fileName.IsNotSet())
+            {
+                context.Response.StatusCode = 404;
+                return;
+            }
+
             using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 input.CopyTo(data);
