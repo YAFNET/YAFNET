@@ -290,6 +290,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] the album page of an unknown album (or of an album of another user) shows an error page
 * [FIXED] the [userlink] example of the BBCode help shows the address of YAF 1.x
 * [FIXED] the gender list of the profile shows missing texts (the genders without a text are removed, a profile with one of them shows "other")
+* [FIXED] missing help texts of the host settings (SPAM service, SSL) and of the user info of the admin edit user page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

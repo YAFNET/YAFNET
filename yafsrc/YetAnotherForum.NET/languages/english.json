@@ -3542,6 +3542,10 @@
 						"#text": "Is Approved:"
 					},
 					{
+						"@tag": "USERINFO_APPROVED_HELP",
+						"#text": "The User Account is approved and the User can log in."
+					},
+					{
 						"@tag": "USERINFO_DISPLAYNAME",
 						"#text": "Display Name:"
 					},
@@ -3560,6 +3564,10 @@
 					{
 						"@tag": "USERINFO_GUEST",
 						"#text": "Is Guest:"
+					},
+					{
+						"@tag": "USERINFO_GUEST_HELP",
+						"#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
 					},
 					{
 						"@tag": "USERINFO_HOST",
@@ -4192,6 +4200,10 @@
 					{
 						"@tag": "CHECK_FOR_SPAM",
 						"#text": "Choose a SPAM Service for Automatically SPAM Checking:"
+					},
+					{
+						"@tag": "CHECK_FOR_SPAM_HELP",
+						"#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
 					},
 					{
 						"@tag": "CLEAR_CACHE",
@@ -5514,6 +5526,10 @@
 						"#text": "Require SSL"
 					},
 					{
+						"@tag": "SSL_REQUIRE_HELP",
+						"#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+					},
+					{
 						"@tag": "STATS_CACHE_TIMEOUT",
 						"#text": "Forum Statistics Cache Timeout:"
 					},
@@ -6692,6 +6708,10 @@
 					{
 						"@tag": "RANK",
 						"#text": "Rank:"
+					},
+					{
+						"@tag": "RANK_HELP",
+						"#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
 					},
 					{
 						"@tag": "ROLE",
@@ -13179,6 +13199,10 @@
 						"#text": "E-mail:"
 					},
 					{
+						"@tag": "EMAIL_HELP",
+						"#text": "The E-mail Address of the User."
+					},
+					{
 						"@tag": "ENDS",
 						"#text": "User Suspension Ends:"
 					},
@@ -13223,12 +13247,20 @@
 						"#text": "Joined:"
 					},
 					{
+						"@tag": "JOINED_HELP",
+						"#text": "The Date the User registered."
+					},
+					{
 						"@tag": "LAST10",
 						"#text": "Last 10 Posts"
 					},
 					{
 						"@tag": "LASTVISIT",
 						"#text": "Last Visit:"
+					},
+					{
+						"@tag": "LASTVISIT_HELP",
+						"#text": "The Date of the last Visit of the User."
 					},
 					{
 						"@tag": "LOCATION",

@@ -54,6 +54,15 @@ public class LanguageKeysTests
     private static readonly Regex MarkupTag = new(
         @"\b(?:LocalizedTag|TextLocalizedTag|TitleLocalizedTag)\s*=\s*""(?<tag>[A-Za-z0-9_]+)""");
 
+    /// <summary>
+    /// A help label shows the help text of the tag (TAG_HELP) unless it has its own help tag.
+    /// </summary>
+    private static readonly Regex HelpLabel = new(@"<YAF:HelpLabel\b(?<attributes>[^>]*)>");
+
+    private static readonly Regex HelpLabelTag = new(@"\bLocalizedTag\s*=\s*""(?<tag>[A-Za-z0-9_]+)""");
+
+    private static readonly Regex HelpLabelHelpTag = new(@"\bLocalizedHelpTag\s*=\s*""(?<tag>[A-Za-z0-9_]+)""");
+
     [Test]
     [Description("All literal GetText / localized control tags of the code exist in english.json")]
     public void All_Used_Texts_Exist_Test()
@@ -82,7 +91,9 @@ public class LanguageKeysTests
 
                 var used = TextCall.Matches(source).Cast<Match>().Select(m => $"{m.Groups["page"].Value}.{m.Groups["tag"].Value}")
                     .Concat(SingleTagCall.Matches(source).Cast<Match>().Select(m => m.Groups["tag"].Value))
-                    .Concat(MarkupTag.Matches(source).Cast<Match>().Select(m => m.Groups["tag"].Value));
+                    .Concat(MarkupTag.Matches(source).Cast<Match>().Select(m => m.Groups["tag"].Value))
+                    .Concat(HelpLabel.Matches(source).Cast<Match>().Select(m => HelpTag(m.Groups["attributes"].Value))
+                        .Where(t => t != null));
 
                 foreach (var text in used)
                 {
@@ -100,7 +111,7 @@ public class LanguageKeysTests
         }
 
         checkedTexts.Should().BeGreaterThan(1000, "the scan finds the texts of the code");
-        missing.Should().BeEmpty();
+        missing.Should().BeEmpty(string.Join(", ", missing));
     }
 
     [Test]
@@ -118,6 +129,20 @@ public class LanguageKeysTests
 
         EnumExtensions.GetAllItems<YAF.Types.Constants.Gender>().Select(g => g.ToString().ToUpperInvariant()).Where(g => !tags.Contains(g))
             .Should().BeEmpty();
+    }
+
+    private static string HelpTag(string attributes)
+    {
+        var helpTag = HelpLabelHelpTag.Match(attributes);
+
+        if (helpTag.Success)
+        {
+            return helpTag.Groups["tag"].Value;
+        }
+
+        var tag = HelpLabelTag.Match(attributes);
+
+        return tag.Success ? $"{tag.Groups["tag"].Value}_HELP" : null;
     }
 
     private static HashSet<string> ReadTags(string fileName)
