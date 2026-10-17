@@ -205,6 +205,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Users -> Import: the time zone of the exported users was lost (the import expected a number instead of the time zone name)
 * [FIXED] An exception in a run of a background task was not caught in the timer callback (an unhandled exception stops the application), it is logged now and the task runs again
 * [FIXED] Emojis with a skin tone (e.g. [raised_hand_tone1], [basketball_player_tone1]) only showed the skin tone color, the emoji itself was missing
+* [FIXED] Times shown to guests had no time zone (the text TIMEZONES.NAME_UTC was missing in all languages, every page logged a missing translation); guests now see the offset of the time zone, e.g. " (UTC+02:00)"
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

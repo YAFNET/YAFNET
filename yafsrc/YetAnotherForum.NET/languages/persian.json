@@ -14437,6 +14437,15 @@
         ]
       },
       {
+        "@name": "TIMEZONES",
+        "Resource": [
+          {
+            "@tag": "NAME_UTC",
+            "#text": "(UTC{0})"
+          }
+        ]
+      },
+      {
         "@name": "TOOLBAR",
         "Resource": [
           {
