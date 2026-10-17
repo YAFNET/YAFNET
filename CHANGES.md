@@ -144,6 +144,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Logout was a plain link, so any other website could log a forum user out with a link or an image; the logout link has a token of the session now, a request without it does not log out
 * [FIXED] Security: A group added for a role (Admin > Groups, roles without group) got the access mask with the id 1 in every forum (a mask of the first board, e.g. the admin access) instead of the access of the start group; check the groups created this way on existing installs
 * [FIXED] Security: The attachments of deleted posts and of posts waiting for approval could be downloaded by everybody who can read the forum (e.g. by counting up the id), now only by moderators of the forum (and the author of a not approved post)
+* [FIXED] New topic: the tags were only saved for approved topics of users with the activity stream enabled (not for guests, moderated forums and users who turned the activity stream off)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

@@ -452,6 +452,12 @@ public partial class PostTopic : ForumPage
         // Check if message is approved
         var isApproved = newMessage.MessageFlags.IsApproved;
 
+        // the tags of the topic (also of topics that wait for approval and of users without activity stream)
+        if (this.TagsValue.Value.IsSet())
+        {
+            this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, newMessage.TopicID);
+        }
+
         // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
         var attachPollParameter = this.PageBoardContext.ForumPollAccess;
 
@@ -476,12 +482,6 @@ public partial class PostTopic : ForumPage
                     newMessage.ID,
                     HtmlTagHelper.StripHtml(this.TopicSubjectTextBox.Text),
                     message);
-
-                // Add tags
-                if (this.TagsValue.Value.IsSet())
-                {
-                    this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, newMessage.TopicID);
-                }
             }
 
             if (!attachPollParameter || !this.PostOptions1.PollChecked)
