@@ -192,6 +192,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The breadcrumb of a forum nested more than one level deep did not show all parent forums, links and breadcrumbs with a missing name (e.g. of a deleted user) caused an error
 * [FIXED] Avatar paths starting with // loaded the avatar from another site
 * [FIXED] Reading a notification could leave the unread notification count too high (the cache was cleared before the update)
+* [FIXED] The legacy settings (e.g. "enabletopicdescription") were not removed on case sensitive databases when they were saved in mixed case
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

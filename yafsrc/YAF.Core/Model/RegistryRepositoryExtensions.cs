@@ -254,13 +254,15 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void DeleteLegacy(this IRepository<Registry> repository)
     {
-        repository.Delete(x => x.Name == "smtpserver");
-        repository.Delete(x => x.Name == "avatarremote");
-        repository.Delete(x => x.Name == "enablethanksmod");
-        repository.Delete(x => x.Name == "topicsperpage");
-        repository.Delete(x => x.Name == "MemberListPageSize".ToLower());
-        repository.Delete(x => x.Name == "MyTopicsListPageSize".ToLower());
-        repository.Delete(x => x.Name == "EnableTopicDescription".ToLower());
-        repository.Delete(x => x.Name == "MaxWordLength".ToLower());
+        // older versions saved some names in mixed case, case sensitive databases (e.g. PostgreSQL) only find
+        // them with a lower case compare
+        repository.Delete(x => x.Name.ToLower() == "smtpserver");
+        repository.Delete(x => x.Name.ToLower() == "avatarremote");
+        repository.Delete(x => x.Name.ToLower() == "enablethanksmod");
+        repository.Delete(x => x.Name.ToLower() == "topicsperpage");
+        repository.Delete(x => x.Name.ToLower() == "memberlistpagesize");
+        repository.Delete(x => x.Name.ToLower() == "mytopicslistpagesize");
+        repository.Delete(x => x.Name.ToLower() == "enabletopicdescription");
+        repository.Delete(x => x.Name.ToLower() == "maxwordlength");
     }
 }

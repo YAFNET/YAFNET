@@ -189,6 +189,22 @@ public class RepositoryTests
     }
 
     [Test]
+    [Description("The legacy settings are deleted also when they were saved in mixed case")]
+    public void Registry_DeleteLegacy_Test()
+    {
+        var repository = this.Repository<Registry>();
+
+        repository.Insert(new Registry { Name = "EnableTopicDescription", Value = "1", BoardID = TestDatabase.BoardId });
+        repository.Insert(new Registry { Name = "smtpserver", Value = "localhost" });
+        repository.Insert(new Registry { Name = "keepme", Value = "1" });
+
+        repository.DeleteLegacy();
+
+        repository.Get(r => true).Select(r => r.Name).Should().Contain("keepme").And
+            .NotContain(new[] { "EnableTopicDescription", "smtpserver" });
+    }
+
+    [Test]
     [Description("Registry Save upserts settings per board and for all boards")]
     public void Registry_Save_Test()
     {
