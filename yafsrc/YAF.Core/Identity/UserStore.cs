@@ -108,7 +108,9 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
         var userLogin = this.GetRepository<AspNetUserLogins>().GetSingle(
             i => i.LoginProvider == login.LoginProvider && i.ProviderKey == login.ProviderKey);
 
-        return userLogin == null ? null : Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.Id == userLogin.UserId));
+        // no user with the login: a task with null (null itself failed when it was awaited)
+        return Task.FromResult(
+            userLogin == null ? null : this.GetRepository<AspNetUsers>().GetSingle(u => u.Id == userLogin.UserId));
     }
 
     /// <summary>
