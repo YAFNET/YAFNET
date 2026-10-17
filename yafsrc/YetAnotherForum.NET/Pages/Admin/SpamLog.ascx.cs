@@ -230,7 +230,7 @@ public partial class SpamLog : AdminPage
                     : "";
 
                 var url = ((string)json.Url).IsSet()
-                              ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{(string)json.Url}</span>"""
+                              ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{this.HtmlEncode((string)json.Url)}</span>"""
                               : "";
 
                 var userIp = ((string)json.UserIP).IsSet()
