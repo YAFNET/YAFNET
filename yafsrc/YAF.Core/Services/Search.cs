@@ -594,33 +594,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
-            var userDisplayName = message.UserDisplayName ?? string.Empty;
-            var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? message.Topic ?? string.Empty;
-            var topicTags = message.TopicTags.IsNotSet() ? string.Empty : message.TopicTags;
-
-            var doc = new Document
-                          {
-                              new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
-                              new TextField("Message", message.Message, Field.Store.YES),
-                              new StoredField("Flags", message.Flags.ToString()),
-                              new StoredField("Posted", message.Posted),
-                              new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                              new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
-                              new TextField("Topic", message.Topic, Field.Store.YES),
-                              new StringField("ForumName", message.ForumName, Field.Store.YES),
-                              new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
-                              new TextField("Author", name, Field.Store.YES),
-                              new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
-                              new StoredField("AuthorStyle", userStyle),
-                              new TextField("Description", description, Field.Store.YES),
-
-                              new TextField(
-                                  "TopicTags",
-                                  topicTags,
-                                  Field.Store.YES)
-                          };
+            // the same document as a single add or update (without the hidden content of the post)
+            var doc = this.CreateDocument(message);
 
             try
             {
