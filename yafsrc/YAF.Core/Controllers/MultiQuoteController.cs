@@ -81,11 +81,8 @@ public class MultiQuoteController : ApiController, IHaveServiceLocator
         }
         else
         {
-            if (yafSession.MultiQuoteIds != null
-                && yafSession.MultiQuoteIds.Exists(m => m.MessageID.Equals(messageId)))
-            {
-                yafSession.MultiQuoteIds.Remove(multiQuote);
-            }
+            // removed by the message id (Remove of the new object never found the entry in the list)
+            yafSession.MultiQuoteIds?.RemoveAll(m => m.MessageID == messageId);
 
             buttonCssClass = "btn-multiquote form-check btn btn-link";
         }
