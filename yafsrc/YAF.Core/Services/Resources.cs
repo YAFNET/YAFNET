@@ -234,26 +234,37 @@ public class Resources : IResources, IHaveServiceLocator
                 return;
             }
 
-            var searchQuery = context.Request.QueryString.GetFirstOrDefault("users");
+            var searchQuery = context.Request.QueryString.GetFirstOrDefault("users")?.Trim();
 
-            var usersList = BoardContext.Current.GetRepository<User>().Get(
-                user => this.Get<BoardSettings>().EnableDisplayName
-                            ? user.DisplayName.StartsWith(searchQuery)
-                            : user.Name.StartsWith(searchQuery));
+            context.Response.Clear();
+            context.Response.ContentType = "application/json";
+            context.Response.ContentEncoding = Encoding.UTF8;
+
+            // only for members (who write posts), the editor asks after 3 characters: a shorter search would list
+            // (almost) all users
+            if (BoardContext.Current.IsGuest || searchQuery.IsNotSet() || searchQuery.Length < 3)
+            {
+                context.Response.Write("[]");
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+            var boardId = BoardContext.Current.PageBoardID;
+
+            var usersList = this.Get<BoardSettings>().EnableDisplayName
+                                ? BoardContext.Current.GetRepository<User>().Get(
+                                    user => user.BoardID == boardId && user.DisplayName.StartsWith(searchQuery))
+                                : BoardContext.Current.GetRepository<User>().Get(
+                                    user => user.BoardID == boardId && user.Name.StartsWith(searchQuery));
 
             // the mention lists of the editors insert the name and the avatar as html: they are encoded
             var users = usersList.AsEnumerable().Where(u =>
-                !this.Get<IUserIgnored>().IsIgnored(u.ID) && u.BoardID == BoardContext.Current.PageBoardID &&
-                !u.UserFlags.IsDeleted && u.UserFlags.IsApproved && !u.UserFlags.IsGuest).Select(
+                !this.Get<IUserIgnored>().IsIgnored(u.ID) &&
+                !u.UserFlags.IsDeleted && u.UserFlags.IsApproved && !u.UserFlags.IsGuest).Take(20).Select(
                 u => new {
                     id = u.ID, name = HttpUtility.HtmlEncode(u.DisplayOrUserName()),
                     avatar = HttpUtility.HtmlEncode(this.Get<IAvatars>().GetAvatarUrlForUser(u))
                 });
-
-            context.Response.Clear();
-
-            context.Response.ContentType = "application/json";
-            context.Response.ContentEncoding = Encoding.UTF8;
 
             context.Response.Write(JsonConvert.SerializeObject(users));
 

@@ -89,6 +89,35 @@ public class SecurityTests : ForumTestBase
     }
 
     [Test]
+    [Description("The user list for mentions is only for members and only after 3 characters, guests get no names")]
+    public async Task Mention_Users_List_Test()
+    {
+        // the user exists
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+
+        var prefix = TestConfig.TestUserName2.Substring(0, 3);
+
+        (await this.GetTextAsync($"resource.ashx?users={prefix}")).Should().Contain(TestConfig.TestUserName2);
+        (await this.GetTextAsync($"resource.ashx?users={prefix.Substring(0, 2)}")).Should().Be("[]");
+        (await this.GetTextAsync("resource.ashx?users=")).Should().Be("[]");
+
+        await this.LogoutAsync();
+        await this.GotoAsync(string.Empty);
+
+        (await this.GetTextAsync($"resource.ashx?users={prefix}")).Should().Be("[]");
+    }
+
+    /// <summary>
+    /// Requests an address with the cookies of the page.
+    /// </summary>
+    private async Task<string> GetTextAsync(string url)
+    {
+        var response = await this.Page.APIRequest.GetAsync($"{TestConfig.BaseUrl}{url}");
+
+        return (await response.TextAsync()).Trim();
+    }
+
+    [Test]
     [Description("A member can not open the delete page of a post of another user")]
     public async Task Delete_Other_Users_Post_Is_Denied_Test()
     {
