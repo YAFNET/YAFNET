@@ -102,6 +102,12 @@ public static class PageLinkExtensions
     /// </returns>
     public static List<PageLink> AddTopic(this List<PageLink> pageLinks, Topic topic)
     {
+        // a topic that does not exist (an unknown id in the address) has no link
+        if (topic == null)
+        {
+            return pageLinks;
+        }
+
         pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topic.ID, topic.TopicName));
 
         return pageLinks;
@@ -123,6 +129,12 @@ public static class PageLinkExtensions
         this List<PageLink> pageLinks,
         Category category)
     {
+        // a category that does not exist (e.g. of an unknown forum id in the address) has no link
+        if (category == null)
+        {
+            return pageLinks;
+        }
+
         pageLinks.AddLink(
             category.Name,
             BoardContext.Current.Get<LinkBuilder>().GetCategoryLink(category.ID, category.Name));
