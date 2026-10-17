@@ -437,9 +437,8 @@ public partial class Members : ForumPage
 
         if (this.NumPostsTB.Text.IsSet())
         {
-            var numberOfPosts = this.NumPostsTB.Text.ToType<int>();
-
-            if (numberOfPosts < 0)
+            // a number of posts that is no number (e.g. too big) is an invalid value
+            if (!int.TryParse(this.NumPostsTB.Text.Trim(), out var numberOfPosts) || numberOfPosts < 0)
             {
                 this.PageBoardContext.Notify(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
                 return;

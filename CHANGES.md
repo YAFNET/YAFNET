@@ -300,6 +300,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Profile: countries without regions showed an empty region list
 * [FIXED] Friends: a removed friend was still shown in the friend list (the approved request of the friend was listed as friendship)
 * [FIXED] Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
+* [FIXED] Members: a number of posts that is too big for a number showed an error page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
