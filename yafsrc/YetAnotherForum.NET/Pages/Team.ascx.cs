@@ -214,12 +214,13 @@ public partial class Team : ForumPage
             return;
         }
 
-        if (user.Block.BlockEmails)
+        if (user.Block.BlockEmails && !this.PageBoardContext.IsAdmin)
         {
             email.Visible = false;
         }
 
-        if (this.PageBoardContext.IsAdmin && isFriend)
+        // like the private message button and the moderators: admins and friends can always send an e-mail
+        if (this.PageBoardContext.IsAdmin || isFriend)
         {
             email.Visible = true;
         }

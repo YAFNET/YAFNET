@@ -279,6 +279,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] [attach] and [albumimg] with an id that is a number but no whole number (e.g. 1.5, 1e3, (5) or a too big number) failed with an error and broke the topic page for every reader
 * [FIXED] The team page (and the admin page access list) listed disabled and not approved admins
 * [FIXED] Security: The return address of the login page (ReturnUrl) was followed after the login whatever it was, a link to the login of the forum could send the user to another site (open redirect, e.g. a fake login page); only addresses of the forum are followed now, the address is no longer html encoded (an address with several parameters was broken)
+* [FIXED] Team page: the e-mail button of an admin who blocks e-mails was only shown to admins who are friends (not to all admins and all friends like for the moderators and the private messages)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
