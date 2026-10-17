@@ -98,6 +98,75 @@ public class RestoreTests : ForumTestBase
         topics.Should().Contain(restored).And.NotContain(deleted);
     }
 
+    [Test]
+    [Description("A topic deleted with its posts is restored from the topic list, the topics of a filter are deleted for good, the empty topics too")]
+    public async Task Deleted_Topics_List_Test()
+    {
+        var id = Guid.NewGuid().ToString("N").Substring(0, 10);
+        var restored = $"Whole restored {id}";
+        var filtered = $"Whole filtered {id}";
+
+        await this.LoginAsAdminAsync();
+
+        foreach (var subject in new[] { restored, filtered })
+        {
+            await this.CreateTopicAsync(subject);
+
+            // the whole topic is deleted by the moderation (the posts are kept)
+            await this.DeleteByModerationAsync(subject);
+        }
+
+        // the topic is restored
+        await this.GotoAsync("Admin/Restore");
+        await this.ClickAndWaitAsync(this.TopicRow(restored).Locator("[id$='_Restore']"));
+
+        await this.GotoAsync("Topics/1-Test Forum");
+        (await this.Page.InnerTextAsync("body")).Should().Contain(restored);
+
+        // the topics of the filter are deleted
+        await this.GotoAsync("Admin/Restore");
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await this.Control("Filter").FillAsync(filtered);
+        await this.ClickAndWaitAsync(this.Page.Locator(".dropdown-menu a:has(.fa-sync-alt)"));
+        (await this.TopicRow(filtered).CountAsync()).Should().Be(1);
+
+        await this.ClickAndWaitAsync(this.Page.Locator("[id*='_DeletedTopics_'][id$='_Linkbutton4']"));
+
+        await this.GotoAsync("Admin/Restore");
+        (await this.TopicRow(filtered).CountAsync()).Should().Be(0);
+
+        // only the empty topics are deleted: a deleted topic with posts stays
+        var kept = $"Whole kept {id}";
+        await this.CreateTopicAsync(kept);
+        await this.DeleteByModerationAsync(kept);
+
+        await this.GotoAsync("Admin/Restore");
+        await this.ClickAndWaitAsync(this.Page.Locator("[id*='_DeletedTopics_'][id$='_ThemeButton2']"));
+        (await this.TopicRow(kept).CountAsync()).Should().Be(1, "the topic has posts");
+    }
+
+    /// <summary>
+    /// Deletes the topic with the moderation of the forum (the topic and its posts are flagged as deleted).
+    /// </summary>
+    private async Task DeleteByModerationAsync(string subject)
+    {
+        await this.GotoAsync("Moderate/Forums?f=1");
+        await this.Page.Locator(
+                $"xpath=//a[contains(., '{subject}')]/ancestor::*[.//input[@type='checkbox']][1]//input[@type='checkbox']")
+            .First.CheckAsync();
+        await this.Control("DeleteTopic").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+    }
+
+    /// <summary>
+    /// The row of a topic in the list of the deleted topics.
+    /// </summary>
+    private ILocator TopicRow(string subject)
+    {
+        return this.Page.Locator("li", new PageLocatorOptions { HasTextString = subject })
+            .Filter(new LocatorFilterOptions { Has = this.Page.Locator("[id*='_DeletedTopics_']") });
+    }
+
     private async Task<int> CreateTopicAsync(string subject)
     {
         await this.GotoAsync("PostTopic?f=1");
