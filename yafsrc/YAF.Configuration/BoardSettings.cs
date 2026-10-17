@@ -1453,7 +1453,7 @@ public class BoardSettings
     {
         get => this.Registry.GetValue("AllowPrivateMessageAttachments", true);
 
-        set => this.Registry.SetValue("AllowPrivateMessageeAttachments", value);
+        set => this.Registry.SetValue("AllowPrivateMessageAttachments", value);
     }
 
     /// <summary>

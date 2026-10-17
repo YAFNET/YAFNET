@@ -9,6 +9,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Topic list: the "show topics of the last ..." filter used the wrong period (e.g. "Last Day" showed two days, "Last Six Months" a year) and "Last Year" was missing
 * [FIXED] Text avatars: a name with "&" created an invalid image, names with several spaces, empty names or names of emoji only failed, a provider key that is no color created an invalid color
 * [FIXED] Ignored users: ignoring or removing a user was not shown on the same page, a user could ignore themselves
+* [FIXED] Host settings: "Allow private message attachments" could not be saved (the setting was stored under another name)
 * [FIXED] Language list: a language file with missing pages or texts caused an error
 
 # YetAnotherForum.NET v3.2.15
