@@ -65,23 +65,8 @@ public partial class ModForumUser : BaseUserControl
         this.ForumId = forumId;
         this.UserId = userId;
 
-        // load data
-        IList<AccessMask> masks;
-
-        // only admin can assign all access masks
-        if (!this.PageBoardContext.IsAdmin)
-        {
-            // non-admins cannot assign moderation access masks
-            masks = this.GetRepository<AccessMask>()
-                .Get(a => a.BoardID == this.PageBoardContext.PageBoardID && a.AccessFlags.ModeratorAccess);
-        }
-        else
-        {
-            masks = this.GetRepository<AccessMask>().GetByBoardId();
-        }
-
-        // setup data source for access masks dropdown
-        this.AccessMaskID.DataSource = masks;
+        // setup data source for access masks dropdown (only admins use the dialog)
+        this.AccessMaskID.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
         this.AccessMaskID.DataValueField = "ID";
         this.AccessMaskID.DataTextField = "Name";
         this.AccessMaskID.DataBind();
@@ -119,9 +104,11 @@ public partial class ModForumUser : BaseUserControl
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!this.PageBoardContext.ForumModeratorAccess)
+        // only admins change the moderators of the forum (the list of the moderators is shown to them only)
+        if (!this.PageBoardContext.IsAdmin)
         {
             this.Visible = false;
+            return;
         }
 
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
@@ -143,31 +130,32 @@ public partial class ModForumUser : BaseUserControl
     /// </param>
     protected void UpdateClick(object sender, EventArgs e)
     {
-        if (this.UserId.HasValue)
+        if (!this.PageBoardContext.IsAdmin)
         {
-            // save permission
-            this.GetRepository<UserForum>().Save(
-                this.UserId.Value,
-                this.PageBoardContext.PageForumID,
-                this.AccessMaskID.SelectedValue.ToType<int>());
+            this.Get<LinkBuilder>().AccessDenied();
         }
-        else
+
+        var boardId = this.PageBoardContext.PageBoardID;
+
+        var userId = this.UserId ?? (int.TryParse(this.SelectedUserID.Value, out var selectedUserId) ? selectedUserId : 0);
+
+        // no user was specified (the selected user must be one of the board)
+        if (userId == 0 || !this.GetRepository<User>().Exists(u => u.ID == userId && u.BoardID == boardId))
         {
-            var userId = this.SelectedUserID.Value.ToType<int>();
-
-            // no user was specified
-            if (userId == 0)
-            {
-                this.PageBoardContext.Notify(this.GetText("MSG_VALID_USER"), MessageTypes.warning);
-                return;
-            }
-
-            // save permission
-            this.GetRepository<UserForum>().Save(
-                userId,
-                this.PageBoardContext.PageForumID,
-                this.AccessMaskID.SelectedValue.ToType<int>());
+            this.PageBoardContext.Notify(this.GetText("MSG_VALID_USER"), MessageTypes.warning);
+            return;
         }
+
+        var accessMaskId = this.AccessMaskID.SelectedValue.ToType<int>();
+
+        // the access mask must be one of the board
+        if (!this.GetRepository<AccessMask>().Exists(a => a.ID == accessMaskId && a.BoardID == boardId))
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
+        // save permission
+        this.GetRepository<UserForum>().Save(userId, this.PageBoardContext.PageForumID, accessMaskId);
 
         // redirect to forum moderation page
         this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageBoardContext.PageForumID });
