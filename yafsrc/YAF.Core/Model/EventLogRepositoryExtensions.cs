@@ -142,6 +142,57 @@ public static class EventLogRepositoryExtensions
     }
 
     /// <summary>
+    /// Deletes the entries of the board (of the users of the board and the entries without a user).
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="id">
+    /// The id of a single entry, or null for all entries.
+    /// </param>
+    /// <param name="spamOnly">
+    /// Only the entries of the spam log.
+    /// </param>
+    /// <returns>
+    /// The number of deleted entries.
+    /// </returns>
+    public static int DeleteBoardEntries(
+        this IRepository<EventLog> repository,
+        int boardId,
+        int? id = null,
+        bool spamOnly = false)
+    {
+        return repository.DbAccess.Execute(
+            db =>
+                {
+                    var q = db.Connection.From<EventLog>();
+
+                    // the entries of the users of the board and the entries without a user
+                    q.Where(
+                        e => e.UserID == null || Sql.In(
+                                 e.UserID,
+                                 db.Connection.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID)));
+
+                    if (id.HasValue)
+                    {
+                        q.And(e => e.ID == id.Value);
+                    }
+
+                    if (spamOnly)
+                    {
+                        q.And(
+                            e => e.Type == 1003 || e.Type == 1004 || e.Type == 1005 || e.Type == 2000 ||
+                                 e.Type == 2001 || e.Type == 2002 || e.Type == 2003);
+                    }
+
+                    return db.Connection.Delete(q);
+                });
+    }
+
+    /// <summary>
     /// Delete Old Entries
     /// </summary>
     /// <param name="repository">

@@ -53,6 +53,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Forum jump: the names of the categories were not encoded (html of a category name was shown as html)
 * [FIXED] Team page: the names of the moderated forums were shown double encoded in the forum select ("Tom &amp; Jerry")
 * [FIXED] Categories were not listed in their sort order
+* [FIXED] Admin -> Event log / Spam log: "Delete all" deleted the entries of all boards (the spam log also all other entries), a single entry of another board could be deleted
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

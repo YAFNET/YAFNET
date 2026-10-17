@@ -53,8 +53,8 @@ public partial class EventLog : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void DeleteAllClick(object sender, EventArgs e)
     {
-        this.GetRepository<Types.Models.EventLog>()
-            .DeleteAll();
+        // only the entries of the board
+        this.GetRepository<Types.Models.EventLog>().DeleteBoardEntries(this.PageBoardContext.PageBoardID);
 
         // re-bind controls
         this.BindData();
@@ -467,7 +467,9 @@ public partial class EventLog : AdminPage
             case "delete":
 
                 // delete just this particular log entry
-                this.GetRepository<Types.Models.EventLog>().DeleteById(e.CommandArgument.ToType<int>());
+                this.GetRepository<Types.Models.EventLog>().DeleteBoardEntries(
+                    this.PageBoardContext.PageBoardID,
+                    e.CommandArgument.ToType<int>());
 
                 // re-bind controls
                 this.BindData();
