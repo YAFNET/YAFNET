@@ -265,6 +265,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The search index task (it indexes the posts in bulk) still indexed the hidden content of the posts (hide, hide-reply, hide-thanks, ...), every user could find posts by it and see it in the highlighted part of the result; it uses the same index document as a single post now
 * [FIXED] Search: a search with the search service that had just written to the index failed (the closed index writer was used), the index readers of earlier searches stayed open, and documents of older versions without flags were never found
 * [FIXED] Security: The api of the forum (thanks, album titles and captions, multi quote, notifications, ...) had no protection against cross site requests, a form of another web site could call it with the login cookie of the user (e.g. in Firefox, which sends the cookie with such forms); only the json requests and the requests with an own header of the forum scripts are accepted now
+* [FIXED] Private messages: opening a message marked it as read for all recipients, also when the sender opened the sent message and before the access check (any user could mark the messages of others as read); it also overwrote the state of the recipients with the flags of the message (a message deleted from the inbox or outbox came back, the message was archived). Only the message of the recipient is marked as read now
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

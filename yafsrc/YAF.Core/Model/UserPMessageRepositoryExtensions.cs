@@ -36,32 +36,30 @@ using YAF.Types.Models;
 public static class UserPMessageRepositoryExtensions
 {
     /// <summary>
-    /// Mark Private Message as read.
+    /// Mark the Private Message of a recipient as read.
     /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="messageId">
-    /// The message Id.
+    /// <param name="userPMessageId">
+    /// The id of the message of the recipient (not of the message, a message to all users has one per user).
     /// </param>
-    /// <param name="messageFlags">
-    /// The message Flags.
+    /// <param name="userMessageFlags">
+    /// The flags of the message of the recipient (read, outbox, deleted).
     /// </param>
     public static void MarkAsRead(
         this IRepository<UserPMessage> repository,
-        int messageId,
-        PMessageFlags messageFlags)
+        int userPMessageId,
+        PMessageFlags userMessageFlags)
     {
-        
-
-        if (messageFlags.IsRead)
+        if (userMessageFlags.IsRead)
         {
             return;
         }
 
-        messageFlags.IsRead = true;
+        userMessageFlags.IsRead = true;
 
-        repository.UpdateOnly(() => new UserPMessage { Flags = messageFlags.BitValue }, m => m.PMessageID == messageId);
+        repository.UpdateOnly(() => new UserPMessage { Flags = userMessageFlags.BitValue }, m => m.ID == userPMessageId);
     }
 
     /// <summary>

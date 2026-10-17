@@ -27,6 +27,8 @@ namespace YAF.Tests.UITests.Tests;
 using System;
 using System.Threading.Tasks;
 
+using Microsoft.Playwright;
+
 using YAF.Tests.UITests.Infrastructure;
 
 /// <summary>
@@ -58,6 +60,53 @@ public class UserFeatureTests : ForumTestBase
 
         await this.GotoAsync("MyMessages");
 
+        (await this.Page.InnerTextAsync("body")).Should().Contain(subject);
+    }
+
+    [Test]
+    [Description("A private message is only read when the recipient opens it: not when the sender opens the sent message, and other users can not open it")]
+    public async Task Private_Message_Read_State_Test()
+    {
+        var subject = $"PM read {Guid.NewGuid():N}";
+
+        // the recipient exists
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        await this.GotoAsync("PostPrivateMessage");
+        await this.Control("To").FillAsync(TestConfig.TestUserName2);
+        await this.Control("PmSubjectTextBox").FillAsync(subject);
+        await this.Control("YafTextEditor").FillAsync("Is this read?");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        // the sender opens the sent message
+        await this.GotoAsync("MyMessages?v=out");
+        var href = await this.Page.Locator("a", new PageLocatorOptions { HasTextString = subject }).First.GetAttributeAsync("href");
+        await this.GotoAsync(href.TrimStart('/'));
+        (await this.Page.InnerTextAsync("body")).Should().Contain("Is this read?");
+
+        // another user can not open it
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync(href.TrimStart('/'));
+        (await this.Page.InnerTextAsync("body")).Should().NotContain("Is this read?");
+
+        // still unread for the recipient
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync("MyMessages");
+
+        var row = this.Page.Locator("li.list-group-item", new PageLocatorOptions { HasTextString = subject });
+        (await row.Locator("i.fa-envelope").CountAsync()).Should().Be(1, "the message is not read yet");
+
+        var inboxHref = await row.Locator("a", new LocatorLocatorOptions { HasTextString = subject }).GetAttributeAsync("href");
+        await this.GotoAsync(inboxHref.TrimStart('/'));
+
+        await this.GotoAsync("MyMessages");
+        (await row.Locator("i.fa-envelope-open").CountAsync()).Should().Be(1, "the recipient read it");
+
+        // the sender still has it in the outbox
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync("MyMessages?v=out");
         (await this.Page.InnerTextAsync("body")).Should().Contain(subject);
     }
 

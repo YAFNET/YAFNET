@@ -551,6 +551,7 @@ public static class PMessageRepositoryExtensions
                                                     a.Subject,
                                                     a.Body,
                                                     a.Flags,
+                                                    UserPMFlags = b.Flags,
                                                     b.IsReply,
                                                     IsInOutbox = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&2")})"),
                                                     IsDeleted = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<UserPMessage>(x => x.Flags, true)}&8")})")

@@ -135,12 +135,14 @@ public partial class PrivateMessage : ForumPageRegistered
 
         if (!messages.NullOrEmpty())
         {
-            messages.ForEach(
-                m => this.GetRepository<UserPMessage>().MarkAsRead(m.PMessageID, new PMessageFlags(m.Flags)));
-
             var message = messages.FirstOrDefault();
 
             this.SetMessageView(message.FromUserID, message.ToUserID, message.IsInOutbox);
+
+            // only the messages the user received are read (after the access check, the sender reading the sent
+            // message marked it as read for the recipient)
+            messages.Where(m => m.ToUserID == this.PageBoardContext.PageUserID).ForEach(
+                m => this.GetRepository<UserPMessage>().MarkAsRead(m.UserPMessageID, new PMessageFlags(m.UserPMFlags)));
 
             // get the return link to the pm listing
             if (this.IsOutbox)
