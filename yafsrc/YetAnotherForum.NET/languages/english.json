@@ -9928,6 +9928,10 @@
 						"#text": "{0} is required"
 					},
 					{
+						"@tag": "NEED_CUSTOM_NUMBER",
+						"#text": "{0} must be a number"
+					},
+					{
 						"@tag": "OTHER",
 						"#text": "Other"
 					},

@@ -9875,6 +9875,10 @@
             "#text": "{0} on kohustuslik"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} peab olema arv"
+          },
+          {
             "@tag": "OTHER",
             "#text": "muud"
           },

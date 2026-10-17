@@ -9875,6 +9875,10 @@
             "#text": "{0} būtina"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} turi būti skaičius"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Kita"
           },

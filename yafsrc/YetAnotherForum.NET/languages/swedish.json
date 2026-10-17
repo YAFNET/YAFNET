@@ -9875,6 +9875,10 @@
             "#text": "{0} krävs"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} måste vara ett nummer"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Övriga"
           },

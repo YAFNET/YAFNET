@@ -9875,6 +9875,10 @@
             "#text": "{0} kreves"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} må være et tall"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Annen"
           },

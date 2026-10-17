@@ -9875,6 +9875,10 @@
             "#text": "{0} er påkrævet"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} skal være et tal"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Andet"
           },

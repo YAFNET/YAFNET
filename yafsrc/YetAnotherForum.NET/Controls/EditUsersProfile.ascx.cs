@@ -85,6 +85,32 @@ public partial class EditUsersProfile : BaseUserControl
     }
 
     /// <summary>
+    /// Gets the posted values of the custom profile fields (the ids and the texts).
+    /// </summary>
+    /// <returns>The posted values.</returns>
+    private List<ProfileDefinition> GetPostedCustomProfile()
+    {
+        return this.CustomProfile.Items.Cast<RepeaterItem>()
+            .Where(x => x.ItemType is ListItemType.Item or ListItemType.AlternatingItem).Select(
+                item => new ProfileDefinition
+                            {
+                                ID = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>(),
+                                Value = item.FindControlAs<TextBox>("DefText").Text
+                            }).ToList();
+    }
+
+    /// <summary>
+    /// Limits the value to the length of the field (0 = no limit).
+    /// </summary>
+    /// <param name="profileDef">The field definition.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>The value of the allowed length.</returns>
+    private static string LimitToLength(ProfileDefinition profileDef, string value)
+    {
+        return profileDef.Length > 0 && value.Length > profileDef.Length ? value.Substring(0, profileDef.Length) : value;
+    }
+
+    /// <summary>
     /// Handles the OnItemDataBound event of the CustomProfile control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -368,6 +394,27 @@ public partial class EditUsersProfile : BaseUserControl
 
         this.UpdateUserProfile();
 
+        // the required fields and the types are taken from the database, number fields must be numbers
+        if (this.CustomProfile.Visible)
+        {
+            var invalidField = CustomProfileHelper.FindInvalidField(
+                this.ProfileDefinitions,
+                this.GetPostedCustomProfile(),
+                true,
+                out var isNumberError);
+
+            if (invalidField != null)
+            {
+                this.PageBoardContext.Notify(
+                    string.Format(
+                        this.GetText("EDIT_PROFILE", isNumberError ? "NEED_CUSTOM_NUMBER" : "NEED_CUSTOM"),
+                        HttpUtility.HtmlEncode(invalidField.Name)),
+                    MessageTypes.warning);
+
+                return;
+            }
+        }
+
         // save display name
         this.GetRepository<User>().UpdateDisplayName(this.User.Item1, displayName);
 
@@ -381,6 +428,12 @@ public partial class EditUsersProfile : BaseUserControl
                     {
                         var id = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>();
                         var profileDef = this.ProfileDefinitions.FirstOrDefault(x => x.ID == id);
+
+                        // only the fields of the board (the id is sent by the client)
+                        if (profileDef == null)
+                        {
+                            return;
+                        }
 
                         var textBox = item.FindControlAs<TextBox>("DefText");
                         var check = item.FindControlAs<CheckBox>("DefCheck");
@@ -399,7 +452,7 @@ public partial class EditUsersProfile : BaseUserControl
                                                 {
                                                     UserID = this.User.Item1.ID,
                                                     ProfileDefinitionID = profileDef.ID,
-                                                    Value = textBox.Text
+                                                    Value = LimitToLength(profileDef, textBox.Text)
                                                 });
                                     }
 

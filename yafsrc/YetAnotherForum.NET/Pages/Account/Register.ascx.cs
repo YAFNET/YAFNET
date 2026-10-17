@@ -468,21 +468,51 @@ public partial class Register : AccountPage
             return true;
         }
 
-        if (!(from item in this.CustomProfile.Items.Cast<RepeaterItem>()
-              where item.ItemType is ListItemType.Item or ListItemType.AlternatingItem
-              let id = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>()
-              let profileDef = this.ProfileDefinitions.FirstOrDefault(x => x.ID == id)
-              where profileDef != null
-              let textBox = item.FindControlAs<TextBox>("DefText")
-              let type = profileDef.DataType.ToEnum<DataType>()
-              where profileDef.Required && type is DataType.Text or DataType.Number
-              select textBox).Any(textBox => textBox.Text.IsNotSet()))
+        // the required fields and the types are taken from the database (the fields shown on the register page),
+        // number fields must be numbers
+        var invalidField = CustomProfileHelper.FindInvalidField(
+            this.ProfileDefinitions.Where(x => x.ShowOnRegisterPage),
+            this.GetPostedCustomProfile(),
+            true,
+            out var isNumberError);
+
+        if (invalidField is null)
         {
             return true;
         }
 
-        this.PageBoardContext.Notify(this.GetText("NEED_CUSTOM"), MessageTypes.warning);
+        this.PageBoardContext.Notify(
+            string.Format(
+                this.GetText("EDIT_PROFILE", isNumberError ? "NEED_CUSTOM_NUMBER" : "NEED_CUSTOM"),
+                this.HtmlEncode(invalidField.Name)),
+            MessageTypes.warning);
         return false;
+    }
+
+    /// <summary>
+    /// Gets the posted values of the custom profile fields (the ids and the texts).
+    /// </summary>
+    /// <returns>The posted values.</returns>
+    private List<ProfileDefinition> GetPostedCustomProfile()
+    {
+        return this.CustomProfile.Items.Cast<RepeaterItem>()
+            .Where(x => x.ItemType is ListItemType.Item or ListItemType.AlternatingItem).Select(
+                item => new ProfileDefinition
+                            {
+                                ID = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>(),
+                                Value = item.FindControlAs<TextBox>("DefText").Text
+                            }).ToList();
+    }
+
+    /// <summary>
+    /// Limits the value to the length of the field (0 = no limit).
+    /// </summary>
+    /// <param name="profileDef">The field definition.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>The value of the allowed length.</returns>
+    private static string LimitToLength(ProfileDefinition profileDef, string value)
+    {
+        return profileDef.Length > 0 && value.Length > profileDef.Length ? value.Substring(0, profileDef.Length) : value;
     }
 
     private void SaveCustomProfile(int userId)
@@ -517,7 +547,7 @@ public partial class Register : AccountPage
                                                 {
                                                     UserID = userId,
                                                     ProfileDefinitionID = profileDef.ID,
-                                                    Value = textBox.Text
+                                                    Value = LimitToLength(profileDef, textBox.Text)
                                                 });
                                     }
 
@@ -532,7 +562,7 @@ public partial class Register : AccountPage
                                                 {
                                                     UserID = userId,
                                                     ProfileDefinitionID = profileDef.ID,
-                                                    Value = textBox.Text
+                                                    Value = LimitToLength(profileDef, textBox.Text)
                                                 });
                                     }
 

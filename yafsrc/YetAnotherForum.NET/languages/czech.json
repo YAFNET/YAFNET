@@ -9879,6 +9879,10 @@
             "#text": "{0} je povinné"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} musí být číslo"
+          },
+          {
             "@tag": "OTHER",
             "#text": "jiný"
           },

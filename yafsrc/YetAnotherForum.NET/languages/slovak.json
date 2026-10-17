@@ -9875,6 +9875,10 @@
             "#text": "{0} je potrebné"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} musí byť číslo"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Iné"
           },

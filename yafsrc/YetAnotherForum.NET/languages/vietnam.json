@@ -9875,6 +9875,10 @@
             "#text": "{0} là bắt buộc"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} phải là một số"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Khác"
           },

@@ -9875,6 +9875,10 @@
             "#text": "{0} est nécessaire"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} doit être un nombre"
+          },
+          {
             "@tag": "OTHER",
             "#text": "Autre"
           },

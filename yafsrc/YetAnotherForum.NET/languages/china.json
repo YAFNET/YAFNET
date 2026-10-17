@@ -9875,6 +9875,10 @@
             "#text": "{0} 是必需的"
           },
           {
+            "@tag": "NEED_CUSTOM_NUMBER",
+            "#text": "{0} 必须是数字"
+          },
+          {
             "@tag": "OTHER",
             "#text": "其他"
           },

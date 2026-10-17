@@ -86,6 +86,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The e-mail topic form sent the posted subject and text to any address (also for guests), the forum could be used to send spam; only the recipient can be chosen now (the subject is the topic name, the text the link to the topic), guests can't use it and a user can send at most 5 such e-mails per hour
 * [FIXED] Security: The password reset page (usable by anybody) sent an email for every request, so the inbox of a user could be flooded; an account gets at most 3 reset emails per hour, further requests show the same message
 * [FIXED] New topic / reply: mentioning or quoting a name without user (a guest post, a deleted user, a changed display name) failed with an error after the post was saved; mentioned and quoted users are only notified when they can read the forum, and also for quick replies and posts approved by a moderator
+* [FIXED] Custom profile fields: the profile page (and admin edit user) did not check the required fields at all, number fields accepted any text, the value was not limited to the length of the field and a manipulated field id caused an error; the register page showed a missing text (REGISTER.NEED_CUSTOM) without the name of the field and required fields that are not shown on the register page blocked the registration. They are checked against the field definitions of the board now (new text EDIT_PROFILE.NEED_CUSTOM_NUMBER)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
