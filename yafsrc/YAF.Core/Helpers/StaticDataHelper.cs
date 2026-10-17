@@ -210,22 +210,37 @@ public static class StaticDataHelper
                          });
         });
 
+        // texts of other languages that differ from english count as translated,
+        // missing pages / texts (e.g. an older language file) count as not translated
         var sourceResources = resources.Find(x => x.Resources.Code == "en");
 
         resources.ForEach(
             resource =>
             {
-                var countTranslated = sourceResources.Resources.Page.Sum(
-                    sourcePage => (from sourceResource in sourcePage.Resource
-                                   let translatePage =
-                                       resource.Resources.Page.Find(p => p.Name == sourcePage.Name)
-                                   let translateResource =
-                                       translatePage.Resource.Find(r => r.Tag == sourceResource.Tag)
-                                   where !string.Equals(
-                                             sourceResource.Text,
-                                             translateResource.Text,
-                                             StringComparison.InvariantCultureIgnoreCase)
-                                   select sourceResource).Count());
+                var countTranslated = 0;
+
+                if (sourceResources != null)
+                {
+                    countTranslated = sourceResources.Resources.Page.Sum(
+                        sourcePage =>
+                        {
+                            var translatePage = resource.Resources.Page.Find(p => p.Name == sourcePage.Name);
+
+                            return translatePage is null
+                                       ? 0
+                                       : sourcePage.Resource.Count(
+                                           sourceResource =>
+                                           {
+                                               var translateResource =
+                                                   translatePage.Resource.Find(r => r.Tag == sourceResource.Tag);
+
+                                               return translateResource != null && !string.Equals(
+                                                          sourceResource.Text,
+                                                          translateResource.Text,
+                                                          StringComparison.InvariantCultureIgnoreCase);
+                                           });
+                        });
+                }
 
                 if (resource.Resources.Language == "English")
                 {
@@ -234,7 +249,7 @@ public static class StaticDataHelper
 
                 var resourceFile = list.First(x => x.CultureTag == resource.Resources.Code);
 
-                resourceFile.TranslatedPercentage = countTranslated * 100 / tagsCount;
+                resourceFile.TranslatedPercentage = tagsCount > 0 ? countTranslated * 100 / tagsCount : 0;
                 resourceFile.TranslatedCount = countTranslated;
                 resourceFile.TagsCount = tagsCount;
             });
@@ -451,7 +466,7 @@ public static class StaticDataHelper
                 "Last Two Months", "Last Six Months", "Last Year"
         ];
 
-        for (var i = 0; i < 8; i++)
+        for (var i = 0; i < textArray.Length; i++)
         {
             var item = new ListItem
                            {

@@ -351,12 +351,20 @@ public partial class Topics : ForumPage
 
         var pagerCurrentPageIndex = this.Pager.CurrentPageIndex;
 
-        int[] days = [1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356];
+        // option 0 shows all topics, option n the topics of the last days[n - 1] days
+        int[] days = [1, 2, 7, 14, 31, 2 * 31, 6 * 31, 365];
+
+        if (this.showTopicListSelected < 0 || this.showTopicListSelected > days.Length)
+        {
+            this.showTopicListSelected = 0;
+        }
 
         var topicList = this.GetRepository<Topic>().ListPaged(
             this.PageBoardContext.PageForumID,
             this.PageBoardContext.PageUserID,
-            this.showTopicListSelected == 0 ? DateTimeHelper.SqlDbMinTime() : DateTime.UtcNow.AddDays(-days[this.showTopicListSelected]),
+            this.showTopicListSelected == 0
+                ? DateTimeHelper.SqlDbMinTime()
+                : DateTime.UtcNow.AddDays(-days[this.showTopicListSelected - 1]),
             pagerCurrentPageIndex,
             baseSize,
             this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
