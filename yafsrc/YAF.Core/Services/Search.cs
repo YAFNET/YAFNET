@@ -813,6 +813,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <param name="pageIndex">Index of the page.</param>
     /// <param name="pageSize">Size of the page.</param>
     /// <param name="userAccessList">The user access list.</param>
+    /// <param name="totalVisible">The number of the results the user can see.</param>
     /// <returns>
     /// Returns the search list
     /// </returns>
@@ -823,14 +824,42 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         IEnumerable<ScoreDoc> hits,
         int pageIndex,
         int pageSize,
-        List<VAccess> userAccessList)
+        List<VAccess> userAccessList,
+        out int totalVisible)
     {
         var skip = pageSize * pageIndex;
 
-        return hits.Select(
-                hit => this.MapSearchDocumentToData(highlighter, analyzer, searcher.Doc(hit.Doc), userAccessList))
-            .Where(item => item != null).OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize)
-            .ToList();
+        // the documents the user can see, the posts are only formatted for the shown page (all hits were formatted)
+        var visible = hits.Select(hit => searcher.Doc(hit.Doc)).Where(doc => IsVisible(doc, userAccessList))
+            .OrderByDescending(doc => doc.Get("MessageId").ToType<int>()).ToList();
+
+        totalVisible = visible.Count;
+
+        return visible.Skip(skip).Take(pageSize)
+            .Select(doc => this.MapSearchDocumentToData(highlighter, analyzer, doc, userAccessList))
+            .Where(item => item != null).ToList();
+    }
+
+    /// <summary>
+    /// Checks if the user can see the post of the document: the forum is readable, posts that wait for approval
+    /// (e.g. spam) or are deleted only for the moderators of the forum.
+    /// </summary>
+    /// <param name="doc">The document.</param>
+    /// <param name="userAccessList">The user access list.</param>
+    /// <returns>Returns if the post can be shown.</returns>
+    private static bool IsVisible(Document doc, List<VAccess> userAccessList)
+    {
+        var forumId = doc.Get("ForumId").ToType<int>();
+
+        if (!userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
+        {
+            return false;
+        }
+
+        var documentFlags = new MessageFlags(doc.Get("Flags").ToType<int>());
+
+        return documentFlags.IsApproved && !documentFlags.IsDeleted
+               || userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0);
     }
 
     /// <summary>
@@ -898,10 +927,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             scorer = new QueryScorer(query);
 
             var hits = searcher.Search(query, hitsLimit).ScoreDocs;
-            totalHits = hits.Length;
 
             var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
 
+            // the number of the results the user can see (the hits of hidden forums and posts were counted)
             var results = this.MapSearchToDataList(
                 highlighter,
                 analyzer,
@@ -909,7 +938,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 hits,
                 pageIndex,
                 pageSize,
-                userAccessList);
+                userAccessList,
+                out totalHits);
 
             analyzer.Dispose();
 
@@ -956,9 +986,9 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
             var hits = searcher.Search(query, fil.Any() ? fil : null, hitsLimit, sort).ScoreDocs;
 
-            totalHits = hits.Length;
             var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
 
+            // the number of the results the user can see (the hits of hidden forums and posts were counted)
             var results = this.MapSearchToDataList(
                 highlighter,
                 analyzer,
@@ -966,7 +996,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 hits,
                 pageIndex,
                 pageSize,
-                userAccessList);
+                userAccessList,
+                out totalHits);
 
             this.searcherManager.Release(searcher);
 

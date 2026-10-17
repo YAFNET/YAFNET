@@ -237,6 +237,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Guests (all are the same user) saw the uploads of all other guests in the attachment list of the editor, the list is empty for guests now
 * [FIXED] Unapproved posts: approving an already approved post (another moderator, the button sent twice) counted the post again for the user and sent the notifications again
 * [FIXED] Admin -> Boards: the board the forum runs on could be deleted (the context menu always had the delete), the forum was broken afterwards; the delete is not shown for the current board and refused
+* [FIXED] Search: the number of results counted the hits the user can not see (forums without read access, not approved or deleted posts), the pager showed empty pages and a search in a hidden forum told the number of hits; all hits were formatted, now only the shown page
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
