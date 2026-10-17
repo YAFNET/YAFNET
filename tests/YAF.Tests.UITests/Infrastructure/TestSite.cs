@@ -124,6 +124,13 @@ public sealed class TestSite : IDisposable
     /// </summary>
     public void Dispose()
     {
+        // the coverage of the site is written before IIS Express is stopped (a killed process loses its data)
+        if (CoverageSession != null)
+        {
+            RunCoverageTool($"shutdown {CoverageSession}");
+            StopLeftOverIisExpress(this.SiteFolder);
+        }
+
         try
         {
             if (this.iisExpress is { HasExited: false })
@@ -177,6 +184,23 @@ public sealed class TestSite : IDisposable
         }
 
         throw new DirectoryNotFoundException("The folder yafsrc\\YetAnotherForum.NET was not found.");
+    }
+
+    /// <summary>
+    /// Gets the session of the coverage tool (environment variable YAF_UITEST_COVERAGE_SESSION), or <c>null</c>.
+    /// </summary>
+    private static string CoverageSession =>
+        Environment.GetEnvironmentVariable("YAF_UITEST_COVERAGE_SESSION") is { Length: > 0 } session ? session : null;
+
+    /// <summary>
+    /// Runs the coverage tool (dotnet-coverage) and waits for it.
+    /// </summary>
+    private static void RunCoverageTool(string arguments)
+    {
+        using var tool = Process.Start(
+            new ProcessStartInfo("dotnet-coverage", arguments) { UseShellExecute = false, CreateNoWindow = true });
+
+        tool?.WaitForExit(120000);
     }
 
     private static void StopLeftOverIisExpress(string siteFolder)
@@ -349,13 +373,18 @@ public sealed class TestSite : IDisposable
                                  }.FirstOrDefault(File.Exists)
                              ?? throw new FileNotFoundException("IIS Express (iisexpress.exe) is not installed.");
 
+        var arguments = $"/path:\"{this.SiteFolder}\" /port:{TestConfig.Port} /clr:v4.0 /systray:false";
+
         this.iisExpress = new Process
                               {
                                   StartInfo = new ProcessStartInfo
                                                   {
-                                                      FileName = iisExpressPath,
-                                                      Arguments =
-                                                          $"/path:\"{this.SiteFolder}\" /port:{TestConfig.Port} /clr:v4.0 /systray:false",
+                                                      // with a coverage session IIS Express runs in the session of
+                                                      // the coverage tool (dotnet-coverage collect --server-mode)
+                                                      FileName = CoverageSession == null ? iisExpressPath : "dotnet-coverage",
+                                                      Arguments = CoverageSession == null
+                                                                      ? arguments
+                                                                      : $"connect {CoverageSession} \"{iisExpressPath}\" {arguments}",
                                                       UseShellExecute = false,
                                                       CreateNoWindow = true,
                                                       RedirectStandardOutput = true,

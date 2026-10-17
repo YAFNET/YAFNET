@@ -1,4 +1,4 @@
-# YAF.Tests.UITests
+﻿# YAF.Tests.UITests
 
 Browser tests (Playwright, Chromium) of the YAF.NET 3.x forum, without Docker.
 
@@ -29,5 +29,19 @@ dotnet test tests\YAF.Tests.UITests
 | `YAF_UITEST_DATABASE` | `YafUiTests` | database (dropped and created for every run) |
 | `YAF_UITEST_HEADED` | | `1` shows the browser |
 | `YAF_UITEST_KEEP` | | `1` keeps the site copy and the database after the run |
+| `YAF_UITEST_COVERAGE_SESSION` | | runs IIS Express in this session of `dotnet-coverage` (see below) |
 
 A failed test saves a screenshot in `bin\net481\screenshots`.
+
+## Code coverage of the site
+
+The coverage of the site (pages, `YAF.Web`, `YAF.Core`) is collected with `dotnet-coverage`
+(`dotnet tool install -g dotnet-coverage`): start a collector in server mode, run the tests with its session id,
+the tests shut the session down (the report is written) before they stop IIS Express.
+
+```
+dotnet-coverage collect --server-mode --session-id yafui --output ui.cobertura.xml --output-format cobertura
+set YAF_UITEST_COVERAGE_SESSION=yafui
+dotnet test tests\YAF.Tests.UITests
+```
+
