@@ -133,6 +133,12 @@ public partial class EditUsersAvatar : BaseUserControl
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void UploadUpdate_Click(object sender, EventArgs e)
     {
+        // the upload of the profile only with the avatar upload turned on (the admin can always upload)
+        if (!this.PageBoardContext.CurrentForumPage.IsAdminPage && !this.PageBoardContext.BoardSettings.AvatarUpload)
+        {
+            return;
+        }
+
         if (this.File.PostedFile == null || this.File.PostedFile.FileName.Trim().Length <= 0
                                          || this.File.PostedFile.ContentLength <= 0 || !this.File.PostedFile.FileName.IsImageName())
         {
@@ -156,6 +162,16 @@ public partial class EditUsersAvatar : BaseUserControl
                         MessageTypes.warning);
 
                     resized = ImageHelper.GetResizedImageStreamFromImage(img, x, y);
+                }
+                else if (avatarSize > 0 && this.File.PostedFile.ContentLength > avatarSize)
+                {
+                    // the file is too big (and not resized), the avatar is not saved
+                    this.PageBoardContext.Notify(
+                        $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.File.PostedFile.ContentLength)}",
+                        MessageTypes.warning);
+
+                    this.BindData();
+                    return;
                 }
             }
 
@@ -236,13 +252,6 @@ public partial class EditUsersAvatar : BaseUserControl
 
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
-
-            if (avatarSize > 0 && this.File.PostedFile.ContentLength >= avatarSize && resized == null)
-            {
-                this.PageBoardContext.Notify(
-                    $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.File.PostedFile.ContentLength)}",
-                    MessageTypes.warning);
-            }
         }
         catch (Exception exception)
         {
