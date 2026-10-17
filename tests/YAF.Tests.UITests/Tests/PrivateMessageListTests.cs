@@ -167,6 +167,43 @@ public class PrivateMessageListTests : ForumTestBase
     }
 
     [Test]
+    [Description("The other sort orders of the inbox and the outbox (sender, date), export without a selection, mark all as read")]
+    public async Task Sort_Orders_Test()
+    {
+        var (recipient, subjects) = await this.SendMessagesAsync(2);
+
+        await this.LoginAsync(recipient, TestConfig.TestUserPassword);
+
+        foreach (var sort in new[] { "SortFromAsc", "SortFromDesc", "SortDatedAsc", "SortDateDesc" })
+        {
+            await this.GotoAsync("MyMessages");
+            await this.Inbox("Sort").ClickAsync();
+            await this.ClickAndWaitAsync(this.Inbox(sort));
+
+            (await this.SubjectsAsync()).Should().Contain(subjects, sort);
+        }
+
+        (await this.SubjectsAsync()).Should().Equal(subjects.AsEnumerable().Reverse(), "the newest first");
+
+        // nothing selected to export, all are marked as read
+        await this.GotoAsync("MyMessages");
+        await this.ClickAndWaitAsync(this.Inbox("ExportSelected"));
+        (await this.Page.ContentAsync()).Should().Contain("toast-body");
+
+        await this.ClickAndWaitAsync(this.Inbox("MarkAsRead"));
+
+        // the outbox of the sender
+        await this.LoginAsAdminAsync();
+
+        foreach (var sort in new[] { "SortFromAsc", "SortFromDesc", "SortDatedAsc", "SortDateDesc" })
+        {
+            await this.GotoAsync("MyMessages?v=out");
+            await this.Page.Locator("[id$='_OutboxPMList_Sort']").ClickAsync();
+            await this.ClickAndWaitAsync(this.Page.Locator($"[id$='_OutboxPMList_{sort}']"));
+        }
+    }
+
+    [Test]
     [Description("The number of messages per page is changed")]
     public async Task Page_Size_Test()
     {
