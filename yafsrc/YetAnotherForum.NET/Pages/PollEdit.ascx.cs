@@ -282,8 +282,8 @@ public partial class PollEdit : ForumPage
 
             // only the poll of the topic (the moderator access is the access of the forum of the topic)
             if (poll == null || this.PageBoardContext.PageTopic?.PollID != poll.ID
-                             || poll.UserID != this.PageBoardContext.PageUserID && !this.PageBoardContext.IsAdmin
-                                                                                && !this.PageBoardContext.ForumModeratorAccess)
+                             || (poll.UserID != this.PageBoardContext.PageUserID || !this.IsOwnGuestTopic())
+                             && !this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
@@ -450,7 +450,27 @@ public partial class PollEdit : ForumPage
             return false;
         }
 
-        return topic.UserID == this.PageBoardContext.PageUserID || this.PageBoardContext.IsAdmin
-                                                                || this.PageBoardContext.ForumModeratorAccess;
+        return topic.UserID == this.PageBoardContext.PageUserID && this.IsOwnGuestTopic()
+               || this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess;
+    }
+
+    /// <summary>
+    /// Guests are all the same user: a guest only changes the topics started from the own address (like the buttons
+    /// of the posts), every guest could edit or add the polls of all guest topics.
+    /// </summary>
+    /// <returns>Returns if the topic is not of a guest, or of this guest.</returns>
+    private bool IsOwnGuestTopic()
+    {
+        if (!this.PageBoardContext.IsGuest)
+        {
+            return true;
+        }
+
+        var topicId = this.PageBoardContext.PageTopicID;
+
+        var firstMessage = this.GetRepository<Message>().Get(m => m.TopicID == topicId)
+            .OrderBy(m => m.Posted).ThenBy(m => m.ID).FirstOrDefault();
+
+        return firstMessage != null && firstMessage.IP == this.Get<HttpRequestBase>().GetUserRealIPAddress();
     }
 }

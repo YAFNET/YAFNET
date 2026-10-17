@@ -108,13 +108,12 @@ public partial class PollList : BaseUserControl
         {
             // Only if show buttons are enabled user can edit poll
             return this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
-                   this.PageBoardContext.PageUserID == this.poll.UserID && this.PollHasNoVotes() &&
-                   !this.IsPollClosed();
+                   this.IsOwnPoll() && this.PollHasNoVotes() && !this.IsPollClosed();
         }
 
         // we don't call PollHasNoVotes method here
         return this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
-               this.PageBoardContext.PageUserID == this.poll.UserID && !this.IsPollClosed();
+               this.IsOwnPoll() && !this.IsPollClosed();
     }
 
     /// <summary>
@@ -125,8 +124,32 @@ public partial class PollList : BaseUserControl
     /// </returns>
     protected bool CanRemovePoll()
     {
-        return this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
-               this.PageBoardContext.PageUserID == this.poll.UserID;
+        return this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess || this.IsOwnPoll();
+    }
+
+    /// <summary>
+    /// Checks if the poll is of the current user: guests are all the same user, a guest only changes the polls of
+    /// the topics started from the own address (every guest could edit or remove the polls of all guest topics).
+    /// </summary>
+    /// <returns>Returns if the poll is of the current user.</returns>
+    private bool IsOwnPoll()
+    {
+        if (this.poll.UserID != this.PageBoardContext.PageUserID)
+        {
+            return false;
+        }
+
+        if (!this.PageBoardContext.IsGuest)
+        {
+            return true;
+        }
+
+        var topicId = this.PageBoardContext.PageTopicID;
+
+        var firstMessage = this.GetRepository<Message>().Get(m => m.TopicID == topicId)
+            .OrderBy(m => m.Posted).ThenBy(m => m.ID).FirstOrDefault();
+
+        return firstMessage != null && firstMessage.IP == this.Get<HttpRequestBase>().GetUserRealIPAddress();
     }
 
     /// <summary>
@@ -313,7 +336,7 @@ public partial class PollList : BaseUserControl
         this.poll = pollTuple.Item1;
 
         // if the page user can change the poll. Only a group owner, forum moderator  or an admin can do it.
-        this.canChange = this.poll.UserID == this.PageBoardContext.PageUserID || this.PageBoardContext.IsAdmin ||
+        this.canChange = this.IsOwnPoll() || this.PageBoardContext.IsAdmin ||
                          this.PageBoardContext.ForumModeratorAccess;
 
         if (this.pollAndChoices.Any())
