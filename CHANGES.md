@@ -116,6 +116,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Kill user (admin edit user) banned the e-mail, IP and name and deleted all posts before checking that the user is not the admin himself, the guest or a host admin; suspend had no checks at all. The checks now come first, apply to delete and suspend, and also protect admins
 * [FIXED] Security: Admin edit user suspend showed the suspend reason as raw HTML and the names of the users in the notification as html
 * [FIXED] Admin edit user suspend: the end of the suspension was computed from the local time of the suspended user but saved and shown as UTC (the user was suspended hours too long or too short), a suspension in minutes was added as hours and a count that is not a number caused an error
+* [FIXED] Print view and feeds: a post with a spoiler was replaced by the content of the first spoiler (the rest of the post was lost), the posts of the feeds were formatted twice (the html of the first pass was shown as text)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

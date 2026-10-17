@@ -250,9 +250,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         int messageAuthorId,
         MessageFlags messageFlags)
     {
-        message =
-            $@"{this.Format(0, message, messageFlags, false)}";
-
+        // formatted once (the message was formatted twice: the html of the first pass was encoded by the second)
         message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 
         // Remove HIDDEN Text
@@ -392,14 +390,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         var spoilerRegex = new Regex(@"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]", RegexOptions);
 
-        var spoilerTagMatch = spoilerRegex.Match(body);
-
-        if (spoilerTagMatch.Success)
-        {
-            body = spoilerTagMatch.Groups["inner"].Value;
-        }
-
-        return body;
+        // keep the spoiler content, only drop the tags (the rest of the post was removed)
+        return spoilerRegex.Replace(body, "${inner}");
     }
 
     /// <summary>
