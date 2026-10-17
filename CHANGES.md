@@ -275,6 +275,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The guest and admin users of a new board got the join and last visit date in the time of the server (all dates are stored in UTC), and the "popular topic" icon compared the time of the last post (UTC) with the time of the server
 * [FIXED] The paged lists of the editor (attachments, album images) and of the notification menu accepted any page size and page number from the client: a negative value failed with an error, a huge page size loaded all rows; the page size is limited to 1 - 100 now
 * [FIXED] The [hide-thanks=x] BBCode counted the thanks the reader gave instead of the thanks received (as the BBCode and its message describe), the hidden content was shown to users who just thanked often enough
+* [FIXED] [hide-posts=] and [hide-thanks=] with an empty or too big number failed with an error and broke the topic page for every reader; an empty number is 0, a too big one hides the content from all users but the author and the admins
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

@@ -43,14 +43,14 @@ public class HideBBCodeModule : BBCodeControl
 
         if (this.Parameters.ContainsKey("posts"))
         {
-            postsCount = int.Parse(this.Parameters["posts"]);
+            postsCount = ParseCount(this.Parameters["posts"]);
         }
 
         var thanksCount = -1;
 
         if (this.Parameters.ContainsKey("thanks"))
         {
-            thanksCount = int.Parse(this.Parameters["thanks"]);
+            thanksCount = ParseCount(this.Parameters["thanks"]);
         }
 
         var messageId = this.MessageID;
@@ -160,5 +160,21 @@ public class HideBBCodeModule : BBCodeControl
         }
 
         writer.Write(shownContent);
+    }
+
+    /// <summary>
+    /// Reads the number of posts or thanks of the BBCode ([hide-posts=5]): the expression also allows an empty
+    /// number, a number that is too big hides the content from everybody (except the author and the admins).
+    /// </summary>
+    /// <param name="value">The number of the BBCode.</param>
+    /// <returns>Returns the number.</returns>
+    public static int ParseCount(string value)
+    {
+        if (value.IsNotSet())
+        {
+            return 0;
+        }
+
+        return int.TryParse(value, out var count) ? count : int.MaxValue;
     }
 }
