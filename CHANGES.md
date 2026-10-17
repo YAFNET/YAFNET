@@ -114,6 +114,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] Removing a friend from the menu of a post removed the friend twice and its notification was never shown (the page was redirected before), the notification of a friend request from a post was lost the same way
 * [FIXED] Security: The topic lookup of the move/merge dialogs listed the topics of every forum to moderators of any forum (also hidden forums) and the topics of forums of other boards to admins, now only forums of the board the user is admin or moderator of
 * [FIXED] Security: Kill user (admin edit user) banned the e-mail, IP and name and deleted all posts before checking that the user is not the admin himself, the guest or a host admin; suspend had no checks at all. The checks now come first, apply to delete and suspend, and also protect admins
+* [FIXED] Security: Admin edit user suspend showed the suspend reason as raw HTML and the names of the users in the notification as html
+* [FIXED] Admin edit user suspend: the end of the suspension was computed from the local time of the suspended user but saved and shown as UTC (the user was suspended hours too long or too short), a suspension in minutes was added as hours and a count that is not a number caused an error
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

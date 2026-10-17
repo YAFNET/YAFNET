@@ -155,7 +155,7 @@ public partial class EditUsersSuspend : BaseUserControl
         }
 
         this.PageBoardContext.Notify(
-            $"User {this.User.DisplayOrUserName()} was un-suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
+            $"User {this.HtmlEncode(this.User.DisplayOrUserName())} was un-suspended by {this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName())}.",
             MessageTypes.success);
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
@@ -204,11 +204,14 @@ public partial class EditUsersSuspend : BaseUserControl
 			return;
         }
 
-        // time until when user is suspended
-        var suspend = this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, this.User.TimeZoneInfo);
+        // time until when user is suspended (utc, it is compared with utc and shown as utc)
+        var suspend = DateTime.UtcNow;
 
         // number inserted by suspending user
-        var count = int.Parse(this.SuspendCount.Text);
+        if (!int.TryParse(this.SuspendCount.Text.Trim(), out var count) || count <= 0)
+        {
+            return;
+        }
 
         // what time units are used for suspending
         suspend = this.SuspendUnit.SelectedValue switch
@@ -224,7 +227,7 @@ public partial class EditUsersSuspend : BaseUserControl
                 // minutes
                 "3" =>
                     // add user inserted suspension time to current time
-                    suspend.AddHours(count),
+                    suspend.AddMinutes(count),
                 _ => suspend
             };
 
@@ -235,8 +238,9 @@ public partial class EditUsersSuspend : BaseUserControl
             this.SuspendedReason.Text.Trim(),
             this.PageBoardContext.PageUserID);
 
+        // the notification is html, the names are texts
         this.PageBoardContext.Notify(
-            $"User {this.User.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
+            $"User {this.HtmlEncode(this.User.DisplayOrUserName())} was suspended by {this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName())} until: {suspend} (UTC)",
             MessageTypes.success);
 
         this.Get<ILoggerService>().Log(
@@ -273,7 +277,7 @@ public partial class EditUsersSuspend : BaseUserControl
             return;
         }
 
-        this.CurrentSuspendedReason.Text = this.User.SuspendedReason;
+        this.CurrentSuspendedReason.Text = this.HtmlEncode(this.User.SuspendedReason);
 
         var suspendedByUser = this.GetRepository<User>().GetById(this.User.SuspendedBy);
 
