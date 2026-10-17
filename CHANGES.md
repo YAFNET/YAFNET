@@ -336,6 +336,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Private Messages: choosing a sort order of the field that was sorted already turned the order around (e.g. date descending sorted ascending)
 * [FIXED] Login dialog: an account locked after 10 wrong passwords was locked for 60 minutes (the login page locks it for 15 minutes)
 * [FIXED] Admin > Edit User > Kill: the suspend option only worked after the cache of the user expired
+* [FIXED] New topic and reply of guests: the field for the name of the guest was never shown (all guests posted as Guest)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

@@ -283,13 +283,9 @@ public partial class PostTopic : ForumPage
             return;
         }
 
-        // form user is only for "Guest"
+        // the name of the guest (the field is hidden by default, it was never shown)
         this.From.Text = this.PageBoardContext.PageUser.DisplayOrUserName();
-
-        if (this.User != null)
-        {
-            this.FromRow.Visible = false;
-        }
+        this.FromRow.Visible = true;
     }
 
     /// <summary>

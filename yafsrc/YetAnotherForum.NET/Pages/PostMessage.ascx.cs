@@ -324,11 +324,11 @@ public partial class PostMessage : ForumPage
                 }
             }
 
-            // form user is only for "Guest"
+            // the name of the guest
             if (this.PageBoardContext.IsGuest)
             {
                 this.From.Text = this.PageBoardContext.PageUser.DisplayOrUserName();
-                this.FromRow.Visible = false;
+                this.FromRow.Visible = true;
             }
         }
 
