@@ -47,7 +47,7 @@ public partial class BBCodeImport : BaseUserControl
 
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
-                JavaScriptBlocks.OpenModalJs("ImportDialog"));
+                JavaScriptBlocks.OpenModalJs("BBCodeImportDialog"));
 
             return;
         }
@@ -70,7 +70,7 @@ public partial class BBCodeImport : BaseUserControl
 
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
-                JavaScriptBlocks.OpenModalJs("ImportDialog"));
+                JavaScriptBlocks.OpenModalJs("BBCodeImportDialog"));
         }
     }
 }

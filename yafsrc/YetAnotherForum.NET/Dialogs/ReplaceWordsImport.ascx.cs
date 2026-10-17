@@ -49,7 +49,7 @@ public partial class ReplaceWordsImport : BaseUserControl
 
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
-                JavaScriptBlocks.OpenModalJs("ImportDialog"));
+                JavaScriptBlocks.OpenModalJs("ReplaceWordsImportDialog"));
 
             return;
         }
@@ -94,7 +94,7 @@ public partial class ReplaceWordsImport : BaseUserControl
 
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
+                    JavaScriptBlocks.OpenModalJs("ReplaceWordsImportDialog"));
             }
         }
         catch (Exception x)
@@ -105,7 +105,7 @@ public partial class ReplaceWordsImport : BaseUserControl
 
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
-                JavaScriptBlocks.OpenModalJs("ImportDialog"));
+                JavaScriptBlocks.OpenModalJs("ReplaceWordsImportDialog"));
         }
     }
 }

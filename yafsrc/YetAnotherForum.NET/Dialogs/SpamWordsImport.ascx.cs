@@ -49,7 +49,7 @@ public partial class SpamWordsImport : BaseUserControl
 
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
-                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
+                    JavaScriptBlocks.OpenModalJs("SpamWordsImportDialog"));
 
                 return;
             }
@@ -72,7 +72,7 @@ public partial class SpamWordsImport : BaseUserControl
 
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
-                JavaScriptBlocks.OpenModalJs("ImportDialog"));
+                JavaScriptBlocks.OpenModalJs("SpamWordsImportDialog"));
         }
     }
 }
