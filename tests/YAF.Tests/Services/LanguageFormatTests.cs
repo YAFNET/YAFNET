@@ -72,7 +72,7 @@ public class LanguageFormatTests
             }
         }
 
-        errors.Should().BeEmpty();
+        errors.Should().BeEmpty(string.Join(Environment.NewLine, errors));
     }
 
     private static bool IsValidFormat(string text, object[] arguments)
