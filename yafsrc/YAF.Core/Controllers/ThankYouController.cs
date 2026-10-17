@@ -59,7 +59,9 @@ public class ThankYouController : ApiController, IHaveServiceLocator
             return this.NotFound();
         }
 
-        var message = this.GetRepository<Message>().GetById(messageId);
+        // only messages the user can read (the answer contains the users who thanked the message)
+        var message = this.GetRepository<Message>()
+            .GetMessageWithAccess(messageId, BoardContext.Current.PageUserID)?.Item2;
 
         if (message == null)
         {
@@ -101,9 +103,10 @@ public class ThankYouController : ApiController, IHaveServiceLocator
 
         var fromUserId = BoardContext.Current.PageUserID;
 
-        var message = this.GetRepository<Message>().GetById(messageId);
+        // only messages the user can read, and not the own ones
+        var message = this.GetRepository<Message>().GetMessageWithAccess(messageId, fromUserId)?.Item2;
 
-        if (message == null)
+        if (message == null || message.UserID == fromUserId)
         {
             return this.NotFound();
         }
@@ -149,26 +152,30 @@ public class ThankYouController : ApiController, IHaveServiceLocator
             return this.NotFound();
         }
 
-        var message = this.GetRepository<Message>().GetById(messageId);
+        var fromUserId = BoardContext.Current.PageUserID;
+
+        // only messages the user can read (the answer contains the users who thanked the message)
+        var message = this.GetRepository<Message>().GetMessageWithAccess(messageId, fromUserId)?.Item2;
 
         if (message == null)
         {
             return this.NotFound();
         }
 
-        var fromUserId = BoardContext.Current.PageUserID;
-
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
         this.GetRepository<Thanks>().RemoveMessageThanks(fromUserId, messageId);
 
-        // only remove this specific user's own given/received thanks stream entries for this message
+        // only the activities of this thanks: "received" (from this user) and "given" (by this user)
         this.GetRepository<Activity>().Delete(
             a => a.MessageID == messageId
-                 && ((a.Flags == 1024 && a.UserID == fromUserId && a.FromUserID == message.UserID)
-                     || (a.Flags == 2048 && a.UserID == message.UserID && a.FromUserID == fromUserId)));
+                 && ((a.Flags == 1024 && a.FromUserID == fromUserId) || (a.Flags == 2048 && a.UserID == fromUserId)));
 
         return this.Ok(
-            this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));
+            this.Get<IThankYou>().CreateThankYou(
+                new UnicodeEncoder().XSSEncode(userName),
+                "BUTTON_THANKS",
+                "BUTTON_THANKS_TT",
+                messageId));
     }
 }

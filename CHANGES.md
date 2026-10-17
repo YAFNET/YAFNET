@@ -60,6 +60,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Private messages: pruning deleted the messages of all boards, 0 days deleted all messages
 * [FIXED] A new group created for a role (e.g. of an imported or external user) got the guest access to all forums (also staff forums) instead of the access of the start groups
 * [FIXED] Friends: "Approve all" and "Deny all" did nothing (the received requests were never found)
+* [FIXED] Thanks: posts of forums the user can't read (and the own posts) could be thanked and their thanks listed, the name of the author was not encoded in the box after removing a thanks, removing a thanks didn't remove its notifications
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
