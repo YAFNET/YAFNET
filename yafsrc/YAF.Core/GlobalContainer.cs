@@ -34,24 +34,35 @@ using YAF.Core.Modules;
 public static class GlobalContainer
 {
     /// <summary>
-    /// Initializes static members of the <see cref="GlobalContainer"/> class.
+    /// The lock for the creation of the container.
     /// </summary>
-    static GlobalContainer()
-    {
-        var container = CreateContainer();
-
-        using (var scope = container.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag))
-        {
-            ServiceLocatorAccess.CurrentServiceProvider = scope.Resolve<IServiceLocator>();
-        }
-
-        Container = container;
-    }
+    private static readonly object ContainerLock = new();
 
     /// <summary>
-    ///   Gets Container.
+    /// The container.
     /// </summary>
-    public static IContainer Container { get; }
+    private static IContainer container;
+
+    /// <summary>
+    ///   Gets or sets the Container. It is created on the first use, unit tests can replace it.
+    /// </summary>
+    public static IContainer Container
+    {
+        get
+        {
+            if (container != null)
+            {
+                return container;
+            }
+
+            lock (ContainerLock)
+            {
+                return container ??= CreateContainer();
+            }
+        }
+
+        set => container = value;
+    }
 
     /// <summary>
     /// Create Container
@@ -65,6 +76,13 @@ public static class GlobalContainer
 
         builder.RegisterModule<BootstrapModule>();
 
-        return builder.Build();
+        var newContainer = builder.Build();
+
+        using (var scope = newContainer.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag))
+        {
+            ServiceLocatorAccess.CurrentServiceProvider = scope.Resolve<IServiceLocator>();
+        }
+
+        return newContainer;
     }
 }

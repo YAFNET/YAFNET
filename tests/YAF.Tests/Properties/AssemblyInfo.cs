@@ -28,10 +28,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("YAF.Tests.BasicTests")]
+[assembly: AssemblyTitle("YAF.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("YAF.Tests.BasicTests")]
+[assembly: AssemblyProduct("YAF.Tests")]
 [assembly: AssemblyCompany("YAF.NET")]
 
 [assembly: AssemblyTrademark("")]

@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Tests.CoreTests.Helpers;
+namespace YAF.Tests.Helpers;
 
 using YAF.Core.Utilities.StringUtils;
 

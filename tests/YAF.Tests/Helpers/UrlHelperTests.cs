@@ -22,32 +22,24 @@
  * under the License.
  */
 
-namespace YAF.Tests.CoreTests.Helpers;
+namespace YAF.Tests.Helpers;
 
 /// <summary>
-/// YAF.Utils.Helpers ValidationHelper Tests
+/// YAF.Utils UrlHelper Tests
 /// </summary>
-public class ValidationHelperTests
+public class UrlHelperTests
 {
     /// <summary>
-    /// Determines whether [is valid email test].
+    /// Count all URLs Test
     /// </summary>
     [Test]
-    [Description("Determines whether [is valid email test]")]
-    public void IsValidEmail_Test()
+    [Description("Count all URLs Test.")]
+    public void CountUrls_Test()
     {
-        const string testEmail = "yaf@co.geauga.oh.us";
+        const string testMessage =
+            @"Indeed, back to the drawing board. You might be against [url=http://supplementsbook.org/ketoslim/]Ketoslim[/url] for some reason. 
+                 Read More: [url = http://supplementsbook.org/ketoslim/]http://supplementsbook.org/ketoslim/[/url]";
 
-        ValidationHelper.IsValidEmail(testEmail).Should().BeTrue("Email address is not valid");
-    }
-
-    /// <summary>
-    /// Test the IPHelper if the ip address matches the pattern.
-    /// </summary>
-    [Test]
-    [Description("Test the IPHelper if the ip address matches the pattern.")]
-    public void IpHelperTest()
-    {
-        IPHelper.IsBanned("43.*.*.*", "43.134.127.238").Should().BeTrue("true");
+        UrlHelper.CountUrls(testMessage).Should().Be(3);
     }
 }

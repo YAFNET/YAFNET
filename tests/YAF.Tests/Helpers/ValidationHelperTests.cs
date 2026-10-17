@@ -22,24 +22,32 @@
  * under the License.
  */
 
-namespace YAF.Tests.CoreTests.Helpers;
+namespace YAF.Tests.Helpers;
 
 /// <summary>
-/// YAF.Utils BBCodeHelper Tests
+/// YAF.Utils.Helpers ValidationHelper Tests
 /// </summary>
-public class BBCodeHelperTests
+public class ValidationHelperTests
 {
     /// <summary>
-    /// Strips all BBCodes from a string.
+    /// Determines whether [is valid email test].
     /// </summary>
     [Test]
-    [Description("Strips all BBCodes from a string.")]
-    public void StripBBCode_Test()
+    [Description("Determines whether [is valid email test]")]
+    public void IsValidEmail_Test()
     {
-        const string testMessage =
-            "This is a test text containing [b]bold[/b] and [i]italic[i] text and other bbcodes [img]http://test.com/testimage.jpg[/img]";
+        const string testEmail = "yaf@co.geauga.oh.us";
 
-        BBCodeHelper.StripBBCode(testMessage).Should()
-            .Be("This is a test text containing bold and italic text and other bbcodes http://test.com/testimage.jpg");
+        ValidationHelper.IsValidEmail(testEmail).Should().BeTrue("Email address is not valid");
+    }
+
+    /// <summary>
+    /// Test the IPHelper if the ip address matches the pattern.
+    /// </summary>
+    [Test]
+    [Description("Test the IPHelper if the ip address matches the pattern.")]
+    public void IpHelperTest()
+    {
+        IPHelper.IsBanned("43.*.*.*", "43.134.127.238").Should().BeTrue("true");
     }
 }

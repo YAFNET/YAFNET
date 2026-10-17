@@ -22,24 +22,24 @@
  * under the License.
  */
 
-namespace YAF.Tests.CoreTests.Helpers;
+namespace YAF.Tests.Helpers;
 
 /// <summary>
-/// YAF.Utils UrlHelper Tests
+/// YAF.Utils BBCodeHelper Tests
 /// </summary>
-public class UrlHelperTests
+public class BBCodeHelperTests
 {
     /// <summary>
-    /// Count all URLs Test
+    /// Strips all BBCodes from a string.
     /// </summary>
     [Test]
-    [Description("Count all URLs Test.")]
-    public void CountUrls_Test()
+    [Description("Strips all BBCodes from a string.")]
+    public void StripBBCode_Test()
     {
         const string testMessage =
-            @"Indeed, back to the drawing board. You might be against [url=http://supplementsbook.org/ketoslim/]Ketoslim[/url] for some reason. 
-                 Read More: [url = http://supplementsbook.org/ketoslim/]http://supplementsbook.org/ketoslim/[/url]";
+            "This is a test text containing [b]bold[/b] and [i]italic[i] text and other bbcodes [img]http://test.com/testimage.jpg[/img]";
 
-        UrlHelper.CountUrls(testMessage).Should().Be(3);
+        BBCodeHelper.StripBBCode(testMessage).Should()
+            .Be("This is a test text containing bold and italic text and other bbcodes http://test.com/testimage.jpg");
     }
 }

@@ -23,6 +23,7 @@
  */
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -46,3 +47,5 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
+
+[assembly: InternalsVisibleTo("YAF.Tests, PublicKey=00240000048000009400000006020000002400005253413100040000010001000d5b078b2f6c101b2fc5127f9669fa4785beec676d7833571a65bbeabf6d4f1d25251ba2b3164d440fb92cce34d49322c63410f0effd8afa19b7cb93685afbf14ac19f0cd169265d87ca2235e9919fbdeedfcf8eb7c44f59dd30ff14c61b7b07dcfec07f1e9b4c2b83b01a813ee52142f1a831b260a46e50eb1f574543c85baa")]
