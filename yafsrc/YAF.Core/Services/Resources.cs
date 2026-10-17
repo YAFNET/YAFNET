@@ -92,8 +92,9 @@ public class Resources : IResources, IHaveServiceLocator
 
             context.Response.ContentType = "application/json";
             context.Response.ContentEncoding = Encoding.UTF8;
-            context.Response.Cache.SetCacheability(HttpCacheability.Public);
-            context.Response.Cache.SetMaxAge(TimeSpan.FromSeconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
+            // the card depends on the permissions of the viewer (not for shared caches), the timeout is in milliseconds
+            context.Response.Cache.SetCacheability(HttpCacheability.Private);
+            context.Response.Cache.SetMaxAge(TimeSpan.FromMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
             context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user.Item1);
@@ -197,8 +198,9 @@ public class Resources : IResources, IHaveServiceLocator
             context.Response.ContentType = "application/json";
             context.Response.ContentEncoding = Encoding.UTF8;
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
+            // the timeout is in milliseconds
             context.Response.Cache.SetMaxAge(
-                TimeSpan.FromSeconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                TimeSpan.FromMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
             context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
             context.Response.Write(list.ToJson());

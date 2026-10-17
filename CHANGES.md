@@ -268,6 +268,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Private messages: opening a message marked it as read for all recipients, also when the sender opened the sent message and before the access check (any user could mark the messages of others as read); it also overwrote the state of the recipients with the flags of the message (a message deleted from the inbox or outbox came back, the message was archived). Only the message of the recipient is marked as read now
 * [FIXED] Private messages: the first message of a conversation did not show the replies to it once the ids of the messages and the user messages differed (e.g. after a message to all users)
 * [FIXED] Security: The attachment upload accepted the uploads of forms of other web sites with the login cookie of the user (cross site request), it only accepts the uploads of the upload script of the forum now
+* [FIXED] The user card (hover card) and the BBCode list of the editor were cached by the browser 1000 times longer than the online status cache timeout (milliseconds were used as seconds, about 17 hours by default), the user card also in shared caches although it depends on the permissions of the viewer
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
