@@ -128,12 +128,13 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         allUsers.Where(user => !user.IsApproved).ForEach(
             user =>
                 {
-                    // only the users of this board (the login accounts of all boards are listed)
+                    // only the users of this board (the login accounts of all boards are listed),
+                    // disabled accounts (e.g. locked as inactive) stay disabled
                     var checkUser  = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
 
                     var id = checkUser?.ID ?? 0;
 
-                    if (id <= 0)
+                    if (id <= 0 || checkUser.UserFlags.IsDeleted)
                     {
                         return;
                     }
@@ -207,8 +208,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             {
                 var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
 
-                // only the users of this board (the login accounts of all boards are listed)
-                if (yafUser == null)
+                // only the users of this board (the login accounts of all boards are listed),
+                // not the disabled accounts (e.g. locked as inactive)
+                if (yafUser == null || yafUser.UserFlags.IsDeleted)
                 {
                     return;
                 }
