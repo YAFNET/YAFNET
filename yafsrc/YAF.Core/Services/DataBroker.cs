@@ -335,8 +335,9 @@ public class DataBroker : IHaveServiceLocator
             this.GetRepository<ActiveAccess>().InsertPageAccess(boardId, guestUser.ID, true);
         }
 
-        // -- find missing ForumID/TopicID
-        if (messageId.HasValue && (!forumId.HasValue || !categoryId.HasValue || !topicId.HasValue))
+        // -- find the ForumID/TopicID of the message (also when the request sends others: the access is
+        // -- checked for the forum, a forum id of another forum must not give access to the message/topic)
+        if (messageId.HasValue)
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
@@ -363,7 +364,7 @@ public class DataBroker : IHaveServiceLocator
             }
         }
 
-        if (topicId.HasValue && (!categoryId.HasValue || !forumId.HasValue))
+        if (topicId.HasValue && topic is null)
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
