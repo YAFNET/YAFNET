@@ -25,7 +25,6 @@
 namespace YAF.Core.Services;
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
@@ -362,17 +361,28 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </param>
     public void ToWatchingUsers(Message message, bool newTopic = false)
     {
-        var mailMessages = new ConcurrentBag<MailMessage>();
+        var mailMessages = new List<MailMessage>();
         var boardName = this.BoardSettings.Name;
         var forumEmail = this.BoardSettings.ForumEmail;
 
-        // cleaned body as text...
+        // cleaned body as text, without hidden content (hide, hide-reply, hide-thanks, ...): it is only shown in the forum
         var bodyText = this.Get<IBadWordReplace>()
             .Replace(
-                BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(message.MessageText))))
+                BBCodeHelper.StripBBCode(
+                    HtmlTagHelper.StripHtml(
+                        HtmlTagHelper.CleanHtmlString(
+                            this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message.MessageText)))))
             .RemoveMultipleWhitespace();
 
         var watchUsers = this.GetRepository<User>().WatchMailList(message.TopicID, message.UserID);
+
+        // the mail contains the post, only watchers who (still) can read the forum get it
+        var forumId = message.Topic.ForumID;
+
+        var readers = new HashSet<int>(
+            this.GetRepository<VAccess>().Get(v => v.ForumID == forumId && v.ReadAccess > 0).Select(v => v.UserID));
+
+        watchUsers.RemoveAll(u => !readers.Contains(u.ID));
 
         // shared, read-only template params -- each thread gets its own TemplateEmail instance below
         var commonTemplateParams = new Dictionary<string, string>
@@ -391,13 +401,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                                 ForumPages.Profile_Subscriptions)
                                         };
 
-        var currentContext = HttpContext.Current;
-
-        watchUsers.AsParallel().ForAll(
+        // sequential: the services use the context of the request
+        watchUsers.ForEach(
             user =>
                 {
-                    HttpContext.Current = currentContext;
-
                     try
                     {
                         // Add to stream
@@ -450,16 +457,17 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                     this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
                                 subject));
                     }
-                    finally
+                    catch (Exception x)
                     {
-                        HttpContext.Current = null;
+                        // e.g. an invalid e-mail address of the user, the other watchers get their mail
+                        this.Get<ILoggerService>().Error(x, $"Watch Notification Error for UserID {user.ID}");
                     }
                 });
 
         if (mailMessages.Any())
         {
-            // Now send all mails..
-            this.Get<IMailService>().SendAll(mailMessages);
+            // Now send all mails (a mail error does not fail the post)
+            this.SendNotificationMail(() => this.Get<IMailService>().SendAll(mailMessages), "Watch");
         }
     }
 
@@ -835,5 +843,27 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         verifyEmail.TemplateParams["{forumlink}"] = $"{this.Get<LinkBuilder>().ForumUrl}";
 
         verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
+    }
+
+    /// <summary>
+    /// Sends the notification mails, a mail error (e.g. the mail server is down) is logged and does not fail the
+    /// action the notification is sent for.
+    /// </summary>
+    /// <param name="send">
+    /// The send action.
+    /// </param>
+    /// <param name="notification">
+    /// The name of the notification (for the log).
+    /// </param>
+    private void SendNotificationMail(Action send, string notification)
+    {
+        try
+        {
+            send();
+        }
+        catch (Exception x)
+        {
+            this.Get<ILoggerService>().Error(x, $"{notification} Notification Error");
+        }
     }
 }

@@ -25,13 +25,14 @@
 namespace YAF.Tests.TestInfrastructure;
 
 using System.Collections.Concurrent;
+using System.IO;
 using System.Net.Mail;
 
 using YAF.Types.Interfaces.Services;
 
 /// <summary>
 /// An <see cref="IMailService"/> that records the mails instead of sending them.
-/// All the SendAsync / CreateMessage extension methods end up in <see cref="SendAll"/>.
+/// All the Send / CreateMessage extension methods end up in <see cref="SendAll"/>.
 /// </summary>
 public class RecordingMailService : IMailService
 {
@@ -47,11 +48,51 @@ public class RecordingMailService : IMailService
     /// </summary>
     public IEnumerable<string> Recipients => this.Sent.SelectMany(m => m.To).Select(a => a.Address);
 
+    /// <summary>
+    /// Gets or sets an error every send throws (e.g. to simulate a mail server that is down).
+    /// </summary>
+    public Exception Error { get; set; }
+
     public void SendAll(IEnumerable<MailMessage> messages)
     {
+        if (this.Error != null)
+        {
+            throw this.Error;
+        }
+
         foreach (var message in messages)
         {
             this.sent.Enqueue(message);
         }
+    }
+
+    /// <summary>
+    /// The text of the mail (the plain text view, or the body).
+    /// </summary>
+    public static string TextOf(MailMessage message)
+    {
+        return ViewText(message, "text/plain") ?? message.Body;
+    }
+
+    /// <summary>
+    /// The html of the mail (the html view, or the body of an html mail).
+    /// </summary>
+    public static string HtmlOf(MailMessage message)
+    {
+        return ViewText(message, "text/html") ?? (message.IsBodyHtml ? message.Body : null);
+    }
+
+    private static string ViewText(MailMessage message, string mediaType)
+    {
+        var view = message.AlternateViews.FirstOrDefault(v => v.ContentType.MediaType == mediaType);
+
+        if (view is null)
+        {
+            return null;
+        }
+
+        view.ContentStream.Position = 0;
+
+        return new StreamReader(view.ContentStream).ReadToEnd();
     }
 }

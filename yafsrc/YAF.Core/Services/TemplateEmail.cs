@@ -229,15 +229,9 @@ public class TemplateEmail : IHaveServiceLocator
             return null;
         }
 
-        if (templateLanguageFile.IsNotSet())
-        {
-            return this.Get<ILocalization>().GetText("TEMPLATES", templateName);
-        }
-
-        var localization = new Localization.Localization();
-
-        localization.LoadTranslation(templateLanguageFile);
-
-        return localization.GetText("TEMPLATES", templateName, templateLanguageFile);
+        // the text of the language file (e.g. of the user who gets the mail)
+        return templateLanguageFile.IsNotSet()
+                   ? this.Get<ILocalization>().GetText("TEMPLATES", templateName)
+                   : this.Get<ILocalization>().GetText("TEMPLATES", templateName, templateLanguageFile);
     }
 }
