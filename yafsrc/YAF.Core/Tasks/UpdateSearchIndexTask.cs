@@ -147,7 +147,8 @@ public class UpdateSearchIndexTask : LongBackgroundTask
 
         if (boardSettings.ForceUpdateSearchIndex)
         {
-            boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+            // utc, it is compared with the (utc) times of the posts
+            boardSettings.LastSearchIndexUpdated = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
             boardSettings.ForceUpdateSearchIndex = false;
 
             BoardContext.Current.Get<BoardSettingsService>().SaveRegistry(boardSettings);
@@ -155,7 +156,8 @@ public class UpdateSearchIndexTask : LongBackgroundTask
             return true;
         }
 
-        var updateIndex = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
+        // the last update is utc, the night (12 to 6 am) is the time of the server
+        var updateIndex = lastSend < DateTime.UtcNow.AddHours(-sendEveryXHours)
                           && DateTime.Now < DateTime.Today.AddHours(6);
 
         if (!updateIndex)
@@ -163,7 +165,8 @@ public class UpdateSearchIndexTask : LongBackgroundTask
             return false;
         }
 
-        boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+        // utc, it is compared with the (utc) times of the posts
+        boardSettings.LastSearchIndexUpdated = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
 
         BoardContext.Current.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 

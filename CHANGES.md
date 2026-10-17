@@ -193,6 +193,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Avatar paths starting with // loaded the avatar from another site
 * [FIXED] Reading a notification could leave the unread notification count too high (the cache was cleared before the update)
 * [FIXED] The legacy settings (e.g. "enabletopicdescription") were not removed on case sensitive databases when they were saved in mixed case
+* [FIXED] The search index update stored its last run in server time but compared it with UTC post times, so posts were missing from the search on servers east of UTC
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
