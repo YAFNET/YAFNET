@@ -561,6 +561,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     {
         user.Email = newEmail;
 
+        // a new security stamp ends the other logins of the user (and the open password reset links)
+        user.SecurityStamp = Guid.NewGuid().ToString();
+
         this.Get<AspNetUsersManager>().Update(user);
 
         this.GetRepository<User>().AspNet(

@@ -156,6 +156,12 @@ public partial class Approve : AccountPage
 
         this.Get<IAspNetUsersHelper>().UpdateEmail(user, checkEmail.Email);
 
+        // the other logins end with the new security stamp, the login of this browser gets the new one
+        if (this.PageBoardContext.MembershipUser?.Id == user.Id)
+        {
+            this.Get<IAspNetUsersHelper>().SignIn(user);
+        }
+
         this.GetRepository<CheckEmail>().DeleteById(checkEmail.ID);
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(checkEmail.UserID));
