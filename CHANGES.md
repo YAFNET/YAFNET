@@ -257,6 +257,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Listing the users of a role that does not exist caused an error, e.g. the moderator notification of a new post in a forum with a moderator group without role failed
 * [FIXED] 18 translations had broken placeholders (e.g. "{0 comments", "{text", "{0} characters}") in Arabic, Finnish, French, Italian, Lithuanian, Polish, Portuguese, Romanian, Slovak and Turkish, showing these texts failed (e.g. the user name length messages of the registration in Polish, the activity texts in Arabic and Turkish); a unit test now checks the placeholders of all translations
 * [FIXED] MemoryCache.GetOrSet failed with an error for value types (e.g. a number) that were not cached yet
+* [FIXED] New banned e-mails, names and user agents, spam words, replace words, custom BBCodes, access masks and other rows added (or deleted by a condition) were not used until the cached lists expired or the application restarted: inserting a row and deleting rows by a condition did not raise the repository events that clear the cache
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

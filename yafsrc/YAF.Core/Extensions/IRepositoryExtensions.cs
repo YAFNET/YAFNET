@@ -80,7 +80,15 @@ public static class IRepositoryExtensions
     public static int Delete<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
-        return repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
+        var count = repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
+
+        // the handlers clear the cached data (e.g. the ban lists)
+        if (count > 0)
+        {
+            repository.FireDeleted();
+        }
+
+        return count;
     }
 
     /// <summary>
@@ -174,7 +182,12 @@ public static class IRepositoryExtensions
         bool selectIdentity = true)
         where T : class, IEntity, new()
     {
-        return repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity)).ToType<int>();
+        var newId = repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity)).ToType<int>();
+
+        // the handlers clear the cached data (e.g. the ban lists, the access rights)
+        repository.FireNew(selectIdentity ? newId : null, entity);
+
+        return newId;
     }
 
     /// <summary>
@@ -289,9 +302,8 @@ public static class IRepositoryExtensions
         }
         else
         {
+            // raises the new event
             newId = repository.Insert(entity);
-
-            repository.FireNew(newId);
         }
 
         return newId;

@@ -106,9 +106,9 @@ public class RepositoryTests
         repository.GetById(id).Should().BeNull();
         repository.DeleteById(id).Should().BeFalse();
 
-        // Insert and Update don't raise events in 3.x, only Upsert does
+        // Insert and Delete raise events (the handlers clear the cached data), Update doesn't (only Upsert does)
         this.board.Events.OfType<RepositoryEvent<BannedIP>>().Select(e => e.RepositoryEventType).Should()
-            .Equal(RepositoryEventType.Delete);
+            .Equal(RepositoryEventType.New, RepositoryEventType.Delete);
     }
 
     [Test]
