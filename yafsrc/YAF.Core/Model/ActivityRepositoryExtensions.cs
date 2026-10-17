@@ -132,11 +132,13 @@ public static class ActivityRepositoryExtensions
     {
         
 
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
-
         repository.UpdateOnly(
             () => new Activity { Notification = false },
             a => a.UserID == userId && a.MessageID == messageId && a.Notification);
+
+        // the cached data (the unread count) is cleared after the update, otherwise a request in between
+        // caches the old count again
+        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
     }
 
     /// <summary>
@@ -158,11 +160,12 @@ public static class ActivityRepositoryExtensions
     {
         
 
-        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
-
         repository.UpdateOnly(
             () => new Activity { Notification = false },
             a => a.UserID == userId && a.TopicID == topicId && a.Notification);
+
+        // the cached data (the unread count) is cleared after the update
+        BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
     }
 
     /// <summary>

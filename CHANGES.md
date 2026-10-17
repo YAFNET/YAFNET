@@ -191,6 +191,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Medal names and messages with quotes broke the medal ribbon html of the profile (they were written into the attributes without encoding)
 * [FIXED] The breadcrumb of a forum nested more than one level deep did not show all parent forums, links and breadcrumbs with a missing name (e.g. of a deleted user) caused an error
 * [FIXED] Avatar paths starting with // loaded the avatar from another site
+* [FIXED] Reading a notification could leave the unread notification count too high (the cache was cleared before the update)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
