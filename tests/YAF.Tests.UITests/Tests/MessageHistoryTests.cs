@@ -78,4 +78,46 @@ public class MessageHistoryTests : ForumTestBase
         (post.Contains(first) || post.Contains(second)).Should().BeTrue("an old text is restored");
         post.Should().NotContain(third);
     }
+
+    [Test]
+    [Description("Two texts of the history are compared (none or one selected gives a message), return goes back to the post")]
+    public async Task Compare_Revisions_Test()
+    {
+        await this.LoginAsAdminAsync();
+
+        await this.GotoAsync("PostTopic?f=1");
+        await this.Control("TopicSubjectTextBox").FillAsync($"Compare {Guid.NewGuid():N}");
+        await this.Control("YafTextEditor").FillAsync("The text before.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        var ids = await this.Page.Locator("a[id^='post']").EvaluateAllAsync<string[]>("es => es.map(e => e.id)");
+        var messageId = ids.Select(id => Regex.Match(id, @"^post(\d+)$")).Where(m => m.Success).Select(m => m.Groups[1].Value).First();
+
+        await this.GotoAsync($"EditMessage?m={messageId}");
+        await this.Control("YafTextEditor").FillAsync("The text after.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.GotoAsync($"MessageHistory?m={messageId}");
+
+        // nothing and one selected
+        await this.ClickAndWaitAsync(this.Control("ShowDif"));
+        (await this.Page.ContentAsync()).Should().Contain("toast-body");
+
+        await this.Control("Compare").First.CheckAsync();
+        await this.ClickAndWaitAsync(this.Control("ShowDif"));
+        (await this.Page.ContentAsync()).Should().Contain("toast-body");
+
+        // both
+        var compare = this.Control("Compare");
+        for (var i = 0; i < 2; i++)
+        {
+            await compare.Nth(i).CheckAsync();
+        }
+
+        await this.ClickAndWaitAsync(this.Control("ShowDif"));
+        (await this.Page.InnerTextAsync("body")).Should().Contain("before").And.Contain("after");
+
+        await this.ClickAndWaitAsync(this.Control("ReturnBtn"));
+        this.Page.Url.Should().Contain("Posts");
+    }
 }
