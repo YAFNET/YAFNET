@@ -165,6 +165,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] Editing a post of a sticky topic or announcement without priority access reset the topic to a normal topic, editing a post as topic starter removed the topic title styles set by a moderator, and editing a reply (by a user who did not start the topic) removed all tags of the topic; they are only changed when they are shown in the form
 * [FIXED] Deleting attachments (own attachments, admin attachments list and edit user, erased posts and deleted users) only deleted the database entry, the files of attachments stored in the file system stayed on the server
 * [FIXED] "Lock inactive accounts" (admin users page) also locked host admins, admins and the admin running it, and a value of 0 or less years locked (almost) all users, a value that is not a number failed with an error
+* [FIXED] Spam bot auto-bans (and the bans of kill user) saved the bot's name and e-mail as unanchored regular expressions, so later registrations containing that name (e.g. "Joanna" after banning "ann") were treated as bots and banned too (review the banned names and e-mails created by the spam system on existing installs)
+* [FIXED] The registration bot check ignored wildcard IP bans (e.g. 192.168.1.*), and an invalid banned name mask cancelled a match on a banned e-mail or IP
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

@@ -79,16 +79,18 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
                 EventLogTypes.IpBanSet);
         }
 
+        // the masks are regular expressions: only this name and address, not every name containing them
+        // (e.g. "Joanna" after banning "ann")
         // Ban Name ?
         this.GetRepository<BannedName>().Save(
             null,
-            @event.Name,
+            $"^{System.Text.RegularExpressions.Regex.Escape(@event.Name)}$",
             "Name was reported by the automatic spam system.");
 
         // Ban User Email?
         this.GetRepository<BannedEmail>().Save(
             null,
-            @event.Email,
+            $"^{System.Text.RegularExpressions.Regex.Escape(@event.Email)}$",
             "Email was reported by the automatic spam system.");
 
         // Clear Spam caches

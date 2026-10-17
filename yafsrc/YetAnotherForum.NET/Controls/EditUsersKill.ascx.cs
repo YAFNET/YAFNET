@@ -89,9 +89,10 @@ public partial class EditUsersKill : BaseUserControl
         // Ban User Email?
         if (this.BanEmail.Checked)
         {
+            // the masks are regular expressions: only this address (not every address containing it)
             this.GetRepository<BannedEmail>().Save(
                 null,
-                this.User.Item1.Email,
+                $"^{System.Text.RegularExpressions.Regex.Escape(this.User.Item1.Email)}$",
                 $"Email was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
         }
 
@@ -104,9 +105,10 @@ public partial class EditUsersKill : BaseUserControl
         // Ban User IP?
         if (this.BanName.Checked)
         {
+            // the masks are regular expressions: only this name (not every name containing it)
             this.GetRepository<BannedName>().Save(
                 null,
-                this.User.Item1.Name,
+                $"^{System.Text.RegularExpressions.Regex.Escape(this.User.Item1.Name)}$",
                 $"Name was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
         }
 

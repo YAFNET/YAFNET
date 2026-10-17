@@ -98,7 +98,8 @@ public class InternalCheck : ICheckForBot
                 BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot Email");
             }
 
-            if (bannedIpList.Contains(ipAddress))
+            // also the bans with wildcards (e.g. 192.168.1.*)
+            if (ipAddress.IsSet() && bannedIpList.Exists(mask => mask.IsSet() && IPHelper.IsBanned(mask, ipAddress)))
             {
                 responseText = $"internal detection found ip address {ipAddress}";
                 isBot = true;
@@ -120,8 +121,7 @@ public class InternalCheck : ICheckForBot
                 }
                 catch (Exception ex)
                 {
-                    isBot = false;
-
+                    // an invalid mask does not cancel a match of the e-mail or the ip
                     BoardContext.Current.Get<ILoggerService>().Error(
                         ex,
                         $"Error while Checking for Bot Name (Check: {mask})");
