@@ -27,6 +27,7 @@
                     </asp:Label>
                     <asp:TextBox ID="EmailAddress" runat="server" 
                                  CssClass="form-control"
+                                 TextMode="Email"
                                  required="required" />
                     <div class="invalid-feedback">
                         <YAF:LocalizedLabel runat="server"
@@ -41,11 +42,7 @@
                     </asp:Label>
                     <asp:TextBox ID="Subject" runat="server" 
                                  CssClass="form-control"
-                                 required="required" />
-                    <div class="invalid-feedback">
-                        <YAF:LocalizedLabel runat="server"
-                                            LocalizedTag="NEED_SUBJECT" />
-                    </div>
+                                 ReadOnly="True" />
                 </div>
                 <div class="mb-3">
                     <asp:Label runat="server" 
@@ -57,11 +54,7 @@
                                  CssClass="form-control" 
                                  TextMode="MultiLine" 
                                  Rows="12"
-                                 required="required" />
-                    <div class="invalid-feedback">
-                        <YAF:LocalizedLabel runat="server"
-                                            LocalizedTag="NEED_MESSAGE" />
-                    </div>
+                                 ReadOnly="True" />
                 </div>
             </div>
             <div class="card-footer text-center">

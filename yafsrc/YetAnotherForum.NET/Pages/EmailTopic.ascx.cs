@@ -32,6 +32,16 @@ using System.Net.Mail;
 public partial class EmailTopic : ForumPage
 {
     /// <summary>
+    /// How many emails a user can send in the time window.
+    /// </summary>
+    private const int MaxEmailsPerWindow = 5;
+
+    /// <summary>
+    /// The time window of the email limit.
+    /// </summary>
+    private static readonly TimeSpan EmailWindow = TimeSpan.FromHours(1);
+
+    /// <summary>
     ///   Initializes a new instance of the <see cref = "EmailTopic" /> class.
     /// </summary>
     public EmailTopic()
@@ -46,8 +56,13 @@ public partial class EmailTopic : ForumPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageBoardContext.ForumReadAccess
-                                                                 || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
+        if (this.PageBoardContext.PageTopic is null)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
+        if (this.PageBoardContext.IsGuest || !this.PageBoardContext.ForumReadAccess
+                                          || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
         {
             this.Get<LinkBuilder>().AccessDenied();
         }
@@ -62,19 +77,7 @@ public partial class EmailTopic : ForumPage
             JavaScriptBlocks.FormValidatorJs(this.SendEmail.ClientID));
 
         this.Subject.Text = this.PageBoardContext.PageTopic.TopicName;
-
-        var emailTopic = new TemplateEmail("EMAILTOPIC")
-                             {
-                                 TemplateParams =
-                                     {
-                                         ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
-                                             ForumPages.Posts,
-                                             new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName }),
-                                         ["{user}"] = this.PageBoardContext.PageUser.DisplayOrUserName()
-                                     }
-                             };
-
-        this.Message.Text = emailTopic.ProcessTemplate("EMAILTOPIC");
+        this.Message.Text = this.GetBody();
     }
 
     /// <summary>
@@ -100,15 +103,34 @@ public partial class EmailTopic : ForumPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void SendEmail_Click(object sender, EventArgs e)
     {
+        // only the recipient comes from the form, the subject and the text are fixed,
+        // otherwise the forum could be used to send any email (spam)
+        var email = this.EmailAddress.Text.Trim();
+
+        if (email.IsNotSet() || !ValidationHelper.IsValidEmail(email))
+        {
+            this.PageBoardContext.Notify(this.GetText("EDIT_PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+            return;
+        }
+
+        if (!SendLimitHelper.TryCount(
+                $"EmailTopic_{this.PageBoardContext.PageUserID}",
+                MaxEmailsPerWindow,
+                EmailWindow))
+        {
+            this.PageBoardContext.Notify(this.GetText("EMAILTOPIC", "TOO_MANY"), MessageTypes.warning);
+            return;
+        }
+
         try
         {
             var emailTopic = new TemplateEmail("EMAILTOPIC")
                                  {
-                                     TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
+                                     TemplateParams = { ["{message}"] = this.GetBody() }
                                  };
 
             // send a change email message...
-            emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());
+            emailTopic.SendEmail(new MailAddress(email), this.PageBoardContext.PageTopic.TopicName);
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
@@ -119,5 +141,25 @@ public partial class EmailTopic : ForumPage
             this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
             this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
         }
+    }
+
+    /// <summary>
+    /// Creates the text of the email (the link to the topic, it can not be changed).
+    /// </summary>
+    /// <returns>The text of the email.</returns>
+    private string GetBody()
+    {
+        var emailTopic = new TemplateEmail("EMAILTOPIC")
+                             {
+                                 TemplateParams =
+                                     {
+                                         ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                             ForumPages.Posts,
+                                             new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName }),
+                                         ["{user}"] = this.PageBoardContext.PageUser.DisplayOrUserName()
+                                     }
+                             };
+
+        return emailTopic.ProcessTemplate("EMAILTOPIC");
     }
 }
