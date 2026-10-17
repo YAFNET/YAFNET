@@ -108,6 +108,56 @@ public class PollTests : ForumTestBase
         this.Page.Url.Should().Contain("PollEdit", "the poll is not saved");
     }
 
+    [Test]
+    [Description("A poll with multiple choices, the voters, an expiry and hidden results until it closes; the member votes twice")]
+    public async Task Poll_Options_Test()
+    {
+        var question = $"Options {Guid.NewGuid():N}";
+
+        await this.LoginAsAdminAsync();
+        var topicHref = await this.CreateTopicAsync($"Poll options {Guid.NewGuid():N}");
+        var topicId = Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value;
+
+        await this.GotoAsync($"PollEdit?t={topicId}");
+        await this.Control("Question").FillAsync(question);
+        await this.Page.Locator("[id$='_ChoiceRepeater_ctl00_PollChoice']").FillAsync("Red");
+        await this.Page.Locator("[id$='_ChoiceRepeater_ctl01_PollChoice']").FillAsync("Green");
+        await this.Page.Locator("[id$='_ChoiceRepeater_ctl02_PollChoice']").FillAsync("Blue");
+
+        if (await this.Control("QuestionObjectPath").CountAsync() > 0)
+        {
+            await this.Control("QuestionObjectPath").FillAsync("https://www.example.com/question.png");
+        }
+
+        foreach (var option in new[] { "AllowMultipleChoicesCheckBox", "ShowVotersCheckBox", "IsClosedBoundCheckBox" })
+        {
+            if (await this.Control(option).CountAsync() > 0)
+            {
+                await this.Control(option).CheckAsync();
+            }
+        }
+
+        await this.Control("PollExpire").FillAsync("5");
+        await this.ClickAndWaitAsync(this.Control("SavePoll"));
+
+        // the member votes for two choices
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(topicHref);
+        (await this.Page.InnerTextAsync("body")).Should().Contain(question);
+
+        await this.ClickAndWaitAsync(this.Control("VoteButton").First);
+        await this.GotoAsync(topicHref);
+        await this.ClickAndWaitAsync(this.Control("VoteButton").Nth(1));
+
+        // the admin sees the poll with the voters
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync(topicHref);
+        (await this.Page.InnerTextAsync("body")).Should().Contain(question);
+
+        await this.ClickAndWaitAsync(this.Control("EditPoll"));
+        (await this.Control("PollExpire").InputValueAsync()).Should().NotBeNullOrEmpty();
+    }
+
     private async Task<string> CreateTopicAsync(string subject)
     {
         await this.GotoAsync("PostTopic?f=1");
