@@ -236,6 +236,65 @@ public class ProfileTests : ForumTestBase
     }
 
     [Test]
+    [Description("The registration with a display name (too short and taken ones are refused) and the custom fields of the registration, the admins get a notification")]
+    public async Task Register_With_Display_Name_And_Fields_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var member = $"Rdn{id}";
+        var other = $"Rdo{id}";
+        var number = $"RegNumber{id}";
+        var check = $"RegCheck{id}";
+        var text = $"RegText{id}";
+        var notify = $"notify{id}@localhost.com";
+
+        await this.RegisterAsync(other, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        await this.AddDefinitionAsync(number, "Number", required: false, onRegisterPage: true);
+        await this.AddDefinitionAsync(check, "Check", required: false, onRegisterPage: true);
+        await this.AddDefinitionAsync(text, "Text", required: false, onRegisterPage: true);
+        await this.SetHostSettingsAsync("{ EnableDisplayName: true }");
+        await this.SetNotificationListAsync(notify);
+
+        try
+        {
+            foreach (var refused in new[] { "ab", other })
+            {
+                await this.FillRegistrationAsync(member, refused);
+                await this.ClickAndWaitAsync(this.Control("CreateUser"));
+                (await this.Control("CreateUser").CountAsync()).Should().Be(1, $"the display name {refused} is refused");
+            }
+
+            var started = DateTime.UtcNow;
+
+            await this.FillRegistrationAsync(member, $"Shown {member}");
+            await this.Page.Locator(".mb-3", new PageLocatorOptions { HasTextString = number }).Locator("[id$='_DefText']").FillAsync("42");
+            await this.Page.Locator(".mb-3", new PageLocatorOptions { HasTextString = text }).Locator("[id$='_DefText']").FillAsync("A text");
+            await this.Page.Locator("label", new PageLocatorOptions { HasTextString = check }).CheckAsync();
+            await this.ClickAndWaitAsync(this.Control("CreateUser"));
+
+            (await TestMail.WaitForAsync(notify, started)).Should().NotBeNull("the admins are notified");
+
+            var mail = await TestMail.WaitForAsync(EmailOf(member), started);
+            await this.GotoAsync(mail.GetLink("Approve"));
+
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.GotoAsync("Profile/EditProfile");
+            (await this.Page.Locator("[id$='_DefText']").EvaluateAllAsync<string[]>("es => es.map(e => e.value)")).Should()
+                .Contain("42").And.Contain("A text");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetHostSettingsAsync("{ EnableDisplayName: false }");
+            await this.SetNotificationListAsync(string.Empty);
+            await this.DeleteDefinitionAsync(number);
+            await this.DeleteDefinitionAsync(check);
+            await this.DeleteDefinitionAsync(text);
+        }
+    }
+
+    [Test]
     [Description("The addresses of the profile are checked, a home page without a scheme gets https")]
     public async Task Address_Checks_Test()
     {
@@ -312,7 +371,7 @@ public class ProfileTests : ForumTestBase
         (await this.Control("ProfileEditor_Country").InputValueAsync()).Should().Be("FR");
     }
 
-    private async Task AddDefinitionAsync(string name, string dataType, bool required)
+    private async Task AddDefinitionAsync(string name, string dataType, bool required, bool onRegisterPage = false)
     {
         await this.GotoAsync("Admin/ProfileDefinitions");
 
@@ -330,6 +389,11 @@ public class ProfileTests : ForumTestBase
         if (required)
         {
             await this.Control("EditDialog_Required").CheckAsync();
+        }
+
+        if (onRegisterPage)
+        {
+            await this.Control("EditDialog_ShowOnRegisterPage").CheckAsync();
         }
 
         await this.ClickAndWaitAsync(this.Control("EditDialog_Save"));
@@ -367,6 +431,28 @@ public class ProfileTests : ForumTestBase
                     if (e.type === 'checkbox') {{ e.checked = value; }} else {{ e.value = value; }}
                 }}
             }}");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
+    private async Task FillRegistrationAsync(string userName, string displayName)
+    {
+        await this.LogoutAsync();
+        await this.GotoAsync("Account/Register");
+
+        await this.Control("UserName").FillAsync(userName);
+        await this.Control("DisplayName").FillAsync(displayName);
+        await this.Control("Email").FillAsync(EmailOf(userName));
+        await this.Control("Password").FillAsync(TestConfig.TestUserPassword);
+        await this.Control("ConfirmPassword").FillAsync(TestConfig.TestUserPassword);
+    }
+
+    /// <summary>
+    /// Sets the addresses that are notified about new users (board settings).
+    /// </summary>
+    private async Task SetNotificationListAsync(string emails)
+    {
+        await this.GotoAsync("Admin/Settings");
+        await this.Control("NotificationOnUserRegisterEmailList").EvaluateAsync("(e, v) => e.value = v", emails);
         await this.ClickAndWaitAsync(this.Control("Save"));
     }
 
