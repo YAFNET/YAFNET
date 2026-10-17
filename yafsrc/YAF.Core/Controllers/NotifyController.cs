@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.UI.WebControls;
 
+using YAF.Core.Model;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -67,6 +68,9 @@ public class NotifyController : ApiController, IHaveServiceLocator
 
         var attachmentItems = new List<AttachmentItem>();
 
+        // only topics the user can (still) read, the topic could have been moved to another forum or deleted
+        var readableForums = this.GetRepository<Activity>().ReadableForums(userId);
+
         activities.ForEach(
             activity =>
                 {
@@ -83,16 +87,22 @@ public class NotifyController : ApiController, IHaveServiceLocator
 
                     var topic = this.GetRepository<Topic>().GetById(activity.TopicID.Value);
 
+                    if (topic is null || topic.TopicFlags.IsDeleted || !readableForums.Contains(topic.ForumID))
+                    {
+                        return;
+                    }
+
                     var topicLink = new HyperLink
                                         {
                                             NavigateUrl =
                                                 this.Get<LinkBuilder>().GetLink(
                                                     ForumPages.Posts,
                                                     new { m = activity.MessageID.Value, name = topic.TopicName }),
-                                            Text = $@"<i class=""fas fa-comment me-1""></i>{topic.TopicName}"
+                                            Text = $@"<i class=""fas fa-comment me-1""></i>{HttpUtility.HtmlEncode(topic.TopicName)}"
                                         };
 
-                    var name = this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value);
+                    // the notification is html, the names are texts
+                    var name = HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(activity.FromUserID.Value));
 
                     if (activity.ActivityFlags.ReceivedThanks)
                     {

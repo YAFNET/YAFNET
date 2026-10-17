@@ -53,10 +53,39 @@ public static class ActivityRepositoryExtensions
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-        expression.Join<User>((a, u) => u.ID == a.FromUserID).Join<Topic>((a, t) => t.ID == a.TopicID.Value)
+        expression.Join<User>((a, u) => u.ID == a.FromUserID).LeftJoin<Topic>((a, t) => t.ID == a.TopicID.Value)
             .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created);
 
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User, Topic>(expression));
+        var notifications = repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User, Topic>(expression));
+
+        // the topic name is shown: only topics the user can (still) read, the topic could have been
+        // moved to another forum or deleted
+        var readableForums = repository.ReadableForums(userId);
+
+        notifications.RemoveAll(
+            n => n.Item1.TopicID.HasValue && (n.Item3 is null || n.Item3.ID == 0 || n.Item3.TopicFlags.IsDeleted
+                                              || !readableForums.Contains(n.Item3.ForumID)));
+
+        return notifications;
+    }
+
+    /// <summary>
+    /// Gets the ids of the forums the user can read.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <returns>
+    /// The forum ids.
+    /// </returns>
+    public static HashSet<int> ReadableForums(this IRepository<Activity> repository, int userId)
+    {
+        return new HashSet<int>(
+            BoardContext.Current.GetRepository<VAccess>().Get(v => v.UserID == userId && v.ReadAccess > 0)
+                .Select(v => v.ForumID));
     }
 
     /// <summary>
