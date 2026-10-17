@@ -5,6 +5,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] The client address is taken from X-Forwarded-For / X-Real-IP only for requests of trusted proxies. Proxies in loopback and private networks are trusted by default; a proxy or CDN with public addresses has to be added to the new web.config setting YAF.TrustedProxies (addresses or CIDR networks, separated by comma), otherwise its address is used as the client address
 * [FIXED] IP bans could be bypassed: any client could send an X-Forwarded-For header with another address, and the header of several proxies was always read at its first address
 * [FIXED] IP bans: a ban matched every address that contained it (e.g. the ban 10.0.0.1 also banned 110.0.0.15 and 10.0.0.12), an invalid mask caused an error; masks are compared exactly, a * matches one part of an ipv4 address
+* [FIXED] Login of migrated legacy membership passwords: clear text passwords were compared ignoring the case, base64 hashes were compared ignoring the case, hashes of the ASP.NET membership (salt + password) did not match, a clear text password with a "|" could not be used, unknown formats were compared as clear text
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

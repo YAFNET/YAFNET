@@ -25,6 +25,7 @@
 namespace YAF.Core.Membership;
 
 using System;
+using System.Text;
 using System.Web.Security;
 
 using Microsoft.AspNet.Identity;
@@ -55,70 +56,126 @@ public class SQLPasswordHasher : PasswordHasher
             return PasswordVerificationResult.Failed;
         }
 
-        var passwordProperties = hashedPassword.Split('|');
+        // migrated legacy passwords are stored as "password|format|salt",
+        // the format and the (base64) salt never contain the separator, a clear text password can
+        var lastSeparator = hashedPassword.LastIndexOf('|');
+        var formatSeparator = lastSeparator > 0 ? hashedPassword.LastIndexOf('|', lastSeparator - 1) : -1;
 
-        if (passwordProperties.Length != 3)
+        if (formatSeparator < 0)
         {
             return base.VerifyHashedPassword(hashedPassword, providedPassword);
         }
 
-        var passwordHash = passwordProperties[0];
-        var salt = passwordProperties[2];
+        var passwordHash = hashedPassword.Substring(0, formatSeparator);
+        var format = hashedPassword.Substring(formatSeparator + 1, lastSeparator - formatSeparator - 1);
+        var salt = hashedPassword.Substring(lastSeparator + 1);
 
-        var passwordFormat = passwordProperties[1].ToEnum<MembershipPasswordFormat>();
+        // unknown formats fail, they must never be compared as clear text
+        if (!Enum.TryParse<MembershipPasswordFormat>(format, out var passwordFormat)
+            || !Enum.IsDefined(typeof(MembershipPasswordFormat), passwordFormat))
+        {
+            return PasswordVerificationResult.Failed;
+        }
 
-        var encryptedPassword = EncryptPassword(passwordHash, providedPassword, passwordFormat, salt);
+        return passwordFormat switch
+            {
+                // passwords are case-sensitive
+                MembershipPasswordFormat.Clear => FixedTimeEquals(providedPassword, passwordHash, false),
 
-        return string.Equals(
-                   encryptedPassword,
-                   passwordFormat == MembershipPasswordFormat.Hashed ? passwordHash : providedPassword,
-                   StringComparison.OrdinalIgnoreCase)
+                // ASP.NET membership hashes (salt + password) and hashes of the old YAF provider (password + salt)
+                MembershipPasswordFormat.Hashed => FixedTimeEquals(
+                                                       Hash(providedPassword, salt, true),
+                                                       passwordHash,
+                                                       Config.LegacyMembershipHashHex)
+                                                   || FixedTimeEquals(
+                                                       Hash(providedPassword, salt, false),
+                                                       passwordHash,
+                                                       Config.LegacyMembershipHashHex),
+
+                // encrypted with the machine key of the web.config
+                MembershipPasswordFormat.Encrypted => FixedTimeEquals(
+                    providedPassword,
+                    Decrypt(passwordHash),
+                    false),
+                _ => false
+            }
                    ? PasswordVerificationResult.SuccessRehashNeeded
                    : PasswordVerificationResult.Failed;
     }
 
     /// <summary>
-    /// The encrypt password.
+    /// Hashes the password like the ASP.NET membership (or the old YAF provider) did.
     /// </summary>
-    /// <param name="hashedPassword">
-    /// The hashed Password.
-    /// </param>
-    /// <param name="clearPassword">
-    /// The clear Password.
-    /// </param>
-    /// <param name="passwordFormat">
-    /// The password format.
-    /// </param>
-    /// <param name="salt">
-    /// The salt.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    private static string EncryptPassword(
-        string hashedPassword,
-        string clearPassword,
-        MembershipPasswordFormat passwordFormat,
-        string salt)
+    /// <param name="clearPassword">The clear password.</param>
+    /// <param name="salt">The salt.</param>
+    /// <param name="standardComp">Use the ASP.NET membership order (salt + password).</param>
+    /// <returns>The hash, or null if the salt is invalid.</returns>
+    private static string Hash(string clearPassword, string salt, bool standardComp)
     {
-        switch (passwordFormat)
+        try
         {
-            case MembershipPasswordFormat.Clear:
-                return hashedPassword;
-            case MembershipPasswordFormat.Hashed:
-                return HashHelper.Hash(
-                    clearPassword,
-                    Config.LegacyMembershipHashAlgorithmType,
-                    salt,
-                    Config.LegacyMembershipHashHex,
-                    Config.LegacyMembershipHashCase,
-                    null,
-                    false);
-            case MembershipPasswordFormat.Encrypted:
-                var passwordManager = new YafMembershipProvider();
-                return passwordManager.GetClearTextPassword(hashedPassword);
+            return HashHelper.Hash(
+                clearPassword,
+                Config.LegacyMembershipHashAlgorithmType,
+                salt,
+                Config.LegacyMembershipHashHex,
+                Config.LegacyMembershipHashCase,
+                null,
+                standardComp);
+        }
+        catch (FormatException)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Decrypts a password that was encrypted with the machine key.
+    /// </summary>
+    /// <param name="encryptedPassword">The encrypted password.</param>
+    /// <returns>The clear password, or null if it can't be decrypted.</returns>
+    private static string Decrypt(string encryptedPassword)
+    {
+        try
+        {
+            return new YafMembershipProvider().GetClearTextPassword(encryptedPassword);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Compares the strings in a time that doesn't depend on the position of the first difference.
+    /// </summary>
+    /// <param name="provided">The provided value.</param>
+    /// <param name="stored">The stored value.</param>
+    /// <param name="ignoreCase">Ignore the case (for hex values).</param>
+    /// <returns>Returns if the values are equal.</returns>
+    private static bool FixedTimeEquals(string provided, string stored, bool ignoreCase)
+    {
+        if (provided is null || stored is null)
+        {
+            return false;
         }
 
-        return clearPassword;
+        if (ignoreCase)
+        {
+            provided = provided.ToUpperInvariant();
+            stored = stored.ToUpperInvariant();
+        }
+
+        var providedBytes = Encoding.UTF8.GetBytes(provided);
+        var storedBytes = Encoding.UTF8.GetBytes(stored);
+
+        var difference = providedBytes.Length ^ storedBytes.Length;
+
+        for (var i = 0; i < providedBytes.Length && i < storedBytes.Length; i++)
+        {
+            difference |= providedBytes[i] ^ storedBytes[i];
+        }
+
+        return difference == 0;
     }
 }
