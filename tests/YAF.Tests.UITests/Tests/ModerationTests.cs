@@ -25,6 +25,7 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -59,6 +60,83 @@ public class ModerationTests : ForumTestBase
         await this.GotoAsync("Moderate/ReportedPosts?f=1");
 
         (await this.Page.InnerTextAsync("body")).Should().Contain(reason);
+    }
+
+    [Test]
+    [Description("The moderator copies over the changed text of a reported post, views it and its history, resolves it and deletes another one")]
+    public async Task Reported_Posts_Commands_Test()
+    {
+        var id = Guid.NewGuid().ToString("N");
+        var subject = $"Reported topic {id}";
+
+        // a member posts a topic with a reply
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync("PostTopic?f=1");
+        await this.Control("TopicSubjectTextBox").FillAsync(subject);
+        await this.Control("YafTextEditor").FillAsync($"First reported {id}");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        var firstId = (await this.MessageIdsAsync()).Min();
+        await this.GotoAsync("Topics/1-Test Forum");
+        var topicHref = await this.Page.Locator("a[href*='/Posts/t']", new PageLocatorOptions { HasTextString = subject }).First
+                            .GetAttributeAsync("href");
+        var topicId = Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value;
+
+        await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+        await this.Control("YafTextEditor").FillAsync($"Second reported {id}");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+        var secondId = (await this.MessageIdsAsync()).Max();
+
+        // another member reports both posts
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+
+        foreach (var messageId in new[] { firstId, secondId })
+        {
+            await this.GotoAsync($"ReportPost?m={messageId}");
+            await this.Control("Report").FillAsync($"Report {id}");
+            await this.Control("btnReport").ClickAsync();
+            await this.ClickAndWaitAsync(
+                this.Page.Locator(".modal.show button", new PageLocatorOptions { HasTextString = "Yes" }));
+        }
+
+        // the first post is changed after the report
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync($"EditMessage?m={firstId}");
+        await this.Control("YafTextEditor").FillAsync($"First edited {id}");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("Moderate/ReportedPosts?f=1");
+
+        ILocator Report(string text) =>
+            this.Page.Locator(".card:has(> .card-footer)", new PageLocatorOptions { HasTextString = text });
+
+        // the history of the changed post
+        await this.ClickAndWaitAsync(Report($"First edited {id}").Locator("[id$='_ViewHistoryBtn']"));
+        this.Page.Url.Should().Contain("MessageHistory");
+
+        // the changed text is copied over (the post is not shown as changed any more)
+        await this.GotoAsync("Moderate/ReportedPosts?f=1");
+        await this.ClickAndWaitAsync(Report($"First edited {id}").Locator("[id$='_CopyOverBtn']"));
+        (await Report($"First edited {id}").Locator("[id$='_ViewHistoryBtn']").CountAsync()).Should().Be(0);
+
+        await this.ClickAndWaitAsync(Report($"First edited {id}").Locator("[id$='_ViewBtn']"));
+        (await this.Page.InnerTextAsync("body")).Should().Contain($"First edited {id}");
+
+        // resolved
+        await this.GotoAsync("Moderate/ReportedPosts?f=1");
+        await this.ClickAndWaitAsync(Report($"First edited {id}").Locator("[id$='_ResolveBtn']"));
+        await this.AssertNoServerErrorAsync();
+        (await Report($"First edited {id}").CountAsync()).Should().Be(0, "the resolved report is not listed");
+
+        // the other post is deleted
+        await this.GotoAsync("Moderate/ReportedPosts?f=1");
+        await Report($"Second reported {id}").Locator("[id$='_DeleteBtn']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        await this.AssertNoServerErrorAsync();
+
+        await this.GotoAsync($"Posts?t={topicId}");
+        (await this.Page.InnerTextAsync("body")).Should().Contain($"First edited {id}").And.NotContain($"Second reported {id}");
     }
 
     [Test]
@@ -134,5 +212,12 @@ public class ModerationTests : ForumTestBase
             .WaitForAsync(new LocatorWaitForOptions { Timeout = 30000 });
 
         await this.AssertNoServerErrorAsync();
+    }
+
+    private async Task<int[]> MessageIdsAsync()
+    {
+        var ids = await this.Page.Locator("a[id^='post']").EvaluateAllAsync<string[]>("es => es.map(e => e.id)");
+
+        return [.. ids.Select(i => Regex.Match(i, @"^post(\d+)$")).Where(m => m.Success).Select(m => int.Parse(m.Groups[1].Value))];
     }
 }
