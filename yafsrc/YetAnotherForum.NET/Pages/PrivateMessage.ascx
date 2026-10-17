@@ -73,7 +73,8 @@
                                 <YAF:MessagePost ID="Message" runat="server"
                                                  MessageFlags="<%# new MessageFlags((Container.DataItem as PagedPm).Flags) %>"
                                                  Message="<%# HtmlTagHelper.StripHtml((Container.DataItem as PagedPm).Body)%>"
-                                                 MessageID="<%# (Container.DataItem as PagedPm).UserPMessageID %>" />
+                                                 MessageID="<%# (Container.DataItem as PagedPm).UserPMessageID %>"
+                                                 DisplayUserID="<%# (Container.DataItem as PagedPm).FromUserID %>" />
                             </div>
                         </div>
                         

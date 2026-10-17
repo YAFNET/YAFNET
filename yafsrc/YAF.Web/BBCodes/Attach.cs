@@ -44,10 +44,21 @@ public class Attach : BBCodeControl
 
         var attachment = this.GetRepository<Attachment>().GetById(attachId.ToType<int>());
 
-        if (attachment == null)
+        // only the attachments of the author of the post (or signature, private message): the id of any attachment
+        // could be entered and was shown with its download link (the author of a guest post is the guest user, a
+        // preview is the text of the current user)
+        var authorId = this.DisplayUserID
+                       ?? (this.MessageID is > 0
+                               ? this.GetRepository<Message>().GetById(this.MessageID.Value)?.UserID
+                               : null) ?? this.PageBoardContext.PageUserID;
+
+        if (attachment == null || attachment.UserID != authorId)
         {
             return;
         }
+
+        // the links of the forum are signed, only they can be used to download the attachment
+        var signature = AttachmentLinkHelper.Sign(attachment.ID);
 
         var filename = attachment.FileName.ToLower();
         var showImage = false;
@@ -81,21 +92,23 @@ public class Attach : BBCodeControl
                     this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
                 writer.Write(
-                    """<a href="{0}resource.ashx?i={1}&b={3}" title="{2}"  data-toggle="lightbox" data-gallery="gallery-{4}">""",
+                    """<a href="{0}resource.ashx?i={1}&b={3}&s={5}" title="{2}"  data-toggle="lightbox" data-gallery="gallery-{4}">""",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
                     this.PageBoardContext.PageBoardID,
-                    this.MessageID.Value);
+                    this.MessageID.Value,
+                    signature);
 
                 writer.Write(
-                    """<img src="{0}resource.ashx?p={1}&b={3}" alt="{2}" class="img-user-posted card-img-top" style="max-height:{4}px;max-width:{5}px;object-fit:contain">""",
+                    """<img src="{0}resource.ashx?p={1}&b={3}&s={6}" alt="{2}" class="img-user-posted card-img-top" style="max-height:{4}px;max-width:{5}px;object-fit:contain">""",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
                     this.PageBoardContext.PageBoardID,
                     this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight,
-                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
+                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth,
+                    signature);
 
                 writer.Write(@"</a>");
 
@@ -112,13 +125,14 @@ public class Attach : BBCodeControl
             else
             {
                 writer.Write(
-                    """<img src="{0}resource.ashx?a={1}&b={3}" alt="{2}" class="img-user-posted img-thumbnail" style="max-height:{4}px;max-width:{5}px;object-fit:contain">""",
+                    """<img src="{0}resource.ashx?a={1}&b={3}&s={6}" alt="{2}" class="img-user-posted img-thumbnail" style="max-height:{4}px;max-width:{5}px;object-fit:contain">""",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
                     this.PageBoardContext.PageBoardID,
                     this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight,
-                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
+                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth,
+                    signature);
             }
         }
         else
@@ -129,14 +143,15 @@ public class Attach : BBCodeControl
             writer.Write(
                 """
                 <i class="fa fa-file"></i>&nbsp;
-                                         <a href="{0}resource.ashx?a={1}&b={4}">{2}</a>
+                                         <a href="{0}resource.ashx?a={1}&b={4}&s={5}">{2}</a>
                                          <span>{3}</span>
                 """,
                 BoardInfo.ForumClientFileRoot,
                 attachment.ID,
                 this.HtmlEncode(attachment.FileName),
                 this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
-                this.PageBoardContext.PageBoardID);
+                this.PageBoardContext.PageBoardID,
+                signature);
         }
     }
 }

@@ -54,43 +54,6 @@ public class Album : IAlbum, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
-    /// Determines whether the current user is allowed to download the given attachment --
-    /// scoped to the forum the attachment's message belongs to, not just the board-wide download flag.
-    /// </summary>
-    /// <param name="attachment">The attachment.</param>
-    /// <returns><see langword="true"/> if access is allowed.</returns>
-    private bool HasAttachmentAccess(Attachment attachment)
-    {
-        if (!BoardContext.Current.DownloadAccess)
-        {
-            return false;
-        }
-
-        if (attachment.MessageID <= 0)
-        {
-            // not yet attached to a message -- only the uploader (or an admin) may access it
-            return attachment.UserID == BoardContext.Current.PageUserID || BoardContext.Current.IsAdmin;
-        }
-
-        var message = this.GetRepository<Message>()
-            .GetMessageWithAccess(attachment.MessageID, BoardContext.Current.PageUserID);
-
-        if (message == null)
-        {
-            return false;
-        }
-
-        // the attachments of deleted and not approved posts (of others) only for the moderators of the forum
-        var userId = BoardContext.Current.PageUserID;
-        var forumId = message.Item4.ID;
-
-        var isModerator = this.GetRepository<VAccess>()
-            .Exists(v => v.UserID == userId && v.ForumID == forumId && v.ModeratorAccess > 0);
-
-        return MessageAccessHelper.CanViewMessage(message.Item2, userId, isModerator);
-    }
-
-    /// <summary>
     /// Deletes the specified album/image.
     /// </summary>
     /// <param name="uploadFolder">
@@ -517,7 +480,7 @@ public class Album : IAlbum, IHaveServiceLocator
             var attachment = this.GetRepository<Attachment>()
                 .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("p"));
 
-            if (attachment == null || !this.HasAttachmentAccess(attachment))
+            if (attachment == null || !AttachmentLinkHelper.CanDownload(attachment, context.Request.QueryString.GetFirstOrDefault("s")))
             {
                 // tear it down
                 // no permission to download
