@@ -461,7 +461,7 @@ public partial class EditAlbumImages : ForumPageRegistered
             // Albums count. If we reached limit then we exit.
             if (allStats >= usrAlbumsAllowed)
             {
-                this.PageBoardContext.Notify(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumsAllowed), MessageTypes.warning);
                 return;
             }
 
@@ -500,8 +500,13 @@ public partial class EditAlbumImages : ForumPageRegistered
                 return;
             }
 
+            var albumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("a");
+
+            // an image with the same name (e.g. "image.jpg" of a phone) overwrote the file of the other image
+            filename = this.GetUniqueFileName(path, albumId, filename);
+
             file.PostedFile.SaveAs(
-                $"{path}/{this.PageBoardContext.PageUserID}.{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a")}.{filename}.yafalbum");
+                $"{path}/{this.PageBoardContext.PageUserID}.{albumId}.{filename}.yafalbum");
             this.GetRepository<UserAlbumImage>().Save(
                 null,
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("a"),
@@ -510,6 +515,35 @@ public partial class EditAlbumImages : ForumPageRegistered
                 file.PostedFile.ContentLength,
                 file.PostedFile.ContentType);
         }
+    }
+
+    /// <summary>
+    /// Gets a file name that is not used by another image of the album, e.g. "image (2).jpg".
+    /// </summary>
+    /// <param name="path">The upload folder.</param>
+    /// <param name="albumId">The album id.</param>
+    /// <param name="fileName">The file name.</param>
+    /// <returns>Returns the file name.</returns>
+    private string GetUniqueFileName(string path, int albumId, string fileName)
+    {
+        var name = Path.GetFileNameWithoutExtension(fileName);
+        var extension = Path.GetExtension(fileName);
+        var userId = this.PageBoardContext.PageUserID;
+
+        var candidate = fileName;
+
+        for (var number = 2;
+             this.GetRepository<UserAlbumImage>().Exists(i => i.AlbumID == albumId && i.FileName == candidate)
+             || System.IO.File.Exists($"{path}/{userId}.{albumId}.{candidate}.yafalbum");
+             number++)
+        {
+            var suffix = $" ({number}){extension}";
+
+            // the name has to fit into the column (255 characters)
+            candidate = $"{(name.Length + suffix.Length > 255 ? name.Substring(0, 255 - suffix.Length) : name)}{suffix}";
+        }
+
+        return candidate;
     }
 
     /// <summary>
