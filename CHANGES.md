@@ -308,6 +308,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Board: a new board whose new admin could not be created (e.g. the name is taken) went back to the board list without a message (and without the board)
 * [FIXED] Admin > Boards: the delete button was hidden for the second board of the list (with two boards a board could not be deleted)
 * [FIXED] Posting (new topic, reply, quick reply): the message of the flood delay showed only the seconds part of the remaining time (e.g. 30 instead of 90 seconds with a delay over a minute)
+* [FIXED] Admin > Edit User > Kill: banning the addresses of the user also banned the own address of the admin (e.g. a user of the same network), the admin was locked out of the forum
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

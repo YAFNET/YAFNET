@@ -242,7 +242,10 @@ public partial class EditUsersKill : BaseUserControl
         // ban user ips...
         var name = this.User.Item1.DisplayOrUserName();
 
-        this.IPAddresses.Except(allIps).Where(i => i.IsSet()).ForEach(
+        // not the own address of the admin (e.g. a user of the same network), the admin would lock himself out
+        var ownIp = this.Get<HttpRequestBase>().GetUserRealIPAddress();
+
+        this.IPAddresses.Except(allIps).Where(i => i.IsSet() && i != ownIp).ForEach(
             ip =>
                 {
                     var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
