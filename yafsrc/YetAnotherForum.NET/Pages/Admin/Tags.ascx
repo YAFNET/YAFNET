@@ -46,7 +46,7 @@
                     <div class="d-flex w-100 justify-content-between text-break">
                         <h5 class="mb-1">
                             <YAF:Icon runat="server" IconName="tag"></YAF:Icon>
-                            <%# ((Tag)Container.DataItem).TagName  %>
+                            <%#: ((Tag)Container.DataItem).TagName  %>
                         </h5>
                         <small class="d-none d-md-block">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="USAGES"></YAF:LocalizedLabel>

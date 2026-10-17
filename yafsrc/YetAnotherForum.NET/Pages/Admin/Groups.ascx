@@ -29,7 +29,7 @@
                  <li class="list-group-item list-group-item-action">
                  <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
-                        <%# Container.DataItem %>
+                        <%#: Container.DataItem %>
                     </h5>
                      <small class="text-body-secondary">
                          <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="ADMIN_GROUPS" LocalizedTag="UNLINKED" />
@@ -95,7 +95,7 @@
                  <li class="list-group-item list-group-item-action list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
-                        <i class="fa fa-users"></i>&nbsp;<%# this.Eval( "Name" ) %>
+                        <i class="fa fa-users"></i>&nbsp;<%#: this.Eval( "Name" ) %>
                     </h5>
                     <small class="text-body-secondary">
                         <%# this.GetLinkedStatus((YAF.Types.Models.Group)Container.DataItem )%>
@@ -107,7 +107,7 @@
                         <YAF:LocalizedLabel ID="HelpLabel6" runat="server"
                                             LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP">
                         </YAF:LocalizedLabel>
-                        &nbsp;<%# this.Eval("Description") %>
+                        &nbsp;<%#: this.Eval("Description") %>
                     </asp:PlaceHolder>
                     <ul class="list-inline">
                         <li class="list-inline-item">
@@ -181,7 +181,7 @@
                                        CssClass="<%# this.GetItemColorString(((YAF.Types.Models.Group)Container.DataItem).Style) %>">
                                 <%#((YAF.Types.Models.Group)Container.DataItem).Style.IsSet() && this.Eval("Style").ToString().Trim().Length > 0 ? "" : this.GetItemName(false)%>
                             </asp:Label>
-                            <code><%# ((YAF.Types.Models.Group)Container.DataItem).Style %></code>
+                            <code><%#: ((YAF.Types.Models.Group)Container.DataItem).Style %></code>
                         </li>
                         <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="HelpLabel7" runat="server"

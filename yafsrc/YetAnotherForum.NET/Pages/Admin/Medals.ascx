@@ -27,7 +27,7 @@
                              <div class="d-flex w-100 justify-content-between">
                                  <h5 class="mb-1 text-break">
                                      <%# this.RenderImages(Container.DataItem) %>
-                                     <%# this.Eval("Name") %>
+                                     <%#: this.Eval("Name") %>
                                  </h5>
                                  <small class="d-none d-md-block">
                                      <span class="fw-bold">
@@ -35,7 +35,7 @@
                                                              LocalizedTag="CATEGORY"
                                                              LocalizedPage="MODERATE_DEFAULT" />:
                                      </span>
-                                     <%# this.Eval("Category") %>
+                                     <%#: this.Eval("Category") %>
                                  </small>
                              </div>
                                 <p class="mb-1">
@@ -44,7 +44,7 @@
                                                         LocalizedTag="DESCRIPTION"
                                                         LocalizedPage="ADMIN_BBCODE" />:
                                 </span>
-                                <%# this.Eval("Description") %>
+                                <%#: this.Eval("Description") %>
                             </p>
                             <small>
                                 <div class="btn-group btn-group-sm">

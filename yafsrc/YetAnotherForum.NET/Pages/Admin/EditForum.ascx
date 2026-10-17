@@ -77,7 +77,7 @@
                                 <asp:HiddenField ID="GroupID" Visible="false" runat="server" 
                                                  Value='<%# this.Eval( "GroupID") %>'>
                                 </asp:HiddenField>
-                                <asp:Label runat="server" Text='<%# this.Eval( "GroupName") %>' 
+                                <asp:Label runat="server" Text='<%#: this.Eval( "GroupName") %>' 
                                            AssociatedControlID="AccessMaskID"></asp:Label>
                                 <asp:DropDownList runat="server" ID="AccessMaskID" 
                                                   OnDataBinding="BindDataAccessMaskId" 

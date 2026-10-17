@@ -32,7 +32,7 @@
                 <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER" LocalizedPage="MODERATE" />:
                 </span>
-                <%#  this.Eval("Item1").ToType<User>().DisplayOrUserName() %>
+                <%#: this.Eval("Item1").ToType<User>().DisplayOrUserName() %>
                 <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCEPTED" LocalizedPage="MODERATE" />:
                 </span>
@@ -40,7 +40,7 @@
                 <span class="fw-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ACCESSMASK" LocalizedPage="MODERATE" />:
                 </span>
-                <%# this.Eval("Item3.Name") %>
+                <%#: this.Eval("Item3.Name") %>
                 <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
                                  CommandName="edit" CommandArgument='<%# this.Eval("Item1.ID") %>'
                                  TitleLocalizedTag="EDIT" 

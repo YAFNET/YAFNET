@@ -44,7 +44,7 @@
                                  <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">
                                         <asp:CheckBox ID="chkSelected" runat="server"
-                                                      Text='<%# this.Eval("Name") %>'
+                                                      Text='<%#: this.Eval("Name") %>'
                                                       CssClass="form-check" />
                                         <asp:HiddenField ID="hiddenBBCodeID" runat="server" Value='<%# this.Eval("ID") %>' />
                                     </h5>

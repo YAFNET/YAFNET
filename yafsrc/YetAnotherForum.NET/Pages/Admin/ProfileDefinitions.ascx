@@ -27,7 +27,7 @@
                 <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
-                        <%# this.Eval("Name") %>
+                        <%#: this.Eval("Name") %>
                     </h5>
                         <small class="d-none d-md-block">
                             <span class="fw-bold">

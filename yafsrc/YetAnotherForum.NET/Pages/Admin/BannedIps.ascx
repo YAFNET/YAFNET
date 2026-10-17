@@ -106,7 +106,7 @@
                     <span class="fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDIP" />
                     </span>
-                    <%# this.Eval("Reason") %>
+                    <%#: this.Eval("Reason") %>
                 </p>
                 <small>
                     <div class="btn-group btn-group-sm">

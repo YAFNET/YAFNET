@@ -202,7 +202,7 @@
                                     <ul class="list-inline">
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="EMAIL" LocalizedPage="ADMIN_USERS" />:</strong>
-                                            <%# ((PagedUser)Container.DataItem).Email %>
+                                            <%#: ((PagedUser)Container.DataItem).Email %>
                                         </li>
                                         <li class="list-inline-item">
                                             <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK"></YAF:LocalizedLabel> </strong>

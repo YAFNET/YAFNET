@@ -82,7 +82,7 @@
                 <div class="d-flex w-100 justify-content-between">
                     <asp:HiddenField ID="fID" Value='<%# this.Eval("ID") %>' runat="server"/>
                     <h5 class="mb-1 text-break">
-                        <asp:Label ID="MaskBox" Text='<%# this.Eval("UserAgent") %>' runat="server"></asp:Label>
+                        <asp:Label ID="MaskBox" Text='<%#: this.Eval("UserAgent") %>' runat="server"></asp:Label>
                     </h5>
                 </div>
                 <small>

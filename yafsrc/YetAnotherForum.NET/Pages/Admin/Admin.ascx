@@ -323,7 +323,7 @@
                             </span>
                             <span>
 	                            <YAF:Icon runat="server" IconName="user-secret"></YAF:Icon>
-	                            <%# (Container.DataItem as ActiveUser).UserAgent %>
+	                            <%#: (Container.DataItem as ActiveUser).UserAgent %>
                             </span>
                         </div>
                         </li>
@@ -381,7 +381,7 @@
                                     <div class="align-items-baseline">
                                         <div class="me-2">
                                             <span class="fw-bold">
-                                                <%# this.Eval(this.PageBoardContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>
+                                                <%#: this.Eval(this.PageBoardContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>
                                             </span>
                                         </div>
                                         <div class="me-2">
@@ -396,7 +396,7 @@
                                                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADMIN_EMAIL"
                                                                     LocalizedPage="ADMIN_ADMIN" />:
                                             </span>
-                                            <%# this.Eval("Email") %>
+                                            <%#: this.Eval("Email") %>
                                         </div>
                                     </div>
                 <small>

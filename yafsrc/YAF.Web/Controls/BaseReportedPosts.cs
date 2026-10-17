@@ -91,20 +91,20 @@ public class BaseReportedPosts : BaseUserControl
                             """<span class="fw-bold me-2">{0}</span><a href="{1}">{2}</a> : {3}""",
                             this.GetText("RESOLVEDBY"),
                             this.Get<LinkBuilder>().GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
-                            resolvedByName,
+                            this.HtmlEncode(resolvedByName),
                             this.Get<IDateTimeService>().FormatDateTimeTopic(this.ResolvedDate));
                     }
 
                     writer.Write(
                         @"<span class=""fw-bold mx-2"">{3}</span><a href=""{1}"" class=""me-2"">{0}</a><em>{2}</em>",
-                        reporterName,
+                        this.HtmlEncode(reporterName),
                         this.Get<LinkBuilder>().GetUserProfileLink(reporter.Item2.ID, reporterName),
                         howMany,
                         this.GetText("REPORTEDBY"));
 
                     writer.Write(
                         @"<a class=""btn btn-secondary btn-sm ms-2"" href=""{1}""><i class=""fa fa-envelope""></i>&nbsp;{2} {0}</a>",
-                        reporterName,
+                        this.HtmlEncode(reporterName),
                         this.Get<LinkBuilder>().GetLink(
                             ForumPages.PostPrivateMessage,
                             new { u = reporter.Item2.ID, r = this.MessageID }),
@@ -123,7 +123,8 @@ public class BaseReportedPosts : BaseUserControl
 
                                 writer.Write(@"<p class=""card-text"">");
 
-                                writer.Write(textString.Length > 2 ? textString[2] : t);
+                                // the text of the user (stored as typed)
+                                writer.Write(this.HtmlEncode(textString.Length > 2 ? textString[2] : t));
 
                                 writer.WriteLine(@"</p>");
                             });

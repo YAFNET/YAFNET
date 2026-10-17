@@ -70,7 +70,7 @@
                         <li class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <%# ((PagedTopic)Container.DataItem).Subject %>
+                                    <%#: ((PagedTopic)Container.DataItem).Subject %>
                                     <YAF:ThemeButton runat="server" ID="ThemeButton1"
                                                      Type="Link"
                                                      Icon="external-link-alt"
@@ -181,7 +181,7 @@
                         <li class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <%# ((PagedMessage)Container.DataItem).Topic %>
+                                    <%#: ((PagedMessage)Container.DataItem).Topic %>
                                     <YAF:ThemeButton runat="server" ID="ThemeButton1"
                                                      Type="Link"
                                                      Icon="external-link-alt"
@@ -190,7 +190,7 @@
                                 </h5>
                             </div>
                             <p class="mb-1">
-                                <%# ((PagedMessage)Container.DataItem).Message %>
+                                <%#: ((PagedMessage)Container.DataItem).Message %>
                             </p>
                             <small>
                                 <div class="btn-group">

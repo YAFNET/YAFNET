@@ -18,7 +18,7 @@
                         <YAF:IconHeader runat="server"
                                         IconType="text-secondary"
                                         IconName="folder"
-                                        Text='<%# this.Eval( "Name") %>'
+                                        Text='<%#: this.Eval( "Name") %>'
                                         LocalizedPage="ADMIN_BOARDS"></YAF:IconHeader>
                     </div>
                     <div class="card-body text-center">
@@ -28,7 +28,7 @@
                                 <div class="list-group list-group-flush small">
                                     <div class="list-group-item list-group-item-action">
                                         <h5 class="fw-bold">
-                                            <%# "{0}{1}".FormatWith(((ModerateForum)Container.DataItem).ParentID.HasValue ? "--" : "-", ((ModerateForum)Container.DataItem).Name) %>
+                                            <%#: "{0}{1}".FormatWith(((ModerateForum)Container.DataItem).ParentID.HasValue ? "--" : "-", ((ModerateForum)Container.DataItem).Name) %>
                                         </h5>
                                         <YAF:ThemeButton ID="ViewUnapprovedPostsBtn" runat="server" 
                                                          CommandName="viewunapprovedposts" 

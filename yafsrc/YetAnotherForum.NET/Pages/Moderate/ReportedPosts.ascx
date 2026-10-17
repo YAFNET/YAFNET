@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <h1><%# this.PageBoardContext.PageForum.Name %> - <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" /></h1>
+        <h1><%#: this.PageBoardContext.PageForum.Name %> - <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" /></h1>
     </div>
 </div>
 <asp:Repeater ID="List" runat="server" OnItemDataBound="List_OnItemDataBound">
@@ -21,7 +21,7 @@
                         <YAF:Icon runat="server" IconName="comment" IconType="text-secondary" />
                         <a id="TopicLink"
                            href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t =  (Container.DataItem as ReportedMessage).TopicID, name = (Container.DataItem as ReportedMessage).TopicName }) %>'
-                           runat="server"><%# (Container.DataItem as ReportedMessage).TopicName %></a>
+                           runat="server"><%#: (Container.DataItem as ReportedMessage).TopicName %></a>
                         <div class="float-end">
                             <span class="fw-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />

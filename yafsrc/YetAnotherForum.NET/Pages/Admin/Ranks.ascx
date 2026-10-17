@@ -22,7 +22,7 @@
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
                         <i class="fa fa-graduation-cap"></i>&nbsp;
-                        <%# this.Eval( "Name") %>
+                        <%#: this.Eval( "Name") %>
                     </h5>
                     <small>
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
@@ -36,7 +36,7 @@
                     <asp:PlaceHolder runat="server" Visible="<%# ((YAF.Types.Models.Rank)Container.DataItem).Description.IsSet() %>">
                         <YAF:LocalizedLabel ID="HelpLabel6" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP">
                         </YAF:LocalizedLabel>
-                        &nbsp;<%# this.Eval("Description") %>
+                        &nbsp;<%#: this.Eval("Description") %>
                     </asp:PlaceHolder>
                     <ul class="list-inline">
                         <li class="list-inline-item">
@@ -87,7 +87,7 @@
                                        CssClass="<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).Style) %>">
                                 <%# ((YAF.Types.Models.Rank)Container.DataItem).Style.IsSet() && ((YAF.Types.Models.Rank)Container.DataItem).Style.Trim().Length > 0 ? "" : this.GetItemName(false)%>
                             </asp:Label>
-                            <code><%# ((YAF.Types.Models.Rank)Container.DataItem).Style %></code>
+                            <code><%#: ((YAF.Types.Models.Rank)Container.DataItem).Style %></code>
                         </li>
                         <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="HelpLabel7" runat="server"

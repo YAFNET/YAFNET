@@ -135,7 +135,7 @@
                                             LocalizedTag="MESSAGE"
                                             LocalizedPage="COMMON" />
                     </span>
-                    <%# !this.Eval("Item2.Message").IsNullOrEmptyField() ? this.Eval("Item2.Message") :  this.Eval("Item1.Message")%>
+                    <%#: !this.Eval("Item2.Message").IsNullOrEmptyField() ? this.Eval("Item2.Message") :  this.Eval("Item1.Message")%>
                 </p>
                 <small>
                     <div class="btn-group btn-group-sm">
@@ -245,7 +245,7 @@
                                             LocalizedTag="MESSAGE"
                                             LocalizedPage="COMMON" />
                     </span>
-                    <%# ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.Message.IsSet() ? ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.Message :  ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item1.Message%>
+                    <%#: ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.Message.IsSet() ? ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item2.Message :  ((Tuple<Medal, UserMedal, User>)Container.DataItem).Item1.Message%>
                 </p>
                 <small>
                     <div class="btn-group btn-group-sm">
