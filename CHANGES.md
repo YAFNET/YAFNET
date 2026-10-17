@@ -160,6 +160,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Reporting the same post again sent the moderators another email each time (a user could flood their inboxes); the moderators are notified once per user and post, further reports are only counted; a report without text (only spaces) was saved
 * [FIXED] Profile and admin edit user: a too short (or empty) display name showed the "too long" message
 * [FIXED] When the spam check deleted a user (signature, profile homepage), the user stayed logged in and the signature and profile pages still saved the changes
+* [FIXED] The topic search of the move/merge dialog removed the current topic from the cached topic list, so that topic was missing from later searches
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

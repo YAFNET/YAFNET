@@ -76,10 +76,10 @@ public class TopicController : ApiController, IHaveServiceLocator
                     t => t.ForumID == searchTopic.ForumId && t.TopicMovedID == null && (t.Flags & 8) != 8),
                 TimeSpan.FromMinutes(5));
 
-            topics.RemoveAll(t => t.ID == searchTopic.TopicId);
-
+            // the cached list is not changed (the current topic was missing from later searches)
             var topicsList = topics
-                .Where(topic => topic.TopicName.ToLower().Contains(searchTopic.SearchTerm.ToLower()))
+                .Where(topic => topic.ID != searchTopic.TopicId
+                                && topic.TopicName.ToLower().Contains(searchTopic.SearchTerm.ToLower()))
                 .Select(
                     topic => new SelectOptions
                                  {
