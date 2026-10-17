@@ -152,6 +152,20 @@ public class NotificationsTests : ForumTestBase
 
         var json = await response.TextAsync();
         json.Should().Contain(subject).And.Contain("fa-heart").And.Contain("fa-at").And.Contain("fa-quote-left");
+
+        // the notification page: three entries, the filter shows only the thanks, reset shows all again
+        await this.GotoAsync("Notification");
+        (await this.ItemButtons.CountAsync()).Should().Be(3);
+
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await this.Control("WasMentioned").UncheckAsync();
+        await this.Control("WasQuoted").UncheckAsync();
+        await this.ClickAndWaitAsync(this.Control("Update"));
+        (await this.ItemButtons.CountAsync()).Should().Be(1, "only the thanks");
+
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Control("Reset"));
+        (await this.ItemButtons.CountAsync()).Should().Be(3);
     }
 
     private ILocator ItemButtons => this.Page.Locator("[id*='_ActivityStream_'][id$='_MarkRead']");
