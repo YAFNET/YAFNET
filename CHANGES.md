@@ -199,6 +199,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Groups: deleting an unknown role (e.g. deleted in the meantime) caused an error
 * [FIXED] Search: results were sorted by message id as text ("9" before "10"), so with more hits than "Return Search Max" the newest posts were cut off; the default search (e.g. similar topics) skipped the first 1000 results (the page index started at 1)
 * [FIXED] Unticking the multi-quote button of a post did not remove the post from the multi-quote list
+* [FIXED] Logged-in users without any forum access got an error page ("Unable to find the Guest User") instead of falling back to the guest permissions
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

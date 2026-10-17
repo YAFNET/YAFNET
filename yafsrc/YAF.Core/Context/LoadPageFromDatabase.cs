@@ -162,7 +162,9 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             // fail...
             break;
         }
-        while (pageRow is null && userKey != null);
+        // also with the guest user (a user without any forum access falls back to the guest permissions, the
+        // loop ended before the guest was tried)
+        while (pageRow is null);
 
         if (pageRow is null)
         {
