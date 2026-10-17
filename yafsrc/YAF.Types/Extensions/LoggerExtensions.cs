@@ -163,9 +163,10 @@ public static class LoggerExtensions
     {
         var sourceDescription = "unknown";
 
-        if (source is Type)
+        // the name of the type (GetType() of a type is System.RuntimeType)
+        if (source is Type type)
         {
-            sourceDescription = source.GetType().FullName;
+            sourceDescription = type.FullName;
         }
         else if (source != null)
         {
