@@ -105,9 +105,8 @@ public partial class DeleteAccount : ProfilePage
                 {
                     // Suspend User for 30 Days
                     // time until when user is suspended
-                    var suspend = this.Get<IDateTimeService>().GetUserDateTime(
-                        DateTime.UtcNow,
-                        this.PageBoardContext.TimeZoneInfoUser).AddDays(30);
+                    // utc (the suspension is compared with utc)
+                    var suspend = DateTime.UtcNow.AddDays(30);
 
                     // suspend user by calling appropriate method
                     this.GetRepository<User>().Suspend(
