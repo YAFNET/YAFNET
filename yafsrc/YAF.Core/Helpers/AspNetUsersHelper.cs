@@ -128,9 +128,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         allUsers.Where(user => !user.IsApproved).ForEach(
             user =>
                 {
-                    // approve this user...
-                    user.IsApproved = true;
-                    this.Get<AspNetUsersManager>().Update(user);
+                    // only the users of this board (the login accounts of all boards are listed)
                     var checkUser  = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
 
                     var id = checkUser?.ID ?? 0;
@@ -139,6 +137,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     {
                         return;
                     }
+
+                    // approve this user...
+                    user.IsApproved = true;
+                    this.Get<AspNetUsersManager>().Update(user);
 
                     this.GetRepository<User>().Approve(checkUser);
 
@@ -205,11 +207,14 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             {
                 var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
 
-                if (yafUser != null)
+                // only the users of this board (the login accounts of all boards are listed)
+                if (yafUser == null)
                 {
-                    // delete this user...
-                    this.GetRepository<User>().Delete(yafUser);
+                    return;
                 }
+
+                // delete this user...
+                this.GetRepository<User>().Delete(yafUser);
 
                 this.Get<AspNetUsersManager>().Delete(user);
 

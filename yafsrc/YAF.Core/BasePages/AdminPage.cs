@@ -65,6 +65,40 @@ public class AdminPage : ForumPage
     public override string PageName => $"admin_{base.PageName}";
 
     /// <summary>
+    /// Checks that the record of the id (from the address) belongs to the board of the page,
+    /// otherwise the invalid page is shown (an admin of one board must not edit the records of other boards).
+    /// </summary>
+    /// <typeparam name="T">The type of the record.</typeparam>
+    /// <param name="id">The id, or null for a new record.</param>
+    protected void CheckBoardRecord<T>(int? id)
+        where T : class, IEntity, IHaveID, IHaveBoardID, new()
+    {
+        var boardId = this.PageBoardContext.PageBoardID;
+
+        if (id.HasValue && !this.GetRepository<T>().Exists(x => x.ID == id.Value && x.BoardID == boardId))
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+    }
+
+    /// <summary>
+    /// Checks that the forum of the id (from the address) belongs to the board of the page,
+    /// otherwise the invalid page is shown.
+    /// </summary>
+    /// <param name="forumId">The forum id, or null for a new forum.</param>
+    protected void CheckBoardForum(int? forumId)
+    {
+        if (!forumId.HasValue)
+        {
+            return;
+        }
+
+        var forum = this.GetRepository<Forum>().GetById(forumId.Value);
+
+        this.CheckBoardRecord<Category>(forum?.CategoryID ?? 0);
+    }
+
+    /// <summary>
     /// Handles the Load event of the AdminPage control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>

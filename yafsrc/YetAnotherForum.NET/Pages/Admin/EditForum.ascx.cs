@@ -138,6 +138,9 @@ public partial class EditForum : AdminPage
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        // only the records of the board (the id is in the address)
+        this.CheckBoardForum(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa") ?? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("copy"));
+
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
             JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));

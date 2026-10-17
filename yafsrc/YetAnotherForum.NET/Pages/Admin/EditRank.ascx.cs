@@ -56,6 +56,9 @@ public partial class EditRank : AdminPage
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        // only the records of the board (the id is in the address)
+        this.CheckBoardRecord<Rank>(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("r"));
+
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
             JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));

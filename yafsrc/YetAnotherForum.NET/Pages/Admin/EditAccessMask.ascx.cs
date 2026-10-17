@@ -76,6 +76,9 @@ public partial class EditAccessMask : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        // only the records of the board (the id is in the address)
+        this.CheckBoardRecord<AccessMask>(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("i"));
+
         if (this.IsPostBack)
         {
             return;

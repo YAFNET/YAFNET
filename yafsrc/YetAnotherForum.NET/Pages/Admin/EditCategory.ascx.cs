@@ -88,6 +88,9 @@ public partial class EditCategory : AdminPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        // only the records of the board (the id is in the address)
+        this.CheckBoardRecord<Category>(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("c"));
+
         if (this.IsPostBack)
         {
             return;

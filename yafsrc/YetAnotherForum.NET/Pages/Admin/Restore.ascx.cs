@@ -179,10 +179,13 @@ public partial class Restore : AdminPage
                 break;
             case "delete_zero":
                 {
-                    var deletedTopics = this.GetRepository<Topic>().Get(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));
+                    // the deleted topics of this board (not of all boards) without posts
+                    var deletedTopics = this.GetRepository<Topic>()
+                        .GetDeletedTopics(this.PageBoardContext.PageBoardID, null)
+                        .Where(x => x.Item2.NumPosts == 0).ToList();
 
                     deletedTopics.ForEach(
-                        topic => this.GetRepository<Topic>().Delete(topic.ForumID, topic.ID, true));
+                        x => this.GetRepository<Topic>().Delete(x.Item2.ForumID, x.Item2.ID, true));
 
                     this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
