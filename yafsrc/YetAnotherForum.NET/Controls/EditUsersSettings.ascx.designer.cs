@@ -195,6 +195,33 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.TextBox Email;
 
         /// <summary>
+        /// CurrentPasswordRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder CurrentPasswordRow;
+
+        /// <summary>
+        /// CurrentPasswordLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel CurrentPasswordLabel;
+
+        /// <summary>
+        /// CurrentPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CurrentPassword;
+
+        /// <summary>
         /// UpdateProfile control.
         /// </summary>
         /// <remarks>

@@ -6997,6 +6997,10 @@
             "#text": "E-postadressen din kunne ikke verifiseres."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Din nye e-postadresse er bekreftet."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Tast inn valideringskode"
           },
@@ -9827,12 +9831,24 @@
             "#text": "Endre e-post\tadresse"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "En bekreftelseslenke ble sendt til {0}. E-postadressen din blir endret når du åpner lenken."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Bekreft den nye e-postadressen for {0}-forumet"
+          },
+          {
             "@tag": "CITY",
             "#text": "By:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Land:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Gjeldende passord"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "Hvor bor du?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Passordet du skrev inn er ikke riktig."
           },
           {
             "@tag": "XMPP",

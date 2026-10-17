@@ -28,6 +28,7 @@ using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// The edit users settings.
@@ -75,6 +76,20 @@ public partial class EditUsersSettings : BaseUserControl
     }
 
     /// <summary>
+    /// Checks the current password of the user.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>Returns if the password is correct.</returns>
+    private bool IsCurrentPassword(AspNetUsers user)
+    {
+        var password = this.CurrentPassword.Text;
+
+        return user != null && user.PasswordHash.IsSet() && password.IsSet()
+               && (PasswordVerificationResult)this.Get<IAspNetUsersHelper>().IPasswordHasher
+                   .VerifyHashedPassword(user.PasswordHash, password) != PasswordVerificationResult.Failed;
+    }
+
+    /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -92,6 +107,9 @@ public partial class EditUsersSettings : BaseUserControl
         this.UserThemeRow.Visible = this.PageBoardContext.BoardSettings.AllowUserTheme;
         this.UserLanguageRow.Visible = this.PageBoardContext.BoardSettings.AllowUserLanguage;
         this.LoginInfo.Visible = this.PageBoardContext.BoardSettings.AllowEmailChange;
+
+        // the own e-mail address is changed with the password (an admin changes it without)
+        this.CurrentPasswordRow.Visible = !this.PageBoardContext.CurrentForumPage.IsAdminPage;
 
         // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
         if (Config.IsDotNetNuke)
@@ -129,17 +147,58 @@ public partial class EditUsersSettings : BaseUserControl
 
             userFromEmail = this.Get<IAspNetUsersHelper>().GetUser(this.User.ProviderUserKey);
 
-            try
+            if (this.PageBoardContext.CurrentForumPage.IsAdminPage)
             {
-                this.Get<IAspNetUsersHelper>().UpdateEmail(userFromEmail, this.Email.Text.Trim());
-            }
-            catch (ApplicationException)
-            {
-                this.PageBoardContext.Notify(
-                    this.GetText("PROFILE", "DUPLICATED_EMAIL"),
-                    MessageTypes.warning);
+                // an admin changes the address at once
+                try
+                {
+                    this.Get<IAspNetUsersHelper>().UpdateEmail(userFromEmail, this.Email.Text.Trim());
+                }
+                catch (ApplicationException)
+                {
+                    this.PageBoardContext.Notify(
+                        this.GetText("PROFILE", "DUPLICATED_EMAIL"),
+                        MessageTypes.warning);
 
-                return;
+                    return;
+                }
+            }
+            else
+            {
+                // the own address was changed at once without the password and without confirming the new address:
+                // with a taken over session the account could be taken over (change the e-mail, then reset the
+                // password), the address could also be changed when "allow e-mail change" is turned off
+                if (!this.PageBoardContext.BoardSettings.AllowEmailChange)
+                {
+                    return;
+                }
+
+                if (!this.IsCurrentPassword(userFromEmail))
+                {
+                    this.PageBoardContext.Notify(
+                        this.GetText("EDIT_PROFILE", "WRONG_PASSWORD"),
+                        MessageTypes.warning);
+
+                    return;
+                }
+
+                // the address is changed after it is confirmed (Approve page)
+                try
+                {
+                    this.Get<ISendNotification>().SendChangeEmailConfirmation(userFromEmail, newEmail, this.User.ID);
+                }
+                catch (Exception x)
+                {
+                    this.Get<ILoggerService>().Error(x, $"Change email confirmation to {newEmail} failed");
+
+                    this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
+
+                    return;
+                }
+
+                this.PageBoardContext.LoadMessage.AddSession(
+                    string.Format(this.GetText("EDIT_PROFILE", "CHANGE_EMAIL_SENT"), this.HtmlEncode(newEmail)),
+                    MessageTypes.info);
             }
         }
 

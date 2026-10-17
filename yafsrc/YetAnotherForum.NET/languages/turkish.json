@@ -6997,6 +6997,10 @@
             "#text": "E-posta adresinizin geçerliği denetlenemedi"
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Yeni e-posta adresiniz onaylandı."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Doğrulama için anahtar giriniz"
           },
@@ -9827,12 +9831,24 @@
             "#text": "E-posta Adresini Değiştir"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "{0} adresine bir onay bağlantısı gönderildi. E-posta adresiniz bağlantıyı açtıktan sonra değiştirilecektir."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "{0} Forumu için yeni e-posta adresinizi doğrulayın"
+          },
+          {
             "@tag": "CITY",
             "#text": "Şehir:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Ülke:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Mevcut Şifre"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "Nerelisiniz?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Girdiğiniz şifre doğru değil."
           },
           {
             "@tag": "XMPP",

@@ -6989,6 +6989,10 @@
             "#text": "Błąd weryfikacji adresu email."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Twój nowy adres e-mail został potwierdzony."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Wpisz klucz weryfikacyjny"
           },
@@ -9823,12 +9827,24 @@
             "#text": "Zmień adres email"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Link potwierdzający został wysłany na adres {0}. Twój adres e-mail zostanie zmieniony po otwarciu linku."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Potwierdź swój nowy adres e-mail dla forum {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Miasto:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Kraj:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Aktualne hasło"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9953,6 +9969,10 @@
           {
             "@tag": "WHERE",
             "#text": "Gdzie mieszkasz?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Wprowadzone hasło jest nieprawidłowe."
           },
           {
             "@tag": "XMPP",

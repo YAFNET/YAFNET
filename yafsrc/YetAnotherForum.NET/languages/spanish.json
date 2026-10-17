@@ -6989,6 +6989,10 @@
             "#text": "No se pudo verificar tu correo electrónico."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Su nueva dirección de correo electrónico ha sido confirmada."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Ingresar clave de validación"
           },
@@ -9819,12 +9823,24 @@
             "#text": "Cambiar correo electrónico"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Se envió un enlace de confirmación a {0}. Su dirección de correo electrónico se cambiará después de abrir el enlace."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Confirme su nueva dirección de correo electrónico para el foro {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Ciudad:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "País:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Contraseña actual"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9949,6 +9965,10 @@
           {
             "@tag": "WHERE",
             "#text": "¿Donde vives?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "La contraseña que ingresó no es correcta."
           },
           {
             "@tag": "XMPP",

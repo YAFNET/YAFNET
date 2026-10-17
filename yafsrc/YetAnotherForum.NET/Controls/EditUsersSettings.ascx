@@ -82,6 +82,18 @@
                              OnTextChanged="EmailTextChanged"
                              TextMode="Email" />
             </div>
+        <asp:PlaceHolder runat="server" ID="CurrentPasswordRow">
+            <div class="mb-3">
+                <asp:Label runat="server" AssociatedControlID="CurrentPassword">
+                    <YAF:LocalizedLabel ID="CurrentPasswordLabel" runat="server"
+                                        LocalizedPage="EDIT_PROFILE"
+                                        LocalizedTag="CURRENT_PASSWORD" />
+                </asp:Label>
+                <asp:TextBox ID="CurrentPassword" runat="server"
+                             CssClass="form-control"
+                             TextMode="Password" />
+            </div>
+        </asp:PlaceHolder>
     </asp:PlaceHolder>
 
 <div class="text-lg-center">

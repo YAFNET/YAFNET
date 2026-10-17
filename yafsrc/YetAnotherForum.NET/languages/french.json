@@ -6997,6 +6997,10 @@
             "#text": "La verification de votre adresse courriel a échoué."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Votre nouvelle adresse e-mail a été confirmée."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Entrez la clef de validation"
           },
@@ -9827,12 +9831,24 @@
             "#text": "Changer votre adresse courriel"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Un lien de confirmation a été envoyé à {0}. Votre adresse e-mail sera modifiée après l'ouverture du lien."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Confirmez votre nouvelle adresse e-mail pour le forum {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Ville :"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Pays :"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Mot de passe actuel"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "Où habitez-vous ?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Le mot de passe que vous avez entré n'est pas correct."
           },
           {
             "@tag": "XMPP",

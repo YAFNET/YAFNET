@@ -7035,6 +7035,10 @@
 						"#text": "Failed to verify email address."
 					},
 					{
+						"@tag": "EMAIL_CHANGED",
+						"#text": "Your new email address has been confirmed."
+					},
+					{
 						"@tag": "ENTER_KEY",
 						"#text": "Enter validation key"
 					},
@@ -9879,12 +9883,24 @@
 						"#text": "Change Email Address"
 					},
 					{
+						"@tag": "CHANGE_EMAIL_SENT",
+						"#text": "A confirmation link was sent to {0}. Your email address will be changed after you open the link."
+					},
+					{
+						"@tag": "CHANGE_EMAIL_SUBJECT",
+						"#text": "Confirm your new email address for the {0} Forum"
+					},
+					{
 						"@tag": "CITY",
 						"#text": "City:"
 					},
 					{
 						"@tag": "COUNTRY",
 						"#text": "Country:"
+					},
+					{
+						"@tag": "CURRENT_PASSWORD",
+						"#text": "Current Password"
 					},
 					{
 						"@tag": "DISPLAYNAME",
@@ -10010,6 +10026,10 @@
 					{
 						"@tag": "WHERE",
 						"#text": "Where do you live?"
+					},
+					{
+						"@tag": "WRONG_PASSWORD",
+						"#text": "The password you entered is not correct."
 					},
 					{
 						"@tag": "XMPP",

@@ -777,6 +777,42 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     }
 
     /// <summary>
+    /// Sends the confirmation link for a new email address of the user, the address is changed after the
+    /// link is opened (Approve page).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="newEmail">The new email address.</param>
+    /// <param name="userId">The user identifier.</param>
+    public void SendChangeEmailConfirmation(AspNetUsers user, string newEmail, int userId)
+    {
+        var token = HttpUtility.UrlEncode(
+            this.Get<IAspNetUsersHelper>().GenerateEmailConfirmationResetToken(user.Id));
+
+        // only the latest request is valid
+        this.GetRepository<CheckEmail>().Delete(c => c.UserID == userId);
+        this.GetRepository<CheckEmail>().Save(userId, token, newEmail);
+
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("EDIT_PROFILE", "CHANGE_EMAIL_SUBJECT"),
+            this.BoardSettings.Name);
+
+        var changeEmail = new TemplateEmail("CHANGEEMAIL")
+                              {
+                                  TemplateParams =
+                                      {
+                                          ["{user}"] = user.UserName,
+                                          ["{newemail}"] = newEmail,
+                                          ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                              ForumPages.Account_Approve,
+                                              new { code = token }),
+                                          ["{key}"] = token
+                                      }
+                              };
+
+        changeEmail.SendEmail(new MailAddress(newEmail, user.UserName), subject);
+    }
+
+    /// <summary>
     /// Sends the user a suspension notification.
     /// </summary>
     /// <param name="suspendedUntil">The suspended until.</param>

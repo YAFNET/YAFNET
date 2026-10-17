@@ -6997,6 +6997,10 @@
             "#text": "Vašu e-mailovú adresu sa nepodarilo overiť."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Vaša nová e-mailová adresa bola potvrdená."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Zadajte overovací kód"
           },
@@ -9827,12 +9831,24 @@
             "#text": "Zmeniť e-mailovú adresu"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Potvrdzovací odkaz bol odoslaný na adresu {0}. Vaša e-mailová adresa bude zmenená po otvorení odkazu."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Potvrďte svoju novú e-mailovú adresu pre fórum {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Mesto:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Krajina:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Aktuálne heslo"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "Mesto"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Zadané heslo nie je správne."
           },
           {
             "@tag": "XMPP",

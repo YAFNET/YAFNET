@@ -6997,6 +6997,10 @@
             "#text": "Kunde inte verifiera e-postadress."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Din nya e-postadress har bekräftats."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Ange valideringsnyckel"
           },
@@ -9827,12 +9831,24 @@
             "#text": "Ändra e-postadress"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "En bekräftelselänk skickades till {0}. Din e-postadress ändras när du öppnar länken."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Bekräfta din nya e-postadress för {0}-forumet"
+          },
+          {
             "@tag": "CITY",
             "#text": "Stad:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Land:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Aktuellt lösenord"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "Vart bor du?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Lösenordet du angav är inte korrekt."
           },
           {
             "@tag": "XMPP",

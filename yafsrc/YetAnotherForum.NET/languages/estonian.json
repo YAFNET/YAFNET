@@ -6997,6 +6997,10 @@
             "#text": "E-posti aadressi kinnitamine ebaõnnestus."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Teie uus e-posti aadress on kinnitatud."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Sisestage kontrollvõti"
           },
@@ -9827,12 +9831,24 @@
             "#text": "Muuda E-posti aadressi"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Kinnituslink saadeti aadressile {0}. Teie e-posti aadress muudetakse pärast lingi avamist."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Kinnitage oma uus e-posti aadress {0} foorumi jaoks"
+          },
+          {
             "@tag": "CITY",
             "#text": "Linn:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Riik:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Praegune parool"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "Kus Te elate?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Sisestatud parool ei ole õige."
           },
           {
             "@tag": "XMPP",

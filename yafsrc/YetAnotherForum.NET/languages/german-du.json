@@ -6989,6 +6989,10 @@
             "#text": "Deine E-Mail-Adresse konnte nicht überprüft werden."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Deine neue E-Mail-Adresse wurde bestätigt."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Bitte gib den Bestätigungscode ein"
           },
@@ -9819,12 +9823,24 @@
             "#text": "Änderung der E-Mail-Adresse"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Ein Bestätigungslink wurde an {0} gesendet. Deine E-Mail-Adresse wird geändert, nachdem du den Link geöffnet hast."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Bestätige deine neue E-Mail-Adresse für das {0}-Forum"
+          },
+          {
             "@tag": "CITY",
             "#text": "Stadt:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Land:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Aktuelles Passwort"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9949,6 +9965,10 @@
           {
             "@tag": "WHERE",
             "#text": "Wo lebst du?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Das eingegebene Passwort ist nicht korrekt."
           },
           {
             "@tag": "XMPP",

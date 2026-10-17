@@ -6997,6 +6997,10 @@
             "#text": "您的电子邮件地址验证失败."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "您的新电子邮件地址已确认。"
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "请输入验证码"
           },
@@ -9827,12 +9831,24 @@
             "#text": "修改电子邮件地址"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "确认链接已发送至 {0}。打开该链接后，您的电子邮件地址将被更改。"
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "确认您在 {0} 论坛的新电子邮件地址"
+          },
+          {
             "@tag": "CITY",
             "#text": "城市:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "本家:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "当前密码"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "您住在哪里?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "您输入的密码不正确。"
           },
           {
             "@tag": "XMPP",

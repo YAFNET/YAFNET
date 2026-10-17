@@ -242,6 +242,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Host Settings: an empty number field was saved as 0, and a page size could be 0 (e.g. 0 posts per page failed every topic page); an empty or invalid number keeps the setting now and the page sizes are at least 1
 * [FIXED] Admin -> Groups: the administrators group could be deleted, then the board had no admins anymore (only the host admin); it is protected like the guest group now (also on the server)
 * [FIXED] Suspension: the mail that the suspension ended was only sent when the user visited the forum before the hourly clean up task lifted the suspension; the task sends it too now, a mail error does not fail the page
+* [FIXED] Security: The own e-mail address was changed at once without the password and without confirming the new address, with a taken over session the account could be taken over (change the e-mail, then reset the password); the password is needed now and the address is changed after the confirmation link sent to the new address was opened (an admin still changes it at once)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

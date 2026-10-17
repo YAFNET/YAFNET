@@ -27,6 +27,7 @@ namespace YAF.Pages.Account;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// The User Account Verification Page.
@@ -68,7 +69,30 @@ public partial class Approve : AccountPage
             return;
         }
 
+        // the confirmation of a new e-mail address (Edit Settings): the key belongs to an approved user with
+        // another address
+        var forumUser = this.GetRepository<User>().GetById(userEmail.UserID);
+        var accountUser = forumUser?.ProviderUserKey == null
+                              ? null
+                              : this.Get<IAspNetUsersHelper>().GetUser(forumUser.ProviderUserKey);
+
+        if (accountUser is { IsApproved: true }
+            && !userEmail.Email.Equals(accountUser.Email, StringComparison.OrdinalIgnoreCase))
+        {
+            this.ChangeEmail(accountUser, userEmail);
+            return;
+        }
+
         var user = this.Get<IAspNetUsersHelper>().GetUserByEmail(userEmail.Email);
+
+        if (user == null)
+        {
+            this.Approved.Visible = false;
+            this.ErrorAlert.Visible = true;
+            this.ErrorMessage.Text = this.GetText("email_verify_failed");
+
+            return;
+        }
 
         var result = this.Get<IAspNetUsersHelper>().ConfirmEmail(user.Id, this.key.Text);
 
@@ -105,6 +129,40 @@ public partial class Approve : AccountPage
 
             this.ErrorMessage.Text = result.Errors.FirstOrDefault();
         }
+    }
+
+    /// <summary>
+    /// Changes the e-mail address of the user after the confirmation link of the new address was opened.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="checkEmail">The confirmation record with the new address.</param>
+    private void ChangeEmail(AspNetUsers user, CheckEmail checkEmail)
+    {
+        var result = this.Get<IAspNetUsersHelper>().ConfirmEmail(user.Id, this.key.Text);
+
+        // the address could have been taken by another account in the meantime
+        var otherUser = this.Get<IAspNetUsersHelper>().GetUserByEmail(checkEmail.Email);
+
+        if (!result.Succeeded || otherUser != null && otherUser.Id != user.Id)
+        {
+            this.Approved.Visible = false;
+            this.ErrorAlert.Visible = true;
+            this.ErrorMessage.Text = result.Succeeded
+                                         ? this.GetText("EDIT_PROFILE", "DUPLICATED_EMAIL")
+                                         : result.Errors.FirstOrDefault();
+
+            return;
+        }
+
+        this.Get<IAspNetUsersHelper>().UpdateEmail(user, checkEmail.Email);
+
+        this.GetRepository<CheckEmail>().DeleteById(checkEmail.ID);
+
+        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(checkEmail.UserID));
+
+        this.PageBoardContext.LoadMessage.AddSession(this.GetText("APPROVE", "EMAIL_CHANGED"), MessageTypes.success);
+
+        this.Get<LinkBuilder>().Redirect(ForumPages.Board);
     }
 
     /// <summary>

@@ -6997,6 +6997,10 @@
             "#text": "Sähköpostin varmistus epäonnistui."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Uusi sähköpostiosoitteesi on vahvistettu."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Syötä varmistusavain"
           },
@@ -9827,12 +9831,24 @@
             "#text": "Vaihda sähköpostiosoite"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Vahvistuslinkki lähetettiin osoitteeseen {0}. Sähköpostiosoitteesi vaihdetaan, kun avaat linkin."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Vahvista uusi sähköpostiosoitteesi {0}-foorumille"
+          },
+          {
             "@tag": "CITY",
             "#text": "Kaupunki:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Maa:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Nykyinen salasana"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "Missä asut?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Antamasi salasana ei ole oikea."
           },
           {
             "@tag": "XMPP",

@@ -6997,6 +6997,10 @@
             "#text": "Falha ao validar o endereço de email."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Seu novo endereço de e-mail foi confirmado."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Digite a chave de validação"
           },
@@ -9827,12 +9831,24 @@
             "#text": "Trocar Endereço de Email"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Um link de confirmação foi enviado para {0}. Seu endereço de e-mail será alterado depois que você abrir o link."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Confirme seu novo endereço de e-mail para o Fórum {0}"
+          },
+          {
             "@tag": "CITY",
             "#text": "Cidade:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "País:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Senha atual"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "Onde você mora?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "A senha que você digitou não está correta."
           },
           {
             "@tag": "XMPP",

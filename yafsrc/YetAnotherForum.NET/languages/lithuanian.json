@@ -6997,6 +6997,10 @@
             "#text": "\r\n      Nepavyko patikrinti elektroninio pašto\r\n\r\n      adresą.\r\n    "
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Jūsų naujas el. pašto adresas patvirtintas."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Įveskite patvirtinimo raktas "
           },
@@ -9827,12 +9831,24 @@
             "#text": "Pakeisti elektroninio pašto adresas "
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Patvirtinimo nuoroda išsiųsta adresu {0}. Jūsų el. pašto adresas bus pakeistas, kai atidarysite nuorodą."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Patvirtinkite savo naują el. pašto adresą {0} forumui"
+          },
+          {
             "@tag": "CITY",
             "#text": "Miestas:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Šalis:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Dabartinis slaptažodis"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9957,6 +9973,10 @@
           {
             "@tag": "WHERE",
             "#text": "Kur jūs gyvenate? "
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Įvestas slaptažodis neteisingas."
           },
           {
             "@tag": "XMPP",

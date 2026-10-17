@@ -149,6 +149,15 @@ public interface ISendNotification
     void SendUserWelcomeNotification(User user);
 
     /// <summary>
+    /// Sends the confirmation link for a new email address of the user, the address is changed after the
+    /// link is opened (Approve page).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="newEmail">The new email address.</param>
+    /// <param name="userId">The user identifier.</param>
+    void SendChangeEmailConfirmation(AspNetUsers user, string newEmail, int userId);
+
+    /// <summary>
     /// Sends the verification email.
     /// </summary>
     /// <param name="user">The user.</param>

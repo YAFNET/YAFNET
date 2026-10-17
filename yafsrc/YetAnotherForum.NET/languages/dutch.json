@@ -6989,6 +6989,10 @@
             "#text": "E-mail adres kon niet worden gevalideerd."
           },
           {
+            "@tag": "EMAIL_CHANGED",
+            "#text": "Uw nieuwe e-mailadres is bevestigd."
+          },
+          {
             "@tag": "ENTER_KEY",
             "#text": "Voer validatiesleutel in"
           },
@@ -9819,12 +9823,24 @@
             "#text": "E-mail adres wijzigen"
           },
           {
+            "@tag": "CHANGE_EMAIL_SENT",
+            "#text": "Er is een bevestigingslink verzonden naar {0}. Uw e-mailadres wordt gewijzigd nadat u de link hebt geopend."
+          },
+          {
+            "@tag": "CHANGE_EMAIL_SUBJECT",
+            "#text": "Bevestig uw nieuwe e-mailadres voor het {0}-forum"
+          },
+          {
             "@tag": "CITY",
             "#text": "Plaats:"
           },
           {
             "@tag": "COUNTRY",
             "#text": "Land:"
+          },
+          {
+            "@tag": "CURRENT_PASSWORD",
+            "#text": "Huidig wachtwoord"
           },
           {
             "@tag": "DISPLAYNAME",
@@ -9949,6 +9965,10 @@
           {
             "@tag": "WHERE",
             "#text": "Waar woon je?"
+          },
+          {
+            "@tag": "WRONG_PASSWORD",
+            "#text": "Het door u ingevoerde wachtwoord is niet correct."
           },
           {
             "@tag": "XMPP",
