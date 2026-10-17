@@ -87,6 +87,93 @@ public class DataImportTests
             .Should().ContainSingle().Which.UserAgent.Should().Be("BadBot");
     }
 
+    [Test]
+    [Description("Existing bans and duplicates in the file are skipped")]
+    public void Existing_Bans_Are_Skipped_Test()
+    {
+        DataImport.BannedEmailAddressesImport(TestDatabase.BoardId, Lines("old@spam\\.example")).Should().Be(1);
+        DataImport.BannedEmailAddressesImport(TestDatabase.BoardId, Lines("new@spam\\.example", "old@spam\\.example"))
+            .Should().Be(1);
+
+        DataImport.BannedIpAddressesImport(TestDatabase.BoardId, 2, Lines("10.0.0.1")).Should().Be(1);
+        DataImport.BannedIpAddressesImport(TestDatabase.BoardId, 2, Lines("10.0.0.1", "10.0.0.2")).Should().Be(1);
+
+        DataImport.BannedNamesImport(TestDatabase.BoardId, Lines("^casino", "^casino")).Should().Be(1);
+        DataImport.BannedUserAgentsImport(TestDatabase.BoardId, Lines("EvilBot", "EvilBot")).Should().Be(1);
+
+        this.Values<BannedEmail>(b => b.Mask).Should().BeEquivalentTo("old@spam\\.example", "new@spam\\.example");
+        this.Values<BannedIP>(b => b.Mask).Should().BeEquivalentTo("10.0.0.1", "10.0.0.2");
+        this.Values<BannedName>(b => b.Mask).Should().Equal("^casino");
+        this.Values<BannedUserAgent>(b => b.UserAgent).Should().Equal("EvilBot");
+    }
+
+    [Test]
+    [Description("Spam words are imported from the xml export, existing ones skipped, other files import nothing")]
+    public void Spam_Words_Test()
+    {
+        this.board.Current.GetRepository<Spam_Words>().Insert(new Spam_Words { BoardID = TestDatabase.BoardId, SpamWord = "casino" });
+
+        DataImport.SpamWordsImport(
+                TestDatabase.BoardId,
+                Text("<YafSpamWordsList><YafSpamWords><SpamWord>casino</SpamWord></YafSpamWords><YafSpamWords><SpamWord>pills</SpamWord></YafSpamWords></YafSpamWordsList>"))
+            .Should().Be(1);
+
+        this.Values<Spam_Words>(s => s.SpamWord).Should().BeEquivalentTo("casino", "pills");
+
+        DataImport.SpamWordsImport(TestDatabase.BoardId, Text("<root><other>1</other></root>")).Should().Be(0);
+    }
+
+    [Test]
+    [Description("BBCode extensions (in the format of the admin export): new ones are added, existing ones updated, other files are rejected")]
+    public void BBCode_Test()
+    {
+        this.board.Current.GetRepository<BBCode>().Insert(
+            new BBCode { BoardID = TestDatabase.BoardId, Name = "OLD", SearchRegex = "x", ReplaceRegex = "y", ExecOrder = 1 });
+
+        const string Xml = """
+            <YafBBCodeList>
+              <YafBBCode><Name>OLD</Name><Description>updated</Description><SearchRegex>a</SearchRegex><ReplaceRegex>b</ReplaceRegex><ExecOrder>2</ExecOrder><OnClickJS /><DisplayJS /><EditJS /><DisplayCSS /><Variables /><ModuleClass /><UseModule>false</UseModule><UseToolbar>true</UseToolbar></YafBBCode>
+              <YafBBCode><Name>NEW</Name><Description>new one</Description><SearchRegex>c</SearchRegex><ReplaceRegex>d</ReplaceRegex><ExecOrder>3</ExecOrder><OnClickJS /><DisplayJS /><EditJS /><DisplayCSS /><Variables /><ModuleClass /><UseModule>false</UseModule><UseToolbar>false</UseToolbar></YafBBCode>
+            </YafBBCodeList>
+            """;
+
+        DataImport.BBCodeExtensionImport(TestDatabase.BoardId, Text(Xml)).Should().Be(1);
+
+        var codes = this.board.Current.GetRepository<BBCode>().Get(_ => true);
+        codes.Single(c => c.Name == "OLD").Description.Should().Be("updated");
+        codes.Single(c => c.Name == "NEW").ExecOrder.Should().Be(3);
+
+        FluentActions.Invoking(() => DataImport.BBCodeExtensionImport(TestDatabase.BoardId, Text("<root><x>1</x></root>")))
+            .Should().Throw<Exception>();
+    }
+
+    [Test]
+    [Description("BBCode extensions with an invalid search expression are not imported")]
+    public void BBCode_Invalid_Regex_Test()
+    {
+        const string Xml = """
+            <YafBBCodeList>
+              <YafBBCode><Name>BAD</Name><Description /><SearchRegex>([</SearchRegex><ReplaceRegex>b</ReplaceRegex><ExecOrder>1</ExecOrder><OnClickJS /><DisplayJS /><EditJS /><DisplayCSS /><Variables /><ModuleClass /><UseModule>false</UseModule><UseToolbar>false</UseToolbar></YafBBCode>
+              <YafBBCode><Name>GOOD</Name><Description /><SearchRegex>c</SearchRegex><ReplaceRegex>d</ReplaceRegex><ExecOrder>2</ExecOrder><OnClickJS /><DisplayJS /><EditJS /><DisplayCSS /><Variables /><ModuleClass /><UseModule>false</UseModule><UseToolbar>false</UseToolbar></YafBBCode>
+            </YafBBCodeList>
+            """;
+
+        DataImport.BBCodeExtensionImport(TestDatabase.BoardId, Text(Xml)).Should().Be(1);
+
+        this.Values<BBCode>(c => c.Name).Should().Equal("GOOD");
+    }
+
+    private static MemoryStream Text(string content)
+    {
+        return new MemoryStream(Encoding.UTF8.GetBytes(content));
+    }
+
+    private List<string> Values<T>(Func<T, string> selector)
+        where T : class, YAF.Types.Interfaces.Data.IEntity, new()
+    {
+        return [.. this.board.Current.GetRepository<T>().Get(_ => true).Select(selector)];
+    }
+
     private static MemoryStream Lines(params string[] lines)
     {
         return new MemoryStream(Encoding.UTF8.GetBytes(string.Join("\n", lines)));
