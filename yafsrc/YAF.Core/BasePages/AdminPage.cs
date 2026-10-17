@@ -83,6 +83,12 @@ public class AdminPage : ForumPage
             return;
         }
 
+        // the host pages can't be granted (also not by an access stored before)
+        if (this.PageType.IsHostAdminPage())
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+        }
+
         // Load the page access list.
         var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageBoardContext.PageUserID, this.PageBoardContext.CurrentForumPage.PageName);
 

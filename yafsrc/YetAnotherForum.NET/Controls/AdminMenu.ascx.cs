@@ -118,6 +118,9 @@ public partial class AdminMenu : BaseUserControl
             string.Format(Constants.Cache.AdminPageAccess, this.PageBoardContext.PageUserID),
             () => this.GetRepository<AdminPageUserAccess>().List(this.PageBoardContext.PageUserID).ToList());
 
+        // the host pages can't be granted (also not by an access stored before)
+        pagesAccess = pagesAccess.Where(x => !ForumPagesExtensions.HostAdminPages.Contains(x.PageName)).ToList();
+
         // Admin Admin
         RenderMenuItem(
             this.MenuHolder,

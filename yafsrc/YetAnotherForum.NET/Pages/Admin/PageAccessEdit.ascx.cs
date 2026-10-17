@@ -96,8 +96,11 @@ public partial class PageAccessEdit : AdminPage
         this.AccessList.Items.Cast<RepeaterItem>().ForEach(
             ri =>
                 {
-                    var readAccess = ri.FindControlAs<CheckBox>("ReadAccess").Checked;
                     var pageName = ri.FindControlAs<Label>("PageName").Text.Trim();
+
+                    // the pages of the host admin can't be granted
+                    var readAccess = ri.FindControlAs<CheckBox>("ReadAccess").Checked
+                                     && !ForumPagesExtensions.HostAdminPages.Contains(pageName);
 
                     if (readAccess || string.Equals(
                             "Admin_Admin",
@@ -126,10 +129,10 @@ public partial class PageAccessEdit : AdminPage
     protected void GrantAllClick(object sender, EventArgs e)
     {
         // save permissions to table -  checked only
-        this.AccessList.Items.Cast<RepeaterItem>().ForEach(
-            ri => this.GetRepository<AdminPageUserAccess>().Save(
-                this.CurrentUserID,
-                ri.FindControlAs<Label>("PageName").Text.Trim()));
+        this.AccessList.Items.Cast<RepeaterItem>()
+            .Select(ri => ri.FindControlAs<Label>("PageName").Text.Trim())
+            .Where(pageName => !ForumPagesExtensions.HostAdminPages.Contains(pageName))
+            .ForEach(pageName => this.GetRepository<AdminPageUserAccess>().Save(this.CurrentUserID, pageName));
 
         this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.CurrentUserID));
 
@@ -201,10 +204,7 @@ public partial class PageAccessEdit : AdminPage
         var pagesAll = new List<AdminPageUserAccess>();
 
         // Protected host-admin pages
-        var hostPages = new[]
-                            {
-                                "Admin_Boards", "Admin_HostSettings", "Admin_PageAccessList", "Admin_PageAccessEdit"
-                            };
+        var hostPages = ForumPagesExtensions.HostAdminPages;
 
         // Iterate thru all admin pages
         listPages.ToList().ForEach(
