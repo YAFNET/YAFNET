@@ -189,6 +189,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Awarding a medal a user already has caused an error, the medals of a user who got a new medal stayed cached (the cache of no user was cleared), a user of another board could be selected
 * [FIXED] The "days before posts are locked" period started again with every edit, it now starts when the post was written
 * [FIXED] Medal names and messages with quotes broke the medal ribbon html of the profile (they were written into the attributes without encoding)
+* [FIXED] The breadcrumb of a forum nested more than one level deep did not show all parent forums, links and breadcrumbs with a missing name (e.g. of a deleted user) caused an error
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

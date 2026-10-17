@@ -147,18 +147,32 @@ public static class PageLinkExtensions
     /// </returns>
     public static List<PageLink> AddForum(this List<PageLink> pageLinks, Forum forum, bool noForumLink = false)
     {
-        if (forum.ParentID.HasValue)
+        if (forum == null)
         {
-            var parent = BoardContext.Current.GetRepository<Forum>()
-                .GetById(forum.ParentID.Value);
-
-            if (parent != null)
-            {
-                pageLinks.AddLink(
-                    parent.Name,
-                    BoardContext.Current.Get<LinkBuilder>().GetForumLink(parent));
-            }
+            return pageLinks;
         }
+
+        // all parent forums, from the top one down (limited in case of a parent loop)
+        var parents = new List<Forum>();
+        var parentId = forum.ParentID;
+
+        while (parentId.HasValue && parents.Count < 20)
+        {
+            var parent = BoardContext.Current.GetRepository<Forum>().GetById(parentId.Value);
+
+            if (parent == null || parent.ID == forum.ID || parents.Exists(p => p.ID == parent.ID))
+            {
+                break;
+            }
+
+            parents.Insert(0, parent);
+            parentId = parent.ParentID;
+        }
+
+        parents.ForEach(
+            parent => pageLinks.AddLink(
+                parent.Name,
+                BoardContext.Current.Get<LinkBuilder>().GetForumLink(parent)));
 
         if (BoardContext.Current.PageForumID == forum.ID)
         {
@@ -182,7 +196,8 @@ public static class PageLinkExtensions
     /// <returns>Returns the page links</returns>
     public static List<PageLink> AddLink(this List<PageLink> pageLinks, string title, string url = "")
     {
-        pageLinks.Add(new PageLink { Title = title.Trim(), URL = url?.Trim() });
+        // a missing name (e.g. of a deleted user) must not break the page
+        pageLinks.Add(new PageLink { Title = title?.Trim() ?? string.Empty, URL = url?.Trim() });
 
         return pageLinks;
     }
