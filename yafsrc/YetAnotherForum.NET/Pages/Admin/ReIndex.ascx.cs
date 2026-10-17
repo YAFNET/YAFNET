@@ -124,11 +124,19 @@ public partial class ReIndex : AdminPage
     {
         const string Result = "Done";
 
-        var stats = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
-
         this.txtIndexStatistics.Text = string.Empty;
 
-        this.PageBoardContext.Notify(stats.IsSet() ? stats : Result, MessageTypes.success);
+        // an error of the database (e.g. not supported) is shown as message, not as error page
+        try
+        {
+            var stats = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
+
+            this.PageBoardContext.Notify(stats.IsSet() ? stats : Result, MessageTypes.success);
+        }
+        catch (Exception error)
+        {
+            this.PageBoardContext.Notify(this.GetTextFormatted("INDEX_STATS_FAIL", error.Message), MessageTypes.danger);
+        }
     }
 
     /// <summary>
@@ -143,7 +151,7 @@ public partial class ReIndex : AdminPage
         {
             var result = new StringBuilder();
 
-            result.Append(this.Get<IDbAccess>().ShrinkDatabase());
+            result.Append(this.Get<IDbAccess>().ShrinkDatabase(Config.DatabaseObjectQualifier));
 
             result.Append("&nbsp;");
 

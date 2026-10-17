@@ -232,6 +232,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Edit settings (also Admin -> Edit User): when the users can't choose a theme or a language the options are not shown, saving the settings reset the theme and the language of the user to the board defaults; they keep their value now, and "hide me" is only changed by users who may hide themselves
 * [FIXED] Medals: a medal awarded to a group, a changed medal, a deleted medal and the medals of a group a user joined or left (or a deleted group) were shown in the old way until the cached medals of the users expired
 * [FIXED] Host settings: after enabling private messages, friends or albums the counts of the users (unread messages, friend requests, "My albums") were missing until the cached user data expired
+* [FIXED] Admin -> Database: "Re-index" failed with an error page on MySQL (and on errors of the database) and "Shrink" showed a database error; on MySQL both run OPTIMIZE TABLE for the forum tables now, other errors are shown as message
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

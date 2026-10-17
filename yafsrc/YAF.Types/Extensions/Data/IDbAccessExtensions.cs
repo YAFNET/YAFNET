@@ -296,11 +296,25 @@ public static class IDbAccessExtensions
     /// The shrink database.
     /// </summary>
     /// <param name="dbAccess">The database access.</param>
-    public static string ShrinkDatabase(this IDbAccess dbAccess)
+    /// <param name="objectQualifier">The object qualifier (the prefix of the forum tables, used on MySQL).</param>
+    public static string ShrinkDatabase(this IDbAccess dbAccess, string objectQualifier = null)
     {
         return dbAccess.Execute(
-            db => db.Connection.Scalar<string>(
-                OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Connection.Database)));
+            db =>
+                {
+                    // MySQL has no shrink of a database: OPTIMIZE TABLE frees the unused space of the tables
+                    if (OrmLiteConfig.DialectProvider.SQLServerName() == "MySQL")
+                    {
+                        return OptimizeTables(db.Connection, objectQualifier);
+                    }
+
+                    var sql = OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Connection.Database);
+
+                    // an empty statement can not be run
+                    return sql.IsNotSet()
+                               ? $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server"
+                               : db.Connection.Scalar<string>(sql);
+                });
     }
 
     /// <summary>
@@ -318,8 +332,58 @@ public static class IDbAccessExtensions
     public static string ReIndexDatabase(this IDbAccess dbAccess, string objectQualifier)
     {
         return dbAccess.Execute(
-            db => db.Connection.Scalar<string>(
-                OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, objectQualifier)));
+            db =>
+                {
+                    // MySQL has no re-index of a database: OPTIMIZE TABLE rebuilds the tables and their indexes
+                    if (OrmLiteConfig.DialectProvider.SQLServerName() == "MySQL")
+                    {
+                        return OptimizeTables(db.Connection, objectQualifier);
+                    }
+
+                    var sql = OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, objectQualifier);
+
+                    // an empty statement can not be run
+                    return sql.IsNotSet()
+                               ? $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server"
+                               : db.Connection.Scalar<string>(sql);
+                });
+    }
+
+    /// <summary>
+    /// Runs OPTIMIZE TABLE (MySQL) for all tables of the forum.
+    /// </summary>
+    /// <param name="db">The database connection.</param>
+    /// <param name="objectQualifier">The object qualifier (the prefix of the forum tables).</param>
+    /// <returns>Returns the errors, or the number of optimized tables.</returns>
+    private static string OptimizeTables(IDbConnection db, string objectQualifier)
+    {
+        var tables = db.GetTableNames()
+            .Where(t => t.StartsWith(objectQualifier ?? string.Empty, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        if (tables.Count == 0)
+        {
+            return "No tables found";
+        }
+
+        using var cmd = db.CreateCommand();
+
+        cmd.CommandText =
+            $"OPTIMIZE TABLE {string.Join(", ", tables.Select(t => OrmLiteConfig.DialectProvider.GetQuotedName(t)))}";
+
+        // one row per table (and notes, e.g. InnoDB recreates the table), only the errors are shown
+        var errors = new List<string>();
+
+        using var reader = cmd.ExecuteReader();
+
+        while (reader.Read())
+        {
+            if (string.Equals(reader["Msg_type"]?.ToString(), "error", StringComparison.OrdinalIgnoreCase))
+            {
+                errors.Add($"{reader["Table"]}: {reader["Msg_text"]}");
+            }
+        }
+
+        return errors.Count != 0 ? string.Join(Environment.NewLine, errors) : $"{tables.Count} tables optimized";
     }
 
     /// <summary>
