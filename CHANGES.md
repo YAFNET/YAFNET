@@ -180,6 +180,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] User claims were stored with the value type instead of the claim type and could not be removed
 * [FIXED] The lock objects of the cache were created without synchronization (parallel requests could load the same cache entry at the same time), a key with the hash int.MinValue caused an error
 * [FIXED] The "last read" time of the database read tracking ignored the read topics (the forums were read twice)
+* [FIXED] Editing a banned IP did not refresh the cached ban list, the old mask stayed banned until the application restarted
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

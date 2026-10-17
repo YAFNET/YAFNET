@@ -72,6 +72,9 @@ public static class BannedIpRepositoryExtensions
                 () => new BannedIP {Mask = mask, Reason = reason, UserID = userId },
                 b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
+            // the cached ban list is refreshed (the old mask must not stay banned)
+            repository.FireUpdated(id.Value);
+
             return true;
         }
 

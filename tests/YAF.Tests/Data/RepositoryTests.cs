@@ -178,6 +178,10 @@ public class RepositoryTests
 
         repository.Save(id, "192.168.1.*", "narrowed", 2).Should().BeTrue();
 
+        // the update refreshes the cached ban list
+        this.board.Events.OfType<RepositoryEvent<BannedIP>>().Should()
+            .Contain(e => e.RepositoryEventType == RepositoryEventType.Update && e.EntityId == id);
+
         var saved = repository.GetById(id);
         saved.Mask.Should().Be("192.168.1.*");
         saved.Reason.Should().Be("narrowed");
