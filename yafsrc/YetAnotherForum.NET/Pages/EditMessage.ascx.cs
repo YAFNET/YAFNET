@@ -104,9 +104,11 @@ public partial class EditMessage : ForumPage
                 return false;
             }
 
+            // a changed subject of the edited topic (the topic itself doesn't count)
             if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
-                && this.GetRepository<Topic>().CheckForDuplicate(this.TopicSubjectTextBox.Text.Trim())
-                && this.PageBoardContext.PageMessage == null)
+                && this.GetRepository<Topic>().CheckForDuplicate(
+                    HtmlTagHelper.StripHtml(this.TopicSubjectTextBox.Text).Trim(),
+                    this.PageBoardContext.PageTopicID))
             {
                 this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
                 return false;

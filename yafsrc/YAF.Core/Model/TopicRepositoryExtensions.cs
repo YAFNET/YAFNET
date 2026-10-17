@@ -1459,14 +1459,21 @@ public static class TopicRepositoryExtensions
     /// <param name="topicSubject">
     /// The topic subject.
     /// </param>
+    /// <param name="topicId">
+    /// The id of the edited topic (it doesn't count), or null for a new topic.
+    /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool CheckForDuplicate(this IRepository<Topic> repository, string topicSubject)
+    public static bool CheckForDuplicate(this IRepository<Topic> repository, string topicSubject, int? topicId = null)
     {
-        var topic = repository.GetSingle(t => t.TopicName.Contains(topicSubject) && t.TopicMovedID == null);
+        // the same subject (ignoring the case), not a subject that only contains it; deleted topics don't count
+        var subject = topicSubject.Trim().ToUpperInvariant();
+        var excludedId = topicId ?? 0;
 
-        return topic != null;
+        return repository.Exists(
+            t => t.TopicName.ToUpper() == subject && t.TopicMovedID == null && (t.Flags & 8) != 8
+                 && t.ID != excludedId);
     }
 
     /// <summary>
