@@ -235,6 +235,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Database: "Re-index" failed with an error page on MySQL (and on errors of the database) and "Shrink" showed a database error; on MySQL both run OPTIMIZE TABLE for the forum tables now, other errors are shown as message
 * [FIXED] Guests (all are the same user) could add, edit and remove the polls of every guest topic, now only of the guest topics started from the own address (like the buttons of the posts)
 * [FIXED] Guests (all are the same user) saw the uploads of all other guests in the attachment list of the editor, the list is empty for guests now
+* [FIXED] Unapproved posts: approving an already approved post (another moderator, the button sent twice) counted the post again for the user and sent the notifications again
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

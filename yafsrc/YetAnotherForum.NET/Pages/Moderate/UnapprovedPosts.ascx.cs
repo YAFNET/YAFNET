@@ -154,6 +154,16 @@ public partial class UnapprovedPosts : ModerateForumPage
         {
             case "approve":
 
+                // a post approved in the meantime (another moderator, the button sent twice) was counted again for
+                // the user and the notifications were sent again
+                var toApprove = this.GetRepository<Message>().GetById(e.CommandArgument.ToType<int>());
+
+                if (toApprove == null || toApprove.MessageFlags.IsApproved)
+                {
+                    this.BindData();
+                    break;
+                }
+
                 // approve post
                 this.GetRepository<Message>().Approve(
                     e.CommandArgument.ToType<int>(),
