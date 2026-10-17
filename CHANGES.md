@@ -222,6 +222,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Ranks: deleting a rank that users have failed with an error on SQL Server, MySQL and PostgreSQL (on SQLite the users kept a deleted rank); a rank in use can't be deleted, like an access mask in use
 * [FIXED] Reporting a post: every report of the same user and post is added to the report text, after some reports it was longer than its column (4000 characters) and the report failed with an error on SQL Server, MySQL and PostgreSQL; the oldest reports of the text are removed now
 * [FIXED] Edit profile and Admin -> Edit User -> Profile: a real name, location, city, homepage, blog or xmpp longer than 255 characters (the homepage with the added "https://") failed the save with an error on SQL Server, MySQL and PostgreSQL; the fields are checked now
+* [FIXED] User import: profile values longer than their columns or a country name instead of the country code (the column has 2 characters) failed the import of the user with an error on SQL Server, MySQL and PostgreSQL; the texts are shortened to the columns and only known countries are taken (also by name)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

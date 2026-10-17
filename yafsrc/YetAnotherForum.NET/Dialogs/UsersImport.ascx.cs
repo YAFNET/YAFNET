@@ -176,6 +176,36 @@ public partial class UsersImport : BaseUserControl
     }
 
     /// <summary>
+    /// Cuts the text to the maximum length.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="maxLength">The maximum length.</param>
+    /// <returns>Returns the text.</returns>
+    private static string Cut(string text, int maxLength)
+    {
+        return text != null && text.Length > maxLength ? text.Substring(0, maxLength) : text;
+    }
+
+    /// <summary>
+    /// Gets the code of a country (the code or the name of a known country).
+    /// </summary>
+    /// <param name="country">The country code or name.</param>
+    /// <returns>Returns the code or null.</returns>
+    private static string GetCountryCode(string country)
+    {
+        if (country.IsNotSet())
+        {
+            return null;
+        }
+
+        var match = StaticDataHelper.Country().FirstOrDefault(
+            c => c.Value.IsSet() && (c.Value.Equals(country, StringComparison.OrdinalIgnoreCase)
+                                     || c.Name.Equals(country, StringComparison.OrdinalIgnoreCase)));
+
+        return match?.Value.ToUpperInvariant();
+    }
+
+    /// <summary>
     /// Checks if the table has the name and e-mail column.
     /// </summary>
     /// <param name="table">The table.</param>
@@ -344,6 +374,20 @@ public partial class UsersImport : BaseUserControl
         {
             userProfile.Facebook = GetValue(row, "Facebook");
         }
+
+        // the values have to fit into their columns (the import failed with an error on SQL Server, MySQL and
+        // PostgreSQL), the country column contains the code of the country (a name is converted, unknown are dropped)
+        userProfile.RealName = Cut(userProfile.RealName, 255);
+        userProfile.Blog = Cut(userProfile.Blog, 255);
+        userProfile.Location = Cut(userProfile.Location, 255);
+        userProfile.Region = Cut(userProfile.Region, 255);
+        userProfile.City = Cut(userProfile.City, 255);
+        userProfile.Interests = Cut(userProfile.Interests, 4000);
+        userProfile.Homepage = Cut(userProfile.Homepage, 255);
+        userProfile.XMPP = Cut(userProfile.XMPP, 255);
+        userProfile.Occupation = Cut(userProfile.Occupation, 400);
+        userProfile.Facebook = Cut(userProfile.Facebook, 400);
+        userProfile.Country = GetCountryCode(userProfile.Country);
 
         var user = new AspNetUsers
                        {
