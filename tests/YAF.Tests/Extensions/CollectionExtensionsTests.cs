@@ -105,6 +105,24 @@ public class CollectionExtensionsTests
         collection.GetFirstOrDefault("missing").Should().BeNull();
     }
 
+    [TestCase("5", 5)]
+    [TestCase("2147483648", null)]
+    [TestCase("abc", null)]
+    [TestCase(null, null)]
+    [Description("A value of the address that is no valid number (e.g. too big for an int) is the default, the page does not fail")]
+    public void GetFirstOrDefaultAs_Invalid_Number_Test(string value, int? expected)
+    {
+        var collection = new NameValueCollection();
+
+        if (value != null)
+        {
+            collection.Add("v", value);
+        }
+
+        collection.GetFirstOrDefaultAs<int?>("v").Should().Be(expected);
+        collection.GetFirstOrDefaultAs<int>("v").Should().Be(expected ?? 0);
+    }
+
     [Test]
     [Description("Stream AsString and ToArray read the whole stream")]
     public void Stream_Test()

@@ -71,7 +71,15 @@ public static class NameValueCollectionExtensions
         this NameValueCollection collection,
         string paramName)
     {
-        return collection.GetFirstOrDefault(paramName).ToType<T>();
+        // a value of the address that is no valid value (e.g. a number too big for an int) is the default
+        try
+        {
+            return collection.GetFirstOrDefault(paramName).ToType<T>();
+        }
+        catch (Exception ex) when (ex is FormatException or OverflowException or InvalidCastException)
+        {
+            return default;
+        }
     }
 
     /// <summary>

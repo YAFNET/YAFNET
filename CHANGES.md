@@ -283,6 +283,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Active users (page and admin start page): the list failed with an error when a visitor was at the profile, albums or album of a user that does not exist (anymore, e.g. deleted while visited), the album location took an album id from the user id (any or no album, the page failed) and the own album was shown as the album of another user
 * [FIXED] The [group-hide=role] BBCode showed the hidden content to the users with any other role and hid it from the members of the given roles, and [group-hide] without roles hid the content from all members (not only from guests); the content is shown to the members of one of the roles now (without roles to all members)
 * [FIXED] Active users: Android phones were shown as Linux and iPods as iPhones (their user agents contain "Linux" and "iPhone OS")
+* [FIXED] a number in the address that is too big for an int (e.g. ActiveUsers?v=2147483648) shows an error page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
