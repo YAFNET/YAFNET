@@ -88,6 +88,10 @@ public class BoardRepositoryTests
         admin.UserFlags.IsHostAdmin.Should().BeFalse();
         admin.UserFlags.IsApproved.Should().BeTrue();
 
+        // all dates are stored in UTC
+        admin.Joined.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+        guest.LastVisit.Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+
         var adminGroup = this.Repository<Group>().GetSingle(g => g.Name == "B2 Administrators");
         (this.Repository<UserGroup>().Get(x => x.UserID == admin.ID)).Select(x => x.GroupID).Should().Equal(adminGroup.ID);
 

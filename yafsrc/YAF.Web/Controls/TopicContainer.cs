@@ -82,7 +82,8 @@ public class TopicContainer : BaseControl
     /// </returns>
     public bool IsPopularTopic(DateTime lastPosted, PagedTopic item)
     {
-        if (lastPosted > DateTime.Now.AddDays(-this.PageBoardContext.BoardSettings.PopularTopicDays))
+        // the time of the last post is stored in UTC
+        if (lastPosted > DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.PopularTopicDays))
         {
             return item.Replies >= this.PageBoardContext.BoardSettings.PopularTopicReplys ||
                    item.Views >= this.PageBoardContext.BoardSettings.PopularTopicViews;
