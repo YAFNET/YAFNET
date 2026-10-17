@@ -332,7 +332,9 @@ public class Resources : IResources, IHaveServiceLocator
 
             context.Response.ContentType = "image/svg+xml";
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
-            context.Response.Cache.SetMaxAge(TimeSpan.FromDays(30));
+
+            // the address has no version, after a change of the display name the new letters are shown within an hour
+            context.Response.Cache.SetMaxAge(TimeSpan.FromHours(1));
             context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
             context.Response.OutputStream.Write(byteArray, 0, byteArray.Length);
