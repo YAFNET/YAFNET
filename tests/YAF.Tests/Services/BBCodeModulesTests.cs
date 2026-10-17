@@ -26,6 +26,8 @@ namespace YAF.Tests.Services;
 
 using Autofac;
 
+using NSubstitute;
+
 using ServiceStack.OrmLite;
 
 using YAF.Core.BBCode;
@@ -53,6 +55,11 @@ public class BBCodeModulesTests
 
     private const string AttachRegex = @"\[attach\](?<inner>.+?)\[\/attach\]";
 
+    private const string GroupHideRegex =
+        @"\[group-hide\](?<inner>(.|\n)*?)\[\/group-hide\]|\[group-hide=(?<group>([^""\r\n\]\[]*?))\](?<inner>(.|\n)*?)\[\/group-hide\]";
+
+    private readonly List<string> readerRoles = [];
+
     private TestBoardContext board;
 
     private TestDatabase db;
@@ -69,8 +76,16 @@ public class BBCodeModulesTests
             {
                 b.Register<Func<IEnumerable<bool>, IProcessReplaceRules>>(_ => _ => new ProcessReplaceRules());
                 b.RegisterType<YAF.Core.BBCode.BBCode>().As<IBBCode>();
+
+                // the roles of the reader
+                var roles = Substitute.For<YAF.Types.Interfaces.Identity.IAspNetRolesHelper>();
+                roles.GetRolesForUser(Arg.Any<YAF.Types.Models.Identity.AspNetUsers>())
+                    .Returns(_ => this.readerRoles);
+                b.RegisterInstance(roles).As<YAF.Types.Interfaces.Identity.IAspNetRolesHelper>();
             },
             useDatabase: true);
+
+        this.readerRoles.Clear();
 
         this.db = this.board.Database;
         this.author = this.db.AddUser("Author");
@@ -125,6 +140,48 @@ public class BBCodeModulesTests
         this.board.Current.GetRepository<YAF.Types.Models.Thanks>().AddMessageThanks(this.author, this.reader, readersPost);
 
         this.Format("[hide-thanks=1]secret[/hide-thanks]").Should().Contain("secret");
+    }
+
+    [TestCase("Editors", "Editors", true)]
+    [TestCase("Editors", "editors", true)]
+    [TestCase("Editors; Admins", "Admins", true)]
+    [TestCase("Editors", "Members;Editors", true)]
+    [TestCase("Editors", "Members", false)]
+    [TestCase("Editors", "", false)]
+    [Description("[group-hide=roles] shows the content to the members of one of the roles, not to other users")]
+    public void Group_Hide_Test(string groups, string roles, bool shown)
+    {
+        this.AddCode("GROUP-HIDE", GroupHideRegex, typeof(GroupHide), "group");
+        this.readerRoles.AddRange(roles.Split([';'], StringSplitOptions.RemoveEmptyEntries));
+
+        var html = this.Format($"[group-hide={groups}]secret[/group-hide]");
+
+        if (shown)
+        {
+            html.Should().Contain("secret");
+        }
+        else
+        {
+            html.Should().NotContain("secret");
+        }
+    }
+
+    [Test]
+    [Description("[group-hide] without roles hides the content from guests only, the author always sees it")]
+    public void Group_Hide_Guests_And_Author_Test()
+    {
+        this.AddCode("GROUP-HIDE", GroupHideRegex, typeof(GroupHide), "group");
+
+        this.Format("[group-hide]for members[/group-hide]").Should().Contain("for members");
+
+        // the author of the post
+        this.board.LoginAs(this.author);
+        this.Format("[group-hide=Editors]secret[/group-hide]").Should().Contain("secret");
+
+        // a guest
+        this.board.LoginAs(this.reader);
+        this.board.User.IsGuest = true;
+        this.Format("[group-hide]for members[/group-hide]").Should().NotContain("for members");
     }
 
     [TestCase("1.5")]

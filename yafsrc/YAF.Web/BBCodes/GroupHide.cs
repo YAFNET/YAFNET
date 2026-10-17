@@ -38,7 +38,6 @@ public class GroupHide : BBCodeControl
     override protected void Render(HtmlTextWriter writer)
     {
         var hiddenContent = this.Parameters["inner"];
-
         var groupString = this.Parameters["group"];
 
         if (hiddenContent.IsNotSet())
@@ -46,81 +45,47 @@ public class GroupHide : BBCodeControl
             return;
         }
 
-        var descriptionGuest = this.LocalizedString(
-            "HIDDENMOD_GUEST",
-            "This board requires you to be registered and logged-in before you can view hidden messages.");
-
-        var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
-
-        if (groupString.IsNotSet())
-        {
-            // Hide from Guests only
-            if (BoardContext.Current.IsGuest)
-            {
-                writer.Write(shownContentGuest);
-                return;
-            }
-        }
-        else
-        {
-            if (BoardContext.Current.IsGuest)
-            {
-                writer.Write(shownContentGuest);
-                return;
-            }
-
-            descriptionGuest = this.LocalizedString(
-                "HIDDENMOD_GROUP",
-                "You dont´t have the right to see the Hidden Content.");
-
-            shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
-
-            var groups = groupString.Split(';');
-
-            /*List<string> groups = new List<string>();
-            List<string> ranks = new List<string>();
-
-            foreach (string group in groupsAndRanks)
-            {
-                if (group.StartsWith("group."))
-                {
-                    groups.Add(group.Substring(group.IndexOf(".") + 1));
-                }
-                else if (group.StartsWith("rank."))
-                {
-                    ranks.Add(group.Substring(group.IndexOf(".") + 1));
-                }
-                else
-                {
-                    groups.Add(group);
-                }
-            }*/
-
-            // Check For Role Hiding
-            if (this.Get<IAspNetRolesHelper>().GetRolesForUser(
-                    BoardContext.Current.MembershipUser).Any(role => !groups.Exists(role.Equals)))
-            {
-                shownContentGuest = hiddenContent;
-            }
-
-            // TODO : Check for Rank Hiding 
-            /*if (ranks.Any())
-            {
-                var yafUserData = new CombinedUserDataHelper(BoardContext.Current.UserData.PageUserID);
-
-                if (!ranks.Where(rank => yafUserData.RankName.Equals(rank)).Any())
-                {
-                    shownContentGuest = hiddenContent;
-                }
-            }*/
-        }
-
-        // Override Admin, or User is Post Author
+        // the admins and the author of the post always see the content
         if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.PageUserID)
         {
-            shownContentGuest = hiddenContent;
+            writer.Write(hiddenContent);
+            return;
         }
 
-        writer.Write(shownContentGuest);
+        if (BoardContext.Current.IsGuest)
+        {
+            var descriptionGuest = this.LocalizedString(
+                "HIDDENMOD_GUEST",
+                "This board requires you to be registered and logged-in before you can view hidden messages.");
+
+            writer.Write($"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>");
+            return;
+        }
+
+        // without roles the content is only hidden from guests ([group-hide] showed it to nobody)
+        if (groupString.IsNotSet())
+        {
+            writer.Write(hiddenContent);
+            return;
+        }
+
+        // with roles the content is shown to the members of one of the roles (it was shown to the users with
+        // any other role)
+        var groups = groupString.Split(';').Select(g => g.Trim()).Where(g => g.Length > 0).ToList();
+
+        var isMember = this.Get<IAspNetRolesHelper>().GetRolesForUser(BoardContext.Current.MembershipUser)
+            .Any(role => groups.Exists(group => group.Equals(role, StringComparison.OrdinalIgnoreCase)));
+
+        if (isMember)
+        {
+            writer.Write(hiddenContent);
+            return;
+        }
+
+        var description = this.LocalizedString(
+            "HIDDENMOD_GROUP",
+            "You dont´t have the right to see the Hidden Content.");
+
+        writer.Write($"<div class=\"alert alert-danger\" role=\"alert\">{description}</div>");
     }
 }
