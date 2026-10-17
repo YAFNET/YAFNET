@@ -392,7 +392,9 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
                         .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
-                    countPostsExpression.Where<Category>(c => c.BoardID == boardId && (c.Flags & 1) == 1);
+                    // deleted posts and the posts of deleted topics are not counted
+                    countPostsExpression.Where<Message, Topic, Category>(
+                        (a, b, c) => (a.Flags & 8) != 8 && (b.Flags & 8) != 8 && c.BoardID == boardId && (c.Flags & 1) == 1);
 
                     var countPostsSql = countPostsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -402,7 +404,8 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
                     countTopicsExpression.Join<Forum>((a, b) => b.ID == a.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
-                    countTopicsExpression.Where<Category>(c => c.BoardID == boardId && (c.Flags & 1) == 1);
+                    countTopicsExpression.Where<Topic, Category>(
+                        (a, c) => (a.Flags & 8) != 8 && a.NumPosts > 0 && c.BoardID == boardId && (c.Flags & 1) == 1);
 
                     var countTopicsSql = countTopicsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -482,7 +485,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
                     // -- count Posts
                     var countPostsExpression = db.Connection.From<Message>();
 
-                    countPostsExpression.Join<Topic>((a, b) => b.ID == a.TopicID && (a.Flags & 8) != 8)
+                    countPostsExpression.Join<Topic>((a, b) => b.ID == a.TopicID && (a.Flags & 8) != 8 && (b.Flags & 8) != 8)
                         .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
