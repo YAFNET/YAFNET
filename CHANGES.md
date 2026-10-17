@@ -69,6 +69,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Registration and e-mail verification: the verification key (an identity token) could be longer than its column (255 characters) and the registration failed on SQL Server, MySQL and PostgreSQL; only a hash of the key is stored now (links sent before the update still work), "resend the verification mail" (login and admin dashboard) sends a new link, on the admin dashboard it could send the mail of another user whose name contains the name of the not approved user
 * [FIXED] Watch mails: watchers who can't read the forum (anymore) got the mail with the post, the hidden content of a post ([hide], [hide-reply], [hide-thanks], ...) was in the mail, a mail error failed the post, and the parallel sending removed the request context of the post (errors after the notification)
 * [FIXED] Moderator mails (approval and reported posts): a mail error failed the post that needs the approval, an error stopped the mails to the other moderators, and the parallel sending removed the request context of the post
+* [FIXED] Mails: the role and suspension mails (sent by an admin) were in the language of the admin, mails to users without an own language were in the language of the current user instead of the board language
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

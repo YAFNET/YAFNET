@@ -49,7 +49,8 @@ public static class UserHelper
             return user.LanguageFile;
         }
 
-        return null;
+        // the language of the board (not of the current user, e.g. the admin who sends a notification)
+        return BoardContext.Current.BoardSettings.Language;
     }
 
     /// <summary>

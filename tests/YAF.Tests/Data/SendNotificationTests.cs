@@ -268,6 +268,40 @@ public class SendNotificationTests
         this.board.Logger.ReceivedWithAnyArgs().Log(default);
     }
 
+    [Test]
+    [Description("The suspension mail is sent by an admin, it is in the language of the user who gets it (not of the admin)")]
+    public void Suspension_Mail_Language_Of_The_User_Test()
+    {
+        this.board.BoardSettings.AllowUserLanguage = true;
+        this.Repository<User>().UpdateOnly(() => new User { LanguageFile = "german-du.json" }, u => u.ID == this.bob);
+
+        this.board.Localization
+            .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_USER_TEXT", "You are suspended")
+            .Add("TEMPLATES", "NOTIFICATION_ON_SUSPENDING_USER_TEXT", "Du bist gesperrt", "german-du.json");
+
+        this.Notifications.SendUserSuspensionNotification(DateTime.UtcNow.AddDays(1), "spam", "bob@example.com", "Bob");
+
+        RecordingMailService.TextOf(this.mail.Sent.Should().ContainSingle().Subject).Should().Be("Du bist gesperrt");
+    }
+
+    [Test]
+    [Description("A user without an own language gets the mails in the language of the board, not in the language of the sender")]
+    public void Role_Mail_Language_Of_The_Board_Test()
+    {
+        this.board.BoardSettings.Language = "german-du.json";
+        this.Repository<User>().UpdateOnly(() => new User { ProviderUserKey = "bob-key" }, u => u.ID == this.bob);
+
+        this.board.Localization
+            .Add("TEMPLATES", "NOTIFICATION_ROLE_ASSIGNMENT_TEXT", "New roles: {roles}")
+            .Add("TEMPLATES", "NOTIFICATION_ROLE_ASSIGNMENT_TEXT", "Neue Rollen: {roles}", "german-du.json");
+
+        this.Notifications.SendRoleAssignmentNotification(
+            new AspNetUsers { Id = "bob-key", UserName = "Bob", Email = "bob@example.com" },
+            ["Moderators"]);
+
+        RecordingMailService.TextOf(this.mail.Sent.Should().ContainSingle().Subject).Should().Be("Neue Rollen: Moderators");
+    }
+
     private ISendNotification Notifications => this.board.Resolve<ISendNotification>();
 
     private Message Post(int userId, string text)

@@ -538,12 +538,17 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="removedRoles">The removed roles.</param>
     public void SendRoleUnAssignmentNotification(AspNetUsers user, List<string> removedRoles)
     {
-        var subject = this.Get<ILocalization>().GetTextFormatted(
-            "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
+        // the language of the user (the mail is sent by an admin)
+        var languageFile = UserHelper.GetUserLanguageFile(
+            this.GetRepository<User>().GetSingle(u => u.ProviderUserKey == user.Id));
+
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT", languageFile),
             this.BoardSettings.Name);
 
         var templateEmail = new TemplateEmail("NOTIFICATION_ROLE_UNASSIGNMENT")
                                 {
+                                    TemplateLanguageFile = languageFile,
                                     TemplateParams =
                                         {
                                             ["{user}"] = user.UserName,
@@ -562,12 +567,17 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="addedRoles">The added roles.</param>
     public void SendRoleAssignmentNotification(AspNetUsers user, List<string> addedRoles)
     {
-        var subject = this.Get<ILocalization>().GetTextFormatted(
-            "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
+        // the language of the user (the mail is sent by an admin)
+        var languageFile = UserHelper.GetUserLanguageFile(
+            this.GetRepository<User>().GetSingle(u => u.ProviderUserKey == user.Id));
+
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT", languageFile),
             this.BoardSettings.Name);
 
         var templateEmail = new TemplateEmail("NOTIFICATION_ROLE_ASSIGNMENT")
                                 {
+                                    TemplateLanguageFile = languageFile,
                                     TemplateParams =
                                         {
                                             ["{user}"] = user.UserName,
@@ -772,12 +782,16 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         string email,
         string userName)
     {
-        var subject = this.Get<ILocalization>().GetTextFormatted(
-            "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
+        // the language of the user (the mail is sent by an admin)
+        var languageFile = this.LanguageFileOfEmail(email);
+
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT", languageFile),
             this.BoardSettings.Name);
 
         var notifyUser = new TemplateEmail("NOTIFICATION_ON_SUSPENDING_USER")
                              {
+                                 TemplateLanguageFile = languageFile,
                                  TemplateParams =
                                      {
                                          ["{user}"] = userName,
@@ -798,12 +812,16 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="userName">Name of the user.</param>
     public void SendUserSuspensionEndedNotification(string email, string userName)
     {
-        var subject = this.Get<ILocalization>().GetTextFormatted(
-            "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
+        // the language of the user (the mail can be sent by an admin)
+        var languageFile = this.LanguageFileOfEmail(email);
+
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT", languageFile),
             this.BoardSettings.Name);
 
         var notifyUser = new TemplateEmail("NOTIFICATION_ON_SUSPENDING_ENDED_USER")
                              {
+                                 TemplateLanguageFile = languageFile,
                                  TemplateParams =
                                      {
                                          ["{user}"] = userName, ["{forumname}"] = this.BoardSettings.Name
@@ -838,6 +856,21 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         verifyEmail.TemplateParams["{forumlink}"] = $"{this.Get<LinkBuilder>().ForumUrl}";
 
         verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
+    }
+
+    /// <summary>
+    /// The language file of the user of the board with the e-mail address (or the language of the board).
+    /// </summary>
+    /// <param name="email">
+    /// The e-mail address.
+    /// </param>
+    /// <returns>
+    /// The language file.
+    /// </returns>
+    private string LanguageFileOfEmail(string email)
+    {
+        return UserHelper.GetUserLanguageFile(
+            this.GetRepository<User>().GetSingle(u => u.BoardID == this.BoardSettings.BoardId && u.Email == email));
     }
 
     /// <summary>
