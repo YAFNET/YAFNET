@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -23,8 +23,6 @@
  */
 
 namespace YAF.Dialogs;
-
-using System.Text;
 
 using YAF.Types.Models;
 
@@ -115,49 +113,18 @@ public partial class BannedIpEdit : BaseUserControl
             return;
         }
 
-        var ipParts = this.mask.Text.Trim().Split('.');
-
-        // do some validation...
-        var ipError = new StringBuilder();
-
-        if (ipParts.Length != 4)
+        // an ip address (v4 or v6) or an ipv4 mask (e.g. 192.168.1.*), the same check as the import
+        if (!IPHelper.IsValidBanMask(this.mask.Text))
         {
-            ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_ADRESS"));
-        }
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_ADRESS"),
+                MessageTypes.warning);
 
-        foreach (var ip in ipParts)
-        {
-            // see if they are numbers...
-            if (!ulong.TryParse(ip, out var number))
-            {
-                if (ip.Trim() == "*")
-                {
-                    continue;
-                }
+            // the message is shown in the dialog
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                "openModalJs",
+                JavaScriptBlocks.OpenModalJs("EditDialog"));
 
-                if (ip.Trim().Length != 0)
-                {
-                    ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_SECTION"), ip);
-                }
-                else
-                {
-                    ipError.AppendLine(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_VALUE"));
-                }
-
-                break;
-            }
-
-            // try parse succeeded... verify number amount...
-            if (number > 255)
-            {
-                ipError.AppendFormat(this.GetText("ADMIN_BANNEDIP_EDIT", "INVALID_LESS"), ip);
-            }
-        }
-
-        // show error(s) if not valid...
-        if (ipError.Length > 0)
-        {
-            this.PageBoardContext.Notify(ipError.ToString(), MessageTypes.warning);
             return;
         }
 
