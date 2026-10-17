@@ -116,6 +116,24 @@ public class ModerationRepositoryTests
     }
 
     [Test]
+    [Description("The reports of a user are added to one text that fits into its column, the oldest reports are removed")]
+    public void Report_Text_Fits_Column_Test()
+    {
+        var messageId = this.db.AddMessage(this.topic, this.alice);
+
+        for (var i = 1; i <= 6; i++)
+        {
+            this.Reported.Report(this.Reportable(messageId), this.bob, DateTime.UtcNow, $"report{i} {new string('x', 900)}");
+        }
+
+        var audit = this.Audits.Get(a => a.MessageID == messageId).Should().ContainSingle().Subject;
+
+        audit.ReportedNumber.Should().Be(6);
+        audit.ReportText.Length.Should().BeLessThanOrEqualTo(4000);
+        audit.ReportText.Should().Contain("report6").And.NotContain("report1 ");
+    }
+
+    [Test]
     [Description("Different reporters each get their own audit row and the list counts them")]
     public void ListReported_Counts_Reporters_Test()
     {

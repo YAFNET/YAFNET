@@ -220,6 +220,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Attachments: since 3.2.14 the attachments of posts (added with [attach]) could only be downloaded by their uploader and the admins, the other members got "insufficient rights" (the larger image and the download); the links shown by the forum are signed now and can be used by everybody with the download permission, any other attachment id is refused
 * [FIXED] Security: the id of any attachment (e.g. of another user) could be shown with its download link in an own post, signature or private message; only the attachments of the author are shown now
 * [FIXED] Admin -> Ranks: deleting a rank that users have failed with an error on SQL Server, MySQL and PostgreSQL (on SQLite the users kept a deleted rank); a rank in use can't be deleted, like an access mask in use
+* [FIXED] Reporting a post: every report of the same user and post is added to the report text, after some reports it was longer than its column (4000 characters) and the report failed with an error on SQL Server, MySQL and PostgreSQL; the oldest reports of the text are removed now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

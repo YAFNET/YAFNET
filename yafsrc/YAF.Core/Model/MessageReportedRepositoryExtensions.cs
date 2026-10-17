@@ -140,7 +140,7 @@ public static class MessageReportedRepositoryExtensions
                     UserID = userId,
                     ReportedNumber = 1,
                     Reported = reportedDateTime,
-                    ReportText = $"{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
+                    ReportText = FitReportText($"{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}")
                 });
         }
         else
@@ -151,7 +151,8 @@ public static class MessageReportedRepositoryExtensions
                         ? reportAudit.ReportedNumber + 1
                         : reportAudit.ReportedNumber,
                     Reported = reportedDateTime,
-                    ReportText = $"{reportAudit.ReportText}|{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}"
+                    ReportText = FitReportText(
+                        $"{reportAudit.ReportText}|{DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)}??{reportText}")
                 },
                 m => m.MessageID == message.Item2.ID && m.UserID == userId);
         }
@@ -163,6 +164,24 @@ public static class MessageReportedRepositoryExtensions
         BoardContext.Current.GetRepository<Message>().UpdateFlags(message.Item2.ID, flags.BitValue);
 
         return firstReport;
+    }
+
+    /// <summary>
+    /// The reports of a user for a post are added to one text, it has to fit into its column (4000 characters):
+    /// the oldest reports are removed (the report failed with an error on SQL Server, MySQL and PostgreSQL).
+    /// </summary>
+    /// <param name="reportText">The report text.</param>
+    /// <returns>Returns the report text.</returns>
+    private static string FitReportText(string reportText)
+    {
+        const int MaxLength = 4000;
+
+        while (reportText.Length > MaxLength && reportText.IndexOf('|') >= 0)
+        {
+            reportText = reportText.Substring(reportText.IndexOf('|') + 1);
+        }
+
+        return reportText.Length > MaxLength ? reportText.Substring(0, MaxLength) : reportText;
     }
 
     /// <summary>
