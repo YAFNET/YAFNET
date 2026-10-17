@@ -93,7 +93,8 @@ public partial class EditUsersResetPass : BaseUserControl
         // change password...
         try
         {
-            var newPass = this.txtNewPassword.Text.Trim();
+            // the password as typed (the login uses it as typed)
+            var newPass = this.txtNewPassword.Text;
 
             var token = this.Get<IAspNetUsersHelper>().GeneratePasswordResetToken(this.User.Item2.Id);
 

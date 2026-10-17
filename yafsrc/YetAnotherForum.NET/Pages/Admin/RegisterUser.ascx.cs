@@ -82,7 +82,8 @@ public partial class RegisterUser : AdminPage
                            EmailConfirmed = false
                        };
 
-        var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password.Text.Trim());
+        // the password as typed (the login uses it as typed)
+        var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password.Text);
 
         if (!result.Succeeded)
         {

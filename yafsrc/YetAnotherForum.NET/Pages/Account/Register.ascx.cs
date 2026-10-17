@@ -159,16 +159,18 @@ public partial class Register : AccountPage
                        {
                            Id = Guid.NewGuid().ToString(),
                            ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
-                           UserName = this.UserName.Text,
-                           LoweredUserName = this.UserName.Text.ToLower(),
-                           Email = this.Email.Text,
-                           LoweredEmail = this.Email.Text.ToLower(),
+                           // saved like checked (trimmed)
+                           UserName = this.UserName.Text.Trim(),
+                           LoweredUserName = this.UserName.Text.Trim().ToLower(),
+                           Email = this.Email.Text.Trim(),
+                           LoweredEmail = this.Email.Text.Trim().ToLower(),
                            IsApproved = false,
                            EmailConfirmed = false,
                            Profile_Birthday = null
                        };
 
-        var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password.Text.Trim());
+        // the password as typed (the login uses it as typed)
+        var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password.Text);
 
         if (!result.Succeeded)
         {
@@ -180,7 +182,7 @@ public partial class Register : AccountPage
             // setup initial roles (if any) for this user
             this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageBoardContext.PageBoardID, user);
 
-            var displayName = this.DisplayName.Text;
+            var displayName = this.DisplayName.Text.Trim();
 
             // create the user in the YAF DB as well as sync roles...
             var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, this.PageBoardContext.PageBoardID);
