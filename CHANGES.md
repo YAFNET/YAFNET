@@ -12,6 +12,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Host settings: "Allow private message attachments" could not be saved (the setting was stored under another name)
 * [FIXED] Language list: a language file with missing pages or texts caused an error
 * [FIXED] Generated passwords could contain three identical characters in a row
+* [FIXED] Topic names with " & " became "AandB" in the url instead of "A-and-B"
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
