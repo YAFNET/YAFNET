@@ -206,10 +206,11 @@ public class SyndicationFeeds : IHaveServiceLocator
         topics.ForEach(
             topic =>
                 {
-                    var lastPosted = topic.Item2.LastPosted.Value + this.Get<IDateTimeService>().TimeOffset;
+                    // the feeds contain utc times (the feed reader shows them in its time zone)
+                    var lastPosted = DateTime.SpecifyKind(topic.Item2.LastPosted.Value, DateTimeKind.Utc);
                     if (syndicationItems.Count <= 0)
                     {
-                        feed.LastUpdatedTime = lastPosted + this.Get<IDateTimeService>().TimeOffset;
+                        feed.LastUpdatedTime = lastPosted;
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(
                                 string.Empty,
@@ -285,13 +286,14 @@ public class SyndicationFeeds : IHaveServiceLocator
         posts.ForEach(
             row =>
                 {
-                    var posted = row.Edited + this.Get<IDateTimeService>().TimeOffset;
+                    // the feeds contain utc times (the feed reader shows them in its time zone)
+                    var posted = DateTime.SpecifyKind(row.Edited, DateTimeKind.Utc);
 
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row.UserID, null, null));
-                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow;
                     }
 
                     feed.Contributors.Add(
@@ -350,7 +352,8 @@ public class SyndicationFeeds : IHaveServiceLocator
         topics.ForEach(
             topic =>
                 {
-                    var lastPosted = topic.LastPosted + this.Get<IDateTimeService>().TimeOffset;
+                    // the feeds contain utc times (the feed reader shows them in its time zone)
+                    var lastPosted = DateTime.SpecifyKind(topic.LastPosted ?? topic.Posted, DateTimeKind.Utc);
 
                     if (syndicationItems.Count <= 0)
                     {
@@ -360,7 +363,7 @@ public class SyndicationFeeds : IHaveServiceLocator
                                 topic.LastUserID.Value,
                                 null,
                                 null));
-                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
+                        feed.LastUpdatedTime = DateTime.UtcNow;
                     }
 
                     feed.Contributors.Add(
@@ -387,7 +390,7 @@ public class SyndicationFeeds : IHaveServiceLocator
                         postLink,
                         $"urn:{urlAlphaNum}:ft{feedType}:tid{topic.TopicID}:lmid{topic.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
-                        lastPosted.Value,
+                        lastPosted,
                         feed);
                 });
 

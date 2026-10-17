@@ -149,6 +149,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Attachments: the allowed file extensions setting is read with spaces and dots ("jpg, .png"), before such an entry never matched and the files were rejected as "Invalid File"
 * [FIXED] Requests for unknown album images wrote an event log entry each time (the event log could be flooded), they now only return "not found"
 * [FIXED] Register: the user name, e-mail and display name were checked trimmed but saved as typed (a space after the user name gave an "invalid user name" error at the login), the password was saved trimmed while the login uses it as typed (a password with a space at the start or end never worked), the same for the passwords of Admin > Register User and Admin > Edit User > Change Password
+* [FIXED] RSS/Atom feeds: the times of the posts were wrong by the time zone of the user (the time of the user was marked with the time zone of the server, the update time of the topics feed even got the offset twice); the feeds contain utc times now, the feed reader shows them in its time zone
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
