@@ -157,6 +157,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Marking a post as answer wrote the flags of the post as they were when the topic was shown, e.g. a post deleted by a moderator in the meantime was undeleted; the current flags are changed now
 * [FIXED] The team page listed all forums of a moderator, also forums the viewer can't read (the names of hidden forums were shown); it now lists only readable forums
 * [FIXED] Albums: the page for a new album compared the number of albums with the allowed images per album (instead of the allowed albums), and the limits of albums and images were only checked when the page was shown (not for the upload)
+* [FIXED] Reporting the same post again sent the moderators another email each time (a user could flood their inboxes); the moderators are notified once per user and post, further reports are only counted; a report without text (only spaces) was saved
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

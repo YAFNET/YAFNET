@@ -110,7 +110,10 @@ public static class MessageReportedRepositoryExtensions
     /// <param name="reportText">
     /// The report text.
     /// </param>
-    public static void Report(
+    /// <returns>
+    /// Returns if this is the first report of the user for the post (the moderators are notified once).
+    /// </returns>
+    public static bool Report(
         this IRepository<MessageReported> repository,
         Tuple<Topic, Message, User, Forum> message,
         int userId,
@@ -126,6 +129,8 @@ public static class MessageReportedRepositoryExtensions
 
         var reportAudit = BoardContext.Current.GetRepository<MessageReportedAudit>()
             .GetSingle(m => m.MessageID == message.Item2.ID && m.UserID == userId);
+
+        var firstReport = reportAudit == null;
 
         if (reportAudit == null)
         {
@@ -156,6 +161,8 @@ public static class MessageReportedRepositoryExtensions
         flags.IsReported = true;
 
         BoardContext.Current.GetRepository<Message>().UpdateFlags(message.Item2.ID, flags.BitValue);
+
+        return firstReport;
     }
 
     /// <summary>

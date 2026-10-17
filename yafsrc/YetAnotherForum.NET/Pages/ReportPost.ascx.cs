@@ -83,6 +83,12 @@ public partial class ReportPost : ForumPage
             return;
         }
 
+        if (this.Report.Text.Trim().Length == 0)
+        {
+            this.PageBoardContext.Notify(this.GetText("NEED_REASON"), MessageTypes.warning);
+            return;
+        }
+
         if (this.Report.Text.Length > this.PageBoardContext.BoardSettings.MaxReportPostChars)
         {
             this.PageBoardContext.Notify(
@@ -92,15 +98,15 @@ public partial class ReportPost : ForumPage
             return;
         }
 
-        // Save the reported message
-        this.GetRepository<MessageReported>().Report(
+        // Save the reported message (a further report of the user is only counted)
+        var firstReport = this.GetRepository<MessageReported>().Report(
             this.Message,
             this.PageBoardContext.PageUserID,
             DateTime.UtcNow,
             this.Report.Text);
 
-        // Send Notification to Mods about the Reported Post.
-        if (this.PageBoardContext.BoardSettings.EmailModeratorsOnReportedPost)
+        // Send Notification to Mods about the Reported Post, once per user and post (the inboxes can't be flooded)
+        if (firstReport && this.PageBoardContext.BoardSettings.EmailModeratorsOnReportedPost)
         {
             // not approved, notify moderators
             this.Get<ISendNotification>().ToModeratorsThatMessageWasReported(

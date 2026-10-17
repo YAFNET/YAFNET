@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -103,8 +103,10 @@ public class ModerationRepositoryTests
     {
         var messageId = this.db.AddMessage(this.topic, this.alice);
 
-        this.Reported.Report(this.Reportable(messageId), this.bob, DateTime.UtcNow, "first");
-        this.Reported.Report(this.Reportable(messageId), this.bob, DateTime.UtcNow, null);
+        this.Reported.Report(this.Reportable(messageId), this.bob, DateTime.UtcNow, "first").Should()
+            .BeTrue("the moderators are notified about the first report of the user");
+        this.Reported.Report(this.Reportable(messageId), this.bob, DateTime.UtcNow, null).Should()
+            .BeFalse("a further report of the user is only counted");
 
         (this.Reported.Count(r => r.ID == messageId)).Should().Be(1, "the report row is shared by all reporters");
 
