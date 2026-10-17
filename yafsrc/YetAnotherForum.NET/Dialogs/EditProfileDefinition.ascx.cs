@@ -136,6 +136,9 @@ public partial class EditProfileDefinition : BaseUserControl
                     ShowOnRegisterPage = this.ShowOnRegisterPage.Checked
                 });
 
+        // the cached custom profiles of the users contain the definitions
+        this.Get<IDataCache>().Remove(k => k.StartsWith(string.Format(Constants.Cache.UserCustomProfileData, string.Empty)));
+
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_ProfileDefinitions);
     }
 }

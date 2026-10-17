@@ -113,6 +113,9 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
 
         // Clearing cache with old Active User Lazy Data ...
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
+
+        // the custom profile fields of the user (shown in the posts and the profile)
+        this.DataCache.Remove(string.Format(Constants.Cache.UserCustomProfileData, userId));
     }
 
     /// <summary>

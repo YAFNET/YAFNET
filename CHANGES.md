@@ -153,6 +153,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Profile > Delete Account > Suspend: the 30 days were counted from the local time of the user instead of UTC, the suspension ended hours too early or too late
 * [FIXED] Profile: the birthday was converted like a point in time (from the time zone of the user into the time zone of the viewer), viewers west of the user saw the day before; it is shown as a date now
 * [FIXED] Active discussions: guests got the cached list of the page that filled the cache first, the index of a category showed the topics of all categories (or the other way round); the guest cache is kept per category now
+* [FIXED] Changed custom profile fields of a user and changed or deleted custom profile definitions were still shown in the posts and the profile (cached data), the cache is cleared now when the profile or a definition changes
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
