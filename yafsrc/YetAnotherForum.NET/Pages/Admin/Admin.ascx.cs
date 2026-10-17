@@ -74,34 +74,28 @@ public partial class Admin : AdminPage
 
                 var checkMail = this.GetRepository<CheckEmail>().ListTyped(commandArgument[0]).FirstOrDefault();
 
+                // the user with exactly this name (not the first user whose name contains it)
+                var userFound = this.GetRepository<User>().GetSingle(
+                    u => u.BoardID == this.PageBoardContext.PageBoardID && u.Name == commandArgument[1]);
+
+                var user = userFound == null ? null : this.Get<IAspNetUsersHelper>().GetUserByName(userFound.Name);
+
+                if (user == null)
+                {
+                    break;
+                }
+
+                // only a hash of the key is stored: the mail gets a new key
                 if (checkMail != null)
                 {
-                    var verifyEmail = new TemplateEmail("VERIFYEMAIL");
-
-                    var subject = this.Get<ILocalization>()
-                        .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageBoardContext.BoardSettings.Name);
-
-                    verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
-                        ForumPages.Account_Approve,
-                        new { code = checkMail.Hash });
-                    verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-                    verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
-                    verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
-
-                    verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
-
-                    this.PageBoardContext.Notify(
-                        this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),
-                        MessageTypes.success);
+                    this.GetRepository<CheckEmail>().DeleteById(checkMail.ID);
                 }
-                else
-                {
-                    var userFound = this.Get<IUserDisplayName>().FindUserContainsName(commandArgument[1]).FirstOrDefault();
 
-                    var user = this.Get<IAspNetUsersHelper>().GetUserByName(userFound.Name);
+                this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.ID);
 
-                    this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.ID);
-                }
+                this.PageBoardContext.Notify(
+                    this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),
+                    MessageTypes.success);
 
                 break;
             case "delete":
