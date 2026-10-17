@@ -66,6 +66,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Boards: creating a board changed the culture and language of all boards
 * [FIXED] Board statistics: deleted posts, the posts of deleted topics and deleted topics were counted
 * [FIXED] Admin -> Boards: deleting a board failed when it had tags, banned user agents or custom profile fields (SQL Server, MySQL, PostgreSQL)
+* [FIXED] Registration and e-mail verification: the verification key (an identity token) could be longer than its column (255 characters) and the registration failed on SQL Server, MySQL and PostgreSQL; only a hash of the key is stored now (links sent before the update still work), "resend the verification mail" (login and admin dashboard) sends a new link, on the admin dashboard it could send the mail of another user whose name contains the name of the not approved user
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

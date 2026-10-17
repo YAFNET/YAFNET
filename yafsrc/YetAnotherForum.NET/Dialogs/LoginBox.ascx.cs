@@ -217,19 +217,17 @@ public partial class LoginBox : BaseUserControl
             return;
         }
 
-        var verifyEmail = new TemplateEmail("VERIFYEMAIL");
+        var user = this.Get<IAspNetUsersHelper>().GetUserByEmail(checkMail.Email);
 
-        var subject = this.Get<ILocalization>()
-            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageBoardContext.BoardSettings.Name);
+        if (user == null)
+        {
+            return;
+        }
 
-        verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
-            ForumPages.Account_Approve,
-            new { code = checkMail.Hash });
-        verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-        verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
-        verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
+        // only a hash of the key is stored: the mail gets a new key
+        this.GetRepository<CheckEmail>().DeleteById(checkMail.ID);
 
-        verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
+        this.Get<ISendNotification>().SendVerificationEmail(user, checkMail.Email, checkMail.UserID);
 
         this.PageBoardContext.Notify(
             this.GetText("LOGIN", "MSG_MESSAGE_SEND"),

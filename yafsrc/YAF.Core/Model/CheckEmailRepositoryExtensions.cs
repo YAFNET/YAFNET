@@ -25,6 +25,8 @@ namespace YAF.Core.Model;
 
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 using YAF.Types.Models;
 
@@ -70,13 +72,14 @@ public static class CheckEmailRepositoryExtensions
     public static void Save(
         this IRepository<CheckEmail> repository,
         int? userId,
-        string hash,
+        string key,
         string email)
     {
+        // only a hash of the key is stored, the key (a token of the identity) can be longer than the column
         repository.Insert(
             new CheckEmail
                 {
-                    UserID = userId.Value, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
+                    UserID = userId.Value, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = HashKey(key)
                 });
     }
 
@@ -92,10 +95,34 @@ public static class CheckEmailRepositoryExtensions
     /// <returns>
     /// The <see cref="CheckEmail"/>.
     /// </returns>
-    public static CheckEmail Update(this IRepository<CheckEmail> repository, string hash)
+    public static CheckEmail Update(this IRepository<CheckEmail> repository, string key)
     {
-        var mail = repository.GetSingle(c => c.Hash == hash);
+        if (key.IsNotSet())
+        {
+            return null;
+        }
+
+        var hash = HashKey(key);
+
+        // links sent before the update contain the stored key itself
+        var mail = repository.GetSingle(c => c.Hash == hash || c.Hash == key);
 
         return mail;
+    }
+
+    /// <summary>
+    /// The hash of a verification key (stored instead of the key).
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <returns>
+    /// The SHA256 hash as hex string.
+    /// </returns>
+    public static string HashKey(string key)
+    {
+        using var sha = SHA256.Create();
+
+        return BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(key))).Replace("-", string.Empty);
     }
 }
