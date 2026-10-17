@@ -243,6 +243,12 @@ public partial class Groups : AdminPage
 
                 var group = this.GetRepository<Group>().GetById(groupId);
 
+                // the guest and the administrators group can't be deleted (the board had no admins anymore)
+                if (group == null || group.GroupFlags.IsGuest || group.GroupFlags.IsAdmin)
+                {
+                    break;
+                }
+
                 // delete role
                 this.GetRepository<GroupMedal>().Delete(g => g.GroupID == groupId);
                 this.GetRepository<ForumAccess>().Delete(g => g.GroupID == groupId);

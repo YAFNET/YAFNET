@@ -214,7 +214,7 @@
                         <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
                                          Type="Danger"
                                          Size="Small"
-                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest%>'
+                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest && !((GroupFlags)this.Eval("GroupFlags")).IsAdmin%>'
                                          CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
                                          ReturnConfirmTag="CONFIRM_DELETE"
                                          TitleLocalizedTag="DELETE"
@@ -234,7 +234,7 @@
                         <YAF:ThemeButton ID="ThemeButton2" runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest && !YAF.Configuration.Config.IsDotNetNuke %>'
+                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest && !((GroupFlags)this.Eval("GroupFlags")).IsAdmin && !YAF.Configuration.Config.IsDotNetNuke %>'
                                          CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
                                          ReturnConfirmTag="CONFIRM_DELETE"
                                          TitleLocalizedTag="DELETE"
