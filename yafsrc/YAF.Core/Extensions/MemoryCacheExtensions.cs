@@ -55,24 +55,16 @@ public static class MemoryCacheExtensions
         string key,
         Func<T> getValue)
     {
-        var item = cache[key];
-
-        if (!Equals(item, default(T)))
+        // a missing key is null, also for value types (the cast of null to a value type failed)
+        if (cache[key] is T cached)
         {
-            return (T)item;
+            return cached;
         }
 
-        item = cache[key];
-
-        if (!Equals(item, default(T)))
-        {
-            return (T)item;
-        }
-
-        item = getValue();
+        var item = getValue();
         cache[key] = item;
 
-        return (T)item;
+        return item;
     }
 
     /// <summary>
