@@ -165,6 +165,62 @@ public class ContentFeatureTests : ForumTestBase
         (await refused.BodyAsync()).Should().NotEqual(Png);
     }
 
+    [Test]
+    [Description("A member thanks the post of another member and removes the thanks again (api requests of the page)")]
+    public async Task Thanks_Test()
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        var topicHref = await this.CreateTopicAsync($"Thanks topic {Guid.NewGuid():N}", "A post to thank.");
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync(topicHref);
+
+        await this.Page.Locator("a[href^='javascript:addThanks']").First.ClickAsync();
+        await this.Page.Locator("a[href^='javascript:removeThanks']").First
+            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+
+        // stored: the page shows the remove button again
+        await this.GotoAsync(topicHref);
+        (await this.Page.Locator("a[href^='javascript:removeThanks']").CountAsync()).Should().Be(1);
+
+        await this.Page.Locator("a[href^='javascript:removeThanks']").First.ClickAsync();
+        await this.Page.Locator("a[href^='javascript:addThanks']").First
+            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+
+        await this.GotoAsync(topicHref);
+        (await this.Page.Locator("a[href^='javascript:removeThanks']").CountAsync()).Should().Be(0);
+    }
+
+    [Test]
+    [Description("The owner changes the album title in the album list (api request of the inline editor)")]
+    public async Task Album_Title_Edit_Test()
+    {
+        var title = $"Renamed {Guid.NewGuid():N}".Substring(0, 20);
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        await this.GotoAsync("EditAlbumImages?a=new");
+        await this.Control("txtTitle").FillAsync("Album to rename");
+        await this.Control("File").SetInputFilesAsync(
+            new FilePayload { Name = "image.png", MimeType = "image/png", Buffer = Png });
+        await this.ClickAndWaitAsync(this.Control("Upload"));
+
+        var albumsHref = await this.Page.Locator("a[href*='Albums']").First.GetAttributeAsync("href");
+        await this.GotoAsync(albumsHref.TrimStart('/'));
+
+        await this.Page.Locator(".album-caption").First.ClickAsync();
+
+        var input = this.Page.Locator(".popover form input");
+        await input.FillAsync(title);
+        await this.Page.Locator(".popover form button[type='submit']").ClickAsync();
+
+        await this.Page.Locator(".popover form").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Detached });
+
+        await this.GotoAsync(albumsHref.TrimStart('/'));
+        (await this.Page.InnerTextAsync("body")).Should().Contain(title);
+    }
+
     private static int TopicIdOf(string topicHref)
     {
         return int.Parse(Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value);

@@ -24,7 +24,10 @@
 
 namespace YAF.Tests.UITests.Tests;
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Microsoft.Playwright;
 
 using YAF.Tests.UITests.Infrastructure;
 
@@ -44,6 +47,29 @@ public class SecurityTests : ForumTestBase
         await this.GotoAsync("EditMessage?m=1");
 
         this.Page.Url.Should().NotContain("EditMessage");
+    }
+
+    [Test]
+    [Description("A form of another web site can not call the api with the login cookie of the user, the json requests of the forum pass")]
+    public async Task Api_Refuses_Cross_Site_Form_Post_Test()
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        var forged = await this.Page.APIRequest.PostAsync(
+            $"{TestConfig.BaseUrl}api/ThankYou/AddThanks/1",
+            new APIRequestContextOptions { Form = this.Page.APIRequest.CreateFormData() });
+
+        forged.Status.Should().Be(403);
+
+        var json = await this.Page.APIRequest.PostAsync(
+            $"{TestConfig.BaseUrl}api/ThankYou/GetThanks/1",
+            new APIRequestContextOptions
+            {
+                Headers = new Dictionary<string, string> { ["Content-Type"] = "application/json;charset=utf-8" },
+                Data = "{}"
+            });
+
+        json.Status.Should().NotBe(403);
     }
 
     [Test]

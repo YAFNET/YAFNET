@@ -61,5 +61,8 @@ public static class WebApiConfig
 
         // Attribute routing.
         config.MapHttpAttributeRoutes();
+
+        // the api requests of other web sites with the login cookie of the user are refused
+        config.Filters.Add(new CrossSiteRequestFilter());
     }
 }
