@@ -172,6 +172,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The forgot password page said that a new verification e-mail was sent to not yet approved accounts, but none was sent; it is sent now (only while the e-mail verification is pending, accounts waiting for the approval of an admin get no e-mail)
 * [FIXED] Creating a category or forum failed when a category or forum with the same name existed on another board, renaming a category or forum to a name that already exists (in the board or the category) caused an error instead of the "name exists" message
 * [FIXED] Exporting the selected bb codes failed when an id was not found
+* [FIXED] The continue link of the info page used the url parameter without a check (javascript: links and links to other sites), the user name and suspension reason were shown as html
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

@@ -71,8 +71,13 @@ public partial class Info : ForumPage
         if (this.Get<HttpRequestBase>().QueryString.Exists("url"))
         {
             // un-escape ampersands
-            this.RefreshURL = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("url")
-                .Replace("&amp;", "&");
+            var url = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("url").Replace("&amp;", "&");
+
+            // only a local address (no javascript: link or redirect to another site)
+            if (this.IsLocalUrl(url))
+            {
+                this.RefreshURL = url;
+            }
         }
 
         // try to get info message code from parameter
@@ -92,7 +97,7 @@ public partial class Info : ForumPage
                     if (this.PageBoardContext.SuspendedReason.IsSet())
                     {
                         this.InfoLabel.Text =
-                            $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTimeService>().GetUserDateTime(this.PageBoardContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.PageBoardContext.SuspendedReason)}";
+                            $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTimeService>().GetUserDateTime(this.PageBoardContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.HtmlEncode(this.PageBoardContext.SuspendedReason))}";
                     }
                     else
                     {
@@ -146,7 +151,7 @@ public partial class Info : ForumPage
             this.Title.Text = this.GetText("title_exception");
 
             // exception message
-            this.InfoLabel.Text = $"{this.GetText("exception")} <strong>{this.PageBoardContext.PageUser.DisplayOrUserName()}</strong>.";
+            this.InfoLabel.Text = $"{this.GetText("exception")} <strong>{this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName())}</strong>.";
 
             // redirect to forum main after 2 seconds
             this.RefreshTime = 2;
@@ -156,5 +161,29 @@ public partial class Info : ForumPage
         // set continue button URL and visibility
         this.Continue.NavigateUrl = this.RefreshURL;
         this.Continue.Visible = this.RefreshURL != null;
+    }
+
+    /// <summary>
+    /// Checks if the address is a local path or an address of this site.
+    /// </summary>
+    /// <param name="url">The url.</param>
+    /// <returns>Returns if the url is local.</returns>
+    private bool IsLocalUrl(string url)
+    {
+        if (url.IsNotSet() || url.Any(char.IsControl))
+        {
+            return false;
+        }
+
+        if (url[0] == '/' && (url.Length == 1 || url[1] != '/' && url[1] != (char)92)
+            || url[0] == '~' && url.Length > 1 && url[1] == '/')
+        {
+            return true;
+        }
+
+        // an absolute address (e.g. a configured app root) of the same host
+        return Uri.TryCreate(url, UriKind.Absolute, out var uri)
+               && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)
+               && uri.Host.Equals(this.Get<HttpRequestBase>().Url?.Host, StringComparison.OrdinalIgnoreCase);
     }
 }
