@@ -273,6 +273,19 @@ public class ContentFeatureTests : ForumTestBase
         response.Headers.Should().ContainKey("content-disposition");
         response.Headers["content-disposition"].Should().StartWith("attachment");
         response.Headers["x-content-type-options"].Should().Be("nosniff");
+
+        // the download link of the attachment
+        var download = await this.Page.APIRequest.GetAsync(link);
+        download.Headers["content-disposition"].Should().StartWith("attachment");
+        (await download.TextAsync()).Should().Contain("<script>");
+
+        // another member without the signature of the link (the uploader and the admins may download it)
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync(string.Empty);
+
+        var unsigned = await this.Page.APIRequest.GetAsync(
+            System.Text.RegularExpressions.Regex.Replace(link, "[?&]s=[^&]*", string.Empty));
+        (await unsigned.TextAsync()).Should().Contain("insufficient rights");
     }
 
     [Test]
