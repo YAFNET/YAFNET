@@ -73,6 +73,66 @@ public static class ForumAccessRepositoryExtensions
     }
 
     /// <summary>
+    /// Gives the group the access of the start group(s) of the board in every forum
+    /// (e.g. a group created for a role), the read access mask of the board if there is no start group access.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="groupId">
+    /// The group id.
+    /// </param>
+    public static void AddStartGroupAccess(this IRepository<ForumAccess> repository, int boardId, int groupId)
+    {
+        try
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
+
+            expression.Join<Group>((a, b) => b.ID == a.GroupID)
+                .Where<ForumAccess, Group>((a, b) => b.BoardID == boardId && (b.Flags & 4) == 4)
+                .GroupBy(a => a.ForumID).Select<ForumAccess>(
+                    a => new { a.ForumID, AccessMaskID = Sql.Min(a.AccessMaskID) });
+
+            var list = repository.DbAccess.Execute(
+                db => db.Connection.Select(expression));
+
+            // -- the new group gets the access of the start group(s)
+            var forumAccessList = list.Select(
+                access => new ForumAccess
+                              {
+                                  GroupID = groupId,
+                                  ForumID = access.ForumID,
+                                  AccessMaskID = access.AccessMaskID
+                              }).ToList();
+
+            BoardContext.Current.GetRepository<ForumAccess>().BulkInsert(forumAccessList);
+        }
+        catch (Exception)
+        {
+            var guestAccessMask = BoardContext.Current.GetRepository<AccessMask>()
+                .GetSingle(a => a.BoardID == boardId && (a.Flags & 4) == 4);
+
+            var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
+
+            var forumAccessList = new List<ForumAccess>();
+
+            forums.ForEach(
+                forum => forumAccessList.Add(
+                    new ForumAccess
+                    {
+                        AccessMaskID = guestAccessMask.ID,
+                        ForumID = forum.Item1.ID,
+                        GroupID = groupId
+                    }));
+
+            BoardContext.Current.GetRepository<ForumAccess>().BulkInsert(forumAccessList);
+        }
+    }
+
+    /// <summary>
     /// Lists the by groups.
     /// </summary>
     /// <param name="repository">

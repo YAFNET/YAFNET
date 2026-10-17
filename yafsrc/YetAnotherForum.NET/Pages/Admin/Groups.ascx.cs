@@ -199,6 +199,11 @@ public partial class Groups : AdminPage
                     0,
                     0);
 
+                // the access of the start group(s) of the board in every forum (the access mask id 1 is a mask of
+                // the first board, e.g. the admin access)
+                this.GetRepository<ForumAccess>().Delete(a => a.GroupID == groupId);
+                this.GetRepository<ForumAccess>().AddStartGroupAccess(this.PageBoardContext.PageBoardID, groupId);
+
                 // redirect to newly created role
                 this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, new { i = groupId });
                 break;

@@ -142,6 +142,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The "delete selected" of the private messages deleted the messages of any id sent with the form (the id is a hidden field), also the messages of other users
 * [FIXED] Security: The forum access of the edit forum and edit group pages used the group and forum ids of hidden fields without checking the board, admins could change the forum access of groups and forums of other boards
 * [FIXED] Security: Logout was a plain link, so any other website could log a forum user out with a link or an image; the logout link has a token of the session now, a request without it does not log out
+* [FIXED] Security: A group added for a role (Admin > Groups, roles without group) got the access mask with the id 1 in every forum (a mask of the first board, e.g. the admin access) instead of the access of the start group; check the groups created this way on existing installs
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

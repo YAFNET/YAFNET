@@ -145,49 +145,8 @@ public static class UserGroupRepositoryExtensions
                 groupId = BoardContext.Current.GetRepository<Group>()
                     .Insert(new Group { Name = role, BoardID = boardId, Flags = 0 });
 
-                try
-                {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
-
-                    expression.Join<Group>((a, b) => b.ID == a.GroupID)
-                        .Where<ForumAccess, Group>((a, b) => b.BoardID == boardId && (b.Flags & 4) == 4)
-                        .GroupBy(a => a.ForumID).Select<ForumAccess>(
-                            a => new { a.ForumID, AccessMaskID = Sql.Min(a.AccessMaskID) });
-
-                    var list = repository.DbAccess.Execute(
-                        db => db.Connection.Select(expression));
-
-                    // -- the new group gets the access of the start group(s)
-                    var forumAccessList = list.Select(
-                        access => new ForumAccess
-                                      {
-                                          GroupID = groupId.Value,
-                                          ForumID = access.ForumID,
-                                          AccessMaskID = access.AccessMaskID
-                                      }).ToList();
-
-                    BoardContext.Current.GetRepository<ForumAccess>().BulkInsert(forumAccessList);
-                }
-                catch (Exception)
-                {
-                    var guestAccessMask = BoardContext.Current.GetRepository<AccessMask>()
-                        .GetSingle(a => a.BoardID == boardId && (a.Flags & 4) == 4);
-
-                    var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
-
-                    var forumAccessList = new List<ForumAccess>();
-
-                    forums.ForEach(
-                        forum => forumAccessList.Add(
-                            new ForumAccess
-                            {
-                                AccessMaskID = guestAccessMask.ID,
-                                ForumID = forum.Item1.ID,
-                                GroupID = groupId.Value
-                            }));
-
-                    BoardContext.Current.GetRepository<ForumAccess>().BulkInsert(forumAccessList);
-                }
+                // -- the new group gets the access of the start group(s)
+                BoardContext.Current.GetRepository<ForumAccess>().AddStartGroupAccess(boardId, groupId.Value);
             }
             else
             {
