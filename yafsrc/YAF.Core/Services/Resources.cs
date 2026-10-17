@@ -27,6 +27,7 @@ using ServiceStack.OrmLite.Base.Text;
 namespace YAF.Core.Services;
 
 using System;
+using System.Security;
 using System.Text;
 
 using Newtonsoft.Json;
@@ -282,14 +283,8 @@ public class Resources : IResources, IHaveServiceLocator
                 return;
             }
 
-            var name = new UnicodeEncoder().XSSEncode(user.DisplayOrUserName());
-
-            if (name.StartsWith("&"))
-            {
-                name = name.Replace("&", string.Empty);
-            }
-
-            var abbreviation = name.GetAbbreviation();
+            // the abbreviation of the name, encoded for the svg (xml), e.g. "T&amp;" for "Tom & Jerry"
+            var abbreviation = SecurityElement.Escape(user.DisplayOrUserName().GetAbbreviation());
 
             var width = this.Get<BoardSettings>().AvatarWidth;
             var height = this.Get<BoardSettings>().AvatarHeight;
@@ -302,11 +297,14 @@ public class Resources : IResources, IHaveServiceLocator
             {
                 backgroundColor = "#0c7333";
             }
+            else if (user.ProviderUserKey is { Length: >= 6 } key && key.Substring(0, 6).All(Uri.IsHexDigit))
+            {
+                backgroundColor = $"#{key.Substring(0, 6)}";
+            }
             else
             {
-                backgroundColor = ValidationHelper.IsNumeric(user.ProviderUserKey)
-                                      ? $"#{user.ProviderUserKey.ToGuid().ToString().Substring(0, 6)}"
-                                      : $"#{user.ProviderUserKey.Substring(0, 6)}";
+                // no usable provider key, a color from the user id
+                backgroundColor = $"#{(uint)user.ID * 2654435761u % 0xFFFFFF:x6}";
             }
 
             var svg = $@"<?xml version=""1.0"" encoding=""UTF-8""?><svg xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" 
