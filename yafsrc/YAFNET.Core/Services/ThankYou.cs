@@ -146,7 +146,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
 
         var thanks = this.GetRepository<Thanks>().MessageGetThanksList(messageId);
 
-        filler.Append("<span class=\"avatar-stack\">");
+        filler.Append("<i class=\"fas fa-heart text-danger me-1\"></i><span class=\"avatar-stack\">");
 
         thanks.ForEach(
             dr =>
@@ -160,7 +160,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
                         : name;
 
                     filler.Append(
-                        $"""<i class="fas fa-heart text-danger me-1"></i><a href="" class="avatar-item"><img src="{this.Get<IAvatars>()
+                        $"""<a href="" class="avatar-item"><img src="{this.Get<IAvatars>()
                             .GetAvatarUrlForUser(dr.Item2.ID, dr.Item2.Avatar, dr.Item2.AvatarImage != null)}" alt="{name}" title="{title}" class="avatar border rounded img-fluid" />""");
 
                     filler.Append("</a>");

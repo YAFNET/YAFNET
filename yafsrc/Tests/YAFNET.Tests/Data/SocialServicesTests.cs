@@ -145,7 +145,7 @@ public class SocialServicesTests
         html.Should().Contain($"src=\"/avatar/{this.bob}\"");
         html.Should().Contain("alt=\"Bob &lt;b&gt;\"").And.NotContain("Bob <b>");
 
-        service.ThanksInfo(this.message).Should().StartWith("<span class=\"avatar-stack\">");
+        service.ThanksInfo(this.message).Should().StartWith("<i class=\"fas fa-heart text-danger me-1\"></i><span class=\"avatar-stack\">");
 
         this.board.Localization.Add("BUTTON", "BUTTON_THANKS", "Thanks").Add("BUTTON", "BUTTON_THANKS_TT", "Say thanks");
 
@@ -153,9 +153,6 @@ public class SocialServicesTests
         info.MessageID.Should().Be(this.message);
         info.Text.Should().Be("Thanks");
         info.Title.Should().Be("Say thanks");
-
-        service.GetThankYou("BUTTON_THANKS", "BUTTON_THANKS_TT", this.message).ThanksInfo
-            .Should().NotContain("fa-heart");
     }
 
     [Test]
