@@ -204,12 +204,18 @@ public partial class BannedNames : AdminPage
 
         List<Types.Models.BannedName> bannedList;
 
+        // the number of the entries of the search (for the pager)
+        int count;
+
         if (searchText.IsSet())
         {
             bannedList = this.GetRepository<Types.Models.BannedName>().GetPaged(
                 x => x.BoardID == this.PageBoardContext.PageBoardID && x.Mask == searchText,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize);
+
+            count = this.GetRepository<Types.Models.BannedName>()
+                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.Mask == searchText).ToType<int>();
         }
         else
         {
@@ -217,14 +223,14 @@ public partial class BannedNames : AdminPage
                 x => x.BoardID == this.PageBoardContext.PageBoardID,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize);
+
+            count = this.GetRepository<Types.Models.BannedName>()
+                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>();
         }
 
         this.list.DataSource = bannedList;
 
-        this.PagerTop.Count = !bannedList.NullOrEmpty()
-                                  ? this.GetRepository<Types.Models.BannedName>()
-                                      .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
-                                  : 0;
+        this.PagerTop.Count = !bannedList.NullOrEmpty() ? count : 0;
 
         this.DataBind();
 

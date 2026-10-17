@@ -317,6 +317,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: suspended users were only sent to the info page by the forum pages, but could still use the api (thank posts, vote, upload files, ...); the api and the file upload refuse their requests now
 * [FIXED] Admin > Delete Forum: after the forum was deleted the page showed the "invalid" info page instead of going back to the forum list
 * [FIXED] Admin > Delete Forum: after the forum was deleted the page showed the "invalid" info page instead of going back to the forum list
+* [FIXED] Admin > Banned Emails/IPs/Names/User Agents and Spam Words: the pager of a search counted all entries instead of the found ones
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

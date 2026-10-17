@@ -178,12 +178,18 @@ public partial class SpamWords : AdminPage
 
         List<Spam_Words> bannedList;
 
+        // the number of the entries of the search (for the pager)
+        int count;
+
         if (searchText.IsSet())
         {
             bannedList = this.GetRepository<Spam_Words>().GetPaged(
                 x => x.BoardID == this.PageBoardContext.PageBoardID && x.SpamWord == searchText,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize);
+
+            count = this.GetRepository<Spam_Words>()
+                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.SpamWord == searchText).ToType<int>();
         }
         else
         {
@@ -191,14 +197,14 @@ public partial class SpamWords : AdminPage
                 x => x.BoardID == this.PageBoardContext.PageBoardID,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize);
+
+            count = this.GetRepository<Spam_Words>()
+                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>();
         }
 
         this.list.DataSource = bannedList;
 
-        this.PagerTop.Count = !bannedList.NullOrEmpty()
-                                  ? this.GetRepository<Spam_Words>()
-                                      .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
-                                  : 0;
+        this.PagerTop.Count = !bannedList.NullOrEmpty() ? count : 0;
 
         this.DataBind();
 
