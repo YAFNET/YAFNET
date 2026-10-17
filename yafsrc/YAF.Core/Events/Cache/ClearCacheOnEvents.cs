@@ -92,7 +92,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     {
         // to clear the cache to show user in the list at once
         this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
-        this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
+        this.DataCache.Remove(k => k.StartsWith(Constants.Cache.ActiveDiscussions));
         this.DataCache.Remove(Constants.Cache.BoardUserStats);
     }
 
@@ -285,7 +285,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         }*/
 
         // clear active discussions cache..
-        this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
+        this.DataCache.Remove(k => k.StartsWith(Constants.Cache.ActiveDiscussions));
 
         this.ClearModeratorsCache();
     }
@@ -299,7 +299,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     public void Handle(RepositoryEvent<Forum> @event)
     {
         // clear active discussions cache..
-        this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
+        this.DataCache.Remove(k => k.StartsWith(Constants.Cache.ActiveDiscussions));
 
         this.DataCache.Remove(
             k => k.StartsWith(string.Format(Constants.Cache.ForumJump, string.Empty)));

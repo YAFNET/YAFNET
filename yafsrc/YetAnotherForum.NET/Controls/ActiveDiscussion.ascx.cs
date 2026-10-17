@@ -176,14 +176,15 @@ public partial class ActiveDiscussion : BaseUserControl
     {
         // Latest forum posts
         // Shows the latest n number of posts on the main forum list page
-        const string CacheKey = Constants.Cache.ActiveDiscussions;
+        // the list of the board index differs from the list of a category
+        var cacheKey = $"{Constants.Cache.ActiveDiscussions}_{this.PageBoardContext.PageCategoryID}";
 
         List<LatestTopic> activeTopics = null;
 
         if (this.PageBoardContext.IsGuest)
         {
             // allow caching since this is a guest...
-            activeTopics = this.Get<IDataCache>()[CacheKey] as List<LatestTopic>;
+            activeTopics = this.Get<IDataCache>()[cacheKey] as List<LatestTopic>;
         }
 
         if (activeTopics == null)
@@ -199,7 +200,7 @@ public partial class ActiveDiscussion : BaseUserControl
             if (this.PageBoardContext.IsGuest)
             {
                 this.Get<IDataCache>().Set(
-                    CacheKey,
+                    cacheKey,
                     activeTopics,
                     TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.ActiveDiscussionsCacheTimeout));
             }
