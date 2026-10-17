@@ -125,8 +125,8 @@ public class Localizer
     /// <param name="localizedText">The localized text.</param>
     public void GetText(string tag, out string localizedText)
     {
-        // default the out parameters
-        localizedText = string.Empty;
+        // default the out parameters, null means the text is missing (the english text is used then)
+        localizedText = null;
 
         tag = tag.ToUpper(CultureInfo.InvariantCulture);
 
