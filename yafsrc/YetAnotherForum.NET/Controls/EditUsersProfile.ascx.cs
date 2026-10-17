@@ -401,6 +401,25 @@ public partial class EditUsersProfile : BaseUserControl
             return;
         }
 
+        // the other fields have to fit into their columns too (the homepage with the added "https://"), saving
+        // failed with an error on SQL Server, MySQL and PostgreSQL
+        var tooLong = new[]
+                          {
+                              (this.Realname.Text, "REALNAME2", 255), (this.City.Text, "CITY", 255),
+                              (this.Location.Text, "WHERE", 255), (this.HomePage.Text, "HOMEPAGE2", 255),
+                              (this.Weblog.Text, "WEBLOG2", 255), (this.Xmpp.Text, "XMPP", 255),
+                              (this.Facebook.Text, "FACEBOOK", 400)
+                          }.FirstOrDefault(field => (field.Item1 ?? string.Empty).Trim().Length > field.Item3);
+
+        if (tooLong.Item2 != null)
+        {
+            this.PageBoardContext.Notify(
+                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", tooLong.Item2), tooLong.Item3),
+                MessageTypes.warning);
+
+            return;
+        }
+
         this.UpdateUserProfile();
 
         // the required fields and the types are taken from the database, number fields must be numbers

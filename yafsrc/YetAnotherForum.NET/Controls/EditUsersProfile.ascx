@@ -136,7 +136,7 @@
                     LocalizedPage="EDIT_PROFILE"
                     LocalizedTag="homepage2" />
             </asp:Label>
-            <asp:TextBox runat="server" ID="HomePage"
+            <asp:TextBox runat="server" ID="HomePage" MaxLength="255"
                 CssClass="form-control"
                 TextMode="Url" />
         </div>

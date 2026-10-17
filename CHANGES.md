@@ -221,6 +221,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: the id of any attachment (e.g. of another user) could be shown with its download link in an own post, signature or private message; only the attachments of the author are shown now
 * [FIXED] Admin -> Ranks: deleting a rank that users have failed with an error on SQL Server, MySQL and PostgreSQL (on SQLite the users kept a deleted rank); a rank in use can't be deleted, like an access mask in use
 * [FIXED] Reporting a post: every report of the same user and post is added to the report text, after some reports it was longer than its column (4000 characters) and the report failed with an error on SQL Server, MySQL and PostgreSQL; the oldest reports of the text are removed now
+* [FIXED] Edit profile and Admin -> Edit User -> Profile: a real name, location, city, homepage, blog or xmpp longer than 255 characters (the homepage with the added "https://") failed the save with an error on SQL Server, MySQL and PostgreSQL; the fields are checked now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
