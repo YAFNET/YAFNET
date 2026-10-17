@@ -131,6 +131,87 @@ public class AdminForumsTests : ForumTestBase
         (await this.Page.InnerTextAsync("body")).Should().Contain(first);
     }
 
+    [Test]
+    [Description("A too big sort order is refused, a forum can't be its own parent or the parent of its parent, a moderated forum with a post count, cancel")]
+    public async Task Edit_Forum_Checks_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var parent = $"Parent {id}";
+        var child = $"Child {id}";
+
+        await this.LoginAsAdminAsync();
+
+        // a too big sort order of a category and of a forum
+        await this.GotoAsync("Admin/EditCategory");
+        await this.Control("Name").FillAsync($"Big sort {id}");
+        await this.Control("SortOrder").FillAsync("99999");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+        this.Page.Url.Should().Contain("EditCategory");
+
+        await this.GotoAsync("Admin/EditForum");
+        await this.FillForumAsync(parent, "99999");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+        this.Page.Url.Should().Contain("EditForum");
+
+        // the parent and its child, moderated after 3 posts
+        await this.GotoAsync("Admin/EditForum");
+        await this.FillForumAsync(parent, "60");
+        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
+        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("ModerateAllPosts").UncheckAsync());
+        await this.Control("ModeratedPostCount").FillAsync("3");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        var parentId = await this.ForumIdAsync(parent);
+
+        await this.GotoAsync("Admin/EditForum");
+        await this.FillForumAsync(child, "61");
+        await this.Control("ParentList").SelectOptionAsync(parentId, new LocatorSelectOptionOptions { Force = true });
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        var childId = await this.ForumIdAsync(child);
+
+        // the post count of the moderated forum is shown
+        await this.GotoAsync($"Admin/EditForum?fa={parentId}");
+        (await this.Control("ModeratedPostCount").InputValueAsync()).Should().Be("3");
+
+        // its own parent and the parent of its parent (when the list offers them)
+        foreach (var newParent in new[] { parentId, childId })
+        {
+            await this.GotoAsync($"Admin/EditForum?fa={parentId}");
+
+            if (await this.Control("ParentList").Locator($"option[value='{newParent}']").CountAsync() == 0)
+            {
+                continue;
+            }
+
+            await this.Control("ParentList").SelectOptionAsync(newParent, new LocatorSelectOptionOptions { Force = true });
+            await this.ClickAndWaitAsync(this.Control("Save"));
+            this.Page.Url.Should().Contain("EditForum", newParent);
+        }
+
+        await this.GotoAsync($"Admin/EditForum?fa={parentId}");
+        await this.ClickAndWaitAsync(this.Control("Cancel"));
+        this.Page.Url.Should().Contain("Admin/Forums");
+    }
+
+    private async Task FillForumAsync(string name, string sortOrder)
+    {
+        await this.Control("Name").FillAsync(name);
+        await this.Control("Description").FillAsync("A forum of the edit checks");
+        await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = "Test Category" });
+        await this.Control("SortOrder").FillAsync(sortOrder);
+    }
+
+    private async Task<string> ForumIdAsync(string name)
+    {
+        await this.GotoAsync(string.Empty);
+
+        var href = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = name }).First
+                       .GetAttributeAsync("href");
+
+        return Regex.Match(href, @"/Topics/(\d+)").Groups[1].Value;
+    }
+
     private async Task CreateCategoryAsync(string name, string sortOrder)
     {
         await this.GotoAsync("Admin/EditCategory");
