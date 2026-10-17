@@ -53,5 +53,17 @@ public class SetSqliteDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
         OrmLiteConfig.DialectProvider.GetDateTimeConverter().DateStyle = DateTimeKind.Utc;
         OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
         OrmLiteConfig.CommandTimeout = Config.SqlCommandTimeout;
+
+        // once per start, before the database access is used by anything else (no other connection is open)
+        try
+        {
+            using var connection = @event.DbAccess.CreateConnectionOpen();
+
+            SqliteDbInformation.EnableWalJournalMode(connection, @event.DbAccess.Information.ConnectionString());
+        }
+        catch (Exception)
+        {
+            // the journal mode is only an optimization, the next start tries it again
+        }
     }
 }
