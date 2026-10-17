@@ -72,8 +72,22 @@ public class Album : IAlbum, IHaveServiceLocator
             return attachment.UserID == BoardContext.Current.PageUserID || BoardContext.Current.IsAdmin;
         }
 
-        return this.GetRepository<Message>()
-                   .GetMessageWithAccess(attachment.MessageID, BoardContext.Current.PageUserID) != null;
+        var message = this.GetRepository<Message>()
+            .GetMessageWithAccess(attachment.MessageID, BoardContext.Current.PageUserID);
+
+        if (message == null)
+        {
+            return false;
+        }
+
+        // the attachments of deleted and not approved posts (of others) only for the moderators of the forum
+        var userId = BoardContext.Current.PageUserID;
+        var forumId = message.Item4.ID;
+
+        var isModerator = this.GetRepository<VAccess>()
+            .Exists(v => v.UserID == userId && v.ForumID == forumId && v.ModeratorAccess > 0);
+
+        return MessageAccessHelper.CanViewMessage(message.Item2, userId, isModerator);
     }
 
     /// <summary>
