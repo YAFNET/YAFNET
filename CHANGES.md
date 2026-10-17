@@ -283,13 +283,13 @@ YetAnotherForum.NET Changelog
 * [FIXED] Active users (page and admin start page): the list failed with an error when a visitor was at the profile, albums or album of a user that does not exist (anymore, e.g. deleted while visited), the album location took an album id from the user id (any or no album, the page failed) and the own album was shown as the album of another user
 * [FIXED] The [group-hide=role] BBCode showed the hidden content to the users with any other role and hid it from the members of the given roles, and [group-hide] without roles hid the content from all members (not only from guests); the content is shown to the members of one of the roles now (without roles to all members)
 * [FIXED] Active users: Android phones were shown as Linux and iPods as iPhones (their user agents contain "Linux" and "iPhone OS")
-* [FIXED] a number in the address that is too big for an int (e.g. ActiveUsers?v=2147483648) shows an error page
-* [FIXED] pages with an unknown forum or topic in the address (e.g. Moderate/Forums, PostTopic, MoveMessage) show an error page
-* [FIXED] the reply page of an unknown topic shows an error page
-* [FIXED] the delete page of an unknown message shows an error page
-* [FIXED] the album page of an unknown album (or of an album of another user) shows an error page
-* [FIXED] the [userlink] example of the BBCode help shows the address of YAF 1.x
-* [FIXED] the gender list of the profile shows missing texts (the genders without a text are removed, a profile with one of them shows "other")
+* [FIXED] a number in the address that is too big for an int (e.g. ActiveUsers?v=2147483648) showed an error page
+* [FIXED] pages with an unknown forum or topic in the address (e.g. Moderate/Forums, PostTopic, MoveMessage) showed an error page
+* [FIXED] the reply page of an unknown topic showed an error page
+* [FIXED] the delete page of an unknown message showed an error page
+* [FIXED] the album page of an unknown album (or of an album of another user) showed an error page
+* [FIXED] the [userlink] example of the BBCode help showed the address of YAF 1.x
+* [FIXED] the gender list of the profile showed missing texts (the genders without a text are removed, a profile with one of them shows "other")
 * [FIXED] missing help texts of the host settings (SPAM service, SSL) and of the user info of the admin edit user page
 
 # YetAnotherForum.NET v3.2.16
