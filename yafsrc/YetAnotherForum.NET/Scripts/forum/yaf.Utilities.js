@@ -1,4 +1,20 @@
-﻿function createTagsSelectTemplates(template) {
+﻿// the templates insert the labels as html: texts (e.g. tags, option texts) are encoded,
+// only the labels of the custom properties are html (encoded on the server)
+function escapeHtml(value) {
+    // a text entered by the user is already escaped by choices
+    if (value !== null && typeof value === 'object' && 'escaped' in value) {
+        return String(value.escaped);
+    }
+
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function createTagsSelectTemplates(template) {
     const removeItemButton = this.config.removeItemButton;
 
     return {
@@ -16,11 +32,14 @@
                 label = json.label === undefined ? data.label : json.label;
             }
 
+            // a tag is a text (also when it is sent in the custom properties)
+            label = escapeHtml(label);
+
             return template(
                 `
                      <div class="${String(classNames.item)} ${String(data.highlighted
                     ? classNames.highlightedState
-                         : classNames.itemSelectable)} badge text-bg-primary fs-6 m-1""
+                         : classNames.itemSelectable)} badge text-bg-primary fs-6 m-1"
                           data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                           ${String(removeItemButton ? 'data-deletable' : '')}
                           ${String(data.active ? 'aria-selected="true"' : '')} ${String(data.disabled

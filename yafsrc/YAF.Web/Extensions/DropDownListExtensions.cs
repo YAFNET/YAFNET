@@ -30,6 +30,22 @@ namespace YAF.Web.Extensions;
 public static class DropDownListExtensions
 {
     /// <summary>
+    /// Creates the custom properties of a list item for the select menu (choices): the label is html, the icon is
+    /// html and the text is encoded (names of forums, categories, files), the json values are escaped.
+    /// </summary>
+    /// <param name="iconHtml">The html of the icon.</param>
+    /// <param name="text">The text of the item.</param>
+    /// <param name="url">The url to open when the item is chosen, or null.</param>
+    /// <returns>The json of the custom properties.</returns>
+    public static string CustomProperties(string iconHtml, string text, string url = null)
+    {
+        var label = HttpUtility.JavaScriptStringEncode($"{iconHtml}{HttpUtility.HtmlEncode(text)}");
+
+        return url == null
+                   ? $$"""{ "label": "{{label}}" }"""
+                   : $$"""{ "label": "{{label}}", "url": "{{HttpUtility.JavaScriptStringEncode(url)}}" }""";
+    }
+    /// <summary>
     /// Add forum and category icons to dropdown list.
     /// </summary>
     /// <param name="dropDownList">
@@ -55,14 +71,16 @@ public static class DropDownListExtensions
                         return;
                     }
 
-                    // the forum name is html encoded (for the label), the text of the list item is encoded when rendered
-                    var item = new ListItem { Value = row.ForumID.ToString(), Text = HttpUtility.HtmlDecode(row.Forum) };
+                    // the forum name is html encoded, the text of the list item and the label are encoded again
+                    var forumName = HttpUtility.HtmlDecode(row.Forum);
+
+                    var item = new ListItem { Value = row.ForumID.ToString(), Text = forumName };
 
                     item.Attributes.Add("data-category", row.Category);
 
                     item.Attributes.Add(
                         "data-custom-properties",
-                        $$"""{ "label": "<i class='fas fa-{{row.Icon}} text-secondary ms-1'></i>{{row.Forum}}", "url": "{{row.ForumLink}}" }""");
+                        CustomProperties($"<i class='fas fa-{row.Icon} text-secondary ms-1'></i>", forumName, row.ForumLink));
 
                     dropDownList.Items.Add(item);
                 });

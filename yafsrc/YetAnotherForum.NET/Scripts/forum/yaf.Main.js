@@ -33,9 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.querySelectorAll('.yafnet .select2-select').forEach(select => {
+	    // the texts of the options are texts (e.g. names of groups and ranks), not html
 	    const choice = new window.Choices(select,
 		    {
-			    allowHTML: true,
+			    allowHTML: false,
 			    shouldSort: false,
 			    placeholderValue: select.getAttribute('placeholder'),
 			    classNames: {
@@ -59,14 +60,15 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.yafnet .select2-image-select').forEach(s => {
 
                 var optionGroups = new Array();
-                s.querySelectorAll(`option[data-category='${group}']`).forEach(option => {
+                s.querySelectorAll(`option[data-category='${CSS.escape(group)}']`).forEach(option => {
                     if (optionGroups.indexOf(option) === -1) {
                         optionGroups.push(option);
                     }
                 });
 
+                // the group label is shown as html (the category is a text)
                 const optionGroupElement = document.createElement('optgroup');
-                optionGroupElement.label = group;
+                optionGroupElement.label = escapeHtml(group);
 
                 optionGroups.forEach(option => {
                     option.replaceWith(optionGroupElement);
@@ -92,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			        return {
 				        item: function({ classNames }, data) {
-					        var label = data.label;
+					        var label = escapeHtml(data.label);
 					        var json;
 
 					        if (data.customProperties) {
@@ -102,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							        json = data.customProperties;
 						        }
 
-						        label = json.label === undefined ? data.label : json.label;
+						        label = json.label === undefined ? escapeHtml(data.label) : json.label;
 					        }
 
 					        return template(
@@ -125,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					        );
 				        },
 				        choice: function({ classNames }, data) {
-					        var label = data.label;
+					        var label = escapeHtml(data.label);
 					        var json;
 
 					        if (data.customProperties) {
@@ -135,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							        json = data.customProperties;
 						        }
 
-						        label = json.label === undefined ? data.label : json.label;
+						        label = json.label === undefined ? escapeHtml(data.label) : json.label;
 					        }
 
 					        return template(

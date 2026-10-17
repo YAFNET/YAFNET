@@ -409,7 +409,7 @@ public partial class EditForum : AdminPage
         this.ParentList.Items.Cast<ListItem>().ForEach(
             item => item.Attributes.Add(
                 "data-custom-properties",
-                $$"""{ "label": "<i class='fas fa-comments text-secondary ms-1'></i><span class='ms-2'>{{item.Text}}" }"""));
+                DropDownListExtensions.CustomProperties("<i class='fas fa-comments text-secondary ms-1'></i>", item.Text)));
     }
 
     /// <summary>

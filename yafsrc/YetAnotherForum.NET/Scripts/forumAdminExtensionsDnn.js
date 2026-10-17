@@ -9749,6 +9749,13 @@ Prism.languages.vba = Prism.languages["visual-basic"];
     document.addEventListener(mouseDown, mouseDownHandler, true);
 })(window, document);
 
+function escapeHtml(value) {
+    if (value !== null && typeof value === "object" && "escaped" in value) {
+        return String(value.escaped);
+    }
+    return String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
 function createTagsSelectTemplates(template) {
     const removeItemButton = this.config.removeItemButton;
     return {
@@ -9765,8 +9772,9 @@ function createTagsSelectTemplates(template) {
                 }
                 label = json.label === undefined ? data.label : json.label;
             }
+            label = escapeHtml(label);
             return template(`
-                     <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)} badge text-bg-primary fs-6 m-1""
+                     <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)} badge text-bg-primary fs-6 m-1"
                           data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
                           ${String(removeItemButton ? "data-deletable" : "")}
                           ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled ? 'aria-disabled="true"' : "")}>
@@ -10175,7 +10183,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     document.querySelectorAll(".yafnet .select2-select").forEach(select => {
         const choice = new window.Choices(select, {
-            allowHTML: true,
+            allowHTML: false,
             shouldSort: false,
             placeholderValue: select.getAttribute("placeholder"),
             classNames: {
@@ -10195,13 +10203,13 @@ document.addEventListener("DOMContentLoaded", function() {
         groups.forEach(group => {
             document.querySelectorAll(".yafnet .select2-image-select").forEach(s => {
                 var optionGroups = new Array();
-                s.querySelectorAll(`option[data-category='${group}']`).forEach(option => {
+                s.querySelectorAll(`option[data-category='${CSS.escape(group)}']`).forEach(option => {
                     if (optionGroups.indexOf(option) === -1) {
                         optionGroups.push(option);
                     }
                 });
                 const optionGroupElement = document.createElement("optgroup");
-                optionGroupElement.label = group;
+                optionGroupElement.label = escapeHtml(group);
                 optionGroups.forEach(option => {
                     option.replaceWith(optionGroupElement);
                     optionGroupElement.appendChild(option);
@@ -10224,7 +10232,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     item: function({
                         classNames
                     }, data) {
-                        var label = data.label;
+                        var label = escapeHtml(data.label);
                         var json;
                         if (data.customProperties) {
                             try {
@@ -10232,7 +10240,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             } catch (e) {
                                 json = data.customProperties;
                             }
-                            label = json.label === undefined ? data.label : json.label;
+                            label = json.label === undefined ? escapeHtml(data.label) : json.label;
                         }
                         return template(`
                                  <div class="${String(classNames.item)} ${String(data.highlighted ? classNames.highlightedState : classNames.itemSelectable)} ${String(data.placeholder ? classNames.placeholder : "")}"
@@ -10247,7 +10255,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     choice: function({
                         classNames
                     }, data) {
-                        var label = data.label;
+                        var label = escapeHtml(data.label);
                         var json;
                         if (data.customProperties) {
                             try {
@@ -10255,7 +10263,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             } catch (e) {
                                 json = data.customProperties;
                             }
-                            label = json.label === undefined ? data.label : json.label;
+                            label = json.label === undefined ? escapeHtml(data.label) : json.label;
                         }
                         return template(`
                                  <div class="${String(classNames.item)} ${String(classNames.itemChoice)} ${String(data.disabled ? classNames.itemDisabled : classNames.itemSelectable)}"
