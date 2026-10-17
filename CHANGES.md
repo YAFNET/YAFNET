@@ -231,6 +231,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Custom BBCodes with a module: a new, changed or deleted BBCode was only used after the application restarted (its cached list was not cleared)
 * [FIXED] Edit settings (also Admin -> Edit User): when the users can't choose a theme or a language the options are not shown, saving the settings reset the theme and the language of the user to the board defaults; they keep their value now, and "hide me" is only changed by users who may hide themselves
 * [FIXED] Medals: a medal awarded to a group, a changed medal, a deleted medal and the medals of a group a user joined or left (or a deleted group) were shown in the old way until the cached medals of the users expired
+* [FIXED] Host settings: after enabling private messages, friends or albums the counts of the users (unread messages, friend requests, "My albums") were missing until the cached user data expired
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
