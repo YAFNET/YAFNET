@@ -115,17 +115,19 @@ public partial class PMList : BaseUserControl
     /// </param>
     protected void DeleteSelected_Click(object source, EventArgs e)
     {
-        var selectedMessages = this.Messages.Items.Cast<RepeaterItem>()
-            .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked);
+        // only the own messages of the box (the ids are hidden fields, sent by the client)
+        var ownMessages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, this.View)
+            .Select(m => m.ID).ToList();
 
-        long itemCount = selectedMessages.Count();
+        var selectedMessages = this.Messages.Items.Cast<RepeaterItem>()
+            .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
+            .Select(item => item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>())
+            .Where(ownMessages.Contains).ToList();
+
+        long itemCount = selectedMessages.Count;
 
         selectedMessages.ForEach(
-            item =>
-                {
-                    this.GetRepository<UserPMessage>().Delete(
-                        item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(), this.View == PmView.Outbox);
-                });
+            id => this.GetRepository<UserPMessage>().Delete(id, this.View == PmView.Outbox));
 
         this.ClearCache();
 
