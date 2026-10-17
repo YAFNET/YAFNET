@@ -97,7 +97,10 @@ public class PostTopicTests : ForumTestBase
 
         try
         {
-            await this.LoginAsUserAsync(TestConfig.TestUserName2);
+            // a new member (the last post of another member could be within the delay)
+            var member = $"Fld{DateTime.UtcNow:HHmmssfff}";
+            await this.RegisterAsync(member, TestConfig.TestUserPassword);
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
 
             await this.PostTopicAsync($"Flood first {Guid.NewGuid():N}", "The first topic.");
             this.Page.Url.Should().Contain("Posts");

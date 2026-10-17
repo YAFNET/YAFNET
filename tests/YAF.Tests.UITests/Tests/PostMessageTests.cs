@@ -95,7 +95,10 @@ public class PostMessageTests : ForumTestBase
 
         try
         {
-            await this.LoginAsUserAsync(TestConfig.TestUserName2);
+            // a new member (the last post of another member could be within the delay)
+            var member = $"Fld{DateTime.UtcNow:HHmmssfff}";
+            await this.RegisterAsync(member, TestConfig.TestUserPassword);
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
 
             var (topicId, _) = await this.CreateTopicAsync("1", subject);
 

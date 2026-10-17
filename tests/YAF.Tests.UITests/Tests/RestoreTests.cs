@@ -56,7 +56,7 @@ public class RestoreTests : ForumTestBase
         var replyId = (await this.GetMessageIdsAsync()).Last();
         await this.DeleteAsync(replyId);
 
-        await this.GotoAsync("Admin/Restore");
+        await this.GotoRestoreAsync();
         var row = this.Page.Locator("li", new PageLocatorOptions { HasTextString = text }).Last;
         await this.ClickAndWaitAsync(row.Locator("[id$='_Restore']"));
 
@@ -82,14 +82,14 @@ public class RestoreTests : ForumTestBase
         await this.GotoAsync("Topics/1-Test Forum");
         (await this.Page.InnerTextAsync("body")).Should().NotContain(restored);
 
-        await this.GotoAsync("Admin/Restore");
+        await this.GotoRestoreAsync();
         await this.ClickAndWaitAsync(
             this.Page.Locator("li", new PageLocatorOptions { HasTextString = restored }).Last.Locator("[id$='_Restore']"));
 
         await this.ClickAndWaitAsync(
             this.Page.Locator("li", new PageLocatorOptions { HasTextString = deleted }).Last.Locator("[id$='_Delete']"));
 
-        await this.GotoAsync("Admin/Restore");
+        await this.GotoRestoreAsync();
         var list = await this.Page.InnerTextAsync("body");
         list.Should().NotContain(restored).And.NotContain(deleted);
 
@@ -117,14 +117,14 @@ public class RestoreTests : ForumTestBase
         }
 
         // the topic is restored
-        await this.GotoAsync("Admin/Restore");
+        await this.GotoRestoreAsync();
         await this.ClickAndWaitAsync(this.TopicRow(restored).Locator("[id$='_Restore']"));
 
         await this.GotoAsync("Topics/1-Test Forum");
         (await this.Page.InnerTextAsync("body")).Should().Contain(restored);
 
         // the topics of the filter are deleted
-        await this.GotoAsync("Admin/Restore");
+        await this.GotoRestoreAsync();
         await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
         await this.Control("Filter").FillAsync(filtered);
         await this.ClickAndWaitAsync(this.Page.Locator(".dropdown-menu a:has(.fa-sync-alt)"));
@@ -132,7 +132,7 @@ public class RestoreTests : ForumTestBase
 
         await this.ClickAndWaitAsync(this.Page.Locator("[id*='_DeletedTopics_'][id$='_Linkbutton4']"));
 
-        await this.GotoAsync("Admin/Restore");
+        await this.GotoRestoreAsync();
         (await this.TopicRow(filtered).CountAsync()).Should().Be(0);
 
         // only the empty topics are deleted: a deleted topic with posts stays
@@ -140,7 +140,7 @@ public class RestoreTests : ForumTestBase
         await this.CreateTopicAsync(kept);
         await this.DeleteByModerationAsync(kept);
 
-        await this.GotoAsync("Admin/Restore");
+        await this.GotoRestoreAsync();
         await this.ClickAndWaitAsync(this.Page.Locator("[id*='_DeletedTopics_'][id$='_ThemeButton2']"));
         (await this.TopicRow(kept).CountAsync()).Should().Be(1, "the topic has posts");
     }
@@ -165,6 +165,20 @@ public class RestoreTests : ForumTestBase
     {
         return this.Page.Locator("li", new PageLocatorOptions { HasTextString = subject })
             .Filter(new LocatorFilterOptions { Has = this.Page.Locator("[id*='_DeletedTopics_']") });
+    }
+
+    /// <summary>
+    /// Opens the restore page with 50 entries per list (the lists have many pages after a while).
+    /// </summary>
+    private async Task GotoRestoreAsync()
+    {
+        await this.GotoAsync("Admin/Restore");
+
+        foreach (var list in new[] { "PageSize", "PageSizeMessages" })
+        {
+            await this.Page.RunAndWaitForNavigationAsync(
+                () => this.Control(list).SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
+        }
     }
 
     private async Task<int> CreateTopicAsync(string subject)
