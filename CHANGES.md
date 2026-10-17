@@ -245,7 +245,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Suspension: the mail that the suspension ended was only sent when the user visited the forum before the hourly clean up task lifted the suspension; the task sends it too now, a mail error does not fail the page
 * [FIXED] Security: The own e-mail address was changed at once without the password and without confirming the new address, with a taken over session the account could be taken over (change the e-mail, then reset the password); the password is needed now and the address is changed after the confirmation link sent to the new address was opened (an admin still changes it at once)
 * [FIXED] Security: Changing the e-mail address (own or by an admin) did not end the other logins of the user and kept the open password reset links valid (the security stamp was not renewed)
-* [FIXED] The gender "Agender" of the profile had no text (it was shown as [GENDER.AGENDER])
+* [FIXED] 21 of the 24 genders of the profile (e.g. "Agender", "Non-binary") had no text (they were shown as [GENDER.AGENDER] etc.)
 * [FIXED] Register: after the account was created the password check script of the page failed with a JavaScript error (the fields are not shown anymore)
 * [FIXED] The context menu script failed with a JavaScript error on pages with list rows without a context menu (e.g. Admin -> Languages and Task Manager)
 * [FIXED] Build: the web projects (SQL Server, SQLite, PostgreSQL) still referenced Microsoft.Bcl.AsyncInterfaces 9.0.9, depending on the build order the bin folder got this version and the forum did not start (the binding redirect and YAF.Core use 10.0.13)
