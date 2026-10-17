@@ -8243,11 +8243,11 @@
           },
           {
             "@tag": "USERNAME_TOOLONG",
-            "#text": "Nazwa użytkownika lub wyświetlana nazwa musi mieć mniej niż {0} znaków}"
+            "#text": "Nazwa użytkownika lub wyświetlana nazwa musi mieć mniej niż {0} znaków."
           },
           {
             "@tag": "USERNAME_TOOSMALL",
-            "#text": "Nazwa użytkownika lub wyświetlana nazwa musi mieć więcej niż {0} znaków}"
+            "#text": "Nazwa użytkownika lub wyświetlana nazwa musi mieć więcej niż {0} znaków."
           },
           {
             "@tag": "VIEW_CATEGORY",

@@ -1204,7 +1204,7 @@
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{Úspešne importované nové e-mailové adresy."
+            "#text": "{0} Úspešne importované nové e-mailové adresy."
           },
           {
             "@tag": "NOTE",

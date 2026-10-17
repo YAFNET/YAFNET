@@ -6112,7 +6112,7 @@
           },
           {
             "@tag": "INDEX_SHRINK",
-            "#text": "Shrink operation was Successful.Your database size is now: {MT."
+            "#text": "Shrink operation was Successful.Your database size is now: {0}MB."
           },
           {
             "@tag": "INDEX_STATS",
@@ -7999,7 +7999,7 @@
           },
           {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{Foorumitilin päivitys"
+            "#text": "{0} Foorumitilin päivitys"
           },
           {
             "@tag": "OK",

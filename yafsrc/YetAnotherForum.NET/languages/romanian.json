@@ -4736,7 +4736,7 @@
           },
           {
             "@tag": "LOGIN_REDIR_URL_HELP",
-            "#text": "Dacă autentificarea este dezactivată în AppSettings (AllowLoginAndLogoff trebuie să fie setat la \"false\"), acesta este URL-ul la care vor fi redirecționați utilizatorii atunci când vor trebui să acceseze forumul. Opțional, adăugați \"{0}\" la URL pentru a trece URL-ul de întoarcere la Url-ul personalizat. De exemplu, \"http://mydomain.com/login.aspx?PreviousUrl={{{0}}\""
+            "#text": "Dacă autentificarea este dezactivată în AppSettings (AllowLoginAndLogoff trebuie să fie setat la \"false\"), acesta este URL-ul la care vor fi redirecționați utilizatorii atunci când vor trebui să acceseze forumul. Opțional, adăugați \"{0}\" la URL pentru a trece URL-ul de întoarcere la Url-ul personalizat. De exemplu, \"http://mydomain.com/login.aspx?PreviousUrl={{0}}\""
           },
           {
             "@tag": "MAX_ALLOWED_CHOICES",

@@ -7991,7 +7991,7 @@
           },
           {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{Aggiornamento dell'account del forum"
+            "#text": "{0} Aggiornamento dell'account del forum"
           },
           {
             "@tag": "OK",

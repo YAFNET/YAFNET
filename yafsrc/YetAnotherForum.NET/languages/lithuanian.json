@@ -1470,7 +1470,7 @@
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{Sėkmingai importuotas (-i) naujas (-i) vardas (-ai)."
+            "#text": "{0} Sėkmingai importuotas (-i) naujas (-i) vardas (-ai)."
           },
           {
             "@tag": "NOTE",
@@ -6259,7 +6259,7 @@
           },
           {
             "@tag": "MSG_IMPORTED",
-            "#text": "{Sėkmingai importuotas (-i) naujas (-i) pakaitinis (-iai) žodis (-iai)."
+            "#text": "{0} Sėkmingai importuotas (-i) naujas (-i) pakaitinis (-iai) žodis (-iai)."
           },
           {
             "@tag": "MSG_IMPORTED_FAILED",
@@ -6474,7 +6474,7 @@
           },
           {
             "@tag": "MSG_IMPORTED",
-            "#text": "{Sėkmingai importuotas (-i) naujas (-i) šlamšto žodis (-iai)."
+            "#text": "{0} Sėkmingai importuotas (-i) naujas (-i) šlamšto žodis (-iai)."
           },
           {
             "@tag": "MSG_IMPORTED_FAILED",

@@ -7999,7 +7999,7 @@
           },
           {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{Mise à jour du compte du forum"
+            "#text": "{0} Mise à jour du compte du forum"
           },
           {
             "@tag": "OK",

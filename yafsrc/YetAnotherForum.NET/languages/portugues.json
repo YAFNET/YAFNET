@@ -4736,7 +4736,7 @@
           },
           {
             "@tag": "LOGIN_REDIR_URL_HELP",
-            "#text": "Se o login for desactivado nas AppSettings (AllowLoginAndLogoff precisa de ser definido como \"falso\"), este é o URL para o qual os utilizadores serão redireccionados quando necessitarem de aceder ao fórum. Opcionalmente, adicionar \"{0}\" ao URL para passar o URL de retorno para o URL personalizado. Por exemplo, \"http://mydomain.com/login.aspx?PreviousUrl={{{0}}\"."
+            "#text": "Se o login for desactivado nas AppSettings (AllowLoginAndLogoff precisa de ser definido como \"falso\"), este é o URL para o qual os utilizadores serão redireccionados quando necessitarem de aceder ao fórum. Opcionalmente, adicionar \"{0}\" ao URL para passar o URL de retorno para o URL personalizado. Por exemplo, \"http://mydomain.com/login.aspx?PreviousUrl={{0}}\"."
           },
           {
             "@tag": "MAX_ALLOWED_CHOICES",
@@ -12934,7 +12934,7 @@
           },
           {
             "@tag": "THANKSTO",
-            "#text": "Foi agradecido: {Tempo(s) em {1} postagem(ões)"
+            "#text": "Foi agradecido: {0} vez(es) em {1} postagem(ões)"
           },
           {
             "@tag": "TIP_DELETE_TOPIC",
