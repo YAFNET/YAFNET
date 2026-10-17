@@ -84,8 +84,7 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
         this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(
             theHandler =>
                 {
-                    theHandler.Handle(eventObject);
-
+                    // handled once, inside the try (an exception of a handler must not stop the others)
                     try
                     {
                         theHandler.Handle(eventObject);
