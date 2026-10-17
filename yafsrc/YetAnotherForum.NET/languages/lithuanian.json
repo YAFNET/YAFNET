@@ -7650,6 +7650,10 @@
             "#text": "Įterpti albumo vaizdą..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Įdėkite albumo vaizdą"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Leidžiama"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Ištrinti priežastį"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Ištrinti šį pranešimą"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Atkurti šį pranešimą"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Ištrinti pranešimą iš duomenų bazės (negrįžtama)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "Jūsų paskyra dar nepatvirtinta, nes nepatvirtinote savo el. pašto. Patvirtinkite, kad galėtumėte prisijungti."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Automatinis prisijungimas: "
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Visi"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Rodyti naudotojus, prasidedančius {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "iš {0} "
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Temas galima perkelti tik į forumą, pasirinkite forumą, o ne kategoriją."
           },
           {
             "@tag": "CONFIRM_DELETE",

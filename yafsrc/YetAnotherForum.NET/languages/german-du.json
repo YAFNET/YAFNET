@@ -7642,6 +7642,10 @@
             "#text": "Album Bild einfügen..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Albumbild einfügen"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Erlaubt"
           },
@@ -9507,6 +9511,14 @@
             "#text": "Grund der Löschung"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Diese Nachricht löschen"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Diese Nachricht wiederherstellen"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Aus der Datenbank unwiederufbar Löschen"
           },
@@ -11078,6 +11090,10 @@
             "#text": "Ihr Konto ist noch nicht genehmigt, weil Sie Ihre E-Mail nicht bestätigt haben. Bitte bestätigen Sie, damit Sie sich anmelden können."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Login merken"
           },
@@ -11165,6 +11181,10 @@
           {
             "@tag": "ALL",
             "#text": "Alle"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Benutzer anzeigen, die mit {0} beginnen"
           },
           {
             "@tag": "AVATAR",
@@ -11417,6 +11437,10 @@
           {
             "@tag": "BY",
             "#text": "von {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Themen können nur in ein Forum verschoben werden, bitte wähle ein Forum und keine Kategorie."
           },
           {
             "@tag": "CONFIRM_DELETE",

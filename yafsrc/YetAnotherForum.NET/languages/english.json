@@ -7692,6 +7692,10 @@
 						"#text": "Insert Album Image..."
 					},
 					{
+						"@tag": "ALBUMIMG_CODE",
+						"#text": "Insert an Album Image"
+					},
+					{
 						"@tag": "ALLOWED",
 						"#text": "Allowed"
 					},
@@ -9564,6 +9568,14 @@
 						"#text": "Delete reason"
 					},
 					{
+						"@tag": "DELETE_TT",
+						"#text": "Delete this message"
+					},
+					{
+						"@tag": "UNDELETE_TT",
+						"#text": "Restore this message"
+					},
+					{
 						"@tag": "ERASEMESSAGE",
 						"#text": "Erase message from the database (irreversible)"
 					},
@@ -11182,6 +11194,10 @@
 							"Your account is not approved yet because you have not validated your email. Please verify so you can login."
 					},
 					{
+						"@tag": "AUTH_CONNECT",
+						"#text": "Log in with {0}"
+					},
+					{
 						"@tag": "AUTO",
 						"#text": "Remember me"
 					},
@@ -11269,6 +11285,10 @@
 					{
 						"@tag": "ALL",
 						"#text": "All"
+					},
+					{
+						"@tag": "ALPHABET_FILTER_BY",
+						"#text": "Show Users starting with {0}"
 					},
 					{
 						"@tag": "AVATAR",
@@ -11521,6 +11541,10 @@
 					{
 						"@tag": "BY",
 						"#text": "by {0}"
+					},
+					{
+						"@tag": "CANNOT_MOVE_TO_CATEGORY",
+						"#text": "Topics can only be moved to a Forum, please select a Forum and not a Category."
 					},
 					{
 						"@tag": "CONFIRM_DELETE",

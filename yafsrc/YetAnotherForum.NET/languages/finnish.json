@@ -7650,6 +7650,10 @@
             "#text": "Lisää albumin kuva..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Lisää albumin kuva"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Sallittu"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Poista syy"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Poista tämä viesti"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Palauta tämä viesti"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Viestin poistaminen tietokannasta (peruuttamaton)."
           },
@@ -11094,6 +11106,10 @@
             "#text": "Tiliäsi ei ole vielä hyväksytty, koska et ole vahvistanut sähköpostiosoitettasi. Vahvista, jotta voit kirjautua sisään."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Kirjaudu automaattisesti:"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Kaikki"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Näytä käyttäjät, joiden nimi alkaa kirjaimella {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "kirjoittaja {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Aiheita voi siirtää vain foorumiin, valitse foorumi eikä luokkaa."
           },
           {
             "@tag": "CONFIRM_DELETE",

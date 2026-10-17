@@ -7642,6 +7642,10 @@
             "#text": "Inserisci immagine dall'album"
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Inserisci un'immagine dell'album"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Permesso"
           },
@@ -9507,6 +9511,14 @@
             "#text": "Motivo dell'eliminazione"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Elimina questo messaggio"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Ripristina questo messaggio"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Eliminazione messagggio dal database (irreversibile)"
           },
@@ -11078,6 +11090,10 @@
             "#text": "Il tuo account non è ancora stato approvato perché non hai convalidato il tuo indirizzo e-mail. Si prega di verificare per poter effettuare il login."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Ricordami"
           },
@@ -11165,6 +11181,10 @@
           {
             "@tag": "ALL",
             "#text": "Tutti"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Mostra gli utenti che iniziano con {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11417,6 +11437,10 @@
           {
             "@tag": "BY",
             "#text": "di {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Le discussioni possono essere spostate solo in un forum, seleziona un forum e non una categoria."
           },
           {
             "@tag": "CONFIRM_DELETE",

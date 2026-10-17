@@ -7650,6 +7650,10 @@
             "#text": "Inserare imagine album..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Inserați o imagine de album"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Permise"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Ștergeți motivul"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Ștergeți acest mesaj"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Restabiliți acest mesaj"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Sters mesaj din baza de date (irreversibil)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "Contul dvs. nu este încă aprobat deoarece nu v-ați validat e-mailul. Vă rugăm să verificați pentru a vă putea autentifica."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Intrare automata:"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Toate"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Afișează utilizatorii care încep cu {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "de {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Subiectele pot fi mutate doar într-un forum, vă rugăm să selectați un forum și nu o categorie."
           },
           {
             "@tag": "CONFIRM_DELETE",

@@ -7650,6 +7650,10 @@
             "#text": "插入相册图像..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "插入相册图片"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "允许"
           },
@@ -9515,6 +9519,14 @@
             "#text": "删除原因"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "删除此消息"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "恢复此消息"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "从数据库中删除消息（不可逆）"
           },
@@ -11094,6 +11106,10 @@
             "#text": "您的帐户尚未获得批准，因为您尚未验证您的电子邮件。"
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "自动登录:"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "全部"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "显示以 {0} 开头的用户"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "由 {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "主题只能移动到论坛，请选择一个论坛而不是分类。"
           },
           {
             "@tag": "CONFIRM_DELETE",

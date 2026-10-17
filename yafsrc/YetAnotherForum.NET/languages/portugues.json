@@ -7650,6 +7650,10 @@
             "#text": "Inserir imagem do Álbum..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Insira uma imagem de álbum"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Permitido"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Eliminar a razão"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Excluir esta mensagem"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Restaurar esta mensagem"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Mensagem de apagamento da base de dados (irreversível)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "A sua conta ainda não foi aprovada porque ainda não validou o seu correio electrónico. Por favor, verifique para que possa iniciar sessão."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Acesso Automático:"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Todos"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Mostrar utilizadores que começam por {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "por {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Os tópicos só podem ser movidos para um fórum, selecione um fórum e não uma categoria."
           },
           {
             "@tag": "CONFIRM_DELETE",

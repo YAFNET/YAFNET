@@ -7650,6 +7650,10 @@
             "#text": "Albüm Resmi Ekle..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Albüm Resmi Ekle"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "İzin verildi"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Silme sebebi"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Bu mesajı sil"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Bu mesajı geri yükle"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Mesajı veritabanından temizle (geri döndürülemez)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "E-postanızı doğrulamadığınız için hesabınız henüz onaylanmadı. Giriş yapabilmek için lütfen doğrulayın."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Beni Hatırla?"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Tümü"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "{0} ile başlayan kullanıcıları göster"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "{0} Tarafından "
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Konular yalnızca bir foruma taşınabilir, lütfen bir kategori değil bir forum seçin."
           },
           {
             "@tag": "CONFIRM_DELETE",

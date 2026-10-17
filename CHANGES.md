@@ -206,6 +206,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] An exception in a run of a background task was not caught in the timer callback (an unhandled exception stops the application), it is logged now and the task runs again
 * [FIXED] Emojis with a skin tone (e.g. [raised_hand_tone1], [basketball_player_tone1]) only showed the skin tone color, the emoji itself was missing
 * [FIXED] Times shown to guests had no time zone (the text TIMEZONES.NAME_UTC was missing in all languages, every page logged a missing translation); guests now see the offset of the time zone, e.g. " (UTC+02:00)"
+* [FIXED] Missing texts were added: members list letter filter, the login buttons of the external providers, the album image button of the editor, the tooltips of the delete post page and the message for moving topics to a category
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

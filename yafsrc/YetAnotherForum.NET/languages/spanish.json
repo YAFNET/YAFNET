@@ -7642,6 +7642,10 @@
             "#text": "Insertar imagen en el álbum..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Insertar una imagen de álbum"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Permitido"
           },
@@ -9507,6 +9511,14 @@
             "#text": "Razón de la eliminación"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Eliminar este mensaje"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Restaurar este mensaje"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Eliminar mensaje de la base de datos (irreversible)"
           },
@@ -11078,6 +11090,10 @@
             "#text": "Su cuenta no está aprobada todavía porque no ha validado su correo electrónico. Por favor, verifícalo para poder iniciar sesión."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Iniciar sesión automaticamente:"
           },
@@ -11165,6 +11181,10 @@
           {
             "@tag": "ALL",
             "#text": "Todos"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Mostrar usuarios que empiezan por {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11417,6 +11437,10 @@
           {
             "@tag": "BY",
             "#text": "por {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Los temas solo se pueden mover a un foro, seleccione un foro y no una categoría."
           },
           {
             "@tag": "CONFIRM_DELETE",

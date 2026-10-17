@@ -7650,6 +7650,10 @@
             "#text": "Sett inn albumbilde..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Sett inn et albumbilde"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Tillatt"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Slett årsak"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Slett denne meldingen"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Gjenopprett denne meldingen"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Slett melding fra databasen (irreversibel)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "Kontoen din er ikke godkjent ennå fordi du ikke har validert e-posten din. Vennligst bekreft slik at du kan logge på."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Husk innlogging:"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Alle"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Vis brukere som begynner med {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "av {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Emner kan bare flyttes til et forum, velg et forum og ikke en kategori."
           },
           {
             "@tag": "CONFIRM_DELETE",

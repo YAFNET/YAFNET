@@ -7650,6 +7650,10 @@
             "#text": "Vložiť obrázok albumu..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Vložte obrázok albumu"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Povolené"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Dôvod zmazania"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Odstrániť túto správu"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Obnovte túto správu"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Vymazanie správy z databázy (nezvratné)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "Vaše konto ešte nie je schválené, pretože ste nepotvrdili svoj e-mail. Prosím, overte ho, aby ste sa mohli prihlásiť."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Automatické prihlásenie:"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Všetky"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Zobraziť používateľov začínajúcich na {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "od {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Témy je možné presunúť iba do fóra, vyberte prosím fórum, nie kategóriu."
           },
           {
             "@tag": "CONFIRM_DELETE",

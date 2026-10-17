@@ -7642,6 +7642,10 @@
             "#text": "Voeg Album plaatje toe..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Een albumafbeelding invoegen"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Toegestaan"
           },
@@ -9507,6 +9511,14 @@
             "#text": "Reden voor verwijderen"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Verwijder dit bericht"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Herstel dit bericht"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Verwijder definitief uit de database (kan niet ongedaan worden gemaakt)"
           },
@@ -11078,6 +11090,10 @@
             "#text": "Je account is nog niet goedgekeurd omdat je je e-mail niet hebt gevalideerd. "
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Automatisch inloggen"
           },
@@ -11165,6 +11181,10 @@
           {
             "@tag": "ALL",
             "#text": "Alle"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Gebruikers tonen die beginnen met {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11417,6 +11437,10 @@
           {
             "@tag": "BY",
             "#text": "door {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Onderwerpen kunnen alleen naar een forum worden verplaatst, selecteer een forum en geen categorie."
           },
           {
             "@tag": "CONFIRM_DELETE",

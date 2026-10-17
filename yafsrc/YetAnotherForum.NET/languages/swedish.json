@@ -7650,6 +7650,10 @@
             "#text": "Infoga albumbild..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Infoga en albumbild"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Tillåtet"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Ta bort orsaken"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Ta bort det här meddelandet"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Återställ detta meddelande"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Radera meddelandet från databasen (oåterkalleligt)."
           },
@@ -11094,6 +11106,10 @@
             "#text": "Ditt konto är inte godkänt ännu eftersom du inte har bekräftat din e-postadress. Vänligen verifiera det så att du kan logga in."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Automatisk inloggning:"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Alla"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Visa användare som börjar med {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "av {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Ämnen kan bara flyttas till ett forum, välj ett forum och inte en kategori."
           },
           {
             "@tag": "CONFIRM_DELETE",

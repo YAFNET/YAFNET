@@ -7650,6 +7650,10 @@
             "#text": "Indsæt albumbillede..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Indsæt et albumbillede"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Tilladt"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Grunden til sletningen"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Slet denne besked"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Gendan denne besked"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Slet besked fra databasen? (Kan ikke genskabes!)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "Din konto er ikke godkendt endnu, fordi du ikke har valideret din e-mail. "
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Husk mig"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Alle"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Vis brugere, der begynder med {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "af {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Emner kan kun flyttes til et forum, vælg venligst et forum og ikke en kategori."
           },
           {
             "@tag": "CONFIRM_DELETE",

@@ -7650,6 +7650,10 @@
             "#text": "Vložit obrázek alba..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Vložit obrázek z alba"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Povoleno"
           },
@@ -9519,6 +9523,14 @@
             "#text": "Důvod smazání"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Smazat tuto zprávu"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Obnovte tuto zprávu"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Vymazat zprávu z databáze (nevratné)"
           },
@@ -11098,6 +11110,10 @@
             "#text": "Váš účet ještě není schválen, protože jste neověřili svůj e-mail. "
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Automatické přihlášení:"
           },
@@ -11185,6 +11201,10 @@
           {
             "@tag": "ALL",
             "#text": "Všechno"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Zobrazit uživatele začínající na {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11437,6 +11457,10 @@
           {
             "@tag": "BY",
             "#text": "od {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Témata lze přesunout pouze do fóra, vyberte prosím fórum, nikoli kategorii."
           },
           {
             "@tag": "CONFIRM_DELETE",

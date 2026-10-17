@@ -7650,6 +7650,10 @@
             "#text": "Sisesta albumi pilt..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Lisa albumi pilt"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Lubatud"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Kustutamise põhjus"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Kustuta see sõnum"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Taasta see sõnum"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Kustuta sõnum andmebaasist (pöördumatu)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "Teie konto pole veel kinnitatud, kuna te pole oma e-posti kinnitanud. "
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Jäta mind meelde"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Kõik"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Näita kasutajaid, kelle nimi algab tähega {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": " {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Teemasid saab teisaldada ainult foorumisse, palun valige foorum, mitte kategooria."
           },
           {
             "@tag": "CONFIRM_DELETE",

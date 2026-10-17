@@ -7650,6 +7650,10 @@
             "#text": "Chèn hình ảnh anbom ..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Chèn hình ảnh album"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Cho phép"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Lý do xoá"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Xóa tin nhắn này"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Khôi phục tin nhắn này"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Xoá khỏi Cơ sở dữ liệu (Không thể khôi phục)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "Tài khoản của bạn chưa được chấp thuận vì bạn chưa xác thực email của mình. Vui lòng xác minh để bạn có thể đăng nhập."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Ghi nhớ"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Tất cả các"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Hiển thị người dùng bắt đầu bằng {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "bởi {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Chủ đề chỉ có thể được chuyển đến một diễn đàn, vui lòng chọn một diễn đàn chứ không phải một chuyên mục."
           },
           {
             "@tag": "CONFIRM_DELETE",

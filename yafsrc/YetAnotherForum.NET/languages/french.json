@@ -7650,6 +7650,10 @@
             "#text": "Insérer une image d'album..."
           },
           {
+            "@tag": "ALBUMIMG_CODE",
+            "#text": "Insérer une image d'album"
+          },
+          {
             "@tag": "ALLOWED",
             "#text": "Autorisé"
           },
@@ -9515,6 +9519,14 @@
             "#text": "Raison pour suppression"
           },
           {
+            "@tag": "DELETE_TT",
+            "#text": "Supprimer ce message"
+          },
+          {
+            "@tag": "UNDELETE_TT",
+            "#text": "Restaurer ce message"
+          },
+          {
             "@tag": "ERASEMESSAGE",
             "#text": "Suppression de la base de données (irréversible)"
           },
@@ -11094,6 +11106,10 @@
             "#text": "Votre compte n'est pas encore approuvé car vous n'avez pas validé votre email. Veuillez le vérifier pour pouvoir vous connecter."
           },
           {
+            "@tag": "AUTH_CONNECT",
+            "#text": "Log in with {0}"
+          },
+          {
             "@tag": "AUTO",
             "#text": "Reconnexion automatique&nbsp;:"
           },
@@ -11181,6 +11197,10 @@
           {
             "@tag": "ALL",
             "#text": "Tous"
+          },
+          {
+            "@tag": "ALPHABET_FILTER_BY",
+            "#text": "Afficher les utilisateurs commençant par {0}"
           },
           {
             "@tag": "AVATAR",
@@ -11433,6 +11453,10 @@
           {
             "@tag": "BY",
             "#text": "par {0}"
+          },
+          {
+            "@tag": "CANNOT_MOVE_TO_CATEGORY",
+            "#text": "Les sujets ne peuvent être déplacés que vers un forum, veuillez sélectionner un forum et non une catégorie."
           },
           {
             "@tag": "CONFIRM_DELETE",
