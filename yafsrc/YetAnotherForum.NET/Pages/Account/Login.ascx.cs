@@ -144,21 +144,6 @@ public partial class Login : AccountPage
             return;
         }
 
-        if (!user.IsApproved)
-        {
-            var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
-
-            // Ignore Deleted User
-            if (yafUser.UserFlags.IsDeleted)
-            {
-                return;
-            }
-
-            this.ResendConfirm.CommandArgument = $"{user.Email};{user.UserName}";
-            this.NotApprovedHolder.Visible = true;
-            return;
-        }
-
         if (user.LockoutEndDateUtc.HasValue && user.LockoutEndDateUtc.Value > DateTime.UtcNow)
         {
             this.PageBoardContext.Notify(this.GetText("LOGIN", "ERROR_LOCKEDOUT"), MessageTypes.danger);
@@ -175,14 +160,24 @@ public partial class Login : AccountPage
                 user.AccessFailedCount = 0;
                 user.LockoutEndDateUtc = null;
                 this.Get<IAspNetUsersHelper>().Update(user);
-                this.UserAuthenticated(user);
+
+                if (this.IsApprovedUser(user))
+                {
+                    this.UserAuthenticated(user);
+                }
+
                 break;
             case PasswordVerificationResult.SuccessRehashNeeded:
                 user.PasswordHash = this.Get<IAspNetUsersHelper>().IPasswordHasher.HashPassword(this.Password.Text);
                 user.AccessFailedCount = 0;
                 user.LockoutEndDateUtc = null;
                 this.Get<IAspNetUsersHelper>().Update(user);
-                this.UserAuthenticated(user);
+
+                if (this.IsApprovedUser(user))
+                {
+                    this.UserAuthenticated(user);
+                }
+
                 break;
             default:
                 {
@@ -213,6 +208,35 @@ public partial class Login : AccountPage
                     break;
                 }
         }
+    }
+
+    /// <summary>
+    /// Checks the approval of the account after the password was checked (otherwise the state of an account could
+    /// be found out with the user name only): a not approved account gets the notice to verify the e-mail, a
+    /// deleted or locked forum user (e.g. "lock inactive accounts") can't log in.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>Returns if the user can log in.</returns>
+    private bool IsApprovedUser(AspNetUsers user)
+    {
+        var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+
+        // Ignore Deleted User
+        if (yafUser == null || yafUser.UserFlags.IsDeleted)
+        {
+            this.PageBoardContext.Notify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+            return false;
+        }
+
+        if (user.IsApproved)
+        {
+            return true;
+        }
+
+        this.ResendConfirm.CommandArgument = $"{user.Email};{user.UserName}";
+        this.NotApprovedHolder.Visible = true;
+
+        return false;
     }
 
     /// <summary>

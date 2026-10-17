@@ -253,6 +253,15 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                            Flags = flags.BitValue
                                        },
                         u => u.ID == user.ID);
+
+                    // the login account too (otherwise the user could still log in)
+                    var aspNetUser = this.GetUser(user.ProviderUserKey);
+
+                    if (aspNetUser is { IsApproved: true })
+                    {
+                        aspNetUser.IsApproved = false;
+                        this.Update(aspNetUser);
+                    }
                 });
     }
 
