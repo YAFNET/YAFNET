@@ -110,6 +110,35 @@ public class DataBrokerTests
     }
 
     [Test]
+    [Description("Values of the request longer than their columns are shortened (the page load failed)")]
+    public void GetPageLoad_Long_Values_Test()
+    {
+        this.broker.GetPageLoad(
+            "s1",
+            TestDatabase.BoardId,
+            null,
+            "127.0.0.1",
+            new string('l', 600),
+            "page",
+            new string('b', 80),
+            new string('p', 80),
+            new string('u', 900),
+            null,
+            this.forum,
+            null,
+            null,
+            false,
+            false);
+
+        var active = this.Repository<Active>().GetSingle(a => a.SessionID == "s1");
+
+        active.Location.Should().HaveLength(255);
+        active.Browser.Should().HaveLength(50);
+        active.Platform.Should().HaveLength(50);
+        active.UserAgent.Should().HaveLength(500);
+    }
+
+    [Test]
     [Description("A guest request records a guest session and returns the guest's forum access")]
     public void GetPageLoad_Guest_Test()
     {

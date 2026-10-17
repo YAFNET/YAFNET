@@ -214,6 +214,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Delete post: a member could open the delete page of the own post of a locked topic (or after the lock period), deleting then just showed the page again; the page and its handlers are denied now with the same rules as the delete and restore buttons of the post
 * [FIXED] Saving a name or text longer than its column failed with an error on SQL Server, MySQL and PostgreSQL (not on Sqlite), e.g. the name of an access mask (50 characters): the inputs of the admin pages (access mask, rank, group, forum, board, bb code, banned e-mail, name and ip, replace and spam words), of the poll choices and of "move message" are limited to the length of the column now
 * [FIXED] PostgreSQL: deleting a topic (without erasing) failed, the column names of the sql statement that flags its posts as deleted were not quoted
+* [FIXED] SQL Server, MySQL, PostgreSQL: a request with a long location parameter, browser, platform or user agent (longer than the columns of the active session) got the error page "Failure Initializing User/Page" instead of the forum; the values are shortened to their columns now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

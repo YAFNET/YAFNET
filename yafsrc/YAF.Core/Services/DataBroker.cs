@@ -231,6 +231,15 @@ public class DataBroker : IHaveServiceLocator
         User currentUser;
         var activeUpdate = false;
 
+        // the values of the request are saved in the active session, a value longer than its column (e.g. a long
+        // address) failed every page ("Failure Initializing User/Page") on SQL Server, MySQL and PostgreSQL
+        location = Cut(location, 255);
+        forumPage = Cut(forumPage, 1024);
+        browser = Cut(browser, 50);
+        platform = Cut(platform, 50);
+        userAgent = Cut(userAgent, 500);
+        ip = Cut(ip, 39);
+
         // -- set IsActiveNow ActiveFlag - it's a default
         var activeFlags = new ActiveFlags { IsActiveNow = true };
 
@@ -687,5 +696,16 @@ public class DataBroker : IHaveServiceLocator
             Constants.Cache.ForumModerators,
             () => this.GetRepository<User>().GetForumModerators(),
             TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
+    }
+
+    /// <summary>
+    /// Cuts the text to the maximum length.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="maxLength">The maximum length.</param>
+    /// <returns>Returns the text.</returns>
+    private static string Cut(string text, int maxLength)
+    {
+        return text != null && text.Length > maxLength ? text.Substring(0, maxLength) : text;
     }
 }
