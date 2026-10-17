@@ -85,6 +85,60 @@ public class AdminForumsTests : ForumTestBase
         (await this.Page.InnerTextAsync("body")).Should().NotContain(category);
     }
 
+    [Test]
+    [Description("Sorting the categories by name sorts all categories of the board, not only the ones of the current page")]
+    public async Task Sort_All_Categories_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var first = $"AAA sort {id}";
+
+        await this.LoginAsAdminAsync();
+
+        // more entries than one page (a category with forums), the category of the test is the last one
+        var other = $"MMM sort {id}";
+        await this.CreateCategoryAsync(other, "90");
+
+        for (var i = 1; i <= 5; i++)
+        {
+            await this.GotoAsync("Admin/EditForum");
+            await this.Control("Name").FillAsync($"Sort forum {id} {i}");
+            await this.Control("Description").FillAsync("A forum to sort");
+            await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = other });
+            await this.Control("SortOrder").FillAsync(i.ToString());
+            await this.ClickAndWaitAsync(this.Control("Save"));
+        }
+
+        await this.CreateCategoryAsync(first, "99");
+
+        // five entries per page: the new category is not on the first page
+        await this.GotoAsync("Admin/Forums");
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Control("PageSize").SelectOptionAsync("5", new LocatorSelectOptionOptions { Force = true }));
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(first);
+
+        await this.Page.Locator("a.dropdown-toggle[aria-label='tools']").ClickAsync();
+        await this.Control("SortCategoriesAsc").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        await this.Page.Locator("a.dropdown-toggle[aria-label='tools']").ClickAsync();
+        await this.Control("SortForumsDesc").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        // the first category by name is on the first page now
+        await this.GotoAsync("Admin/Forums");
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Control("PageSize").SelectOptionAsync("5", new LocatorSelectOptionOptions { Force = true }));
+        (await this.Page.InnerTextAsync("body")).Should().Contain(first);
+    }
+
+    private async Task CreateCategoryAsync(string name, string sortOrder)
+    {
+        await this.GotoAsync("Admin/EditCategory");
+        await this.Control("Name").FillAsync(name);
+        await this.Control("SortOrder").FillAsync(sortOrder);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
     private async Task DeleteCategoryAsync(string category)
     {
         await this.GotoAsync("Admin/Forums");
