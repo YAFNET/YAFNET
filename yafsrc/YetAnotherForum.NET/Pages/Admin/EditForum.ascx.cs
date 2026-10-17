@@ -466,18 +466,25 @@ public partial class EditForum : AdminPage
             }
         }
 
-        // duplicate name checking...
-        if (!forumId.HasValue)
-        {
-            var forumList = this.GetRepository<Forum>().Get(f => f.Name == this.Name.Text.Trim());
+        // duplicate name checking (also when a forum is renamed): the name is unique in the category,
+        // and in the board unless forums with the same name are allowed; forums of other boards don't matter
+        var forumName = this.Name.Text.Trim();
+        var editedForumId = forumId ?? 0;
+        var forumCategoryId = this.CategoryList.SelectedValue.ToType<int>();
 
-            if (forumList.Any() && !this.PageBoardContext.BoardSettings.AllowForumsWithSameName)
-            {
-                this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),
-                    MessageTypes.warning);
-                return;
-            }
+        var boardCategoryIds = this.GetRepository<Category>()
+            .Get(c => c.BoardID == this.PageBoardContext.PageBoardID).Select(c => c.ID).ToList();
+
+        var sameNameForums = this.GetRepository<Forum>().Get(f => f.Name == forumName && f.ID != editedForumId)
+            .Where(f => boardCategoryIds.Contains(f.CategoryID)).ToList();
+
+        if (sameNameForums.Exists(f => f.CategoryID == forumCategoryId)
+            || sameNameForums.Any() && !this.PageBoardContext.BoardSettings.AllowForumsWithSameName)
+        {
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),
+                MessageTypes.warning);
+            return;
         }
 
         var themeUrl = string.Empty;

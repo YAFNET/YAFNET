@@ -132,10 +132,12 @@ public partial class EditCategory : AdminPage
             categoryImage = this.CategoryImages.SelectedItem.Text;
         }
 
-        var category = this.GetRepository<Category>().GetSingle(c => c.Name == this.Name.Text);
+        var categoryId = this.PageBoardContext.PageCategoryID;
+        var boardId = this.PageBoardContext.PageBoardID;
+        var name = this.Name.Text.Trim();
 
-        // Check Name duplicate only if new Category
-        if (category != null && this.PageBoardContext.PageCategoryID == 0)
+        // the name is unique in the board (also when a category is renamed), categories of other boards don't matter
+        if (this.GetRepository<Category>().Exists(c => c.BoardID == boardId && c.Name == name && c.ID != categoryId))
         {
             this.PageBoardContext.Notify(
                 this.GetText("ADMIN_EDITCATEGORY", "MSG_CATEGORY_EXISTS"),
@@ -148,7 +150,7 @@ public partial class EditCategory : AdminPage
         // save category
         this.GetRepository<Category>().Save(
             this.PageBoardContext.PageCategoryID,
-            this.Name.Text,
+            name,
             categoryImage,
             this.SortOrder.Text.ToType<short>(),
             categoryFlags);
