@@ -105,10 +105,19 @@ public partial class QuickReply : BaseUserControl
                 return;
             }
 
-            if (!(this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
-                && this.PageBoardContext.BoardSettings.PostFloodDelay > 0
-                && this.PageBoardContext.Get<ISession>().LastPost
-                > DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
+            // the last post of the user (not of the session: a new session would skip the delay),
+            // all guests are the same user: the delay of a guest is the one of the address
+            var lastPosted = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess
+                                                           || this.PageBoardContext.BoardSettings.PostFloodDelay <= 0
+                                 ? null
+                                 : this.GetRepository<Message>().GetUserLastPosted(
+                                     this.PageBoardContext.PageUserID,
+                                     this.PageBoardContext.IsGuest
+                                         ? this.Get<HttpRequestBase>().GetUserRealIPAddress()
+                                         : null);
+
+            if (lastPosted.HasValue
+                && lastPosted > DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
             {
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
@@ -117,7 +126,7 @@ public partial class QuickReply : BaseUserControl
                 this.PageBoardContext.Notify(
                     this.GetTextFormatted(
                         "wait",
-                        (this.PageBoardContext.Get<ISession>().LastPost
+                        (lastPosted.Value
                          - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay)).Seconds),
                     MessageTypes.warning);
 

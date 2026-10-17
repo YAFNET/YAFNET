@@ -1934,6 +1934,37 @@ public static class MessageRepositoryExtensions
     }
 
     /// <summary>
+    /// Gets the time of the newest post of the user (for the flood delay).
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    /// <param name="ip">
+    /// Only the posts of this address (all guests are the same user), or null for all posts.
+    /// </param>
+    /// <returns>
+    /// The time of the newest post, or null if the user has no post.
+    /// </returns>
+    public static DateTime? GetUserLastPosted(this IRepository<Message> repository, int userId, string ip = null)
+    {
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+        expression.Where(a => a.UserID == userId);
+
+        if (ip != null)
+        {
+            expression.And(a => a.IP == ip);
+        }
+
+        expression.Select(x => x.Posted).OrderByDescending(x => x.Posted).Take(1);
+
+        return repository.DbAccess.Execute(db => db.Connection.Column<DateTime?>(expression)).FirstOrDefault();
+    }
+
+    /// <summary>
     /// Counts the posts of the user again: approved, not deleted posts outside of test forums.
     /// </summary>
     /// <param name="repository">

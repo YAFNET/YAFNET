@@ -98,9 +98,15 @@ public partial class PostMessage : ForumPage
             return false;
         }
 
+        // the last post of the user (not of the session: a new session would skip the delay),
+        // all guests are the same user: the delay of a guest is the one of the address
+        var lastPosted = this.GetRepository<Message>().GetUserLastPosted(
+            this.PageBoardContext.PageUserID,
+            this.PageBoardContext.IsGuest ? this.Get<HttpRequestBase>().GetUserRealIPAddress() : null);
+
         // see if they've past that delay point
-        if (this.Get<ISession>().LastPost
-            <= DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
+        if (!lastPosted.HasValue
+            || lastPosted <= DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
         {
             return false;
         }
@@ -108,7 +114,7 @@ public partial class PostMessage : ForumPage
         this.PageBoardContext.Notify(
             this.GetTextFormatted(
                 "wait",
-                (this.Get<ISession>().LastPost
+                (lastPosted.Value
                  - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay)).Seconds),
             MessageTypes.warning);
         return true;
