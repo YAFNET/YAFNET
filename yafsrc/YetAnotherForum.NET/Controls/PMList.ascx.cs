@@ -369,38 +369,17 @@ public partial class PMList : BaseUserControl
     /// </returns>
     private List<PagedPm> GetMessagesForExport(ICollection<int> exportPmIds)
     {
-        var list = (List<PagedPm>)this.Messages.DataSource;
+        // all messages of the inbox or the outbox (not only the messages of the page)
+        var messages = this.GetRepository<PMessage>().List(
+            this.PageBoardContext.PageUserID,
+            this.View,
+            this.ViewState["SortField"].ToString(),
+            this.ViewState["SortAsc"].ToType<bool>());
 
-        list = !exportPmIds.NullOrEmpty()
-                   ? [.. list.Where(x => !x.IsDeleted && exportPmIds.Contains(x.PMessageID))]
-                   : [.. list.Where(x => !x.IsDeleted)];
-
-        var messageList = new List<PagedPm>();
-
-        list.ForEach(
-            item =>
-                {
-                    switch (this.View)
-                    {
-                        case PmView.Inbox:
-                            {
-                                messageList.Add(item);
-                            }
-
-                            break;
-                        case PmView.Outbox:
-                            {
-                                if (item.IsInOutbox)
-                                {
-                                    messageList.Add(item);
-                                }
-                            }
-
-                            break;
-                    }
-                });
-
-        return messageList;
+        // the selected messages (the ids of the messages of the user)
+        return exportPmIds.NullOrEmpty()
+                   ? messages
+                   : [.. messages.Where(x => exportPmIds.Contains(x.UserPMessageID))];
     }
 
     /// <summary>
