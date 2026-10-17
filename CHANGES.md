@@ -299,6 +299,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Profile: the region was not saved when the country was selected (or changed) at the same time
 * [FIXED] Profile: countries without regions showed an empty region list
 * [FIXED] Friends: a removed friend was still shown in the friend list (the approved request of the friend was listed as friendship)
+* [FIXED] Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

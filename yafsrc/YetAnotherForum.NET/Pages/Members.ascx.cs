@@ -160,6 +160,9 @@ public partial class Members : ForumPage
 
         this.NumPostDDL.DataBind();
 
+        // more or equal is the default comparison
+        this.NumPostDDL.SelectedValue = "3";
+
         // get list of user ranks for filtering
         var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
 
@@ -431,8 +434,6 @@ public partial class Members : ForumPage
     private void BindData()
     {
         this.Pager.PageSize = this.PageSize.SelectedValue.ToType<int>();
-
-        this.NumPostDDL.SelectedValue = "3";
 
         if (this.NumPostsTB.Text.IsSet())
         {
