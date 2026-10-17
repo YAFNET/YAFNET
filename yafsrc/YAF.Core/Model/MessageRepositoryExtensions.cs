@@ -714,18 +714,21 @@ public static class MessageRepositoryExtensions
     /// <param name="message">
     /// The message.
     /// </param>
+    /// <param name="restoreLinked">
+    /// Restore the deleted replies too (they could have been deleted by a moderator).
+    /// </param>
     public static void Restore(
         this IRepository<Message> repository,
         int forumId,
         int topicId,
-        Message message)
+        Message message,
+        bool restoreLinked = true)
     {
-        
-
         repository.RestoreRecursively(
             forumId,
             topicId,
-            message);
+            message,
+            restoreLinked);
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateTopicLastPostEvent(forumId, topicId));
 
@@ -1451,20 +1454,22 @@ public static class MessageRepositoryExtensions
     /// <param name="message">
     /// The message.
     /// </param>
+    /// <param name="restoreLinked">
+    /// Restore the replies too.
+    /// </param>
     private static void RestoreRecursively(
         this IRepository<Message> repository,
         int forumId,
         int topicId,
-        Message message)
+        Message message,
+        bool restoreLinked)
     {
-        
-
         // Restore replies
-        var replies = repository.Get(m => m.ReplyTo == message.ID).ToList();
+        var replies = restoreLinked ? repository.Get(m => m.ReplyTo == message.ID).ToList() : new List<Message>();
 
         if (replies.Any())
         {
-            replies.ForEach(reply => repository.RestoreRecursively(forumId, topicId, reply));
+            replies.ForEach(reply => repository.RestoreRecursively(forumId, topicId, reply, true));
         }
 
         repository.RestoreInternal(forumId,

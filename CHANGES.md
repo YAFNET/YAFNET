@@ -75,6 +75,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Mail: the group mail was sent in parallel without the context of the request (errors of the services), the spam bot notification went to the first group whose name contains "Admin" instead of the admin groups
 * [FIXED] The post flood delay was only checked against the last post of the session, a new session (or another browser) could post right away; the delay now uses the last post of the user, for guests the last post from the same address
 * [FIXED] "Allow topics with the same name": a new topic was rejected when any topic subject only contained the subject (also deleted topics), editing the subject of a topic was never checked
+* [FIXED] Security: Restoring the own post also restored all replies, also the ones deleted by a moderator; only moderators restore the replies too, the restore button of the delete message page checks the access
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

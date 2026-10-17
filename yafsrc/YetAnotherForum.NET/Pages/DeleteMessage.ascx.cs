@@ -268,10 +268,17 @@ public partial class DeleteMessage : ForumPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void RestoreClick(object sender, EventArgs e)
     {
+        if (!this.CanUnDeletePost)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
+        // only moderators restore the replies too, they could have been deleted by a moderator
         this.GetRepository<Message>().Restore(
             this.PageBoardContext.PageForumID,
             this.PageBoardContext.PageMessage.TopicID,
-            this.PageBoardContext.PageMessage);
+            this.PageBoardContext.PageMessage,
+            this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin);
 
         this.Get<LinkBuilder>().Redirect(
             ForumPages.Posts,
