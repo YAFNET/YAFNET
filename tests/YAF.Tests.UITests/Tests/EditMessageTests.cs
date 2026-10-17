@@ -88,6 +88,75 @@ public class EditMessageTests : ForumTestBase
         this.Page.Url.Should().Contain("/Posts/");
     }
 
+    [Test]
+    [Description("The tags of the topic are in the edit page, the subject of another topic is refused, the topic is watched and unwatched")]
+    public async Task Tags_Duplicate_Subject_And_Watch_Test()
+    {
+        var first = $"First subject {Guid.NewGuid():N}".Substring(0, 24);
+        var tag = $"uitag{DateTime.UtcNow:HHmmssfff}";
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.CreateTopicAsync(first);
+
+        // a topic with a tag
+        await this.GotoAsync("PostTopic?f=1");
+        await this.Control("TopicSubjectTextBox").FillAsync($"Tagged {Guid.NewGuid():N}");
+        await this.Control("YafTextEditor").FillAsync("The tagged post.");
+        await this.Control("TagsValue").EvaluateAsync("(e, tag) => e.value = tag", tag);
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        var ids = await this.Page.Locator("a[id^='post']").EvaluateAllAsync<string[]>("es => es.map(e => e.id)");
+        var messageId = ids.Select(id => Regex.Match(id, @"^post(\d+)$")).Where(m => m.Success).Select(m => m.Groups[1].Value).First();
+
+        await this.GotoAsync($"EditMessage?m={messageId}");
+        (await this.Control("TagsValue").InputValueAsync()).Should().Contain(tag);
+
+        // the subject of the other topic
+        await this.Control("TopicSubjectTextBox").FillAsync(first);
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+        this.Page.Url.Should().Contain("EditMessage", "the subject exists");
+
+        // watched, then not watched
+        foreach (var watch in new[] { true, false })
+        {
+            await this.GotoAsync($"EditMessage?m={messageId}");
+            await this.Control("TopicWatch").SetCheckedAsync(watch);
+            await this.ClickAndWaitAsync(this.Control("PostReply"));
+            this.Page.Url.Should().Contain("/Posts/");
+        }
+    }
+
+    [Test]
+    [Description("A member edits the own reply in the topic of another member: the subject can't be changed")]
+    public async Task Reply_In_Topic_Of_Other_Member_Test()
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        var messageId = await this.CreateTopicAsync($"Topic of another {Guid.NewGuid():N}");
+
+        var topicUrl = this.Page.Url;
+        var topicId = Regex.Match(
+            await this.Page.ContentAsync(),
+            @"PostMessage\?t=(\d+)|[?&]t=(\d+)").Groups.Cast<Group>().Skip(1).First(g => g.Success).Value;
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+        await this.Control("YafTextEditor").FillAsync("The reply of the other member.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        var ids = await this.Page.Locator("a[id^='post']").EvaluateAllAsync<string[]>("es => es.map(e => e.id)");
+        var replyId = ids.Select(id => Regex.Match(id, @"^post(\d+)$")).Where(m => m.Success).Select(m => int.Parse(m.Groups[1].Value))
+            .Max();
+
+        replyId.Should().NotBe(messageId, topicUrl);
+
+        await this.GotoAsync($"EditMessage?m={replyId}");
+        (await this.Control("TopicSubjectTextBox").IsDisabledAsync()).Should().BeTrue();
+
+        await this.Control("YafTextEditor").FillAsync("The changed reply of the other member.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+        (await this.Page.InnerTextAsync("body")).Should().Contain("The changed reply of the other member.");
+    }
+
     /// <summary>
     /// Creates a topic and returns the id of the first post.
     /// </summary>
