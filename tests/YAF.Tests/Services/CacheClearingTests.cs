@@ -24,6 +24,9 @@
 
 namespace YAF.Tests.Services;
 
+using System.IO;
+using System.Text;
+
 using Autofac;
 
 using ServiceStack.OrmLite;
@@ -32,6 +35,7 @@ using YAF.Core.Events;
 using YAF.Core.Events.Cache;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
+using YAF.Core.Services.Import;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Constants;
 using YAF.Types.EventProxies;
@@ -130,6 +134,35 @@ public class CacheClearingTests
             new AccessMask { BoardID = TestDatabase.BoardId, Name = "New", Flags = 0, SortOrder = 1 });
 
         this.ActiveAccessCount().Should().Be(0);
+    }
+
+    [Test]
+    [Description("A new banned user agent (admin or import) drops the cached list, so it is blocked at once")]
+    public void Banned_User_Agent_Test()
+    {
+        this.board.Cache.Set(Constants.Cache.BannedUserAgent, "cached");
+
+        this.board.Current.GetRepository<BannedUserAgent>().Save(null, "BadBot", TestDatabase.BoardId);
+        this.board.Cache.Get(Constants.Cache.BannedUserAgent).Should().BeNull();
+
+        this.board.Cache.Set(Constants.Cache.BannedUserAgent, "cached");
+
+        DataImport.BannedUserAgentsImport(TestDatabase.BoardId, new MemoryStream(Encoding.UTF8.GetBytes("OtherBot")))
+            .Should().Be(1);
+        this.board.Cache.Get(Constants.Cache.BannedUserAgent).Should().BeNull();
+    }
+
+    [Test]
+    [Description("Imported spam words drop the cached list, so they are checked at once")]
+    public void Spam_Words_Import_Test()
+    {
+        this.board.Cache.Set(Constants.Cache.SpamWords, "cached");
+
+        const string Xml = "<YafSpamWordsList><YafSpamWords><SpamWord>casino</SpamWord></YafSpamWords></YafSpamWordsList>";
+
+        DataImport.SpamWordsImport(TestDatabase.BoardId, new MemoryStream(Encoding.UTF8.GetBytes(Xml))).Should().Be(1);
+
+        this.board.Cache.Get(Constants.Cache.SpamWords).Should().BeNull();
     }
 
     [Test]

@@ -354,6 +354,12 @@ public static class DataImport
 
         repository.BulkInsert(imports);
 
+        // the cached spam words are loaded again
+        if (imports.Count > 0)
+        {
+            repository.FireNew();
+        }
+
         return imports.Count;
     }
 }
