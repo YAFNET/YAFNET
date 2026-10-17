@@ -11,6 +11,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Ignored users: ignoring or removing a user was not shown on the same page, a user could ignore themselves
 * [FIXED] Host settings: "Allow private message attachments" could not be saved (the setting was stored under another name)
 * [FIXED] Language list: a language file with missing pages or texts caused an error
+* [FIXED] Generated passwords could contain three identical characters in a row
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

@@ -93,7 +93,7 @@ public static class PasswordGenerator
         {
             password[characterPosition] = characterSet[random.Next(0, characterSetLength)];
 
-            var moreThanTwoIdenticalInARow = characterPosition > MAXIMUM_IDENTICAL_CONSECUTIVE_CHARS &&
+            var moreThanTwoIdenticalInARow = characterPosition >= MAXIMUM_IDENTICAL_CONSECUTIVE_CHARS &&
                                              password[characterPosition] == password[characterPosition - 1] &&
                                              password[characterPosition - 1] == password[characterPosition - 2];
 
