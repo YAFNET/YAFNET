@@ -249,7 +249,8 @@ public partial class PostMessage : ForumPage
                         HtmlTagHelper.StripHtml(BBCodeHelper.DecodeCodeBlocks(HtmlTagHelper.CleanHtmlString(quotedMessageText)));
                 }
 
-                if (this.quotedMessage.TopicID != this.PageBoardContext.PageTopicID)
+                // only posts of this topic, deleted and not approved posts (of others) only for moderators
+                if (!this.CanQuoteMessage(this.quotedMessage))
                 {
                     this.Get<LinkBuilder>().AccessDenied();
                 }
@@ -305,8 +306,9 @@ public partial class PostMessage : ForumPage
                                 multiQuote);
                     }
 
+                    // the ids of the session can be of any post (other topics and forums)
                     var messages = this.GetRepository<Message>().GetByIds(
-                        this.Get<ISession>().MultiQuoteIds.Select(i => i.MessageID));
+                        this.Get<ISession>().MultiQuoteIds.Select(i => i.MessageID)).Where(this.CanQuoteMessage).ToList();
 
                     messages.ForEach(this.InitQuotedReply);
 
@@ -573,6 +575,25 @@ public partial class PostMessage : ForumPage
         this.PreviewMessagePost.MessageID = 0;
 
         this.PreviewMessagePost.Message = this.forumEditor.Text;
+    }
+
+    /// <summary>
+    /// Checks if the message can be quoted by the current user.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <returns>Returns if the message can be quoted</returns>
+    private bool CanQuoteMessage(Message message)
+    {
+        // only posts of this topic, deleted and not approved posts (of others) only for moderators
+        if (message.TopicID != this.PageBoardContext.PageTopicID)
+        {
+            return false;
+        }
+
+        return MessageAccessHelper.CanViewMessage(
+            message,
+            this.PageBoardContext.PageUserID,
+            this.PageBoardContext.ForumModeratorAccess);
     }
 
     /// <summary>

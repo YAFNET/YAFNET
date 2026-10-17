@@ -139,8 +139,12 @@ public partial class ReportPost : ForumPage
             return;
         }
 
-        // Checking if the user has a right to view the message and getting data
-        if (this.Message != null)
+        // Checking if the user has a right to view the message and getting data,
+        // deleted and not approved posts (of others) only for moderators
+        if (this.Message != null && MessageAccessHelper.CanViewMessage(
+                this.Message.Item2,
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.ForumModeratorAccess))
         {
             this.topicName = this.Message.Item1.TopicName;
 

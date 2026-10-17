@@ -100,7 +100,11 @@ public partial class MessageHistory : ForumPage
 
         var originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.PageBoardContext.PageMessage.ID, this.PageBoardContext.PageUserID);
 
-        if (originalMessage == null)
+        // the history contains the current text, deleted and not approved posts (of others) only for moderators
+        if (originalMessage == null || !MessageAccessHelper.CanViewMessage(
+                originalMessage.Item2,
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.ForumModeratorAccess))
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
