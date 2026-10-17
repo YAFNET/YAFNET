@@ -114,8 +114,8 @@ public partial class PostMessage : ForumPage
         this.PageBoardContext.Notify(
             this.GetTextFormatted(
                 "wait",
-                (lastPosted.Value
-                 - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay)).Seconds),
+                (int)Math.Ceiling((lastPosted.Value
+                 - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay)).TotalSeconds)),
             MessageTypes.warning);
         return true;
     }
