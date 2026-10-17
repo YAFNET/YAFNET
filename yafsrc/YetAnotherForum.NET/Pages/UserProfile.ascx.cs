@@ -560,13 +560,14 @@ public partial class UserProfile : ForumPage
                         return;
                     }
 
+                    // the name and message are texts (quotes broke the html of the attributes)
                     var title = $"{medal.Name}{(flags.ShowMessage ? $": {medal.Message}" : string.Empty)}";
 
                     ribbonBar.AppendFormat(
                         "<li class=\"list-inline-item\"><img src=\"{0}{3}/{1}\" alt=\"{2}\" title=\"{2}\" data-bs-toggle=\"tooltip\"></li>",
                         BoardInfo.ForumClientFileRoot,
-                        medal.MedalURL,
-                        title,
+                        HttpUtility.HtmlAttributeEncode(medal.MedalURL),
+                        HttpUtility.HtmlAttributeEncode(title),
                         this.Get<BoardFolders>().Medals);
                 });
 
