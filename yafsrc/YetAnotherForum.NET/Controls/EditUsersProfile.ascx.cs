@@ -327,6 +327,14 @@ public partial class EditUsersProfile : BaseUserControl
 
             if (this.DisplayName.Text.Trim() != this.User.Item1.DisplayName)
             {
+                // the same rules as at the registration (no guest name, bad word or semicolon)
+                if (!UserHelper.IsAllowedName(this.DisplayName.Text, this.PageBoardContext.PageBoardID))
+                {
+                    this.PageBoardContext.Notify(this.GetText("REGISTER", "BAD_USERNAME"), MessageTypes.warning);
+
+                    return;
+                }
+
                 if (this.Get<IUserDisplayName>().FindUserByName(this.DisplayName.Text.Trim()) != null)
                 {
                     this.PageBoardContext.Notify(

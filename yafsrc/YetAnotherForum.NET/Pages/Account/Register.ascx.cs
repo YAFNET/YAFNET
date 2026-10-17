@@ -349,15 +349,8 @@ public partial class Register : AccountPage
     {
         var userName = this.UserName.Text.Trim();
 
-        // username cannot contain semi-colon or to be a bad word
-        var badWord = this.Get<IBadWordReplace>().ReplaceItems.Any(
-            i => userName.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
-
-        var guestUserName = this.Get<IAspNetUsersHelper>().GuestUser(this.PageBoardContext.PageBoardID).Name;
-
-        guestUserName = guestUserName.IsSet() ? guestUserName.ToLower() : string.Empty;
-
-        if (userName.Contains(";") || badWord || userName.ToLower().Equals(guestUserName))
+        // username cannot contain semicolon, be the guest name or a bad word
+        if (!UserHelper.IsAllowedName(userName, this.PageBoardContext.PageBoardID))
         {
             this.PageBoardContext.Notify(this.GetText("BAD_USERNAME"), MessageTypes.warning);
 
@@ -406,11 +399,21 @@ public partial class Register : AccountPage
                 return false;
             }
 
+            // the same rules as for the user name (another user or the guest can not be impersonated)
+            if (!UserHelper.IsAllowedName(displayName, this.PageBoardContext.PageBoardID))
+            {
+                this.PageBoardContext.Notify(this.GetText("BAD_USERNAME"), MessageTypes.warning);
+
+                return false;
+            }
+
             if (this.Get<IUserDisplayName>().FindUserByName(displayName) != null)
             {
                 this.PageBoardContext.Notify(
                     this.GetText("ALREADY_REGISTERED_DISPLAYNAME"),
                     MessageTypes.warning);
+
+                return false;
             }
         }
 

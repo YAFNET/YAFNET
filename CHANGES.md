@@ -79,6 +79,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The post count of a topic got wrong when a deleted post was deleted again (e.g. the form sent twice) or erased later (Admin > Restore) and when a post or a deleted topic was restored with its replies (counted twice), a topic with a count of 0 was not listed anymore
 * [FIXED] Approving or restoring a post did not update the search index, approved posts kept their not approved flags and restored posts were only found again after rebuilding the index
 * [FIXED] A too long guest name was replaced with the characters after the first 100 instead of being shortened to 100 characters (post topic, post and edit message)
+* [FIXED] Security: The registration showed a warning for a display name that is already used but registered the user anyway (other users could be impersonated), and a display name (registration, profile and admin edit user) was not checked like the user name, so a user could use the guest name, a bad word or a name with a semicolon; the rules are now in UserHelper.IsAllowedName and used everywhere
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

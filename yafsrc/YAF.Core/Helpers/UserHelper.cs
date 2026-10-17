@@ -26,6 +26,7 @@ namespace YAF.Core.Helpers;
 
 using System;
 
+using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 
 /// <summary>
@@ -51,6 +52,33 @@ public static class UserHelper
 
         // the language of the board (not of the current user, e.g. the admin who sends a notification)
         return BoardContext.Current.BoardSettings.Language;
+    }
+
+    /// <summary>
+    /// Checks if a name can be used as user name or display name: no semicolon,
+    /// not the name of the guest user and not a bad word (another user can't be impersonated).
+    /// </summary>
+    /// <param name="name">The user name or display name.</param>
+    /// <param name="boardId">The board identifier.</param>
+    /// <returns>Returns if the name is allowed.</returns>
+    public static bool IsAllowedName(string name, int boardId)
+    {
+        name = name?.Trim();
+
+        if (name.IsNotSet() || name.Contains(";"))
+        {
+            return false;
+        }
+
+        var guestName = BoardContext.Current.Get<IAspNetUsersHelper>().GuestUser(boardId)?.Name;
+
+        if (guestName.IsSet() && name.Equals(guestName.Trim(), StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        return !BoardContext.Current.Get<IBadWordReplace>().ReplaceItems.Any(
+                   i => name.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
     }
 
     /// <summary>
