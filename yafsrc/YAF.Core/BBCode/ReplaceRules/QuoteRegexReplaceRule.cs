@@ -94,14 +94,17 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
                     postId = quote.Substring(quote.LastIndexOf(";", StringComparison.Ordinal) + 1);
                     userName = quote = quote.Remove(quote.LastIndexOf(";", StringComparison.Ordinal));
 
+                    var topic = BoardContext.Current.GetRepository<Topic>().GetTopicFromMessage(postId.ToType<int>());
+
+                    if (topic == null)
+                    {
+                        // the quoted post does not exist (anymore)
+                        throw new InvalidOperationException($"The quoted post {postId} was not found");
+                    }
+
                     topicLink = BoardContext.Current.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
-                        new
-                            {
-                                m = postId,
-                                name = BoardContext.Current.GetRepository<Topic>()
-                                    .GetNameFromMessage(postId.ToType<int>())
-                            });
+                        new { m = postId, name = topic.TopicName });
                 }
                 catch (Exception)
                 {

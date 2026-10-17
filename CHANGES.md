@@ -252,6 +252,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The poll edit page failed with a parser error (the choice inputs got a second MaxLength attribute with the input limits of this version)
 * [FIXED] The albums page of a user failed with a parser error (the edit button of the album list had the runat attribute twice)
 * [FIXED] Nested quotes with a user name were rendered in the wrong order with swapped attributions
+* [FIXED] A quote of a post that does not exist (anymore) showed "Posted by" with a link to the missing post, it shows "wrote" like a quote without post now
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
