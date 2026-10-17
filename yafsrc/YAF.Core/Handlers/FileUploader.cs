@@ -99,6 +99,14 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
         {
             case "POST":
             case "PUT":
+                // the upload script of the forum sends this header, a form of another web site can not send it
+                // (it would upload files with the login cookie of the user)
+                if (context.Request.Headers["X-Requested-With"].IsNotSet())
+                {
+                    context.Response.StatusCode = 403;
+                    break;
+                }
+
                 this.UploadFile(context);
                 break;
 

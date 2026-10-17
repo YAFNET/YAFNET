@@ -73,6 +73,22 @@ public class SecurityTests : ForumTestBase
     }
 
     [Test]
+    [Description("A form of another web site can not upload files with the login cookie of the user")]
+    public async Task Upload_Refuses_Cross_Site_Form_Post_Test()
+    {
+        await this.LoginAsAdminAsync();
+
+        var form = this.Page.APIRequest.CreateFormData();
+        form.Append("files[]", new FilePayload { Name = "forged.txt", MimeType = "text/plain", Buffer = [65, 66] });
+
+        var forged = await this.Page.APIRequest.PostAsync(
+            $"{TestConfig.BaseUrl}FileUploader.ashx",
+            new APIRequestContextOptions { Multipart = form });
+
+        forged.Status.Should().Be(403);
+    }
+
+    [Test]
     [Description("A member can not open the delete page of a post of another user")]
     public async Task Delete_Other_Users_Post_Is_Denied_Test()
     {
