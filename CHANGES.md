@@ -110,6 +110,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: XSS with the context menu of posts: the selected text of a post was inserted as html and into "javascript:" links (only quotes, semicolons and brackets were removed, which also changed quoted text like "don't"); the menu items are now created as elements with click handlers
 * [FIXED] Security: XSS with the mention list of the editors (@name): display names were inserted as html; the guest user was listed
 * [FIXED] Security: The admin language editor used the file name of the address as path, so it could read and overwrite files outside the languages folder (e.g. "../web.config"); only existing language files of the folder can be edited now
+* [FIXED] Security: Friend requests were not checked on the server (only the button was hidden): requests to users who block friend requests, to the guest account, to unapproved users, users of other boards and with the friends feature disabled are refused now; the names of friends in the notifications (friend request approved, friend removed) were shown as html
+* [FIXED] Removing a friend from the menu of a post removed the friend twice and its notification was never shown (the page was redirected before), the notification of a friend request from a post was lost the same way
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -243,6 +243,28 @@ public class SocialServicesTests
         this.ReceivedRequests(this.bob).Should().BeEmpty();
 
         this.board.Events.OfType<UpdateUserEvent>().Should().NotBeEmpty();
+    }
+
+    [Test]
+    [Description("No friend request to users who block them, to the guest, to unapproved users, users of other boards or yourself, and not with the friend list turned off")]
+    public void Friends_Request_Refused_Test()
+    {
+        var friends = this.board.Resolve<IFriends>();
+
+        var blocking = this.db.AddUser("Blocking", u => u.BlockFlags = new UserBlockFlags { BlockFriendRequests = true }.BitValue);
+        var guest = this.db.AddUser("Guest", u => u.Flags = (int)(UserFlags.Flags.IsApproved | UserFlags.Flags.IsGuest));
+        var unapproved = this.db.AddUser("Unapproved", u => u.Flags = 0);
+        var otherBoard = this.db.AddUser("Other", u => u.BoardID = TestDatabase.BoardId + 1);
+
+        foreach (var user in new[] { blocking, guest, unapproved, otherBoard, this.alice })
+        {
+            friends.AddRequest(user).Should().BeFalse();
+        }
+
+        this.board.BoardSettings.EnableBuddyList = false;
+        friends.AddRequest(this.bob).Should().BeFalse();
+
+        this.Repository<Buddy>().Count(b => b.FromUserID == this.alice).Should().Be(0);
     }
 
     [Test]

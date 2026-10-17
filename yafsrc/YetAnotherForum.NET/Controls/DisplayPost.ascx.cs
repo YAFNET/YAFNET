@@ -615,10 +615,12 @@ public partial class DisplayPost : BaseUserControl
 
                 addFriendButton.Click += (_, _) =>
                     {
+                        // the notifications are html, the name is a text
                         if (this.Get<IFriends>().AddRequest(this.PostData.UserId))
                         {
-                            this.PageBoardContext.Notify(
-                                this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", userName),
+                            // shown after the redirect
+                            this.PageBoardContext.LoadMessage.AddSession(
+                                this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", this.HtmlEncode(userName)),
                                 MessageTypes.success);
 
                             this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
@@ -648,15 +650,14 @@ public partial class DisplayPost : BaseUserControl
 
                 removeFriendButton.Click += (_, _) =>
                     {
-                        this.Get<IFriends>().Remove(this.PostData.UserId);
+                        // removed once, the notification is shown after the redirect (the name is a text)
+                        var removedName = this.Get<IFriends>().Remove(this.PostData.UserId);
+
+                        this.PageBoardContext.LoadMessage.AddSession(
+                            this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.HtmlEncode(removedName)),
+                            MessageTypes.success);
 
                         this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
-
-                        this.PageBoardContext.Notify(
-                            this.GetTextFormatted(
-                                "REMOVEBUDDY_NOTIFICATION",
-                                this.Get<IFriends>().Remove(this.PostData.UserId)),
-                            MessageTypes.success);
                     };
 
                 this.UserDropHolder.Controls.Add(removeFriendButton);

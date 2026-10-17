@@ -66,6 +66,18 @@ public class Friends : IFriends, IHaveServiceLocator
     /// </returns>
     public bool AddRequest(int toUserId)
     {
+        // the button is hidden in these cases, the request is checked anyway: an approved member of the board
+        // (not the guest, not the user himself) who doesn't block friend requests, with the friend list turned on
+        var toUser = this.GetRepository<User>().GetById(toUserId);
+
+        if (!this.Get<BoardSettings>().EnableBuddyList || BoardContext.Current.IsGuest || toUser == null
+            || toUser.ID == BoardContext.Current.PageUserID || toUser.BoardID != BoardContext.Current.PageBoardID
+            || toUser.UserFlags.IsGuest || !toUser.UserFlags.IsApproved || toUser.UserFlags.IsDeleted
+            || toUser.Block.BlockFriendRequests)
+        {
+            return false;
+        }
+
         this.ClearCache(toUserId);
 
         return this.GetRepository<Buddy>().AddRequest(

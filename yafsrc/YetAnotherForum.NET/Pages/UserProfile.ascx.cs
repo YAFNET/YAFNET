@@ -125,14 +125,14 @@ public partial class UserProfile : ForumPage
                 this.Get<IFriends>().AddRequest(this.UserId)
                     ? this.GetTextFormatted(
                         "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
-                        this.Get<IUserDisplayName>().GetNameById(this.UserId))
+                        this.HtmlEncode(this.Get<IUserDisplayName>().GetNameById(this.UserId)))
                     : this.GetText("NOTIFICATION_BUDDYREQUEST"),
                 MessageTypes.success);
         }
         else
         {
             this.PageBoardContext.Notify(
-                this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.Get<IFriends>().Remove(this.UserId)),
+                this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.HtmlEncode(this.Get<IFriends>().Remove(this.UserId))),
                 MessageTypes.success);
         }
 

@@ -136,7 +136,7 @@ public partial class BuddyList : BaseUserControl
                 this.PageBoardContext.LoadMessage.AddSession(
                     string.Format(
                         this.GetText("REMOVEBUDDY_NOTIFICATION"),
-                        this.Get<IFriends>().Remove(e.CommandArgument.ToType<int>())),
+                        this.HtmlEncode(this.Get<IFriends>().Remove(e.CommandArgument.ToType<int>()))),
                     MessageTypes.success);
                 this.CurrentUserID = this.PageBoardContext.PageUserID;
                 break;
@@ -156,7 +156,7 @@ public partial class BuddyList : BaseUserControl
                     this.Get<IFriends>().ApproveRequest(user.ID);
 
                     this.PageBoardContext.LoadMessage.AddSession(
-                        string.Format(this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), user.DisplayOrUserName()),
+                        string.Format(this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), this.HtmlEncode(user.DisplayOrUserName())),
                         MessageTypes.success);
                 }
             }
