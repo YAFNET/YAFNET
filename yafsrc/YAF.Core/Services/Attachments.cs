@@ -78,9 +78,6 @@ public class Attachments : IAttachment, IHaveServiceLocator
 
             byte[] data;
 
-            this.GetRepository<Attachment>()
-                .IncrementDownloadCounter(attachment.ID);
-
             if (attachment.FileData == null)
             {
                 var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
@@ -133,7 +130,12 @@ public class Attachments : IAttachment, IHaveServiceLocator
                 return;
             }
 
+            // a refused download is not counted
+            this.GetRepository<Attachment>()
+                .IncrementDownloadCounter(attachment.ID);
+
             context.Response.ContentType = attachment.ContentType;
+            context.Response.AppendHeader("X-Content-Type-Options", "nosniff");
             context.Response.AppendHeader(
                 "Content-Disposition",
                 $"attachment; filename={HttpUtility.UrlPathEncode(attachment.FileName).Replace("+", "_").Replace(",", "_")}");
@@ -174,13 +176,6 @@ public class Attachments : IAttachment, IHaveServiceLocator
                 context.Response.Write(
                     "You have insufficient rights to download this resource. Contact forum administrator for further details.");
                 return;
-            }
-
-            if (!context.Request.QueryString.Exists("editor"))
-            {
-                // add a download count...
-                this.GetRepository<Attachment>()
-                    .IncrementDownloadCounter(attachment.ID);
             }
 
             byte[] data;
@@ -230,7 +225,25 @@ public class Attachments : IAttachment, IHaveServiceLocator
                 return;
             }
 
+            if (!context.Request.QueryString.Exists("editor"))
+            {
+                // add a download count (a refused download is not counted)
+                this.GetRepository<Attachment>()
+                    .IncrementDownloadCounter(attachment.ID);
+            }
+
             context.Response.ContentType = attachment.ContentType;
+            context.Response.AppendHeader("X-Content-Type-Options", "nosniff");
+
+            // only images are shown in the page, other files (e.g. xml, html or svg with scripts) would run their
+            // scripts in the forum: they are downloaded
+            if (!IsInlineImage(attachment.ContentType))
+            {
+                context.Response.AppendHeader(
+                    "Content-Disposition",
+                    $"attachment; filename={HttpUtility.UrlPathEncode(attachment.FileName).Replace("+", "_").Replace(",", "_")}");
+            }
+
             context.Response.Cache.SetCacheability(HttpCacheability.Public);
             context.Response.Cache.SetETag(etag);
             context.Response.OutputStream.Write(data, 0, data.Length);
@@ -246,5 +259,16 @@ public class Attachments : IAttachment, IHaveServiceLocator
             context.Response.Write(
                 "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
         }
+    }
+
+    /// <summary>
+    /// Checks if a content type is an image that can be shown in the page (no svg, it can contain scripts).
+    /// </summary>
+    /// <param name="contentType">The content type.</param>
+    /// <returns>Returns if the file is shown inline.</returns>
+    public static bool IsInlineImage(string contentType)
+    {
+        return contentType.IsSet() && contentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)
+                                   && contentType.IndexOf("svg", StringComparison.OrdinalIgnoreCase) < 0;
     }
 }

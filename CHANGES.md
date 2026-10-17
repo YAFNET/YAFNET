@@ -270,6 +270,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The attachment upload accepted the uploads of forms of other web sites with the login cookie of the user (cross site request), it only accepts the uploads of the upload script of the forum now
 * [FIXED] The user card (hover card) and the BBCode list of the editor were cached by the browser 1000 times longer than the online status cache timeout (milliseconds were used as seconds, about 17 hours by default), the user card also in shared caches although it depends on the permissions of the viewer
 * [FIXED] Security: The user list of the mentions (@name in the editor) was also served to guests and listed all users for an empty search; it is only for members now, starts with 3 characters, only searches the users of the board and returns 20 users at most
+* [FIXED] Security: Every attachment could be opened with the image address of the resource handler and was then shown in the browser with its content type, an uploaded xml file (allowed by default) with scripts ran them in the forum (stored XSS); only images are shown in the page now (no svg), other files are downloaded, the browser must not guess the type (nosniff). A refused download is not counted anymore
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
