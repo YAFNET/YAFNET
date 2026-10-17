@@ -98,6 +98,29 @@ public class AlbumEditTests : ForumTestBase
         (await this.Control("UpdateTitle").CountAsync()).Should().Be(0);
     }
 
+    [Test]
+    [Description("The cover of an album without images and an unknown cover are not found (no error)")]
+    public async Task Cover_Of_Empty_Album_Test()
+    {
+        var member = $"Cov{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        var albumId = await this.CreateAlbumAsync($"Empty {Guid.NewGuid():N}".Substring(0, 20), images: 1);
+
+        await this.Control("ImageDelete").First.ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        foreach (var cover in new[] { "0", "999999" })
+        {
+            var response = await this.Page.APIRequest.GetAsync(
+                $"{TestConfig.BaseUrl}resource.ashx?album={albumId}&cover={cover}");
+
+            response.Status.Should().Be(404, cover);
+        }
+    }
+
     private async Task<string> CreateAlbumAsync(string title, int images)
     {
         await this.GotoAsync("EditAlbumImages?a=new");

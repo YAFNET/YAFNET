@@ -25,6 +25,7 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -133,6 +134,58 @@ public class MembersTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Control("SearchByUserName"));
 
         (await this.NamesAsync()).Should().Contain(TestConfig.AdminUserName).And.NotContain(first);
+    }
+
+    [Test]
+    [Description("The other sort orders of the members (name, rank, join date, posts, last visit) keep the search, reset clears it")]
+    public async Task Sort_Orders_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var first = $"Ord{id}A";
+        var second = $"Ord{id}B";
+
+        await this.RegisterAsync(first, TestConfig.TestUserPassword);
+        await this.RegisterAsync(second, TestConfig.TestUserPassword);
+        await this.LoginAsAdminAsync();
+
+        await this.GotoAsync("Members");
+        await this.OpenFilterAsync();
+        await this.Control("UserSearchName").FillAsync($"Ord{id}");
+        await this.ClickAndWaitAsync(this.Control("SearchByUserName"));
+
+        var expected = new Dictionary<string, string[]>
+                           {
+                               ["SortUserNameDesc"] = [second, first],
+                               ["SortUserNameAsc"] = [first, second],
+                               ["SortJoinedAsc"] = [first, second],
+                               ["SortRankAsc"] = null,
+                               ["SortRankDesc"] = null,
+                               ["SortPostsAsc"] = null,
+                               ["SortLastVisitAsc"] = null,
+                               ["SortLastVisitDesc"] = null
+                           };
+
+        foreach (var sort in expected)
+        {
+            await this.Control("Sort").ClickAsync();
+            await this.ClickAndWaitAsync(this.Control(sort.Key));
+
+            var names = await this.NamesAsync();
+
+            if (sort.Value == null)
+            {
+                names.Should().HaveCount(2, sort.Key);
+            }
+            else
+            {
+                names.Should().Equal(sort.Value, sort.Key);
+            }
+        }
+
+        // reset
+        await this.OpenFilterAsync();
+        await this.ClickAndWaitAsync(this.Control("ResetUserSearch"));
+        (await this.NamesAsync()).Should().HaveCountGreaterThan(2);
     }
 
     private async Task SearchAsync(string posts, string comparison)

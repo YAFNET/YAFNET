@@ -25,6 +25,7 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;
@@ -96,6 +97,54 @@ public class ProfileTests : ForumTestBase
             await this.DeleteDefinitionAsync(check);
             await this.DeleteDefinitionAsync(text);
         }
+    }
+
+    [Test]
+    [Description("The details of the profile are shown on the profile page to another member: country, region, gender, the texts and the links")]
+    public async Task Profile_Page_Details_Test()
+    {
+        var member = $"Det{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        await this.GotoAsync("Profile/EditProfile");
+
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Control("ProfileEditor_Country").SelectOptionAsync(
+                "US",
+                new LocatorSelectOptionOptions { Force = true }));
+        await this.Control("ProfileEditor_Region").SelectOptionAsync("CA", new LocatorSelectOptionOptions { Force = true });
+        await this.Control("ProfileEditor_Gender").SelectOptionAsync(
+            new SelectOptionValue { Label = "Woman" },
+            new LocatorSelectOptionOptions { Force = true });
+
+        await this.Control("ProfileEditor_Realname").FillAsync("Real Name Of Member");
+        await this.Control("ProfileEditor_Occupation").FillAsync("Tester Of Forums");
+        await this.Control("ProfileEditor_Interests").FillAsync("Testing Things");
+        await this.Control("ProfileEditor_City").FillAsync("Sacramento");
+        await this.Control("ProfileEditor_Location").FillAsync("The Office");
+        await this.Control("ProfileEditor_HomePage").FillAsync("https://www.example.com/home");
+        await this.Control("ProfileEditor_Weblog").FillAsync("https://blog.example.com");
+        await this.Control("ProfileEditor_Facebook").FillAsync("https://www.facebook.com/member");
+        await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+
+        var href = await this.Page.Locator("a[href*='UserProfile']").First.GetAttributeAsync("href");
+        var userId = Regex.Match(href, @"UserProfile/(\d+)").Groups[1].Value;
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync($"UserProfile/{userId}-{member}");
+
+        var text = await this.Page.InnerTextAsync("body");
+        text.Should().Contain("California").And.Contain("Woman").And.Contain("Real Name Of Member")
+            .And.Contain("Tester Of Forums").And.Contain("Testing Things").And.Contain("Sacramento")
+            .And.Contain("The Office");
+
+        (await this.Page.Locator(".fi.fi-us").CountAsync()).Should().BeGreaterThan(0, "the flag of the country");
+        (await this.Control("Home").GetAttributeAsync("href")).Should().Be("https://www.example.com/home");
+        (await this.Control("Blog").GetAttributeAsync("href")).Should().Be("https://blog.example.com");
+        (await this.Control("Blog").GetAttributeAsync("rel")).Should().Be("nofollow");
+        (await this.Control("Facebook").GetAttributeAsync("href")).Should().Be("https://www.facebook.com/member");
     }
 
     [Test]
