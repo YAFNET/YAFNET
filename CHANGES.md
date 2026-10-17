@@ -330,6 +330,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Attachments: an upload without the upload access was a server error instead of forbidden
 * [FIXED] Attachments: the upload status showed the size 0 for an attachment saved in the database
 * [FIXED] Admin > Forums: sorting the categories or forums by name only sorted the entries of the current page
+* [FIXED] Admin > Edit Forum/Edit Category: a sort order above 32767 (or an invalid moderated post count) was a server error
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

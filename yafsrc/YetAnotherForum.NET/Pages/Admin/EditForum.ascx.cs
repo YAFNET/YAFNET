@@ -432,6 +432,13 @@ public partial class EditForum : AdminPage
             return;
         }
 
+        // the sort order is a small number (a too big number was a server error)
+        if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder) || sortOrder < 0)
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"), MessageTypes.warning);
+            return;
+        }
+
         // Forum
         var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
         var forumCopyId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("copy");
@@ -498,7 +505,10 @@ public partial class EditForum : AdminPage
 
         if (!this.ModerateAllPosts.Checked)
         {
-            moderatedPostCount = this.ModeratedPostCount.Text.ToType<int>();
+            // an invalid number moderates all posts
+            moderatedPostCount = int.TryParse(this.ModeratedPostCount.Text.Trim(), out var postCount) && postCount > 0
+                                     ? postCount
+                                     : null;
         }
 
         var newForumId = this.GetRepository<Forum>().Save(
@@ -507,7 +517,7 @@ public partial class EditForum : AdminPage
             parentId,
             this.Name.Text.Trim(),
             this.Description.Text.Trim(),
-            this.SortOrder.Text.ToType<short>(),
+            sortOrder,
             this.Locked.Checked,
             this.HideNoAccess.Checked,
             this.IsTest.Checked,

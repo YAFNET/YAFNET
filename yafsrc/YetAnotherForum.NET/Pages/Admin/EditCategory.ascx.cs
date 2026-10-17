@@ -145,6 +145,15 @@ public partial class EditCategory : AdminPage
             return;
         }
 
+        // the sort order is a small number (a too big number was a server error)
+        if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder) || sortOrder < 0)
+        {
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"),
+                MessageTypes.warning);
+            return;
+        }
+
         var categoryFlags = new CategoryFlags {IsActive = this.Active.Checked};
 
         // save category
@@ -152,7 +161,7 @@ public partial class EditCategory : AdminPage
             this.PageBoardContext.PageCategoryID,
             name,
             categoryImage,
-            this.SortOrder.Text.ToType<short>(),
+            sortOrder,
             categoryFlags);
 
         // redirect
