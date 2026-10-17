@@ -164,6 +164,24 @@ public partial class EditUsersSettings : BaseUserControl
                     row => language = row.CultureFile);
         }
 
+        // the options that are not shown (the users can't choose a theme or a language) keep their value, saving
+        // reset them to the board defaults
+        if (!this.PageBoardContext.BoardSettings.AllowUserTheme)
+        {
+            theme = this.User.ThemeFile;
+        }
+
+        if (!this.PageBoardContext.BoardSettings.AllowUserLanguage)
+        {
+            language = this.User.LanguageFile;
+            culture = this.User.Culture;
+        }
+
+        // only users who may hide themselves change it (it was saved as sent, and reset when the option is off)
+        var hideMe = this.PageBoardContext.BoardSettings.AllowUserHideHimself || this.PageBoardContext.IsAdmin
+                         ? this.HideMe.Checked
+                         : this.User.UserFlags.IsActiveExcluded;
+
         // save remaining settings to the DB
         this.GetRepository<User>().Save(
             this.User.ID,
@@ -171,7 +189,7 @@ public partial class EditUsersSettings : BaseUserControl
             language,
             culture,
             theme,
-            this.HideMe.Checked,
+            hideMe,
             this.Activity.Checked,
             pageSize);
 

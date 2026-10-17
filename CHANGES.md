@@ -229,6 +229,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Board index: "Watch all forums" watched nothing (the forums were filtered by an empty category) and "Mark all forums read" only marked the forums loaded so far (the first 20, the others are loaded with "show more"); both use all forums the user can read (of the shown category) now, guests are refused
 * [FIXED] Watching an already watched topic or forum again (e.g. from a second tab) failed with an error (the subscription is unique), and guests could watch topics with a sent form; a topic or forum is watched once and guests are refused
 * [FIXED] Custom BBCodes with a module: a new, changed or deleted BBCode was only used after the application restarted (its cached list was not cleared)
+* [FIXED] Edit settings (also Admin -> Edit User): when the users can't choose a theme or a language the options are not shown, saving the settings reset the theme and the language of the user to the board defaults; they keep their value now, and "hide me" is only changed by users who may hide themselves
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
