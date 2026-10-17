@@ -41,7 +41,7 @@ public class ActiveUser
 
     public string UserStyle { get; set; }
 
-    public bool IsGuest { get; set; }
+    public bool IsGuest => this.ActiveFlags.IsGuest;
 
     public DateTime? Suspended { get; set; }
 

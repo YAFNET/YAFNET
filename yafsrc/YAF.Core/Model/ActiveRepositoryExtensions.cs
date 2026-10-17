@@ -62,6 +62,7 @@ public static class ActiveRepositoryExtensions
                     var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID)}"))
                         .ToSelectStatement();
 
+                    // the active flags (guest, crawler) and the hidden flag of the user ("hide me")
                     expression.Join<User>((a, u) => u.ID == a.UserID).Where(a => a.ForumID == forumId)
                         .Select<Active, User>(
                             (a, b) => new
@@ -69,7 +70,10 @@ public static class ActiveRepositoryExtensions
                                               a.UserID,
                                               UserName = b.Name,
                                               UserDisplayName = b.DisplayName,
-                                              b.Flags,
+                                              a.Flags,
+                                              IsActiveExcluded =
+                                                  Sql.Custom<bool>(
+                                                      $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
                                               b.UserStyle,
                                               b.Suspended,
                                               UserCount = Sql.Custom<int>($"({countSql})"),
@@ -81,7 +85,8 @@ public static class ActiveRepositoryExtensions
                                               b.DisplayName,
                                               b.Name,
                                               b.ID,
-                                              b.Flags,
+                                              a.Flags,
+                                              UserFlags = b.Flags,
                                               b.UserStyle,
                                               b.Suspended,
                                               a.Browser
@@ -119,6 +124,7 @@ public static class ActiveRepositoryExtensions
                     var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID)}"))
                         .ToSelectStatement();
 
+                    // the active flags (guest, crawler) and the hidden flag of the user ("hide me")
                     expression.Join<User>((a, u) => u.ID == a.UserID).Where(a => a.TopicID == topicId)
                         .Select<Active, User>(
                             (a, b) => new
@@ -127,7 +133,10 @@ public static class ActiveRepositoryExtensions
                                               UserName = b.Name,
                                               UserDisplayName = b.DisplayName,
                                               b.UserStyle,
-                                              b.Flags,
+                                              a.Flags,
+                                              IsActiveExcluded =
+                                                  Sql.Custom<bool>(
+                                                      $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&16")})"),
                                               b.Suspended,
                                               UserCount = Sql.Custom<int>($"({countSql})"),
                                               a.Browser
@@ -138,7 +147,8 @@ public static class ActiveRepositoryExtensions
                                               b.DisplayName,
                                               b.Name,
                                               b.ID,
-                                              b.Flags,
+                                              a.Flags,
+                                              UserFlags = b.Flags,
                                               b.UserStyle,
                                               b.Suspended,
                                               a.Browser
@@ -286,26 +296,28 @@ public static class ActiveRepositoryExtensions
                     expression.Join<Rank>((u, r) => r.ID == u.RankID).Join<Active>((u, a) => a.UserID == u.ID)
                         .Join<Active, ActiveAccess>((a, x) => x.ForumID == (a.ForumID != null ? a.ForumID : 0));
 
+                    expression.Where<Active, ActiveAccess>(
+                        (a, x) => a.BoardID == repository.BoardID && x.UserID == userId);
+
+                    // crawlers are guest sessions flagged as crawler (ActiveFlags.IsCrawler)
                     if (showGuests)
                     {
-                        expression.Where<User, Active, ActiveAccess>(
-                            (u, a, x) => a.BoardID == repository.BoardID && x.UserID == userId);
+                        if (!showCrawlers)
+                        {
+                            // members and guests without crawlers
+                            expression.And<Active>(a => ((a.Flags ?? 0) & 8) != 8);
+                        }
+                    }
+                    else if (showCrawlers)
+                    {
+                        // members and crawlers
+                        expression.And<User, Active>(
+                            (u, a) => (u.Flags & 4) != 4 || ((a.Flags ?? 0) & 8) == 8);
                     }
                     else
                     {
-                        if (showCrawlers)
-                        {
-                            expression.Where<User, Active, ActiveAccess>(
-                                (u, a, x) => a.BoardID == repository.BoardID &&
-                                             ((u.Flags & 4) == 4 || (u.Flags & 8) == 8) && x.UserID == userId);
-                        }
-                        else
-                        {
-                            expression.Where<User, Active, ActiveAccess>(
-                                (u, a, x) =>
-                                    a.BoardID == repository.BoardID && (u.Flags & 4) != 4 &&
-                                    x.UserID == userId);
-                        }
+                        // members only
+                        expression.And<User>(u => (u.Flags & 4) != 4);
                     }
 
                     var countExpression = expression;
@@ -339,10 +351,8 @@ public static class ActiveRepositoryExtensions
                                                 a.TopicID,
                                                 ForumName = Sql.Custom($"({forumSql})"),
                                                 TopicName = Sql.Custom($"({topicSql})"),
-                                                IsGuest =
-                                                    Sql.Custom<bool>(
-                                                        $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(user => user.Flags, true)}&4")})"),
-                                                IsCrawler = a.Flags & 8,
+                                                // the active flags (guest, crawler)
+                                                a.Flags,
                                                 IsActiveExcluded =
                                                     Sql.Custom<bool>(
                                                         $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(user => user.Flags, true)}&16")})"),

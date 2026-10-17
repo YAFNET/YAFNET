@@ -10,6 +10,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Ladder ranks: users were never promoted to the next rank by their number of posts
 * [FIXED] User styles: an old style (e.g. of a group the user was removed from or a removed group or rank style) was never removed, the style was not updated when the rank changed, and deleting a group with a style didn't update the styles of its members
 * [FIXED] Topic list: the "show topics of the last ..." filter used the wrong period (e.g. "Last Day" showed two days, "Last Six Months" a year) and "Last Year" was missing
+* [FIXED] Active users: the crawlers were taken from the wrong flag (members excluded from captchas were shown as crawlers, real crawlers were missing), with guests but without crawlers the crawlers were shown anyway
 * [FIXED] Message history: the comparison of two versions failed with an error for most texts
 * [FIXED] Album titles, image captions and the reasons of edited and deleted posts are stored html encoded, saving failed when the encoded text was longer than its column; a changed album title was encoded twice
 * [FIXED] Text avatars: a name with "&" created an invalid image, names with several spaces, empty names or names of emoji only failed, a provider key that is no color created an invalid color
@@ -31,6 +32,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Signature: the BB codes of the rank were not allowed when the groups allowed none
 * [FIXED] Notifications: the number of quotes was the number of received thanks
 * [FIXED] Edit settings: the page size (sent by the client) was not checked, it is 1 - 100 now
+* [FIXED] Active users of a forum or topic: users that hide their online status were shown, guests were shown as members, members excluded from the captcha as crawlers
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
