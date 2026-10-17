@@ -30,4 +30,9 @@ public class PMessageCount
     public int OutBoxCount { get; set; }
     public int NumberTotal { get; set; }
     public int Allowed { get; set; }
+
+    /// <summary>
+    /// Gets a value indicating whether the mailbox has room for one more message.
+    /// </summary>
+    public bool CanReceiveMessage => this.NumberTotal < this.Allowed;
 }

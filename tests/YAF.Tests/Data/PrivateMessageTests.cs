@@ -32,6 +32,7 @@ using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// Private messages: sending, the conversation of a message and the read state of the recipients.
@@ -221,6 +222,16 @@ public class PrivateMessageTests
 
         this.PMessages.List(this.carol, PmView.Inbox, "Created", true).Select(m => m.Subject).Should().Equal("To all");
         this.PMessages.Count(p => p.ID == bobs.PMessageID).Should().Be(1);
+    }
+
+    [TestCase(0, 30, true)]
+    [TestCase(29, 30, true)]
+    [TestCase(30, 30, false)]
+    [TestCase(0, 0, false)]
+    [Description("The mailbox receives messages until the limit is reached (the last message fits)")]
+    public void Can_Receive_Message_Test(int messages, int allowed, bool expected)
+    {
+        new PMessageCount { NumberTotal = messages, Allowed = allowed }.CanReceiveMessage.Should().Be(expected);
     }
 
     private IRepository<PMessage> PMessages => this.board.Current.GetRepository<PMessage>();

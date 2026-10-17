@@ -295,6 +295,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Private messages: export all exported only the messages of the current page and export selected could export other messages than the selected ones
 * [FIXED] a click on the border of a delete button (not on its icon or text) deleted without the confirmation dialog
 * [FIXED] the answer to a post report (private message to the reporter) showed the report text of any post to the moderators of any forum, now only to the moderators of the forum of the post
+* [FIXED] Private messages: the mailbox of the recipient was full one message before the limit
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

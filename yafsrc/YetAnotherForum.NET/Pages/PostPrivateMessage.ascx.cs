@@ -667,8 +667,7 @@ public partial class PostPrivateMessage : ForumPage
                 var count = this.GetRepository<PMessage>().UserMessageCount(user.ID);
 
                 // test receiving user's PM count
-                if (count.NumberTotal + 1
-                    < count.Allowed || this.PageBoardContext.IsAdmin
+                if (count.CanReceiveMessage || this.PageBoardContext.IsAdmin
                                     || this.Get<IAspNetUsersHelper>().GetBoardUser(user.ID, this.PageBoardContext.PageBoardID).Item4.IsAdmin > 0)
                 {
                     continue;
