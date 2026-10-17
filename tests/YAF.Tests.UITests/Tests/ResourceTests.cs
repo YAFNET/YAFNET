@@ -71,6 +71,59 @@ public class ResourceTests : ForumTestBase
         (await invalid.TextAsync()).Should().StartWith("Error:");
     }
 
+    [Test]
+    [Description("The list of the custom bb codes (for the editor) is json without the album image and attachment codes")]
+    public async Task BBCode_List_Test()
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(string.Empty);
+
+        var response = await this.Page.APIRequest.GetAsync("resource.ashx?bbcodelist=1");
+        response.Headers["content-type"].Should().StartWith("application/json");
+
+        var json = await response.TextAsync();
+        json.Should().StartWith("[").And.Contain("\"name\"").And.NotContain("\"ATTACH\"").And.NotContain("\"ALBUMIMG\"");
+    }
+
+    [Test]
+    [Description("The avatar image of a user without an image in the database is not found, an invalid id is empty")]
+    public async Task Database_Avatar_Test()
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        var userId = await this.OwnUserIdAsync();
+
+        var response = await this.Page.APIRequest.GetAsync($"resource.ashx?u={userId}");
+        response.Status.Should().Be(404);
+
+        var invalid = await this.Page.APIRequest.GetAsync("resource.ashx?u=abc");
+        (await invalid.BodyAsync()).Should().BeEmpty();
+    }
+
+    [Test]
+    [Description("The user card shows the region of the country of the user")]
+    public async Task User_Info_Region_Test()
+    {
+        var member = $"Rgn{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        await this.GotoAsync("Profile/EditProfile");
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Control("ProfileEditor_Country").SelectOptionAsync(
+                "US",
+                new Microsoft.Playwright.LocatorSelectOptionOptions { Force = true }));
+        await this.Control("ProfileEditor_Region").SelectOptionAsync(
+            "CA",
+            new Microsoft.Playwright.LocatorSelectOptionOptions { Force = true });
+        await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+
+        var userId = await this.OwnUserIdAsync();
+
+        var response = await this.Page.APIRequest.GetAsync($"resource.ashx?userinfo={userId}&boardId=1&type=json");
+        (await response.TextAsync()).Should().Contain("California");
+    }
+
     private async Task<int> OwnUserIdAsync()
     {
         await this.GotoAsync(string.Empty);
