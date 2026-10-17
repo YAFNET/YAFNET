@@ -113,6 +113,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Friend requests were not checked on the server (only the button was hidden): requests to users who block friend requests, to the guest account, to unapproved users, users of other boards and with the friends feature disabled are refused now; the names of friends in the notifications (friend request approved, friend removed) were shown as html
 * [FIXED] Removing a friend from the menu of a post removed the friend twice and its notification was never shown (the page was redirected before), the notification of a friend request from a post was lost the same way
 * [FIXED] Security: The topic lookup of the move/merge dialogs listed the topics of every forum to moderators of any forum (also hidden forums) and the topics of forums of other boards to admins, now only forums of the board the user is admin or moderator of
+* [FIXED] Security: Kill user (admin edit user) banned the e-mail, IP and name and deleted all posts before checking that the user is not the admin himself, the guest or a host admin; suspend had no checks at all. The checks now come first, apply to delete and suspend, and also protect admins
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

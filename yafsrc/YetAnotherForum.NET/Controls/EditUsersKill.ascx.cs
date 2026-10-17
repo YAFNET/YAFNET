@@ -80,6 +80,12 @@ public partial class EditUsersKill : BaseUserControl
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Kill_OnClick(object sender, EventArgs e)
     {
+        // the checks come first: nothing is banned or deleted for yourself, the guest, an admin or a host admin
+        if (!this.CanKillUser())
+        {
+            return;
+        }
+
         // Ban User Email?
         if (this.BanEmail.Checked)
         {
@@ -142,36 +148,6 @@ public partial class EditUsersKill : BaseUserControl
             case "delete":
                 if (this.User.Item1.ID > 0)
                 {
-                    // we are deleting user
-                    if (this.PageBoardContext.PageUserID == this.User.Item1.ID)
-                    {
-                        // deleting yourself isn't an option
-                        this.PageBoardContext.Notify(
-                            this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
-                            MessageTypes.danger);
-                        return;
-                    }
-
-                    // get user(s) we are about to delete
-                    if (this.User.Item1.UserFlags.IsGuest)
-                    {
-                        // we cannot delete guest
-                        this.PageBoardContext.Notify(
-                            this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
-                            MessageTypes.danger);
-                        return;
-                    }
-
-                    if (this.User.Item1.UserFlags.IsHostAdmin)
-                    {
-                        // admin are not deletable either
-                        this.PageBoardContext.Notify(
-                            this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
-                            MessageTypes.danger);
-
-                        return;
-                    }
-
                     // all is good, user can be deleted
                     this.Get<IAspNetUsersHelper>().DeleteUser(this.User.Item1.ID);
 
@@ -219,6 +195,38 @@ public partial class EditUsersKill : BaseUserControl
 
         // bind data
         this.BindData();
+    }
+
+    /// <summary>
+    /// Checks if the user can be killed (deleted or suspended): not yourself, not the guest,
+    /// not an admin and not a host admin.
+    /// </summary>
+    /// <returns>Returns if the user can be killed.</returns>
+    private bool CanKillUser()
+    {
+        if (this.PageBoardContext.PageUserID == this.User.Item1.ID)
+        {
+            // deleting yourself isn't an option
+            this.PageBoardContext.Notify(this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"), MessageTypes.danger);
+            return false;
+        }
+
+        if (this.User.Item1.UserFlags.IsGuest)
+        {
+            // we cannot delete guest
+            this.PageBoardContext.Notify(this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"), MessageTypes.danger);
+            return false;
+        }
+
+        if (this.User.Item1.UserFlags.IsHostAdmin || this.GetRepository<VAccess>()
+                .Exists(v => v.UserID == this.User.Item1.ID && v.IsAdmin > 0))
+        {
+            // admins are not deletable either
+            this.PageBoardContext.Notify(this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"), MessageTypes.danger);
+            return false;
+        }
+
+        return true;
     }
 
     /// <summary>
