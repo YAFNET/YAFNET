@@ -296,6 +296,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] a click on the border of a delete button (not on its icon or text) deleted without the confirmation dialog
 * [FIXED] the answer to a post report (private message to the reporter) showed the report text of any post to the moderators of any forum, now only to the moderators of the forum of the post
 * [FIXED] Private messages: the mailbox of the recipient was full one message before the limit
+* [FIXED] Profile: the region was not saved when the country was selected (or changed) at the same time
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

@@ -665,14 +665,20 @@ public partial class EditUsersProfile : BaseUserControl
     /// </summary>
     private void UpdateUserProfile()
     {
+        var country = this.Country.SelectedItem != null ? this.Country.SelectedItem.Value.Trim() : string.Empty;
+
+        // the posted region of the selected country (the region list of the page has the regions of the saved country)
+        var region = this.Get<HttpRequestBase>().Form[this.Region.UniqueID]?.Trim();
+
+        if (country.IsNotSet() || region.IsNotSet() || StaticDataHelper.Region(country).All(r => r.Value != region))
+        {
+            region = string.Empty;
+        }
+
         var userProfile = new ProfileInfo
                               {
-                                  Country = this.Country.SelectedItem != null ? this.Country.SelectedItem.Value.Trim() : string.Empty,
-                                  Region =
-                                      this.Region.SelectedItem != null && this.Country.SelectedItem != null &&
-                                      this.Country.SelectedItem.Value.Trim().IsSet()
-                                          ? this.Region.SelectedItem.Value.Trim()
-                                          : string.Empty,
+                                  Country = country,
+                                  Region = region,
                                   City = this.City.Text.Trim(),
                                   Location = this.Location.Text.Trim(),
                                   Homepage = this.HomePage.Text.Trim(),
