@@ -54,7 +54,7 @@ public class WysiwygEditorTests : ForumTestBase
             await this.Control("TopicSubjectTextBox").FillAsync(subject);
 
             // typed like a member (in the frame of the editor)
-            var frame = this.Page.FrameLocator(".sceditor-container iframe").First;
+            var frame = this.Page.Locator(".sceditor-container iframe").First.ContentFrame;
             await frame.Locator("body").ClickAsync();
             await frame.Locator("body").PressSequentiallyAsync("The wysiwyg text.");
             await this.ClickAndWaitAsync(this.Control("PostReply"));

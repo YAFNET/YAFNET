@@ -27,6 +27,8 @@ namespace YAF.Tests.UITests.Tests;
 using System;
 using System.Threading.Tasks;
 
+using Microsoft.Playwright;
+
 using YAF.Tests.UITests.Infrastructure;
 
 /// <summary>
@@ -75,5 +77,36 @@ public class KillUserTests : ForumTestBase
 
         await this.LoginAsync(spammer, TestConfig.TestUserPassword);
         (await this.IsLoggedInAsAsync(spammer)).Should().BeFalse();
+    }
+
+    [Test]
+    [Description("The suspend option suspends the user for years at once")]
+    public async Task Suspend_Option_Test()
+    {
+        var spammer = $"Sus{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(spammer, TestConfig.TestUserPassword);
+        await this.LoginAsAdminAsync();
+
+        // suspended (nothing banned)
+        await this.OpenKillTabAsync(spammer);
+        foreach (var ban in new[] { "BanName", "BanEmail", "BanIps" })
+        {
+            await this.Control($"KillEdit1_{ban}").SetCheckedAsync(false);
+        }
+
+        await this.Page.Locator("input[type=radio][value='suspend']").CheckAsync();
+        await this.Control("KillEdit1_Kill").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        await this.LoginAsync(spammer, TestConfig.TestUserPassword);
+        await this.GotoAsync(string.Empty);
+        this.Page.Url.Should().Contain("Info", "the user is suspended");
+    }
+
+    private async Task OpenKillTabAsync(string userName)
+    {
+        await this.OpenAdminEditUserAsync(userName);
+        await this.Page.Locator("a.nav-link[href='#View9']").ClickAsync();
     }
 }
