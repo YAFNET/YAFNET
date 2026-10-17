@@ -98,8 +98,10 @@ public class Avatars : IAvatars
         {
             avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={userId}";
         }
-        else if (avatarString.IsSet() && avatarString.StartsWith("/"))
+        else if (avatarString.IsSet() && avatarString.StartsWith("/") && !avatarString.StartsWith("//")
+                 && !avatarString.StartsWith("/" + (char)92))
         {
+            // only a local path, "//host/..." (or "/\host") would load the avatar from another site
             avatarUrl = avatarString;
         }
 
