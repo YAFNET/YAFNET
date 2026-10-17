@@ -305,6 +305,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Avatar upload: an image file larger than the "Avatar size" setting was saved anyway (the warning was shown afterwards), and the profile upload did not check that the avatar upload is turned on; a too big file is not saved now
 * [FIXED] Admin > Edit Medal: an empty, negative or too big sort order (0 - 255) of a user or role medal showed an error page
 * [FIXED] Admin > Edit Medal: after opening the role dialog the page had a script error (the scripts of the hidden user dialog were added)
+* [FIXED] Admin > Edit Board: a new board whose new admin could not be created (e.g. the name is taken) went back to the board list without a message (and without the board)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

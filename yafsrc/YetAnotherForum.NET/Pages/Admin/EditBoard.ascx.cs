@@ -276,12 +276,16 @@ public partial class EditBoard : AdminPage
             // Create board
             if (this.CreateAdminUser.Checked)
             {
-                this.CreateBoard(
-                    this.UserName.Text.Trim(),
-                    this.UserPass1.Text,
-                    this.UserEmail.Text.Trim(),
-                    this.Name.Text.Trim(),
-                    true);
+                // the admin user could not be created (e.g. the name is taken), the message is shown
+                if (!this.CreateBoard(
+                        this.UserName.Text.Trim(),
+                        this.UserPass1.Text,
+                        this.UserEmail.Text.Trim(),
+                        this.Name.Text.Trim(),
+                        true))
+                {
+                    return;
+                }
             }
             else
             {
