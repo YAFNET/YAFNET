@@ -15359,42 +15359,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (isMessageContext) {
                     const selectedText = getSelectedMessageText();
                     if (selectedText.length) {
-                        const searchItem = contextMenu.querySelector(".item-search"), selectedItem = contextMenu.querySelector(".item-selected-quoting"), selectedDivider = contextMenu.querySelector(".selected-divider");
-                        if (searchItem != null) {
-                            document.querySelectorAll(".item-search").forEach(item => {
-                                item.remove();
-                            });
-                        }
-                        if (selectedItem != null) {
-                            selectedItem.remove();
-                        }
-                        if (selectedDivider != null) {
-                            selectedDivider.remove();
-                        }
-                        if (contextMenu.dataset.url) {
-                            const link = document.createElement("a");
-                            link.classList.add("dropdown-item");
-                            link.classList.add("item-selected-quoting");
-                            link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
-                            link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
-                            contextMenu.appendChild(link);
-                        }
-                        const linkSearch = document.createElement("a");
-                        linkSearch.classList.add("dropdown-item");
-                        linkSearch.classList.add("item-search");
-                        linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
-                        linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
-                        contextMenu.appendChild(linkSearch);
-                        const divider = document.createElement("div");
-                        divider.classList.add("dropdown-divider");
-                        divider.classList.add("selected-divider");
-                        contextMenu.appendChild(linkSearch);
-                        const linkSelected = document.createElement("a");
-                        linkSelected.classList.add("dropdown-item");
-                        linkSelected.classList.add("item-search");
-                        linkSelected.href = `javascript:searchText('${selectedText}')`;
-                        linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
-                        contextMenu.appendChild(linkSelected);
+                        addSelectedTextItems(contextMenu, messageId, selectedText);
                     }
                 }
                 contextMenu.style.left = e.detail.pageX;
@@ -15412,42 +15377,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (isMessageContext) {
                 const selectedText = getSelectedMessageText();
                 if (selectedText.length) {
-                    const searchItem = contextMenu.querySelector(".item-search"), selectedItem = contextMenu.querySelector(".item-selected-quoting"), selectedDivider = contextMenu.querySelector(".selected-divider");
-                    if (searchItem != null) {
-                        document.querySelectorAll(".item-search").forEach(item => {
-                            item.remove();
-                        });
-                    }
-                    if (selectedItem != null) {
-                        selectedItem.remove();
-                    }
-                    if (selectedDivider != null) {
-                        selectedDivider.remove();
-                    }
-                    if (contextMenu.dataset.url) {
-                        const link = document.createElement("a");
-                        link.classList.add("dropdown-item");
-                        link.classList.add("item-selected-quoting");
-                        link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
-                        link.innerHTML = `<i class="fas fa-quote-left"></i>&nbsp;${contextMenu.dataset.quote}`;
-                        contextMenu.appendChild(link);
-                    }
-                    const linkSearch = document.createElement("a");
-                    linkSearch.classList.add("dropdown-item");
-                    linkSearch.classList.add("item-search");
-                    linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
-                    linkSearch.innerHTML = `<i class="fas fa-clipboard"></i>&nbsp;${contextMenu.dataset.copy}`;
-                    contextMenu.appendChild(linkSearch);
-                    const divider = document.createElement("div");
-                    divider.classList.add("dropdown-divider");
-                    divider.classList.add("selected-divider");
-                    contextMenu.appendChild(linkSearch);
-                    const linkSelected = document.createElement("a");
-                    linkSelected.classList.add("dropdown-item");
-                    linkSelected.classList.add("item-search");
-                    linkSelected.href = `javascript:searchText('${selectedText}')`;
-                    linkSelected.innerHTML = `<i class="fas fa-search"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
-                    contextMenu.appendChild(linkSelected);
+                    addSelectedTextItems(contextMenu, messageId, selectedText);
                 }
             }
             contextMenu.style.display = "block";
@@ -15550,5 +15480,31 @@ function getSelectedMessageText() {
         }
         text = container.textContent || container.innerText;
     }
-    return text.replace(/<p[^>]*>/gi, "\n").replace(/<\/p>| {2}/gi, "").replace("(", "").replace(")", "").replace('"', "").replace("'", "").replace("'", "").replace(";", "").trim();
+    return text.replace(/<p[^>]*>/gi, "\n").replace(/<\/p>| {2}/gi, "").trim();
+}
+
+function addSelectedTextItems(contextMenu, messageId, selectedText) {
+    contextMenu.querySelectorAll(".item-search, .item-selected-quoting, .selected-divider").forEach(item => {
+        item.remove();
+    });
+    const url = contextMenu.dataset.url;
+    if (url) {
+        addMenuItem(contextMenu, "item-selected-quoting", "fa-quote-left", contextMenu.dataset.quote || "", () => goToURL(messageId, selectedText, url));
+    }
+    addMenuItem(contextMenu, "item-search", "fa-clipboard", contextMenu.dataset.copy || "", () => copyToClipBoard(selectedText));
+    addMenuItem(contextMenu, "item-search", "fa-search", `${contextMenu.dataset.search || ""} "${selectedText}"`, () => searchText(selectedText));
+}
+
+function addMenuItem(contextMenu, cssClass, icon, text, onClick) {
+    const link = document.createElement("a");
+    link.classList.add("dropdown-item", cssClass);
+    link.href = "#";
+    const iconElement = document.createElement("i");
+    iconElement.classList.add("fas", icon);
+    link.append(iconElement, ` ${text}`);
+    link.addEventListener("click", event => {
+        event.preventDefault();
+        onClick();
+    });
+    contextMenu.appendChild(link);
 }
