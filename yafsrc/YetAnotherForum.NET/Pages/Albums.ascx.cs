@@ -57,7 +57,9 @@ public partial class Albums : ForumPage
             this.Get<LinkBuilder>().AccessDenied();
         }
 
-        if (!this.Get<HttpRequestBase>().QueryString.Exists("u"))
+        // the albums are part of the profile
+        if (!this.Get<HttpRequestBase>().QueryString.Exists("u")
+            || !this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ProfileViewPermissions))
         {
             this.Get<LinkBuilder>().AccessDenied();
         }

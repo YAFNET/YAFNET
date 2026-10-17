@@ -153,6 +153,17 @@ public partial class EditAlbumImages : ForumPageRegistered
             this.Get<LinkBuilder>().AccessDenied();
         }
 
+        // only a new or an own album (the album id is in the address, it is used to rename, upload and delete)
+        var albumParameter = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
+
+        if (this.PageBoardContext.IsGuest || albumParameter.IsNotSet()
+                                          || albumParameter != "new" && !this.GetRepository<UserAlbum>().Exists(
+                                              a => a.ID == albumParameter.ToType<int>()
+                                                   && a.UserID == this.PageBoardContext.PageUserID))
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
+
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
             JavaScriptBlocks.FormValidatorJs(this.Upload.ClientID));

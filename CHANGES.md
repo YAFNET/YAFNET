@@ -129,6 +129,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The login page and the login box showed "account not approved" (and allowed resending the verification mail) for any password, so the state of an account could be found out with the user name only; accounts disabled by "lock inactive accounts" could still log in (only the forum flags were changed, not the login account)
 * [FIXED] Security: Uploaded avatars (stored in the database) were saved and served with the content type sent by the browser (e.g. text/html), now the type of the image is saved and only image types are served
 * [FIXED] Security (hardening): Theme names were not checked for path characters, a theme like ".." pointed outside the themes folder
+* [FIXED] Security: The album edit page used the album id of the address without checking the owner, any user could rename the albums of other users, upload images into them and delete them with their images; the cover of an album could be set to images of other albums, and the albums and album images were shown without checking the profile view permission
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

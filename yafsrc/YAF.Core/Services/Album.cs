@@ -210,6 +210,13 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
     public void GetAlbumImagePreview(HttpContext context, string localizationFile, bool previewCropped)
     {
+        // the albums are part of the profile
+        if (!BoardContext.Current.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.ProfileViewPermissions))
+        {
+            context.Response.StatusCode = 403;
+            return;
+        }
+
         // Check QueryString first
         if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("imgprv")))
         {
@@ -275,6 +282,13 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
     public void GetAlbumCover(HttpContext context, string localizationFile, bool previewCropped)
     {
+        // the albums are part of the profile
+        if (!BoardContext.Current.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.ProfileViewPermissions))
+        {
+            context.Response.StatusCode = 403;
+            return;
+        }
+
         // Check QueryString first
         if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("album")))
         {
@@ -380,6 +394,13 @@ public class Album : IAlbum, IHaveServiceLocator
     /// </param>
     public void GetAlbumImage(HttpContext context)
     {
+        // the albums are part of the profile
+        if (!BoardContext.Current.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.ProfileViewPermissions))
+        {
+            context.Response.StatusCode = 403;
+            return;
+        }
+
         try
         {
             // Check QueryString first

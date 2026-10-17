@@ -59,6 +59,13 @@ public partial class AlbumImageList : BaseUserControl
     /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
     protected void AlbumImages_ItemCommand(object sender, CommandEventArgs e)
     {
+        // only the owner sets the cover, and only an image of this album
+        if (this.UserAlbum.UserID != this.PageBoardContext.PageUserID || !this.GetRepository<UserAlbumImage>()
+                .Exists(i => i.ID == e.CommandArgument.ToType<int>() && i.AlbumID == this.UserAlbum.ID))
+        {
+            return;
+        }
+
         if (this.UserAlbum.CoverImageID.ToString() == e.CommandArgument.ToString())
         {
             this.GetRepository<UserAlbum>().UpdateCover(this.UserAlbum.ID, null);
