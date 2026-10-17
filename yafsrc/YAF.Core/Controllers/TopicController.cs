@@ -61,6 +61,12 @@ public class TopicController : ApiController, IHaveServiceLocator
             return this.NotFound();
         }
 
+        // only the topics of a forum of the board the user is admin or moderator of (not of every forum)
+        if (!this.CanModerateForum(searchTopic.ForumId))
+        {
+            return this.NotFound();
+        }
+
         if (searchTopic.SearchTerm.IsSet())
         {
             var topics = this.Get<IDataCache>().GetOrSet(
@@ -109,5 +115,31 @@ public class TopicController : ApiController, IHaveServiceLocator
 
             return this.Ok(pagedTopics);
         }
+    }
+
+    /// <summary>
+    /// Checks if the current user is an admin of the board of the forum or a moderator of the forum.
+    /// </summary>
+    /// <param name="forumId">The forum id.</param>
+    /// <returns>Returns if the user can moderate the forum.</returns>
+    private bool CanModerateForum(int forumId)
+    {
+        var forum = this.GetRepository<Forum>().GetById(forumId);
+
+        if (forum == null || !this.GetRepository<Category>().Exists(
+                c => c.ID == forum.CategoryID && c.BoardID == BoardContext.Current.PageBoardID))
+        {
+            return false;
+        }
+
+        if (BoardContext.Current.IsAdmin)
+        {
+            return true;
+        }
+
+        var userId = BoardContext.Current.PageUserID;
+
+        return this.GetRepository<VAccess>().Exists(
+            v => v.UserID == userId && v.ForumID == forumId && v.ModeratorAccess > 0);
     }
 }

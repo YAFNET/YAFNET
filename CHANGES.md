@@ -112,6 +112,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The admin language editor used the file name of the address as path, so it could read and overwrite files outside the languages folder (e.g. "../web.config"); only existing language files of the folder can be edited now
 * [FIXED] Security: Friend requests were not checked on the server (only the button was hidden): requests to users who block friend requests, to the guest account, to unapproved users, users of other boards and with the friends feature disabled are refused now; the names of friends in the notifications (friend request approved, friend removed) were shown as html
 * [FIXED] Removing a friend from the menu of a post removed the friend twice and its notification was never shown (the page was redirected before), the notification of a friend request from a post was lost the same way
+* [FIXED] Security: The topic lookup of the move/merge dialogs listed the topics of every forum to moderators of any forum (also hidden forums) and the topics of forums of other boards to admins, now only forums of the board the user is admin or moderator of
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
