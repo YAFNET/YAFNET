@@ -282,6 +282,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Team page: the e-mail button of an admin who blocks e-mails was only shown to admins who are friends (not to all admins and all friends like for the moderators and the private messages)
 * [FIXED] Active users (page and admin start page): the list failed with an error when a visitor was at the profile, albums or album of a user that does not exist (anymore, e.g. deleted while visited), the album location took an album id from the user id (any or no album, the page failed) and the own album was shown as the album of another user
 * [FIXED] The [group-hide=role] BBCode showed the hidden content to the users with any other role and hid it from the members of the given roles, and [group-hide] without roles hid the content from all members (not only from guests); the content is shown to the members of one of the roles now (without roles to all members)
+* [FIXED] Active users: Android phones were shown as Linux and iPods as iPhones (their user agents contain "Linux" and "iPhone OS")
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

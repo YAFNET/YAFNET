@@ -103,6 +103,11 @@ public static class UserAgentHelper
                 platform = "Windows 2003";
             }
         }
+        // an Android phone has "Linux" in the user agent, an iPod "iPhone OS": the special names are checked first
+        else if (userAgent.Contains("Android"))
+        {
+            platform = "Android";
+        }
         else if (userAgent.Contains("Linux"))
         {
             platform = "Linux";
@@ -115,13 +120,13 @@ public static class UserAgentHelper
         {
             platform = "iPad(iOS)";
         }
-        else if (userAgent.Contains("iPhone"))
-        {
-            platform = "iPhone(iOS)";
-        }
         else if (userAgent.Contains("iPod"))
         {
             platform = "iPod(iOS)";
+        }
+        else if (userAgent.Contains("iPhone"))
+        {
+            platform = "iPhone(iOS)";
         }
         else if (userAgent.Contains("WindowsMobile"))
         {
@@ -134,10 +139,6 @@ public static class UserAgentHelper
         else if (userAgent.Contains("webOS"))
         {
             platform = "WebOS";
-        }
-        else if (userAgent.Contains("Android"))
-        {
-            platform = "Android";
         }
         else if (userAgent.Contains("Mac OS X"))
         {
