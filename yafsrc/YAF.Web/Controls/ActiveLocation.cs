@@ -245,6 +245,16 @@ public class ActiveLocation : BaseControl
     /// <returns>
     /// Returns the User Id
     /// </returns>
+    /// <summary>
+    /// Gets the user of a location, <c>null</c> when the user does not exist.
+    /// </summary>
+    /// <param name="userId">The user id of the location.</param>
+    /// <returns>Returns the user.</returns>
+    private User GetLocationUser(int? userId)
+    {
+        return userId.HasValue ? this.GetRepository<User>().GetById(userId.Value) : null;
+    }
+
     private static int? GetUserIdFromQueryString(string queryString)
     {
         if (ValidationHelper.IsValidInt(queryString))
@@ -336,56 +346,29 @@ public class ActiveLocation : BaseControl
     {
         var outString = new StringBuilder();
 
-        var albumID =
-            forumPageAttributes.Substring(forumPageAttributes.IndexOf("a=", StringComparison.Ordinal) + 2);
-
-        albumID = albumID.Contains("&")
-                      ? albumID.Substring(0, albumID.IndexOf("&", StringComparison.Ordinal)).Trim()
-                      : albumID.Substring(0).Trim();
-
+        // the location only has the user of the album (u), not the album: an album id taken from it was any
+        // album (or none, the page failed)
         var userId = GetUserIdFromQueryString(forumPageAttributes);
 
-        if (userId.HasValue && ValidationHelper.IsValidInt(albumID))
+        if (userId == this.UserID)
         {
-            // The DataRow should not be missing in the case
-            var userAlbum = this.GetRepository<UserAlbum>().GetById(albumID.Trim().ToType<int>());
-
-            // If album doesn't have a Title, use his ID.
-            var albumName = userAlbum.Title.IsNotSet() ? userAlbum.Title : userAlbum.ID.ToString();
-
-            // Render
-            if (userId.Value != this.UserID)
-            {
-                var user = this.GetRepository<User>().GetById(userId.Value);
-
-                outString.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
-
-                outString.AppendFormat(
-                    @" <a href=""{0}"">{1}</a> ",
-                    this.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumID }),
-                    HttpUtility.HtmlEncode(albumName));
-
-                outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
-
-                outString.AppendFormat(
-                    @" <a href=""{0}"" data-bs-toggle=""tooltip"" title=""{1}"">{2}</a>",
-                    this.Get<LinkBuilder>().GetUserProfileLink(userId.Value, user.DisplayOrUserName()),
-                    this.GetText("COMMON", "VIEW_USRPROFILE"),
-                    HttpUtility.HtmlEncode(user.DisplayOrUserName()));
-            }
-            else
-            {
-                outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OWN"));
-
-                outString.AppendFormat(
-                    @"<a href=""{0}"">{1}</a>",
-                    this.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumID }),
-                    HttpUtility.HtmlEncode(albumName));
-            }
+            outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OWN"));
+            return outString.ToString();
         }
-        else
+
+        outString.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
+
+        var user = this.GetLocationUser(userId);
+
+        if (user != null)
         {
-            outString.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
+            outString.Append($" {this.GetText("ACTIVELOCATION", "ALBUM_OFUSER")}");
+
+            outString.AppendFormat(
+                @" <a href=""{0}"" data-bs-toggle=""tooltip"" title=""{1}"">{2}</a>",
+                this.Get<LinkBuilder>().GetUserProfileLink(user.ID, user.DisplayOrUserName()),
+                this.GetText("COMMON", "VIEW_USRPROFILE"),
+                HttpUtility.HtmlEncode(user.DisplayOrUserName()));
         }
 
         return outString.ToString();
@@ -408,10 +391,15 @@ public class ActiveLocation : BaseControl
 
         if (userId.HasValue)
         {
-            if (userId.Value != this.UserID)
-            {
-                var user = this.GetRepository<User>().GetById(userId.Value);
+            var user = this.GetLocationUser(userId);
 
+            if (userId.Value != this.UserID && user == null)
+            {
+                // a user that does not exist (deleted, or any id in the address)
+                outString.Append(this.GetText("ACTIVELOCATION", "ALBUMS"));
+            }
+            else if (userId.Value != this.UserID)
+            {
                 outString.Append(this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
 
                 outString.AppendFormat(
@@ -450,10 +438,15 @@ public class ActiveLocation : BaseControl
 
         if (userId.HasValue)
         {
-            if (userId.Value != this.UserID)
-            {
-                var user = this.GetRepository<User>().GetById(userId.Value);
+            var user = this.GetLocationUser(userId);
 
+            if (userId.Value != this.UserID && user == null)
+            {
+                // a user that does not exist (deleted, or any id in the address)
+                outString.Append(this.GetText("ACTIVELOCATION", "PROFILE"));
+            }
+            else if (userId.Value != this.UserID)
+            {
                 outString.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
 
                 outString.AppendFormat(
