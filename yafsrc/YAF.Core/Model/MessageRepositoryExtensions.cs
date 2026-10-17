@@ -618,6 +618,9 @@ public static class MessageRepositoryExtensions
                       },
             x => x.ID == message.TopicID);
 
+        // the search index has the flags of the post (not approved posts are only found by moderators)
+        repository.UpdateSearchIndex(message, forumId, flags.BitValue);
+
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
 
         repository.FireUpdated(messageId);
@@ -1475,6 +1478,14 @@ public static class MessageRepositoryExtensions
         repository.RestoreInternal(forumId,
             topicId,
             message);
+
+        // deleted posts are removed from the search index, the restored post is added again
+        var restored = repository.GetById(message.ID);
+
+        if (restored != null)
+        {
+            repository.UpdateSearchIndex(restored, forumId, restored.Flags);
+        }
     }
 
     /// <summary>
@@ -1815,6 +1826,60 @@ public static class MessageRepositoryExtensions
         // -- update topic Post Count (deleted posts are not counted)
         repository.UpdateTopicPostCount(message.TopicID);
         repository.UpdateTopicPostCount(moveToTopicId);
+    }
+
+    /// <summary>
+    /// Updates the search index item of the message.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="message">
+    /// The message.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum id.
+    /// </param>
+    /// <param name="flags">
+    /// The flags of the message.
+    /// </param>
+    private static void UpdateSearchIndex(this IRepository<Message> repository, Message message, int forumId, int flags)
+    {
+        var topic = BoardContext.Current.GetRepository<Topic>().GetById(message.TopicID);
+        var forum = BoardContext.Current.GetRepository<Forum>().GetById(forumId);
+        var user = BoardContext.Current.GetRepository<User>().GetById(message.UserID);
+
+        if (topic is null || forum is null || user is null)
+        {
+            return;
+        }
+
+        try
+        {
+            BoardContext.Current.Get<ISearch>().UpdateSearchIndexItem(
+                new SearchMessage
+                    {
+                        MessageId = message.ID,
+                        Message = message.MessageText,
+                        Flags = flags,
+                        Posted = message.Posted.ToString(CultureInfo.InvariantCulture),
+                        UserName = user.Name,
+                        UserDisplayName = user.DisplayName,
+                        UserStyle = user.UserStyle,
+                        UserId = message.UserID,
+                        TopicId = message.TopicID,
+                        Topic = topic.TopicName,
+                        ForumId = forum.ID,
+                        ForumName = forum.Name,
+                        Description = topic.Description,
+                        TopicTags = BoardContext.Current.GetRepository<TopicTag>().ListAsDelimitedString(message.TopicID)
+                    },
+                true);
+        }
+        catch (Exception ex)
+        {
+            BoardContext.Current.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, "UpdateSearchIndex", ex);
+        }
     }
 
     /// <summary>
