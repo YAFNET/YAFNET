@@ -764,21 +764,21 @@ public class DiffMatchPatch
          * @param text2 Second string.
          * @return Five element String array, containing the prefix of text1, the
          *     suffix of text1, the prefix of text2, the suffix of text2 and the
-         *     common middle.  Or null if there was no match.
+         *     common middle.  Or an empty array if there was no match.
          */
     protected string[] HalfMatch(string text1, string text2)
     {
         if (this.DiffTimeout <= 0)
         {
             // Don't risk returning a non-optimal diff if we have unlimited time.
-            return null;
+            return [];
         }
 
         var longtext = text1.Length > text2.Length ? text1 : text2;
         var shortText = text1.Length > text2.Length ? text2 : text1;
         if (longtext.Length < 4 || shortText.Length * 2 < longtext.Length)
         {
-            return null; // Pointless.
+            return []; // Pointless.
         }
 
         // First check if the second quarter is the seed for a half-match.
@@ -788,7 +788,7 @@ public class DiffMatchPatch
         string[] hm;
         if (hm1.Length == 0 && hm2.Length == 0)
         {
-            return null;
+            return [];
         }
 
         if (hm2.Length == 0)
@@ -817,7 +817,7 @@ public class DiffMatchPatch
          * @param i Start index of quarter length Substring within longtext.
          * @return Five element string array, containing the prefix of longtext, the
          *     suffix of longtext, the prefix of shortText, the suffix of shortText
-         *     and the common middle.  Or null if there was no match.
+         *     and the common middle.  Or an empty array if there was no match.
          */
     private string[] HalfMatchI(string longtext, string shortText, int i)
     {
@@ -846,7 +846,7 @@ public class DiffMatchPatch
 
         return bestCommon.Length * 2 >= longtext.Length ? [bestLongtextA, bestLongtextB, bestShortTextA, bestShortTextB, bestCommon
             ]
-            : null;
+            : [];
     }
 
     /**
