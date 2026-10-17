@@ -64,7 +64,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
                 var lastForumRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
                     .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
 
-                var lastTopicRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
+                var lastTopicRead = this.GetRepository<TopicReadTracking>().Get(t => t.UserID == this.CurrentUserId)
                     .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
 
                 if (lastForumRead != null && lastTopicRead != null)
