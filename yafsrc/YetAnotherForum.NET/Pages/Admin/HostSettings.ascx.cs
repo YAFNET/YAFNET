@@ -244,16 +244,12 @@ public partial class HostSettings : AdminPage
                     {
                         case TextBox box when settingCollection.SettingsInt[name].CanWrite:
                             {
-                                var value = box.Text.Trim();
-                                int i;
-
-                                if (value.IsNotSet())
+                                // an empty or invalid number keeps the setting (it was saved as 0), a page size is
+                                // at least 1 (0 failed every page with the list, e.g. 0 posts per page all topics)
+                                if (!int.TryParse(box.Text.Trim(), out var i)
+                                    || (name.EndsWith("PerPage") || name.StartsWith("PageSize")) && i < 1)
                                 {
-                                    i = 0;
-                                }
-                                else
-                                {
-                                    int.TryParse(value, out i);
+                                    break;
                                 }
 
                                 settingCollection.SettingsInt[name].SetValue(this.PageBoardContext.BoardSettings, i, null);

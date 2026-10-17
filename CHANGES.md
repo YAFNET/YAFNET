@@ -239,6 +239,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Boards: the board the forum runs on could be deleted (the context menu always had the delete), the forum was broken afterwards; the delete is not shown for the current board and refused
 * [FIXED] Search: the number of results counted the hits the user can not see (forums without read access, not approved or deleted posts), the pager showed empty pages and a search in a hidden forum told the number of hits; all hits were formatted, now only the shown page
 * [FIXED] Avatar: the uploaded avatar of a user without uploaded avatar failed with an error, every request (by anyone) wrote it to the event log; it is not found now without an error
+* [FIXED] Admin -> Host Settings: an empty number field was saved as 0, and a page size could be 0 (e.g. 0 posts per page failed every topic page); an empty or invalid number keeps the setting now and the page sizes are at least 1
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
