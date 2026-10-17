@@ -97,7 +97,9 @@ public partial class MoveTopic : BaseUserControl
         int? linkDays = null;
         var ld = -2;
 
-        if (this.LeavePointer.Checked && this.LinkDays.Text.IsSet() && !int.TryParse(this.LinkDays.Text, out ld))
+        // a number below -2 left the days empty and the move failed with an error
+        if (this.LeavePointer.Checked && this.LinkDays.Text.IsSet()
+                                      && (!int.TryParse(this.LinkDays.Text, out ld) || ld < -2))
         {
             this.PageBoardContext.Notify(this.GetText("POINTER_DAYS_INVALID"), MessageTypes.warning);
             return;
