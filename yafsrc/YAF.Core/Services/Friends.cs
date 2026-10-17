@@ -78,9 +78,7 @@ public class Friends : IFriends, IHaveServiceLocator
     /// </summary>
     public void ApproveAllRequests()
     {
-        var dt = this.ListAll().Where(x => x.Approved && x.UserID == BoardContext.Current.PageUserID);
-
-        dt.ForEach(drv => this.ApproveRequest(drv.FromUserID));
+        this.ReceivedRequests().ForEach(request => this.ApproveRequest(request.FromUserID));
     }
 
     /// <summary>
@@ -130,10 +128,7 @@ public class Friends : IFriends, IHaveServiceLocator
     /// </summary>
     public void DenyAllRequests()
     {
-        var dt = this.ListAll()
-            .Where(x => x.Approved == false && x.UserID == BoardContext.Current.PageUserID);
-
-        dt.Where(x => Convert.ToDateTime(x.Requested).AddDays(14) < DateTime.UtcNow)
+        this.ReceivedRequests().Where(x => Convert.ToDateTime(x.Requested).AddDays(14) < DateTime.UtcNow)
             .ForEach(x => this.DenyRequest(x.FromUserID));
     }
 
@@ -209,6 +204,18 @@ public class Friends : IFriends, IHaveServiceLocator
         }
 
         return false;
+    }
+
+    /// <summary>
+    /// The friend requests the current user received and didn't approve yet (not cached).
+    /// </summary>
+    /// <returns>
+    /// The requests (the user of the request is the FromUserID).
+    /// </returns>
+    private List<BuddyUser> ReceivedRequests()
+    {
+        return this.GetRepository<Buddy>().ListAll(BoardContext.Current.PageUserID)
+            .Where(x => !x.Approved && x.FromUserID != BoardContext.Current.PageUserID).ToList();
     }
 
     /// <summary>
