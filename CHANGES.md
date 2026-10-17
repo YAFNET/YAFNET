@@ -151,6 +151,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Register: the user name, e-mail and display name were checked trimmed but saved as typed (a space after the user name gave an "invalid user name" error at the login), the password was saved trimmed while the login uses it as typed (a password with a space at the start or end never worked), the same for the passwords of Admin > Register User and Admin > Edit User > Change Password
 * [FIXED] RSS/Atom feeds: the times of the posts were wrong by the time zone of the user (the time of the user was marked with the time zone of the server, the update time of the topics feed even got the offset twice); the feeds contain utc times now, the feed reader shows them in its time zone
 * [FIXED] Profile > Delete Account > Suspend: the 30 days were counted from the local time of the user instead of UTC, the suspension ended hours too early or too late
+* [FIXED] Profile: the birthday was converted like a point in time (from the time zone of the user into the time zone of the viewer), viewers west of the user saw the day before; it is shown as a date now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

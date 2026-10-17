@@ -504,8 +504,15 @@ public partial class UserProfile : ForumPage
         if (user.Item2.Profile_Birthday >= DateTimeHelper.SqlDbMinTime())
         {
             this.BirthdayTR.Visible = true;
-            this.Birthday.Text = this.Get<IDateTimeService>().FormatDateLong(
-                user.Item2.Profile_Birthday.Value.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(user.Item1.TimeZoneInfo)));
+            // a date, not a point in time (it was converted into the time zone of the viewer, viewers west of the
+            // user saw the day before)
+            var birthday = user.Item2.Profile_Birthday.Value.Date;
+
+            this.Birthday.Text = this.PageBoardContext.BoardSettings.UseFarsiCalender
+                                     ? FarsiLibrary.Utils.PersianDateConverter.ToPersianDate(birthday).ToString("D")
+                                     : this.Get<ILocalization>().FormatDateTime(
+                                         this.Get<ILocalization>().GetText("FORMAT_DATE_LONG"),
+                                         birthday);
         }
         else
         {
