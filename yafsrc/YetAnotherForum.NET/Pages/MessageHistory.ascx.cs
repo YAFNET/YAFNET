@@ -91,6 +91,13 @@ public partial class MessageHistory : ForumPage
             this.ReturnModBtn.Visible = true;
         }
 
+        // a message that doesn't exist (anymore)
+        if (this.PageBoardContext.PageMessage is null)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
+        }
+
         var originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.PageBoardContext.PageMessage.ID, this.PageBoardContext.PageUserID);
 
         if (originalMessage == null)
