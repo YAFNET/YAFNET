@@ -490,8 +490,9 @@ public static class PMessageRepositoryExtensions
         }
         else
         {
-            // Check if this Message has replies
-            var replies = repository.ListReplies(message.PMessageID);
+            // Check if this Message has replies (the replies keep the id of the message of the recipient,
+            // not the id of the message: they differ e.g. after a message to all users)
+            var replies = repository.ListReplies(message.UserPMessageID);
 
             if (replies.Any())
             {
