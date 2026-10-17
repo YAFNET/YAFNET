@@ -19,7 +19,7 @@
                                    AssociatedControlID="Name"
                                    LocalizedTag="NAME"
                                    LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"/>
-                    <asp:TextBox ID="Name" runat="server"
+                    <asp:TextBox ID="Name" MaxLength="255" runat="server"
                                  required="required"
                                  CssClass="form-control" />
                     <div class="invalid-feedback">
@@ -89,7 +89,7 @@
                                    AssociatedControlID="DefaultValue"
                                    LocalizedTag="DEFAULT"
                                    LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"/>
-                    <asp:TextBox ID="DefaultValue" runat="server"
+                    <asp:TextBox ID="DefaultValue" MaxLength="255" runat="server"
                                  CssClass="form-control">
                     </asp:TextBox>
                 </div>
