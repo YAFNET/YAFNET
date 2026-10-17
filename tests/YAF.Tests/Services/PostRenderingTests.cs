@@ -27,6 +27,7 @@ namespace YAF.Tests.Services;
 using Autofac;
 
 using YAF.Core.BBCode;
+using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
@@ -391,6 +392,38 @@ public class PostRenderingTests
     }
 
     private IFormatMessage Formatter => this.board.Resolve<IFormatMessage>();
+
+    [Test]
+    [Description("A custom bb code with an invalid search expression or a missing module class is skipped, the post is still shown")]
+    public void Invalid_Custom_BBCodes_Are_Skipped_Test()
+    {
+        var bbCodes = this.board.Current.GetRepository<YAF.Types.Models.BBCode>();
+
+        bbCodes.Insert(
+            new YAF.Types.Models.BBCode
+                {
+                    BoardID = TestDatabase.BoardId,
+                    Name = "BROKEN",
+                    SearchRegex = "[broken(",
+                    ReplaceRegex = "x",
+                    ExecOrder = 1
+                });
+
+        bbCodes.Insert(
+            new YAF.Types.Models.BBCode
+                {
+                    BoardID = TestDatabase.BoardId,
+                    Name = "MISSING",
+                    SearchRegex = @"\[missing\](?<inner>.*?)\[/missing\]",
+                    UseModule = true,
+                    ModuleClass = "YAF.Modules.DoesNotExist, YAF.Modules",
+                    ExecOrder = 2
+                });
+
+        var html = this.Format("[b]bold[/b] [missing]text[/missing]");
+
+        html.Should().Contain("<strong>bold</strong>").And.Contain("[missing]text[/missing]");
+    }
 
     private string Format(string message, bool targetBlank = false, DateTime? lastEdited = null)
     {

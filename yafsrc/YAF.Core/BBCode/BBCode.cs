@@ -81,9 +81,28 @@ public class BBCode : IBBCode, IHaveServiceLocator
             () =>
                 {
                     var bbcodeTable = this.GetCustomBBCode();
-                    return bbcodeTable
-                        .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
-                        .ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
+
+                    var dictionary = new Dictionary<Types.Models.BBCode, Regex>();
+
+                    // a bb code with an invalid search expression is skipped (and logged), it must not break the
+                    // display of all posts
+                    bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
+                        .ForEach(
+                            codeRow =>
+                                {
+                                    try
+                                    {
+                                        dictionary.Add(codeRow, new Regex(codeRow.SearchRegex, Options));
+                                    }
+                                    catch (ArgumentException ex)
+                                    {
+                                        this.Get<ILoggerService>().Error(
+                                            ex,
+                                            $"Invalid search expression of the bb code {codeRow.Name}");
+                                    }
+                                });
+
+                    return (IDictionary<Types.Models.BBCode, Regex>)dictionary;
                 });
 
     /// <summary>
@@ -118,6 +137,16 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 {
                     var codeRow = keyPair.Key;
 
+                    // a missing module class (e.g. a removed extension) skips the bb code, the posts are still shown
+                    var module = Type.GetType(codeRow.ModuleClass, false, false);
+
+                    if (module == null || !typeof(BBCodeControl).IsAssignableFrom(module))
+                    {
+                        this.Get<ILoggerService>().Warn(
+                            $"The module class {codeRow.ModuleClass} of the bb code {codeRow.Name} was not found");
+                        return;
+                    }
+
                     Match match;
 
                     do
@@ -146,7 +175,6 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
 
                         // create/render the control...
-                        var module = Type.GetType(codeRow.ModuleClass, true, false);
                         var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
                         // assign parameters...
@@ -1099,6 +1127,13 @@ public class BBCode : IBBCode, IHaveServiceLocator
         bbcodeTable.Where(codeRow => !(codeRow.UseModule ?? false) && codeRow.SearchRegex.IsSet()).ForEach(
             codeRow =>
                 {
+                    // a bb code with an invalid search expression is skipped (and logged)
+                    if (!ValidationHelper.IsValidRegex(codeRow.SearchRegex))
+                    {
+                        this.Get<ILoggerService>().Warn($"Invalid search expression of the bb code {codeRow.Name}");
+                        return;
+                    }
+
                     if (codeRow.Variables.IsSet())
                     {
                         // handle variables...

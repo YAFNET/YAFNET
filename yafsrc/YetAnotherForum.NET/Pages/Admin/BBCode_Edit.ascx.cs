@@ -52,6 +52,15 @@ public partial class BBCode_Edit : AdminPage
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected void Add_Click(object sender, EventArgs e)
     {
+        // an invalid search expression would skip the bb code in all posts
+        if (this.txtSearchRegEx.Text.IsSet() && !ValidationHelper.IsValidRegex(this.txtSearchRegEx.Text))
+        {
+            this.PageBoardContext.Notify(
+                this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
+                MessageTypes.danger);
+            return;
+        }
+
         this.GetRepository<Types.Models.BBCode>().Save(
             this.BBCodeID,
             this.txtName.Text.Trim(),

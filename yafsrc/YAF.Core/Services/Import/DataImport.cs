@@ -73,6 +73,13 @@ public static class DataImport
                     {
                         var name = row["Name"].ToString();
 
+                        // a bb code with an invalid search expression is not imported
+                        if (row["SearchRegex"].ToString().IsSet()
+                            && !ValidationHelper.IsValidRegex(row["SearchRegex"].ToString()))
+                        {
+                            return;
+                        }
+
                         var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
 
                         var updateEntry = new BBCode
