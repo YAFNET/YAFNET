@@ -167,6 +167,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] "Lock inactive accounts" (admin users page) also locked host admins, admins and the admin running it, and a value of 0 or less years locked (almost) all users, a value that is not a number failed with an error
 * [FIXED] Spam bot auto-bans (and the bans of kill user) saved the bot's name and e-mail as unanchored regular expressions, so later registrations containing that name (e.g. "Joanna" after banning "ann") were treated as bots and banned too (review the banned names and e-mails created by the spam system on existing installs)
 * [FIXED] The registration bot check ignored wildcard IP bans (e.g. 192.168.1.*), and an invalid banned name mask cancelled a match on a banned e-mail or IP
+* [FIXED] The "watch topic" option of the quick reply was ignored for admins and moderators
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

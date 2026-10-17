@@ -211,11 +211,12 @@ public partial class QuickReply : BaseUserControl
                             return;
                     }
                 }
+            }
 
-                if (!this.PageBoardContext.IsGuest)
-                {
-                    this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
-                }
+            // the watch option also for admins and moderators (it was inside the spam check)
+            if (!this.PageBoardContext.IsGuest)
+            {
+                this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
             }
 
             // If Forum is Moderated
