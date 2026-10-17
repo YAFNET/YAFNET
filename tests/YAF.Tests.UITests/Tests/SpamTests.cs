@@ -25,6 +25,7 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;
@@ -95,6 +96,97 @@ public class SpamTests : ForumTestBase
             await this.LoginAsAdminAsync();
             await this.SetHandlingAsync("0");
         }
+    }
+
+    [Test]
+    [Description("A reply, a quick reply, an edit and a private message with a spam word for every handling (the last one deletes and bans the member)")]
+    public async Task Spam_Word_Replies_Test()
+    {
+        var word = $"spamreply{Guid.NewGuid():N}".Substring(0, 16);
+        var subject = $"Spam replies {Guid.NewGuid():N}".Substring(0, 24);
+
+        await this.LoginAsAdminAsync();
+        await this.AddSpamWordAsync(word);
+
+        // the topic of the admin
+        await this.PostAsync(subject, "A topic for the replies.");
+        await this.GotoAsync("Topics/1-Test Forum");
+        var href = (await this.Page.Locator("a[href*='/Posts/t']", new PageLocatorOptions { HasTextString = subject }).First
+                        .GetAttributeAsync("href")).TrimStart('/');
+        var topicId = System.Text.RegularExpressions.Regex.Match(href, @"Posts/t(\d+)").Groups[1].Value;
+
+        try
+        {
+            foreach (var handling in new[] { "0", "1", "2", "3" })
+            {
+                var member = $"Spr{handling}{DateTime.UtcNow:HHmmssfff}";
+
+                await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+                // a post without spam to edit
+                await this.LoginAsync(member, TestConfig.TestUserPassword);
+                await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+                await this.Control("YafTextEditor").FillAsync("A clean reply.");
+                await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+                var ids = await this.Page.Locator("a[id^='post']").EvaluateAllAsync<string[]>("es => es.map(e => e.id)");
+                var messageId = ids.Select(id => System.Text.RegularExpressions.Regex.Match(id, @"^post(\d+)$"))
+                    .Where(m => m.Success).Select(m => int.Parse(m.Groups[1].Value)).Max();
+
+                await this.LoginAsAdminAsync();
+                await this.SetHandlingAsync(handling);
+
+                await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+                // the edit
+                await this.GotoAsync($"EditMessage?m={messageId}");
+                await this.Control("YafTextEditor").FillAsync($"The edit with {word}.");
+                await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+                if (handling == "3")
+                {
+                    // the member is deleted and banned
+                    await this.LoginAsync(member, TestConfig.TestUserPassword);
+                    (await this.IsLoggedInAsAsync(member)).Should().BeFalse("the spammer is deleted");
+                    continue;
+                }
+
+                // the reply
+                await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+                await this.Control("YafTextEditor").FillAsync($"A reply with {word}.");
+                await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+                // the quick reply
+                await this.GotoAsync(href);
+                await this.Page.Locator("[id*='_QuickReplyLink']").Filter(new LocatorFilterOptions { Visible = true }).First.ClickAsync();
+                await this.Control("QuickReplyDialog_Reply").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+                await this.Control("QuickReplyDialog_YafTextEditor").FillAsync($"A quick reply with {word}.");
+                await this.ClickAndWaitAsync(this.Control("QuickReplyDialog_Reply"));
+
+                // the private message
+                await this.GotoAsync("PostPrivateMessage");
+                await this.Control("To").FillAsync(TestConfig.AdminUserName);
+                await this.Control("PmSubjectTextBox").FillAsync($"Spam {handling}");
+                await this.Control("YafTextEditor").FillAsync($"A message with {word}.");
+                await this.ClickAndWaitAsync(this.Control("Save"));
+            }
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetHandlingAsync("0");
+        }
+    }
+
+    private async Task AddSpamWordAsync(string word)
+    {
+        await this.GotoAsync("Admin/SpamWords");
+        await this.ClickAndWaitAsync(
+            this.Page.Locator("a", new PageLocatorOptions { HasTextString = "Add New Word" })
+                .Filter(new LocatorFilterOptions { Visible = true }).First);
+        await this.Page.Locator("[id$='_EditDialog_Save']").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+        await this.Control("EditDialog_spamword").FillAsync(word);
+        await this.ClickAndWaitAsync(this.Control("EditDialog_Save"));
     }
 
     private async Task PostAsync(string subject, string text)
