@@ -430,28 +430,38 @@ public class DataBroker : IHaveServiceLocator
 
         if (!doNotTrack)
         {
-            if (this.GetRepository<Active>().Exists(
-                    x => x.BoardID == boardId && x.SessionID == sessionId ||
-                         x.Browser == browser && (x.Flags & 8) == 8))
+            void UpdateSession()
+            {
+                this.GetRepository<Active>().UpdateOnly(
+                    () => new Active {
+                        UserID = userId,
+                        IP = ip,
+                        LastActive = DateTime.UtcNow,
+                        Location = location,
+                        ForumID = forumId,
+                        TopicID = topicId,
+                        Browser = browser,
+                        Platform = platform,
+                        UserAgent = userAgent,
+                        ForumPage = forumPage,
+                        Flags = activeFlags.BitValue
+                    },
+                    a => a.SessionID == sessionId && a.BoardID == boardId);
+            }
+
+            // -- crawlers send a new session id with every request, they are found by browser and ip
+            // -- (a visitor with the browser of a crawler is not a crawler)
+            var exists = isCrawler
+                             ? this.GetRepository<Active>().Exists(
+                                 x => x.BoardID == boardId && x.Browser == browser && x.IP == ip && (x.Flags & 8) == 8)
+                             : this.GetRepository<Active>().Exists(x => x.BoardID == boardId && x.SessionID == sessionId);
+
+            if (exists)
             {
                 if (!isCrawler)
                 {
                     // -- user is not a crawler - use his session id
-                    this.GetRepository<Active>().UpdateOnly(
-                        () => new Active {
-                            UserID = userId,
-                            IP = ip,
-                            LastActive = DateTime.UtcNow,
-                            Location = location,
-                            ForumID = forumId,
-                            TopicID = topicId,
-                            Browser = browser,
-                            Platform = platform,
-                            UserAgent = userAgent,
-                            ForumPage = forumPage,
-                            Flags = activeFlags.BitValue
-                        },
-                        a => a.SessionID == sessionId && a.BoardID == boardId);
+                    UpdateSession();
                 }
                 else
                 {
@@ -470,28 +480,39 @@ public class DataBroker : IHaveServiceLocator
                             ForumPage = forumPage,
                             Flags = activeFlags.BitValue
                         },
-                        a => a.Browser == browser && a.IP == ip && a.BoardID == boardId);
+                        a => a.Browser == browser && a.IP == ip && a.BoardID == boardId && (a.Flags & 8) == 8);
                 }
             }
             else
             {
-                // -- we set @ActiveFlags ready flags
-                this.GetRepository<Active>().Insert(
-                    new Active {
-                        UserID = userId,
-                        SessionID = sessionId,
-                        BoardID = boardId,
-                        IP = ip,
-                        Login = DateTime.UtcNow,
-                        LastActive = DateTime.UtcNow,
-                        Location = location,
-                        ForumID = forumId,
-                        TopicID = topicId,
-                        Browser = browser,
-                        Platform = platform,
-                        UserAgent = userAgent,
-                        Flags = activeFlags.BitValue
-                    });
+                try
+                {
+                    // -- we set @ActiveFlags ready flags
+                    this.GetRepository<Active>().Insert(
+                        new Active {
+                            UserID = userId,
+                            SessionID = sessionId,
+                            BoardID = boardId,
+                            IP = ip,
+                            Login = DateTime.UtcNow,
+                            LastActive = DateTime.UtcNow,
+                            Location = location,
+                            ForumID = forumId,
+                            TopicID = topicId,
+                            Browser = browser,
+                            Platform = platform,
+                            UserAgent = userAgent,
+                            ForumPage = forumPage,
+                            Flags = activeFlags.BitValue
+                        });
+                }
+                catch (System.Data.Common.DbException) when (!isCrawler && this.GetRepository<Active>().Exists(
+                                              x => x.BoardID == boardId && x.SessionID == sessionId))
+                {
+                    // -- a parallel request of the same session (e.g. the first page and its requests)
+                    // -- inserted the row after the check above
+                    UpdateSession();
+                }
 
                 // -- update max user stats
                 this.GetRepository<Registry>().UpdateMaxStats(boardId);
@@ -512,7 +533,38 @@ public class DataBroker : IHaveServiceLocator
         }
 
         // -- return information
-        var pageLoad = this.GetRepository<ActiveAccess>().DbAccess.Execute(
+        var pageLoad = this.SelectPageLoad(userId, forumId, activeUpdate, previousVisit, isCrawler, guestUser.ID);
+
+        if (pageLoad is null)
+        {
+            // -- the access rows were cleared (by a change of the groups/access masks) after they were checked
+            this.GetRepository<ActiveAccess>().InsertPageAccess(boardId, userId, isGuest);
+
+            pageLoad = this.SelectPageLoad(userId, forumId, activeUpdate, previousVisit, isCrawler, guestUser.ID);
+        }
+
+        return Tuple.Create(pageLoad, currentUser, category, forum, topic, message);
+    }
+
+    /// <summary>
+    /// Selects the page load data (the access rights) of the user.
+    /// </summary>
+    /// <param name="userId">The user id.</param>
+    /// <param name="forumId">The forum id.</param>
+    /// <param name="activeUpdate">If the active users have to be updated.</param>
+    /// <param name="previousVisit">The previous visit.</param>
+    /// <param name="isCrawler">If the user is a crawler.</param>
+    /// <param name="guestUserId">The guest user id.</param>
+    /// <returns>The page load data, or null if the access rows are missing.</returns>
+    private PageLoad SelectPageLoad(
+        int userId,
+        int? forumId,
+        bool activeUpdate,
+        DateTime? previousVisit,
+        bool isCrawler,
+        int guestUserId)
+    {
+        return this.GetRepository<ActiveAccess>().DbAccess.Execute(
             db =>
             {
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
@@ -574,7 +626,7 @@ public class DataBroker : IHaveServiceLocator
                             Sql.Custom(
                                 $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
                         IsCrawler = isCrawler,
-                        GuestUserId = guestUser.ID,
+                        GuestUserId = guestUserId,
                         UploadAccess =
                             Sql.Custom(
                                 $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(uploadAccessSql, 0)})"),
@@ -584,8 +636,6 @@ public class DataBroker : IHaveServiceLocator
 
                 return db.Connection.Single<PageLoad>(expression);
             });
-
-        return Tuple.Create(pageLoad, currentUser, category, forum, topic, message);
     }
 
     /// <summary>

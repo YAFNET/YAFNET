@@ -97,6 +97,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The print view of a topic and the posts feed published the text of deleted posts when "show deleted messages to all" is enabled (the topic only shows a placeholder for them)
 * [FIXED] Security: The search index contained the hidden content of posts (hide, hide-reply, hide-thanks, group-hide, hide-posts): every user could find posts by words of hidden content and see them in the highlighted part of the result. Hidden content is not indexed anymore; run Admin > ReIndex to remove it from an existing index. An updated post (edit, approve, restore) lost the tags of its topic in the index
 * [FIXED] Security: The page load took the forum (and so the access rights) from the forum and category ids of the address when both were set, a topic or message id of another forum was not checked against them; e.g. the print page showed a topic of a hidden forum with the ids of a readable forum in the address (PrintTopic?t={hidden topic}&f={readable forum}&c={category}). The forum is now always the forum of the topic/message
+* [FIXED] Active users: a visitor with the same browser as an active crawler was never recorded (and not shown as active), crawlers with other addresses were merged into one, a crawler could take over the session of a person with the same address and browser, a parallel request of a new session failed with the unique key of the session and a page load failed when the access rows were cleared at the same time (group change)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
