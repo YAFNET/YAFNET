@@ -25,7 +25,6 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;
@@ -217,7 +216,7 @@ public class AdminTests : ForumTestBase
         await this.RegisterAsync(userName, TestConfig.TestUserPassword);
         await this.LoginAsAdminAsync();
 
-        var userId = await this.FindUserIdAsync(userName);
+        var userId = await this.OpenAdminEditUserAsync(userName);
 
         await this.GotoAsync($"Admin/EditUser?u={userId}");
 
@@ -285,19 +284,5 @@ public class AdminTests : ForumTestBase
     private async Task SelectByTextAsync(ILocator select, string text)
     {
         await select.SelectOptionAsync(new SelectOptionValue { Label = text });
-    }
-
-    /// <summary>
-    /// Finds the id of a user in the admin users list.
-    /// </summary>
-    private async Task<int> FindUserIdAsync(string userName)
-    {
-        await this.GotoAsync("Admin/Users");
-
-        // the name posts back and opens the edit page
-        await this.ClickAndWaitAsync(
-            this.Page.Locator("[id$='_NameEdit']", new PageLocatorOptions { HasTextString = userName }).First);
-
-        return int.Parse(Regex.Match(this.Page.Url, @"u=(\d+)").Groups[1].Value);
     }
 }

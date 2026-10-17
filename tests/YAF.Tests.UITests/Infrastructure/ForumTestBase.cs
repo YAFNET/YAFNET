@@ -27,6 +27,7 @@ namespace YAF.Tests.UITests.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;
@@ -279,8 +280,33 @@ public abstract class ForumTestBase
     {
         var userMenu = this.Page.Locator("[id$='_UserDropDown']");
 
-        return await userMenu.CountAsync() > 0
-               && (await userMenu.First.InnerTextAsync()).Trim().Equals(userName, StringComparison.OrdinalIgnoreCase);
+        // the name and the number of the unread messages and notifications
+        return await userMenu.CountAsync() > 0 && Regex.IsMatch(
+                   (await userMenu.First.InnerTextAsync()).Trim(),
+                   $@"^{Regex.Escape(userName)}(\s+\d+)?$",
+                   RegexOptions.IgnoreCase);
+    }
+
+    /// <summary>
+    /// Opens the admin edit page of a user (the logged in user is an admin), the user is found with the name filter
+    /// of the users list (the list has many pages after a while).
+    /// </summary>
+    /// <param name="userName">The user name.</param>
+    /// <returns>Returns the id of the user.</returns>
+    protected async Task<int> OpenAdminEditUserAsync(string userName)
+    {
+        await this.GotoAsync("Admin/Users");
+
+        // the filter is in a drop down
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await this.Control("name").FillAsync(userName);
+        await this.ClickAndWaitAsync(this.Control("search"));
+
+        // the name posts back and opens the edit page
+        await this.ClickAndWaitAsync(
+            this.Page.Locator("[id$='_NameEdit']", new PageLocatorOptions { HasTextString = userName }).First);
+
+        return int.Parse(Regex.Match(this.Page.Url, @"u=(\d+)").Groups[1].Value);
     }
 
     /// <summary>

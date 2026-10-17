@@ -25,7 +25,6 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;
@@ -60,7 +59,7 @@ public class ModeratorAccessTests : ForumTestBase
             this.Page.Locator(".modal.show button", new PageLocatorOptions { HasTextString = "Yes" }));
 
         await this.LoginAsAdminAsync();
-        var reporterId = await this.FindUserIdAsync(reporter);
+        var reporterId = await this.OpenAdminEditUserAsync(reporter);
 
         // a role that can read the forums and moderates a new forum
         await this.GotoAsync("Admin/EditGroup");
@@ -83,7 +82,7 @@ public class ModeratorAccessTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Control("Save"));
 
         // the moderator is in the role
-        await this.FindUserIdAsync(moderator);
+        await this.OpenAdminEditUserAsync(moderator);
         await this.Page.Locator("a.nav-link[href='#View2']").ClickAsync();
         await this.Page.GetByLabel(group, new PageGetByLabelOptions { Exact = true }).CheckAsync();
         await this.ClickAndWaitAsync(this.Control("GroupEditControl_Save"));
@@ -101,19 +100,5 @@ public class ModeratorAccessTests : ForumTestBase
         await this.GotoAsync($"PostPrivateMessage?r=1&u={reporterId}");
         (await this.Control("YafTextEditor").InputValueAsync()).Should().Contain(reason);
         (await this.Control("To").InputValueAsync()).Should().Be(reporter);
-    }
-
-    /// <summary>
-    /// Finds the id of a user in the admin users list and opens the edit page of the user.
-    /// </summary>
-    private async Task<int> FindUserIdAsync(string userName)
-    {
-        await this.GotoAsync("Admin/Users");
-
-        // the name posts back and opens the edit page
-        await this.ClickAndWaitAsync(
-            this.Page.Locator("[id$='_NameEdit']", new PageLocatorOptions { HasTextString = userName }).First);
-
-        return int.Parse(Regex.Match(this.Page.Url, @"u=(\d+)").Groups[1].Value);
     }
 }
