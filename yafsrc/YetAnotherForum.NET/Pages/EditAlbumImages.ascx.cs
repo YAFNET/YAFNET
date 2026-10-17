@@ -177,7 +177,8 @@ public partial class EditAlbumImages : ForumPageRegistered
             this.PageBoardContext.PageUserID,
             this.PageBoardContext.PageBoardID);
 
-        var usrAlbumsAllowed = (int)data.UserAlbumImages;
+        // the number of albums (not the number of images per album)
+        var usrAlbumsAllowed = (int)data.UserAlbum;
 
         var albumSize = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageBoardContext.PageUserID);
 
@@ -263,6 +264,29 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected void Upload_Click(object sender, EventArgs e)
     {
+        // the limits are checked on the server: the images of the album and the number of albums for a new album
+        var limits = this.GetRepository<User>().MaxAlbumData(
+            this.PageBoardContext.PageUserID,
+            this.PageBoardContext.PageBoardID);
+
+        var albumParameter = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a");
+
+        if (albumParameter == "new")
+        {
+            if ((int)limits.UserAlbum > 0
+                && this.GetRepository<UserAlbum>().CountUserAlbum(this.PageBoardContext.PageUserID) >= (int)limits.UserAlbum)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+                return;
+            }
+        }
+        else if ((int)limits.UserAlbumImages <= 0 || this.GetRepository<UserAlbumImage>()
+                     .Count(i => i.AlbumID == albumParameter.ToType<int>()) >= (int)limits.UserAlbumImages)
+        {
+            this.BindData();
+            return;
+        }
+
         try
         {
             if (this.CheckValidFile(this.File))
