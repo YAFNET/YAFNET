@@ -310,7 +310,15 @@ public partial class DisplayPost : BaseUserControl
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void MarkAsAnswerClick(object sender, EventArgs e)
     {
-        var messageFlags = new MessageFlags(this.PostData.DataRow.Flags) { IsAnswer = true };
+        // the current flags of the post (e.g. it could be deleted by a moderator in the meantime)
+        var currentMessage = this.GetRepository<Message>().GetById(this.PostData.MessageId);
+
+        if (currentMessage == null)
+        {
+            return;
+        }
+
+        var messageFlags = new MessageFlags(currentMessage.Flags) { IsAnswer = true };
 
         if (this.PostData.PostIsAnswer)
         {
