@@ -106,7 +106,8 @@ public class StartupCheckBannedIps : BaseStartupService
                 () => this.BannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
                     .Select(x => x.Mask.Trim()).ToList());
 
-            var ipToCheck = this.HttpRequestBase.ServerVariables["REMOTE_ADDR"];
+            // behind a reverse proxy the address of the client, like the ip address that is saved with the posts
+            var ipToCheck = this.HttpRequestBase.GetUserRealIPAddress();
 
             // check for this user in the list...
             if (bannedIPs == null || !bannedIPs.Exists(row => IPHelper.IsBanned(row, ipToCheck)))

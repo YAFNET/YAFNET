@@ -260,6 +260,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] New banned user agents (added in the admin page or imported) were not blocked and imported spam words were not checked until the application restarted: inserting rows and deleting rows by a condition did not raise the repository events that clear the cached data
 * [FIXED] Admin -> Banned IPs, e-mails and names: the ban date was stored in the time of the server but shown converted from UTC, it was off by the time zone of the server
 * [FIXED] The text avatar (letters of the name) was cached by the browser for 30 days, after a display name change the old letters were shown; it is cached for one hour now
+* [FIXED] Banned IPs: behind a reverse proxy the address of the proxy was checked instead of the client address (the address saved with the posts), the bans did not work; the client address of the forwarded header is only taken from trusted proxies
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
