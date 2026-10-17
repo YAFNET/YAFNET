@@ -163,8 +163,12 @@ public partial class UserMedalEdit : BaseUserControl
             return;
         }
 
+        int userId;
+
         if (this.UserId.HasValue)
         {
+            userId = this.UserId.Value;
+
             // save user, if there is no message specified, pass null
             this.GetRepository<UserMedal>().Save(
                 this.UserId.Value,
@@ -190,24 +194,54 @@ public partial class UserMedalEdit : BaseUserControl
                 return;
             }
 
-            var userId = this.SelectedUserID.Value.ToType<int>();
+            userId = this.SelectedUserID.Value.ToType<int>();
 
-            this.GetRepository<UserMedal>().SaveNew(
-                userId,
-                this.MedalId,
-                this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
-                this.UserHide.Checked,
-                this.UserSortOrder.Text.ToType<byte>());
+            // a member of this board
+            var boardId = this.PageBoardContext.PageBoardID;
+            var medalId = this.MedalId;
 
-            if (this.PageBoardContext.BoardSettings.EmailUserOnMedalAward)
+            if (!this.GetRepository<User>().Exists(u => u.ID == userId && u.BoardID == boardId))
             {
-                this.Get<ISendNotification>().ToUserWithNewMedal(userId, this.MedalName);
+                this.PageBoardContext.Notify(
+                    this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
+                    MessageTypes.warning);
+
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("UserEditDialog"));
+
+                return;
+            }
+
+            if (this.GetRepository<UserMedal>().Exists(m => m.UserID == userId && m.MedalID == medalId))
+            {
+                // the user already has the medal (adding it again failed with an error), the settings are updated
+                this.GetRepository<UserMedal>().Save(
+                    userId,
+                    this.MedalId,
+                    this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
+                    this.UserHide.Checked,
+                    this.UserSortOrder.Text.ToType<byte>());
+            }
+            else
+            {
+                this.GetRepository<UserMedal>().SaveNew(
+                    userId,
+                    this.MedalId,
+                    this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
+                    this.UserHide.Checked,
+                    this.UserSortOrder.Text.ToType<byte>());
+
+                if (this.PageBoardContext.BoardSettings.EmailUserOnMedalAward)
+                {
+                    this.Get<ISendNotification>().ToUserWithNewMedal(userId, this.MedalName);
+                }
             }
         }
 
         // clear cache...
-        // remove user from cache...
-        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.UserMedals, this.UserId));
+        // remove user from cache (also of a new medal of a user)...
+        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.UserMedals, userId));
 
         // re-bind data
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId });
