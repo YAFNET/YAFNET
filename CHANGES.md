@@ -121,6 +121,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Links of posts older than "disable nofollow links after days" still got rel=nofollow, the age of the post was computed negative
 * [FIXED] Security (hardening): BBCode [url] links allowed control characters in the url (browsers remove them, e.g. in front of "javascript:"), they end the link now
 * [FIXED] Code blocks: the language and the highlighted lines of [code=...] were written into html attributes with all characters (e.g. quotes and brackets of a manipulated post broke the markup), and a highlighted block of a mapped language (e.g. [code=cs;2-3]) was not highlighted (the language was mapped before the lines were taken off)
+* [FIXED] A plain url (without [url]) in a post or an e-mail removed the text before it on the same line (e.g. "Please see https://..." became only the link), the youtube check consumed the line
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
