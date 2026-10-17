@@ -258,6 +258,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] 18 translations had broken placeholders (e.g. "{0 comments", "{text", "{0} characters}") in Arabic, Finnish, French, Italian, Lithuanian, Polish, Portuguese, Romanian, Slovak and Turkish, showing these texts failed (e.g. the user name length messages of the registration in Polish, the activity texts in Arabic and Turkish); a unit test now checks the placeholders of all translations
 * [FIXED] MemoryCache.GetOrSet failed with an error for value types (e.g. a number) that were not cached yet
 * [FIXED] New banned user agents (added in the admin page or imported) were not blocked and imported spam words were not checked until the application restarted: inserting rows and deleting rows by a condition did not raise the repository events that clear the cached data
+* [FIXED] Admin -> Banned IPs, e-mails and names: the ban date was stored in the time of the server but shown converted from UTC, it was off by the time zone of the server
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

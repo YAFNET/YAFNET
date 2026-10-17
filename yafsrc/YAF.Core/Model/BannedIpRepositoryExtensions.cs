@@ -90,7 +90,7 @@ public static class BannedIpRepositoryExtensions
                     Mask = mask,
                     Reason = reason,
                     UserID = userId,
-                    Since = DateTime.Now
+                    Since = DateTime.UtcNow
                 });
 
         repository.FireNew(newId);

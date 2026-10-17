@@ -88,6 +88,22 @@ public class DataImportTests
     }
 
     [Test]
+    [Description("The ban date is stored in UTC like all other dates (it is shown converted from UTC to the time zone of the user)")]
+    public void Ban_Date_Is_Utc_Test()
+    {
+        DataImport.BannedIpAddressesImport(TestDatabase.BoardId, 2, Lines("10.0.0.1")).Should().Be(1);
+        DataImport.BannedEmailAddressesImport(TestDatabase.BoardId, Lines("spam@example\\.com")).Should().Be(1);
+        DataImport.BannedNamesImport(TestDatabase.BoardId, Lines("^Spammer$")).Should().Be(1);
+
+        this.board.Current.GetRepository<BannedIP>().Get(_ => true).Single().Since.Should()
+            .BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+        this.board.Current.GetRepository<BannedEmail>().Get(_ => true).Single().Since.Should()
+            .BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+        this.board.Current.GetRepository<BannedName>().Get(_ => true).Single().Since.Should()
+            .BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+    }
+
+    [Test]
     [Description("Existing bans and duplicates in the file are skipped")]
     public void Existing_Bans_Are_Skipped_Test()
     {
