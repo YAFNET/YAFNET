@@ -337,6 +337,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Login dialog: an account locked after 10 wrong passwords was locked for 60 minutes (the login page locks it for 15 minutes)
 * [FIXED] Admin > Edit User > Kill: the suspend option only worked after the cache of the user expired
 * [FIXED] New topic and reply of guests: the field for the name of the guest was never shown (all guests posted as Guest)
+* [FIXED] move post: the own topic was compared with the message id (a post could be moved into its own topic)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

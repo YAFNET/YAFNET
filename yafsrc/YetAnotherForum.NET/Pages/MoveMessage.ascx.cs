@@ -114,7 +114,8 @@ public partial class MoveMessage : ForumPageRegistered
     {
         var moveTopicId = this.TopicListSelected.Value.ToType<int>();
 
-        if (moveTopicId == 0 || moveTopicId == this.PageBoardContext.PageMessage.ID)
+        // a message can only be moved to another topic
+        if (moveTopicId == 0 || moveTopicId == this.PageBoardContext.PageTopicID)
         {
             this.PageBoardContext.Notify(this.GetText("MOVE_TITLE"), MessageTypes.warning);
             return;
