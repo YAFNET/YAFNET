@@ -47,7 +47,8 @@
                                            LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL"/>
                             <asp:TextBox ID="UserSortOrder" runat="server"
                                          CssClass="form-control"
-                                         TextMode="Number"/>
+                                         TextMode="Number"
+                                         min="0" max="255"/>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel22" runat="server"

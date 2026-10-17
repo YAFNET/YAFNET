@@ -134,7 +134,7 @@ public partial class GroupMedalEdit : BaseUserControl
                 this.MedalId,
                 this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
                 this.GroupHide.Checked,
-                this.GroupSortOrder.Text.ToType<byte>());
+                this.SortOrder);
         }
         else
         {
@@ -143,7 +143,7 @@ public partial class GroupMedalEdit : BaseUserControl
                 this.MedalId,
                 this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
                 this.GroupHide.Checked,
-                this.GroupSortOrder.Text.ToType<byte>());
+                this.SortOrder);
         }
 
         // the medals of the members of the group are cached
@@ -152,4 +152,9 @@ public partial class GroupMedalEdit : BaseUserControl
         // re-bind data
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId });
     }
+
+    /// <summary>
+    /// Gets the sort order of the input (0 - 255), an empty or invalid value is 0.
+    /// </summary>
+    private byte SortOrder => byte.TryParse(this.GroupSortOrder.Text.Trim(), out var sortOrder) ? sortOrder : (byte)0;
 }

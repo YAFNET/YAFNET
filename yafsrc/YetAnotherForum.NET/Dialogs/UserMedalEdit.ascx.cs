@@ -175,7 +175,7 @@ public partial class UserMedalEdit : BaseUserControl
                 this.MedalId,
                 this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                 this.UserHide.Checked,
-                this.UserSortOrder.Text.ToType<byte>());
+                this.SortOrder);
         }
         else
         {
@@ -221,7 +221,7 @@ public partial class UserMedalEdit : BaseUserControl
                     this.MedalId,
                     this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                     this.UserHide.Checked,
-                    this.UserSortOrder.Text.ToType<byte>());
+                    this.SortOrder);
             }
             else
             {
@@ -230,7 +230,7 @@ public partial class UserMedalEdit : BaseUserControl
                     this.MedalId,
                     this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                     this.UserHide.Checked,
-                    this.UserSortOrder.Text.ToType<byte>());
+                    this.SortOrder);
 
                 if (this.PageBoardContext.BoardSettings.EmailUserOnMedalAward)
                 {
@@ -246,4 +246,9 @@ public partial class UserMedalEdit : BaseUserControl
         // re-bind data
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId });
     }
+
+    /// <summary>
+    /// Gets the sort order of the input (0 - 255), an empty or invalid value is 0.
+    /// </summary>
+    private byte SortOrder => byte.TryParse(this.UserSortOrder.Text.Trim(), out var sortOrder) ? sortOrder : (byte)0;
 }

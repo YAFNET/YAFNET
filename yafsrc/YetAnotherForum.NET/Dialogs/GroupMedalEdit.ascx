@@ -28,7 +28,7 @@
                             <YAF:HelpLabel ID="HelpLabel16" runat="server"
                                            AssociatedControlID="GroupSortOrder"
                                            LocalizedTag="OVERRIDE_ORDER" LocalizedPage="ADMIN_EDITMEDAL"/>
-                            <asp:TextBox ID="GroupSortOrder" runat="server" CssClass="form-control" TextMode="Number"/>
+                            <asp:TextBox ID="GroupSortOrder" runat="server" CssClass="form-control" TextMode="Number" min="0" max="255"/>
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel18" runat="server"
