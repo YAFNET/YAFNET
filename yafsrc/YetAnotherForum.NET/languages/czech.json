@@ -10048,6 +10048,10 @@
           {
             "@tag": "TO",
             "#text": "Poslat na (e-mailová adresa):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Odeslali jste příliš mnoho e-mailů, zkuste to prosím znovu později."
           }
         ]
       },

@@ -10044,6 +10044,10 @@
           {
             "@tag": "TO",
             "#text": "Sähköpostiosoite:"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Olet lähettänyt liian monta sähköpostia, yritä myöhemmin uudelleen."
           }
         ]
       },

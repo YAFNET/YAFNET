@@ -10036,6 +10036,10 @@
           {
             "@tag": "TO",
             "#text": "Verzenden naar (e-mail adres):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "U heeft te veel e-mails verzonden. Probeer het later opnieuw."
           }
         ]
       },

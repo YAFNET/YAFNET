@@ -82,6 +82,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The registration showed a warning for a display name that is already used but registered the user anyway (other users could be impersonated), and a display name (registration, profile and admin edit user) was not checked like the user name, so a user could use the guest name, a bad word or a name with a semicolon; the rules are now in UserHelper.IsAllowedName and used everywhere
 * [FIXED] Post topic / reply / edit as guest: a guest could post with the user name or display name of a member (the post looked like a post of the member), and a guest who cleared the name field posted with an empty name (the name of the guest user is used now)
 * [FIXED] Security: The message history showed the text of deleted posts and of posts waiting for approval to every member who can read the forum, the report post page showed them too; deleted and not approved posts of others could be quoted, and posts of other topics and forums (also without read access) by adding their ids to the multi quote list
+* [FIXED] Security: The "block e-mails" option and the ignore list of the users were never checked by the e-mail form, and the user id was only checked when the page was shown (not when sending), so mails could be sent to unapproved and deleted users and users of other boards; a user can send at most 5 such e-mails per hour, and a missing subject or text shows a warning instead of an error
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

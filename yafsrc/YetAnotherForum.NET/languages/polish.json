@@ -10040,6 +10040,10 @@
           {
             "@tag": "TO",
             "#text": "Wyślij do (Adres Email):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Wysłałeś zbyt wiele e-maili. Spróbuj ponownie później."
           }
         ]
       },

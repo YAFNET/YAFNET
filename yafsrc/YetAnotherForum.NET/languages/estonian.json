@@ -10044,6 +10044,10 @@
           {
             "@tag": "TO",
             "#text": "Kellele (e-posti aadress):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Olete saatnud liiga palju meile, proovige hiljem uuesti."
           }
         ]
       },

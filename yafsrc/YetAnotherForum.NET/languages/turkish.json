@@ -10044,6 +10044,10 @@
           {
             "@tag": "TO",
             "#text": "Gönder (E-posta Adresi):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Çok fazla e-posta gönderdiniz, lütfen daha sonra tekrar deneyin."
           }
         ]
       },

@@ -10044,6 +10044,10 @@
           {
             "@tag": "TO",
             "#text": "Trimite la (Adresa email):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Ați trimis prea multe e-mailuri, vă rugăm să încercați din nou mai târziu."
           }
         ]
       },

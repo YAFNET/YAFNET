@@ -10044,6 +10044,10 @@
           {
             "@tag": "TO",
             "#text": "Enviar para (Endereço de Email):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Você enviou muitos e-mails. Tente novamente mais tarde."
           }
         ]
       },

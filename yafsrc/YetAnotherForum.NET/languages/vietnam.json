@@ -10044,6 +10044,10 @@
           {
             "@tag": "TO",
             "#text": "Gửi đến (địa chỉ email):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Bạn đã gửi quá nhiều email, vui lòng thử lại sau."
           }
         ]
       },

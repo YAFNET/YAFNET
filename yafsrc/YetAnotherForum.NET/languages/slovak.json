@@ -10044,6 +10044,10 @@
           {
             "@tag": "TO",
             "#text": "Poslať na (e-mailová adresa):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Odoslali ste príliš veľa e-mailov, skúste to znova neskôr."
           }
         ]
       },

@@ -10044,6 +10044,10 @@
           {
             "@tag": "TO",
             "#text": "Send til (e-postadresse):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Du har sendt for mange e-poster, prøv igjen senere."
           }
         ]
       },

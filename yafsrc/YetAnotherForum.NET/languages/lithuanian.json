@@ -10044,6 +10044,10 @@
           {
             "@tag": "TO",
             "#text": "Siųsti (elektroninio pašto adresas): "
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Išsiuntėte per daug el. laiškų, bandykite dar kartą vėliau."
           }
         ]
       },

@@ -10097,6 +10097,10 @@
 					{
 						"@tag": "TO",
 						"#text": "Send To (Email Address):"
+					},
+					{
+						"@tag": "TOO_MANY",
+						"#text": "You have sent too many emails, please try again later."
 					}
 				]
 			},

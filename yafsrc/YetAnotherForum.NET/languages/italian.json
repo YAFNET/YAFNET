@@ -10036,6 +10036,10 @@
           {
             "@tag": "TO",
             "#text": "Invia a (indirizzo e-mail):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Hai inviato troppe email, riprova più tardi."
           }
         ]
       },

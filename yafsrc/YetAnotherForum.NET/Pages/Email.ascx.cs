@@ -34,6 +34,16 @@ using YAF.Types.Models;
 public partial class Email : ForumPage
 {
     /// <summary>
+    /// How many emails a user can send in the time window.
+    /// </summary>
+    private const int MaxEmailsPerWindow = 5;
+
+    /// <summary>
+    /// The time window of the email limit.
+    /// </summary>
+    private static readonly TimeSpan EmailWindow = TimeSpan.FromHours(1);
+
+    /// <summary>
     ///   Initializes a new instance of the <see cref = "Email" /> class.
     /// </summary>
     public Email()
@@ -54,7 +64,11 @@ public partial class Email : ForumPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (this.User == null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
+        // get user data...
+        var user = this.GetRepository<User>().GetById(this.UserId);
+
+        // checked for the post back too, the user id is sent by the client
+        if (!this.CanSendEmailTo(user))
         {
             this.Get<LinkBuilder>().AccessDenied();
         }
@@ -68,28 +82,12 @@ public partial class Email : ForumPage
             nameof(JavaScriptBlocks.FormValidatorJs),
             JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
 
-        // get user data...
-        var user = this.GetRepository<User>().GetById(this.UserId);
+        this.PageBoardContext.PageLinks.AddRoot();
+        this.PageBoardContext.PageLinks.AddUser(this.UserId, user.DisplayOrUserName());
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-        if (user == null)
-        {
-            // No such user exists
-            this.Get<LinkBuilder>().AccessDenied();
-        }
-        else
-        {
-            if (!user.UserFlags.IsApproved)
-            {
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
-            this.PageBoardContext.PageLinks.AddRoot();
-            this.PageBoardContext.PageLinks.AddUser(this.UserId, user.DisplayOrUserName());
-            this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-            this.LocalizedLabel6.Param0 = user.DisplayOrUserName();
-            this.IconHeader.Param0 = user.DisplayOrUserName();
-        }
+        this.LocalizedLabel6.Param0 = user.DisplayOrUserName();
+        this.IconHeader.Param0 = user.DisplayOrUserName();
     }
 
     /// <summary>
@@ -106,6 +104,28 @@ public partial class Email : ForumPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Send_Click(object sender, EventArgs e)
     {
+        if (this.Subject.Text.IsNotSet())
+        {
+            this.PageBoardContext.Notify(this.GetText("EMAILTOPIC", "NEED_SUBJECT"), MessageTypes.warning);
+            return;
+        }
+
+        if (this.Body.Text.IsNotSet())
+        {
+            this.PageBoardContext.Notify(this.GetText("EMAILTOPIC", "NEED_MESSAGE"), MessageTypes.warning);
+            return;
+        }
+
+        // the forum must not be used to send many emails (spam)
+        if (!SendLimitHelper.TryCount(
+                $"Email_{this.PageBoardContext.PageUserID}",
+                MaxEmailsPerWindow,
+                EmailWindow))
+        {
+            this.PageBoardContext.Notify(this.GetText("EMAILTOPIC", "TOO_MANY"), MessageTypes.warning);
+            return;
+        }
+
         try
         {
             // get "to" user...
@@ -133,5 +153,40 @@ public partial class Email : ForumPage
                 this.PageBoardContext.IsAdmin ? x.Message : this.GetText("ERROR"),
                 MessageTypes.danger);
         }
+    }
+
+    /// <summary>
+    /// Checks if the current user can send an email to the user: e-mails must be allowed, the user must be an
+    /// approved member of the board, who doesn't block e-mails (except from friends and admins) or ignores the
+    /// current user.
+    /// </summary>
+    /// <param name="user">The user who gets the email.</param>
+    /// <returns>Returns if the email can be sent.</returns>
+    private bool CanSendEmailTo(User user)
+    {
+        if (this.User == null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
+        {
+            return false;
+        }
+
+        if (user is null || user.ID == this.PageBoardContext.PageUserID || user.BoardID != this.PageBoardContext.PageBoardID
+            || user.UserFlags.IsGuest || !user.UserFlags.IsApproved || user.UserFlags.IsDeleted)
+        {
+            return false;
+        }
+
+        if (this.PageBoardContext.IsAdmin)
+        {
+            return true;
+        }
+
+        if (this.GetRepository<IgnoreUser>().Exists(
+                i => i.UserID == user.ID && i.IgnoredUserID == this.PageBoardContext.PageUserID))
+        {
+            return false;
+        }
+
+        return !user.Block.BlockEmails || this.GetRepository<Buddy>().Exists(
+                   b => b.FromUserID == user.ID && b.ToUserID == this.PageBoardContext.PageUserID && b.Approved);
     }
 }

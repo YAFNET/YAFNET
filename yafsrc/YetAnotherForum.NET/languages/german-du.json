@@ -10036,6 +10036,10 @@
           {
             "@tag": "TO",
             "#text": "Senden an (E-Mail-Adresse):"
+          },
+          {
+            "@tag": "TOO_MANY",
+            "#text": "Du hast zu viele E-Mails gesendet. Bitte versuche es später erneut."
           }
         ]
       },
