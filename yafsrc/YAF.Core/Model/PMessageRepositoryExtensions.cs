@@ -107,7 +107,7 @@ public static class PMessageRepositoryExtensions
         var countOutBoxExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
 
         countOutBoxExpression.Join<PMessage>((a, b) => a.PMessageID == b.ID).Where<UserPMessage, PMessage>(
-            (a, b) => (a.Flags & 2) == 2 && (a.Flags & 8) != 8 && b.FromUserID == userId);
+            (a, b) => (a.Flags & 2) == 2 && b.FromUserID == userId);
 
         var numberOut = repository.DbAccess.Execute(db => db.Connection.Count(countOutBoxExpression)).ToType<int>();
 
@@ -268,7 +268,7 @@ public static class PMessageRepositoryExtensions
                             break;
                         case PmView.Outbox:
                             expression.Where<PMessage, UserPMessage>(
-                                (a, b) => a.FromUserID == userId && (b.Flags & 2) == 2 && (b.Flags & 8) != 8);
+                                (a, b) => a.FromUserID == userId && (b.Flags & 2) == 2);
                             break;
                     }
 

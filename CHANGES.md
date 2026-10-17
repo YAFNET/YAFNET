@@ -291,6 +291,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] the [userlink] example of the BBCode help showed the address of YAF 1.x
 * [FIXED] the gender list of the profile showed missing texts (the genders without a text are removed, a profile with one of them shows "other")
 * [FIXED] missing help texts of the host settings (SPAM service, SSL) and of the user info of the admin edit user page
+* [FIXED] Private messages: a message the recipient deleted disappeared from the outbox of the sender and a message the sender deleted from the outbox disappeared from the inbox of the recipient, the sender could not delete a sent message on the message page, and a message to all users was removed for all recipients when one recipient and the sender deleted it
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

@@ -59,13 +59,17 @@ public partial class PrivateMessage : ForumPageRegistered
 
                 var message = this.GetRepository<UserPMessage>().GetById(e.CommandArgument.ToType<int>());
 
-                if (message == null || message.UserID != this.PageBoardContext.PageUserID)
+                var deleteFromOutbox = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v") == "out";
+
+                // the sender deletes it from the outbox, the recipient from the inbox
+                if (message == null || (deleteFromOutbox
+                                            ? this.GetRepository<PMessage>().GetById(message.PMessageID)?.FromUserID
+                                              != this.PageBoardContext.PageUserID
+                                            : message.UserID != this.PageBoardContext.PageUserID))
                 {
                     this.Get<LinkBuilder>().AccessDenied();
                     return;
                 }
-
-                var deleteFromOutbox = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v") == "out";
 
                 this.GetRepository<UserPMessage>().Delete(message, deleteFromOutbox);
 

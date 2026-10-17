@@ -141,7 +141,7 @@ public class PrivateMessageTests
     }
 
     [Test]
-    [Description("The inbox lists the received messages, the outbox the sent ones, deleted ones are left out")]
+    [Description("The inbox lists the received messages, the outbox the sent ones, a message the recipient deleted stays in the outbox")]
     public void Inbox_Outbox_Test()
     {
         this.board.LoginAs(this.alice);
@@ -154,11 +154,73 @@ public class PrivateMessageTests
             u => u.ID == second.ID);
 
         this.PMessages.List(this.bob, PmView.Inbox, "Created", true).Select(m => m.Subject).Should().Equal("First");
-        this.PMessages.List(this.alice, PmView.Outbox, "Created", true).Select(m => m.Subject).Should().Equal("First");
+        this.PMessages.List(this.alice, PmView.Outbox, "Created", true).Select(m => m.Subject).Should().Equal("First", "Second");
         this.PMessages.List(this.alice, PmView.Inbox, "Created", true).Should().BeEmpty();
 
         var count = this.PMessages.UserMessageCount(this.bob);
         count.InboxCount.Should().Be(1);
+
+        this.UserMessages.List(this.bob, PmView.Inbox).Select(m => m.ID).Should().NotContain(second.ID);
+        this.UserMessages.List(this.alice, PmView.Outbox).Should().HaveCount(2);
+        this.PMessages.UserMessageCount(this.alice).OutBoxCount.Should().Be(2);
+    }
+
+    [Test]
+    [Description("The recipient deletes the message from the inbox: the sender still has it in the outbox")]
+    public void Recipient_Deletes_Test()
+    {
+        this.board.LoginAs(this.alice);
+        this.PMessages.SendMessage(this.alice, this.bob, "Hello", "1", 6, null);
+        var message = this.UserMessages.GetSingle(u => u.UserID == this.bob);
+
+        this.UserMessages.Delete(message.ID, false);
+
+        this.PMessages.List(this.bob, PmView.Inbox, "Created", true).Should().BeEmpty();
+        this.PMessages.List(this.alice, PmView.Outbox, "Created", true).Select(m => m.Subject).Should().Equal("Hello");
+    }
+
+    [Test]
+    [Description("The sender deletes the message from the outbox: the recipient still has it in the inbox")]
+    public void Sender_Deletes_Test()
+    {
+        this.board.LoginAs(this.alice);
+        this.PMessages.SendMessage(this.alice, this.bob, "Hello", "1", 6, null);
+        var message = this.UserMessages.GetSingle(u => u.UserID == this.bob);
+
+        this.UserMessages.Delete(message.ID, true);
+
+        this.PMessages.List(this.alice, PmView.Outbox, "Created", true).Should().BeEmpty();
+        this.PMessages.List(this.bob, PmView.Inbox, "Created", true).Select(m => m.Subject).Should().Equal("Hello");
+    }
+
+    [Test]
+    [Description("The message is removed when the sender and the recipient deleted it")]
+    public void Sender_And_Recipient_Delete_Test()
+    {
+        this.board.LoginAs(this.alice);
+        this.PMessages.SendMessage(this.alice, this.bob, "Hello", "1", 6, null);
+        var message = this.UserMessages.GetSingle(u => u.UserID == this.bob);
+
+        this.UserMessages.Delete(message.ID, true);
+        this.UserMessages.Delete(message.ID, false).Should().Be(1);
+
+        this.UserMessages.Count(u => u.ID == message.ID).Should().Be(0);
+        this.PMessages.Count(p => p.ID == message.PMessageID).Should().Be(0);
+    }
+
+    [Test]
+    [Description("A message to all users stays with the other recipients when one recipient and the sender deleted it")]
+    public void Message_To_All_Delete_Test()
+    {
+        this.board.LoginAs(this.alice);
+        this.PMessages.SendMessage(this.alice, 0, "To all", "Hello", 6, null);
+        var bobs = this.UserMessages.GetSingle(u => u.UserID == this.bob);
+
+        this.UserMessages.Delete(bobs.ID, true);
+        this.UserMessages.Delete(bobs.ID, false);
+
+        this.PMessages.List(this.carol, PmView.Inbox, "Created", true).Select(m => m.Subject).Should().Equal("To all");
+        this.PMessages.Count(p => p.ID == bobs.PMessageID).Should().Be(1);
     }
 
     private IRepository<PMessage> PMessages => this.board.Current.GetRepository<PMessage>();

@@ -101,7 +101,7 @@ public static class UserPMessageRepositoryExtensions
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
 
                 expression.Join<PMessage>((a, b) => a.PMessageID == b.ID)
-                    .Where<UserPMessage, PMessage>((a, b) => b.FromUserID == userId && (a.Flags & 2) == 2 && (a.Flags & 8) != 8);
+                    .Where<UserPMessage, PMessage>((a, b) => b.FromUserID == userId && (a.Flags & 2) == 2);
 
                 return repository.DbAccess.Execute(db => db.Connection.Select(expression));
             }
@@ -110,7 +110,7 @@ public static class UserPMessageRepositoryExtensions
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserPMessage>();
 
                 expression.Join<PMessage>((a, b) => a.PMessageID == b.ID)
-                    .Where<UserPMessage, PMessage>((a, b) => a.UserID == userId && (b.Flags & 8) != 8);
+                    .Where<UserPMessage, PMessage>((a, b) => a.UserID == userId && (a.Flags & 8) != 8);
 
                 return repository.DbAccess.Execute(db => db.Connection.Select(expression));
             }
@@ -164,25 +164,30 @@ public static class UserPMessageRepositoryExtensions
 
         var flags = message.PMessageFlags;
 
-        flags.IsDeleted = true;
-
-        if (deleteFromOutbox && message.PMessageFlags.IsInOutbox)
+        if (deleteFromOutbox)
         {
-            flags.IsInOutbox = false;
-
             // -- remove IsInOutbox bit which will remove it from the senders outbox
-            repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == message.ID);
+            flags.IsInOutbox = false;
+        }
+        else
+        {
+            // -- set is deleted, which removes it from the inbox of the recipient
+            flags.IsDeleted = true;
         }
 
-        // -- set is deleted...
         repository.UpdateOnly(() => new UserPMessage { Flags = flags.BitValue }, x => x.ID == message.ID);
 
-        var deleteCount = 0;
-
-        // -- see if there are no longer references to this PM.
-        if (repository.Exists(p => p.ID == message.ID && (p.Flags & 2) != 2 && (p.Flags & 8) == 8))
+        // -- the sender and the recipient deleted it
+        if (flags.IsInOutbox || !flags.IsDeleted)
         {
-            deleteCount = repository.Delete(p => p.PMessageID == message.PMessageID);
+            return 0;
+        }
+
+        var deleteCount = repository.DeleteById(message.ID) ? 1 : 0;
+
+        // -- see if there are no longer references to this PM (a message to all users has a recipient for each user)
+        if (!repository.Exists(p => p.PMessageID == message.PMessageID))
+        {
             BoardContext.Current.GetRepository<PMessage>().DeleteById(message.PMessageID);
         }
 
