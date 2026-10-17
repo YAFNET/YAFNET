@@ -195,6 +195,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The legacy settings (e.g. "enabletopicdescription") were not removed on case sensitive databases when they were saved in mixed case
 * [FIXED] The search index update stored its last run in server time but compared it with UTC post times, so posts were missing from the search on servers east of UTC
 * [FIXED] One custom BBCode with an invalid search expression broke the display of all posts, and a custom BBCode whose module class is missing broke the posts using it; such BBCodes are now skipped and logged, the BBCode editor and import validate the search expression
+* [FIXED] Admin -> Users -> Import: csv files sent as text/csv and xml files sent as application/xml were rejected as wrong format
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

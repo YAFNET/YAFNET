@@ -50,13 +50,17 @@ public partial class UsersImport : BaseUserControl
             // import selected file (if it's the proper format)...
             switch (this.importFile.PostedFile.ContentType)
             {
+                // browsers send xml files as text/xml or application/xml
                 case "text/xml":
+                case "application/xml":
                     {
                         importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, true);
                     }
 
                     break;
 
+                // and csv files with one of these (most browsers send text/csv)
+                case "text/csv":
                 case "application/vnd.csv":
                 case "application/vnd.ms-excel":
                 case "application/csv":
