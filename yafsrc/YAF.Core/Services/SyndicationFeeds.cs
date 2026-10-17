@@ -263,13 +263,12 @@ public class SyndicationFeeds : IHaveServiceLocator
     {
         var syndicationItems = new List<SyndicationItem>();
 
-        var showDeleted = BoardContext.Current.BoardSettings.ShowDeletedMessagesToAll;
-
+        // deleted posts are not published (the topic only shows a placeholder for them, the feed showed the text)
         var posts = this.GetRepository<Message>().PostListPaged(
             topicId,
             BoardContext.Current.PageUserID,
             false,
-            showDeleted,
+            false,
             DateTimeHelper.SqlDbMinTime(),
             DateTime.UtcNow,
             0,

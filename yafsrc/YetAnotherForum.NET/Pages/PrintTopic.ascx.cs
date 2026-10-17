@@ -99,13 +99,12 @@ public partial class PrintTopic : ForumPage
             return;
         }
 
-        var showDeleted = this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;
-
+        // deleted posts are not printed (the topic only shows a placeholder for them, the print view showed the text)
         var posts = this.GetRepository<Message>().PostListPaged(
             this.PageBoardContext.PageTopicID,
             this.PageBoardContext.PageUserID,
             !this.PageBoardContext.IsCrawler,
-            showDeleted,
+            false,
             DateTimeHelper.SqlDbMinTime(),
             DateTime.UtcNow,
             0,
