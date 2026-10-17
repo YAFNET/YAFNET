@@ -157,6 +157,12 @@ public partial class Attachments : ProfilePage
                 item => deleteIds.Add(
                     item.FindControlAs<HiddenField>("FileID").Value.ToType<int>()));
 
+            // only the own attachments (the ids are sent by the client)
+            var userId = this.PageBoardContext.PageUserID;
+
+            deleteIds = this.GetRepository<Attachment>().Get(a => a.UserID == userId && deleteIds.Contains(a.ID))
+                .Select(a => a.ID).ToList();
+
             this.GetRepository<Attachment>().DeleteByIds(deleteIds);
 
             this.PageBoardContext.Notify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
