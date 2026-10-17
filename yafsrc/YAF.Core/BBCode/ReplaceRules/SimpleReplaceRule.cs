@@ -72,6 +72,12 @@ public class SimpleReplaceRule : BaseReplaceRule
     /// </param>
     public override void Replace(ref string text, IReplaceBlocks replacement)
     {
+        // an empty search text is found at every position, the loop never finished
+        if (this.find.IsNotSet() || text.IsNotSet())
+        {
+            return;
+        }
+
         int index;
 
         do
