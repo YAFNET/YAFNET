@@ -1,8 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
-# YetAnotherForum.NET v3.2.16
+# YetAnotherForum.NET v3.2.17
 * [NEW] Extended unit test suite (YAF.Tests, renamed from YAF.Tests.CoreTests) including repository tests against an in-memory SQLite database
+* [NEW] UI tests (YAF.Tests.UITests, Playwright): the forum is installed with the install wizard into a LocalDB database and run with IIS Express (no Docker); login, registration, topics, posts, private messages, profile, every page for guests, members and admins, and access checks
 * [CHANGES] The client address is taken from X-Forwarded-For / X-Real-IP only for requests of trusted proxies. Proxies in loopback and private networks are trusted by default; a proxy or CDN with public addresses has to be added to the new web.config setting YAF.TrustedProxies (addresses or CIDR networks, separated by comma), otherwise its address is used as the client address
 * [FIXED] IP bans could be bypassed: any client could send an X-Forwarded-For header with another address, and the header of several proxies was always read at its first address
 * [FIXED] IP bans: a ban matched every address that contained it (e.g. the ban 10.0.0.1 also banned 110.0.0.15 and 10.0.0.12), an invalid mask caused an error; masks are compared exactly, a * matches one part of an ipv4 address
@@ -244,6 +245,13 @@ YetAnotherForum.NET Changelog
 * [FIXED] Suspension: the mail that the suspension ended was only sent when the user visited the forum before the hourly clean up task lifted the suspension; the task sends it too now, a mail error does not fail the page
 * [FIXED] Security: The own e-mail address was changed at once without the password and without confirming the new address, with a taken over session the account could be taken over (change the e-mail, then reset the password); the password is needed now and the address is changed after the confirmation link sent to the new address was opened (an admin still changes it at once)
 * [FIXED] Security: Changing the e-mail address (own or by an admin) did not end the other logins of the user and kept the open password reset links valid (the security stamp was not renewed)
+* [FIXED] The gender "Agender" of the profile had no text (it was shown as [GENDER.AGENDER])
+* [FIXED] Register: after the account was created the password check script of the page failed with a JavaScript error (the fields are not shown anymore)
+* [FIXED] The context menu script failed with a JavaScript error on pages with list rows without a context menu (e.g. Admin -> Languages and Task Manager)
+* [FIXED] Build: the web projects (SQL Server, SQLite, PostgreSQL) still referenced Microsoft.Bcl.AsyncInterfaces 9.0.9, depending on the build order the bin folder got this version and the forum did not start (the binding redirect and YAF.Core use 10.0.13)
+
+# YetAnotherForum.NET v3.2.16
+* bug fixes
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

@@ -473,12 +473,10 @@ public enum ForumPages
     /// </summary>
     Admin_TaskManager,
 
-#if DEBUG
     /// <summary>
     /// The admin_ test data.
     /// </summary>
     Admin_TestData,
-#endif
 
     /// <summary>
     /// The Admin restart app page.

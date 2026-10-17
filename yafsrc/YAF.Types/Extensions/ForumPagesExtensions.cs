@@ -34,7 +34,7 @@ public static class ForumPagesExtensions
     /// The pages only the host admin can use (they can't be granted to the admins of a board):
     /// the boards, the host settings, the page access, and the pages that work on the whole database or application.
     /// </summary>
-    public static readonly string[] HostAdminPages =
+    public readonly static string[] HostAdminPages =
     [
         nameof(ForumPages.Admin_Boards), nameof(ForumPages.Admin_EditBoard), nameof(ForumPages.Admin_HostSettings),
         nameof(ForumPages.Admin_PageAccessList), nameof(ForumPages.Admin_PageAccessEdit), nameof(ForumPages.Admin_RunSql),
