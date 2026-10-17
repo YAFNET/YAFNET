@@ -208,6 +208,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Times shown to guests had no time zone (the text TIMEZONES.NAME_UTC was missing in all languages, every page logged a missing translation); guests now see the offset of the time zone, e.g. " (UTC+02:00)"
 * [FIXED] Missing texts were added: members list letter filter, the login buttons of the external providers, the album image button of the editor, the tooltips of the delete post page and the message for moving topics to a category
 * [FIXED] Moving topics (move dialog and Moderate -> Forum) with "Leave Pointer" and a number of days below -2 failed with an error instead of the "invalid number of days" message
+* [FIXED] A language file of a user or of the board that does not exist (anymore) broke every page (Invalid language file), the board language or english is used instead; a culture of a user shorter than two characters failed the page
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

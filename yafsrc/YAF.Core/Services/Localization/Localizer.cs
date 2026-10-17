@@ -245,7 +245,8 @@ public class Localizer
 
         var cultureUser = BoardContext.Current.PageUser.Culture;
 
-        if (!cultureUser.IsSet())
+        // a culture without language code (saved by older versions without check) is ignored (Substring failed)
+        if (!cultureUser.IsSet() || cultureUser.Trim().Length < 2)
         {
             return;
         }

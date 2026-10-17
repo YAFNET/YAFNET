@@ -437,6 +437,14 @@ public class Localization : ILocalization
 
         var isInstallPage = this.TransPage.IsSet() && this.TransPage.Equals("INSTALL");
 
+        // a language file that does not exist (anymore, e.g. a removed language) must not break every page
+        if (!LanguageFileExists(fileName))
+        {
+            fileName = !isInstallPage && LanguageFileExists(BoardContext.Current.BoardSettings.Language)
+                           ? BoardContext.Current.BoardSettings.Language
+                           : "english.json";
+        }
+
 #if !DEBUG
             if (this.localizer == null && BoardContext.Current.Get<IDataCache>().Get($"Localizer.{fileName}") != null) {
                 this.localizer = BoardContext.Current.Get<IDataCache>().Get($"Localizer.{fileName}") as Localizer;
@@ -547,6 +555,23 @@ public class Localization : ILocalization
         fileName ??= "english.json";
 
         return this.LoadTranslation(fileName);
+    }
+
+    /// <summary>
+    /// Checks if the language file exists in the languages folder.
+    /// </summary>
+    /// <param name="fileName">The file name.</param>
+    /// <returns>Returns if the file exists</returns>
+    private static bool LanguageFileExists(string fileName)
+    {
+        if (fileName.IsNotSet() || fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+        {
+            return false;
+        }
+
+        var path = HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}languages/{fileName}");
+
+        return path.IsSet() && File.Exists(path);
     }
 
     /// <summary>
