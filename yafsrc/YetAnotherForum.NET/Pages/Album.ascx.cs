@@ -75,6 +75,12 @@ public partial class Album : ForumPage
 
         var album = this.GetRepository<UserAlbum>().GetById(this.AlbumID);
 
+        // an album that does not exist or is no album of the user of the address
+        if (album == null || album.UserID != this.CurrentUserID)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         // Generate the page links.
         this.PageBoardContext.PageLinks.AddRoot();
         this.PageBoardContext.PageLinks.AddUser(this.CurrentUserID, displayName);

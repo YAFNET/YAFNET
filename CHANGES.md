@@ -287,6 +287,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] pages with an unknown forum or topic in the address (e.g. Moderate/Forums, PostTopic, MoveMessage) show an error page
 * [FIXED] the reply page of an unknown topic shows an error page
 * [FIXED] the delete page of an unknown message shows an error page
+* [FIXED] the album page of an unknown album (or of an album of another user) shows an error page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
