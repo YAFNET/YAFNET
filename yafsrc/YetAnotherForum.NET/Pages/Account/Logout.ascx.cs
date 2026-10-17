@@ -50,6 +50,13 @@ public partial class Logout : AccountPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        // only with the token of the logout link (otherwise any website could log the user out)
+        if (!LogoutTokenHelper.IsValid(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("token")))
+        {
+            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+            return;
+        }
+
         this.Get<IAspNetUsersHelper>().SignOut();
 
         // Handle legacy ASP.NET Membership logout

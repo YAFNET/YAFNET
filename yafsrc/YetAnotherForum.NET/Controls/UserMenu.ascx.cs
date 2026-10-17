@@ -51,7 +51,7 @@ public partial class UserMenu : BaseUserControl
                     this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
                     this.GetText("TOOLBAR", "LOGOUT"),
                     this.GetText("COMMON", "CANCEL"),
-                    this.Get<LinkBuilder>().GetLink(ForumPages.Account_Logout)));
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Account_Logout, new { token = LogoutTokenHelper.GetToken() })));
         }
 
         base.OnPreRender(e);
