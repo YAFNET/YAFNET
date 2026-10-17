@@ -226,6 +226,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin -> Users -> Import: a user refused by the login system (e.g. a name with characters that are not allowed, an invalid e-mail) was created as forum user without login and got the registration mail with a password that did not work; such users are skipped and logged now
 * [FIXED] MySQL: a custom profile field with a name or default value longer than 255 characters was not saved (Admin -> Profile Definitions), the inputs are limited to the length of their columns
 * [FIXED] Admin -> Edit Group and Edit Rank: a new or renamed group or rank with the name of an existing one failed with an error (the name is unique in the board); it is refused with a warning now
+* [FIXED] Board index: "Watch all forums" watched nothing (the forums were filtered by an empty category) and "Mark all forums read" only marked the forums loaded so far (the first 20, the others are loaded with "show more"); both use all forums the user can read (of the shown category) now, guests are refused
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

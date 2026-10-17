@@ -91,23 +91,17 @@ public partial class CategoryList : BaseUserControl
     /// </param>
     protected void WatchAllClick(object sender, EventArgs e)
     {
-        var markAll = (ThemeButton)sender;
-
-        var categoryId = markAll.CommandArgument.ToType<int?>();
-
-        var forums = this.Data.Item2.Where(x => x.CategoryID == categoryId);
+        if (this.PageBoardContext.IsGuest)
+        {
+            return;
+        }
 
         var watchForums = this.GetRepository<WatchForum>().List(this.PageBoardContext.PageUserID);
 
-        forums.ForEach(
-            forum =>
-                {
-                    if (!watchForums.Exists(
-                            w => w.ForumID == forum.ForumID && w.UserID == this.PageBoardContext.PageUserID))
-                    {
-                        this.GetRepository<WatchForum>().Add(this.PageBoardContext.PageUserID, forum.ForumID);
-                    }
-                });
+        // all forums the user can read (of the shown category), not only the forums loaded so far (the forums were
+        // filtered by an empty category on the board index, nothing was watched)
+        this.GetReadableForumIds().Where(forumId => !watchForums.Exists(w => w.ForumID == forumId)).ForEach(
+            forumId => this.GetRepository<WatchForum>().Add(this.PageBoardContext.PageUserID, forumId));
 
         this.PageBoardContext.Notify(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
@@ -125,13 +119,31 @@ public partial class CategoryList : BaseUserControl
     /// </param>
     protected void MarkAllClick(object sender, EventArgs e)
     {
-        var forums = this.Data.Item2;
-
-        this.Get<IReadTrackCurrentUser>().SetForumRead(forums.Select(f => f.ForumID));
+        // all forums the user can read (of the shown category), not only the forums loaded so far
+        this.Get<IReadTrackCurrentUser>().SetForumRead(this.GetReadableForumIds());
 
         this.PageBoardContext.Notify(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
 
         this.BindData();
+    }
+
+    /// <summary>
+    /// Gets the forums of the board (or the shown category) the user can read.
+    /// </summary>
+    /// <returns>Returns the forum ids.</returns>
+    private List<int> GetReadableForumIds()
+    {
+        var userId = this.PageBoardContext.PageUserID;
+        var categoryId = this.PageBoardContext.PageCategoryID;
+
+        var readable = this.GetRepository<VAccess>().Get(v => v.UserID == userId && v.ReadAccess > 0)
+            .Select(v => v.ForumID).ToList();
+
+        return [
+            .. this.GetRepository<Types.Models.Forum>().ListAll(this.PageBoardContext.PageBoardID)
+                .Where(f => categoryId == 0 || f.Item1.ID == categoryId).Select(f => f.Item2.ID)
+                .Where(readable.Contains).Distinct()
+        ];
     }
 
     /// <summary>
