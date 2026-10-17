@@ -10209,6 +10209,10 @@
             "#text": "Inne"
           },
           {
+            "@tag": "AGENDER",
+            "#text": "Agender"
+          },
+          {
             "@tag": "WOMAN",
             "#text": "Kobieta"
           }

@@ -10217,6 +10217,10 @@
             "#text": "jiný"
           },
           {
+            "@tag": "AGENDER",
+            "#text": "Agender"
+          },
+          {
             "@tag": "WOMAN",
             "#text": "Žena"
           }

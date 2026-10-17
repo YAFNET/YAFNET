@@ -10217,6 +10217,10 @@
             "#text": "אַחֵר"
           },
           {
+            "@tag": "AGENDER",
+            "#text": "Agender"
+          },
+          {
             "@tag": "WOMAN",
             "#text": "אִשָׁה"
           }

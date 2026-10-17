@@ -10213,6 +10213,10 @@
             "#text": "Övriga"
           },
           {
+            "@tag": "AGENDER",
+            "#text": "Agender"
+          },
+          {
             "@tag": "WOMAN",
             "#text": "Kvinna"
           }
