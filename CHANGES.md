@@ -122,6 +122,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security (hardening): BBCode [url] links allowed control characters in the url (browsers remove them, e.g. in front of "javascript:"), they end the link now
 * [FIXED] Code blocks: the language and the highlighted lines of [code=...] were written into html attributes with all characters (e.g. quotes and brackets of a manipulated post broke the markup), and a highlighted block of a mapped language (e.g. [code=cs;2-3]) was not highlighted (the language was mapped before the lines were taken off)
 * [FIXED] A plain url (without [url]) in a post or an e-mail removed the text before it on the same line (e.g. "Please see https://..." became only the link), the youtube check consumed the line
+* [FIXED] [size=...] had no upper limit (e.g. [size=99999] covered the whole page), larger values are limited to 400% now; [size=9] was 9 pixels (smaller than size 1) instead of the largest size of the list (180%)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
