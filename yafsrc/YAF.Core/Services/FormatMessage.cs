@@ -217,7 +217,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                 useNoFollow);
         }
 
-        message = this.Get<IBadWordReplace>().Replace(message);
+        // the message is html at this point (the good words are texts)
+        message = this.Get<IBadWordReplace>().ReplaceHtml(message);
 
         // process...
         ruleEngine.Process(ref message);

@@ -117,6 +117,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Admin edit user suspend showed the suspend reason as raw HTML and the names of the users in the notification as html
 * [FIXED] Admin edit user suspend: the end of the suspension was computed from the local time of the suspended user but saved and shown as UTC (the user was suspended hours too long or too short), a suspension in minutes was added as hours and a count that is not a number caused an error
 * [FIXED] Print view and feeds: a post with a spoiler was replaced by the content of the first spoiler (the rest of the post was lost), the posts of the feeds were formatted twice (the html of the first pass was shown as text)
+* [FIXED] Security: The good words of the bad word list were inserted as html into posts, topic names and descriptions (the text is html at that point), a replacement with html changed every post; the good words are texts now (IBadWordReplace.ReplaceHtml)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

@@ -110,6 +110,28 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
     /// </exception>
     public string Replace(string searchText)
     {
+        return this.Replace(searchText, item => item.GoodWord);
+    }
+
+    /// <summary>
+    /// Replaces the bad words in html (e.g. an encoded text or a formatted post): the good words are texts,
+    /// they are html encoded.
+    /// </summary>
+    /// <param name="html">The html.</param>
+    /// <returns>The html with the replaced words.</returns>
+    public string ReplaceHtml(string html)
+    {
+        return this.Replace(html, item => HttpUtility.HtmlEncode(item.GoodWord));
+    }
+
+    /// <summary>
+    /// Replaces the bad words with the replacement of the item.
+    /// </summary>
+    /// <param name="searchText">The string to search through.</param>
+    /// <param name="replacement">The replacement of an item.</param>
+    /// <returns>The text with the replaced words.</returns>
+    private string Replace(string searchText, Func<BadWordReplaceItem, string> replacement)
+    {
         if (searchText.IsNotSet())
         {
             return searchText;
@@ -124,7 +146,7 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
                     {
                         if (item.BadWordRegEx != null && item.Active)
                         {
-                            strReturn = item.BadWordRegEx.Replace(strReturn, item.GoodWord);
+                            strReturn = item.BadWordRegEx.Replace(strReturn, replacement(item));
                         }
                     }
 

@@ -46,4 +46,12 @@ public interface IBadWordReplace
     /// <c>Exception</c>.
     /// </exception>
     string Replace(string searchText);
+
+    /// <summary>
+    /// Replaces the bad words in html (e.g. an encoded text or a formatted post): the good words are texts,
+    /// they are html encoded.
+    /// </summary>
+    /// <param name="html">The html.</param>
+    /// <returns>The html with the replaced words.</returns>
+    string ReplaceHtml(string html);
 }

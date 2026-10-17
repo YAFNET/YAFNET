@@ -62,7 +62,7 @@ public partial class ActiveDiscussion : BaseUserControl
             return;
         }
 
-        var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(item.Topic));
+        var topicSubject = this.Get<IBadWordReplace>().ReplaceHtml(this.HtmlEncode(item.Topic));
 
         // get the controls
         var postIcon = e.Item.FindControlAs<Label>("PostIcon");

@@ -282,7 +282,7 @@
                                 </span><a
                                     title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>'
                                     href='<%# this.Get<LinkBuilder>().GetTopicLink(((Tuple<Message, Topic, User>)Container.DataItem).Item2.ID, this.Eval("Item2.TopicName").ToString()) %>'>
-                                    <%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.Eval("Item2.TopicName").ToString())) %>
+                                    <%# this.Get<IBadWordReplace>().ReplaceHtml(this.HtmlEncode(this.Eval("Item2.TopicName").ToString())) %>
                                 </a>
                             </div>
                             <div class="card-body">

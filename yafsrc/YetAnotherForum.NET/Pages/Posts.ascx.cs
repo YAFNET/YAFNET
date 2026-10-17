@@ -305,13 +305,13 @@ public partial class Posts : ForumPage
                                                       f = this.PageBoardContext.PageForumID
                                                   });
 
-        var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.TopicName));
+        var topicSubject = this.Get<IBadWordReplace>().ReplaceHtml(this.HtmlEncode(this.topic.TopicName));
 
         this.TopicTitle.Text = this.topic.Description.IsSet()
-                                   ? $"{topicSubject} - <em>{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description))}</em>"
+                                   ? $"{topicSubject} - <em>{this.Get<IBadWordReplace>().ReplaceHtml(this.HtmlEncode(this.topic.Description))}</em>"
                                    : this.Get<IBadWordReplace>().Replace(topicSubject);
 
-        this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description));
+        this.TopicLink.ToolTip = this.Get<IBadWordReplace>().ReplaceHtml(this.HtmlEncode(this.topic.Description));
         this.TopicLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
             ForumPages.Posts,
             new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });

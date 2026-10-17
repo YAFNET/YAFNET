@@ -70,7 +70,7 @@ public partial class ForumLastPost : BaseUserControl
         if (this.DataSource.LastPosted.HasValue)
         {
             this.topicLink.Text = this.Get<IBadWordReplace>()
-                .Replace(this.HtmlEncode(this.DataSource.LastTopicName)).Truncate(50);
+                .ReplaceHtml(this.HtmlEncode(this.DataSource.LastTopicName)).Truncate(50);
 
             // Last Post Date
             var lastPostedDateTime = this.DataSource.LastPosted.Value;

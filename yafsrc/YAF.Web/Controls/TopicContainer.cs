@@ -435,7 +435,7 @@ public class TopicContainer : BaseControl
     /// </returns>
     protected string FormatTopicName()
     {
-        var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicItem.Subject));
+        var topicSubject = this.Get<IBadWordReplace>().ReplaceHtml(this.HtmlEncode(this.TopicItem.Subject));
 
         var styles = this.PageBoardContext.BoardSettings.UseStyledTopicTitles
                          ? this.Get<IStyleTransform>().Decode(this.TopicItem.Styles)
