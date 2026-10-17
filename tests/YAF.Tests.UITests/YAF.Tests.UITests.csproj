@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProductVersion />
+    <TargetFramework>net481</TargetFramework>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\</OutputPath>
+    <LangVersion>preview</LangVersion>
+    <IsTestProject>true</IsTestProject>
+    <RootNamespace>YAF.Tests.UITests</RootNamespace>
+    <AssemblyName>YAF.Tests.UITests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.63.0" />
+    <PackageReference Include="NUnit" Version="5.0.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.3.1" />
+  </ItemGroup>
+</Project>
