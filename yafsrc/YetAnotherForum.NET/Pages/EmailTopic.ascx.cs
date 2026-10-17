@@ -85,6 +85,12 @@ public partial class EmailTopic : ForumPage
     /// </summary>
     public override void CreatePageLinks()
     {
+        // an unknown topic (the links are created before the page is loaded)
+        if (this.PageBoardContext.PageTopic is null)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         this.PageBoardContext.PageLinks.AddRoot();
 
         this.PageBoardContext.PageLinks.AddCategory(this.PageBoardContext.PageCategory);

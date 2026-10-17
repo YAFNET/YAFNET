@@ -45,6 +45,12 @@ public partial class UnapprovedPosts : ModerateForumPage
     /// </summary>
     public override void CreatePageLinks()
     {
+        // an unknown forum (the links are created before the page is loaded)
+        if (this.PageBoardContext.PageForum is null)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+        }
+
         // forum index
         this.PageBoardContext.PageLinks.AddRoot();
 
