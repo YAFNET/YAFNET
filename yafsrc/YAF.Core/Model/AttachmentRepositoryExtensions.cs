@@ -97,6 +97,23 @@ public static class AttachmentRepositoryExtensions
     }
 
     /// <summary>
+    /// Deletes the attachments with their files (attachments stored in the file system, the rows only left the
+    /// files on the server).
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="where">
+    /// The attachments to delete.
+    /// </param>
+    public static void DeleteWithFiles(
+        this IRepository<Attachment> repository,
+        System.Linq.Expressions.Expression<Func<Attachment, bool>> where)
+    {
+        repository.Get(where).Select(a => a.ID).ToList().ForEach(repository.Delete);
+    }
+
+    /// <summary>
     /// The delete.
     /// </summary>
     /// <param name="repository">

@@ -607,7 +607,7 @@ public static class UserRepositoryExtensions
             () => new PMessage { FromUserID = guestUserId },
             u => u.FromUserID == user.ID);
 
-        BoardContext.Current.GetRepository<Attachment>().Delete(x => x.UserID == user.ID);
+        BoardContext.Current.GetRepository<Attachment>().DeleteWithFiles(x => x.UserID == user.ID);
         BoardContext.Current.GetRepository<CheckEmail>().Delete(x => x.UserID == user.ID);
         BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.UserID == user.ID);
         BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.UserID == user.ID);

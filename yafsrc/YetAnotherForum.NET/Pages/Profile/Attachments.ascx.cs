@@ -163,7 +163,8 @@ public partial class Attachments : ProfilePage
             deleteIds = this.GetRepository<Attachment>().Get(a => a.UserID == userId && deleteIds.Contains(a.ID))
                 .Select(a => a.ID).ToList();
 
-            this.GetRepository<Attachment>().DeleteByIds(deleteIds);
+            // with the files of the attachments
+            this.GetRepository<Attachment>().DeleteWithFiles(a => deleteIds.Contains(a.ID));
 
             this.PageBoardContext.Notify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
         }

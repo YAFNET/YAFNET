@@ -122,7 +122,8 @@ public partial class Attachments : AdminPage
             // delete log entry
             case "delete":
 
-                this.GetRepository<Attachment>().DeleteById(e.CommandArgument.ToType<int>());
+                // with the file of the attachment
+                this.GetRepository<Attachment>().Delete(e.CommandArgument.ToType<int>());
 
                 // re-bind controls
                 this.BindData();

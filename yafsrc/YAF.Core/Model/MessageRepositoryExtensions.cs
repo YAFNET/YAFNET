@@ -1581,7 +1581,7 @@ public static class MessageRepositoryExtensions
         // -- should it be physically deleter or not?
         if (eraseMessage)
         {
-            BoardContext.Current.GetRepository<Attachment>().Delete(x => x.MessageID == message.ID);
+            BoardContext.Current.GetRepository<Attachment>().DeleteWithFiles(x => x.MessageID == message.ID);
             BoardContext.Current.GetRepository<Activity>().Delete(x => x.MessageID == message.ID);
             BoardContext.Current.GetRepository<MessageReportedAudit>().Delete(x => x.MessageID == message.ID);
             BoardContext.Current.GetRepository<MessageReported>().Delete(x => x.ID == message.ID);

@@ -163,6 +163,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The topic search of the move/merge dialog removed the current topic from the cached topic list, so that topic was missing from later searches
 * [FIXED] Report texts with a question mark were cut off at the first question mark in the reported posts list
 * [FIXED] Editing a post of a sticky topic or announcement without priority access reset the topic to a normal topic, editing a post as topic starter removed the topic title styles set by a moderator, and editing a reply (by a user who did not start the topic) removed all tags of the topic; they are only changed when they are shown in the form
+* [FIXED] Deleting attachments (own attachments, admin attachments list and edit user, erased posts and deleted users) only deleted the database entry, the files of attachments stored in the file system stayed on the server
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

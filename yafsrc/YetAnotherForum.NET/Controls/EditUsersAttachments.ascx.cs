@@ -166,7 +166,8 @@ public partial class EditUsersAttachments : BaseUserControl
             item => deleteIds.Add(
                 item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>()));
 
-        this.GetRepository<Attachment>().DeleteByIds(deleteIds);
+        // with the files of the attachments
+        this.GetRepository<Attachment>().DeleteWithFiles(a => deleteIds.Contains(a.ID));
 
         this.BindData();
     }
