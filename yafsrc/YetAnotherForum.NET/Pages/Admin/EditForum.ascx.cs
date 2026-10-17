@@ -453,8 +453,8 @@ public partial class EditForum : AdminPage
                 return;
             }
 
-            if (this.GetRepository<Forum>()
-                .IsParentsChecker(forumId.Value))
+            // the parent can't be one of the sub forums (a forum with sub forums can still have a parent)
+            if (this.GetRepository<Forum>().IsOwnSubForum(forumId.Value, parentId.Value))
             {
                 this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"),

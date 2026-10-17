@@ -17,6 +17,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Moving a topic: the search index kept the old forum, an invalid number of days for the link of the moved topic caused an error
 * [FIXED] Editing a post removed the tags of the topic from the search index
 * [FIXED] Tags: a tag entered twice (also with spaces around it) was added twice and the post could not be saved; a tag longer than its column (MySQL) failed
+* [FIXED] Admin edit forum: a forum with sub forums could not get a parent; the parent can't be the forum itself or one of its sub forums
 * [FIXED] Message history: the comparison of two versions failed with an error for most texts
 * [FIXED] Album titles, image captions and the reasons of edited and deleted posts are stored html encoded, saving failed when the encoded text was longer than its column; a changed album title was encoded twice
 * [FIXED] Text avatars: a name with "&" created an invalid image, names with several spaces, empty names or names of emoji only failed, a provider key that is no color created an invalid color
@@ -44,6 +45,13 @@ YetAnotherForum.NET Changelog
 * [FIXED] Edit settings: the page size (sent by the client) was not checked, it is 1 - 100 now
 * [FIXED] Active users of a forum or topic: users that hide their online status were shown, guests were shown as members, members excluded from the captcha as crawlers
 * [FIXED] My Topics (watched topics): topics of forums the user can't read anymore were listed, the number of topics for the pager was the number of all topics
+* [FIXED] Admin edit forum: the sub forums were not moved with the forum to another category
+* [FIXED] Forum statistics: the counts of the parent forum were not updated with a change in a sub forum
+* [FIXED] Deleting a forum and moving its topics: the links of moved topics to topics of the new forum stayed, a user with an own access mask in both forums made the delete fail
+* [FIXED] Admin medals: saving a medal of another board, saving a medal without a message failed
+* [FIXED] Forum jump: the names of the categories were not encoded (html of a category name was shown as html)
+* [FIXED] Team page: the names of the moderated forums were shown double encoded in the forum select ("Tom &amp; Jerry")
+* [FIXED] Categories were not listed in their sort order
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

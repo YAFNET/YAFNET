@@ -152,6 +152,8 @@ public static class ForumRepositoryExtensions
             return newForumId;
         }
 
+        var oldCategoryId = repository.GetById(forumId.Value)?.CategoryID;
+
         repository.UpdateOnly(
             () => new Forum
                       {
@@ -169,6 +171,26 @@ public static class ForumRepositoryExtensions
                           IsModeratedNewTopicOnly = isModeratedNewTopicOnly
                       },
             f => f.ID == forumId);
+
+        // the sub forums are moved with the forum to the other category (they are shown below the forum)
+        if (oldCategoryId.HasValue && oldCategoryId != categoryId)
+        {
+            var forums = repository.Get(f => f.CategoryID == oldCategoryId.Value);
+
+            var moved = new HashSet<int> { forumId.Value };
+            var parents = new List<int> { forumId.Value };
+
+            while (parents.Count > 0)
+            {
+                parents = [.. forums.Where(f => f.ParentID.HasValue && parents.Contains(f.ParentID.Value) && moved.Add(f.ID))
+                              .Select(f => f.ID)];
+
+                foreach (var subForumId in parents)
+                {
+                    repository.UpdateOnly(() => new Forum { CategoryID = categoryId }, f => f.ID == subForumId);
+                }
+            }
+        }
 
         repository.FireUpdated(forumId.Value);
 
@@ -190,6 +212,40 @@ public static class ForumRepositoryExtensions
     public static bool IsParentsChecker(this IRepository<Forum> repository, int forumId)
     {
         return repository.Exists(f => f.ParentID == forumId);
+    }
+
+    /// <summary>
+    /// Checks if the new parent is the forum itself or one of its sub forums (the forum can't be moved below itself).
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="forumId">
+    /// The forum Id.
+    /// </param>
+    /// <param name="parentId">
+    /// The new parent forum Id.
+    /// </param>
+    /// <returns>
+    /// Returns if the parent is the forum or one of its sub forums.
+    /// </returns>
+    public static bool IsOwnSubForum(this IRepository<Forum> repository, int forumId, int parentId)
+    {
+        var visited = new HashSet<int>();
+        int? current = parentId;
+
+        // up the parents of the new parent (an existing loop ends the search)
+        while (current.HasValue && visited.Add(current.Value))
+        {
+            if (current.Value == forumId)
+            {
+                return true;
+            }
+
+            current = repository.GetById(current.Value)?.ParentID;
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -637,6 +693,20 @@ public static class ForumRepositoryExtensions
         BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.ForumID == oldForumId);
         BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.ForumID == oldForumId);
 
+        // -- the links of moved topics to topics of the new forum are removed (they were shown next to the topic)
+        var newForumTopics = new HashSet<int>(
+            BoardContext.Current.GetRepository<Topic>().Get(t => t.ForumID == newForumId && t.TopicMovedID == null)
+                .Select(t => t.ID));
+
+        var links = BoardContext.Current.GetRepository<Topic>()
+            .Get(t => t.ForumID == oldForumId && t.TopicMovedID != null)
+            .Where(t => newForumTopics.Contains(t.TopicMovedID.Value)).Select(t => t.ID).ToList();
+
+        if (links.Count != 0)
+        {
+            BoardContext.Current.GetRepository<Topic>().Delete(t => links.Contains(t.ID));
+        }
+
         // -- Move topics, messages and attachments
         var topics = BoardContext.Current.GetRepository<Topic>().Get(t => t.ForumID == oldForumId);
 
@@ -644,6 +714,17 @@ public static class ForumRepositoryExtensions
             topic => BoardContext.Current.GetRepository<Topic>().Move(topic, oldForumId, newForumId, false, 0));
 
         BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == oldForumId);
+
+        // a user with an own access mask in both forums keeps the one of the new forum
+        // (one access mask per user and forum, the update would fail)
+        var usersOfNewForum = BoardContext.Current.GetRepository<UserForum>().Get(x => x.ForumID == newForumId)
+            .Select(x => x.UserID).ToList();
+
+        if (usersOfNewForum.Count != 0)
+        {
+            BoardContext.Current.GetRepository<UserForum>().Delete(
+                x => x.ForumID == oldForumId && usersOfNewForum.Contains(x.UserID));
+        }
 
         BoardContext.Current.GetRepository<UserForum>().UpdateOnly(
             () => new UserForum { ForumID = newForumId },
@@ -934,7 +1015,7 @@ public static class ForumRepositoryExtensions
                     var selectGroup = new SelectGroup
                                           {
                                               id = -category.ID,
-                                              text = category.Name,
+                                              text = HttpUtility.HtmlEncode(category.Name),
                                               children = forumsByCategory.Select(
                                                   forum => new SelectOptions
                                                                {

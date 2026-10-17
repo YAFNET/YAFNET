@@ -138,7 +138,13 @@ public static class MedalRepositoryExtensions
         int flags,
         int? boardId = null)
     {
-        
+        if (medalId is 0)
+        {
+            medalId = null;
+        }
+
+        // the message is optional, the column is not nullable
+        message ??= string.Empty;
 
         if (medalId.HasValue)
         {
@@ -153,7 +159,7 @@ public static class MedalRepositoryExtensions
                               MedalURL = medalURL,
                               Flags = flags
                           },
-                medal => medal.ID == medalId.Value);
+                medal => medal.ID == medalId.Value && medal.BoardID == (boardId ?? repository.BoardID));
 
             repository.FireUpdated(medalId);
         }

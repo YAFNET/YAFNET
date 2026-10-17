@@ -55,7 +55,8 @@ public static class DropDownListExtensions
                         return;
                     }
 
-                    var item = new ListItem { Value = row.ForumID.ToString(), Text = row.Forum };
+                    // the forum name is html encoded (for the label), the text of the list item is encoded when rendered
+                    var item = new ListItem { Value = row.ForumID.ToString(), Text = HttpUtility.HtmlDecode(row.Forum) };
 
                     item.Attributes.Add("data-category", row.Category);
 
