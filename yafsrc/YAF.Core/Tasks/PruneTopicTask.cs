@@ -78,11 +78,19 @@ public class PruneTopicTask : LongBackgroundTask
             return false;
         }
 
-        BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+        var taskManager = BoardContext.Current.Get<ITaskModuleManager>();
+
+        // a finished prune task that was not cleaned up yet is removed, otherwise the new prune was not started
+        if (taskManager.TryGetTask(TaskName, out var task) && task is { IsRunning: false })
+        {
+            taskManager.TryRemoveTask(TaskName);
+            task.Dispose();
+        }
+
+        // false while a prune task is running
+        return taskManager.StartTask(
             TaskName,
             () => new PruneTopicTask { Data = boardId, ForumId = forumId, Days = days, PermDelete = permDelete });
-
-        return true;
     }
 
     /// <summary>
