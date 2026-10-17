@@ -58,7 +58,15 @@ public class EmailTopicTests : ForumTestBase
                        .GetAttributeAsync("href");
         var topicId = Regex.Match(href, @"Posts/t(\d+)").Groups[1].Value;
 
-        await this.GotoAsync($"EmailTopic?t={topicId}");
+        // the share menu of the topic opens the page
+        await this.GotoAsync(href.TrimStart('/'));
+        await this.Control("ShareLink").ClickAsync();
+
+        // the item is a link to # that posts the page back
+        await this.Page.Locator(".dropdown-menu.show a", new PageLocatorOptions { HasTextString = "Email this topic" }).First
+            .ClickAsync();
+        await this.Page.WaitForURLAsync(url => url.Contains($"EmailTopic?t={topicId}"));
+
         (await this.Control("Subject").InputValueAsync()).Should().Be(subject);
 
         // an invalid address (the browser check of the field is removed)
