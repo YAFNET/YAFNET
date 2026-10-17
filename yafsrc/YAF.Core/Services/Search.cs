@@ -249,6 +249,42 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     }
 
     /// <summary>
+    /// Creates the index document for a message.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <returns>Returns the document</returns>
+    private Document CreateDocument(SearchMessage message)
+    {
+        // hidden content (hide, hide-reply, hide-thanks, group-hide...) is only shown to some users, it is not
+        // indexed: otherwise every user could find posts by it and see it in the highlighted part of the result
+        var text = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message.Message ?? string.Empty);
+
+        var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
+        var userDisplayName = message.UserDisplayName ?? string.Empty;
+        var userStyle = message.UserStyle ?? string.Empty;
+        var description = message.Description ?? message.Topic ?? string.Empty;
+
+        // the same fields for a new and an updated item (an update lost the tags of the topic)
+        return new Document
+                   {
+                       new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
+                       new TextField("Message", text ?? string.Empty, Field.Store.YES),
+                       new StoredField("Flags", message.Flags.ToString()),
+                       new StoredField("Posted", message.Posted ?? string.Empty),
+                       new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
+                       new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
+                       new TextField("Topic", message.Topic ?? string.Empty, Field.Store.YES),
+                       new TextField("TopicTags", message.TopicTags ?? string.Empty, Field.Store.YES),
+                       new StringField("ForumName", message.ForumName ?? string.Empty, Field.Store.YES),
+                       new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
+                       new TextField("Author", name, Field.Store.YES),
+                       new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
+                       new StoredField("AuthorStyle", userStyle),
+                       new TextField("Description", description, Field.Store.YES)
+                   };
+    }
+
+    /// <summary>
     /// The add search index item.
     /// </summary>
     /// <param name="message">
@@ -258,28 +294,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
-            var userDisplayName = message.UserDisplayName ?? string.Empty;
-            var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? message.Topic ?? string.Empty;
+            var doc = this.CreateDocument(message);
 
-            var doc = new Document
-                          {
-                              new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
-                              new TextField("Message", message.Message, Field.Store.YES),
-                              new StoredField("Flags", message.Flags.ToString()),
-                              new StoredField("Posted", message.Posted),
-                              new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                              new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
-                              new TextField("Topic", message.Topic, Field.Store.YES),
-                              new TextField("TopicTags", message.TopicTags, Field.Store.YES),
-                              new StringField("ForumName", message.ForumName, Field.Store.YES),
-                              new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
-                              new TextField("Author", name, Field.Store.YES),
-                              new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
-                              new StoredField("AuthorStyle", userStyle),
-                              new TextField("Description", description, Field.Store.YES)
-                          };
             try
             {
                 this.Writer.AddDocument(doc);
@@ -309,27 +325,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
-            var userDisplayName = message.UserDisplayName ?? string.Empty;
-            var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? message.Topic ?? string.Empty;
-
-            var doc = new Document
-                          {
-                              new StringField("MessageId", message.MessageId.ToString(), Field.Store.YES),
-                              new TextField("Message", message.Message, Field.Store.YES),
-                              new StoredField("Flags", message.Flags.ToString()),
-                              new StoredField("Posted", message.Posted),
-                              new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                              new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
-                              new TextField("Topic", message.Topic, Field.Store.YES),
-                              new StringField("ForumName", message.ForumName, Field.Store.YES),
-                              new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
-                              new TextField("Author", name, Field.Store.YES),
-                              new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
-                              new StoredField("AuthorStyle", userStyle),
-                              new TextField("Description", description, Field.Store.YES)
-                          };
+            var doc = this.CreateDocument(message);
 
             try
             {
