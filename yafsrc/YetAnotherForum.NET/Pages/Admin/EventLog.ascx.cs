@@ -408,7 +408,11 @@ public partial class EventLog : AdminPage
             }
             else
             {
-                DateTime.TryParse(this.SinceDate.Text, ci, DateTimeStyles.None, out sinceDate);
+                // a value that is no date keeps the default
+                if (DateTime.TryParse(this.SinceDate.Text, ci, DateTimeStyles.None, out var since))
+                {
+                    sinceDate = since;
+                }
             }
         }
 
@@ -422,7 +426,11 @@ public partial class EventLog : AdminPage
             }
             else
             {
-                DateTime.TryParse(this.ToDate.Text, ci, DateTimeStyles.None, out toDate);
+                // a value that is no date keeps the default
+                if (DateTime.TryParse(this.ToDate.Text, ci, DateTimeStyles.None, out var to))
+                {
+                    toDate = to;
+                }
             }
         }
 

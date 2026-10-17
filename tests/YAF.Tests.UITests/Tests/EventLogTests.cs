@@ -37,7 +37,7 @@ using YAF.Tests.UITests.Infrastructure;
 public class EventLogTests : ForumTestBase
 {
     [Test]
-    [Description("The error of a refused post is shown with its details (url, address, exception), filtered by type and deleted")]
+    [Description("The error of a refused post is shown with its details (url, address, exception), filtered by type and date and deleted")]
     public async Task Error_Entry_Test()
     {
         await this.LoginAsAdminAsync();
@@ -78,6 +78,13 @@ public class EventLogTests : ForumTestBase
         // the details are collapsed
         var entry = await entries.First.TextContentAsync();
         entry.Should().Contain("HttpUnhandledException").And.Contain("EditAvatar");
+
+        // a date filter that is no date keeps the default (all entries of the last days)
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await this.Control("SinceDate").EvaluateAsync("e => { e.type = 'text'; e.value = 'no date'; }");
+        await this.Control("ToDate").EvaluateAsync("e => { e.type = 'text'; e.value = 'no date'; }");
+        await this.ClickAndWaitAsync(this.Control("ApplyButton"));
+        (await entries.CountAsync()).Should().BeGreaterThan(0);
 
         // the entry is deleted
         var before = await entries.CountAsync();
