@@ -8,6 +8,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Login of migrated legacy membership passwords: clear text passwords were compared ignoring the case, base64 hashes were compared ignoring the case, hashes of the ASP.NET membership (salt + password) did not match, a clear text password with a "|" could not be used, unknown formats were compared as clear text
 * [FIXED] Topic list: the "show topics of the last ..." filter used the wrong period (e.g. "Last Day" showed two days, "Last Six Months" a year) and "Last Year" was missing
 * [FIXED] Message history: the comparison of two versions failed with an error for most texts
+* [FIXED] Album titles, image captions and the reasons of edited and deleted posts are stored html encoded, saving failed when the encoded text was longer than its column; a changed album title was encoded twice
 * [FIXED] Text avatars: a name with "&" created an invalid image, names with several spaces, empty names or names of emoji only failed, a provider key that is no color created an invalid color
 * [FIXED] Ignored users: ignoring or removing a user was not shown on the same page, a user could ignore themselves
 * [FIXED] Host settings: "Allow private message attachments" could not be saved (the setting was stored under another name)

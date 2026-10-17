@@ -311,7 +311,7 @@ public partial class EditMessage : ForumPage
             string.Empty,
             stylesSave.Trim(),
             subjectSave.Trim(),
-            this.HtmlEncode(this.ReasonEditor.Text),
+            this.ReasonEditor.Text.EncodeToLength(this.HtmlEncode, 100),
             isModeratorChanged,
             this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess,
             this.PageBoardContext.PageTopic,

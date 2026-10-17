@@ -465,4 +465,43 @@ public static class StringExtensions
 
         return list;
     }
+
+    /// <summary>
+    /// Encodes the text for a database column of the given length: the text is shortened until the
+    /// encoded text fits (an encoded character can be longer than the character, e.g. "&amp;amp;" or "&amp;#252;").
+    /// </summary>
+    /// <param name="str">The text.</param>
+    /// <param name="encode">The encode function (e.g. html encode).</param>
+    /// <param name="maxLength">The length of the column.</param>
+    /// <returns>
+    /// The encoded text, <see langword="null" /> for <see langword="null" />.
+    /// </returns>
+    public static string EncodeToLength(this string str, Func<string, string> encode, int maxLength)
+    {
+        if (str is null)
+        {
+            return null;
+        }
+
+        // the encoded text is never shorter than the text
+        var text = str.Length > maxLength ? str.Substring(0, maxLength) : str;
+
+        if (text.Length < str.Length && text.Length > 0 && char.IsHighSurrogate(text[text.Length - 1]))
+        {
+            text = text.Substring(0, text.Length - 1);
+        }
+
+        var encoded = encode(text);
+
+        while (encoded.Length > maxLength)
+        {
+            // don't split a surrogate pair (e.g. an emoji)
+            var cut = text.Length > 1 && char.IsLowSurrogate(text[text.Length - 1]) ? 2 : 1;
+
+            text = text.Substring(0, text.Length - cut);
+            encoded = encode(text);
+        }
+
+        return encoded;
+    }
 }

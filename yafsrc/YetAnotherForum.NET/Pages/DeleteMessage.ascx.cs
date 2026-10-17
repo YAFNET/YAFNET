@@ -244,7 +244,7 @@ public partial class DeleteMessage : ForumPage
             this.PageBoardContext.PageMessage.TopicID,
             this.PageBoardContext.PageMessage,
             this.isModeratorChanged,
-            HttpUtility.HtmlEncode(this.ReasonEditor.Text),
+            this.ReasonEditor.Text.EncodeToLength(HttpUtility.HtmlEncode, 100),
             deleteAllLinked,
             this.EraseMessage.Checked);
 

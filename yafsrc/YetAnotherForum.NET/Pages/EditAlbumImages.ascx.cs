@@ -235,7 +235,8 @@ public partial class EditAlbumImages : ForumPageRegistered
     protected void UpdateTitle_Click(object sender, EventArgs e)
     {
         var albumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("a");
-        this.txtTitle.Text = HttpUtility.HtmlEncode(this.txtTitle.Text);
+        // stored html encoded, it has to fit into the column
+        this.txtTitle.Text = this.txtTitle.Text.EncodeToLength(HttpUtility.HtmlEncode, 255);
 
         this.GetRepository<UserAlbum>().UpdateTitle(
             albumId.Value,
@@ -311,8 +312,10 @@ public partial class EditAlbumImages : ForumPageRegistered
 
         if (!isNewAlbum)
         {
-            this.txtTitle.Text = this.GetRepository<UserAlbum>()
-                .GetTitle(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("a"));
+            // stored html encoded
+            this.txtTitle.Text = HttpUtility.HtmlDecode(
+                this.GetRepository<UserAlbum>()
+                    .GetTitle(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("a")));
 
             var albumList = this.GetRepository<UserAlbumImage>()
                 .List(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("a"));
@@ -427,9 +430,10 @@ public partial class EditAlbumImages : ForumPageRegistered
                 return;
             }
 
+            // the title is stored html encoded (like a changed title)
             var newAlbumId = this.GetRepository<UserAlbum>().Save(
                 this.PageBoardContext.PageUserID,
-                this.txtTitle.Text,
+                this.txtTitle.Text.EncodeToLength(HttpUtility.HtmlEncode, 255),
                 null);
 
             file.PostedFile.SaveAs(

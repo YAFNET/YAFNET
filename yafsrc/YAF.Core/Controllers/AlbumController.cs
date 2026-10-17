@@ -57,7 +57,8 @@ public class AlbumController : ApiController, IHaveServiceLocator
         }
 
         var imageId = form["id"].ToType<int>();
-        var newCaption = HttpUtility.HtmlEncode(form["value"].Trim());
+        // stored html encoded, it has to fit into the column
+        var newCaption = (form["value"] ?? string.Empty).Trim().EncodeToLength(HttpUtility.HtmlEncode, 255);
 
         if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE")))
         {
@@ -84,7 +85,8 @@ public class AlbumController : ApiController, IHaveServiceLocator
         }
 
         var imageId = form["id"].ToType<int>();
-        var newCaption = HttpUtility.HtmlEncode(form["value"].Trim());
+        // stored html encoded, it has to fit into the column
+        var newCaption = (form["value"] ?? string.Empty).Trim().EncodeToLength(HttpUtility.HtmlEncode, 255);
 
         if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION"))
             || newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION2")))
