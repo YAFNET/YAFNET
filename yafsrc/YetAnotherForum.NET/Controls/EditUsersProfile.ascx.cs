@@ -334,8 +334,11 @@ public partial class EditUsersProfile : BaseUserControl
             // Check if name matches the required minimum length
             if (this.DisplayName.Text.Trim().Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
             {
+                // the "too short" message (it showed the "too long" message)
                 this.PageBoardContext.Notify(
-                    this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
+                    string.Format(
+                        this.GetText("REGISTER", "USERNAME_TOOSMALL"),
+                        this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                     MessageTypes.warning);
 
                 return;
