@@ -26,6 +26,7 @@ namespace YAF.Core.BBCode;
 
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// The high lighter.
@@ -61,25 +62,29 @@ public class HighLighter
     {
         language = language.ToLower();
 
+        var highlight = string.Empty;
+
+        // extract highlight (e.g. "cs;2-3"), before the language names are mapped
+        if (language.Contains(";"))
+        {
+            highlight = language.Substring(language.IndexOf(";", StringComparison.Ordinal) + 1);
+            language = language.Remove(language.IndexOf(";", StringComparison.Ordinal));
+        }
+
+        // only characters of language names and line numbers, they are used in html attributes
+        language = Regex.Replace(language, "[^a-z0-9#+-]", string.Empty);
+        highlight = Regex.Replace(highlight, "[^0-9,-]", string.Empty);
+
         language = language switch
             {
                 "cs" => "csharp",
                 "xml" => "markup",
                 "plain" => "markup",
                 "" => "markup",
-                _ => language.Replace("\"", string.Empty)
+                _ => language
             };
 
         var tmpOutput = new StringBuilder();
-
-        var highlight = string.Empty;
-
-        // extract highlight
-        if (language.Contains(";"))
-        {
-            highlight = language.Substring(language.IndexOf(";", StringComparison.Ordinal) + 1);
-            language = language.Remove(language.IndexOf(";", StringComparison.Ordinal));
-        }
 
         // Create Output
         tmpOutput.AppendFormat(

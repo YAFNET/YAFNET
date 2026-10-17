@@ -120,6 +120,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The good words of the bad word list were inserted as html into posts, topic names and descriptions (the text is html at that point), a replacement with html changed every post; the good words are texts now (IBadWordReplace.ReplaceHtml)
 * [FIXED] Links of posts older than "disable nofollow links after days" still got rel=nofollow, the age of the post was computed negative
 * [FIXED] Security (hardening): BBCode [url] links allowed control characters in the url (browsers remove them, e.g. in front of "javascript:"), they end the link now
+* [FIXED] Code blocks: the language and the highlighted lines of [code=...] were written into html attributes with all characters (e.g. quotes and brackets of a manipulated post broke the markup), and a highlighted block of a mapped language (e.g. [code=cs;2-3]) was not highlighted (the language was mapped before the lines were taken off)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
