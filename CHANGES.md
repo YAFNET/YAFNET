@@ -288,6 +288,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] the reply page of an unknown topic shows an error page
 * [FIXED] the delete page of an unknown message shows an error page
 * [FIXED] the album page of an unknown album (or of an album of another user) shows an error page
+* [FIXED] the [userlink] example of the BBCode help shows the address of YAF 1.x
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
