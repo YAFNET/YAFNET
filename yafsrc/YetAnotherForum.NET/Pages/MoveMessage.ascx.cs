@@ -75,6 +75,13 @@ public partial class MoveMessage : ForumPageRegistered
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void CreateAndMove_Click(object sender, EventArgs e)
     {
+        // the target forum is sent by the client: only a forum of the board the user moderates
+        if (!ModerationHelper.CanModerateForum(this.ForumListSelected.Value.ToType<int>()))
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+            return;
+        }
+
         if (this.TopicSubject.Text.IsSet())
         {
             var topicId = this.GetRepository<Topic>().CreateByMessage(
@@ -110,6 +117,13 @@ public partial class MoveMessage : ForumPageRegistered
         if (moveTopicId == 0 || moveTopicId == this.PageBoardContext.PageMessage.ID)
         {
             this.PageBoardContext.Notify(this.GetText("MOVE_TITLE"), MessageTypes.warning);
+            return;
+        }
+
+        // the target topic is sent by the client: only a topic of a forum the user moderates
+        if (!ModerationHelper.CanModerateTopic(moveTopicId))
+        {
+            this.Get<LinkBuilder>().AccessDenied();
             return;
         }
 

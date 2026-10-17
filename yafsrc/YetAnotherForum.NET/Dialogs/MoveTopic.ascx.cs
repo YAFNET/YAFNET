@@ -109,6 +109,14 @@ public partial class MoveTopic : BaseUserControl
             return;
         }
 
+        // moderators of the topic, and only into a forum of the board they moderate (the target is sent by the client)
+        if (!this.PageBoardContext.ForumModeratorAccess
+            || !ModerationHelper.CanModerateForum(this.ForumListSelected.Value.ToType<int>()))
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+            return;
+        }
+
         // only move if it's a destination is a different forum.
         if (this.ForumListSelected.Value.ToType<int>() != this.PageBoardContext.PageForumID)
         {

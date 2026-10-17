@@ -133,6 +133,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The user hover card showed the country, region and rank as html and used any home page url (also with quotes and "javascript:") as link, the country of the profile was written unencoded into the flag icon of the profile page; a crafted country sent with the profile form ran script for every visitor (stored XSS). Only web addresses are used as home page link, the values are encoded
 * [FIXED] Security: Removing a user from a group, changing a group, changing the access mask of a group in a forum and adding or changing the access mask of a single user in a forum (forum moderators dialog) did not refresh the cached access rights, so revoked access (e.g. a removed moderator) kept working for a while
 * [FIXED] Security: With the spam handling "delete and ban user", a spam post of a guest deleted the posts of all guests and the guest account (or failed with an error); the guest account is never deleted and banned now, the spam post is still rejected
+* [FIXED] Security: The moderator pages (reported and unapproved posts, forum topics) only checked that the user is a moderator of any forum, moderators of one forum could moderate every forum; moving a topic or a post (also into a new topic, also several topics in the moderator forum view) did not check the target, moderators could move topics and posts into forums they do not moderate or of other boards, and the move topic dialog did not check the moderator access at all
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

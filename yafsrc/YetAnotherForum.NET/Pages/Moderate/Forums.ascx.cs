@@ -162,6 +162,14 @@ public partial class Forums : ModerateForumPage
             return;
         }
 
+        // only into a forum of the board the user moderates (the target is sent by the client)
+        if (this.ForumListSelected.Value.ToType<int>() != this.PageBoardContext.PageForumID
+            && !ModerationHelper.CanModerateForum(this.ForumListSelected.Value.ToType<int>()))
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+            return;
+        }
+
         // only move if it's a destination is a different forum.
         if (this.ForumListSelected.Value.ToType<int>() != this.PageBoardContext.PageForumID)
         {

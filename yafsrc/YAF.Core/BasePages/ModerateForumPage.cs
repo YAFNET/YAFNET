@@ -73,5 +73,12 @@ public class ModerateForumPage : ForumPage
         {
             this.Get<LinkBuilder>().AccessDenied();
         }
+
+        // the pages of a forum only for the moderators of this forum (not of any forum)
+        if (this.PageBoardContext.PageForumID > 0 && !this.PageBoardContext.IsAdmin
+                                                  && !this.PageBoardContext.ForumModeratorAccess)
+        {
+            this.Get<LinkBuilder>().AccessDenied();
+        }
     }
 }
