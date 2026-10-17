@@ -14901,9 +14901,9 @@ function renderAttachPreview(previewClass) {
 }
 
 document.addEventListener("click", function(event) {
-    if (event.target.parentElement && event.target.parentElement.matches('a[data-bs-toggle="confirm"]')) {
+    var button = event.target.closest('a[data-bs-toggle="confirm"]');
+    if (button && !button.closest(".context-menu")) {
         event.preventDefault();
-        var button = event.target.parentElement;
         var link = button.href;
         const text = button.dataset.title;
         var title = button.innerHTML;
@@ -15424,9 +15424,10 @@ document.addEventListener("DOMContentLoaded", function() {
             contextMenu.style.display = "none";
         });
         contextMenu.addEventListener("click", function(event) {
-            if (event.target.parentElement.matches('[data-bs-toggle="confirm"]')) {
+            const confirmButton = event.target.closest('[data-bs-toggle="confirm"]');
+            if (confirmButton && event.isTrusted) {
                 event.preventDefault();
-                const button = event.target.parentElement, text = button.dataset.title, title = button.innerHTML;
+                const button = confirmButton, text = button.dataset.title, title = button.innerHTML;
                 bootbox.confirm({
                     centerVertical: true,
                     title: title,

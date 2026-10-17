@@ -226,10 +226,12 @@ function renderAttachPreview(previewClass) {
 
 // Confirm Dialog
 document.addEventListener('click', function (event) {
-    if (event.target.parentElement && event.target.parentElement.matches('a[data-bs-toggle="confirm"]')) {
+    // the link or its icon or text is clicked (the links of a context menu are confirmed by the menu)
+    var button = event.target.closest('a[data-bs-toggle="confirm"]');
+
+    if (button && !button.closest('.context-menu')) {
         event.preventDefault();
 
-        var button = event.target.parentElement;
         var link = button.href;
         const text = button.dataset.title;
         var title = button.innerHTML;

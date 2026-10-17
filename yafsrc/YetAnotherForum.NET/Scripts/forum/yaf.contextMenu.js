@@ -117,9 +117,12 @@
         });
 
         contextMenu.addEventListener('click', function (event) {
-            if (event.target.parentElement.matches('[data-bs-toggle="confirm"]')) {
+            // the link or its icon or text is clicked (not the click of the confirmed link)
+            const confirmButton = event.target.closest('[data-bs-toggle="confirm"]');
+
+            if (confirmButton && event.isTrusted) {
                 event.preventDefault();
-                const button = event.target.parentElement,
+                const button = confirmButton,
                     text = button.dataset.title,
                     title = button.innerHTML;
 

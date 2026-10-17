@@ -293,6 +293,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] missing help texts of the host settings (SPAM service, SSL) and of the user info of the admin edit user page
 * [FIXED] Private messages: a message the recipient deleted disappeared from the outbox of the sender and a message the sender deleted from the outbox disappeared from the inbox of the recipient, the sender could not delete a sent message on the message page, and a message to all users was removed for all recipients when one recipient and the sender deleted it
 * [FIXED] Private messages: export all exported only the messages of the current page and export selected could export other messages than the selected ones
+* [FIXED] a click on the border of a delete button (not on its icon or text) deleted without the confirmation dialog
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

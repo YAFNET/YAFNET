@@ -145,6 +145,43 @@ public class AdminTests : ForumTestBase
     }
 
     [Test]
+    [Description("Delete of the context menu of a row asks once for the confirmation, also when the item itself (not its text) is clicked")]
+    public async Task Context_Menu_Delete_Asks_For_Confirmation_Test()
+    {
+        var name = Unique("ctxname");
+
+        await this.GotoAsync("Admin/BannedNames");
+
+        await this.OpenEditDialogAsync("Add New User Name");
+        await this.Control("EditDialog_mask").FillAsync(name);
+        await this.Control("EditDialog_BanReason").FillAsync("UI test");
+        await this.ClickAndWaitAsync(this.Control("EditDialog_Save"));
+
+        var row = this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = name });
+        var delete = row.Locator(".context-menu [id$='_ThemeButton2']");
+
+        // the corner of the item: no dialog is a delete without confirmation
+        await row.ClickAsync(new LocatorClickOptions { Button = MouseButton.Right });
+        await delete.ClickAsync(new LocatorClickOptions { Position = new Position { X = 2, Y = 2 } });
+
+        await this.Page.Locator(".bootbox .btn-danger").ClickAsync();
+        await this.Page.Locator(".bootbox").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Detached });
+
+        await this.GotoAsync("Admin/BannedNames");
+        (await this.Page.InnerTextAsync("body")).Should().Contain(name, "the delete was cancelled");
+
+        // the text of the item: one dialog
+        await row.ClickAsync(new LocatorClickOptions { Button = MouseButton.Right });
+        await delete.Locator("span").ClickAsync();
+
+        (await this.Page.Locator(".bootbox").CountAsync()).Should().Be(1);
+
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(name);
+    }
+
+    [Test]
     [Description("A spam word is added, an invalid regular expression is refused")]
     public async Task Spam_Word_Test()
     {
