@@ -76,6 +76,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The post flood delay was only checked against the last post of the session, a new session (or another browser) could post right away; the delay now uses the last post of the user, for guests the last post from the same address
 * [FIXED] "Allow topics with the same name": a new topic was rejected when any topic subject only contained the subject (also deleted topics), editing the subject of a topic was never checked
 * [FIXED] Security: Restoring the own post also restored all replies, also the ones deleted by a moderator; only moderators restore the replies too, the restore button of the delete message page checks the access
+* [FIXED] The post count of a topic got wrong when a deleted post was deleted again (e.g. the form sent twice) or erased later (Admin > Restore) and when a post or a deleted topic was restored with its replies (counted twice), a topic with a count of 0 was not listed anymore
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

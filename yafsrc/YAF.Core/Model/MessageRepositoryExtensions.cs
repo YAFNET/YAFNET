@@ -1660,12 +1660,10 @@ public static class MessageRepositoryExtensions
 
         try
         {
-            // -- update topic Post Count
+            // -- update topic Post Count (counted again, the post could be deleted already)
             if (!isTopicDeleteAction)
             {
-                BoardContext.Current.GetRepository<Topic>().UpdateAdd(
-                    () => new Topic {NumPosts = -1},
-                    x => x.ID == topicId);
+                repository.UpdateTopicPostCount(topicId);
             }
         }
         catch (Exception)
@@ -1717,10 +1715,8 @@ public static class MessageRepositoryExtensions
 
         try
         {
-            // -- update topic Post Count
-            BoardContext.Current.GetRepository<Topic>().UpdateAdd(
-                () => new Topic { NumPosts = 1},
-                x => x.ID == topicId);
+            // -- update topic Post Count (counted again, the post could be restored already)
+            repository.UpdateTopicPostCount(topicId);
         }
         catch (Exception)
         {
