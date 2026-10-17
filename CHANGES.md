@@ -177,6 +177,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Attachments stored in the database were saved without (or with incomplete) data after the image check had read the upload, resized images were decoded again from the end of the stream and the upload failed
 * [FIXED] Missing translations were shown as empty text, translations without a text did not fall back to English
 * [FIXED] A new installation on SQL Server, SQLite or PostgreSQL did not create the identity tables (AspNetUsers etc.), they were only created for MySQL
+* [FIXED] User claims were stored with the value type instead of the claim type and could not be removed
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

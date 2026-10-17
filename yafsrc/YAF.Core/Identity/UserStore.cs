@@ -243,7 +243,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     {
         var userClaim = new AspNetUserClaims
                             {
-                                UserId = user.Id, ClaimType = claim.ValueType, ClaimValue = claim.Value
+                                UserId = user.Id, ClaimType = claim.Type, ClaimValue = claim.Value
                             };
 
         var result = this.GetRepository<AspNetUserClaims>().Insert(userClaim, false);
