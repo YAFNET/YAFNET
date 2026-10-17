@@ -105,4 +105,56 @@ public class AuthenticationTests : ForumTestBase
 
         (await this.IsLoggedInAsAsync(userName)).Should().BeFalse();
     }
+
+    [Test]
+    [Description("The login page: an unknown user, a not verified user gets the verification again, 10 wrong passwords lock the account, the links")]
+    public async Task Login_Page_Checks_Test()
+    {
+        var unverified = $"Lpu{DateTime.UtcNow:HHmmssfff}";
+        var locked = $"Lpl{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(locked, TestConfig.TestUserPassword);
+
+        await this.LogoutAsync();
+        await this.GotoAsync("Account/Register");
+        await this.Control("UserName").FillAsync(unverified);
+        await this.Control("Email").FillAsync(EmailOf(unverified));
+        await this.Control("Password").FillAsync(TestConfig.TestUserPassword);
+        await this.Control("ConfirmPassword").FillAsync(TestConfig.TestUserPassword);
+        await this.ClickAndWaitAsync(this.Control("CreateUser"));
+
+        await this.SignInAsync($"Unknown{unverified}", TestConfig.TestUserPassword);
+        this.Page.Url.Should().Contain("Login");
+
+        // not verified: the verification is sent again
+        await this.SignInAsync(unverified, TestConfig.TestUserPassword);
+        var started = DateTime.UtcNow;
+        await this.ClickAndWaitAsync(this.Control("ResendConfirm"));
+        (await TestMail.WaitForAsync(EmailOf(unverified), started)).Should().NotBeNull();
+
+        // ten wrong passwords lock the account
+        for (var i = 0; i < 10; i++)
+        {
+            await this.SignInAsync(locked, "wrong password");
+        }
+
+        await this.SignInAsync(locked, TestConfig.TestUserPassword);
+        (await this.IsLoggedInAsAsync(locked)).Should().BeFalse("the account is locked");
+
+        foreach (var (link, page) in new[] { ("PasswordRecovery", "ForgotPassword"), ("RegisterLink", "Register") })
+        {
+            await this.GotoAsync("Account/Login");
+            await this.ClickAndWaitAsync(this.Control(link));
+            this.Page.Url.Should().ContainAny(page, "RulesAndPrivacy");
+        }
+    }
+
+    private async Task SignInAsync(string userName, string password)
+    {
+        await this.LogoutAsync();
+        await this.GotoAsync("Account/Login");
+        await this.Control("UserName").FillAsync(userName);
+        await this.Control("Password").FillAsync(password);
+        await this.ClickAndWaitAsync(this.Control("LoginButton"));
+    }
 }
