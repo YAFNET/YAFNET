@@ -250,7 +250,13 @@ public partial class Team : ForumPage
 
         var mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
 
-        var forums = mod.ForumIDs.Select(forumsItem => forumsItem).ToList();
+        // only the forums the viewer can read (the names of hidden forums are not shown)
+        var userId = this.PageBoardContext.PageUserID;
+
+        var readableForums = new HashSet<int>(
+            this.GetRepository<VAccess>().Get(v => v.UserID == userId && v.ReadAccess > 0).Select(v => v.ForumID));
+
+        var forums = mod.ForumIDs.Where(forumsItem => readableForums.Contains(forumsItem.ForumID)).ToList();
 
         var forumList = this.GetRepository<Types.Models.Forum>().SortModeratorList(forums);
 

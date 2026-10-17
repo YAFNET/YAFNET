@@ -155,6 +155,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Active discussions: guests got the cached list of the page that filled the cache first, the index of a category showed the topics of all categories (or the other way round); the guest cache is kept per category now
 * [FIXED] Changed custom profile fields of a user and changed or deleted custom profile definitions were still shown in the posts and the profile (cached data), the cache is cleared now when the profile or a definition changes
 * [FIXED] Marking a post as answer wrote the flags of the post as they were when the topic was shown, e.g. a post deleted by a moderator in the meantime was undeleted; the current flags are changed now
+* [FIXED] The team page listed all forums of a moderator, also forums the viewer can't read (the names of hidden forums were shown); it now lists only readable forums
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
