@@ -99,6 +99,14 @@ public partial class EditLanguage : AdminPage
         {
             this.languageFile = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x");
 
+            // only a language file of the folder (the name is used as path to read and to write the file)
+            if (this.languageFile.IsNotSet() || Path.GetFileName(this.languageFile) != this.languageFile
+                                             || !this.languageFile.EndsWith(".json", StringComparison.OrdinalIgnoreCase)
+                                             || !File.Exists(Path.Combine(this.langPath, this.languageFile)))
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
             this.Pages.Items.Clear();
 
             this.PopulateTranslations(

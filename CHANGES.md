@@ -109,6 +109,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: Stored XSS with topic titles: the search results and the similar titles (shown with javascript) used the topic title, description, tags and forum name without html encoding; the search results are now html encoded (ISearch results: Topic, Description, TopicTags, ForumName)
 * [FIXED] Security: XSS with the context menu of posts: the selected text of a post was inserted as html and into "javascript:" links (only quotes, semicolons and brackets were removed, which also changed quoted text like "don't"); the menu items are now created as elements with click handlers
 * [FIXED] Security: XSS with the mention list of the editors (@name): display names were inserted as html; the guest user was listed
+* [FIXED] Security: The admin language editor used the file name of the address as path, so it could read and overwrite files outside the languages folder (e.g. "../web.config"); only existing language files of the folder can be edited now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
