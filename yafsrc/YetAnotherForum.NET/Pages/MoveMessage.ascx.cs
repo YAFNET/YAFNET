@@ -120,8 +120,12 @@ public partial class MoveMessage : ForumPageRegistered
             return;
         }
 
-        // the target topic is sent by the client: only a topic of a forum the user moderates
-        if (!ModerationHelper.CanModerateTopic(moveTopicId))
+        // the target topic is sent by the client: only a topic of a forum the user moderates,
+        // not a deleted topic or the link of a moved topic (the message would not be visible there)
+        var targetTopic = this.GetRepository<Topic>().GetById(moveTopicId);
+
+        if (!ModerationHelper.CanModerateTopic(moveTopicId) || targetTopic.TopicMovedID.HasValue
+                                                              || targetTopic.TopicFlags.IsDeleted)
         {
             this.Get<LinkBuilder>().AccessDenied();
             return;

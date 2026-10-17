@@ -71,7 +71,9 @@ public class TopicController : ApiController, IHaveServiceLocator
         {
             var topics = this.Get<IDataCache>().GetOrSet(
                 $"TopicsList_{searchTopic.ForumId}",
-                () => this.GetRepository<Topic>().Get(t => t.ForumID == searchTopic.ForumId),
+                // no deleted topics and no links of moved topics (a message moved there is not visible)
+                () => this.GetRepository<Topic>().Get(
+                    t => t.ForumID == searchTopic.ForumId && t.TopicMovedID == null && (t.Flags & 8) != 8),
                 TimeSpan.FromMinutes(5));
 
             topics.RemoveAll(t => t.ID == searchTopic.TopicId);
@@ -98,7 +100,8 @@ public class TopicController : ApiController, IHaveServiceLocator
                 15,
                 false);
 
-            topics.RemoveAll(t => t.TopicID == searchTopic.TopicId);
+            // the links of moved topics are no targets (a message moved there is not visible)
+            topics.RemoveAll(t => t.TopicID == searchTopic.TopicId || t.TopicMovedID.HasValue);
 
             var topicsList = (from PagedTopic topic in topics
                               select new SelectOptions
