@@ -220,6 +220,9 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                     resized = null;
                 }
 
+                // the image check has read the upload, the file is read from the start again
+                file.InputStream.Position = 0;
+
                 int newAttachmentId;
 
                 if (this.Get<BoardSettings>().UseFileTable)
@@ -241,12 +244,7 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                     }
                     else
                     {
-                        var image = Image.FromStream(resized);
-
-                        var memoryStream = new MemoryStream();
-                        image.Save(memoryStream, image.RawFormat);
-                        memoryStream.Position = 0;
-
+                        // the resized image is already encoded in the format of the upload
                         newAttachmentId = this.GetRepository<Attachment>().Save(
                             yafUserId,
                             fileName,
@@ -254,7 +252,7 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                             file.ContentType,
                             resized.ToArray());
 
-                        image.Dispose();
+                        resized.Dispose();
                     }
                 }
                 else
@@ -280,21 +278,19 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                     }
                     else
                     {
-                        var newFile = Image.FromStream(resized);
-
                         newAttachmentId = this.GetRepository<Attachment>().Save(
                             yafUserId,
                             fileName,
                             resized.Length.ToType<int>(),
                             file.ContentType);
 
-                        using var memory = new MemoryStream();
+                        // the resized image is already encoded in the format of the upload
+                        var bytes = resized.ToArray();
+
                         using var fs = new FileStream($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
-                        newFile.Save(memory, newFile.RawFormat);
-                        var bytes = memory.ToArray();
                         fs.Write(bytes, 0, bytes.Length);
 
-                        newFile.Dispose();
+                        resized.Dispose();
                     }
                 }
 

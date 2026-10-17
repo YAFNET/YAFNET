@@ -174,6 +174,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Exporting the selected bb codes failed when an id was not found
 * [FIXED] The continue link of the info page used the url parameter without a check (javascript: links and links to other sites), the user name and suspension reason were shown as html
 * [FIXED] Disabled (soft deleted) users were shown without the "disabled" badge in the admin users list
+* [FIXED] Attachments stored in the database were saved without (or with incomplete) data after the image check had read the upload, resized images were decoded again from the end of the stream and the upload failed
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
