@@ -94,6 +94,16 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<ProfileDefinition>();
         this.Db.CreateTable<ProfileCustom>();
 
+        // Create Identity tables (for all databases, not only for MySQL)
+        if (!Config.IsDotNetNuke)
+        {
+            this.Db.CreateTable<AspNetUsers>();
+            this.Db.CreateTable<AspNetRoles>();
+            this.Db.CreateTable<AspNetUserClaims>();
+            this.Db.CreateTable<AspNetUserLogins>();
+            this.Db.CreateTable<AspNetUserRoles>();
+        }
+
         // define COLLATION for mysql
         if (OrmLiteConfig.DialectProvider.SQLServerName() != "MySQL")
         {
@@ -102,17 +112,5 @@ public class Migration01 : MigrationBase
 
         this.Db.ExecuteSql($"ALTER TABLE {this.Db.GetTableName<Topic>()} CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
         this.Db.ExecuteSql($"ALTER TABLE {this.Db.GetTableName<Topic>()} MODIFY Topic TEXT CHARSET utf8mb4;");
-
-        if (Config.IsDotNetNuke)
-        {
-            return;
-        }
-
-        // Create Identity tables
-        this.Db.CreateTable<AspNetUsers>();
-        this.Db.CreateTable<AspNetRoles>();
-        this.Db.CreateTable<AspNetUserClaims>();
-        this.Db.CreateTable<AspNetUserLogins>();
-        this.Db.CreateTable<AspNetUserRoles>();
     }
 }

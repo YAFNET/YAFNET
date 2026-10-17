@@ -176,6 +176,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Disabled (soft deleted) users were shown without the "disabled" badge in the admin users list
 * [FIXED] Attachments stored in the database were saved without (or with incomplete) data after the image check had read the upload, resized images were decoded again from the end of the stream and the upload failed
 * [FIXED] Missing translations were shown as empty text, translations without a text did not fall back to English
+* [FIXED] A new installation on SQL Server, SQLite or PostgreSQL did not create the identity tables (AspNetUsers etc.), they were only created for MySQL
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
