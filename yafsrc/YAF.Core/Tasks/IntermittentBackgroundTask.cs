@@ -23,6 +23,7 @@
  */
 namespace YAF.Core.Tasks;
 
+using System;
 using System.Security.Principal;
 using System.Threading;
 
@@ -103,6 +104,11 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
         try
         {
             this.RunOnce();
+        }
+        catch (Exception ex)
+        {
+            // an exception of a timer callback is not handled and stops the application, the next run still starts
+            this.Logger?.Error(ex, $"Error In Background Task {this.GetType().Name}");
         }
         finally
         {

@@ -203,6 +203,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] SimpleReplaceRule with an empty search text never finished
 * [FIXED] Admin -> Users -> Import: csv files with an empty last line, rows with fewer or more values than columns or rows without name or e-mail failed the whole import, quoted values kept their quotes, a file without Name/Email column showed a technical error, one failing user stopped the import
 * [FIXED] Admin -> Users -> Import: the time zone of the exported users was lost (the import expected a number instead of the time zone name)
+* [FIXED] An exception in a run of a background task was not caught in the timer callback (an unhandled exception stops the application), it is logged now and the task runs again
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
