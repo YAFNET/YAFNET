@@ -157,9 +157,10 @@ public static class DataImport
 
         while (!streamReader.EndOfStream)
         {
-            var line = streamReader.ReadLine();
+            var line = streamReader.ReadLine()?.Trim();
 
-            if (line.IsNotSet() || !line.Contains("@"))
+            // the masks are regular expressions, an invalid one would break the ban check
+            if (line.IsNotSet() || !line.Contains("@") || !ValidationHelper.IsValidRegex(line))
             {
                 continue;
             }
@@ -201,19 +202,21 @@ public static class DataImport
 
         while (!streamReader.EndOfStream)
         {
-            var line = streamReader.ReadLine();
+            var line = streamReader.ReadLine()?.Trim();
 
-            if (line.IsNotSet() || !IPAddress.TryParse(line, out var importAddress))
+            // ip addresses (v4 and v6) and ipv4 masks (e.g. 192.168.1.*), IPAddress.TryParse also accepted
+            // incomplete addresses (e.g. "1.2.3" as 1.2.0.3) but no masks
+            if (!IPHelper.IsValidBanMask(line))
             {
                 continue;
             }
 
-            if (existingBannedIPList.Exists(b => b.Mask == importAddress.ToString()))
+            if (existingBannedIPList.Exists(b => b.Mask == line))
             {
                 continue;
             }
 
-            if (repository.Save(null, importAddress.ToString(), "Imported IP Address", userId, boardId))
+            if (repository.Save(null, line, "Imported IP Address", userId, boardId))
             {
                 importedCount++;
             }
@@ -244,9 +247,10 @@ public static class DataImport
 
         while (!streamReader.EndOfStream)
         {
-            var line = streamReader.ReadLine();
+            var line = streamReader.ReadLine()?.Trim();
 
-            if (line.IsNotSet())
+            // the masks are regular expressions, an invalid one would break the ban check
+            if (line.IsNotSet() || !ValidationHelper.IsValidRegex(line))
             {
                 continue;
             }
@@ -287,9 +291,10 @@ public static class DataImport
 
         while (!streamReader.EndOfStream)
         {
-            var line = streamReader.ReadLine();
+            var line = streamReader.ReadLine()?.Trim();
 
-            if (line.IsNotSet())
+            // the patterns are regular expressions, an invalid one would break the ban check
+            if (line.IsNotSet() || !ValidationHelper.IsValidRegex(line))
             {
                 continue;
             }

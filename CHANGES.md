@@ -184,6 +184,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Isolated events (RaiseIssolated, e.g. the application start) were handled twice, and an exception in a handler was not isolated
 * [FIXED] Event log entries logged with a Type as source showed "System.RuntimeType"
 * [FIXED] One invalid banned e-mail mask disabled all banned e-mail checks (one invalid user agent pattern all user agent bans), banned e-mail, name and user agent masks are now validated as regular expressions
+* [FIXED] The ban imports accepted invalid entries, IP imports now accept IP addresses and masks (masks were rejected, incomplete addresses like 1.2.3 accepted), name, e-mail and user agent imports only valid regular expressions
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
