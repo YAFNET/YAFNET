@@ -157,6 +157,10 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
                            };
 
         this.GetRepository<Activity>().Insert(activity);
+
+        // the notification counter of the user
+        this.Get<IDataCache>().Remove(
+            string.Format(Constants.Cache.ActiveUserLazyData, userId));
     }
 
     /// <summary>
@@ -196,6 +200,10 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
                            };
 
         this.GetRepository<Activity>().Insert(activity);
+
+        // the notification counter of the user
+        this.Get<IDataCache>().Remove(
+            string.Format(Constants.Cache.ActiveUserLazyData, userId));
     }
 
     /// <summary>
