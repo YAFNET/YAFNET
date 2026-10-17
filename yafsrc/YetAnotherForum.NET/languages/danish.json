@@ -2803,6 +2803,10 @@
             "#text": "Du skal indtaste heltalsværdi for antallet af brugeralbum."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "En gruppe med et sådant navn findes allerede."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Du skal indtaste heltalsværdi for prioritet."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Rangeringsprioritet skal være et lille heltal."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "En rang med et sådant navn findes allerede."
           },
           {
             "@tag": "NEED_NAME",

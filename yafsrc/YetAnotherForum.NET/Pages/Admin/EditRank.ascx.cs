@@ -163,10 +163,21 @@ public partial class EditRank : AdminPage
             rankId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
         }
 
+        // the name is unique in the board (a new or renamed rank with an existing name failed with an error)
+        var boardId = this.PageBoardContext.PageBoardID;
+        var editedId = rankId ?? 0;
+        var rankName = this.Name.Text.Trim();
+
+        if (this.GetRepository<Rank>().Exists(r => r.BoardID == boardId && r.Name == rankName && r.ID != editedId))
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_EDITRANK", "MSG_RANK_EXISTS"), MessageTypes.warning);
+            return;
+        }
+
         this.GetRepository<Rank>().Save(
             rankId,
             this.PageBoardContext.PageBoardID,
-            this.Name.Text,
+            rankName,
             new RankFlags { IsStart = this.IsStart.Checked, IsLadder = this.IsLadder.Checked },
             this.MinPosts.Text.ToType<int>(),
             this.PMLimit.Text.Trim().ToType<int>(),

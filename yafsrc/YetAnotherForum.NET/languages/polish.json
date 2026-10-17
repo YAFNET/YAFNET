@@ -2799,6 +2799,10 @@
             "#text": "Dla liczby albumów użytkowników należy wprowadzić wartość całkowitą."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Grupa o takiej nazwie już istnieje."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Dla priorytetu należy wprowadzić wartość całkowitą."
           },
@@ -3152,6 +3156,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Priorytet rangi powinien być małą liczbą całkowitą."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Ranga o takiej nazwie już istnieje."
           },
           {
             "@tag": "NEED_NAME",

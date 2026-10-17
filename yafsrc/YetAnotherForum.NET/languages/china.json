@@ -2803,6 +2803,10 @@
             "#text": "您应该为用户相册的数量输入整数值。"
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "具有这样名称的组已经存在。"
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "您应该输入整数值作为优先级。"
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Rank Priority 应该是小整数。"
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "具有这样名称的等级已经存在。"
           },
           {
             "@tag": "NEED_NAME",

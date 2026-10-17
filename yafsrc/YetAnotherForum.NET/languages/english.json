@@ -2824,6 +2824,10 @@
 						"#text": "You should enter integer value for the number of user albums."
 					},
 					{
+						"@tag": "MSG_GROUP_EXISTS",
+						"#text": "A group with such a name already exists."
+					},
+					{
 						"@tag": "MSG_INTEGER",
 						"#text": "You should enter integer value for priority."
 					},
@@ -3179,6 +3183,10 @@
 					{
 						"@tag": "MSG_RANK_INTEGER",
 						"#text": "Rank Priority should be small integer."
+					},
+					{
+						"@tag": "MSG_RANK_EXISTS",
+						"#text": "A rank with such a name already exists."
 					},
 					{
 						"@tag": "NEED_NAME",

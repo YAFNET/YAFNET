@@ -2803,6 +2803,10 @@
             "#text": "Měli byste zadat celočíselnou hodnotu pro počet uživatelských alb."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Skupina s takovým názvem již existuje."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Jako prioritu byste měli zadat celočíselnou hodnotu."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Priorita pozice by měla být malé celé číslo."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Hodnost s takovým názvem již existuje."
           },
           {
             "@tag": "NEED_NAME",

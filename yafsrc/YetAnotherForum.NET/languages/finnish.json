@@ -2803,6 +2803,10 @@
             "#text": "Käyttäjäalbumien lukumäärälle on annettava kokonaislukuarvo."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Ryhmä, jolla on tällainen nimi, on jo olemassa."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Prioriteetille on annettava kokonaislukuarvo."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Sijoitus Prioriteetin tulisi olla pieni kokonaisluku."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Tämänniminen sijoitus on jo olemassa."
           },
           {
             "@tag": "NEED_NAME",

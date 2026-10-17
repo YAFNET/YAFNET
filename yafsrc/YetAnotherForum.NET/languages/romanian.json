@@ -2803,6 +2803,10 @@
             "#text": "Trebuie să introduceți o valoare întreagă pentru numărul de albume de utilizator."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Un grup cu un astfel de nume există deja."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Trebuie să introduceți o valoare întreagă pentru prioritate."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Prioritatea de rang trebuie să fie un număr întreg mic."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Un rang cu un astfel de nume există deja."
           },
           {
             "@tag": "NEED_NAME",

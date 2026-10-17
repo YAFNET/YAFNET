@@ -2803,6 +2803,10 @@
             "#text": "Peaksite sisestama kasutajaalbumite arvu täisarvu."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Sellise nimega rühm on juba olemas."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Prioriteediks peaksite sisestama täisarvu."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Asetuse prioriteet peaks olema väike täisarv."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Sellise nimega auaste on juba olemas."
           },
           {
             "@tag": "NEED_NAME",

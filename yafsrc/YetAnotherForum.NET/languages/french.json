@@ -2803,6 +2803,10 @@
             "#text": "Vous devez saisir une valeur entière pour le nombre d'albums d'utilisateurs."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Un groupe portant un tel nom existe déjà."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Vous devez saisir une valeur entière pour la priorité."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "La priorité de rang doit être un petit nombre entier."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Un rang portant un tel nom existe déjà."
           },
           {
             "@tag": "NEED_NAME",

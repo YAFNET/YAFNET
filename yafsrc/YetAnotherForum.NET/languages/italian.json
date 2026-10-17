@@ -2799,6 +2799,10 @@
             "#text": "È necessario inserire un valore intero per il numero di album utente."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Esiste già un gruppo con questo nome."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "È necessario inserire un valore intero per la priorità."
           },
@@ -3152,6 +3156,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "La priorità del rango deve essere un numero intero piccolo."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Esiste già un rango con questo nome."
           },
           {
             "@tag": "NEED_NAME",

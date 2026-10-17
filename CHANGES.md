@@ -225,6 +225,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] User import: profile values longer than their columns or a country name instead of the country code (the column has 2 characters) failed the import of the user with an error on SQL Server, MySQL and PostgreSQL; the texts are shortened to the columns and only known countries are taken (also by name)
 * [FIXED] Admin -> Users -> Import: a user refused by the login system (e.g. a name with characters that are not allowed, an invalid e-mail) was created as forum user without login and got the registration mail with a password that did not work; such users are skipped and logged now
 * [FIXED] MySQL: a custom profile field with a name or default value longer than 255 characters was not saved (Admin -> Profile Definitions), the inputs are limited to the length of their columns
+* [FIXED] Admin -> Edit Group and Edit Rank: a new or renamed group or rank with the name of an existing one failed with an error (the name is unique in the board); it is refused with a warning now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

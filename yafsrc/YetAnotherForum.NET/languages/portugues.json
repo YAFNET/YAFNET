@@ -2803,6 +2803,10 @@
             "#text": "Deve introduzir o valor inteiro para o número de álbuns de utilizadores."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Já existe um grupo com esse nome."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Deve introduzir o valor inteiro para prioridade."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "O Rank Priority deve ser um número inteiro pequeno."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Já existe uma classificação com esse nome."
           },
           {
             "@tag": "NEED_NAME",

@@ -2803,6 +2803,10 @@
             "#text": "Kullanıcı albümlerinin sayısı için tam sayı değeri girmelisiniz."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Böyle bir ada sahip bir grup zaten mevcut."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Öncelik için tam sayı değeri girmelisiniz."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Sıralama Önceliği küçük tamsayı olmalıdır."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Böyle bir ada sahip bir rütbe zaten mevcut."
           },
           {
             "@tag": "NEED_NAME",

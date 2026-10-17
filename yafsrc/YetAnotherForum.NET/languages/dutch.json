@@ -2799,6 +2799,10 @@
             "#text": "Je moet een nummer invullen voor het aantal Albums."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Er bestaat al een groep met een dergelijke naam."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Je moet een nummer invullen voor de prioriteit."
           },
@@ -3152,6 +3156,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Rang prioriteit is een geheel getal, kleiner dan 256."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Er bestaat al een rang met een dergelijke naam."
           },
           {
             "@tag": "NEED_NAME",

@@ -2803,6 +2803,10 @@
             "#text": "Bạn nên nhập giá trị số nguyên cho số lượng album người dùng."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Một nhóm có tên như vậy đã tồn tại."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Bạn nên nhập giá trị số nguyên để ưu tiên."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Ưu tiên Xếp hạng phải là số nguyên nhỏ."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Một cấp bậc có tên như vậy đã tồn tại."
           },
           {
             "@tag": "NEED_NAME",

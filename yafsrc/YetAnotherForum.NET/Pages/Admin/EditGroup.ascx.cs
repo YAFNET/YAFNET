@@ -254,6 +254,16 @@ public partial class EditGroup : AdminPage
         var roleName = this.Name.Text.Trim();
         var oldRoleName = string.Empty;
 
+        // the name is unique in the board (a new or renamed group with an existing name failed with an error)
+        var boardId = this.PageBoardContext.PageBoardID;
+        var editedId = roleId ?? 0;
+
+        if (this.GetRepository<Group>().Exists(g => g.BoardID == boardId && g.Name == roleName && g.ID != editedId))
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_EDITGROUP", "MSG_GROUP_EXISTS"), MessageTypes.warning);
+            return;
+        }
+
         // if we are editing existing role, get it's original name
         if (roleId.HasValue)
         {

@@ -2799,6 +2799,10 @@
             "#text": "Sie müssen eine Zahl für die Anzahl an Benutzeralben eingeben."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Eine Gruppe mit einem solchen Namen existiert bereits."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Sie müssen einen Integer-Wert für die Priorität eingeben."
           },
@@ -3152,6 +3156,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Rang Priorität sollte eine niedrige Zahl sein."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Ein Rang mit einem solchen Namen existiert bereits."
           },
           {
             "@tag": "NEED_NAME",

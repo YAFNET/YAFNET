@@ -2803,6 +2803,10 @@
             "#text": "Turėtumėte įvesti sveikojo skaičiaus reikšmę naudotojų albumų skaičiui."
           },
           {
+            "@tag": "MSG_GROUP_EXISTS",
+            "#text": "Grupė tokiu pavadinimu jau yra."
+          },
+          {
             "@tag": "MSG_INTEGER",
             "#text": "Turėtumėte įvesti sveikojo skaičiaus prioriteto reikšmę."
           },
@@ -3160,6 +3164,10 @@
           {
             "@tag": "MSG_RANK_INTEGER",
             "#text": "Rangas Prioritetas turėtų būti mažas sveikasis skaičius."
+          },
+          {
+            "@tag": "MSG_RANK_EXISTS",
+            "#text": "Laipsnis tokiu pavadinimu jau yra."
           },
           {
             "@tag": "NEED_NAME",
