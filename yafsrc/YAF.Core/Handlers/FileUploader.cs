@@ -143,7 +143,9 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
 
         try
         {
-            var allowedExtensions = this.Get<BoardSettings>().AllowedFileExtensions.ToLower().Split(',');
+            // the setting can contain spaces and dots ("jpg, .png")
+            var allowedExtensions = this.Get<BoardSettings>().AllowedFileExtensions.ToLower().Split(',')
+                .Select(x => x.Trim().TrimStart('.')).Where(x => x.Length > 0).ToList();
 
             for (var i = 0; i < context.Request.Files.Count; i++)
             {

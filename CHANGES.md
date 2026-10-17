@@ -146,6 +146,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Security: The attachments of deleted posts and of posts waiting for approval could be downloaded by everybody who can read the forum (e.g. by counting up the id), now only by moderators of the forum (and the author of a not approved post)
 * [FIXED] New topic: the tags were only saved for approved topics of users with the activity stream enabled (not for guests, moderated forums and users who turned the activity stream off)
 * [FIXED] Move message: the topic list offered deleted topics and the links of moved topics as targets, a message moved there was no longer visible; such topics are no longer listed or accepted
+* [FIXED] Attachments: the allowed file extensions setting is read with spaces and dots ("jpg, .png"), before such an entry never matched and the files were rejected as "Invalid File"
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
