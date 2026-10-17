@@ -250,6 +250,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The context menu script failed with a JavaScript error on pages with list rows without a context menu (e.g. Admin -> Languages and Task Manager)
 * [FIXED] Build: the web projects (SQL Server, SQLite, PostgreSQL) still referenced Microsoft.Bcl.AsyncInterfaces 9.0.9, depending on the build order the bin folder got this version and the forum did not start (the binding redirect and YAF.Core use 10.0.13)
 * [FIXED] The poll edit page failed with a parser error (the choice inputs got a second MaxLength attribute with the input limits of this version)
+* [FIXED] The albums page of a user failed with a parser error (the edit button of the album list had the runat attribute twice)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
