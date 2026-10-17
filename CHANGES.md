@@ -327,6 +327,8 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Test Data: the priority (sticky, announcement) of the generated topics was ignored
 * [FIXED] Admin > Test Data: the topics of the messages tab were only loaded after another forum was chosen, no forum or topic caused an error
 * [FIXED] Albums: the cover of an album without images (or an unknown cover) wrote an event log entry on every view instead of returning not found
+* [FIXED] Attachments: an upload without the upload access was a server error instead of forbidden
+* [FIXED] Attachments: the upload status showed the size 0 for an attachment saved in the database
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Web.Script.Serialization;
 using System.Web.SessionState;
 
@@ -128,6 +129,14 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
     /// <param name="context">The context.</param>
     private void UploadFile(HttpContext context)
     {
+        // suspended users can't upload files (like the api requests), users without the upload access are
+        // forbidden (not a server error)
+        if (!BoardContext.Current.UploadAccess || SuspendedUserFilter.IsSuspended(BoardContext.Current))
+        {
+            context.Response.StatusCode = 403;
+            return;
+        }
+
         var statuses = new List<FilesUploadStatus>();
 
         this.UploadWholeFile(context, statuses);
@@ -144,12 +153,6 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
     {
         var yafUserId = BoardContext.Current.PageUserID;
         var uploadFolder = BoardContext.Current.Get<BoardFolders>().Uploads;
-
-        // suspended users can't upload files (like the api requests)
-        if (!BoardContext.Current.UploadAccess || SuspendedUserFilter.IsSuspended(BoardContext.Current))
-        {
-            throw new HttpRequestValidationException("No Access");
-        }
 
         try
         {
@@ -240,7 +243,8 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                     if (resized is null)
                     {
                         byte[] fileData;
-                        using (var binaryReader = new BinaryReader(file.InputStream))
+                        // the stream stays open: its length is the size of the upload status
+                        using (var binaryReader = new BinaryReader(file.InputStream, Encoding.UTF8, true))
                         {
                             fileData = binaryReader.ReadBytes(file.ContentLength);
                         }
