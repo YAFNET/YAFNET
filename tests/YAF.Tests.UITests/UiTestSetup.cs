@@ -78,7 +78,8 @@ public class UiTestSetup
     }
 
     /// <summary>
-    /// The settings for the tests: no flood delay between two posts (the tests post several times in a row).
+    /// The settings for the tests: no flood delay between two posts (the tests post several times in a row), the
+    /// albums are turned on.
     /// </summary>
     /// <param name="page">The page.</param>
     private static async Task ConfigureForumAsync(IPage page)
@@ -98,6 +99,7 @@ public class UiTestSetup
 
         // the fields and the save buttons are in tabs, they are changed with script
         await page.EvaluateAsync("() => document.querySelector(\"[id$='_PostFloodDelay']\").value = '0'");
+        await page.EvaluateAsync("() => document.querySelector(\"[id$='_EnableAlbum']\").checked = true");
         await page.RunAndWaitForNavigationAsync(
             () => page.EvaluateAsync("() => document.querySelector(\"[id$='_Save']\").click()"));
     }

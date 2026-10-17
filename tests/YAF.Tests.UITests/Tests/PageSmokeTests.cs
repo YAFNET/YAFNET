@@ -54,7 +54,7 @@ public class PageSmokeTests : ForumTestBase
             "PostMessage?t=1&f=1", "PostMessage?t=1&f=1&q=1", "ReportPost?m=1", "Profile/Attachments",
             "Profile/BlockOptions", "Profile/ChangePassword", "Profile/EditAvatar", "Profile/EditProfile",
             "Profile/EditSettings", "Profile/EditSignature", "Profile/Subscriptions", "Search?postedby=Watcher",
-            "Members?letter=W", "MessageHistory?m=1"
+            "Members?letter=W", "MessageHistory?m=1", "Albums?u=2", "EditAlbumImages?a=new"
         ];
 
     /// <summary>
@@ -71,7 +71,7 @@ public class PageSmokeTests : ForumTestBase
             "Admin/SpamWords", "Admin/Tags", "Admin/TaskManager", "Admin/Users", "Admin/Version",
             "Admin/EditForum?fa=1", "Admin/EditCategory?c=1", "Admin/EditGroup?i=1", "Admin/EditRank?r=1",
             "Admin/EditAccessMask?i=1", "Moderate/Index", "Moderate/Forums?f=1", "EditMessage?m=1",
-            "MoveMessage?m=1"
+            "MoveMessage?m=1", "PollEdit?t=1"
         ];
 
     [TestCaseSource(nameof(GuestPages))]
