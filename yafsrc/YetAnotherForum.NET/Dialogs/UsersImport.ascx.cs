@@ -413,7 +413,18 @@ public partial class UsersImport : BaseUserControl
                            Profile_XMPP = userProfile.XMPP
                        };
 
-        this.Get<IAspNetUsersHelper>().Create(user, pass);
+        var result = this.Get<IAspNetUsersHelper>().Create(user, pass);
+
+        // a user refused by the login system (e.g. a name with characters that are not allowed, an invalid e-mail)
+        // was created as forum user without login and got the registration mail with a password that did not work
+        if (!result.Succeeded)
+        {
+            this.Get<ILoggerService>().Log(
+                $"Import of the user {user.UserName} refused: {result.Errors.ToDelimitedString(", ")}",
+                EventLogTypes.Warning);
+
+            return importCount;
+        }
 
         // setup initial roles (if any) for this user
         this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageBoardContext.PageBoardID, user);

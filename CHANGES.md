@@ -223,6 +223,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Reporting a post: every report of the same user and post is added to the report text, after some reports it was longer than its column (4000 characters) and the report failed with an error on SQL Server, MySQL and PostgreSQL; the oldest reports of the text are removed now
 * [FIXED] Edit profile and Admin -> Edit User -> Profile: a real name, location, city, homepage, blog or xmpp longer than 255 characters (the homepage with the added "https://") failed the save with an error on SQL Server, MySQL and PostgreSQL; the fields are checked now
 * [FIXED] User import: profile values longer than their columns or a country name instead of the country code (the column has 2 characters) failed the import of the user with an error on SQL Server, MySQL and PostgreSQL; the texts are shortened to the columns and only known countries are taken (also by name)
+* [FIXED] Admin -> Users -> Import: a user refused by the login system (e.g. a name with characters that are not allowed, an invalid e-mail) was created as forum user without login and got the registration mail with a password that did not work; such users are skipped and logged now
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
