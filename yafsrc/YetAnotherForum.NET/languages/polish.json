@@ -12026,6 +12026,10 @@
             "#text": "Nie możesz wysłać prywatnej wiadomości do gościa."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Twoja skrzynka prywatnych wiadomości jest pełna. Maksymalna ilość wiadomości to {0}. Proszę usuń nieco wiadomości."
           },

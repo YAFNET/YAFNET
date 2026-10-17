@@ -12022,6 +12022,10 @@
             "#text": "Je kunt geen privé-bericht verzenden naar de gastgebruiker."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Je PM box is vol. Het maximum is {0}. Om meer berichten te kunnen ontvangen moet je berichten verwijderen."
           },

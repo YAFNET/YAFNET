@@ -12038,6 +12038,10 @@
             "#text": "Jūs negalite siųsti privačių pranešimų svečių. "
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Jūsų privačių žinučių laukelis yra užpildytas. Didžiausia leistina suma yra {0}. Prašome ištrinti žinutes, kad atlaisvintumėte vietą."
           },

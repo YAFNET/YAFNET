@@ -12038,6 +12038,10 @@
             "#text": "Yksityisviesti ei voi lähettää vieras -tilille."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Yksityisviestilaatikkosi on täynnä. Suurin sallittu arvo on {0}. Ole hyvä ja poista viestejä vapauttaaksesi tilaa."
           },

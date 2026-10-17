@@ -12042,6 +12042,10 @@
             "#text": "Soukromé vzkazy nelze odesílat pro kategorii „Host”."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Vaše schránka soukromých zpráv je plná. "
           },

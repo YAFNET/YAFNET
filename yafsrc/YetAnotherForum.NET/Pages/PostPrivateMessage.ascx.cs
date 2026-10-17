@@ -644,6 +644,16 @@ public partial class PostPrivateMessage : ForumPage
                     return;
                 }
 
+                // an approved member of the board who accepts the messages: users who block private messages
+                // (except from friends and admins) or ignore the sender don't get them
+                if (!this.CanSendMessageTo(user))
+                {
+                    this.PageBoardContext.Notify(
+                        this.GetTextFormatted("RECIPIENT_NOT_ALLOWED", this.HtmlEncode(recipient)),
+                        MessageTypes.warning);
+                    return;
+                }
+
                 // get recipient's ID from the database
                 if (!recipientIds.Contains(user.ID))
                 {
@@ -702,6 +712,34 @@ public partial class PostPrivateMessage : ForumPage
             // redirect to outbox (sent items), not control panel
             this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = "out" });
         }
+    }
+
+    /// <summary>
+    /// Checks if the current user can send a private message to the user.
+    /// </summary>
+    /// <param name="user">The recipient.</param>
+    /// <returns>Returns if the message can be sent.</returns>
+    private bool CanSendMessageTo(User user)
+    {
+        if (user.BoardID != this.PageBoardContext.PageBoardID || !user.UserFlags.IsApproved || user.UserFlags.IsDeleted)
+        {
+            return false;
+        }
+
+        if (this.PageBoardContext.IsAdmin)
+        {
+            return true;
+        }
+
+        if (this.GetRepository<IgnoreUser>().Exists(
+                i => i.UserID == user.ID && i.IgnoredUserID == this.PageBoardContext.PageUserID))
+        {
+            return false;
+        }
+
+        // only friends of the recipient (an approved friendship, not a request)
+        return !user.Block.BlockPMs || this.GetRepository<Buddy>().Exists(
+                   b => b.FromUserID == user.ID && b.ToUserID == this.PageBoardContext.PageUserID && b.Approved);
     }
 
     /// <summary>

@@ -12018,6 +12018,10 @@
             "#text": "امکان ارسال پیام خصوصی به کاربر میهمان وجود ندارد."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "صندوق پیام خصوصی شما پر است. حداکثر مجاز {0} پیام است. لطفا پیام ها را حذف کنید تا فضا آزاد شود."
           },

@@ -12038,6 +12038,10 @@
             "#text": "Privaatsõnumi saatmine Külalisele ei ole võimalik."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Teie privaatsõnumite postkast on täis. Lubatud on maksimaalselt {0} sõnumit. Palun kustutage sõnumid, et tekitada ruumi."
           },

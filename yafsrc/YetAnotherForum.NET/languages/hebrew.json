@@ -12042,6 +12042,10 @@
             "#text": "לא ניתן לשלוח הודעות פרטיות לאורח."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "תיבת ההודעות הפרטיות שלך מלאה. מקסימום ההודעות המורשות הוא {0}. נא מחק/י הודעות על מנת לפנות מקום."
           },

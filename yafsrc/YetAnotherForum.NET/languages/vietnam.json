@@ -12038,6 +12038,10 @@
             "#text": "Bạn không thể gửi tin nhắn cho khách."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Hộp tin nhắn của bạn đã bị đầy. Số lượng tin nhắn cho phép {0}. Xin xoá bớt tin nhắn để tăng thêm vùng trống cho hộp tin nhắn."
           },

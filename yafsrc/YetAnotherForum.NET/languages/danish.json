@@ -12038,6 +12038,10 @@
             "#text": "Du kan ikke sende en privat besked til en gæst."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Din private indbakke er fuld. Max antal besked er {0}. Slet nogle beskeder for at frigøre plads."
           },

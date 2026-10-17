@@ -12038,6 +12038,10 @@
             "#text": "Misafir kullanıcıya özel mesaj gönderemezsiniz."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Özel mesaj kutunuz dolu. En fazla {0} mesaj saklayabilirsiniz. Boş yer edinmek için lütfen birkaçını siliniz."
           },

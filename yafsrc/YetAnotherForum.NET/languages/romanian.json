@@ -12038,6 +12038,10 @@
             "#text": "Nu poti trimite un mesaj privat unui oaspete."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Inboxul Private este plin. Numarul maxim de mesaje salvate este {0}. Sterge mesaje pentru a elibera spatiu."
           },

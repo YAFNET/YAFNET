@@ -12018,6 +12018,10 @@
             "#text": "لايمكن   ارسال  رسالة  خاصة   الى   زائر."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "الرسائل  الخاصة   ممتلئة {0}. الرجاء حذفمن الرسائل الخاصة ."
           },

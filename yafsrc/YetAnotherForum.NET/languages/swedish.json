@@ -12038,6 +12038,10 @@
             "#text": "Du kan inte skicka ett privat meddelande till en gäst."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Din privata meddelanderuta är full. Högsta tillåtna antal är {0}. Ta bort meddelanden för att frigöra utrymme."
           },

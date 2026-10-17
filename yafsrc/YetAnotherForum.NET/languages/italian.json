@@ -12022,6 +12022,10 @@
             "#text": "Non si possono inviare messaggi privati agli ospiti."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Non puoi inviare e ricevere altri messaggi privati perché hai raggiunto il numero massimo che ti è consentito di archiviare nella tua cassetta postale, pari a  {0}."
           },

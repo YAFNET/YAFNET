@@ -12038,6 +12038,10 @@
             "#text": "Súkromné odkazy nie je možné odosielať pre kategóriu „Hosť”."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Vaše pole pre súkromné správy je plné. Maximálna povolená hodnota je {0}. Prosím, odstráňte správy, aby ste uvoľnili miesto."
           },

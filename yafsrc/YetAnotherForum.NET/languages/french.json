@@ -12038,6 +12038,10 @@
             "#text": "Vous ne pouvez pas envoyer de Message Privé à des invités."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Vous avez trop de messages privés, envoyés et archivés. Le maximum est de {0}. Veuillez effacer des messages pour libérer de l'espace."
           },

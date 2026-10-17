@@ -12022,6 +12022,10 @@
             "#text": "Es ist nicht möglich, Private Nachrichten an Gäste zu senden."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Du hast zu viele Nachrichten in Deinem Posteingang, Gesendeten Nachrichten und Archiv. Maximal sind {0} Stück erlaubt."
           },

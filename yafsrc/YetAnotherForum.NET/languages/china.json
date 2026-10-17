@@ -12038,6 +12038,10 @@
             "#text": "不能向来宾发送悄悄话."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "您的私人消息框已满。"
           },

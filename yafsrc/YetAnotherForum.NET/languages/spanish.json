@@ -12022,6 +12022,10 @@
             "#text": "No puedes enviar mensajes privados a un usuario invitado."
           },
           {
+            "@tag": "RECIPIENT_NOT_ALLOWED",
+            "#text": "{0} does not accept private messages from you."
+          },
+          {
             "@tag": "OWN_PMBOX_FULL",
             "#text": "Tu bandeja de entrada de mensajes privados esta llena. El máximo permitido es {0}. Por favor borra mensajes para liberar espacio."
           },
