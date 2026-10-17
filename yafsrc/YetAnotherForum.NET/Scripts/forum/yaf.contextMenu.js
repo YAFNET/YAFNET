@@ -6,6 +6,11 @@
 
         var contextMenu = element.querySelector('.context-menu');
 
+        // rows without a context menu (e.g. the task manager and language lists of the admin)
+        if (contextMenu == null) {
+            return;
+        }
+
         var messageId = 0;
 
         if (element.querySelector('.selectionQuoteable') != null) {
@@ -73,7 +78,8 @@
                 contextMenu.style.display = 'none';
             });
 
-        element.querySelector('.context-menu a').addEventListener('click', (e) => {
+        // a context menu without links
+        contextMenu.querySelector('a')?.addEventListener('click', (e) => {
             var a = e.target;
             if (a.dataset.toggle !== undefined && a.dataset.toggle === 'confirm') {
                 e.preventDefault();

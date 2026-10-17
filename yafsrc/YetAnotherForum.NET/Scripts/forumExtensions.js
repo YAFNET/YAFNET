@@ -15607,6 +15607,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".list-group-item-menu, .message").forEach(element => {
         var isMessageContext = !!element.classList.contains("message");
         var contextMenu = element.querySelector(".context-menu");
+        if (contextMenu == null) {
+            return;
+        }
         var messageId = 0;
         if (element.querySelector(".selectionQuoteable") != null) {
             messageId = element.querySelector(".selectionQuoteable").id;
@@ -15649,7 +15652,7 @@ document.addEventListener("DOMContentLoaded", function() {
             contextMenu.classList.remove("show");
             contextMenu.style.display = "none";
         });
-        element.querySelector(".context-menu a").addEventListener("click", e => {
+        contextMenu.querySelector("a")?.addEventListener("click", e => {
             var a = e.target;
             if (a.dataset.toggle !== undefined && a.dataset.toggle === "confirm") {
                 e.preventDefault();
