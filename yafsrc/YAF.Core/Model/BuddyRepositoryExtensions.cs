@@ -235,8 +235,9 @@ public static class BuddyRepositoryExtensions
 
         var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
+        // the requests of the other users (a friend of the user is in the approved requests of the user)
         expression2.Join<Rank>((u, r) => r.ID == u.RankID)
-            .Join<Buddy>((u, b) => b.ToUserID == fromUserId && b.FromUserID == u.ID && (u.Flags & 2) == 2)
+            .Join<Buddy>((u, b) => b.ToUserID == fromUserId && b.FromUserID == u.ID && !b.Approved && (u.Flags & 2) == 2)
             .Select<User, Rank, Buddy>(
                 (a, b, c) => new
                                  {

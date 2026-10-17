@@ -298,6 +298,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Private messages: the mailbox of the recipient was full one message before the limit
 * [FIXED] Profile: the region was not saved when the country was selected (or changed) at the same time
 * [FIXED] Profile: countries without regions showed an empty region list
+* [FIXED] Friends: a removed friend was still shown in the friend list (the approved request of the friend was listed as friendship)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

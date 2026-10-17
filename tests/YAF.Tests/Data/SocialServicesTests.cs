@@ -334,6 +334,10 @@ public class SocialServicesTests
 
         this.FriendsOf(this.alice).Should().BeEmpty();
         friends.IsBuddy(this.alice, true).Should().BeTrue("you are always your own buddy");
+
+        // the friend list of the page (the approved request of bob is no friend of alice)
+        this.Repository<Buddy>().ListAll(this.alice).Where(b => b.Approved).Select(b => b.UserID).Should().NotContain(this.bob);
+        this.Repository<Buddy>().ListAll(this.bob).Where(b => b.Approved).Select(b => b.UserID).Should().Equal(this.alice);
     }
 
     [Test]
