@@ -317,7 +317,8 @@ public partial class UsersImport : BaseUserControl
         {
             int.TryParse(GetValue(row, "Gender"), out var gender);
 
-            userProfile.Gender = gender;
+            // a gender that is not in the list is "other"
+            userProfile.Gender = Enum.IsDefined(typeof(Gender), gender) ? gender : 0;
         }
 
         if (row.Table.Columns.Contains("Birthday") && GetValue(row, "Birthday").IsSet())

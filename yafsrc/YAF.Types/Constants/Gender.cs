@@ -25,8 +25,8 @@
 namespace YAF.Types.Constants;
 
 /// <summary>
-/// The Gender Enumerators based on
-/// https://github.com/Lehoczky/gender-enum-generator
+/// The genders of the user profile (the profiles of older versions may have a value above <see cref="Woman"/>,
+/// they show as <see cref="Other"/>)
 /// </summary>
 public enum Gender
 {
@@ -34,47 +34,5 @@ public enum Gender
 
     Man,
 
-    Woman,
-
-    Agender,
-
-    Androgyne,
-
-    Bigender,
-
-    Cisgender,
-
-    FemaleToMale,
-
-    GenderFluid,
-
-    GenderNonconforming,
-
-    GenderQuestioning,
-
-    Genderqueer,
-
-    Intersex,
-
-    MaleToFemale,
-
-    NonBinary,
-
-    Pangender,
-
-    Trans,
-
-    Transgender,
-
-    TransMan,
-
-    TransWoman,
-
-    Transfeminine,
-
-    Transmasculine,
-
-    Transsexual,
-
-    TwoSpirit
+    Woman
 }

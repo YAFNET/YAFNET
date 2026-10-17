@@ -103,6 +103,23 @@ public class LanguageKeysTests
         missing.Should().BeEmpty();
     }
 
+    [Test]
+    [Description("Every gender of the profile has a text in english.json")]
+    public void All_Genders_Have_A_Text_Test()
+    {
+        var root = FindSourceRoot();
+
+        if (root is null)
+        {
+            Assert.Ignore("The source code is not available next to the tests.");
+        }
+
+        var tags = ReadTags(Path.Combine(root, "YetAnotherForum.NET", "languages", "english.json"));
+
+        EnumExtensions.GetAllItems<YAF.Types.Constants.Gender>().Select(g => g.ToString().ToUpperInvariant()).Where(g => !tags.Contains(g))
+            .Should().BeEmpty();
+    }
+
     private static HashSet<string> ReadTags(string fileName)
     {
         var json = JObject.Parse(File.ReadAllText(fileName));

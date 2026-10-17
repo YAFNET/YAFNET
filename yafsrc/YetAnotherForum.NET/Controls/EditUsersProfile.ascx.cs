@@ -623,7 +623,10 @@ public partial class EditUsersProfile : BaseUserControl
                                  : this.User.Item2.Profile_Facebook;
 
         this.Xmpp.Text = this.User.Item2.Profile_XMPP;
-        this.Gender.SelectedIndex = this.User.Item2.Profile_Gender;
+        // a gender of an older version that is no longer in the list is "other"
+        this.Gender.SelectedIndex = this.User.Item2.Profile_Gender < this.Gender.Items.Count
+                                        ? this.User.Item2.Profile_Gender
+                                        : 0;
 
         if (this.User.Item2.Profile_Country.IsSet())
         {

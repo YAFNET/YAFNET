@@ -476,11 +476,12 @@ public partial class UserProfile : ForumPage
                 this.HtmlEncode(this.Get<IBadWordReplace>().Replace(user.Item2.Profile_Interests));
         }
 
-        if (user.Item2.Profile_Gender > 0)
+        var genders = EnumExtensions.GetAllItems<Gender>().ToList();
+
+        // a gender of an older version that is no longer in the list is not shown
+        if (user.Item2.Profile_Gender > 0 && user.Item2.Profile_Gender < genders.Count)
         {
             this.GenderTR.Visible = true;
-
-            var genders = EnumExtensions.GetAllItems<Gender>().ToList();
 
             this.Gender.Text = this.GetText("GENDER", genders[user.Item2.Profile_Gender].ToString());
         }
