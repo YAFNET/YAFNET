@@ -24,6 +24,9 @@
 
 namespace YAF.Pages.Account;
 
+using YAF.Types.Models;
+using YAF.Types.Models.Identity;
+
 /// <summary>
 /// The recover Password Page.
 /// </summary>
@@ -106,6 +109,10 @@ public partial class ForgotPassword : AccountPage
         // verify the user is approved, etc...
         if (!user.IsApproved)
         {
+            // the verification e-mail is sent again, only while the verification is pending (accounts waiting
+            // for the approval of an admin get no e-mail) and within the send limit
+            this.ResendVerificationEmail(user);
+
             // explain they are not approved yet...
             this.PageBoardContext.LoadMessage.AddSession(
                 this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", this.HtmlEncode(MaskEmail(user.Email))),
@@ -141,6 +148,39 @@ public partial class ForgotPassword : AccountPage
         this.PageBoardContext.LoadMessage.AddSession(this.GetText("SUCCESS"), MessageTypes.success);
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+    }
+
+    /// <summary>
+    /// Sends the verification e-mail again when the e-mail verification of the account is pending.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    private void ResendVerificationEmail(AspNetUsers user)
+    {
+        var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+
+        if (yafUser == null || yafUser.UserFlags.IsDeleted)
+        {
+            return;
+        }
+
+        var checkMail = this.GetRepository<CheckEmail>().GetSingle(m => m.UserID == yafUser.ID);
+
+        if (checkMail == null || !SendLimitHelper.TryCount($"AccountEmail_{user.Id}", MaxEmailsPerWindow, EmailWindow))
+        {
+            return;
+        }
+
+        // only a hash of the key is stored: the mail gets a new key
+        this.GetRepository<CheckEmail>().DeleteById(checkMail.ID);
+
+        try
+        {
+            this.Get<ISendNotification>().SendVerificationEmail(user, checkMail.Email, checkMail.UserID);
+        }
+        catch (Exception x)
+        {
+            this.Get<ILoggerService>().Error(x, $"Verification mail to {checkMail.Email} failed");
+        }
     }
 
     /// <summary>

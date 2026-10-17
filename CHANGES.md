@@ -169,6 +169,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The registration bot check ignored wildcard IP bans (e.g. 192.168.1.*), and an invalid banned name mask cancelled a match on a banned e-mail or IP
 * [FIXED] The "watch topic" option of the quick reply was ignored for admins and moderators
 * [FIXED] The StopForumSpam and BotScout bot checks sent the user name, e-mail and ip without url encoding (e.g. a + in an e-mail address became a space, an & in a name cut off the request), a StopForumSpam response without a user name caused an error
+* [FIXED] The forgot password page said that a new verification e-mail was sent to not yet approved accounts, but none was sent; it is sent now (only while the e-mail verification is pending, accounts waiting for the approval of an admin get no e-mail)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
