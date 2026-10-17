@@ -290,9 +290,14 @@ public partial class EditMessage : ForumPage
             descriptionSave = HtmlTagHelper.StripHtml(this.TopicDescriptionTextBox.Text.Trim());
         }
 
-        if (this.TopicStylesTextBox.Enabled)
+        // the styles are only changed by moderators (the field is not shown to others, the styles are kept)
+        if (this.StyleRow.Visible && this.TopicStylesTextBox.Enabled)
         {
             stylesSave = HtmlTagHelper.StripHtml(this.TopicStylesTextBox.Text.Trim());
+        }
+        else
+        {
+            stylesSave = this.PageBoardContext.PageTopic.Styles ?? string.Empty;
         }
 
         // Mek Suggestion: This should be removed, resetting flags on edit is a bit lame.
@@ -322,8 +327,9 @@ public partial class EditMessage : ForumPage
 
         var messageText = this.forumEditor.Text;
 
+        // the priority is only changed with priority access (the field is not shown to others, it was reset)
         this.GetRepository<Message>().Update(
-            this.Priority.SelectedValue.ToType<short>(),
+            this.PriorityRow.Visible ? this.Priority.SelectedValue.ToType<short>() : null,
             HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(messageText)),
             descriptionSave.Trim(),
             string.Empty,
@@ -338,11 +344,11 @@ public partial class EditMessage : ForumPage
             messageUser,
             this.PageBoardContext.PageUserID);
 
-        // Update Topic Tags?!
-        this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageBoardContext.PageTopicID);
-
+        // the tags are only changed when they are shown (topic starter and moderators), editing a reply kept none
         if (this.TagsRow.Visible)
         {
+            this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageBoardContext.PageTopicID);
+
             this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, this.PageBoardContext.PageTopicID);
         }
 
