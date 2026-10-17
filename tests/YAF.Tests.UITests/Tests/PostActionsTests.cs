@@ -88,6 +88,98 @@ public class PostActionsTests : ForumTestBase
         (await this.Control("btnTogglePost").CountAsync()).Should().Be(0);
     }
 
+    [Test]
+    [Description("A second reply marked as answer replaces the first answer")]
+    public async Task Second_Answer_Test()
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        var href = await this.CreateTopicAsync($"Two answers {Guid.NewGuid():N}");
+
+        var topicId = Regex.Match(href, @"Posts/t(\d+)").Groups[1].Value;
+
+        await this.LoginAsAdminAsync();
+
+        foreach (var text in new[] { "The first answer.", "The second answer." })
+        {
+            await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+            await this.Control("YafTextEditor").FillAsync(text);
+            await this.ClickAndWaitAsync(this.Control("PostReply"));
+        }
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(href);
+        await this.ToolAsync(post: 1, "Mark As Answer");
+
+        await this.GotoAsync(href);
+        await this.ToolAsync(post: 2, "Mark As Answer");
+
+        await this.GotoAsync(href);
+        await this.Page.Locator("[aria-label='ellipsis-h']").Nth(1).ClickAsync();
+        (await this.Page.Locator(".dropdown-menu.show a", new PageLocatorOptions { HasTextString = "Mark As Answer" }).CountAsync())
+            .Should().Be(1, "the first reply is no answer anymore");
+    }
+
+    [Test]
+    [Description("With the reputation a member votes for the author of a post (once), the admin votes against")]
+    public async Task Reputation_Test()
+    {
+        await this.LoginAsAdminAsync();
+        await this.SetReputationAsync(true);
+
+        try
+        {
+            await this.LoginAsUserAsync(TestConfig.TestUserName);
+            var href = await this.CreateTopicAsync($"Reputation {Guid.NewGuid():N}");
+
+            await this.LoginAsUserAsync(TestConfig.TestUserName2);
+            await this.GotoAsync(href);
+
+            await this.ClickAndWaitAsync(this.Page.Locator("[id$='_AddReputation']").First);
+            (await this.Page.ContentAsync()).Should().Contain("toast-body");
+
+            await this.GotoAsync(href);
+            (await this.Page.Locator("[id$='_AddReputation']").CountAsync()).Should().Be(0, "the member voted");
+
+            await this.LoginAsAdminAsync();
+            await this.GotoAsync(href);
+
+            if (await this.Page.Locator("[id$='_RemoveReputation']").CountAsync() > 0)
+            {
+                await this.ClickAndWaitAsync(this.Page.Locator("[id$='_RemoveReputation']").First);
+                (await this.Page.ContentAsync()).Should().Contain("toast-body");
+            }
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetReputationAsync(false);
+        }
+    }
+
+    [Test]
+    [Description("A member asks the author of a post to be friends with the menu of the post")]
+    public async Task Friend_Request_From_Post_Test()
+    {
+        var author = $"Fra{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(author, TestConfig.TestUserPassword);
+        await this.LoginAsync(author, TestConfig.TestUserPassword);
+        var href = await this.CreateTopicAsync($"Friend {Guid.NewGuid():N}");
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync(href);
+        await this.ToolAsync(post: 0, "Add as Friend");
+
+        (await this.Page.ContentAsync()).Should().Contain("toast-body");
+    }
+
+    private async Task SetReputationAsync(bool enabled)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("EnableUserReputation").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
     private async Task<string> CreateTopicAsync(string subject, string text = "The first post.")
     {
         await this.GotoAsync("PostTopic?f=1");
