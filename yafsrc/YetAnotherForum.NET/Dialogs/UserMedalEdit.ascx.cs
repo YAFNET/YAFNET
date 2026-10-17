@@ -145,9 +145,9 @@ public partial class UserMedalEdit : BaseUserControl
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.SelectUsersLoadJs),
                 JavaScriptBlocks.SelectUsersLoadJs(
-                    "UserEditDialog",
                     "UserSelect",
-                    this.SelectedUserID.ClientID));
+                    this.SelectedUserID.ClientID,
+                    this.GetText("MOD_FORUMUSER", "FIND")));
         }
     }
 

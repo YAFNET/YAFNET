@@ -321,6 +321,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > BBCodes, Replace Words and Spam Words: after a failed import the import dialog was not opened again (script error)
 * [FIXED] Admin > BBCodes and Replace Words: the import button showed the text "Import List" of another page
 * [FIXED] Admin > Page Access: an admin (not host admin) could not open any admin page, also not the granted ones (the access was checked with the generated class name of the page)
+* [FIXED] Admin > Edit Medal: the user select of the dialog to give the medal to a user did not work (script error), no user could be selected
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
