@@ -187,6 +187,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The ban imports accepted invalid entries, IP imports now accept IP addresses and masks (masks were rejected, incomplete addresses like 1.2.3 accepted), name, e-mail and user agent imports only valid regular expressions
 * [FIXED] Admin -> Banned IPs: an invalid address closed the dialog (the message was shown on the page), IPv6 addresses could not be banned and incomplete addresses with empty parts were checked part by part with several messages; the address is checked like the import now
 * [FIXED] Awarding a medal a user already has caused an error, the medals of a user who got a new medal stayed cached (the cache of no user was cleared), a user of another board could be selected
+* [FIXED] The "days before posts are locked" period started again with every edit, it now starts when the post was written
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

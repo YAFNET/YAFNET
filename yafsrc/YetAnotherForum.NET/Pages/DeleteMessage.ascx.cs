@@ -75,9 +75,10 @@ public partial class DeleteMessage : ForumPage
                 return false;
             }
 
-            var edited = this.PageBoardContext.PageMessage.Edited ?? this.PageBoardContext.PageMessage.Posted;
+            // the period starts when the post was written (an edit must not start it again)
+            var posted = this.PageBoardContext.PageMessage.Posted;
 
-            return edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow;
+            return posted.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow;
         }
     }
 

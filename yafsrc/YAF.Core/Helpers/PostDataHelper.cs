@@ -165,10 +165,11 @@ public class PostDataHelperWrapper
                 return false;
             }
 
-            var edited = this.DataRow.Edited;
+            // the period starts when the post was written (an edit must not start it again)
+            var posted = this.DataRow.Posted;
 
             // check if post is locked according to this rule
-            return edited.AddDays(BoardContext.Current.BoardSettings.LockPosts) < DateTime.UtcNow;
+            return posted.AddDays(BoardContext.Current.BoardSettings.LockPosts) < DateTime.UtcNow;
         }
     }
 

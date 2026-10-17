@@ -507,9 +507,8 @@ public partial class EditMessage : ForumPage
 
         if (!this.PageBoardContext.IsAdmin && this.PageBoardContext.BoardSettings.LockPosts > 0)
         {
-            var edited = message.Edited ?? message.Posted;
-
-            if (edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow)
+            // the period starts when the post was written (an edit must not start it again)
+            if (message.Posted.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow)
             {
                 postLocked = true;
             }
