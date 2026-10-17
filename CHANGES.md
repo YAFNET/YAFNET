@@ -57,6 +57,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Reported posts: the first report of a user was counted as 0 reports
 * [FIXED] Message history: the history of a post that was never edited, or of a post that doesn't exist, showed an error
 * [FIXED] Event log: the log was never trimmed to the maximum number of entries (only 100 entries were checked)
+* [FIXED] Admin -> Private messages: pruning deleted the messages of all boards, 0 days deleted all messages
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

@@ -19,6 +19,9 @@ public static class PMessageRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
+    /// <param name="boardId">
+    /// The board id (the messages of the users of the board are deleted).
+    /// </param>
     /// <param name="daysRead">
     /// The days read.
     /// </param>
@@ -27,37 +30,33 @@ public static class PMessageRepositoryExtensions
     /// </param>
     public static void PruneAll(
         this IRepository<PMessage> repository,
+        int boardId,
         int daysRead,
         int daysUnread)
     {
-        
+        // 0 or a negative number of days would remove all messages
+        var readDate = DateTime.UtcNow.AddDays(-Math.Max(daysRead, 1));
+        var unreadDate = DateTime.UtcNow.AddDays(-Math.Max(daysUnread, 1));
 
-        // Delete Read Messages
+        // Delete the read and unread messages of the users of the board
         repository.DbAccess.Execute(
             db =>
                 {
-                    var q = db.Connection.From<UserPMessage>().Join<PMessage>((a, b) => a.PMessageID == b.ID);
+                    var users = db.Connection.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID);
+                    var readMessages = db.Connection.From<PMessage>().Where(p => p.Created < readDate).Select(p => p.ID);
 
-                    q.Where(
-                        $"{OrmLiteConfig.DialectProvider.DateDiffFunction("dd", q.Column<PMessage>(b1 => b1.Created, true), OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {daysRead}");
-
-                    q.And(a => (a.Flags & 1) == 1);
-
-                    return db.Connection.Delete(q);
+                    return db.Connection.Delete<UserPMessage>(
+                        x => Sql.In(x.UserID, users) && Sql.In(x.PMessageID, readMessages) && (x.Flags & 1) == 1);
                 });
 
-        // Delete Unread Messages
         repository.DbAccess.Execute(
             db =>
                 {
-                    var q = db.Connection.From<UserPMessage>().Join<PMessage>((a, b) => a.PMessageID == b.ID);
+                    var users = db.Connection.From<User>().Where(u => u.BoardID == boardId).Select(u => u.ID);
+                    var unreadMessages = db.Connection.From<PMessage>().Where(p => p.Created < unreadDate).Select(p => p.ID);
 
-                    q.Where(
-                        $"{OrmLiteConfig.DialectProvider.DateDiffFunction("dd", q.Column<PMessage>(b1 => b1.Created, true), OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {daysUnread}");
-
-                    q.And(a => (a.Flags & 1) != 1);
-
-                    return db.Connection.Delete(q);
+                    return db.Connection.Delete<UserPMessage>(
+                        x => Sql.In(x.UserID, users) && Sql.In(x.PMessageID, unreadMessages) && (x.Flags & 1) != 1);
                 });
 
         // Delete old Messages
