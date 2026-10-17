@@ -138,11 +138,12 @@ public class AdminPage : ForumPage
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
         }
 
-        // Load the page access list.
-        var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageBoardContext.PageUserID, this.PageBoardContext.CurrentForumPage.PageName);
+        // the access is stored with the name of the page type (the name of the class of the page is the generated
+        // name of the control, e.g. pages_admin_bannedips_ascx)
+        var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageBoardContext.PageUserID, this.PageType.ToString());
 
         // Check access rights to the page.
-        if (!this.PageBoardContext.CurrentForumPage.PageName.IsSet() || !hasAccess)
+        if (!hasAccess)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
         }
