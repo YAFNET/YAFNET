@@ -302,6 +302,25 @@ public class SendNotificationTests
         RecordingMailService.TextOf(this.mail.Sent.Should().ContainSingle().Subject).Should().Be("Neue Rollen: Moderators");
     }
 
+    [Test]
+    [Description("Topic names and posts are text in the html mail, not html, and their brackets are no bb codes")]
+    public void Html_Mail_Encodes_The_Values_Test()
+    {
+        this.GrantRead(this.alice, this.bob);
+        this.Watch(this.bob);
+
+        this.Repository<Topic>().UpdateOnly(
+            () => new Topic { TopicName = "<img src=x onerror=alert(1)> [url=javascript:x]y[/url]" },
+            t => t.ID == this.topic);
+
+        this.Notifications.ToWatchingUsers(this.Post(this.alice, "Hello"));
+
+        var html = RecordingMailService.HtmlOf(this.mail.Sent.Should().ContainSingle().Subject);
+
+        html.Should().Contain("&lt;img src=x onerror=alert(1)&gt;").And.NotContain("<img");
+        html.Should().Contain("&#91;url=javascript:x&#93;");
+    }
+
     private ISendNotification Notifications => this.board.Resolve<ISendNotification>();
 
     private Message Post(int userId, string text)

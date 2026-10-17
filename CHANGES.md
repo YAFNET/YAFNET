@@ -70,6 +70,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Watch mails: watchers who can't read the forum (anymore) got the mail with the post, the hidden content of a post ([hide], [hide-reply], [hide-thanks], ...) was in the mail, a mail error failed the post, and the parallel sending removed the request context of the post (errors after the notification)
 * [FIXED] Moderator mails (approval and reported posts): a mail error failed the post that needs the approval, an error stopped the mails to the other moderators, and the parallel sending removed the request context of the post
 * [FIXED] Mails: the role and suspension mails (sent by an admin) were in the language of the admin, mails to users without an own language were in the language of the current user instead of the board language
+* [FIXED] Html mails: topic names, names of users, posts and report reasons were inserted as html into the html mails (html and script of users in the mail), and their brackets were formatted as bb codes (disguised links)
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix

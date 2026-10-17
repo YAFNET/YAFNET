@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Services;
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
@@ -125,7 +126,7 @@ public class TemplateEmail : IHaveServiceLocator
             fromAddress,
             subject,
             textBody,
-            this.ProcessHtml(textBody));
+            this.ProcessHtml());
     }
 
     /// <summary>
@@ -154,7 +155,7 @@ public class TemplateEmail : IHaveServiceLocator
             fromAddress,
             subject,
             textBody,
-            this.ProcessHtml(textBody));
+            this.ProcessHtml());
     }
 
     /// <summary>
@@ -168,6 +169,23 @@ public class TemplateEmail : IHaveServiceLocator
     /// </returns>
     public string ProcessTemplate(string templateName)
     {
+        return this.ProcessTemplate(templateName, value => value);
+    }
+
+    /// <summary>
+    /// Processes the template, the values of the template parameters are formatted.
+    /// </summary>
+    /// <param name="templateName">
+    /// The template name.
+    /// </param>
+    /// <param name="formatValue">
+    /// Formats the values.
+    /// </param>
+    /// <returns>
+    /// The processed template.
+    /// </returns>
+    private string ProcessTemplate(string templateName, Func<string, string> formatValue)
+    {
         var email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
 
         if (email.IsSet())
@@ -175,7 +193,7 @@ public class TemplateEmail : IHaveServiceLocator
             email = this.TemplateParams.Keys.Aggregate(
                 email,
                 (current, key) => this.TemplateParams[key].IsSet()
-                                      ? current.Replace(key, this.TemplateParams[key])
+                                      ? current.Replace(key, formatValue(this.TemplateParams[key]))
                                       : current.Replace(key, string.Empty));
         }
 
@@ -185,18 +203,27 @@ public class TemplateEmail : IHaveServiceLocator
     /// <summary>
     /// Load Email Template and inject content
     /// </summary>
-    /// <param name="textBody">
-    /// The text body.
-    /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private string ProcessHtml(string textBody)
+    private string ProcessHtml()
     {
         var htmlTemplate = File.ReadAllText(
             this.Get<HttpContextBase>().Server.MapPath(this.Get<ITheme>().BuildThemePath(this.HtmlTemplateFileName)));
 
-        var formattedBody = this.Get<IBBCode>().MakeHtml(textBody, true, true);
+        // the values are texts of users (topic names, names, report reasons...): the text is html encoded like
+        // the posts, and the brackets of the values are no bb codes (e.g. disguised links), only the bb codes
+        // and links of the template text itself are formatted
+        const string BracketOpen = "\uE000";
+        const string BracketClose = "\uE001";
+
+        var textBody = this.ProcessTemplate(
+            $"{this.TemplateName}_TEXT",
+            value => value.Replace("[", BracketOpen).Replace("]", BracketClose)).Trim();
+
+        var encodedBody = HttpUtility.HtmlEncode(textBody).Replace(BracketOpen, "&#91;").Replace(BracketClose, "&#93;");
+
+        var formattedBody = this.Get<IBBCode>().MakeHtml(encodedBody, true, true);
 
         this.TemplateParams["{manageText}"] = this.Get<ILocalization>().GetText("DIGEST", "REMOVALTEXT", this.TemplateLanguageFile);
 
