@@ -115,16 +115,19 @@ public class BaseReportedPosts : BaseUserControl
                     reportString.ForEach(
                         t =>
                             {
-                                var textString = t.Split("??".ToCharArray());
+                                // "date??text": only the first separator (a question mark in the text is kept)
+                                var separator = t.IndexOf("??", StringComparison.Ordinal);
+                                var date = separator >= 0 ? t.Substring(0, separator) : t;
+                                var text = separator >= 0 ? t.Substring(separator + 2) : t;
 
                                 writer.Write(
                                     @"<p class=""card-text"">@<span class=""ps-1"">{0}</span></p>",
-                                    this.Get<IDateTimeService>().FormatDateTimeTopic(textString[0]));
+                                    this.Get<IDateTimeService>().FormatDateTimeTopic(date));
 
                                 writer.Write(@"<p class=""card-text"">");
 
                                 // the text of the user (stored as typed)
-                                writer.Write(this.HtmlEncode(textString.Length > 2 ? textString[2] : t));
+                                writer.Write(this.HtmlEncode(text));
 
                                 writer.WriteLine(@"</p>");
                             });

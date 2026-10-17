@@ -161,6 +161,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Profile and admin edit user: a too short (or empty) display name showed the "too long" message
 * [FIXED] When the spam check deleted a user (signature, profile homepage), the user stayed logged in and the signature and profile pages still saved the changes
 * [FIXED] The topic search of the move/merge dialog removed the current topic from the cached topic list, so that topic was missing from later searches
+* [FIXED] Report texts with a question mark were cut off at the first question mark in the reported posts list
 
 # YetAnotherForum.NET v3.2.15
 * [GHSA-phc5-m6cm-5c9f] security fix
