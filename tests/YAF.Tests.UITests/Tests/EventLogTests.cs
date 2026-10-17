@@ -94,4 +94,23 @@ public class EventLogTests : ForumTestBase
         (await this.Page.Locator("li.list-group-item", new PageLocatorOptions { HasTextString = "EditAvatar" }).CountAsync())
             .Should().BeLessThan(before);
     }
+
+    [Test]
+    [Description("All entries of the board are deleted")]
+    public async Task Delete_All_Test()
+    {
+        await this.LoginAsAdminAsync();
+
+        // an entry: the test data generator logs its report (also when nothing is created)
+        await this.GotoAsync("Admin/TestData");
+        await this.ClickAndWaitAsync(this.Control("LaunchGenerator"));
+
+        await this.GotoAsync("Admin/EventLog");
+        (await this.Page.Locator("[id$='_Footer'] a").CountAsync()).Should().BeGreaterThan(0);
+
+        await this.Page.Locator("[id$='_Footer'] a").First.ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        (await this.Page.Locator("[id$='_Footer'] a").CountAsync()).Should().Be(0, "the list is empty");
+    }
 }
