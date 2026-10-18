@@ -353,6 +353,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Event log: suspensions (by an admin or of the own account) were always logged, the setting "Allow log when users suspended or un-suspended" was only used for the removal of a suspension
 * [FIXED] Admin > Groups: the roles of the provider without a group (e.g. of a deleted group) were never shown (the list was hidden before it was bound), they could not be added as a group or deleted
 * [FIXED] Admin > Ranks: the start rank of the new users could be deleted when no user had it, then nobody could register (new text ADMIN_RANKS.MSG_START_RANK)
+* [FIXED] Album page: after setting or removing the cover the buttons still showed the old cover ("Set as Cover") until the page was loaded again
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

@@ -306,6 +306,29 @@ public class AlbumEditTests : ForumTestBase
         return old;
     }
 
+    [Test]
+    [Description("An image is set as the cover of the album and reset again, the button shows the current state")]
+    public async Task Set_And_Reset_Cover_Test()
+    {
+        var member = $"Alv{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+        await this.CreateAlbumAsync($"Cover {Guid.NewGuid():N}".Substring(0, 20), images: 1);
+
+        // the album page
+        await this.ClickAndWaitAsync(this.Control("Back"));
+
+        var cover = this.Control("SetCover").First;
+        var setText = (await cover.InnerTextAsync()).Trim();
+
+        await this.ClickAndWaitAsync(cover);
+        (await this.Control("SetCover").First.InnerTextAsync()).Trim().Should().NotBe(setText, "the button resets the cover now");
+
+        await this.ClickAndWaitAsync(this.Control("SetCover").First);
+        (await this.Control("SetCover").First.InnerTextAsync()).Trim().Should().Be(setText);
+    }
+
     private async Task<string> CreateAlbumAsync(string title, int images)
     {
         await this.GotoAsync("EditAlbumImages?a=new");

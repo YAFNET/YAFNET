@@ -66,13 +66,16 @@ public partial class AlbumImageList : BaseUserControl
             return;
         }
 
+        // the album of the page is updated too (the buttons showed the old cover until the page was loaded again)
         if (this.UserAlbum.CoverImageID.ToString() == e.CommandArgument.ToString())
         {
             this.GetRepository<UserAlbum>().UpdateCover(this.UserAlbum.ID, null);
+            this.UserAlbum.CoverImageID = null;
         }
         else
         {
             this.GetRepository<UserAlbum>().UpdateCover(this.UserAlbum.ID, e.CommandArgument.ToType<int>());
+            this.UserAlbum.CoverImageID = e.CommandArgument.ToType<int>();
         }
 
         this.BindData();
