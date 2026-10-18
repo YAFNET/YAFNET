@@ -371,6 +371,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Register: the default value of a check field of the custom profile was ignored (the profile page used it)
 * [FIXED] Active users: requests of a page that are no forum page (user card, resources, api) set the location of the user to the main page
 * [FIXED] Attachments: the upload dialog stayed open when the upload ended while the dialog was still opening (fast uploads)
+* [FIXED] Sitemap: the namespace and the order of the elements are the ones of the sitemap schema (port of #1636)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
