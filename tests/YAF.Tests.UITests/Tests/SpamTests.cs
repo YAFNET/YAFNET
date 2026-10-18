@@ -178,6 +178,51 @@ public class SpamTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("The spam log is shown with another page size and the date filter, delete all only deletes the spam entries")]
+    public async Task Spam_Log_Test()
+    {
+        var word = $"spamlog{Guid.NewGuid():N}".Substring(0, 16);
+        var member = $"Spl{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        await this.AddSpamWordAsync(word);
+
+        // a spam entry (do nothing logs the post)
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+        await this.PostAsync($"Spam log {Guid.NewGuid():N}", $"Buy {word} now");
+
+        // an entry that is no spam: the test data generator logs its report
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("Admin/TestData");
+        await this.ClickAndWaitAsync(this.Control("LaunchGenerator"));
+
+        await this.GotoAsync("Admin/SpamLog");
+        (await this.Page.InnerTextAsync("body")).Should().Contain(member);
+
+        // another page size (posts back)
+        await this.Page.RunAndWaitForResponseAsync(
+            () => this.Control("PageSize").SelectOptionAsync("10"),
+            response => response.Request.Method == "POST");
+        await this.Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        (await this.Page.InnerTextAsync("body")).Should().Contain(member);
+
+        // the date filter
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Control("ApplyButton"));
+        (await this.Page.InnerTextAsync("body")).Should().Contain(member);
+
+        // all spam entries are deleted
+        await this.Page.Locator("[id$='_Footer'] a").First.ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(member);
+
+        await this.GotoAsync("Admin/EventLog");
+        (await this.Page.Locator("[id$='_Footer'] a").CountAsync()).Should().BeGreaterThan(0, "the other entries are kept");
+    }
+
     private async Task AddSpamWordAsync(string word)
     {
         await this.GotoAsync("Admin/SpamWords");
