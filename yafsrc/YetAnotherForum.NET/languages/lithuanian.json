@@ -6045,6 +6045,10 @@
             "#text": "Šio rango negalima ištrinti, nes jis yra naudojamas."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Negalite ištrinti naujų vartotojų pradinio rango."
+          },
+          {
             "@tag": "NAME",
             "#text": "Pavadinimas"
           },

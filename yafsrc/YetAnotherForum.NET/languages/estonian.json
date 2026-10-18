@@ -6045,6 +6045,10 @@
             "#text": "Te ei saa seda auastet kustutada, kuna see on kasutusel."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Uute kasutajate algastet ei saa kustutada."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nimi"
           },

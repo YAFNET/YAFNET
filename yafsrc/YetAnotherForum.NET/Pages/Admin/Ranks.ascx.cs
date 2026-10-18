@@ -166,6 +166,13 @@ public partial class Ranks : AdminPage
                         this.GetText("ADMIN_RANKS", "MSG_NOT_DELETE"),
                         MessageTypes.warning);
                 }
+                else if (this.GetRepository<Rank>().Exists(r => r.ID == rankId && (r.Flags & 1) == 1))
+                {
+                    // the start rank of the new users (without it nobody can register)
+                    this.PageBoardContext.Notify(
+                        this.GetText("ADMIN_RANKS", "MSG_START_RANK"),
+                        MessageTypes.warning);
+                }
                 else
                 {
                     this.GetRepository<Rank>().DeleteById(rankId);

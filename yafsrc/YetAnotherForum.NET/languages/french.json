@@ -6045,6 +6045,10 @@
             "#text": "Vous ne pouvez pas supprimer ce grade car il est en cours d'utilisation."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Vous ne pouvez pas supprimer le grade de départ des nouveaux utilisateurs."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nom"
           },

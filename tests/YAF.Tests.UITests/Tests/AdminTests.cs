@@ -89,7 +89,7 @@ public class AdminTests : ForumTestBase
     }
 
     [Test]
-    [Description("A new rank is listed, a second rank with the same name is refused")]
+    [Description("A new rank is listed, a second rank with the same name is refused, the buttons of the list (the start rank is not deleted)")]
     public async Task Create_Rank_Test()
     {
         var rank = Unique("Rank");
@@ -102,6 +102,30 @@ public class AdminTests : ForumTestBase
         await this.CreateRankAsync(rank);
 
         this.Page.Url.Should().Contain("Admin/EditRank", "the existing name is refused");
+
+        // the buttons of the list: edit, new, the start rank is not deleted, the new rank is deleted
+        await this.GotoAsync("Admin/Ranks");
+        await this.ClickAndWaitAsync(this.RankRow(rank).Locator("[id$='_ThemeButtonEdit']"));
+        this.Page.Url.Should().Contain("Admin/EditRank?r=");
+
+        await this.GotoAsync("Admin/Ranks");
+        await this.ClickAndWaitAsync(this.Control("NewRank").Filter(new LocatorFilterOptions { Visible = true }).First);
+        this.Page.Url.Should().Contain("Admin/EditRank");
+
+        await this.GotoAsync("Admin/Ranks");
+        await this.RankRow("Newbie").Locator("[id$='_ThemeButtonDelete']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        (await this.RankRow("Newbie").CountAsync()).Should().Be(1, "the start rank of the new users is not deleted");
+
+        await this.RankRow(rank).Locator("[id$='_ThemeButtonDelete']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        (await this.RankRow(rank).CountAsync()).Should().Be(0);
+    }
+
+    private ILocator RankRow(string name)
+    {
+        return this.Page.Locator("li", new PageLocatorOptions { HasTextString = name })
+            .Filter(new LocatorFilterOptions { Has = this.Page.Locator("[id*='_RankList_'][id$='_ThemeButtonDelete']") });
     }
 
     [Test]

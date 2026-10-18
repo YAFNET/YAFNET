@@ -6045,6 +6045,10 @@
             "#text": "Nu puteți șterge acest rang deoarece este în uz."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Nu puteți șterge rangul de început al utilizatorilor noi."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nume"
           },

@@ -6045,6 +6045,10 @@
             "#text": "Du kan inte ta bort denna rang eftersom den används."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Du kan inte ta bort startrangen för nya användare."
+          },
+          {
             "@tag": "NAME",
             "#text": "Namn"
           },
