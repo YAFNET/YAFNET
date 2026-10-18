@@ -34,6 +34,7 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.Context;
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services.CheckForSpam;
 using YAF.Types.Extensions;
@@ -308,7 +309,10 @@ public class UsersKillModel : AdminPage
         // ban user ips...
         var name = user.DisplayOrUserName();
 
-        this.IpAddresses.Except(allIps).Where(i => i.IsSet()).ForEach(
+        // not the own address of the admin (e.g. a user of the same network), the admin would lock himself out
+        var ownIp = this.HttpContext.GetUserRealIPAddress();
+
+        this.IpAddresses.Except(allIps).Where(i => i.IsSet() && i != ownIp).ForEach(
             ip =>
             {
                 var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
