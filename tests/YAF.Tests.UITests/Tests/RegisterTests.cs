@@ -25,6 +25,7 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;
@@ -134,6 +135,59 @@ public class RegisterTests : ForumTestBase
                 await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
             }
         }
+    }
+
+    [Test]
+    [Description("The welcome notification is a private message (host setting) or an e-mail after the registration is confirmed")]
+    public async Task Welcome_Notification_Test()
+    {
+        var byMessage = $"Wpm{DateTime.UtcNow:HHmmssfff}";
+        var byMail = $"Wml{DateTime.UtcNow:HHmmssfff}";
+        var subject = $"Welcome to the {TestConfig.BoardName} Forum";
+
+        await this.LoginAsAdminAsync();
+        await this.SetWelcomeNotificationAsync("2");
+
+        try
+        {
+            await this.RegisterAsync(byMessage, TestConfig.TestUserPassword);
+            await this.LoginAsync(byMessage, TestConfig.TestUserPassword);
+            await this.GotoAsync("MyMessages");
+            (await this.Page.InnerTextAsync("body")).Should().Contain(subject, "the welcome message is a private message");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetWelcomeNotificationAsync("1");
+        }
+
+        await this.RegisterAsync(byMail, TestConfig.TestUserPassword);
+
+        // the welcome mail (after the verification mail)
+        var until = DateTime.UtcNow.AddSeconds(30);
+        var found = false;
+
+        while (!found && DateTime.UtcNow < until)
+        {
+            found = UiTestSetup.Site.GetMails().Select(f => TestMail.Read(f.FullName)).Any(
+                m => m.To.IndexOf(EmailOf(byMail), StringComparison.OrdinalIgnoreCase) >= 0 && m.Headers.Contains(subject));
+
+            if (!found)
+            {
+                await Task.Delay(500);
+            }
+        }
+
+        found.Should().BeTrue("the welcome mail is sent");
+    }
+
+    private async Task SetWelcomeNotificationAsync(string value)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("SendWelcomeNotificationAfterRegister").SelectOptionAsync(
+            value,
+            new LocatorSelectOptionOptions { Force = true });
+        await this.ClickAndWaitAsync(this.Control("Save"));
     }
 
     private async Task FillRegistrationAsync(string userName, string email)
