@@ -24,6 +24,7 @@
 
 namespace YAF.Tests.UITests.Tests;
 
+using System;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;
@@ -93,6 +94,65 @@ public class EventLogTests : ForumTestBase
 
         (await this.Page.Locator("li.list-group-item", new PageLocatorOptions { HasTextString = "EditAvatar" }).CountAsync())
             .Should().BeLessThan(before);
+    }
+
+    [Test]
+    [Description("With the persian calendar the date filters of the event log and the spam log start like the other calendars, a value that is no date keeps the default")]
+    public async Task Persian_Date_Filter_Test()
+    {
+        var admin = $"FaAdm{DateTime.UtcNow:HHmmssfff}";
+
+        // an administrator with the persian culture
+        await this.RegisterAsync(admin, TestConfig.TestUserPassword);
+        // the logs need the host admin
+        ExecuteSql(
+            "UPDATE [dbo].[yaf_User] SET [Culture] = 'fa-IR', [LanguageFile] = 'persian.json', [Flags] = [Flags] | 1 WHERE [Name] = @name",
+            admin);
+
+        await this.LoginAsAdminAsync();
+        await this.OpenAdminEditUserAsync(admin);
+        await this.Page.Locator("a[href='#View2']").ClickAsync();
+        await this.Page.Locator(".col-md-4", new PageLocatorOptions { HasTextString = "Administrators" })
+            .Locator("input[type='checkbox']").CheckAsync();
+        await this.ClickAndWaitAsync(this.Control("GroupEditControl_Save"));
+
+        await this.SetFarsiCalenderAsync(true);
+
+        try
+        {
+            await this.LoginAsync(admin, TestConfig.TestUserPassword);
+
+            foreach (var page in new[] { "Admin/EventLog", "Admin/SpamLog" })
+            {
+                await this.GotoAsync(page);
+                await this.AssertNoServerErrorAsync();
+
+                // the smallest persian date (1/01/02) was read as 2022
+                (await this.Control("SinceDate").InputValueAsync()).Should().MatchRegex(@"^1[34]\d\d/", page);
+
+                await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+                await this.Control("SinceDate").FillAsync("no date");
+                await this.Control("ToDate").FillAsync("no date");
+                await this.ClickAndWaitAsync(this.Control("ApplyButton"));
+                await this.AssertNoServerErrorAsync();
+            }
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetFarsiCalenderAsync(false);
+        }
+    }
+
+    /// <summary>
+    /// The persian calendar for the users with the persian language (the language of the user needs the user choice).
+    /// </summary>
+    private async Task SetFarsiCalenderAsync(bool enabled)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("UseFarsiCalender").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.Control("AllowUserLanguage").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.ClickAndWaitAsync(this.Control("Save"));
     }
 
     [Test]

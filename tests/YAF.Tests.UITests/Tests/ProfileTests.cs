@@ -488,16 +488,6 @@ public class ProfileTests : ForumTestBase
         }
     }
 
-    private static void ExecuteSql(string sql, string name)
-    {
-        using var connection = new SqlConnection(TestSite.ConnectionString);
-        connection.Open();
-
-        using var command = new SqlCommand(sql, connection);
-        command.Parameters.AddWithValue("@name", name);
-        command.ExecuteNonQuery();
-    }
-
     private static DateTime? Birthday(string name)
     {
         using var connection = new SqlConnection(TestSite.ConnectionString);

@@ -334,6 +334,21 @@ public abstract class ForumTestBase
     }
 
     /// <summary>
+    /// Runs a statement on the test database (the parameter @name is the name).
+    /// </summary>
+    /// <param name="sql">The statement.</param>
+    /// <param name="name">The value of the parameter @name.</param>
+    protected static void ExecuteSql(string sql, string name)
+    {
+        using var connection = new SqlConnection(TestSite.ConnectionString);
+        connection.Open();
+
+        using var command = new SqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@name", name);
+        command.ExecuteNonQuery();
+    }
+
+    /// <summary>
     /// Logs out (the login cookie is removed).
     /// </summary>
     protected async Task LogoutAsync()

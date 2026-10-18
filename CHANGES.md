@@ -363,6 +363,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Report post: a report without a reason or with a too long reason failed with an error page (the post was missing after the post back), the access to the post (deleted, not approved posts) was only checked when the page was shown
 * [FIXED] Links: the name of a forum or topic in the address was not cleaned, a forum name with characters like < & : showed an error page
 * [FIXED] Edit profile: with the persian calendar the empty date of birth showed 1/01/02, saving the profile set the date of birth to 2022
+* [FIXED] Event log, spam log: with the persian calendar the since date was 1/01/02 (read as 2022) and a value that is no date showed an error page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
