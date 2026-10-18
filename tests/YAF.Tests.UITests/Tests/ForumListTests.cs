@@ -140,6 +140,47 @@ public class ForumListTests : ForumTestBase
         (await this.Page.InnerTextAsync("body")).Should().Contain(name);
     }
 
+    [Test]
+    [Description("The topics and the posts of a forum without read access are refused to members, guests are sent to the login")]
+    public async Task No_Access_Forum_Pages_Test()
+    {
+        var name = $"Closed pages {DateTime.UtcNow:HHmmssfff}";
+
+        await this.LoginAsAdminAsync();
+        await this.EditForumAsync(name, null);
+        await this.SetNoAccessAsync();
+        await this.Page.GetByLabel("Guests", new PageGetByLabelOptions { Exact = true }).SelectOptionAsync(
+            new SelectOptionValue { Label = "No Access" },
+            new LocatorSelectOptionOptions { Force = true });
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        var forumId = ForumId(name);
+
+        await this.GotoAsync($"PostTopic?f={forumId}");
+        await this.Control("TopicSubjectTextBox").FillAsync($"Closed topic {forumId}");
+        await this.Control("YafTextEditor").FillAsync("A topic in a closed forum.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        var message = System.Text.RegularExpressions.Regex.Match(this.Page.Url, @"Posts/m(\d+)").Groups[1].Value;
+        message.Should().NotBeEmpty($"the new post is shown, but the page was {this.Page.Url}");
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        foreach (var url in new[] { $"Topics/{forumId}-closed", $"Posts/m{message}-closed", $"PostMessage?m={message}" })
+        {
+            await this.GotoAsync(url);
+            await this.AssertNoServerErrorAsync();
+            this.Page.Url.Should().Contain("Info", url);
+            (await this.Page.InnerTextAsync("body")).Should().NotContain("A topic in a closed forum.", url);
+        }
+
+        await this.LogoutAsync();
+        await this.GotoAsync($"Posts/m{message}-closed");
+        await this.AssertNoServerErrorAsync();
+        (await this.Page.InnerTextAsync("body")).Should().NotContain("A topic in a closed forum.");
+        this.Page.Url.Should().Contain("Login");
+    }
+
     private async Task SetNoAccessAsync()
     {
         await this.Page.GetByLabel("Registered Users", new PageGetByLabelOptions { Exact = true }).SelectOptionAsync(
