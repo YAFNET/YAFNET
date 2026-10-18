@@ -98,10 +98,10 @@ public static class ForumPageExtensions
                     break;
                 case ForumPages.Profile_DeleteAccount:
                     {
+                        // the text of the page DELETE_ACCOUNT (the title was the missing text of the tag DELETE_ACCOUNT)
                         title.Append(
-                            BoardContext.Current.Get<ILocalization>().GetTextFormatted(
-                                "DELETE_ACCOUNT",
-                                "TITLE",
+                            string.Format(
+                                BoardContext.Current.Get<ILocalization>().GetText("DELETE_ACCOUNT", "TITLE"),
                                 page.HtmlEncode(BoardContext.Current.PageUser.DisplayOrUserName())));
                     }
 

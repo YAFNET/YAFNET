@@ -514,6 +514,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Polls: the option to show the results only after the poll closes didn't work, the results of the running poll were shown (and the note was never shown)
 * [FIXED] Admin > Edit User > Kill: the reason of the banned addresses was the text "Edits a user" (wrong text call) instead of the user, now a text with the name that fits into the column
 * [FIXED] Registration: the mail to the admins about a registered spam bot had the subject [REGISTER.COMMON] (wrong text call)
+* [FIXED] Delete account: the title of the page in the browser was a missing text (wrong text call)
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
