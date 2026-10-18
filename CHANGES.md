@@ -375,6 +375,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Sitemap: the forums link to the topics of the forum (it was the topic with the id of the forum), the dates have the utc time zone
 * [FIXED] Active users: the location of pages like the profile settings, the login or a new topic was shown as [ACTIVELOCATION.PAGE] (and logged as a missing translation)
 * [FIXED] Profile: a javascript: address was accepted as Facebook profile and shown as link (stored XSS), stored home page or Facebook addresses that are no web addresses are not shown as links
+* [FIXED] Install: every request of the install page (also on the installed forum, by anyone) wrapped the shared connection string provider of the forum again and kept the page in memory
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

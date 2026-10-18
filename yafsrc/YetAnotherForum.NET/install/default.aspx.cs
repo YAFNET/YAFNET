@@ -112,12 +112,23 @@ public partial class install : BasePage, IHaveServiceLocator
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Page_Init(object sender, EventArgs e)
     {
+        // the installed forum keeps its connection (the wizard is closed): the connection string provider is shared
+        // by all requests, every request of the wizard wrapped the provider of the forum again
+        if (Config.IsDotNetNuke || this.InstallService.IsForumInstalled)
+        {
+            return;
+        }
+
         // set the connection string provider...
-        var previousProvider = this.Get<IDbAccess>().Information.ConnectionString;
+        var information = this.DbAccess.Information;
+        var previousProvider = information.ConnectionString;
 
         string DynamicConnectionString() => this.CurrentConnString.IsSet() ? this.CurrentConnString : previousProvider();
 
-        this.DbAccess.Information.ConnectionString = DynamicConnectionString;
+        information.ConnectionString = DynamicConnectionString;
+
+        // only for this request (the next request of the wizard sets it again)
+        this.Unload += (_, _) => information.ConnectionString = previousProvider;
     }
 
     /// <summary>
