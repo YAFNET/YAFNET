@@ -54,7 +54,7 @@ public static class BoardInfo
     /// <summary>
     /// Gets the Current YAF Database Version
     /// </summary>
-    public static int AppVersion => 94;
+    public static int AppVersion => 95;
 
     /// <summary>
     /// Gets the Current YAF Build Date

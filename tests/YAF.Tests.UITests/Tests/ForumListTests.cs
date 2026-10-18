@@ -85,6 +85,42 @@ public class ForumListTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("A forum the members can't read is listed with (No Access) when it is not hidden; a new forum is hidden by default")]
+    public async Task No_Access_And_Hidden_Forums_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var shown = $"Closed shown <b>{id}</b>";
+        var hidden = $"Closed hidden {id}";
+
+        await this.LoginAsAdminAsync();
+
+        // the option is checked for a new forum
+        await this.EditForumAsync(hidden, null);
+        (await this.Control("HideNoAccess").IsCheckedAsync()).Should().BeTrue("a new forum is hidden by default");
+        await this.SetNoAccessAsync();
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.EditForumAsync(shown, null);
+        await this.Control("HideNoAccess").UncheckAsync();
+        await this.SetNoAccessAsync();
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(string.Empty);
+
+        var text = await this.Page.InnerTextAsync("body");
+        text.Should().Contain($"{shown} (No Access)", "the forum is listed without a link").And.NotContain(hidden);
+        (await this.Page.Locator("a", new PageLocatorOptions { HasTextString = shown }).CountAsync()).Should().Be(0);
+    }
+
+    private async Task SetNoAccessAsync()
+    {
+        await this.Page.GetByLabel("Registered Users", new PageGetByLabelOptions { Exact = true }).SelectOptionAsync(
+            new SelectOptionValue { Label = "No Access" },
+            new LocatorSelectOptionOptions { Force = true });
+    }
+
     /// <summary>
     /// Opens the page of a new forum in the test category and fills it in.
     /// </summary>

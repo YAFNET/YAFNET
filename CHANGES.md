@@ -347,6 +347,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Moderate > Unapproved posts: approving the last waiting post of a forum went back to the moderation page before the watching users were notified (they got no notification), the approved / deleted message was not shown then
 * [FIXED] Private message page: "Message was deleted" was never shown after deleting the message (the page redirects to the inbox)
 * [FIXED] Admin > Forums > Copy: the copied forum got no access of the roles (the access was updated instead of created), it was not shown to anybody
+* [FIXED] Admin > Edit Forum: the option "Hide if no access" had no effect (forums without read access were never listed); a forum without read access is listed with "(No Access)" now unless the option is set, new forums have it checked and the upgrade sets it for the existing forums (they stay hidden)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

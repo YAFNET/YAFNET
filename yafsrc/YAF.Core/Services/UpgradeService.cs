@@ -241,6 +241,13 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             migrator.Run();
         }
 
+        if (prevVersion < 95)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration95));
+
+            migrator.Run();
+        }
+
         this.AddOrUpdateExtensions();
 
         try

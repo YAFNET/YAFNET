@@ -188,6 +188,8 @@ public partial class EditForum : AdminPage
 
             if (!forumId.HasValue)
             {
+                // a new forum is hidden from the users without read access (like the forums before the option worked)
+                this.HideNoAccess.Checked = true;
                 return;
             }
         }
