@@ -60,6 +60,9 @@ public class EditSettingsTests : ForumTestBase
             this.Page.Url.Should().Contain("EditSettings", email);
         }
 
+        // the address of the other member is in use
+        (await this.Page.ContentAsync()).Should().Contain("The e-mail address you have entered is already in use.");
+
         await this.GotoAsync("Profile/EditSettings");
         (await this.Control("ProfileSettings_Email").InputValueAsync()).Should().Be(EmailOf(member));
 

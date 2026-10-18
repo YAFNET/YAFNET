@@ -133,7 +133,7 @@ public partial class EditUsersSettings : BaseUserControl
 
             if (!ValidationHelper.IsValidEmail(newEmail))
             {
-                this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("EDIT_PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                 return;
             }
 
@@ -141,7 +141,7 @@ public partial class EditUsersSettings : BaseUserControl
 
             if (userFromEmail != null)
             {
-                this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("EDIT_PROFILE", "DUPLICATED_EMAIL"), MessageTypes.warning);
                 return;
             }
 
@@ -157,7 +157,7 @@ public partial class EditUsersSettings : BaseUserControl
                 catch (ApplicationException)
                 {
                     this.PageBoardContext.Notify(
-                        this.GetText("PROFILE", "DUPLICATED_EMAIL"),
+                        this.GetText("EDIT_PROFILE", "DUPLICATED_EMAIL"),
                         MessageTypes.warning);
 
                     return;
