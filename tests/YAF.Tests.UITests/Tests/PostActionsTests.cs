@@ -155,7 +155,7 @@ public class PostActionsTests : ForumTestBase
     }
 
     [Test]
-    [Description("A member asks the author of a post to be friends with the menu of the post")]
+    [Description("A member asks the author of a post to be friends with the menu of the post, the friend is removed with the menu of a post")]
     public async Task Friend_Request_From_Post_Test()
     {
         var author = $"Fra{DateTime.UtcNow:HHmmssfff}";
@@ -169,6 +169,30 @@ public class PostActionsTests : ForumTestBase
         await this.ToolAsync(post: 0, "Add as Friend");
 
         (await this.Page.ContentAsync()).Should().Contain("toast-body");
+
+        // the member replies, the author approves the request
+        var topicId = Regex.Match(href, @"Posts/t(\d+)").Groups[1].Value;
+        await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+        await this.Control("YafTextEditor").FillAsync("The reply of the friend.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.LoginAsync(author, TestConfig.TestUserPassword);
+        await this.GotoAsync("Friends");
+        await this.Page.Locator("a.nav-link[href='#PendingRequestsTab']").ClickAsync();
+        await this.ClickAndWaitAsync(
+            this.Page.Locator("#PendingRequestsTab a", new PageLocatorOptions { HasTextString = "Approve" }).First);
+
+        // and removes the friend with the menu of the post
+        await this.GotoAsync(href);
+        await this.Page.Locator("[aria-label='ellipsis-h']").Nth(1).ClickAsync();
+        await this.Page.Locator(".dropdown-menu.show a", new PageLocatorOptions { HasTextString = "Remove Friend" }).First.ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        await this.AssertNoServerErrorAsync();
+
+        await this.GotoAsync(href);
+        await this.Page.Locator("[aria-label='ellipsis-h']").Nth(1).ClickAsync();
+        (await this.Page.Locator(".dropdown-menu.show a", new PageLocatorOptions { HasTextString = "Add as Friend" }).CountAsync())
+            .Should().Be(1, "the friend is removed");
     }
 
     private async Task SetReputationAsync(bool enabled)
