@@ -468,6 +468,34 @@ public class UserRepositoryTests
     }
 
     [Test]
+    [Description("A user with a moderator access mask of their own for a forum (no group) is a moderator of the forum")]
+    public async Task GetForumModeratorsAsync_User_Access_Mask_Test()
+    {
+        var forum = this.db.AddForum("User moderated forum");
+        var carol = this.db.AddUser("Carol");
+
+        using (var connection = this.db.Open())
+        {
+            var maskId = (int)connection.Insert(
+                new AccessMask
+                    {
+                        BoardID = TestDatabase.BoardId,
+                        Name = "Moderator of the forum",
+                        Flags = (int)(TestDatabase.MemberAccess | AccessFlags.Flags.ModeratorAccess),
+                        SortOrder = 1
+                    },
+                selectIdentity: true);
+
+            connection.Insert(
+                new UserForum { UserID = carol, ForumID = forum, AccessMaskID = maskId, Invited = this.now, Accepted = true });
+        }
+
+        var moderators = await this.Users.GetForumModeratorsAsync();
+
+        moderators.Should().ContainSingle(m => m.ModeratorID == carol).Which.ForumName.Should().Be("User moderated forum");
+    }
+
+    [Test]
     [Description("Recent users are approved members who visited within 30 days")]
     public async Task GetRecentUsersAsync_Test()
     {

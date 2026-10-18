@@ -1301,17 +1301,19 @@ public static class UserRepositoryExtensions
         {
             var results = await repository.DbAccess.ExecuteAsync(db =>
             {
+                // the users with the moderator access of a group or of their own access mask of the forum
+                // (Moderate > Forum users, only the groups were listed and notified)
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
                 expression
-                    .Join<VaccessGroup>((usr, access) => access.UserID == usr.ID)
-                    .Join<VaccessGroup, Forum>((access, f) => f.ID == access.ForumID)
+                    .Join<VAccessFull>((usr, access) => access.UserID == usr.ID)
+                    .Join<VAccessFull, Forum>((access, f) => f.ID == access.ForumID)
                     .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                    .Where<VaccessGroup, User>(
+                    .Where<VAccessFull, User>(
                         (x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID
                                   // only approved users that are not disabled
                                   && (u.Flags & 2) == 2 && (u.Flags & 32) == 0)
-                    .Select<User, VaccessGroup, Forum, Category>((usr, access, f, c) => new
+                    .Select<User, VAccessFull, Forum, Category>((usr, access, f, c) => new
                     {
                         CategoryID = c.ID,
                         CategoryName = c.Name,
