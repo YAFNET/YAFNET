@@ -92,6 +92,19 @@ public class EditSettingsTests : ForumTestBase
     }
 
     [Test]
+    [Description("The admin saves the settings of the guest user (the time zone of the guests)")]
+    public async Task Guest_Settings_Test()
+    {
+        await this.LoginAsAdminAsync();
+        var guestId = await this.OpenAdminEditUserAsync("Guest");
+
+        await this.GotoAsync($"Admin/EditUser?u={guestId}");
+        await this.Page.Locator("a[href='#View10']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Control("ProfileSettings_UpdateProfile"));
+        await this.AssertNoServerErrorAsync();
+    }
+
+    [Test]
     [Description("When the users may choose the theme and the language, a member chooses German and the page is German")]
     public async Task Theme_And_Language_Test()
     {
