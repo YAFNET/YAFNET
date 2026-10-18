@@ -109,6 +109,10 @@ public class TopicAndUserListsTests : ForumTestBase
         await this.GotoAsync("ReportPost?m=1");
 
         await this.LoginAsAdminAsync();
+        // the active users are cached (a list of an earlier test)
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("ResetCacheAll").EvaluateAsync("e => e.click()"));
+
         await this.GotoAsync("ActiveUsers?v=0");
 
         (await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = inForum }).Last.InnerTextAsync())
