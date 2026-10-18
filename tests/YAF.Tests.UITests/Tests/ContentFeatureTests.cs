@@ -225,6 +225,32 @@ public class ContentFeatureTests : ForumTestBase
     }
 
     [Test]
+    [Description("The upload dialog is closed when the attachment is inserted while the dialog is still opening (a fast upload)")]
+    public async Task Upload_Dialog_Closes_After_Fast_Upload_Test()
+    {
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("PostTopic?f=1");
+
+        // the attachment is inserted at once (bootstrap ignores hide() while the dialog fades in)
+        await this.Page.EvaluateAsync(
+            @"() => {
+                const dialog = document.getElementById('UploadDialog');
+                bootstrap.Modal.getOrCreateInstance(dialog).show();
+                insertAttachment(1, '');
+            }");
+
+        // the "show" class is only set after the fade in, the state of the dialog is checked
+        await this.Page.WaitForFunctionAsync(
+            @"() => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('UploadDialog'));
+                return modal && !modal._isShown && !modal._isTransitioning;
+            }",
+            null,
+            new PageWaitForFunctionOptions { Timeout = 5000 });
+        (await this.Control("YafTextEditor").InputValueAsync()).Should().ContainEquivalentOf("[attach]1[/attach]");
+    }
+
+    [Test]
     [Description("Only images are shown in the page, other attachments (e.g. xml with scripts) are always downloaded")]
     public async Task Attachment_Xml_Is_Downloaded_Test()
     {
