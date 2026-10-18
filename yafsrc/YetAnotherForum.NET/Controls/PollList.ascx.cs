@@ -385,8 +385,9 @@ public partial class PollList : BaseUserControl
             var daysToRun = this.DaysToRun(out var closesSoon);
             var isPollClosed = this.IsPollClosed();
 
-            var isClosedBound = this.poll.Closes.HasValue && this.poll.PollFlags.IsClosedBound &&
-                                this.poll.Closes.Value < DateTime.UtcNow;
+            // the results are shown when the poll closes (only a closed poll was closed bound, the results of a
+            // running poll were shown and the note was never shown)
+            var isClosedBound = this.poll.Closes.HasValue && this.poll.PollFlags.IsClosedBound;
 
             switch (isClosedBound)
             {

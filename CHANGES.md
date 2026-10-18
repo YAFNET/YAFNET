@@ -364,6 +364,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Links: the name of a forum or topic in the address was not cleaned, a forum name with characters like < & : showed an error page
 * [FIXED] Edit profile: with the persian calendar the empty date of birth showed 1/01/02, saving the profile set the date of birth to 2022
 * [FIXED] Event log, spam log: with the persian calendar the since date was 1/01/02 (read as 2022) and a value that is no date showed an error page
+* [FIXED] Polls: the option to show the results only after the poll closes didn't work, the results of the running poll were shown (and the note was never shown)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

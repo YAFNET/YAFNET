@@ -158,6 +158,110 @@ public class PollTests : ForumTestBase
         (await this.Control("PollExpire").InputValueAsync()).Should().NotBeNullOrEmpty();
     }
 
+    [Test]
+    [Description("The results of a poll that shows them after it closes are hidden while it runs (with a note), the last hours and the expired poll show their notes and the results")]
+    public async Task Closed_Bound_Results_And_Expiry_Test()
+    {
+        var question = $"Closed bound {Guid.NewGuid():N}";
+
+        await this.LoginAsAdminAsync();
+        var topicHref = await this.CreateTopicAsync($"Poll closed bound {Guid.NewGuid():N}");
+        var topicId = Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value;
+
+        await this.GotoAsync($"PollEdit?t={topicId}");
+        await this.Control("Question").FillAsync(question);
+        await this.Page.Locator("[id$='_ChoiceRepeater_ctl00_PollChoice']").FillAsync("Yes");
+        await this.Page.Locator("[id$='_ChoiceRepeater_ctl01_PollChoice']").FillAsync("No");
+        await this.Control("PollExpire").FillAsync("5");
+        await this.Control("IsClosedBoundCheckBox").CheckAsync();
+        await this.ClickAndWaitAsync(this.Control("SavePoll"));
+
+        // the member votes, the results stay hidden until the poll closes
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(topicHref);
+        await this.ClickAndWaitAsync(this.Control("VoteButton").First);
+
+        await this.GotoAsync(topicHref);
+        var text = await this.Page.InnerTextAsync("body");
+        text.Should().Contain("You can't see results before the poll expires.").And.Contain("The poll will be closed in");
+        (await this.Control("resultsSpan").CountAsync()).Should().Be(0, "the results are hidden while the poll runs");
+
+        // the last hours
+        ExecuteSql("UPDATE [dbo].[yaf_Poll] SET [Closes] = DATEADD(hour, 2, GETUTCDATE()) WHERE [Question] = @name", question);
+        await this.GotoAsync(topicHref);
+        (await this.Page.InnerTextAsync("body")).Should().Contain("Last hours to vote!");
+
+        // the poll has expired: the results are shown
+        ExecuteSql("UPDATE [dbo].[yaf_Poll] SET [Closes] = DATEADD(hour, -1, GETUTCDATE()) WHERE [Question] = @name", question);
+        await this.GotoAsync(topicHref);
+        (await this.Page.InnerTextAsync("body")).Should().Contain("The poll has expired.");
+        (await this.Control("resultsSpan").CountAsync()).Should().Be(2, "the results of the closed poll are shown");
+    }
+
+    [Test]
+    [Description("A member changes the own poll until the first vote (or later with the setting), not after it is closed")]
+    public async Task Own_Poll_Edit_Test()
+    {
+        var question = $"Own poll {Guid.NewGuid():N}";
+
+        // the topic of the member, the admin adds the poll (the members can't create polls in the test forum)
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        var topicHref = await this.CreateTopicAsync($"Own poll {Guid.NewGuid():N}");
+        var topicId = Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value;
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync($"PollEdit?t={topicId}");
+        await this.Control("Question").FillAsync(question);
+        await this.Page.Locator("[id$='_ChoiceRepeater_ctl00_PollChoice']").FillAsync("Yes");
+        await this.Page.Locator("[id$='_ChoiceRepeater_ctl01_PollChoice']").FillAsync("No");
+        await this.ClickAndWaitAsync(this.Control("SavePoll"));
+
+        // the poll of the member
+        ExecuteSql(
+            $"UPDATE [dbo].[yaf_Poll] SET [UserID] = (SELECT [UserID] FROM [dbo].[yaf_User] WHERE [Name] = '{TestConfig.TestUserName}') WHERE [Question] = @name",
+            question);
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(topicHref);
+        (await this.Control("EditPoll").CountAsync()).Should().Be(1, "the poll has no votes");
+
+        // another member votes
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync(topicHref);
+        await this.ClickAndWaitAsync(this.Control("VoteButton").First);
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(topicHref);
+        (await this.Control("EditPoll").CountAsync()).Should().Be(0, "the poll has a vote");
+
+        await this.LoginAsAdminAsync();
+        await this.SetPollChangesAfterFirstVoteAsync(true);
+
+        try
+        {
+            await this.LoginAsUserAsync(TestConfig.TestUserName);
+            await this.GotoAsync(topicHref);
+            (await this.Control("EditPoll").CountAsync()).Should().Be(1, "the setting allows changes after the first vote");
+
+            // a closed poll is not changed
+            ExecuteSql("UPDATE [dbo].[yaf_Poll] SET [Closes] = DATEADD(hour, -1, GETUTCDATE()) WHERE [Question] = @name", question);
+            await this.GotoAsync(topicHref);
+            (await this.Control("EditPoll").CountAsync()).Should().Be(0, "the poll is closed");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetPollChangesAfterFirstVoteAsync(false);
+        }
+    }
+
+    private async Task SetPollChangesAfterFirstVoteAsync(bool allowed)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("AllowPollChangesAfterFirstVote").EvaluateAsync("(e, v) => e.checked = v", allowed);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
     private async Task<string> CreateTopicAsync(string subject)
     {
         await this.GotoAsync("PostTopic?f=1");
