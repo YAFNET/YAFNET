@@ -617,7 +617,10 @@ public static class JavaScriptBlocks
                                         
                                         var modal = bootstrap.Modal.getInstance(document.getElementById('UploadDialog'));
                   
-                                        if (modal && modal._isShown) {
+                                        // a fast upload ends while the dialog is still opening (bootstrap ignores hide() then)
+                                        if (modal && modal._isShown && modal._isTransitioning) {
+                                            document.getElementById('UploadDialog').addEventListener('shown.bs.modal', () => modal.hide(), { once: true });
+                                        } else if (modal && modal._isShown) {
                                             modal.hide();
                                         }
                                     }
@@ -672,7 +675,10 @@ public static class JavaScriptBlocks
                          
                          var modal = bootstrap.Modal.getInstance(document.getElementById('UploadDialog'));
                          
-                         if (modal && modal._isShown) {
+                         // a fast upload ends while the dialog is still opening (bootstrap ignores hide() then)
+                         if (modal && modal._isShown && modal._isTransitioning) {
+                             document.getElementById('UploadDialog').addEventListener('shown.bs.modal', () => modal.hide(), { once: true });
+                         } else if (modal && modal._isShown) {
                              modal.hide();
                          }
                      }
