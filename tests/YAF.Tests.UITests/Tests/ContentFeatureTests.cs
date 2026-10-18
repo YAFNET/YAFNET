@@ -352,6 +352,89 @@ public class ContentFeatureTests : ForumTestBase
         response.Headers["x-content-type-options"].Should().Be("nosniff");
     }
 
+    [Test]
+    [Description("Hide-reply shows the content after a reply, hide-reply-thanks after a reply or a thanks; guests see the login text")]
+    public async Task Hide_Reply_And_Thanks_Test()
+    {
+        var id = Guid.NewGuid().ToString("N").Substring(0, 8);
+        var replySecret = $"Reply secret {id}";
+        var thanksSecret = $"Thanks secret {id}";
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        var topicHref = await this.CreateTopicAsync(
+            $"Hide reply {id}",
+            $"[hide-reply]{replySecret}[/hide-reply] [hide-reply-thanks]{thanksSecret}[/hide-reply-thanks]");
+        var topicId = TopicIdOf(topicHref);
+
+        // the author
+        await this.GotoAsync(topicHref);
+        (await this.Page.InnerTextAsync("body")).Should().Contain(replySecret).And.Contain(thanksSecret);
+
+        // a guest
+        await this.LogoutAsync();
+        await this.GotoAsync(topicHref);
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(replySecret).And.NotContain(thanksSecret)
+            .And.Contain("registered and logged-in");
+
+        // a member who neither replied nor thanked
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+        await this.GotoAsync(topicHref);
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(replySecret).And.NotContain(thanksSecret);
+
+        // the thanks shows the content of hide-reply-thanks
+        await this.Page.Locator("a[href^='javascript:addThanks']").First.ClickAsync();
+        await this.Page.Locator("a[href^='javascript:removeThanks']").First
+            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+
+        await this.GotoAsync(topicHref);
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(replySecret).And.Contain(thanksSecret);
+
+        // the reply shows the content of hide-reply
+        await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+        await this.Control("YafTextEditor").FillAsync("A reply to see the hidden content.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.GotoAsync(topicHref);
+        (await this.Page.InnerTextAsync("body")).Should().Contain(replySecret).And.Contain(thanksSecret);
+    }
+
+    [Test]
+    [Description("An album image in a post is shown as a preview with a link to the image, an unknown id is removed")]
+    public async Task Album_Image_In_Post_Test()
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        await this.GotoAsync("EditAlbumImages?a=new");
+        await this.Control("txtTitle").FillAsync("Album of a post");
+        await this.Control("File").SetInputFilesAsync(
+            new FilePayload { Name = "image.png", MimeType = "image/png", Buffer = Png });
+        await this.ClickAndWaitAsync(this.Control("Upload"));
+
+        // the album page shows the previews of the images
+        var albumId = Regex.Match(this.Page.Url, @"[?&]a=(\d+)").Groups[1].Value;
+        var albumsHref = await this.Page.Locator("a[href*='Albums']").First.GetAttributeAsync("href");
+        await this.GotoAsync(albumsHref.TrimStart('/'));
+
+        var albumHref = await this.Page.Locator($"a[href*='a={albumId}']").First.GetAttributeAsync("href");
+        await this.GotoAsync(albumHref.TrimStart('/'));
+
+        var preview = await this.Page.Locator("img[src*='imgprv=']").First.GetAttributeAsync("src");
+        var imageId = Regex.Match(preview, @"imgprv=(\d+)").Groups[1].Value;
+
+        var topicHref = await this.CreateTopicAsync(
+            $"Album image {Guid.NewGuid():N}".Substring(0, 30),
+            $"Before [albumimg]{imageId}[/albumimg] middle [albumimg]999999[/albumimg] after");
+
+        await this.GotoAsync(topicHref);
+        await this.AssertNoServerErrorAsync();
+
+        (await this.Page.Locator($"a[href*='resource.ashx?image={imageId}'] img[src*='imgprv={imageId}']").CountAsync())
+            .Should().Be(1);
+        (await this.Page.Locator("img[src*='imgprv=999999']").CountAsync()).Should().Be(0);
+        (await this.Page.InnerTextAsync("body")).Should().NotContain("[albumimg]");
+    }
+
     private static int TopicIdOf(string topicHref)
     {
         return int.Parse(Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value);
