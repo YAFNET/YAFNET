@@ -441,7 +441,6 @@ public partial class EditForum : AdminPage
 
         // Forum
         var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
-        var forumCopyId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("copy");
 
         int? parentId = null;
 
@@ -529,8 +528,9 @@ public partial class EditForum : AdminPage
             this.ForumImages.SelectedIndex > 0 ? this.ForumImages.SelectedItem.Text : string.Empty,
             this.Styles.Text);
 
-        // Access
-        if (forumId.HasValue || forumCopyId.HasValue)
+        // Access: a copy is a new forum, its access rows are created (updating rows that do not exist left the
+        // copy without access, it was not shown to anybody)
+        if (forumId.HasValue)
         {
             this.AccessList.Items.OfType<RepeaterItem>().ForEach(
                 item =>

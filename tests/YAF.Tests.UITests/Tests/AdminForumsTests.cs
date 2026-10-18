@@ -242,6 +242,59 @@ public class AdminForumsTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("A forum is edited (not its own parent, the sub forums are not offered) and copied with the access of its roles")]
+    public async Task Edit_And_Copy_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var parent = $"Edit parent {id}";
+        var child = $"Edit child {id}";
+        var copy = $"Edit copy {id}";
+
+        await this.LoginAsAdminAsync();
+
+        await this.GotoAsync("Admin/EditForum");
+        await this.FillForumAsync(parent, "90");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+        var parentId = await this.ForumIdAsync(parent);
+
+        await this.GotoAsync("Admin/EditForum");
+        await this.FillForumAsync(child, "91");
+        await this.SelectParentAsync(parentId);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+        var childId = await this.ForumIdAsync(child);
+
+        // the sub forums are not in the list of the parents, the forum itself is refused
+        await this.GotoAsync($"Admin/EditForum?fa={parentId}");
+        var parents = await this.Control("ParentList").Locator("option").EvaluateAllAsync<string[]>("os => os.map(o => o.value)");
+        parents.Should().NotContain(childId);
+
+        await this.SelectParentAsync(parentId);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+        this.Page.Url.Should().Contain("EditForum", "the forum can't be its own parent");
+
+        // edited
+        await this.GotoAsync($"Admin/EditForum?fa={parentId}");
+        await this.Control("Description").FillAsync($"The edited description {id}");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.GotoAsync($"Admin/EditForum?fa={parentId}");
+        (await this.Control("Description").InputValueAsync()).Should().Be($"The edited description {id}");
+
+        // copied
+        await this.GotoAsync($"Admin/EditForum?copy={parentId}");
+        await this.Control("Name").FillAsync(copy);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        // the copy has the access of the roles (it is shown)
+        (await this.ForumIdAsync(copy)).Should().NotBeNullOrEmpty();
+    }
+
+    private async Task SelectParentAsync(string forumId)
+    {
+        await this.Control("ParentList").EvaluateAsync("(e, v) => e.value = v", forumId);
+    }
+
     private async Task CreateCategoryAsync(string name, string sortOrder)
     {
         await this.GotoAsync("Admin/EditCategory");
