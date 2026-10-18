@@ -351,6 +351,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Moderators: the users added to a forum with a moderator access mask (Moderate > Forum > Add user) were not listed as moderators (forum list, team page) and got no moderator notifications (reported posts, posts waiting for approval), only the moderators of groups
 * [CHANGES] Suspending or deleting the own account needs the current password (accounts of external logins without a password are not asked)
 * [FIXED] Event log: suspensions (by an admin or of the own account) were always logged, the setting "Allow log when users suspended or un-suspended" was only used for the removal of a suspension
+* [FIXED] Admin > Groups: the roles of the provider without a group (e.g. of a deleted group) were never shown (the list was hidden before it was bound), they could not be added as a group or deleted
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

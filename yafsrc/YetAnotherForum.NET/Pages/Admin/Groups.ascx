@@ -4,7 +4,7 @@
 <%@ Import Namespace="YAF.Types.Flags" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-    <div class="row" runat="server" Visible="<%# this.RoleListNet.Items.Count > 0 %>">
+    <div class="row" runat="server" Visible="<%# this.RoleListNet.DataSource != null %>">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">

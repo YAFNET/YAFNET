@@ -87,6 +87,30 @@ public class AdminRolesTests : ForumTestBase
         await this.RoleRow(renamed).Locator("[id$='_ThemeButtonDelete']").ClickAsync();
         await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
         (await this.RoleRow(renamed).CountAsync()).Should().Be(0);
+
+        // the role of the provider stays: it is added as a group again
+        await this.ClickAndWaitAsync(this.ProviderRoleRow(renamed).Locator("[id$='_ThemeButtonAdd']"));
+        this.Page.Url.Should().Contain("Admin/EditGroup?i=");
+
+        await this.GotoAsync("Admin/Groups");
+        (await this.RoleRow(renamed).CountAsync()).Should().Be(1);
+        await this.RoleRow(renamed).Locator("[id$='_ThemeButtonDelete']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        // the role of the provider is deleted
+        await this.ProviderRoleRow(renamed).Locator("[id$='_ThemeButtonDelete']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        (await this.ProviderRoleRow(renamed).CountAsync()).Should().Be(0);
+
+        // the new button
+        await this.ClickAndWaitAsync(this.Control("NewGroup").Filter(new LocatorFilterOptions { Visible = true }).First);
+        this.Page.Url.Should().Contain("Admin/EditGroup");
+    }
+
+    private ILocator ProviderRoleRow(string name)
+    {
+        return this.Page.Locator("li", new PageLocatorOptions { HasTextString = name })
+            .Filter(new LocatorFilterOptions { Has = this.Page.Locator("[id*='_RoleListNet_']") });
     }
 
     private Dictionary<string, string> RoleValues(string name)
