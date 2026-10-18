@@ -189,6 +189,42 @@ public class AdminUsersTests : ForumTestBase
         await this.AssertNoServerErrorAsync();
     }
 
+    [Test]
+    [Description("The admin changes the rank and the moderation of a member on the info tab, the values are saved")]
+    public async Task Edit_User_Info_Test()
+    {
+        var member = $"Uin{DateTime.UtcNow:HHmmssfff}";
+        var rank = $"Info rank {Guid.NewGuid():N}".Substring(0, 20);
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsAdminAsync();
+
+        await this.GotoAsync("Admin/EditRank");
+        await this.Control("Name").FillAsync(rank);
+        await this.Control("MinPosts").FillAsync("0");
+        await this.Control("RankPriority").FillAsync("5");
+        await this.Control("PMLimit").FillAsync("10");
+        await this.Control("UsrSigChars").FillAsync("100");
+        await this.Control("UsrAlbums").FillAsync("0");
+        await this.Control("UsrAlbumImages").FillAsync("0");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        var userId = await this.OpenAdminEditUserAsync(member);
+
+        await this.GotoAsync($"Admin/EditUser?u={userId}");
+        await this.Control("QuickEditControl_RankID").SelectOptionAsync(
+            new SelectOptionValue { Label = rank },
+            new LocatorSelectOptionOptions { Force = true });
+        await this.Control("QuickEditControl_IsExcludedFromActiveUsers").CheckAsync(new LocatorCheckOptions { Force = true });
+        await this.Control("QuickEditControl_Moderated").CheckAsync(new LocatorCheckOptions { Force = true });
+        await this.ClickAndWaitAsync(this.Control("QuickEditControl_Save"));
+
+        await this.GotoAsync($"Admin/EditUser?u={userId}");
+        (await this.Control("QuickEditControl_RankID").Locator("option:checked").InnerTextAsync()).Should().Be(rank);
+        (await this.Control("QuickEditControl_IsExcludedFromActiveUsers").IsCheckedAsync()).Should().BeTrue();
+        (await this.Control("QuickEditControl_Moderated").IsCheckedAsync()).Should().BeTrue();
+    }
+
     private async Task SearchAsync(string email)
     {
         await this.GotoAsync("Admin/Users");
