@@ -312,6 +312,10 @@ public class ProfileTests : ForumTestBase
             await this.GotoAsync("Profile/EditProfile");
             (await this.Page.Locator("[id$='_DefText']").EvaluateAllAsync<string[]>("es => es.map(e => e.value)")).Should()
                 .Contain("42").And.Contain("A text");
+
+            // the login with the display name
+            await this.LoginAsync($"Shown {member}", TestConfig.TestUserPassword);
+            (await this.IsLoggedInAsAsync($"Shown {member}")).Should().BeTrue("the display name can be used to log in");
         }
         finally
         {
