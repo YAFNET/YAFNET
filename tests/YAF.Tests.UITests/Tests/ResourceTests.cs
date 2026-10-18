@@ -69,6 +69,9 @@ public class ResourceTests : ForumTestBase
 
         var invalid = await this.Page.APIRequest.GetAsync("resource.ashx?avatar=abc");
         (await invalid.TextAsync()).Should().StartWith("Error:");
+
+        var unknown = await this.Page.APIRequest.GetAsync("resource.ashx?avatar=999999");
+        (await unknown.TextAsync()).Should().StartWith("Error:");
     }
 
     [Test]
@@ -138,6 +141,9 @@ public class ResourceTests : ForumTestBase
         {
             (await this.Page.APIRequest.GetAsync(url)).Status.Should().Be(403, url);
         }
+
+        // the user card is empty for guests
+        (await (await this.Page.APIRequest.GetAsync("resource.ashx?userinfo=1&boardId=1&type=json")).TextAsync()).Should().BeEmpty();
 
         await this.LoginAsUserAsync(TestConfig.TestUserName);
         await this.GotoAsync(string.Empty);
