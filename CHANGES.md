@@ -342,6 +342,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] XMPP page: error if the current user or the member had no XMPP address, members of other boards and guests were shown
 * [FIXED] Edit settings: an e-mail address that is already in use showed "illegal e-mail address" instead of "already in use"
 * [FIXED] Albums: changing an album title or image caption inline failed with an error when the text contained "<" followed by a letter (request validation of the api)
+* [FIXED] Album page: the album title in the header was html encoded twice ("&" showed as "&amp;")
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

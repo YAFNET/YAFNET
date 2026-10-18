@@ -89,8 +89,8 @@ public partial class Album : ForumPage
 
         // Set the title text.
         this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
-        this.LocalizedLabel1.Param1 =
-            this.Server.HtmlEncode(album.Title);
+        // the title is stored html encoded (encoding it again showed the entities)
+        this.LocalizedLabel1.Param1 = this.HtmlEncode(album.Title);
 
         // Initialize the Album Image List control.
         this.AlbumImageList1.UserID = this.CurrentUserID;
