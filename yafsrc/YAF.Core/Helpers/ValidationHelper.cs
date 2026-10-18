@@ -84,6 +84,25 @@ public static class ValidationHelper
     }
 
     /// <summary>
+    /// Checks if string is an absolute url with a scheme of a web address (no javascript: or data: link).
+    /// </summary>
+    /// <param name="url">
+    /// The url string to check
+    /// </param>
+    /// <returns>
+    /// Returns indicating whether the value can be used as link
+    /// </returns>
+    public static bool IsLinkUrl(string url)
+    {
+        if (url.IsNotSet() || !Uri.TryCreate(url.Trim(), UriKind.Absolute, out var uri))
+        {
+            return false;
+        }
+
+        return uri.Scheme is "http" or "https" or "ftp" or "ftps" or "git" or "svn" or "news";
+    }
+
+    /// <summary>
     /// Check if String is a Number
     /// </summary>
     /// <param name="valueToCheck">The value to check.</param>

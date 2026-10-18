@@ -327,7 +327,8 @@ public partial class EditUsersProfile : BaseUserControl
             return;
         }
 
-        if (this.Facebook.Text.IsSet() && !ValidationHelper.IsValidURL(this.Facebook.Text))
+        // the profile shows it as link (a javascript: address was run by the visitors of the profile)
+        if (this.Facebook.Text.IsSet() && !ValidationHelper.IsLinkUrl(this.Facebook.Text))
         {
             this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
             return;

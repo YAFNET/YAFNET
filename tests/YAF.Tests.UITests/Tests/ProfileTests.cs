@@ -366,6 +366,36 @@ public class ProfileTests : ForumTestBase
     }
 
     [Test]
+    [Description("A javascript: address is no link of the profile: the Facebook profile refuses it, stored (e.g. imported) addresses are not shown")]
+    public async Task Script_Links_Test()
+    {
+        var member = $"Link{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        await this.GotoAsync("Profile/EditProfile");
+
+        await this.Control("ProfileEditor_Facebook").EvaluateAsync("e => e.type = 'text'");
+        await this.Control("ProfileEditor_Facebook").FillAsync("javascript:alert(document.cookie)");
+        await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+        (await this.Page.ContentAsync()).Should().Contain("incorrect URL as Facebook Profile");
+
+        var href = await this.Page.Locator("a[href*='UserProfile']").First.GetAttributeAsync("href");
+        var userId = Regex.Match(href, @"UserProfile/(\d+)").Groups[1].Value;
+
+        ExecuteSql(
+            "UPDATE [dbo].[yaf_AspNetUsers] SET [Profile_Facebook] = 'javascript:alert(1)', [Profile_Homepage] = 'javascript:alert(2)' WHERE [UserName] = @name",
+            member);
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync($"UserProfile/{userId}-{member}");
+
+        (await this.Page.Locator("a[href^='javascript:alert']").CountAsync()).Should().Be(0);
+        (await this.Page.ContentAsync()).Should().NotContain("javascript:alert");
+    }
+
+    [Test]
     [Description("A country with regions shows the regions, the region of a newly selected country is saved, a country without regions has no region list")]
     public async Task Country_And_Region_Test()
     {

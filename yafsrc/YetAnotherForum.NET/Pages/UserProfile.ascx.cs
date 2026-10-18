@@ -302,8 +302,8 @@ public partial class UserProfile : ForumPage
     /// </param>
     private void SetupUserLinks(Tuple<User, AspNetUsers, Rank, VAccess> user, string userName)
     {
-        // homepage link
-        this.HomePlaceHolder.Visible = user.Item2.Profile_Homepage.IsSet();
+        // homepage link, only web addresses (a javascript: link of a stored or imported profile would run)
+        this.HomePlaceHolder.Visible = ValidationHelper.IsLinkUrl(user.Item2.Profile_Homepage);
         this.Home.NavigateUrl = user.Item2.Profile_Homepage;
 
         // blog link
@@ -311,9 +311,10 @@ public partial class UserProfile : ForumPage
         this.SetupThemeButtonWithLink(this.Blog, user.Item2.Profile_Blog);
         this.Blog.ParamTitle0 = userName;
 
-        this.Facebook.Visible = user.Item2.Profile_Facebook.IsSet();
+        this.Facebook.Visible = ValidationHelper.IsNumeric(user.Item2.Profile_Facebook)
+                                || ValidationHelper.IsLinkUrl(user.Item2.Profile_Facebook);
 
-        if (user.Item2.Profile_Facebook.IsSet())
+        if (this.Facebook.Visible)
         {
             this.Facebook.NavigateUrl = ValidationHelper.IsNumeric(user.Item2.Profile_Facebook)
                                             ? $"https://www.facebook.com/profile.php?id={user.Item2.Profile_Facebook}"

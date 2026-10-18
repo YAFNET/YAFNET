@@ -41,6 +41,22 @@ public class ValidationHelperTests
         ValidationHelper.IsValidEmail(testEmail).Should().BeTrue("Email address is not valid");
     }
 
+    [TestCase("https://www.facebook.com/member", true)]
+    [TestCase("http://example.com", true)]
+    [TestCase("ftp://example.com/file", true)]
+    [TestCase("javascript:alert(1)", false)]
+    [TestCase(" JavaScript:alert(1)", false)]
+    [TestCase("data:text/html,<script>alert(1)</script>", false)]
+    [TestCase("vbscript:msgbox(1)", false)]
+    [TestCase("www.example.com", false)]
+    [TestCase("", false)]
+    [TestCase(null, false)]
+    [Description("Only web addresses can be used as links of the profile")]
+    public void IsLinkUrl_Test(string url, bool expected)
+    {
+        ValidationHelper.IsLinkUrl(url).Should().Be(expected);
+    }
+
     /// <summary>
     /// Test the IPHelper if the ip address matches the pattern.
     /// </summary>
