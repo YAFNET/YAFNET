@@ -199,7 +199,7 @@ public class AdminForumsTests : ForumTestBase
     public async Task Delete_Forum_Move_Topics_Test()
     {
         var id = DateTime.UtcNow.ToString("HHmmssfff");
-        var forum = $"Move away {id}";
+        var forum = $"Move <b>away</b> {id}";
         var subject = $"Moved away {id}";
 
         await this.LoginAsAdminAsync();
@@ -213,8 +213,9 @@ public class AdminForumsTests : ForumTestBase
         await this.Control("YafTextEditor").FillAsync("A topic of the deleted forum.");
         await this.ClickAndWaitAsync(this.Control("PostReply"));
 
-        // without a selected forum the forum is not deleted
+        // without a selected forum the forum is not deleted (the name of the forum is a text)
         await this.GotoAsync($"Admin/DeleteForum?fa={forumId}");
+        (await this.Page.InnerTextAsync("body")).Should().Contain(forum);
         await this.Control("MoveTopics").CheckAsync(new LocatorCheckOptions { Force = true });
         await this.Control("Delete").ClickAsync();
         await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));

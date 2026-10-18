@@ -102,7 +102,7 @@ public partial class DeleteForum : AdminPage
         {
             var forum = this.GetRepository<Forum>().GetById(forumId.Value);
 
-            this.IconHeader.Text = $"{this.GetText("HEADER1")}: <strong>{forum.Name}</strong>";
+            this.IconHeader.Text = $"{this.GetText("HEADER1")}: <strong>{this.HtmlEncode(forum.Name)}</strong>";
         }
     }
 
