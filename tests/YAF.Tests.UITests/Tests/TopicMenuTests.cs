@@ -90,6 +90,47 @@ public class TopicMenuTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("The ad is shown below the first post (also to members with the setting), the tools menu opens the atom feed of the topic")]
+    public async Task Ad_And_Atom_Feed_Test()
+    {
+        var subject = $"Ads {Guid.NewGuid():N}";
+        var ad = $"Advertisement {Guid.NewGuid():N}";
+
+        await this.LoginAsAdminAsync();
+        await this.SetAdAndAtomAsync(ad, true);
+
+        try
+        {
+            await this.LoginAsUserAsync(TestConfig.TestUserName);
+            await this.GotoAsync("PostTopic?f=1");
+            await this.Control("TopicSubjectTextBox").FillAsync(subject);
+            await this.Control("YafTextEditor").FillAsync("A topic with an ad.");
+            await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+            (await this.Page.InnerTextAsync("body")).Should().Contain(ad);
+
+            await this.Control("OptionsLink").ClickAsync();
+            await this.MenuItem("Atom Feed").ClickAsync();
+            await this.Page.WaitForURLAsync(url => url.Contains("Feed"));
+            await this.AssertNoServerErrorAsync();
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetAdAndAtomAsync(string.Empty, false);
+        }
+    }
+
+    private async Task SetAdAndAtomAsync(string ad, bool enabled)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("AdPost").EvaluateAsync("(e, v) => e.value = v", ad);
+        await this.Control("ShowAdsToSignedInUsers").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.Control("ShowAtomLink").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
     private async Task SetShareTopicToAsync(string value)
     {
         await this.GotoAsync("Admin/HostSettings");
