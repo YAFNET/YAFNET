@@ -324,6 +324,17 @@ public class PostRenderingTests
     }
 
     [Test]
+    [Description("CheckHtmlTags names the html tags that are not allowed (without attributes, case insensitive)")]
+    public void CheckHtmlTags_Test()
+    {
+        this.board.Localization.Add("DEFAULT", "HTMLTAG_WRONG", "Not allowed: {0}");
+
+        this.Formatter.CheckHtmlTags("<b>x</b> <a href=\"https://a\">y</a> <i>z</i> <script>w</script>", "b,i", ',')
+            .Should().Be("Not allowed: script,a");
+        this.Formatter.CheckHtmlTags("<B>ok</B>", "b", ',').Should().BeEmpty();
+    }
+
+    [Test]
     [Description("Syndication messages drop hidden content and spoiler tags")]
     public void FormatSyndicationMessageAsync_Test()
     {
