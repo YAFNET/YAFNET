@@ -120,7 +120,7 @@ public class PostActionsTests : ForumTestBase
     }
 
     [Test]
-    [Description("With the reputation a member votes for the author of a post (once), the admin votes against")]
+    [Description("With the reputation a member votes for the author of a post (once), the admin votes against (no minimum points)")]
     public async Task Reputation_Test()
     {
         await this.LoginAsAdminAsync();
@@ -143,11 +143,9 @@ public class PostActionsTests : ForumTestBase
             await this.LoginAsAdminAsync();
             await this.GotoAsync(href);
 
-            if (await this.Page.Locator("[id$='_RemoveReputation']").CountAsync() > 0)
-            {
-                await this.ClickAndWaitAsync(this.Page.Locator("[id$='_RemoveReputation']").First);
-                (await this.Page.ContentAsync()).Should().Contain("toast-body");
-            }
+            // the admin may vote down (no minimum of points), the author has points now
+            await this.ClickAndWaitAsync(this.Page.Locator("[id$='_RemoveReputation']").First);
+            (await this.Page.ContentAsync()).Should().Contain("toast-body");
         }
         finally
         {
@@ -177,6 +175,7 @@ public class PostActionsTests : ForumTestBase
     {
         await this.GotoAsync("Admin/HostSettings");
         await this.Control("EnableUserReputation").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.Control("ReputationMinDownVoting").EvaluateAsync("(e, v) => e.value = v", enabled ? "0" : "100");
         await this.ClickAndWaitAsync(this.Control("Save"));
     }
 
