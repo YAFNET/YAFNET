@@ -359,6 +359,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Forum and Edit Category: the name of the forum or category was shown as html in the header
 * [FIXED] Custom profile fields: the names of the fields (set by the admin) were shown as html in the labels of the register and edit profile pages and on the profile page
 * [FIXED] Admin > Banned Names and Banned E-mails: the entries were shown as html; profile page: the names of the roles were shown as html
+* [FIXED] Forum list: the description of the forums was shown as html (also in the title of the link, a quote broke the link)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

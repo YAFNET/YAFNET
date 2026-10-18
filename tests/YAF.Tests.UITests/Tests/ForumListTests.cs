@@ -56,6 +56,7 @@ public class ForumListTests : ForumTestBase
             if (name == parent)
             {
                 await this.Control("Locked").CheckAsync();
+                await this.Control("Description").FillAsync($"Described <u>{id}</u>");
             }
 
             await this.Control("ForumImages").SelectOptionAsync(
@@ -73,7 +74,8 @@ public class ForumListTests : ForumTestBase
         await this.AssertNoServerErrorAsync();
 
         var text = await this.Page.InnerTextAsync("body");
-        text.Should().Contain(parent, "the names are encoded").And.Contain(child).And.Contain(other);
+        text.Should().Contain(parent, "the names are encoded").And.Contain(child).And.Contain(other)
+            .And.Contain($"Described <u>{id}</u>", "the description is encoded");
 
         (await this.Page.Locator("img.forum_customimage_locked").CountAsync()).Should().BeGreaterThan(0);
         (await this.Page.Locator("img.forum_customimage_newposts, img.forum_customimage_nonewposts").CountAsync()).Should()

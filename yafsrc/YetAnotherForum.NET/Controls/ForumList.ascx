@@ -51,7 +51,7 @@
                                             Visible="false" />
                 </h5>
                 <h6 class="card-subtitle text-body-secondary mb-1" runat="server" Visible="<%# ((ForumRead)Container.DataItem).Description.IsSet()  %>">
-                    <%# ((ForumRead)Container.DataItem).Description  %>
+                    <%#: ((ForumRead)Container.DataItem).Description  %>
                 </h6>
             </div>
             <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() %>">

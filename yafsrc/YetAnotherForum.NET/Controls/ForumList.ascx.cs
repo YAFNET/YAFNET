@@ -73,7 +73,7 @@ public partial class ForumList : BaseUserControl
 
             output = item.RemoteURL.IsSet()
                          ? $"<a href=\"{item.RemoteURL}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt\"></i></a>"
-                         : $"<a href=\"{this.Get<LinkBuilder>().GetForumLink(forumId, output)}\" data-bs-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
+                         : $"<a href=\"{this.Get<LinkBuilder>().GetForumLink(forumId, output)}\" data-bs-toggle=\"tooltip\" title=\"{this.Page.HtmlEncode(title)}\">{this.Page.HtmlEncode(output)}</a>";
         }
         else
         {
