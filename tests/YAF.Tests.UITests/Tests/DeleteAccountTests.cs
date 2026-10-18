@@ -38,7 +38,7 @@ using YAF.Tests.UITests.Infrastructure;
 public class DeleteAccountTests : ForumTestBase
 {
     [Test]
-    [Description("A member suspends the own account: the member is logged out and can not log in")]
+    [Description("A member suspends the own account (a wrong password is refused): the member is logged out and can not log in")]
     public async Task Suspend_Own_Account_Test()
     {
         var member = $"Sus{DateTime.UtcNow:HHmmssfff}";
@@ -46,9 +46,15 @@ public class DeleteAccountTests : ForumTestBase
         await this.RegisterAsync(member, TestConfig.TestUserPassword);
         await this.LoginAsync(member, TestConfig.TestUserPassword);
 
+        // the current password is needed
         await this.GotoAsync("Profile/DeleteAccount");
         await this.Page.Locator("input[type=radio][value='suspend']").CheckAsync();
-        await this.ConfirmDeleteAsync();
+        await this.ConfirmDeleteAsync("wrong password");
+        (await this.IsLoggedInAsAsync(member)).Should().BeTrue("a wrong password is refused");
+
+        await this.GotoAsync("Profile/DeleteAccount");
+        await this.Page.Locator("input[type=radio][value='suspend']").CheckAsync();
+        await this.ConfirmDeleteAsync(TestConfig.TestUserPassword);
 
         (await this.IsLoggedInAsAsync(member)).Should().BeFalse("the member is logged out");
 
@@ -74,7 +80,7 @@ public class DeleteAccountTests : ForumTestBase
 
         await this.GotoAsync("Profile/DeleteAccount");
         await this.Page.Locator("input[type=radio][value='delete']").CheckAsync();
-        await this.ConfirmDeleteAsync();
+        await this.ConfirmDeleteAsync(TestConfig.TestUserPassword);
 
         await this.LoginAsync(member, TestConfig.TestUserPassword);
         (await this.IsLoggedInAsAsync(member)).Should().BeFalse("the account is deleted");
@@ -94,8 +100,10 @@ public class DeleteAccountTests : ForumTestBase
         (await this.Control("DeleteUser").CountAsync()).Should().Be(0);
     }
 
-    private async Task ConfirmDeleteAsync()
+    private async Task ConfirmDeleteAsync(string password)
     {
+        await this.Control("CurrentPassword").FillAsync(password);
+
         var button = this.Control("DeleteUser");
 
         if (await button.GetAttributeAsync("data-bs-toggle") == "confirm")

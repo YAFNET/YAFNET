@@ -51,6 +51,33 @@ namespace YAF.Pages.Profile
         protected global::YAF.Web.Controls.ThemeButton DeleteUser;
 
         /// <summary>
+        /// CurrentPasswordRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder CurrentPasswordRow;
+
+        /// <summary>
+        /// CurrentPasswordLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel CurrentPasswordLabel;
+
+        /// <summary>
+        /// CurrentPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CurrentPassword;
+
+        /// <summary>
         /// Cancel control.
         /// </summary>
         /// <remarks>

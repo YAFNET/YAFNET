@@ -349,6 +349,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Forums > Copy: the copied forum got no access of the roles (the access was updated instead of created), it was not shown to anybody
 * [FIXED] Admin > Edit Forum: the option "Hide if no access" had no effect (forums without read access were never listed); a forum without read access is listed with "(No Access)" now unless the option is set, new forums have it checked and the upgrade sets it for the existing forums (they stay hidden)
 * [FIXED] Moderators: the users added to a forum with a moderator access mask (Moderate > Forum > Add user) were not listed as moderators (forum list, team page) and got no moderator notifications (reported posts, posts waiting for approval), only the moderators of groups
+* [CHANGES] Suspending or deleting the own account needs the current password (accounts of external logins without a password are not asked)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

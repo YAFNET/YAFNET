@@ -28,6 +28,19 @@
                                                      CssClass="list-unstyled" />
                             </div>
                         </div>
+                        <asp:PlaceHolder runat="server" ID="CurrentPasswordRow">
+                            <div class="mb-3">
+                                <asp:Label runat="server" AssociatedControlID="CurrentPassword" CssClass="form-label">
+                                    <YAF:LocalizedLabel ID="CurrentPasswordLabel" runat="server"
+                                                        LocalizedPage="EDIT_PROFILE"
+                                                        LocalizedTag="CURRENT_PASSWORD" />
+                                </asp:Label>
+                                <asp:TextBox ID="CurrentPassword" runat="server"
+                                             CssClass="form-control"
+                                             TextMode="Password"
+                                             autocomplete="current-password" />
+                            </div>
+                        </asp:PlaceHolder>
                         <div class="text-lg-center">
                             <YAF:ThemeButton ID="DeleteUser" runat="server"
                                              OnClick="DeleteUserClick"

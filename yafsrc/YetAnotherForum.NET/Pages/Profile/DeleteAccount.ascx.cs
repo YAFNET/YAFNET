@@ -28,6 +28,7 @@ using System.Web.Security;
 
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
+using YAF.Types.Models.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
@@ -69,6 +70,9 @@ public partial class DeleteAccount : ProfilePage
             this.Get<LinkBuilder>().AccessDenied();
         }
 
+        // accounts of external logins have no password
+        this.CurrentPasswordRow.Visible = this.PageBoardContext.MembershipUser?.PasswordHash.IsSet() == true;
+
         if (this.IsPostBack)
         {
             return;
@@ -99,6 +103,13 @@ public partial class DeleteAccount : ProfilePage
     /// </param>
     protected void DeleteUserClick(object sender, EventArgs e)
     {
+        // the password is needed, a session alone can not remove the account
+        if (!this.IsCurrentPassword(this.PageBoardContext.MembershipUser))
+        {
+            this.PageBoardContext.Notify(this.GetText("EDIT_PROFILE", "WRONG_PASSWORD"), MessageTypes.warning);
+            return;
+        }
+
         switch (this.Options.SelectedValue)
         {
             case "suspend":
@@ -170,5 +181,29 @@ public partial class DeleteAccount : ProfilePage
         this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageBoardContext.PageUserID));
 
         this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+    }
+
+    /// <summary>
+    /// Checks the entered current password (accounts of external logins have no password).
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>Returns if the password is correct.</returns>
+    private bool IsCurrentPassword(AspNetUsers user)
+    {
+        if (user == null)
+        {
+            return false;
+        }
+
+        if (user.PasswordHash.IsNotSet())
+        {
+            return true;
+        }
+
+        var password = this.CurrentPassword.Text;
+
+        return password.IsSet()
+               && (PasswordVerificationResult)this.Get<IAspNetUsersHelper>().IPasswordHasher
+                   .VerifyHashedPassword(user.PasswordHash, password) != PasswordVerificationResult.Failed;
     }
 }
