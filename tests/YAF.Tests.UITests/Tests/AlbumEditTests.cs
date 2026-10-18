@@ -25,6 +25,9 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -327,6 +330,85 @@ public class AlbumEditTests : ForumTestBase
 
         await this.ClickAndWaitAsync(this.Control("SetCover").First);
         (await this.Control("SetCover").First.InnerTextAsync()).Trim().Should().Be(setText);
+    }
+
+    [Test]
+    [Description("The images and covers of an album are sent (also with the file name of older versions), a missing file is an error text; another member doesn't change the title and the caption")]
+    public async Task Album_Files_And_Foreign_Changes_Test()
+    {
+        var member = $"Alf{DateTime.UtcNow:HHmmssfff}";
+        var title = $"Files {Guid.NewGuid():N}".Substring(0, 20);
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        var albumId = await this.CreateAlbumAsync(title, images: 2);
+
+        // the ids of the images (the previews of the album page)
+        await this.ClickAndWaitAsync(this.Control("Back"));
+        var imageIds = (await this.Page.Locator("img[src*='imgprv=']").EvaluateAllAsync<string[]>("es => es.map(e => e.src)"))
+            .Select(src => Regex.Match(src, @"imgprv=(\d+)").Groups[1].Value).Distinct().ToArray();
+        imageIds.Should().HaveCount(2);
+
+        // a random cover of the album, the cover image and the image
+        foreach (var url in new[] { $"album={albumId}&cover=0", $"album={albumId}&cover={imageIds[0]}", $"image={imageIds[0]}" })
+        {
+            var response = await this.Page.APIRequest.GetAsync($"{TestConfig.BaseUrl}resource.ashx?{url}");
+            response.Status.Should().Be(200, url);
+            response.Headers["content-type"].Should().StartWith("image/", url);
+        }
+
+        // the files of older versions have no extension
+        var files = Directory.GetFiles(UiTestSetup.Site.SiteFolder, $"*.{albumId}.image*.png.yafalbum", SearchOption.AllDirectories);
+        files.Should().HaveCount(2);
+
+        foreach (var file in files)
+        {
+            File.Move(file, file.Substring(0, file.Length - ".yafalbum".Length));
+        }
+
+        foreach (var url in new[] { $"album={albumId}&cover={imageIds[0]}", $"image={imageIds[0]}" })
+        {
+            var response = await this.Page.APIRequest.GetAsync($"{TestConfig.BaseUrl}resource.ashx?{url}");
+            response.Headers["content-type"].Should().StartWith("image/", url);
+        }
+
+        // the files are missing
+        foreach (var file in files)
+        {
+            File.Delete(file.Substring(0, file.Length - ".yafalbum".Length));
+        }
+
+        foreach (var url in new[] { $"album={albumId}&cover={imageIds[0]}", $"image={imageIds[0]}" })
+        {
+            var response = await this.Page.APIRequest.GetAsync($"{TestConfig.BaseUrl}resource.ashx?{url}");
+            (await response.TextAsync()).Should().StartWith("Error: Resource has been moved", url);
+        }
+
+        // another member
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(string.Empty);
+
+        foreach (var (action, id) in new[] { ("ChangeAlbumTitle", albumId), ("ChangeImageCaption", imageIds[0]) })
+        {
+            var form = this.Page.APIRequest.CreateFormData();
+            form.Append("id", id);
+            form.Append("value", "Changed by another member");
+
+            var response = await this.Page.APIRequest.PostAsync(
+                $"{TestConfig.BaseUrl}api/Album/{action}",
+                new APIRequestContextOptions
+                    {
+                        Form = form, Headers = new Dictionary<string, string> { ["X-Requested-With"] = "XMLHttpRequest" }
+                    });
+            response.Status.Should().Be(200, action);
+        }
+
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+        await this.GotoAsync($"EditAlbumImages?a={albumId}");
+        (await this.Control("txtTitle").InputValueAsync()).Should().Be(title);
+        await this.ClickAndWaitAsync(this.Control("Back"));
+        (await this.Page.InnerTextAsync("body")).Should().NotContain("Changed by another member");
     }
 
     private async Task<string> CreateAlbumAsync(string title, int images)

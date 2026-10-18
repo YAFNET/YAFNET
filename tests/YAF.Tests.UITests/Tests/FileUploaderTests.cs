@@ -91,6 +91,7 @@ public class FileUploaderTests : ForumTestBase
             var smallId = Regex.Match(small, @"""fileID"":(\d+)").Groups[1].Value;
             var download = await this.Page.APIRequest.GetAsync($"{TestConfig.BaseUrl}resource.ashx?a={smallId}");
             (await download.TextAsync()).Should().Be("ABC");
+            (await this.DownloadAsync($"p={smallId}")).Should().Be("ABC", "the preview of the attachment of the database");
 
             // a name that doesn't match the content type is not downloaded
             var mismatch = await this.UploadAsync("text.png", "text/plain", [65, 66, 67]);
@@ -136,8 +137,10 @@ public class FileUploaderTests : ForumTestBase
 
             (await this.DownloadAsync($"a={id}")).Should().Be("XYZ");
             (await this.DownloadAsync($"i={id}")).Should().Be("XYZ");
+            (await this.DownloadAsync($"p={id}")).Should().Be("XYZ", "the preview");
 
-            // the names of older versions: without the id, without the extension and with the message id
+            // the names of older versions: without the id, without the extension and with the message id (the
+            // preview finds it as a wrongly converted attachment)
             foreach (var name in new[] { $"u{userId}.folder.txt.yafupload", $"u{userId}.folder.txt", "0.folder.txt.yafupload" })
             {
                 var renamed = Path.Combine(file.DirectoryName, name);
@@ -145,6 +148,7 @@ public class FileUploaderTests : ForumTestBase
                 file = new FileInfo(renamed);
 
                 (await this.DownloadAsync($"a={id}")).Should().Be("XYZ", name);
+                (await this.DownloadAsync($"p={id}&v={name}")).Should().Be("XYZ", name);
 
                 if (!name.StartsWith("0."))
                 {
@@ -156,10 +160,13 @@ public class FileUploaderTests : ForumTestBase
             file.Delete();
             (await this.DownloadAsync($"a={id}")).Should().StartWith("Error: Resource has been moved");
             (await this.DownloadAsync($"i={id}")).Should().StartWith("Error: Resource has been moved");
+            (await this.DownloadAsync($"p={id}&v=missing")).Should().StartWith("Error: Resource has been moved");
 
             // unknown attachments
             (await this.DownloadAsync("a=99999999")).Should().StartWith("You have insufficient rights");
             (await this.DownloadAsync("i=99999999")).Should().StartWith("You have insufficient rights");
+            (await this.DownloadAsync("p=99999999")).Should().StartWith("You have insufficient rights");
+            (await this.DownloadAsync("p=abc")).Should().StartWith("Error: Resource has been moved");
         }
         finally
         {
