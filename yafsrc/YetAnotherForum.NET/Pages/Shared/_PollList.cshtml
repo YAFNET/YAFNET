@@ -82,8 +82,9 @@
 
                 var isPollClosed = Current.Get<PollService>().IsPollClosed(poll);
 
-                var isClosedBound = poll.Closes.HasValue && poll.PollFlags.IsClosedBound &&
-                                    poll.Closes.Value < DateTime.UtcNow;
+                // the results are shown when the poll closes (only a closed poll was closed bound, the results of a
+                // running poll were shown and the note was never shown)
+                var isClosedBound = poll.Closes.HasValue && poll.PollFlags.IsClosedBound;
 
                 var pollHasNoVotes = pollAndChoices.TrueForAll(row => row.Item2.Votes <= 0);
 
