@@ -153,6 +153,12 @@ public class MedalTests : ForumTestBase
         (await users.CountAsync()).Should().Be(1);
         (await users.InnerTextAsync()).Should().Contain("Again for the user");
 
+        // the medal is shown on the profile of the user
+        var profileId = await this.OpenAdminEditUserAsync(userName);
+        await this.GotoAsync($"UserProfile/{profileId}-{userName}");
+        (await this.Page.Locator($"img[alt^='{name}']").CountAsync()).Should().BeGreaterThan(0, "the medal is on the profile");
+        await this.Page.GotoAsync(editUrl);
+
         // edit: the user can't be changed
         await this.ClickAndWaitAsync(users.Locator(".btn-group a", new LocatorLocatorOptions { HasTextString = "Edit" }));
         await this.Control("UserEditDialog_AddUserSave").WaitForAsync(
