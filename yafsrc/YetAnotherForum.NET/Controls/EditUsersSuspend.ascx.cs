@@ -243,11 +243,15 @@ public partial class EditUsersSuspend : BaseUserControl
             $"User {this.HtmlEncode(this.User.DisplayOrUserName())} was suspended by {this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName())} until: {suspend} (UTC)",
             MessageTypes.success);
 
-        this.Get<ILoggerService>().Log(
-            this.PageBoardContext.PageUserID,
-            "YAF.Controls.EditUsersSuspend",
-            $"User {this.User.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
-            EventLogTypes.UserSuspended);
+        // like the removal of a suspension only with the setting (it was always logged)
+        if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
+        {
+            this.Get<ILoggerService>().Log(
+                this.PageBoardContext.PageUserID,
+                "YAF.Controls.EditUsersSuspend",
+                $"User {this.User.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
+                EventLogTypes.UserSuspended);
+        }
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 

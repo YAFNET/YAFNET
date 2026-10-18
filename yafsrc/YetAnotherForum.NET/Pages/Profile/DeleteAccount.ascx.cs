@@ -126,11 +126,14 @@ public partial class DeleteAccount : ProfilePage
                         "User Suspended his own account",
                         this.PageBoardContext.PageUserID);
 
-                    this.Get<ILoggerService>().Log(
-                        this.PageBoardContext.PageUserID,
-                        this,
-                        $"User {this.PageBoardContext.PageUser.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
-                        EventLogTypes.UserSuspended);
+                    if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
+                    {
+                        this.Get<ILoggerService>().Log(
+                            this.PageBoardContext.PageUserID,
+                            this,
+                            $"User {this.PageBoardContext.PageUser.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
+                            EventLogTypes.UserSuspended);
+                    }
 
                     this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
                 }

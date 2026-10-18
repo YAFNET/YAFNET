@@ -113,4 +113,86 @@ public class EventLogTests : ForumTestBase
 
         (await this.Page.Locator("[id$='_Footer'] a").CountAsync()).Should().Be(0, "the list is empty");
     }
+
+    [Test]
+    [Description("The entries of a failed login, a suspension and its removal (only with the setting) and a deleted account are shown with their icons")]
+    public async Task Entry_Icons_Test()
+    {
+        var member = $"Evi{System.DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        // a failed login
+        await this.LoginAsync(member, "wrong password");
+
+        await this.LoginAsAdminAsync();
+        var userId = await this.OpenAdminEditUserAsync(member);
+
+        // without the setting the suspension and its removal are not logged
+        await this.SuspendAndRemoveAsync(userId);
+        (await this.EventLogTextAsync()).Should().NotContain($"User {member} was suspended")
+            .And.NotContain($"User {member} was un-suspended");
+
+        await this.SetLogSuspensionsAsync(true);
+
+        try
+        {
+            await this.SuspendAndRemoveAsync(userId);
+
+            // the member deletes the own account
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.GotoAsync("Profile/DeleteAccount");
+            await this.Page.Locator("input[type=radio][value='delete']").CheckAsync();
+            await this.Control("CurrentPassword").FillAsync(TestConfig.TestUserPassword);
+            await this.Control("DeleteUser").ClickAsync();
+            await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+            await this.LoginAsAdminAsync();
+            (await this.EventLogTextAsync()).Should().Contain($"User {member} was suspended")
+                .And.Contain($"User {member} was un-suspended");
+
+            foreach (var icon in new[] { "user-injured", "user-clock", "user-check", "user-alt-slash" })
+            {
+                (await this.Page.Locator($"li.list-group-item i.fa-{icon}").CountAsync()).Should().BeGreaterThan(0, icon);
+            }
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetLogSuspensionsAsync(false);
+        }
+    }
+
+    private async Task SuspendAndRemoveAsync(int userId)
+    {
+        await this.GotoAsync($"Admin/EditUser?u={userId}");
+        await this.Page.EvaluateAsync(
+            "() => { document.querySelector(\"[id$='_SuspendUserControl_SuspendedReason']\").value = 'Event log test'; document.querySelector(\"[id$='_SuspendUserControl_SuspendCount']\").value = '2'; }");
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Page.EvaluateAsync("() => document.querySelector(\"[id$='_SuspendUserControl_Suspend']\").click()"));
+
+        await this.GotoAsync($"Admin/EditUser?u={userId}");
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Page.EvaluateAsync("() => document.querySelector(\"[id$='_SuspendUserControl_RemoveSuspension']\").click()"));
+        await this.AssertNoServerErrorAsync();
+    }
+
+    /// <summary>
+    /// The text of the event log (50 entries, the details are collapsed).
+    /// </summary>
+    private async Task<string> EventLogTextAsync()
+    {
+        await this.GotoAsync("Admin/EventLog");
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
+
+        return await this.Page.Locator("body").TextContentAsync();
+    }
+
+    private async Task SetLogSuspensionsAsync(bool enabled)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("LogUserSuspendedUnsuspended").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
 }
