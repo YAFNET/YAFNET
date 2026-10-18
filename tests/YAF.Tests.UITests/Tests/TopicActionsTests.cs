@@ -101,6 +101,14 @@ public class TopicActionsTests : ForumTestBase
 
         await this.ClickAndWaitAsync(this.Control("NextTopic"));
         (await this.Page.TitleAsync()).Should().Contain(second);
+
+        // the newest topic has no next topic, the first topic of the board no previous one
+        await this.ClickAndWaitAsync(this.Control("NextTopic"));
+        (await this.Page.Locator("body").TextContentAsync()).Should().Contain("No more topics in this forum.");
+
+        await this.GotoAsync("Posts?t=1");
+        await this.ClickAndWaitAsync(this.Control("PrevTopic"));
+        (await this.Page.Locator("body").TextContentAsync()).Should().Contain("No more topics in this forum.");
     }
 
     [Test]
