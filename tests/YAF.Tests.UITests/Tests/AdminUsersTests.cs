@@ -153,6 +153,42 @@ public class AdminUsersTests : ForumTestBase
         this.Page.Url.Should().Contain("Admin/RegisterUser");
     }
 
+    [Test]
+    [Description("The filters of the role, the rank and the suspended users")]
+    public async Task Role_Rank_And_Suspended_Filters_Test()
+    {
+        var member = $"Auf{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsAdminAsync();
+
+        // the administrators: the admin, not the member
+        await this.FilterAsync(page => this.Control("group").SelectOptionAsync(
+                                   new SelectOptionValue { Label = "Administrators" },
+                                   new LocatorSelectOptionOptions { Force = true }));
+        var text = await this.Page.InnerTextAsync("body");
+        text.Should().Contain(TestConfig.AdminUserName).And.NotContain(member);
+
+        // the rank of new members
+        await this.FilterAsync(page => this.Control("rank").SelectOptionAsync(
+                                   new SelectOptionValue { Label = "Newbie" },
+                                   new LocatorSelectOptionOptions { Force = true }));
+        (await this.Page.InnerTextAsync("body")).Should().Contain(member);
+
+        // the member is not suspended
+        await this.FilterAsync(page => this.Control("SuspendedOnly").CheckAsync());
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(member);
+    }
+
+    private async Task FilterAsync(Func<IPage, Task> filter)
+    {
+        await this.GotoAsync("Admin/Users");
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await filter(this.Page);
+        await this.ClickAndWaitAsync(this.Control("search"));
+        await this.AssertNoServerErrorAsync();
+    }
+
     private async Task SearchAsync(string email)
     {
         await this.GotoAsync("Admin/Users");
