@@ -282,7 +282,10 @@ public class EventLogModel : AdminPage
 
         if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
         {
-            this.Input.SinceDate = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+            // the smallest persian date (1/01/02) was read as 1401/01/02 (2022)
+            this.Input.SinceDate = PersianDateConverter
+                .ToPersianDate(DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays))
+                .ToString("d");
 
             this.Input.ToDate = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
         }
@@ -352,9 +355,16 @@ public class EventLogModel : AdminPage
         {
             if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
             {
-                var persianDate = new PersianDate(this.Input.SinceDate.PersianNumberToEnglish());
-
-                sinceDate = PersianDateConverter.ToGregorianDateTime(persianDate);
+                // a value that is no date keeps the default
+                try
+                {
+                    sinceDate = PersianDateConverter.ToGregorianDateTime(
+                        new PersianDate(this.Input.SinceDate.PersianNumberToEnglish()));
+                }
+                catch (Exception)
+                {
+                    // the default
+                }
             }
             else
             {
@@ -369,9 +379,16 @@ public class EventLogModel : AdminPage
         {
             if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
             {
-                var persianDate = new PersianDate(this.Input.ToDate.PersianNumberToEnglish());
-
-                toDate = PersianDateConverter.ToGregorianDateTime(persianDate);
+                // a value that is no date keeps the default
+                try
+                {
+                    toDate = PersianDateConverter.ToGregorianDateTime(
+                        new PersianDate(this.Input.ToDate.PersianNumberToEnglish()));
+                }
+                catch (Exception)
+                {
+                    // the default
+                }
             }
             else
             {
