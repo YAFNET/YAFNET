@@ -210,6 +210,44 @@ public class AlbumEditTests : ForumTestBase
         response.Status.Should().Be(200, action);
     }
 
+    [Test]
+    [Description("An image bigger than the maximum size of the album images is refused")]
+    public async Task Too_Big_Image_Test()
+    {
+        var member = $"Alg{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+        var albumId = await this.CreateAlbumAsync($"Big {Guid.NewGuid():N}".Substring(0, 20), images: 1);
+
+        await this.LoginAsAdminAsync();
+        await this.SetAlbumImagesSizeMaxAsync("10");
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.GotoAsync($"EditAlbumImages?a={albumId}");
+            await this.Control("File").SetInputFilesAsync(
+                new FilePayload { Name = "image2.png", MimeType = "image/png", Buffer = Png });
+            await this.ClickAndWaitAsync(this.Control("Upload"));
+
+            (await this.Page.ContentAsync()).Should().Contain("You cannot upload images that big.");
+            (await this.Control("ImageDelete").CountAsync()).Should().Be(1);
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetAlbumImagesSizeMaxAsync("1048576");
+        }
+    }
+
+    private async Task SetAlbumImagesSizeMaxAsync(string value)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("AlbumImagesSizeMax").EvaluateAsync("(e, v) => e.value = v", value);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
     private async Task<string> CreateAlbumAsync(string title, int images)
     {
         await this.GotoAsync("EditAlbumImages?a=new");
