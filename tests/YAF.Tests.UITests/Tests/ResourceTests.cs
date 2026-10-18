@@ -103,6 +103,46 @@ public class ResourceTests : ForumTestBase
     }
 
     [Test]
+    [Description("An avatar of the database with a type that is no image is sent as jpeg, the user card has the reputation points with the setting")]
+    public async Task Avatar_Type_And_Reputation_Test()
+    {
+        var member = $"Rep{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        ExecuteSql(
+            "UPDATE [dbo].[yaf_User] SET [AvatarImage] = 0x89504E470D0A1A0A, [AvatarImageType] = 'text/html', [Points] = 5 WHERE [Name] = @name",
+            member);
+
+        await this.LoginAsAdminAsync();
+        await this.SetReputationAsync(true);
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            var userId = await this.OwnUserIdAsync();
+
+            var avatar = await this.Page.APIRequest.GetAsync($"resource.ashx?u={userId}");
+            avatar.Status.Should().Be(200);
+            avatar.Headers["content-type"].Should().Be("image/jpeg", "the type of the browser is no image");
+
+            var json = await (await this.Page.APIRequest.GetAsync($"resource.ashx?userinfo={userId}&boardId=1&type=json")).TextAsync();
+            json.Should().Contain("+5");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetReputationAsync(false);
+        }
+    }
+
+    private async Task SetReputationAsync(bool enabled)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("EnableUserReputation").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
+    [Test]
     [Description("The user card shows the region of the country of the user")]
     public async Task User_Info_Region_Test()
     {
