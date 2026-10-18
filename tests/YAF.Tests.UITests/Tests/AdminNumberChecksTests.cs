@@ -70,6 +70,28 @@ public class AdminNumberChecksTests : ForumTestBase
                 "Save");
             this.Page.Url.Should().Contain("EditRank", minPosts);
         }
+
+        // the other numbers of a rank
+        foreach (var field in new[] { "PMLimit", "UsrAlbums", "UsrSigChars", "UsrAlbumImages" })
+        {
+            var values = new Dictionary<string, string>
+                             {
+                                 ["Name"] = $"Bad rank {id}", ["MinPosts"] = "1", ["RankPriority"] = "5", ["PMLimit"] = "10",
+                                 ["UsrSigChars"] = "100", ["UsrAlbums"] = "0", ["UsrAlbumImages"] = "0"
+                             };
+            values[field] = TooBig;
+
+            await this.SubmitAsync("Admin/EditRank", values, "Save");
+            this.Page.Url.Should().Contain("EditRank", field);
+        }
+
+        // cancel and an unknown rank
+        await this.GotoAsync("Admin/EditRank");
+        await this.ClickAndWaitAsync(this.Control("Cancel"));
+        this.Page.Url.Should().Contain("Admin/Ranks");
+
+        await this.GotoAsync("Admin/EditRank?r=999999");
+        this.Page.Url.Should().Contain("Info");
     }
 
     [Test]
