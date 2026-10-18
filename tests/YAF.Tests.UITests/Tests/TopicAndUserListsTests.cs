@@ -115,9 +115,10 @@ public class TopicAndUserListsTests : ForumTestBase
 
         await this.GotoAsync("ActiveUsers?v=0");
 
-        (await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = inForum }).Last.InnerTextAsync())
+        // a member can have more rows (a session of the registration and one of the login)
+        string.Join(" | ", await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = inForum }).AllInnerTextsAsync())
             .Should().Contain("Views forum").And.Contain("Test Forum");
-        (await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = reporting }).Last.InnerTextAsync())
+        string.Join(" | ", await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = reporting }).AllInnerTextsAsync())
             .Should().Contain("Reports a post");
     }
 
