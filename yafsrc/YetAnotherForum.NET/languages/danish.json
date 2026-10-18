@@ -637,6 +637,10 @@
             "#text": "Ingen data tilgængelig"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Vis private beskeder"
           },
@@ -647,6 +651,10 @@
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Sender en besked under emnet "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

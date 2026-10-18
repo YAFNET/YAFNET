@@ -637,6 +637,10 @@
             "#text": "Brak danych"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Przegląda prywatne wiadomości"
           },
@@ -647,6 +651,10 @@
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Dodaje post w temacie"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

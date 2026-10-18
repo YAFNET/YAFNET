@@ -637,6 +637,10 @@
             "#text": "Nessun dato disponibile"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Visualizzazioni Messaggi privati"
           },
@@ -647,6 +651,10 @@
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Posta un messaggio nell'argomento"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

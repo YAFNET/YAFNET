@@ -637,6 +637,10 @@
             "#text": "Tietoja ei ole saatavilla"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Näkymät Yksityiset viestit"
           },
@@ -647,6 +651,10 @@
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Viestit aiheessa"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

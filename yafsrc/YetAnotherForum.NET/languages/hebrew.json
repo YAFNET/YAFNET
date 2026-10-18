@@ -637,6 +637,10 @@
             "#text": "אין נתונים זמינים"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "צופה בהודעות פרטיות"
           },
@@ -647,6 +651,10 @@
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "מפרסם הודעה בנושא"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

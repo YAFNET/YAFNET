@@ -28,6 +28,73 @@ namespace YAF.Web.Controls;
 public class ActiveLocation : BaseControl
 {
     /// <summary>
+    /// The texts of the pages whose name is not the tag of the text (the missing text was shown as
+    /// [ACTIVELOCATION.PAGE] and logged).
+    /// </summary>
+    private static readonly Dictionary<ForumPages, string> PageTags = new()
+    {
+        { ForumPages.PostTopic, "POSTTOPIC" },
+        { ForumPages.PostMessage, "POSTMESSAGE_FULL" },
+        { ForumPages.EditMessage, "POSTS" },
+        { ForumPages.PostPrivateMessage, "PMESSAGE" },
+        { ForumPages.MyMessages, "PM" },
+        { ForumPages.PrivateMessage, "MESSAGE" },
+        { ForumPages.Notification, "NOTIFICATION" },
+        { ForumPages.EditAlbumImages, "EDIT_ALBUMIMAGES" },
+        { ForumPages.RulesAndPrivacy, "RULES" },
+        { ForumPages.Moderate_Forums, "MODERATE" },
+        { ForumPages.Jabber, "IM_XMPP" },
+        { ForumPages.Email, "IM_EMAIL" },
+        { ForumPages.Feed, "RSSTOPIC" },
+        { ForumPages.PollEdit, "POSTS" },
+        { ForumPages.Help, "HELP_INDEX" },
+        { ForumPages.Account_Approve, "APPROVE" },
+        { ForumPages.Account_ForgotPassword, "RECOVERPASSWORD" },
+        { ForumPages.Account_ResetPassword, "RECOVERPASSWORD" },
+        { ForumPages.Account_Logout, "LOGOUT" },
+        { ForumPages.Account_Register, "REGISTER" },
+        { ForumPages.Account_Login, "LOGIN" },
+        { ForumPages.MyAccount, "ACCOUNT" },
+        { ForumPages.Admin_HostSettings, "ADMIN_HOSTSETTING" },
+        { ForumPages.Admin_Settings, "ADMIN_BOARDSETTINGS" },
+        { ForumPages.Admin_BannedEmails, "ADMIN_BANNEDEMAIL" },
+        { ForumPages.Admin_BannedIps, "ADMIN_BANNEDIP" },
+        { ForumPages.Admin_BannedNames, "ADMIN_BANNEDNAME" },
+        { ForumPages.Admin_BannedUserAgents, "ADMIN_BANNED_USERAGENTS" },
+        { ForumPages.Admin_RegisterUser, "ADMIN_REGUSER" },
+        { ForumPages.Admin_BBCodes, "ADMIN_BBCODE" },
+        { ForumPages.Admin_BoardAnnouncement, "ADMINTASK" },
+        { ForumPages.Admin_PageAccessList, "ADMINTASK" },
+        { ForumPages.Admin_PageAccessEdit, "ADMINTASK" },
+        { ForumPages.Admin_Restore, "ADMINTASK" },
+        { ForumPages.Admin_TestData, "ADMINTASK" },
+        { ForumPages.Admin_Digest, "ADMINTASK" },
+        { ForumPages.Admin_Attachments, "ADMINTASK" },
+        { ForumPages.Admin_Tags, "ADMINTASK" },
+        { ForumPages.Profile_Attachments, "ATTACHMENTS" },
+        { ForumPages.Profile_BlockOptions, "BLOCK_OPTIONS" },
+        { ForumPages.Profile_ChangePassword, "CHANGE_PASSWORD" },
+        { ForumPages.Profile_DeleteAccount, "DELETE_ACCOUNT" },
+        { ForumPages.Profile_EditAvatar, "EDIT_AVATAR" },
+        { ForumPages.Profile_EditProfile, "EDIT_PROFILE" },
+        { ForumPages.Profile_EditSettings, "EDIT_SETTINGS" },
+        { ForumPages.Profile_EditSignature, "EDIT_SIGNATURE" },
+        { ForumPages.Profile_Subscriptions, "SUBSCRIPTIONS" }
+    };
+
+    /// <summary>
+    /// Gets the tag of the text (of the page ACTIVELOCATION) of a page.
+    /// </summary>
+    /// <param name="forumPage">The page.</param>
+    /// <returns>Returns the tag.</returns>
+    public static string LocationTag(string forumPage)
+    {
+        return Enum.TryParse<ForumPages>(forumPage, true, out var page) && PageTags.TryGetValue(page, out var tag)
+                   ? tag
+                   : forumPage.ToUpper();
+    }
+
+    /// <summary>
     ///   Gets or sets the Forum ID of the current location
     /// </summary>
     public int ForumID
@@ -201,6 +268,19 @@ public class ActiveLocation : BaseControl
                 }
 
                 break;
+            case ForumPages.PostTopic:
+                outText.Append(this.GetText("ACTIVELOCATION", "POSTTOPIC"));
+
+                if (this.HasForumAccess && this.ForumID > 0)
+                {
+                    outText.AppendFormat(
+                        @"<a href=""{0}"" title=""{1}"" data-bs-toggle=""tooltip"">{2}</a>",
+                        this.Get<LinkBuilder>().GetForumLink(this.ForumID, this.ForumName),
+                        this.GetText("COMMON", "VIEW_FORUM"),
+                        HttpUtility.HtmlEncode(this.ForumName));
+                }
+
+                break;
             default:
                 if (!BoardContext.Current.IsAdmin && this.ForumPage.ToUpper().Contains("MODERATE_"))
                 {
@@ -222,7 +302,7 @@ public class ActiveLocation : BaseControl
                     else
                     {
                         // Generic action name based on page name
-                        outText.Append(this.GetText("ACTIVELOCATION", this.ForumPage.ToUpper()));
+                        outText.Append(this.GetText("ACTIVELOCATION", LocationTag(this.ForumPage)));
                     }
                 }
 

@@ -92,14 +92,16 @@ public class TopicAndUserListsTests : ForumTestBase
     }
 
     [Test]
-    [Description("The active users list shows the location of the members: a forum and the report page of a post")]
+    [Description("The active users list shows the location of the members: a forum, the report page of a post and a new topic")]
     public async Task Active_Locations_Test()
     {
         var inForum = $"Lcf{DateTime.UtcNow:HHmmssfff}";
         var reporting = $"Lcr{DateTime.UtcNow:HHmmssfff}";
+        var posting = $"Lcp{DateTime.UtcNow:HHmmssfff}";
 
         await this.RegisterAsync(inForum, TestConfig.TestUserPassword);
         await this.RegisterAsync(reporting, TestConfig.TestUserPassword);
+        await this.RegisterAsync(posting, TestConfig.TestUserPassword);
 
         await this.LoginAsync(inForum, TestConfig.TestUserPassword);
         await this.GotoAsync("Topics/1-Test Forum");
@@ -110,6 +112,10 @@ public class TopicAndUserListsTests : ForumTestBase
         // the first post of the board
         await this.LoginAsync(reporting, TestConfig.TestUserPassword);
         await this.GotoAsync("ReportPost?m=1");
+
+        // a page whose name is not the tag of the text
+        await this.LoginAsync(posting, TestConfig.TestUserPassword);
+        await this.GotoAsync("PostTopic?f=1");
 
         await this.LoginAsAdminAsync();
         // the active users are cached (a list of an earlier test)
@@ -123,6 +129,11 @@ public class TopicAndUserListsTests : ForumTestBase
             .Should().Contain("Views forum", ActiveRows(inForum)).And.Contain("Test Forum");
         string.Join(" | ", await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = reporting }).AllInnerTextsAsync())
             .Should().Contain("Reports a post");
+        string.Join(" | ", await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = posting }).AllInnerTextsAsync())
+            .Should().Contain("Posts a new topic in forum").And.Contain("Test Forum");
+
+        // the members of the other tests are on all kinds of pages
+        (await this.Page.InnerTextAsync("body")).Should().NotContain("[ACTIVELOCATION.");
     }
 
     /// <summary>

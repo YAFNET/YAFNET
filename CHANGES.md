@@ -373,6 +373,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Attachments: the upload dialog stayed open when the upload ended while the dialog was still opening (fast uploads)
 * [FIXED] Sitemap: the namespace and the order of the elements are the ones of the sitemap schema (port of #1636)
 * [FIXED] Sitemap: the forums link to the topics of the forum (it was the topic with the id of the forum), the dates have the utc time zone
+* [FIXED] Active users: the location of pages like the profile settings, the login or a new topic was shown as [ACTIVELOCATION.PAGE] (and logged as a missing translation)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
