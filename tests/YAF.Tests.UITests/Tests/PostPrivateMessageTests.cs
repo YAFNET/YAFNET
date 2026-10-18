@@ -376,6 +376,42 @@ public class PostPrivateMessageTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("The sender answers the reply (the answer of a reply is sent), a member who ignores the sender gets no message")]
+    public async Task Reply_To_Reply_And_Ignored_Sender_Test()
+    {
+        var (recipient, subject) = await this.SendFromAdminAsync();
+
+        await this.LoginAsync(recipient, TestConfig.TestUserPassword);
+        await this.OpenInboxMessageAsync(subject);
+        await this.ClickAndWaitAsync(this.Control("ReplyMessage").First);
+        await this.Control("YafTextEditor").FillAsync("The first answer.");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        // the admin answers the reply
+        await this.LoginAsAdminAsync();
+        await this.OpenInboxMessageAsync($"Re: {subject}");
+        await this.ClickAndWaitAsync(this.Control("ReplyMessage").First);
+        await this.Control("YafTextEditor").FillAsync("The answer of the answer.");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+        await this.AssertNoServerErrorAsync();
+        this.Page.Url.Should().Contain("MyMessages");
+
+        await this.LoginAsync(recipient, TestConfig.TestUserPassword);
+        await this.GotoAsync("MyMessages");
+        (await this.Page.Locator("a", new PageLocatorOptions { HasTextString = $"Re: {subject}" }).CountAsync())
+            .Should().BeGreaterThan(0, "the answer of the reply is in the inbox");
+
+        // the recipient ignores the member
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        ExecuteSql(
+            $"INSERT INTO [dbo].[yaf_IgnoreUser] ([UserID], [IgnoredUserID]) SELECT r.[UserID], s.[UserID] FROM [dbo].[yaf_User] r, [dbo].[yaf_User] s WHERE r.[Name] = @name AND s.[Name] = '{TestConfig.TestUserName}'",
+            recipient);
+
+        await this.SendAsync(recipient, $"Ignored {Guid.NewGuid():N}");
+        this.Page.Url.Should().Contain("PostPrivateMessage", "the recipient ignores the sender");
+    }
+
     private async Task SendAsync(string to, string subject)
     {
         await this.GotoAsync("PostPrivateMessage");
