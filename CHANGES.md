@@ -345,6 +345,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Album page: the album title in the header was html encoded twice ("&" showed as "&amp;")
 * [FIXED] Notification "topics I post to" (auto watch): a reply of the reply page did not watch the topic, and the quick reply watched it even when the member unchecked the watch option
 * [FIXED] Moderate > Unapproved posts: approving the last waiting post of a forum went back to the moderation page before the watching users were notified (they got no notification), the approved / deleted message was not shown then
+* [FIXED] Private message page: "Message was deleted" was never shown after deleting the message (the page redirects to the inbox)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

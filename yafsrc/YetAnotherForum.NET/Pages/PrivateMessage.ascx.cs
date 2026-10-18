@@ -73,8 +73,8 @@ public partial class PrivateMessage : ForumPageRegistered
 
                 this.GetRepository<UserPMessage>().Delete(message, deleteFromOutbox);
 
-                this.BindData();
-                this.PageBoardContext.Notify(this.GetText("msg_deleted"), MessageTypes.success);
+                // shown on the inbox (the page is left)
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("msg_deleted"), MessageTypes.success);
                 this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages);
                 break;
             case "reply":

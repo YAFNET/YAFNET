@@ -315,6 +315,23 @@ public class PostPrivateMessageTests : ForumTestBase
     /// <summary>
     /// The id of a user (admin users list).
     /// </summary>
+    [Test]
+    [Description("The recipient deletes the message on its page, the inbox shows the message that it was deleted")]
+    public async Task Delete_On_Message_Page_Test()
+    {
+        var (recipient, subject) = await this.SendFromAdminAsync();
+
+        await this.LoginAsync(recipient, TestConfig.TestUserPassword);
+        await this.OpenInboxMessageAsync(subject);
+
+        await this.Control("DeleteMessage").First.ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        this.Page.Url.Should().Contain("MyMessages");
+        (await this.Page.ContentAsync()).Should().Contain("Message was deleted.");
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(subject);
+    }
+
     private async Task<int> UserIdAsync(string userName)
     {
         await this.LoginAsAdminAsync();
