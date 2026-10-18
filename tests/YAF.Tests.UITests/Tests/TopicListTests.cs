@@ -81,6 +81,17 @@ public class TopicListTests : ForumTestBase
             (await this.Page.InnerTextAsync("body")).Should().Contain(longTopic).And.Contain(shortTopic);
             (await this.Page.Locator("span[style*='green']", new PageLocatorOptions { HasTextString = longTopic }).CountAsync())
                 .Should().BeGreaterThan(0, "the title is styled");
+
+            // the last page of the long topic links to the first page
+            var lastPage = await this.Page.Locator("a[href$='/page5']").First.GetAttributeAsync("href");
+            await this.GotoAsync(lastPage.TrimStart('/'));
+            await this.AssertNoServerErrorAsync();
+            (await this.Page.InnerTextAsync("body")).Should().Contain("Reply 8.");
+
+            var first = this.Page.Locator("a:has(i.fa-angle-double-left)").First;
+            (await first.CountAsync()).Should().BeGreaterThan(0, "the first page is linked");
+            await this.ClickAndWaitAsync(first);
+            (await this.Page.InnerTextAsync("body")).Should().Contain("The first post.");
         }
         finally
         {
