@@ -56,6 +56,14 @@ public class FeedTests : ForumTestBase
 
             await this.GotoAsync("Feed?feed=1");
             this.Page.Url.Should().Contain("Info");
+
+            // the atom links of a forum and of a topic (the address of the feed is rewritten)
+            await this.GotoAsync("Topics/1-Test-Forum");
+            await this.AssertFeedLinkAsync("the forum", "-f1");
+
+            var topic = await this.Page.Locator("a[href*='/Posts/t']").First.GetAttributeAsync("href");
+            await this.GotoAsync(topic.TrimStart('/'));
+            await this.AssertFeedLinkAsync("the topic", "-t");
         }
         finally
         {
@@ -66,6 +74,20 @@ public class FeedTests : ForumTestBase
         // turned off
         await this.GotoAsync("Feed?feed=0");
         this.Page.Url.Should().Contain("Info");
+    }
+
+    /// <summary>
+    /// The atom link of the page opens an atom feed.
+    /// </summary>
+    private async Task AssertFeedLinkAsync(string page, string feedOf)
+    {
+        var href = await this.Page.Locator($"a[href*='Feed'][href*='{feedOf}']").First.GetAttributeAsync("href");
+        href.Should().NotBeNull($"{page} has an atom link of {page}");
+
+        var response = await this.Page.APIRequest.GetAsync(new System.Uri(new System.Uri(TestConfig.BaseUrl), href).ToString());
+
+        response.Headers["content-type"].Should().StartWith("application/atom+xml", $"the link {href} of {page}");
+        (await response.TextAsync()).Should().Contain("<entry", $"the link {href} of {page}");
     }
 
     private async Task SetAtomLinkAsync(bool enabled)
