@@ -154,14 +154,22 @@ public partial class DeleteForum : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private void SaveClick(object sender, EventArgs e)
     {
-        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-            "BlockUiFunctionJs",
-            JavaScriptBlocks.BlockUiFunctionJs("DeleteForumMessage"));
-
         string errorMessage;
 
         var newForumId = this.ForumListSelected.Value.ToType<int>();
         var oldForumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("fa");
+
+        // the new forum is sent by the client: a forum of the board (without a selected forum the topics were moved
+        // to the forum -1 and lost)
+        if (this.MoveTopics.Checked && newForumId != oldForumId && !this.IsBoardForum(newForumId))
+        {
+            this.PageBoardContext.Notify(this.GetText("ADMIN_DELETEFORUM", "NEW_FORUM_HELP"), MessageTypes.warning);
+            return;
+        }
+
+        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+            "BlockUiFunctionJs",
+            JavaScriptBlocks.BlockUiFunctionJs("DeleteForumMessage"));
 
         if (this.MoveTopics.Checked && newForumId != oldForumId)
         {

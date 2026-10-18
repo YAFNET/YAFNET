@@ -194,6 +194,47 @@ public class AdminForumsTests : ForumTestBase
         this.Page.Url.Should().Contain("Admin/Forums");
     }
 
+    [Test]
+    [Description("Deleting a forum with moving the topics needs a forum of the board, then the topics are in the new forum")]
+    public async Task Delete_Forum_Move_Topics_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var forum = $"Move away {id}";
+        var subject = $"Moved away {id}";
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("Admin/EditForum");
+        await this.FillForumAsync(forum, "95");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+        var forumId = await this.ForumIdAsync(forum);
+
+        await this.GotoAsync($"PostTopic?f={forumId}");
+        await this.Control("TopicSubjectTextBox").FillAsync(subject);
+        await this.Control("YafTextEditor").FillAsync("A topic of the deleted forum.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        // without a selected forum the forum is not deleted
+        await this.GotoAsync($"Admin/DeleteForum?fa={forumId}");
+        await this.Control("MoveTopics").CheckAsync(new LocatorCheckOptions { Force = true });
+        await this.Control("Delete").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        (await this.Page.ContentAsync()).Should().Contain("Select the new Forum for the Topics.");
+
+        await this.GotoAsync("Topics/1-Test Forum");
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(subject);
+
+        // the topics are moved to the test forum
+        await this.GotoAsync($"Admin/DeleteForum?fa={forumId}");
+        await this.Control("MoveTopics").CheckAsync(new LocatorCheckOptions { Force = true });
+        await this.Control("ForumListSelected").EvaluateAsync("e => e.value = '1'");
+        await this.Control("Delete").ClickAsync();
+        await this.Page.Locator(".bootbox .btn-success").ClickAsync();
+        await this.Page.WaitForURLAsync(url => url.Contains("Admin/Forums"), new PageWaitForURLOptions { Timeout = 60000 });
+
+        await this.GotoAsync("Topics/1-Test Forum");
+        (await this.Page.InnerTextAsync("body")).Should().Contain(subject);
+    }
+
     private async Task FillForumAsync(string name, string sortOrder)
     {
         await this.Control("Name").FillAsync(name);

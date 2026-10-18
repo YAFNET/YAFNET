@@ -354,6 +354,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Groups: the roles of the provider without a group (e.g. of a deleted group) were never shown (the list was hidden before it was bound), they could not be added as a group or deleted
 * [FIXED] Admin > Ranks: the start rank of the new users could be deleted when no user had it, then nobody could register (new text ADMIN_RANKS.MSG_START_RANK)
 * [FIXED] Album page: after setting or removing the cover the buttons still showed the old cover ("Set as Cover") until the page was loaded again
+* [FIXED] Admin > Delete Forum: "Move all topics" without a selected forum moved the topics to the forum -1 (they were lost), the new forum (sent by the client) could also be a forum of another board; a forum of the board is needed now
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
