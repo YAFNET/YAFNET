@@ -499,7 +499,9 @@ public static class ForumRepositoryExtensions
                         .CustomJoin(
                             $" left outer join {expression.Table<User>()} on {expression.Column<User>(x => x.ID, true)} = {expression.Column<Topic>(t => t.LastUserID, true)} ")
                         .Where<Forum, Category, ActiveAccess>(
-                            (forum, category, x) => category.BoardID == boardId && (category.Flags & 1) == 1 && x.UserID == userId && x.ReadAccess);
+                            (forum, category, x) => category.BoardID == boardId && (category.Flags & 1) == 1 && x.UserID == userId
+                                                    // a forum without read access is listed (with "no access") unless it is hidden
+                                                    && (x.ReadAccess || (forum.Flags & 2) != 2));
 
                     // -- count sub-forums
                     var countSubForumsExpression = db.From<Forum>(db.TableAlias("sub"));

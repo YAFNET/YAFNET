@@ -30,6 +30,7 @@ using ServiceStack.OrmLite;
 
 using YAF.Core.Events;
 using YAF.Core.Extensions;
+using YAF.Core.Migrations;
 using YAF.Core.Model;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.EventProxies;
@@ -272,6 +273,43 @@ public class ForumRepositoryTests
         row.Total.Should().Be(2);
 
         forums[1].LastPosted.Should().BeNull();
+    }
+
+    [Test]
+    [Description("A forum without read access is listed (no access) unless it is hidden, a hidden forum with read access is listed")]
+    public async Task ListReadAsync_No_Access_And_Hidden_Test()
+    {
+        var closed = this.db.AddForum("Closed", this.category, f => f.SortOrder = 1);
+        var closedHidden = this.db.AddForum("Closed hidden", this.category, f => { f.SortOrder = 2; f.Flags = 2; });
+        var readableHidden = this.db.AddForum("Readable hidden", this.category, f => { f.SortOrder = 3; f.Flags = 2; });
+
+        this.db.AddForumAccess(this.alice, closed, AccessFlags.Flags.None);
+        this.db.AddForumAccess(this.alice, closedHidden, AccessFlags.Flags.None);
+        this.board.GrantAccess(this.alice, readableHidden);
+
+        var forums = await this.Forums.ListReadAsync(TestDatabase.BoardId, this.alice, null, null, false, 0, 20);
+
+        forums.Select(f => f.ForumID).Should().Equal(closed, readableHidden);
+        forums.Single(f => f.ForumID == closed).ReadAccess.Should().BeFalse();
+        forums.Single(f => f.ForumID == readableHidden).ReadAccess.Should().BeTrue();
+    }
+
+    [Test]
+    [Description("The migration of version 1005 hides all existing forums from the users without read access")]
+    public void Migration1005_Hides_Existing_Forums_Test()
+    {
+        var plain = this.db.AddForum("Plain", this.category);
+        var locked = this.db.AddForum("Locked", this.category, f => f.Flags = 1);
+        var hidden = this.db.AddForum("Hidden", this.category, f => f.Flags = 2);
+
+        using (var connection = this.db.Open())
+        {
+            new Migration1005 { Db = connection }.Up();
+        }
+
+        this.Forums.GetById(plain).Flags.Should().Be(2);
+        this.Forums.GetById(locked).Flags.Should().Be(3, "the other flags are kept");
+        this.Forums.GetById(hidden).Flags.Should().Be(2);
     }
 
     [Test]

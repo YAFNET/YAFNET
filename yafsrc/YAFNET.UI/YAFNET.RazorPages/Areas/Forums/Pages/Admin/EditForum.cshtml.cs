@@ -242,6 +242,9 @@ public class EditForumModel : AdminPage
 
             this.Input.SortOrder = sortOrder;
 
+            // a new forum is hidden from the users without read access (like the forums before the option worked)
+            this.Input.HideNoAccess = true;
+
             return this.Page();
         }
 

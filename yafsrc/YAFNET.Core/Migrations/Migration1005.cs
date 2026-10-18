@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Migrations;
 
+using System.Data;
+
 using ServiceStack.DataAnnotations;
 
 using YAF.Types.Models;
@@ -31,7 +33,7 @@ using YAF.Types.Models;
 /// <summary>
 /// Version 1005 Migrations
 /// </summary>
-[Description("Increase the push endpoint of the device subscriptions, the tag name and the report text to unlimited text.")]
+[Description("Increase the push endpoint of the device subscriptions, the tag name and the report text to unlimited text, hide the existing forums from the users without read access.")]
 public class Migration1005 : MigrationBase
 {
     /// <summary>
@@ -39,6 +41,8 @@ public class Migration1005 : MigrationBase
     /// </summary>
     public override void Up()
     {
+        HideExistingForums(this.Db);
+
         if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
         {
             return;
@@ -62,5 +66,23 @@ public class Migration1005 : MigrationBase
         {
             this.Db.AlterColumn<MessageReportedAudit>(x => x.ReportText);
         }
+    }
+
+    /// <summary>
+    /// The option "hide if no access" had no effect, forums without read access were never listed: the existing
+    /// forums get the option, so they stay hidden now that forums without the option are listed with "no access".
+    /// </summary>
+    /// <param name="db">The database connection.</param>
+    private static void HideExistingForums(IDbConnection db)
+    {
+        var forums = db.Select<Forum>(f => (f.Flags & 2) != 2);
+
+        forums.ForEach(
+            forum =>
+                {
+                    var flags = forum.Flags | 2;
+
+                    db.UpdateOnly(() => new Forum { Flags = flags }, f => f.ID == forum.ID);
+                });
     }
 }
