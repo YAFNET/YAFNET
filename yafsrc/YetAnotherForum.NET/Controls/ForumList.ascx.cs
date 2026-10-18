@@ -78,7 +78,7 @@ public partial class ForumList : BaseUserControl
         else
         {
             // no access to this forum
-            output = $"{output} {this.GetText("NO_FORUM_ACCESS")}";
+            output = $"{this.Page.HtmlEncode(output)} {this.GetText("NO_FORUM_ACCESS")}";
         }
 
         return output;

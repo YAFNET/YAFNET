@@ -56,8 +56,8 @@ public partial class ForumSubForumList : BaseUserControl
         var output = forum.Forum;
 
         output = forum.ReadAccess
-                     ? $"<a class=\"card-link small\" href=\"{this.Get<LinkBuilder>().GetForumLink(forum.ForumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>"
-                     : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
+                     ? $"<a class=\"card-link small\" href=\"{this.Get<LinkBuilder>().GetForumLink(forum.ForumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{this.Page.HtmlEncode(output)}</a>"
+                     : $"{this.Page.HtmlEncode(output)} {this.GetText("NO_FORUM_ACCESS")}";
 
         return output;
     }
