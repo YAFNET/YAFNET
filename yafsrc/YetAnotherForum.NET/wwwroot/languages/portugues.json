@@ -5727,6 +5727,10 @@
             "#text": "Não se pode apagar esta classificação porque está a ser utilizada."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Não pode eliminar a categoria inicial dos novos utilizadores."
+          },
+          {
             "@tag": "NAME",
             "#text": "Nome"
           },

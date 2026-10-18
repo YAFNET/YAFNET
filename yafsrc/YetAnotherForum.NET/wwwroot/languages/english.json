@@ -5719,6 +5719,10 @@
                     "#text": "You cannot delete this rank because it is in use."
                 },
                 {
+                    "@tag": "MSG_START_RANK",
+                    "#text": "You cannot delete the start rank of the new users."
+                },
+                {
                     "@tag": "NAME",
                     "#text": "Name"
                 },

@@ -5727,6 +5727,10 @@
             "#text": "Kullanımda olduğu için bu rütbeyi silemezsiniz."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Yeni kullanıcıların başlangıç rütbesini silemezsiniz."
+          },
+          {
             "@tag": "NAME",
             "#text": "İsim"
           },

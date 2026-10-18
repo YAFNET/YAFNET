@@ -116,6 +116,14 @@ public class RanksModel : AdminPage
             return this.PageBoardContext.Notify(this.GetText("ADMIN_RANKS", "MSG_NOT_DELETE"), MessageTypes.warning);
         }
 
+        // the start rank of the new users (without it nobody can register)
+        if (await this.GetRepository<Rank>().ExistsAsync(r => r.ID == id && (r.Flags & 1) == 1))
+        {
+            await this.BindDataAsync();
+
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_RANKS", "MSG_START_RANK"), MessageTypes.warning);
+        }
+
         await this.GetRepository<Rank>().DeleteAsync(x => x.ID == id && x.BoardID == this.PageBoardContext.PageBoardID);
         await this.BindDataAsync();
 

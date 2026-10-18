@@ -5727,6 +5727,10 @@
             "#text": "Túto hodnosť nemôžete odstrániť, pretože sa používa."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Nemôžete odstrániť počiatočnú hodnosť nových používateľov."
+          },
+          {
             "@tag": "NAME",
             "#text": "Názov"
           },

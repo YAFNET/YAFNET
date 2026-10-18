@@ -5719,6 +5719,10 @@
             "#text": "Je kunt deze rang niet verwijderen omdat hij nog in gebruik is."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "U kunt de startrang van nieuwe gebruikers niet verwijderen."
+          },
+          {
             "@tag": "NAME",
             "#text": "Naam"
           },

@@ -5719,6 +5719,10 @@
             "#text": "Du kannst diesen Rang nicht löschen, da er verwendet wird."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Du kannst den Startrang der neuen Benutzer nicht löschen."
+          },
+          {
             "@tag": "NAME",
             "#text": "Name"
           },
