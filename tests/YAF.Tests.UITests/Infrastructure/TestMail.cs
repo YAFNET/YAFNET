@@ -58,6 +58,30 @@ public class TestMail
     public string To => Regex.Match(this.Headers, @"^To:\s*(.*)$", RegexOptions.Multiline).Groups[1].Value.Trim();
 
     /// <summary>
+    /// Gets the decoded subject (the encoded words of the folded header).
+    /// </summary>
+    public string Subject
+    {
+        get
+        {
+            var raw = Regex.Match(this.Headers, @"^Subject:[ \t]*(.*(?:\r\n[ \t].*)*)", RegexOptions.Multiline).Groups[1].Value;
+
+            return Regex.Replace(
+                raw.Replace("\r\n", string.Empty),
+                @"=\?(?<charset>[^?]+)\?(?<encoding>[BbQq])\?(?<text>[^?]*)\?=\s*",
+                word =>
+                    {
+                        var encoding = Encoding.GetEncoding(word.Groups["charset"].Value);
+                        var text = word.Groups["text"].Value;
+
+                        return word.Groups["encoding"].Value.ToUpperInvariant() == "B"
+                                   ? encoding.GetString(Convert.FromBase64String(text))
+                                   : DecodeQuotedPrintable(text.Replace('_', ' '));
+                    }).Trim();
+        }
+    }
+
+    /// <summary>
     /// Waits for the newest mail to the address.
     /// </summary>
     /// <param name="address">The address.</param>

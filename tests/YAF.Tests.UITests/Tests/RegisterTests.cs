@@ -181,6 +181,62 @@ public class RegisterTests : ForumTestBase
         found.Should().BeTrue("the welcome mail is sent");
     }
 
+    [Test]
+    [Description("A registration found as bot (banned e-mail address) is mailed to the admins with the subject of the notification (setting)")]
+    public async Task Bot_Registration_Notification_Test()
+    {
+        var bot = $"bot{DateTime.UtcNow:HHmmssfff}";
+        var started = DateTime.UtcNow;
+
+        // the e-mail address of the bot is banned (a regular expression)
+        ExecuteSql(
+            "INSERT INTO [dbo].[yaf_BannedEmail] ([BoardID], [Mask], [Since], [Reason]) VALUES (1, @name, GETUTCDATE(), 'UI test')",
+            $"^{bot}@");
+
+        await this.LoginAsAdminAsync();
+        await this.SetBotHandlingAsync("1");
+
+        try
+        {
+            await this.FillRegistrationAsync(bot, EmailOf(bot));
+            await this.ClickAndWaitAsync(this.Control("CreateUser"));
+
+            // the notification of the admins
+            var until = DateTime.UtcNow.AddSeconds(30);
+            TestMail mail = null;
+
+            while (mail == null && DateTime.UtcNow < until)
+            {
+                mail = UiTestSetup.Site.GetMails().Where(f => f.CreationTimeUtc >= started.AddSeconds(-1))
+                    .Select(f => TestMail.Read(f.FullName)).FirstOrDefault(
+                        m => m.To.IndexOf(TestConfig.AdminEmail, StringComparison.OrdinalIgnoreCase) >= 0
+                             && m.Body.Contains(bot));
+
+                if (mail == null)
+                {
+                    await Task.Delay(500);
+                }
+            }
+
+            mail.Should().NotBeNull("the admins are notified");
+            mail.Subject.Should().Be($"New SPAM BOT User Registered on {TestConfig.BoardName} Forum");
+        }
+        finally
+        {
+            ExecuteSql("DELETE FROM [dbo].[yaf_BannedEmail] WHERE [Mask] = @name", $"^{bot}@");
+
+            await this.LoginAsAdminAsync();
+            await this.SetBotHandlingAsync("0");
+        }
+    }
+
+    private async Task SetBotHandlingAsync(string value)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("BotHandlingOnRegister").EvaluateAsync("(e, v) => e.value = v", value);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
     private async Task SetWelcomeNotificationAsync(string value)
     {
         await this.GotoAsync("Admin/HostSettings");
