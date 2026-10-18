@@ -66,16 +66,18 @@ public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceL
         forumList.ForEach(
             forum => siteMap.Add(
                 new UrlLocation {
+                                    // the topics of the forum (the link was the topic with the id of the forum)
                                     Url = this.Get<LinkBuilder>().GetAbsoluteLink(
-                                        ForumPages.Posts,
-                                        new { t = forum.Item1.ID, name = forum.Item1.Name }).Replace("&amp;", "&"),
+                                        ForumPages.Topics,
+                                        new { f = forum.Item1.ID, name = forum.Item1.Name }).Replace("&amp;", "&"),
                                     Priority = 0.8D,
+                                    // the dates are utc (a time without a time zone is no valid date of the sitemap)
                                     LastModified = forum.Item1.LastPosted.HasValue
                                                        ? forum.Item1.LastPosted.Value.ToString(
-                                                           "yyyy-MM-ddTHH:mm:ss",
+                                                           "yyyy-MM-ddTHH:mm:ssZ",
                                                            CultureInfo.InvariantCulture)
                                                        : DateTime.UtcNow.ToString(
-                                                           "yyyy-MM-ddTHH:mm:ss",
+                                                           "yyyy-MM-ddTHH:mm:ssZ",
                                                            CultureInfo.InvariantCulture),
                                     ChangeFrequency = UrlLocation.ChangeFrequencies.always
                                 }));
