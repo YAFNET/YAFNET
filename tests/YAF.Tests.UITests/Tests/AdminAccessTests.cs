@@ -92,7 +92,7 @@ public class AdminAccessTests : ForumTestBase
     }
 
     [Test]
-    [Description("The admin adds a moderator to a forum with the user select, changes the access mask and removes the moderator")]
+    [Description("The admin adds a moderator to a forum with the user select (shown on the team page), changes the access mask and removes the moderator")]
     public async Task Forum_Moderator_Test()
     {
         var userName = $"Fmo{DateTime.UtcNow:HHmmssfff}";
@@ -118,6 +118,10 @@ public class AdminAccessTests : ForumTestBase
 
         var row = this.Page.Locator("li", new PageLocatorOptions { HasTextString = userName });
         (await row.InnerTextAsync()).Should().Contain("Moderator Access");
+
+        // the moderator of the forum is on the team page (only the moderators of groups were listed)
+        await this.GotoAsync("Team");
+        (await this.Page.InnerTextAsync("body")).Should().Contain(userName);
 
         // the moderator has no dialog to add moderators
         await this.LoginAsync(userName, TestConfig.TestUserPassword);

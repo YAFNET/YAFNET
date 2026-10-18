@@ -1500,17 +1500,19 @@ public static class UserRepositoryExtensions
                                                  Suspended = Sql.Custom("NULL")
                                              });
 
+                    // the users with the moderator access of a group or of their own access mask of the forum
+                    // (Moderate > Forum users, only the groups were listed and notified)
                     var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
                     expression2
-                        .Join<vaccess_group>((usr, access) => access.UserID == usr.ID)
-                        .Join<vaccess_group, Forum>((access, f) => f.ID == access.ForumID)
+                        .Join<vaccessfull>((usr, access) => access.UserID == usr.ID)
+                        .Join<vaccessfull, Forum>((access, f) => f.ID == access.ForumID)
                         .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                        .Where<vaccess_group, User>(
+                        .Where<vaccessfull, User>(
                             (x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID
                                       // only approved users that are not deleted
                                       && (u.Flags & 2) == 2 && (u.Flags & 32) == 0)
-                        .Select<User, vaccess_group, Forum, Category>(
+                        .Select<User, vaccessfull, Forum, Category>(
                             (usr, access, f, c) => new
                                                        {
                                                            CategoryID = c.ID,
