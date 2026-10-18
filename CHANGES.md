@@ -361,6 +361,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Banned Names and Banned E-mails: the entries were shown as html; profile page: the names of the roles were shown as html
 * [FIXED] Forum list: the description of the forums was shown as html (also in the title of the link, a quote broke the link)
 * [FIXED] Report post: a report without a reason or with a too long reason failed with an error page (the post was missing after the post back), the access to the post (deleted, not approved posts) was only checked when the page was shown
+* [FIXED] Links: the name of a forum or topic in the address was not cleaned, a forum name with characters like < & : showed an error page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

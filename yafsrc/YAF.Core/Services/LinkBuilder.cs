@@ -337,7 +337,21 @@ public class LinkBuilder : IHaveServiceLocator
 
         var parameters = values.ToObjectDictionary();
 
-        queryString = parameters.Aggregate(queryString, (current, param) => $"{current}&{param.Key}={param.Value}");
+        queryString = parameters.Aggregate(
+            queryString,
+            (current, param) =>
+                {
+                    var value = param.Value;
+
+                    // the name is only the description of the address, cleaned before the parameters are joined
+                    // (characters like & = # in the name of a forum or topic split it, < : showed an error page)
+                    if (param.Key == "name" && value is string name && name.IsSet())
+                    {
+                        value = UrlRewriteHelper.CleanStringForURL(name);
+                    }
+
+                    return $"{current}&{param.Key}={value}";
+                });
 
         return queryString;
     }

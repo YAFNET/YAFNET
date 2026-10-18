@@ -116,6 +116,30 @@ public class ForumListTests : ForumTestBase
         (await this.Page.Locator("a", new PageLocatorOptions { HasTextString = shown }).CountAsync()).Should().Be(0);
     }
 
+    [Test]
+    [Description("The link of a forum with characters like < & : in the name opens the forum")]
+    public async Task Forum_Link_With_Special_Characters_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var name = $"Link <b>this & that</b>: {id}";
+
+        await this.LoginAsAdminAsync();
+        await this.EditForumAsync(name, null);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(string.Empty);
+
+        var link = this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = name }).First;
+        var href = await link.GetAttributeAsync("href");
+        href.Substring(href.IndexOf("/Topics/", StringComparison.Ordinal)).Should().NotContain("%3C").And.NotContain(":")
+            .And.NotContain("&");
+
+        await this.ClickAndWaitAsync(link);
+        await this.AssertNoServerErrorAsync();
+        (await this.Page.InnerTextAsync("body")).Should().Contain(name);
+    }
+
     private async Task SetNoAccessAsync()
     {
         await this.Page.GetByLabel("Registered Users", new PageGetByLabelOptions { Exact = true }).SelectOptionAsync(
@@ -132,7 +156,8 @@ public class ForumListTests : ForumTestBase
         await this.Control("Name").FillAsync(name);
         await this.Control("Description").FillAsync("A forum of the forum list test");
         await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = "Test Category" });
-        await this.Control("SortOrder").FillAsync("80");
+        // the board index lists the first 20 forums only (the others are loaded when scrolling)
+        await this.Control("SortOrder").FillAsync("1");
 
         if (parentName != null)
         {
