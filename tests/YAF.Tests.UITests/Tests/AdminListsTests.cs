@@ -139,6 +139,22 @@ public class AdminListsTests : ForumTestBase
     }
 
     [Test]
+    [Description("A banned name with html is shown as text (the e-mail field only accepts addresses)")]
+    public async Task Ban_Mask_Encoded_Test()
+    {
+        const string page = "BannedNames";
+        const string addText = "Add New User Name";
+        var value = $"<b>uiban{DateTime.UtcNow:HHmmssfff}</b>";
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync($"Admin/{page}");
+        await this.AddAsync(addText, "mask", "BanReason", value);
+
+        await this.FindAsync(page, value);
+        (await this.Rows(value).CountAsync()).Should().Be(1, "the mask is shown as text");
+    }
+
+    [Test]
     [Description("A bb code with an invalid search expression is refused, a valid one is saved, edited, exported, deleted and imported again")]
     public async Task BBCode_Test()
     {

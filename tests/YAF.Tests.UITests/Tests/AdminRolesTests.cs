@@ -44,7 +44,7 @@ public class AdminRolesTests : ForumTestBase
     {
         var id = DateTime.UtcNow.ToString("HHmmssfff");
         var role = $"Role {id}";
-        var renamed = $"Renamed {id}";
+        var renamed = $"Renamed <b>{id}</b>";
         var member = $"Rol{id}";
 
         await this.RegisterAsync(member, TestConfig.TestUserPassword);
@@ -77,6 +77,10 @@ public class AdminRolesTests : ForumTestBase
         await this.Page.Locator("a[href='#View2']").ClickAsync();
         (await this.Page.Locator(".col-md-4", new PageLocatorOptions { HasTextString = renamed })
              .Locator("input[type='checkbox']").IsCheckedAsync()).Should().BeTrue("the member is in the renamed role");
+
+        // the role on the profile of the member (the name is a text)
+        await this.GotoAsync($"UserProfile/{userId}-{member}");
+        (await this.Page.InnerTextAsync("body")).Should().Contain(renamed);
 
         // cancel
         await this.GotoAsync(editUrl);

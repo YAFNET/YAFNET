@@ -82,7 +82,7 @@
                     </span>
                     <asp:Repeater ID="Groups" runat="server">
                         <ItemTemplate>
-                            <%# this.Eval("Name") %>
+                            <%#: this.Eval("Name") %>
                         </ItemTemplate>
                         <SeparatorTemplate>
                             ,
