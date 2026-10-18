@@ -282,12 +282,18 @@ public class ProfileTests : ForumTestBase
 
         try
         {
-            foreach (var refused in new[] { "ab", other })
+            // too short, taken, too long and with a semicolon
+            foreach (var refused in new[] { "ab", other, new string('d', 51), "Semi;colon" })
             {
                 await this.FillRegistrationAsync(member, refused);
                 await this.ClickAndWaitAsync(this.Control("CreateUser"));
                 (await this.Control("CreateUser").CountAsync()).Should().Be(1, $"the display name {refused} is refused");
             }
+
+            // a too long user name
+            await this.FillRegistrationAsync(new string('u', 51), $"Long {member}");
+            await this.ClickAndWaitAsync(this.Control("CreateUser"));
+            (await this.Control("CreateUser").CountAsync()).Should().Be(1, "the too long user name is refused");
 
             var started = DateTime.UtcNow;
 
@@ -463,6 +469,8 @@ public class ProfileTests : ForumTestBase
         await this.LogoutAsync();
         await this.GotoAsync("Account/Register");
 
+        // the lengths are checked on the server
+        await this.Page.EvaluateAsync("() => document.querySelectorAll('[maxlength]').forEach(e => e.removeAttribute('maxlength'))");
         await this.Control("UserName").FillAsync(userName);
         await this.Control("DisplayName").FillAsync(displayName);
         await this.Control("Email").FillAsync(EmailOf(userName));
