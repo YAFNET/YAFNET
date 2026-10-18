@@ -25,6 +25,7 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -104,5 +105,28 @@ public class GuestPostingTests : ForumTestBase
         await this.GotoAsync(topicHref.TrimStart('/'));
         (await this.Page.InnerTextAsync("body")).Should().Contain("The reply of a guest.").And.Contain($"Visitor {id}")
             .And.Contain($"Replier {id}");
+
+        // the guest edits the own reply (the name is checked again)
+        var messageId = (await this.Page.Locator("a[id^='post']").EvaluateAllAsync<string[]>("es => es.map(e => e.id)"))
+            .Select(i => Regex.Match(i, @"^post(\d+)$")).Where(m => m.Success).Select(m => int.Parse(m.Groups[1].Value)).Max();
+
+        foreach (var name in new[] { new string('e', 101), TestConfig.AdminUserName })
+        {
+            await this.GotoAsync($"EditMessage?m={messageId}");
+            await this.Control("From").EvaluateAsync("e => e.removeAttribute('maxlength')");
+            await this.Control("From").FillAsync(name);
+            await this.Control("YafTextEditor").FillAsync("The edited reply of a guest.");
+            await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+            this.Page.Url.Should().Contain("EditMessage", name);
+        }
+
+        await this.GotoAsync($"EditMessage?m={messageId}");
+        await this.Control("From").FillAsync($"Editor {id}");
+        await this.Control("YafTextEditor").FillAsync("The edited reply of a guest.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.GotoAsync(topicHref.TrimStart('/'));
+        (await this.Page.InnerTextAsync("body")).Should().Contain("The edited reply of a guest.");
     }
 }
