@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;
@@ -83,8 +84,23 @@ public class FileUploaderTests : ForumTestBase
                 .NotContain("Invalid File");
 
             // in the database: a text and a resized image
-            (await this.UploadAsync("small.txt", "text/plain", [65, 66, 67])).Should().Contain("\"size\":3,").And
-                .Contain("\"error\":null");
+            var small = await this.UploadAsync("small.txt", "text/plain", [65, 66, 67]);
+            small.Should().Contain("\"size\":3,").And.Contain("\"error\":null");
+
+            // the attachment of the database is downloaded by its owner
+            var smallId = Regex.Match(small, @"""fileID"":(\d+)").Groups[1].Value;
+            var download = await this.Page.APIRequest.GetAsync($"{TestConfig.BaseUrl}resource.ashx?a={smallId}");
+            (await download.TextAsync()).Should().Be("ABC");
+
+            // a name that doesn't match the content type is not downloaded
+            var mismatch = await this.UploadAsync("text.png", "text/plain", [65, 66, 67]);
+            var mismatchId = Regex.Match(mismatch, @"""fileID"":(\d+)").Groups[1].Value;
+
+            if (mismatchId.Length > 0 && mismatchId != "0")
+            {
+                download = await this.Page.APIRequest.GetAsync($"{TestConfig.BaseUrl}resource.ashx?a={mismatchId}");
+                (await download.TextAsync()).Should().StartWith("You have insufficient rights");
+            }
             (await this.UploadAsync("image.png", "image/png", CreatePng(40, 40))).Should().Contain("\"error\":null");
 
             // in the folder: a resized image
