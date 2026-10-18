@@ -25,6 +25,7 @@
 namespace YAF.Tests.Services;
 
 using System;
+using System.Globalization;
 
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
@@ -44,6 +45,11 @@ public class DateTimeServiceTests
         this.board = new TestBoardContext();
 
         this.board.Localization.Add("DEFAULT", "FORMAT_DATE_SHORT", "yyyy-MM-dd");
+        this.board.Localization.Add("DEFAULT", "FORMAT_DATE_LONG", "dd MMMM yyyy");
+        this.board.Localization.Add("DEFAULT", "FORMAT_DATE_TIME_SHORT", "dd.MM.yyyy HH:mm");
+        this.board.Localization.Add("DEFAULT", "FORMAT_TIME", "HH:mm");
+        this.board.Localization.Add("DEFAULT", "TodayAt", "Today at {0:HH:mm}");
+        this.board.Localization.Add("DEFAULT", "YesterdayAt", "Yesterday at {0:HH:mm}");
         this.board.Localization.Add("TIMEZONES", "NAME_UTC", "(UTC{0})");
     }
 
@@ -74,5 +80,54 @@ public class DateTimeServiceTests
         this.board.User.IsGuest = false;
 
         service.FormatDateShort(new DateTime(2026, 7, 15, 12, 0, 0, DateTimeKind.Utc)).Should().Be("2026-07-15");
+    }
+
+    [Test]
+    [Description("The dates of members are formatted with the formats of the language file")]
+    public void Formats_Of_The_Language_Test()
+    {
+        var service = new DateTimeService(this.board.Current.ServiceLocator);
+        var date = new DateTime(2003, 2, 7, 13, 45, 0, DateTimeKind.Utc);
+
+        service.FormatDateLong(date).Should().Be(date.ToString("dd MMMM yyyy", CultureInfo.InvariantCulture));
+        service.FormatDateTimeShort(date).Should().Be("07.02.2003 13:45");
+        service.FormatTime(date).Should().Be("13:45");
+    }
+
+    [Test]
+    [Description("A broken format of the language file falls back to the standard format of the culture")]
+    public void Broken_Format_Test()
+    {
+        foreach (var tag in new[] { "FORMAT_DATE_LONG", "FORMAT_DATE_SHORT", "FORMAT_DATE_TIME_LONG", "FORMAT_DATE_TIME_SHORT", "FORMAT_TIME" })
+        {
+            this.board.Localization.Add("DEFAULT", tag, "%");
+        }
+
+        var service = new DateTimeService(this.board.Current.ServiceLocator);
+        var date = new DateTime(2003, 2, 7, 13, 45, 0, DateTimeKind.Utc);
+
+        service.FormatDateLong(date).Should().Be(date.ToString("D"));
+        service.FormatDateShort(date).Should().Be(date.ToString("d"));
+        service.FormatDateTime(date).Should().Be(date.ToString("F"));
+        service.FormatDateTimeShort(date).Should().Be(date.ToString("G"));
+        service.FormatTime(date).Should().Be(date.ToString("T"));
+    }
+
+    [Test]
+    [Description("The topic lists show today and yesterday, older dates with the short date and time format")]
+    public void Topic_Date_Test()
+    {
+        var service = new DateTimeService(this.board.Current.ServiceLocator);
+        var now = DateTime.UtcNow;
+
+        service.FormatDateTimeTopic(now).Should().StartWith("Today at");
+        service.FormatDateTimeTopic(now.AddDays(-1)).Should().StartWith("Yesterday at");
+
+        var older = now.AddDays(-5);
+        service.FormatDateTimeTopic(older).Should().Be(older.ToString("dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture));
+
+        // a local date is taken as it is
+        service.FormatDateTimeTopic(DateTime.SpecifyKind(older, DateTimeKind.Local)).Should()
+            .Be(older.ToString("dd.MM.yyyy HH:mm", CultureInfo.InvariantCulture));
     }
 }
