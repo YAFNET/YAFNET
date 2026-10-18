@@ -339,6 +339,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] New topic and reply of guests: the field for the name of the guest was never shown (all guests posted as Guest)
 * [FIXED] move post: the own topic was compared with the message id (a post could be moved into its own topic)
 * [FIXED] forum list: the names of the sub forums (and of forums without access) were not encoded
+* [FIXED] XMPP page: error if the current user or the member had no XMPP address, members of other boards and guests were shown
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

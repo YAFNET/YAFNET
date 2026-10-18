@@ -69,13 +69,9 @@ public partial class Jabber : ForumPage
         // get user data...
         var userHe = this.GetRepository<User>().GetById(this.UserID);
 
-        if (userHe == null)
-        {
-            // No such user exists
-            this.Get<LinkBuilder>().AccessDenied();
-        }
-
-        if (!userHe.UserFlags.IsApproved)
+        // only approved members of the board
+        if (userHe == null || userHe.BoardID != this.PageBoardContext.PageBoardID || userHe.UserFlags.IsGuest
+            || !userHe.UserFlags.IsApproved)
         {
             this.Get<LinkBuilder>().AccessDenied();
         }
@@ -96,11 +92,17 @@ public partial class Jabber : ForumPage
             // get full user data...
             var userDataHe = this.Get<IAspNetUsersHelper>().GetUser(userHe.ProviderUserKey);
 
-            var serverHe = userDataHe.Profile_XMPP
-                .Substring(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+            // the member has no XMPP address
+            if (userDataHe == null || userDataHe.Profile_XMPP.IsNotSet())
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                return;
+            }
 
-            var serverMe = this.PageBoardContext.MembershipUser.Profile_XMPP
-                .Substring(this.PageBoardContext.MembershipUser.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+            var serverHe = GetServer(userDataHe.Profile_XMPP);
+
+            // empty if the current user has no XMPP address
+            var serverMe = GetServer(this.PageBoardContext.MembershipUser.Profile_XMPP);
 
             this.NotifyLabel.Text = serverMe == serverHe
                                         ? this.GetTextFormatted("SERVERSAME", userDataHe.Profile_XMPP)
@@ -108,5 +110,17 @@ public partial class Jabber : ForumPage
 
             this.Alert.Type = MessageTypes.info;
         }
+    }
+
+    /// <summary>
+    /// Gets the server of a XMPP address.
+    /// </summary>
+    /// <param name="address">The XMPP address.</param>
+    /// <returns>Returns the server or an empty string if there is no address.</returns>
+    private static string GetServer(string address)
+    {
+        return address.IsSet()
+                   ? address.Substring(address.IndexOf("@", StringComparison.Ordinal) + 1).Trim()
+                   : string.Empty;
     }
 }
