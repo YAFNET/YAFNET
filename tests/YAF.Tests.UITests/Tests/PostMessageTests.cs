@@ -191,6 +191,89 @@ public class PostMessageTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("A too long reply is refused, a quote without the nested quotes (setting), a locked topic goes back to the topic, the replies of a moderated member wait for the approval")]
+    public async Task Size_Nested_Quote_Locked_And_Moderated_User_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var member = $"Pmm{id}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        var (topicId, messageId) = await this.CreateTopicAsync("1", $"Nested quote {id}");
+
+        // a post with a quote
+        await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+        await this.Control("YafTextEditor").FillAsync($"[quote=Someone]Inner {id}[/quote]Outer {id}");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+        var quoteId = (await this.Page.Locator("a[id^='post']").EvaluateAllAsync<string[]>("es => es.map(e => e.id)"))
+            .Select(i => Regex.Match(i, @"^post(\d+)$")).Where(m => m.Success).Select(m => int.Parse(m.Groups[1].Value)).Max();
+
+        var locked = await this.CreateTopicAsync("1", $"Locked back {id}");
+        await this.GotoAsync($"Posts?t={locked.TopicId}");
+        await this.Control("Tools1").First.ClickAsync();
+        await this.ClickAndWaitAsync(this.Control("LockTopic1").First);
+
+        var old = await this.SetPostSettingsAsync("40", true);
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+            // too long
+            await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+            await this.Control("YafTextEditor").EvaluateAsync("e => e.removeAttribute('maxlength')");
+            await this.Control("YafTextEditor").FillAsync(new string('x', 60));
+            await this.ClickAndWaitAsync(this.Control("PostReply"));
+            this.Page.Url.Should().Contain("PostMessage", "the reply is too long");
+
+            // the nested quote is removed
+            await this.GotoAsync($"PostMessage?t={topicId}&f=1&q={quoteId}");
+            (await this.Control("YafTextEditor").InputValueAsync()).Should().Contain($"Outer {id}").And.NotContain($"Inner {id}");
+
+            // the reply page of a locked topic goes back to the page before
+            var topicUrl = $"{TestConfig.BaseUrl}Posts?t={locked.TopicId}";
+            await this.Page.GotoAsync(
+                $"{TestConfig.BaseUrl}PostMessage?t={locked.TopicId}&f=1",
+                new PageGotoOptions { Referer = topicUrl });
+            this.Page.Url.Should().NotContain("PostMessage");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetPostSettingsAsync(old.MaxPostSize, old.RemoveNestedQuotes);
+        }
+
+        // a moderated member
+        var userId = await this.OpenAdminEditUserAsync(member);
+        await this.GotoAsync($"Admin/EditUser?u={userId}");
+        await this.Control("QuickEditControl_Moderated").CheckAsync(new LocatorCheckOptions { Force = true });
+        await this.ClickAndWaitAsync(this.Control("QuickEditControl_Save"));
+
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+        await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+        await this.Control("YafTextEditor").FillAsync($"A reply of a moderated member {id}.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+        this.Page.Url.Should().Contain("Info", "the reply waits for the approval");
+    }
+
+    /// <summary>
+    /// Sets the maximum post size and the removal of nested quotes, returns the old values.
+    /// </summary>
+    private async Task<(string MaxPostSize, bool RemoveNestedQuotes)> SetPostSettingsAsync(string maxPostSize, bool removeNestedQuotes)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+
+        var old = (await this.Control("MaxPostSize").InputValueAsync(), await this.Control("RemoveNestedQuotes").IsCheckedAsync());
+
+        await this.Control("MaxPostSize").EvaluateAsync("(e, v) => e.value = v", maxPostSize);
+        await this.Control("RemoveNestedQuotes").EvaluateAsync("(e, v) => e.checked = v", removeNestedQuotes);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        return old;
+    }
+
     private async Task<(string TopicId, string MessageId)> CreateTopicAsync(string forumId, string subject)
     {
         await this.GotoAsync($"PostTopic?f={forumId}");
