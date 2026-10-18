@@ -341,6 +341,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] forum list: the names of the sub forums (and of forums without access) were not encoded
 * [FIXED] XMPP page: error if the current user or the member had no XMPP address, members of other boards and guests were shown
 * [FIXED] Edit settings: an e-mail address that is already in use showed "illegal e-mail address" instead of "already in use"
+* [FIXED] Albums: changing an album title or image caption inline failed with an error when the text contained "<" followed by a letter (request validation of the api)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

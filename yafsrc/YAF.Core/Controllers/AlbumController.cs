@@ -50,7 +50,8 @@ public class AlbumController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult ChangeAlbumTitle()
     {
-        var form = this.Get<HttpRequestBase>().Form;
+        // the text is stored html encoded, "<" is no dangerous input here (request validation failed with an error)
+        var form = this.Get<HttpRequestBase>().Unvalidated.Form;
 
         if (form["id"].IsNotSet() || !ValidationHelper.IsNumeric(form["id"]) || form["value"] == null)
         {
@@ -78,7 +79,8 @@ public class AlbumController : ApiController, IHaveServiceLocator
     [HttpPost]
     public IHttpActionResult ChangeImageCaption()
     {
-        var form = this.Get<HttpRequestBase>().Form;
+        // the text is stored html encoded, "<" is no dangerous input here (request validation failed with an error)
+        var form = this.Get<HttpRequestBase>().Unvalidated.Form;
 
         if (form["id"].IsNotSet() || !ValidationHelper.IsNumeric(form["id"]) || form["value"] == null)
         {
