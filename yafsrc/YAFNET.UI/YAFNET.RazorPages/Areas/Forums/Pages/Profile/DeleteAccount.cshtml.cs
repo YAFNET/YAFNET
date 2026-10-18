@@ -139,11 +139,14 @@ public class DeleteAccountModel : ProfilePage
 
                 if (user != null)
                 {
-                    this.Get<ILogger<DeleteAccountModel>>().Log(
-                        this.PageBoardContext.PageUserID,
-                        this,
-                        $"User {user.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
-                        EventLogTypes.UserSuspended);
+                    if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
+                    {
+                        this.Get<ILogger<DeleteAccountModel>>().Log(
+                            this.PageBoardContext.PageUserID,
+                            this,
+                            $"User {user.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
+                            EventLogTypes.UserSuspended);
+                    }
 
                     this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
                 }

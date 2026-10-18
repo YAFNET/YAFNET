@@ -214,11 +214,15 @@ public class UsersSuspendModel : AdminPage
             this.Input.SuspendedReason,
             this.PageBoardContext.PageUserID);
 
-        this.Get<ILogger<UsersSuspendModel>>().Log(
-            this.PageBoardContext.PageUserID,
-            "YAF.Controls.EditUsersSuspend",
-            $"User {this.EditUser.Item1.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
-            EventLogTypes.UserSuspended);
+        // like the removal of a suspension only with the setting (it was always logged)
+        if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
+        {
+            this.Get<ILogger<UsersSuspendModel>>().Log(
+                this.PageBoardContext.PageUserID,
+                "YAF.Controls.EditUsersSuspend",
+                $"User {this.EditUser.Item1.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
+                EventLogTypes.UserSuspended);
+        }
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 

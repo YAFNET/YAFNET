@@ -508,6 +508,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Forum: the option "Hide if no access" had no effect (forums without read access were never listed); a forum without read access is listed with "(No Access)" now unless the option is set, new forums have it checked and the upgrade sets it for the existing forums (they stay hidden)
 * [FIXED] Moderators: the users added to a forum with a moderator access mask (Moderate > Forum > Add user) were not listed as moderators (forum list, team page) and got no moderator notifications (reported posts, posts waiting for approval), only the moderators of groups
 * [FIXED] Admin > Edit User > Kill: banning the addresses of the user also banned the own address of the admin (e.g. a spammer in the same network), the admin locked himself out
+* [FIXED] Event log: suspensions (by an admin or of the own account) were always logged, the setting "Allow log when users suspended or un-suspended" was only used for the removal of a suspension
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
