@@ -130,6 +130,120 @@ public class QuickReplyTests : ForumTestBase
         (await this.IsWatchedAsync()).Should().BeFalse("the member unchecked the option");
     }
 
+    [Test]
+    [Description("A too long quick reply and a second one within the flood delay are refused, the admin unwatches the topic with an unchecked option")]
+    public async Task Too_Long_Flood_And_Unwatch_Test()
+    {
+        var member = $"Qrf{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        var topic = await this.CreateTopicAsync($"Quick checks {Guid.NewGuid():N}");
+
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        // too long (the length of the field is removed)
+        await this.GotoAsync(topic);
+        await this.OpenAsync();
+        await this.Control("QuickReplyDialog_YafTextEditor").EvaluateAsync("e => e.removeAttribute('maxlength')");
+        await this.Control("QuickReplyDialog_YafTextEditor").FillAsync(new string('x', 33000));
+        await this.ClickAndWaitAsync(this.Control("QuickReplyDialog_Reply"));
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(new string('x', 100), "the too long reply is refused");
+
+        // the second reply within the flood delay
+        await this.LoginAsAdminAsync();
+        var delay = await this.SetFloodDelayAsync("60");
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.QuickReplyAsync(topic, "The first quick reply.");
+            await this.QuickReplyAsync(topic, "The second quick reply.");
+
+            await this.GotoAsync(topic);
+            (await this.Page.InnerTextAsync("body")).Should().Contain("The first quick reply.").And.NotContain("The second quick reply.");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetFloodDelayAsync(delay);
+        }
+
+        // the admin watches and unwatches the topic (admins have no flood delay)
+        await this.LoginAsAdminAsync();
+        await this.QuickReplyAsync(topic, "A watched quick reply.", watch: true);
+        await this.QuickReplyAsync(topic, "An unwatched quick reply.", watch: false);
+
+        await this.Control("OptionsLink").ClickAsync();
+        (await this.Page.Locator(".dropdown-menu.show a", new PageLocatorOptions { HasTextString = "Watch this topic" }).CountAsync())
+            .Should().Be(1, "the topic is not watched anymore");
+    }
+
+    [Test]
+    [Description("A quick reply of a member in a moderated forum waits for the approval, the reply of the admin is approved at once")]
+    public async Task Moderated_Forum_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var forumName = $"Quick moderated {id}";
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("Admin/EditForum");
+        await this.Control("Name").FillAsync(forumName);
+        await this.Control("Description").FillAsync("A moderated forum of the quick reply test");
+        await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = "Test Category" });
+        await this.Control("SortOrder").FillAsync("85");
+        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.GotoAsync(string.Empty);
+        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = forumName })
+                            .First.GetAttributeAsync("href");
+        var forumId = System.Text.RegularExpressions.Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+
+        await this.GotoAsync($"PostTopic?f={forumId}");
+        await this.Control("TopicSubjectTextBox").FillAsync($"Moderated quick {id}");
+        await this.Control("YafTextEditor").FillAsync("The first post.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+        var topic = new Uri(this.Page.Url).PathAndQuery.TrimStart('/');
+
+        await this.QuickReplyAsync(topic, "The reply of the admin.");
+        (await this.Page.InnerTextAsync("body")).Should().Contain("The reply of the admin.");
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.QuickReplyAsync(topic, $"The reply of the member {id}.");
+        this.Page.Url.Should().Contain("Info", "the reply waits for the approval");
+
+        await this.GotoAsync(topic);
+        (await this.Page.InnerTextAsync("body")).Should().NotContain($"The reply of the member {id}.");
+    }
+
+    private async Task<string> SetFloodDelayAsync(string value)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+
+        var old = await this.Control("PostFloodDelay").InputValueAsync();
+
+        await this.Control("PostFloodDelay").EvaluateAsync("(e, v) => e.value = v", value);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        return old;
+    }
+
+    private async Task QuickReplyAsync(string topic, string text, bool? watch = null)
+    {
+        await this.GotoAsync(topic);
+        await this.OpenAsync();
+        await this.Control("QuickReplyDialog_YafTextEditor").FillAsync(text);
+
+        if (watch.HasValue)
+        {
+            await this.Control("QuickReplyDialog_TopicWatch").SetCheckedAsync(watch.Value);
+        }
+
+        await this.ClickAndWaitAsync(this.Control("QuickReplyDialog_Reply"));
+    }
+
     private async Task<string> CreateTopicAsync(string subject)
     {
         await this.GotoAsync("PostTopic?f=1");
