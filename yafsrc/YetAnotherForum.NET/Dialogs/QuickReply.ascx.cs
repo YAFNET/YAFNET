@@ -62,11 +62,11 @@ public partial class QuickReply : BaseUserControl
 
         if (!this.PageBoardContext.IsGuest)
         {
-            this.TopicWatch.Checked = this.PageBoardContext.PageTopicID > 0
-                                          ? this.GetRepository<WatchTopic>().Check(
-                                              this.PageBoardContext.PageUserID,
-                                              this.PageBoardContext.PageTopicID).HasValue
-                                          : this.PageBoardContext.PageUser.AutoWatchTopics;
+            // "topics I post to" (auto watch) checks the option, the member can uncheck it
+            this.TopicWatch.Checked = this.PageBoardContext.PageUser.AutoWatchTopics
+                                      || this.PageBoardContext.PageTopicID > 0 && this.GetRepository<WatchTopic>().Check(
+                                          this.PageBoardContext.PageUserID,
+                                          this.PageBoardContext.PageTopicID).HasValue;
         }
 
         this.QuickReplyLine.Controls.Add(this.quickReplyEditor);
@@ -251,20 +251,6 @@ public partial class QuickReply : BaseUserControl
                 messageFlags);
 
             newMessage.Topic = this.PageBoardContext.PageTopic;
-
-            // Check to see if the user has enabled "auto watch topic" option in his/her profile.
-            if (this.PageBoardContext.PageUser.AutoWatchTopics)
-            {
-                var watchTopicId = this.GetRepository<WatchTopic>().Check(
-                    this.PageBoardContext.PageUserID,
-                    this.PageBoardContext.PageTopicID);
-
-                if (!watchTopicId.HasValue)
-                {
-                    // subscribe to this topic
-                    this.GetRepository<WatchTopic>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
-                }
-            }
 
             if (messageFlags.IsApproved)
             {

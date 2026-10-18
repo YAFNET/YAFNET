@@ -280,9 +280,10 @@ public partial class PostMessage : ForumPage
 
             if (!this.PageBoardContext.IsGuest)
             {
-                this.PostOptions1.WatchChecked = this.PageBoardContext.PageTopicID > 0
-                                                     ? this.GetRepository<WatchTopic>().Check(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID).HasValue
-                                                     : this.PageBoardContext.PageUser.AutoWatchTopics;
+                // "topics I post to" (auto watch) also for the replies (it was only used without a topic)
+                this.PostOptions1.WatchChecked = this.PageBoardContext.PageUser.AutoWatchTopics
+                                                 || this.PageBoardContext.PageTopicID > 0 && this.GetRepository<WatchTopic>()
+                                                     .Check(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID).HasValue;
             }
 
             this.PageBoardContext.PageLinks.AddRoot();

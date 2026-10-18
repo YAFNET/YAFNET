@@ -343,6 +343,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Edit settings: an e-mail address that is already in use showed "illegal e-mail address" instead of "already in use"
 * [FIXED] Albums: changing an album title or image caption inline failed with an error when the text contained "<" followed by a letter (request validation of the api)
 * [FIXED] Album page: the album title in the header was html encoded twice ("&" showed as "&amp;")
+* [FIXED] Notification "topics I post to" (auto watch): a reply of the reply page did not watch the topic, and the quick reply watched it even when the member unchecked the watch option
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
