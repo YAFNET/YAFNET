@@ -32,6 +32,77 @@ using System.Net;
 public static class ActiveLocationHtmlHelper
 {
     /// <summary>
+    /// The texts of the pages whose name is not the tag of the text (the missing text was shown as
+    /// [ACTIVELOCATION.PAGE] and logged).
+    /// </summary>
+    private static readonly Dictionary<ForumPages, string> PageTags = new()
+    {
+        { ForumPages.Post, "POSTS" },
+        { ForumPages.PostTopic, "POSTTOPIC" },
+        { ForumPages.PostMessage, "POSTMESSAGE_FULL" },
+        { ForumPages.EditMessage, "POSTS" },
+        { ForumPages.PollEdit, "POSTS" },
+        { ForumPages.MyMessages, "PM" },
+        { ForumPages.MyFriends, "FRIENDS" },
+        { ForumPages.Notification, "NOTIFICATION" },
+        { ForumPages.EditAlbumImages, "EDIT_ALBUMIMAGES" },
+        { ForumPages.Privacy, "RULES" },
+        { ForumPages.Moderate_Moderate, "MODERATE" },
+        { ForumPages.Moderate_Forums, "MODERATE" },
+        { ForumPages.Email, "IM_EMAIL" },
+        { ForumPages.Help, "HELP_INDEX" },
+        { ForumPages.Digest, "ADMINTASK" },
+        { ForumPages.SiteMap, "NODATA" },
+        { ForumPages.Account_Approve, "APPROVE" },
+        { ForumPages.Account_ForgotPassword, "RECOVERPASSWORD" },
+        { ForumPages.Account_ResetPassword, "RECOVERPASSWORD" },
+        { ForumPages.Account_Logout, "LOGOUT" },
+        { ForumPages.Account_Register, "REGISTER" },
+        { ForumPages.Account_Login, "LOGIN" },
+        { ForumPages.Account_Authorize, "LOGIN" },
+        { ForumPages.MyAccount, "ACCOUNT" },
+        { ForumPages.Admin_HostSettings, "ADMIN_HOSTSETTING" },
+        { ForumPages.Admin_Settings, "ADMIN_BOARDSETTINGS" },
+        { ForumPages.Admin_BannedCountries, "ADMIN_BANNED_COUNTRIES" },
+        { ForumPages.Admin_BannedEmails, "ADMIN_BANNEDEMAIL" },
+        { ForumPages.Admin_BannedIps, "ADMIN_BANNEDIP" },
+        { ForumPages.Admin_BannedNames, "ADMIN_BANNEDNAME" },
+        { ForumPages.Admin_BannedUserAgents, "ADMIN_BANNED_USERAGENTS" },
+        { ForumPages.Admin_RegisterUser, "ADMIN_REGUSER" },
+        { ForumPages.Admin_BBCodes, "ADMIN_BBCODE" },
+        { ForumPages.Admin_EditBBCode, "ADMIN_BBCODE_EDIT" },
+        { ForumPages.Admin_BoardAnnouncement, "ADMINTASK" },
+        { ForumPages.Admin_PageAccessList, "ADMINTASK" },
+        { ForumPages.Admin_PageAccessEdit, "ADMINTASK" },
+        { ForumPages.Admin_Restore, "ADMINTASK" },
+        { ForumPages.Admin_TestData, "ADMINTASK" },
+        { ForumPages.Admin_Digest, "ADMINTASK" },
+        { ForumPages.Admin_Attachments, "ADMINTASK" },
+        { ForumPages.Admin_Tags, "ADMINTASK" },
+        { ForumPages.Profile_Attachments, "ATTACHMENTS" },
+        { ForumPages.Profile_BlockOptions, "BLOCK_OPTIONS" },
+        { ForumPages.Profile_ChangePassword, "CHANGE_PASSWORD" },
+        { ForumPages.Profile_DeleteAccount, "DELETE_ACCOUNT" },
+        { ForumPages.Profile_EditAvatar, "EDIT_AVATAR" },
+        { ForumPages.Profile_EditProfile, "EDIT_PROFILE" },
+        { ForumPages.Profile_EditSettings, "EDIT_SETTINGS" },
+        { ForumPages.Profile_EditSignature, "EDIT_SIGNATURE" },
+        { ForumPages.Profile_Subscriptions, "SUBSCRIPTIONS" }
+    };
+
+    /// <summary>
+    /// Gets the tag of the text (of the page ACTIVELOCATION) of a page.
+    /// </summary>
+    /// <param name="forumPage">The page.</param>
+    /// <returns>Returns the tag.</returns>
+    public static string LocationTag(string forumPage)
+    {
+        return Enum.TryParse<ForumPages>(forumPage, true, out var page) && PageTags.TryGetValue(page, out var tag)
+                   ? tag
+                   : forumPage.ToUpper();
+    }
+
+    /// <summary>
     /// Provides Active Users location info
     /// </summary>
     /// <param name="_">
@@ -124,6 +195,25 @@ public static class ActiveLocationHtmlHelper
                 content.AppendHtml(lastLink);
 
                 break;
+            case ForumPages.PostTopic:
+                content.Append(context.Get<ILocalization>().GetText("ACTIVELOCATION", "POSTTOPIC"));
+
+                if (!hasForumAccess || forumId <= 0)
+                {
+                    return content;
+                }
+
+                var forumLink = new TagBuilder(HtmlTag.A);
+
+                forumLink.MergeAttribute("data-bs-toggle", "tooltip");
+                forumLink.MergeAttribute(HtmlAttribute.Title, context.Get<ILocalization>().GetText("COMMON", "VIEW_FORUM"));
+                forumLink.MergeAttribute(HtmlAttribute.Href, context.Get<ILinkBuilder>().GetForumLink(forumId, forumName));
+
+                forumLink.InnerHtml.Append(forumName);
+
+                content.AppendHtml(forumLink);
+
+                break;
             default:
                 if (!BoardContext.Current.IsAdmin && forumPage.Contains("MODERATE_", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -146,7 +236,7 @@ public static class ActiveLocationHtmlHelper
                     {
                         // Generic action name based on page name
                         content.Append(
-                            context.Get<ILocalization>().GetText("ACTIVELOCATION", forumPage.ToUpper()));
+                            context.Get<ILocalization>().GetText("ACTIVELOCATION", LocationTag(forumPage)));
                     }
                 }
 

@@ -625,12 +625,20 @@
             "#text": "No hay información disponible"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Ver mensajes privados"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Publicar un mensaje en el tema"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

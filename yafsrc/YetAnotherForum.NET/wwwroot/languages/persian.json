@@ -625,12 +625,20 @@
             "#text": "داده ای موجود نیست"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "در حال مشاهده پیام‌های خصوصی"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "در حال ارسال پیام در یک موضوع "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

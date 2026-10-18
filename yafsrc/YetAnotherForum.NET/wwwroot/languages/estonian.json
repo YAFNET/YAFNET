@@ -625,12 +625,20 @@
             "#text": "Andmed puuduvad"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Avab personaalsõnumid"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Saadab postituse teemasse"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

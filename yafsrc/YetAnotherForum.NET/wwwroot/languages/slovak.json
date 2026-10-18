@@ -625,12 +625,20 @@
             "#text": "Nie sú k dispozícii žiadne údaje"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Zobrazenia Súkromné správy"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Príspevky v téme"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

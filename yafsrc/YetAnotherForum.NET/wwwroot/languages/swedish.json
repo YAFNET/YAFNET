@@ -625,12 +625,20 @@
             "#text": "Inga uppgifter finns tillgängliga."
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Visa privata meddelanden"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Poster ett meddelande i ämnet"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

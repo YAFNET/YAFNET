@@ -625,12 +625,20 @@
             "#text": "Không có dữ liệu"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Xem tin nhắn riêng tư"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Đăng một tin nhắn trong chủ đề"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

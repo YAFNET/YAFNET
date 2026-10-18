@@ -625,12 +625,20 @@
             "#text": "Kullanılabilir veri yok"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Özel mesajları görüntüle"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Konudaki mesajı yanıtla "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

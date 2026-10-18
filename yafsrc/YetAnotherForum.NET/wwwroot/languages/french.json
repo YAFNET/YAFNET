@@ -625,12 +625,20 @@
             "#text": "Aucune donnée disponible"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Messages privés"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Poster un message dans le sujet"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",

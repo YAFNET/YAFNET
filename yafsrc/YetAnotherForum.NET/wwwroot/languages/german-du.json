@@ -625,12 +625,20 @@
             "#text": "Keine Daten verfügbar"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Sieht die Benachrichtigungen an"
+          },
+          {
             "@tag": "PM",
             "#text": "Betrachtet PMs"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Schreibt eine Nachricht im Thema "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Erstellt ein neues Thema im Forum "
           },
           {
             "@tag": "POSTS",

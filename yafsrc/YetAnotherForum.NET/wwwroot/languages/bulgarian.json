@@ -625,12 +625,20 @@
             "#text": "Няма налични данни"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Преглежда частни съобщения"
           },
           {
             "@tag": "POSTMESSAGE_FULL",
             "#text": "Публикува съобщение в темата"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "POSTS",
