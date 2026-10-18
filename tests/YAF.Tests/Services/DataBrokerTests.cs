@@ -345,6 +345,18 @@ public class DataBrokerTests
     }
 
     [Test]
+    [Description("A request that is no forum page (resources, api) keeps the location of the last page of the session")]
+    public void GetPageLoad_Request_Without_Page_Keeps_Location_Test()
+    {
+        this.Load("s1", "alice-key", forumId: this.forum, forumPage: "Topics");
+        this.Load("s1", "alice-key", forumPage: string.Empty);
+
+        var active = this.Repository<Active>().GetSingle(a => a.SessionID == "s1");
+        active.ForumPage.Should().Be("Topics");
+        active.ForumID.Should().Be(this.forum);
+    }
+
+    [Test]
     [Description("Only the first request of a new logged-in session flags the active list for an update")]
     public void GetPageLoad_ActiveUpdate_Test()
     {
@@ -494,7 +506,8 @@ public class DataBrokerTests
         string browser = "Firefox",
         string ip = "127.0.0.1",
         bool isCrawler = false,
-        bool doNotTrack = false)
+        bool doNotTrack = false,
+        string forumPage = "page")
     {
         return this.broker.GetPageLoad(
             sessionId,
@@ -502,7 +515,7 @@ public class DataBrokerTests
             userKey,
             ip,
             "/path",
-            "page",
+            forumPage,
             browser,
             "Windows",
             "UA",

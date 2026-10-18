@@ -441,6 +441,25 @@ public class DataBroker : IHaveServiceLocator
         {
             void UpdateSession()
             {
+                // a request that is no forum page (resources, api) keeps the location of the last page (it showed
+                // the main page in the active users list)
+                if (forumPage.IsNotSet())
+                {
+                    this.GetRepository<Active>().UpdateOnly(
+                        () => new Active {
+                            UserID = userId,
+                            IP = ip,
+                            LastActive = DateTime.UtcNow,
+                            Browser = browser,
+                            Platform = platform,
+                            UserAgent = userAgent,
+                            Flags = activeFlags.BitValue
+                        },
+                        a => a.SessionID == sessionId && a.BoardID == boardId);
+
+                    return;
+                }
+
                 this.GetRepository<Active>().UpdateOnly(
                     () => new Active {
                         UserID = userId,

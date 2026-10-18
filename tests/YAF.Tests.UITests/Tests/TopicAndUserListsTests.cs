@@ -104,6 +104,9 @@ public class TopicAndUserListsTests : ForumTestBase
         await this.LoginAsync(inForum, TestConfig.TestUserPassword);
         await this.GotoAsync("Topics/1-Test Forum");
 
+        // a request of the page that is no forum page (it set the location to the main page)
+        await this.Page.APIRequest.GetAsync("resource.ashx?userinfo=1&boardId=1&type=json");
+
         // the first post of the board
         await this.LoginAsync(reporting, TestConfig.TestUserPassword);
         await this.GotoAsync("ReportPost?m=1");
@@ -117,9 +120,33 @@ public class TopicAndUserListsTests : ForumTestBase
 
         // a member can have more rows (a session of the registration and one of the login)
         string.Join(" | ", await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = inForum }).AllInnerTextsAsync())
-            .Should().Contain("Views forum").And.Contain("Test Forum");
+            .Should().Contain("Views forum", ActiveRows(inForum)).And.Contain("Test Forum");
         string.Join(" | ", await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = reporting }).AllInnerTextsAsync())
             .Should().Contain("Reports a post");
+    }
+
+    /// <summary>
+    /// Gets the active rows of the user from the database (the reason of a failed check).
+    /// </summary>
+    private static string ActiveRows(string userName)
+    {
+        using var connection = new System.Data.SqlClient.SqlConnection(TestSite.ConnectionString);
+        connection.Open();
+
+        using var command = new System.Data.SqlClient.SqlCommand(
+            "SELECT a.[SessionID], a.[ForumPage], a.[Location], a.[LastActive], a.[Flags] FROM [dbo].[yaf_Active] a JOIN [dbo].[yaf_User] u ON u.[UserID] = a.[UserID] WHERE u.[Name] = @name",
+            connection);
+        command.Parameters.AddWithValue("@name", userName);
+
+        using var reader = command.ExecuteReader();
+        var rows = new System.Text.StringBuilder();
+
+        while (reader.Read())
+        {
+            rows.Append($"[{reader[0]} {reader[1]} {reader[2]} {reader[3]:HH:mm:ss.fff} {reader[4]}] ");
+        }
+
+        return $"the active rows are {rows}";
     }
 
     [Test]

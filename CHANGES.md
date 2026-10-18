@@ -369,6 +369,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Registration: the mail to the admins about a registered spam bot had the subject [REGISTER.COMMON] (wrong text call)
 * [FIXED] Active users: the location of the albums without a user used the tag ACTIVELOCATION as text (wrong text call)
 * [FIXED] Register: the default value of a check field of the custom profile was ignored (the profile page used it)
+* [FIXED] Active users: requests of a page that are no forum page (user card, resources, api) set the location of the user to the main page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
