@@ -104,6 +104,52 @@ public class KillUserTests : ForumTestBase
         this.Page.Url.Should().Contain("Info", "the user is suspended");
     }
 
+    [Test]
+    [Description("The admin can't kill themselves or another admin (nothing is banned)")]
+    public async Task Kill_Refused_Test()
+    {
+        var admin = $"Kad{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(admin, TestConfig.TestUserPassword);
+        await this.LoginAsAdminAsync();
+        var adminId = await this.OpenAdminEditUserAsync(admin);
+
+        // the member is an admin
+        await this.GotoAsync($"Admin/EditUser?u={adminId}");
+        await this.Page.Locator("a[href='#View2']").ClickAsync();
+        await this.Page.Locator(".col-md-4", new PageLocatorOptions { HasTextString = "Administrators" })
+            .Locator("input[type='checkbox']").SetCheckedAsync(true);
+        await this.ClickAndWaitAsync(this.Control("GroupEditControl_Save"));
+
+        try
+        {
+            foreach (var name in new[] { TestConfig.AdminUserName, admin })
+            {
+                await this.OpenKillTabAsync(name);
+                await this.Page.Locator("input[type=radio][value='suspend']").CheckAsync();
+                await this.Control("KillEdit1_Kill").ClickAsync();
+                await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+                await this.AssertNoServerErrorAsync();
+            }
+
+            await this.GotoAsync("Admin/BannedNames");
+            (await this.Page.InnerTextAsync("body")).Should().NotContain(admin);
+
+            await this.LoginAsync(admin, TestConfig.TestUserPassword);
+            await this.GotoAsync(string.Empty);
+            this.Page.Url.Should().NotContain("Info", "the admin is not suspended");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.GotoAsync($"Admin/EditUser?u={adminId}");
+            await this.Page.Locator("a[href='#View2']").ClickAsync();
+            await this.Page.Locator(".col-md-4", new PageLocatorOptions { HasTextString = "Administrators" })
+                .Locator("input[type='checkbox']").SetCheckedAsync(false);
+            await this.ClickAndWaitAsync(this.Control("GroupEditControl_Save"));
+        }
+    }
+
     private async Task OpenKillTabAsync(string userName)
     {
         await this.OpenAdminEditUserAsync(userName);
