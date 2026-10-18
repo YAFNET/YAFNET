@@ -216,6 +216,42 @@ public class MembersTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Control("SearchByUserName"));
     }
 
+    [Test]
+    [Description("The members list for members only sends guests to the login, for admins only it is refused to members")]
+    public async Task Members_List_Permissions_Test()
+    {
+        // members only (the default)
+        await this.LogoutAsync();
+        await this.GotoAsync("Members");
+        this.Page.Url.Should().Contain("Login");
+
+        await this.LoginAsAdminAsync();
+        await this.SetMembersListPermissionAsync("0");
+
+        try
+        {
+            await this.LoginAsUserAsync(TestConfig.TestUserName);
+            await this.GotoAsync("Members");
+            this.Page.Url.Should().Contain("Info");
+
+            await this.LoginAsAdminAsync();
+            await this.GotoAsync("Members");
+            this.Page.Url.Should().Contain("Members");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetMembersListPermissionAsync("1");
+        }
+    }
+
+    private async Task SetMembersListPermissionAsync(string value)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("MembersListViewPermissions").EvaluateAsync("(e, v) => e.value = v", value);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
     /// <summary>
     /// Opens the drop down with the filters.
     /// </summary>
