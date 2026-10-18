@@ -248,6 +248,64 @@ public class AlbumEditTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Control("Save"));
     }
 
+    [Test]
+    [Description("The limits of the role: the second image with the same name gets a new name, then the album is full and no second album can be created")]
+    public async Task Album_Limits_And_Same_Name_Test()
+    {
+        var member = $"All{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        var old = await this.SetAlbumLimitsAsync("1", "2");
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            var albumId = await this.CreateAlbumAsync($"Limits {Guid.NewGuid():N}".Substring(0, 20), images: 1);
+
+            // the same name again
+            await this.GotoAsync($"EditAlbumImages?a={albumId}");
+            await this.Control("File").SetInputFilesAsync(
+                new FilePayload { Name = "image1.png", MimeType = "image/png", Buffer = Png });
+            await this.ClickAndWaitAsync(this.Control("Upload"));
+
+            (await this.Page.InnerTextAsync("body")).Should().Contain("image1 (2).png");
+
+            // the album is full
+            (await this.Control("Upload").CountAsync()).Should().Be(0, "the album has the allowed number of images");
+
+            // no second album
+            await this.GotoAsync("EditAlbumImages?a=new");
+            this.Page.Url.Should().Contain("Info", "the member has the allowed number of albums");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetAlbumLimitsAsync(old.Albums, old.Images);
+        }
+    }
+
+    /// <summary>
+    /// Sets the album limits of the registered users, returns the old limits.
+    /// </summary>
+    private async Task<(string Albums, string Images)> SetAlbumLimitsAsync(string albums, string images)
+    {
+        await this.GotoAsync("Admin/Groups");
+        await this.ClickAndWaitAsync(
+            this.Page.Locator("li", new PageLocatorOptions { HasTextString = "Registered Users" })
+                .Filter(new LocatorFilterOptions { Has = this.Page.Locator("[id*='_RoleListYaf_']") })
+                .Locator("[id$='_ThemeButtonEdit']").First);
+
+        var old = (await this.Control("UsrAlbums").InputValueAsync(), await this.Control("UsrAlbumImages").InputValueAsync());
+
+        await this.Control("UsrAlbums").EvaluateAsync("(e, v) => { e.type = 'text'; e.value = v; }", albums);
+        await this.Control("UsrAlbumImages").EvaluateAsync("(e, v) => { e.type = 'text'; e.value = v; }", images);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        return old;
+    }
+
     private async Task<string> CreateAlbumAsync(string title, int images)
     {
         await this.GotoAsync("EditAlbumImages?a=new");
