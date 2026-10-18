@@ -150,6 +150,40 @@ public class KillUserTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("The address of the posts of the spammer (not the one of the admin) is banned, the reason names the user")]
+    public async Task Ban_Address_Test()
+    {
+        var spammer = $"Spip{DateTime.UtcNow:HHmmssfff}";
+        var address = $"10.{DateTime.UtcNow.Second}.{DateTime.UtcNow.Millisecond % 250}.77";
+
+        await this.RegisterAsync(spammer, TestConfig.TestUserPassword);
+        await this.LoginAsync(spammer, TestConfig.TestUserPassword);
+
+        await this.GotoAsync("PostTopic?f=1");
+        await this.Control("TopicSubjectTextBox").FillAsync($"Spam {Guid.NewGuid():N}");
+        await this.Control("YafTextEditor").FillAsync("Spam from another address.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        // the post was written from another address
+        ExecuteSql(
+            $"UPDATE [dbo].[yaf_Message] SET [IP] = '{address}' WHERE [UserID] = (SELECT [UserID] FROM [dbo].[yaf_User] WHERE [Name] = @name)",
+            spammer);
+
+        await this.LoginAsAdminAsync();
+        await this.OpenKillTabAsync(spammer);
+        (await this.Page.InnerTextAsync("body")).Should().Contain(address, "the addresses of the posts are listed");
+
+        await this.Page.Locator("input[type=radio][value='delete']").CheckAsync();
+        await this.Control("KillEdit1_Kill").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        // the reason names the user (it was the text "Edits a user"), as a text
+        await this.GotoAsync("Admin/BannedIps");
+        (await this.Page.InnerTextAsync("body")).Should().Contain(address).And.Contain($"User {spammer}").And
+            .NotContain("<a id=");
+    }
+
     private async Task OpenKillTabAsync(string userName)
     {
         await this.OpenAdminEditUserAsync(userName);

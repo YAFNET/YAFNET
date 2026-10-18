@@ -365,6 +365,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Edit profile: with the persian calendar the empty date of birth showed 1/01/02, saving the profile set the date of birth to 2022
 * [FIXED] Event log, spam log: with the persian calendar the since date was 1/01/02 (read as 2022) and a value that is no date showed an error page
 * [FIXED] Polls: the option to show the results only after the poll closes didn't work, the results of the running poll were shown (and the note was never shown)
+* [FIXED] Admin > Edit User > Kill: the reason of the banned addresses was the text "Edits a user" (wrong text call) instead of the user, now a text with the name that fits into the column
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

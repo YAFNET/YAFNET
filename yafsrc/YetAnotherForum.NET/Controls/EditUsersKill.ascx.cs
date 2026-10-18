@@ -253,12 +253,15 @@ public partial class EditUsersKill : BaseUserControl
         this.IPAddresses.Except(allIps).Where(i => i.IsSet() && i != ownIp).ForEach(
             ip =>
                 {
-                    var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
-                        "ADMIN_EDITUSER",
-                        "LINK_USER_BAN",
-                        this.User.Item1.ID,
-                        this.Get<LinkBuilder>().GetUserProfileLink(this.User.Item1.ID, name),
-                        this.HtmlEncode(name));
+                    // the text of the page ADMIN_EDITUSER (the reason was the text of the tag ADMIN_EDITUSER), it is a
+                    // text without the link (the list shows the reason encoded, the user is deleted) that fits into the column
+                    var linkUserBan = HttpUtility.HtmlDecode(
+                        HtmlTagHelper.StripHtml(
+                            string.Format(
+                                this.GetText("ADMIN_EDITUSER", "LINK_USER_BAN"),
+                                this.User.Item1.ID,
+                                this.Get<LinkBuilder>().GetUserProfileLink(this.User.Item1.ID, name),
+                                this.HtmlEncode(name)))).Truncate(128);
 
                     this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageBoardContext.PageUserID);
                 });
