@@ -177,6 +177,40 @@ public class SecurityTests : ForumTestBase
     }
 
     [Test]
+    [Description("A post back without the view state of the page (a form of another site) runs no action with the login cookie of the user")]
+    public async Task Post_Back_Without_View_State_Is_Refused_Test()
+    {
+        var member = $"Csrf{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        await this.GotoAsync("Topics/1-Test Forum");
+
+        var watchText = await this.Control("WatchForum").InnerTextAsync();
+        var link = $"{await this.Control("WatchForum").GetAttributeAsync("href")}{await this.Control("WatchForum").GetAttributeAsync("onclick")}";
+        var target = System.Text.RegularExpressions.Regex.Match(link, @"__doPostBack\(['""]([^'""]+)['""]").Groups[1].Value;
+
+        target.Should().NotBeEmpty(link);
+
+        var form = this.Page.APIRequest.CreateFormData();
+        form.Append("__EVENTTARGET", target);
+        form.Append("__EVENTARGUMENT", string.Empty);
+
+        await this.Page.APIRequest.PostAsync(this.Page.Url, new APIRequestContextOptions { Form = form });
+
+        await this.GotoAsync("Topics/1-Test Forum");
+
+        (await this.Control("WatchForum").InnerTextAsync()).Should().Be(watchText, "the forum is not watched");
+
+        // the post back of the page itself works
+        await this.ClickAndWaitAsync(this.Control("WatchForum"));
+        await this.GotoAsync("Topics/1-Test Forum");
+
+        (await this.Control("WatchForum").InnerTextAsync()).Should().NotBe(watchText, "the forum is watched");
+    }
+
+    [Test]
     [Description("A member can not open the delete page of a post of another user")]
     public async Task Delete_Other_Users_Post_Is_Denied_Test()
     {
