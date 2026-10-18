@@ -326,6 +326,12 @@ public partial class Register : AccountPage
                     check.Visible = true;
                     check.Text = this.HtmlEncode(profileDef.Name);
 
+                    // the default value like on the profile page (it was ignored for check fields)
+                    if (profileDef.DefaultValue.IsSet())
+                    {
+                        check.Checked = profileDef.DefaultValue.ToType<bool>();
+                    }
+
                     label.Visible = false;
 
                     break;

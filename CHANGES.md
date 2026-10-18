@@ -368,6 +368,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit User > Kill: the reason of the banned addresses was the text "Edits a user" (wrong text call) instead of the user, now a text with the name that fits into the column
 * [FIXED] Registration: the mail to the admins about a registered spam bot had the subject [REGISTER.COMMON] (wrong text call)
 * [FIXED] Active users: the location of the albums without a user used the tag ACTIVELOCATION as text (wrong text call)
+* [FIXED] Register: the default value of a check field of the custom profile was ignored (the profile page used it)
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

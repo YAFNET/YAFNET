@@ -407,7 +407,7 @@ public class ProfileTests : ForumTestBase
     }
 
     [Test]
-    [Description("The custom profile fields without a value of the member show the default values of the admin")]
+    [Description("The custom profile fields without a value show the default values of the admin (profile and register page), the required fields are marked on the register page")]
     public async Task Default_Values_Test()
     {
         var id = Guid.NewGuid().ToString("N").Substring(0, 6);
@@ -419,12 +419,22 @@ public class ProfileTests : ForumTestBase
         await this.RegisterAsync(member, TestConfig.TestUserPassword);
 
         await this.LoginAsAdminAsync();
-        await this.AddDefinitionAsync(number, "Number", required: false, defaultValue: "7");
-        await this.AddDefinitionAsync(check, "Check", required: false, defaultValue: "true");
-        await this.AddDefinitionAsync(text, "Text", required: false, defaultValue: "Hello");
+        await this.AddDefinitionAsync(number, "Number", required: true, onRegisterPage: true, defaultValue: "7");
+        await this.AddDefinitionAsync(check, "Check", required: false, onRegisterPage: true, defaultValue: "true");
+        await this.AddDefinitionAsync(text, "Text", required: true, onRegisterPage: true, defaultValue: "Hello");
 
         try
         {
+            // the register page (the default of the check field was ignored)
+            await this.LogoutAsync();
+            await this.GotoAsync("Account/Register");
+
+            var registerNumber = this.Page.GetByLabel(number, new PageGetByLabelOptions { Exact = true });
+            (await registerNumber.InputValueAsync()).Should().Be("7");
+            (await registerNumber.GetAttributeAsync("required")).Should().NotBeNull();
+            (await this.Page.GetByLabel(check, new PageGetByLabelOptions { Exact = true }).IsCheckedAsync()).Should().BeTrue();
+            (await this.Page.GetByLabel(text, new PageGetByLabelOptions { Exact = true }).InputValueAsync()).Should().Be("Hello");
+
             await this.LoginAsync(member, TestConfig.TestUserPassword);
             await this.GotoAsync("Profile/EditProfile");
 
