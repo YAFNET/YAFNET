@@ -116,6 +116,65 @@ public class FileUploaderTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("An attachment of the folder is downloaded (also with the names of older versions), a missing file is an error text, unknown ids are refused")]
+    public async Task Folder_Downloads_Test()
+    {
+        await this.LoginAsAdminAsync();
+
+        var old = await this.SetHostSettingsAsync(new Dictionary<string, string> { ["UseFileTable"] = "false" });
+
+        try
+        {
+            var answer = await this.UploadAsync("folder.txt", "text/plain", [88, 89, 90]);
+            var id = Regex.Match(answer, @"""fileID"":(\d+)").Groups[1].Value;
+
+            // the file of the upload: u{user}-{id}.folder.txt.yafupload
+            var file = new FileInfo(
+                Directory.GetFiles(UiTestSetup.Site.SiteFolder, $"u*-{id}.folder.txt.yafupload", SearchOption.AllDirectories)[0]);
+            var userId = Regex.Match(file.Name, @"^u(\d+)-").Groups[1].Value;
+
+            (await this.DownloadAsync($"a={id}")).Should().Be("XYZ");
+            (await this.DownloadAsync($"i={id}")).Should().Be("XYZ");
+
+            // the names of older versions: without the id, without the extension and with the message id
+            foreach (var name in new[] { $"u{userId}.folder.txt.yafupload", $"u{userId}.folder.txt", "0.folder.txt.yafupload" })
+            {
+                var renamed = Path.Combine(file.DirectoryName, name);
+                File.Move(file.FullName, renamed);
+                file = new FileInfo(renamed);
+
+                (await this.DownloadAsync($"a={id}")).Should().Be("XYZ", name);
+
+                if (!name.StartsWith("0."))
+                {
+                    (await this.DownloadAsync($"i={id}")).Should().Be("XYZ", name);
+                }
+            }
+
+            // the file is missing
+            file.Delete();
+            (await this.DownloadAsync($"a={id}")).Should().StartWith("Error: Resource has been moved");
+            (await this.DownloadAsync($"i={id}")).Should().StartWith("Error: Resource has been moved");
+
+            // unknown attachments
+            (await this.DownloadAsync("a=99999999")).Should().StartWith("You have insufficient rights");
+            (await this.DownloadAsync("i=99999999")).Should().StartWith("You have insufficient rights");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetHostSettingsAsync(old);
+        }
+    }
+
+    private async Task<string> DownloadAsync(string query)
+    {
+        var response = await this.Page.APIRequest.GetAsync($"{TestConfig.BaseUrl}resource.ashx?{query}");
+
+        return await response.TextAsync();
+    }
+
     private static byte[] CreatePng(int width, int height)
     {
         using var bitmap = new Bitmap(width, height);
