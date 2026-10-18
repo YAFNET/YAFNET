@@ -168,6 +168,22 @@ public class AdminForumsTests : ForumTestBase
 
         var childId = ForumId(child);
 
+        // the child with an image and a theme: the edit page shows the parent, the image and the theme
+        await this.GotoAsync($"Admin/EditForum?fa={childId}");
+        (await this.Control("ParentList").InputValueAsync()).Should().Be(parentId);
+
+        await this.Control("ForumImages").SelectOptionAsync(
+            new SelectOptionValue { Label = "forumImageSample.webp" },
+            new LocatorSelectOptionOptions { Force = true });
+        var theme = await this.Control("ThemeList").EvaluateAsync<string>("e => e.options[e.options.length - 1].value");
+        await this.Control("ThemeList").SelectOptionAsync(theme, new LocatorSelectOptionOptions { Force = true });
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.GotoAsync($"Admin/EditForum?fa={childId}");
+        (await this.Control("ParentList").InputValueAsync()).Should().Be(parentId);
+        (await this.Control("ThemeList").InputValueAsync()).Should().Be(theme);
+        (await this.Control("ForumImages").Locator("option:checked").InnerTextAsync()).Should().Be("forumImageSample.webp");
+
         // the post count of the moderated forum is shown
         await this.GotoAsync($"Admin/EditForum?fa={parentId}");
         (await this.Control("ModeratedPostCount").InputValueAsync()).Should().Be("3");
