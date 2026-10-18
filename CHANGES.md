@@ -357,6 +357,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Delete Forum: "Move all topics" without a selected forum moved the topics to the forum -1 (they were lost), the new forum (sent by the client) could also be a forum of another board; a forum of the board is needed now
 * [FIXED] Admin > Delete Forum: the name of the forum was shown as html in the header
 * [FIXED] Admin > Edit Forum and Edit Category: the name of the forum or category was shown as html in the header
+* [FIXED] Custom profile fields: the names of the fields (set by the admin) were shown as html in the labels of the register and edit profile pages and on the profile page
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

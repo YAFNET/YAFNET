@@ -134,7 +134,7 @@ public partial class EditUsersProfile : BaseUserControl
 
         hidden.Value = profileDef.ID.ToString();
 
-        label.Text = profileDef.Name;
+        label.Text = this.HtmlEncode(profileDef.Name);
 
         var userValue = this.UserProfileCustom.FirstOrDefault(p => p.ProfileDefinitionID == profileDef.ID);
 
@@ -142,7 +142,7 @@ public partial class EditUsersProfile : BaseUserControl
 
         if (profileDef.Required)
         {
-            requiredMessage.Param0 = profileDef.Name;
+            requiredMessage.Param0 = this.HtmlEncode(profileDef.Name);
         }
 
         switch (type)
@@ -212,7 +212,7 @@ public partial class EditUsersProfile : BaseUserControl
                         check.Checked = userValue.Value.ToType<bool>();
                     }
 
-                    check.Text = profileDef.Name;
+                    check.Text = this.HtmlEncode(profileDef.Name);
                     label.Visible = false;
 
                     break;

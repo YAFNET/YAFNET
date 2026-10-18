@@ -273,7 +273,7 @@ public partial class Register : AccountPage
 
         hidden.Value = profileDef.ID.ToString();
 
-        label.Text = profileDef.Name;
+        label.Text = this.HtmlEncode(profileDef.Name);
 
         var type = profileDef.DataType.ToEnum<DataType>();
 
@@ -324,7 +324,7 @@ public partial class Register : AccountPage
                 {
                     checkPlaceHolder.Visible = true;
                     check.Visible = true;
-                    check.Text = profileDef.Name;
+                    check.Text = this.HtmlEncode(profileDef.Name);
 
                     label.Visible = false;
 

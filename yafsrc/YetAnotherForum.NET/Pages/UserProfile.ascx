@@ -161,7 +161,7 @@
                     <ItemTemplate>
                         <li class="list-group-item text-end">
                             <span class="float-start fw-bold">
-                                <%# this.Eval("Item2.Name") %>:
+                                <%#: this.Eval("Item2.Name") %>:
                             </span>
                             <%# this.HtmlEncode(this.Eval("Item1.Value")) %>
                         </li>

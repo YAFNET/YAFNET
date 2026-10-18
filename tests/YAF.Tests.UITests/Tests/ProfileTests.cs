@@ -39,12 +39,12 @@ using YAF.Tests.UITests.Infrastructure;
 public class ProfileTests : ForumTestBase
 {
     [Test]
-    [Description("The custom profile fields of the admin are filled in by a member and shown on the profile page")]
+    [Description("The custom profile fields of the admin are filled in by a member and shown on the profile page (the names are texts)")]
     public async Task Custom_Profile_Fields_Test()
     {
         var id = Guid.NewGuid().ToString("N").Substring(0, 6);
-        var number = $"Shoe size {id}";
-        var check = $"Likes cats {id}";
+        var number = $"Shoe <b>size</b> {id}";
+        var check = $"Likes <i>cats</i> {id}";
         var text = $"Motto {id}";
         var member = $"Prof{DateTime.UtcNow:HHmmssfff}";
 
@@ -64,14 +64,14 @@ public class ProfileTests : ForumTestBase
             await this.Page.GetByLabel(number, new PageGetByLabelOptions { Exact = true })
                 .EvaluateAsync("e => e.removeAttribute('required')");
             await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
-            (await this.Page.ContentAsync()).Should().Contain($"{number} is required");
+            (await this.Page.Locator("body").TextContentAsync()).Should().Contain($"{number} is required");
 
             // no number (the browser only accepts numbers)
             await this.Page.GetByLabel(number, new PageGetByLabelOptions { Exact = true })
                 .EvaluateAsync("e => e.type = 'text'");
             await this.Page.GetByLabel(number, new PageGetByLabelOptions { Exact = true }).FillAsync("big");
             await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
-            (await this.Page.ContentAsync()).Should().Contain($"{number} must be a number");
+            (await this.Page.Locator("body").TextContentAsync()).Should().Contain($"{number} must be a number");
 
             await this.Page.GetByLabel(number, new PageGetByLabelOptions { Exact = true }).FillAsync("42");
             await this.Page.GetByLabel(check, new PageGetByLabelOptions { Exact = true }).CheckAsync();
@@ -268,7 +268,7 @@ public class ProfileTests : ForumTestBase
         var other = $"Rdo{id}";
         var number = $"RegNumber{id}";
         var check = $"RegCheck{id}";
-        var text = $"RegText{id}";
+        var text = $"Reg<b>Text</b>{id}";
         var notify = $"notify{id}@localhost.com";
 
         await this.RegisterAsync(other, TestConfig.TestUserPassword);
