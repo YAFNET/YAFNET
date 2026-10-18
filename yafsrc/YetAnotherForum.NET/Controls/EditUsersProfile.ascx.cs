@@ -596,7 +596,7 @@ public partial class EditUsersProfile : BaseUserControl
                 this.User.Item2.Profile_Birthday.HasValue &&
                 this.User.Item2.Profile_Birthday.Value > DateTimeHelper.SqlDbMinTime()
                     ? PersianDateConverter.ToPersianDate(this.User.Item2.Profile_Birthday.Value).ToString("d")
-                    : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+                    : string.Empty; // the smallest persian date (1/01/02) was saved as 1401/01/02 (2022)
         }
         else
         {

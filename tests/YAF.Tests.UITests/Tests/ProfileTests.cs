@@ -25,6 +25,7 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
+using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -405,7 +406,117 @@ public class ProfileTests : ForumTestBase
         (await this.Control("ProfileEditor_Country").InputValueAsync()).Should().Be("FR");
     }
 
-    private async Task AddDefinitionAsync(string name, string dataType, bool required, bool onRegisterPage = false)
+    [Test]
+    [Description("The custom profile fields without a value of the member show the default values of the admin")]
+    public async Task Default_Values_Test()
+    {
+        var id = Guid.NewGuid().ToString("N").Substring(0, 6);
+        var number = $"Default number {id}";
+        var check = $"Default check {id}";
+        var text = $"Default text {id}";
+        var member = $"Dflt{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        await this.AddDefinitionAsync(number, "Number", required: false, defaultValue: "7");
+        await this.AddDefinitionAsync(check, "Check", required: false, defaultValue: "true");
+        await this.AddDefinitionAsync(text, "Text", required: false, defaultValue: "Hello");
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.GotoAsync("Profile/EditProfile");
+
+            (await this.Page.GetByLabel(number, new PageGetByLabelOptions { Exact = true }).InputValueAsync()).Should().Be("7");
+            (await this.Page.GetByLabel(check, new PageGetByLabelOptions { Exact = true }).IsCheckedAsync()).Should().BeTrue();
+            (await this.Page.GetByLabel(text, new PageGetByLabelOptions { Exact = true }).InputValueAsync()).Should().Be("Hello");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.DeleteDefinitionAsync(number);
+            await this.DeleteDefinitionAsync(check);
+            await this.DeleteDefinitionAsync(text);
+        }
+    }
+
+    [Test]
+    [Description("A member with the persian culture enters the birthday in the persian calendar (with the setting), a profile without a birthday keeps it empty, a wrong date removes it")]
+    public async Task Persian_Birthday_Test()
+    {
+        var member = $"Fa{DateTime.UtcNow:HHmmssfff}";
+        var noBirthday = new DateTime(1903, 1, 1);
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        ExecuteSql("UPDATE [dbo].[yaf_User] SET [Culture] = 'fa-IR', [LanguageFile] = 'persian.json' WHERE [Name] = @name", member);
+
+        await this.LoginAsAdminAsync();
+        await this.SetHostSettingsAsync("{ UseFarsiCalender: true }");
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.GotoAsync("Profile/EditProfile");
+            await this.AssertNoServerErrorAsync();
+
+            (await this.Control("ProfileEditor_Birthday").GetAttributeAsync("type")).Should().NotBe("date", "the persian date is a text");
+
+            // the profile without a birthday is saved (the empty date was saved as 2022)
+            (await this.Control("ProfileEditor_Birthday").InputValueAsync()).Should().BeEmpty();
+            await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+            (Birthday(member) ?? noBirthday).Should().BeOnOrBefore(noBirthday);
+
+            // 1 Farvardin 1370 is the 21 March 1991
+            await this.GotoAsync("Profile/EditProfile");
+            await this.Control("ProfileEditor_Birthday").FillAsync("1370/01/01");
+            await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+            Birthday(member).Should().Be(new DateTime(1991, 3, 21));
+
+            await this.GotoAsync("Profile/EditProfile");
+            (await this.Control("ProfileEditor_Birthday").InputValueAsync()).Should().Contain("1370");
+
+            // a wrong date removes the birthday (like a wrong date of the other calendars)
+            await this.Control("ProfileEditor_Birthday").FillAsync("no date");
+            await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+            (Birthday(member) ?? noBirthday).Should().BeOnOrBefore(noBirthday);
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetHostSettingsAsync("{ UseFarsiCalender: false }");
+        }
+    }
+
+    private static void ExecuteSql(string sql, string name)
+    {
+        using var connection = new SqlConnection(TestSite.ConnectionString);
+        connection.Open();
+
+        using var command = new SqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@name", name);
+        command.ExecuteNonQuery();
+    }
+
+    private static DateTime? Birthday(string name)
+    {
+        using var connection = new SqlConnection(TestSite.ConnectionString);
+        connection.Open();
+
+        using var command = new SqlCommand(
+            "SELECT [Profile_Birthday] FROM [dbo].[yaf_AspNetUsers] WHERE [UserName] = @name",
+            connection);
+        command.Parameters.AddWithValue("@name", name);
+
+        return command.ExecuteScalar() as DateTime?;
+    }
+
+    private async Task AddDefinitionAsync(
+        string name,
+        string dataType,
+        bool required,
+        bool onRegisterPage = false,
+        string defaultValue = null)
     {
         await this.GotoAsync("Admin/ProfileDefinitions");
 
@@ -428,6 +539,11 @@ public class ProfileTests : ForumTestBase
         if (onRegisterPage)
         {
             await this.Control("EditDialog_ShowOnRegisterPage").CheckAsync();
+        }
+
+        if (defaultValue != null)
+        {
+            await this.Control("EditDialog_DefaultValue").FillAsync(defaultValue);
         }
 
         await this.ClickAndWaitAsync(this.Control("EditDialog_Save"));
