@@ -80,6 +80,18 @@ public class InstallWizard(IPage page)
                 await this.FillCreateForumAsync();
             }
 
+            // the test buttons of the steps (a failed test shows an error)
+            await this.TestAsync("btnTestPermissions");
+            await this.TestAsync("btnTestDBConnection");
+            await this.TestAsync("btnTestDBConnectionManual");
+
+            if (await page.Locator("[id$='btnTestSmtp']").IsVisibleAsync())
+            {
+                await page.Locator("[id$='txtTestFromEmail']").FillAsync(TestConfig.ForumEmail);
+                await page.Locator("[id$='txtTestToEmail']").FillAsync(TestConfig.AdminEmail);
+                await this.TestAsync("btnTestSmtp");
+            }
+
             var next = page.Locator("[id$='StartNextButton'], [id$='StepNextButton']").First;
 
             // the buttons post back with __doPostBack: the next step is checked after the new page is loaded
@@ -87,6 +99,28 @@ public class InstallWizard(IPage page)
         }
 
         throw new InvalidOperationException($"The install wizard did not finish, the last page was {page.Url}.");
+    }
+
+    /// <summary>
+    /// Clicks a test button of the step when it is shown, the result must not be an error.
+    /// </summary>
+    private async Task TestAsync(string id)
+    {
+        var button = page.Locator($"[id$='{id}']");
+
+        if (!await button.IsVisibleAsync())
+        {
+            return;
+        }
+
+        await page.RunAndWaitForNavigationAsync(() => button.ClickAsync());
+
+        await page.Locator("[id$='StartNextButton'], [id$='StepNextButton'], [id$='FinishButton']").First
+            .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+
+        await this.ThrowOnErrorAsync();
+
+        TestContext.Progress.WriteLine($"[install] {id} passed");
     }
 
     /// <summary>
