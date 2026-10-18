@@ -89,6 +89,27 @@ public class AttachmentListTests : ForumTestBase
         this.Page.Url.Should().Contain("Admin/Users");
     }
 
+    [Test]
+    [Description("The admin list of all attachments: another page size and an attachment is deleted")]
+    public async Task Admin_Attachments_Test()
+    {
+        var name = $"adminlist-{Guid.NewGuid().ToString("N").Substring(0, 10)}.txt";
+
+        await this.LoginAsAdminAsync();
+        await this.UploadAsync(name);
+
+        await this.GotoAsync("Admin/Attachments");
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
+
+        (await this.Row(name).CountAsync()).Should().Be(1);
+
+        await this.Row(name).Locator(".btn-group a:has(i.fa-trash)").First.ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        (await this.Row(name).CountAsync()).Should().Be(0);
+    }
+
     private ILocator Row(string name)
     {
         return this.Page.Locator("li", new PageLocatorOptions { HasTextString = name });
