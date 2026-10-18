@@ -160,6 +160,60 @@ public class EditMessageTests : ForumTestBase
     /// <summary>
     /// Creates a topic and returns the id of the first post.
     /// </summary>
+    [Test]
+    [Description("A member edits the own reply that waits for the approval in a moderated forum: the reply still waits (info page)")]
+    public async Task Edit_Waiting_Post_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var forumName = $"Edit moderated {id}";
+        var subject = $"Waiting {id}";
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("Admin/EditForum");
+        await this.Control("Name").FillAsync(forumName);
+        await this.Control("Description").FillAsync("A moderated forum of the edit test");
+        await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = "Test Category" });
+        await this.Control("SortOrder").FillAsync("86");
+        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.GotoAsync(string.Empty);
+        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = forumName })
+                            .First.GetAttributeAsync("href");
+        var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+
+        // the topic of the admin (approved at once), the reply of the member waits for the approval
+        await this.GotoAsync($"PostTopic?f={forumId}");
+        await this.Control("TopicSubjectTextBox").FillAsync(subject);
+        await this.Control("YafTextEditor").FillAsync("The topic of the admin.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.GotoAsync(forumHref.TrimStart('/'));
+        var topicHref = await this.Page.Locator("a[href*='/Posts/t']", new PageLocatorOptions { HasTextString = subject }).First
+                            .GetAttributeAsync("href");
+        var topicId = Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value;
+
+        // the first post of the topic
+        await this.GotoAsync(topicHref.TrimStart('/'));
+        var firstId = (await this.Page.Locator("a[id^='post']").EvaluateAllAsync<string[]>("es => es.map(e => e.id)"))
+            .Select(i => Regex.Match(i, @"^post(\d+)$")).Where(m => m.Success).Select(m => int.Parse(m.Groups[1].Value)).Max();
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync($"PostMessage?t={topicId}&f={forumId}");
+        await this.Control("YafTextEditor").FillAsync("The waiting reply.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+        this.Page.Url.Should().Contain("Info", "the reply waits for the approval");
+
+        // the waiting reply is not shown in the topic: it is the next post (the tests run one after the other)
+        var messageId = firstId + 1;
+
+        await this.GotoAsync($"EditMessage?m={messageId}");
+        await this.Control("YafTextEditor").FillAsync("The edited waiting reply.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        this.Page.Url.Should().Contain("Info", "the edited post still waits for the approval");
+    }
+
     private async Task<int> CreateTopicAsync(string subject)
     {
         await this.GotoAsync("PostTopic?f=1");
