@@ -165,9 +165,11 @@ public class ProfileTests : ForumTestBase
         {
             await this.LoginAsync(member, TestConfig.TestUserPassword);
 
-            foreach (var refused in new[] { "ab", other })
+            // too short, taken, too long and with a semicolon
+            foreach (var refused in new[] { "ab", other, new string('d', 51), "Semi;colon" })
             {
                 await this.GotoAsync("Profile/EditProfile");
+                await this.Control("ProfileEditor_DisplayName").EvaluateAsync("e => e.removeAttribute('maxlength')");
                 await this.Control("ProfileEditor_DisplayName").FillAsync(refused);
                 await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
                 this.Page.Url.Should().Contain("EditProfile", refused);
@@ -198,12 +200,14 @@ public class ProfileTests : ForumTestBase
     }
 
     [Test]
-    [Description("A home page with a spam word is logged as a bot (the profile is saved)")]
+    [Description("A home page that is no address is refused, with a spam word it is logged as a bot (the profile is saved) or the member is deleted and banned")]
     public async Task Spam_Home_Page_Test()
     {
         var word = $"spamhome{Guid.NewGuid():N}".Substring(0, 16);
         var member = $"Sph{DateTime.UtcNow:HHmmssfff}";
+        var bot = $"Spb{DateTime.UtcNow:HHmmssfff}";
 
+        await this.RegisterAsync(bot, TestConfig.TestUserPassword);
         await this.RegisterAsync(member, TestConfig.TestUserPassword);
 
         await this.LoginAsAdminAsync();
@@ -221,12 +225,32 @@ public class ProfileTests : ForumTestBase
         try
         {
             await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+            // no address
+            await this.GotoAsync("Profile/EditProfile");
+            await this.Control("ProfileEditor_HomePage").FillAsync("https://not an address");
+            await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+            this.Page.Url.Should().Contain("EditProfile");
+
             await this.GotoAsync("Profile/EditProfile");
             await this.Control("ProfileEditor_HomePage").FillAsync($"https://{word}.example.com");
             await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
 
             await this.GotoAsync("Profile/EditProfile");
             (await this.Control("ProfileEditor_HomePage").InputValueAsync()).Should().Contain(word);
+
+            // delete and ban the bots
+            await this.LoginAsAdminAsync();
+            await this.SetHostSettingsAsync("{ BotHandlingOnRegister: '2' }");
+
+            await this.LoginAsync(bot, TestConfig.TestUserPassword);
+            await this.GotoAsync("Profile/EditProfile");
+            await this.Control("ProfileEditor_HomePage").FillAsync($"https://{word}.example.com");
+            await this.ClickAndWaitAsync(this.Control("ProfileEditor_UpdateProfile"));
+            await this.AssertNoServerErrorAsync();
+
+            await this.LoginAsync(bot, TestConfig.TestUserPassword);
+            (await this.IsLoggedInAsAsync(bot)).Should().BeFalse("the bot is deleted");
         }
         finally
         {
