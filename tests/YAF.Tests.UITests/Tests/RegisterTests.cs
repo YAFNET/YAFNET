@@ -182,16 +182,17 @@ public class RegisterTests : ForumTestBase
     }
 
     [Test]
-    [Description("A registration found as bot (banned e-mail address) is mailed to the admins with the subject of the notification (setting)")]
+    [Description("A registration found as bot (banned e-mail address) is mailed to the admins with the subject of the notification (setting) or refused (setting)")]
     public async Task Bot_Registration_Notification_Test()
     {
         var bot = $"bot{DateTime.UtcNow:HHmmssfff}";
+        var refused = $"{bot}r";
         var started = DateTime.UtcNow;
 
-        // the e-mail address of the bot is banned (a regular expression)
+        // the e-mail addresses of the bots are banned (a regular expression)
         ExecuteSql(
             "INSERT INTO [dbo].[yaf_BannedEmail] ([BoardID], [Mask], [Since], [Reason]) VALUES (1, @name, GETUTCDATE(), 'UI test')",
-            $"^{bot}@");
+            $"^{bot}");
 
         await this.LoginAsAdminAsync();
         await this.SetBotHandlingAsync("1");
@@ -220,14 +221,56 @@ public class RegisterTests : ForumTestBase
 
             mail.Should().NotBeNull("the admins are notified");
             mail.Subject.Should().Be($"New SPAM BOT User Registered on {TestConfig.BoardName} Forum");
+
+            // the bots are refused
+            await this.LoginAsAdminAsync();
+            await this.SetBotHandlingAsync("2");
+
+            await this.FillRegistrationAsync(refused, EmailOf(refused));
+            await this.ClickAndWaitAsync(this.Control("CreateUser"));
+            this.Page.Url.Should().Contain("Account/Register", "the bot is refused");
+
+            await this.LoginAsAdminAsync();
+            await this.GotoAsync("Admin/Users");
+            await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+            await this.Control("name").FillAsync(refused);
+            await this.ClickAndWaitAsync(this.Control("search"));
+            (await this.Page.InnerTextAsync("body")).Should().NotContain(refused);
         }
         finally
         {
-            ExecuteSql("DELETE FROM [dbo].[yaf_BannedEmail] WHERE [Mask] = @name", $"^{bot}@");
+            ExecuteSql("DELETE FROM [dbo].[yaf_BannedEmail] WHERE [Mask] = @name", $"^{bot}");
 
             await this.LoginAsAdminAsync();
             await this.SetBotHandlingAsync("0");
         }
+    }
+
+    [Test]
+    [Description("The register page is refused when the registrations are disabled")]
+    public async Task Disabled_Registrations_Test()
+    {
+        await this.LoginAsAdminAsync();
+        await this.SetDisableRegistrationsAsync(true);
+
+        try
+        {
+            await this.LogoutAsync();
+            await this.GotoAsync("Account/Register");
+            this.Page.Url.Should().Contain("Info");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetDisableRegistrationsAsync(false);
+        }
+    }
+
+    private async Task SetDisableRegistrationsAsync(bool disabled)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("DisableRegistrations").EvaluateAsync("(e, v) => e.checked = v", disabled);
+        await this.ClickAndWaitAsync(this.Control("Save"));
     }
 
     private async Task SetBotHandlingAsync(string value)

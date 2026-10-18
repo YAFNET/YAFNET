@@ -92,6 +92,32 @@ public class TopicAndUserListsTests : ForumTestBase
     }
 
     [Test]
+    [Description("The active users list shows the location of the members: a forum and the report page of a post")]
+    public async Task Active_Locations_Test()
+    {
+        var inForum = $"Lcf{DateTime.UtcNow:HHmmssfff}";
+        var reporting = $"Lcr{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(inForum, TestConfig.TestUserPassword);
+        await this.RegisterAsync(reporting, TestConfig.TestUserPassword);
+
+        await this.LoginAsync(inForum, TestConfig.TestUserPassword);
+        await this.GotoAsync("Topics/1-Test Forum");
+
+        // the first post of the board
+        await this.LoginAsync(reporting, TestConfig.TestUserPassword);
+        await this.GotoAsync("ReportPost?m=1");
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("ActiveUsers?v=0");
+
+        (await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = inForum }).Last.InnerTextAsync())
+            .Should().Contain("Views forum").And.Contain("Test Forum");
+        (await this.Page.Locator("li, tr", new PageLocatorOptions { HasTextString = reporting }).Last.InnerTextAsync())
+            .Should().Contain("Reports a post");
+    }
+
+    [Test]
     [Description("A second admin sees the other admin in the team with the buttons for a private message and an e-mail")]
     public async Task Team_Test()
     {

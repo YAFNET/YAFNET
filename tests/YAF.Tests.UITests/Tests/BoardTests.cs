@@ -80,4 +80,39 @@ public class BoardTests : ForumTestBase
 
         (await this.Page.InnerTextAsync("body")).Should().NotContain(renamed);
     }
+
+    [Test]
+    [Description("The passwords of a new admin must match, a board with a new admin is created and deleted")]
+    public async Task Board_With_New_Admin_Test()
+    {
+        var name = $"Board {Guid.NewGuid():N}".Substring(0, 16);
+        var admin = $"Badm{DateTime.UtcNow:HHmmssfff}";
+
+        await this.LoginAsAdminAsync();
+
+        await this.GotoAsync("Admin/EditBoard");
+        await this.Control("Name").FillAsync(name);
+        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("CreateAdminUser").CheckAsync());
+        await this.Control("UserName").FillAsync(admin);
+        await this.Control("UserEmail").FillAsync(EmailOf(admin));
+        await this.Control("UserPass1").FillAsync(TestConfig.TestUserPassword);
+        await this.Control("UserPass2").FillAsync($"{TestConfig.TestUserPassword}x");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        this.Page.Url.Should().Contain("Admin/EditBoard", "the passwords don't match");
+        (await this.Page.ContentAsync()).Should().Contain("toast-body");
+
+        await this.Control("UserPass1").FillAsync(TestConfig.TestUserPassword);
+        await this.Control("UserPass2").FillAsync(TestConfig.TestUserPassword);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+        await this.AssertNoServerErrorAsync();
+
+        (await this.Page.InnerTextAsync("body")).Should().Contain(name);
+
+        var row = this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = name });
+        await row.Locator("[id$='_ThemeButtonDelete']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(name);
+    }
 }
