@@ -88,6 +88,16 @@ public class MedalTests : ForumTestBase
         (await groups.CountAsync()).Should().Be(1);
         (await groups.InnerTextAsync()).Should().Contain("For all members");
 
+        // edit: the role can't be changed, the message is saved
+        await this.ClickAndWaitAsync(groups.Locator(".btn-group a", new LocatorLocatorOptions { HasTextString = "Edit" }));
+        await this.Control("GroupEditDialog_AddGroupSave").WaitForAsync(
+            new LocatorWaitForOptions { State = WaitForSelectorState.Visible });
+        (await this.Control("GroupEditDialog_AvailableGroupList").IsDisabledAsync()).Should().BeTrue();
+
+        await this.Control("GroupEditDialog_GroupMessage").FillAsync("Changed for all members");
+        await this.ClickAndWaitAsync(this.Control("GroupEditDialog_AddGroupSave"));
+        (await groups.InnerTextAsync()).Should().Contain("Changed for all members");
+
         // the role is removed
         await groups.Locator("[id$='_ThemeButtonDelete']").ClickAsync();
         await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
