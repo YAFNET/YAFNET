@@ -192,6 +192,32 @@ public class AdminListsTests : ForumTestBase
     /// <summary>
     /// The rows of the list with the text.
     /// </summary>
+    [Test]
+    [Description("The tag of a topic is listed in the admin tags (another page size) and deleted")]
+    public async Task Admin_Tags_Test()
+    {
+        var tag = $"uitag{Guid.NewGuid():N}".Substring(0, 14);
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync("PostTopic?f=1");
+        await this.Control("TopicSubjectTextBox").FillAsync($"Tagged {tag}");
+        await this.Control("YafTextEditor").FillAsync("A topic with a tag.");
+        await this.Control("TagsValue").EvaluateAsync("(e, v) => e.value = v", tag);
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.GotoAsync("Admin/Tags");
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
+
+        var row = this.Page.Locator("li.list-group-item", new PageLocatorOptions { HasTextString = tag });
+        (await row.CountAsync()).Should().Be(1);
+
+        await row.Locator(".btn-group a:has(i.fa-trash)").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+        (await this.Page.Locator("li.list-group-item", new PageLocatorOptions { HasTextString = tag }).CountAsync()).Should().Be(0);
+    }
+
     private ILocator Rows(string text)
     {
         return this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = text });
