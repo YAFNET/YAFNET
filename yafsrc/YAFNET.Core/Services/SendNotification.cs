@@ -523,9 +523,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                 continue;
             }
 
-            var subject = this.Get<ILocalization>().GetTextFormatted(
-                "COMMON",
-                "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
+            // the text of the page COMMON (the subject was the missing text of the tag COMMON)
+            var subject = string.Format(
+                this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT"),
                 this.BoardSettings.Name);
 
             var notifyAdmin = new TemplateEmail("NOTIFICATION_ON_BOT_USER_REGISTER")
