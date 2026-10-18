@@ -289,7 +289,7 @@ public class AdminForumsTests : ForumTestBase
     public async Task Edit_And_Copy_Test()
     {
         var id = DateTime.UtcNow.ToString("HHmmssfff");
-        var parent = $"Edit parent {id}";
+        var parent = $"Edit <i>parent</i> {id}";
         var child = $"Edit child {id}";
         var copy = $"Edit copy {id}";
 
@@ -315,8 +315,9 @@ public class AdminForumsTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Control("Save"));
         this.Page.Url.Should().Contain("EditForum", "the forum can't be its own parent");
 
-        // edited
+        // edited (the name in the header is a text)
         await this.GotoAsync($"Admin/EditForum?fa={parentId}");
+        (await this.Page.InnerTextAsync("body")).Should().Contain(parent);
         await this.Control("Description").FillAsync($"The edited description {id}");
         await this.ClickAndWaitAsync(this.Control("Save"));
 
@@ -335,6 +336,27 @@ public class AdminForumsTests : ForumTestBase
     private async Task SelectParentAsync(string forumId)
     {
         await this.Control("ParentList").EvaluateAsync("(e, v) => e.value = v", forumId);
+    }
+
+    [Test]
+    [Description("The name of a category is a text in the header of its edit page")]
+    public async Task Category_Name_Encoded_Test()
+    {
+        var category = $"Cat <b>{DateTime.UtcNow:HHmmssfff}</b>";
+
+        await this.LoginAsAdminAsync();
+        await this.CreateCategoryAsync(category, "97");
+
+        await this.GotoAsync("Admin/Forums");
+        await this.Page.RunAndWaitForNavigationAsync(
+            () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
+        await this.ClickAndWaitAsync(
+            this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = category }).First
+                .Locator("[id*='_CategoryList_'][id$='_ThemeButtonEdit']").First);
+
+        (await this.Page.InnerTextAsync("body")).Should().Contain(category);
+
+        await this.DeleteCategoryAsync(category);
     }
 
     private async Task CreateCategoryAsync(string name, string sortOrder)

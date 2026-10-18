@@ -210,7 +210,7 @@ public partial class EditForum : AdminPage
         this.IsTest.Checked = forum.ForumFlags.IsTest;
         this.Moderated.Checked = forum.ForumFlags.IsModerated;
 
-        this.IconHeader.Text = $"{this.GetText("ADMIN_EDITFORUM", "HEADER1")} <strong>{this.Name.Text}</strong>";
+        this.IconHeader.Text = $"{this.GetText("ADMIN_EDITFORUM", "HEADER1")} <strong>{this.HtmlEncode(this.Name.Text)}</strong>";
 
         this.ModeratedPostCountRow.Visible = this.Moderated.Checked;
         this.ModerateNewTopicOnlyRow.Visible = this.Moderated.Checked;

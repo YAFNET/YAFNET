@@ -356,6 +356,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Album page: after setting or removing the cover the buttons still showed the old cover ("Set as Cover") until the page was loaded again
 * [FIXED] Admin > Delete Forum: "Move all topics" without a selected forum moved the topics to the forum -1 (they were lost), the new forum (sent by the client) could also be a forum of another board; a forum of the board is needed now
 * [FIXED] Admin > Delete Forum: the name of the forum was shown as html in the header
+* [FIXED] Admin > Edit Forum and Edit Category: the name of the forum or category was shown as html in the header
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

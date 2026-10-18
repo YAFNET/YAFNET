@@ -218,7 +218,7 @@ public partial class EditCategory : AdminPage
         this.Name.Text = category.Name;
         this.SortOrder.Text = category.SortOrder.ToString();
 
-        this.IconHeader.Text = $"{this.GetText("ADMIN_EDITCATEGORY", "HEADER")} <strong>{this.Name.Text}</strong>";
+        this.IconHeader.Text = $"{this.GetText("ADMIN_EDITCATEGORY", "HEADER")} <strong>{this.HtmlEncode(this.Name.Text)}</strong>";
 
         this.Active.Checked = category.CategoryFlags.IsActive;
 
