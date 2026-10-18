@@ -61,6 +61,74 @@ public class EditMessageTests : ForumTestBase
     }
 
     [Test]
+    [Description("The admin changes the style of the topic title (setting), a too long text is refused, an old post of a member is locked (setting)")]
+    public async Task Styles_Size_And_Locked_Post_Test()
+    {
+        var subject = $"Edit styles {Guid.NewGuid():N}";
+        var member = $"Edl{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+        var memberMessageId = await this.CreateTopicAsync($"Old post {Guid.NewGuid():N}");
+
+        // the post of the member was written 3 days ago
+        ExecuteSql($"UPDATE [dbo].[yaf_Message] SET [Posted] = DATEADD(day, -3, GETUTCDATE()) WHERE [MessageID] = {memberMessageId} AND @name IS NOT NULL", member);
+
+        await this.LoginAsAdminAsync();
+        var messageId = await this.CreateTopicAsync(subject);
+        var old = await this.SetEditSettingsAsync(true, "40", "1");
+
+        try
+        {
+            await this.GotoAsync($"EditMessage?m={messageId}");
+            await this.Control("TopicStylesTextBox").FillAsync("color: green;");
+            await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+            await this.GotoAsync("Topics/1-Test Forum");
+            (await this.Page.Locator("span[style*='green']", new PageLocatorOptions { HasTextString = subject }).CountAsync())
+                .Should().BeGreaterThan(0, "the title is styled");
+
+            // too long
+            await this.GotoAsync($"EditMessage?m={messageId}");
+            await this.Control("YafTextEditor").EvaluateAsync("e => e.removeAttribute('maxlength')");
+            await this.Control("YafTextEditor").FillAsync(new string('x', 60));
+            await this.ClickAndWaitAsync(this.Control("PostReply"));
+            this.Page.Url.Should().Contain("EditMessage", "the text is too long");
+
+            // the post of the member is locked after a day
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.GotoAsync($"EditMessage?m={memberMessageId}");
+            this.Page.Url.Should().Contain("Info", "the post is locked");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetEditSettingsAsync(old.Styled, old.MaxPostSize, old.LockPosts);
+        }
+    }
+
+    /// <summary>
+    /// Sets the styled topic titles, the maximum post size and the lock period of posts, returns the old values.
+    /// </summary>
+    private async Task<(bool Styled, string MaxPostSize, string LockPosts)> SetEditSettingsAsync(
+        bool styled,
+        string maxPostSize,
+        string lockPosts)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+
+        var old = (await this.Control("UseStyledTopicTitles").IsCheckedAsync(), await this.Control("MaxPostSize").InputValueAsync(),
+                   await this.Control("LockPosts").InputValueAsync());
+
+        await this.Control("UseStyledTopicTitles").EvaluateAsync("(e, v) => e.checked = v", styled);
+        await this.Control("MaxPostSize").EvaluateAsync("(e, v) => e.value = v", maxPostSize);
+        await this.Control("LockPosts").EvaluateAsync("(e, v) => e.value = v", lockPosts);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        return old;
+    }
+
+    [Test]
     [Description("The preview shows the changed text, the post is saved with a reason, cancel goes back to the topic")]
     public async Task Preview_Reason_And_Cancel_Test()
     {
