@@ -124,6 +124,36 @@ public class ResourceTests : ForumTestBase
         (await response.TextAsync()).Should().Contain("California");
     }
 
+    [Test]
+    [Description("The album images need the profile view permission (guests are refused), invalid ids are an error text, unknown images are not found")]
+    public async Task Album_Resources_Test()
+    {
+        // guests can't view the profiles
+        await this.LogoutAsync();
+
+        // the resources need a session of the forum
+        await this.GotoAsync(string.Empty);
+
+        foreach (var url in new[] { "resource.ashx?imgprv=1", "resource.ashx?image=1", "resource.ashx?album=1&cover=0" })
+        {
+            (await this.Page.APIRequest.GetAsync(url)).Status.Should().Be(403, url);
+        }
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync(string.Empty);
+
+        foreach (var url in new[] { "resource.ashx?imgprv=abc", "resource.ashx?image=abc", "resource.ashx?album=abc&cover=0", "resource.ashx?album=1&cover=abc" })
+        {
+            var response = await this.Page.APIRequest.GetAsync(url);
+            (await response.TextAsync()).Should().StartWith("Error:", url);
+        }
+
+        foreach (var url in new[] { "resource.ashx?imgprv=999999", "resource.ashx?image=999999" })
+        {
+            (await this.Page.APIRequest.GetAsync(url)).Status.Should().Be(404, url);
+        }
+    }
+
     private async Task<int> OwnUserIdAsync()
     {
         await this.GotoAsync(string.Empty);
