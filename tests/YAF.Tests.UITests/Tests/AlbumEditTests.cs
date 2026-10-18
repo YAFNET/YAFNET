@@ -156,6 +156,60 @@ public class AlbumEditTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("The caption of an image and the title of the album are changed inline, they are shown as typed (encoded once)")]
+    public async Task Inline_Caption_And_Title_Test()
+    {
+        var member = $"Alc{DateTime.UtcNow:HHmmssfff}";
+        var title = $"Cats & <b>Dogs</b> {Guid.NewGuid():N}".Substring(0, 30);
+        var caption = $"Mice & <i>Birds</i> {Guid.NewGuid():N}".Substring(0, 30);
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        await this.CreateAlbumAsync($"Inline {Guid.NewGuid():N}".Substring(0, 20), images: 1);
+
+        // the album page
+        await this.ClickAndWaitAsync(this.Control("Back"));
+        var albumUrl = this.Page.Url;
+
+        await this.EditInlineAsync(this.Page.Locator("a.album-image-caption").First, caption, "ChangeImageCaption");
+
+        await this.Page.GotoAsync(albumUrl);
+        (await this.Page.Locator("a.album-image-caption").First.InnerTextAsync()).Should().Be(caption);
+        (await this.Page.InnerTextAsync("body")).Should().NotContain("&amp;");
+
+        // the albums page
+        await this.GotoAsync($"Albums?u={Regex.Match(albumUrl, @"[?&]u=(\d+)").Groups[1].Value}");
+        var albumsUrl = this.Page.Url;
+
+        await this.EditInlineAsync(this.Page.Locator("a.album-caption").First, title, "ChangeAlbumTitle");
+
+        await this.Page.GotoAsync(albumsUrl);
+        (await this.Page.Locator("a.album-caption").First.InnerTextAsync()).Should().Be(title);
+        (await this.Page.InnerTextAsync("body")).Should().NotContain("&amp;");
+
+        await this.Page.GotoAsync(albumUrl);
+        (await this.Page.InnerTextAsync("body")).Should().Contain(title).And.NotContain("&amp;");
+    }
+
+    /// <summary>
+    /// Changes the text of an inline editor (a popover with a form).
+    /// </summary>
+    private async Task EditInlineAsync(ILocator link, string text, string action)
+    {
+        await link.ClickAsync();
+
+        var input = this.Page.Locator(".popover input[type='text']").First;
+        await input.FillAsync(text);
+
+        var response = await this.Page.RunAndWaitForResponseAsync(
+            () => input.PressAsync("Enter"),
+            r => r.Url.Contains(action));
+
+        response.Status.Should().Be(200, action);
+    }
+
     private async Task<string> CreateAlbumAsync(string title, int images)
     {
         await this.GotoAsync("EditAlbumImages?a=new");
