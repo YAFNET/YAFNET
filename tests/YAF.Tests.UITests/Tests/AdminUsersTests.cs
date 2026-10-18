@@ -89,4 +89,85 @@ public class AdminUsersTests : ForumTestBase
         await this.LoginAsUserAsync(TestConfig.TestUserName);
         (await this.IsLoggedInAsAsync(TestConfig.TestUserName)).Should().BeTrue();
     }
+
+    [Test]
+    [Description("The admin can't delete themselves or another admin, the since filter, the page size, reset and new user")]
+    public async Task Delete_Refused_And_Filters_Test()
+    {
+        var member = $"Adu{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsAdminAsync();
+        var memberId = await this.OpenAdminEditUserAsync(member);
+
+        // the member is an admin
+        await this.SetAdminAsync(memberId, true);
+
+        try
+        {
+            foreach (var (name, email) in new[] { (TestConfig.AdminUserName, TestConfig.AdminEmail), (member, EmailOf(member)) })
+            {
+                // found by the e-mail address (only one user)
+                await this.SearchAsync(email);
+                await this.Page.Locator("[id$='_ThemeButtonDelete']").First.ClickAsync();
+                await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+
+                (await this.Page.Locator("[id$='_NameEdit']", new PageLocatorOptions { HasTextString = name }).CountAsync())
+                    .Should().Be(1, $"{name} is not deleted");
+            }
+        }
+        finally
+        {
+            await this.SetAdminAsync(memberId, false);
+        }
+
+        // the since filter: the last hour and since the last visit
+        foreach (var since in new[] { "-1", "0" })
+        {
+            await this.GotoAsync("Admin/Users");
+            await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+            await this.Control("Since").SelectOptionAsync(since, new LocatorSelectOptionOptions { Force = true });
+            await this.ClickAndWaitAsync(this.Control("search"));
+            await this.AssertNoServerErrorAsync();
+        }
+
+        await this.GotoAsync("Admin/Users");
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await this.Control("Since").SelectOptionAsync("-1", new LocatorSelectOptionOptions { Force = true });
+        await this.ClickAndWaitAsync(this.Control("search"));
+        (await this.Page.InnerTextAsync("body")).Should().Contain(member, "the member registered in the last hour");
+
+        // the page size (posts back)
+        await this.Page.RunAndWaitForResponseAsync(
+            () => this.Control("PageSize").SelectOptionAsync("10"),
+            response => response.Request.Method == "POST");
+        await this.Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        await this.AssertNoServerErrorAsync();
+
+        // reset and new user
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await this.ClickAndWaitAsync(this.Control("ResetUserSearch"));
+        this.Page.Url.Should().Contain("Admin/Users");
+
+        await this.ClickAndWaitAsync(this.Control("NewUser"));
+        this.Page.Url.Should().Contain("Admin/RegisterUser");
+    }
+
+    private async Task SearchAsync(string email)
+    {
+        await this.GotoAsync("Admin/Users");
+        await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+        await this.Control("Email").FillAsync(email);
+        await this.ClickAndWaitAsync(this.Control("search"));
+    }
+
+    private async Task SetAdminAsync(int userId, bool admin)
+    {
+        await this.GotoAsync($"Admin/EditUser?u={userId}");
+        await this.Page.Locator("a[href='#View2']").ClickAsync();
+
+        await this.Page.Locator(".col-md-4", new PageLocatorOptions { HasTextString = "Administrators" })
+            .Locator("input[type='checkbox']").SetCheckedAsync(admin);
+        await this.ClickAndWaitAsync(this.Control("GroupEditControl_Save"));
+    }
 }
