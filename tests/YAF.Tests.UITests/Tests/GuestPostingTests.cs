@@ -61,10 +61,7 @@ public class GuestPostingTests : ForumTestBase
             new LocatorSelectOptionOptions { Force = true });
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = forumName })
-                            .First.GetAttributeAsync("href");
-        var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId(forumName);
 
         await this.LogoutAsync();
 
@@ -88,7 +85,7 @@ public class GuestPostingTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Control("PostReply"));
 
         // the reply of a guest
-        await this.GotoAsync(forumHref.TrimStart('/'));
+        await this.GotoAsync($"Topics/{forumId}-forum");
         var topicHref = await this.Page.Locator("a[href*='/Posts/t']", new PageLocatorOptions { HasTextString = subject }).First
                             .GetAttributeAsync("href");
         var topicId = Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value;

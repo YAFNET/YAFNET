@@ -133,10 +133,7 @@ public class PostMessageTests : ForumTestBase
         await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = forumName })
-                            .First.GetAttributeAsync("href");
-        var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId(forumName);
 
         // the topic of the admin is approved
         var (topicId, _) = await this.CreateTopicAsync(forumId, subject);
@@ -177,10 +174,7 @@ public class PostMessageTests : ForumTestBase
         await this.Control("Locked").CheckAsync();
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = $"Locked forum {id}" })
-                            .First.GetAttributeAsync("href");
-        var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId($"Locked forum {id}");
         var inLockedForum = await this.CreateTopicAsync(forumId, $"In locked forum {id}");
 
         await this.LoginAsUserAsync(TestConfig.TestUserName);
@@ -209,7 +203,7 @@ public class PostMessageTests : ForumTestBase
             .First();
 
         // the id of the topic: the link of the topic list
-        await this.GotoAsync($"Topics/{forumId}");
+        await this.GotoAsync($"Topics/{forumId}-forum");
         var href = await this.Page.Locator("a[href*='/Posts/t']", new PageLocatorOptions { HasTextString = subject }).First
                        .GetAttributeAsync("href");
         var topicId = Regex.Match(href, @"Posts/t(\d+)").Groups[1].Value;

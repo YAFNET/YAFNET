@@ -56,10 +56,7 @@ public class MoveTopicTests : ForumTestBase
         await this.Control("SortOrder").FillAsync("75");
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = forumName })
-                            .First.GetAttributeAsync("href");
-        var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId(forumName);
 
         await this.GotoAsync("PostTopic?f=1");
         await this.Control("TopicSubjectTextBox").FillAsync(subject);
@@ -88,7 +85,7 @@ public class MoveTopicTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Control("MoveTopicDialog_Move"));
         await this.AssertNoServerErrorAsync();
 
-        await this.GotoAsync(forumHref.TrimStart('/'));
+        await this.GotoAsync($"Topics/{forumId}-forum");
         (await this.Page.InnerTextAsync("body")).Should().Contain(subject, "the topic is in the new forum");
 
         await this.GotoAsync("Topics/1-Test Forum");

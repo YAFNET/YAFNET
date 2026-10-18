@@ -26,6 +26,7 @@ namespace YAF.Tests.UITests.Infrastructure;
 
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -307,6 +308,29 @@ public abstract class ForumTestBase
             this.Page.Locator("[id$='_NameEdit']", new PageLocatorOptions { HasTextString = userName }).First);
 
         return int.Parse(Regex.Match(this.Page.Url, @"u=(\d+)").Groups[1].Value);
+    }
+
+    /// <summary>
+    /// Gets the id of the last forum with the name from the database (the board index lists the first 20 forums
+    /// only, the forums of a full run are not all on it).
+    /// </summary>
+    /// <param name="name">The name of the forum.</param>
+    /// <returns>Returns the id of the forum.</returns>
+    protected static string ForumId(string name)
+    {
+        using var connection = new SqlConnection(TestSite.ConnectionString);
+        connection.Open();
+
+        using var command = new SqlCommand(
+            "SELECT TOP 1 [ForumID] FROM [dbo].[yaf_Forum] WHERE [Name] = @name ORDER BY [ForumID] DESC",
+            connection);
+        command.Parameters.AddWithValue("@name", name);
+
+        var id = command.ExecuteScalar();
+
+        id.Should().NotBeNull($"the forum {name} exists");
+
+        return id.ToString();
     }
 
     /// <summary>

@@ -177,10 +177,7 @@ public class EditMessageTests : ForumTestBase
         await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = forumName })
-                            .First.GetAttributeAsync("href");
-        var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId(forumName);
 
         // the topic of the admin (approved at once), the reply of the member waits for the approval
         await this.GotoAsync($"PostTopic?f={forumId}");
@@ -188,7 +185,7 @@ public class EditMessageTests : ForumTestBase
         await this.Control("YafTextEditor").FillAsync("The topic of the admin.");
         await this.ClickAndWaitAsync(this.Control("PostReply"));
 
-        await this.GotoAsync(forumHref.TrimStart('/'));
+        await this.GotoAsync($"Topics/{forumId}-forum");
         var topicHref = await this.Page.Locator("a[href*='/Posts/t']", new PageLocatorOptions { HasTextString = subject }).First
                             .GetAttributeAsync("href");
         var topicId = Regex.Match(topicHref, @"Posts/t(\d+)").Groups[1].Value;

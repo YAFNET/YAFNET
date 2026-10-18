@@ -169,10 +169,15 @@ public class AdminUsersTests : ForumTestBase
         var text = await this.Page.InnerTextAsync("body");
         text.Should().Contain(TestConfig.AdminUserName).And.NotContain(member);
 
-        // the rank of new members
-        await this.FilterAsync(page => this.Control("rank").SelectOptionAsync(
-                                   new SelectOptionValue { Label = "Newbie" },
-                                   new LocatorSelectOptionOptions { Force = true }));
+        // the rank of new members (with the name, a full run has more members than a page shows)
+        await this.FilterAsync(
+            async page =>
+                {
+                    await this.Control("name").FillAsync(member);
+                    await this.Control("rank").SelectOptionAsync(
+                        new SelectOptionValue { Label = "Newbie" },
+                        new LocatorSelectOptionOptions { Force = true });
+                });
         (await this.Page.InnerTextAsync("body")).Should().Contain(member);
 
         // the member is not suspended

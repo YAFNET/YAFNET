@@ -196,10 +196,7 @@ public class QuickReplyTests : ForumTestBase
         await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = forumName })
-                            .First.GetAttributeAsync("href");
-        var forumId = System.Text.RegularExpressions.Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId(forumName);
 
         await this.GotoAsync($"PostTopic?f={forumId}");
         await this.Control("TopicSubjectTextBox").FillAsync($"Moderated quick {id}");

@@ -68,9 +68,7 @@ public class AdminForumsTests : ForumTestBase
         (await categoryRow.Locator("[id*='_CategoryList_'][id$='_ThemeButtonDelete']").CountAsync()).Should().Be(0);
 
         // the forum is deleted by the background task, the page goes back to the list when it is done
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a", new PageLocatorOptions { HasTextString = forum }).First.GetAttributeAsync("href");
-        var forumId = Regex.Match(forumHref, @"Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId(forum);
 
         await this.GotoAsync($"Admin/DeleteForum?fa={forumId}");
         await this.Control("Delete").ClickAsync();
@@ -161,14 +159,14 @@ public class AdminForumsTests : ForumTestBase
         await this.Control("ModeratedPostCount").FillAsync("3");
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        var parentId = await this.ForumIdAsync(parent);
+        var parentId = ForumId(parent);
 
         await this.GotoAsync("Admin/EditForum");
         await this.FillForumAsync(child, "61");
         await this.Control("ParentList").SelectOptionAsync(parentId, new LocatorSelectOptionOptions { Force = true });
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        var childId = await this.ForumIdAsync(child);
+        var childId = ForumId(child);
 
         // the post count of the moderated forum is shown
         await this.GotoAsync($"Admin/EditForum?fa={parentId}");
@@ -206,7 +204,7 @@ public class AdminForumsTests : ForumTestBase
         await this.GotoAsync("Admin/EditForum");
         await this.FillForumAsync(forum, "95");
         await this.ClickAndWaitAsync(this.Control("Save"));
-        var forumId = await this.ForumIdAsync(forum);
+        var forumId = ForumId(forum);
 
         await this.GotoAsync($"PostTopic?f={forumId}");
         await this.Control("TopicSubjectTextBox").FillAsync(subject);
@@ -242,16 +240,6 @@ public class AdminForumsTests : ForumTestBase
         await this.Control("Description").FillAsync("A forum of the edit checks");
         await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = "Test Category" });
         await this.Control("SortOrder").FillAsync(sortOrder);
-    }
-
-    private async Task<string> ForumIdAsync(string name)
-    {
-        await this.GotoAsync(string.Empty);
-
-        var href = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = name }).First
-                       .GetAttributeAsync("href");
-
-        return Regex.Match(href, @"/Topics/(\d+)").Groups[1].Value;
     }
 
     [Test]
@@ -298,13 +286,13 @@ public class AdminForumsTests : ForumTestBase
         await this.GotoAsync("Admin/EditForum");
         await this.FillForumAsync(parent, "90");
         await this.ClickAndWaitAsync(this.Control("Save"));
-        var parentId = await this.ForumIdAsync(parent);
+        var parentId = ForumId(parent);
 
         await this.GotoAsync("Admin/EditForum");
         await this.FillForumAsync(child, "91");
         await this.SelectParentAsync(parentId);
         await this.ClickAndWaitAsync(this.Control("Save"));
-        var childId = await this.ForumIdAsync(child);
+        var childId = ForumId(child);
 
         // the sub forums are not in the list of the parents, the forum itself is refused
         await this.GotoAsync($"Admin/EditForum?fa={parentId}");
@@ -330,7 +318,7 @@ public class AdminForumsTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Control("Save"));
 
         // the copy has the access of the roles (it is shown)
-        (await this.ForumIdAsync(copy)).Should().NotBeNullOrEmpty();
+        (ForumId(copy)).Should().NotBeNullOrEmpty();
     }
 
     private async Task SelectParentAsync(string forumId)

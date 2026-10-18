@@ -55,9 +55,7 @@ public class ModerateForumTests : ForumTestBase
         await this.Control("SortOrder").FillAsync("4");
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a", new PageLocatorOptions { HasTextString = forum }).First.GetAttributeAsync("href");
-        var forumId = Regex.Match(forumHref, @"Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId(forum);
 
         await this.CreateTopicAsync(moved);
         await this.CreateTopicAsync(deleted);
@@ -69,7 +67,7 @@ public class ModerateForumTests : ForumTestBase
         await this.Page.Locator("a.dropdown-toggle[aria-label='arrows-alt']").ClickAsync();
         await this.ClickAndWaitAsync(this.Control("Move"));
 
-        await this.GotoAsync(forumHref.TrimStart('/'));
+        await this.GotoAsync($"Topics/{forumId}-forum");
         (await this.Page.InnerTextAsync("body")).Should().Contain(moved);
 
         // delete

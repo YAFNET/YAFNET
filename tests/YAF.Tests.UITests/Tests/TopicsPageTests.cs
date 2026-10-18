@@ -107,20 +107,8 @@ public class TopicsPageTests : ForumTestBase
         (await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = sub }).CountAsync()).Should()
             .BeGreaterThan(0, "the sub forum is listed");
 
-        // the remote forum
-        await this.GotoAsync(string.Empty);
-        var href = await this.Page.Locator("a", new PageLocatorOptions { HasTextString = remote }).First.GetAttributeAsync("href");
-
-        var forumId = Regex.Match(href, @"Topics/(\d+)");
-
-        if (forumId.Success)
-        {
-            await this.GotoAsync($"Topics/{forumId.Groups[1].Value}");
-        }
-        else
-        {
-            await this.GotoAsync(href);
-        }
+        // the remote forum (its page goes to the address)
+        await this.GotoAsync($"Topics/{ForumId(remote)}-remote");
 
         this.Page.Url.Should().Contain("Members");
     }

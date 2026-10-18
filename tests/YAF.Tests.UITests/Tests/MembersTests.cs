@@ -58,9 +58,7 @@ public class MembersTests : ForumTestBase
         await this.Control("SortOrder").FillAsync("3");
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a", new PageLocatorOptions { HasTextString = forum }).First.GetAttributeAsync("href");
-        var forumId = Regex.Match(forumHref, @"Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId(forum);
 
         await this.GotoAsync($"PostTopic?f={forumId}");
         await this.Control("TopicSubjectTextBox").FillAsync($"Members {Guid.NewGuid():N}");

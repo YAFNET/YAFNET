@@ -191,15 +191,12 @@ public class ModerationTests : ForumTestBase
         await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
         await this.ClickAndWaitAsync(this.Control("Save"));
 
-        await this.GotoAsync(string.Empty);
-        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = forumName })
-                            .First.GetAttributeAsync("href");
-        var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+        var forumId = ForumId(forumName);
 
         // a member watches the forum
         await this.RegisterAsync(watcher, TestConfig.TestUserPassword);
         await this.LoginAsync(watcher, TestConfig.TestUserPassword);
-        await this.GotoAsync(forumHref.TrimStart('/'));
+        await this.GotoAsync($"Topics/{forumId}-forum");
         await this.ClickAndWaitAsync(this.Control("WatchForum").Filter(new LocatorFilterOptions { Visible = true }).First);
 
         // the notifications of the watched topics and forums (new members get none)
@@ -223,7 +220,7 @@ public class ModerationTests : ForumTestBase
 
         // other members don't see it
         await this.LoginAsUserAsync(TestConfig.TestUserName2);
-        await this.GotoAsync(forumHref.TrimStart('/'));
+        await this.GotoAsync($"Topics/{forumId}-forum");
         (await this.Page.InnerTextAsync("body")).Should().NotContain(subject);
 
         // the moderator approves it
@@ -240,7 +237,7 @@ public class ModerationTests : ForumTestBase
         mail.Body.Should().Contain(subject, "the watching member is notified");
 
         await this.LoginAsUserAsync(TestConfig.TestUserName2);
-        await this.GotoAsync(forumHref.TrimStart('/'));
+        await this.GotoAsync($"Topics/{forumId}-forum");
         (await this.Page.InnerTextAsync("body")).Should().Contain(subject);
 
         // another post is deleted
@@ -256,7 +253,7 @@ public class ModerationTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
         await this.AssertNoServerErrorAsync();
 
-        await this.GotoAsync(forumHref.TrimStart('/'));
+        await this.GotoAsync($"Topics/{forumId}-forum");
         (await this.Page.InnerTextAsync("body")).Should().NotContain(deleted);
     }
 
