@@ -168,5 +168,67 @@ public class NotificationsTests : ForumTestBase
         (await this.ItemButtons.CountAsync()).Should().Be(3);
     }
 
+    [Test]
+    [Description("A new topic in a watched forum and a reply in it are notifications of the watcher, they are filtered")]
+    public async Task Watched_Forum_And_Topic_Test()
+    {
+        var member = $"Nwf{DateTime.UtcNow:HHmmssfff}";
+        var subject = $"Watched {Guid.NewGuid():N}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+
+        try
+        {
+            await this.GotoAsync("Topics/1-Test Forum");
+            await this.ClickAndWaitAsync(this.Control("WatchForum").Filter(new LocatorFilterOptions { Visible = true }).First);
+
+            // the notifications of the watched topics and forums (new members get none)
+            await this.GotoAsync("Profile/Subscriptions");
+            await this.Page.RunAndWaitForResponseAsync(
+                () => this.Control("rblNotificationType").Locator("input[value='0']").CheckAsync(),
+                response => response.Request.Method == "POST");
+            await this.Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+            await this.Page.RunAndWaitForResponseAsync(
+                () => this.Control("SaveUser").ClickAsync(),
+                response => response.Request.Method == "POST");
+            await this.Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+            // another member posts a topic and a reply
+            await this.LoginAsUserAsync(TestConfig.TestUserName2);
+            await this.GotoAsync("PostTopic?f=1");
+            await this.Control("TopicSubjectTextBox").FillAsync(subject);
+            await this.Control("YafTextEditor").FillAsync("A topic in the watched forum.");
+            await this.ClickAndWaitAsync(this.Control("PostReply"));
+            var topicId = Regex.Match(await this.Page.ContentAsync(), @"Posts/t(\d+)").Groups[1].Value;
+
+            await this.GotoAsync($"PostMessage?t={topicId}&f=1");
+            await this.Control("YafTextEditor").FillAsync("A reply in the watched forum.");
+            await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.GotoAsync("Notification");
+            (await this.ItemButtons.CountAsync()).Should().Be(2, "the topic and the reply");
+            (await this.Page.InnerTextAsync("body")).Should().Contain(subject);
+
+            await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+            await this.Control("WatchForumReply").UncheckAsync();
+            await this.ClickAndWaitAsync(this.Control("Update"));
+            (await this.ItemButtons.CountAsync()).Should().Be(1, "the reply");
+
+            await this.Page.Locator("a.dropdown-toggle[aria-label='filter']").ClickAsync();
+            await this.Control("WatchTopicReply").UncheckAsync();
+            await this.ClickAndWaitAsync(this.Control("Update"));
+            (await this.ItemButtons.CountAsync()).Should().Be(0);
+        }
+        finally
+        {
+            // the member doesn't get the mails of the posts of the other tests
+            ExecuteSql(
+                "DELETE FROM [dbo].[yaf_WatchForum] WHERE [UserID] = (SELECT [UserID] FROM [dbo].[yaf_User] WHERE [Name] = @name)",
+                member);
+        }
+    }
+
     private ILocator ItemButtons => this.Page.Locator("[id*='_ActivityStream_'][id$='_MarkRead']");
 }
