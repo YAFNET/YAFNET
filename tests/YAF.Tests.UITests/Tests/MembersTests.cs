@@ -41,7 +41,7 @@ using YAF.Tests.UITests.Infrastructure;
 public class MembersTests : ForumTestBase
 {
     [Test]
-    [Description("The number of posts is filtered with the selected comparison (equal, less or equal, more or equal)")]
+    [Description("The number of posts is filtered with the selected comparison (equal, less or equal, more or equal), the rank filter")]
     public async Task Posts_Filter_Test()
     {
         var member = $"Mem{DateTime.UtcNow:HHmmssfff}";
@@ -79,6 +79,16 @@ public class MembersTests : ForumTestBase
 
         // the selected comparison is kept
         (await this.Control("NumPostDDL").InputValueAsync()).Should().Be("3");
+
+        // less or equal 0: the new member, not the admin
+        await this.SearchAsync(posts: "0", comparison: "2");
+        names = await this.NamesAsync();
+        names.Should().Contain(member).And.NotContain(TestConfig.AdminUserName);
+
+        // the rank of the new members
+        await this.SearchAsync(posts: string.Empty, comparison: "1", rank: "Newbie");
+        names = await this.NamesAsync();
+        names.Should().Contain(member);
     }
 
     [Test]
@@ -188,7 +198,7 @@ public class MembersTests : ForumTestBase
         (await this.NamesAsync()).Should().HaveCountGreaterThan(2);
     }
 
-    private async Task SearchAsync(string posts, string comparison)
+    private async Task SearchAsync(string posts, string comparison, string rank = null)
     {
         await this.GotoAsync("Members");
 
@@ -199,6 +209,12 @@ public class MembersTests : ForumTestBase
         await this.OpenFilterAsync();
         await this.Control("NumPostDDL").SelectOptionAsync(comparison, new LocatorSelectOptionOptions { Force = true });
         await this.Control("NumPostsTB").FillAsync(posts);
+
+        if (rank != null)
+        {
+            await this.Control("Ranks").SelectOptionAsync(new SelectOptionValue { Label = rank }, new LocatorSelectOptionOptions { Force = true });
+        }
+
         await this.ClickAndWaitAsync(this.Control("SearchByUserName"));
     }
 
