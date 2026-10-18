@@ -87,6 +87,36 @@ public class BoardIndexTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("A hidden member that is online is counted as hidden for admins, the link lists the hidden users")]
+    public async Task Hidden_Active_User_Test()
+    {
+        var member = $"Hid{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        // the admin hides the member from the active users
+        await this.LoginAsAdminAsync();
+        var userId = await this.OpenAdminEditUserAsync(member);
+        await this.GotoAsync($"Admin/EditUser?u={userId}");
+        await this.Page.Locator("a[href='#View10']").ClickAsync();
+        await this.Control("ProfileSettings_HideMe").CheckAsync();
+        await this.ClickAndWaitAsync(this.Control("ProfileSettings_UpdateProfile"));
+
+        // the member is online
+        await this.LoginAsync(member, TestConfig.TestUserPassword);
+        await this.GotoAsync(string.Empty);
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync(string.Empty);
+
+        var hidden = this.Page.Locator("a[href*='ActiveUsers']", new PageLocatorOptions { HasTextString = "hidden" });
+        (await hidden.CountAsync()).Should().BeGreaterThan(0, "the hidden member is counted");
+
+        await this.ClickAndWaitAsync(hidden.First);
+        (await this.Page.InnerTextAsync("body")).Should().Contain(member);
+    }
+
     private async Task PartialPostBackAsync(ILocator button)
     {
         await this.Page.RunAndWaitForResponseAsync(() => button.ClickAsync(), response => response.Request.Method == "POST");
