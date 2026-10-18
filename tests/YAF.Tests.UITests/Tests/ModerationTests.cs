@@ -63,6 +63,36 @@ public class ModerationTests : ForumTestBase
     }
 
     [Test]
+    [Description("A report needs a reason of at most 128 characters, cancel goes back to the post, guests can't report")]
+    public async Task Report_Checks_Test()
+    {
+        await this.LoginAsUserAsync(TestConfig.TestUserName2);
+
+        // no reason and a too long reason (the browser checks are removed)
+        foreach (var reason in new[] { " ", new string('r', 129) })
+        {
+            await this.GotoAsync("ReportPost?m=1");
+            await this.Page.EvaluateAsync("() => document.querySelectorAll('[required],[maxlength]').forEach(e => { e.removeAttribute('required'); e.removeAttribute('maxlength'); })");
+            await this.Control("Report").FillAsync(reason);
+            await this.Control("btnReport").ClickAsync();
+            await this.ClickAndWaitAsync(
+                this.Page.Locator(".modal.show button", new PageLocatorOptions { HasTextString = "Yes" }));
+
+            this.Page.Url.Should().Contain("ReportPost", reason.Length.ToString());
+        }
+
+        // cancel
+        await this.GotoAsync("ReportPost?m=1");
+        await this.ClickAndWaitAsync(this.Control("btnCancel"));
+        this.Page.Url.Should().Contain("Posts");
+
+        // guests
+        await this.LogoutAsync();
+        await this.GotoAsync("ReportPost?m=1");
+        this.Page.Url.Should().NotContain("ReportPost");
+    }
+
+    [Test]
     [Description("The moderator copies over the changed text of a reported post, views it and its history, resolves it and deletes another one")]
     public async Task Reported_Posts_Commands_Test()
     {
