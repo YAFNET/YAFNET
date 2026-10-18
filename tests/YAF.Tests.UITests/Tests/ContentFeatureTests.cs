@@ -133,6 +133,9 @@ public class ContentFeatureTests : ForumTestBase
 
         attachmentId.Should().NotBeEmpty();
 
+        // the upload dialog is closed first (it covers the button)
+        await this.Page.Locator(".modal.show").WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Detached });
+
         await this.ClickAndWaitAsync(this.Control("PostReply"));
 
         // another member opens the post
