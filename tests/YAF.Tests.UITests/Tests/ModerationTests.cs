@@ -140,11 +140,13 @@ public class ModerationTests : ForumTestBase
     }
 
     [Test]
-    [Description("A post in a moderated forum is only shown after a moderator approved it")]
+    [Description("A post in a moderated forum is only shown after a moderator approved it (the watching members are notified then), another one is deleted")]
     public async Task Moderated_Forum_Test()
     {
         var forumName = $"Moderated {Guid.NewGuid():N}".Substring(0, 22);
         var subject = $"Moderated topic {Guid.NewGuid():N}";
+        var deleted = $"Deleted topic {Guid.NewGuid():N}";
+        var watcher = $"Mwt{DateTime.UtcNow:HHmmssfff}";
 
         // a moderated forum (all posts need the approval)
         await this.LoginAsAdminAsync();
@@ -164,6 +166,23 @@ public class ModerationTests : ForumTestBase
                             .First.GetAttributeAsync("href");
         var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
 
+        // a member watches the forum
+        await this.RegisterAsync(watcher, TestConfig.TestUserPassword);
+        await this.LoginAsync(watcher, TestConfig.TestUserPassword);
+        await this.GotoAsync(forumHref.TrimStart('/'));
+        await this.ClickAndWaitAsync(this.Control("WatchForum").Filter(new LocatorFilterOptions { Visible = true }).First);
+
+        // the notifications of the watched topics and forums (new members get none)
+        await this.GotoAsync("Profile/Subscriptions");
+        await this.Page.RunAndWaitForResponseAsync(
+            () => this.Control("rblNotificationType").Locator("input[value='0']").CheckAsync(),
+            response => response.Request.Method == "POST");
+        await this.Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        await this.Page.RunAndWaitForResponseAsync(
+            () => this.Control("SaveUser").ClickAsync(),
+            response => response.Request.Method == "POST");
+        await this.Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
         // a member posts a topic
         await this.LoginAsUserAsync(TestConfig.TestUserName);
 
@@ -182,11 +201,33 @@ public class ModerationTests : ForumTestBase
         await this.GotoAsync($"Moderate/UnapprovedPosts?f={forumId}");
         (await this.Page.InnerTextAsync("body")).Should().Contain("This topic waits for the approval.");
 
+        var started = DateTime.UtcNow;
+
+        // the last post to approve (the page goes back to the moderation index)
         await this.ClickAndWaitAsync(this.Control("ApproveBtn"));
+
+        var mail = await TestMail.WaitForAsync(EmailOf(watcher), started);
+        mail.Body.Should().Contain(subject, "the watching member is notified");
 
         await this.LoginAsUserAsync(TestConfig.TestUserName2);
         await this.GotoAsync(forumHref.TrimStart('/'));
         (await this.Page.InnerTextAsync("body")).Should().Contain(subject);
+
+        // another post is deleted
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+        await this.GotoAsync($"PostTopic?f={forumId}");
+        await this.Control("TopicSubjectTextBox").FillAsync(deleted);
+        await this.Control("YafTextEditor").FillAsync("This topic is deleted by the moderator.");
+        await this.ClickAndWaitAsync(this.Control("PostReply"));
+
+        await this.LoginAsAdminAsync();
+        await this.GotoAsync($"Moderate/UnapprovedPosts?f={forumId}");
+        await this.Control("DeleteBtn").ClickAsync();
+        await this.ClickAndWaitAsync(this.Page.Locator(".bootbox .btn-success"));
+        await this.AssertNoServerErrorAsync();
+
+        await this.GotoAsync(forumHref.TrimStart('/'));
+        (await this.Page.InnerTextAsync("body")).Should().NotContain(deleted);
     }
 
     [Test]

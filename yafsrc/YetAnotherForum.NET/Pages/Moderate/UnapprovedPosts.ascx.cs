@@ -189,14 +189,15 @@ public partial class UnapprovedPosts : ModerateForumPage
                         approved.UserID);
                 }
 
-                // re-bind data
-                this.BindData();
+                // send notification to watching users (before the list is bound again: without more posts to
+                // approve it redirects to the moderate page, the users were never notified then)
+                this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
 
                 // tell user message was approved
-                this.PageBoardContext.Notify(this.GetText("APPROVED"), MessageTypes.success);
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("APPROVED"), MessageTypes.success);
 
-                // send notification to watching users...
-                this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
+                // re-bind data
+                this.BindData();
                 break;
             case "delete":
 
@@ -217,11 +218,11 @@ public partial class UnapprovedPosts : ModerateForumPage
                     true,
                     true);
 
+                // tell user message was deleted
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("DELETED"), MessageTypes.info);
+
                 // re-bind data
                 this.BindData();
-
-                // tell user message was deleted
-                this.PageBoardContext.Notify(this.GetText("DELETED"), MessageTypes.info);
                 break;
         }
 
