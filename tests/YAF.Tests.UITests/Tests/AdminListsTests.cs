@@ -110,6 +110,25 @@ public class AdminListsTests : ForumTestBase
         await this.FindAsync(page, edited);
         (await this.Rows(edited).CountAsync()).Should().Be(1, "the entry is imported");
 
+        // imported again: the existing entry is not added twice
+        await this.ImportAsync(
+            importText,
+            new FilePayload { Name = $"export.{exportType}", MimeType = $"text/{(exportType == "xml" ? "xml" : "plain")}", Buffer = export });
+
+        await this.FindAsync(page, edited);
+        (await this.Rows(edited).CountAsync()).Should().Be(1, "the entry is not imported twice");
+
+        // a broken xml file: the dialog is opened again
+        if (exportType == "xml")
+        {
+            await this.ImportAsync(
+                importText,
+                new FilePayload { Name = "broken.xml", MimeType = "text/xml", Buffer = System.Text.Encoding.UTF8.GetBytes("<YafReplaceWords><broken") });
+
+            await this.WaitForVisibleAsync("[id$='_ImportDialog_Import']");
+            await this.GotoAsync($"Admin/{page}");
+        }
+
         // a file that is not text: the dialog is opened again
         await this.ImportAsync(
             importText,
