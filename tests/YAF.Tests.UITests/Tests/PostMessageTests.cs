@@ -152,6 +152,51 @@ public class PostMessageTests : ForumTestBase
     /// <summary>
     /// Creates a topic and returns the ids of the topic and of its first message.
     /// </summary>
+    [Test]
+    [Description("Members can't reply in a locked topic or a locked forum, a post of another topic can't be quoted")]
+    public async Task Locked_And_Foreign_Quote_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+
+        await this.LoginAsAdminAsync();
+
+        // a locked topic
+        var locked = await this.CreateTopicAsync("1", $"Locked reply {id}");
+        await this.GotoAsync($"Posts?t={locked.TopicId}");
+        await this.Control("Tools1").First.ClickAsync();
+        await this.ClickAndWaitAsync(this.Control("LockTopic1").First);
+
+        var open = await this.CreateTopicAsync("1", $"Open reply {id}");
+
+        // a locked forum (the admin can still post)
+        await this.GotoAsync("Admin/EditForum");
+        await this.Control("Name").FillAsync($"Locked forum {id}");
+        await this.Control("Description").FillAsync("A locked forum of the reply test");
+        await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = "Test Category" });
+        await this.Control("SortOrder").FillAsync("87");
+        await this.Control("Locked").CheckAsync();
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        await this.GotoAsync(string.Empty);
+        var forumHref = await this.Page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasTextString = $"Locked forum {id}" })
+                            .First.GetAttributeAsync("href");
+        var forumId = Regex.Match(forumHref, @"/Topics/(\d+)").Groups[1].Value;
+        var inLockedForum = await this.CreateTopicAsync(forumId, $"In locked forum {id}");
+
+        await this.LoginAsUserAsync(TestConfig.TestUserName);
+
+        foreach (var url in new[]
+                     {
+                         $"PostMessage?t={locked.TopicId}&f=1", $"PostMessage?t={inLockedForum.TopicId}&f={forumId}",
+                         $"PostMessage?t={open.TopicId}&f=1&q={locked.MessageId}"
+                     })
+        {
+            await this.GotoAsync(url);
+            await this.AssertNoServerErrorAsync();
+            (await this.Control("PostReply").CountAsync()).Should().Be(0, url);
+        }
+    }
+
     private async Task<(string TopicId, string MessageId)> CreateTopicAsync(string forumId, string subject)
     {
         await this.GotoAsync($"PostTopic?f={forumId}");
