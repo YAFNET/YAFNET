@@ -415,7 +415,7 @@ public class ActiveLocation : BaseControl
         }
         else
         {
-            outString.Append(this.GetTextFormatted("ACTIVELOCATION", "ALBUMS"));
+            outString.Append(this.GetText("ACTIVELOCATION", "ALBUMS"));
         }
 
         return outString.ToString();
