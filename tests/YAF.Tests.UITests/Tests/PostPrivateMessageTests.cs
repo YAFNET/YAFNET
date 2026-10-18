@@ -332,6 +332,78 @@ public class PostPrivateMessageTests : ForumTestBase
         (await this.Page.InnerTextAsync("body")).Should().NotContain(subject);
     }
 
+    [Test]
+    [Description("A message to the guest is refused, a full mailbox of the recipient and the own full mailbox are refused (limit of the role)")]
+    public async Task Full_Mailbox_Test()
+    {
+        var id = DateTime.UtcNow.ToString("HHmmssfff");
+        var alice = $"Pfa{id}";
+        var bob = $"Pfb{id}";
+        var carol = $"Pfc{id}";
+
+        foreach (var name in new[] { alice, bob, carol })
+        {
+            await this.RegisterAsync(name, TestConfig.TestUserPassword);
+        }
+
+        await this.LoginAsAdminAsync();
+        var oldLimit = await this.SetRegisteredUsersPmLimitAsync("1");
+
+        try
+        {
+            // not to the guest
+            await this.LoginAsync(alice, TestConfig.TestUserPassword);
+            await this.SendAsync("Guest", $"To the guest {id}");
+            this.Page.Url.Should().Contain("PostPrivateMessage", "the guest gets no messages");
+
+            // bob gets one message, his mailbox is full then
+            await this.SendAsync(bob, $"First {id}");
+            this.Page.Url.Should().NotContain("PostPrivateMessage");
+
+            await this.LoginAsync(carol, TestConfig.TestUserPassword);
+            await this.SendAsync(bob, $"Second {id}");
+            this.Page.Url.Should().Contain("PostPrivateMessage", "the mailbox of the recipient is full");
+
+            // the mailbox of alice is full (the sent message)
+            await this.LoginAsync(alice, TestConfig.TestUserPassword);
+            await this.SendAsync(carol, $"Third {id}");
+            this.Page.Url.Should().Contain("PostPrivateMessage", "the own mailbox is full");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetRegisteredUsersPmLimitAsync(oldLimit);
+        }
+    }
+
+    private async Task SendAsync(string to, string subject)
+    {
+        await this.GotoAsync("PostPrivateMessage");
+        await this.Control("To").FillAsync(to);
+        await this.Control("PmSubjectTextBox").FillAsync(subject);
+        await this.Control("YafTextEditor").FillAsync($"The message {subject}.");
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
+    /// <summary>
+    /// Sets the private message limit of the registered users, returns the old limit.
+    /// </summary>
+    private async Task<string> SetRegisteredUsersPmLimitAsync(string limit)
+    {
+        await this.GotoAsync("Admin/Groups");
+        await this.ClickAndWaitAsync(
+            this.Page.Locator("li", new PageLocatorOptions { HasTextString = "Registered Users" })
+                .Filter(new LocatorFilterOptions { Has = this.Page.Locator("[id*='_RoleListYaf_']") })
+                .Locator("[id$='_ThemeButtonEdit']").First);
+
+        var old = await this.Control("PMLimit").InputValueAsync();
+
+        await this.Control("PMLimit").EvaluateAsync("(e, v) => { e.type = 'text'; e.value = v; }", limit);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+
+        return old;
+    }
+
     private async Task<int> UserIdAsync(string userName)
     {
         await this.LoginAsAdminAsync();
