@@ -289,6 +289,68 @@ public class AlbumEditTests : ForumTestBase
         }
     }
 
+    [Test]
+    [Description("A text file is not saved, an upload of a page opened before the album was full is refused, the page needs the albums")]
+    public async Task Upload_Checks_Test()
+    {
+        var member = $"Alu{DateTime.UtcNow:HHmmssfff}";
+
+        await this.RegisterAsync(member, TestConfig.TestUserPassword);
+
+        await this.LoginAsAdminAsync();
+        var old = await this.SetAlbumLimitsAsync("2", "2");
+
+        try
+        {
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            var albumId = await this.CreateAlbumAsync($"Checks {Guid.NewGuid():N}".Substring(0, 20), images: 1);
+
+            // a text with the name of an image
+            await this.GotoAsync($"EditAlbumImages?a={albumId}");
+            await this.Control("File").SetInputFilesAsync(
+                new FilePayload { Name = "text.png", MimeType = "text/plain", Buffer = [65, 66, 67] });
+            await this.ClickAndWaitAsync(this.Control("Upload"));
+            (await this.Page.InnerTextAsync("body")).Should().NotContain("text.png");
+
+            // another page fills the album, then the first page uploads
+            var other = await this.Context.NewPageAsync();
+            await other.GotoAsync($"{TestConfig.BaseUrl}EditAlbumImages?a={albumId}");
+            await other.Locator("[id$='_File']").SetInputFilesAsync(
+                new FilePayload { Name = "image2.png", MimeType = "image/png", Buffer = Png });
+            await other.RunAndWaitForNavigationAsync(() => other.Locator("[id$='_Upload']").ClickAsync());
+            await other.CloseAsync();
+
+            await this.Control("File").SetInputFilesAsync(
+                new FilePayload { Name = "image3.png", MimeType = "image/png", Buffer = Png });
+            await this.ClickAndWaitAsync(this.Control("Upload"));
+            await this.AssertNoServerErrorAsync();
+
+            var text = await this.Page.InnerTextAsync("body");
+            text.Should().Contain("image2.png").And.NotContain("image3.png");
+
+            // without the albums
+            await this.LoginAsAdminAsync();
+            await this.SetEnableAlbumAsync(false);
+
+            await this.LoginAsync(member, TestConfig.TestUserPassword);
+            await this.GotoAsync($"EditAlbumImages?a={albumId}");
+            this.Page.Url.Should().Contain("Info");
+        }
+        finally
+        {
+            await this.LoginAsAdminAsync();
+            await this.SetEnableAlbumAsync(true);
+            await this.SetAlbumLimitsAsync(old.Albums, old.Images);
+        }
+    }
+
+    private async Task SetEnableAlbumAsync(bool enabled)
+    {
+        await this.GotoAsync("Admin/HostSettings");
+        await this.Control("EnableAlbum").EvaluateAsync("(e, v) => e.checked = v", enabled);
+        await this.ClickAndWaitAsync(this.Control("Save"));
+    }
+
     /// <summary>
     /// Sets the album limits of the registered users, returns the old limits.
     /// </summary>
