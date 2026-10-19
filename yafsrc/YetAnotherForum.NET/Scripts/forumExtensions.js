@@ -15179,7 +15179,12 @@ function getSearchResultsData(pageNumber) {
             }
         }).catch(function(error) {
             console.log(error);
-            document.getElementById("SearchResultsPlaceholder").style.display = "none";
+            document.getElementById("loadModal").addEventListener("shown.bs.modal", () => loadModal.hide(), {
+                once: true
+            });
+            loadModal.hide();
+            empty(document.getElementById("SearchResultsPagerTop"));
+            empty(document.getElementById("SearchResultsPagerBottom"));
             placeHolder.textContent = error;
         });
     }
