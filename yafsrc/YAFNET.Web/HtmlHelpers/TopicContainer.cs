@@ -381,7 +381,8 @@ public static class TopicContainerHtmlHelper
     /// </returns>
     private static bool IsPopularTopic(DateTime lastPosted, PagedTopic item)
     {
-        if (lastPosted > DateTime.Now.AddDays(-BoardContext.Current.BoardSettings.PopularTopicDays))
+        // the time of the last post is stored in UTC
+        if (lastPosted > DateTime.UtcNow.AddDays(-BoardContext.Current.BoardSettings.PopularTopicDays))
         {
             return item.Replies >= BoardContext.Current.BoardSettings.PopularTopicReplys ||
                    item.Views >= BoardContext.Current.BoardSettings.PopularTopicViews;
