@@ -172,11 +172,28 @@ public class PostModel : ForumPage
     /// Called when [get quick reply dialog].
     /// </summary>
     /// <returns>PartialViewResult.</returns>
-    public PartialViewResult OnGetQuickReply()
+    public async Task<PartialViewResult> OnGetQuickReplyAsync()
     {
         return new PartialViewResult
         {
-            ViewName = "Dialogs/QuickReply", ViewData = new ViewDataDictionary<QuickReplyModal>(this.ViewData, new QuickReplyModal())
+            ViewName = "Dialogs/QuickReply", ViewData = new ViewDataDictionary<QuickReplyModal>(this.ViewData, await this.CreateQuickReplyAsync())
+        };
+    }
+
+    /// <summary>
+    /// Creates the quick reply dialog: the watch option is checked for a watched topic and with "topics I post to"
+    /// (the option of the dialog decides, an unchecked option removed the watch of the topic).
+    /// </summary>
+    /// <returns>Returns the quick reply dialog.</returns>
+    public async Task<QuickReplyModal> CreateQuickReplyAsync()
+    {
+        return new QuickReplyModal
+        {
+            TopicWatch = !this.PageBoardContext.IsGuest
+                         && (this.PageBoardContext.PageUser.AutoWatchTopics
+                             || (await this.GetRepository<WatchTopic>().CheckAsync(
+                                     this.PageBoardContext.PageUserID,
+                                     this.PageBoardContext.PageTopicID)).HasValue)
         };
     }
 

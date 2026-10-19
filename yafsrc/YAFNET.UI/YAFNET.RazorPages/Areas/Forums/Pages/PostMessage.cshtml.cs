@@ -266,18 +266,12 @@ public class PostMessageModel : ForumPage
         // update options...
         if (!this.PageBoardContext.IsGuest)
         {
-            if (this.PageBoardContext.PageTopicID > 0)
-            {
-                var check = await this.GetRepository<WatchTopic>().CheckAsync(
-                    this.PageBoardContext.PageUserID,
-                    this.PageBoardContext.PageTopicID);
-
-                this.Input.TopicWatch = check.HasValue;
-            }
-            else
-            {
-                this.Input.TopicWatch = this.PageBoardContext.PageUser.AutoWatchTopics;
-            }
+            // "topics I post to" (auto watch) also for the replies (it was only used without a topic)
+            this.Input.TopicWatch = this.PageBoardContext.PageUser.AutoWatchTopics
+                                    || this.PageBoardContext.PageTopicID > 0
+                                    && (await this.GetRepository<WatchTopic>().CheckAsync(
+                                            this.PageBoardContext.PageUserID,
+                                            this.PageBoardContext.PageTopicID)).HasValue;
         }
 
         if (this.quotedMessage != null && q.HasValue)

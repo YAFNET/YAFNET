@@ -244,20 +244,6 @@ public class PostsModalController : ForumBaseController
 
             newMessage.Topic = this.PageBoardContext.PageTopic;
 
-            // Check to see if the user has enabled "auto watch topic" option in his/her profile.
-            if (this.PageBoardContext.PageUser.AutoWatchTopics)
-            {
-                var watchTopicId = await this.GetRepository<WatchTopic>().CheckAsync(
-                    this.PageBoardContext.PageUserID,
-                    this.PageBoardContext.PageTopicID);
-
-                if (!watchTopicId.HasValue)
-                {
-                    // subscribe to this topic
-                    await this.GetRepository<WatchTopic>().AddAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
-                }
-            }
-
             if (messageFlags.IsApproved)
             {
                 // send new post notification to users watching this topic/forum

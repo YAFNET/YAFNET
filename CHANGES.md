@@ -530,6 +530,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The [userlink] example of the BBCode help showed the address of YAF 1.x (yaf_profile1234.aspx, without a slash after the forum address)
 * [FIXED] Posting (new topic, reply, quick reply): the message of the flood delay showed only the seconds part of the remaining time (e.g. 30 instead of 90 seconds with a delay over a minute)
 * [FIXED] Admin > Edit User > Kill: the suspend option only worked after the cache of the user expired
+* [FIXED] Notification "topics I post to" (auto watch): a reply of the reply page did not watch the topic, the quick reply watched it even when the member unchecked the watch option, and the watch option of the quick reply was always unchecked (a quick reply removed the watch of a watched topic); the option is checked for a watched topic and with auto watch, the option decides
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

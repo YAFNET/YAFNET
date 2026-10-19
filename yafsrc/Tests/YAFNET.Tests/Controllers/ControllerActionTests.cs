@@ -320,7 +320,7 @@ public class ControllerActionTests
     }
 
     [Test]
-    [Description("Users with auto watch get subscribed to the topic they reply to")]
+    [Description("Auto watch checks the watch option of the dialog, the option decides: a member with auto watch who unchecked it does not watch the topic")]
     public async Task QuickReply_Auto_Watch_Test()
     {
         await this.board.Current.GetRepository<User>().UpdateOnlyAsync(() => new User { AutoWatchTopics = true }, u => u.ID == this.bob);
@@ -329,9 +329,15 @@ public class ControllerActionTests
         this.board.PageLoad.ReadAccess = true;
         this.board.PageLoad.ReplyAccess = true;
 
-        await this.QuickReplyAsync("auto watched");
+        await this.QuickReplyAsync("auto watched", true);
 
         this.IsWatching(this.bob).Should().BeTrue();
+
+        // the member unchecked the option (it watched the topic anyway)
+        await this.Messages.DeleteAsync(m => m.UserID == this.bob);
+        await this.QuickReplyAsync("not watched");
+
+        this.IsWatching(this.bob).Should().BeFalse();
     }
 
     [Test]

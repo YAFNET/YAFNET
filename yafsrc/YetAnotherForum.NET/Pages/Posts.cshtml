@@ -304,7 +304,7 @@
 	<div class="row mb-3">
 		<div class="col">
 			<hr class="border border-secondary border-2 opacity-50">
-			@await Html.PartialAsync("_QuickReply", new QuickReplyModal())
+			@await Html.PartialAsync("_QuickReply", await Model.CreateQuickReplyAsync())
 		</div>
 	</div>
 }
