@@ -10404,10 +10404,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         addSelectedTextItems(contextMenu, messageId, selectedText);
                     }
                 }
-                contextMenu.style.left = e.detail.pageX;
-                contextMenu.style.top = e.detail.pageY;
-                contextMenu.style.display = "block";
-                contextMenu.classList.add("show");
+                showContextMenu(contextMenu, e.detail.pageX, e.detail.pageY);
             });
         }
         element.addEventListener("contextmenu", e => {
@@ -10422,10 +10419,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     addSelectedTextItems(contextMenu, messageId, selectedText);
                 }
             }
-            contextMenu.style.display = "block";
-            contextMenu.style.left = e.offsetX + "px";
-            contextMenu.style.top = e.offsetY + "px";
-            contextMenu.classList.add("show");
+            showContextMenu(contextMenu, e.pageX, e.pageY);
             return false;
         });
         element.addEventListener("click", () => {
@@ -10497,6 +10491,14 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+function showContextMenu(contextMenu, pageX, pageY) {
+    contextMenu.style.display = "block";
+    const parent = contextMenu.offsetParent || document.body, rect = parent.getBoundingClientRect();
+    contextMenu.style.left = `${pageX - (rect.left + window.scrollX + parent.clientLeft)}px`;
+    contextMenu.style.top = `${pageY - (rect.top + window.scrollY + parent.clientTop)}px`;
+    contextMenu.classList.add("show");
+}
 
 function goToURL(messageId, input, url) {
     window.location.href = url + "&q=" + messageId + "&text=" + encodeURIComponent(input);
