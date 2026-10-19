@@ -558,6 +558,7 @@ public static class JavaScriptBlocks
                         delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
                     });
                  
+                placeholder.cancel();
             } else {
                 insertAttachment(data[0].fileID, data[0].fileID);
                 placeholder.cancel();
@@ -568,6 +569,7 @@ public static class JavaScriptBlocks
         }
         }).catch(error => {
         console.error("error: ", error);
+        placeholder.cancel();
         });
         }
         }

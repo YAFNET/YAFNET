@@ -388,6 +388,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Upload dialog: the attachment list was loaded before the upload ended (the new attachment was missing), a refused upload (e.g. too large for the server) showed no error, the sizes of the selected files were wrong
 * [FIXED] Context menu of posts: the menu was opened away from the click when a part of the post (e.g. bold text) was clicked, the long press on phones didn't move it to the pressed position
 * [FIXED] Register: the password strength bar of a weak password kept the color and width of a stronger password typed before
+* [FIXED] Wysiwyg editor: a refused or failed drag and drop upload left the upload placeholder in the editor
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
