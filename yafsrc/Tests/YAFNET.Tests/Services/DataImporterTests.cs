@@ -78,6 +78,9 @@ public class DataImporterTests
 
         count.Should().Be(2);
         this.Masks<BannedEmail>(b => b.Mask).Should().BeEquivalentTo(["old@spam.example", "new@spam.example", "other@spam.example"]);
+
+        // a mask that is no valid regular expression is not imported
+        (await this.importer.BannedEmailAddressesImportAsync(Board, Text("bad(@spam.example"))).Should().Be(0);
     }
 
     [Test]

@@ -185,7 +185,8 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         while (await streamReader.ReadLineAsync() is { } line)
         {
-            if (line.IsNotSet() || !line.Contains('@'))
+            // the masks are regular expressions like the banned names (an invalid one never matched)
+            if (line.IsNotSet() || !line.Contains('@') || !ValidationHelper.IsValidRegex(line))
             {
                 continue;
             }

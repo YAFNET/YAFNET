@@ -534,6 +534,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Delete Forum: "Move all topics" without a selected forum (0) moved the topics to the forum 0 (they were lost); a forum of the board is needed now
 * [FIXED] Security (hardening): a stored home page that is no web address (e.g. javascript: of an imported user or of a database of an older version) was shown as link on the profile page and the user card; only web addresses are links now
 * [FIXED] Erasing a post and deleting a user only deleted the database entries of their attachments, the files of attachments stored in the file system stayed on the disk
+* [FIXED] The banned e-mail import accepted masks that are no valid regular expressions (they never matched); like the name and user agent imports only valid expressions are imported
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
