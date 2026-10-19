@@ -529,6 +529,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] The team page (and the admin page access list) listed disabled and not approved admins
 * [FIXED] The [userlink] example of the BBCode help showed the address of YAF 1.x (yaf_profile1234.aspx, without a slash after the forum address)
 * [FIXED] Posting (new topic, reply, quick reply): the message of the flood delay showed only the seconds part of the remaining time (e.g. 30 instead of 90 seconds with a delay over a minute)
+* [FIXED] Admin > Edit User > Kill: the suspend option only worked after the cache of the user expired
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

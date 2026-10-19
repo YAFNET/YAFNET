@@ -37,7 +37,9 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services.CheckForSpam;
+using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
+using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
@@ -245,6 +247,9 @@ public class UsersKillModel : AdminPage
                     await this.GetRepository<User>().SuspendAsync(
                         this.Input.UserId,
                         DateTime.UtcNow.AddYears(5));
+
+                    // the cached data of the user (otherwise the suspension works only after the cache expires)
+                    this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
                 }
 
                 break;
