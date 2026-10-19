@@ -531,6 +531,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Posting (new topic, reply, quick reply): the message of the flood delay showed only the seconds part of the remaining time (e.g. 30 instead of 90 seconds with a delay over a minute)
 * [FIXED] Admin > Edit User > Kill: the suspend option only worked after the cache of the user expired
 * [FIXED] Notification "topics I post to" (auto watch): a reply of the reply page did not watch the topic, the quick reply watched it even when the member unchecked the watch option, and the watch option of the quick reply was always unchecked (a quick reply removed the watch of a watched topic); the option is checked for a watched topic and with auto watch, the option decides
+* [FIXED] Admin > Delete Forum: "Move all topics" without a selected forum (0) moved the topics to the forum 0 (they were lost); a forum of the board is needed now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

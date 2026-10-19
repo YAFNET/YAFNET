@@ -105,6 +105,16 @@ public class DeleteForumModel : AdminPage
 
         var newForumId = this.ForumListSelected;
 
+        // the topics are only moved to a forum of the board (without a selected forum they were moved to the
+        // forum 0 and lost)
+        if (this.MoveTopics && newForumId != fa && !this.IsBoardForum(newForumId))
+        {
+            // the page is shown again with the forum (it is not sent with the form)
+            this.Forum = await this.GetRepository<Forum>().GetByIdAsync(fa);
+
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_DELETEFORUM", "NEW_FORUM_HELP"), MessageTypes.warning);
+        }
+
         if (this.MoveTopics && newForumId != fa)
         {
             // schedule...
