@@ -84,7 +84,7 @@ public static class BannedNameRepositoryExtensions
                     BoardID = boardId ?? repository.BoardID,
                     Mask = mask,
                     Reason = reason,
-                    Since = DateTime.Now
+                    Since = DateTime.UtcNow
                 });
 
         return true;

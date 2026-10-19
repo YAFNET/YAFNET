@@ -520,6 +520,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Emoji short codes and ascii smileys inside code blocks of several lines were turned into emoji
 * [FIXED] The search results showed the forum name as html (e.g. a forum "Q&A <beta>" lost "<beta>"); the forum name of the search results is html encoded like the topic
 * [FIXED] Watch mails: one watcher with a stored address that is no mail address (e.g. an imported user) stopped the mails to all watchers and showed an error after the post was saved; that watcher is skipped now
+* [FIXED] Admin -> Banned IPs, e-mails and names: the ban date was stored in the time of the server but shown converted from UTC, it was off by the time zone of the server
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

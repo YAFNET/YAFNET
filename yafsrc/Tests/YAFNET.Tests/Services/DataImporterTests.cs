@@ -93,6 +93,22 @@ public class DataImporterTests
     }
 
     [Test]
+    [Description("The ban date is stored in UTC like all other dates (it is shown converted from UTC to the time zone of the user)")]
+    public async Task Ban_Date_Is_Utc_Test()
+    {
+        (await this.importer.BannedIpAddressesImportAsync(Board, 1, Text("10.0.0.1"))).Should().Be(1);
+        (await this.importer.BannedEmailAddressesImportAsync(Board, Text("spam@example.com"))).Should().Be(1);
+        (await this.importer.BannedNamesImportAsync(Board, Text("^Spammer$"))).Should().Be(1);
+
+        this.board.Current.GetRepository<BannedIP>().Get(_ => true).Single().Since.Should()
+            .BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+        this.board.Current.GetRepository<BannedEmail>().Get(_ => true).Single().Since.Should()
+            .BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+        this.board.Current.GetRepository<BannedName>().Get(_ => true).Single().Since.Should()
+            .BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
+    }
+
+    [Test]
     [Description("Banned IPs: lines that are no ip address or mask are not imported")]
     public async Task Banned_Ips_Invalid_Test()
     {
