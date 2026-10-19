@@ -81,7 +81,8 @@
         var query = word.slice(1);
 
         if (query.length >= 3) {
-            fetch(opts.url.replace('{q}', query))
+            // a name can contain characters of an address (&, #, +)
+            fetch(opts.url.replace('{q}', encodeURIComponent(query)))
                 .then(response => response.json())
                 .then(data => opts.items = data);
         }
@@ -119,13 +120,16 @@
     }
 
     function onClick(event) {
-        const deleteItem = event.target.classList.contains('mention-li-nt') ? event.target : event.target.parentElement;
-
-        opts.onclick(deleteItem.dataset);
+        const deleteItem = event.target.closest('.mention-li-nt');
 
         const $parent = $lookup.parentNode.querySelector('textarea');
 
-        $parent.value = $parent.value.replace($parent.value.substring(start + 1, end), '');
+        // the typed name after the @ is replaced by the selected user (the same text can be in the message
+        // before, e.g. in another word)
+        $parent.value = $parent.value.substring(0, start + 1) + $parent.value.substring(end);
+        $parent.setSelectionRange(start + 1, start + 1);
+
+        opts.onclick(deleteItem.dataset);
 
         hideLookup();
     }

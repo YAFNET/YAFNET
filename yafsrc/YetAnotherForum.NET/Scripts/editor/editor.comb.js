@@ -433,7 +433,7 @@ function mentions(opts = {}) {
         $lookup.style.top = pos.y + "px";
         var query = word.slice(1);
         if (query.length >= 3) {
-            fetch(opts.url.replace("{q}", query)).then(response => response.json()).then(data => opts.items = data);
+            fetch(opts.url.replace("{q}", encodeURIComponent(query))).then(response => response.json()).then(data => opts.items = data);
         }
         var items = opts.items.filter(e => e.name.toLowerCase().includes(word.slice(1).toLowerCase())).map(item => eval('`<li class="mention-li-nt ${opts.lookup}" data-name = "${item.name}" data-id = "${item.id}">' + opts.item_template + "</li>`"));
         if (!items.length) return hideLookup();
@@ -448,10 +448,11 @@ function mentions(opts = {}) {
         if (!$lookup.hasAttribute("hidden")) $lookup.setAttribute("hidden", true);
     }
     function onClick(event) {
-        const deleteItem = event.target.classList.contains("mention-li-nt") ? event.target : event.target.parentElement;
-        opts.onclick(deleteItem.dataset);
+        const deleteItem = event.target.closest(".mention-li-nt");
         const $parent = $lookup.parentNode.querySelector("textarea");
-        $parent.value = $parent.value.replace($parent.value.substring(start + 1, end), "");
+        $parent.value = $parent.value.substring(0, start + 1) + $parent.value.substring(end);
+        $parent.setSelectionRange(start + 1, start + 1);
+        opts.onclick(deleteItem.dataset);
         hideLookup();
     }
     function onHover(event) {
