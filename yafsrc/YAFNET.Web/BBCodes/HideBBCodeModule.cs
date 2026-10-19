@@ -125,7 +125,7 @@ public class HideBBCodeModule : BBCodeControl
             }
 
             if (this.DisplayUserID == userId ||
-                this.GetRepository<Thanks>().Count(t => t.ThanksFromUserID == userId) >= thanksCount)
+                this.GetRepository<Thanks>().Count(t => t.ThanksToUserID == userId) >= thanksCount)
             {
                 shownContent = hiddenContent;
             }

@@ -522,6 +522,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Watch mails: one watcher with a stored address that is no mail address (e.g. an imported user) stopped the mails to all watchers and showed an error after the post was saved; that watcher is skipped now
 * [FIXED] Admin -> Banned IPs, e-mails and names: the ban date was stored in the time of the server but shown converted from UTC, it was off by the time zone of the server
 * [FIXED] The guest and admin users of a new board got the join and last visit date in the time of the server (all dates are stored in UTC), and the "popular topic" icon compared the time of the last post (UTC) with the time of the server
+* [FIXED] The [hide-thanks=x] BBCode counted the thanks the reader gave instead of the thanks received (as the BBCode and its message describe), the hidden content was shown to users who just thanked often enough
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
