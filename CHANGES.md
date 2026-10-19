@@ -538,6 +538,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] New boards created a "Registered" role instead of "Registered Users" (the member group), the upgrade renames an existing "Registered" role (or moves its members to "Registered Users") for all old versions
 * [FIXED] Search: the tag search didn't find new topics (the tags were saved after the post was added to the search index, changed tags were not updated), posts waiting for approval were indexed without the tags and the description of the topic
 * [FIXED] Search: the user and the tag filter without a search text only searched the tag, a name or tag with a space also found other users and tags
+* [FIXED] Search: a failed search kept the loading dialog open and hid the results (also of the next searches)
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

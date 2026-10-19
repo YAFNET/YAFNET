@@ -302,7 +302,15 @@ function getSearchResultsData(pageNumber: number): void {
 				}
 			}).catch((error: any) => {
 				console.log(error);
-				document.getElementById('SearchResultsPlaceholder')!.style.display = 'none';
+
+				// the loading dialog is closed (also while it is still opening) and the error is shown in the
+				// results, the next search shows its results again
+				document.getElementById('loadModal')?.addEventListener('shown.bs.modal', () => loadModal.hide(), { once: true });
+				loadModal.hide();
+
+				Utilities.empty(document.getElementById('SearchResultsPagerTop') as HTMLElement);
+				Utilities.empty(document.getElementById('SearchResultsPagerBottom') as HTMLElement);
+
 				placeHolder.textContent = error;
 			});
 		}
