@@ -421,7 +421,7 @@ public class LuceneSearchTests
     }
 
     [Test]
-    [Description("The results are shown with javascript (innerHTML): topic, description and tags are html encoded, the highlighting stays html")]
+    [Description("The results are shown with javascript (innerHTML): topic, description, tags and forum name are html encoded, the highlighting stays html")]
     public async Task Results_Are_Html_Encoded_Test()
     {
         const string evilTopic = "Cake <img src=x onerror=alert(1) x";
@@ -430,6 +430,7 @@ public class LuceneSearchTests
         var message = this.Message(1, 10, this.forumA, evilTopic, "cake recipe");
         message.Description = "<b>bold</b>";
         message.TopicTags = "<i>tag</i>";
+        message.ForumName = "Q&A <beta>";
         search.AddSearchIndexAsync([message]);
 
         var hit = (await this.NewSearch().SearchPagedAsync(0, "cake", 0, 10)).Item1.Single();
@@ -437,10 +438,14 @@ public class LuceneSearchTests
         hit.Topic.Should().NotContain("<img").And.Contain("&lt;img").And.Contain("<mark>Cake</mark>");
         hit.Description.Should().Be("&lt;b&gt;bold&lt;/b&gt;");
         hit.TopicTags.Should().Be("&lt;i&gt;tag&lt;/i&gt;");
+        hit.ForumName.Should().Be("Q&amp;A &lt;beta&gt;");
 
         var similar = this.NewSearch().SearchSimilar(string.Empty, "cake", "Topic").Single();
 
         similar.Topic.Should().Be("Cake &lt;img src=x onerror=alert(1) x");
+
+        // the similar topics show the forum name with razor (encoded there)
+        similar.ForumName.Should().Be("Q&A <beta>");
     }
 
     [Test]

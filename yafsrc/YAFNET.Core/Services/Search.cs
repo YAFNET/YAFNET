@@ -771,7 +771,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 doc.Get("ForumId").ToType<int>(),
                 doc.Get("ForumName")),
             UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
-            ForumName = doc.Get("ForumName"),
+            ForumName = HttpUtility.HtmlEncode(doc.Get("ForumName")),
             UserStyle = doc.Get("AuthorStyle")
         };
     }
