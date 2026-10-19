@@ -308,6 +308,9 @@ public class EditMessageModel : ForumPage
             await this.GetRepository<TopicTag>().DeleteAsync(x => x.TopicID == this.PageBoardContext.PageTopicID);
 
             await this.GetRepository<TopicTag>().AddTagsToTopicAsync(this.Input.TagsValue, this.PageBoardContext.PageTopicID);
+
+            // the search finds the topic with the changed tags
+            await this.GetRepository<Message>().UpdateSearchIndexOfTopicAsync(this.PageBoardContext.PageTopicID);
         }
 
         await this.UpdateWatchTopicAsync(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);

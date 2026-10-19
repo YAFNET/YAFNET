@@ -403,6 +403,9 @@ public class PostTopicModel : ForumPage
         if (this.Input.TagsValue.IsSet())
         {
             await this.GetRepository<TopicTag>().AddTagsToTopicAsync(this.Input.TagsValue, newMessage.TopicID);
+
+            // the post was added to the search index before the tags were saved
+            await this.GetRepository<Message>().UpdateSearchIndexOfTopicAsync(newMessage.TopicID);
         }
 
         // Check if message is approved

@@ -142,6 +142,32 @@ public class TopicMessageTests
     }
 
     [Test]
+    [Description("A reply waiting for the approval is added to the search index with the tags and the description of the topic (moderators find it)")]
+    public async Task Unapproved_Reply_Search_Index_Tags_Test()
+    {
+        var (topic, _) = await this.PostTopicAsync("Topic", "first");
+
+        await this.Topics.UpdateOnlyAsync(() => new Topic { Description = "The description" }, t => t.ID == topic.ID);
+        await this.board.Current.GetRepository<TopicTag>().AddTagsToTopicAsync("astronomy,stars", topic.ID);
+
+        var user = this.Users.GetById(this.board.PageUser.ID);
+
+        var reply = await this.Messages.SaveNewAsync(
+            this.Forums.GetById(this.forumId),
+            await this.Topics.GetByIdAsync(topic.ID),
+            user,
+            "second",
+            user.Name,
+            "127.0.0.1",
+            DateTime.UtcNow,
+            null,
+            new MessageFlags { IsHtml = true, IsBBCode = true, IsApproved = false });
+
+        this.board.Search.Indexed[reply.ID].TopicTags.Should().Be("astronomy,stars");
+        this.board.Search.Indexed[reply.ID].Description.Should().Be("The description");
+    }
+
+    [Test]
     [Description("Guests don't earn points and keep the name they entered")]
     public async Task Guest_Post_Test()
     {

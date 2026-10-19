@@ -1016,7 +1016,8 @@ public static class MessageRepositoryExtensions
 
             newMessage.ID = newMessageId;
 
-            // Add to search index
+            // Add to search index (a reply gets the tags and the description of the topic, the tags of a new topic are
+            // added to its index entries when they are saved)
             var newSearchMessage = new SearchMessage
             {
                 MessageId = newMessageId,
@@ -1030,9 +1031,9 @@ public static class MessageRepositoryExtensions
                 TopicId = topic.ID,
                 Topic = topic.TopicName,
                 ForumId = forum.ID,
-                TopicTags = string.Empty,
+                TopicTags = BoardContext.Current.GetRepository<TopicTag>().ListAsDelimitedString(topic.ID),
                 ForumName = forum.Name,
-                Description = string.Empty
+                Description = topic.Description
             };
 
             try
