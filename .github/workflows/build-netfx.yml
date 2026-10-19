@@ -24,3 +24,6 @@ jobs:
 
     - name: Build Solution
       run: msbuild ./yafsrc/YAF.NET-SqlServer.slnx -t:rebuild -property:Configuration=Release
+
+    - name: Test Solution
+      run: dotnet test ./yafsrc/YAF.NET-SqlServer.slnx
