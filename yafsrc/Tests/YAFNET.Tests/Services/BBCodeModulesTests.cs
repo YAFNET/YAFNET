@@ -104,6 +104,39 @@ public class BBCodeModulesTests
         this.board?.Dispose();
     }
 
+    [TestCase(null, 0)]
+    [TestCase("", 0)]
+    [TestCase("5", 5)]
+    [TestCase("99999999999", int.MaxValue)]
+    [Description("The number of a hide BBCode can be empty (0) or too big (nobody but the author and the admins)")]
+    public void ParseCount_Test(string value, int expected)
+    {
+        HideBBCodeModule.ParseCount(value).Should().Be(expected);
+    }
+
+    [TestCase("[hide-posts=]hidden text[/hide-posts]", true)]
+    [TestCase("[hide-posts=99999999999]hidden text[/hide-posts]", false)]
+    [TestCase("[hide-thanks=]hidden text[/hide-thanks]", true)]
+    [Description("A hide BBCode with an empty (0) or too big number (nobody) does not break the post")]
+    public async Task Hide_Invalid_Number_Test(string message, bool shown)
+    {
+        this.AddCode("HIDE-POSTS", HidePosts, typeof(HideBBCodeModule), "posts");
+        this.AddCode("HIDE-THANKS", HideThanks, typeof(HideBBCodeModule), "thanks");
+
+        var html = await this.FormatAsync($"before {message} after");
+
+        html.Should().StartWith("before ").And.EndWith(" after");
+
+        if (shown)
+        {
+            html.Should().Contain("hidden text");
+        }
+        else
+        {
+            html.Should().NotContain("hidden text");
+        }
+    }
+
     [Test]
     [Description("Hide-thanks shows the content to users who received enough thanks (not who gave them)")]
     public async Task Hide_Thanks_Counts_Received_Thanks_Test()
