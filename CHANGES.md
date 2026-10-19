@@ -378,6 +378,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Install: every request of the install page (also on the installed forum, by anyone) wrapped the shared connection string provider of the forum again and kept the page in memory
 * [FIXED] New boards created a "Registered" role instead of "Registered Users" (the member group), the upgrade renames an existing "Registered" role (or moves its members to "Registered Users") for all old versions
 * [FIXED] Search: the tag search didn't find new topics (the posts were added to the search index without the tags, changed tags were not updated), posts waiting for approval were indexed without the tags and the description of the topic
+* [FIXED] Search: the user and the tag filter without a search text only searched the tag, a name or tag with a space also found other users and tags
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

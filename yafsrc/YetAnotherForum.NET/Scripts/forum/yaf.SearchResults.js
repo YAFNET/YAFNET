@@ -60,23 +60,11 @@
         if (searchInputUser.length && searchInputUser.length >= minimumLength) {
             var author = useDisplayName ? 'AuthorDisplay' : 'Author';
 
-            if (searchText.length) searchText += ' ';
-
-            if (searchInput.length) {
-                searchText += `AND ${author}:${searchInputUser}`;
-            } else {
-                searchText = `+${author}:${searchInputUser}`;
-            }
+            searchText = addSearchFilter(searchText, author, searchInputUser);
         }
 
         if (searchInputTag.length && searchInputTag.length >= minimumLength) {
-            if (searchText.length) searchText += ' ';
-
-            if (searchInput.length) {
-                searchText += `AND TopicTags:${searchInputTag}`;
-            } else {
-                searchText = `+TopicTags:${searchInputTag}`;
-            }
+            searchText = addSearchFilter(searchText, 'TopicTags', searchInputTag);
         }
 
         var searchTopic = {};
@@ -171,6 +159,14 @@
             placeHolder.textContent = error;
         });
     }
+}
+
+// adds a required filter (user name or tag) to the search: the value is searched as phrase (a name can
+// contain spaces), the filter is combined with the other search terms and filters
+function addSearchFilter(searchText, field, value) {
+    const filter = `${field}:"${value.replace(/["\\]/g, '')}"`;
+
+    return searchText.length ? `${searchText} AND ${filter}` : `+${filter}`;
 }
 
 function setSearchPageNumber(pageSize, pageNumber, total) {
