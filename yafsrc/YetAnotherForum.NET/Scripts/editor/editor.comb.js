@@ -359,7 +359,7 @@ AutoCloseTags.prototype = {
                 const after = this.value.slice(this.selectionEnd, this.value.length);
                 let tagName;
                 try {
-                    tagName = before.match(/\[([^\]]+)$/)[1].match(/^([a-z1-6]+)/)[1];
+                    tagName = before.match(/\[([^\]]+)$/)[1].match(/^([a-z1-6-]+)/)[1];
                 } catch (e) {
                     return;
                 }

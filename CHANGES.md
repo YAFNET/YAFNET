@@ -383,6 +383,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] BBCode editor: "Remove format" changed the first occurrence of the selected text in the message (not the selection), "Outdent" removed other characters when the selection didn't start and end with the indent tags
 * [FIXED] BBCode editor: a cancelled media dialog inserted [media]null[/media]
 * [FIXED] BBCode editor: the paste button added the text at the end of the message instead of at the cursor
+* [FIXED] BBCode editor: tags with a - (e.g. [hide-thanks=1]) were closed with the wrong tag ([/hide])
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

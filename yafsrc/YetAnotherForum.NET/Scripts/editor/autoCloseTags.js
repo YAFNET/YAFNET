@@ -36,7 +36,8 @@ AutoCloseTags.prototype = {
                     let tagName;
 
                     try {
-                        tagName = before.match(/\[([^\]]+)$/)[1].match(/^([a-z1-6]+)/)[1];
+                        // the names can contain a "-" (e.g. hide-thanks, group-hide)
+                        tagName = before.match(/\[([^\]]+)$/)[1].match(/^([a-z1-6-]+)/)[1];
                     } catch (e) {
                         return;
                     }
