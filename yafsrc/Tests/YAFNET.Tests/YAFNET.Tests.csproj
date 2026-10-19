@@ -22,7 +22,7 @@
     <ProjectReference Include="..\..\ServiceStack\ServiceStack.OrmLite.MySql\ServiceStack.OrmLite.MySql.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Acornima" Version="1.8.0" />
+    <PackageReference Include="Acornima" Version="1.9.0" />
     <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
     <PackageReference Include="coverlet.collector" Version="10.1.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
