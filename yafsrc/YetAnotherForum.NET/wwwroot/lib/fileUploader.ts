@@ -168,6 +168,20 @@ class FileUploader {
         document.getElementById('gallery')?.appendChild(listItem);
     }
 
+    private showError(message: string): void {
+        const _ = new Notify({
+                title: this.config.errorTitle,
+                message: message,
+                icon: 'fa fa-exclamation-triangle'
+            },
+            {
+                type: 'danger',
+                element: 'body',
+                placement: { from: 'top', align: 'center' },
+                delay: this.config.errorDelay * 1000
+            });
+    }
+
     private uploadFile(file: File, index: number): void {
         const url = this.config.url;
         if (!url) return;
@@ -194,23 +208,22 @@ class FileUploader {
 		        const response = JSON.parse(xhr.response) as any;
 
 		        if (response[0].error) {
-			        const _ = new Notify({
-					        title: this.config.errorTitle,
-					        message: response[0].error,
-					        icon: 'fa fa-exclamation-triangle'
-				        },
-				        {
-					        type: 'danger',
-					        element: 'body',
-					        placement: { from: 'top', align: 'center' },
-					        delay: this.config.errorDelay * 1000
-				        });
+			        this.showError(response[0].error);
 		        } else {
 			        _global.insertAttachment(response[0].fileID, response[0].fileID);
+
+			        // the list of the attachments of the upload dialog shows the uploaded file
+			        _global.getPaginationData?.(5, 0, false);
 		        }
 
 	        } else if (xhr.readyState === 4) {
+		        // e.g. a file larger than the request limit of the server
 		        console.error(xhr);
+
+		        const message = document.createElement('span');
+		        message.textContent = `${file.name}: ${xhr.status} ${xhr.statusText}`;
+
+		        this.showError(message.innerHTML);
 	        }
         };
 
