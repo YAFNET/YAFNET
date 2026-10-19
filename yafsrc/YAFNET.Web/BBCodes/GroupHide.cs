@@ -46,51 +46,47 @@ public class GroupHide : BBCodeControl
             return;
         }
 
-        var descriptionGuest = this.LocalizedString(
-            "HIDDENMOD_GUEST",
-            "This board requires you to be registered and logged-in before you can view hidden messages.");
-
-        var shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
-
-        if (groupString.IsNotSet())
-        {
-            // Hide from Guests only
-            if (BoardContext.Current.IsGuest)
-            {
-                stringBuilder.Append(shownContentGuest);
-                return;
-            }
-        }
-        else
-        {
-            if (BoardContext.Current.IsGuest)
-            {
-                stringBuilder.Append(shownContentGuest);
-                return;
-            }
-
-            descriptionGuest = this.LocalizedString(
-                "HIDDENMOD_GROUP",
-                "You don´t have the right to see the Hidden Content.");
-
-            shownContentGuest = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>";
-
-            var groups = groupString.Split(';');
-
-            // Check For Role Hiding
-            if ((await this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(
-                     BoardContext.Current.MembershipUser)).Any(role => !groups.Exists(role.Equals)))
-            {
-                shownContentGuest = hiddenContent;
-            }
-        }
-
-        // Override Admin, or PageUser is Post Author
+        // the admins and the author of the post always see the content
         if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.PageUserID)
         {
-            shownContentGuest = hiddenContent;
+            stringBuilder.Append(hiddenContent);
+            return;
         }
 
-        stringBuilder.Append(shownContentGuest);
+        if (BoardContext.Current.IsGuest)
+        {
+            var descriptionGuest = this.LocalizedString(
+                "HIDDENMOD_GUEST",
+                "This board requires you to be registered and logged-in before you can view hidden messages.");
+
+            stringBuilder.Append($"<div class=\"alert alert-danger\" role=\"alert\">{descriptionGuest}</div>");
+            return;
+        }
+
+        // without roles the content is only hidden from guests
+        if (groupString.IsNotSet())
+        {
+            stringBuilder.Append(hiddenContent);
+            return;
+        }
+
+        // with roles the content is shown to the members of one of the roles (it was shown to the users with
+        // any other role)
+        var groups = groupString.Split(';').Select(g => g.Trim()).Where(g => g.Length > 0).ToList();
+
+        var isMember = (await this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(BoardContext.Current.MembershipUser))
+            .Any(role => groups.Exists(group => group.Equals(role, StringComparison.OrdinalIgnoreCase)));
+
+        if (isMember)
+        {
+            stringBuilder.Append(hiddenContent);
+            return;
+        }
+
+        var description = this.LocalizedString(
+            "HIDDENMOD_GROUP",
+            "You don´t have the right to see the Hidden Content.");
+
+        stringBuilder.Append($"<div class=\"alert alert-danger\" role=\"alert\">{description}</div>");
     }
 }

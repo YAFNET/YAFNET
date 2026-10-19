@@ -158,6 +158,48 @@ public class BBCodeModulesTests
         (await this.FormatAsync("[hide-thanks=1]secret[/hide-thanks]")).Should().Contain("secret");
     }
 
+    [TestCase("Editors", "Editors", true)]
+    [TestCase("Editors", "editors", true)]
+    [TestCase("Editors; Admins", "Admins", true)]
+    [TestCase("Editors", "Members;Editors", true)]
+    [TestCase("Editors", "Members", false)]
+    [TestCase("Editors", "", false)]
+    [Description("[group-hide=roles] shows the content to the members of one of the roles, not to other users")]
+    public async Task Group_Hide_Test(string groups, string roles, bool shown)
+    {
+        this.AddCode("GROUP-HIDE", GroupHideRegex, typeof(GroupHide), "group");
+        this.readerRoles.AddRange(roles.Split(';', StringSplitOptions.RemoveEmptyEntries));
+
+        var html = await this.FormatAsync($"[group-hide={groups}]secret[/group-hide]");
+
+        if (shown)
+        {
+            html.Should().Contain("secret");
+        }
+        else
+        {
+            html.Should().NotContain("secret");
+        }
+    }
+
+    [Test]
+    [Description("[group-hide] without roles hides the content from guests only, the author always sees it")]
+    public async Task Group_Hide_Guests_And_Author_Test()
+    {
+        this.AddCode("GROUP-HIDE", GroupHideRegex, typeof(GroupHide), "group");
+
+        (await this.FormatAsync("[group-hide]for members[/group-hide]")).Should().Contain("for members");
+
+        // the author of the post
+        this.board.LoginAs(this.author);
+        (await this.FormatAsync("[group-hide=Editors]secret[/group-hide]")).Should().Contain("secret");
+
+        // a guest
+        this.board.LoginAs(this.reader);
+        this.board.User.IsGuest = true;
+        (await this.FormatAsync("[group-hide]for members[/group-hide]")).Should().NotContain("for members");
+    }
+
     [TestCase("1.5")]
     [TestCase("99999999999")]
     [TestCase("(5)")]
