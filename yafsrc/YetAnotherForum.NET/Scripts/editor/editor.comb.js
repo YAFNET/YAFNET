@@ -266,7 +266,7 @@ function removeFormat(input) {
         const regex = /\[.*?\]/g;
         const replacedText = selectedText.replace(regex, "");
         const replacedLength = selectedText.length - replacedText.length;
-        input.value = input.value.replace(selectedText, replacedText);
+        input.value = input.value.substring(0, selectionStart) + replacedText + input.value.substring(selectionEnd);
         setSelectionRange(input, selectionStart, selectionEnd - replacedLength);
     }
 }
@@ -305,13 +305,11 @@ function removeFromSelection(input, preString, postString) {
         const selectionStart = input.selectionStart;
         const selectionEnd = input.selectionEnd;
         const selectedText = input.value.substring(selectionStart, selectionEnd);
-        if (selectedText.indexOf(preString) != -1 && selectedText.indexOf(postString) != -1) {
-            input.value = input.value.substring(0, selectionStart) + input.value.substring(selectionStart + preString.length, selectionEnd - postString.length) + input.value.substring(selectionEnd);
-            if (selectionStart != selectionEnd) {
-                setSelectionRange(input, selectionStart, selectionEnd - postString.length - preString.length);
-            } else {
-                setCaretToPos(input, selectionStart + preString.length);
-            }
+        const preIndex = selectedText.indexOf(preString), postIndex = selectedText.lastIndexOf(postString);
+        if (preIndex != -1 && postIndex >= preIndex + preString.length) {
+            const replacedText = selectedText.substring(0, preIndex) + selectedText.substring(preIndex + preString.length, postIndex) + selectedText.substring(postIndex + postString.length);
+            input.value = input.value.substring(0, selectionStart) + replacedText + input.value.substring(selectionEnd);
+            setSelectionRange(input, selectionStart, selectionStart + replacedText.length);
         }
     }
 }

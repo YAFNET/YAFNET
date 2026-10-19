@@ -257,7 +257,8 @@ function removeFormat(input) {
 
         const replacedLength = selectedText.length - replacedText.length;
 
-        input.value = input.value.replace(selectedText, replacedText);
+        // only the selection is changed (the same text can be in the message before the selection)
+        input.value = input.value.substring(0, selectionStart) + replacedText + input.value.substring(selectionEnd);
 
         setSelectionRange(input, selectionStart, selectionEnd - replacedLength);
     }
@@ -306,20 +307,21 @@ function removeFromSelection(input, preString, postString) {
 
         const selectedText = input.value.substring(selectionStart, selectionEnd);
 
-        if (selectedText.indexOf(preString) != -1 && selectedText.indexOf(postString) != -1) {
+        // the first opening and the last closing tag of the selection are removed (the selection can start
+        // or end with other text)
+        const preIndex = selectedText.indexOf(preString),
+            postIndex = selectedText.lastIndexOf(postString);
+
+        if (preIndex != -1 && postIndex >= preIndex + preString.length) {
+            const replacedText = selectedText.substring(0, preIndex)
+                + selectedText.substring(preIndex + preString.length, postIndex)
+                + selectedText.substring(postIndex + postString.length);
 
             input.value = input.value.substring(0, selectionStart)
-                + input.value.substring(selectionStart + preString.length, selectionEnd - postString.length)
+                + replacedText
                 + input.value.substring(selectionEnd);
 
-            if (selectionStart != selectionEnd) {
-                // has there been a selection
-                setSelectionRange(input, selectionStart, selectionEnd - postString.length - preString.length);
-            }
-            else {
-                // set caret
-                setCaretToPos(input, selectionStart + (preString).length);
-            }
+            setSelectionRange(input, selectionStart, selectionStart + replacedText.length);
         }
     }
 }
