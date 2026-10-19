@@ -517,6 +517,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Delete account: the title of the page in the browser was a missing text (wrong text call)
 * [FIXED] Attachments: the upload dialog stayed open when the upload ended while the dialog was still opening (fast uploads)
 * [FIXED] Active users: the location of pages like the profile settings, the login or a new topic was shown as [ACTIVELOCATION.PAGE] (and logged as a missing translation)
+* [FIXED] Emoji short codes and ascii smileys inside code blocks of several lines were turned into emoji
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

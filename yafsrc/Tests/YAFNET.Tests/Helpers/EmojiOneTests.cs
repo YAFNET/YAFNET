@@ -63,6 +63,15 @@ public class EmojiOneTests
     }
 
     [Test]
+    [Description("Short names and smileys inside a code block of several lines stay text")]
+    public void Code_Block_Is_Kept_Test()
+    {
+        const string code = "<pre class=\"line-numbers\"><code>first line\n[td] :D [grinning]\n</code></pre>";
+
+        EmojiOne.ShortNameToUnicode($"{code} :D", true).Should().Be($"{code} 😃");
+    }
+
+    [Test]
     [Description("Every short name is converted to its characters, and those characters back to the same code")]
     public void All_Short_Names_Round_Trip_Test()
     {
