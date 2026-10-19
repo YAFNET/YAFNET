@@ -250,7 +250,7 @@ yafEditor.prototype.FormatText = function(command, option) {
 
       case "paste":
         navigator.clipboard.readText().then(function(textFromClipboard) {
-            textObj.value += textFromClipboard;
+            replaceSelection(textObj, textFromClipboard);
         });
         break;
 

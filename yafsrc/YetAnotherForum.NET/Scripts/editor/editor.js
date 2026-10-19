@@ -236,8 +236,9 @@ yafEditor.prototype.FormatText = function(command, option) {
 		}
 		break;
 	case 'paste':
+		// the text is pasted at the cursor (or replaces the selection), not added at the end
 		navigator.clipboard.readText().then(function(textFromClipboard) {
-			textObj.value += textFromClipboard;
+			replaceSelection(textObj, textFromClipboard);
 		});
 		break;
 	default:
