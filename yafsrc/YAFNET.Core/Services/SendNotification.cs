@@ -318,7 +318,12 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
             var fromAddress = MailboxAddress.Parse(forumEmail);
             fromAddress.Name = boardName;
 
-            var toAddress = MailboxAddress.Parse(user.Email);
+            // a stored address that is no mail address (e.g. of an imported user) gets no mail, the other watchers get theirs
+            if (!MailboxAddress.TryParse(user.Email, out var toAddress))
+            {
+                continue;
+            }
+
             toAddress.Name = this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name;
 
             mailMessages.Add(await watchEmail.CreateEmailAsync(fromAddress, toAddress, subject));

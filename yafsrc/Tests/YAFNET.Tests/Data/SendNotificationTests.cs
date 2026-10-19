@@ -253,6 +253,25 @@ public class SendNotificationTests
     }
 
     [Test]
+    [Description("A watcher with an address that is no mail address (e.g. an imported user) gets no mail, the other watchers get theirs and the post does not fail")]
+    public async Task ToWatchingUsers_Invalid_Address_Test()
+    {
+        var message = this.db.AddMessage(this.topic, this.alice, "hello watchers");
+        this.GrantReadAccess(this.bob, this.carol);
+
+        using (var connection = this.db.Open())
+        {
+            connection.UpdateOnly(() => new User { Email = "no address" }, u => u.ID == this.bob);
+            connection.Insert(new WatchTopic { UserID = this.bob, TopicID = this.topic, Created = DateTime.UtcNow });
+            connection.Insert(new WatchTopic { UserID = this.carol, TopicID = this.topic, Created = DateTime.UtcNow });
+        }
+
+        await this.Notifications.ToWatchingUsersAsync(message);
+
+        this.mail.Recipients.Should().Equal("carol@example.com");
+    }
+
+    [Test]
     [Description("Without watchers no mail is sent")]
     public async Task ToWatchingUsers_No_Watchers_Test()
     {
