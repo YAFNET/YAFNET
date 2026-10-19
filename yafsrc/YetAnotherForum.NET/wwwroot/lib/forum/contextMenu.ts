@@ -35,10 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
-                contextMenu!.style.left = `${(e as any).detail.pageX}px`;
-                contextMenu!.style.top = `${(e as any).detail.pageY}px`;
-                contextMenu!.style.display = 'block';
-                contextMenu!.classList.add('show');
+                showContextMenu(contextMenu!, (e as any).detail.pageX, (e as any).detail.pageY);
             });
         }
 
@@ -60,11 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
-                contextMenu.style.display = 'block';
-                contextMenu.style.left = e.offsetX + 'px';
-                contextMenu.style.top = e.offsetY + 'px';
-
-                contextMenu.classList.add('show');
+                showContextMenu(contextMenu, e.pageX, e.pageY);
 
                 return false;
             });
@@ -112,6 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 });
+
+// shows the menu at the position of the click (the position in the page), the menu is positioned in its
+// offset parent (the offset of the event is the one in the clicked element, e.g. a quote of the post)
+function showContextMenu(contextMenu: HTMLElement, pageX: number, pageY: number): void {
+    contextMenu.style.display = 'block';
+
+    const parent = (contextMenu.offsetParent as HTMLElement | null) ?? document.body,
+        rect = parent.getBoundingClientRect();
+
+    contextMenu.style.left = `${pageX - (rect.left + window.scrollX + parent.clientLeft)}px`;
+    contextMenu.style.top = `${pageY - (rect.top + window.scrollY + parent.clientTop)}px`;
+
+    contextMenu.classList.add('show');
+}
 
 export function goToURL(messageId: number, input: string, url: string): void {
     window.location.href = `${url}&q=${messageId}&text=${encodeURIComponent(input)}`;

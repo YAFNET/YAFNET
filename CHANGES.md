@@ -545,6 +545,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] BBCode editor: tags with a - (e.g. [hide-thanks=1]) were closed with the wrong tag ([/hide])
 * [FIXED] BBCode editor mentions: selecting a user removed the typed letters from the first word that contained them (not after the @)
 * [FIXED] Upload dialog: the attachment list didn't show the uploaded files until the page was loaded again, a refused upload (e.g. too large for the server) showed no error
+* [FIXED] Context menu of posts: the menu was opened away from the click when a part of the post (e.g. bold text) was clicked or on a long press on phones
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
