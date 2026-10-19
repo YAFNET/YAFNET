@@ -350,6 +350,9 @@ public partial class EditMessage : ForumPage
             this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageBoardContext.PageTopicID);
 
             this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, this.PageBoardContext.PageTopicID);
+
+            // the search finds the topic with the changed tags
+            this.GetRepository<Message>().UpdateSearchIndexOfTopic(this.PageBoardContext.PageTopicID);
         }
 
         this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);

@@ -452,6 +452,9 @@ public partial class PostTopic : ForumPage
         if (this.TagsValue.Value.IsSet())
         {
             this.GetRepository<TopicTag>().AddTagsToTopic(this.TagsValue.Value, newMessage.TopicID);
+
+            // the post was added to the search index before the tags were saved
+            this.GetRepository<Message>().UpdateSearchIndexOfTopic(newMessage.TopicID);
         }
 
         // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
