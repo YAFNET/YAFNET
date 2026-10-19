@@ -118,7 +118,10 @@ _global.yafEditor = class yafEditor {
                             title: this.MediaTitle,
                             placeholder: 'https://',
                             callback: (url: string) => {
-	                            replaceSelection(textObj, `[media]${url}[/media]`);
+	                            // nothing is inserted when the dialog is cancelled (url is null) or no address entered
+	                            if (url) {
+		                            replaceSelection(textObj, `[media]${url}[/media]`);
+	                            }
                             }
                         });
                     }
