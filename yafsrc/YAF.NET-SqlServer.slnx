@@ -16,7 +16,6 @@
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="../tests/YAF.Tests/YAF.Tests.csproj" />
-    <Project Path="../tests/YAF.Tests.UITests/YAF.Tests.UITests.csproj" />
   </Folder>
   <Folder Name="/Third-Party Libs/" />
   <Folder Name="/Third-Party Libs/Lucene.Net/">
