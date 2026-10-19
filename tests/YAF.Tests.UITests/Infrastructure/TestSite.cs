@@ -80,7 +80,7 @@ public sealed class TestSite : IDisposable
         if (!File.Exists(Path.Combine(source, "bin", "YAF.dll")))
         {
             throw new InvalidOperationException(
-                $"The forum is not built ({source}\\bin\\YAF.dll is missing), build yafsrc\\YAF.NET-SqlServer.slnx first.");
+                $@"The forum is not built ({source}\bin\YAF.dll is missing), build yafsrc\YAF.NET-SqlServer.slnx first.");
         }
 
         var root = Path.Combine(Path.GetTempPath(), "yaf-uitests");
