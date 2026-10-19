@@ -41,12 +41,13 @@ public class Attach : BBCodeControl
     {
         var attachId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 
-        if (!ValidationHelper.IsNumeric(attachId))
+        // only whole numbers ("1.5" or a too big number counted as numeric and failed the post)
+        if (!int.TryParse(attachId, out var id))
         {
             return Task.CompletedTask;
         }
 
-        var attachment = this.GetRepository<Attachment>().GetById(attachId.ToType<int>());
+        var attachment = this.GetRepository<Attachment>().GetById(id);
 
         // only the attachments of the author of the post (or signature): the id of any attachment could be
         // entered, it was shown with its download link (the author of a guest post is the guest user)

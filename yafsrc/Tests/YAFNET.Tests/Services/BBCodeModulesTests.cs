@@ -158,6 +158,21 @@ public class BBCodeModulesTests
         (await this.FormatAsync("[hide-thanks=1]secret[/hide-thanks]")).Should().Contain("secret");
     }
 
+    [TestCase("1.5")]
+    [TestCase("99999999999")]
+    [TestCase("(5)")]
+    [TestCase("1e3")]
+    [Description("An attachment or album image id that is no whole number does not break the post")]
+    public async Task Invalid_Id_Test(string id)
+    {
+        this.AddCode("ATTACH", AttachRegex, typeof(Attach));
+        this.AddCode("ALBUMIMG", AlbumImageRegex, typeof(AlbumImage));
+
+        var html = await this.FormatAsync($"before [attach]{id}[/attach] [albumimg]{id}[/albumimg] after");
+
+        html.Should().StartWith("before ").And.EndWith(" after");
+    }
+
     private Task<string> FormatAsync(string message)
     {
         return this.board.Resolve<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(message, 1, this.author);
