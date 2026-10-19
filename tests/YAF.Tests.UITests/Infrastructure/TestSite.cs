@@ -97,7 +97,15 @@ public sealed class TestSite : IDisposable
         Directory.CreateDirectory(mailFolder);
         Directory.CreateDirectory(Path.Combine(siteFolder, "App_Data"));
 
-        PatchWebConfig(Path.Combine(siteFolder, "recommended.web.config"), mailFolder);
+        var webConfig = Path.Combine(siteFolder, "web.config");
+
+        // the web.config is not in the repository (e.g. on the build server), the site uses the recommended one
+        if (!File.Exists(webConfig))
+        {
+            File.Copy(Path.Combine(siteFolder, "recommended.web.config"), webConfig);
+        }
+
+        PatchWebConfig(webConfig, mailFolder);
 
         RecreateDatabase();
 
@@ -279,7 +287,7 @@ public sealed class TestSite : IDisposable
         var document = XDocument.Load(webConfig);
         var configuration = document.Root!;
 
-        var connectionStrings = configuration.Element("connectionStrings")!;
+        var connectionStrings = GetOrAdd(configuration, "connectionStrings");
         connectionStrings.RemoveNodes();
         connectionStrings.Add(
             new XElement(
