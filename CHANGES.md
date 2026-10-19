@@ -527,6 +527,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] [attach] and [albumimg] with an id that is a number but no whole number (e.g. 1.5, 1e3, (5) or a too big number) failed with an error and broke the topic page for every reader
 * [FIXED] The [group-hide=role] BBCode showed the hidden content to the users with any other role and hid it from the members of the given roles, and [group-hide] without roles hid the content from all members (not only from guests); the content is shown to the members of one of the roles now (without roles to all members), the description says so
 * [FIXED] The team page (and the admin page access list) listed disabled and not approved admins
+* [FIXED] The [userlink] example of the BBCode help showed the address of YAF 1.x (yaf_profile1234.aspx, without a slash after the forum address)
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
