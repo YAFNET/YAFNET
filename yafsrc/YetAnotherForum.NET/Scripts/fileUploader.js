@@ -82,7 +82,7 @@ var FileUploader = (function () {
         if (bytes === 0) return 'n/a';
         const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10);
         if (i === 0) return `${bytes}${separator}${sizes[i]}`;
-        return `${(bytes / (1024 * i)).toFixed(1)}${separator}${sizes[i]}`;
+        return `${(bytes / Math.pow(1024, i)).toFixed(1)}${separator}${sizes[i]}`;
     };
 
     fileUploader.prototype.handleDrop = function (e, self) {
@@ -133,11 +133,23 @@ var FileUploader = (function () {
         bootstrap.Modal.getInstance('#UploadDialog').hide();
 
         if (document.querySelector('#fileupload .alert-danger') != null) {
-            bootstrap.Alert.getInstance('#fileupload .alert-danger').close();
+            bootstrap.Alert.getOrCreateInstance('#fileupload .alert-danger').close();
         }
+    };
 
-        const pageSize = 5, pageNumber = 0;
-        getPaginationData(pageSize, pageNumber, false);
+    fileUploader.prototype.showError = function (self, message) {
+        const _ = new Notify({
+                title: self.config.errorTitle,
+                message: message,
+                icon: 'fa fa-exclamation-triangle'
+            },
+            {
+                type: 'danger',
+                element: 'body',
+                position: null,
+                placement: { from: 'top', align: 'center' },
+                delay: self.config.errorDelay * 1000
+            });
     };
 
     fileUploader.prototype.previewFile = function (self, file) {
@@ -153,11 +165,14 @@ var FileUploader = (function () {
                                  <small class="text-body-secondary size">${self.bytesToSize(file.size)}</small>
                              </div>
                              <div class="mb-1">
-                                 <p class="name">${file.name}</p>
+                                 <p class="name"></p>
                              </div>
                              <small class="text-body-secondary">
                              <div class="btn-group" role="group">
                              </div></small>`;
+
+        // the file name is a text
+        listItem.querySelector('.name').textContent = file.name;
 
         if (file.type.match('image.*')) {
             const img = document.createElement('img'),
@@ -203,24 +218,19 @@ var FileUploader = (function () {
                 const response = JSON.parse(xhr.response);
 
                 if (response[0].error) {
-                    const _ = new Notify({
-                            title: self.config.errorTitle,
-                            message: response[0].error,
-                            icon: 'fa fa-exclamation-triangle'
-                        },
-                        {
-                            type: 'danger',
-                            element: 'body',
-                            position: null,
-                            placement: { from: 'top', align: 'center' },
-                            delay: self.config.errorDelay * 1000
-                        });
+                    self.showError(self, response[0].error);
                 } else {
                     insertAttachment(response[0].fileID, response[0].fileID);
+
+                    // the list of the attachments shows the uploaded file (the upload ends after the dialog is closed)
+                    const pageSize = 5, pageNumber = 0;
+                    getPaginationData(pageSize, pageNumber, false);
                 }
             }
-            else if (xhr.readyState === 4 && xhr.status !== 200) {
+            else if (xhr.readyState === 4) {
+                // e.g. a file larger than the request limit of the server
                 console.log(xhr);
+                self.showError(self, escapeHtml(`${file.name}: ${xhr.status} ${xhr.statusText}`));
             }
         });
 

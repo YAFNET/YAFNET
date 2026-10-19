@@ -385,6 +385,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] BBCode editor: the paste button added the text at the end of the message instead of at the cursor
 * [FIXED] BBCode editor: tags with a - (e.g. [hide-thanks=1]) were closed with the wrong tag ([/hide])
 * [FIXED] BBCode editor mentions: selecting a user removed the typed letters from the first word that contained them (not after the @), a click on the avatar inserted "undefined", names with & # + were not found
+* [FIXED] Upload dialog: the attachment list was loaded before the upload ended (the new attachment was missing), a refused upload (e.g. too large for the server) showed no error, the sizes of the selected files were wrong
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes
