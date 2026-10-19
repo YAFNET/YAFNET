@@ -262,6 +262,12 @@ public class ControllerActionTests
         this.board.PageLoad.LastPosted = DateTime.UtcNow.AddSeconds(-10);
         Notification(await this.QuickReplyAsync("again")).MessageType.Should().Be(nameof(MessageTypes.warning));
 
+        // the whole remaining time (not only the seconds part of it: 90 seconds were 30)
+        this.board.Localization.Add("DEFAULT", "WAIT", "wait {0} seconds");
+        this.board.BoardSettings.PostFloodDelay = 120;
+        this.board.PageLoad.LastPosted = DateTime.UtcNow.AddSeconds(-30);
+        Notification(await this.QuickReplyAsync("again")).Message.Should().Be("wait 90 seconds");
+
         (await this.Messages.CountAsync(m => m.UserID == this.bob)).Should().Be(0);
     }
 

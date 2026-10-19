@@ -137,9 +137,9 @@ public class PostsModalController : ForumBaseController
                     new MessageModalNotification(
                         this.GetTextFormatted(
                             "wait",
-                            (lastPosted.Value
+                            (int)Math.Ceiling((lastPosted.Value
                              - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
-                            .Seconds),
+                            .TotalSeconds)),
                         MessageTypes.warning));
             }
 
