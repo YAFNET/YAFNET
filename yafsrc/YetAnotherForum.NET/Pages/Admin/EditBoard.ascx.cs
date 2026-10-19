@@ -121,11 +121,13 @@ public partial class EditBoard : AdminPage
             }
 
             // Create groups required for the new board
-            this.Get<IAspNetRolesHelper>().CreateRole("Administrators");
-            this.Get<IAspNetRolesHelper>().CreateRole("Registered");
+            var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
+
+            this.Get<IAspNetRolesHelper>().CreateRole($"{prefix}Administrators");
+            this.Get<IAspNetRolesHelper>().CreateRole($"{prefix}Registered Users");
 
             // Add new admin users to group
-            this.Get<IAspNetRolesHelper>().AddUserToRole(user, "Administrators");
+            this.Get<IAspNetRolesHelper>().AddUserToRole(user, $"{prefix}Administrators");
 
             // Create Board
             newBoardId = this.DbCreateBoard(

@@ -155,19 +155,10 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             this.Get<Migration82>().MigrateDatabase(this.DbAccess);
         }
 
+        this.RenameRegisteredRole();
+
         if (prevVersion is 80 or 81 or 82 or 83)
         {
-            var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
-
-            var registeredRole = this.GetRepository<AspNetRoles>().GetSingle(x => x.Name == $"{prefix}Registered");
-
-            if (registeredRole != null)
-            {
-                registeredRole.Name = $"{prefix}Registered Users";
-
-                this.GetRepository<AspNetRoles>().Update(registeredRole);
-            }
-
             var users = this.Get<IAspNetUsersHelper>().GetAllUsers();
 
             users.ForEach(
@@ -273,6 +264,46 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Renames the "Registered" role (of older versions and boards created with the admin page) to
+    /// "Registered Users", the name of the member group. If both roles exist the members are moved
+    /// to "Registered Users" and "Registered" is deleted.
+    /// </summary>
+    private void RenameRegisteredRole()
+    {
+        var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
+
+        var roles = this.GetRepository<AspNetRoles>();
+
+        var registeredRole = roles.GetSingle(x => x.Name == $"{prefix}Registered");
+
+        if (registeredRole == null)
+        {
+            return;
+        }
+
+        var registeredUsersRole = roles.GetSingle(x => x.Name == $"{prefix}Registered Users");
+
+        if (registeredUsersRole == null)
+        {
+            registeredRole.Name = $"{prefix}Registered Users";
+
+            roles.Update(registeredRole);
+
+            return;
+        }
+
+        var userRoles = this.GetRepository<AspNetUserRoles>();
+
+        var members = userRoles.Get(r => r.RoleId == registeredUsersRole.Id).Select(r => r.UserId).ToList();
+
+        userRoles.Get(r => r.RoleId == registeredRole.Id).Where(r => !members.Contains(r.UserId)).ForEach(
+            r => userRoles.Insert(new AspNetUserRoles { UserId = r.UserId, RoleId = registeredUsersRole.Id }));
+
+        userRoles.Delete(r => r.RoleId == registeredRole.Id);
+        roles.Delete(r => r.Id == registeredRole.Id);
     }
 
     /// <summary>
