@@ -318,8 +318,9 @@ _global.yafEditor = class yafEditor {
                 }
                 break;
             case 'paste':
+                // the text is pasted at the cursor (or replaces the selection), not added at the end
                 navigator.clipboard.readText().then(textFromClipboard => {
-	                textObj.value += textFromClipboard;
+	                replaceSelection(textObj, textFromClipboard);
                 });
                 break;
             default:
