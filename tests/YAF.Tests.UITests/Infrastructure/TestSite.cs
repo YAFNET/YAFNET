@@ -97,7 +97,7 @@ public sealed class TestSite : IDisposable
         Directory.CreateDirectory(mailFolder);
         Directory.CreateDirectory(Path.Combine(siteFolder, "App_Data"));
 
-        PatchWebConfig(Path.Combine(siteFolder, "web.config"), mailFolder);
+        PatchWebConfig(Path.Combine(siteFolder, "recommended.web.config"), mailFolder);
 
         RecreateDatabase();
 
