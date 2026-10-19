@@ -526,6 +526,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] [hide-posts=] and [hide-thanks=] with an empty or too big number failed with an error and broke the topic page for every reader; an empty number is 0, a too big one hides the content from all users but the author and the admins
 * [FIXED] [attach] and [albumimg] with an id that is a number but no whole number (e.g. 1.5, 1e3, (5) or a too big number) failed with an error and broke the topic page for every reader
 * [FIXED] The [group-hide=role] BBCode showed the hidden content to the users with any other role and hid it from the members of the given roles, and [group-hide] without roles hid the content from all members (not only from guests); the content is shown to the members of one of the roles now (without roles to all members), the description says so
+* [FIXED] The team page (and the admin page access list) listed disabled and not approved admins
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

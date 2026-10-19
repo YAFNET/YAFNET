@@ -451,10 +451,15 @@ public class UserRepositoryTests
             connection.Insert(new UserGroup { UserID = disabled, GroupID = memberGroup });
             connection.Insert(new UserGroup { UserID = unapproved, GroupID = memberGroup });
             connection.Insert(new UserGroup { UserID = noEmail, GroupID = memberGroup });
+
+            // disabled and not approved admins
+            connection.Insert(new UserGroup { UserID = disabled, GroupID = adminGroup });
+            connection.Insert(new UserGroup { UserID = unapproved, GroupID = adminGroup });
         }
 
         (await this.Users.GroupEmailsAsync(memberGroup)).Should().Equal("alice@example.com");
 
+        // the team page only lists the active admins
         (await this.Users.ListAdminsAsync()).Select(u => u.ID).Should().Equal(this.alice);
 
         // disabled moderators are not listed (and get no moderator notifications)
