@@ -120,6 +120,14 @@ function setSearchPageNumber(pageSize: number, pageNumber: number, total: number
 		}
 	}
 
+// adds a required filter (user name or tag) to the search: the value is searched as phrase (a name can
+// contain spaces), the filter is combined with the other search terms and filters
+function addSearchFilter(searchText: string, field: string, value: string): string {
+	const filter = `${field}:"${value.replace(/["\\]/g, '')}"`;
+
+	return searchText.length ? `${searchText} AND ${filter}` : `+${filter}`;
+}
+
 function getSearchResultsData(pageNumber: number): void {
 		const searchInput = (document.querySelector('.searchInput') as HTMLInputElement).value;
 		const searchInputUser = (document.querySelector('.searchUserInput') as HTMLInputElement).value;
@@ -183,23 +191,11 @@ function getSearchResultsData(pageNumber: number): void {
 			if (searchInputUser.length && searchInputUser.length >= parseInt(minimumLength)) {
 				const author: string = useDisplayName ? 'AuthorDisplay' : 'Author';
 
-				if (searchText.length) searchText += ' ';
-
-				if (searchInput.length) {
-					searchText += `AND ${author}:${searchInputUser}`;
-				} else {
-					searchText = `+${author}:${searchInputUser}`;
-				}
+				searchText = addSearchFilter(searchText, author, searchInputUser);
 			}
 
 			if (searchInputTag.length && searchInputTag.length >= parseInt(minimumLength)) {
-				if (searchText.length) searchText += ' ';
-
-				if (searchInput.length) {
-					searchText += `AND TopicTags:${searchInputTag}`;
-				} else {
-					searchText = `+TopicTags:${searchInputTag}`;
-				}
+				searchText = addSearchFilter(searchText, 'TopicTags', searchInputTag);
 			}
 
 			const searchTopic: { ForumId: number; PageSize: number; Page: number; SearchTerm: string } = {
