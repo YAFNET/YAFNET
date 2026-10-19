@@ -123,7 +123,10 @@ public class UserInfo : ForumBaseController
                                    RealName = HttpUtility.HtmlEncode(user.Item2.Profile_RealName),
                                    Avatar = avatarUrl,
                                    Interests = HttpUtility.HtmlEncode(user.Item2.Profile_Interests),
-                                   HomePage = HttpUtility.HtmlEncode(user.Item2.Profile_Homepage),
+                                   // only web addresses (the card shows it as link)
+                                   HomePage = ValidationHelper.IsLinkUrl(user.Item2.Profile_Homepage)
+                                                  ? HttpUtility.HtmlEncode(user.Item2.Profile_Homepage)
+                                                  : null,
                                    Posts = $"{user.Item1.NumPosts:N0}",
                                    Rank = HttpUtility.HtmlEncode(user.Item3.Name),
                                    Location = location,

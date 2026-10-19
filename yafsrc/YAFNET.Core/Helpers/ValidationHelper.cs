@@ -79,6 +79,22 @@ public static class ValidationHelper
     }
 
     /// <summary>
+    /// Checks if the url is a web address that can be shown as link (a javascript: or data: address of a stored
+    /// profile, e.g. of an imported user or an older version, would run in the page of the visitor).
+    /// </summary>
+    /// <param name="url">The url.</param>
+    /// <returns>Returns if the url can be used as link.</returns>
+    public static bool IsLinkUrl(string url)
+    {
+        if (url.IsNotSet() || !Uri.TryCreate(url.Trim(), UriKind.Absolute, out var uri))
+        {
+            return false;
+        }
+
+        return uri.Scheme is "http" or "https" or "ftp" or "ftps" or "git" or "svn" or "news";
+    }
+
+    /// <summary>
     /// Checks if string is an valid integer
     /// </summary>
     /// <param name="input">

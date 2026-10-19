@@ -247,7 +247,7 @@
 					   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
 				}
 
-				@if (Model.CombinedUser.Item2.Profile_Homepage.IsSet())
+				@if (ValidationHelper.IsLinkUrl(Model.CombinedUser.Item2.Profile_Homepage))
 				{
 					<a  role="button"
 					    button-style="Secondary"

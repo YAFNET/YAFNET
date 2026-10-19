@@ -68,6 +68,22 @@ public class ValidationHelperTests
         ValidationHelper.IsValidUrl(url).Should().Be(expected);
     }
 
+    [TestCase("https://www.example.com/member", true)]
+    [TestCase("http://example.com", true)]
+    [TestCase("ftp://example.com/file", true)]
+    [TestCase("javascript:alert(1)", false)]
+    [TestCase(" JavaScript:alert(1)", false)]
+    [TestCase("data:text/html,<script>alert(1)</script>", false)]
+    [TestCase("vbscript:msgbox(1)", false)]
+    [TestCase("www.example.com", false)]
+    [TestCase("", false)]
+    [TestCase(null, false)]
+    [Description("Only web addresses can be used as links of the profile")]
+    public void IsLinkUrl_Test(string url, bool expected)
+    {
+        ValidationHelper.IsLinkUrl(url).Should().Be(expected);
+    }
+
     [TestCase("42", true)]
     [TestCase("-7", true)]
     [TestCase("4.2", false)]
