@@ -46,6 +46,7 @@ using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
+using YAF.Types.Models.Identity;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -194,7 +195,56 @@ public class UpgradeServiceTests
         (await upgrading).Should().BeTrue();
     }
 
+    [Test]
+    [Description("The old \"Registered\" role is renamed to \"Registered Users\", the name of the member group")]
+    public async Task Upgrade_Renames_Registered_Role_Test()
+    {
+        var upgrade = this.CreateUpgradeService();
+
+        this.InsertRoles(new AspNetRoles("r1", "Registered"));
+
+        this.Registry.Save("version", "1004");
+
+        await upgrade.UpgradeAsync();
+
+        this.Repository<AspNetRoles>().Get(_ => true).Should().ContainSingle(r => r.Id == "r1" && r.Name == "Registered Users");
+    }
+
+    [Test]
+    [Description("If both roles exist the members of \"Registered\" are moved to \"Registered Users\" and \"Registered\" is deleted")]
+    public async Task Upgrade_Merges_Registered_Role_Test()
+    {
+        var upgrade = this.CreateUpgradeService();
+
+        this.InsertRoles(new AspNetRoles("r1", "Registered"), new AspNetRoles("r2", "Registered Users"));
+
+        using (var db = this.board.Database.Open())
+        {
+            db.Insert(new AspNetUserRoles { UserId = "alice", RoleId = "r1" });
+            db.Insert(new AspNetUserRoles { UserId = "bob", RoleId = "r1" });
+            db.Insert(new AspNetUserRoles { UserId = "bob", RoleId = "r2" });
+        }
+
+        this.Registry.Save("version", "1004");
+
+        await upgrade.UpgradeAsync();
+
+        this.Repository<AspNetRoles>().Get(_ => true).Select(r => r.Name).Should().Equal("Registered Users");
+        this.Repository<AspNetUserRoles>().Get(_ => true).Select(r => $"{r.UserId}:{r.RoleId}").Should()
+            .BeEquivalentTo(["alice:r2", "bob:r2"]);
+    }
+
     private IRepository<Registry> Registry => this.Repository<Registry>();
+
+    private void InsertRoles(params AspNetRoles[] roles)
+    {
+        using var db = this.board.Database.Open();
+
+        foreach (var role in roles)
+        {
+            db.Insert(role);
+        }
+    }
 
     private string Global(string name)
     {

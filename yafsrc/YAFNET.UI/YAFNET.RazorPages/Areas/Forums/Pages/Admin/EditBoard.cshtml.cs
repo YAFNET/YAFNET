@@ -136,7 +136,7 @@ public class EditBoardModel : AdminPage
 
             // Create groups required for the new board
             await this.Get<IAspNetRolesHelper>().CreateRoleAsync("Administrators");
-            await this.Get<IAspNetRolesHelper>().CreateRoleAsync("Registered");
+            await this.Get<IAspNetRolesHelper>().CreateRoleAsync("Registered Users");
 
             // Add new admin users to group
             this.Get<IAspNetRolesHelper>().AddUserToRole(user, "Administrators");

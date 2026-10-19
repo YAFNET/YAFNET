@@ -146,17 +146,10 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             await this.Get<Migration82>().MigrateDatabaseAsync(this.DbAccess);
         }
 
-        if (prevVersion is 80 or 81 or 82 or 84)
+        await this.RenameRegisteredRoleAsync();
+
+        if (prevVersion is >= 80 and <= 84)
         {
-            var registeredRole = await this.GetRepository<AspNetRoles>().GetSingleAsync(x => x.Name == "Registered");
-
-            if (registeredRole != null)
-            {
-                registeredRole.Name = "Registered Users";
-
-                await this.GetRepository<AspNetRoles>().UpdateAsync(registeredRole);
-            }
-
             var users = this.Get<IAspNetUsersHelper>().GetAllUsers();
 
             foreach (var user in users)
@@ -237,6 +230,51 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
             migrator.Run();
         }
+    }
+
+    /// <summary>
+    /// Renames the "Registered" role (of older versions and boards created with the admin page) to
+    /// "Registered Users", the name of the member group. If both roles exist the members are moved
+    /// to "Registered Users" and "Registered" is deleted.
+    /// </summary>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    private async Task RenameRegisteredRoleAsync()
+    {
+        var roles = this.GetRepository<AspNetRoles>();
+
+        var registeredRole = await roles.GetSingleAsync(x => x.Name == "Registered");
+
+        if (registeredRole == null)
+        {
+            return;
+        }
+
+        var registeredUsersRole = await roles.GetSingleAsync(x => x.Name == "Registered Users");
+
+        if (registeredUsersRole == null)
+        {
+            registeredRole.Name = "Registered Users";
+
+            await roles.UpdateAsync(registeredRole);
+
+            return;
+        }
+
+        var userRoles = this.GetRepository<AspNetUserRoles>();
+
+        var members = (await userRoles.GetAsync(r => r.RoleId == registeredUsersRole.Id)).Select(r => r.UserId)
+            .ToList();
+
+        foreach (var userRole in await userRoles.GetAsync(r => r.RoleId == registeredRole.Id))
+        {
+            if (!members.Contains(userRole.UserId))
+            {
+                await userRoles.InsertAsync(new AspNetUserRoles { UserId = userRole.UserId, RoleId = registeredUsersRole.Id });
+            }
+        }
+
+        await userRoles.DeleteAsync(r => r.RoleId == registeredRole.Id);
+        await roles.DeleteAsync(r => r.Id == registeredRole.Id);
     }
 
     /// <summary>
