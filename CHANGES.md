@@ -533,6 +533,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Notification "topics I post to" (auto watch): a reply of the reply page did not watch the topic, the quick reply watched it even when the member unchecked the watch option, and the watch option of the quick reply was always unchecked (a quick reply removed the watch of a watched topic); the option is checked for a watched topic and with auto watch, the option decides
 * [FIXED] Admin > Delete Forum: "Move all topics" without a selected forum (0) moved the topics to the forum 0 (they were lost); a forum of the board is needed now
 * [FIXED] Security (hardening): a stored home page that is no web address (e.g. javascript: of an imported user or of a database of an older version) was shown as link on the profile page and the user card; only web addresses are links now
+* [FIXED] Erasing a post and deleting a user only deleted the database entries of their attachments, the files of attachments stored in the file system stayed on the disk
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

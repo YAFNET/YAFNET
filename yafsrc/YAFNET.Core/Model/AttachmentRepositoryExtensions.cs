@@ -123,6 +123,21 @@ public static class AttachmentRepositoryExtensions
         }
 
         /// <summary>
+        /// Deletes the attachments with their files (attachments stored in the file system, deleting the rows only
+        /// left the files on the server).
+        /// </summary>
+        /// <param name="where">
+        /// The attachments to delete.
+        /// </param>
+        public async Task DeleteWithFilesAsync(System.Linq.Expressions.Expression<Func<Attachment, bool>> where)
+        {
+            foreach (var attachment in await repository.GetAsync(where))
+            {
+                repository.Delete(attachment.ID);
+            }
+        }
+
+        /// <summary>
         /// Increments the download counter.
         /// </summary>
         /// <param name="attachmentId">The attachment identifier.</param>

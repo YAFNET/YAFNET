@@ -133,6 +133,26 @@ public class AttachmentAndForumAccessRepositoryTests
     }
 
     [Test]
+    [Description("Deleting the attachments of a user (deleted user) or a message (erased post) removes their files too, the others stay")]
+    public async Task Delete_With_Files_Test()
+    {
+        var topic = this.db.AddTopic(this.db.AddForum(), this.alice);
+        var message = this.db.AddMessage(topic, this.alice);
+
+        this.AddAttachment(this.alice, "alice.txt", message);
+        var bobsAttachment = this.AddAttachment(this.bob, "bob.txt");
+
+        var alicesFile = this.UploadFile($"{message}.alice.txt.yafupload");
+        var bobsFile = this.UploadFile($"u{this.bob}-{bobsAttachment}.bob.txt.yafupload");
+
+        await this.Attachments.DeleteWithFilesAsync(a => a.UserID == this.alice);
+
+        File.Exists(alicesFile).Should().BeFalse();
+        File.Exists(bobsFile).Should().BeTrue();
+        this.Attachments.Get(_ => true).Select(a => a.ID).Should().Equal(bobsAttachment);
+    }
+
+    [Test]
     [Description("Downloads are counted per attachment, messages with attachments are listed")]
     public async Task Download_Counter_And_Message_List_Test()
     {

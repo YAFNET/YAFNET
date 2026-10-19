@@ -1568,7 +1568,7 @@ public static class MessageRepositoryExtensions
             // -- should it be physically deleter or not?
             if (eraseMessage)
             {
-                await BoardContext.Current.GetRepository<Attachment>().DeleteAsync(x => x.MessageID == message.ID);
+                await BoardContext.Current.GetRepository<Attachment>().DeleteWithFilesAsync(x => x.MessageID == message.ID);
                 await BoardContext.Current.GetRepository<Activity>().DeleteAsync(x => x.MessageID == message.ID);
                 await BoardContext.Current.GetRepository<MessageReportedAudit>().DeleteAsync(x => x.MessageID == message.ID);
                 await BoardContext.Current.GetRepository<MessageReported>().DeleteAsync(x => x.ID == message.ID);

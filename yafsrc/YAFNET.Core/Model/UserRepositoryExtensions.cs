@@ -547,7 +547,7 @@ public static class UserRepositoryExtensions
                 .DeleteAsync(x => x.ThanksFromUserID == user.ID || x.ThanksToUserID == user.ID);
             await BoardContext.Current.GetRepository<Buddy>().DeleteAsync(x => x.FromUserID == user.ID);
             await BoardContext.Current.GetRepository<Buddy>().DeleteAsync(x => x.ToUserID == user.ID);
-            await BoardContext.Current.GetRepository<Attachment>().DeleteAsync(x => x.UserID == user.ID);
+            await BoardContext.Current.GetRepository<Attachment>().DeleteWithFilesAsync(x => x.UserID == user.ID);
             await BoardContext.Current.GetRepository<CheckEmail>().DeleteAsync(x => x.UserID == user.ID);
             await BoardContext.Current.GetRepository<WatchTopic>().DeleteAsync(x => x.UserID == user.ID);
             await BoardContext.Current.GetRepository<WatchForum>().DeleteAsync(x => x.UserID == user.ID);
