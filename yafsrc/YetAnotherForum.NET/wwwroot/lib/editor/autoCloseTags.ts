@@ -35,8 +35,9 @@ export default class AutoCloseTags {
 				let tagName: string | undefined;
 
 				try {
+					// the names can contain a "-" (e.g. hide-thanks, group-hide)
 					// @ts-ignore: Object is possibly 'null'.
-					tagName = before.match(/\[([^\]]+)$/)[1].match(/^([a-z1-6]+)/)[1];
+					tagName = before.match(/\[([^\]]+)$/)[1].match(/^([a-z1-6-]+)/)[1];
 				} catch(e) {
 					return;
 				}
