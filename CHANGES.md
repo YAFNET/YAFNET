@@ -547,6 +547,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Upload dialog: the attachment list didn't show the uploaded files until the page was loaded again, a refused upload (e.g. too large for the server) showed no error
 * [FIXED] Context menu of posts: the menu was opened away from the click when a part of the post (e.g. bold text) was clicked or on a long press on phones
 * [FIXED] Register: the password strength bar of a weak password kept the color and width of a stronger password typed before
+* [FIXED] Wysiwyg editor: a refused or failed drag and drop upload left the upload placeholder in the editor
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
