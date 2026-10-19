@@ -57,4 +57,13 @@ public class EmojiOneTests
 
         EmojiOne.ShortNameToUnicode("[raised_hand_tone1]").Should().Be(expected);
     }
+
+    [Test]
+    [Description("Short names and smileys inside a code block of several lines stay text")]
+    public void Code_Block_Is_Kept_Test()
+    {
+        const string code = "<pre class=\"line-numbers\"><code>first line\n[td] :D [grinning]\n</code></pre>";
+
+        EmojiOne.ShortNameToUnicode($"{code} :D", true).Should().Be($"{code} {char.ConvertFromUtf32(0x1F603)}");
+    }
 }
