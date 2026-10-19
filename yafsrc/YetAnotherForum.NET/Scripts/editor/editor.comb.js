@@ -73,7 +73,9 @@ yafEditor.prototype.FormatText = function(command, option) {
                     title: this.MediaTitle,
                     placeholder: "https://",
                     callback: function(url) {
-                        replaceSelection(textObj, `[media]${url}[/media]`);
+                        if (url) {
+                            replaceSelection(textObj, `[media]${url}[/media]`);
+                        }
                     }
                 });
             }

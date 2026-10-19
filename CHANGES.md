@@ -381,6 +381,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Search: the user and the tag filter without a search text only searched the tag, a name or tag with a space also found other users and tags
 * [FIXED] Search: a failed search kept the loading dialog open and hid the results (also of the next searches)
 * [FIXED] BBCode editor: "Remove format" changed the first occurrence of the selected text in the message (not the selection), "Outdent" removed other characters when the selection didn't start and end with the indent tags
+* [FIXED] BBCode editor: a cancelled media dialog inserted [media]null[/media]
 
 # YetAnotherForum.NET v3.2.16
 * bug fixes

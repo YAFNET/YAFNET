@@ -67,7 +67,10 @@ yafEditor.prototype.FormatText = function(command, option) {
 					title: this.MediaTitle,
 					placeholder: 'https://',
 					callback: function(url) {
-						replaceSelection(textObj, `[media]${url}[/media]`);
+						// nothing is inserted when the dialog is cancelled (url is null) or no address entered
+						if (url) {
+							replaceSelection(textObj, `[media]${url}[/media]`);
+						}
 					}
 				});
 			}
