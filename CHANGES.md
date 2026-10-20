@@ -548,6 +548,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Context menu of posts: the menu was opened away from the click when a part of the post (e.g. bold text) was clicked or on a long press on phones
 * [FIXED] Register: the password strength bar of a weak password kept the color and width of a stronger password typed before
 * [FIXED] Wysiwyg editor: a refused or failed drag and drop upload left the upload placeholder in the editor
+* [FIXED] Register: a registration with custom profile fields on the register page always failed without a message (the attributes of the database model of the fields were validated), the fields were shown when they were required instead of when "show on register page" was set (a required field could not be hidden from the register page, a field with only "show on register page" was never shown), and the names of the fields were missing after a refused registration
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main

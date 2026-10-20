@@ -25,6 +25,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 using YAF.Types.Models;
 
 namespace YAF.Types.InputModels;
@@ -68,6 +70,9 @@ public class RegisterInputModel
 
     /// <summary>
     /// Gets or sets the custom profile.
+    /// The values are checked against the field definitions of the board, the attributes of the
+    /// database model (the names, default values, ... are not posted) are not validated.
     /// </summary>
+    [ValidateNever]
     public List<ProfileDefinition> CustomProfile { get; set; }
 }

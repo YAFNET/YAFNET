@@ -24,6 +24,7 @@
 
 namespace YAF.Pages.Account;
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -117,6 +118,8 @@ public class RegisterModel : AccountPage
     /// </returns>
     public async Task<IActionResult> OnPostAsync()
     {
+        await this.LoadCustomProfileAsync(this.Input.CustomProfile ?? []);
+
         if (!this.ModelState.IsValid || !await this.ValidateUserAsync().ConfigureAwait(false) || this.ErrorMessage.IsSet())
         {
             return this.Page();
@@ -334,9 +337,10 @@ public class RegisterModel : AccountPage
 
     private bool ValidateCustomProfile()
     {
-        // the required fields and the types are taken from the database (the client can leave out fields)
+        // the required fields and the types are taken from the database (the client can leave out fields),
+        // only the fields shown on the register page are checked
         var invalidField = CustomProfileHelper.FindInvalidField(
-            this.GetRepository<ProfileDefinition>().GetByBoardId(),
+            this.GetRepository<ProfileDefinition>().GetByBoardId().Where(d => d.ShowOnRegisterPage),
             this.Input.CustomProfile,
             true,
             out var isNumberError);
@@ -353,14 +357,30 @@ public class RegisterModel : AccountPage
     }
 
     /// <summary>
-    /// Load the custom profile.
+    /// Load the custom profile fields shown on the register page.
     /// </summary>
-    private async Task LoadCustomProfileAsync()
+    /// <param name="postedValues">
+    /// The posted values, or null to use the default values.
+    /// </param>
+    private async Task LoadCustomProfileAsync(List<ProfileDefinition> postedValues = null)
     {
-        this.Input.CustomProfile = [.. await this.GetRepository<ProfileDefinition>().GetByBoardIdAsync()];
+        this.Input.CustomProfile = [.. (await this.GetRepository<ProfileDefinition>().GetByBoardIdAsync())
+            .Where(profileDef => profileDef.ShowOnRegisterPage)];
 
-        if (this.Input.CustomProfile is null || this.Input.CustomProfile.Count == 0)
+        if (this.Input.CustomProfile.Count == 0)
         {
+            return;
+        }
+
+        if (postedValues is not null)
+        {
+            // the names are not posted, the page shows the fields again if the registration fails
+            this.Input.CustomProfile.ForEach(
+                profileDef =>
+                {
+                    profileDef.Value = postedValues.FirstOrDefault(v => v.ID == profileDef.ID)?.Value;
+                });
+
             return;
         }
 
@@ -384,8 +404,9 @@ public class RegisterModel : AccountPage
             return;
         }
 
-        // the fields of the board are taken from the database, the ids, types and lengths are sent by the client
-        var definitions = this.GetRepository<ProfileDefinition>().GetByBoardId();
+        // the fields of the board are taken from the database, the ids, types and lengths are sent by the client,
+        // only the fields shown on the register page are saved
+        var definitions = this.GetRepository<ProfileDefinition>().GetByBoardId().Where(d => d.ShowOnRegisterPage).ToList();
 
         this.Input.CustomProfile.ForEach(
             item =>

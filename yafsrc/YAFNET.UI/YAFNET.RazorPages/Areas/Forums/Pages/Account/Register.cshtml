@@ -95,12 +95,10 @@
 
                             @for (var i = 0; i < Model.Input.CustomProfile.Count; i++)
                             {
-                                if (Model.Input.CustomProfile[i].Required)
-                                {
 	                                <div class="mb-3">
 		                                <input type="hidden" asp-for="Input.CustomProfile[i].ID" />
-                                        <input type="hidden" asp-for="Input.CustomProfile[i].DataType" />
-                                        <input type="hidden" asp-for="Input.CustomProfile[i].Required" />
+                                    <input type="hidden" asp-for="Input.CustomProfile[i].DataType" />
+                                    <input type="hidden" asp-for="Input.CustomProfile[i].Required" />
 
 		                                @switch (Model.Input.CustomProfile[i].DataType.ToEnum<DataType>())
 		                                {
@@ -108,9 +106,9 @@
 			                                {
 				                                <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
 
-                                                    <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@(Model.Input.CustomProfile[i].Length > 0 ? Model.Input.CustomProfile[i].Length : null)" required="required" pattern="\S(.*\S)?" />
+                                                <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@(Model.Input.CustomProfile[i].Length > 0 ? Model.Input.CustomProfile[i].Length : null)" required="@(Model.Input.CustomProfile[i].Required ? "required" : null)" pattern="\S(.*\S)?" />
 				                                <div class="invalid-feedback">
-                                                        @Html.LocalizedTextFormatted("NEED_CUSTOM", Html.Encode(Model.Input.CustomProfile[i].Name))
+                                                    @Html.LocalizedTextFormatted("NEED_CUSTOM", Html.Encode(Model.Input.CustomProfile[i].Name))
 				                                </div>
 
 				                                break;
@@ -119,9 +117,9 @@
 			                                {
 				                                <label asp-for="Input.CustomProfile[i].Value" class="form-label">@Model.Input.CustomProfile[i].Name</label>
 
-				                                <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@(Model.Input.CustomProfile[i].Length > 0 ? Model.Input.CustomProfile[i].Length : null)" required="required" type="number"/>
+				                                <input asp-for="Input.CustomProfile[i].Value" class="form-control" maxlength="@(Model.Input.CustomProfile[i].Length > 0 ? Model.Input.CustomProfile[i].Length : null)" required="@(Model.Input.CustomProfile[i].Required ? "required" : null)" type="number"/>
 				                                <div class="invalid-feedback">
-                                                        @Html.LocalizedTextFormatted("NEED_CUSTOM", Html.Encode(Model.Input.CustomProfile[i].Name))
+                                                    @Html.LocalizedTextFormatted("NEED_CUSTOM", Html.Encode(Model.Input.CustomProfile[i].Name))
 				                                </div>
 
 			                                }
@@ -129,11 +127,11 @@
 			                                case DataType.Check:
 			                                {
 				                                <div class="form-check form-switch">
-					                                <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" required="required" type="checkbox" role="switch" switch/>
+					                                <input asp-for="Input.CustomProfile[i].Value" class="form-check-input" required="@(Model.Input.CustomProfile[i].Required ? "required" : null)" type="checkbox" role="switch" switch/>
 					                                <label class="form-check-label" asp-for="Input.CustomProfile[i].Value">@Model.Input.CustomProfile[i].Name</label>
 				                                </div>
 				                                <div class="invalid-feedback">
-                                                        @Html.LocalizedTextFormatted("NEED_CUSTOM", Html.Encode(Model.Input.CustomProfile[i].Name))
+                                                    @Html.LocalizedTextFormatted("NEED_CUSTOM", Html.Encode(Model.Input.CustomProfile[i].Name))
 				                                </div>
 
 			                                }
@@ -141,7 +139,6 @@
 
 		                                }
 	                                </div>
-                                }
                             }
                         }
                     }
