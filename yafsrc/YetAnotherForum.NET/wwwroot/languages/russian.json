@@ -537,20 +537,8 @@
             "#text": "Просматривает помощь по восстановлению"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Использует AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Использует Email"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Использует MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Использует XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -637,12 +625,12 @@
             "#text": "Пишет пост в теме "
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Просматривает сообщения в теме "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9884,15 +9872,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Мгновенные сообщения AOL"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9918,15 +9897,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Отправить электронную почту на {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP"
           }
         ]
       },

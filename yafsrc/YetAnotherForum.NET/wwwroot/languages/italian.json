@@ -537,20 +537,8 @@
             "#text": "Nessun dato"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Utilizza AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Utilizza l'e-mail"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Utilizza MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Utilizza XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -626,7 +614,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "Visualizza le notifiche"
           },
           {
             "@tag": "PM",
@@ -637,12 +625,12 @@
             "#text": "Posta un messaggio nell'argomento"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Visualizza i messaggi nell'argomento"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Pubblica un nuovo argomento nel forum"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -715,7 +703,7 @@
           },
           {
             "@tag": "BROWSER",
-            "#text": "Browser"
+            "#text": "Navigatore"
           },
           {
             "@tag": "LAST_ACTIVE",
@@ -1069,7 +1057,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "UserAgent bannato"
           }
         ]
       },
@@ -1078,7 +1066,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "Agente utente:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1650,7 +1638,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "OnClickJS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -2638,7 +2626,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "FORUM_MOD",
@@ -3858,7 +3846,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3922,7 +3910,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "Scegli tra Nessun servizio spam, Controllo spam interno o un servizio esterno BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5667,7 +5655,7 @@
           },
           {
             "@tag": "PRUNE_FORUM",
-            "#text": "Forum:"
+            "#text": "Foro:"
           },
           {
             "@tag": "PRUNE_FORUM_HELP",
@@ -6623,7 +6611,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} album: {1}"
+            "#text": "{0}Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -7808,7 +7796,7 @@
           },
           {
             "@tag": "AO",
-            "#text": "Angola"
+            "#text": "L'Angola"
           },
           {
             "@tag": "AQ",
@@ -8785,7 +8773,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "FORUMS",
@@ -8837,11 +8825,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "Nuovi membri"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "Ultimi membri"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9356,7 +9344,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>Apri l'app Authenticator e aggiungi un nuovo account</li><li>Scansiona il codice QR o inserisci manualmente il codice di configurazione</li><li>Inserisci il codice di convalida dal tuo Authenticator</li><li>Fai clic per <i>Attivare l'autenticazione a due fattori</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9884,15 +9872,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Messaggeria istantanea AOL"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9918,15 +9897,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Inviare e-mail a {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Messaggero XMPP"
           }
         ]
       },
@@ -10628,7 +10598,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "REPORTED",
@@ -11201,7 +11171,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -11281,7 +11251,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
@@ -12716,7 +12686,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "FORUMS",
@@ -12724,7 +12694,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS richiede: tocca Condividi ⬆️ → Aggiungi alla schermata iniziale → Apri dalla schermata iniziale, quindi abilita le notifiche."
           },
           {
             "@tag": "LASTPOST",
@@ -12788,7 +12758,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 Richiesta autorizzazione notifica... Si prega di consentire quando richiesto!"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",
@@ -13186,7 +13156,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "FORUMUSERS",

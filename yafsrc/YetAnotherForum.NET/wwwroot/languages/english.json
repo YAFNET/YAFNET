@@ -537,20 +537,8 @@
                     "#text": "No data"
                 },
                 {
-                    "@tag": "IM_AIM",
-                    "#text": "Uses AIM"
-                },
-                {
                     "@tag": "IM_EMAIL",
                     "#text": "Uses Email"
-                },
-                {
-                    "@tag": "IM_MSN",
-                    "#text": "Uses MSN"
-                },
-                {
-                    "@tag": "IM_XMPP",
-                    "#text": "Uses XMPP"
                 },
                 {
                     "@tag": "IMGPRV",
@@ -9884,15 +9872,6 @@
             ]
         },
         {
-            "@name": "IM_AIM",
-            "Resource": [
-                {
-                    "@tag": "TITLE",
-                    "#text": "AOL Instant Messenger"
-                }
-            ]
-        },
-        {
             "@name": "IM_EMAIL",
             "Resource": [
                 {
@@ -9918,15 +9897,6 @@
                 {
                     "@tag": "TITLE2",
                     "#text": "Send E-mail to {0}"
-                }
-            ]
-        },
-        {
-            "@name": "IM_XMPP",
-            "Resource": [
-                {
-                    "@tag": "TITLE",
-                    "#text": "XMPP Messenger"
                 }
             ]
         },

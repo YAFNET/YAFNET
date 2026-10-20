@@ -537,20 +537,8 @@
             "#text": "Keine Daten"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Benutzt AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Benutzt Email"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Benutzt MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Benutzt XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -637,12 +625,12 @@
             "#text": "Schreibt eine Nachricht im Thema "
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Erstellt ein neues Thema im Forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Betracht Nachricht im Thema "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Erstellt ein neues Thema im Forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -3922,7 +3910,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "Wählen Sie zwischen „Kein Spam-Dienst“, internem Spam-Check oder einem externen Dienst BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -8612,7 +8600,7 @@
           },
           {
             "@tag": "TK",
-            "#text": "ToKelau"
+            "#text": "Tokelau"
           },
           {
             "@tag": "TM",
@@ -8837,11 +8825,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "Neue Mitglieder"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "Neueste Mitglieder"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9356,7 +9344,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>Öffnen Sie Ihre Authenticator-App und fügen Sie ein neues Konto hinzu</li><li>Scannen Sie den QR-Code oder geben Sie den Einrichtungscode manuell ein</li><li>Geben Sie den Validierungscode von Ihrem Authenticator ein</li><li>Klicken Sie auf <i>Zwei-Faktor-Authentifizierung aktivieren</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9884,15 +9872,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL-Instantmessenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9918,15 +9897,6 @@
           {
             "@tag": "TITLE2",
             "#text": "E-Mail senden an {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Jabber Messenger"
           }
         ]
       },
@@ -11201,7 +11171,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -11281,7 +11251,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
@@ -11971,7 +11941,7 @@
           },
           {
             "@tag": "RGN_DE_MV",
-            "#text": "Mecklenburg-vorpommern"
+            "#text": "Mecklenburg-Vorpommern"
           },
           {
             "@tag": "RGN_DE_NI",
@@ -12724,7 +12694,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS erfordert: Tippen Sie auf Teilen ⬆️ → Zum Startbildschirm hinzufügen → Vom Startbildschirm öffnen und aktivieren Sie dann Benachrichtigungen."
           },
           {
             "@tag": "LASTPOST",
@@ -12788,7 +12758,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 Bitte um Benachrichtigungserlaubnis... Bitte erlauben Sie, wenn Sie dazu aufgefordert werden!"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",

@@ -537,20 +537,8 @@
             "#text": "Không có dữ liệu"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Sử dụng AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Sử dụng Email"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Sử dụng MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Sử dụng XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -637,12 +625,12 @@
             "#text": "Đăng một tin nhắn trong chủ đề"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Xem tin nhắn trong chủ đề"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9900,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Messenger tức thời"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9934,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Gửi E-mail tới {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP Messenger"
           }
         ]
       },

@@ -537,20 +537,8 @@
             "#text": "Nu exista date"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Utilizeaza AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Utilizeaza Email"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Utilizeaza MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Utilizeaza XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -637,12 +625,12 @@
             "#text": "Posteaza mesaj in topic"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Vezi mesaj in topic "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9900,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9934,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Trimiteți un e-mail la {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP Messenger"
           }
         ]
       },

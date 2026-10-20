@@ -537,20 +537,8 @@
             "#text": "لا يوجد بيانات"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": " AIM استخدام"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": " Email استخدام"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": " MSN استخدام"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": " XMPP استخدام"
           },
           {
             "@tag": "IMGPRV",
@@ -626,7 +614,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "إشعارات المشاهدات"
           },
           {
             "@tag": "PM",
@@ -637,12 +625,12 @@
             "#text": "المشاركة برسالة في الموضوع "
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "عرض الرسائل في الموضوع"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "نشر موضوع جديد في المنتدى"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1078,7 +1066,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "useragent:"
+            "#text": "وكيل المستخدم:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1650,7 +1638,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "OnClick شبيبة:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -3922,7 +3910,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "اختر بين عدم وجود خدمة البريد العشوائي أو التحقق من البريد العشوائي الداخلي أو خدمة خارجية BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5182,7 +5170,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "blogspam.net API"
+            "#text": "واجهة برمجة تطبيقات BlogSpam.NET"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -7686,7 +7674,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "strikethrough"
+            "#text": "يتوسطه خط"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8785,7 +8773,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Forums"
+            "#text": "المنتديات"
           },
           {
             "@tag": "GO_LAST_POST",
@@ -8833,11 +8821,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "الأعضاء الجدد"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "أحدث الأعضاء"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8873,15 +8861,15 @@
           },
           {
             "@tag": "STATS_SPAM_BANNED_LABEL",
-            "#text": "Permanently Banned"
+            "#text": "محظور بشكل دائم"
           },
           {
             "@tag": "STATS_SPAM_DENIED_LABEL",
-            "#text": "Denied Registration"
+            "#text": "تم رفض التسجيل"
           },
           {
             "@tag": "STATS_SPAM_REPORTED_LABEL",
-            "#text": "Reported to StopForumSpam.com"
+            "#text": "تم الإبلاغ عنها إلى StopForumSpam.com"
           },
           {
             "@tag": "TOPICS",
@@ -9352,7 +9340,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>افتح تطبيق Authenticator وأضف حسابًا جديدًا</li><li>امسح رمز QR ضوئيًا أو أدخل رمز الإعداد يدويًا</li><li>أدخل رمز التحقق من Authenticator</li><li>انقر <i>لتشغيل المصادقة الثنائية</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9880,15 +9868,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL الدردشة داخل "
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9914,15 +9893,6 @@
           {
             "@tag": "TITLE2",
             "#text": "إرسال بريد إلكتروني إلى {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "(XMPP) ماسنجر"
           }
         ]
       },
@@ -11277,7 +11247,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "www"
+            "#text": "WWW"
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
@@ -11313,7 +11283,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "الملكية الفكرية"
           },
           {
             "@tag": "JOINED",
@@ -12720,7 +12690,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 يتطلب iOS ما يلي: اضغط على مشاركة ⬆️ → إضافة إلى الشاشة الرئيسية → فتح من الشاشة الرئيسية، ثم قم بتمكين الإشعارات."
           },
           {
             "@tag": "LASTPOST",
@@ -12784,7 +12754,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 طلب إذن الإخطار... يرجى السماح عندما يُطلب منك ذلك!"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",
@@ -12984,7 +12954,7 @@
         "Resource": [
           {
             "@tag": "NAME_UTC",
-            "#text": "(UTC{0})"
+            "#text": "(التوقيت العالمي{0})"
           }
         ]
       },
