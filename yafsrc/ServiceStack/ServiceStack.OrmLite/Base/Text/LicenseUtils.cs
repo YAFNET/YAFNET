@@ -214,9 +214,9 @@ public static partial class LicenseUtils
     /// </summary>
     private class ActivatedLicense
     {
-        static internal ActivatedLicense Get { get; private set; }
+        internal static ActivatedLicense Get { get; private set; }
 
-        static internal void SetActivatedLicense(ActivatedLicense licence)
+        internal static void SetActivatedLicense(ActivatedLicense licence)
         {
             Get = licence;
         }

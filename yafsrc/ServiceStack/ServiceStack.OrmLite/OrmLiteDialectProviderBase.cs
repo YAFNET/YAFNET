@@ -1031,7 +1031,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             ? this.GetQuotedColumnName(fieldDef)
             : m.Value);
     }
-    private static readonly Regex ColumnRefRegex = new(@"\{(\w+)\}", RegexOptions.Compiled);
+    private readonly static Regex ColumnRefRegex = new(@"\{(\w+)\}", RegexOptions.Compiled);
 
     /// <summary>
     /// The column type of a field: its [CustomField], the vector type of a [Vector] or the type of its converter
@@ -1828,7 +1828,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         }
     }
 
-    public virtual async Task BulkUpsertAsync<T>(IDbConnection db, IEnumerable<T> objs, ICollection<string> updateOnly = null, BulkInsertConfig config = null, CancellationToken token = default)
+    public async virtual Task BulkUpsertAsync<T>(IDbConnection db, IEnumerable<T> objs, ICollection<string> updateOnly = null, BulkInsertConfig config = null, CancellationToken token = default)
     {
         config ??= new();
         var plan = this.CreateBulkUpsertPlan<T>(db, updateOnly, config);
@@ -1966,7 +1966,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         }
     }
 
-    protected virtual async Task BulkLoadAsync<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config, CancellationToken token)
+    protected async virtual Task BulkLoadAsync<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config, CancellationToken token)
     {
         foreach (var batch in rows.BatchesOf(config.BatchSize))
         {
@@ -4208,7 +4208,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="modelType">Type of the model.</param>
     /// <returns>ModelDefinition.</returns>
-    static protected ModelDefinition GetModel(Type modelType)
+    protected static ModelDefinition GetModel(Type modelType)
     {
         return modelType.GetModelDefinition();
     }

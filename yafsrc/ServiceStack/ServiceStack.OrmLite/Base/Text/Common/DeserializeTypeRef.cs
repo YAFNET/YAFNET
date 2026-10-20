@@ -15,7 +15,7 @@ namespace ServiceStack.OrmLite.Base.Text.Common;
 /// <summary>
 /// Class DeserializeTypeRef.
 /// </summary>
-static internal class DeserializeTypeRef
+internal static class DeserializeTypeRef
 {
     /// <summary>
     /// Creates the serialization error.
@@ -23,7 +23,7 @@ static internal class DeserializeTypeRef
     /// <param name="type">The type.</param>
     /// <param name="strType">Type of the string.</param>
     /// <returns>System.Runtime.Serialization.SerializationException.</returns>
-    static internal SerializationException CreateSerializationError(Type type, string strType)
+    internal static SerializationException CreateSerializationError(Type type, string strType)
     {
         return new SerializationException(
             $"Type definitions should start with a '{JsWriter.MapStartChar}', expecting serialized type '{type.Name}', got string starting with: {strType.Substring(0, strType.Length < 50 ? strType.Length : 50)}");
@@ -37,7 +37,7 @@ static internal class DeserializeTypeRef
     /// <param name="propertyType">Type of the property.</param>
     /// <param name="e">The e.</param>
     /// <returns>System.Runtime.Serialization.SerializationException.</returns>
-    static internal SerializationException GetSerializationException(string propertyName, string propertyValueString, Type propertyType, Exception e)
+    internal static SerializationException GetSerializationException(string propertyName, string propertyValueString, Type propertyType, Exception e)
     {
         var serializationException = new SerializationException($"Failed to set property '{propertyName}' with '{propertyValueString}'", e);
         if (propertyName != null)
@@ -66,7 +66,7 @@ static internal class DeserializeTypeRef
     /// <param name="type">The type.</param>
     /// <param name="serializer">The serializer.</param>
     /// <returns>System.Collections.Generic.KeyValuePair&lt;string, ServiceStack.Text.Common.TypeAccessor&gt;[].</returns>
-    static internal KeyValuePair<string, TypeAccessor>[] GetCachedTypeAccessors(Type type, ITypeSerializer serializer)
+    internal static KeyValuePair<string, TypeAccessor>[] GetCachedTypeAccessors(Type type, ITypeSerializer serializer)
     {
         if (TypeAccessorsCache.TryGetValue(type, out var typeAccessors))
         {
@@ -96,7 +96,7 @@ static internal class DeserializeTypeRef
     /// <param name="typeConfig">The type configuration.</param>
     /// <param name="serializer">The serializer.</param>
     /// <returns>System.Collections.Generic.KeyValuePair&lt;string, ServiceStack.Text.Common.TypeAccessor&gt;[].</returns>
-    static internal KeyValuePair<string, TypeAccessor>[] GetTypeAccessors(TypeConfig typeConfig, ITypeSerializer serializer)
+    internal static KeyValuePair<string, TypeAccessor>[] GetTypeAccessors(TypeConfig typeConfig, ITypeSerializer serializer)
     {
         var type = typeConfig.Type;
 

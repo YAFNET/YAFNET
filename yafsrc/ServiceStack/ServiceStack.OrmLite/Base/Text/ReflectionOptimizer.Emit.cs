@@ -50,7 +50,7 @@ public sealed class EmitReflectionOptimizer : ReflectionOptimizer
     /// <typeparam name="T"></typeparam>
     /// <param name="memberInfo">The member information.</param>
     /// <returns>DynamicMethod.</returns>
-    static internal DynamicMethod CreateDynamicGetMethod<T>(MemberInfo memberInfo)
+    internal static DynamicMethod CreateDynamicGetMethod<T>(MemberInfo memberInfo)
     {
         var memberType = memberInfo is FieldInfo ? "Field" : "Property";
         var name = $"_Get{memberType}[T]_{memberInfo.Name}_";
@@ -282,7 +282,7 @@ public sealed class EmitReflectionOptimizer : ReflectionOptimizer
     /// </summary>
     /// <param name="memberInfo">The member information.</param>
     /// <returns>DynamicMethod.</returns>
-    static internal DynamicMethod CreateDynamicGetMethod(MemberInfo memberInfo)
+    internal static DynamicMethod CreateDynamicGetMethod(MemberInfo memberInfo)
     {
         var memberType = memberInfo is FieldInfo ? "Field" : "Property";
         var name = $"_Get{memberType}_{memberInfo.Name}_";
@@ -368,7 +368,7 @@ public sealed class EmitReflectionOptimizer : ReflectionOptimizer
     /// </summary>
     /// <param name="memberInfo">The member information.</param>
     /// <returns>DynamicMethod.</returns>
-    static internal DynamicMethod CreateDynamicSetMethod(MemberInfo memberInfo)
+    internal static DynamicMethod CreateDynamicSetMethod(MemberInfo memberInfo)
     {
         var memberType = memberInfo is FieldInfo ? "Field" : "Property";
         var name = $"_Set{memberType}_{memberInfo.Name}_";

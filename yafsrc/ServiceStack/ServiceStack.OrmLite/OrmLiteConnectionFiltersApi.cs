@@ -214,7 +214,7 @@ public static class OrmLiteConnectionFiltersApi
     private delegate string? FilterConditionFn(OrmLiteConnectionFilters filters, IOrmLiteDialectProvider dialect,
         string? alias, string paramPrefix, List<IDbDataParameter> dbParams);
 
-    private static readonly System.Collections.Concurrent.ConcurrentDictionary<Type, FilterConditionFn> FilterConditionFns = new();
+    private readonly static System.Collections.Concurrent.ConcurrentDictionary<Type, FilterConditionFn> FilterConditionFns = new();
 
     // Combined as Ensure() combines them, later filters first
     private static string? ToFilterConditionFor<T>(OrmLiteConnectionFilters filters, IOrmLiteDialectProvider dialect,

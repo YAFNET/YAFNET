@@ -17,7 +17,7 @@ namespace ServiceStack.OrmLite.Base.Text.Common;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-static internal class DeserializeSpecializedCollections<T, TSerializer>
+internal static class DeserializeSpecializedCollections<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
@@ -111,7 +111,7 @@ static internal class DeserializeSpecializedCollections<T, TSerializer>
     /// Gets the generic queue parse function.
     /// </summary>
     /// <returns>ParseStringSpanDelegate.</returns>
-    static internal ParseStringSpanDelegate GetGenericQueueParseFn()
+    internal static ParseStringSpanDelegate GetGenericQueueParseFn()
     {
         var enumerableInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IEnumerable<>));
         var elementType = enumerableInterface.GetGenericArguments()[0];
@@ -170,7 +170,7 @@ static internal class DeserializeSpecializedCollections<T, TSerializer>
     /// Gets the generic stack parse function.
     /// </summary>
     /// <returns>ParseStringSpanDelegate.</returns>
-    static internal ParseStringSpanDelegate GetGenericStackParseFn()
+    internal static ParseStringSpanDelegate GetGenericStackParseFn()
     {
         var enumerableInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IEnumerable<>));
 

@@ -109,7 +109,7 @@ public class TypeFields<T> : TypeFields
     /// </summary>
     /// <param name="propertyName">Name of the property.</param>
     /// <returns>FieldAccessor.</returns>
-    public static new FieldAccessor GetAccessor(string propertyName)
+    public new static FieldAccessor GetAccessor(string propertyName)
     {
         return Instance.FieldsMap.GetValueOrDefault(propertyName);
     }

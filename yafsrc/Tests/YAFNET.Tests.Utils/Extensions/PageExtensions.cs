@@ -26,8 +26,6 @@ using System;
 
 namespace YAF.Tests.Utils.Extensions;
 
-using System.Linq;
-
 using Microsoft.Playwright;
 
 using netDumbster.smtp;

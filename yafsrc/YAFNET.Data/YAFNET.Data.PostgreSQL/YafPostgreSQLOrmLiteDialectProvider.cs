@@ -40,5 +40,5 @@ public class YafPostgreSQLOrmLiteDialectProvider : PostgreSqlDialectProvider
     /// <summary>
     /// Gets or sets the instance.
     /// </summary>
-    public static new YafPostgreSQLOrmLiteDialectProvider Instance { get; set; } = new ();
+    public new static YafPostgreSQLOrmLiteDialectProvider Instance { get; set; } = new ();
 }

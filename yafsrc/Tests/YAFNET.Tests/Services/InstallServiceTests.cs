@@ -62,7 +62,7 @@ public class InstallServiceTests
         { "Resources": { "@language": "Deutsch", "@code": "de", "page": [] } }
         """;
 
-    private static readonly string WebProjectRoot = Path.GetFullPath(
+    private readonly static string WebProjectRoot = Path.GetFullPath(
         Path.Combine(TestContext.CurrentContext.TestDirectory, "..", "..", "..", "..", "..", "YetAnotherForum.NET", "wwwroot"));
 
     private string webRoot;

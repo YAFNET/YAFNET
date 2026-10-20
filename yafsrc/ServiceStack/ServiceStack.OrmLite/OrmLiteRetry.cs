@@ -164,7 +164,7 @@ public class OrmLiteRetryPolicy
         return TimeSpan.FromMilliseconds(ms);
     }
 
-    private static readonly Random Random = new();
+    private readonly static Random Random = new();
 
     internal void NotifyRetry(Exception ex, int retry, TimeSpan delay)
     {
@@ -206,7 +206,7 @@ internal static class OrmLiteRetryExec
     internal static bool ShouldRetryStatement(OrmLiteRetryPolicy policy, IOrmLiteDialectProvider dialect, IDbCommand dbCmd,
         Exception ex, int retry, out TimeSpan delay)
     {
-        delay = default;
+        delay = TimeSpan.Zero;
         if (retry > policy.MaxRetries)
         {
             return false;
@@ -223,9 +223,9 @@ internal static class OrmLiteRetryExec
         return true;
     }
 
-    private static readonly Regex IntoRegex = new(@"\bINTO\b",
+    private readonly static Regex IntoRegex = new(@"\bINTO\b",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, OrmLiteUtils.DefaultRegexTimeout);
-    private static readonly Regex WriteRegex = new(@"\b(INSERT|UPDATE|DELETE|MERGE|INTO)\b",
+    private readonly static Regex WriteRegex = new(@"\b(INSERT|UPDATE|DELETE|MERGE|INTO)\b",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, OrmLiteUtils.DefaultRegexTimeout);
 
     /// <summary>
@@ -280,7 +280,7 @@ internal static class OrmLiteRetryExec
         conn.Open();
     }
 
-    internal static async Task ReopenAsync(IDbCommand dbCmd, CancellationToken token)
+    internal async static Task ReopenAsync(IDbCommand dbCmd, CancellationToken token)
     {
         if (dbCmd is OrmLiteCommand ormCmd)
         {
@@ -337,7 +337,7 @@ internal static class OrmLiteRetryExec
         }
     }
 
-    internal static async Task<T> ExecuteAsync<T>(IDbCommand dbCmd, Func<Task<T>> fn, CancellationToken token)
+    internal async static Task<T> ExecuteAsync<T>(IDbCommand dbCmd, Func<Task<T>> fn, CancellationToken token)
     {
         var dialect = dbCmd.GetDialectProvider();
         var policy = GetStatementPolicy(dbCmd, dialect);
@@ -397,7 +397,7 @@ internal static class OrmLiteRetryExec
             : RetryReaderAsync(dbCmd, dialect, token);
     }
 
-    private static async Task<IDataReader> RetryReaderAsync(IDbCommand dbCmd, IOrmLiteDialectProvider dialect, CancellationToken token) =>
+    private async static Task<IDataReader> RetryReaderAsync(IDbCommand dbCmd, IOrmLiteDialectProvider dialect, CancellationToken token) =>
         RetryReader(dbCmd, dialect, await ExecuteAsync(dbCmd, () => dialect.ExecuteReaderAsync(dbCmd, token), token).ConfigAwait(),
             CommandBehavior.Default);
 
@@ -431,7 +431,7 @@ internal static class OrmLiteRetryExec
     internal static bool ShouldRetryOpen(OrmLiteRetryPolicy policy, IOrmLiteDialectProvider dialect, Exception ex,
         int retry, out TimeSpan delay)
     {
-        delay = default;
+        delay = TimeSpan.Zero;
         if (retry > policy.MaxRetries || policy.GetTransientError(dialect, ex) == TransientError.None)
         {
             return false;
@@ -449,7 +449,7 @@ internal static class OrmLiteRetryExec
     internal static bool ShouldRetryTransaction(OrmLiteRetryPolicy? policy, IOrmLiteDialectProvider dialect,
         Exception ex, bool committing, int retry, out TimeSpan delay)
     {
-        delay = default;
+        delay = TimeSpan.Zero;
         if (policy == null || retry > policy.MaxRetries)
         {
             return false;
@@ -564,7 +564,7 @@ public static class OrmLiteRetryApi
     /// RetryPolicy. Anything fn does outside the database, e.g. sending an email, is done again too.
     /// If the connection is already in a transaction, fn is run in it without retries.
     /// </summary>
-    public static async Task<T> RunInTransactionAsync<T>(this IDbConnection db, Func<Task<T>> fn,
+    public async static Task<T> RunInTransactionAsync<T>(this IDbConnection db, Func<Task<T>> fn,
         IsolationLevel? isolationLevel = null, CancellationToken token = default)
     {
         if (db.InTransaction())

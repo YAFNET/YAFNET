@@ -267,7 +267,7 @@ public static class PlatformExtensions
     /// <param name="pi">The pi.</param>
     /// <returns>System.String.</returns>
     /// <exception cref="System.ArgumentException">Property '{0}' has no DeclaringType".Fmt(pi.Name)</exception>
-    static internal string UniqueKey(this PropertyInfo pi)
+    internal static string UniqueKey(this PropertyInfo pi)
     {
         if (pi.DeclaringType == null)
         {

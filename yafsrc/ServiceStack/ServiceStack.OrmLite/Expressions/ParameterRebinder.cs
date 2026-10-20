@@ -47,7 +47,7 @@ public class ParameterRebinder : SqlExpressionVisitor
     /// </summary>
     /// <param name="p">The p.</param>
     /// <returns>Expression.</returns>
-    override protected Expression VisitParameter(ParameterExpression p)
+    protected override Expression VisitParameter(ParameterExpression p)
     {
         ParameterExpression replacement;
         if (this.map.TryGetValue(p, out replacement))

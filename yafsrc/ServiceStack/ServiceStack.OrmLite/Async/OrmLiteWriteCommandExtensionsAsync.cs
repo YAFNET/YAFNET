@@ -26,12 +26,12 @@ namespace ServiceStack.OrmLite;
 /// <summary>
 /// Class OrmLiteWriteCommandExtensionsAsync.
 /// </summary>
-static internal class OrmLiteWriteCommandExtensionsAsync
+internal static class OrmLiteWriteCommandExtensionsAsync
 {
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log => OrmLiteLog.Log;
+    internal static ILog Log => OrmLiteLog.Log;
 
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)
@@ -183,7 +183,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
-        async internal Task<int> UpdateInternalAsync<T>(object obj, CancellationToken token, Action<IDbCommand> commandFilter = null)
+        internal async Task<int> UpdateInternalAsync<T>(object obj, CancellationToken token, Action<IDbCommand> commandFilter = null)
         {
             if (!dbCmd.PrepareUpdate<T>(obj, out var hadRowVersion))
             {
@@ -202,7 +202,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
         /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
-        async internal Task<int> UpdateAndVerifyAsync<T>(Action<IDbCommand> commandFilter, bool hadRowVersion, CancellationToken token)
+        internal async Task<int> UpdateAndVerifyAsync<T>(Action<IDbCommand> commandFilter, bool hadRowVersion, CancellationToken token)
         {
             commandFilter?.Invoke(dbCmd);
             var rowsUpdated = await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
@@ -237,7 +237,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
         /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
-        async internal Task<int> UpdateAllAsync<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter, CancellationToken token)
+        internal async Task<int> UpdateAllAsync<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -485,7 +485,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
         /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException">The row was modified or deleted since the last read</exception>
-        async internal Task DeleteByIdAsync<T>(object id, ulong rowVersion,
+        internal async Task DeleteByIdAsync<T>(object id, ulong rowVersion,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -633,7 +633,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="enableIdentityInsert">if set to <c>true</c> [enable identity insert].</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
-        async internal Task<long> InsertAsync<T>(T obj, Action<IDbCommand> commandFilter, bool selectIdentity, bool enableIdentityInsert, CancellationToken token)
+        internal async Task<long> InsertAsync<T>(T obj, Action<IDbCommand> commandFilter, bool selectIdentity, bool enableIdentityInsert, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -686,7 +686,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
-        async internal Task<long> InsertAsync<T>(Dictionary<string, object> obj,
+        internal async Task<long> InsertAsync<T>(Dictionary<string, object> obj,
             Action<IDbCommand> commandFilter, bool selectIdentity, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -800,7 +800,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="objs">The objs.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        async internal Task InsertUsingDefaultsAsync<T>(T[] objs, CancellationToken token)
+        internal async Task InsertUsingDefaultsAsync<T>(T[] objs, CancellationToken token)
         {
             IDbTransaction dbTrans = null;
 
@@ -839,7 +839,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
-        async internal Task<long> InsertIntoSelectAsync<T>(ISqlExpression query, Action<IDbCommand> commandFilter, CancellationToken token)
+        internal async Task<long> InsertIntoSelectAsync<T>(ISqlExpression query, Action<IDbCommand> commandFilter, CancellationToken token)
         {
             return OrmLiteReadCommandExtensions.ToLong(await dbCmd.InsertIntoSelectInternal<T>(query, commandFilter)
                 .ExecNonQueryAsync(token: token).ConfigAwait());
@@ -853,7 +853,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        async internal Task InsertAllAsync<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter, bool enableIdentityInsert = false, CancellationToken token = default)
+        internal async Task InsertAllAsync<T>(IEnumerable<T> objs, Action<IDbCommand> commandFilter, bool enableIdentityInsert = false, CancellationToken token = default)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -1200,7 +1200,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="objs">The objs.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
-        async internal Task<int> SaveAllAsync<T>(IEnumerable<T> objs, CancellationToken token)
+        internal async Task<int> SaveAllAsync<T>(IEnumerable<T> objs, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -1308,7 +1308,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="instance">The instance.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        async internal Task SaveAllReferencesAsync<T>(T instance, CancellationToken token)
+        internal async Task SaveAllReferencesAsync<T>(T instance, CancellationToken token)
         {
             await SaveAllReferencesAsync(dbCmd, ModelDefinition<T>.Definition, instance, token).ConfigAwait();
         }
@@ -1321,7 +1321,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
     /// <param name="modelDef">The model definition.</param>
     /// <param name="instance">The instance.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    async static internal Task SaveAllReferencesAsync(IDbCommand dbCmd, ModelDefinition modelDef, object instance, CancellationToken token)
+    internal async static Task SaveAllReferencesAsync(IDbCommand dbCmd, ModelDefinition modelDef, object instance, CancellationToken token)
     {
         var pkValue = modelDef.PrimaryKey.GetValue(instance);
         var fieldDefs = modelDef.ReferenceFieldDefinitionsArray;
@@ -1450,7 +1450,7 @@ static internal class OrmLiteWriteCommandExtensionsAsync
         /// <param name="id">The identifier.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-        async internal Task<object> GetRowVersionAsync(ModelDefinition modelDef, object id, CancellationToken token)
+        internal async Task<object> GetRowVersionAsync(ModelDefinition modelDef, object id, CancellationToken token)
         {
             var sql = dbCmd.RowVersionSql(modelDef, id);
             var rowVersion = await dbCmd.ScalarAsync<object>(sql, token).ConfigAwait();

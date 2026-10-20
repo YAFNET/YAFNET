@@ -608,7 +608,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         writer.Complete();
     }
 
-    public override async Task BulkInsertAsync<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
+    public async override Task BulkInsertAsync<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
     {
         config ??= new();
         if (config.Mode == BulkInsertMode.Sql)
@@ -690,7 +690,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         writer.Complete();
     }
 
-    protected override async Task BulkLoadAsync<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config, CancellationToken token)
+    protected async override Task BulkLoadAsync<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config, CancellationToken token)
     {
         if (config.Mode == BulkInsertMode.Sql)
         {
@@ -836,7 +836,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    override protected bool ShouldSkipInsert(FieldDefinition fieldDef)
+    protected override bool ShouldSkipInsert(FieldDefinition fieldDef)
     {
         return fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
     }
@@ -1105,7 +1105,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     }
 
     // Strings are cast to their column's type, e.g. 'a'::character varying, which isn't a difference from text
-    private static readonly Regex StringCastRegex = new(@"'::(character varying|text|bpchar|character)\b",
+    private readonly static Regex StringCastRegex = new(@"'::(character varying|text|bpchar|character)\b",
         RegexOptions.Compiled, TimeSpan.FromSeconds(1));
 
     public override Dictionary<string, string> GetColumnDefaults(IDbConnection db, string quotedTable)
@@ -1124,7 +1124,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         return defaults;
     }
 
-    private static readonly Regex TextSearchConfigRegex = new(@"^[A-Za-z_][A-Za-z0-9_]*$", RegexOptions.Compiled,
+    private readonly static Regex TextSearchConfigRegex = new(@"^[A-Za-z_][A-Za-z0-9_]*$", RegexOptions.Compiled,
         TimeSpan.FromSeconds(1));
 
     // The text search configuration, 'simple' by default, which indexes words as they're written
@@ -1826,7 +1826,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="obj">The object.</param>
     /// <returns>System.Object.</returns>
-    override protected object GetValue(FieldDefinition fieldDef, object obj)
+    protected override object GetValue(FieldDefinition fieldDef, object obj)
     {
         if (fieldDef.CustomFieldDefinition != null && this.NativeTypes.ContainsKey(fieldDef.CustomFieldDefinition)
                                                    && this.UseRawValue(fieldDef.CustomFieldDefinition))
@@ -1982,7 +1982,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>NpgsqlConnection.</returns>
-    static protected DbConnection Unwrap(IDbConnection db)
+    protected static DbConnection Unwrap(IDbConnection db)
     {
         return (DbConnection)db.ToDbConnection();
     }
@@ -2026,7 +2026,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <returns>NpgsqlCommand.</returns>
-    static protected DbCommand Unwrap(IDbCommand cmd)
+    protected static DbCommand Unwrap(IDbCommand cmd)
     {
         return (DbCommand)cmd.ToDbCommand();
     }
@@ -2036,7 +2036,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <returns>NpgsqlDataReader.</returns>
-    static protected DbDataReader Unwrap(IDataReader reader)
+    protected static DbDataReader Unwrap(IDataReader reader)
     {
         return (DbDataReader)reader;
     }

@@ -272,7 +272,7 @@ public class PostTopicModel : ForumPage
     /// <returns>
     /// Returns the Message Id.
     /// </returns>
-    async protected Task<Message> PostReplyHandleNewTopicAsync()
+    protected async Task<Message> PostReplyHandleNewTopicAsync()
     {
         // Check if Forum is Moderated
         var isForumModerated = this.CheckForumModerateStatus(this.PageBoardContext.PageForum, true);

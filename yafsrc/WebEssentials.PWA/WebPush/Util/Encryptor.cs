@@ -16,7 +16,7 @@ namespace WebEssentials.AspNetCore.Pwa.WebPush.Util;
 /// @LogicSoftware
 /// Originally from https://github.com/LogicSoftware/WebPushEncryption/blob/master/src/Encryptor.cs
 /// </summary>
-static internal class Encryptor
+internal static class Encryptor
 {
     /// <summary>
     /// Encrypts the specified user key.

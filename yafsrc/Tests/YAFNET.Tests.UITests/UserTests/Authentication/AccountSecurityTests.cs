@@ -212,7 +212,7 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                         "Login with the new password failed");
                 });
 
-        static async Task ResetPasswordAsync(IPage page, string resetLink, string email, string password)
+        async static Task ResetPasswordAsync(IPage page, string resetLink, string email, string password)
         {
             await page.GotoAsync(resetLink);
 

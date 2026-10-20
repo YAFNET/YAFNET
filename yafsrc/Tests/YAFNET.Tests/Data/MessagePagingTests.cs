@@ -42,7 +42,7 @@ using YAF.Types.Objects.Model;
 [NonParallelizable]
 public class MessagePagingTests
 {
-    private static readonly DateTime Since = DateTimeHelper.SqlDbMinTime();
+    private readonly static DateTime Since = DateTimeHelper.SqlDbMinTime();
 
     private readonly DateTime start = DateTime.UtcNow.AddDays(-1);
 

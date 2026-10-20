@@ -592,7 +592,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="values">The values.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>System.Object[].</returns>
-    static internal object[] PopulateValues(this IDataReader reader, object[] values, IOrmLiteDialectProvider dialectProvider)
+    internal static object[] PopulateValues(this IDataReader reader, object[] values, IOrmLiteDialectProvider dialectProvider)
     {
         if (!OrmLiteConfig.DeoptimizeReader && !dialectProvider.DeoptimizeReader)
         {
@@ -1129,7 +1129,7 @@ public static class OrmLiteWriteCommandExtensions
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>List&lt;FieldDefinition&gt;.</returns>
-    static internal List<FieldDefinition> GetUpsertReadBackFields(ModelDefinition modelDef)
+    internal static List<FieldDefinition> GetUpsertReadBackFields(ModelDefinition modelDef)
     {
         return modelDef.FieldDefinitions.Where(x => x.IsRowVersion || x.ReturnOnInsert).ToList();
     }
@@ -1140,7 +1140,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dialect">The dialect.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>List&lt;FieldDefinition&gt;.</returns>
-    static internal List<FieldDefinition> GetUpsertFieldsAfterInsert(IOrmLiteDialectProvider dialect, ModelDefinition modelDef)
+    internal static List<FieldDefinition> GetUpsertFieldsAfterInsert(IOrmLiteDialectProvider dialect, ModelDefinition modelDef)
     {
         var fields = GetUpsertReadBackFields(modelDef);
         return dialect.HasInsertReturnValues(modelDef)
@@ -1155,7 +1155,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
     /// <param name="fields">The fields.</param>
-    static internal void CopyFields<T>(T from, T to, List<FieldDefinition> fields)
+    internal static void CopyFields<T>(T from, T to, List<FieldDefinition> fields)
     {
         foreach (var fieldDef in fields)
         {
@@ -1200,7 +1200,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="sqlIn">The SQL in.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>System.String.</returns>
-    static internal string GetDeleteByIdsSql<T>(string sqlIn, IOrmLiteDialectProvider dialectProvider)
+    internal static string GetDeleteByIdsSql<T>(string sqlIn, IOrmLiteDialectProvider dialectProvider)
     {
         var modelDef = ModelDefinition<T>.Definition;
 
@@ -1415,7 +1415,7 @@ public static class OrmLiteWriteCommandExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="obj">The object.</param>
-    static internal void RemovePrimaryKeyWithDefaultValue<T>(this Dictionary<string, object> obj)
+    internal static void RemovePrimaryKeyWithDefaultValue<T>(this Dictionary<string, object> obj)
     {
         var pkField = typeof(T).GetModelDefinition().PrimaryKey;
         if (pkField != null && (pkField.AutoIncrement || pkField.AutoId))
@@ -1471,7 +1471,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="obj">The object.</param>
     /// <returns>System.Int64.</returns>
-    static internal long PopulateReturnValues<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, object obj)
+    internal static long PopulateReturnValues<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, object obj)
     {
         if (reader.Read())
         {
@@ -2130,7 +2130,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="instance">The instance.</param>
-    static internal void SaveAllReferences(IDbCommand dbCmd, ModelDefinition modelDef, object instance)
+    internal static void SaveAllReferences(IDbCommand dbCmd, ModelDefinition modelDef, object instance)
     {
         var pkValue = modelDef.PrimaryKey.GetValue(instance);
         var fieldDefs = modelDef.ReferenceFieldDefinitionsArray;

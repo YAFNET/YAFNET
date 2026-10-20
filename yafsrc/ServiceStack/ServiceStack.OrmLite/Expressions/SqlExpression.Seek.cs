@@ -149,14 +149,14 @@ public abstract partial class SqlExpression<T>
     {
         var parts = new List<string>();
         var depth = 0;
-        char quote = default;
+        char quote = '\0';
         var start = 0;
         for (var i = 0; i < sql.Length; i++)
         {
             var c = sql[i];
-            if (quote != default)
+            if (quote != 0)
             {
-                if (c == quote) quote = default;
+                if (c == quote) quote = '\0';
                 continue;
             }
             switch (c)

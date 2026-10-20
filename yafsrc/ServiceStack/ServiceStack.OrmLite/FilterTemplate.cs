@@ -642,12 +642,12 @@ internal readonly struct FilterChoice(object? sql, object?[]? values, object? va
     /// <summary>
     /// The filter doesn't apply to rows with the values of the scope
     /// </summary>
-    public static readonly object Skip = new();
+    public readonly static object Skip = new();
 
     /// <summary>
     /// No rows match the filter with the values of the scope
     /// </summary>
-    public static readonly object False = new();
+    public readonly static object False = new();
 
     /// <summary>
     /// A RenderedSql, Skip or False, or null when the filter is translated for each statement
@@ -679,7 +679,7 @@ internal sealed class FilterUse(FilterRule rule, object? sql, Func<object?, IOrm
 internal sealed class RenderedSql
 {
     // Kept so SQL that can't be reused isn't checked again each time
-    public static readonly RenderedSql NotCached = new([], [], [], false, false);
+    public readonly static RenderedSql NotCached = new([], [], [], false, false);
 
     private readonly string[] parts;   // the SQL between its db params
     private readonly int[] paramAt;    // the db param after each part

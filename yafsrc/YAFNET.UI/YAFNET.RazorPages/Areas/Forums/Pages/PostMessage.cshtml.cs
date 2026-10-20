@@ -318,7 +318,7 @@ public class PostMessageModel : ForumPage
     /// <returns>
     /// Returns the new Message.
     /// </returns>
-    async protected Task<Message> PostReplyHandleReplyToTopicAsync(bool isSpamApproved, int? replyTo = null)
+    protected async Task<Message> PostReplyHandleReplyToTopicAsync(bool isSpamApproved, int? replyTo = null)
     {
         // Check if Forum is Moderated
         var isForumModerated = this.CheckForumModerateStatus(this.PageBoardContext.PageForum, false);

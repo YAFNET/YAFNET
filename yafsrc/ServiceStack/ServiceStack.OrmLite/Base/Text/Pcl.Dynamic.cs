@@ -242,7 +242,7 @@ public class DynamicJson : DynamicObject
     /// </summary>
     /// <param name="pascalCase">The pascal case.</param>
     /// <returns>System.String.</returns>
-    static internal string Underscored(string pascalCase)
+    internal static string Underscored(string pascalCase)
     {
         return Underscored(pascalCase.ToCharArray());
     }
@@ -252,7 +252,7 @@ public class DynamicJson : DynamicObject
     /// </summary>
     /// <param name="pascalCase">The pascal case.</param>
     /// <returns>System.String.</returns>
-    static internal string Underscored(IEnumerable<char> pascalCase)
+    internal static string Underscored(IEnumerable<char> pascalCase)
     {
         var sb = StringBuilderCache.Allocate();
         var i = 0;

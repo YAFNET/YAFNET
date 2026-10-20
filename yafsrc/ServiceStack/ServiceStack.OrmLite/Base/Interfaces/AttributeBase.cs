@@ -20,5 +20,5 @@ public class AttributeBase : Attribute
     /// <summary>
     /// The type identifier
     /// </summary>
-    readonly protected Guid typeId = Guid.NewGuid(); //Hack required to give Attributes unique identity
+    protected readonly Guid typeId = Guid.NewGuid(); //Hack required to give Attributes unique identity
 }

@@ -228,7 +228,7 @@ public static class CsvWriter
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="ranOnce">if set to <c>true</c> [ran once].</param>
-    static internal void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
+    internal static void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
     {
         if (ranOnce)
         {
@@ -261,11 +261,11 @@ public class CsvWriter<T>
     /// <summary>
     /// The property getters
     /// </summary>
-    static internal List<GetMemberDelegate<T>> PropertyGetters;
+    internal static List<GetMemberDelegate<T>> PropertyGetters;
     /// <summary>
     /// The property infos
     /// </summary>
-    static internal List<PropertyInfo> PropertyInfos;
+    internal static List<PropertyInfo> PropertyInfos;
 
     /// <summary>
     /// The optimized writer
@@ -289,7 +289,7 @@ public class CsvWriter<T>
     /// <summary>
     /// Resets this instance.
     /// </summary>
-    static internal void Reset()
+    internal static void Reset()
     {
         Headers = [];
 

@@ -42,7 +42,7 @@ using YAF.Types.Models;
 [NonParallelizable]
 public class TopicListTests
 {
-    private static readonly DateTime Since = DateTimeHelper.SqlDbMinTime();
+    private readonly static DateTime Since = DateTimeHelper.SqlDbMinTime();
 
     private readonly DateTime now = DateTime.UtcNow;
 

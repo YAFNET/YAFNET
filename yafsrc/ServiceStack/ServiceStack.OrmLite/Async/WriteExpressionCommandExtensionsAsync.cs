@@ -19,7 +19,7 @@ namespace ServiceStack.OrmLite;
 /// <summary>
 /// Class WriteExpressionCommandExtensionsAsync.
 /// </summary>
-static internal class WriteExpressionCommandExtensionsAsync
+internal static class WriteExpressionCommandExtensionsAsync
 {
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)

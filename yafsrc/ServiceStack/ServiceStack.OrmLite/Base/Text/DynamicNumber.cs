@@ -3279,7 +3279,7 @@ public static class DynamicNumber
 /// <summary>
 /// Class DynamicNumberExtensions.
 /// </summary>
-static internal class DynamicNumberExtensions
+internal static class DynamicNumberExtensions
 {
     /// <summary>
     /// Parses the string.
@@ -3287,7 +3287,7 @@ static internal class DynamicNumberExtensions
     /// <param name="number">The number.</param>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    static internal object ParseString(this IDynamicNumber number, object value)
+    internal static object ParseString(this IDynamicNumber number, object value)
     {
         if (value is string s)
         {

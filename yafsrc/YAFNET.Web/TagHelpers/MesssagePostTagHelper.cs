@@ -430,7 +430,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="output">
     ///     The output.
     /// </param>
-    async protected virtual Task RenderSimpleMessageAsync(TagHelperOutput output)
+    protected async virtual Task RenderSimpleMessageAsync(TagHelperOutput output)
     {
         if (this.IsAd)
         {
@@ -452,7 +452,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="output">
     ///     The output.
     /// </param>
-    async protected virtual Task RenderMessageAsync(TagHelperOutput output)
+    protected async virtual Task RenderMessageAsync(TagHelperOutput output)
     {
         if (this.MessageFlags.IsDeleted)
         {

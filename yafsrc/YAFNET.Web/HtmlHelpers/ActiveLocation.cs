@@ -35,7 +35,7 @@ public static class ActiveLocationHtmlHelper
     /// The texts of the pages whose name is not the tag of the text (the missing text was shown as
     /// [ACTIVELOCATION.PAGE] and logged).
     /// </summary>
-    private static readonly Dictionary<ForumPages, string> PageTags = new()
+    private readonly static Dictionary<ForumPages, string> PageTags = new()
     {
         { ForumPages.Post, "POSTS" },
         { ForumPages.PostTopic, "POSTTOPIC" },

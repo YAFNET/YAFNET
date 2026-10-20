@@ -23,7 +23,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log => OrmLiteLog.Log;
+    internal static ILog Log => OrmLiteLog.Log;
 
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)

@@ -260,7 +260,7 @@ public class UserImportTests
 
         count.Should().Be(0);
         await this.board.Notifications.DidNotReceiveWithAnyArgs()
-            .SendRegistrationNotificationToUserAsync(default, default, default);
+            .SendRegistrationNotificationToUserAsync(null, null, null);
     }
 
     [Test]

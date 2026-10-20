@@ -161,7 +161,7 @@ public class OrmLiteContext
     /// <typeparam name="T"></typeparam>
     /// <param name="key">The key.</param>
     /// <param name="value">The value.</param>
-    static internal void SetItem<T>(string key, T value)
+    internal static void SetItem<T>(string key, T value)
     {
         if (Equals(value, default(T)))
         {
@@ -218,7 +218,7 @@ public class OrmLiteContext
     /// Gets or sets the ts transaction.
     /// </summary>
     /// <value>The ts transaction.</value>
-    static internal IDbTransaction TSTransaction
+    internal static IDbTransaction TSTransaction
     {
         get
         {

@@ -32,7 +32,7 @@ public class MySqlExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="quotedColName">Name of the quoted col.</param>
     /// <returns>string.</returns>
-    override protected string ToCast(string quotedColName)
+    protected override string ToCast(string quotedColName)
     {
         return $"cast({quotedColName} as char(1000))";
     }
@@ -43,7 +43,7 @@ public class MySqlExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="values">The values.</param>
     /// <returns>string.</returns>
-    override protected string ToUpdateFromStatement(List<KeyValuePair<FieldDefinition, string>> values)
+    protected override string ToUpdateFromStatement(List<KeyValuePair<FieldDefinition, string>> values)
     {
         var target = TableAlias != null ? DialectProvider.GetQuotedName(TableAlias) : DialectProvider.GetQuotedTableName(modelDef);
         var tables = FromExpression.Trim();
@@ -78,7 +78,7 @@ public class MySqlExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="m">The m.</param>
     /// <returns>object.</returns>
-    override protected object VisitColumnAccessMethod(MethodCallExpression m)
+    protected override object VisitColumnAccessMethod(MethodCallExpression m)
     {
         if (m.Method.Name != nameof(ToString) || m.Object?.Type != typeof(DateTime))
         {
@@ -104,7 +104,7 @@ public class MySqlExpression<T> : SqlExpression<T>
     /// <param name="quotedColName">Name of the quoted col.</param>
     /// <param name="subSelect">The sub select.</param>
     /// <returns>System.String.</returns>
-    override protected string CreateInSubQuerySql(object quotedColName, string subSelect)
+    protected override string CreateInSubQuerySql(object quotedColName, string subSelect)
     {
         return $"{quotedColName} IN (SELECT * FROM ({subSelect})  SubQuery)";
     }

@@ -150,7 +150,7 @@ public static class OrmLiteUtils
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log => OrmLiteLog.Log;
+    internal static ILog Log => OrmLiteLog.Log;
 
     /// <summary>
     /// Handles the exception.
@@ -621,7 +621,7 @@ public static class OrmLiteUtils
     /// <param name="tableType">Type of the table.</param>
     /// <param name="dialect">The dialect.</param>
     /// <returns>string.</returns>
-    static internal string GetColumnNames(this Type tableType, IOrmLiteDialectProvider dialect)
+    internal static string GetColumnNames(this Type tableType, IOrmLiteDialectProvider dialect)
     {
         return GetColumnNames(tableType.GetModelDefinition(), dialect);
     }
@@ -666,7 +666,7 @@ public static class OrmLiteUtils
     /// <param name="idValues">The identifier values.</param>
     /// <param name="dialect">The dialect.</param>
     /// <returns>List&lt;List&lt;object&gt;&gt;.</returns>
-    static internal List<List<object>> GetIdBatches(IEnumerable idValues, IOrmLiteDialectProvider dialect)
+    internal static List<List<object>> GetIdBatches(IEnumerable idValues, IOrmLiteDialectProvider dialect)
     {
         var ids = Sql.Flatten(idValues);
         var max = dialect.MaxInListParams;
@@ -772,7 +772,7 @@ public static class OrmLiteUtils
     /// <param name="dbCmd">The database command.</param>
     /// <param name="idValues">The identifier values.</param>
     /// <returns>string.</returns>
-    static internal string SetIdsInSqlParams(this IDbCommand dbCmd, IEnumerable idValues)
+    internal static string SetIdsInSqlParams(this IDbCommand dbCmd, IEnumerable idValues)
     {
         var inArgs = Sql.Flatten(idValues);
         var sbParams = StringBuilderCache.Allocate();
@@ -795,7 +795,7 @@ public static class OrmLiteUtils
     /// <param name="text">The text.</param>
     /// <param name="word">The word.</param>
     /// <returns><c>true</c> if text contains the word, <c>false</c> otherwise.</returns>
-    static internal bool ContainsWord(this string text, string word)
+    internal static bool ContainsWord(this string text, string word)
     {
         if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(word))
         {
@@ -1372,7 +1372,7 @@ public static class OrmLiteUtils
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="dbFieldMap">The database field map.</param>
     /// <returns>int.</returns>
-    static internal int FindColumnIndex(IOrmLiteDialectProvider dialectProvider, FieldDefinition fieldDef, Dictionary<string, int> dbFieldMap)
+    internal static int FindColumnIndex(IOrmLiteDialectProvider dialectProvider, FieldDefinition fieldDef, Dictionary<string, int> dbFieldMap)
     {
         var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
         if (dbFieldMap.TryGetValue(fieldName, out var index))
@@ -1538,7 +1538,7 @@ public static class OrmLiteUtils
     /// <summary>
     /// The quoted chars
     /// </summary>
-    readonly static internal char[] QuotedChars = ['"', '`', '[', ']'];
+    internal readonly static char[] QuotedChars = ['"', '`', '[', ']'];
 
     public static bool IsQuoted(string symbol)
     {
@@ -1738,7 +1738,7 @@ public static class OrmLiteUtils
     /// <param name="refType">Type of the reference.</param>
     /// <param name="childResults">The child results.</param>
     /// <param name="refField">The reference field.</param>
-    static internal void SetListChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
+    internal static void SetListChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
                                                      FieldDefinition fieldDef, Type refType, IList childResults, FieldDefinition refField)
     {
         var map = new Dictionary<object, List<object>>();
@@ -1775,7 +1775,7 @@ public static class OrmLiteUtils
     /// <param name="refModelDef">The reference model definition.</param>
     /// <param name="refSelf">The reference self.</param>
     /// <param name="childResults">The child results.</param>
-    static internal void SetRefSelfChildResults<Parent>(List<Parent> parents, FieldDefinition fieldDef, ModelDefinition refModelDef, FieldDefinition refSelf, IList childResults)
+    internal static void SetRefSelfChildResults<Parent>(List<Parent> parents, FieldDefinition fieldDef, ModelDefinition refModelDef, FieldDefinition refSelf, IList childResults)
     {
         var map = new Dictionary<object, object>();
         foreach (var result in childResults)
@@ -1803,7 +1803,7 @@ public static class OrmLiteUtils
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="refField">The reference field.</param>
     /// <param name="childResults">The child results.</param>
-    static internal void SetRefFieldChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
+    internal static void SetRefFieldChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
                                                          FieldDefinition fieldDef, FieldDefinition refField, IList childResults)
     {
         var map = new Dictionary<object, object>();
@@ -1829,7 +1829,7 @@ public static class OrmLiteUtils
     /// </summary>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>System.Object.</returns>
-    static internal object AssertAnonObject(this object anonType)
+    internal static object AssertAnonObject(this object anonType)
     {
         if (anonType == null)
         {

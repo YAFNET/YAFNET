@@ -37,7 +37,7 @@ public class MySqlModule : Module
     /// <param name="builder">
     /// The builder.
     /// </param>
-    override protected void Load(ContainerBuilder builder)
+    protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterInstance<DbProviderFactory>(MySqlClientFactory.Instance);
 

@@ -31,7 +31,7 @@ internal sealed class BinaryExpressionFingerprint : ExpressionFingerprint
         return base.GetHashCode();
     }
 
-    override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
+    internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
     {
         combiner.AddObject(this.Method);
         base.AddToHashCodeCombiner(combiner);

@@ -212,7 +212,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// </summary>
     /// <param name="maxValue">The maximum value.</param>
     /// <returns>Exception.</returns>
-    static internal Exception CreateOverflowException(long maxValue)
+    internal static Exception CreateOverflowException(long maxValue)
     {
         return new OverflowException(string.Format(OverflowMessage, SignedMaxValueToIntType(maxValue)));
     }
@@ -222,7 +222,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// </summary>
     /// <param name="maxValue">The maximum value.</param>
     /// <returns>Exception.</returns>
-    static internal Exception CreateOverflowException(ulong maxValue)
+    internal static Exception CreateOverflowException(ulong maxValue)
     {
         return new OverflowException(string.Format(OverflowMessage, UnsignedMaxValueToIntType(maxValue)));
     }
@@ -1043,7 +1043,7 @@ enum ParseState
 /// Class SignedInteger.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-static internal class SignedInteger<T> where T : struct, IComparable<T>, IEquatable<T>, IConvertible
+internal static class SignedInteger<T> where T : struct, IComparable<T>, IEquatable<T>, IConvertible
 {
     /// <summary>
     /// The type code
@@ -1094,7 +1094,7 @@ static internal class SignedInteger<T> where T : struct, IComparable<T>, IEquata
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    static internal object ParseNullableObject(ReadOnlySpan<char> value)
+    internal static object ParseNullableObject(ReadOnlySpan<char> value)
     {
         return value.IsNullOrEmpty() ? null : ParseObject(value);
     }
@@ -1104,7 +1104,7 @@ static internal class SignedInteger<T> where T : struct, IComparable<T>, IEquata
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    static internal object ParseObject(ReadOnlySpan<char> value)
+    internal static object ParseObject(ReadOnlySpan<char> value)
     {
         var result = ParseInt64(value);
 
@@ -1281,7 +1281,7 @@ static internal class SignedInteger<T> where T : struct, IComparable<T>, IEquata
 /// Class UnsignedInteger.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-static internal class UnsignedInteger<T> where T : struct, IComparable<T>, IEquatable<T>, IConvertible
+internal static class UnsignedInteger<T> where T : struct, IComparable<T>, IEquatable<T>, IConvertible
 {
     /// <summary>
     /// The type code
@@ -1314,7 +1314,7 @@ static internal class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    static internal object ParseNullableObject(ReadOnlySpan<char> value)
+    internal static object ParseNullableObject(ReadOnlySpan<char> value)
     {
         return value.IsNullOrEmpty() ? null : ParseObject(value);
     }
@@ -1324,7 +1324,7 @@ static internal class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    static internal object ParseObject(ReadOnlySpan<char> value)
+    internal static object ParseObject(ReadOnlySpan<char> value)
     {
         var result = ParseUInt64(value);
 
@@ -1354,7 +1354,7 @@ static internal class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
     /// <param name="value">The value.</param>
     /// <returns>System.UInt64.</returns>
     /// <exception cref="System.FormatException"></exception>
-    static internal ulong ParseUInt64(ReadOnlySpan<char> value)
+    internal static ulong ParseUInt64(ReadOnlySpan<char> value)
     {
         if (value.IsEmpty)
         {

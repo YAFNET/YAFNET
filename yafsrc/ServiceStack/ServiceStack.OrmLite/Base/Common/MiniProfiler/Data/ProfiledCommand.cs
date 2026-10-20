@@ -99,7 +99,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// Gets or sets the <see cref="T:System.Data.Common.DbConnection" /> used by this <see cref="T:System.Data.Common.DbCommand" />.
     /// </summary>
     /// <value>The database connection.</value>
-    override protected DbConnection DbConnection
+    protected override DbConnection DbConnection
     {
         get => this.conn;
         set
@@ -113,13 +113,13 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// Gets the collection of <see cref="T:System.Data.Common.DbParameter" /> objects.
     /// </summary>
     /// <value>The database parameter collection.</value>
-    override protected DbParameterCollection DbParameterCollection => this.cmd.Parameters;
+    protected override DbParameterCollection DbParameterCollection => this.cmd.Parameters;
 
     /// <summary>
     /// Gets or sets the <see cref="P:System.Data.Common.DbCommand.DbTransaction" /> within which this <see cref="T:System.Data.Common.DbCommand" /> object executes.
     /// </summary>
     /// <value>The database transaction.</value>
-    override protected DbTransaction DbTransaction {
+    protected override DbTransaction DbTransaction {
         get;
         set {
             field = value;
@@ -162,7 +162,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// </summary>
     /// <param name="behavior">An instance of <see cref="T:System.Data.CommandBehavior" />.</param>
     /// <returns>A task representing the operation.</returns>
-    override protected DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
+    protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
     {
         if (this.DbProfiler is not {IsActive: true})
         {
@@ -267,7 +267,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// Creates a new instance of a <see cref="T:System.Data.Common.DbParameter" /> object.
     /// </summary>
     /// <returns>A <see cref="T:System.Data.Common.DbParameter" /> object.</returns>
-    override protected DbParameter CreateDbParameter()
+    protected override DbParameter CreateDbParameter()
     {
         return this.cmd.CreateParameter();
     }
@@ -276,7 +276,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// Releases the unmanaged resources used by the <see cref="T:System.ComponentModel.Component" /> and optionally releases the managed resources.
     /// </summary>
     /// <param name="disposing"><see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</param>
-    override protected void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
     {
         if (disposing && this.cmd != null)
         {

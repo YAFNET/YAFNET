@@ -558,7 +558,7 @@ public static class WriteListsOfElements<T, TSerializer>
 /// <summary>
 /// Class WriteLists.
 /// </summary>
-static internal class WriteLists
+internal static class WriteLists
 {
     /// <summary>
     /// Writes the list string.
@@ -667,7 +667,7 @@ static internal class WriteLists
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-static internal class WriteLists<T, TSerializer>
+internal static class WriteLists<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>

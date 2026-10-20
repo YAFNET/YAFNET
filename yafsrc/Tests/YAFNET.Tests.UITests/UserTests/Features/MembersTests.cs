@@ -62,7 +62,7 @@ public class MembersTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
             });
     }
 
-    private static async Task SearchAsync(IPage page, TestConfig testSettings, string userName, string comparison, string numberOfPosts)
+    private async static Task SearchAsync(IPage page, TestConfig testSettings, string userName, string comparison, string numberOfPosts)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Members");
 

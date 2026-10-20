@@ -94,7 +94,7 @@ public class TypeProperties<T> : TypeProperties
     /// </summary>
     /// <param name="propertyName">Name of the property.</param>
     /// <returns>PropertyAccessor.</returns>
-    public static new PropertyAccessor GetAccessor(string propertyName)
+    public new static PropertyAccessor GetAccessor(string propertyName)
     {
         return Instance.PropertyMap.GetValueOrDefault(propertyName);
     }

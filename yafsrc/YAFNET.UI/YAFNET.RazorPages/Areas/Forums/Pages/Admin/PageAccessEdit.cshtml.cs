@@ -99,7 +99,7 @@ public class PageAccessEditModel : AdminPage
     /// <summary>
     /// The pages only the host admin can use (they can't be granted to the admins of a board).
     /// </summary>
-    private static readonly string[] HostPages = ForumPagesExtensions.HostAdminPages;
+    private readonly static string[] HostPages = ForumPagesExtensions.HostAdminPages;
 
     /// <summary>
     /// Handles the Click event of the Save control.

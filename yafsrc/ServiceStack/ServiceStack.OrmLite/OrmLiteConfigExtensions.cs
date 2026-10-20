@@ -22,7 +22,7 @@ using ServiceStack.OrmLite.Converters;
 /// <summary>
 /// Class OrmLiteConfigExtensions.
 /// </summary>
-static internal class OrmLiteConfigExtensions
+internal static class OrmLiteConfigExtensions
 {
     /// <summary>
     /// The type model definition map
@@ -34,7 +34,7 @@ static internal class OrmLiteConfigExtensions
     /// </summary>
     /// <param name="objProperties">The object properties.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    static internal bool CheckForIdField(IEnumerable<PropertyInfo> objProperties)
+    internal static bool CheckForIdField(IEnumerable<PropertyInfo> objProperties)
     {
         // Not using Linq.Where() and manually iterating through objProperties just to avoid dependencies on System.Xml??
         foreach (var objProperty in objProperties)
@@ -52,7 +52,7 @@ static internal class OrmLiteConfigExtensions
     /// <summary>
     /// Clears the cache.
     /// </summary>
-    static internal void ClearCache()
+    internal static void ClearCache()
     {
         typeModelDefinitionMap = [];
     }
@@ -64,7 +64,7 @@ static internal class OrmLiteConfigExtensions
     /// <returns>ModelDefinition.</returns>
     /// <exception cref="System.NotSupportedException">[AutoIncrement] is only valid for integer properties for {modelType.Name}.{propertyInfo.Name} Guid property use [AutoId] instead</exception>
     /// <exception cref="System.NotSupportedException">[AutoId] is only valid for Guid properties for {modelType.Name}.{propertyInfo.Name} integer property use [AutoIncrement] instead</exception>
-    static internal ModelDefinition GetModelDefinition(this Type modelType)
+    internal static ModelDefinition GetModelDefinition(this Type modelType)
     {
         if (modelType == null)
         {

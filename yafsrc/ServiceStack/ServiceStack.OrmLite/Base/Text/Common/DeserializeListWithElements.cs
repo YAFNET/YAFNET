@@ -22,7 +22,7 @@ public static class DeserializeListWithElements<TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    readonly static internal ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    internal readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// The parse delegate cache
@@ -380,7 +380,7 @@ public static class DeserializeList<T, TSerializer>
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-static internal class DeserializeEnumerable<T, TSerializer>
+internal static class DeserializeEnumerable<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>

@@ -529,7 +529,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
     /// <summary>
     /// Sets the daily digest option of the logged-in user (when not null) and saves the notification settings.
     /// </summary>
-    private static async Task SaveDailyDigestAsync(IPage page, TestConfig testSettings, bool? enabled)
+    private async static Task SaveDailyDigestAsync(IPage page, TestConfig testSettings, bool? enabled)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Profile/Subscriptions");
 
@@ -548,7 +548,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
     /// <summary>
     /// Turns the digest of the board on or off.
     /// </summary>
-    private static async Task SetDigestAsync(IPage page, TestConfig testSettings, bool enabled)
+    private async static Task SetDigestAsync(IPage page, TestConfig testSettings, bool enabled)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Admin/Settings");
 

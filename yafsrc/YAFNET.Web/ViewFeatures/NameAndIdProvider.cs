@@ -27,7 +27,7 @@ namespace YAF.Web.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 // NOTE: This is copied from .net core 2.0 code as this is removed from .net core 3.0
-static internal class NameAndIdProvider
+internal static class NameAndIdProvider
 {
     private readonly static object PreviousNameAndIdKey = typeof(PreviousNameAndId);
 

@@ -661,7 +661,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return to;
     }
 
-    private static readonly System.Text.RegularExpressions.Regex CheckConstraintRegex = new(
+    private readonly static System.Text.RegularExpressions.Regex CheckConstraintRegex = new(
         @"^CONSTRAINT\s+`([^`]+)`\s+CHECK\s*\((.*)\)$",
         System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Compiled,
         TimeSpan.FromSeconds(1));
@@ -683,7 +683,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         this.GetTableIndexNames(db, new TableRef(modelDef)).Any(x => x.EqualsIgnoreCase(this.GetFullTextIndexName(modelDef)));
 
     // InnoDB's default stop words, which aren't indexed
-    private static readonly HashSet<string> FullTextStopWords = new(StringComparer.OrdinalIgnoreCase) {
+    private readonly static HashSet<string> FullTextStopWords = new(StringComparer.OrdinalIgnoreCase) {
         "a", "about", "an", "are", "as", "at", "be", "by", "com", "de", "en", "for", "from", "how", "i", "in", "is",
         "it", "la", "of", "on", "or", "that", "the", "this", "to", "was", "what", "when", "where", "who", "will",
         "with", "und", "www",

@@ -39,7 +39,7 @@ public class PostgreSqlExpression<T> : SqlExpression<T>
     /// <param name="quotedColName">Name of the quoted col.</param>
     /// <param name="values">The values.</param>
     /// <returns>string.</returns>
-    override protected string CreateInListSql(object quotedColName, List<object> values)
+    protected override string CreateInListSql(object quotedColName, List<object> values)
     {
         if (DialectProvider.MaxInListParams > 0 && values.Count > DialectProvider.MaxInListParams && ToArrayParam(values) is { } array)
         {
@@ -84,7 +84,7 @@ public class PostgreSqlExpression<T> : SqlExpression<T>
     /// <param name="tableDef">The table definition.</param>
     /// <param name="memberName">Name of the member.</param>
     /// <returns>string.</returns>
-    override protected string GetQuotedColumnName(ModelDefinition tableDef, string memberName)
+    protected override string GetQuotedColumnName(ModelDefinition tableDef, string memberName)
     {
         if (!this.useFieldName)
         {

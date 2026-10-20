@@ -558,7 +558,7 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     /// <typeparam name="TValue">The type of the t value.</typeparam>
     /// <param name="field">The field.</param>
     /// <param name="newValue">The new value.</param>
-    static internal void SetField<TValue>(ref TValue field, TValue newValue)
+    internal static void SetField<TValue>(ref TValue field, TValue newValue)
     {
         field = newValue;
     }

@@ -15,7 +15,7 @@ namespace ServiceStack.OrmLite.Base.Text.Pools;
 /// <summary>
 /// Class SharedPoolExtensions.
 /// </summary>
-static internal class SharedPoolExtensions
+internal static class SharedPoolExtensions
 {
     /// <summary>
     /// The threshold

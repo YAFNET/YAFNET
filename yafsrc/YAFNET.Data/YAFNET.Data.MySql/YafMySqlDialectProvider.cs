@@ -40,5 +40,5 @@ public class YafMySqlDialectProvider : MySqlDialectProvider
     /// <summary>
     /// Gets or sets the instance.
     /// </summary>
-    public static new YafMySqlDialectProvider Instance { get; set; } = new ();
+    public new static YafMySqlDialectProvider Instance { get; set; } = new ();
 }

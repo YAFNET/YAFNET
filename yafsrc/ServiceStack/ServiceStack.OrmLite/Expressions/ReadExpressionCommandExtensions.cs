@@ -18,7 +18,7 @@ using System.Linq.Expressions;
 /// <summary>
 /// Class ReadExpressionCommandExtensions.
 /// </summary>
-static internal class ReadExpressionCommandExtensions
+internal static class ReadExpressionCommandExtensions
 {
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)
@@ -176,7 +176,7 @@ static internal class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>System.String.</returns>
-    static internal string CreateMultiSelect<T, T2, T3, T4, T5, T6, T7, T8>(this SqlExpression<T> q, IOrmLiteDialectProvider dialectProvider)
+    internal static string CreateMultiSelect<T, T2, T3, T4, T5, T6, T7, T8>(this SqlExpression<T> q, IOrmLiteDialectProvider dialectProvider)
     {
         var sb = StringBuilderCache.Allocate()
             .Append($"{dialectProvider.GetQuotedTableName(typeof(T).GetModelDefinition())}.*, {Sql.EOT}");
@@ -225,7 +225,7 @@ static internal class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="tableSelects">The table selects.</param>
     /// <returns>System.String.</returns>
-    static internal string CreateMultiSelect(this ISqlExpression q, string[] tableSelects)
+    internal static string CreateMultiSelect(this ISqlExpression q, string[] tableSelects)
     {
         var sb = StringBuilderCache.Allocate();
 
@@ -603,7 +603,7 @@ static internal class ReadExpressionCommandExtensions
     /// <param name="dt">The dt.</param>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>ColumnSchema[].</returns>
-    static internal ColumnSchema[] ToColumnSchemas(this DataTable dt, IDbCommand dbCmd)
+    internal static ColumnSchema[] ToColumnSchemas(this DataTable dt, IDbCommand dbCmd)
     {
         var ret = new List<ColumnSchema>();
         foreach (DataRow row in dt.Rows)

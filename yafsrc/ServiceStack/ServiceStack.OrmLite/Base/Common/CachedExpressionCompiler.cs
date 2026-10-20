@@ -59,7 +59,7 @@ namespace ServiceStack.ExpressionUtil
     // BinaryExpression fingerprint class
     // Useful for things like array[index]
 
-    static internal class CachedExpressionCompiler
+    internal static class CachedExpressionCompiler
     {
         // This is the entry point to the cached expression compilation system. The system
         // will try to turn the expression into an actual delegate as quickly as possible,
@@ -423,7 +423,7 @@ namespace ServiceStack.ExpressionUtil
             }
         }
 
-        override protected Expression VisitBinary(BinaryExpression node)
+        protected override Expression VisitBinary(BinaryExpression node)
         {
             if (_gaveUp)
             {
@@ -434,17 +434,17 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitBinary(node);
         }
 
-        override protected Expression VisitBlock(BlockExpression node)
+        protected override Expression VisitBlock(BlockExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected CatchBlock VisitCatchBlock(CatchBlock node)
+        protected override CatchBlock VisitCatchBlock(CatchBlock node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitConditional(ConditionalExpression node)
+        protected override Expression VisitConditional(ConditionalExpression node)
         {
             if (_gaveUp)
             {
@@ -455,7 +455,7 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitConditional(node);
         }
 
-        override protected Expression VisitConstant(ConstantExpression node)
+        protected override Expression VisitConstant(ConstantExpression node)
         {
             if (_gaveUp)
             {
@@ -467,12 +467,12 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitConstant(node);
         }
 
-        override protected Expression VisitDebugInfo(DebugInfoExpression node)
+        protected override Expression VisitDebugInfo(DebugInfoExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitDefault(DefaultExpression node)
+        protected override Expression VisitDefault(DefaultExpression node)
         {
             if (_gaveUp)
             {
@@ -483,27 +483,27 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitDefault(node);
         }
 
-        override protected Expression VisitDynamic(DynamicExpression node)
+        protected override Expression VisitDynamic(DynamicExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected ElementInit VisitElementInit(ElementInit node)
+        protected override ElementInit VisitElementInit(ElementInit node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitExtension(Expression node)
+        protected override Expression VisitExtension(Expression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitGoto(GotoExpression node)
+        protected override Expression VisitGoto(GotoExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitIndex(IndexExpression node)
+        protected override Expression VisitIndex(IndexExpression node)
         {
             if (_gaveUp)
             {
@@ -514,22 +514,22 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitIndex(node);
         }
 
-        override protected Expression VisitInvocation(InvocationExpression node)
+        protected override Expression VisitInvocation(InvocationExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitLabel(LabelExpression node)
+        protected override Expression VisitLabel(LabelExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected LabelTarget VisitLabelTarget(LabelTarget node)
+        protected override LabelTarget VisitLabelTarget(LabelTarget node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitLambda<T>(Expression<T> node)
+        protected override Expression VisitLambda<T>(Expression<T> node)
         {
             if (_gaveUp)
             {
@@ -540,17 +540,17 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitLambda(node);
         }
 
-        override protected Expression VisitListInit(ListInitExpression node)
+        protected override Expression VisitListInit(ListInitExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitLoop(LoopExpression node)
+        protected override Expression VisitLoop(LoopExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitMember(MemberExpression node)
+        protected override Expression VisitMember(MemberExpression node)
         {
             if (_gaveUp)
             {
@@ -561,32 +561,32 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitMember(node);
         }
 
-        override protected MemberAssignment VisitMemberAssignment(MemberAssignment node)
+        protected override MemberAssignment VisitMemberAssignment(MemberAssignment node)
         {
             return GiveUp(node);
         }
 
-        override protected MemberBinding VisitMemberBinding(MemberBinding node)
+        protected override MemberBinding VisitMemberBinding(MemberBinding node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitMemberInit(MemberInitExpression node)
+        protected override Expression VisitMemberInit(MemberInitExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected MemberListBinding VisitMemberListBinding(MemberListBinding node)
+        protected override MemberListBinding VisitMemberListBinding(MemberListBinding node)
         {
             return GiveUp(node);
         }
 
-        override protected MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding node)
+        protected override MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitMethodCall(MethodCallExpression node)
+        protected override Expression VisitMethodCall(MethodCallExpression node)
         {
             if (_gaveUp)
             {
@@ -602,17 +602,17 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitMethodCall(node);
         }
 
-        override protected Expression VisitNew(NewExpression node)
+        protected override Expression VisitNew(NewExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitNewArray(NewArrayExpression node)
+        protected override Expression VisitNewArray(NewArrayExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitParameter(ParameterExpression node)
+        protected override Expression VisitParameter(ParameterExpression node)
         {
             if (_gaveUp)
             {
@@ -631,27 +631,27 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitParameter(node);
         }
 
-        override protected Expression VisitRuntimeVariables(RuntimeVariablesExpression node)
+        protected override Expression VisitRuntimeVariables(RuntimeVariablesExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitSwitch(SwitchExpression node)
+        protected override Expression VisitSwitch(SwitchExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected SwitchCase VisitSwitchCase(SwitchCase node)
+        protected override SwitchCase VisitSwitchCase(SwitchCase node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitTry(TryExpression node)
+        protected override Expression VisitTry(TryExpression node)
         {
             return GiveUp(node);
         }
 
-        override protected Expression VisitTypeBinary(TypeBinaryExpression node)
+        protected override Expression VisitTypeBinary(TypeBinaryExpression node)
         {
             if (_gaveUp)
             {
@@ -662,7 +662,7 @@ namespace ServiceStack.ExpressionUtil
             return base.VisitTypeBinary(node);
         }
 
-        override protected Expression VisitUnary(UnaryExpression node)
+        protected override Expression VisitUnary(UnaryExpression node)
         {
             if (_gaveUp)
             {
@@ -753,7 +753,7 @@ namespace ServiceStack.ExpressionUtil
             return rewrittenLambdaExpr;
         }
 
-        override protected Expression VisitConstant(ConstantExpression node)
+        protected override Expression VisitConstant(ConstantExpression node)
         {
             // rewrite the constant expression as (TConst)hoistedConstants[i];
             return Expression.Convert(
@@ -789,7 +789,7 @@ namespace ServiceStack.ExpressionUtil
             return base.GetHashCode();
         }
 
-        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(Indexer);
             base.AddToHashCodeCombiner(combiner);
@@ -842,7 +842,7 @@ namespace ServiceStack.ExpressionUtil
             return base.GetHashCode();
         }
 
-        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(Member);
             base.AddToHashCodeCombiner(combiner);
@@ -876,7 +876,7 @@ namespace ServiceStack.ExpressionUtil
             return base.GetHashCode();
         }
 
-        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(Method);
             base.AddToHashCodeCombiner(combiner);
@@ -907,7 +907,7 @@ namespace ServiceStack.ExpressionUtil
             return base.GetHashCode();
         }
 
-        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddInt32(ParameterIndex);
             base.AddToHashCodeCombiner(combiner);
@@ -938,7 +938,7 @@ namespace ServiceStack.ExpressionUtil
             return base.GetHashCode();
         }
 
-        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(TypeOperand);
             base.AddToHashCodeCombiner(combiner);
@@ -972,7 +972,7 @@ namespace ServiceStack.ExpressionUtil
             return base.GetHashCode();
         }
 
-        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(Method);
             base.AddToHashCodeCombiner(combiner);

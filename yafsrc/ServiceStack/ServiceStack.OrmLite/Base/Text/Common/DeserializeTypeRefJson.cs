@@ -15,7 +15,7 @@ namespace ServiceStack.OrmLite.Base.Text.Common;
 /// <summary>
 /// Class DeserializeTypeRefJson.
 /// </summary>
-static internal class DeserializeTypeRefJson
+internal static class DeserializeTypeRefJson
 {
     /// <summary>
     /// The serializer
@@ -30,7 +30,7 @@ static internal class DeserializeTypeRefJson
     /// <param name="ctorFn">The ctor function.</param>
     /// <param name="typeAccessors">The type accessors.</param>
     /// <returns>System.Object.</returns>
-    static internal object StringToType(ReadOnlySpan<char> strType,
+    internal static object StringToType(ReadOnlySpan<char> strType,
                                         TypeConfig typeConfig,
                                         EmptyCtorDelegate ctorFn,
                                         KeyValuePair<string, TypeAccessor>[] typeAccessors)

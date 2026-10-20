@@ -223,7 +223,7 @@ public class BackgroundTaskTests
         return task;
     }
 
-    private static async Task WaitUntil(Func<bool> condition)
+    private async static Task WaitUntil(Func<bool> condition)
     {
         var watch = Stopwatch.StartNew();
 
@@ -238,7 +238,7 @@ public class BackgroundTaskTests
         }
     }
 
-    private static readonly AsyncLocal<string> Caller = new();
+    private readonly static AsyncLocal<string> Caller = new();
 
     private class ContextTask : IntermittentBackgroundTask
     {
@@ -295,7 +295,7 @@ public class BackgroundTaskTests
     {
         public int Runs { get; private set; }
 
-        public override async Task RunOnceAsync()
+        public async override Task RunOnceAsync()
         {
             await work;
             this.Runs++;

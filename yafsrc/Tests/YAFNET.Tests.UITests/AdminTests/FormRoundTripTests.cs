@@ -289,7 +289,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
     /// <summary>
     /// The action of the save button of a form, null if the form has none.
     /// </summary>
-    private static async Task<string> SaveActionAsync(IPage page, int index, string url)
+    private async static Task<string> SaveActionAsync(IPage page, int index, string url)
     {
         var buttons = await page.EvaluateAsync<string[]>(
                           """
@@ -328,7 +328,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
     /// <summary>
     /// Submits the form with the button of the action, returns the error (null if the form was saved).
     /// </summary>
-    private static async Task<string> SubmitAsync(IPage page, int index, string action)
+    private async static Task<string> SubmitAsync(IPage page, int index, string action)
     {
         try
         {
@@ -368,7 +368,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
     /// <summary>
     /// The values of a form (name = value, several values of a name joined).
     /// </summary>
-    private static async Task<Dictionary<string, string>> ReadFormAsync(IPage page, int index)
+    private async static Task<Dictionary<string, string>> ReadFormAsync(IPage page, int index)
     {
         var entries = await page.EvaluateAsync<string[][]>(
                           """

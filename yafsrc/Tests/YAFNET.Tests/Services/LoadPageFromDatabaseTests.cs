@@ -142,7 +142,7 @@ public class LoadPageFromDatabaseTests
 
         @event.PageLoadData.Item2.ID.Should().Be(this.alice);
         @event.PageLoadData.Item1.PostAccess.Should().BeTrue();
-        this.roles.DidNotReceiveWithAnyArgs().SetupUserRolesAsync(default, default);
+        this.roles.DidNotReceiveWithAnyArgs().SetupUserRolesAsync(0, null);
     }
 
     [Test]
@@ -160,7 +160,7 @@ public class LoadPageFromDatabaseTests
         @event.PageLoadData.Item1.UserID.Should().Be(this.guest);
 
         // the forum user roles are repaired before falling back
-        this.roles.ReceivedWithAnyArgs().SetupUserRolesAsync(default, default);
+        this.roles.ReceivedWithAnyArgs().SetupUserRolesAsync(0, null);
     }
 
     [Test]

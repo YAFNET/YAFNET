@@ -206,7 +206,7 @@ public class FeedAndThemeTests
         return this.board.CreateController<Feed>();
     }
 
-    private static async Task<string> ReadAsync(ActionResult result)
+    private async static Task<string> ReadAsync(ActionResult result)
     {
         var file = result.Should().BeOfType<FileContentResult>().Subject;
 

@@ -57,7 +57,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="typeAttr">The type attribute.</param>
     /// <returns>System.String.</returns>
-    static internal string GetTypeAttrInObject(string typeAttr)
+    internal static string GetTypeAttrInObject(string typeAttr)
     {
         return $"{{{typeAttr}:";
     }

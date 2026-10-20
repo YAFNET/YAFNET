@@ -41,7 +41,7 @@ using YAF.ViewComponents;
 /// </summary>
 public static class WebTestingHostFactoryUtils
 {
-    private static readonly Lock SyncRoot = new();
+    private readonly static Lock SyncRoot = new();
 
     /// <summary>
     /// The root host factory, shared by all tests, because the Kestrel host binds to a fixed url

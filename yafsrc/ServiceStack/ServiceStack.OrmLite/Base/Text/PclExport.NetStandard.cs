@@ -408,27 +408,27 @@ public class NetStandardPclExport : PclExport
         /// <summary>
         /// The json reader
         /// </summary>
-        static internal JsReader<JsonTypeSerializer> jsonReader;
+        internal static JsReader<JsonTypeSerializer> jsonReader;
         /// <summary>
         /// The json writer
         /// </summary>
-        static internal JsWriter<JsonTypeSerializer> jsonWriter;
+        internal static JsWriter<JsonTypeSerializer> jsonWriter;
         /// <summary>
         /// The JSV reader
         /// </summary>
-        static internal JsReader<Text.Jsv.JsvTypeSerializer> jsvReader;
+        internal static JsReader<Text.Jsv.JsvTypeSerializer> jsvReader;
         /// <summary>
         /// The JSV writer
         /// </summary>
-        static internal JsWriter<Text.Jsv.JsvTypeSerializer> jsvWriter;
+        internal static JsWriter<Text.Jsv.JsvTypeSerializer> jsvWriter;
         /// <summary>
         /// The json serializer
         /// </summary>
-        static internal JsonTypeSerializer jsonSerializer;
+        internal static JsonTypeSerializer jsonSerializer;
         /// <summary>
         /// The JSV serializer
         /// </summary>
-        static internal Text.Jsv.JsvTypeSerializer jsvSerializer;
+        internal static Text.Jsv.JsvTypeSerializer jsvSerializer;
 
         /// <summary>
         /// Initializes static members of the <see cref="AotConfig"/> class.
@@ -448,7 +448,7 @@ public class NetStandardPclExport : PclExport
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>System.Int32.</returns>
-        static internal int RegisterSerializers<T>()
+        internal static int RegisterSerializers<T>()
         {
             var i = 0;
             i += Register<T, JsonTypeSerializer>();
@@ -503,7 +503,7 @@ public class NetStandardPclExport : PclExport
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
         /// <returns>System.Int32.</returns>
-        static internal int Register<T, TSerializer>() where TSerializer : ITypeSerializer
+        internal static int Register<T, TSerializer>() where TSerializer : ITypeSerializer
         {
             var i = 0;
 
@@ -592,7 +592,7 @@ public class NetStandardPclExport : PclExport
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TElement">The type of the t element.</typeparam>
         /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-        static internal void RegisterElement<T, TElement, TSerializer>() where TSerializer : ITypeSerializer
+        internal static void RegisterElement<T, TElement, TSerializer>() where TSerializer : ITypeSerializer
         {
             DeserializeDictionary<TSerializer>.ParseDictionary<T, TElement>(default(ReadOnlySpan<char>), null, null, null);
             DeserializeDictionary<TSerializer>.ParseDictionary<TElement, T>(default(ReadOnlySpan<char>), null, null, null);

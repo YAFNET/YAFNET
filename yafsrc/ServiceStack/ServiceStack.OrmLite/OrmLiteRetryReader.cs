@@ -69,7 +69,7 @@ internal sealed class OrmLiteRetryReader : DbDataReader
         }
     }
 
-    public override async Task<bool> ReadAsync(CancellationToken token)
+    public async override Task<bool> ReadAsync(CancellationToken token)
     {
         if (this.started)
         {

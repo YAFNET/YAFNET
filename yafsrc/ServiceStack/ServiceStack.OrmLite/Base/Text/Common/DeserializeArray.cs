@@ -135,7 +135,7 @@ public static class DeserializeArrayWithElements<T, TSerializer>
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-static internal class DeserializeArray<T, TSerializer>
+internal static class DeserializeArray<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>

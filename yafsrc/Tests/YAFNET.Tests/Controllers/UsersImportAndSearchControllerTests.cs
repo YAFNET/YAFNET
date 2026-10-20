@@ -122,7 +122,7 @@ public class UsersImportAndSearchControllerTests
     public async Task Import_Other_Results_Test()
     {
         (await this.Import("image/png")).MessageType.Should().Be(MessageTypes.danger.ToString());
-        await this.importer.DidNotReceiveWithAnyArgs().ImportingUsersAsync(default, default);
+        await this.importer.DidNotReceiveWithAnyArgs().ImportingUsersAsync(null, false);
 
         this.importer.ImportingUsersAsync(Arg.Any<Stream>(), true).Returns(0);
         (await this.Import("text/xml")).MessageType.Should().Be(MessageTypes.info.ToString());

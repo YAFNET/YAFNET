@@ -23,7 +23,7 @@ public static class IdUtils<T>
     /// <summary>
     /// The can get identifier
     /// </summary>
-    static internal GetMemberDelegate<T> CanGetId;
+    internal static GetMemberDelegate<T> CanGetId;
 
     /// <summary>
     /// Initializes static members of the <see cref="IdUtils{T}" /> class.
@@ -90,7 +90,7 @@ public static class IdUtils<T>
 /// Class HasPropertyId.
 /// </summary>
 /// <typeparam name="TEntity">The type of the t entity.</typeparam>
-static internal class HasPropertyId<TEntity>
+internal static class HasPropertyId<TEntity>
 {
     /// <summary>
     /// The get identifier function
@@ -121,7 +121,7 @@ static internal class HasPropertyId<TEntity>
 /// Class HasId.
 /// </summary>
 /// <typeparam name="TEntity">The type of the t entity.</typeparam>
-static internal class HasId<TEntity>
+internal static class HasId<TEntity>
 {
     /// <summary>
     /// The get identifier function

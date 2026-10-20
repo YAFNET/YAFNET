@@ -21,7 +21,7 @@ internal delegate object ParseDelegate(string value);
 /// <summary>
 /// Class ParseMethodUtilities.
 /// </summary>
-static internal class ParseMethodUtilities
+internal static class ParseMethodUtilities
 {
     /// <summary>
     /// Gets the parse function.
@@ -155,7 +155,7 @@ public static class StaticParseMethod<T>
 /// </summary>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
 /// <typeparam name="T"></typeparam>
-static internal class StaticParseRefTypeMethod<TSerializer, T>
+internal static class StaticParseRefTypeMethod<TSerializer, T>
     where TSerializer : ITypeSerializer
 {
     /// <summary>

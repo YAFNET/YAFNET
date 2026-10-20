@@ -30,7 +30,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// <summary>
     /// The instance
     /// </summary>
-    public static new SqlServer2012OrmLiteDialectProvider Instance = new();
+    public new static SqlServer2012OrmLiteDialectProvider Instance = new();
 
     /// <summary>
     /// Doeses the sequence exist.
@@ -70,7 +70,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    override protected string GetAutoIncrementDefinition(FieldDefinition fieldDef)
+    protected override string GetAutoIncrementDefinition(FieldDefinition fieldDef)
     {
         return !string.IsNullOrEmpty(fieldDef.Sequence)
                    ? $"DEFAULT NEXT VALUE FOR {this.Sequence(this.NamingStrategy.GetSchemaName(GetModel(fieldDef.PropertyInfo?.ReflectedType)), fieldDef.Sequence)}"
@@ -82,7 +82,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    override protected bool ShouldSkipInsert(FieldDefinition fieldDef)
+    protected override bool ShouldSkipInsert(FieldDefinition fieldDef)
     {
         return fieldDef.ShouldSkipInsert() && string.IsNullOrEmpty(fieldDef.Sequence);
     }
@@ -92,7 +92,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    override protected bool SupportsSequences(FieldDefinition fieldDef)
+    protected override bool SupportsSequences(FieldDefinition fieldDef)
     {
         return !string.IsNullOrEmpty(fieldDef.Sequence);
     }

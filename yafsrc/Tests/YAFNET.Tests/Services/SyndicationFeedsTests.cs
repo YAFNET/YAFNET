@@ -48,7 +48,7 @@ using YAF.Types.Interfaces.Services;
 [NonParallelizable]
 public class SyndicationFeedsTests
 {
-    private static readonly TimeSpan Offset = TimeSpan.FromHours(2);
+    private readonly static TimeSpan Offset = TimeSpan.FromHours(2);
 
     private TestBoardContext board;
 

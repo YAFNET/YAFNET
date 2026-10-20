@@ -23,7 +23,7 @@ namespace ServiceStack.OrmLite;
 /// <summary>
 /// Class OrmLiteUtilExtensionsAsync.
 /// </summary>
-static internal class OrmLiteUtilExtensionsAsync
+internal static class OrmLiteUtilExtensionsAsync
 {
     /// <summary>
     /// Creates the instance.

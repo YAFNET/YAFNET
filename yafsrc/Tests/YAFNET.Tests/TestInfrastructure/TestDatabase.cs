@@ -60,7 +60,7 @@ public sealed class TestDatabase : IDisposable
     /// </summary>
     public const int RankId = 1;
 
-    private static readonly Lazy<SQLiteConnection> Template = new(CreateTemplate);
+    private readonly static Lazy<SQLiteConnection> Template = new(CreateTemplate);
 
     private readonly SQLiteConnection keepAlive;
 

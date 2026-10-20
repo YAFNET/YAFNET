@@ -230,7 +230,7 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// <summary>
     /// Gets the style of the user link in the members list.
     /// </summary>
-    private static async Task<string> UserStyleAsync(IPage page, TestConfig testSettings, string userName)
+    private async static Task<string> UserStyleAsync(IPage page, TestConfig testSettings, string userName)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Members");
 

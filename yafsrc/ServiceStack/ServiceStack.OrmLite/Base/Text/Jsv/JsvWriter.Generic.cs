@@ -33,7 +33,7 @@ public static class JsvWriter
     /// Removes the cache function.
     /// </summary>
     /// <param name="forType">For type.</param>
-    static internal void RemoveCacheFn(Type forType)
+    internal static void RemoveCacheFn(Type forType)
     {
         Dictionary<Type, WriteObjectDelegate> snapshot, newCache;
         do

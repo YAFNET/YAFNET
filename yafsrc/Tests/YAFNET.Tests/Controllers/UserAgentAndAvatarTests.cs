@@ -297,7 +297,7 @@ public class UserAgentAndAvatarTests
         return (nextCalled, context.Response.StatusCode);
     }
 
-    private static async Task<string> ReadAsync(ActionResult result)
+    private async static Task<string> ReadAsync(ActionResult result)
     {
         var file = (FileStreamResult)result;
         using var reader = new StreamReader(file.FileStream);

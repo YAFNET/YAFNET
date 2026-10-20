@@ -600,7 +600,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended, IDbReadOnl
         return OpenOrDispose(primary.CreateReadOnlyConnection(namedConnection, isReplica: false), configure);
     }
 
-    private static async Task<IDbConnection> OpenReadOnlyAsync(OrmLiteConnectionFactory primary, string namedConnection,
+    private async static Task<IDbConnection> OpenReadOnlyAsync(OrmLiteConnectionFactory primary, string namedConnection,
         Action<IDbConnection> configure, CancellationToken token)
     {
         if (primary.ReadReplica is { } replica)

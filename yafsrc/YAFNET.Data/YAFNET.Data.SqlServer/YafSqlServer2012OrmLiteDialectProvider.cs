@@ -40,5 +40,5 @@ public class YafSqlServer2012OrmLiteDialectProvider : SqlServer2012OrmLiteDialec
     /// <summary>
     /// Gets or sets the instance.
     /// </summary>
-    public static new YafSqlServer2012OrmLiteDialectProvider Instance { get; set; } = new ();
+    public new static YafSqlServer2012OrmLiteDialectProvider Instance { get; set; } = new ();
 }

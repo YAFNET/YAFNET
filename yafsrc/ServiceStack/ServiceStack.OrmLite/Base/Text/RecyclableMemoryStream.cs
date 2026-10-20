@@ -1423,7 +1423,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// Returns the memory used by this stream back to the pool.
     /// </summary>
     /// <param name="disposing">Whether we're disposing (true), or being called by the finalizer (false)</param>
-    override protected void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
     {
         if (Interlocked.CompareExchange(ref this.disposedState, 1, 0) != 0)
         {

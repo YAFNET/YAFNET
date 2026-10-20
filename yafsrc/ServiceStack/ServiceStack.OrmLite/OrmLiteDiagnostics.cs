@@ -17,7 +17,7 @@ using System.Runtime.CompilerServices;
 /// <summary>
 /// Class OrmLiteDiagnostics.
 /// </summary>
-static internal class OrmLiteDiagnostics
+internal static class OrmLiteDiagnostics
 {
     /// <param name="listener">The listener.</param>
     extension(DiagnosticListener listener)

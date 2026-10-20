@@ -17,14 +17,14 @@ namespace ServiceStack.OrmLite;
 /// </summary>
 internal static class OrmLiteWriteStatement
 {
-    private static readonly string[] WriteKeywords = [
+    private readonly static string[] WriteKeywords = [
         "INSERT", "UPDATE", "DELETE", "MERGE", "UPSERT", "REPLACE", "CREATE", "ALTER", "DROP", "TRUNCATE", "RENAME",
         "GRANT", "REVOKE",
     ];
 
-    private static readonly Regex IntoRegex = new(@"\bINTO\b",
+    private readonly static Regex IntoRegex = new(@"\bINTO\b",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, OrmLiteUtils.DefaultRegexTimeout);
-    private static readonly Regex WriteRegex = new(@"\b(INSERT|UPDATE|DELETE|MERGE|INTO)\b",
+    private readonly static Regex WriteRegex = new(@"\b(INSERT|UPDATE|DELETE|MERGE|INTO)\b",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, OrmLiteUtils.DefaultRegexTimeout);
 
     /// <summary>

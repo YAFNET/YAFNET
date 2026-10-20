@@ -269,7 +269,7 @@ public class SendPushNotificationDeliveryTests
 
         public Func<string, HttpStatusCode> Status { get; set; } = _ => HttpStatusCode.Created;
 
-        protected override async Task<HttpResponseMessage> SendAsync(
+        protected async override Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {

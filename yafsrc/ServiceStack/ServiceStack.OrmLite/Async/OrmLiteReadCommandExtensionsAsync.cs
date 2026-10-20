@@ -25,12 +25,12 @@ namespace ServiceStack.OrmLite;
 /// <summary>
 /// Class OrmLiteReadCommandExtensionsAsync.
 /// </summary>
-static internal class OrmLiteReadCommandExtensionsAsync
+internal static class OrmLiteReadCommandExtensionsAsync
 {
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log => OrmLiteLog.Log;
+    internal static ILog Log => OrmLiteLog.Log;
 
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)
@@ -478,7 +478,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;T&gt;.</returns>
-    static internal Task<T> ScalarAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
+    internal static Task<T> ScalarAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
     {
         return dialectProvider.ReaderRead(reader, () =>
             OrmLiteReadCommandExtensions.ToScalar<T>(dialectProvider, reader), token);
@@ -525,7 +525,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-    async static internal Task<List<T>> ColumnAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
+    internal async static Task<List<T>> ColumnAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
     {
         var ret = await dialectProvider.ReaderEach(reader, () =>
         {
@@ -547,7 +547,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="anonType">Type of the anon.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;HashSet&lt;T&gt;&gt;.</returns>
-    static internal Task<HashSet<T>> ColumnDistinctAsync<T>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
+    internal static Task<HashSet<T>> ColumnDistinctAsync<T>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
     {
         if (anonType != null)
         {
@@ -565,7 +565,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;HashSet`1&gt; representing the asynchronous operation.</returns>
-    async static internal Task<HashSet<T>> ColumnDistinctAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
+    internal async static Task<HashSet<T>> ColumnDistinctAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
     {
         var ret = await dialectProvider.ReaderEach(reader, () =>
         {
@@ -588,7 +588,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="anonType">Type of the anon.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;Dictionary&lt;K, List&lt;V&gt;&gt;&gt;.</returns>
-    static internal Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
+    internal static Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
     {
         if (anonType != null)
         {
@@ -607,7 +607,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;Dictionary&lt;K, List&lt;V&gt;&gt;&gt;.</returns>
-    static internal Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
+    internal static Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
     {
         var lookup = new Dictionary<K, List<V>>();
 
@@ -636,7 +636,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="anonType">Type of the anon.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;Dictionary&lt;K, V&gt;&gt;.</returns>
-    static internal Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
+    internal static Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
     {
         if (anonType != null)
         {
@@ -655,7 +655,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;Dictionary&lt;K, V&gt;&gt;.</returns>
-    static internal Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
+    internal static Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
     {
         var map = new Dictionary<K, V>();
 
@@ -677,7 +677,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="anonType">Type of the anon.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;KeyValuePair&lt;K, V&gt;&gt;&gt;.</returns>
-    static internal Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
+    internal static Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
     {
         if (anonType != null)
         {
@@ -696,7 +696,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;KeyValuePair&lt;K, V&gt;&gt;&gt;.</returns>
-    static internal Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
+    internal static Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
     {
         var to = new List<KeyValuePair<K, V>>();
 
@@ -718,7 +718,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
         /// <param name="anonType">Type of the anon.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        async internal Task<bool> ExistsAsync<T>(object anonType, CancellationToken token)
+        internal async Task<bool> ExistsAsync<T>(object anonType, CancellationToken token)
         {
             string sql = null;
             if (anonType != null)
@@ -740,7 +740,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
         /// <param name="anonType">Type of the anon.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        async internal Task<bool> ExistsAsync<T>(string sql, object anonType, CancellationToken token)
+        internal async Task<bool> ExistsAsync<T>(string sql, object anonType, CancellationToken token)
         {
             if (anonType != null)
             {
@@ -751,7 +751,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
             return ret != null;
         }
 
-        async internal Task<bool> ExistsByIdAsync<T>(object value, CancellationToken token)
+        internal async Task<bool> ExistsByIdAsync<T>(object value, CancellationToken token)
         {
             ArgumentNullException.ThrowIfNull(value);
 
@@ -808,7 +808,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
         /// <param name="include">The include.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-        async internal Task<T> LoadSingleByIdAsync<T>(object value, string[] include = null, CancellationToken token = default)
+        internal async Task<T> LoadSingleByIdAsync<T>(object value, string[] include = null, CancellationToken token = default)
         {
             var row = await dbCmd.SingleByIdAsync<T>(value, token).ConfigAwait();
             if (row == null)
@@ -871,7 +871,7 @@ static internal class OrmLiteReadCommandExtensionsAsync
         /// <param name="include">The include.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>List&lt;Into&gt;.</returns>
-        async internal Task<List<Into>> LoadListWithReferencesAsync<Into, From>(SqlExpression<From> expr = null, IEnumerable<string> include = null, CancellationToken token = default)
+        internal async Task<List<Into>> LoadListWithReferencesAsync<Into, From>(SqlExpression<From> expr = null, IEnumerable<string> include = null, CancellationToken token = default)
         {
             var loadList = new LoadListAsync<Into, From>(dbCmd, expr);
 

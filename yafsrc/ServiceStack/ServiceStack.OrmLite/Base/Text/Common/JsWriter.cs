@@ -134,7 +134,7 @@ public static class JsWriter
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="ranOnce">if set to <c>true</c> [ran once].</param>
-    static internal void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
+    internal static void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
     {
         if (ranOnce)
         {
@@ -151,7 +151,7 @@ public static class JsWriter
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    static internal bool ShouldUseDefaultToStringMethod(Type type)
+    internal static bool ShouldUseDefaultToStringMethod(Type type)
     {
         var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
         return underlyingType.GetTypeCode() switch {

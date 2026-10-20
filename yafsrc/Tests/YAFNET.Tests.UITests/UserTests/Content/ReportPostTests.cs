@@ -86,7 +86,7 @@ public class ReportPostTests(ComposeScenario scenario) : DatabaseTestBase(scenar
             });
     }
 
-    private static async Task ReportAsync(IPage page, TestConfig testSettings, string messageId, string text)
+    private async static Task ReportAsync(IPage page, TestConfig testSettings, string messageId, string text)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}ReportPost/{messageId}");
 

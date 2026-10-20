@@ -128,8 +128,8 @@ public class AdminImportControllerTests
     public async Task Import_Error_Test()
     {
         var importer = Substitute.For<IDataImporter>();
-        importer.BannedEmailAddressesImportAsync(default, default).ThrowsAsyncForAnyArgs(new IOException("broken"));
-        importer.BannedUserAgentsImportAsync(default, default).ThrowsAsyncForAnyArgs(new IOException("broken"));
+        importer.BannedEmailAddressesImportAsync(0, null).ThrowsAsyncForAnyArgs(new IOException("broken"));
+        importer.BannedUserAgentsImportAsync(0, null).ThrowsAsyncForAnyArgs(new IOException("broken"));
 
         this.board.Dispose();
         this.board = new TestBoardContext(b => b.RegisterInstance(importer).As<IDataImporter>());

@@ -101,7 +101,7 @@ public static class CsvConfig
     /// Gets or sets the escaped item delimiter string.
     /// </summary>
     /// <value>The escaped item delimiter string.</value>
-    static internal string EscapedItemDelimiterString
+    internal static string EscapedItemDelimiterString
     {
         get => tsEscapedItemDelimiterString ?? sEscapedItemDelimiterString ?? DefaultEscapedItemDelimiterString;
         set

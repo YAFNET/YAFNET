@@ -46,7 +46,7 @@ public class WebTestingHostFactory<TProgram> : WebApplicationFactory<TProgram>
     /// </summary>
     /// <param name="builder">The <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder" /> used to create the host.</param>
     /// <returns>The <see cref="T:Microsoft.Extensions.Hosting.IHost" /> with the bootstrapped application.</returns>
-    override protected IHost CreateHost(IHostBuilder builder)
+    protected override IHost CreateHost(IHostBuilder builder)
     {
         // Create the host that is actually used by the
         // TestServer (In Memory).

@@ -20,7 +20,7 @@ namespace ServiceStack.OrmLite;
 /// </summary>
 public sealed class OrmLiteConnectionFilters
 {
-    public static readonly OrmLiteConnectionFilters Empty = new([], [], []);
+    public readonly static OrmLiteConnectionFilters Empty = new([], [], []);
 
     private readonly BoundFilterSet[] sets;
     private readonly EnsureFilterDef[] ensureFilters;

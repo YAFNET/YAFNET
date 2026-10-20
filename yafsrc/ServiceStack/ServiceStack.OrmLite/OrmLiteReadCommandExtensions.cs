@@ -34,7 +34,7 @@ public static class OrmLiteReadCommandExtensions
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log => OrmLiteLog.Log;
+    internal static ILog Log => OrmLiteLog.Log;
 
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)
@@ -268,7 +268,7 @@ public static class OrmLiteReadCommandExtensions
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>IEnumerable.</returns>
-    static internal IEnumerable GetMultiValues(object value)
+    internal static IEnumerable GetMultiValues(object value)
     {
         if (value is SqlInValues inValues)
         {
@@ -417,7 +417,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="value">The value.</param>
     /// <param name="propType">Type of the property.</param>
     /// <param name="fieldDef">The field definition.</param>
-    static internal void SetParamValue(
+    internal static void SetParamValue(
         this IOrmLiteDialectProvider dialectProvider,
         IDbDataParameter p,
         object value,
@@ -461,7 +461,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="modelDef">The model definition.</param>
     /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
     /// <param name="fn">The function.</param>
-    static internal void ForEachParam(
+    internal static void ForEachParam(
         this Dictionary<string, object> values,
         ModelDefinition modelDef,
         bool excludeDefaults,
@@ -527,7 +527,7 @@ public static class OrmLiteReadCommandExtensions
     /// </summary>
     /// <param name="fieldValues">The field values.</param>
     /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
-    static internal Dictionary<string, object> NonDefaultsOnly(this Dictionary<string, object> fieldValues)
+    internal static Dictionary<string, object> NonDefaultsOnly(this Dictionary<string, object> fieldValues)
     {
         var map = new Dictionary<string, object>();
         foreach (var entry in fieldValues)
@@ -838,7 +838,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="fromTableType">Type of from table.</param>
     /// <param name="sqlFilter">The SQL filter.</param>
     /// <returns>System.String.</returns>
-    static internal string ToSelect<TModel>(
+    internal static string ToSelect<TModel>(
         IDbCommand dbCmd,
         Type fromTableType,
         string sqlFilter)
@@ -1246,7 +1246,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>T.</returns>
-    static internal T Scalar<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
+    internal static T Scalar<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
     {
         while (reader.Read())
         {
@@ -1264,7 +1264,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="columnIndex">Index of the column.</param>
     /// <returns>T.</returns>
-    static internal T ToScalar<T>(IOrmLiteDialectProvider dialectProvider, IDataReader reader, int columnIndex = 0)
+    internal static T ToScalar<T>(IOrmLiteDialectProvider dialectProvider, IDataReader reader, int columnIndex = 0)
     {
         var nullableType = Nullable.GetUnderlyingType(typeof(T));
         if (nullableType != null)
@@ -1340,7 +1340,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    static internal List<T> Column<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
+    internal static List<T> Column<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
     {
         var columValues = new List<T>();
 
@@ -1395,7 +1395,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>HashSet&lt;T&gt;.</returns>
-    static internal HashSet<T> ColumnDistinct<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
+    internal static HashSet<T> ColumnDistinct<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
     {
         var columValues = new HashSet<T>();
         while (reader.Read())
@@ -1434,7 +1434,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>Dictionary&lt;K, List&lt;V&gt;&gt;.</returns>
-    static internal Dictionary<K, List<V>> Lookup<K, V>(
+    internal static Dictionary<K, List<V>> Lookup<K, V>(
         this IDataReader reader,
         IOrmLiteDialectProvider dialectProvider)
     {
@@ -1466,7 +1466,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>Dictionary&lt;K, V&gt;.</returns>
-    static internal Dictionary<K, V> Dictionary<K, V>(this IDbCommand dbCmd, string sql, object anonType = null)
+    internal static Dictionary<K, V> Dictionary<K, V>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null)
         {
@@ -1484,7 +1484,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>Dictionary&lt;K, V&gt;.</returns>
-    static internal Dictionary<K, V> Dictionary<K, V>(
+    internal static Dictionary<K, V> Dictionary<K, V>(
         this IDataReader reader,
         IOrmLiteDialectProvider dialectProvider)
     {
@@ -1510,7 +1510,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;KeyValuePair&lt;K, V&gt;&gt;.</returns>
-    static internal List<KeyValuePair<K, V>> KeyValuePairs<K, V>(
+    internal static List<KeyValuePair<K, V>> KeyValuePairs<K, V>(
         this IDbCommand dbCmd,
         string sql,
         object anonType = null)
@@ -1531,7 +1531,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>List&lt;KeyValuePair&lt;K, V&gt;&gt;.</returns>
-    static internal List<KeyValuePair<K, V>> KeyValuePairs<K, V>(
+    internal static List<KeyValuePair<K, V>> KeyValuePairs<K, V>(
         this IDataReader reader,
         IOrmLiteDialectProvider dialectProvider)
     {
@@ -1656,7 +1656,7 @@ public static class OrmLiteReadCommandExtensions
     /// </summary>
     /// <param name="result">The result.</param>
     /// <returns>System.Int64.</returns>
-    static internal long ToLong(int result)
+    internal static long ToLong(int result)
     {
         return result;
     }
@@ -1666,7 +1666,7 @@ public static class OrmLiteReadCommandExtensions
     /// </summary>
     /// <param name="result">The result.</param>
     /// <returns>System.Int64.</returns>
-    static internal long ToLong(object result)
+    internal static long ToLong(object result)
     {
         return result switch {
             DBNull => 0,

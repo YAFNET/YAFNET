@@ -34,7 +34,7 @@ using YAF.Types.Models;
 [TestFixture]
 public class CustomProfileHelperTests
 {
-    private static readonly List<ProfileDefinition> Definitions =
+    private readonly static List<ProfileDefinition> Definitions =
     [
         new() { ID = 1, Name = "Text", DataType = nameof(DataType.Text), Required = true },
         new() { ID = 2, Name = "Age", DataType = nameof(DataType.Number), Required = false },

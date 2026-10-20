@@ -19,7 +19,7 @@ using System.Linq.Expressions;
 /// <summary>
 /// Class WriteExpressionCommandExtensions.
 /// </summary>
-static internal class WriteExpressionCommandExtensions
+internal static class WriteExpressionCommandExtensions
 {
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)
@@ -342,7 +342,7 @@ static internal class WriteExpressionCommandExtensions
     /// <param name="args">The arguments.</param>
     /// <returns>System.String.</returns>
     /// <exception cref="System.NotSupportedException">'{typeof(T).Name}' does not have a primary key</exception>
-    static internal string GetUpdateOnlyWhereExpression<T>(this IOrmLiteDialectProvider dialectProvider,
+    internal static string GetUpdateOnlyWhereExpression<T>(this IOrmLiteDialectProvider dialectProvider,
                                                            Dictionary<string, object> updateFields, out object[] args)
     {
         var modelDef = typeof(T).GetModelDefinition();

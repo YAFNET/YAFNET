@@ -29,7 +29,7 @@ public static class DeserializeType<TSerializer>
     /// </summary>
     /// <param name="typeConfig">The type configuration.</param>
     /// <returns>ParseStringDelegate.</returns>
-    static internal ParseStringDelegate GetParseMethod(TypeConfig typeConfig)
+    internal static ParseStringDelegate GetParseMethod(TypeConfig typeConfig)
     {
         return v => GetParseStringSpanMethod(typeConfig)(v.AsSpan());
     }
@@ -39,7 +39,7 @@ public static class DeserializeType<TSerializer>
     /// </summary>
     /// <param name="typeConfig">The type configuration.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    static internal ParseStringSpanDelegate GetParseStringSpanMethod(TypeConfig typeConfig)
+    internal static ParseStringSpanDelegate GetParseStringSpanMethod(TypeConfig typeConfig)
     {
         var type = typeConfig.Type;
 
@@ -67,7 +67,7 @@ public static class DeserializeType<TSerializer>
     /// <summary>
     /// Struct StringToTypeContext
     /// </summary>
-    readonly internal struct StringToTypeContext
+    internal readonly struct StringToTypeContext
     {
         /// <summary>
         /// The type configuration
@@ -354,7 +354,7 @@ public static class DeserializeType<TSerializer>
     /// <param name="value">The value.</param>
     /// <param name="firstChar">The first character.</param>
     /// <returns>System.Object.</returns>
-    static internal object ParsePrimitive(string value, char firstChar)
+    internal static object ParsePrimitive(string value, char firstChar)
     {
         if (typeof(TSerializer) == typeof(Json.JsonTypeSerializer))
         {
@@ -369,7 +369,7 @@ public static class DeserializeType<TSerializer>
 /// <summary>
 /// Class TypeAccessorUtils.
 /// </summary>
-static internal class TypeAccessorUtils
+internal static class TypeAccessorUtils
 {
     /// <summary>
     /// Gets the specified property name.
@@ -378,7 +378,7 @@ static internal class TypeAccessorUtils
     /// <param name="propertyName">Name of the property.</param>
     /// <param name="lenient">if set to <c>true</c> [lenient].</param>
     /// <returns>TypeAccessor.</returns>
-    static internal TypeAccessor Get(this KeyValuePair<string, TypeAccessor>[] accessors, ReadOnlySpan<char> propertyName, bool lenient)
+    internal static TypeAccessor Get(this KeyValuePair<string, TypeAccessor>[] accessors, ReadOnlySpan<char> propertyName, bool lenient)
     {
         var testValue = FindPropertyAccessor(accessors, propertyName);
         if (testValue != null)
@@ -523,7 +523,7 @@ internal class TypeAccessor
     /// <param name="serializer">The serializer.</param>
     /// <param name="propertyInfo">The property information.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    static internal ParseStringSpanDelegate GetPropertyMethod(ITypeSerializer serializer, PropertyInfo propertyInfo)
+    internal static ParseStringSpanDelegate GetPropertyMethod(ITypeSerializer serializer, PropertyInfo propertyInfo)
     {
         var getPropertyFn = serializer.GetParseStringSpanFn(propertyInfo.PropertyType);
 

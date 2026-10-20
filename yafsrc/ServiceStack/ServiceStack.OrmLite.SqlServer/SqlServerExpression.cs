@@ -35,7 +35,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// SQL Server doesn't use the RECURSIVE keyword
     /// </summary>
     /// <value>The with recursive keyword.</value>
-    override protected string WithRecursiveKeyword => "WITH";
+    protected override string WithRecursiveKeyword => "WITH";
 
     /// <summary>
     /// Converts to update from statement, e.g:
@@ -43,7 +43,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="values">The values.</param>
     /// <returns>System.String.</returns>
-    override protected string ToUpdateFromStatement(List<KeyValuePair<FieldDefinition, string>> values)
+    protected override string ToUpdateFromStatement(List<KeyValuePair<FieldDefinition, string>> values)
     {
         var target = TableAlias != null ? DialectProvider.GetQuotedName(TableAlias) : DialectProvider.GetQuotedTableName(modelDef);
         var set = new StringBuilder();
@@ -73,7 +73,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// <param name="left">The left.</param>
     /// <param name="right">The right.</param>
     /// <returns>System.String.</returns>
-    override protected string GetCoalesceExpression(BinaryExpression b, object left, object right)
+    protected override string GetCoalesceExpression(BinaryExpression b, object left, object right)
     {
         return b.Type == typeof(bool) ? $"COALESCE({left},{right}) = 1" : $"COALESCE({left},{right})";
     }
@@ -97,7 +97,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="arg">The argument.</param>
     /// <returns>ServiceStack.OrmLite.PartialSqlString.</returns>
-    override protected PartialSqlString ToLengthPartialString(object arg)
+    protected override PartialSqlString ToLengthPartialString(object arg)
     {
         return new PartialSqlString($"LEN({arg})");
     }
@@ -106,7 +106,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// Converts to placeholder and parameter.
     /// </summary>
     /// <param name="right">The right.</param>
-    override protected void ConvertToPlaceholderAndParameter(ref object right)
+    protected override void ConvertToPlaceholderAndParameter(ref object right)
     {
         var parameter = this.AddParam(right);
 
@@ -127,7 +127,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// <param name="originalRight">The original right.</param>
     /// <param name="left">The left.</param>
     /// <param name="right">The right.</param>
-    override protected void VisitFilter(string operand, object originalLeft, object originalRight, ref object left, ref object right)
+    protected override void VisitFilter(string operand, object originalLeft, object originalRight, ref object left, ref object right)
     {
         base.VisitFilter(operand, originalLeft, originalRight, ref left, ref right);
 
@@ -163,7 +163,7 @@ internal class SqlServerExpressionUtils
     /// <param name="item">The item.</param>
     /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
     /// <exception cref="System.ArgumentException">No non-null or non-default values were provided for type: {typeof(T).Name}</exception>
-    static internal void PrepareSqlServerUpdateStatement<T>(IDbCommand dbCmd, SqlExpression<T> q, T item, bool excludeDefaults = false)
+    internal static void PrepareSqlServerUpdateStatement<T>(IDbCommand dbCmd, SqlExpression<T> q, T item, bool excludeDefaults = false)
     {
         q.CopyParamsTo(dbCmd);
 

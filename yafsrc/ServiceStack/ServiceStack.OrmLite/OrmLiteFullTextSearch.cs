@@ -79,8 +79,8 @@ public class FullTextTerm
 
 public static class OrmLiteFullTextSearch
 {
-    private static readonly Regex TermRegex = new(@"""([^""]*)""?|([\p{L}\p{N}]+)", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
-    private static readonly Regex WordRegex = new(@"[\p{L}\p{N}]+", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
+    private readonly static Regex TermRegex = new(@"""([^""]*)""?|([\p{L}\p{N}]+)", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
+    private readonly static Regex WordRegex = new(@"[\p{L}\p{N}]+", RegexOptions.Compiled, TimeSpan.FromSeconds(1));
 
     /// <summary>
     /// The words and "quoted phrases" of a search. Everything other than letters and digits separates words, so the

@@ -6,7 +6,7 @@ namespace WebEssentials.AspNetCore.Pwa.WebPush.Util;
 /// <summary>
 /// 
 /// </summary>
-static internal class UrlBase64
+internal static class UrlBase64
 {
     /// <summary>
     ///     Decodes a url-safe base64 string into bytes

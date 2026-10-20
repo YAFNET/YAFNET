@@ -34,7 +34,7 @@ public static class JsonReader
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    static internal ParseStringDelegate GetParseFn(Type type)
+    internal static ParseStringDelegate GetParseFn(Type type)
     {
         return v => GetParseStringSpanFn(type)(v.AsSpan());
     }
@@ -44,7 +44,7 @@ public static class JsonReader
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    static internal ParseStringSpanDelegate GetParseSpanFn(Type type)
+    internal static ParseStringSpanDelegate GetParseSpanFn(Type type)
     {
         return v => GetParseStringSpanFn(type)(v);
     }
@@ -54,7 +54,7 @@ public static class JsonReader
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    static internal ParseStringSpanDelegate GetParseStringSpanFn(Type type)
+    internal static ParseStringSpanDelegate GetParseStringSpanFn(Type type)
     {
         ParseFnCache.TryGetValue(type, out var parseFactoryFn);
 
@@ -100,7 +100,7 @@ public static class JsonReader
 /// Class JsonReader.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-static internal class JsonReader<T>
+internal static class JsonReader<T>
 {
     /// <summary>
     /// The read function

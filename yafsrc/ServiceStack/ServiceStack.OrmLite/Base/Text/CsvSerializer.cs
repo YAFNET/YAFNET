@@ -47,7 +47,7 @@ public class CsvSerializer
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>WriteObjectDelegate.</returns>
-    static internal WriteObjectDelegate GetWriteFn(Type type)
+    internal static WriteObjectDelegate GetWriteFn(Type type)
     {
         try
         {
@@ -90,7 +90,7 @@ public class CsvSerializer
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    static internal ParseStringDelegate GetReadFn(Type type)
+    internal static ParseStringDelegate GetReadFn(Type type)
     {
         try
         {
@@ -279,7 +279,7 @@ public class CsvSerializer
     /// <typeparam name="T"></typeparam>
     /// <param name="results">The results.</param>
     /// <returns>T.</returns>
-    static internal T ConvertFrom<T>(object results)
+    internal static T ConvertFrom<T>(object results)
     {
         if (results is T variable)
         {
@@ -309,7 +309,7 @@ public class CsvSerializer
     /// <param name="type">The type.</param>
     /// <param name="results">The results.</param>
     /// <returns>System.Object.</returns>
-    static internal object ConvertFrom(Type type, object results)
+    internal static object ConvertFrom(Type type, object results)
     {
         if (type.IsInstanceOfType(results))
         {

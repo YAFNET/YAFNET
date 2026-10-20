@@ -40,5 +40,5 @@ public class YafSqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProvider
     /// <summary>
     /// Gets or sets the instance.
     /// </summary>
-    public static new YafSqliteOrmLiteDialectProvider Instance { get; set; } = new ();
+    public new static YafSqliteOrmLiteDialectProvider Instance { get; set; } = new ();
 }

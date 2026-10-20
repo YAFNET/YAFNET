@@ -27,7 +27,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
     /// <summary>
     /// The log
     /// </summary>
-    static internal ILog Log => OrmLiteLog.Log;
+    internal static ILog Log => OrmLiteLog.Log;
 
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)
@@ -198,7 +198,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
         /// <param name="onlyFields">The only fields.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-        async internal Task<List<T>> ExprConvertToListAsync<T>(string sql, IEnumerable<IDbDataParameter> sqlParams, HashSet<string> onlyFields, CancellationToken token)
+        internal async Task<List<T>> ExprConvertToListAsync<T>(string sql, IEnumerable<IDbDataParameter> sqlParams, HashSet<string> onlyFields, CancellationToken token)
         {
             if (sql != null)
             {
@@ -258,7 +258,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-        async internal Task<object> ConvertToAsync(Type refType, string sql, CancellationToken token)
+        internal async Task<object> ConvertToAsync(Type refType, string sql, CancellationToken token)
         {
             if (sql != null)
             {
@@ -415,7 +415,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-        async internal Task<T> ExprConvertToAsync<T>(string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
+        internal async Task<T> ExprConvertToAsync<T>(string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
         {
             if (sql != null)
             {
@@ -454,7 +454,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-        async internal Task<List<T>> ColumnAsync<T>(string sql, CancellationToken token)
+        internal async Task<List<T>> ColumnAsync<T>(string sql, CancellationToken token)
         {
             if (sql != null)
             {
@@ -491,7 +491,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;HashSet`1&gt; representing the asynchronous operation.</returns>
-        async internal Task<HashSet<T>> ColumnDistinctAsync<T>(string sql, CancellationToken token)
+        internal async Task<HashSet<T>> ColumnDistinctAsync<T>(string sql, CancellationToken token)
         {
             if (sql != null)
             {
@@ -530,7 +530,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;Dictionary`2&gt; representing the asynchronous operation.</returns>
-        async internal Task<Dictionary<K, V>> DictionaryAsync<K, V>(string sql, CancellationToken token)
+        internal async Task<Dictionary<K, V>> DictionaryAsync<K, V>(string sql, CancellationToken token)
         {
             if (sql != null)
             {
@@ -569,7 +569,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-        async internal Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(string sql, CancellationToken token)
+        internal async Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(string sql, CancellationToken token)
         {
             if (sql != null)
             {
@@ -608,7 +608,7 @@ public static class OrmLiteResultsFilterExtensionsAsync
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;Dictionary`2&gt; representing the asynchronous operation.</returns>
-        async internal Task<Dictionary<K, List<V>>> LookupAsync<K, V>(string sql, CancellationToken token)
+        internal async Task<Dictionary<K, List<V>>> LookupAsync<K, V>(string sql, CancellationToken token)
         {
             if (sql != null)
             {

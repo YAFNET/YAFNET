@@ -59,7 +59,7 @@ public abstract class DatabaseFixture : IAsyncDisposable
         GC.SuppressFinalize(this);
     }
 
-    async protected virtual Task DisposeAsync(bool disposing)
+    protected async virtual Task DisposeAsync(bool disposing)
     {
         if (disposing)
         {
@@ -120,7 +120,7 @@ public abstract class DatabaseFixture : IAsyncDisposable
     /// Call this at the start of every [SetUp] in the derived class,
     /// passing the scenario chosen by [TestCaseSource].
     /// </summary>
-    async protected Task SetUpForScenarioWithDockerAsync(ComposeScenario scenario, TestConfig testSettings)
+    protected async Task SetUpForScenarioWithDockerAsync(ComposeScenario scenario, TestConfig testSettings)
     {
         this.BaseUrl = scenario.BaseUrl;
 
@@ -165,7 +165,7 @@ public abstract class DatabaseFixture : IAsyncDisposable
     /// Call this at the start of every [SetUp] in the derived class,
     /// passing the scenario chosen by [TestCaseSource].
     /// </summary>
-    async protected Task SetUpForScenarioAsync(TestConfig testSettings)
+    protected async Task SetUpForScenarioAsync(TestConfig testSettings)
     {
         this.BaseUrl = testSettings.TestForumUrl;
 
@@ -208,7 +208,7 @@ public abstract class DatabaseFixture : IAsyncDisposable
     /// <summary>
     /// Call this at the end of every [TearDown] in the derived class.
     /// </summary>
-    async protected Task TearDownScenarioAsync(TestConfig testConfig)
+    protected async Task TearDownScenarioAsync(TestConfig testConfig)
     {
         // Screenshot on failure
         if (TestContext.CurrentContext.Result.Outcome.Status ==

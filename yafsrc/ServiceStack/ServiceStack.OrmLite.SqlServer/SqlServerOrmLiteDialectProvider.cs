@@ -1474,7 +1474,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
         bulkCopy.WriteToServer(table);
     }
 
-    protected override async Task BulkLoadAsync<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config, CancellationToken token)
+    protected async override Task BulkLoadAsync<T>(IDbConnection db, string quotedTable, List<FieldDefinition> fieldDefs, IEnumerable<T> rows, BulkInsertConfig config, CancellationToken token)
     {
         if (config.Mode == BulkInsertMode.Sql)
         {
@@ -1641,7 +1641,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    override protected bool ShouldSkipInsert(FieldDefinition fieldDef)
+    protected override bool ShouldSkipInsert(FieldDefinition fieldDef)
     {
         return fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
     }
@@ -2070,7 +2070,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <param name="take">The take.</param>
     /// <param name="selectType">Type of the select.</param>
     /// <returns>System.String.</returns>
-    static protected string SqlTop(string sql, int take, string selectType = null)
+    protected static string SqlTop(string sql, int take, string selectType = null)
     {
         selectType ??= sql.StartsWithIgnoreCase("SELECT DISTINCT") ? "SELECT DISTINCT" : "SELECT";
 
@@ -2251,15 +2251,15 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     private static int IndexOfTopLevelKeyword(string sql, string keyword)
     {
         var depth = 0;
-        char quote = default;
+        char quote = '\0';
         for (var i = 0; i < sql.Length; i++)
         {
             var c = sql[i];
-            if (quote != default)
+            if (quote != 0)
             {
                 if (c == quote)
                 {
-                    quote = default;
+                    quote = '\0';
                 }
 
                 continue;
@@ -2409,7 +2409,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>SqlConnection.</returns>
-    static protected DbConnection Unwrap(IDbConnection db)
+    protected static DbConnection Unwrap(IDbConnection db)
     {
         return (DbConnection)db.ToDbConnection();
     }
@@ -2419,7 +2419,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <returns>SqlCommand.</returns>
-    static protected DbCommand Unwrap(IDbCommand cmd)
+    protected static DbCommand Unwrap(IDbCommand cmd)
     {
         return (DbCommand)cmd.ToDbCommand();
     }
@@ -2429,7 +2429,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <returns>SqlDataReader.</returns>
-    static protected DbDataReader Unwrap(IDataReader reader)
+    protected static DbDataReader Unwrap(IDataReader reader)
     {
         return (DbDataReader)reader;
     }

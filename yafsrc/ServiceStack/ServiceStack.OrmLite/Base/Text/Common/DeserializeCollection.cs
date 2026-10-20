@@ -15,7 +15,7 @@ namespace ServiceStack.OrmLite.Base.Text.Common;
 /// Class DeserializeCollection.
 /// </summary>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-static internal class DeserializeCollection<TSerializer>
+internal static class DeserializeCollection<TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>

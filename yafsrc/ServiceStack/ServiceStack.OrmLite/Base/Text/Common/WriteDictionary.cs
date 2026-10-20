@@ -32,7 +32,7 @@ internal delegate void WriteMapDelegate(
 /// Class WriteDictionary.
 /// </summary>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-static internal class WriteDictionary<TSerializer>
+internal static class WriteDictionary<TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
@@ -48,12 +48,12 @@ static internal class WriteDictionary<TSerializer>
         /// <summary>
         /// The key type
         /// </summary>
-        readonly internal Type KeyType;
+        internal readonly Type KeyType;
 
         /// <summary>
         /// The value type
         /// </summary>
-        readonly internal Type ValueType;
+        internal readonly Type ValueType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MapKey" /> class.

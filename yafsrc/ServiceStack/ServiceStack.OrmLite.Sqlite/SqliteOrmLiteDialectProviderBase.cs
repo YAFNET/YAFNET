@@ -717,7 +717,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         return to;
     }
 
-    private static readonly System.Text.RegularExpressions.Regex CheckConstraintRegex = new(
+    private readonly static System.Text.RegularExpressions.Regex CheckConstraintRegex = new(
         @"\bCONSTRAINT\s+(""[^""]+""|`[^`]+`|\[[^\]]+\]|[^\s(]+)\s+CHECK\s*\(",
         System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Compiled,
         TimeSpan.FromSeconds(1));

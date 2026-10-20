@@ -30,7 +30,7 @@ public class SqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProviderBase
     /// </summary>
     /// <param name="connectionString">The connection string.</param>
     /// <returns>IDbConnection.</returns>
-    override protected IDbConnection CreateConnection(string connectionString)
+    protected override IDbConnection CreateConnection(string connectionString)
     {
         return new SQLiteConnection(connectionString);
     }

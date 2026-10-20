@@ -37,7 +37,7 @@ public class SqlServer2016Expression<T> : SqlServerExpression<T>
     /// <param name="quotedColName">Name of the quoted col.</param>
     /// <param name="values">The values.</param>
     /// <returns>System.String.</returns>
-    override protected string CreateInListSql(object quotedColName, List<object> values)
+    protected override string CreateInListSql(object quotedColName, List<object> values)
     {
         if (DialectProvider.MaxInListParams > 0 && values.Count > DialectProvider.MaxInListParams && ToJsonArray(values) is { } json)
         {

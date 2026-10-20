@@ -48,7 +48,7 @@ public class ProfiledDbTransaction : DbTransaction, IHasDbTransaction
     /// Specifies the <see cref="T:System.Data.Common.DbConnection" /> object associated with the transaction.
     /// </summary>
     /// <value>The database connection.</value>
-    override protected DbConnection DbConnection => this.db;
+    protected override DbConnection DbConnection => this.db;
 
     /// <summary>
     /// Gets the database transaction.
@@ -82,7 +82,7 @@ public class ProfiledDbTransaction : DbTransaction, IHasDbTransaction
     /// Releases the unmanaged resources used by the <see cref="T:System.Data.Common.DbTransaction" /> and optionally releases the managed resources.
     /// </summary>
     /// <param name="disposing">If <see langword="true" />, this method releases all resources held by any managed objects that this <see cref="T:System.Data.Common.DbTransaction" /> references.</param>
-    override protected void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
     {
         if (disposing)
         {

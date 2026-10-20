@@ -490,7 +490,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
     /// <summary>
     /// Sets the theme and the language (when not null) of the logged-in user and saves the settings.
     /// </summary>
-    private static async Task SaveSettingsAsync(IPage page, TestConfig testSettings, string theme, string language)
+    private async static Task SaveSettingsAsync(IPage page, TestConfig testSettings, string theme, string language)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Profile/EditSettings");
 
@@ -511,7 +511,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
     /// <summary>
     /// Sets the block options of the logged-in user and saves them.
     /// </summary>
-    private static async Task SaveBlockOptionsAsync(IPage page, TestConfig testSettings, params (string Selector, bool Value)[] options)
+    private async static Task SaveBlockOptionsAsync(IPage page, TestConfig testSettings, params (string Selector, bool Value)[] options)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Profile/BlockOptions");
 
@@ -526,7 +526,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
     /// <summary>
     /// Sets a check box of the host settings and saves them.
     /// </summary>
-    private static async Task SetCheckBoxAsync(IPage page, TestConfig testSettings, string selector, bool enabled)
+    private async static Task SetCheckBoxAsync(IPage page, TestConfig testSettings, string selector, bool enabled)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
 
@@ -542,7 +542,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                 new object[] { selector, enabled }));
     }
 
-    private static async Task SetAlbumsAsync(IPage page, TestConfig testSettings, bool enabled)
+    private async static Task SetAlbumsAsync(IPage page, TestConfig testSettings, bool enabled)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
 

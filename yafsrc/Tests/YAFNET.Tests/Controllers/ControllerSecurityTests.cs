@@ -46,7 +46,7 @@ public class ControllerSecurityTests
     /// The actions that may be called with GET: they only read data and change nothing
     /// (download counters aside). Everything else must be POST, so it can't be triggered by a link or an image.
     /// </summary>
-    private static readonly HashSet<string> ReadOnlyGetActions =
+    private readonly static HashSet<string> ReadOnlyGetActions =
     [
         "Albums.GetImage", "Albums.GetImagePreview", "Albums.GetAlbumCover",
         "Attachments.GetAttachment", "Attachments.GetResponseAttachment",
@@ -63,7 +63,7 @@ public class ControllerSecurityTests
     /// <summary>
     /// POST actions without an antiforgery token. Keep this list empty if possible.
     /// </summary>
-    private static readonly HashSet<string> PostWithoutAntiforgery = [];
+    private readonly static HashSet<string> PostWithoutAntiforgery = [];
 
     private static IEnumerable<(Type Controller, MethodInfo Action)> Actions()
     {

@@ -41,7 +41,7 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock, IHasTag
 
     internal DbTransaction? Transaction;
 
-    override protected DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
+    protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
     {
         this.Transaction = this.Db.BeginTransaction(isolationLevel);
         return new SingleWriterTransaction(this, this.Transaction, isolationLevel);
@@ -160,14 +160,14 @@ public class SingleWriterDbCommand(SingleWriterDbConnection db, DbCommand cmd, o
         set => cmd.UpdatedRowSource = value;
     }
 
-    override protected DbConnection? DbConnection {
+    protected override DbConnection? DbConnection {
         get => cmd.Connection;
         set => cmd.Connection = value;
     }
 
-    override protected DbParameterCollection DbParameterCollection => cmd.Parameters;
+    protected override DbParameterCollection DbParameterCollection => cmd.Parameters;
 
-    override protected DbTransaction? DbTransaction {
+    protected override DbTransaction? DbTransaction {
         get => this.Db.Transaction;
         set => this.Db.Transaction = value;
     }
@@ -182,12 +182,12 @@ public class SingleWriterDbCommand(SingleWriterDbConnection db, DbCommand cmd, o
         cmd.Cancel();
     }
 
-    override protected DbParameter CreateDbParameter()
+    protected override DbParameter CreateDbParameter()
     {
         return cmd.CreateParameter();
     }
 
-    override protected DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
+    protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
     {
         return cmd.ExecuteReader(behavior);
     }
@@ -205,7 +205,7 @@ public class SingleWriterDbCommand(SingleWriterDbConnection db, DbCommand cmd, o
         return cmd.ExecuteScalar();
     }
 
-    override protected void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
     {
         if (disposing)
         {
@@ -264,7 +264,7 @@ public static class SingleWriterExtensions
 
 public class SingleWriterTransaction(SingleWriterDbConnection dbConnection, DbTransaction transaction, IsolationLevel isolationLevel) : DbTransaction
 {
-    override protected DbConnection DbConnection { get; } = dbConnection;
+    protected override DbConnection DbConnection { get; } = dbConnection;
     public override IsolationLevel IsolationLevel { get; } = isolationLevel;
     public readonly DbTransaction Transaction = transaction;
 
@@ -278,7 +278,7 @@ public class SingleWriterTransaction(SingleWriterDbConnection dbConnection, DbTr
         this.Transaction.Rollback();
     }
 
-    override protected void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
     {
         dbConnection.Transaction = null;
         base.Dispose(disposing);

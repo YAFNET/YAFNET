@@ -19,7 +19,7 @@ public static class OrmLiteLog
 {
     public static ILog Log = LogManager.GetLogger(typeof(OrmLiteLog));
 
-    static internal T WithLog<T>(this IDbCommand cmd, T result, ILog log = null)
+    internal static T WithLog<T>(this IDbCommand cmd, T result, ILog log = null)
     {
         log ??= Log;
 

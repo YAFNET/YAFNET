@@ -848,7 +848,7 @@ public static class DateTimeSerializer
     /// <summary>
     /// The local time zone
     /// </summary>
-    static internal TimeZoneInfo LocalTimeZone = GetLocalTimeZoneInfo();
+    internal static TimeZoneInfo LocalTimeZone = GetLocalTimeZoneInfo();
 
     /// <summary>
     /// Uses the configuration specified setting.

@@ -22,7 +22,7 @@ namespace ServiceStack.OrmLite;
 /// <summary>
 /// Class ReadExpressionCommandExtensionsAsync.
 /// </summary>
-static internal class ReadExpressionCommandExtensionsAsync
+internal static class ReadExpressionCommandExtensionsAsync
 {
     /// <param name="dbCmd">The database command.</param>
     extension(IDbCommand dbCmd)
@@ -417,7 +417,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
-        async internal Task<long> GetCountAsync(string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
+        internal async Task<long> GetCountAsync(string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
         {
             var ret = await dbCmd.ColumnAsync<long>(sql, sqlParams, token).ConfigAwait();
             return ret.Sum();
@@ -503,7 +503,7 @@ static internal class ReadExpressionCommandExtensionsAsync
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;T&gt;.</returns>
-    static internal Task<T> ExprConvertToAsync<T>(this IDataReader dataReader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
+    internal static Task<T> ExprConvertToAsync<T>(this IDataReader dataReader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
     {
         return dialectProvider.ReaderRead(dataReader,
             () => dataReader.ConvertTo<T>(dialectProvider), token);
@@ -533,7 +533,7 @@ static internal class ReadExpressionCommandExtensionsAsync
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;DataTable&gt; representing the asynchronous operation.</returns>
-        async internal Task<DataTable> GetSchemaTableAsync(string sql, CancellationToken token)
+        internal async Task<DataTable> GetSchemaTableAsync(string sql, CancellationToken token)
         {
             using var reader = await dbCmd.ExecReaderAsync(sql, token).ConfigAwait();
             return reader.GetSchemaTable();

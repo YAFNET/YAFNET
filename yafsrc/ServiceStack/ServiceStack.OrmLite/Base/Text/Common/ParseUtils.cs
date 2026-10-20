@@ -12,7 +12,7 @@ namespace ServiceStack.OrmLite.Base.Text.Common;
 /// <summary>
 /// Class ParseUtils.
 /// </summary>
-static internal class ParseUtils
+internal static class ParseUtils
 {
     /// <summary>
     /// Gets the special parse method.

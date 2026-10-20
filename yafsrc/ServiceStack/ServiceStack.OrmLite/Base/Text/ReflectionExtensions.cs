@@ -743,7 +743,7 @@ public static class ReflectionExtensions
     /// <summary>
     /// The ignore attributes named
     /// </summary>
-    static internal string[] IgnoreAttributesNamed = [
+    internal static string[] IgnoreAttributesNamed = [
         "IgnoreDataMemberAttribute",
         "JsonIgnoreAttribute"
     ];
@@ -751,7 +751,7 @@ public static class ReflectionExtensions
     /// <summary>
     /// Resets this instance.
     /// </summary>
-    static internal void Reset()
+    internal static void Reset()
     {
         IgnoreAttributesNamed = [
             "IgnoreDataMemberAttribute",

@@ -255,7 +255,7 @@ public static class OrmLiteExplainApi
         }
     }
 
-    internal static async Task<string> ExplainAsync(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter>? sqlParams,
+    internal async static Task<string> ExplainAsync(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter>? sqlParams,
         bool analyze, CancellationToken token)
     {
         var explain = dbCmd.PrepareExplain(sql, sqlParams, analyze);

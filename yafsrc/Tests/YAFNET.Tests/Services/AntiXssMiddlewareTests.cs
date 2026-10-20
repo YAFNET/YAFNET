@@ -147,7 +147,7 @@ public class AntiXssMiddlewareTests
         FluentActions.Invoking(() => new AntiXssMiddleware(null)).Should().Throw<ArgumentNullException>();
     }
 
-    private static async Task<(HttpContext Context, bool NextCalled)> RunAsync(
+    private async static Task<(HttpContext Context, bool NextCalled)> RunAsync(
         string path,
         string query,
         string body,

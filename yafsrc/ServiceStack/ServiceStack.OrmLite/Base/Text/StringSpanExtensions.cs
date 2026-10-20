@@ -42,7 +42,7 @@ public static class StringSpanExtensions
     /// <param name="obj">The object.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static internal object Value(this object obj)
+    internal static object Value(this object obj)
     {
         return obj is string { Length: 1 } value && value[0] == TypeConstants.NonWidthWhiteSpace
             ? ""

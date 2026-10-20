@@ -754,7 +754,7 @@ public static class OrmLiteSchemaDiffApi
         return diff;
     }
 
-    private static readonly HashSet<SchemaChangeType> RebuiltTypes = [
+    private readonly static HashSet<SchemaChangeType> RebuiltTypes = [
         SchemaChangeType.AlterColumn, SchemaChangeType.AlterDefault, SchemaChangeType.AddForeignKey,
         SchemaChangeType.AlterForeignKey, SchemaChangeType.DropForeignKey, SchemaChangeType.AddConstraint,
         SchemaChangeType.AlterConstraint, SchemaChangeType.DropConstraint,
@@ -1219,10 +1219,10 @@ public static class OrmLiteSchemaDiffApi
         return a.Zip(b, (x, y) => x.EqualsIgnoreCase(y)).All(x => x);
     }
 
-    private static readonly Regex CastRegex = new(
+    private readonly static Regex CastRegex = new(
         @"::\s*[a-z_]+(\s+(varying|precision|with|without|time|zone))*(\s*\(\d+(\s*,\s*\d+)?\))?(\[\])?",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, TimeSpan.FromSeconds(1));
-    private static readonly Regex UnicodeLiteralRegex = new(@"\bN'", RegexOptions.IgnoreCase | RegexOptions.Compiled,
+    private readonly static Regex UnicodeLiteralRegex = new(@"\bN'", RegexOptions.IgnoreCase | RegexOptions.Compiled,
         TimeSpan.FromSeconds(1));
 
     /// <summary>
@@ -1359,9 +1359,9 @@ public static class OrmLiteSchemaDiffApi
         diff.Changes.InsertRange(firstChange, drops);
     }
 
-    private static readonly Regex UniqueNameRegex = new(@"^\s*CONSTRAINT\s+(\S+)\s+UNIQUE",
+    private readonly static Regex UniqueNameRegex = new(@"^\s*CONSTRAINT\s+(\S+)\s+UNIQUE",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, TimeSpan.FromSeconds(1));
-    private static readonly Regex CheckRegex = new(@"^\s*CONSTRAINT\s+(\S+)\s+CHECK\s*\((.*)\)\s*$",
+    private readonly static Regex CheckRegex = new(@"^\s*CONSTRAINT\s+(\S+)\s+CHECK\s*\((.*)\)\s*$",
         RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled, TimeSpan.FromSeconds(1));
 
     // The check constraints of [CheckConstraint] and [CheckEnum] properties. Databases rewrite their conditions, e.g.
@@ -1534,19 +1534,19 @@ public static class OrmLiteSchemaDiffApi
         });
     }
 
-    private static readonly System.Reflection.MethodInfo ToDropIndexStatementMethod =
+    private readonly static System.Reflection.MethodInfo ToDropIndexStatementMethod =
         typeof(IOrmLiteDialectProvider).GetMethod(nameof(IOrmLiteDialectProvider.ToDropIndexStatement));
 
     private static string ToDropIndexStatement(IOrmLiteDialectProvider dialect, Type modelType, string indexName) =>
         (string)ToDropIndexStatementMethod.MakeGenericMethod(modelType).Invoke(dialect, [indexName]);
 
-    private static readonly Regex UniqueIndexRegex = new(@"^\s*CREATE\s+UNIQUE\b",
+    private readonly static Regex UniqueIndexRegex = new(@"^\s*CREATE\s+UNIQUE\b",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, TimeSpan.FromSeconds(1));
-    private static readonly Regex IncludeRegex = new(@"^\s*INCLUDE\s*\(([^)]*)\)",
+    private readonly static Regex IncludeRegex = new(@"^\s*INCLUDE\s*\(([^)]*)\)",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, TimeSpan.FromSeconds(1));
-    private static readonly Regex WhereRegex = new(@"\bWHERE\b(.*)$",
+    private readonly static Regex WhereRegex = new(@"\bWHERE\b(.*)$",
         RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled, TimeSpan.FromSeconds(1));
-    private static readonly Regex IndexColumnsRegex = new(@"\bON\s+(?:""[^""]*""|`[^`]*`|\[[^\]]*\]|[^\s(])+(?:\s+USING\s+\w+)?\s*\(",
+    private readonly static Regex IndexColumnsRegex = new(@"\bON\s+(?:""[^""]*""|`[^`]*`|\[[^\]]*\]|[^\s(])+(?:\s+USING\s+\w+)?\s*\(",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, TimeSpan.FromSeconds(1));
 
     /// <summary>
@@ -1661,7 +1661,7 @@ public static class OrmLiteSchemaDiffApi
         return applied;
     }
 
-    private static readonly Regex IndexNameRegex = new(
+    private readonly static Regex IndexNameRegex = new(
         @"\bINDEX\s+(?:CONCURRENTLY\s+)?(?:IF\s+NOT\s+EXISTS\s+)?([^\s(]+)\s+ON\b",
         RegexOptions.IgnoreCase | RegexOptions.Compiled, TimeSpan.FromSeconds(1));
 
@@ -1678,7 +1678,7 @@ public static class OrmLiteSchemaDiffApi
             || IsNumericFor(dbColumn, modelColumn, dialect) || (IsIntegerType(dbColumn) && IsIntegerType(modelColumn)))
         && dbColumn.AllowDBNull == modelColumn.AllowDBNull;
 
-    private static readonly HashSet<string> IntegerTypes = new(StringComparer.OrdinalIgnoreCase) {
+    private readonly static HashSet<string> IntegerTypes = new(StringComparer.OrdinalIgnoreCase) {
         "SMALLINT", "INT", "INTEGER", "MEDIUMINT", "BIGINT", "INT2", "INT4", "INT8",
         "SMALLSERIAL", "SERIAL", "BIGSERIAL",
     };
@@ -1796,7 +1796,7 @@ public static class OrmLiteSchemaDiffApi
 internal static class SchemaMigrationWriter
 {
     // Generated migrations are a guide, so they're compiled with a warning until they're reviewed
-    internal static readonly string[] Header = [
+    internal readonly static string[] Header = [
         "// GENERATED BY SCHEMA DIFF: A GUIDE TO REVIEW, NOT A FINISHED MIGRATION",
         "//",
         "// Schema Diff is new, and it's too early to know how accurate the migrations it writes are. Don't trust this",
@@ -2061,7 +2061,7 @@ internal static class SchemaMigrationWriter
         return ns == "ServiceStack.DataAnnotations" || ns == "System.ComponentModel.DataAnnotations";
     }
 
-    private static readonly Dictionary<Type, string> Keywords = new()
+    private readonly static Dictionary<Type, string> Keywords = new()
     {
         [typeof(bool)] = "bool",
         [typeof(byte)] = "byte",
@@ -2080,7 +2080,7 @@ internal static class SchemaMigrationWriter
         [typeof(object)] = "object",
     };
 
-    private static readonly HashSet<string> Usings = ["System", "System.Collections.Generic", "ServiceStack",
+    private readonly static HashSet<string> Usings = ["System", "System.Collections.Generic", "ServiceStack",
         "ServiceStack.DataAnnotations", "ServiceStack.OrmLite"];
 
     internal static string ToSource(Type type)

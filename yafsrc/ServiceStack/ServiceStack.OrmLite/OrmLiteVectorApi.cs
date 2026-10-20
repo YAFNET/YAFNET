@@ -58,7 +58,7 @@ public static class OrmLiteVectorApi
     /// <summary>
     /// Set how this connection searches vector indexes, for the rest of its session
     /// </summary>
-    public static async Task<IDbConnection> SetVectorSearchAsync(this IDbConnection db, VectorSearchOptions options,
+    public async static Task<IDbConnection> SetVectorSearchAsync(this IDbConnection db, VectorSearchOptions options,
         CancellationToken token = default)
     {
         foreach (var sql in db.GetDialectProvider().ToVectorSearchStatements(options))

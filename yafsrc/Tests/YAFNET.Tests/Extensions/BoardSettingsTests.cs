@@ -36,7 +36,7 @@ using YAF.Configuration.Pattern;
 [TestFixture]
 public class BoardSettingsTests
 {
-    private static readonly string[] NotInRegistry = ["BoardId", "Name", "Description", "Registry", "RegistryBoard"];
+    private readonly static string[] NotInRegistry = ["BoardId", "Name", "Description", "Registry", "RegistryBoard"];
 
     private static IEnumerable<PropertyInfo> Settings() =>
         typeof(BoardSettings).GetProperties(BindingFlags.Public | BindingFlags.Instance)

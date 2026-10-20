@@ -27,7 +27,7 @@ public class SqlServer2016OrmLiteDialectProvider : SqlServer2014OrmLiteDialectPr
     /// <summary>
     /// The instance
     /// </summary>
-    public static new SqlServer2016OrmLiteDialectProvider Instance = new();
+    public new static SqlServer2016OrmLiteDialectProvider Instance = new();
 
     /// <summary>
     /// SQL expression.
@@ -50,7 +50,7 @@ public class SqlServer2017OrmLiteDialectProvider : SqlServer2016OrmLiteDialectPr
     /// <summary>
     /// The instance
     /// </summary>
-    public static new SqlServer2017OrmLiteDialectProvider Instance = new();
+    public new static SqlServer2017OrmLiteDialectProvider Instance = new();
 }
 
 /// <summary>
@@ -63,7 +63,7 @@ public class SqlServer2019OrmLiteDialectProvider : SqlServer2017OrmLiteDialectPr
     /// <summary>
     /// The instance
     /// </summary>
-    public static new SqlServer2019OrmLiteDialectProvider Instance = new();
+    public new static SqlServer2019OrmLiteDialectProvider Instance = new();
 }
 
 /// <summary>
@@ -76,5 +76,5 @@ public class SqlServer2022OrmLiteDialectProvider : SqlServer2019OrmLiteDialectPr
     /// <summary>
     /// The instance
     /// </summary>
-    public static new SqlServer2022OrmLiteDialectProvider Instance = new();
+    public new static SqlServer2022OrmLiteDialectProvider Instance = new();
 }

@@ -223,13 +223,13 @@ public abstract class CompiledQueryBase<T>
     internal const int WhereKind = 9;
     private const int Kinds = 10;
 
-    internal static readonly Func<SqlExpression<T>, string> ToCount = q => q.ToCountStatement();
-    internal static readonly Func<SqlExpression<T>, string> ToExists =
+    internal readonly static Func<SqlExpression<T>, string> ToCount = q => q.ToCountStatement();
+    internal readonly static Func<SqlExpression<T>, string> ToExists =
         q => q.CloneForExists().ToSelectStatement(QueryType.Scalar);
-    internal static readonly Func<SqlExpression<T>, string> ToDelete = q => q.ToDeleteRowStatement();
-    internal static readonly Func<SqlExpression<T>, string> ToWhere = q => q.WhereExpression;
+    internal readonly static Func<SqlExpression<T>, string> ToDelete = q => q.ToDeleteRowStatement();
+    internal readonly static Func<SqlExpression<T>, string> ToWhere = q => q.WhereExpression;
 
-    private static readonly Func<SqlExpression<T>, string>[] ToStatements = [
+    private readonly static Func<SqlExpression<T>, string>[] ToStatements = [
         q => q.ToSelectStatement(QueryType.Select),
         q => q.ToSelectStatement(QueryType.Single),
         q => q.ToSelectStatement(QueryType.Scalar),
@@ -239,7 +239,7 @@ public abstract class CompiledQueryBase<T>
 
     internal static class Into<TModel>
     {
-        private static readonly Func<SqlExpression<T>, string>[] ToSql = [
+        private readonly static Func<SqlExpression<T>, string>[] ToSql = [
             q => q.SelectInto<TModel>(QueryType.Select),
             q => q.SelectInto<TModel>(QueryType.Single),
             q => q.SelectInto<TModel>(QueryType.Scalar),
@@ -444,8 +444,8 @@ public abstract class CompiledQueryBase<T>
         return false;
     }
 
-    private static readonly object NullArg = new();
-    private static readonly object NotAList = new();
+    private readonly static object NullArg = new();
+    private readonly static object NotAList = new();
 
     // What the SQL of a query depends on: which arguments are null, the sizes of its collections and the values
     // of the arguments that are used in its SQL. Returns null when it doesn't depend on its arguments.
@@ -782,7 +782,7 @@ public abstract class CompiledQueryBase<T>
     internal sealed class Statement
     {
         // Kept so SQL that can't be reused isn't generated twice each time
-        internal static readonly Statement NotCached = new(null, null, null, null, null);
+        internal readonly static Statement NotCached = new(null, null, null, null, null);
 
         internal readonly string Sql;
         internal readonly HashSet<string> OnlyFields;
@@ -1188,7 +1188,7 @@ internal sealed class CompiledQueryBuild
 
     private sealed class ReferenceComparer : IEqualityComparer<IDbDataParameter>
     {
-        internal static readonly ReferenceComparer Instance = new();
+        internal readonly static ReferenceComparer Instance = new();
         public bool Equals(IDbDataParameter x, IDbDataParameter y) => ReferenceEquals(x, y);
         public int GetHashCode(IDbDataParameter obj) =>
             System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(obj);

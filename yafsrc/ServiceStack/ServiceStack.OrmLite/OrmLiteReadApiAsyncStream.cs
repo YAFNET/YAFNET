@@ -81,7 +81,7 @@ public static class OrmLiteReadApiAsyncStream
     /// Executes the async stream with a command created from the connection's exec filter, which is disposed
     /// after the stream completes or is disposed early.
     /// </summary>
-    public static async IAsyncEnumerable<T> ExecLazyAsync<T>(this IDbConnection dbConn,
+    public async static IAsyncEnumerable<T> ExecLazyAsync<T>(this IDbConnection dbConn,
         Func<IDbCommand, CancellationToken, IAsyncEnumerable<T>> filter,
         [EnumeratorCancellation] CancellationToken token = default)
     {
@@ -102,7 +102,7 @@ public static class OrmLiteReadApiAsyncStream
         }
     }
 
-    internal static async IAsyncEnumerable<T> SelectLazyAsync<T>(this IDbCommand dbCmd, string sql,
+    internal async static IAsyncEnumerable<T> SelectLazyAsync<T>(this IDbCommand dbCmd, string sql,
         [EnumeratorCancellation] CancellationToken token)
     {
         var dialectProvider = dbCmd.GetDialectProvider();
@@ -128,7 +128,7 @@ public static class OrmLiteReadApiAsyncStream
         }
     }
 
-    internal static async IAsyncEnumerable<T> ColumnLazyAsync<T>(this IDbCommand dbCmd, string sql,
+    internal async static IAsyncEnumerable<T> ColumnLazyAsync<T>(this IDbCommand dbCmd, string sql,
         [EnumeratorCancellation] CancellationToken token)
     {
         var dialectProvider = dbCmd.GetDialectProvider();

@@ -74,7 +74,7 @@ public struct JsonTypeSerializer
     /// </summary>
     /// <param name="typeAttr">The type attribute.</param>
     /// <returns>System.String.</returns>
-    static internal string GetTypeAttrInObject(string typeAttr)
+    internal static string GetTypeAttrInObject(string typeAttr)
     {
         return $"{{\"{typeAttr}\":";
     }
@@ -770,7 +770,7 @@ public struct JsonTypeSerializer
     /// <exception cref="DiagnosticEvent.Exception">Invalid unquoted string ending with: " + json.SafeSubstring(json.Length - 50, 50).ToString()</exception>
     /// <exception cref="System.Exception">Invalid unquoted string starting with: " + json.SafeSubstring(50).ToString()</exception>
     /// <exception cref="System.Exception">Invalid unquoted string ending with: " + json.SafeSubstring(json.Length - 50, 50).ToString()</exception>
-    static internal ReadOnlySpan<char> ParseString(ReadOnlySpan<char> json, ref int index)
+    internal static ReadOnlySpan<char> ParseString(ReadOnlySpan<char> json, ref int index)
     {
         var jsonLength = json.Length;
 

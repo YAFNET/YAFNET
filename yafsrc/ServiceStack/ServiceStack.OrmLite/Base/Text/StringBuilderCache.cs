@@ -124,7 +124,7 @@ public static class StringBuilderCacheAlt
 /// <summary>
 /// Class StringBuilderThreadStatic.
 /// </summary>
-static internal class StringBuilderThreadStatic
+internal static class StringBuilderThreadStatic
 {
     /// <summary>
     /// The cache

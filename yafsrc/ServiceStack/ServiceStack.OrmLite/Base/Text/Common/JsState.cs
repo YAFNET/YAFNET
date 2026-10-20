@@ -14,68 +14,68 @@ namespace ServiceStack.OrmLite.Base.Text.Common;
 /// <summary>
 /// Class JsState.
 /// </summary>
-static internal class JsState
+internal static class JsState
 {
     //Exposing field for perf
     /// <summary>
     /// The writing key count
     /// </summary>
     [ThreadStatic]
-    static internal int WritingKeyCount;
+    internal static int WritingKeyCount;
 
     /// <summary>
     /// The is writing value
     /// </summary>
     [ThreadStatic]
-    static internal bool IsWritingValue;
+    internal static bool IsWritingValue;
 
     /// <summary>
     /// The is writing dynamic
     /// </summary>
     [ThreadStatic]
-    static internal bool IsWritingDynamic;
+    internal static bool IsWritingDynamic;
 
     /// <summary>
     /// The is runtime type
     /// </summary>
     [ThreadStatic]
-    static internal bool IsRuntimeType;
+    internal static bool IsRuntimeType;
 
     /// <summary>
     /// The query string mode
     /// </summary>
     [ThreadStatic]
-    static internal bool QueryStringMode;
+    internal static bool QueryStringMode;
 
     /// <summary>
     /// The depth
     /// </summary>
     [ThreadStatic]
-    static internal int Depth;
+    internal static int Depth;
 
     /// <summary>
     /// The is CSV
     /// </summary>
     [ThreadStatic]
-    static internal bool IsCsv;
+    internal static bool IsCsv;
 
     /// <summary>
     /// The declaring type
     /// </summary>
     [ThreadStatic]
-    static internal Type DeclaringType;
+    internal static Type DeclaringType;
 
     /// <summary>
     /// The in serializer FNS
     /// </summary>
     [ThreadStatic]
-    static internal HashSet<Type> InSerializerFns;
+    internal static HashSet<Type> InSerializerFns;
 
     /// <summary>
     /// Registers the serializer.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    static internal void RegisterSerializer<T>()
+    internal static void RegisterSerializer<T>()
     {
         InSerializerFns ??= [];
 
@@ -86,7 +86,7 @@ static internal class JsState
     /// Uns the register serializer.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    static internal void UnRegisterSerializer<T>()
+    internal static void UnRegisterSerializer<T>()
     {
         InSerializerFns?.Remove(typeof(T));
     }
@@ -96,7 +96,7 @@ static internal class JsState
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    static internal bool InSerializer<T>()
+    internal static bool InSerializer<T>()
     {
         return InSerializerFns != null && InSerializerFns.Contains(typeof(T));
     }
@@ -105,7 +105,7 @@ static internal class JsState
     /// The in deserializer FNS
     /// </summary>
     [ThreadStatic]
-    static internal HashSet<Type> InDeserializerFns;
+    internal static HashSet<Type> InDeserializerFns;
 
     static JsState()
     {
@@ -121,7 +121,7 @@ static internal class JsState
     /// Registers the deserializer.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    static internal void RegisterDeserializer<T>()
+    internal static void RegisterDeserializer<T>()
     {
         InDeserializerFns ??= [];
 
@@ -132,7 +132,7 @@ static internal class JsState
     /// Uns the register deserializer.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    static internal void UnRegisterDeserializer<T>()
+    internal static void UnRegisterDeserializer<T>()
     {
         InDeserializerFns?.Remove(typeof(T));
     }
@@ -142,7 +142,7 @@ static internal class JsState
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    static internal bool InDeserializer<T>()
+    internal static bool InDeserializer<T>()
     {
         return InDeserializerFns != null && InDeserializerFns.Contains(typeof(T));
     }
@@ -153,7 +153,7 @@ static internal class JsState
     /// <param name="value">The value.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static internal bool Traverse(object value)
+    internal static bool Traverse(object value)
     {
         if (++Depth <= JsConfig.MaxDepth)
         {
@@ -169,7 +169,7 @@ static internal class JsState
     /// Uns the traverse.
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static internal void UnTraverse()
+    internal static void UnTraverse()
     {
         --Depth;
     }
@@ -177,7 +177,7 @@ static internal class JsState
     /// <summary>
     /// Resets this instance.
     /// </summary>
-    static internal void Reset()
+    internal static void Reset()
     {
         InSerializerFns = null;
         InDeserializerFns = null;

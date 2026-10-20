@@ -23,19 +23,19 @@ public static class AutoMappingUtils
     /// <summary>
     /// The converters
     /// </summary>
-    readonly static internal ConcurrentDictionary<Tuple<Type, Type>, GetMemberDelegate> converters
+    internal readonly static ConcurrentDictionary<Tuple<Type, Type>, GetMemberDelegate> converters
         = new();
 
     /// <summary>
     /// The populators
     /// </summary>
-    readonly static internal ConcurrentDictionary<Tuple<Type, Type>, PopulateMemberDelegate> populators
+    internal readonly static ConcurrentDictionary<Tuple<Type, Type>, PopulateMemberDelegate> populators
         = new();
 
     /// <summary>
     /// The ignore mappings
     /// </summary>
-    readonly static internal ConcurrentDictionary<Tuple<Type, Type>, bool> ignoreMappings
+    internal readonly static ConcurrentDictionary<Tuple<Type, Type>, bool> ignoreMappings
         = new();
 
     /// <summary>
@@ -573,7 +573,7 @@ public static class AutoMappingUtils
     /// <param name="toType">To type.</param>
     /// <param name="fromType">From type.</param>
     /// <returns>AssignmentDefinition.</returns>
-    static internal AssignmentDefinition GetAssignmentDefinition(Type toType, Type fromType)
+    internal static AssignmentDefinition GetAssignmentDefinition(Type toType, Type fromType)
     {
         var cacheKey = CreateCacheKey(fromType, toType);
 
@@ -606,7 +606,7 @@ public static class AutoMappingUtils
     /// <param name="fromType">From type.</param>
     /// <param name="toType">To type.</param>
     /// <returns>System.String.</returns>
-    static internal string CreateCacheKey(Type fromType, Type toType)
+    internal static string CreateCacheKey(Type fromType, Type toType)
     {
         var cacheKey = fromType.FullName + ">" + toType.FullName;
         return cacheKey;
@@ -1510,7 +1510,7 @@ public delegate void SetMemberRefDelegate<T>(ref T instance, object value);
 /// <summary>
 /// Class TypeConverter.
 /// </summary>
-static internal class TypeConverter
+internal static class TypeConverter
 {
     /// <summary>
     /// Creates the type converter.

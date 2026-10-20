@@ -50,7 +50,7 @@ public class SqliteDbAccess : DbAccessBase
     /// <summary>
     /// The pauses before an operation is tried again after "database is locked" (SQLITE_BUSY).
     /// </summary>
-    private static readonly int[] BusyRetryDelays = [100, 300, 600];
+    private readonly static int[] BusyRetryDelays = [100, 300, 600];
 
     /// <summary>
     /// Executes the command, an operation that fails with "database is locked" is tried again
