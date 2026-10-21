@@ -537,20 +537,8 @@
             "#text": "Inga uppgifter"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Använder AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Använder e-post"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Använder MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Använder XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Inga uppgifter finns tillgängliga."
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Visa privata meddelanden"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Visar meddelanden i ämnet"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Skicka e-post till {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Xmpp messenger"
           }
         ]
       },

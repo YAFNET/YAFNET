@@ -537,20 +537,8 @@
             "#text": "Veri Yok"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "AIM  Kullananlar"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "E-posta  Kullananlar"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "MSN  Kullananlar"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "XMPP  Kullananlar"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Kullanılabilir veri yok"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Özel mesajları görüntüle"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Konudaki mesajları görüntüle "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Hızlı Mesajcı"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "{0} adresine e-posta gönderin"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP Msn"
           }
         ]
       },

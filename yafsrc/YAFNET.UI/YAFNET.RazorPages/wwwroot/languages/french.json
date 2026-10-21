@@ -537,20 +537,8 @@
             "#text": "Pas de données"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Utilise AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Utilise le courrier électronique"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Utilise MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Utilise XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Aucune donnée disponible"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Afficher les notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Messages privés"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Voir les messages dans le sujet"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Publie un nouveau sujet sur le forum"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1070,7 +1066,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Agent utilisateur :"
           },
           {
             "@tag": "MASK_HELP",
@@ -3858,7 +3854,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3922,7 +3918,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "Choisissez entre un service sans spam, un contrôle anti-spam interne ou un service externe BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -7690,7 +7686,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Barré"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -7880,7 +7876,7 @@
           },
           {
             "@tag": "BN",
-            "#text": "Brunei Darussalam"
+            "#text": "Brunéi Darussalam"
           },
           {
             "@tag": "BO",
@@ -8568,7 +8564,7 @@
           },
           {
             "@tag": "SR",
-            "#text": "Suriname"
+            "#text": "Surinam"
           },
           {
             "@tag": "ST",
@@ -8837,11 +8833,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "Nouveaux membres"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "Derniers membres"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9356,7 +9352,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>Ouvrez votre application Authenticator et ajoutez un nouveau compte</li><li>Scannez le code QR ou saisissez manuellement le code de configuration</li><li>Saisissez le code de validation de votre Authenticator</li><li>Cliquez pour <i>Activer l'authentification à deux facteurs</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Messagerie instantanée AOL"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Envoyer un e-mail à {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Messagerie XMPP"
           }
         ]
       },
@@ -10934,7 +10912,7 @@
           },
           {
             "@tag": "PLACEHOLDER",
-            "#text": "Type Message ..."
+            "#text": "Tapez Message..."
           },
           {
             "@tag": "TITLE",
@@ -11209,7 +11187,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOGUE"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -11289,7 +11267,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
@@ -11325,7 +11303,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "PI"
           },
           {
             "@tag": "JOINED",
@@ -11914,7 +11892,7 @@
           },
           {
             "@tag": "RGN_CH_SZ",
-            "#text": "Schwyz"
+            "#text": "Schwytz"
           },
           {
             "@tag": "RGN_CH_TG",
@@ -12007,7 +11985,7 @@
           },
           {
             "@tag": "RGN_DE_SW",
-            "#text": "Schleswig-holstein"
+            "#text": "Schleswig-Holstein"
           },
           {
             "@tag": "RGN_DE_TH",
@@ -12410,7 +12388,7 @@
           },
           {
             "@tag": "MM",
-            "#text": "{0} minutes"
+            "#text": "{0} minutes"
           },
           {
             "@tag": "MO",
@@ -12732,7 +12710,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS nécessite : appuyez sur Partager ⬆️ → Ajouter à l'écran d'accueil → Ouvrir depuis l'écran d'accueil, puis activer les notifications."
           },
           {
             "@tag": "LASTPOST",
@@ -12796,7 +12774,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 Demande d'autorisation de notification... Veuillez autoriser lorsque vous y êtes invité !"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",

@@ -641,6 +641,395 @@ YetAnotherForum.NET Changelog
 * Replaced Private Messages with real-time user chat
 * Two Factor Authentication
 
+# YetAnotherForum.NET v3.2.17
+* [NEW] Extended unit test suite (YAF.Tests, renamed from YAF.Tests.CoreTests) including repository tests against an in-memory SQLite database
+* [NEW] UI tests (YAF.Tests.UITests, Playwright): the forum is installed with the install wizard into a LocalDB database and run with IIS Express (no Docker); login, registration, topics, posts, private messages, profile, every page for guests, members and admins, and access checks
+* [CHANGES] The client address is taken from X-Forwarded-For / X-Real-IP only for requests of trusted proxies. Proxies in loopback and private networks are trusted by default; a proxy or CDN with public addresses has to be added to the new web.config setting YAF.TrustedProxies (addresses or CIDR networks, separated by comma), otherwise its address is used as the client address
+* [FIXED] IP bans could be bypassed: any client could send an X-Forwarded-For header with another address, and the header of several proxies was always read at its first address
+* [FIXED] IP bans: a ban matched every address that contained it (e.g. the ban 10.0.0.1 also banned 110.0.0.15 and 10.0.0.12), an invalid mask caused an error; masks are compared exactly, a * matches one part of an ipv4 address
+* [FIXED] Login of migrated legacy membership passwords: clear text passwords were compared ignoring the case, base64 hashes were compared ignoring the case, hashes of the ASP.NET membership (salt + password) did not match, a clear text password with a "|" could not be used, unknown formats were compared as clear text
+* [FIXED] Deleting an avatar could delete any file of the forum (e.g. /Content/... or a path with ..); only files in the uploads folder are deleted
+* [FIXED] Ladder ranks: users were never promoted to the next rank by their number of posts
+* [FIXED] User styles: an old style (e.g. of a group the user was removed from or a removed group or rank style) was never removed, the style was not updated when the rank changed, and deleting a group with a style didn't update the styles of its members
+* [FIXED] Topic list: the "show topics of the last ..." filter used the wrong period (e.g. "Last Day" showed two days, "Last Six Months" a year) and "Last Year" was missing
+* [FIXED] Active users: the crawlers were taken from the wrong flag (members excluded from captchas were shown as crawlers, real crawlers were missing), with guests but without crawlers the crawlers were shown anyway
+* [FIXED] Prune topics: 0 or a negative number of days removed all topics, already deleted topics were deleted and counted again, pruning all forums failed with an error when the topics were deleted for good
+* [FIXED] Deleting a topic didn't count the posts of its authors again
+* [FIXED] Moving posts: the post counts of the topics were wrong when deleted posts were moved, a moved answer stayed the answer of the old topic, and the search index kept the old topic and forum (a post moved to a forum the user can't read was still found)
+* [FIXED] Moving a topic: the search index kept the old forum, an invalid number of days for the link of the moved topic caused an error
+* [FIXED] Editing a post removed the tags of the topic from the search index
+* [FIXED] Tags: a tag entered twice (also with spaces around it) was added twice and the post could not be saved; a tag longer than its column (MySQL) failed
+* [FIXED] Admin edit forum: a forum with sub forums could not get a parent; the parent can't be the forum itself or one of its sub forums
+* [FIXED] Message history: the comparison of two versions failed with an error for most texts
+* [FIXED] Album titles, image captions and the reasons of edited and deleted posts are stored html encoded, saving failed when the encoded text was longer than its column; a changed album title was encoded twice
+* [FIXED] Text avatars: a name with "&" created an invalid image, names with several spaces, empty names or names of emoji only failed, a provider key that is no color created an invalid color
+* [FIXED] Ignored users: ignoring or removing a user was not shown on the same page, a user could ignore themselves
+* [FIXED] Host settings: "Allow private message attachments" could not be saved (the setting was stored under another name)
+* [FIXED] Language list: a language file with missing pages or texts caused an error
+* [FIXED] Generated passwords could contain three identical characters in a row
+* [FIXED] Topic names with " & " became "AandB" in the url instead of "A-and-B"
+* [FIXED] Paging: a huge page number in the url caused an error (negative offset)
+* [FIXED] Admin -> Database: "Change recovery mode" re-indexed the database instead of changing the recovery mode
+* [FIXED] SQLite: the table and column checks used by the database migrations never found existing tables and columns
+* [FIXED] MySQL: the current time of the queries was the date only (midnight), e.g. the active users of the day were never removed
+* [FIXED] PostgreSQL: the difference of two times in minutes was only the minutes part (2:05 hours were 5 minutes)
+* [FIXED] Deleting all rows of a table reported no success when exactly one row was deleted
+* [FIXED] Editing a post never approved it (also in forums that are not moderated, or by a moderator), the flags were changed on a copy; the search index kept the old flags
+* [FIXED] Editing a post twice in the same second failed on MySQL (the versions of the history have a key of the post and the time)
+* [FIXED] Erasing the answer of a topic left the link to the answer (an error), marking a new answer after that failed
+* [FIXED] Topic page: the link to a post opened the wrong page when deleted or not approved posts were before it; posts of the same second (MySQL) were listed in a random order
+* [FIXED] Deleting a user failed when the user had medals or was ignored by other users (SQL Server, MySQL, PostgreSQL)
+* [FIXED] Group e-mails were also sent to disabled and not approved users and users without e-mail address
+* [FIXED] Disabled and not approved moderators were listed on the team page and got moderator notifications
+* [FIXED] Most active users: the users were not taken by their number of posts
+* [FIXED] Signature: the BB codes of the rank were not allowed when the groups allowed none
+* [FIXED] Notifications: the number of quotes was the number of received thanks
+* [FIXED] Edit settings: the page size (sent by the client) was not checked, it is 1 - 100 now
+* [FIXED] Active users of a forum or topic: users that hide their online status were shown, guests were shown as members, members excluded from the captcha as crawlers
+* [FIXED] My Topics (watched topics): topics of forums the user can't read anymore were listed, the number of topics for the pager was the number of all topics
+* [FIXED] Admin edit forum: the sub forums were not moved with the forum to another category
+* [FIXED] Forum statistics: the counts of the parent forum were not updated with a change in a sub forum
+* [FIXED] Deleting a forum and moving its topics: the links of moved topics to topics of the new forum stayed, a user with an own access mask in both forums made the delete fail
+* [FIXED] Admin medals: saving a medal of another board, saving a medal without a message failed
+* [FIXED] Forum jump: the names of the categories were not encoded (html of a category name was shown as html)
+* [FIXED] Team page: the names of the moderated forums were shown double encoded in the forum select ("Tom &amp; Jerry")
+* [FIXED] Categories were not listed in their sort order
+* [FIXED] Admin -> Event log / Spam log: "Delete all" deleted the entries of all boards (the spam log also all other entries), a single entry of another board could be deleted
+* [FIXED] Reported posts: the first report of a user was counted as 0 reports
+* [FIXED] Message history: the history of a post that was never edited, or of a post that doesn't exist, showed an error
+* [FIXED] Event log: the log was never trimmed to the maximum number of entries (only 100 entries were checked)
+* [FIXED] Admin -> Private messages: pruning deleted the messages of all boards, 0 days deleted all messages
+* [FIXED] A new group created for a role (e.g. of an imported or external user) got the guest access to all forums (also staff forums) instead of the access of the start groups
+* [FIXED] Friends: "Approve all" and "Deny all" did nothing (the received requests were never found)
+* [FIXED] Thanks: posts of forums the user can't read (and the own posts) could be thanked and their thanks listed, the name of the author was not encoded in the box after removing a thanks, removing a thanks didn't remove its notifications
+* [FIXED] Notifications: replies in watched topics and forums didn't update the notification counter of the user until its cache expired
+* [FIXED] Multiple boards: an admin could change (and move to the own board) the spam and replace words, access masks, BB codes, categories, ranks and groups of another board with their id
+* [FIXED] Admin -> Boards: creating a board changed the culture and language of all boards
+* [FIXED] Board statistics: deleted posts, the posts of deleted topics and deleted topics were counted
+* [FIXED] Admin -> Boards: deleting a board failed when it had tags, banned user agents or custom profile fields (SQL Server, MySQL, PostgreSQL)
+* [FIXED] Registration and e-mail verification: the verification key (an identity token) could be longer than its column (255 characters) and the registration failed on SQL Server, MySQL and PostgreSQL; only a hash of the key is stored now (links sent before the update still work), "resend the verification mail" (login and admin dashboard) sends a new link, on the admin dashboard it could send the mail of another user whose name contains the name of the not approved user
+* [FIXED] Watch mails: watchers who can't read the forum (anymore) got the mail with the post, the hidden content of a post ([hide], [hide-reply], [hide-thanks], ...) was in the mail, a mail error failed the post, and the parallel sending removed the request context of the post (errors after the notification)
+* [FIXED] Moderator mails (approval and reported posts): a mail error failed the post that needs the approval, an error stopped the mails to the other moderators, and the parallel sending removed the request context of the post
+* [FIXED] Mails: the role and suspension mails (sent by an admin) were in the language of the admin, mails to users without an own language were in the language of the current user instead of the board language
+* [FIXED] Html mails: topic names, names of users, posts and report reasons were inserted as html into the html mails (html and script of users in the mail), and their brackets were formatted as bb codes (disguised links)
+* [FIXED] Mails: every mail error was ignored (e.g. the registration said the verification mail was sent, the SMTP test of the admin always succeeded); when no mail could be sent the error is shown now (registration, admin register user, forgot password, resend verification, admin mail and its test), the notification mails (roles, medals, suspension, welcome, registration and spam bot notifications) log the error without failing the action, the users import continues
+* [FIXED] Admin -> Mail: the group mail was sent in parallel without the context of the request (errors of the services), the spam bot notification went to the first group whose name contains "Admin" instead of the admin groups
+* [FIXED] The post flood delay was only checked against the last post of the session, a new session (or another browser) could post right away; the delay now uses the last post of the user, for guests the last post from the same address
+* [FIXED] "Allow topics with the same name": a new topic was rejected when any topic subject only contained the subject (also deleted topics), editing the subject of a topic was never checked
+* [FIXED] Security: Restoring the own post also restored all replies, also the ones deleted by a moderator; only moderators restore the replies too, the restore button of the delete message page checks the access
+* [FIXED] The post count of a topic got wrong when a deleted post was deleted again (e.g. the form sent twice) or erased later (Admin > Restore) and when a post or a deleted topic was restored with its replies (counted twice), a topic with a count of 0 was not listed anymore
+* [FIXED] Approving or restoring a post did not update the search index, approved posts kept their not approved flags and restored posts were only found again after rebuilding the index
+* [FIXED] A too long guest name was replaced with the characters after the first 100 instead of being shortened to 100 characters (post topic, post and edit message)
+* [FIXED] Security: The registration showed a warning for a display name that is already used but registered the user anyway (other users could be impersonated), and a display name (registration, profile and admin edit user) was not checked like the user name, so a user could use the guest name, a bad word or a name with a semicolon; the rules are now in UserHelper.IsAllowedName and used everywhere
+* [FIXED] Post topic / reply / edit as guest: a guest could post with the user name or display name of a member (the post looked like a post of the member), and a guest who cleared the name field posted with an empty name (the name of the guest user is used now)
+* [FIXED] Security: The message history showed the text of deleted posts and of posts waiting for approval to every member who can read the forum, the report post page showed them too; deleted and not approved posts of others could be quoted, and posts of other topics and forums (also without read access) by adding their ids to the multi quote list
+* [FIXED] Security: The "block e-mails" option and the ignore list of the users were never checked by the e-mail form, and the user id was only checked when the page was shown (not when sending), so mails could be sent to unapproved and deleted users and users of other boards; a user can send at most 5 such e-mails per hour, and a missing subject or text shows a warning instead of an error
+* [FIXED] Security: The e-mail topic form sent the posted subject and text to any address (also for guests), the forum could be used to send spam; only the recipient can be chosen now (the subject is the topic name, the text the link to the topic), guests can't use it and a user can send at most 5 such e-mails per hour
+* [FIXED] Security: The password reset page (usable by anybody) sent an email for every request, so the inbox of a user could be flooded; an account gets at most 3 reset emails per hour, further requests show the same message
+* [FIXED] New topic / reply: mentioning or quoting a name without user (a guest post, a deleted user, a changed display name) failed with an error after the post was saved; mentioned and quoted users are only notified when they can read the forum, and also for quick replies and posts approved by a moderator
+* [FIXED] Custom profile fields: the profile page (and admin edit user) did not check the required fields at all, number fields accepted any text, the value was not limited to the length of the field and a manipulated field id caused an error; the register page showed a missing text (REGISTER.NEED_CUSTOM) without the name of the field and required fields that are not shown on the register page blocked the registration. They are checked against the field definitions of the board now (new text EDIT_PROFILE.NEED_CUSTOM_NUMBER)
+* [FIXED] Security: The texts of the script blocks (translations, names, dialog titles and messages, placeholders) were written into the JavaScript strings without encoding, a quote broke the script (e.g. a translation like "l'URL") and a text with </script> could end the script element; the name of the board was shown as html in the title of the notifications. The texts are encoded now
+* [FIXED] SQLite: parallel requests failed with "database is locked" (error page); the database is switched to the WAL journal mode once at the start (unless the connection string sets "Journal Mode"), connections wait up to 5 seconds for a lock (unless the connection string sets "BusyTimeout") and are pooled (unless the connection string sets "Pooling"), and an operation that still fails with "database is locked" is tried again (up to 3 times)
+* [FIXED] Security: Admin > Edit Board, Languages / Edit Language, Run SQL, ReIndex, Restart App and Test Data had no host admin check and could be granted to the admins of a board (page access), they could create and rename boards, change the language files of all boards (html texts), run any sql and restart the application; these pages are host admin only now, also when an access was stored before
+* [FIXED] Security: The name of the board was shown as html in the header of every page, in the login notice for guests and in the cookie notice, the admin of a board could run script for all users (also the host admin); the topic name was written as html into the page title
+* [FIXED] Security: The select menus showed the texts of the options as html: the simple selects (e.g. the rank and group filter of the members page), the lists with icons (parent forum of Admin > Edit Forum, the image, avatar and country lists, the forums of the moderators on the team page with their category names) and the tags of the post forms (tag search), a name with html ran script on these pages; a quote in a name broke the list. The texts are encoded now
+* [FIXED] Security: The admin and moderator pages showed the names and descriptions of groups, ranks, access masks, medals (also the category and the messages of the awards), profile fields, bb codes and tags, the styles of groups and ranks, the reasons of banned ips, e-mails and names, banned user agents, user names, e-mail addresses and user agents, the deleted topics and posts (Admin > Restore), the forum, category and topic names of the moderation pages and the report texts and reporter names of the reported posts as html; any user who can report posts could run script in the browser of the moderators (stored XSS). They are encoded now
+* [FIXED] Security: Display names and user names of the last poster were shown as html in the topic lists, the active discussions and the forum last post column ("by ..."), topic names in the notification and activity lists, forum names in the active discussions, the user name in the print view and the header of the e-mail page; the rank name, the custom profile fields (also their values entered by the users), poll choices, topic tags, attachment file names, group names and the forum names of the similar topics were shown as html too, any member could run script for everybody viewing these pages (stored XSS). They are encoded now
+* [FIXED] Security: The print view of a topic and the posts feed published the text of deleted posts when "show deleted messages to all" is enabled (the topic only shows a placeholder for them)
+* [FIXED] Security: The search index contained the hidden content of posts (hide, hide-reply, hide-thanks, group-hide, hide-posts): every user could find posts by words of hidden content and see them in the highlighted part of the result. Hidden content is not indexed anymore; run Admin > ReIndex to remove it from an existing index. An updated post (edit, approve, restore) lost the tags of its topic in the index
+* [FIXED] Security: The page load took the forum (and so the access rights) from the forum and category ids of the address when both were set, a topic or message id of another forum was not checked against them; e.g. the print page showed a topic of a hidden forum with the ids of a readable forum in the address (PrintTopic?t={hidden topic}&f={readable forum}&c={category}). The forum is now always the forum of the topic/message
+* [FIXED] Active users: a visitor with the same browser as an active crawler was never recorded (and not shown as active), crawlers with other addresses were merged into one, a crawler could take over the session of a person with the same address and browser, a parallel request of a new session failed with the unique key of the session and a page load failed when the access rows were cleared at the same time (group change)
+* [FIXED] Security: Notifications (page and popup): the notifications showed the topic names of topics the user can't read anymore (moved to a hidden forum, access removed) and of deleted topics, the popup showed the topic names and display names as html (a deleted topic caused an error)
+* [FIXED] Security: Polls: a poll id of another forum could be edited with the topic of a forum the user moderates, the choices were updated and deleted by the ids sent with the form (also choices of other polls), the images of the question and the choices, multiple choices and hidden results were saved from a manipulated form although the settings only allow them for admins (and moderators), a poll could be added to any topic (also of other users and topics with a poll) and an invalid expiry value caused an error; poll votes were counted for the choice also when the user had voted already (parallel requests) and for choices of other polls, and every user with vote access could remove the poll
+* [FIXED] Security: Topic subjects, forum names and starter names (e.g. the name a guest chooses) were not encoded in the digest e-mail, so html like links could be injected into the digest of other users; the digest contained the hidden content of posts (hide-reply, hide-thanks, ...) as plain text, also for users who do not meet the condition
+* [FIXED] Digest: the period of the topics was compared with the local time of the server (the posts are utc), on a server in another time zone than UTC new topics were missing or old topics were sent again
+* [FIXED] Security: The admin pages did not check the board of the records in the address, an admin of one board could edit or delete the categories, forums, groups, ranks, medals, access masks and bb codes of other boards; "approve all" and "delete all" of the unapproved users (admin dashboard) approved and deleted the login accounts of all boards, and "delete all topics without posts" (Admin > Restore) deleted the deleted topics of all boards
+* [FIXED] Security (hardening): The event log showed the request url of an entry only with html tags removed (an unclosed tag stays), it is now html encoded
+* [FIXED] Security: The spam log showed the request url of an entry as html, a visitor could put script into the address of a request that was logged as spam and run it in the browser of the admin (stored XSS)
+* [FIXED] Security: Editing a topic did not remove html from the new subject, description and styles (only new topics did), and the delete message page showed the topic title without encoding
+* [FIXED] Security: Stored XSS with topic titles: the search results and the similar titles (shown with javascript) used the topic title, description, tags and forum name without html encoding; the search results are now html encoded (ISearch results: Topic, Description, TopicTags, ForumName)
+* [FIXED] Security: XSS with the context menu of posts: the selected text of a post was inserted as html and into "javascript:" links (only quotes, semicolons and brackets were removed, which also changed quoted text like "don't"); the menu items are now created as elements with click handlers
+* [FIXED] Security: XSS with the mention list of the editors (@name): display names were inserted as html; the guest user was listed
+* [FIXED] Security: The admin language editor used the file name of the address as path, so it could read and overwrite files outside the languages folder (e.g. "../web.config"); only existing language files of the folder can be edited now
+* [FIXED] Security: Friend requests were not checked on the server (only the button was hidden): requests to users who block friend requests, to the guest account, to unapproved users, users of other boards and with the friends feature disabled are refused now; the names of friends in the notifications (friend request approved, friend removed) were shown as html
+* [FIXED] Removing a friend from the menu of a post removed the friend twice and its notification was never shown (the page was redirected before), the notification of a friend request from a post was lost the same way
+* [FIXED] Security: The topic lookup of the move/merge dialogs listed the topics of every forum to moderators of any forum (also hidden forums) and the topics of forums of other boards to admins, now only forums of the board the user is admin or moderator of
+* [FIXED] Security: Kill user (admin edit user) banned the e-mail, IP and name and deleted all posts before checking that the user is not the admin himself, the guest or a host admin; suspend had no checks at all. The checks now come first, apply to delete and suspend, and also protect admins
+* [FIXED] Security: Admin edit user suspend showed the suspend reason as raw HTML and the names of the users in the notification as html
+* [FIXED] Admin edit user suspend: the end of the suspension was computed from the local time of the suspended user but saved and shown as UTC (the user was suspended hours too long or too short), a suspension in minutes was added as hours and a count that is not a number caused an error
+* [FIXED] Print view and feeds: a post with a spoiler was replaced by the content of the first spoiler (the rest of the post was lost), the posts of the feeds were formatted twice (the html of the first pass was shown as text)
+* [FIXED] Security: The good words of the bad word list were inserted as html into posts, topic names and descriptions (the text is html at that point), a replacement with html changed every post; the good words are texts now (IBadWordReplace.ReplaceHtml)
+* [FIXED] Links of posts older than "disable nofollow links after days" still got rel=nofollow, the age of the post was computed negative
+* [FIXED] Security (hardening): BBCode [url] links allowed control characters in the url (browsers remove them, e.g. in front of "javascript:"), they end the link now
+* [FIXED] Code blocks: the language and the highlighted lines of [code=...] were written into html attributes with all characters (e.g. quotes and brackets of a manipulated post broke the markup), and a highlighted block of a mapped language (e.g. [code=cs;2-3]) was not highlighted (the language was mapped before the lines were taken off)
+* [FIXED] A plain url (without [url]) in a post or an e-mail removed the text before it on the same line (e.g. "Please see https://..." became only the link), the youtube check consumed the line
+* [FIXED] [size=...] had no upper limit (e.g. [size=99999] covered the whole page), larger values are limited to 400% now; [size=9] was 9 pixels (smaller than size 1) instead of the largest size of the list (180%)
+* [FIXED] Emoji short codes and ascii smileys inside code blocks were turned into emoji (e.g. a table row "[td]" in code became a flag)
+* [FIXED] Security: Quick reply accepted replies to any topic, also without reply access (read-only forums) and to locked topics and forums; quick replies were saved without the preparation of the other post forms (html removed, content of code blocks encoded), markup inside a code block of a quick reply was shown as html to everybody reading the topic (stored XSS)
+* [FIXED] Security: The edit page let authors edit their posts without edit access in the forum, and authors could still edit and delete posts locked by a moderator and restore their posts that were deleted by a moderator; every guest could edit and delete the posts of all guests with the edit and delete pages (the address was only checked for the buttons), and a reply with only a message id in the address (quote) did not check the reply access
+* [FIXED] Security: The login page and the login box showed "account not approved" (and allowed resending the verification mail) for any password, so the state of an account could be found out with the user name only; accounts disabled by "lock inactive accounts" could still log in (only the forum flags were changed, not the login account)
+* [FIXED] Security: Uploaded avatars (stored in the database) were saved and served with the content type sent by the browser (e.g. text/html), now the type of the image is saved and only image types are served
+* [FIXED] Security (hardening): Theme names were not checked for path characters, a theme like ".." pointed outside the themes folder
+* [FIXED] Security: The album edit page used the album id of the address without checking the owner, any user could rename the albums of other users, upload images into them and delete them with their images; the cover of an album could be set to images of other albums, and the albums and album images were shown without checking the profile view permission
+* [FIXED] Security: The user hover card showed the country, region and rank as html and used any home page url (also with quotes and "javascript:") as link, the country of the profile was written unencoded into the flag icon of the profile page; a crafted country sent with the profile form ran script for every visitor (stored XSS). Only web addresses are used as home page link, the values are encoded
+* [FIXED] Security: Removing a user from a group, changing a group, changing the access mask of a group in a forum and adding or changing the access mask of a single user in a forum (forum moderators dialog) did not refresh the cached access rights, so revoked access (e.g. a removed moderator) kept working for a while
+* [FIXED] Security: With the spam handling "delete and ban user", a spam post of a guest deleted the posts of all guests and the guest account (or failed with an error); the guest account is never deleted and banned now, the spam post is still rejected
+* [FIXED] Security: The moderator pages (reported and unapproved posts, forum topics) only checked that the user is a moderator of any forum, moderators of one forum could moderate every forum; moving a topic or a post (also into a new topic, also several topics in the moderator forum view) did not check the target, moderators could move topics and posts into forums they do not moderate or of other boards, and the move topic dialog did not check the moderator access at all
+* [FIXED] Security: The moderators of any forum could restore old versions of the posts of every forum (message history), the restore was not checked on the server
+* [FIXED] Security: The forgot password page showed the full e-mail address of not yet approved accounts to anybody who entered the user name (as html in the notification), the address is now masked
+* [FIXED] Security: Private messages could be sent to users who block private messages or ignore the sender and to unapproved, deleted users and users of other boards; only approved friendships are an exception of the block (new text PMESSAGE.RECIPIENT_NOT_ALLOWED)
+* [FIXED] Security: The search api did not check the search permission of the board (the results were still limited to readable forums), and the page size of the search was not limited; the search returned posts that were not approved yet (e.g. spam waiting for moderation) to everybody with read access, now only moderators of the forum find them
+* [FIXED] Security: The "delete selected" of the own attachments deleted the attachments of any id sent with the form (the id is a hidden field), also of other users
+* [FIXED] Security: The "delete selected" of the private messages deleted the messages of any id sent with the form (the id is a hidden field), also the messages of other users
+* [FIXED] Security: The forum access of the edit forum and edit group pages used the group and forum ids of hidden fields without checking the board, admins could change the forum access of groups and forums of other boards
+* [FIXED] Security: Logout was a plain link, so any other website could log a forum user out with a link or an image; the logout link has a token of the session now, a request without it does not log out
+* [FIXED] Security: A group added for a role (Admin > Groups, roles without group) got the access mask with the id 1 in every forum (a mask of the first board, e.g. the admin access) instead of the access of the start group; check the groups created this way on existing installs
+* [FIXED] Security: The attachments of deleted posts and of posts waiting for approval could be downloaded by everybody who can read the forum (e.g. by counting up the id), now only by moderators of the forum (and the author of a not approved post)
+* [FIXED] New topic: the tags were only saved for approved topics of users with the activity stream enabled (not for guests, moderated forums and users who turned the activity stream off)
+* [FIXED] Move message: the topic list offered deleted topics and the links of moved topics as targets, a message moved there was no longer visible; such topics are no longer listed or accepted
+* [FIXED] Attachments: the allowed file extensions setting is read with spaces and dots ("jpg, .png"), before such an entry never matched and the files were rejected as "Invalid File"
+* [FIXED] Requests for unknown album images wrote an event log entry each time (the event log could be flooded), they now only return "not found"
+* [FIXED] Register: the user name, e-mail and display name were checked trimmed but saved as typed (a space after the user name gave an "invalid user name" error at the login), the password was saved trimmed while the login uses it as typed (a password with a space at the start or end never worked), the same for the passwords of Admin > Register User and Admin > Edit User > Change Password
+* [FIXED] RSS/Atom feeds: the times of the posts were wrong by the time zone of the user (the time of the user was marked with the time zone of the server, the update time of the topics feed even got the offset twice); the feeds contain utc times now, the feed reader shows them in its time zone
+* [FIXED] Profile > Delete Account > Suspend: the 30 days were counted from the local time of the user instead of UTC, the suspension ended hours too early or too late
+* [FIXED] Profile: the birthday was converted like a point in time (from the time zone of the user into the time zone of the viewer), viewers west of the user saw the day before; it is shown as a date now
+* [FIXED] Active discussions: guests got the cached list of the page that filled the cache first, the index of a category showed the topics of all categories (or the other way round); the guest cache is kept per category now
+* [FIXED] Changed custom profile fields of a user and changed or deleted custom profile definitions were still shown in the posts and the profile (cached data), the cache is cleared now when the profile or a definition changes
+* [FIXED] Marking a post as answer wrote the flags of the post as they were when the topic was shown, e.g. a post deleted by a moderator in the meantime was undeleted; the current flags are changed now
+* [FIXED] The team page listed all forums of a moderator, also forums the viewer can't read (the names of hidden forums were shown); it now lists only readable forums
+* [FIXED] Albums: the page for a new album compared the number of albums with the allowed images per album (instead of the allowed albums), and the limits of albums and images were only checked when the page was shown (not for the upload)
+* [FIXED] Reporting the same post again sent the moderators another email each time (a user could flood their inboxes); the moderators are notified once per user and post, further reports are only counted; a report without text (only spaces) was saved
+* [FIXED] Profile and admin edit user: a too short (or empty) display name showed the "too long" message
+* [FIXED] When the spam check deleted a user (signature, profile homepage), the user stayed logged in and the signature and profile pages still saved the changes
+* [FIXED] The topic search of the move/merge dialog removed the current topic from the cached topic list, so that topic was missing from later searches
+* [FIXED] Report texts with a question mark were cut off at the first question mark in the reported posts list
+* [FIXED] Editing a post of a sticky topic or announcement without priority access reset the topic to a normal topic, editing a post as topic starter removed the topic title styles set by a moderator, and editing a reply (by a user who did not start the topic) removed all tags of the topic; they are only changed when they are shown in the form
+* [FIXED] Deleting attachments (own attachments, admin attachments list and edit user, erased posts and deleted users) only deleted the database entry, the files of attachments stored in the file system stayed on the server
+* [FIXED] "Lock inactive accounts" (admin users page) also locked host admins, admins and the admin running it, and a value of 0 or less years locked (almost) all users, a value that is not a number failed with an error
+* [FIXED] Spam bot auto-bans (and the bans of kill user) saved the bot's name and e-mail as unanchored regular expressions, so later registrations containing that name (e.g. "Joanna" after banning "ann") were treated as bots and banned too (review the banned names and e-mails created by the spam system on existing installs)
+* [FIXED] The registration bot check ignored wildcard IP bans (e.g. 192.168.1.*), and an invalid banned name mask cancelled a match on a banned e-mail or IP
+* [FIXED] The "watch topic" option of the quick reply was ignored for admins and moderators
+* [FIXED] The StopForumSpam and BotScout bot checks sent the user name, e-mail and ip without url encoding (e.g. a + in an e-mail address became a space, an & in a name cut off the request), a StopForumSpam response without a user name caused an error
+* [FIXED] The forgot password page said that a new verification e-mail was sent to not yet approved accounts, but none was sent; it is sent now (only while the e-mail verification is pending, accounts waiting for the approval of an admin get no e-mail)
+* [FIXED] Creating a category or forum failed when a category or forum with the same name existed on another board, renaming a category or forum to a name that already exists (in the board or the category) caused an error instead of the "name exists" message
+* [FIXED] Exporting the selected bb codes failed when an id was not found
+* [FIXED] The continue link of the info page used the url parameter without a check (javascript: links and links to other sites), the user name and suspension reason were shown as html
+* [FIXED] Disabled (soft deleted) users were shown without the "disabled" badge in the admin users list
+* [FIXED] Attachments stored in the database were saved without (or with incomplete) data after the image check had read the upload, resized images were decoded again from the end of the stream and the upload failed
+* [FIXED] Missing translations were shown as empty text, translations without a text did not fall back to English
+* [FIXED] A new installation on SQL Server, SQLite or PostgreSQL did not create the identity tables (AspNetUsers etc.), they were only created for MySQL
+* [FIXED] User claims were stored with the value type instead of the claim type and could not be removed
+* [FIXED] The lock objects of the cache were created without synchronization (parallel requests could load the same cache entry at the same time), a key with the hash int.MinValue caused an error
+* [FIXED] The "last read" time of the database read tracking ignored the read topics (the forums were read twice)
+* [FIXED] Editing a banned IP did not refresh the cached ban list, the old mask stayed banned until the application restarted
+* [FIXED] Isolated events (RaiseIssolated, e.g. the application start) were handled twice, and an exception in a handler was not isolated
+* [FIXED] Event log entries logged with a Type as source showed "System.RuntimeType"
+* [FIXED] One invalid banned e-mail mask disabled all banned e-mail checks (one invalid user agent pattern all user agent bans), banned e-mail, name and user agent masks are now validated as regular expressions
+* [FIXED] The ban imports accepted invalid entries, IP imports now accept IP addresses and masks (masks were rejected, incomplete addresses like 1.2.3 accepted), name, e-mail and user agent imports only valid regular expressions
+* [FIXED] Admin -> Banned IPs: an invalid address closed the dialog (the message was shown on the page), IPv6 addresses could not be banned and incomplete addresses with empty parts were checked part by part with several messages; the address is checked like the import now
+* [FIXED] Awarding a medal a user already has caused an error, the medals of a user who got a new medal stayed cached (the cache of no user was cleared), a user of another board could be selected
+* [FIXED] The "days before posts are locked" period started again with every edit, it now starts when the post was written
+* [FIXED] Medal names and messages with quotes broke the medal ribbon html of the profile (they were written into the attributes without encoding)
+* [FIXED] The breadcrumb of a forum nested more than one level deep did not show all parent forums, links and breadcrumbs with a missing name (e.g. of a deleted user) caused an error
+* [FIXED] Avatar paths starting with // loaded the avatar from another site
+* [FIXED] Reading a notification could leave the unread notification count too high (the cache was cleared before the update)
+* [FIXED] The legacy settings (e.g. "enabletopicdescription") were not removed on case sensitive databases when they were saved in mixed case
+* [FIXED] The search index update stored its last run in server time but compared it with UTC post times, so posts were missing from the search on servers east of UTC
+* [FIXED] One custom BBCode with an invalid search expression broke the display of all posts, and a custom BBCode whose module class is missing broke the posts using it; such BBCodes are now skipped and logged, the BBCode editor and import validate the search expression
+* [FIXED] Admin -> Users -> Import: csv files sent as text/csv and xml files sent as application/xml were rejected as wrong format
+* [FIXED] Admin -> Groups: deleting an unknown role (e.g. deleted in the meantime) caused an error
+* [FIXED] Search: results were sorted by message id as text ("9" before "10"), so with more hits than "Return Search Max" the newest posts were cut off; the default search (e.g. similar topics) skipped the first 1000 results (the page index started at 1)
+* [FIXED] Unticking the multi-quote button of a post did not remove the post from the multi-quote list
+* [FIXED] Logged-in users without any forum access got an error page ("Unable to find the Guest User") instead of falling back to the guest permissions
+* [FIXED] SimpleReplaceRule with an empty search text never finished
+* [FIXED] Admin -> Users -> Import: csv files with an empty last line, rows with fewer or more values than columns or rows without name or e-mail failed the whole import, quoted values kept their quotes, a file without Name/Email column showed a technical error, one failing user stopped the import
+* [FIXED] Admin -> Users -> Import: the time zone of the exported users was lost (the import expected a number instead of the time zone name)
+* [FIXED] An exception in a run of a background task was not caught in the timer callback (an unhandled exception stops the application), it is logged now and the task runs again
+* [FIXED] Emojis with a skin tone (e.g. [raised_hand_tone1], [basketball_player_tone1]) only showed the skin tone color, the emoji itself was missing
+* [FIXED] Times shown to guests had no time zone (the text TIMEZONES.NAME_UTC was missing in all languages, every page logged a missing translation); guests now see the offset of the time zone, e.g. " (UTC+02:00)"
+* [FIXED] Missing texts were added: members list letter filter, the login buttons of the external providers, the album image button of the editor, the tooltips of the delete post page and the message for moving topics to a category
+* [FIXED] Moving topics (move dialog and Moderate -> Forum) with "Leave Pointer" and a number of days below -2 failed with an error instead of the "invalid number of days" message
+* [FIXED] A language file of a user or of the board that does not exist (anymore) broke every page (Invalid language file), the board language or english is used instead; a culture of a user shorter than two characters failed the page
+* [FIXED] Deleting a forum reported success but did nothing when the previous forum delete task was finished but not yet cleaned up (or still running); a replaced task in the task manager kept the old (disposed) task
+* [FIXED] Admin -> Prune: a second prune after a finished one (not yet cleaned up) did nothing but showed "Prune Task Scheduled", a prune while another one is running now shows the running message
+* [FIXED] Delete post: a member could open the delete page of the own post of a locked topic (or after the lock period), deleting then just showed the page again; the page and its handlers are denied now with the same rules as the delete and restore buttons of the post
+* [FIXED] Saving a name or text longer than its column failed with an error on SQL Server, MySQL and PostgreSQL (not on Sqlite), e.g. the name of an access mask (50 characters): the inputs of the admin pages (access mask, rank, group, forum, board, bb code, banned e-mail, name and ip, replace and spam words), of the poll choices and of "move message" are limited to the length of the column now
+* [FIXED] PostgreSQL: deleting a topic (without erasing) failed, the column names of the sql statement that flags its posts as deleted were not quoted
+* [FIXED] SQL Server, MySQL, PostgreSQL: a request with a long location parameter, browser, platform or user agent (longer than the columns of the active session) got the error page "Failure Initializing User/Page" instead of the forum; the values are shortened to their columns now
+* [FIXED] Albums: an image with the same file name as another image of the album (e.g. phones name every photo "image.jpg") overwrote the file of the other image, both showed the new image and deleting one of them removed the file of the other; the name gets a number now ("image (2).jpg"), the album limit message showed the image limit
+* [FIXED] Digest with several boards in one database: the digest task of every application sent the digests of all boards, but with the topics, name and links of its own board, so the users of the other boards got the wrong digest; every application sends the digest of its own board now
+* [FIXED] Attachments: since 3.2.14 the attachments of posts (added with [attach]) could only be downloaded by their uploader and the admins, the other members got "insufficient rights" (the larger image and the download); the links shown by the forum are signed now and can be used by everybody with the download permission, any other attachment id is refused
+* [FIXED] Security: the id of any attachment (e.g. of another user) could be shown with its download link in an own post, signature or private message; only the attachments of the author are shown now
+* [FIXED] Admin -> Ranks: deleting a rank that users have failed with an error on SQL Server, MySQL and PostgreSQL (on SQLite the users kept a deleted rank); a rank in use can't be deleted, like an access mask in use
+* [FIXED] Reporting a post: every report of the same user and post is added to the report text, after some reports it was longer than its column (4000 characters) and the report failed with an error on SQL Server, MySQL and PostgreSQL; the oldest reports of the text are removed now
+* [FIXED] Edit profile and Admin -> Edit User -> Profile: a real name, location, city, homepage, blog or xmpp longer than 255 characters (the homepage with the added "https://") failed the save with an error on SQL Server, MySQL and PostgreSQL; the fields are checked now
+* [FIXED] User import: profile values longer than their columns or a country name instead of the country code (the column has 2 characters) failed the import of the user with an error on SQL Server, MySQL and PostgreSQL; the texts are shortened to the columns and only known countries are taken (also by name)
+* [FIXED] Admin -> Users -> Import: a user refused by the login system (e.g. a name with characters that are not allowed, an invalid e-mail) was created as forum user without login and got the registration mail with a password that did not work; such users are skipped and logged now
+* [FIXED] MySQL: a custom profile field with a name or default value longer than 255 characters was not saved (Admin -> Profile Definitions), the inputs are limited to the length of their columns
+* [FIXED] Admin -> Edit Group and Edit Rank: a new or renamed group or rank with the name of an existing one failed with an error (the name is unique in the board); it is refused with a warning now
+* [FIXED] Board index: "Watch all forums" watched nothing (the forums were filtered by an empty category) and "Mark all forums read" only marked the forums loaded so far (the first 20, the others are loaded with "show more"); both use all forums the user can read (of the shown category) now, guests are refused
+* [FIXED] Watching an already watched topic or forum again (e.g. from a second tab) failed with an error (the subscription is unique), and guests could watch topics with a sent form; a topic or forum is watched once and guests are refused
+* [FIXED] Custom BBCodes with a module: a new, changed or deleted BBCode was only used after the application restarted (its cached list was not cleared)
+* [FIXED] Edit settings (also Admin -> Edit User): when the users can't choose a theme or a language the options are not shown, saving the settings reset the theme and the language of the user to the board defaults; they keep their value now, and "hide me" is only changed by users who may hide themselves
+* [FIXED] Medals: a medal awarded to a group, a changed medal, a deleted medal and the medals of a group a user joined or left (or a deleted group) were shown in the old way until the cached medals of the users expired
+* [FIXED] Host settings: after enabling private messages, friends or albums the counts of the users (unread messages, friend requests, "My albums") were missing until the cached user data expired
+* [FIXED] Admin -> Database: "Re-index" failed with an error page on MySQL (and on errors of the database) and "Shrink" showed a database error; on MySQL both run OPTIMIZE TABLE for the forum tables now, other errors are shown as message
+* [FIXED] Guests (all are the same user) could add, edit and remove the polls of every guest topic, now only of the guest topics started from the own address (like the buttons of the posts)
+* [FIXED] Guests (all are the same user) saw the uploads of all other guests in the attachment list of the editor, the list is empty for guests now
+* [FIXED] Unapproved posts: approving an already approved post (another moderator, the button sent twice) counted the post again for the user and sent the notifications again
+* [FIXED] Admin -> Boards: the board the forum runs on could be deleted (the context menu always had the delete), the forum was broken afterwards; the delete is not shown for the current board and refused
+* [FIXED] Search: the number of results counted the hits the user can not see (forums without read access, not approved or deleted posts), the pager showed empty pages and a search in a hidden forum told the number of hits; all hits were formatted, now only the shown page
+* [FIXED] Avatar: the uploaded avatar of a user without uploaded avatar failed with an error, every request (by anyone) wrote it to the event log; it is not found now without an error
+* [FIXED] Admin -> Host Settings: an empty number field was saved as 0, and a page size could be 0 (e.g. 0 posts per page failed every topic page); an empty or invalid number keeps the setting now and the page sizes are at least 1
+* [FIXED] Admin -> Groups: the administrators group could be deleted, then the board had no admins anymore (only the host admin); it is protected like the guest group now (also on the server)
+* [FIXED] Suspension: the mail that the suspension ended was only sent when the user visited the forum before the hourly clean up task lifted the suspension; the task sends it too now, a mail error does not fail the page
+* [FIXED] Security: The own e-mail address was changed at once without the password and without confirming the new address, with a taken over session the account could be taken over (change the e-mail, then reset the password); the password is needed now and the address is changed after the confirmation link sent to the new address was opened (an admin still changes it at once)
+* [FIXED] Security: Changing the e-mail address (own or by an admin) did not end the other logins of the user and kept the open password reset links valid (the security stamp was not renewed)
+* [FIXED] 21 of the 24 genders of the profile (e.g. "Agender", "Non-binary") had no text (they were shown as [GENDER.AGENDER] etc.)
+* [FIXED] Register: after the account was created the password check script of the page failed with a JavaScript error (the fields are not shown anymore)
+* [FIXED] The context menu script failed with a JavaScript error on pages with list rows without a context menu (e.g. Admin -> Languages and Task Manager)
+* [FIXED] Build: the web projects (SQL Server, SQLite, PostgreSQL) still referenced Microsoft.Bcl.AsyncInterfaces 9.0.9, depending on the build order the bin folder got this version and the forum did not start (the binding redirect and YAF.Core use 10.0.13)
+* [FIXED] The poll edit page failed with a parser error (the choice inputs got a second MaxLength attribute with the input limits of this version)
+* [FIXED] The albums page of a user failed with a parser error (the edit button of the album list had the runat attribute twice)
+* [FIXED] Nested quotes with a user name were rendered in the wrong order with swapped attributions
+* [FIXED] A quote of a post that does not exist (anymore) showed "Posted by" with a link to the missing post, it shows "wrote" like a quote without post now
+* [FIXED] Editing or quoting older HTML posts lost list items, kept formatting inside links as raw HTML, lost the type of notes and turned paragraph ends into flag emojis ([br])
+* [FIXED] Listing the users of a role that does not exist caused an error, e.g. the moderator notification of a new post in a forum with a moderator group without role failed
+* [FIXED] 18 translations had broken placeholders (e.g. "{0 comments", "{text", "{0} characters}") in Arabic, Finnish, French, Italian, Lithuanian, Polish, Portuguese, Romanian, Slovak and Turkish, showing these texts failed (e.g. the user name length messages of the registration in Polish, the activity texts in Arabic and Turkish); a unit test now checks the placeholders of all translations
+* [FIXED] MemoryCache.GetOrSet failed with an error for value types (e.g. a number) that were not cached yet
+* [FIXED] New banned user agents (added in the admin page or imported) were not blocked and imported spam words were not checked until the application restarted: inserting rows and deleting rows by a condition did not raise the repository events that clear the cached data
+* [FIXED] Admin -> Banned IPs, e-mails and names: the ban date was stored in the time of the server but shown converted from UTC, it was off by the time zone of the server
+* [FIXED] The text avatar (letters of the name) was cached by the browser for 30 days, after a display name change the old letters were shown; it is cached for one hour now
+* [FIXED] Banned IPs: behind a reverse proxy the address of the proxy was checked instead of the client address (the address saved with the posts), the bans did not work; the client address of the forwarded header is only taken from trusted proxies
+* [FIXED] Admin start page: "Approve all" approved and "Delete all" deleted also the disabled accounts (e.g. locked as inactive), which are not listed as not approved users; both only work on the listed users now
+* [FIXED] Security: The search index task (it indexes the posts in bulk) still indexed the hidden content of the posts (hide, hide-reply, hide-thanks, ...), every user could find posts by it and see it in the highlighted part of the result; it uses the same index document as a single post now
+* [FIXED] Search: a search with the search service that had just written to the index failed (the closed index writer was used), the index readers of earlier searches stayed open, and documents of older versions without flags were never found
+* [FIXED] Security: The api of the forum (thanks, album titles and captions, multi quote, notifications, ...) had no protection against cross site requests, a form of another web site could call it with the login cookie of the user (e.g. in Firefox, which sends the cookie with such forms); only the json requests and the requests with an own header of the forum scripts are accepted now
+* [FIXED] Private messages: opening a message marked it as read for all recipients, also when the sender opened the sent message and before the access check (any user could mark the messages of others as read); it also overwrote the state of the recipients with the flags of the message (a message deleted from the inbox or outbox came back, the message was archived). Only the message of the recipient is marked as read now
+* [FIXED] Private messages: the first message of a conversation did not show the replies to it once the ids of the messages and the user messages differed (e.g. after a message to all users)
+* [FIXED] Security: The attachment upload accepted the uploads of forms of other web sites with the login cookie of the user (cross site request), it only accepts the uploads of the upload script of the forum now
+* [FIXED] The user card (hover card) and the BBCode list of the editor were cached by the browser 1000 times longer than the online status cache timeout (milliseconds were used as seconds, about 17 hours by default), the user card also in shared caches although it depends on the permissions of the viewer
+* [FIXED] Security: The user list of the mentions (@name in the editor) was also served to guests and listed all users for an empty search; it is only for members now, starts with 3 characters, only searches the users of the board and returns 20 users at most
+* [FIXED] Security: Every attachment could be opened with the image address of the resource handler and was then shown in the browser with its content type, an uploaded xml file (allowed by default) with scripts ran them in the forum (stored XSS); only images are shown in the page now (no svg), other files are downloaded, the browser must not guess the type (nosniff). A refused download is not counted anymore
+* [FIXED] Security: Album images were sent with the content type of the upload (sent by the browser of the uploader, only text types were refused), an image file with the type xhtml or svg ran its scripts in the forum (stored XSS); other types than images are sent as png now
+* [FIXED] The guest and admin users of a new board got the join and last visit date in the time of the server (all dates are stored in UTC), and the "popular topic" icon compared the time of the last post (UTC) with the time of the server
+* [FIXED] The paged lists of the editor (attachments, album images) and of the notification menu accepted any page size and page number from the client: a negative value failed with an error, a huge page size loaded all rows; the page size is limited to 1 - 100 now
+* [FIXED] The [hide-thanks=x] BBCode counted the thanks the reader gave instead of the thanks received (as the BBCode and its message describe), the hidden content was shown to users who just thanked often enough
+* [FIXED] [hide-posts=] and [hide-thanks=] with an empty or too big number failed with an error and broke the topic page for every reader; an empty number is 0, a too big one hides the content from all users but the author and the admins
+* [FIXED] [attach] and [albumimg] with an id that is a number but no whole number (e.g. 1.5, 1e3, (5) or a too big number) failed with an error and broke the topic page for every reader
+* [FIXED] The team page (and the admin page access list) listed disabled and not approved admins
+* [FIXED] Security: The return address of the login page (ReturnUrl) was followed after the login whatever it was, a link to the login of the forum could send the user to another site (open redirect, e.g. a fake login page); only addresses of the forum are followed now, the address is no longer html encoded (an address with several parameters was broken)
+* [FIXED] Team page: the e-mail button of an admin who blocks e-mails was only shown to admins who are friends (not to all admins and all friends like for the moderators and the private messages)
+* [FIXED] Active users (page and admin start page): the list failed with an error when a visitor was at the profile, albums or album of a user that does not exist (anymore, e.g. deleted while visited), the album location took an album id from the user id (any or no album, the page failed) and the own album was shown as the album of another user
+* [FIXED] The [group-hide=role] BBCode showed the hidden content to the users with any other role and hid it from the members of the given roles, and [group-hide] without roles hid the content from all members (not only from guests); the content is shown to the members of one of the roles now (without roles to all members)
+* [FIXED] Active users: Android phones were shown as Linux and iPods as iPhones (their user agents contain "Linux" and "iPhone OS")
+* [FIXED] a number in the address that is too big for an int (e.g. ActiveUsers?v=2147483648) showed an error page
+* [FIXED] pages with an unknown forum or topic in the address (e.g. Moderate/Forums, PostTopic, MoveMessage) showed an error page
+* [FIXED] the reply page of an unknown topic showed an error page
+* [FIXED] the delete page of an unknown message showed an error page
+* [FIXED] the album page of an unknown album (or of an album of another user) showed an error page
+* [FIXED] the [userlink] example of the BBCode help showed the address of YAF 1.x
+* [FIXED] the gender list of the profile showed missing texts (the genders without a text are removed, a profile with one of them shows "other")
+* [FIXED] missing help texts of the host settings (SPAM service, SSL) and of the user info of the admin edit user page
+* [FIXED] Private messages: a message the recipient deleted disappeared from the outbox of the sender and a message the sender deleted from the outbox disappeared from the inbox of the recipient, the sender could not delete a sent message on the message page, and a message to all users was removed for all recipients when one recipient and the sender deleted it
+* [FIXED] Private messages: export all exported only the messages of the current page and export selected could export other messages than the selected ones
+* [FIXED] a click on the border of a delete button (not on its icon or text) deleted without the confirmation dialog
+* [FIXED] the answer to a post report (private message to the reporter) showed the report text of any post to the moderators of any forum, now only to the moderators of the forum of the post
+* [FIXED] Private messages: the mailbox of the recipient was full one message before the limit
+* [FIXED] Profile: the region was not saved when the country was selected (or changed) at the same time
+* [FIXED] Profile: countries without regions showed an empty region list
+* [FIXED] Friends: a removed friend was still shown in the friend list (the approved request of the friend was listed as friendship)
+* [FIXED] Members: the filter by number of posts ignored the selected comparison (equal, less or equal), it always used "more or equal"
+* [FIXED] Members: a number of posts that is too big for a number showed an error page
+* [FIXED] Security: the buttons of the forum (ThemeButton) did not use the event validation, a made up post could click a button that was not shown to the user (e.g. hidden for the user's rights or a turned off feature like the avatar upload)
+* [FIXED] Avatar upload: an image file larger than the "Avatar size" setting was saved anyway (the warning was shown afterwards), and the profile upload did not check that the avatar upload is turned on; a too big file is not saved now
+* [FIXED] Admin > Edit Medal: an empty, negative or too big sort order (0 - 255) of a user or role medal showed an error page
+* [FIXED] Admin > Edit Medal: after opening the role dialog the page had a script error (the scripts of the hidden user dialog were added)
+* [FIXED] Admin > Edit Board: a new board whose new admin could not be created (e.g. the name is taken) went back to the board list without a message (and without the board)
+* [FIXED] Admin > Boards: the delete button was hidden for the second board of the list (with two boards a board could not be deleted)
+* [FIXED] Posting (new topic, reply, quick reply): the message of the flood delay showed only the seconds part of the remaining time (e.g. 30 instead of 90 seconds with a delay over a minute)
+* [FIXED] Admin > Edit User > Kill: banning the addresses of the user also banned the own address of the admin (e.g. a user of the same network), the admin was locked out of the forum
+* [FIXED] Admin > Event Log / Spam Log: a date filter that is not a date was used as the smallest date (error page with SQL Server)
+* [FIXED] Admin > Board Announcement and Admin > Edit User > Suspend: a huge duration showed an error page (date overflow) and a board announcement with 0 or less was saved already expired; the duration is limited to 1 unit - 100 years
+* [FIXED] Identity: the user store returned no task for an external login without a user (the first login with a not yet linked login provider failed with an error)
+* [FIXED] Identity: HasPasswordAsync of the user store returned the opposite (true for users without a password)
+* [FIXED] Admin > Edit Medal: awarding a medal to a role that already has it failed with a database error, the settings are updated now
+* [FIXED] Security: suspended users were only sent to the info page by the forum pages, but could still use the api (thank posts, vote, upload files, ...); the api and the file upload refuse their requests now
+* [FIXED] Admin > Delete Forum: after the forum was deleted the page showed the "invalid" info page instead of going back to the forum list
+* [FIXED] Admin > Delete Forum: after the forum was deleted the page showed the "invalid" info page instead of going back to the forum list
+* [FIXED] Admin > Banned Emails/IPs/Names/User Agents and Spam Words: the pager of a search counted all entries instead of the found ones
+* [FIXED] Admin > BBCodes, Replace Words and Spam Words: after a failed import the import dialog was not opened again (script error)
+* [FIXED] Admin > BBCodes and Replace Words: the import button showed the text "Import List" of another page
+* [FIXED] Admin > Page Access: an admin (not host admin) could not open any admin page, also not the granted ones (the access was checked with the generated class name of the page)
+* [FIXED] Admin > Edit Medal: the user select of the dialog to give the medal to a user did not work (script error), no user could be selected
+* [FIXED] Moderate > Forum: the dialog to add a moderator to a forum was available to moderators (hidden), the posted user and access mask were not checked
+* [FIXED] Email Topic, Moderate > Reported Posts and Unapproved Posts: an unknown or missing topic/forum id caused a server error instead of the info page
+* [FIXED] Admin > Test Data: the priority (sticky, announcement) of the generated topics was ignored
+* [FIXED] Admin > Test Data: the topics of the messages tab were only loaded after another forum was chosen, no forum or topic caused an error
+* [FIXED] Albums: the cover of an album without images (or an unknown cover) wrote an event log entry on every view instead of returning not found
+* [FIXED] Attachments: an upload without the upload access was a server error instead of forbidden
+* [FIXED] Attachments: the upload status showed the size 0 for an attachment saved in the database
+* [FIXED] Admin > Forums: sorting the categories or forums by name only sorted the entries of the current page
+* [FIXED] Admin > Edit Forum/Edit Category: a sort order above 32767 (or an invalid moderated post count) was a server error
+* [FIXED] Admin: a too big number in the number fields (role/rank priority, minimum posts, prune days, board settings, bb code order, profile field length, user points) was a server error
+* [FIXED] The form validation script failed (script error) when its button was not shown, e.g. on the page to restore a deleted post
+* [FIXED] Private Messages: choosing a sort order of the field that was sorted already turned the order around (e.g. date descending sorted ascending)
+* [FIXED] Login dialog: an account locked after 10 wrong passwords was locked for 60 minutes (the login page locks it for 15 minutes)
+* [FIXED] Admin > Edit User > Kill: the suspend option only worked after the cache of the user expired
+* [FIXED] New topic and reply of guests: the field for the name of the guest was never shown (all guests posted as Guest)
+* [FIXED] move post: the own topic was compared with the message id (a post could be moved into its own topic)
+* [FIXED] forum list: the names of the sub forums (and of forums without access) were not encoded
+* [FIXED] XMPP page: error if the current user or the member had no XMPP address, members of other boards and guests were shown
+* [FIXED] Edit settings: an e-mail address that is already in use showed "illegal e-mail address" instead of "already in use"
+* [FIXED] Albums: changing an album title or image caption inline failed with an error when the text contained "<" followed by a letter (request validation of the api)
+* [FIXED] Album page: the album title in the header was html encoded twice ("&" showed as "&amp;")
+* [FIXED] Notification "topics I post to" (auto watch): a reply of the reply page did not watch the topic, and the quick reply watched it even when the member unchecked the watch option
+* [FIXED] Moderate > Unapproved posts: approving the last waiting post of a forum went back to the moderation page before the watching users were notified (they got no notification), the approved / deleted message was not shown then
+* [FIXED] Private message page: "Message was deleted" was never shown after deleting the message (the page redirects to the inbox)
+* [FIXED] Admin > Forums > Copy: the copied forum got no access of the roles (the access was updated instead of created), it was not shown to anybody
+* [FIXED] Admin > Edit Forum: the option "Hide if no access" had no effect (forums without read access were never listed); a forum without read access is listed with "(No Access)" now unless the option is set, new forums have it checked and the upgrade sets it for the existing forums (they stay hidden)
+* [FIXED] Moderators: the users added to a forum with a moderator access mask (Moderate > Forum > Add user) were not listed as moderators (forum list, team page) and got no moderator notifications (reported posts, posts waiting for approval), only the moderators of groups
+* [CHANGES] Suspending or deleting the own account needs the current password (accounts of external logins without a password are not asked)
+* [FIXED] Event log: suspensions (by an admin or of the own account) were always logged, the setting "Allow log when users suspended or un-suspended" was only used for the removal of a suspension
+* [FIXED] Admin > Groups: the roles of the provider without a group (e.g. of a deleted group) were never shown (the list was hidden before it was bound), they could not be added as a group or deleted
+* [FIXED] Admin > Ranks: the start rank of the new users could be deleted when no user had it, then nobody could register (new text ADMIN_RANKS.MSG_START_RANK)
+* [FIXED] Album page: after setting or removing the cover the buttons still showed the old cover ("Set as Cover") until the page was loaded again
+* [FIXED] Admin > Delete Forum: "Move all topics" without a selected forum moved the topics to the forum -1 (they were lost), the new forum (sent by the client) could also be a forum of another board; a forum of the board is needed now
+* [FIXED] Admin > Delete Forum: the name of the forum was shown as html in the header
+* [FIXED] Admin > Edit Forum and Edit Category: the name of the forum or category was shown as html in the header
+* [FIXED] Custom profile fields: the names of the fields (set by the admin) were shown as html in the labels of the register and edit profile pages and on the profile page
+* [FIXED] Admin > Banned Names and Banned E-mails: the entries were shown as html; profile page: the names of the roles were shown as html
+* [FIXED] Forum list: the description of the forums was shown as html (also in the title of the link, a quote broke the link)
+* [FIXED] Report post: a report without a reason or with a too long reason failed with an error page (the post was missing after the post back), the access to the post (deleted, not approved posts) was only checked when the page was shown
+* [FIXED] Links: the name of a forum or topic in the address was not cleaned, a forum name with characters like < & : showed an error page
+* [FIXED] Edit profile: with the persian calendar the empty date of birth showed 1/01/02, saving the profile set the date of birth to 2022
+* [FIXED] Event log, spam log: with the persian calendar the since date was 1/01/02 (read as 2022) and a value that is no date showed an error page
+* [FIXED] Polls: the option to show the results only after the poll closes didn't work, the results of the running poll were shown (and the note was never shown)
+* [FIXED] Admin > Edit User > Kill: the reason of the banned addresses was the text "Edits a user" (wrong text call) instead of the user, now a text with the name that fits into the column
+* [FIXED] Registration: the mail to the admins about a registered spam bot had the subject [REGISTER.COMMON] (wrong text call)
+* [FIXED] Active users: the location of the albums without a user used the tag ACTIVELOCATION as text (wrong text call)
+* [FIXED] Register: the default value of a check field of the custom profile was ignored (the profile page used it)
+* [FIXED] Active users: requests of a page that are no forum page (user card, resources, api) set the location of the user to the main page
+* [FIXED] Attachments: the upload dialog stayed open when the upload ended while the dialog was still opening (fast uploads)
+* [FIXED] Sitemap: the namespace and the order of the elements are the ones of the sitemap schema (port of #1636)
+* [FIXED] Sitemap: the forums link to the topics of the forum (it was the topic with the id of the forum), the dates have the utc time zone
+* [FIXED] Active users: the location of pages like the profile settings, the login or a new topic was shown as [ACTIVELOCATION.PAGE] (and logged as a missing translation)
+* [FIXED] Profile: a javascript: address was accepted as Facebook profile and shown as link (stored XSS), stored home page or Facebook addresses that are no web addresses are not shown as links
+* [FIXED] Install: every request of the install page (also on the installed forum, by anyone) wrapped the shared connection string provider of the forum again and kept the page in memory
+* [FIXED] New boards created a "Registered" role instead of "Registered Users" (the member group), the upgrade renames an existing "Registered" role (or moves its members to "Registered Users") for all old versions
+* [FIXED] Search: the tag search didn't find new topics (the posts were added to the search index without the tags, changed tags were not updated), posts waiting for approval were indexed without the tags and the description of the topic
+* [FIXED] Search: the user and the tag filter without a search text only searched the tag, a name or tag with a space also found other users and tags
+* [FIXED] Search: a failed search kept the loading dialog open and hid the results (also of the next searches)
+* [FIXED] BBCode editor: "Remove format" changed the first occurrence of the selected text in the message (not the selection), "Outdent" removed other characters when the selection didn't start and end with the indent tags
+* [FIXED] BBCode editor: a cancelled media dialog inserted [media]null[/media]
+* [FIXED] BBCode editor: the paste button added the text at the end of the message instead of at the cursor
+* [FIXED] BBCode editor: tags with a - (e.g. [hide-thanks=1]) were closed with the wrong tag ([/hide])
+* [FIXED] BBCode editor mentions: selecting a user removed the typed letters from the first word that contained them (not after the @), a click on the avatar inserted "undefined", names with & # + were not found
+* [FIXED] Upload dialog: the attachment list was loaded before the upload ended (the new attachment was missing), a refused upload (e.g. too large for the server) showed no error, the sizes of the selected files were wrong
+* [FIXED] Context menu of posts: the menu was opened away from the click when a part of the post (e.g. bold text) was clicked, the long press on phones didn't move it to the pressed position
+* [FIXED] Register: the password strength bar of a weak password kept the color and width of a stronger password typed before
+* [FIXED] Wysiwyg editor: a refused or failed drag and drop upload left the upload placeholder in the editor
+
 # YetAnotherForum.NET v3.2.16
 * bug fixes
 

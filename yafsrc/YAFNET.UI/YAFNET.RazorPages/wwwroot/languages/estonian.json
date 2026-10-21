@@ -537,20 +537,8 @@
             "#text": "Andmed puuduvad"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Kasutab AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Kasutab e-posti"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Kasutab MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Kasutab XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Andmed puuduvad"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Vaatab teatisi"
+          },
+          {
             "@tag": "PM",
             "#text": "Avab personaalsõnumid"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Avab teema sõnumid"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Postitab foorumisse uue teema"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1642,7 +1638,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "OnClick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -3858,7 +3854,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3922,7 +3918,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "Valige rämpsposti teenuse puudumise, sisemise rämpsposti kontrolli või välise teenuse BlogSpam.net vahel"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5182,7 +5178,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "BlogSpam.NET API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -6623,7 +6619,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} album: {1}"
+            "#text": "{0} Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -7163,7 +7159,7 @@
           },
           {
             "@tag": "11",
-            "#text": "november"
+            "#text": "novembril"
           },
           {
             "@tag": "12",
@@ -7199,7 +7195,7 @@
           },
           {
             "@tag": "9",
-            "#text": "september"
+            "#text": "septembril"
           }
         ]
       },
@@ -8837,11 +8833,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "Uued liikmed"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "Viimased liikmed"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9356,7 +9352,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>Avage oma Authenticatori rakendus ja lisage uus konto.</li><li>Skannige QR-kood või sisestage seadistuskood käsitsi.</li><li>Sisestage autentimiskood oma autentimisseadmest.</li><li>Klõpsake, et <i>Lülita sisse kahefaktoriline autentimine</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Saada e-kiri aadressile {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP Messenger"
           }
         ]
       },
@@ -11289,7 +11267,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
@@ -11325,7 +11303,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "Ip"
+            "#text": "IP"
           },
           {
             "@tag": "JOINED",
@@ -12732,7 +12710,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS nõuab: Puudutage valikut Jaga ⬆️ → Lisa avakuvale → Ava avakuvalt, seejärel lubage märguanded."
           },
           {
             "@tag": "LASTPOST",
@@ -12796,7 +12774,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 Teavitusloa taotlemine... Palun luba, kui seda küsitakse!"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",

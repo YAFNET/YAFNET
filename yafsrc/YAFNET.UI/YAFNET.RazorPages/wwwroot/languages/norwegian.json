@@ -537,20 +537,8 @@
             "#text": "Ingen data"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Bruker AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Bruker e-post"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Bruker MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Bruker XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Ingen data tilgjengelig"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Viser private meldinger"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Viser meldinger i emnet"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Send e-post til {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP Messenger"
           }
         ]
       },

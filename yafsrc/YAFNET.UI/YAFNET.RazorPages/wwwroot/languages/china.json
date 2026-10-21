@@ -537,20 +537,8 @@
             "#text": "没有数据"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "使用目标"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "使用电子邮件"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "使用 MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "使用 XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "没有可用数据"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "查看通知"
+          },
+          {
             "@tag": "PM",
             "#text": "查看私人消息"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "查看主题中的消息"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "在论坛中发布新主题"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -3858,7 +3854,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "stopforumspam.com"
+            "#text": "停止论坛垃圾邮件.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3922,7 +3918,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "选择无垃圾邮件服务、内部垃圾邮件检查或外部服务 BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5182,7 +5178,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "BlogSpam.NET API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -7374,7 +7370,7 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "d"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
@@ -7382,15 +7378,15 @@
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "f"
+            "#text": "F"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "g"
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "t"
+            "#text": "时间"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -8789,7 +8785,7 @@
           },
           {
             "@tag": "FORUMS",
-            "#text": "Forums"
+            "#text": "论坛"
           },
           {
             "@tag": "GO_LAST_POST",
@@ -8837,11 +8833,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "新会员"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "最新会员"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -8877,11 +8873,11 @@
           },
           {
             "@tag": "STATS_SPAM_BANNED_LABEL",
-            "#text": "Permanently Banned"
+            "#text": "永久封禁"
           },
           {
             "@tag": "STATS_SPAM_DENIED_LABEL",
-            "#text": "Denied Registration"
+            "#text": "注册被拒绝"
           },
           {
             "@tag": "STATS_SPAM_REPORTED_LABEL",
@@ -9356,7 +9352,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>打开您的身份验证器应用并添加新帐户</li><li>扫描二维码或手动输入设置代码</li><li>输入身份验证器中的验证代码</li><li>点击<i>开启双因素身份验证</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL 即时信息"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "向 {0} 发送电子邮件"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP 信使"
           }
         ]
       },
@@ -12732,7 +12710,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS 要求：点击分享 ⬆️ → 添加到主屏幕 → 从主屏幕打开，然后启用通知。"
           },
           {
             "@tag": "LASTPOST",
@@ -12796,7 +12774,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 请求通知权限...出现提示时请允许！"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",
@@ -12996,7 +12974,7 @@
         "Resource": [
           {
             "@tag": "NAME_UTC",
-            "#text": "(UTC{0})"
+            "#text": "（世界标准时间{0}）"
           }
         ]
       },

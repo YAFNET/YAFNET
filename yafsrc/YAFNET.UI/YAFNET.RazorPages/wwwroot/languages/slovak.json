@@ -537,20 +537,8 @@
             "#text": "Žiadne údaje"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Používa AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Používa e-mail"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Používa MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Používa XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Nie sú k dispozícii žiadne údaje"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Zobrazenia Súkromné správy"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Zobrazenia správ v téme"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Odoslať e-mail na adresu {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Messenger XMPP"
           }
         ]
       },

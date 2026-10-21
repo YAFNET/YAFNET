@@ -537,20 +537,8 @@
             "#text": "Onbekend"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Gebruikt AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Gebruikt Email"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Gebruikt MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Gebruikt XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Onbekend"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Bekijkt meldingen"
+          },
+          {
             "@tag": "PM",
             "#text": "Bekijkt PMs"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Bekijkt berichten in topic"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Plaatst een nieuw onderwerp op het forum"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1070,7 +1066,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Gebruikersagent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -3850,7 +3846,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3914,7 +3910,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "Kies tussen Geen spamservice, interne spamcontrole of een externe service BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6538,7 +6534,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Tags"
+            "#text": "Labels"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",
@@ -6615,7 +6611,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} Album: {1}"
+            "#text": "{0}Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -7155,11 +7151,11 @@
           },
           {
             "@tag": "11",
-            "#text": "november"
+            "#text": "November"
           },
           {
             "@tag": "12",
-            "#text": "december"
+            "#text": "December"
           },
           {
             "@tag": "2",
@@ -8168,7 +8164,7 @@
           },
           {
             "@tag": "IN",
-            "#text": "India"
+            "#text": "Indië"
           },
           {
             "@tag": "IO",
@@ -8480,7 +8476,7 @@
           },
           {
             "@tag": "QA",
-            "#text": "Qatar"
+            "#text": "Katar"
           },
           {
             "@tag": "RE",
@@ -8524,7 +8520,7 @@
           },
           {
             "@tag": "SH",
-            "#text": "St. Helena"
+            "#text": "Sint-Helena"
           },
           {
             "@tag": "SI",
@@ -8789,7 +8785,7 @@
           },
           {
             "@tag": "IN",
-            "#text": "in {0}"
+            "#text": "over {0}"
           },
           {
             "@tag": "INFORMATION",
@@ -8829,11 +8825,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "Nieuwe leden"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "Laatste leden"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9348,7 +9344,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>Open uw Authenticator-app en voeg een nieuw account toe</li><li>Scan de QR-code of voer de installatiecode handmatig in</li><li>Voer de validatiecode van uw Authenticator in</li><li>Klik om <i>Twee-factor-authenticatie in te schakelen</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9876,15 +9872,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL instant messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9910,15 +9897,6 @@
           {
             "@tag": "TITLE2",
             "#text": "E-mail sturen naar {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP-messenger"
           }
         ]
       },
@@ -11193,7 +11171,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12176,7 +12154,7 @@
           },
           {
             "@tag": "RGN_US_RI",
-            "#text": "Rhode Island"
+            "#text": "Rhode-eiland"
           },
           {
             "@tag": "RGN_US_SC",
@@ -12378,7 +12356,7 @@
           },
           {
             "@tag": "FUTURE",
-            "#text": "in {0}"
+            "#text": "over {0}"
           },
           {
             "@tag": "H",
@@ -12716,7 +12694,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS vereist: Tik op Delen ⬆️ → Toevoegen aan startscherm → Openen vanuit startscherm en schakel vervolgens meldingen in."
           },
           {
             "@tag": "LASTPOST",
@@ -12780,7 +12758,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 Toestemming voor melding aanvragen... Geef toestemming wanneer daarom wordt gevraagd!"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",

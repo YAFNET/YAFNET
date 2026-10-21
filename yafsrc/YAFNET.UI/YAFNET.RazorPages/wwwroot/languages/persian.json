@@ -537,20 +537,8 @@
             "#text": "اطلاعاتی در دسترس نیست."
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "استفاده از AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "در حال استفاده از ایمیل"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "در حال استفاده از MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "در حال استفاده از XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "داده ای موجود نیست"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "در حال مشاهده پیام‌های خصوصی"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "در حال مشاهده پیام های یک موضوع "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9872,15 +9868,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "پیام رسان AOL"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9906,15 +9893,6 @@
           {
             "@tag": "TITLE2",
             "#text": "ارسال ایمیل به {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "پیام رسان XMPP"
           }
         ]
       },

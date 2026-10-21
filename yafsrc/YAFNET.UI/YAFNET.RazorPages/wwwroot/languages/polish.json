@@ -537,20 +537,8 @@
             "#text": "Brak danych"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Używa AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Używa poczty e-mail"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Używa MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Używa XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Brak danych"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Przegląda prywatne wiadomości"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Przegląda posty w temacie"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9880,15 +9876,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL IM"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9914,15 +9901,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Wyślij wiadomość e-mail do {0}."
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Jabber"
           }
         ]
       },

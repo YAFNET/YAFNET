@@ -537,20 +537,8 @@
             "#text": "Ingen data"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Bruger AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Bruger Email"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Bruger MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Bruger XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Ingen data tilgængelig"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Viser notifikationer"
+          },
+          {
             "@tag": "PM",
             "#text": "Vis private beskeder"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Viser beskeder under emnet "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Indsender et nyt emne i forum"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1070,7 +1066,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "UserAgent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1736,7 +1732,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "Id"
+            "#text": "ID"
           },
           {
             "@tag": "NAME",
@@ -3858,7 +3854,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3922,7 +3918,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "Vælg mellem No Spam Service, intern Spam Check eller en ekstern tjeneste BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -4070,7 +4066,7 @@
           },
           {
             "@tag": "ENTER_MODE",
-            "#text": "Editor Enter Mode"
+            "#text": "Editor Gå ind i tilstand"
           },
           {
             "@tag": "ENTER_MODE_0",
@@ -5182,7 +5178,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "BlogSpam.NET API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -7690,7 +7686,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Gennemstregning"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8837,11 +8833,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "Nye medlemmer"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "Seneste medlemmer"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9356,7 +9352,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>Åbn din Authenticator-app, og tilføj en ny konto</li><li>Scan QR-koden, eller indtast manuelt opsætningskoden</li><li>Indtast valideringskoden fra din Authenticator</li><li>Klik for at <i>Slå tofaktorgodkendelse til</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL direkte besked"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Send e-mail til {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP Messenger"
           }
         ]
       },
@@ -11209,7 +11187,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -11289,7 +11267,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
@@ -11325,7 +11303,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "Ip"
+            "#text": "IP"
           },
           {
             "@tag": "JOINED",
@@ -11866,7 +11844,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Freiburg"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -12732,7 +12710,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS kræver: Tryk på Del ⬆️ → Føj til startskærm → Åbn fra startskærm, og aktiver derefter notifikationer."
           },
           {
             "@tag": "LASTPOST",
@@ -12796,7 +12774,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 Anmoder om meddelelsestilladelse... Tillad venligst, når du bliver bedt om det!"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",

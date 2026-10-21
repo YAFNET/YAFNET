@@ -537,20 +537,8 @@
             "#text": "Ei tietoja"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Käyttää AIM:ää"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Käyttää sähköpostia"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Käyttää MSN:ää"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Käyttää XMPP:tä"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Tietoja ei ole saatavilla"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Näyttää ilmoitukset"
+          },
+          {
             "@tag": "PM",
             "#text": "Näkymät Yksityiset viestit"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Näytä viestit aiheessa"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Lähettää uuden aiheen foorumille"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1642,7 +1638,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "OnClick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -3858,7 +3854,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3922,7 +3918,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "Valitse joko Ei roskapostipalvelua, sisäinen roskapostin tarkistus tai ulkoinen palvelu BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5182,7 +5178,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "BlogSpam.NET API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -8348,7 +8344,7 @@
           },
           {
             "@tag": "MR",
-            "#text": "Mauretania"
+            "#text": "Mauritania"
           },
           {
             "@tag": "MS",
@@ -8837,11 +8833,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "Uudet jäsenet"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "Uusimmat jäsenet"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9356,7 +9352,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>Avaa Authenticator-sovellus ja lisää uusi tili.</li><li>Skannaa QR-koodi tai kirjoita asetuskoodi manuaalisesti.</li><li>Anna vahvistuskoodi Authenticatorista.</li><li>Klikkaa <i>Ota käyttöön kaksivaiheinen todennus</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Lähetä sähköpostia osoitteeseen {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP Messenger"
           }
         ]
       },
@@ -11289,7 +11267,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
@@ -12732,7 +12710,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS vaatii: Napauta Jaa ⬆️ → Lisää aloitusnäyttöön → Avaa aloitusnäytöltä ja ota sitten ilmoitukset käyttöön."
           },
           {
             "@tag": "LASTPOST",
@@ -12796,7 +12774,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 Ilmoituslupaa pyydetään... Salli pyydettäessä!"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",

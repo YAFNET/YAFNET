@@ -537,20 +537,8 @@
             "#text": "Sin datos"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Usa AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Usa Email"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Usa MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Usa XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "No hay información disponible"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Views notifications"
+          },
+          {
             "@tag": "PM",
             "#text": "Ver mensajes privados"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Ver mensajes en el tema"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9876,15 +9872,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Mensajería instantánea de AOL"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9910,15 +9897,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Enviar correo electrónico a {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Mensajero XMPP"
           }
         ]
       },

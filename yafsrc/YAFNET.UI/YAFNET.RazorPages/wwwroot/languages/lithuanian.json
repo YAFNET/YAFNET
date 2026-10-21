@@ -537,20 +537,8 @@
             "#text": "Duomenų nėra"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Naudoja AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Naudoja el. paštą"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Naudoja MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Naudoja XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Duomenų nėra"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Peržiūri pranešimus"
+          },
+          {
             "@tag": "PM",
             "#text": "Peržiūros Privačios žinutės"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Peržiūros pranešimai temoje"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Skelbia naują temą forume"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1070,7 +1066,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "UserAgent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1736,7 +1732,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "Id"
+            "#text": "ID"
           },
           {
             "@tag": "NAME",
@@ -3858,7 +3854,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3922,7 +3918,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "Pasirinkite tarp „Nėra šlamšto“ paslaugos, vidinio pašto šiukšlių patikrinimo arba išorinės paslaugos „BlogSpam.net“."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -7690,7 +7686,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "STRIKETHROUGH"
+            "#text": "Perbraukta"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8837,7 +8833,7 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "Nauji nariai"
           },
           {
             "@tag": "NEWEST_MEMBERS",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger "
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Siųsti el. laišką adresu {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "\"XMPP Messenger"
           }
         ]
       },

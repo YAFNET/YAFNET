@@ -537,20 +537,8 @@
             "#text": "Žádná data"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Používá AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Používá e-mail"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "Používá MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "Používá XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "Nejsou k dispozici žádné údaje"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "Zobrazuje oznámení"
+          },
+          {
             "@tag": "PM",
             "#text": "Zobrazení soukromých zpráv"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "Zobrazuje zprávy v tématu"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Přidá nové téma do fóra"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1070,7 +1066,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "UserAgent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1095,7 +1091,7 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Import seznamu UserAgent"
           },
           {
             "@tag": "IMPORT",
@@ -1642,7 +1638,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "OnClick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1736,7 +1732,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "Id"
+            "#text": "ID"
           },
           {
             "@tag": "NAME",
@@ -3858,7 +3854,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3922,7 +3918,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "Vyberte si mezi No Spam Service, interní Spam Check nebo externí službou BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5182,7 +5178,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "BlogSpam.NET API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -7690,7 +7686,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Přeškrtnutí"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8837,11 +8833,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "Noví členové"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "Nejnovější členové"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9356,7 +9352,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>Otevřete aplikaci Authenticator a přidejte nový účet</li><li>Naskenujte QR kód nebo ručně zadejte kód nastavení</li><li>Zadejte ověřovací kód z aplikace Authenticator</li><li>Klikněte na <i>Zapnout dvoufaktorové ověření</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9892,15 +9888,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9926,15 +9913,6 @@
           {
             "@tag": "TITLE2",
             "#text": "Odeslat e-mail na adresu {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Messenger XMPP"
           }
         ]
       },
@@ -11209,7 +11187,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -11289,7 +11267,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
@@ -11325,7 +11303,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "Ip"
+            "#text": "IP"
           },
           {
             "@tag": "JOINED",
@@ -11850,7 +11828,7 @@
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell Vnější Rhodos"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -11898,7 +11876,7 @@
           },
           {
             "@tag": "RGN_CH_OW",
-            "#text": "OBWALDEN"
+            "#text": "Obwalden"
           },
           {
             "@tag": "RGN_CH_SG",
@@ -12732,7 +12710,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS vyžaduje: Klepněte na Sdílet ⬆️ → Přidat na domovskou obrazovku → Otevřít z domovské obrazovky a poté povolit upozornění."
           },
           {
             "@tag": "LASTPOST",
@@ -12796,7 +12774,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 Žádost o povolení oznámení... Po zobrazení výzvy povolte!"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",

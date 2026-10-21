@@ -537,20 +537,8 @@
             "#text": "אין מידע"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "משתמש ב-AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "משתמש באימייל"
-          },
-          {
-            "@tag": "IM_MSN",
-            "#text": "משתמש ב-MSN"
-          },
-          {
-            "@tag": "IM_XMPP",
-            "#text": "משתמש ב-XMPP"
           },
           {
             "@tag": "IMGPRV",
@@ -625,6 +613,10 @@
             "#text": "אין נתונים זמינים"
           },
           {
+            "@tag": "NOTIFICATION",
+            "#text": "צופה בהודעות"
+          },
+          {
             "@tag": "PM",
             "#text": "צופה בהודעות פרטיות"
           },
@@ -635,6 +627,10 @@
           {
             "@tag": "POSTS",
             "#text": "מציג הודעות בנושא"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "מפרסם נושא חדש בפורום"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1070,7 +1066,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "User Agent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1642,7 +1638,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "OnClick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -3858,7 +3854,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -3922,7 +3918,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Choose between No Spam Service, internal Spam Check or an external service BlogSpam.net"
+            "#text": "בחר בין שירות ללא דואר זבל, בדיקת דואר זבל פנימית או שירות חיצוני BlogSpam.net"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -6949,7 +6945,7 @@
           },
           {
             "@tag": "REMOVEBUDDY",
-            "#text": "Remove Friend"
+            "#text": "הסר חבר"
           },
           {
             "@tag": "REMOVEBUDDY",
@@ -7394,7 +7390,7 @@
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "ט"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -7694,7 +7690,7 @@
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "חוצה"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8841,11 +8837,11 @@
           },
           {
             "@tag": "NEW_MEMBER",
-            "#text": "New Members"
+            "#text": "חברים חדשים"
           },
           {
             "@tag": "NEWEST_MEMBERS",
-            "#text": "Latest Members"
+            "#text": "החברים האחרונים"
           },
           {
             "@tag": "NO_FORUM_ACCESS",
@@ -9360,7 +9356,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+            "#text": "<li>פתחו את אפליקציית המאמת והוסיפו חשבון חדש</li><li>סרוק את קוד ה-QR או הזן ידנית את קוד ההגדרה</li><li>הזן את קוד האימות מהמאמת שלך</li><li>לחץ כדי <i>להפעיל אימות דו-גורמי</i></li>"
           },
           {
             "@tag": "SETUP_CODE",
@@ -9896,15 +9892,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL מסרים מידיים"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -9930,15 +9917,6 @@
           {
             "@tag": "TITLE2",
             "#text": "שלח דואר אלקטרוני אל {0}"
-          }
-        ]
-      },
-      {
-        "@name": "IM_XMPP",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "XMPP Messenger"
           }
         ]
       },
@@ -11301,7 +11279,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "IMAGE_RESIZE_ENLARGE",
@@ -11858,7 +11836,7 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell inner-rhodes"
+            "#text": "אפנצל רודוס הפנימית"
           },
           {
             "@tag": "RGN_CH_AR",
@@ -12744,7 +12722,7 @@
           },
           {
             "@tag": "IOSHANDLING",
-            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+            "#text": "📱 iOS דורש: הקש על שתף ⬆️ → הוסף למסך הבית → פתח ממסך הבית, ולאחר מכן הפעל התראות."
           },
           {
             "@tag": "LASTPOST",
@@ -12808,7 +12786,7 @@
           },
           {
             "@tag": "REQUESTINGPERMISSION",
-            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+            "#text": "🔔 מבקש הרשאת הודעה... אנא אפשר כשתתבקש!"
           },
           {
             "@tag": "SAVED_NOTIFICATION_SETTING",
