@@ -108,7 +108,7 @@ jobs:
           $section | Set-Content -Path RELEASE_NOTES.md
 
       - name: Create GitHub release
-        uses: softprops/action-gh-release@v4
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ needs.check-version.outputs.version }}
           name: YAFNET v${{ needs.check-version.outputs.version }}
