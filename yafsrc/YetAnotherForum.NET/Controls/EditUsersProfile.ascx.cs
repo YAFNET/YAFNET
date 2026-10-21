@@ -410,7 +410,7 @@ public partial class EditUsersProfile : BaseUserControl
                               (this.Location.Text, "WHERE", 255), (this.HomePage.Text, "HOMEPAGE2", 255),
                               (this.Weblog.Text, "WEBLOG2", 255), (this.Xmpp.Text, "XMPP", 255),
                               (this.Facebook.Text, "FACEBOOK", 400)
-                          }.FirstOrDefault(field => (field.Item1 ?? string.Empty).Trim().Length > field.Item3);
+                          }.Find(field => (field.Text ?? string.Empty).Trim().Length > field.Item3);
 
         if (tooLong.Item2 != null)
         {

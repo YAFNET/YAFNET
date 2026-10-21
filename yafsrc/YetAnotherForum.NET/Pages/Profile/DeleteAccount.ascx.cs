@@ -30,7 +30,6 @@ using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models.Identity;
 using YAF.Types.Models;
-using YAF.Types.Models.Identity;
 
 /// <summary>
 /// User Page To Delete (deactivate) his account
