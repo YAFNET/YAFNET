@@ -545,24 +545,12 @@
             "#text": "Nu exista date"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Utilizeaza AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Utilizeaza Email"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Utilizeaza MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utilizeaza XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Utilizeaza YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -653,12 +641,12 @@
             "#text": "Posteaza mesaj in topic"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Vezi mesaj in topic "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9823,10 +9811,6 @@
             "#text": "Activează fluxul de activitate (Dacă este bifat, primești notificări pentru mențiuni, citate și mulțumiri."
           },
           {
-            "@tag": "AIM",
-            "#text": "Numele dumneavoastră AIM:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Urmăriți fiecare subiect în care ați scris o postare și primiți notificări prin e-mail cu privire la activitățile din acele subiecte?"
           },
@@ -10601,15 +10585,6 @@
           {
             "@tag": "STICKY_NEW",
             "#text": "Sticky (Mesaje noi)"
-          }
-        ]
-      },
-      {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
           }
         ]
       },
@@ -12511,14 +12486,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "Sponsor"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "SCOP"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Contactează {0} prin AOL Instant Messenger"
           },
           {
             "@tag": "ATOMTOPIC",

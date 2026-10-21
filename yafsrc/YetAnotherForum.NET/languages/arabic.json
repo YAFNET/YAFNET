@@ -545,24 +545,12 @@
             "#text": "لا يوجد بيانات"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": " AIM استخدام"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": " Email استخدام"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": " MSN استخدام"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": " XMPP استخدام"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": " YIM استخدام"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "إشعارات المشاهدات"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "المشاركة برسالة في الموضوع "
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "عرض الرسائل في الموضوع"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "نشر موضوع جديد في المنتدى"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1048,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "useragent:"
+            "#text": "وكيل المستخدم:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1620,7 +1608,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "OnClick شبيبة:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -3528,7 +3516,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "تمت الموافقة على حساب المستخدم ويمكن للمستخدم تسجيل الدخول."
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3552,7 +3540,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "هذا هو حساب الضيف، ويتم استخدامه لجميع الزوار الذين لم يقوموا بتسجيل الدخول."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4184,7 +4172,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "قم بتعطيل فحص الرسائل غير المرغوب فيها للمشاركات أو التحقق منها باستخدام الكلمات غير المرغوب فيها في المنتدى (الكلمات غير المرغوب فيها في قائمة الإدارة)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5476,7 +5464,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "blogspam.net API"
+            "#text": "واجهة برمجة تطبيقات BlogSpam.NET"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5508,7 +5496,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "يعيد توجيه جميع صفحات المنتدى إلى العنوان الآمن (https). "
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -6681,7 +6669,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "رتبة المستخدم، سلم الرتب يتغير مع عدد المشاركات."
           },
           {
             "@tag": "ROLE",
@@ -9811,10 +9799,6 @@
             "#text": "تمكين تدفق النشاط (إذا تم تحديده ، فستحصل على إشعارات للإشارات والاقتباسات والشكر."
           },
           {
-            "@tag": "AIM",
-            "#text": "اسم AIM الخاص بك:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "شاهد كل موضوع قمت فيه بإنشاء منشور وتلقي إشعارات عبر البريد الإلكتروني للأنشطة في تلك الموضوعات؟"
           },
@@ -10585,15 +10569,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL الدردشة داخل "
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11155,7 +11130,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "تسجيل الدخول باستخدام {0}"
           },
           {
             "@tag": "AUTO",
@@ -12123,7 +12098,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0} لا يقبل رسائل خاصة منك."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12493,14 +12468,6 @@
             "#text": "الراعي"
           },
           {
-            "@tag": "AIM",
-            "#text": "هدف، تصويب"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "اتصل بـ {0} عبر AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "الموضيع  المهمة "
           },
@@ -12610,7 +12577,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12662,7 +12629,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "الملكية الفكرية"
           },
           {
             "@tag": "JOINED",
@@ -13085,7 +13052,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "عنوان البريد الإلكتروني للمستخدم."
           },
           {
             "@tag": "ENDS",
@@ -13133,7 +13100,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "تاريخ تسجيل المستخدم."
           },
           {
             "@tag": "LAST10",
@@ -13145,7 +13112,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "تاريخ آخر زيارة للمستخدم."
           },
           {
             "@tag": "LOCATION",
@@ -14545,7 +14512,7 @@
         "Resource": [
           {
             "@tag": "NAME_UTC",
-            "#text": "(UTC{0})"
+            "#text": "(التوقيت العالمي{0})"
           }
         ]
       },

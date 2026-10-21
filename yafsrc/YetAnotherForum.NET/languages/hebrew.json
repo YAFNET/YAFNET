@@ -545,24 +545,12 @@
             "#text": "אין מידע"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "משתמש ב-AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "משתמש באימייל"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "משתמש ב-MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "משתמש ב-XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "משתמש ב-YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "צופה בהודעות"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "מפרסם הודעה בנושא"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "מציג הודעות בנושא"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "מפרסם נושא חדש בפורום"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1048,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "User Agent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1620,7 +1608,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "OnClick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -3536,7 +3524,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "חשבון המשתמש מאושר והמשתמש יכול להיכנס."
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3560,7 +3548,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "זהו חשבון האורח, הוא משמש עבור כל המבקרים שאינם מחוברים."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4120,7 +4108,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4192,7 +4180,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "השבת את בדיקת ה-SPAM של הפוסטים או בדוק אותם עם מילות ה-SPAM של הפורום (ספאם Words בתפריט הניהול)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5516,7 +5504,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "מפנה את כל דפי הפורום לכתובת המאובטחת (https). "
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -6689,7 +6677,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "דירוג המשתמש, סולם הדרגות משתנות עם מספר הפוסטים."
           },
           {
             "@tag": "ROLE",
@@ -7879,7 +7867,7 @@
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "ט"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -9827,10 +9815,6 @@
             "#text": "הפעל את זרם הפעילויות (אם מסומן אתה מקבל התראות על אזכורים, ציטוטים ותודה."
           },
           {
-            "@tag": "AIM",
-            "#text": "שם ה-AIM שלך:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "לצפות בכל נושא שבו פרסמת פוסט ולקבל הודעות אימייל על פעילויות בנושאים אלו?"
           },
@@ -10609,15 +10593,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL מסרים מידיים"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11179,7 +11154,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "היכנס באמצעות {0}"
           },
           {
             "@tag": "AUTO",
@@ -12147,7 +12122,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0} אינו מקבל ממך הודעות פרטיות."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12525,14 +12500,6 @@
             "#text": "מממן"
           },
           {
-            "@tag": "AIM",
-            "#text": "מַטָרָה"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "צור קשר עם {0} באמצעות AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "הזנת אטום"
           },
@@ -12642,7 +12609,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -13038,7 +13005,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "Xmpp"
+            "#text": "XMPP"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -13117,7 +13084,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "כתובת הדואר האלקטרוני של המשתמש."
           },
           {
             "@tag": "ENDS",
@@ -13165,7 +13132,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "התאריך בו רשם המשתמש."
           },
           {
             "@tag": "LAST10",
@@ -13177,7 +13144,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "תאריך הביקור האחרון של המשתמש."
           },
           {
             "@tag": "LOCATION",
@@ -13375,7 +13342,7 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell inner-rhodes"
+            "#text": "אפנצל רודוס הפנימית"
           },
           {
             "@tag": "RGN_CH_AR",

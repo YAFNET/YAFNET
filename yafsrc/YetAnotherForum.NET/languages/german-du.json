@@ -545,24 +545,12 @@
             "#text": "Keine Daten"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Benutzt AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Benutzt Email"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Benutzt MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Benutzt XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Benutzt YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -653,12 +641,12 @@
             "#text": "Schreibt eine Nachricht im Thema "
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Erstellt ein neues Thema im Forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Betracht Nachricht im Thema "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Erstellt ein neues Thema im Forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -3528,7 +3516,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "Das Benutzerkonto wird genehmigt und der Benutzer kann sich anmelden."
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3552,7 +3540,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "Dies ist das Gastkonto, es wird für alle Besucher verwendet, die nicht angemeldet sind."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4184,7 +4172,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "Deaktivieren Sie die SPAM-Prüfung der Beiträge oder überprüfen Sie diese mit den SPAM-Wörtern des Forums (Spam-Wörter im Admin-Menü)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5508,7 +5496,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "Leitet alle Seiten des Forums an die sichere Adresse (https) um. "
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -6681,7 +6669,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "Der Rang des Benutzers und die Rangliste ändern sich mit der Anzahl der Beiträge."
           },
           {
             "@tag": "ROLE",
@@ -9173,7 +9161,7 @@
           },
           {
             "@tag": "TK",
-            "#text": "ToKelau"
+            "#text": "Tokelau"
           },
           {
             "@tag": "TM",
@@ -9813,10 +9801,6 @@
           {
             "@tag": "ACTIVITY",
             "#text": "Aktivitätsstrom aktivieren (Wenn diese Option aktiviert ist, erhalten Sie Benachrichtigungen für Erwähnungen, Zitate und Danksagungen."
-          },
-          {
-            "@tag": "AIM",
-            "#text": "AIM Name:"
           },
           {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
@@ -10589,15 +10573,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL-Instantmessenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11159,7 +11134,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "Melden Sie sich mit {0} an"
           },
           {
             "@tag": "AUTO",
@@ -12127,7 +12102,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0} akzeptiert keine privaten Nachrichten von Ihnen."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12497,14 +12472,6 @@
             "#text": "Förderer"
           },
           {
-            "@tag": "AIM",
-            "#text": "ZIEL"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "{0} via AOL Instant Messenger kontaktieren"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Atom-Feed"
           },
@@ -12518,7 +12485,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12614,7 +12581,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -13089,7 +13056,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "Die E-Mail-Adresse des Benutzers."
           },
           {
             "@tag": "ENDS",
@@ -13137,7 +13104,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "Das Datum, an dem sich der Benutzer registriert hat."
           },
           {
             "@tag": "LAST10",
@@ -13149,7 +13116,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "Das Datum des letzten Besuchs des Benutzers."
           },
           {
             "@tag": "LOCATION",
@@ -13480,7 +13447,7 @@
           },
           {
             "@tag": "RGN_DE_MV",
-            "#text": "Mecklenburg-vorpommern"
+            "#text": "Mecklenburg-Vorpommern"
           },
           {
             "@tag": "RGN_DE_NI",

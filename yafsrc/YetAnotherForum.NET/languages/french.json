@@ -545,24 +545,12 @@
             "#text": "Pas de données"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Utilise AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Utilise le courrier électronique"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Utilise MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utilise XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Utilise YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "Afficher les notifications"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "Poster un message dans le sujet"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Voir les messages dans le sujet"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Publie un nouveau sujet sur le forum"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1048,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Agent utilisateur :"
           },
           {
             "@tag": "MASK_HELP",
@@ -3536,7 +3524,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "Le compte utilisateur est approuvé et l'utilisateur peut se connecter."
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3560,7 +3548,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "Il s'agit du Compte Invité, il est utilisé pour tous les Visiteurs qui ne sont pas connectés."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4120,7 +4108,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4192,7 +4180,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "Désactivez la vérification SPAM des messages ou vérifiez-les avec les mots SPAM du forum (Spam Words dans le menu admin)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5516,7 +5504,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "Redirige toutes les pages du forum vers l'adresse sécurisée (https). "
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -6689,7 +6677,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "Le classement de l'utilisateur, les classements d'échelle changent avec le nombre de messages."
           },
           {
             "@tag": "ROLE",
@@ -8449,7 +8437,7 @@
           },
           {
             "@tag": "BN",
-            "#text": "Brunei Darussalam"
+            "#text": "Brunéi Darussalam"
           },
           {
             "@tag": "BO",
@@ -9137,7 +9125,7 @@
           },
           {
             "@tag": "SR",
-            "#text": "Suriname"
+            "#text": "Surinam"
           },
           {
             "@tag": "ST",
@@ -9821,10 +9809,6 @@
           {
             "@tag": "ACTIVITY",
             "#text": "Activer le flux d'activité (Si cette case est cochée, vous recevrez des notifications pour les mentions, les citations et les remerciements."
-          },
-          {
-            "@tag": "AIM",
-            "#text": "Votre nom AIM :"
           },
           {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
@@ -10605,15 +10589,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Messagerie instantanée AOL"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11175,7 +11150,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "Connectez-vous avec {0}"
           },
           {
             "@tag": "AUTO",
@@ -12143,7 +12118,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0} n'accepte pas vos messages privés."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12513,14 +12488,6 @@
             "#text": "Parrainer"
           },
           {
-            "@tag": "AIM",
-            "#text": "OBJECTIF"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Contactez {0} via AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Flux atomique"
           },
@@ -12534,7 +12501,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOGUE"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12630,7 +12597,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12682,7 +12649,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "PI"
           },
           {
             "@tag": "JOINED",
@@ -13105,7 +13072,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "L'adresse e-mail de l'utilisateur."
           },
           {
             "@tag": "ENDS",
@@ -13153,7 +13120,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "La date à laquelle l'utilisateur s'est inscrit."
           },
           {
             "@tag": "LAST10",
@@ -13165,7 +13132,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "La Date de la dernière Visite de l'Utilisateur."
           },
           {
             "@tag": "LOCATION",
@@ -13431,7 +13398,7 @@
           },
           {
             "@tag": "RGN_CH_SZ",
-            "#text": "Schwyz"
+            "#text": "Schwytz"
           },
           {
             "@tag": "RGN_CH_TG",
@@ -13524,7 +13491,7 @@
           },
           {
             "@tag": "RGN_DE_SW",
-            "#text": "Schleswig-holstein"
+            "#text": "Schleswig-Holstein"
           },
           {
             "@tag": "RGN_DE_TH",
@@ -13999,7 +13966,7 @@
           },
           {
             "@tag": "MM",
-            "#text": "{0} minutes"
+            "#text": "{0} minutes"
           },
           {
             "@tag": "MO",

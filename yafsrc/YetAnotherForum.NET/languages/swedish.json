@@ -545,24 +545,12 @@
             "#text": "Inga uppgifter"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Använder AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Använder e-post"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Använder MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Använder XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Använder YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -653,12 +641,12 @@
             "#text": "Poster ett meddelande i ämnet"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Visar meddelanden i ämnet"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9823,10 +9811,6 @@
             "#text": "Aktivera aktivitetsflöde (om du markerar detta får du meddelanden om omnämnanden, citat och tack."
           },
           {
-            "@tag": "AIM",
-            "#text": "Ditt AIM-namn:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Bevaka varje ämne där du har skrivit ett inlägg och få e-postmeddelanden om aktiviteter i dessa ämnen?"
           },
@@ -10601,15 +10585,6 @@
           {
             "@tag": "STICKY_NEW",
             "#text": "Sticky (nya inlägg)"
-          }
-        ]
-      },
-      {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
           }
         ]
       },
@@ -12511,14 +12486,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "Sponsor"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "SYFTE"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Kontakta {0} via AOL Instant Messenger"
           },
           {
             "@tag": "ATOMTOPIC",

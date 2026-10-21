@@ -545,24 +545,12 @@
             "#text": "Veri Yok"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "AIM  Kullananlar"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "E-posta  Kullananlar"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "MSN  Kullananlar"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "XMPP  Kullananlar"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "YIM Kullananlar"
           },
           {
             "@tag": "IMGPRV",
@@ -653,12 +641,12 @@
             "#text": "Konudaki mesajı yanıtla "
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Konudaki mesajları görüntüle "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9823,10 +9811,6 @@
             "#text": "Etkinlik Akışını Etkinleştir (İşaretliyse Bahsetmeler, Alıntılar ve Teşekkürler için Bildirimler alırsınız."
           },
           {
-            "@tag": "AIM",
-            "#text": "AIM Adınız:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Mesaj yazdığınız konulara cevap yazıldığında E-posta ile haber almak ister misiniz?"
           },
@@ -10601,15 +10585,6 @@
           {
             "@tag": "STICKY_NEW",
             "#text": "Yapışkan (Yeni Gönderiler)"
-          }
-        ]
-      },
-      {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Hızlı Mesajcı"
           }
         ]
       },
@@ -12511,14 +12486,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "Sponsor"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "AMAÇ"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "AOL Instant Messenger üzerinden {0} ile iletişime geçin"
           },
           {
             "@tag": "ATOMTOPIC",

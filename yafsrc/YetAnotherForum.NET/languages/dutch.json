@@ -545,24 +545,12 @@
             "#text": "Onbekend"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Gebruikt AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Gebruikt Email"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Gebruikt MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Gebruikt XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Gebruikt YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "Bekijkt meldingen"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "Plaatst bericht"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Bekijkt berichten in topic"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Plaatst een nieuw onderwerp op het forum"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1048,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Gebruikersagent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -3528,7 +3516,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "Het Gebruikersaccount is goedgekeurd en de Gebruiker kan inloggen."
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3552,7 +3540,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "Dit is het Gastaccount, deze wordt gebruikt voor alle Bezoekers die niet zijn ingelogd."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4112,7 +4100,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4184,7 +4172,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "Schakel de SPAM-controle van de berichten uit of controleer ze met de SPAM-woorden van het forum (Spamwoorden in het admin-menu)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5508,7 +5496,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "Leidt alle pagina's van het forum om naar het beveiligde adres (https). "
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -6681,7 +6669,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "De rang van de gebruiker, ladderrangen veranderen met het aantal berichten."
           },
           {
             "@tag": "ROLE",
@@ -6916,7 +6904,7 @@
           },
           {
             "@tag": "ADMIN_TAGS",
-            "#text": "Tags"
+            "#text": "Labels"
           },
           {
             "@tag": "ADMIN_TASKMANAGER",
@@ -7001,7 +6989,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} Album: {1}"
+            "#text": "{0}Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -8737,7 +8725,7 @@
           },
           {
             "@tag": "IN",
-            "#text": "India"
+            "#text": "Indië"
           },
           {
             "@tag": "IO",
@@ -9049,7 +9037,7 @@
           },
           {
             "@tag": "QA",
-            "#text": "Qatar"
+            "#text": "Katar"
           },
           {
             "@tag": "RE",
@@ -9093,7 +9081,7 @@
           },
           {
             "@tag": "SH",
-            "#text": "St. Helena"
+            "#text": "Sint-Helena"
           },
           {
             "@tag": "SI",
@@ -9370,7 +9358,7 @@
           },
           {
             "@tag": "IN",
-            "#text": "in {0}"
+            "#text": "over {0}"
           },
           {
             "@tag": "INFORMATION",
@@ -9813,10 +9801,6 @@
           {
             "@tag": "ACTIVITY",
             "#text": "Schakel activiteitenstroom in (indien aangevinkt krijg je meldingen voor vermeldingen, citaten en bedankt."
-          },
-          {
-            "@tag": "AIM",
-            "#text": "Je AIM Name:"
           },
           {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
@@ -10589,15 +10573,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL instant messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11159,7 +11134,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "Inloggen met {0}"
           },
           {
             "@tag": "AUTO",
@@ -12127,7 +12102,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0} accepteert geen privéberichten van u."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12497,14 +12472,6 @@
             "#text": "Sponsor"
           },
           {
-            "@tag": "AIM",
-            "#text": "DOEL"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Neem met {0} contact op via AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Atoomvoeding"
           },
@@ -12518,7 +12485,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -13089,7 +13056,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "Het e-mailadres van de gebruiker."
           },
           {
             "@tag": "ENDS",
@@ -13137,7 +13104,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "De datum waarop de gebruiker zich heeft geregistreerd."
           },
           {
             "@tag": "LAST10",
@@ -13149,7 +13116,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "De datum van het laatste bezoek van de gebruiker."
           },
           {
             "@tag": "LOCATION",
@@ -13693,7 +13660,7 @@
           },
           {
             "@tag": "RGN_US_RI",
-            "#text": "Rhode Island"
+            "#text": "Rhode-eiland"
           },
           {
             "@tag": "RGN_US_SC",
@@ -13967,7 +13934,7 @@
           },
           {
             "@tag": "FUTURE",
-            "#text": "in {0}"
+            "#text": "over {0}"
           },
           {
             "@tag": "H",

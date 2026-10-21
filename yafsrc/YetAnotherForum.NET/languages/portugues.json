@@ -545,24 +545,12 @@
             "#text": "Sem dados"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Utiliza AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Utiliza o e-mail"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Utiliza MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utiliza XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Utiliza o YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -653,12 +641,12 @@
             "#text": "Coloca uma mensagem no tópico"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Ver mensagens no tópico"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9823,10 +9811,6 @@
             "#text": "Activar o fluxo de actividade (Se verificado, recebe Notificações para Menções, Citações e Agradecimentos."
           },
           {
-            "@tag": "AIM",
-            "#text": "O seu nome AIM:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Ver todos os tópicos em que fez um post e receber notificações por e-mail de actividades nesses tópicos?"
           },
@@ -10601,15 +10585,6 @@
           {
             "@tag": "STICKY_NEW",
             "#text": "Sticky (Novos Posts)"
-          }
-        ]
-      },
-      {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Messenger"
           }
         ]
       },
@@ -12511,14 +12486,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "Responsável"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "OBJECTIVO"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Contacto {0} via AOL Instant Messenger"
           },
           {
             "@tag": "ATOMTOPIC",

@@ -545,24 +545,12 @@
             "#text": "Brak danych"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Używa AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Używa poczty e-mail"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Używa MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Używa XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Używa YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -653,12 +641,12 @@
             "#text": "Dodaje post w temacie"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Przegląda posty w temacie"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9819,10 +9807,6 @@
             "#text": "Włącz strumień aktywności (jeśli zaznaczone, otrzymasz powiadomienia o wzmiankach, cytatach i podziękowaniach)."
           },
           {
-            "@tag": "AIM",
-            "#text": "Twoja nazwa AIM:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Subskrybować każdy temat, w którym stworzysz posta i włączyć w nich powiadomienia e-mail?"
           },
@@ -10589,15 +10573,6 @@
           {
             "@tag": "STICKY_NEW",
             "#text": "Przyklejony (Nowe Posty)"
-          }
-        ]
-      },
-      {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL IM"
           }
         ]
       },
@@ -12499,14 +12474,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "Sponsor"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "CEL"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Skontaktuj się z {0} przez AOL IM"
           },
           {
             "@tag": "ATOMTOPIC",

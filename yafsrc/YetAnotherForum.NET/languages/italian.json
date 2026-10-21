@@ -545,24 +545,12 @@
             "#text": "Nessun dato"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Utilizza AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Utilizza l'e-mail"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Utilizza MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Utilizza XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Utilizza YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "Visualizza le notifiche"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "Posta un messaggio nell'argomento"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Visualizza i messaggi nell'argomento"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Pubblica un nuovo argomento nel forum"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -731,7 +719,7 @@
           },
           {
             "@tag": "BROWSER",
-            "#text": "Browser"
+            "#text": "Navigatore"
           },
           {
             "@tag": "LAST_ACTIVE",
@@ -1039,7 +1027,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "UserAgent bannato"
           }
         ]
       },
@@ -1048,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "Agente utente:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1620,7 +1608,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "OnClickJS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -2752,7 +2740,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "FORUM_MOD",
@@ -3528,7 +3516,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "L'account utente è approvato e l'utente può accedere."
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3552,7 +3540,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "Questo è l'account ospite, viene utilizzato per tutti i visitatori che non hanno effettuato l'accesso."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4112,7 +4100,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4184,7 +4172,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "Disabilita il controllo SPAM dei post o controllali con le parole SPAM del forum (Parole Spam nel menu amministrazione)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5508,7 +5496,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "Reindirizza tutte le pagine del forum all'indirizzo sicuro (https). "
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -5985,7 +5973,7 @@
           },
           {
             "@tag": "PRUNE_FORUM",
-            "#text": "Forum:"
+            "#text": "Foro:"
           },
           {
             "@tag": "PRUNE_FORUM_HELP",
@@ -6681,7 +6669,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "Il rango dell'utente, i ranghi ladder cambiano con il numero di post."
           },
           {
             "@tag": "ROLE",
@@ -7001,7 +6989,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} album: {1}"
+            "#text": "{0}Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -8369,7 +8357,7 @@
           },
           {
             "@tag": "AO",
-            "#text": "Angola"
+            "#text": "L'Angola"
           },
           {
             "@tag": "AQ",
@@ -9358,7 +9346,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "GO_LAST_POST",
@@ -9813,10 +9801,6 @@
           {
             "@tag": "ACTIVITY",
             "#text": "Abilita Activity Stream (lista delle attività recenti). Selezionare per ottenere notifiche su citazioni e ringraziamenti."
-          },
-          {
-            "@tag": "AIM",
-            "#text": "Il tuo nome AIM:"
           },
           {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
@@ -10589,15 +10573,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Messaggeria istantanea AOL"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11159,7 +11134,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "Accedi con {0}"
           },
           {
             "@tag": "AUTO",
@@ -11609,7 +11584,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "REPORTED",
@@ -12127,7 +12102,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0} non accetta messaggi privati ​​da te."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12497,14 +12472,6 @@
             "#text": "Sponsor"
           },
           {
-            "@tag": "AIM",
-            "#text": "SCOPO"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Contatta {0} tramite AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Feed Atom"
           },
@@ -12518,7 +12485,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12614,7 +12581,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -13089,7 +13056,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "L'indirizzo e-mail dell'utente."
           },
           {
             "@tag": "ENDS",
@@ -13137,7 +13104,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "La data in cui l'utente si è registrato."
           },
           {
             "@tag": "LAST10",
@@ -13149,7 +13116,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "La Data dell'ultima Visita dell'Utente."
           },
           {
             "@tag": "LOCATION",
@@ -14325,7 +14292,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "FORUMS",
@@ -14787,7 +14754,7 @@
           },
           {
             "@tag": "FORUM",
-            "#text": "Forum"
+            "#text": "Foro"
           },
           {
             "@tag": "FORUMUSERS",

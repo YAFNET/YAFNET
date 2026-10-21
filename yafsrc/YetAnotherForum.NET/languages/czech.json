@@ -545,24 +545,12 @@
             "#text": "Žádná data"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Používá AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Používá e-mail"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Používá MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Používá XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Používá YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "Zobrazuje oznámení"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "Vloží zprávu do tématu"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Zobrazuje zprávy v tématu"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Přidá nové téma do fóra"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1048,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "UserAgent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1073,7 +1061,7 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Import seznamu UserAgent"
           },
           {
             "@tag": "IMPORT",
@@ -1620,7 +1608,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "OnClick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1714,7 +1702,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "Id"
+            "#text": "ID"
           },
           {
             "@tag": "NAME",
@@ -3536,7 +3524,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "Uživatelský účet je schválen a Uživatel se může přihlásit."
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3560,7 +3548,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "Toto je účet hosta, používá se pro všechny návštěvníky, kteří nejsou přihlášeni."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4120,7 +4108,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4192,7 +4180,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "Zakažte SPAM kontrolu příspěvků nebo je zkontrolujte pomocí SPAMových slov na fóru (Spamová slova v admin menu)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5484,7 +5472,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "BlogSpam.NET API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5516,7 +5504,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "Přesměruje všechny stránky fóra na zabezpečenou adresu (https). "
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -6689,7 +6677,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "Hodnost uživatele, hodnocení žebříčku se mění s počtem příspěvků."
           },
           {
             "@tag": "ROLE",
@@ -9827,10 +9815,6 @@
             "#text": "Povolit Stream aktivit (Pokud je zaškrtnuto, budete dostávat upozornění na zmínky, nabídky a poděkování."
           },
           {
-            "@tag": "AIM",
-            "#text": "Vaše jméno AIM:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Sledovat každé téma, do kterého jste přidali příspěvek, a dostávat e-mailová upozornění na aktivity v těchto tématech?"
           },
@@ -10609,15 +10593,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11179,7 +11154,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "Přihlásit se pomocí {0}"
           },
           {
             "@tag": "AUTO",
@@ -12147,7 +12122,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0} od vás nepřijímá soukromé zprávy."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12517,14 +12492,6 @@
             "#text": "Sponzor"
           },
           {
-            "@tag": "AIM",
-            "#text": "CÍL"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Kontaktujte {0} přes AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Krmení atomu"
           },
@@ -12538,7 +12505,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12634,7 +12601,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12686,7 +12653,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "Ip"
+            "#text": "IP"
           },
           {
             "@tag": "JOINED",
@@ -13109,7 +13076,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "E-mailová adresa Uživatele."
           },
           {
             "@tag": "ENDS",
@@ -13157,7 +13124,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "Datum registrace uživatele."
           },
           {
             "@tag": "LAST10",
@@ -13169,7 +13136,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "Datum poslední návštěvy Uživatele."
           },
           {
             "@tag": "LOCATION",
@@ -13371,7 +13338,7 @@
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell Vnější Rhodos"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13419,7 +13386,7 @@
           },
           {
             "@tag": "RGN_CH_OW",
-            "#text": "OBWALDEN"
+            "#text": "Obwalden"
           },
           {
             "@tag": "RGN_CH_SG",

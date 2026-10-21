@@ -545,24 +545,12 @@
             "#text": "Ei tietoja"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Käyttää AIM:ää"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Käyttää sähköpostia"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Käyttää MSN:ää"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Käyttää XMPP:tä"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Käyttää YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "Näyttää ilmoitukset"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "Viestit aiheessa"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Näytä viestit aiheessa"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Lähettää uuden aiheen foorumille"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1620,7 +1608,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "Onclick JS:"
+            "#text": "OnClick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -3536,7 +3524,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "Käyttäjätili on hyväksytty ja käyttäjä voi kirjautua sisään."
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3560,7 +3548,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "Tämä on vierastili, jota käytetään kaikille vierailijoille, jotka eivät ole kirjautuneet sisään."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4120,7 +4108,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4192,7 +4180,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "Poista viestien roskapostin tarkistus käytöstä tai tarkista ne foorumin roskapostisanoilla (roskapostisanat admin-valikossa)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5484,7 +5472,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "BlogSpam.NET API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5516,7 +5504,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "Ohjaa kaikki foorumin sivut suojattuun osoitteeseen (https). "
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -6689,7 +6677,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "Käyttäjän sijoitus, tikkaat Sijoitukset muuttuvat viestien määrän mukaan."
           },
           {
             "@tag": "ROLE",
@@ -8917,7 +8905,7 @@
           },
           {
             "@tag": "MR",
-            "#text": "Mauretania"
+            "#text": "Mauritania"
           },
           {
             "@tag": "MS",
@@ -9823,10 +9811,6 @@
             "#text": "Ota Aktiviteettivirta käyttöön (Jos valintaruutu on valittuna, saat ilmoitukset maininnoista, lainauksista ja kiitoksista."
           },
           {
-            "@tag": "AIM",
-            "#text": "AIM-nimesi:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Tarkkaile jokaista aihetta, johon olet kirjoittanut viestin, ja vastaanota sähköposti-ilmoituksia kyseisten aiheiden aktiviteeteista?"
           },
@@ -10605,15 +10589,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11175,7 +11150,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "Kirjaudu sisään tunnuksella {0}"
           },
           {
             "@tag": "AUTO",
@@ -12143,7 +12118,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0} ei hyväksy yksityisviestejä sinulta."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12513,14 +12488,6 @@
             "#text": "Sponsori"
           },
           {
-            "@tag": "AIM",
-            "#text": "Tavoitella"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Ota yhteyttä {0} AOL Instant Messengerin kautta"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Atom-syöte"
           },
@@ -12630,7 +12597,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -13105,7 +13072,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "Käyttäjän sähköpostiosoite."
           },
           {
             "@tag": "ENDS",
@@ -13153,7 +13120,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "Päivämäärä, jolloin käyttäjä rekisteröityi."
           },
           {
             "@tag": "LAST10",
@@ -13165,7 +13132,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "Käyttäjän viimeisen vierailun päivämäärä."
           },
           {
             "@tag": "LOCATION",

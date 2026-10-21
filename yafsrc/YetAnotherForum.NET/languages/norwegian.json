@@ -545,24 +545,12 @@
             "#text": "Ingen data"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Bruker AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Bruker e-post"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Bruker MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Bruker XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Bruker YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "Viser varsler"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "Legger ut en melding i emnet"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Viser meldinger i emnet"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Legger ut et nytt emne i forumet"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9823,10 +9811,6 @@
             "#text": "Aktiver aktivitetsstrøm (Hvis det er merket av for, får du varsler om omtale, sitater og takk."
           },
           {
-            "@tag": "AIM",
-            "#text": "Ditt AIM-navn:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Se hvert emne der du har skrevet et innlegg og motta e-postvarsler om aktiviteter i disse emnene?"
           },
@@ -10601,15 +10585,6 @@
           {
             "@tag": "STICKY_NEW",
             "#text": "Sticky (nye innlegg)"
-          }
-        ]
-      },
-      {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
           }
         ]
       },
@@ -12511,14 +12486,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "Sponsor"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "MÅL"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Kontakt {0} via AOL Instant Messenger"
           },
           {
             "@tag": "ATOMTOPIC",

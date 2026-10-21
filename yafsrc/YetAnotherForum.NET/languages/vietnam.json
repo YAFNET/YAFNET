@@ -545,24 +545,12 @@
             "#text": "Không có dữ liệu"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Sử dụng AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Sử dụng Email"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Sử dụng MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Sử dụng XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Sử dụng YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -653,12 +641,12 @@
             "#text": "Đăng một tin nhắn trong chủ đề"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Xem tin nhắn trong chủ đề"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9823,10 +9811,6 @@
             "#text": "Bật Luồng hoạt động (Nếu được chọn, bạn sẽ nhận được Thông báo cho Đề cập, Báo giá và Cảm ơn."
           },
           {
-            "@tag": "AIM",
-            "#text": "Tên AIM của bạn:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Xem mọi chủ đề mà bạn đã đăng và nhận thông báo qua email về các hoạt động trong các chủ đề đó?"
           },
@@ -10601,15 +10585,6 @@
           {
             "@tag": "STICKY_NEW",
             "#text": "Sticky (Bài mới)"
-          }
-        ]
-      },
-      {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Messenger tức thời"
           }
         ]
       },
@@ -12511,14 +12486,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "Quảng cáo"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "MỤC ĐÍCH"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Liên hệ với {0} qua AOL Instant Messenger"
           },
           {
             "@tag": "ATOMTOPIC",

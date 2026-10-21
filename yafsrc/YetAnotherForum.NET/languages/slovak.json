@@ -545,24 +545,12 @@
             "#text": "Žiadne údaje"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Používa AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Používa e-mail"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Používa MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Používa XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Používa YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -653,12 +641,12 @@
             "#text": "Príspevky v téme"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Zobrazenia správ v téme"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9823,10 +9811,6 @@
             "#text": "Zapnúť prúd aktivít (ak je začiarknuté, dostávate upozornenia na zmienky, citácie a poďakovania."
           },
           {
-            "@tag": "AIM",
-            "#text": "Vaše meno AIM:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Sledovať každú tému, do ktorej ste vložili príspevok, a dostávať e-mailové upozornenia na aktivity v týchto témach?"
           },
@@ -10601,15 +10585,6 @@
           {
             "@tag": "STICKY_NEW",
             "#text": "Sticky (Nové príspevky)"
-          }
-        ]
-      },
-      {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
           }
         ]
       },
@@ -12511,14 +12486,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "Sponzor"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "Cieľ"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Kontaktovať {0} cez AOL Instant Messenger"
           },
           {
             "@tag": "ATOMTOPIC",

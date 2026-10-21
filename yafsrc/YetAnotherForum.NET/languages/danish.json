@@ -545,24 +545,12 @@
             "#text": "Ingen data"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Bruger AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Bruger Email"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Bruger MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Bruger XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Bruger YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "Viser notifikationer"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "Sender en besked under emnet "
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Viser beskeder under emnet "
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Indsender et nyt emne i forum"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -1048,7 +1036,7 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "Useragent:"
+            "#text": "UserAgent:"
           },
           {
             "@tag": "MASK_HELP",
@@ -1714,7 +1702,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "Id"
+            "#text": "ID"
           },
           {
             "@tag": "NAME",
@@ -3536,7 +3524,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "Brugerkontoen er godkendt, og brugeren kan logge ind."
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3560,7 +3548,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "Dette er gæstekontoen, den bruges til alle besøgende, der ikke er logget ind."
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4120,7 +4108,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "Stopforumspam.com"
+            "#text": "StopForumSpam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4192,7 +4180,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "Deaktiver SPAM-tjek af indlæggene eller tjek dem med SPAM-ordene i forummet (Spam-ord i admin-menuen)."
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -4340,7 +4328,7 @@
           },
           {
             "@tag": "ENTER_MODE",
-            "#text": "Editor Enter Mode"
+            "#text": "Editor Gå ind i tilstand"
           },
           {
             "@tag": "ENTER_MODE_0",
@@ -5484,7 +5472,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "BlogSpam.NET API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5516,7 +5504,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "Omdirigerer alle sider i forummet til den sikre adresse (https). "
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -6689,7 +6677,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "Brugerens rang, stigen rangerer med antallet af indlæg."
           },
           {
             "@tag": "ROLE",
@@ -9823,10 +9811,6 @@
             "#text": "Aktiver aktivitetsstream (hvis markeret får du meddelelser om omtaler, citater og tak."
           },
           {
-            "@tag": "AIM",
-            "#text": "Dit AIM-navn:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "Se alle emner du har skrevet et indlæg i og modtag en email notifikation når der er aktivitet i disse emner?"
           },
@@ -10605,15 +10589,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL direkte besked"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11175,7 +11150,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "Log ind med {0}"
           },
           {
             "@tag": "AUTO",
@@ -12143,7 +12118,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0} accepterer ikke private beskeder fra dig."
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12513,14 +12488,6 @@
             "#text": "Sponsor"
           },
           {
-            "@tag": "AIM",
-            "#text": "SIGTE"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Kontakt {0} via AOL Instant Messenger"
-          },
-          {
             "@tag": "ATOMTOPIC",
             "#text": "Atom-feed"
           },
@@ -12534,7 +12501,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "Blog"
+            "#text": "BLOG"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12630,7 +12597,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "Www"
+            "#text": "WWW"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12682,7 +12649,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "Ip"
+            "#text": "IP"
           },
           {
             "@tag": "JOINED",
@@ -13105,7 +13072,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "Brugerens e-mail-adresse."
           },
           {
             "@tag": "ENDS",
@@ -13153,7 +13120,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "Den dato, brugeren registrerede."
           },
           {
             "@tag": "LAST10",
@@ -13165,7 +13132,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "Datoen for brugerens sidste besøg."
           },
           {
             "@tag": "LOCATION",
@@ -13383,7 +13350,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Freiburg"
           },
           {
             "@tag": "RGN_CH_GE",

@@ -545,24 +545,12 @@
 						"#text": "No data"
 					},
 					{
-						"@tag": "IM_AIM",
-						"#text": "Uses AIM"
-					},
-					{
 						"@tag": "IM_EMAIL",
 						"#text": "Uses Email"
 					},
 					{
-						"@tag": "IM_MSN",
-						"#text": "Uses MSN"
-					},
-					{
 						"@tag": "IM_XMPP",
 						"#text": "Uses XMPP"
-					},
-					{
-						"@tag": "IM_YIM",
-						"#text": "Uses YIM"
 					},
 					{
 						"@tag": "IMGPRV",
@@ -9874,10 +9862,6 @@
 						"#text": "Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks."
 					},
 					{
-						"@tag": "AIM",
-						"#text": "Your AIM Name:"
-					},
-					{
 						"@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
 						"#text":
 							"Watch every topic in which you have made a post and receive email notifications of activities in those topics?"
@@ -10675,15 +10659,6 @@
 					{
 						"@tag": "STICKY_NEW",
 						"#text": "Sticky (New Posts)"
-					}
-				]
-			},
-			{
-				"@name": "IM_AIM",
-				"Resource": [
-					{
-						"@tag": "TITLE",
-						"#text": "AOL Instant Messenger"
 					}
 				]
 			},
@@ -12622,14 +12597,6 @@
 					{
 						"@tag": "AD_USERNAME",
 						"#text": "Sponsor"
-					},
-					{
-						"@tag": "AIM",
-						"#text": "AIM"
-					},
-					{
-						"@tag": "AIM_TITLE",
-						"#text": "Contact {0} via AOL Instant Messenger"
 					},
 					{
 						"@tag": "ATOMTOPIC",

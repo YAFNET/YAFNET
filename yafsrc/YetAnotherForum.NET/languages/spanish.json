@@ -545,24 +545,12 @@
             "#text": "Sin datos"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "Usa AIM"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "Usa Email"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "Usa MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Usa XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Usa YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -653,12 +641,12 @@
             "#text": "Publicar un mensaje en el tema"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "Ver mensajes en el tema"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "Posts a new topic in forum "
           },
           {
             "@tag": "PRINTTOPIC",
@@ -9815,10 +9803,6 @@
             "#text": "Habilitar el flujo de actividad (Si se marca, se obtienen notificaciones de menciones, citas y agradecimientos."
           },
           {
-            "@tag": "AIM",
-            "#text": "Tu nombre en AIM:"
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "¿Ver todos los temas en los que has publicado y recibir notificaciones sobre estos temas?"
           },
@@ -10585,15 +10569,6 @@
           {
             "@tag": "STICKY_NEW",
             "#text": "Permanente (Nuevas publicaciones)"
-          }
-        ]
-      },
-      {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Mensajería instantánea de AOL"
           }
         ]
       },
@@ -12495,14 +12470,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "Publicidad"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "APUNTAR"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "Contacta {0} a través de AOL Instant Messenger"
           },
           {
             "@tag": "ATOMTOPIC",

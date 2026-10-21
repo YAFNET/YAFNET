@@ -545,24 +545,12 @@
             "#text": "没有数据"
           },
           {
-            "@tag": "IM_AIM",
-            "#text": "使用目标"
-          },
-          {
             "@tag": "IM_EMAIL",
             "#text": "使用电子邮件"
           },
           {
-            "@tag": "IM_MSN",
-            "#text": "使用 MSN"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "使用 XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "使用 YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -638,7 +626,7 @@
           },
           {
             "@tag": "NOTIFICATION",
-            "#text": "Views notifications"
+            "#text": "查看通知"
           },
           {
             "@tag": "PM",
@@ -653,12 +641,12 @@
             "#text": "在主题中发布消息"
           },
           {
-            "@tag": "POSTTOPIC",
-            "#text": "Posts a new topic in forum "
-          },
-          {
             "@tag": "POSTS",
             "#text": "查看主题中的消息"
+          },
+          {
+            "@tag": "POSTTOPIC",
+            "#text": "在论坛中发布新主题"
           },
           {
             "@tag": "PRINTTOPIC",
@@ -3536,7 +3524,7 @@
           },
           {
             "@tag": "USERINFO_APPROVED_HELP",
-            "#text": "The User Account is approved and the User can log in."
+            "#text": "用户帐户已获得批准，用户可以登录。"
           },
           {
             "@tag": "USERINFO_DISPLAYNAME",
@@ -3560,7 +3548,7 @@
           },
           {
             "@tag": "USERINFO_GUEST_HELP",
-            "#text": "This is the Guest Account, it is used for all Visitors who are not logged in."
+            "#text": "这是访客帐户，供所有未登录的访客使用。"
           },
           {
             "@tag": "USERINFO_HOST",
@@ -4120,7 +4108,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "stopforumspam.com"
+            "#text": "停止论坛垃圾邮件.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4192,7 +4180,7 @@
           },
           {
             "@tag": "CHECK_FOR_SPAM_HELP",
-            "#text": "Disable the SPAM check of the posts or check them with the SPAM words of the forum (Spam Words in the admin menu)."
+            "#text": "禁用帖子的垃圾邮件检查或使用论坛的垃圾邮件词（管理菜单中的垃圾邮件词）检查它们。"
           },
           {
             "@tag": "CLEAR_CACHE",
@@ -5484,7 +5472,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "Blogspam.net API"
+            "#text": "BlogSpam.NET API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5516,7 +5504,7 @@
           },
           {
             "@tag": "SSL_REQUIRE_HELP",
-            "#text": "Redirects all pages of the forum to the secure address (https). The server needs a SSL certificate."
+            "#text": "将论坛的所有页面重定向到安全地址 (https)。"
           },
           {
             "@tag": "STATS_CACHE_TIMEOUT",
@@ -6689,7 +6677,7 @@
           },
           {
             "@tag": "RANK_HELP",
-            "#text": "The Rank of the User, ladder Ranks change with the Number of Posts."
+            "#text": "用户排名，天梯排名随发帖数变化。"
           },
           {
             "@tag": "ROLE",
@@ -7859,7 +7847,7 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "d"
+            "#text": "D"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
@@ -7867,15 +7855,15 @@
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "f"
+            "#text": "F"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "g"
+            "#text": "G"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "t"
+            "#text": "时间"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -9823,10 +9811,6 @@
             "#text": "启用活动流（如果选中，您会收到提及、引用和感谢的通知。"
           },
           {
-            "@tag": "AIM",
-            "#text": "您的目标名称："
-          },
-          {
             "@tag": "AUTOWATCH_TOPICS_NOTIFICATION",
             "#text": "观看您发表过帖子的每个主题并接收有关这些主题活动的电子邮件通知？"
           },
@@ -10605,15 +10589,6 @@
         ]
       },
       {
-        "@name": "IM_AIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "AOL 即时信息"
-          }
-        ]
-      },
-      {
         "@name": "IM_EMAIL",
         "Resource": [
           {
@@ -11175,7 +11150,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Log in with {0}"
+            "#text": "使用 {0} 登录"
           },
           {
             "@tag": "AUTO",
@@ -12143,7 +12118,7 @@
           },
           {
             "@tag": "RECIPIENT_NOT_ALLOWED",
-            "#text": "{0} does not accept private messages from you."
+            "#text": "{0}不接受您的私人消息。"
           },
           {
             "@tag": "RECIPIENTS_PMBOX_FULL",
@@ -12511,14 +12486,6 @@
           {
             "@tag": "AD_USERNAME",
             "#text": "赞助"
-          },
-          {
-            "@tag": "AIM",
-            "#text": "目标"
-          },
-          {
-            "@tag": "AIM_TITLE",
-            "#text": "通过 AOL Instant Messenger 联系 {0}"
           },
           {
             "@tag": "ATOMTOPIC",
@@ -13026,7 +12993,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "xmpp"
+            "#text": "XMPP"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -13105,7 +13072,7 @@
           },
           {
             "@tag": "EMAIL_HELP",
-            "#text": "The E-mail Address of the User."
+            "#text": "用户的电子邮件地址。"
           },
           {
             "@tag": "ENDS",
@@ -13153,7 +13120,7 @@
           },
           {
             "@tag": "JOINED_HELP",
-            "#text": "The Date the User registered."
+            "#text": "用户注册日期。"
           },
           {
             "@tag": "LAST10",
@@ -13165,7 +13132,7 @@
           },
           {
             "@tag": "LASTVISIT_HELP",
-            "#text": "The Date of the last Visit of the User."
+            "#text": "用户上次访问的日期。"
           },
           {
             "@tag": "LOCATION",
@@ -14565,7 +14532,7 @@
         "Resource": [
           {
             "@tag": "NAME_UTC",
-            "#text": "(UTC{0})"
+            "#text": "（世界标准时间{0}）"
           }
         ]
       },
