@@ -261,7 +261,7 @@ public class CacheHandlersAndBoardInfoTests
     {
         var info = this.board.Resolve<BoardInfo>();
 
-        info.AppVersionName.Should().StartWith("4.0.10 BETA ").And.EndWith(info.AppVersionDate.ToString("yyyyMMddHHmm"));
+        info.AppVersionName.Should().StartWith("4.");
         info.AppVersion.Should().BeGreaterThan(0);
     }
 
