@@ -79,7 +79,7 @@ public class DisplayNameCleanUpAndCacheTests
         this.board.BoardSettings.EnableDisplayName = false;
         names.FindUserByName("alice").ID.Should().Be(alice);
         names.FindUserByName("Alice Wonder").Should().BeNull();
-        names.FindUserContainsName("o").Select(u => u.Name).Should().BeEquivalentTo(["bob"]);
+        names.FindUserContainsName("o").Select(u => u.Name).Should().BeEquivalentTo("bob");
 
         this.board.BoardSettings.EnableDisplayName = true;
         names.FindUserByName("Alice Wonder").ID.Should().Be(alice);

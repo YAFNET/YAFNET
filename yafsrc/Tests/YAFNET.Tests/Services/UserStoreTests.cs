@@ -121,7 +121,7 @@ public class UserStoreTests
         await this.store.AddToRoleAsync(user, "Registered", this.none);
         await this.store.AddToRoleAsync(user, "Does Not Exist", this.none);
 
-        (await this.store.GetRolesAsync(user, this.none)).Should().BeEquivalentTo(["Administrators", "Registered"]);
+        (await this.store.GetRolesAsync(user, this.none)).Should().BeEquivalentTo("Administrators", "Registered");
         (await this.store.IsInRoleAsync(user, "ADMINISTRATORS", this.none)).Should().BeTrue();
         (await this.store.IsInRoleAsync(user, "Does Not Exist", this.none)).Should().BeFalse();
 

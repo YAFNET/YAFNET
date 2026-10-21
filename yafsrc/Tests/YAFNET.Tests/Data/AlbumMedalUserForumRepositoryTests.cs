@@ -131,7 +131,7 @@ public class AlbumMedalUserForumRepositoryTests
         userForums.Insert(new UserForum { UserID = this.bob, ForumID = other, AccessMaskID = mask, Invited = DateTime.UtcNow, Accepted = true });
 
         var all = userForums.List(null, forum);
-        all.Select(t => t.Item1.Name).Should().BeEquivalentTo(["Alice", "Bob"]);
+        all.Select(t => t.Item1.Name).Should().BeEquivalentTo("Alice", "Bob");
         all.Should().OnlyContain(t => t.Item2.ForumID == forum && t.Item3.Name == "Moderator");
 
         userForums.List(this.bob, forum).Single().Item1.ID.Should().Be(this.bob);

@@ -206,7 +206,7 @@ public class HttpRuntimeCacheTests
         this.cache.Set(this.Key("n1"), 42);
 
         this.cache.GetAll<string>().Where(kv => kv.Key.StartsWith(this.prefix)).Select(kv => kv.Value)
-            .Should().BeEquivalentTo(["x", "y"]);
+            .Should().BeEquivalentTo("x", "y");
         this.cache.GetAll<int>().Should().Contain(kv => kv.Key == this.Key("n1") && kv.Value == 42);
 
         this.cache.Remove(k => k == this.Key("s1"));

@@ -136,7 +136,7 @@ public class AdminModalControllerTests
         var result = await this.board.CreateController<ReplaceWordsController>().Import(File(Xml, "text/xml"));
 
         Notification(result).MessageType.Should().Be(MessageTypes.success.ToString());
-        (await this.Repository<ReplaceWords>().GetAsync(_ => true)).Select(w => w.BadWord).Should().BeEquivalentTo(["darn", "heck"]);
+        (await this.Repository<ReplaceWords>().GetAsync(_ => true)).Select(w => w.BadWord).Should().BeEquivalentTo("darn", "heck");
     }
 
     [Test]
@@ -155,7 +155,7 @@ public class AdminModalControllerTests
         await this.board.CreateController<ReplaceWordsController>().Import(File(Xml, "text/xml"));
 
         (await this.Repository<ReplaceWords>().GetAsync(_ => true)).Select(w => w.GoodWord).Should()
-            .BeEquivalentTo(["nice", "good & fine"]);
+            .BeEquivalentTo("nice", "good & fine");
     }
 
     [Test]

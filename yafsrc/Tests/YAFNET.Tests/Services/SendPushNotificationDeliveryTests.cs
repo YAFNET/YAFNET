@@ -122,8 +122,7 @@ public class SendPushNotificationDeliveryTests
         await this.SendAsync();
 
 
-        this.pushService.Requests.Select(r => r.Uri).Should().BeEquivalentTo(
-            [Endpoint, "https://updates.push.services.mozilla.com/wpush/v2/device-2"]);
+        this.pushService.Requests.Select(r => r.Uri).Should().BeEquivalentTo(Endpoint, "https://updates.push.services.mozilla.com/wpush/v2/device-2");
 
         var request = this.pushService.Requests[0];
         request.Authorization.Should().StartWith("WebPush ");

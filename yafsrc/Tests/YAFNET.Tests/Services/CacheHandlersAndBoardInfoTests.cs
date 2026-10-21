@@ -35,7 +35,6 @@ using YAF.Core.Events.Cache;
 using YAF.Core.Extensions;
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
-using YAF.Types.Constants;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Events;
@@ -89,15 +88,15 @@ public class CacheHandlersAndBoardInfoTests
 
         this.Fill(Constants.Cache.UsersOnlineStatus, Constants.Cache.ActiveDiscussions, Constants.Cache.BoardUserStats, lazy, other);
         ((IHandleEvent<SuccessfulUserLoginEvent>)this.handlers).Handle(new SuccessfulUserLoginEvent(5));
-        this.Cached().Should().BeEquivalentTo([lazy, other]);
+        this.Cached().Should().BeEquivalentTo(lazy, other);
 
         this.Fill(Constants.Cache.ForumModerators, Constants.Cache.UsersOnlineStatus);
         ((IHandleEvent<UpdateUserEvent>)this.handlers).Handle(new UpdateUserEvent(5));
-        this.Cached().Should().BeEquivalentTo([Constants.Cache.UsersOnlineStatus, other]);
+        this.Cached().Should().BeEquivalentTo(Constants.Cache.UsersOnlineStatus, other);
 
         this.Fill(lazy);
         ((IHandleEvent<UserLogoutEvent>)this.handlers).Handle(new UserLogoutEvent(5));
-        this.Cached().Should().BeEquivalentTo([other]);
+        this.Cached().Should().BeEquivalentTo(other);
     }
 
     [Test]
@@ -151,7 +150,7 @@ public class CacheHandlersAndBoardInfoTests
 
         this.handlers.Handle(new RepositoryEvent<BBCode>(RepositoryEventType.New));
 
-        this.Cached().Should().BeEquivalentTo([other]);
+        this.Cached().Should().BeEquivalentTo(other);
     }
 
     [Test]
@@ -167,7 +166,7 @@ public class CacheHandlersAndBoardInfoTests
 
         this.handlers.Handle(new RepositoryEvent<ProfileDefinition>(RepositoryEventType.Delete));
 
-        this.Cached().Should().BeEquivalentTo([other]);
+        this.Cached().Should().BeEquivalentTo(other);
     }
 
     [Test]

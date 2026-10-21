@@ -111,7 +111,7 @@ public class StaticDataHelperTests
     {
         var files = StaticDataHelper.LanguageFiles();
 
-        files.Select(f => f.CultureFile).Should().BeEquivalentTo(["english.json", "german.json"]);
+        files.Select(f => f.CultureFile).Should().BeEquivalentTo("english.json", "german.json");
         files.Single(f => f.CultureFile == "english.json").TranslatedPercentage.Should().Be(100);
 
         var german = files.Single(f => f.CultureFile == "german.json");
@@ -154,7 +154,7 @@ public class StaticDataHelperTests
     [Description("Simple select lists: themes, time zones, page sizes, priorities, genders and list modes")]
     public void Select_Lists_Test()
     {
-        StaticDataHelper.Themes().Select(t => t.Value).Should().BeEquivalentTo(["yaf", "dark"]);
+        StaticDataHelper.Themes().Select(t => t.Value).Should().BeEquivalentTo("yaf", "dark");
         StaticDataHelper.TimeZones().Should().NotBeEmpty();
         StaticDataHelper.TimeZones([TimeZoneInfo.Utc]).Single().Value.Should().Be("UTC");
         StaticDataHelper.PageEntries().Select(p => p.Value).Should().Equal("5", "10", "20", "25", "50");

@@ -85,7 +85,7 @@ public class BoardSettingsTests
         }
 
         // the application id is created by the installer, without one there is no valid guid
-        failing.Should().BeEquivalentTo(["ApplicationId: FormatException"]);
+        failing.Should().BeEquivalentTo("ApplicationId: FormatException");
     }
 
     [Test]

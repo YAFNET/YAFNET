@@ -156,7 +156,7 @@ public class MultiQuoteBBCodeForumControllerTests
 
         var all = Value<SelectPagedGroupOptions>(await controller.GetForums(new SearchTopic { Page = 0 }));
         all.Total.Should().Be(2);
-        all.Results.SelectMany(g => g.children).Select(c => c.text).Should().BeEquivalentTo(["Readable", "Another one"]);
+        all.Results.SelectMany(g => g.children).Select(c => c.text).Should().BeEquivalentTo("Readable", "Another one");
 
         var withAll = Value<SelectPagedGroupOptions>(
             await controller.GetForums(new SearchTopic { Page = 0, AllForumsOption = true }));

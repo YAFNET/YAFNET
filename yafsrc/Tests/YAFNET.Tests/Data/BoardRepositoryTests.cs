@@ -74,10 +74,10 @@ public class BoardRepositoryTests
         (await this.Repository<Board>().GetByIdAsync(boardId)).Name.Should().Be("Second");
 
         (await this.Repository<Rank>().GetAsync(r => r.BoardID == boardId)).Select(r => r.Name).Should()
-            .BeEquivalentTo(["Administration", "Guest", "Newbie", "Member", "Advanced Member"]);
+            .BeEquivalentTo("Administration", "Guest", "Newbie", "Member", "Advanced Member");
         (await this.Repository<AccessMask>().CountAsync(m => m.BoardID == boardId)).Should().Be(5);
         (await this.Repository<Group>().GetAsync(g => g.BoardID == boardId)).Select(g => g.Name).Should()
-            .BeEquivalentTo(["B2 Administrators", "Guests", "B2 Registered Users"]);
+            .BeEquivalentTo("B2 Administrators", "Guests", "B2 Registered Users");
 
         var users = await this.Repository<User>().GetAsync(u => u.BoardID == boardId);
         var guest = users.Single(u => u.Name == "Guest");

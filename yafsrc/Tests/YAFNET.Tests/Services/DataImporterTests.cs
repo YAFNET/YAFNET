@@ -77,7 +77,7 @@ public class DataImporterTests
             Text("new@spam.example\n\nno-at-sign\nold@spam.example\nother@spam.example"));
 
         count.Should().Be(2);
-        this.Masks<BannedEmail>(b => b.Mask).Should().BeEquivalentTo(["old@spam.example", "new@spam.example", "other@spam.example"]);
+        this.Masks<BannedEmail>(b => b.Mask).Should().BeEquivalentTo("old@spam.example", "new@spam.example", "other@spam.example");
 
         // a mask that is no valid regular expression is not imported
         (await this.importer.BannedEmailAddressesImportAsync(Board, Text("bad(@spam.example"))).Should().Be(0);
@@ -92,7 +92,7 @@ public class DataImporterTests
         var count = await this.importer.BannedIpAddressesImportAsync(Board, 1, Text("10.0.0.1\n192.168.1.*\n2001:db8::1\n"));
 
         count.Should().Be(2);
-        this.Masks<BannedIP>(b => b.Mask).Should().BeEquivalentTo(["10.0.0.1", "192.168.1.*", "2001:db8::1"]);
+        this.Masks<BannedIP>(b => b.Mask).Should().BeEquivalentTo("10.0.0.1", "192.168.1.*", "2001:db8::1");
     }
 
     [Test]
@@ -160,7 +160,7 @@ public class DataImporterTests
                 Text("<YafSpamWordsList><YafSpamWords><SpamWord>casino</SpamWord></YafSpamWords><YafSpamWords><SpamWord>pills</SpamWord></YafSpamWords></YafSpamWordsList>"))
             .Should().Be(1);
 
-        this.Masks<SpamWords>(s => s.SpamWord).Should().BeEquivalentTo(["casino", "pills"]);
+        this.Masks<SpamWords>(s => s.SpamWord).Should().BeEquivalentTo("casino", "pills");
 
         this.importer.SpamWordsImport(Board, Text("<root><other>1</other></root>")).Should().Be(0);
     }

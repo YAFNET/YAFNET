@@ -94,7 +94,7 @@ public class PollCategoryRepositoryTests
         this.AddChoice(pollId, "Red");
         this.AddChoice(pollId, "Blue");
 
-        this.Polls.GetPollAndChoices(pollId).Select(x => x.Item2.ChoiceName).Should().BeEquivalentTo(["Red", "Blue"]);
+        this.Polls.GetPollAndChoices(pollId).Select(x => x.Item2.ChoiceName).Should().BeEquivalentTo("Red", "Blue");
         this.Polls.GetPollAndChoices(99999).Should().BeEmpty();
     }
 

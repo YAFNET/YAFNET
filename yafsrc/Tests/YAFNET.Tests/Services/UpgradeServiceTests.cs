@@ -231,7 +231,7 @@ public class UpgradeServiceTests
 
         this.Repository<AspNetRoles>().Get(_ => true).Select(r => r.Name).Should().Equal("Registered Users");
         this.Repository<AspNetUserRoles>().Get(_ => true).Select(r => $"{r.UserId}:{r.RoleId}").Should()
-            .BeEquivalentTo(["alice:r2", "bob:r2"]);
+            .BeEquivalentTo("alice:r2", "bob:r2");
     }
 
     private IRepository<Registry> Registry => this.Repository<Registry>();

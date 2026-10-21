@@ -369,7 +369,7 @@ public class DataBrokerTests
         this.Load("c1", null, browser: "Googlebot", ip: "66.249.0.1", isCrawler: true);
         this.Load("c2", null, browser: "Googlebot", ip: "66.249.0.2", isCrawler: true);
 
-        this.Repository<Active>().Get(_ => true).Select(a => a.IP).Should().BeEquivalentTo(["66.249.0.1", "66.249.0.2"]);
+        this.Repository<Active>().Get(_ => true).Select(a => a.IP).Should().BeEquivalentTo("66.249.0.1", "66.249.0.2");
     }
 
     [Test]

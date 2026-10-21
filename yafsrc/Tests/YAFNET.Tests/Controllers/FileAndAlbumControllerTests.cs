@@ -524,7 +524,7 @@ public class FileAndAlbumControllerTests
         Titles(this.board.CreateController<TopicController>().GetTopics(
             new SearchTopic { ForumId = forum, TopicId = first, SearchTerm = "topic", Page = 0 })).Should().Equal("Second topic");
 
-        Titles(this.GetTopics(forum, "topic")).Should().BeEquivalentTo(["First topic", "Second topic"]);
+        Titles(this.GetTopics(forum, "topic")).Should().BeEquivalentTo("First topic", "Second topic");
     }
 
     private IRepository<T> Repository<T>()

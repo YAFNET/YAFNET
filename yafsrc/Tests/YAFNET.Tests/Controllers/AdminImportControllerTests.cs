@@ -100,7 +100,7 @@ public class AdminImportControllerTests
         Notification(await controller.Import(File("EvilBot\nBadBot", "text/plain"))).MessageType.Should().Be(MessageTypes.success.ToString());
         Notification(await controller.Import(File("EvilBot", "text/plain"))).MessageType.Should().Be(MessageTypes.success.ToString());
 
-        (await this.Repository<BannedUserAgent>().GetAsync(_ => true)).Select(b => b.UserAgent).Should().BeEquivalentTo(["EvilBot", "BadBot"]);
+        (await this.Repository<BannedUserAgent>().GetAsync(_ => true)).Select(b => b.UserAgent).Should().BeEquivalentTo("EvilBot", "BadBot");
     }
 
     [Test]
@@ -219,7 +219,7 @@ public class AdminImportControllerTests
         Notification(await controller.Import(File("1.2.3.4\n5.6.7.*", "text/plain"))).Message.Should().Be("2 imported");
         Notification(await controller.Import(File("1.2.3.4", "text/plain"))).Message.Should().Be("nothing");
 
-        (await this.Repository<BannedIP>().GetAsync(_ => true)).Select(b => b.Mask).Should().BeEquivalentTo(["1.2.3.4", "5.6.7.*"]);
+        (await this.Repository<BannedIP>().GetAsync(_ => true)).Select(b => b.Mask).Should().BeEquivalentTo("1.2.3.4", "5.6.7.*");
     }
 
     [Test]

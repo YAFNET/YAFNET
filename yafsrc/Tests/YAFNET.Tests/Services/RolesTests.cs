@@ -146,7 +146,7 @@ public class RolesTests
         await this.roles.CreateRoleAsync("Editors");
         await this.roles.CreateRoleAsync("Readers");
 
-        this.roles.GetAllRoles().Should().BeEquivalentTo(["Editors", "Readers"]);
+        this.roles.GetAllRoles().Should().BeEquivalentTo("Editors", "Readers");
         (await this.roles.RoleNameExistsAsync("Editors")).Should().BeTrue();
 
         await this.roles.DeleteRoleAsync("Editors");
@@ -211,7 +211,7 @@ public class RolesTests
         this.AddGroup("Editors", GroupFlags.Flags.None);
         await this.roles.SyncRolesAsync(TestDatabase.BoardId);
 
-        this.roles.GetAllRoles().Should().BeEquivalentTo(["Registered", "Editors"]);
+        this.roles.GetAllRoles().Should().BeEquivalentTo("Registered", "Editors");
     }
 
     [Test]

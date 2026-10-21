@@ -109,7 +109,7 @@ public class BannedIpAndAlbumImagesTests
 
         controller.Edit(new BannedEmailEditModal { Id = ban.ID, Mask = "10.0.0.2", BanReason = "changed" }).Should().BeOfType<OkResult>();
 
-        this.Repository<BannedIP>().Get(_ => true).Select(b => b.Mask).Should().BeEquivalentTo(["10.0.0.2", "192.168.*.*"]);
+        this.Repository<BannedIP>().Get(_ => true).Select(b => b.Mask).Should().BeEquivalentTo("10.0.0.2", "192.168.*.*");
     }
 
     [TestCase("1.2.3")]

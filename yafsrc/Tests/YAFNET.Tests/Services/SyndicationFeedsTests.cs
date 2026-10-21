@@ -164,7 +164,7 @@ public class SyndicationFeedsTests
 
         var feed = await this.feeds.GetPostsFeedAsync(topic);
 
-        feed.Items.Select(i => ((TextSyndicationContent)i.Content).Text).Should().BeEquivalentTo(["first", "second"]);
+        feed.Items.Select(i => ((TextSyndicationContent)i.Content).Text).Should().BeEquivalentTo("first", "second");
     }
 
     [Test]
