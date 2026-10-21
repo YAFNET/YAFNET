@@ -22,8 +22,5 @@ jobs:
     - name: Restore Packages
       run: msbuild ./yafsrc/YAF.NET-SqlServer.slnx -t:restore -p:RestorePackagesConfig=true
 
-    - name: Build Solution
-      run: msbuild ./yafsrc/YAF.NET-SqlServer.slnx -t:rebuild -property:Configuration=Release
-
     - name: Test Solution
       run: dotnet test ./yafsrc/YAF.NET-SqlServer.slnx
