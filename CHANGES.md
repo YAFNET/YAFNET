@@ -3,6 +3,7 @@ YetAnotherForum.NET Changelog
 
 # YetAnotherForum.NET v4.0.11
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
+* [FIXED] Background tasks (search index update, digest send, forum delete, prune topics) ignored their start delay and ran immediately, the search index update and digest task ran in the first page request after the start instead of 30 seconds later
 
 # YetAnotherForum.NET v4.0.10
 * [NEW] Extended unit test suite including repository tests against an in-memory SQLite database

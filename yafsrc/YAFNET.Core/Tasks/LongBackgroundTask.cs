@@ -24,7 +24,9 @@
 
 namespace YAF.Core.Tasks;
 
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// The long background task.
@@ -54,6 +56,9 @@ public class LongBackgroundTask : IntermittentBackgroundTask
                 {
                     try
                     {
+                        // wait before the run (e.g. 30 seconds for the tasks started by the first page request)
+                        await Task.Delay(TimeSpan.FromMilliseconds(Math.Max(0, this.StartDelayMs)));
+
                         await this.RunOnceAsync();
                     }
                     finally

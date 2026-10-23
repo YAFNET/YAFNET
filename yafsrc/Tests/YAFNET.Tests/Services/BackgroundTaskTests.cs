@@ -161,6 +161,20 @@ public class BackgroundTaskTests
     }
 
     [Test]
+    [Description("A long task waits the start delay before it runs (e.g. the search index update 30 seconds after the first request)")]
+    public async Task Long_Task_Start_Delay_Test()
+    {
+        var task = this.Start(new LongTask(Task.CompletedTask) { StartDelayMs = 300 });
+
+        await Task.Delay(100);
+        task.Runs.Should().Be(0, "the start delay has not passed");
+        task.IsRunning.Should().BeTrue("the task is waiting for its run");
+
+        await WaitUntil(() => !task.IsRunning);
+        task.Runs.Should().Be(1);
+    }
+
+    [Test]
     [Description("The task manager only starts tasks after the application started, and every name only once")]
     public async Task Task_Manager_Test()
     {
