@@ -56,7 +56,8 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
     /// <summary>
     /// The page after the registration (only the message, without the form) has no script errors:
-    /// the password strength script was added without the password fields.
+    /// the password strength script was added without the password fields. The next visit of the
+    /// register page shows the form again (the message was kept in the temp data).
     /// </summary>
     [Category("Authentication")]
     [Test]
@@ -84,6 +85,12 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.WaitForLoadStateAsync(LoadState.Load);
 
                     scriptErrors.Should().BeEmpty("the page after the registration has no script errors");
+
+                    // the message was kept in the temp data and shown again instead of the form
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Account/Register");
+
+                    (await page.Locator("#Input_UserName").IsVisibleAsync()).Should()
+                        .BeTrue("the register page shows the form again");
                 });
     }
 

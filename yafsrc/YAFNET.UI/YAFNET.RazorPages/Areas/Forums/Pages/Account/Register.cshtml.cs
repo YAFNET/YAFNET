@@ -61,9 +61,9 @@ public class RegisterModel : AccountPage
     public override bool IsProtected => false;
 
     /// <summary>
-    /// Gets or sets the error message.
+    /// Gets or sets the message after the registration (shown instead of the form, only in the answer of the
+    /// registration: kept in the temp data it was shown again on the next visit of the register page).
     /// </summary>
-    [TempData]
     public string ErrorMessage { get; set; }
 
     /// <summary>
@@ -98,11 +98,6 @@ public class RegisterModel : AccountPage
         if (this.PageBoardContext.BoardSettings.DisableRegistrations)
         {
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
-        }
-
-        if (this.ErrorMessage.IsSet())
-        {
-            this.ModelState.AddModelError(string.Empty, this.ErrorMessage);
         }
 
         await this.LoadCustomProfileAsync();

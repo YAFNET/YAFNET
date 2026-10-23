@@ -4,6 +4,7 @@ YetAnotherForum.NET Changelog
 # YetAnotherForum.NET v4.0.11
 * [NEW] Reactions: the thanks button is replaced by reactions (like, love, haha, hooray, wow) as on Facebook or GitHub, each user can give one reaction to a post, change it, or remove it by clicking it again; the existing thanks are shown as love, and every reaction counts as a thanks for the profile statistics and the hide-thanks BB codes
 * [FIXED] Register: the page after the registration (the message to confirm the e-mail address) had a script error, the password strength script was added without the password fields
+* [FIXED] Register: visiting the register page again after a registration showed the message of the registration again instead of the form
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
 * [FIXED] Background tasks (search index update, digest send, forum delete, prune topics) ignored their start delay and ran immediately, the search index update and digest task ran in the first page request after the start instead of 30 seconds later
 
