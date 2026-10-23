@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.11
+* [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
+
 # YetAnotherForum.NET v4.0.10
 * [NEW] Extended unit test suite including repository tests against an in-memory SQLite database
 * [NEW] UI tests for changing the e-mail address, two-factor authentication, deleting the own account, the login of not approved accounts, password reset links, editing posts of other users and the history of deleted posts
@@ -549,7 +552,6 @@ YetAnotherForum.NET Changelog
 * [FIXED] Register: the password strength bar of a weak password kept the color and width of a stronger password typed before
 * [FIXED] Wysiwyg editor: a refused or failed drag and drop upload left the upload placeholder in the editor
 * [FIXED] Register: a registration with custom profile fields on the register page always failed without a message (the attributes of the database model of the fields were validated), the fields were shown when they were required instead of when "show on register page" was set (a required field could not be hidden from the register page, a field with only "show on register page" was never shown), and the names of the fields were missing after a refused registration
-* [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
 
 # YetAnotherForum.NET v4.0.9
 * [NEW] added context menu to category and forum on the main
