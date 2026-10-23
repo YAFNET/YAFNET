@@ -7101,20 +7101,28 @@
             "#text": "تنظیم به عنوان جلد"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "تشکر"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "افزودن واکنش به پست"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "از فرستنده این پست تشکر کنید."
+            "@tag": "REACTION_LIKE",
+            "#text": "پسندیدم"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "حذف تشکر"
+            "@tag": "REACTION_LOVE",
+            "#text": "عشق"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "تشکر خود را از فرستنده این مطلب پس بگیرید."
+            "@tag": "REACTION_LAUGH",
+            "#text": "هاها"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "هورا"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "وای"
           },
           {
             "@tag": "BUTTON_UNDELETE",

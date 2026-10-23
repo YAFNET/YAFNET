@@ -7105,20 +7105,28 @@
             "#text": "Использовать как обложку"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Спасибо"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Добавить реакцию к сообщению"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Поблагодарить автора сообщения"
+            "@tag": "REACTION_LIKE",
+            "#text": "Нравится"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Удалить «Спасибо»"
+            "@tag": "REACTION_LOVE",
+            "#text": "Супер"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Удалить Ваше «Спасибо» автору сообщения"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Ха-ха"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Ура"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Ух ты"
           },
           {
             "@tag": "BUTTON_UNDELETE",

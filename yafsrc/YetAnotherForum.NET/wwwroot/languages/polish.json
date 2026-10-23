@@ -7105,20 +7105,28 @@
             "#text": "Ustaw jako okładkę"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Dziękuje"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Dodaj reakcję do posta"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Podziękuj twórcy posta"
+            "@tag": "REACTION_LIKE",
+            "#text": "Lubię to"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Usuń podziękowania"
+            "@tag": "REACTION_LOVE",
+            "#text": "Super"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Usuń swoje podziękowania dla twórcy posta"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hura"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           },
           {
             "@tag": "BUTTON_UNDELETE",

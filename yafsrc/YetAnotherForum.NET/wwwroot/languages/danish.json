@@ -7113,20 +7113,28 @@
             "#text": "Brug som forside"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Tak"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Tilføj en reaktion til indlægget"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Tak indlægs afsender"
+            "@tag": "REACTION_LIKE",
+            "#text": "Synes godt om"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Fjern tak"
+            "@tag": "REACTION_LOVE",
+            "#text": "Elsker"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Fjerner din takke note fra indlægs afsenderen"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurra"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           },
           {
             "@tag": "BUTTON_UNDELETE",

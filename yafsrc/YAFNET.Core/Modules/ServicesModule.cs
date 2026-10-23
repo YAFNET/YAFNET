@@ -200,7 +200,7 @@ public class ServicesModule : BaseModule
         builder.RegisterType<ReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerBoardContext()
             .PreserveExistingDefaults();
         builder.RegisterType<StopWatch>().As<IStopWatch>().InstancePerLifetimeScope().PreserveExistingDefaults();
-        builder.RegisterType<ThankYou>().As<IThankYou>().InstancePerBoardContext();
+        builder.RegisterType<Reactions>().As<IReactions>().InstancePerBoardContext();
         builder.RegisterType<SpamCheck>().As<ISpamCheck>().InstancePerBoardContext();
     }
 

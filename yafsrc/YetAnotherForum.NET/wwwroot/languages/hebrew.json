@@ -7117,20 +7117,28 @@
             "#text": "הגדר ככריכה"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "להודות"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "הוסף רגש להודעה"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "תודה לשולח הפוסט"
+            "@tag": "REACTION_LIKE",
+            "#text": "אהבתי"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "הסר תודה"
+            "@tag": "REACTION_LOVE",
+            "#text": "אוהב"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "הסר את הערת התודה שלך משולח הפוסט"
+            "@tag": "REACTION_LAUGH",
+            "#text": "חחח"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "הידד"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "וואו"
           },
           {
             "@tag": "BUTTON_UNDELETE",

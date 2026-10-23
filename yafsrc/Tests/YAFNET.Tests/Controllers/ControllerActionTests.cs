@@ -94,7 +94,7 @@ public class ControllerActionTests
                 b.RegisterInstance(this.aspNetUsers).As<IAspNetUsersHelper>();
                 b.RegisterInstance(Substitute.For<IUserDisplayName>()).As<IUserDisplayName>();
                 b.RegisterType<ActivityStream>().As<IActivityStream>();
-                b.RegisterType<ThankYou>().As<IThankYou>();
+                b.RegisterType<Reactions>().As<IReactions>();
                 b.RegisterType<PollService>().AsSelf();
                 b.RegisterType<DateTimeService>().As<IDateTimeService>();
                 b.RegisterInstance(Substitute.For<IAvatars>()).As<IAvatars>();
@@ -583,59 +583,77 @@ public class ControllerActionTests
     }
 
     [Test]
-    [Description("Thanks can't be given for unreadable or own posts")]
-    public void Thanks_Access_Test()
+    [Description("Reactions can't be given for unreadable or own posts, or with an unknown reaction")]
+    public async Task Reaction_Access_Test()
     {
         var hidden = this.db.AddForum("Hidden");
         var hiddenPost = this.db.AddMessage(this.db.AddTopic(hidden, this.alice), this.alice, "secret");
         var ownPost = this.db.AddMessage(this.topic, this.bob, "mine");
         this.board.GrantAccess(this.bob, this.forum);
 
-        this.CreateController<ThankYouController>().AddThanks(hiddenPost).Result.Should().BeOfType<NotFoundResult>();
-        this.CreateController<ThankYouController>().AddThanks(ownPost).Result.Should().BeOfType<NotFoundResult>();
-        this.CreateController<ThankYouController>().AddThanks(int.MaxValue).Result.Should().BeOfType<NotFoundResult>();
+        (await this.CreateController<ReactionController>().React(hiddenPost, 1)).Result.Should().BeOfType<NotFoundResult>();
+        (await this.CreateController<ReactionController>().React(ownPost, 1)).Result.Should().BeOfType<NotFoundResult>();
+        (await this.CreateController<ReactionController>().React(int.MaxValue, 1)).Result.Should().BeOfType<NotFoundResult>();
+        (await this.CreateController<ReactionController>().React(this.firstPost, 0)).Result.Should().BeOfType<NotFoundResult>();
+        (await this.CreateController<ReactionController>().React(this.firstPost, 6)).Result.Should().BeOfType<NotFoundResult>();
 
         this.Repository<Thanks>().Count(t => true).Should().Be(0);
     }
 
     [Test]
-    [Description("Removing a thanks of an unreadable post shows nothing (the answer lists the users who thanked it)")]
-    public async Task Thanks_Remove_Hidden_Post_Test()
+    [Description("Removing a reaction of an unreadable post shows nothing (the answer lists the users who reacted)")]
+    public async Task Reaction_Remove_Hidden_Post_Test()
     {
         var hidden = this.db.AddForum("Hidden");
         var hiddenPost = this.db.AddMessage(this.db.AddTopic(hidden, this.alice), this.alice, "secret");
         await this.Repository<Thanks>().InsertAsync(
-            new Thanks { MessageID = hiddenPost, ThanksFromUserID = this.alice, ThanksToUserID = this.alice, ThanksDate = DateTime.UtcNow });
+            new Thanks { MessageID = hiddenPost, ThanksFromUserID = this.bob, ThanksToUserID = this.alice, ThanksDate = DateTime.UtcNow });
 
         this.board.GrantAccess(this.bob, this.forum);
 
-        (await this.CreateController<ThankYouController>().RemoveThanks(hiddenPost)).Result.Should().BeOfType<NotFoundResult>();
-        (await this.CreateController<ThankYouController>().RemoveThanks(int.MaxValue)).Result.Should().BeOfType<NotFoundResult>();
+        (await this.CreateController<ReactionController>().React(hiddenPost, 2)).Result.Should().BeOfType<NotFoundResult>();
+
+        this.Repository<Thanks>().Count(t => t.MessageID == hiddenPost).Should().Be(1);
     }
 
     [Test]
-    [Description("Removing a thanks only removes the activities of this thanks")]
-    public async Task Thanks_Remove_Test()
+    [Description("Reacting again with another reaction changes it, with the same reaction removes it and only the activities of this reaction")]
+    public async Task Reaction_Change_And_Remove_Test()
     {
         var carol = this.db.AddUser("Carol");
         this.board.GrantAccess(this.bob, this.forum);
         this.board.GrantAccess(carol, this.forum);
         await this.Users.UpdateOnlyAsync(() => new User { Activity = true }, u => true);
 
-        this.CreateController<ThankYouController>().AddThanks(this.firstPost);
+        var info = (await this.CreateController<ReactionController>().React(this.firstPost, (int)ReactionType.Like)).Result
+            .Should().BeOfType<OkObjectResult>().Subject.Value.Should().BeOfType<ReactionInfo>().Subject;
+        info.MessageID.Should().Be(this.firstPost);
+        info.UserReaction.Should().Be((int)ReactionType.Like);
+        info.ReactionsHtml.Should().Contain($"id=\"dvReactions{this.firstPost}\"");
 
         this.board.LoginAs(carol);
-        this.CreateController<ThankYouController>().AddThanks(this.firstPost);
+        await this.CreateController<ReactionController>().React(this.firstPost, (int)ReactionType.Wow);
 
         (await this.Repository<Activity>().CountAsync(a => a.MessageID == this.firstPost)).Should().Be(4);
 
-        await this.CreateController<ThankYouController>().RemoveThanks(this.firstPost);
+        // another reaction replaces the reaction without new activities
+        await this.CreateController<ReactionController>().React(this.firstPost, (int)ReactionType.Hooray);
+        info = (ReactionInfo)((OkObjectResult)(await this.CreateController<ReactionController>().React(this.firstPost, (int)ReactionType.Laugh)).Result).Value;
+        info.UserReaction.Should().Be((int)ReactionType.Laugh);
+
+        (await this.Repository<Thanks>().GetAsync(t => t.MessageID == this.firstPost))
+            .Select(t => (t.ThanksFromUserID, (ReactionType)t.Reaction))
+            .Should().BeEquivalentTo([(this.bob, ReactionType.Like), (carol, ReactionType.Laugh)]);
+        (await this.Repository<Activity>().CountAsync(a => a.MessageID == this.firstPost)).Should().Be(4);
+
+        // the same reaction removes it
+        await this.CreateController<ReactionController>().React(this.firstPost, (int)ReactionType.Laugh);
 
         (await this.Repository<Thanks>().GetAsync(t => t.MessageID == this.firstPost)).Select(t => t.ThanksFromUserID)
             .Should().Equal(this.bob);
 
         var activities = await this.Repository<Activity>().GetAsync(a => a.MessageID == this.firstPost);
-        activities.Should().HaveCount(2, "Bob's thanks activities are kept");
+        activities.Should().HaveCount(2, "Bob's reaction activities are kept");
         activities.Should().OnlyContain(a => a.UserID == this.bob || a.FromUserID == this.bob);
     }
 

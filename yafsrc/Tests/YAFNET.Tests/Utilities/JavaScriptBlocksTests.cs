@@ -92,8 +92,7 @@ public class JavaScriptBlocksTests
         yield return Case("BootstrapTabsLoadJs", () => JavaScriptBlocks.BootstrapTabsLoadJs("ProfileTabs", "LastTab"));
         yield return Case("EditUserTabsLoadJs", () => JavaScriptBlocks.EditUserTabsLoadJs("Admin", 5, "var x = 1;"));
         yield return Case("LoadGotoAnchor", () => JavaScriptBlocks.LoadGotoAnchor("post5"));
-        yield return Case("AddThanksJs", () => JavaScriptBlocks.AddThanksJs("'<span>' + response.text + '</span>'"));
-        yield return Case("RemoveThanksJs", () => JavaScriptBlocks.RemoveThanksJs("'<span>' + response.text + '</span>'"));
+        yield return Case("SetReactionJs", JavaScriptBlocks.SetReactionJs);
         yield return Case("CreateSCEditorJs", () => JavaScriptBlocks.CreateSCEditorJs("editor", 5000, "de", "bold,italic", "'/css/editor.css'", "/extensions", string.Empty));
         yield return Case("CreateSCEditorJs with drag and drop", () => JavaScriptBlocks.CreateSCEditorJs("editor", 5000, "de", "bold,italic", "'/css/editor.css'", "/extensions", JavaScriptBlocks.SCEditorDragDropJs("/api/FileUpload/Upload")));
         yield return Case("FileAutoUploadLoadJs", () => JavaScriptBlocks.FileAutoUploadLoadJs("/api/FileUpload/Upload", ".EditorDiv"));

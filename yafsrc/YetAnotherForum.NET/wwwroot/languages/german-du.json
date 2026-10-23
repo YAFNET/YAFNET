@@ -7105,20 +7105,28 @@
             "#text": "Als Cover auswählen"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Danke"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Reagiere auf den Beitrag"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Dem Beitragsautor danken"
+            "@tag": "REACTION_LIKE",
+            "#text": "Gefällt mir"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Danke entfernen"
+            "@tag": "REACTION_LOVE",
+            "#text": "Liebe"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Entfernen Sie ihre Danksagung vom Beitragsautor"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurra"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           },
           {
             "@tag": "BUTTON_UNDELETE",

@@ -92,17 +92,12 @@
         }
     }
 
-    // Format Thanks Row
-    if (!postData.PostDeleted && !postData.IsLocked)
+    // the reactions can't be changed in deleted posts and locked topics
+    var reactVisible = thankVisible && !postData.PostDeleted && !postData.IsLocked;
+
+    if (reactVisible)
     {
-        // Register Javascript
-        const string addThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"fas fa-heart text-danger\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
-
-        const string removeThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"far fa-heart\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
-
-        var thanksJs = $"{JavaScriptBlocks.AddThanksJs(removeThankBoxHtml)}{Environment.NewLine}{JavaScriptBlocks.RemoveThanksJs(addThankBoxHtml)}";
-
-        Current.InlineElements.InsertJsBlock("ThanksJs", thanksJs);
+        Current.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.SetReactionJs), JavaScriptBlocks.SetReactionJs());
     }
 
     // report post
@@ -635,61 +630,15 @@
                         </div>
                     </div>
 
-                    @if (Model.ThanksNumber > 0 || thankVisible || quoteVisible || multiQuoteVisible)
+                    @if (Model.ThanksNumber > 0 || reactVisible || quoteVisible || multiQuoteVisible)
                     {
-                        var thanksInfo = Current.Get<IThankYou>().ThanksInfo(postData.MessageId);
-
                         <div class="card-footer py-0">
                             <div class="row">
-                                <div class="col">
-                                    @if (Model.ThanksNumber > 0)
+                                <div class="col d-flex align-items-center">
+                                    @if (Model.ThanksNumber > 0 || reactVisible)
                                     {
-                                        @if (Current.IsGuest)
-                                        {
-	                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">
-                                                <i class="fa fa-heart text-danger me-2"></i>+@Model.ThanksNumber
-	                                        </span>
-                                        }
-                                        else
-                                        {
-	                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">
-		                                       @Html.Raw(thanksInfo)
-	                                        </span>
-                                        }
+                                        @Html.Raw(Current.Get<IReactions>().ReactionsHtml(postData.MessageId, reactVisible))
                                     }
-                                    else
-                                    {
-                                        <span id="@Html.Raw($"dvThanksInfo{Model.MessageID}")">&nbsp;</span>
-                                    }
-                                    
-                                    <span id="@Html.Raw($"dvThankBox{Model.MessageID}")">
-                                        @if (thankVisible)
-                                        {
-                                            if (Model.IsThankedByUser)
-                                            {
-                                                <a button-style="Link"
-                                                   Icon="heart"
-                                                   icon-css-class="far"
-                                                   icon-mobile-only="true"
-                                                   bs-toggle="tooltip"
-                                                   text="@(Current.Get<ILocalization>().GetText("BUTTON_THANKSDELETE"))"
-                                                   href="@($"javascript:removeThanks({Model.MessageID});")"
-                                                   title-localized-tag="BUTTON_THANKSDELETE_TT"></a>
-                                            }
-                                            else
-                                            {
-                                                <a button-style="Link"
-                                                   Icon="heart"
-                                                   icon-css-class="fas"
-                                                   icon-color="text-danger"
-                                                   icon-mobile-only="true"
-                                                   bs-toggle="tooltip"
-                                                   text="@(Current.Get<ILocalization>().GetText("BUTTON_THANKS"))"
-                                                   href="@($"javascript:addThanks({Model.MessageID});")"
-                                                   title-localized-tag="BUTTON_THANKS_TT"></a>
-                                            }
-                                        }
-                                    </span>
                                 </div>
                                 <div class="col-auto px-0 d-flex flex-wrap">
                                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

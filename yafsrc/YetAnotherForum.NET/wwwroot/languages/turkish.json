@@ -7113,20 +7113,28 @@
             "#text": "Kapak olarak ayarla"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Teşekkür Et"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Gönderiye bir tepki ekle"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Teşekkür Et"
+            "@tag": "REACTION_LIKE",
+            "#text": "Beğen"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Teşekkürü Sil"
+            "@tag": "REACTION_LOVE",
+            "#text": "Bayıldım"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Teşekkürü Geti Al"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Yaşasın"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Vay"
           },
           {
             "@tag": "BUTTON_UNDELETE",

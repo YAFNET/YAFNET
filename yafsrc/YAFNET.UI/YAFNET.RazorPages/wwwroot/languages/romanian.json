@@ -7113,20 +7113,28 @@
             "#text": "Seteaza ca coperta"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Multumiri"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Adaugă o reacție la mesaj"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Multumeste-i expeditorului"
+            "@tag": "REACTION_LIKE",
+            "#text": "Îmi place"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Sterge multumiri"
+            "@tag": "REACTION_LOVE",
+            "#text": "Ador"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Sterge multumire din postare."
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Ura"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Uau"
           },
           {
             "@tag": "BUTTON_UNDELETE",

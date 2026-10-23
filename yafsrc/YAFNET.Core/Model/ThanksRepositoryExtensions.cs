@@ -87,9 +87,13 @@ public static class ThanksRepositoryExtensions
         /// <param name="messageId">
         /// The message id.
         /// </param>
+        /// <param name="reaction">
+        /// The reaction.
+        /// </param>
         public void AddMessageThanks(int fromUserId,
             int toUserId,
-            int messageId)
+            int messageId,
+            ReactionType reaction = ReactionType.Love)
         {
             repository.Insert(
                 new Thanks
@@ -97,8 +101,30 @@ public static class ThanksRepositoryExtensions
                     ThanksFromUserID = fromUserId,
                     ThanksToUserID = toUserId,
                     MessageID = messageId,
-                    ThanksDate = DateTime.UtcNow
+                    ThanksDate = DateTime.UtcNow,
+                    Reaction = (int)reaction
                 });
+        }
+
+        /// <summary>
+        /// Changes the reaction of the user to the message.
+        /// </summary>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="reaction">
+        /// The new reaction.
+        /// </param>
+        public void UpdateMessageReaction(int fromUserId,
+            int messageId,
+            ReactionType reaction)
+        {
+            repository.UpdateOnly(
+                () => new Thanks { Reaction = (int)reaction },
+                t => t.ThanksFromUserID == fromUserId && t.MessageID == messageId);
         }
 
         /// <summary>

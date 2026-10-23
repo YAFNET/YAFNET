@@ -7105,20 +7105,28 @@
             "#text": "Задайте като капак"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Благодаря"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Добави реакция към публикацията"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Благодаря на подателя на публикацията"
+            "@tag": "REACTION_LIKE",
+            "#text": "Харесва ми"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Премахнете благодарността"
+            "@tag": "REACTION_LOVE",
+            "#text": "Любов"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Премахнете благодарствената си бележка от подателя на публикацията"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Ха-ха"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Ура"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Уау"
           },
           {
             "@tag": "BUTTON_UNDELETE",

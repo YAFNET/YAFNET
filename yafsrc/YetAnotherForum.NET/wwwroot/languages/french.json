@@ -7113,20 +7113,28 @@
             "#text": "Utiliser comme couverture"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Remercier"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Ajouter une réaction au message"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Remercier l'auteur du message"
+            "@tag": "REACTION_LIKE",
+            "#text": "J'aime"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Retirer remerciements"
+            "@tag": "REACTION_LOVE",
+            "#text": "J'adore"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Retirer votre note de remerciements pour l'auteur du message"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hourra"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Waouh"
           },
           {
             "@tag": "BUTTON_UNDELETE",

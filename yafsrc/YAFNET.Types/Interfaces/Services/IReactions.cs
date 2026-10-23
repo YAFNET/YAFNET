@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,59 +27,33 @@ namespace YAF.Types.Interfaces.Services;
 using YAF.Types.Objects;
 
 /// <summary>
-/// The ThankYou interface.
+/// The Reactions interface.
 /// </summary>
-public interface IThankYou
+public interface IReactions
 {
     /// <summary>
-    /// Creates an instance of the thank you object from the current information.
+    /// Creates the reaction info of the message for the current user.
     /// </summary>
-    /// <param name="textTag">
-    /// Button Text
-    /// </param>
-    /// <param name="titleTag">
-    /// Button  Title
-    /// </param>
     /// <param name="messageId">
     /// The message Id.
     /// </param>
     /// <returns>
-    /// Returns ThankYou Info
+    /// Returns the Reaction Info
     /// </returns>
-    ThankYouInfo CreateThankYou(
-        string textTag,
-        string titleTag,
-        int messageId);
+    ReactionInfo GetReactionInfo(int messageId);
 
     /// <summary>
-    /// Creates an instance of the thank you object from the current information.
-    /// </summary>
-    /// <param name="textTag">
-    /// Button Text
-    /// </param>
-    /// <param name="titleTag">
-    /// Button  Title
-    /// </param>
-    /// <param name="messageId">
-    /// The message Id.
-    /// </param>
-    /// <returns>
-    /// Returns ThankYou Info
-    /// </returns>
-    ThankYouInfo GetThankYou(
-        string textTag,
-        string titleTag,
-        int messageId);
-
-    /// <summary>
-    /// This method returns a string which shows how many times users have
-    ///   thanked the message with the provided messageID. Returns an empty string.
+    /// Creates the HTML of the reactions box of the message: the given reactions
+    ///   with their counts, and the reaction picker if the current user can react.
     /// </summary>
     /// <param name="messageId">
     /// The Message Id.
     /// </param>
+    /// <param name="canReact">
+    /// If the current user can react to the message.
+    /// </param>
     /// <returns>
-    /// The thanks info.
+    /// The reactions HTML.
     /// </returns>
-    string ThanksInfo(int messageId);
+    string ReactionsHtml(int messageId, bool canReact);
 }

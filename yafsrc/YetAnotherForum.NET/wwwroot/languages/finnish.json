@@ -7113,20 +7113,28 @@
             "#text": "Aseta kansi"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Kiitos"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Lisää reaktio viestiin"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Kiitä postin lähettäjää"
+            "@tag": "REACTION_LIKE",
+            "#text": "Tykkää"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Poista Kiitos"
+            "@tag": "REACTION_LOVE",
+            "#text": "Ihastu"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Poista kiitosviesti postin lähettäjältä"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurraa"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Vau"
           },
           {
             "@tag": "BUTTON_UNDELETE",

@@ -7113,20 +7113,28 @@
             "#text": "Nastaviť ako kryt"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Ďakujem"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Pridať reakciu k príspevku"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Poďakujte odosielateľovi príspevku"
+            "@tag": "REACTION_LIKE",
+            "#text": "Páči sa mi to"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Odstrániť Poďakovanie"
+            "@tag": "REACTION_LOVE",
+            "#text": "Srdce"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Odstránenie poďakovania od odosielateľa pošty"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurá"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           },
           {
             "@tag": "BUTTON_UNDELETE",

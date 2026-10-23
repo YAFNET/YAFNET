@@ -1,0 +1,90 @@
+// Reactions of the posts, the picker pops up like the Facebook reactions
+// (the menu itself is positioned by popper with a transform, so only the bar and the emojis are animated)
+$reaction-easing: cubic-bezier(.34, 1.56, .64, 1);
+
+.reactions {
+    .reaction-picker-menu {
+        padding: .25rem .5rem;
+        border-radius: 2rem;
+        box-shadow: 0 .25rem 1rem rgba(0, 0, 0, .15);
+
+        &.show {
+            animation: reaction-fade-in .15s ease-out backwards;
+
+            .reaction-picker-bar {
+                animation: reaction-bar-in .25s $reaction-easing backwards;
+            }
+
+            .reaction-emoji {
+                animation: reaction-pop-in .4s $reaction-easing backwards;
+
+                @for $i from 1 through 5 {
+                    &:nth-child(#{$i}) {
+                        animation-delay: #{.05s + ($i - 1) * .05s};
+                    }
+                }
+            }
+        }
+    }
+
+    .reaction-picker-bar {
+        display: flex;
+        gap: .125rem;
+        transform-origin: bottom left;
+    }
+
+    .reaction-emoji {
+        width: auto;
+        padding: .25rem;
+        font-size: 1.75rem;
+        line-height: 1;
+        border-radius: 50%;
+        background-color: transparent;
+        transform-origin: bottom center;
+        transition: transform .15s $reaction-easing;
+
+        &:hover,
+        &:focus-visible {
+            background-color: transparent;
+            transform: scale(1.35) translateY(-.25rem);
+        }
+
+        &.active {
+            background-color: var(--bs-secondary-bg);
+        }
+    }
+}
+
+@keyframes reaction-fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes reaction-bar-in {
+    from {
+        opacity: 0;
+        transform: translateY(.75rem) scale(.6);
+    }
+}
+
+@keyframes reaction-pop-in {
+    from {
+        opacity: 0;
+        transform: translateY(1rem) scale(.3);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reactions {
+        .reaction-picker-menu.show,
+        .reaction-picker-menu.show .reaction-picker-bar,
+        .reaction-picker-menu.show .reaction-emoji {
+            animation: none;
+        }
+
+        .reaction-emoji {
+            transition: none;
+        }
+    }
+}

@@ -7113,20 +7113,28 @@
             "#text": "Definir como Capa"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Obrigado"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Adicionar uma reação à mensagem"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Agradecer ao remetente do correio"
+            "@tag": "REACTION_LIKE",
+            "#text": "Gosto"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Retirar Obrigado"
+            "@tag": "REACTION_LOVE",
+            "#text": "Adoro"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Retire a sua nota de agradecimento do remetente do correio"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Viva"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Uau"
           },
           {
             "@tag": "BUTTON_UNDELETE",

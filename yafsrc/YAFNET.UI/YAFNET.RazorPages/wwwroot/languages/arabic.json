@@ -7101,20 +7101,28 @@
             "#text": "اختياره كغطاء"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "شكرا"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "أضف تفاعلاً إلى المشاركة"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "تم ارسال  الشكر  عن المشاركة"
+            "@tag": "REACTION_LIKE",
+            "#text": "إعجاب"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "ازالة الشكر"
+            "@tag": "REACTION_LOVE",
+            "#text": "أحببته"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "حذف  شكر عن المشاركة "
+            "@tag": "REACTION_LAUGH",
+            "#text": "هاها"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "احتفال"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "واو"
           },
           {
             "@tag": "BUTTON_UNDELETE",

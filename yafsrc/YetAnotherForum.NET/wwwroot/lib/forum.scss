@@ -13,6 +13,7 @@
 @use "forum/dropdowns.scss";
 @use "forum/cookie-alert.scss";
 @use "forum/button-scroll.scss";
+@use "forum/reactions.scss";
 
 @use "pages/user-profile.scss";
 @use "pages/forum-index.scss";
@@ -89,53 +90,10 @@
     font-size: 2rem;
 }
 
-// Thanks Popover
+// Forum mods popover
 .popover-body-scrollable {
     max-height: 200px;
     overflow-y: scroll;
-}
-
-.avatar-stack {
-    margin-top: 5px;
-    display: inline-block;
-
-    .avatar-item {
-        height: 25px;
-        width: 25px;
-        display: inline-block;
-        transition: margin 0.1s ease-in-out;
-
-        & + .avatar-item {
-            margin-left: -10px;
-        }
-
-        &:first-child {
-            z-index: 5;
-        }
-
-        &:nth-child(2) {
-            z-index: 4;
-        }
-
-        &:nth-child(3) {
-            z-index: 3;
-        }
-
-        &:nth-child(4) {
-            z-index: 2;
-        }
-
-        &:last-child {
-            z-index: 1;
-        }
-    }
-
-    &:hover {
-        .avatar-item {
-            margin-left: 0px;
-            margin-right: 8px;
-        }
-    }
 }
 
 // Unread Icon

@@ -7113,20 +7113,28 @@
             "#text": "Nastavit jako kryt"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Poděkovat"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Přidat reakci k příspěvku"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Děkuji odesílateli příspěvku"
+            "@tag": "REACTION_LIKE",
+            "#text": "Líbí se mi"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Odebrat Děkuji"
+            "@tag": "REACTION_LOVE",
+            "#text": "Srdce"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Odstraňte svůj poděkování od odesílatele příspěvku"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurá"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Páni"
           },
           {
             "@tag": "BUTTON_UNDELETE",

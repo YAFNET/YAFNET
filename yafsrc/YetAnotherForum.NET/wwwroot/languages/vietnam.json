@@ -7113,20 +7113,28 @@
             "#text": "Đặt làm bìa"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Cảm ơn"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Thêm cảm xúc cho bài viết"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Cảm ơn người gửi"
+            "@tag": "REACTION_LIKE",
+            "#text": "Thích"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Xóa lời cảm ơn"
+            "@tag": "REACTION_LOVE",
+            "#text": "Yêu thích"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Xóa cảm ơn trong bài viết"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hoan hô"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           },
           {
             "@tag": "BUTTON_UNDELETE",

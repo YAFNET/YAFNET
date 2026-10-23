@@ -7105,20 +7105,28 @@
             "#text": "Marcar como versión"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Gracias"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Añadir una reacción al mensaje"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Agradecer al autor"
+            "@tag": "REACTION_LIKE",
+            "#text": "Me gusta"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Eliminar agradecimiento"
+            "@tag": "REACTION_LOVE",
+            "#text": "Me encanta"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Eliminar tu agradecimiento del autor de la publicación"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Jaja"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurra"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Me asombra"
           },
           {
             "@tag": "BUTTON_UNDELETE",

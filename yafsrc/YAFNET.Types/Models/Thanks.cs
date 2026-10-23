@@ -24,6 +24,8 @@
 
 using ServiceStack.DataAnnotations;
 
+using YAF.Types.Constants;
+
 namespace YAF.Types.Models;
 
 /// <summary>
@@ -66,4 +68,11 @@ public class Thanks : IEntity, IHaveID
     /// </summary>
     [Required]
     public DateTime ThanksDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the reaction (see <see cref="ReactionType"/>), the thanks given before the reactions are a love.
+    /// </summary>
+    [Required]
+    [Default(2)]
+    public int Reaction { get; set; } = (int)ReactionType.Love;
 }

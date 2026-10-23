@@ -95,7 +95,7 @@ public class SuspendUserTests(ComposeScenario scenario) : DatabaseTestBase(scena
                         return response.status;
                     }
                     """,
-                    $"{this.TestSettings.TestForumUrl}api/ThankYou/AddThanks/1");
+                    $"{this.TestSettings.TestForumUrl}api/Reaction/React/1/1");
 
                 Assert.That(status, Is.EqualTo(403), "The suspended user could use the api");
             });

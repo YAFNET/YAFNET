@@ -506,77 +506,44 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// script for the addThanks button
+    /// script for the reaction buttons, replaces the reactions box with the answer of the api
+    ///   (the tooltips of the replaced box are removed, the ones of the new box created; they are not animated,
+    ///   a hide animation would end after the tooltip is removed)
     /// </summary>
-    /// <param name="removeThankBoxHtml">
-    /// HTML code for the "Remove Thank" button
-    /// </param>
     /// <returns>
-    /// The add thanks JS.
+    /// The set reaction JS.
     /// </returns>
-    public static string AddThanksJs(string removeThankBoxHtml)
+    public static string SetReactionJs()
     {
-        return $$"""
-                 function addThanks(messageId) {
-                     fetch("/api/ThankYou/AddThanks/" + messageId,
-                             {
-                                 method: "POST",
-                                 headers: {
-                                     "Accept": "application/json",
-                                     "Content-Type": "application/json;charset=utf-8",
-                                     "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
-                                 }
-                             }).then(res => res.json())
-                         .then(response => {
-                 
-                             document.getElementById('dvThanksInfo' + response.messageID).innerHTML = response.thanksInfo;
-                             document.getElementById('dvThankBox' + response.messageID).innerHTML = {{removeThankBoxHtml}};
-                 
-                             document.querySelectorAll(".thanks-popover").forEach(pop => {
-                                 const popover = new bootstrap.Popover(pop,
-                                     {
-                                         template:
-                                             '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
-                                     });
-                             });
-                         }).catch(function (error) {
-                             errorLog(error);
-                         });
-                 }
-                 """;
-    }
+        return """
+               function reactionTooltips(box) {
+                   return box.querySelectorAll('[data-bs-toggle="tooltip"]');
+               }
 
-    /// <summary>
-    /// script for the removeThanks button
-    /// </summary>
-    /// <param name="addThankBoxHtml">
-    /// The Add Thank Box HTML.
-    /// </param>
-    /// <returns>
-    /// The remove thanks JS.
-    /// </returns>
-    public static string RemoveThanksJs(string addThankBoxHtml)
-    {
-        return $$"""
-                  function removeThanks(messageId) {
-                      fetch("/api/ThankYou/RemoveThanks/" + messageId,
-                              {
-                                  method: "POST",
-                                  headers: {
-                                      "Accept": "application/json",
-                                      "Content-Type": "application/json;charset=utf-8",
-                                      "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
-                                  }
-                              }).then(res => res.json())
-                          .then(response => {
-                  
-                              document.getElementById("dvThanksInfo" + response.messageID).innerHTML = response.thanksInfo;
-                              document.getElementById("dvThankBox" + response.messageID).innerHTML = {{addThankBoxHtml}};
-                          }).catch(function(error) {
-                              errorLog(error);
-                          });
-                  }
-                  """;
+               function setReaction(messageId, reaction) {
+                   fetch("/api/Reaction/React/" + messageId + "/" + reaction,
+                           {
+                               method: "POST",
+                               headers: {
+                                   "Accept": "application/json",
+                                   "Content-Type": "application/json;charset=utf-8",
+                                   "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                               }
+                           }).then(res => res.json())
+                       .then(response => {
+                           const box = document.getElementById("dvReactions" + response.messageID);
+
+                           reactionTooltips(box).forEach(el => bootstrap.Tooltip.getInstance(el)?.dispose());
+
+                           box.outerHTML = response.reactionsHtml;
+
+                           reactionTooltips(document.getElementById("dvReactions" + response.messageID))
+                               .forEach(el => bootstrap.Tooltip.getOrCreateInstance(el));
+                       }).catch(function (error) {
+                           errorLog(error);
+                       });
+               }
+               """;
     }
 
     /// <summary>

@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,55 +22,35 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects;
+namespace YAF.Types.Constants;
 
 /// <summary>
-/// Thank You Info
+/// The reactions a user can give to a post (stored in the Thanks table).
 /// </summary>
-public class ThankYouInfo
+public enum ReactionType
 {
     /// <summary>
-    /// Gets or sets Text.
+    /// The like (thumbs up).
     /// </summary>
-    public string Text
-    {
-        get;
-        set;
-    }
+    Like = 1,
 
     /// <summary>
-    /// Gets or sets Title.
+    /// The love (heart), the reaction of the thanks given before the reactions.
     /// </summary>
-    public string Title
-    {
-        get;
-        set;
-    }
+    Love = 2,
 
     /// <summary>
-    /// Gets or sets MessageID.
+    /// The laugh.
     /// </summary>
-    public int MessageID
-    {
-        get;
-        set;
-    }
+    Laugh = 3,
 
     /// <summary>
-    /// Gets or sets ThanksInfo.
+    /// The hooray (party popper).
     /// </summary>
-    public string ThanksInfo
-    {
-        get;
-        set;
-    }
+    Hooray = 4,
 
     /// <summary>
-    /// Gets or sets Thanks.
+    /// The wow (surprised face).
     /// </summary>
-    public string Thanks
-    {
-        get;
-        set;
-    }
+    Wow = 5
 }

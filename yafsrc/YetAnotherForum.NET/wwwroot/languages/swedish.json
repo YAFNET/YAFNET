@@ -7113,20 +7113,28 @@
             "#text": "Ställ in som omslag"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Tack"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Lägg till en reaktion på inlägget"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Tacka avsändaren av inlägget"
+            "@tag": "REACTION_LIKE",
+            "#text": "Gilla"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Ta bort Tack"
+            "@tag": "REACTION_LOVE",
+            "#text": "Älska"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Ta bort ditt tackbrev från postens avsändare"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurra"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           },
           {
             "@tag": "BUTTON_UNDELETE",

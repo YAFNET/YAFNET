@@ -7105,20 +7105,28 @@
             "#text": "Imposta come copertina"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Grazie"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Aggiungi una reazione al messaggio"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Ringrazia l'autore del post"
+            "@tag": "REACTION_LIKE",
+            "#text": "Mi piace"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Elimina i ringraziamenti"
+            "@tag": "REACTION_LOVE",
+            "#text": "Adoro"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Elimina la tua nota di ringraziamento all'autore del messaggio"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Ahah"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Evviva"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           },
           {
             "@tag": "BUTTON_UNDELETE",

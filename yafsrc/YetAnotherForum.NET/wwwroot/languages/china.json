@@ -7113,20 +7113,28 @@
             "#text": "设为封面"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "感谢"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "对帖子添加回应"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "感谢发件人"
+            "@tag": "REACTION_LIKE",
+            "#text": "赞"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "删除谢谢"
+            "@tag": "REACTION_LOVE",
+            "#text": "爱心"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "从帖子发件人中删除您的感谢信"
+            "@tag": "REACTION_LAUGH",
+            "#text": "哈哈"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "欢呼"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "哇"
           },
           {
             "@tag": "BUTTON_UNDELETE",

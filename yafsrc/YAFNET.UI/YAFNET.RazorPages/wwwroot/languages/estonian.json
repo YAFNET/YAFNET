@@ -7113,20 +7113,28 @@
             "#text": "Pane kaanepildiks"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Tänu"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Lisa postitusele reaktsioon"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Tänan postituse saatjat"
+            "@tag": "REACTION_LIKE",
+            "#text": "Meeldib"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Eemalda tänu"
+            "@tag": "REACTION_LOVE",
+            "#text": "Armastan"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Eemalda oma tänuavaldus postituse saatjast"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurraa"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Vau"
           },
           {
             "@tag": "BUTTON_UNDELETE",

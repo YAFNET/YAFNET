@@ -7105,20 +7105,28 @@
             "#text": "Gebruik als voorblad"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Bedank"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Voeg een emoji-reactie toe aan het bericht"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Bedank de verzender"
+            "@tag": "REACTION_LIKE",
+            "#text": "Vind ik leuk"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Bedankje verwijderen"
+            "@tag": "REACTION_LOVE",
+            "#text": "Geweldig"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Verwijder je bedankbericht"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hoera"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           },
           {
             "@tag": "BUTTON_UNDELETE",

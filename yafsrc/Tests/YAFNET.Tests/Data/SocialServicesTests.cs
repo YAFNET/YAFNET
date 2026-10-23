@@ -80,7 +80,7 @@ public class SocialServicesTests
         this.board = new TestBoardContext(
             b =>
             {
-                b.RegisterType<ThankYou>().As<IThankYou>();
+                b.RegisterType<Reactions>().As<IReactions>();
                 b.RegisterType<Reputation>().As<IReputation>();
                 b.RegisterType<Friends>().As<IFriends>();
                 b.RegisterType<ActivityStream>().As<IActivityStream>();
@@ -131,40 +131,67 @@ public class SocialServicesTests
     }
 
     [Test]
-    [Description("The thank you box lists the thankers with encoded names and avatars")]
-    public void ThankYou_Info_Test()
+    [Description("The reactions box groups the reactions with their counts and the encoded names of the users")]
+    public void Reactions_Html_Test()
     {
-        var service = this.board.Resolve<IThankYou>();
+        var service = this.board.Resolve<IReactions>();
+        this.board.BoardSettings.ShowThanksDate = false;
+        this.board.Localization.Add("BUTTON", "REACTION_LIKE", "Like").Add("BUTTON", "REACTION_LOVE", "Love")
+            .Add("BUTTON", "BUTTON_REACT_TT", "Add a reaction");
 
-        service.ThanksInfo(this.message).Should().Be("&nbsp;");
+        service.ReactionsHtml(this.message, false).Should()
+            .Be($"<span id=\"dvReactions{this.message}\" class=\"reactions d-inline-flex flex-wrap align-items-center gap-1\"></span>");
 
         this.Repository<Thanks>().AddMessageThanks(this.bob, this.alice, this.message);
+        this.Repository<Thanks>().AddMessageThanks(this.carol, this.alice, this.message, ReactionType.Like);
 
-        var html = service.ThanksInfo(this.message);
+        var html = service.ReactionsHtml(this.message, false);
 
-        html.Should().Contain($"src=\"/avatar/{this.bob}\"");
-        html.Should().Contain("alt=\"Bob &lt;b&gt;\"").And.NotContain("Bob <b>");
+        // the tooltip is html, the encoded name is encoded again for the attribute
+        html.Should().Contain("data-bs-toggle=\"tooltip\" data-bs-animation=\"false\" data-bs-html=\"true\" title=\"Like&lt;br&gt;Carol\"")
+            .And.Contain("title=\"Love&lt;br&gt;Bob &amp;lt;b&amp;gt;\"").And.NotContain("Bob <b>").And.NotContain("Bob &lt;b&gt;");
+        html.Should().Contain("&#x1F44D;<span class=\"ms-1\">1</span>").And.NotContain("setReaction").And.NotContain("dropdown");
+        html.IndexOf("&#x1F44D;", StringComparison.Ordinal).Should().BeLessThan(html.IndexOf("&#x2764;", StringComparison.Ordinal));
 
-        service.ThanksInfo(this.message).Should().StartWith("<i class=\"fas fa-heart text-danger me-1\"></i><span class=\"avatar-stack\">");
+        // the picker and the buttons, the reaction of the current user is highlighted
+        this.LoginAs(this.bob);
+        html = service.ReactionsHtml(this.message, true);
 
-        this.board.Localization.Add("BUTTON", "BUTTON_THANKS", "Thanks").Add("BUTTON", "BUTTON_THANKS_TT", "Say thanks");
+        html.Should().Contain($"btn-primary\" data-bs-toggle=\"tooltip\" data-bs-animation=\"false\" data-bs-html=\"true\" title=\"Love&lt;br&gt;Bob &amp;lt;b&amp;gt;\" onclick=\"setReaction({this.message}, 2);\"");
+        html.Should().Contain($"btn-outline-secondary\" data-bs-toggle=\"tooltip\" data-bs-animation=\"false\" data-bs-html=\"true\" title=\"Like&lt;br&gt;Carol\" onclick=\"setReaction({this.message}, 1);\"");
+        html.Should().Contain("class=\"btn btn-link p-0 reaction-picker\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\" aria-label=\"Add a reaction\"><span class=\"d-inline-block px-2 py-1\" data-bs-toggle=\"tooltip\" data-bs-animation=\"false\" data-bs-trigger=\"hover\" title=\"Add a reaction\"><i class=\"far fa-face-smile\"></i></span></button>");
+        html.Should().Contain($"data-bs-toggle=\"tooltip\" data-bs-animation=\"false\" title=\"Like\" onclick=\"setReaction({this.message}, 1);\"").And.Contain($"onclick=\"setReaction({this.message}, 5);\"");
 
-        var info = service.CreateThankYou("BUTTON_THANKS", "BUTTON_THANKS_TT", this.message);
+        var info = service.GetReactionInfo(this.message);
         info.MessageID.Should().Be(this.message);
-        info.Text.Should().Be("Thanks");
-        info.Title.Should().Be("Say thanks");
+        info.UserReaction.Should().Be((int)ReactionType.Love);
+        info.ReactionsHtml.Should().Be(html);
     }
 
     [Test]
-    [Description("The thanks date is shown in the title when enabled")]
-    public void ThankYou_Date_Test()
+    [Description("Guests only see the counts of the reactions, not the names")]
+    public void Reactions_Guest_Test()
+    {
+        this.board.Localization.Add("BUTTON", "REACTION_LOVE", "Love");
+        this.Repository<Thanks>().AddMessageThanks(this.bob, this.alice, this.message);
+        this.board.BoardSettings.ShowThanksDate = false;
+        this.board.User.IsGuest = true;
+
+        this.board.Resolve<IReactions>().ReactionsHtml(this.message, false).Should().Contain("title=\"Love\"")
+            .And.NotContain("Bob");
+    }
+
+    [Test]
+    [Description("The date of the reactions is shown in the title when enabled")]
+    public void Reactions_Date_Test()
     {
         this.board.BoardSettings.ShowThanksDate = true;
-        this.board.Localization.Add("DEFAULT", "ONDATE", "on {0}").Add("DEFAULT", "FORMAT_DATE_SHORT", "yyyy-MM-dd");
+        this.board.Localization.Add("DEFAULT", "ONDATE", "on {0}").Add("DEFAULT", "FORMAT_DATE_SHORT", "yyyy-MM-dd")
+            .Add("BUTTON", "REACTION_LOVE", "Love");
         this.Repository<Thanks>().AddMessageThanks(this.bob, this.alice, this.message);
 
-        this.board.Resolve<IThankYou>().ThanksInfo(this.message).Should()
-            .Contain($"title=\"Bob &lt;b&gt; on {DateTime.UtcNow:yyyy-MM-dd}\"");
+        this.board.Resolve<IReactions>().ReactionsHtml(this.message, false).Should()
+            .Contain($"title=\"Love&lt;br&gt;Bob &amp;lt;b&amp;gt; on {DateTime.UtcNow:yyyy-MM-dd}\"");
     }
 
     [Test]

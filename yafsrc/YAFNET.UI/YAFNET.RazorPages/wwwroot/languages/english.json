@@ -7105,20 +7105,28 @@
                     "#text": "Set as Cover"
                 },
                 {
-                    "@tag": "BUTTON_THANKS",
-                    "#text": "Thank"
+                    "@tag": "BUTTON_REACT_TT",
+                    "#text": "Add a reaction to the post"
                 },
                 {
-                    "@tag": "BUTTON_THANKS_TT",
-                    "#text": "Thank the post sender"
+                    "@tag": "REACTION_LIKE",
+                    "#text": "Like"
                 },
                 {
-                    "@tag": "BUTTON_THANKSDELETE",
-                    "#text": "Remove Thank"
+                    "@tag": "REACTION_LOVE",
+                    "#text": "Love"
                 },
                 {
-                    "@tag": "BUTTON_THANKSDELETE_TT",
-                    "#text": "Remove your thank note from the post sender"
+                    "@tag": "REACTION_LAUGH",
+                    "#text": "Haha"
+                },
+                {
+                    "@tag": "REACTION_HOORAY",
+                    "#text": "Hooray"
+                },
+                {
+                    "@tag": "REACTION_WOW",
+                    "#text": "Wow"
                 },
                 {
                     "@tag": "BUTTON_UNDELETE",

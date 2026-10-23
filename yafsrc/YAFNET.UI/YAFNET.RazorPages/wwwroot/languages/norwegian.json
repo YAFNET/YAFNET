@@ -7113,20 +7113,28 @@
             "#text": "Sett som omslag"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Takke"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Legg til en reaksjon på innlegget"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Takk til avsenderen av innlegget"
+            "@tag": "REACTION_LIKE",
+            "#text": "Liker"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Fjern Takk"
+            "@tag": "REACTION_LOVE",
+            "#text": "Elsker"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Fjern takkebrevet fra avsenderen av innlegget"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurra"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           },
           {
             "@tag": "BUTTON_UNDELETE",

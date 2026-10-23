@@ -7113,20 +7113,28 @@
             "#text": "Nustatyti kaip dangtelį"
           },
           {
-            "@tag": "BUTTON_THANKS",
-            "#text": "Dėkojame"
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Pridėti reakciją prie įrašo"
           },
           {
-            "@tag": "BUTTON_THANKS_TT",
-            "#text": "Dėkojame pašto siuntėjui"
+            "@tag": "REACTION_LIKE",
+            "#text": "Patinka"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE",
-            "#text": "Pašalinti Padėka"
+            "@tag": "REACTION_LOVE",
+            "#text": "Myliu"
           },
           {
-            "@tag": "BUTTON_THANKSDELETE_TT",
-            "#text": "Pašalinkite padėkos laišką iš pašto siuntėjo"
+            "@tag": "REACTION_LAUGH",
+            "#text": "Cha cha"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Valio"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Oho"
           },
           {
             "@tag": "BUTTON_UNDELETE",
