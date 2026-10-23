@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.18
+* [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
+
 # YetAnotherForum.NET v3.2.17
 * [NEW] Extended unit test suite (YAF.Tests, renamed from YAF.Tests.CoreTests) including repository tests against an in-memory SQLite database
 * [NEW] UI tests (YAF.Tests.UITests, Playwright): the forum is installed with the install wizard into a LocalDB database and run with IIS Express (no Docker); login, registration, topics, posts, private messages, profile, every page for guests, members and admins, and access checks

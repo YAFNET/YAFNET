@@ -534,11 +534,14 @@ public static class MessageRepositoryExtensions
     /// <param name="topicTags">
     /// The topic tags.
     /// </param>
+    /// <param name="changedSince">
+    /// Only the messages posted or edited after this time (utc), or all messages if not set.
+    /// </param>
     /// <returns>
     /// Returns all Messages as Typed Search Message List
     /// </returns>
     public static IEnumerable<SearchMessage> GetAllSearchMessagesByForum(this IRepository<Message> repository,
-        int forumId, List<Tag> topicTags)
+        int forumId, List<Tag> topicTags, DateTime? changedSince = null)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
@@ -547,7 +550,16 @@ public static class MessageRepositoryExtensions
             .Join<Message, User>((message, user) => user.ID == message.UserID).Where<Forum, Topic, Message>(
                 (forum, topic, message) => forum.ID == forumId && (topic.Flags & 8) != 8 &&
                                            (message.Flags & 8) != 8 && (message.Flags & 16) == 16 &&
-                                           topic.TopicMovedID == null).OrderByDescending<Message>(x => x.Posted);
+                                           topic.TopicMovedID == null);
+
+        if (changedSince.HasValue)
+        {
+            var since = changedSince.Value;
+
+            expression.And<Message>(message => message.Posted > since || message.Edited > since);
+        }
+
+        expression.OrderByDescending<Message>(x => x.Posted);
 
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic, Message, User>(expression))
             .ConvertAll(x => new SearchMessage(x, topicTags));

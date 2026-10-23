@@ -83,9 +83,13 @@ public class UpdateSearchIndexTask : LongBackgroundTask
             var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
             var topicTags = this.GetRepository<TopicTag>().ListAll();
 
+            // new and edited posts are indexed when they are saved, so only the posts changed since the last
+            // update are indexed again (not every post of the forum), all posts only on the first or a forced update
+            DateTime? changedSince = lastSend == DateTime.MinValue ? null : lastSend;
+
             foreach (var messages in from forum in forums.Select(forum => forum.Item2)
                      where forum.LastPosted.HasValue && forum.LastPosted.Value > lastSend
-                     select this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.ID, topicTags))
+                     select this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.ID, topicTags, changedSince))
             {
                 this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
             }
