@@ -251,7 +251,7 @@ public static class TopicContainerHtmlHelper
         infoLastPost.MergeAttribute(HtmlAttribute.Href, "#!");
         infoLastPost.MergeAttribute("data-bs-toggle", "popover");
 
-        infoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("info-circle", "text-secondary"));
+        infoLastPost.InnerHtml.AppendHtml(htmlHelper.Icon("info-circle"));
 
         // the text is html, the name is chosen by the user
         infoLastPost.InnerHtml.AppendHtml(context.Get<ILocalization>().GetTextFormatted("by", HttpUtility.HtmlEncode(context.BoardSettings.EnableDisplayName
