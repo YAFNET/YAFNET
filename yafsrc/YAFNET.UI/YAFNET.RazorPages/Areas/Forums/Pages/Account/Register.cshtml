@@ -174,15 +174,19 @@
 </div>
 
 @section Scripts {
-    <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.PasswordStrengthCheckerJs(
-            "Input_Password",
-            "Input_ConfirmPassword",
-            Model.PageBoardContext.BoardSettings.MinRequiredPasswordLength,
-            Model.Get<ILocalization>().GetText("PASSWORD_NOTMATCH"),
-            Model.Get<ILocalization>().GetTextFormatted("PASSWORD_MIN", Model.PageBoardContext.BoardSettings.MinRequiredPasswordLength),
-            Model.Get<ILocalization>().GetText("PASSWORD_GOOD"),
-            Model.Get<ILocalization>().GetText("PASSWORD_STRONGER"),
-            Model.Get<ILocalization>().GetText("PASSWORD_WEAK"))))
-    </script>
+    @* the form (with the password fields) is not shown after the registration *@
+    @if (Model.ErrorMessage.IsNotSet())
+    {
+        <script>
+            @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.PasswordStrengthCheckerJs(
+                "Input_Password",
+                "Input_ConfirmPassword",
+                Model.PageBoardContext.BoardSettings.MinRequiredPasswordLength,
+                Model.Get<ILocalization>().GetText("PASSWORD_NOTMATCH"),
+                Model.Get<ILocalization>().GetTextFormatted("PASSWORD_MIN", Model.PageBoardContext.BoardSettings.MinRequiredPasswordLength),
+                Model.Get<ILocalization>().GetText("PASSWORD_GOOD"),
+                Model.Get<ILocalization>().GetText("PASSWORD_STRONGER"),
+                Model.Get<ILocalization>().GetText("PASSWORD_WEAK"))))
+        </script>
+    }
 }

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Collections.Generic;
+
 using AwesomeAssertions;
 
 using YAF.Tests.UITests.Infrastructure;
@@ -49,6 +51,39 @@ public class RegisterUser(ComposeScenario scenario) : DatabaseTestBase(scenario)
                             this.Fixture.SmtpServer);
 
                         result.Should().BeTrue("Registration failed");
+                });
+    }
+
+    /// <summary>
+    /// The page after the registration (only the message, without the form) has no script errors:
+    /// the password strength script was added without the password fields.
+    /// </summary>
+    [Category("Authentication")]
+    [Test]
+    public async Task RegisterMessageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var scriptErrors = new List<string>();
+
+                    page.PageError += (_, error) => scriptErrors.Add(error);
+
+                    var userName = $"TempUser{Random.Shared.Next()}";
+
+                    (await page.SubmitRegistrationAsync(
+                            this.TestSettings,
+                            userName,
+                            $"{userName.ToLower()}@test.com",
+                            this.TestSettings.TestUserPassword))
+                        .Should().BeTrue("Registrations are disabled");
+
+                    // the message after the registration
+                    await Assertions.Expect(page.Locator("#Input_Password")).ToHaveCountAsync(0);
+                    await page.WaitForLoadStateAsync(LoadState.Load);
+
+                    scriptErrors.Should().BeEmpty("the page after the registration has no script errors");
                 });
     }
 
