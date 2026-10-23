@@ -440,6 +440,23 @@ public class MessageEditTests
         items.Single().ForumName.Should().Be("Forum");
     }
 
+    [Test]
+    [Description("The search index update only reads the posts posted or edited after the last update")]
+    public void GetAllSearchMessagesByForum_Changed_Since_Test()
+    {
+        this.AddPost(this.alice, "old", 0);
+        var edited = this.AddPost(this.alice, "old but edited", 1);
+        var posted = this.AddPost(this.alice, "new", 20);
+
+        this.Repository<Message>().UpdateOnly(
+            () => new Message { Edited = this.start.AddMinutes(30) },
+            m => m.ID == edited);
+
+        var items = this.Messages.GetAllSearchMessagesByForum(this.forum, [], this.start.AddMinutes(10)).ToList();
+
+        items.Select(i => i.MessageId).Should().BeEquivalentTo([posted, edited]);
+    }
+
     private IRepository<Message> Messages => this.board.Current.GetRepository<Message>();
 
     private IRepository<T> Repository<T>()
