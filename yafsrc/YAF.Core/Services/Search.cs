@@ -1056,7 +1056,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// </summary>
     private void DisposeWriter()
     {
-        this.indexWriter?.Dispose(true);
+        this.indexWriter?.Dispose();
     }
 
     /// <summary>

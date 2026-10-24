@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet = Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// BitSet of fixed length (numBits), backed by accessible (<see cref="GetBits()"/>)
@@ -412,10 +412,7 @@ namespace YAF.Lucene.Net.Util
             if (Debugging.AssertsEnabled) Debugging.Assert(otherNumWords <= numWords, "numWords={0}, otherNumWords={1}", numWords, otherNumWords);
             long[] thisArr = this.bits;
             int pos = Math.Min(numWords, otherNumWords);
-            while (--pos >= 0)
-            {
-                thisArr[pos] |= otherArr[pos];
-            }
+            BitArrayOperations.Or(thisArr, otherArr, pos); // LUCENENET specific: vectorized word loop
         }
 
         /// <summary>
@@ -426,10 +423,7 @@ namespace YAF.Lucene.Net.Util
             long[] thisBits = this.bits;
             long[] otherBits = other.bits;
             int pos = Math.Min(numWords, other.numWords);
-            while (--pos >= 0)
-            {
-                thisBits[pos] ^= otherBits[pos];
-            }
+            BitArrayOperations.Xor(thisBits, otherBits, pos); // LUCENENET specific: vectorized word loop
         }
 
         /// <summary>
@@ -510,10 +504,7 @@ namespace YAF.Lucene.Net.Util
         {
             long[] thisArr = this.bits;
             int pos = Math.Min(this.numWords, otherNumWords);
-            while (--pos >= 0)
-            {
-                thisArr[pos] &= otherArr[pos];
-            }
+            BitArrayOperations.And(thisArr, otherArr, pos); // LUCENENET specific: vectorized word loop
             if (this.numWords > otherNumWords)
             {
                 Arrays.Fill(thisArr, otherNumWords, this.numWords, 0L);
@@ -562,10 +553,7 @@ namespace YAF.Lucene.Net.Util
         {
             long[] thisArr = this.bits;
             int pos = Math.Min(this.numWords, otherNumWords);
-            while (--pos >= 0)
-            {
-                thisArr[pos] &= ~otherArr[pos];
-            }
+            BitArrayOperations.AndNot(thisArr, otherArr, pos); // LUCENENET specific: vectorized word loop
         }
 
         // NOTE: no .isEmpty() here because that's trappy (ie,

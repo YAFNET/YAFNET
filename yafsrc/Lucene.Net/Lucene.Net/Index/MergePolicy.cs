@@ -32,11 +32,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using MergeInfo = YAF.Lucene.Net.Store.MergeInfo;
+    using Directory = Lucene.Net.Store.Directory;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using MergeInfo = Lucene.Net.Store.MergeInfo;
 
-    //using AlreadySetException = YAF.Lucene.Net.Util.SetOnce.AlreadySetException;
+    //using AlreadySetException = Lucene.Net.Util.SetOnce.AlreadySetException;
 
     /// <summary>
     /// <para>Expert: a <see cref="MergePolicy"/> determines the sequence of
@@ -546,7 +546,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Thrown when a merge was explicitly aborted because
-        /// <see cref="IndexWriter.Dispose(bool)"/> was called with
+        /// <see cref="IndexWriter.Close(bool)"/> was called with
         /// <c>false</c>.  Normally this exception is
         /// privately caught and suppressed by <see cref="IndexWriter"/>.
         /// </summary>
