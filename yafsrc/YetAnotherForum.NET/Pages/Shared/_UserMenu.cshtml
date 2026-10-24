@@ -20,7 +20,7 @@
 		<ul class="navbar-nav">
 	@if (Current.PageUser.Activity && !Current.IsSuspended)
 	{
-		<li class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Notification ? "nav-item dropdown dropdown-notify active" : "nav-item dropdown dropdown-notify")">
+		<li class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Notification ? "nav-item dropdown dropstart dropdown-notify active" : "nav-item dropdown dropstart dropdown-notify")">
 
 			<a button-style="None"
 			   id="notificationLink"

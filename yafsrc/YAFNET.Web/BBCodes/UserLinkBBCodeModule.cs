@@ -76,6 +76,8 @@ public class UserLinkBBCodeModule : BBCodeControl
 
             link.AddCssClass("link-light");
 
+            link.InnerHtml.Append("@");
+
             link.InnerHtml.Append(boardUser.DisplayOrUserName());
 
             stringBuilder.Append(link.RenderToString());
