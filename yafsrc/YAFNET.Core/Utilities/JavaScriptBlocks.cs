@@ -445,8 +445,11 @@ public static class JavaScriptBlocks
                    
                        document.querySelectorAll("button[data-bs-toggle=\"tab").forEach(button => {
                            var tab = button.dataset.bsTarget;
-                   
-                           loadTab(tab);
+
+                           // the current tab is already loading, a second request replaced its content (and the changes made in it)
+                           if (tab !== currentTab) {
+                               loadTab(tab);
+                           }
                        });
                    });
                    """;

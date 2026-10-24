@@ -4,6 +4,7 @@ YetAnotherForum.NET Changelog
 # YetAnotherForum.NET v4.0.11
 * [NEW] Reactions: the thanks button is replaced by reactions (like, love, haha, hooray, wow) as on Facebook or GitHub, each user can give one reaction to a post, change it, or remove it by clicking it again; the existing thanks are shown as love, and every reaction counts as a thanks for the profile statistics and the hide-thanks BB codes
 * [CHANGES] Notify dropdown in the user menu: shows the latest 5 notifications as dropdown items (the whole item links to the post, with the time of the notification) and a "See all Notifications" link to the notification page, instead of the list with the pager that didn't work
+* [FIXED] Admin edit user: the tab shown first was loaded twice, the second response replaced the tab, changes made in the meantime (e.g. moderated or the rank in the user info) were lost when saving
 * [FIXED] Register: the page after the registration (the message to confirm the e-mail address) had a script error, the password strength script was added without the password fields
 * [FIXED] Register: visiting the register page again after a registration showed the message of the registration again instead of the form
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
