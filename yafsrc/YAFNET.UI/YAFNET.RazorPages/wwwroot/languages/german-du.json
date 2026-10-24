@@ -13126,6 +13126,10 @@
             "#text": "Suchbegriff..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Alle Benachrichtigungen anzeigen"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Mannschaft"
           },

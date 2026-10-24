@@ -13154,6 +13154,10 @@
             "#text": "Otsi märksõna..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Vaata kõiki teavitusi"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Meeskond"
           },

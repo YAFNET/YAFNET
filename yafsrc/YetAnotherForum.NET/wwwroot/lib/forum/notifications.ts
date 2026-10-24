@@ -1,20 +1,15 @@
-﻿import * as bootstrap from 'bootstrap';
-import { PagedResults } from './interfaces/PagedResults';
+﻿import { PagedResults } from './interfaces/PagedResults';
 import * as Utilities from '../forum/utilities';
-import { setPageNumber } from './paging';
 
-export function getNotifyData(
-    pageSize: number,
-    pageNumber: number,
-    isPageChange: boolean
-): void {
+/**
+ * Loads the latest notifications into the notify dropdown (the full list is on the notification page)
+ */
+export function getNotifyData(pageSize: number): void {
     const placeHolder = document.getElementById('NotifyListPlaceholder') as HTMLElement;
-    const list = placeHolder.querySelector('ul') as HTMLUListElement;
-    const yafUserId = placeHolder.dataset.userid ?? '0';
     const pagedResults: PagedResults = {
-        UserId: parseInt(yafUserId),
+        UserId: 0,
         PageSize: pageSize,
-        PageNumber: pageNumber,
+        PageNumber: 0,
     };
 
     const ajaxUrl = '/api/Notify/GetNotifications';
@@ -30,39 +25,15 @@ export function getNotifyData(
     })
         .then((res) => res.json())
         .then((data: { attachmentList: { fileName: string }[]; totalRecords: number }) => {
-            Utilities.empty(list);
+            Utilities.empty(placeHolder);
 
             (document.getElementById('Loader') as HTMLElement).style.display = 'none';
 
             if (data.attachmentList.length > 0) {
-                const markRead = document.getElementById('MarkRead') as HTMLElement;
-                markRead.classList.remove('d-none');
-                markRead.classList.add('d-block');
-
-                data.attachmentList.forEach((dataItem) => {
-                    const li = document.createElement('li');
-
-                    li.classList.add('list-group-item', 'list-group-item-action', 'small', 'text-wrap');
-                    li.style.width = '15rem';
-
-                    li.innerHTML = dataItem.fileName;
-                    list.appendChild(li);
-                });
-
-                setPageNumber(
-                    pageSize,
-                    pageNumber,
-                    data.totalRecords,
-                    document.getElementById('NotifyListPager') as HTMLDivElement,
-                    'Notifications',
-                    'getNotifyData'
-                );
-
-                if (isPageChange) {
-                    const toggleBtn = document.querySelector('.notify-toggle') as HTMLElement;
-                    const dropdownEl = new bootstrap.Dropdown(toggleBtn);
-                    dropdownEl.toggle();
-                }
+                // each item is already a dropdown-item link, rendered by the server
+                placeHolder.innerHTML = data.attachmentList
+                    .map((dataItem) => dataItem.fileName)
+                    .join('<div class="dropdown-divider"></div>');
             }
         })
         .catch((error) => {

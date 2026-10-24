@@ -3,6 +3,12 @@
     min-width: max-content;
 }
 
+// -- Notify dropdown in the user menu
+.dropdown-menu.dropdown-menu-notify {
+    min-width: 18rem;
+    max-width: 20rem;
+}
+
 .dropdown-sm {
     width: 250px;
 }

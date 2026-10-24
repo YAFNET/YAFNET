@@ -13126,6 +13126,10 @@
             "#text": "Cerca parole chiave..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Vedi tutte le notifiche"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Squadra"
           },

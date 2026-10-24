@@ -20,7 +20,7 @@
 		<ul class="navbar-nav">
 	@if (Current.PageUser.Activity && !Current.IsSuspended)
 	{
-		<li class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Notification ? "nav-item dropdown dropdown-notify active" : "nav-item dropdown dropdown-notify")">
+		<li class="@Html.Raw(Current.CurrentForumPage.PageName == ForumPages.Notification ? "nav-item dropdown dropstart dropdown-notify active" : "nav-item dropdown dropstart dropdown-notify")">
 
 			<a button-style="None"
 			   id="notificationLink"
@@ -43,36 +43,19 @@
 					@Html.Icon("dot-circle", "fa-xs text-danger unread")
 					@Html.Icon("bell")
 				</a>
-				<div class="dropdown-menu" id="notificationDrop">
-					<div class="dropdown-item px-0">
-						<div id="Loader" class="px-2 mx-2">
-							<p class="text-center">
-								<span>@Html.LocalizedText("COMMON", "LOADING")</span>
-								<br/>
-								<div class="fa-3x">
-									<i class="fas fa-spinner fa-pulse"></i>
-								</div>
-							</p>
-						</div>
-						<div id="NotifyListPager" class="px-2 mx-2"></div>
-						<div id="NotifyListPlaceholder" class="clearfix">
-							<ul class="list-group list-group-flush">
-							</ul>
+				<div class="dropdown-menu dropdown-menu-notify" id="notificationDrop">
+					<div id="Loader" class="dropdown-item-text text-center">
+						<span>@Html.LocalizedText("COMMON", "LOADING")</span>
+						<div class="fa-3x">
+							<i class="fas fa-spinner fa-pulse"></i>
 						</div>
 					</div>
-					<div class="dropdown-item d-none" id="MarkRead">
-						<form method="post">
-							<button
-							   asp-controller="Notify"
-							   asp-action="MarkAllActivity"
-							   button-style="Secondary"
-							   button-size="Small"
-							   icon="glasses"
-							   text-localized-page="DEFAULT"
-							   text-localized-tag="MARK_ALL_ASREAD">
-							</button>
-						</form>
-					</div>
+					<div id="NotifyListPlaceholder"></div>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item text-center small"
+					   asp-page="@ForumPages.Notification.GetPageName()">
+						@Html.LocalizedText("TOOLBAR", "SEE_ALL_NOTIFICATIONS")
+					</a>
 				</div>
 			</div>
 

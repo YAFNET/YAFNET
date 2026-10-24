@@ -103,11 +103,10 @@ public class NotifyController : ForumBaseController
                         return;
                     }
 
-                    var topicLink = new TagBuilder(HtmlTag.A);
+                    // the whole item is the link, the topic name is only highlighted
+                    var topicLink = new TagBuilder(HtmlTag.Span);
 
-                    topicLink.MergeAttribute(HtmlAttribute.Href, this.Get<ILinkBuilder>().GetLink(
-                    ForumPages.Post,
-                        new { m = activity.MessageID.Value, name = topic.TopicName }));
+                    topicLink.AddCssClass("fw-semibold");
                     topicLink.InnerHtml.AppendHtml("<i class=\"fas fa-comment me-1\"></i>");
                     topicLink.InnerHtml.AppendHtml(this.HtmlEncode(topic.TopicName));
 
@@ -166,9 +165,25 @@ public class NotifyController : ForumBaseController
                                                                                             <i class="fas fa-{icon} fa-stack-1x fa-inverse"></i>
                                                     """);
 
-                    messageHolder.AppendHtml(iconLabel);
+                    var link = this.Get<ILinkBuilder>().GetLink(
+                        ForumPages.Post,
+                        new { m = activity.MessageID.Value, name = topic.TopicName });
 
-                    messageHolder.AppendHtml(message);
+                    var created = this.PageBoardContext.BoardSettings.ShowRelativeTime
+                                      ? activity.Created.ToRelativeTime()
+                                      : this.Get<IDateTimeService>().FormatDateTime(activity.Created);
+
+                    messageHolder.AppendHtml($"""
+                                              <a href="{link}" class="dropdown-item text-wrap">
+                                                  <div class="d-flex">
+                                                      <div class="flex-shrink-0 me-2">{iconLabel.RenderToString()}</div>
+                                                      <div class="flex-grow-1">
+                                                          <p class="mb-1 small">{message}</p>
+                                                          <p class="mb-0 small text-body-secondary"><i class="fas fa-clock me-1"></i>{created}</p>
+                                                      </div>
+                                                  </div>
+                                              </a>
+                                              """);
 
                     var attachment = new AttachmentItem
                     {
@@ -192,21 +207,5 @@ public class NotifyController : ForumBaseController
                         PageSize = pageSize,
                         AttachmentList = attachmentItems
                     }));
-    }
-
-    /// <summary>
-    /// Mark all Activity as read
-    /// </summary>
-    [Authorize]
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    [Route("MarkAllActivity")]
-    public IActionResult MarkAllActivity()
-    {
-        this.GetRepository<Activity>().MarkAllAsRead(this.PageBoardContext.PageUserID);
-
-        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
-
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 }

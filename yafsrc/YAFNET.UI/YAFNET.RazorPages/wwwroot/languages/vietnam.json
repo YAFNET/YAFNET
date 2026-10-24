@@ -13142,6 +13142,10 @@
             "#text": "Tìm từ khóa..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Xem tất cả thông báo"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Đội"
           },

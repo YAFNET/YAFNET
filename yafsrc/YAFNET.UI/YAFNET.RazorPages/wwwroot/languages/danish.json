@@ -13142,6 +13142,10 @@
             "#text": "Søgeord..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Se alle notifikationer"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Hold"
           },

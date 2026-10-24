@@ -13142,6 +13142,10 @@
             "#text": "Paieškos raktinis žodis..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Žiūrėti visus pranešimus"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Komanda"
           },

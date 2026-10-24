@@ -131,6 +131,8 @@ public class NotifyFriendsBanControllerTests
         html.Should().Contain("thanked you for");
         html.Should().Contain("fa-heart");
         html.Should().Contain("<i class=\"fas fa-comment me-1\"></i>Thread", "the topic icon is markup, not text");
+        html.Should().StartWith("<a href=").And.Contain("class=\"dropdown-item", "the whole item links to the post in the notify dropdown");
+        html.IndexOf("<a ", 1, StringComparison.Ordinal).Should().Be(-1, "no nested links inside the dropdown item");
     }
 
     [Test]

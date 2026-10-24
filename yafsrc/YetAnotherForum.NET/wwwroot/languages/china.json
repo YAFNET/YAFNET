@@ -13142,6 +13142,10 @@
             "#text": "搜索关键字..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "查看所有通知"
+          },
+          {
             "@tag": "TEAM",
             "#text": "团队"
           },

@@ -91,9 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdownNotify = document.querySelector('.dropdown-notify');
     if (dropdownNotify) {
         dropdownNotify.addEventListener('show.bs.dropdown', () => {
-            const pageSize = 5;
-            const pageNumber = 0;
-            Notifications.getNotifyData(pageSize, pageNumber, false);
+            Notifications.getNotifyData(5);
         });
     }
 

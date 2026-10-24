@@ -13130,6 +13130,10 @@
             "#text": "Szukana fraza..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Zobacz wszystkie powiadomienia"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Ekipa"
           },

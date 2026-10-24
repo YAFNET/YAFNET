@@ -13126,6 +13126,10 @@
             "#text": "Zoek Trefwoord..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Alle meldingen bekijken"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Team"
           },

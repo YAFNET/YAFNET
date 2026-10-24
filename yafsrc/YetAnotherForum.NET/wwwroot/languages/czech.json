@@ -13142,6 +13142,10 @@
             "#text": "Vyhledat klíčové slovo..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Zobrazit všechna oznámení"
+          },
+          {
             "@tag": "TEAM",
             "#text": "tým"
           },

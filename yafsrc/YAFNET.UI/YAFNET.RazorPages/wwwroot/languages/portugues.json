@@ -13142,6 +13142,10 @@
             "#text": "Pesquisar palavra-chave..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Ver todas as notificações"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Equipa"
           },

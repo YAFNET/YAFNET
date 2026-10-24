@@ -13142,6 +13142,10 @@
             "#text": "Søkeord..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Se alle varsler"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Team"
           },

@@ -13142,6 +13142,10 @@
             "#text": "Kelime Arama..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Tüm bildirimleri gör"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Takım"
           },

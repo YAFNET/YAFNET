@@ -13142,6 +13142,10 @@
             "#text": "Vyhľadávanie kľúčových slov..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Zobraziť všetky upozornenia"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Tím"
           },

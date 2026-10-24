@@ -13142,6 +13142,10 @@
             "#text": "Etsi avainsana..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Näytä kaikki ilmoitukset"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Joukkue"
           },

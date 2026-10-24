@@ -13142,6 +13142,10 @@
             "#text": "Căutați cuvântul cheie..."
           },
           {
+            "@tag": "SEE_ALL_NOTIFICATIONS",
+            "#text": "Vezi toate notificările"
+          },
+          {
             "@tag": "TEAM",
             "#text": "Echipa"
           },
