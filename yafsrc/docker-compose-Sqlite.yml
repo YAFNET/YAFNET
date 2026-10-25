@@ -6,7 +6,7 @@ services:
   yafnet:
     image: yafnet/yafnet:latest-sqlite
     environment:
-      - ConnectionStrings__DefaultConnection=Data Source=yafnet.db;Version=3;
+      - ConnectionStrings__DefaultConnection=Data Source=/data/yafnet.db;Version=3; # the database file is stored in the volume sqlite-data
       - BoardConfiguration__ConnectionProviderName=System.Data.SQLite
       # mail server for registration mails, password resets and notifications, replace with real settings
       #- MailConfiguration__Host=smtp.example.com
@@ -15,7 +15,13 @@ services:
       #- MailConfiguration__Password=
       - ASPNETCORE_URLS=http://+:89 
     container_name: yafnet
+    volumes:
+      - sqlite-data:/data
     ports:
       - "8001:89"
     networks:
       - dev
+
+# Define persistent volumes to store SQLite data.
+volumes:
+  sqlite-data:

@@ -11,6 +11,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Background tasks (search index update, digest send, forum delete, prune topics) ignored their start delay and ran immediately, the search index update and digest task ran in the first page request after the start instead of 30 seconds later
 * [FIXED] Docker (SQL Server): the database volume was mounted to a wrong path (/var/lib/mssqlql/data instead of /var/opt/mssql), the forum database was not stored in the volume and was lost when the container was recreated
 * [FIXED] Docker compose files: the empty mail settings (MailConfiguration__Host / __Port) overrode the defaults with empty values, they are now commented-out examples (with UserName and Password); the setting MailConfiguration__Mail was removed, it doesn't exist
+* [FIXED] Docker (SQLite): the database file was stored inside the container and was lost when the container was recreated (e.g. on an update), it is now stored in the volume sqlite-data
 
 # YetAnotherForum.NET v4.0.10
 * [NEW] Extended unit test suite including repository tests against an in-memory SQLite database
