@@ -65,6 +65,6 @@ services:
       - dev
     restart: "no"                            # run once and exit
     
-# Define persistent volumes to store MySQL data.
+# Define persistent volumes to store PostgreSQL data.
 volumes:
   postgresql-data:
