@@ -9,6 +9,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Register: visiting the register page again after a registration showed the message of the registration again instead of the form
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
 * [FIXED] Background tasks (search index update, digest send, forum delete, prune topics) ignored their start delay and ran immediately, the search index update and digest task ran in the first page request after the start instead of 30 seconds later
+* [FIXED] Docker (SQL Server): the database volume was mounted to a wrong path (/var/lib/mssqlql/data instead of /var/opt/mssql), the forum database was not stored in the volume and was lost when the container was recreated
 
 # YetAnotherForum.NET v4.0.10
 * [NEW] Extended unit test suite including repository tests against an in-memory SQLite database

@@ -41,7 +41,7 @@ services:
       - MSSQL_SA_PASSWORD=MyPass@word # change default password
       - ACCEPT_EULA=Y
     volumes:
-      - mssql-data:/var/lib/mssqlql/data
+      - mssql-data:/var/opt/mssql
     healthcheck:
       test: >
         /opt/mssql-tools18/bin/sqlcmd
