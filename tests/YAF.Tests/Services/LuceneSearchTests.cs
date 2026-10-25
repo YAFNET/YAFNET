@@ -32,10 +32,10 @@ using Autofac;
 using NSubstitute;
 
 using YAF.Core.Services;
-using YAF.Lucene.Net.Analysis.Standard;
-using YAF.Lucene.Net.Documents;
-using YAF.Lucene.Net.Index;
-using YAF.Lucene.Net.Util;
+using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Documents;
+using Lucene.Net.Index;
+using Lucene.Net.Util;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;
@@ -527,7 +527,7 @@ public class LuceneSearchTests
     /// </summary>
     private void IndexWithoutFlags(int messageId, int forumId, string text)
     {
-        using var directory = YAF.Lucene.Net.Store.FSDirectory.Open(indexFolder);
+        using var directory = Lucene.Net.Store.FSDirectory.Open(indexFolder);
         using var analyzer = new StandardAnalyzer(LuceneVersion.LUCENE_48);
         using var writer = new IndexWriter(directory, new IndexWriterConfig(LuceneVersion.LUCENE_48, analyzer));
 

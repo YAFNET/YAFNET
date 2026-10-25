@@ -18,15 +18,6 @@
     <Project Path="../tests/YAF.Tests/YAF.Tests.csproj" />
   </Folder>
   <Folder Name="/Third-Party Libs/" />
-  <Folder Name="/Third-Party Libs/Lucene.Net/">
-    <File Path="Lucene.Net/Directory.Build.props" />
-    <File Path="Lucene.Net/Directory.Build.targets" />
-    <Project Path="Lucene.Net/Lucene.Net.Analysis.Common/YAF.Lucene.Net.Analysis.Common.csproj" />
-    <Project Path="Lucene.Net/Lucene.Net.Highlighter/YAF.Lucene.Net.Highlighter.csproj" />
-    <Project Path="Lucene.Net/Lucene.Net.Queries/YAF.Lucene.Net.Queries.csproj" />
-    <Project Path="Lucene.Net/Lucene.Net.QueryParser/YAF.Lucene.Net.QueryParser.csproj" />
-    <Project Path="Lucene.Net/Lucene.Net/YAF.Lucene.Net.csproj" />
-  </Folder>
   <Folder Name="/Third-Party Libs/ServiceStack/">
     <File Path="ServiceStack/Directory.Build.props" />
     <Project Path="ServiceStack/ServiceStack.OrmLite.MySql/ServiceStack.OrmLite.MySql.csproj" />

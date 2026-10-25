@@ -45,10 +45,12 @@
             <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server"
                                 LocalizedTag="HOST_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
+        <asp:PlaceHolder runat="server" ID="SearchTabMenu">
         <a href="#View10" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server"
                                 LocalizedTag="HOST_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
+        </asp:PlaceHolder>
         <a href="#View11" class="dropdown-item" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server"
                                 LocalizedTag="HOST_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -91,10 +93,12 @@
             <YAF:LocalizedLabel ID="LocalizedLabel52" runat="server"
                                 LocalizedTag="HOST_CACHE" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
+        <asp:PlaceHolder runat="server" ID="SearchTabNav">
         <a href="#View10" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel53" runat="server"
                                 LocalizedTag="HOST_SEARCH" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
+        </asp:PlaceHolder>
         <a href="#View11" class="nav-link" data-bs-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel54" runat="server"
                                 LocalizedTag="HOST_LOG" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1727,6 +1731,7 @@
                     </div>
                 </div>
             </div>
+        <asp:PlaceHolder runat="server" ID="SearchTab">
         <div class="tab-pane fade" id="View10" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
@@ -1782,6 +1787,7 @@
                     </div>
                 </div>
             </div>
+        </asp:PlaceHolder>
         <div class="tab-pane fade" id="View11" role="tabpanel">
             <div class="card mb-3">
                 <div class="card-header">

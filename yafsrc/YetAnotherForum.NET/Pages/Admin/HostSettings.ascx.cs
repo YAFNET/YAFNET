@@ -172,6 +172,11 @@ public partial class HostSettings : AdminPage
         this.SSLSettings.Visible = !Config.IsDotNetNuke;
         this.BotRegisterCheck.Visible = !Config.IsDotNetNuke;
         this.LoginSettings.Visible = !Config.IsDotNetNuke;
+
+        // the posts are indexed with the dnn search inside dnn
+        this.SearchTabMenu.Visible = !Config.IsDotNetNuke;
+        this.SearchTabNav.Visible = !Config.IsDotNetNuke;
+        this.SearchTab.Visible = !Config.IsDotNetNuke;
     }
 
     /// <summary>

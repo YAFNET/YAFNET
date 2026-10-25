@@ -71,11 +71,6 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net.Analysis.Common\YAF.Lucene.Net.Analysis.Common.csproj" />
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net.Highlighter\YAF.Lucene.Net.Highlighter.csproj" />
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net.Queries\YAF.Lucene.Net.Queries.csproj" />
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net.QueryParser\YAF.Lucene.Net.QueryParser.csproj" />
-    <ProjectReference Include="..\Lucene.Net\Lucene.Net\YAF.Lucene.Net.csproj" />
     <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
@@ -83,5 +78,12 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="9.3.4" />
     <PackageReference Include="Farsi.Library" Version="2.7.0" />
+    <PackageReference Include="J2N" Version="2.1.0" />
+    <PackageReference Include="Lucene.Net" Version="4.8.0-beta00018" />
+    <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00018" />
+    <PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00018" />
+    <PackageReference Include="Lucene.Net.Queries" Version="4.8.0-beta00018" />
+    <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00018" />
+    <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.13" />
   </ItemGroup>
 </Project>
