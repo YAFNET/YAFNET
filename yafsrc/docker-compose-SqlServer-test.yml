@@ -15,7 +15,6 @@ services:
       - BoardConfiguration__ConnectionProviderName=Microsoft.Data.SqlClient
       - MailConfiguration__Host=host.docker.internal # only for testing, replace with real mail settings
       - MailConfiguration__Port=2525 # only for testing, replace with real mail settings
-      - MailConfiguration__Mail=test@localhost.com # only for testing, replace with real mail settings
       - BoardConfiguration__RateLimiterPermitLimit=1000 # only for testing, all requests of the ui tests come from one ip address, the default (10 per minute) would block them
       - ASPNETCORE_URLS=http://+:89 
     build:

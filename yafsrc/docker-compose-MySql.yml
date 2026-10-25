@@ -13,9 +13,11 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=Server=mariadb;Database=yaf;User=root;Password=MyPass@word; # change default password
       - BoardConfiguration__ConnectionProviderName=MySql.Data.MySqlClient
-      - MailConfiguration__Host= # replace with real setting
-      - MailConfiguration__Port= # replace with real setting
-      - MailConfiguration__Mail=  # replace with real setting
+      # mail server for registration mails, password resets and notifications, replace with real settings
+      #- MailConfiguration__Host=smtp.example.com
+      #- MailConfiguration__Port=587
+      #- MailConfiguration__UserName=
+      #- MailConfiguration__Password=
       - ASPNETCORE_URLS=http://+:89
     container_name: yafnet
     ports:
