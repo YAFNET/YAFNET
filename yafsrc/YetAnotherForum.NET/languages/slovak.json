@@ -14079,11 +14079,11 @@
             "#text": "Nepriateľské"
           },
           {
-            "@tag": "VALUE_0",
+            "@tag": "HATED",
             "#text": "Nenávisť"
           },
           {
-            "@tag": "VALUE_20",
+            "@tag": "HOSTILE",
             "#text": "Nepriateľský"
           }
         ]

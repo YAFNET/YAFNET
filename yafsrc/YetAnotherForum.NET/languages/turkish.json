@@ -14079,11 +14079,11 @@
             "#text": "Düşmanca"
           },
           {
-            "@tag": "VALUE_0",
+            "@tag": "HATED",
             "#text": "Nefret"
           },
           {
-            "@tag": "VALUE_20",
+            "@tag": "HOSTILE",
             "#text": "Düşmanca"
           }
         ]

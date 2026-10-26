@@ -14079,11 +14079,11 @@
             "#text": "Uvenlig"
           },
           {
-            "@tag": "VALUE_0",
+            "@tag": "HATED",
             "#text": "Hadet"
           },
           {
-            "@tag": "VALUE_20",
+            "@tag": "HOSTILE",
             "#text": "Fjendtlig"
           }
         ]
