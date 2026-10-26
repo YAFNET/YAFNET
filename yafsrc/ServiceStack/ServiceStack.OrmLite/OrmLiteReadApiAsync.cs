@@ -834,12 +834,8 @@ public static class OrmLiteReadApiAsync
         {
             var result = await dbConn.LoadSelectAsync(predicate, include, token);
 
-            if (result != null)
-            {
-                return result[0];
-            }
-
-            return default;
+            // LoadSelectAsync returns an empty list (not null) when nothing matches
+            return result is { Count: > 0 } ? result[0] : default;
         }
 
         /// <summary>
