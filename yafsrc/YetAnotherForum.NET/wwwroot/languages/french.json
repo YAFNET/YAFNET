@@ -12497,11 +12497,11 @@
             "#text": "Hostile"
           },
           {
-            "@tag": "VALUE_0",
+            "@tag": "HATED",
             "#text": "Détesté"
           },
           {
-            "@tag": "VALUE_20",
+            "@tag": "HOSTILE",
             "#text": "Hostile"
           }
         ]

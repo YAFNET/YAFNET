@@ -12477,11 +12477,11 @@
             "#text": "غير ودي"
           },
           {
-            "@tag": "VALUE_0",
+            "@tag": "HATED",
             "#text": "مكروه"
           },
           {
-            "@tag": "VALUE_20",
+            "@tag": "HOSTILE",
             "#text": "عدائي"
           }
         ]
