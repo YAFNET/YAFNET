@@ -39,7 +39,7 @@
 			<dependency id="SkiaSharp" version="4.153.1" exclude="Build,Analyzers" />
 			<dependency id="SkiaSharp.NativeAssets.Linux.NoDependencies" version="4.153.1" exclude="Build,Analyzers" />
 			<dependency id="StackTraceBeautify" version="2.0.1" exclude="Build,Analyzers" />
-			<dependency id="System.Runtime.Caching" version="10.0.13" exclude="Build,Analyzers" />
+			<dependency id="System.Runtime.Caching" version="10.0.14" exclude="Build,Analyzers" />
 			<dependency id="System.ServiceModel.Syndication" version="10.0.13" exclude="Build,Analyzers" />
 			<dependency id="UAParser.Core" version="4.0.6" exclude="Build,Analyzers" />
 		</group>
