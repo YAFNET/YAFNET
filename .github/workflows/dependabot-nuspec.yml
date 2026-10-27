@@ -1,20 +1,29 @@
 name: Update nuspec files for Dependabot PRs
 
-# pull_request_target is needed so the GITHUB_TOKEN can push to the Dependabot branch.
+# Dependabot stops updating a pull request once someone else pushed to its branch,
+# so the nuspec changes are opened as a separate pull request against the base branch.
+# pull_request_target is used so the GITHUB_TOKEN can push and open pull requests.
 # No code from the pull request is executed, only the nuspec files are edited.
 on:
   pull_request_target:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, closed]
     branches:
       - master
 
 permissions:
   contents: write
-  pull-requests: read
+  pull-requests: write
+
+concurrency:
+  group: dependabot-nuspec-${{ github.event.pull_request.head.ref }}
+  cancel-in-progress: true
 
 jobs:
   update-nuspec:
-    if: github.actor == 'dependabot[bot]' && github.event.pull_request.user.login == 'dependabot[bot]'
+    if: >-
+      github.event.action != 'closed' &&
+      github.actor == 'dependabot[bot]' &&
+      github.event.pull_request.user.login == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Fetch Dependabot metadata
@@ -23,11 +32,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Checkout pull request branch
+      - name: Checkout base branch
         if: steps.metadata.outputs.package-ecosystem == 'nuget'
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.base.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update nuspec dependency versions
@@ -70,16 +79,61 @@ jobs:
                       f.write(text)
                   print(f"Updated {path}")
 
-      - name: Commit and push changes
+      - name: Open or update nuspec pull request
         if: steps.metadata.outputs.package-ecosystem == 'nuget'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+          DEPENDABOT_BRANCH: ${{ github.event.pull_request.head.ref }}
+          DEPENDABOT_PR: ${{ github.event.pull_request.number }}
+          DEPENDABOT_TITLE: ${{ github.event.pull_request.title }}
         run: |
           if git diff --quiet; then
             echo "No nuspec files need to be updated."
             exit 0
           fi
 
+          branch="nuspec/${DEPENDABOT_BRANCH}"
+
           git config user.name "github-actions[bot]"
           git config user.email "41898319+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
           git add -- '*.nuspec'
-          git commit -m "Update nuspec dependencies"
-          git push
+          git commit -m "Update nuspec dependencies for #${DEPENDABOT_PR}"
+          git push --force origin "$branch"
+
+          existing=$(gh pr list --head "$branch" --base "$BASE_BRANCH" --state open --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            echo "Updated existing pull request #$existing."
+            exit 0
+          fi
+
+          gh pr create \
+            --base "$BASE_BRANCH" \
+            --head "$branch" \
+            --title "Update nuspec files: ${DEPENDABOT_TITLE}" \
+            --body "Updates the nuspec dependency versions to match the changes from #${DEPENDABOT_PR}."
+
+  close-nuspec-pr:
+    # Close the nuspec pull request when the Dependabot pull request is closed without merging.
+    if: >-
+      github.event.action == 'closed' &&
+      !github.event.pull_request.merged &&
+      github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close nuspec pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          DEPENDABOT_BRANCH: ${{ github.event.pull_request.head.ref }}
+          DEPENDABOT_PR: ${{ github.event.pull_request.number }}
+        run: |
+          branch="nuspec/${DEPENDABOT_BRANCH}"
+          existing=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
+          if [ -z "$existing" ]; then
+            echo "No nuspec pull request to close."
+            exit 0
+          fi
+
+          gh pr close "$existing" --delete-branch --comment "Closed because #${DEPENDABOT_PR} was closed without merging."
