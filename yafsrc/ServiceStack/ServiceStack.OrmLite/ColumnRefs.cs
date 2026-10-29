@@ -127,7 +127,7 @@ public static class OrmLiteColumnRefApi
         var members = body switch {
             NewExpression newExpr => newExpr.Arguments,
             MemberExpression => (IReadOnlyList<Expression>)[body],
-            _ => throw new ArgumentException($"Expected columns like x => new {{ x.Id, x.Name }} but was '{columns}'", nameof(columns)),
+            _ => throw new ArgumentException($"Expected columns like x => new {{ x.Id, x.Name }} but was '{columns}'", nameof(columns))
         };
 
         var refs = new PartialSqlString[members.Count];

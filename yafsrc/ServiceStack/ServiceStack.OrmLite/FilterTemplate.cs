@@ -529,7 +529,7 @@ internal sealed class FilterTemplate<T>
         {
             2 => Expression.Constant(true),
             1 => Expression.Constant(false),
-            _ => throw new InvalidOperationException("The condition wasn't evaluated"),
+            _ => throw new InvalidOperationException("The condition wasn't evaluated")
         };
     }
 

@@ -232,7 +232,7 @@ public abstract class CompiledQueryBase<T>
     private readonly static Func<SqlExpression<T>, string>[] ToStatements = [
         q => q.ToSelectStatement(QueryType.Select),
         q => q.ToSelectStatement(QueryType.Single),
-        q => q.ToSelectStatement(QueryType.Scalar),
+        q => q.ToSelectStatement(QueryType.Scalar)
     ];
 
     internal static Func<SqlExpression<T>, string> ToStatement(QueryType forType) => ToStatements[(int)forType];
@@ -242,7 +242,7 @@ public abstract class CompiledQueryBase<T>
         private readonly static Func<SqlExpression<T>, string>[] ToSql = [
             q => q.SelectInto<TModel>(QueryType.Select),
             q => q.SelectInto<TModel>(QueryType.Single),
-            q => q.SelectInto<TModel>(QueryType.Scalar),
+            q => q.SelectInto<TModel>(QueryType.Scalar)
         ];
 
         internal static Func<SqlExpression<T>, string> Get(QueryType forType) => ToSql[(int)forType];
@@ -978,7 +978,7 @@ internal enum ArgMode
 {
     None,
     Count, // a collection, the SQL has a db param for each of its values
-    Value, // the SQL was generated with its value
+    Value // the SQL was generated with its value
 }
 
 /// <summary>

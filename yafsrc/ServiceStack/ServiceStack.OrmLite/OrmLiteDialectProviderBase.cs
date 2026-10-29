@@ -1740,7 +1740,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             FieldDefs = fieldDefs,
             CreateStagingTableSql = this.ToCreateBulkStagingTableStatement(modelDef, stagingTable, fieldDefs),
             UpsertSql = this.ToBulkUpsertStatement(modelDef, stagingTable, insertFieldDefs, updateFieldDefs),
-            DropStagingTableSql = this.ToDropBulkStagingTableStatement(stagingTable),
+            DropStagingTableSql = this.ToDropBulkStagingTableStatement(stagingTable)
         };
     }
 
@@ -4455,7 +4455,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             IsPrimaryKey = Convert.ToBoolean(RowValue(row, "is_primary_key") ?? false),
             Columns = RowList(row, "columns"),
             Include = RowList(row, "include"),
-            Where = RowValue(row, "where_condition")?.ToString() is { Length: > 0 } where ? where : null,
+            Where = RowValue(row, "where_condition")?.ToString() is { Length: > 0 } where ? where : null
         });
 
     public virtual List<CheckConstraintSchema> GetCheckConstraints(IDbConnection db, string quotedTable) => null;
@@ -4524,7 +4524,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             return checks.Select((check, i) => new CheckConstraintSchema
             {
                 Name = check.Name,
-                Condition = created.FirstOrDefault(x => string.Equals(x.Name, prefix + i, StringComparison.OrdinalIgnoreCase))?.Condition,
+                Condition = created.FirstOrDefault(x => string.Equals(x.Name, prefix + i, StringComparison.OrdinalIgnoreCase))?.Condition
             }).ToList();
         }
         finally
@@ -4540,7 +4540,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         rows.Map(row => new CheckConstraintSchema
         {
             Name = RowValue(row, "name")?.ToString(),
-            Condition = RowValue(row, "condition")?.ToString(),
+            Condition = RowValue(row, "condition")?.ToString()
         });
 
     public virtual Dictionary<string, string> GetColumnDefaults(IDbConnection db, string quotedTable) => null;
@@ -4576,7 +4576,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             RefTable = RowValue(row, "ref_table")?.ToString(),
             RefColumns = RowList(row, "ref_columns"),
             OnDelete = RowValue(row, "on_delete")?.ToString(),
-            OnUpdate = RowValue(row, "on_update")?.ToString(),
+            OnUpdate = RowValue(row, "on_update")?.ToString()
         });
 
     private static object RowValue(Dictionary<string, object> row, string name)

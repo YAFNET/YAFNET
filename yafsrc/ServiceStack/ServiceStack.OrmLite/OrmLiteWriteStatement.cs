@@ -19,7 +19,7 @@ internal static class OrmLiteWriteStatement
 {
     private readonly static string[] WriteKeywords = [
         "INSERT", "UPDATE", "DELETE", "MERGE", "UPSERT", "REPLACE", "CREATE", "ALTER", "DROP", "TRUNCATE", "RENAME",
-        "GRANT", "REVOKE",
+        "GRANT", "REVOKE"
     ];
 
     private readonly static Regex IntoRegex = new(@"\bINTO\b",

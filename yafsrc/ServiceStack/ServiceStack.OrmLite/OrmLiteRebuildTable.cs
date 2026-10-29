@@ -168,7 +168,7 @@ public static class OrmLiteRebuildTableApi
 
         var statements = new List<string> {
             createSql.Trim(),
-            $"INSERT INTO {quotedNewTable} ({columns.Join(", ")}) SELECT {columns.Join(", ")} FROM {quotedTable};",
+            $"INSERT INTO {quotedNewTable} ({columns.Join(", ")}) SELECT {columns.Join(", ")} FROM {quotedTable};"
         };
         if (createSql.IndexOf("AUTOINCREMENT", StringComparison.OrdinalIgnoreCase) >= 0)
         {

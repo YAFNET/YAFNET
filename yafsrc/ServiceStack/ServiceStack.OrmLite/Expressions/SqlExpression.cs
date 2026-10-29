@@ -5503,7 +5503,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         {
             nameof(Sql.CosineDistance) => VectorDistance.Cosine,
             nameof(Sql.L2Distance) => VectorDistance.L2,
-            _ => VectorDistance.NegativeInnerProduct,
+            _ => VectorDistance.NegativeInnerProduct
         };
         // Vectors to compare with have the dimensions and precision of the column they're compared with
         var column = VectorFieldOf(m.Arguments[0]) ?? VectorFieldOf(m.Arguments[1]);
@@ -5544,7 +5544,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             ModelDef = tableDef,
             Table = this.DialectProvider.GetQuotedTableName(tableDef),
             Columns = tableDef.GetFullTextFields().Map(Qualified),
-            PrimaryKey = Qualified(primaryKey),
+            PrimaryKey = Qualified(primaryKey)
         };
 
         // The search is only ever sent as db params, in the RDBMS's full-text query syntax
@@ -6001,7 +6001,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             // Items whose condition is unknown, e.g. null, aren't a match
             nameof(Enumerable.All) => new PartialSqlString(
                 $"NOT EXISTS (SELECT 1 FROM {from} WHERE (CASE WHEN {condition} THEN 1 ELSE 0 END) = 0)"),
-            _ => new PartialSqlString($"(SELECT COUNT(*) FROM {from} WHERE {condition})"),
+            _ => new PartialSqlString($"(SELECT COUNT(*) FROM {from} WHERE {condition})")
         };
         return true;
     }

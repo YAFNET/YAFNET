@@ -188,7 +188,7 @@ public sealed class OrmLiteConnectionFilters
                 {
                     WriteRuleType.EnsureWrites => ensureWrites,
                     WriteRuleType.OnInsert => onInsert,
-                    _ => onUpdate,
+                    _ => onUpdate
                 };
                 to.Add(new WriteRule(fieldDef, rule.ValueFn));
             }
@@ -270,7 +270,7 @@ internal enum WriteRuleType
 {
     EnsureWrites,
     OnInsert,
-    OnUpdate,
+    OnUpdate
 }
 
 internal sealed class WriteRuleDef(Type type, WriteRuleType ruleType, string memberName, Func<object?> valueFn)

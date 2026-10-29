@@ -321,7 +321,7 @@ internal static class OrmLiteConnectionWriteRules
             {
                 BatchSize = config.BatchSize,
                 Mode = config.Mode,
-                InsertFields = WithRuleFields(rules, config.InsertFields, forInsert: true),
+                InsertFields = WithRuleFields(rules, config.InsertFields, forInsert: true)
             };
         }
 

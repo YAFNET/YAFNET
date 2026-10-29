@@ -103,7 +103,7 @@ public enum SchemaChangeType
     /// The index of the table is on columns of the model but isn't in the model, e.g. it was added to the database by
     /// hand. It's never dropped: Attribute is the [Index] or [CompositeIndex] to add to the model so it has the index.
     /// </summary>
-    IndexNotInModel,
+    IndexNotInModel
 }
 
 /// <summary>
@@ -313,7 +313,7 @@ public class SchemaChange
         SchemaChangeType.CreateFullTextIndex => $"Full-text index {this.Name} of {this.Table} isn't in the database: {this.ModelColumn}",
         SchemaChangeType.IndexNotInModel => $"Index {this.Name} of {this.Table} isn't in {this.ModelType.Name}: {this.DatabaseColumn}. "
             + (this.Attribute != null ? $"It's kept, add {this.Attribute} to {this.AttributeTarget} so the model has it" : "It's kept, add it to the model"),
-        _ => this.Type.ToString(),
+        _ => this.Type.ToString()
     };
 
     // SQLite doesn't name foreign keys
@@ -467,7 +467,7 @@ public class SchemaDiff
                     SchemaChangeType.CreateFullTextIndex => $"  + full-text index {change.Name}  {change.ModelColumn}",
                     SchemaChangeType.IndexNotInModel => $"  ! index {change.Name}  {change.DatabaseColumn} (not in {change.ModelType.Name}, kept: "
                         + (change.Attribute != null ? $"add {change.Attribute} to {change.AttributeTarget})" : "add it to the model)"),
-                    _ => $"  + index {change.Name}",
+                    _ => $"  + index {change.Name}"
                 });
             }
         }
@@ -553,7 +553,7 @@ public static class OrmLiteSchemaDiffApi
                     Type = SchemaChangeType.CreateTable,
                     ModelType = modelType,
                     Table = table,
-                    Sql = createSql.Join("\n"),
+                    Sql = createSql.Join("\n")
                 });
                 continue;
             }
@@ -604,7 +604,7 @@ public static class OrmLiteSchemaDiffApi
                         Name = name,
                         Field = fieldDef,
                         ModelColumn = modelColumn != null ? Describe(modelColumn) : ColumnType(dialect, fieldDef),
-                        Sql = dialect.ToAddColumnStatement(tableRef, fieldDef.Clone(f => f.IsPrimaryKey = false)),
+                        Sql = dialect.ToAddColumnStatement(tableRef, fieldDef.Clone(f => f.IsPrimaryKey = false))
                     };
                     diff.Changes.Add(addColumn);
                     added.Add((addColumn, modelColumn));
@@ -631,7 +631,7 @@ public static class OrmLiteSchemaDiffApi
                         Sql = dialect.Kind == DbKind.Sqlite // can't alter the columns of a table
                             ? null
                             : dialect.ToAlterColumnStatement(tableRef, fieldDef),
-                        IsDestructive = !IsSafeToAlter(dbColumn, modelColumn),
+                        IsDestructive = !IsSafeToAlter(dbColumn, modelColumn)
                     });
                 }
 
@@ -658,7 +658,7 @@ public static class OrmLiteSchemaDiffApi
                     Field = fieldDef,
                     ModelColumn = DescribeDefault(modelDefault),
                     DatabaseColumn = DescribeDefault(dbDefault),
-                    Sql = dialect.ToAlterColumnDefaultStatement(tableRef, fieldDef),
+                    Sql = dialect.ToAlterColumnDefaultStatement(tableRef, fieldDef)
                 });
             }
 
@@ -677,7 +677,7 @@ public static class OrmLiteSchemaDiffApi
                     Name = dbColumn.ColumnName,
                     DatabaseColumn = Describe(dbColumn),
                     Sql = dialect.ToDropColumnStatement(tableRef, dbColumn.ColumnName),
-                    IsDestructive = true,
+                    IsDestructive = true
                 };
                 diff.Changes.Add(dropColumn);
                 dropped.Add((dropColumn, dbColumn));
@@ -742,7 +742,7 @@ public static class OrmLiteSchemaDiffApi
                     ModelType = modelType,
                     Table = table,
                     Name = indexName,
-                    Sql = createIndex.Trim(),
+                    Sql = createIndex.Trim()
                 });
             }
         }
@@ -757,7 +757,7 @@ public static class OrmLiteSchemaDiffApi
     private readonly static HashSet<SchemaChangeType> RebuiltTypes = [
         SchemaChangeType.AlterColumn, SchemaChangeType.AlterDefault, SchemaChangeType.AddForeignKey,
         SchemaChangeType.AlterForeignKey, SchemaChangeType.DropForeignKey, SchemaChangeType.AddConstraint,
-        SchemaChangeType.AlterConstraint, SchemaChangeType.DropConstraint,
+        SchemaChangeType.AlterConstraint, SchemaChangeType.DropConstraint
     ];
 
     // SQLite can only alter columns, defaults, foreign keys and constraints by creating the table again, which is a
@@ -790,11 +790,11 @@ public static class OrmLiteSchemaDiffApi
                     SchemaChangeType.AlterDefault => $"the default of {x.Name}",
                     SchemaChangeType.AddForeignKey or SchemaChangeType.AlterForeignKey or SchemaChangeType.DropForeignKey =>
                         $"foreign key {x.Name ?? x.DatabaseColumn}",
-                    _ => $"constraint {x.Name ?? x.ModelColumn ?? x.DatabaseColumn}",
+                    _ => $"constraint {x.Name ?? x.ModelColumn ?? x.DatabaseColumn}"
                 }).Distinct().Join(", "),
                 Sql = OrmLiteRebuildTableApi.ToRebuildTableStatements(db, modelType).Join("\n"),
                 // Columns that aren't in the model aren't kept
-                IsDestructive = rebuilt.Any(x => x.IsDestructive) || changes.Any(x => x.Type == SchemaChangeType.DropColumn),
+                IsDestructive = rebuilt.Any(x => x.IsDestructive) || changes.Any(x => x.Type == SchemaChangeType.DropColumn)
             };
             diff.Changes.Insert(diff.Changes.LastIndexOf(changes[changes.Count - 1]) + 1, rebuildTable);
         }
@@ -864,7 +864,7 @@ public static class OrmLiteSchemaDiffApi
                     ModelType = modelType,
                     Table = table,
                     Name = indexName,
-                    Sql = createIndex.Trim(),
+                    Sql = createIndex.Trim()
                 });
                 continue;
             }
@@ -886,7 +886,7 @@ public static class OrmLiteSchemaDiffApi
                 DatabaseColumn = dbIndex.ToString(),
                 Sql = ToDropIndexStatement(dialect, modelType, dbIndex.Name).Trim().TrimEnd(';') + ";\n" + createIndex.Trim(),
                 // Rows can have the same values of the columns of an index that's made unique
-                IsDestructive = modelIndex.IsUnique && !dbIndex.IsUnique,
+                IsDestructive = modelIndex.IsUnique && !dbIndex.IsUnique
             });
         }
 
@@ -904,7 +904,7 @@ public static class OrmLiteSchemaDiffApi
             var columns = dbIndex.Columns.Concat(dbIndex.Include).ToList();
             var fields = columns.Map(c => fieldDefs.FirstOrDefault(f =>
                 dialect.NamingStrategy.GetColumnName(f.FieldName).EqualsIgnoreCase(c)));
-            if (!fields.Any(f => f == null) || !columns.Any(IsColumnNotInModel))
+            if (fields.All(f => f != null) || !columns.Any(IsColumnNotInModel))
             {
                 var keyFields = fields.Take(dbIndex.Columns.Count).ToList();
                 diff.Changes.Add(new SchemaChange
@@ -915,7 +915,7 @@ public static class OrmLiteSchemaDiffApi
                     Name = dbIndex.Name,
                     Field = keyFields.Count == 1 ? keyFields[0] : null,
                     DatabaseColumn = dbIndex.ToString(),
-                    Attribute = fields.Count > 0 && !fields.Any(f => f == null) ? ToIndexAttribute(dbIndex, keyFields, fields.Skip(keyFields.Count).ToList()) : null,
+                    Attribute = fields.Count > 0 && fields.All(f => f != null) ? ToIndexAttribute(dbIndex, keyFields, fields.Skip(keyFields.Count).ToList()) : null
                 });
                 continue;
             }
@@ -928,7 +928,7 @@ public static class OrmLiteSchemaDiffApi
                 Name = dbIndex.Name,
                 DatabaseColumn = dbIndex.ToString(),
                 Sql = ToDropIndexStatement(dialect, modelType, dbIndex.Name),
-                IsDestructive = true,
+                IsDestructive = true
             };
             // Its index is dropped before its column, which SQL Server can't drop while it's indexed
             var dropColumn = diff.Changes.FindIndex(x => x.ModelType == modelType && x.Type == SchemaChangeType.DropColumn
@@ -991,7 +991,7 @@ public static class OrmLiteSchemaDiffApi
                 RefTable = dialect.GetTableNameOnly(refTableRef),
                 RefColumns = [dialect.NamingStrategy.GetColumnName(refModelDef.PrimaryKey.FieldName)],
                 OnDelete = fieldDef.ForeignKey.OnDelete,
-                OnUpdate = fieldDef.ForeignKey.OnUpdate,
+                OnUpdate = fieldDef.ForeignKey.OnUpdate
             };
 
             var dbForeignKey = dbForeignKeys.FirstOrDefault(x => !matched.Contains(x)
@@ -1009,7 +1009,7 @@ public static class OrmLiteSchemaDiffApi
                     Field = fieldDef,
                     ModelColumn = modelForeignKey.ToString(),
                     Sql = dialect.ToAddForeignKeyStatement(tableRef, fieldDef),
-                    IsDestructive = !isAdded,
+                    IsDestructive = !isAdded
                 });
                 continue;
             }
@@ -1039,7 +1039,7 @@ public static class OrmLiteSchemaDiffApi
                     ? dialect.ToDropForeignKeyStatement(tableRef, dbForeignKey.Name).Trim().TrimEnd(';') + ";\n" + addSql.Trim()
                     : null,
                 // The rows in the table can reference rows that don't exist in the other table
-                IsDestructive = !isSameTable,
+                IsDestructive = !isSameTable
             });
         }
 
@@ -1062,7 +1062,7 @@ public static class OrmLiteSchemaDiffApi
                 Sql = dbForeignKey.Name != null && dialect.Kind != DbKind.Sqlite
                     ? dialect.ToDropForeignKeyStatement(tableRef, dbForeignKey.Name)
                     : null,
-                IsDestructive = true,
+                IsDestructive = true
             });
         }
         diff.Changes.InsertRange(firstChange, drops);
@@ -1193,7 +1193,7 @@ public static class OrmLiteSchemaDiffApi
             Table = table,
             Name = name,
             ModelColumn = "(" + modelDef.GetFullTextFields().Map(x => dialect.NamingStrategy.GetColumnName(x.FieldName)).Join(", ") + ")",
-            Sql = dialect.ToCreateFullTextIndexStatements(modelDef).Map(x => x.Trim()).Join("\n"),
+            Sql = dialect.ToCreateFullTextIndexStatements(modelDef).Map(x => x.Trim()).Join("\n")
         });
         return name;
     }
@@ -1312,7 +1312,7 @@ public static class OrmLiteSchemaDiffApi
                 ModelColumn = $"UNIQUE ({columns.Join(", ")})",
                 Sql = dialect.ToAddConstraintStatement(tableRef, sql),
                 // Rows can have the same values of its columns
-                IsDestructive = true,
+                IsDestructive = true
             });
         }
 
@@ -1339,7 +1339,7 @@ public static class OrmLiteSchemaDiffApi
                     Field = fields.Count == 1 ? fields[0] : null,
                     DatabaseColumn = dbUnique.ToString(),
                     Attribute = fields.Count == 1 ? "[Unique]"
-                        : $"[UniqueConstraint({fields.Map(f => SchemaMigrationWriter.ToLiteral(f.Name)).Join(", ")})]",
+                        : $"[UniqueConstraint({fields.Map(f => SchemaMigrationWriter.ToLiteral(f.Name)).Join(", ")})]"
                 });
                 continue;
             }
@@ -1352,7 +1352,7 @@ public static class OrmLiteSchemaDiffApi
                 Name = dbUnique.Name,
                 DatabaseColumn = $"UNIQUE ({dbUnique.Columns.Join(", ")})",
                 Sql = dialect.ToDropUniqueConstraintStatement(tableRef, dbUnique.Name),
-                IsDestructive = true,
+                IsDestructive = true
             });
         }
         // Dropped before the columns they're of are dropped
@@ -1385,7 +1385,7 @@ public static class OrmLiteSchemaDiffApi
             modelChecks.Add((fieldDef, sql, new CheckConstraintSchema
             {
                 Name = match.Groups[1].Value.Trim('"', '`', '[', ']'),
-                Condition = match.Groups[2].Value.Trim(),
+                Condition = match.Groups[2].Value.Trim()
             }));
         }
 
@@ -1439,7 +1439,7 @@ public static class OrmLiteSchemaDiffApi
                     ModelColumn = $"CHECK ({check.Condition})",
                     Sql = addSql,
                     // Rows can break its condition
-                    IsDestructive = true,
+                    IsDestructive = true
                 });
                 continue;
             }
@@ -1460,7 +1460,7 @@ public static class OrmLiteSchemaDiffApi
                 ModelColumn = $"CHECK ({check.Condition})",
                 DatabaseColumn = dbCheck.ToString(),
                 Sql = addSql != null && dropSql != null ? dropSql.Trim().TrimEnd(';') + ";\n" + addSql.Trim() : null,
-                IsDestructive = true,
+                IsDestructive = true
             });
         }
 
@@ -1480,7 +1480,7 @@ public static class OrmLiteSchemaDiffApi
                 Name = dbCheck.Name,
                 DatabaseColumn = dbCheck.ToString(),
                 Sql = dbCheck.Name != null ? dialect.ToDropCheckConstraintStatement(tableRef, dbCheck.Name) : null,
-                IsDestructive = true,
+                IsDestructive = true
             });
         }
         // Dropped before the columns they're of are dropped
@@ -1530,7 +1530,7 @@ public static class OrmLiteSchemaDiffApi
             Field = modelDef.PrimaryKey,
             ModelColumn = $"PRIMARY KEY ({modelKey.Join(", ")})",
             DatabaseColumn = dbKey.Count > 0 ? $"PRIMARY KEY ({dbKey.Join(", ")})" : "no primary key",
-            IsDestructive = true,
+            IsDestructive = true
         });
     }
 
@@ -1564,7 +1564,7 @@ public static class OrmLiteSchemaDiffApi
         var to = new IndexSchema
         {
             Name = GetIndexName(createIndexSql),
-            IsUnique = UniqueIndexRegex.IsMatch(createIndexSql),
+            IsUnique = UniqueIndexRegex.IsMatch(createIndexSql)
         };
         var depth = 0;
         var start = match.Index + match.Length;
@@ -1680,7 +1680,7 @@ public static class OrmLiteSchemaDiffApi
 
     private readonly static HashSet<string> IntegerTypes = new(StringComparer.OrdinalIgnoreCase) {
         "SMALLINT", "INT", "INTEGER", "MEDIUMINT", "BIGINT", "INT2", "INT4", "INT8",
-        "SMALLSERIAL", "SERIAL", "BIGSERIAL",
+        "SMALLSERIAL", "SERIAL", "BIGSERIAL"
     };
 
     // An int property is often used with a BIGINT column and a long with an INTEGER, which aren't a difference
@@ -1803,7 +1803,7 @@ internal static class SchemaMigrationWriter
         "// class to do the right thing: check every change does what you intend, e.g. a column that's not in a model is",
         "// only dropped by commented code as it may have been renamed, and run it against a copy of your data first.",
         "// Delete the #warning below once you've reviewed it.",
-        "#warning Generated by Schema Diff: review this migration before running it, then delete this line",
+        "#warning Generated by Schema Diff: review this migration before running it, then delete this line"
     ];
 
     internal static string Write(SchemaDiff diff, string className, string ns)
@@ -2077,7 +2077,7 @@ internal static class SchemaMigrationWriter
         [typeof(double)] = "double",
         [typeof(decimal)] = "decimal",
         [typeof(string)] = "string",
-        [typeof(object)] = "object",
+        [typeof(object)] = "object"
     };
 
     private readonly static HashSet<string> Usings = ["System", "System.Collections.Generic", "ServiceStack",
@@ -2171,7 +2171,7 @@ internal static class SchemaMigrationWriter
             ulong ul => ul + "UL",
             uint ui => ui + "U",
             IFormattable n => n.ToString(null, System.Globalization.CultureInfo.InvariantCulture),
-            _ => value.ToString(),
+            _ => value.ToString()
         };
     }
 

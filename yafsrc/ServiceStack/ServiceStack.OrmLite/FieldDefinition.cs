@@ -535,7 +535,7 @@ public class FieldDefinition
             ReferenceSelfId = this.ReferenceSelfId,
             FieldReference = this.FieldReference,
             CustomFieldDefinition = this.CustomFieldDefinition,
-            IsRefType = this.IsRefType,
+            IsRefType = this.IsRefType
         };
 
         modifier?.Invoke(fieldDef);

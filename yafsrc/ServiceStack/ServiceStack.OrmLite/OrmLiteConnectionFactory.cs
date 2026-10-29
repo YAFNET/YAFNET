@@ -548,7 +548,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended, IDbReadOnl
             setGlobalDialectProvider: false)
         {
             ConnectionFilter = primary.ConnectionFilter,
-            OnDispose = primary.OnDispose,
+            OnDispose = primary.OnDispose
         };
 
     private static OrmLiteConnectionFactory GetNamedConnection(string namedConnection)

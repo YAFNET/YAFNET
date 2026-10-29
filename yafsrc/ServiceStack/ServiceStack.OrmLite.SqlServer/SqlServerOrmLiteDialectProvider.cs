@@ -1043,7 +1043,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
         {
             VectorDistance.Cosine => "cosine",
             VectorDistance.L2 => "euclidean",
-            _ => "dot",
+            _ => "dot"
         };
         return $"VECTOR_DISTANCE('{metric}', {vector}, {other})";
     }
@@ -1332,7 +1332,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             $"DECLARE @key sysname = (SELECT name FROM sys.indexes WHERE object_id = OBJECT_ID({this.GetQuotedValue(table)}) AND is_primary_key = 1);\n" +
             $"DECLARE @sql nvarchar(max) = {this.GetQuotedValue($"CREATE FULLTEXT INDEX ON {table} ({columns}) KEY INDEX ")} + QUOTENAME(@key) + " +
             $"{this.GetQuotedValue($" ON {catalog} WITH (CHANGE_TRACKING = AUTO, STOPLIST = OFF)")};\n" +
-            "EXEC(@sql);",
+            "EXEC(@sql);"
         ];
     }
 
@@ -1341,7 +1341,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
         var table = this.GetQuotedTableName(modelDef);
         return [
             $"IF EXISTS (SELECT 1 FROM sys.fulltext_indexes WHERE object_id = OBJECT_ID({this.GetQuotedValue(table)})) " +
-            $"EXEC({this.GetQuotedValue($"DROP FULLTEXT INDEX ON {table}")});",
+            $"EXEC({this.GetQuotedValue($"DROP FULLTEXT INDEX ON {table}")});"
         ];
     }
 
@@ -2362,14 +2362,14 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// victims, In-Memory OLTP conflicts and Azure SQL throttling, failovers and resource limits
     /// </summary>
     public static HashSet<int> NotAppliedErrors { get; } = [
-        1205, 3960, 4060, 4221, 10928, 10929, 40501, 40613, 41301, 41302, 41305, 41325, 41839, 49918, 49919, 49920,
+        1205, 3960, 4060, 4221, 10928, 10929, 40501, 40613, 41301, 41302, 41305, 41325, 41839, 49918, 49919, 49920
     ];
 
     /// <summary>
     /// Errors where the connection was lost, so the statement may have been applied
     /// </summary>
     public static HashSet<int> ConnectionLostErrors { get; } = [
-        64, 121, 233, 10053, 10054, 10060, 40197,
+        64, 121, 233, 10053, 10054, 10060, 40197
     ];
 
     public override TransientError GetTransientError(Exception ex)

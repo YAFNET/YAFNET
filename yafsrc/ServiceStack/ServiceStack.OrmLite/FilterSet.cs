@@ -115,7 +115,7 @@ internal enum FilterRuleType
     Filter,
     Ensure,
     OnInsert,
-    OnUpdate,
+    OnUpdate
 }
 
 /// <summary>
@@ -201,7 +201,7 @@ public sealed class FilterSetBuilder<TScope>
         {
             Condition = condition,
             MemberName = member.Member.Name,
-            ValueFn = s => valueFn((TScope)s!),
+            ValueFn = s => valueFn((TScope)s!)
         });
         return this;
     }
@@ -256,7 +256,7 @@ public sealed class FilterSetBuilder<TScope>
         this.Rules.Add(new FilterRule(typeof(T), ruleType)
         {
             MemberName = FilterRules.ToMember(field).Member.Name,
-            ValueFn = s => value((TScope)s!),
+            ValueFn = s => value((TScope)s!)
         });
         return this;
     }
@@ -291,7 +291,7 @@ public sealed class FilterSetBuilder
         {
             Condition = condition,
             MemberName = member.Member.Name,
-            ValueFn = _ => memberValue,
+            ValueFn = _ => memberValue
         });
         return this;
     }
@@ -343,7 +343,7 @@ public sealed class FilterSetBuilder
         this.Rules.Add(new FilterRule(typeof(T), ruleType)
         {
             MemberName = FilterRules.ToMember(field).Member.Name,
-            ValueFn = _ => value(),
+            ValueFn = _ => value()
         });
         return this;
     }

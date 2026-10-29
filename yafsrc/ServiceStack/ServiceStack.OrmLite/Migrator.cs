@@ -553,7 +553,7 @@ public class Migrator
                         {
                             Table = table,
                             Schema = schema,
-                            NamedConnection = namedConnection,
+                            NamedConnection = namedConnection
                         };
                     }
                     migrationTable.Copies.Add(copy);

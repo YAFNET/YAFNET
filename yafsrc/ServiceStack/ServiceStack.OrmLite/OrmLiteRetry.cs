@@ -37,7 +37,7 @@ public enum TransientError
     /// <summary>
     /// The statement may have been applied, e.g. the connection was lost, so only reads are run again
     /// </summary>
-    MaybeApplied,
+    MaybeApplied
 }
 
 public static class OrmLiteRetry

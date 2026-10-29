@@ -281,7 +281,7 @@ public abstract partial class SqlExpression<T>
         {
             Alias = ChildAlias,
             ModelDef = this.modelDef,
-            ParamName = recurse.Parameters[1].Name,
+            ParamName = recurse.Parameters[1].Name
         };
         joinQuery.Reset(); // render column names, as InternalJoin() does
         var onCondition = joinQuery.InternalCreateSqlFromExpression(recurse, isCrossJoin: false);
@@ -319,7 +319,7 @@ public abstract partial class SqlExpression<T>
             StepFilter = recursiveFilter,
             StepPrimaryKey = PrimaryKey(quotedChild),
             MaxDepth = maxDepth,
-            DetectCycles = detectCycles,
+            DetectCycles = detectCycles
         };
 
         // Read from the CTE aliased as the model's table so the rest of the query is unchanged

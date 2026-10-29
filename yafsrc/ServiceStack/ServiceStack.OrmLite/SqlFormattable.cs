@@ -87,7 +87,7 @@ public sealed class SqlFormattable
                     Type type => QuoteTable(dialect, new TableRef(type)),
                     ModelDefinition modelDef => QuoteTable(dialect, new TableRef(modelDef)),
                     TableRef tableRef => QuoteTable(dialect, tableRef),
-                    var arg => paramFn(arg),
+                    var arg => paramFn(arg)
                 });
                 i = end;
                 continue;
