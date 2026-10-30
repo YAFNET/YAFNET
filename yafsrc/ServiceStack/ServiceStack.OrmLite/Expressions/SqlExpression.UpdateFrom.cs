@@ -75,7 +75,7 @@ public abstract partial class SqlExpression<T>
         {
             values.RemoveAll(x => x.Key == rule.Field);
             var value = this.DialectProvider.GetFieldValue(rule.Field, rule.GetValue());
-            values.Add(new(rule.Field, this.AddParam(value).ParameterName));
+            values.Add(new KeyValuePair<FieldDefinition, string>(rule.Field, this.AddParam(value).ParameterName));
         }
     }
 
@@ -119,7 +119,7 @@ public abstract partial class SqlExpression<T>
                 var sql = value is PartialSqlString or SelectItem
                     ? value.ToString()
                     : this.AddParam(this.DialectProvider.GetFieldValue(fieldDef, value)).ParameterName; // a constant or captured value
-                values.Add(new(fieldDef, sql));
+                values.Add(new KeyValuePair<FieldDefinition, string>(fieldDef, sql));
             }
             return values;
         }

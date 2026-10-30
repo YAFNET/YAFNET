@@ -1709,7 +1709,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             return this;
         }
 
-        (this.connectionFilters ??= []).Add(new(filter, sql));
+        (this.connectionFilters ??= []).Add(new KeyValuePair<ConnectionFilter<T>, string>(filter, sql));
         return this.Ensure(sql);
     }
 
@@ -1749,7 +1749,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             var newSql = filter.ToSql(this) ?? TrueLiteral;
             this.WhereExpression = this.WhereExpression?.Replace(oldSql, newSql);
             this.ensureExpression = this.ensureExpression?.Replace(oldSql, newSql);
-            this.connectionFilters[i] = new(filter, newSql);
+            this.connectionFilters[i] = new KeyValuePair<ConnectionFilter<T>, string>(filter, newSql);
         }
     }
 
@@ -5978,13 +5978,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         if (isArrayColumn)
         {
             from = this.ArrayItemsFrom(column, arrayField, alias);
-            (this.arrayItemAliases ??= new()).Add(alias);
+            (this.arrayItemAliases ??= new HashSet<string>()).Add(alias);
         }
         else
         {
             from = this.JsonArrayItemsFrom(json, path, alias);
         }
-        (this.jsonItems ??= new())[predicate.Parameters[0]] = alias;
+        (this.jsonItems ??= new Dictionary<ParameterExpression, string>())[predicate.Parameters[0]] = alias;
         string condition;
         try
         {

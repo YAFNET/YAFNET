@@ -1252,7 +1252,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <param name="config">The configuration.</param>
     public override void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
     {
-        config ??= new();
+        config ??= new BulkInsertConfig();
         if (config.Mode == BulkInsertMode.Sql)
         {
             base.BulkInsert(db, objs, config);
@@ -1265,7 +1265,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
 
     public async override Task BulkInsertAsync<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null, CancellationToken token = default)
     {
-        config ??= new();
+        config ??= new BulkInsertConfig();
         if (config.Mode == BulkInsertMode.Sql)
         {
             await base.BulkInsertAsync(db, objs, config, token).ConfigAwait();
@@ -2203,14 +2203,14 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <param name="analyze">if set to <c>true</c> [analyze].</param>
     /// <returns>ExplainQuery.</returns>
     public override ExplainQuery ToExplainQuery(IDbConnection db, string sql, bool analyze) => analyze
-        ? new()
+        ? new ExplainQuery
         {
             Sql = sql,
             BeforeSql = "SET STATISTICS PROFILE ON",
             AfterSql = "SET STATISTICS PROFILE OFF",
             ReadPlan = reader => ExplainQuery.ReadTable(reader, "Rows", "Executes", "StmtText")
         }
-        : new()
+        : new ExplainQuery
         {
             Sql = sql,
             BeforeSql = "SET SHOWPLAN_TEXT ON",

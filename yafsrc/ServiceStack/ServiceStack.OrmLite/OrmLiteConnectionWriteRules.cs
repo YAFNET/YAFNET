@@ -380,12 +380,12 @@ internal static class OrmLiteConnectionWriteRules
         var ruleValues = new Dictionary<string, KeyValuePair<FieldDefinition, object?>>();
         foreach (var rule in rules.EnsureWrites)
         {
-            ruleValues[rule.Field.Name] = new(rule.Field, rule.GetValue());
+            ruleValues[rule.Field.Name] = new KeyValuePair<FieldDefinition, object?>(rule.Field, rule.GetValue());
         }
 
         foreach (var rule in rules.OnInsert)
         {
-            ruleValues[rule.Field.Name] = new(rule.Field, rule.GetValue());
+            ruleValues[rule.Field.Name] = new KeyValuePair<FieldDefinition, object?>(rule.Field, rule.GetValue());
         }
 
         // The selected columns or their aliases, e.g. "Table"."Column" or "Alias"
@@ -427,14 +427,14 @@ internal static class OrmLiteConnectionWriteRules
         }
         else if (setWhenDefault)
         {
-            original.Add(new(rule.Field, value));
+            original.Add(new KeyValuePair<FieldDefinition, object?>(rule.Field, value));
             rule.Field.SetValue(obj, expected);
         }
     }
 
     private static void SetValue(WriteRule rule, object obj, List<KeyValuePair<FieldDefinition, object?>> original)
     {
-        original.Add(new(rule.Field, rule.Field.GetValue(obj)));
+        original.Add(new KeyValuePair<FieldDefinition, object?>(rule.Field, rule.Field.GetValue(obj)));
         rule.Field.SetValue(obj, rule.GetValue());
     }
 

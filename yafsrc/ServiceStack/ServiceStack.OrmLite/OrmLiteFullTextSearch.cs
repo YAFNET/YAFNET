@@ -12,7 +12,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using ServiceStack.DataAnnotations;
+
 using ServiceStack.OrmLite.Base.Common;
 
 namespace ServiceStack.OrmLite;

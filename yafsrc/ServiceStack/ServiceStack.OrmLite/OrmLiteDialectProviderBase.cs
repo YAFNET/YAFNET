@@ -1774,7 +1774,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
     public virtual void BulkUpsert<T>(IDbConnection db, IEnumerable<T> objs, ICollection<string> updateOnly = null, BulkInsertConfig config = null)
     {
-        config ??= new();
+        config ??= new BulkInsertConfig();
         var plan = this.CreateBulkUpsertPlan<T>(db, updateOnly, config);
         if (plan == null)
         {
@@ -1830,7 +1830,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
     public async virtual Task BulkUpsertAsync<T>(IDbConnection db, IEnumerable<T> objs, ICollection<string> updateOnly = null, BulkInsertConfig config = null, CancellationToken token = default)
     {
-        config ??= new();
+        config ??= new BulkInsertConfig();
         var plan = this.CreateBulkUpsertPlan<T>(db, updateOnly, config);
         if (plan == null)
         {

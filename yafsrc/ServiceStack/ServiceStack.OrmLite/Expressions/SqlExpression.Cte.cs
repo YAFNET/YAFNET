@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -129,7 +128,7 @@ public abstract partial class SqlExpression<T>
             throw new ArgumentException($"This query already has a common table expression named {quotedName}");
         }
 
-        this.commonTableExpressions.Add(new(quotedName, definition));
+        this.commonTableExpressions.Add(new KeyValuePair<string, string>(quotedName, definition));
     }
 
     /// <summary>

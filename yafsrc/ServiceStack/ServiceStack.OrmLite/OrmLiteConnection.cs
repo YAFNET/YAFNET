@@ -6,6 +6,7 @@
 // ***********************************************************************
 
 #nullable enable
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading;
@@ -244,7 +245,7 @@ public class OrmLiteConnection
     /// </summary>
     public System.Collections.Generic.Dictionary<string, object?> Items => this.source != null
         ? this.source.Items
-        : this.items ??= new();
+        : this.items ??= new Dictionary<string, object?>();
 
     /// <summary>
     /// Whether this connection was returned by WithoutFilters()
