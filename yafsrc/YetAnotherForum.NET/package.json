@@ -18,14 +18,14 @@
 		"grunt-shell": "^4.0.0",
 		"grunt-webpack": "^8.0.0",
 		"postcss": "^8.5.32",
-		"sass": "^1.107.0",
+		"sass": "^1.107.1",
 		"simple-webp-converter": "^1.2.0",
 		"terser-webpack-plugin": "^5.6.1",
 		"ts-loader": "^9.6.2",
 		"typescript": "^7.0.2",
 		"typescript6": "npm:typescript@^6.0.3",
 		"webpack": "^5.112.2",
-		"webpack-cli": "^7.2.3"
+		"webpack-cli": "^7.3.1"
 	},
 	"dependencies": {
 		"@codemirror/lang-sql": "^6.10.0",
