@@ -31,6 +31,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
+using UAParser.Extensions;
+
 using YAF.Core.Middleware;
 using YAF.Types;
 using YAF.Types.Objects;
@@ -83,6 +85,8 @@ public static class IApplicationBuilderExtensions
             {
                 app.UseHttpsRedirection();
             }
+
+            app.UseUserAgentClientHints();
 
             // Database Connection String
             Config.DatabaseObjectQualifier = serviceLocator.Get<BoardConfiguration>().DatabaseObjectQualifier;
