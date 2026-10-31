@@ -23,13 +23,13 @@
 		"grunt-webpack": "^8.0.0",
 		"grunt-zip": "^1.0.0",
 		"postcss": "^8.5.32",
-		"sass": "^1.107.0",
+		"sass": "^1.107.1",
 		"simple-webp-converter": "^1.2.0",
 		"style-loader": "^4.0.0",
 		"ts-loader": "^9.6.2",
 		"typescript": "npm:@typescript/typescript6@^6.0.2",
 		"webpack": "^5.112.2",
-		"webpack-cli": "^7.2.3",
+		"webpack-cli": "^7.3.1",
 		"webpack-merge": "^6.0.1"
 	},
 	"dependencies": {

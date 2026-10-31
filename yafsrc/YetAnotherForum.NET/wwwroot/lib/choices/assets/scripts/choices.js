@@ -585,9 +585,38 @@
          */
         Input.prototype.setWidth = function () {
             var element = this.element;
-            element.style.minWidth = "5ch";
-            element.style.width = 'auto';
-            element.style.fieldSizing = 'content';
+            var value = element.value, placeholder = element.placeholder;
+            var minWidth = 0;
+            var width = 0;
+            if (value || placeholder) {
+                var e = document.createElement('span');
+                e.style.position = 'absolute';
+                e.style.visibility = 'hidden';
+                e.style.whiteSpace = 'pre';
+                e.style.height = 'auto';
+                e.style.width = 'auto';
+                e.style.minWidth = '1ch';
+                addClassesToElement(e, Array.from(element.classList));
+                element.after(e);
+                var chInPx = parseFloat(getComputedStyle(e).width);
+                if (Number.isNaN(chInPx)) {
+                    minWidth = placeholder.length;
+                    width = value.length;
+                }
+                else {
+                    if (placeholder) {
+                        e.innerText = placeholder;
+                        minWidth = parseFloat(getComputedStyle(e).width) / chInPx;
+                    }
+                    if (value) {
+                        e.innerText = value;
+                        width = parseFloat(getComputedStyle(e).width) / chInPx;
+                    }
+                }
+                e.remove();
+            }
+            element.style.minWidth = "".concat(Math.ceil(minWidth) + 1, "ch");
+            element.style.width = "".concat(Math.ceil(width) + 1, "ch");
         };
         Input.prototype.setActiveDescendant = function (activeDescendantID) {
             this.element.setAttribute('aria-activedescendant', activeDescendantID);
@@ -3759,7 +3788,6 @@
             if (this.containerOuter.isDisabled) {
                 this._addEventListeners();
                 this.input.enable();
-                this.input.element.focus();
                 this.containerOuter.enable();
             }
             return this;
@@ -3870,13 +3898,14 @@
                 // eslint-disable-next-line no-param-reassign
                 preventInputFocus = !this._canSearch;
             }
+            // to ensure a virtual keyboard trigger as expected, the focus/animation must be started from the input event and not an animation frame which
+            this.dropdown.show();
+            var rect = this.dropdown.element.getBoundingClientRect();
+            this.containerOuter.open(rect.bottom, rect.height);
+            if (!preventInputFocus) {
+                this.input.focus();
+            }
             requestAnimationFrame(function () {
-                _this.dropdown.show();
-                var rect = _this.dropdown.element.getBoundingClientRect();
-                _this.containerOuter.open(rect.bottom, rect.height);
-                if (!preventInputFocus) {
-                    _this.input.focus();
-                }
                 _this.passedElement.triggerEvent(EventType.showDropdown);
                 var activeElement = _this.choiceList.element.querySelector(getClassNamesSelector(_this.config.classNames.selectedState));
                 if (activeElement !== null && !isScrolledIntoView(activeElement, _this.choiceList.element)) {
@@ -4993,7 +5022,8 @@
                     }
                 }
                 else {
-                    var currentEl = this.dropdown.element.querySelector(getClassNamesSelector(this.config.classNames.highlightedState));
+                    var currentEl = this.dropdown.element.querySelector(getClassNamesSelector(this.config.classNames.highlightedState)) ||
+                        this.dropdown.element.querySelector(getClassNamesSelector(this.config.classNames.selectedState));
                     if (currentEl) {
                         nextEl = getAdjacentEl(currentEl, selectableChoiceIdentifier, directionInt);
                     }
@@ -5098,8 +5128,8 @@
                         }
                     }
                     else {
-                        this.showDropdown();
                         containerOuter.element.focus();
+                        this.showDropdown();
                     }
                 }
                 else if (this._isSelectOneElement &&

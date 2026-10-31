@@ -2,8 +2,6 @@
 
 **YetAnotherForum.NET** (YAF.NET) ASP.NET Open Source Forum solution! The **YAF.NET** project is an international collaboration of like-minded, skilled, and creative individuals who are striving to make **YAF.NET** the most robust and malleable forum solutions available.
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=YAFNET_YAFNET&metric=alert_status)](https://sonarcloud.io/dashboard?id=YAFNET_YAFNET)
-
 ![license](https://img.shields.io/github/license/yafnet/yafnet)
 
 ![build status](https://github.com/yafnet/yafnet/actions/workflows/build.yml/badge.svg)
