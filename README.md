@@ -59,8 +59,9 @@ Compose files for MySQL, PostgreSQL and SQLite, configuration via environment va
 
 ## Installation & upgrade
 
-- [New installation](https://github.com/YAFNET/YAFNET/wiki#installation)
-- [Upgrade an existing YAF.NET installation](https://github.com/YAFNET/YAFNET/wiki/Upgrade-an-Existing-YAF.NET-Installation)
+- [New installation](https://github.com/YAFNET/YAFNET/wiki#getting-started) (IIS, Linux with nginx, Docker)
+- [Upgrade from YAF.NET 3.x or older](https://github.com/YAFNET/YAFNET/wiki/Upgrade-to-YAF-v4)
+- [Troubleshooting](https://github.com/YAFNET/YAFNET/wiki/Troubleshooting)
 
 More documentation can be found in the [GitHub wiki](https://github.com/YAFNET/YAFNET/wiki).
 
@@ -71,13 +72,13 @@ Prerequisites: the [.NET 10.0 SDK](https://dotnet.microsoft.com/download) and [N
 ```bash
 cd yafsrc/YetAnotherForum.NET
 npm install
-grunt                                   # compile the JS and CSS files
+npm run build                           # compile the JS and CSS files (Grunt)
 
 cd ..
 dotnet build YAF.NET-SqlServer.slnx     # or YAF.NET-MySql / -PostgreSQL / -Sqlite
 ```
 
-See [BUILDING.md](BUILDING.md) for the full instructions, including building with Visual Studio. How to run the unit and UI tests is described in the [tests README](yafsrc/Tests/README.md).
+See the wiki for the full instructions: [command line](https://github.com/YAFNET/YAFNET/wiki/Build-with-Command-Line) and [Visual Studio](https://github.com/YAFNET/YAFNET/wiki/Build-with-Visual-Studio). How to run the unit and UI tests is described in the [tests README](yafsrc/Tests/README.md).
 
 ## Screenshots
 
