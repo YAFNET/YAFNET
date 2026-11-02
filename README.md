@@ -55,7 +55,7 @@ Then open <http://localhost:8001>. On the first start you are taken to the insta
 > [!IMPORTANT]
 > Change the default database password `MyPass@word` in the compose file before starting the stack.
 
-Compose files for MySQL, PostgreSQL and SQLite, configuration via environment variables, mail setup and data volumes are described in the [Docker guide](yafsrc/docker/readme.md).
+Compose files for MySQL, PostgreSQL and SQLite, configuration via environment variables, mail setup and data volumes are described in the [Docker guide](https://github.com/YAFNET/YAFNET/wiki/Docker).
 
 ## Installation & upgrade
 
