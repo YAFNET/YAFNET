@@ -195,6 +195,45 @@ public class IPHelperTests
     }
 
     [Test]
+    [Description("The forwarded headers middleware uses X-Forwarded-Proto of trusted proxies only")]
+    public async Task Forwarded_Headers_Middleware_Scheme_Test()
+    {
+        async Task<(string Scheme, string Address)> ForwardAsync(
+            string remoteAddress,
+            string forwardedFor,
+            string forwardedProto,
+            params string[] trustedProxies)
+        {
+            var context = CreateContext(remoteAddress);
+            context.Request.Scheme = "http";
+            context.Request.Headers["X-Forwarded-For"] = forwardedFor;
+            context.Request.Headers["X-Forwarded-Proto"] = forwardedProto;
+
+            var middleware = new Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersMiddleware(
+                _ => Task.CompletedTask,
+                Microsoft.Extensions.Logging.Abstractions.NullLoggerFactory.Instance,
+                Microsoft.Extensions.Options.Options.Create(ForwardedHeadersHelper.CreateOptions(trustedProxies)));
+
+            await middleware.Invoke(context);
+
+            return (context.Request.Scheme, context.GetUserRealIPAddress());
+        }
+
+        (await ForwardAsync("127.0.0.1", "8.8.8.8", "https")).Should().Be(("https", "8.8.8.8"), "a proxy on the same host terminates https");
+        (await ForwardAsync("10.0.0.5", "8.8.8.8", "https")).Should().Be(("https", "8.8.8.8"), "a proxy in the private network");
+        (await ForwardAsync("173.245.48.10", "8.8.8.8", "https", "173.245.48.0/20")).Should().Be(("https", "8.8.8.8"), "a configured proxy network");
+
+        (await ForwardAsync("203.0.113.7", "8.8.8.8", "https")).Should().Be(("http", "203.0.113.7"), "a client can not choose its scheme");
+
+        // e.g. Cloudflare -> nginx: the chain has two addresses, but nginx replaces X-Forwarded-Proto with one value
+        (await ForwardAsync("127.0.0.1", "8.8.8.8, 173.245.48.10", "https", "173.245.48.0/20")).Should().Be(("https", "8.8.8.8"), "fewer schemes than addresses");
+
+        (await ForwardAsync("127.0.0.1", "8.8.8.8", "http")).Should().Be(("http", "8.8.8.8"), "a proxy without https");
+
+        ForwardedHeadersHelper.CreateOptions([]);
+    }
+
+    [Test]
     [Description("GetUserRealIPAddress falls back to the connection address")]
     public void GetUserRealIPAddress_Remote_Address_Test()
     {

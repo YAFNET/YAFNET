@@ -32,9 +32,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 
 /// <summary>
-/// The client IP address behind reverse proxies: the forwarded headers (X-Forwarded-For, X-Real-IP) are
-/// only used when the request comes from a trusted proxy, otherwise every client could send any address
-/// (and bypass IP bans, the IP checks of guest posts, ...).
+/// The client IP address and scheme behind reverse proxies: the forwarded headers (X-Forwarded-For,
+/// X-Forwarded-Proto, X-Real-IP) are only used when the request comes from a trusted proxy, otherwise every
+/// client could send any address (and bypass IP bans, the IP checks of guest posts, ...).
 /// </summary>
 public static class ForwardedHeadersHelper
 {
@@ -70,7 +70,9 @@ public static class ForwardedHeadersHelper
 
         var options = new ForwardedHeadersOptions
                       {
-                          ForwardedHeaders = ForwardedHeaders.XForwardedFor,
+                          // X-Forwarded-Proto: a proxy that terminates https forwards the requests with http,
+                          // without it the forum creates http links (e-mails, feeds, ...) and non-secure cookies
+                          ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
 
                           // all trusted proxies of the chain are skipped, up to the first untrusted address
                           ForwardLimit = null
