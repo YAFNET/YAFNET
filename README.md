@@ -1,59 +1,112 @@
-![YAFLogo](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/images/Logos/YAFLogo.svg)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/images/Logos/YAFLogo.svg" alt="YAF.NET logo" width="400">
+</p>
 
-**YetAnotherForum.NET** (YAF.NET) ASP.NET Open Source Forum solution! The **YAF.NET** project is an international collaboration of like-minded, skilled, and creative individuals who are striving to make **YAF.NET** the most robust and malleable forum solutions available.
+<p align="center">
+  <a href="LICENSE.md"><img src="https://img.shields.io/github/license/yafnet/yafnet" alt="license"></a>
+  <a href="https://github.com/YAFNET/YAFNET/actions/workflows/build.yml"><img src="https://github.com/yafnet/yafnet/actions/workflows/build.yml/badge.svg" alt="build status (4.x)"></a>
+  <a href="https://github.com/YAFNET/YAFNET/actions/workflows/build-netfx.yml"><img src="https://github.com/yafnet/yafnet/actions/workflows/build-netfx.yml/badge.svg" alt="build status (3.x)"></a>
+  <a href="https://hub.docker.com/r/yafnet/yafnet"><img src="https://img.shields.io/docker/pulls/yafnet/yafnet" alt="docker pulls"></a>
+</p>
 
-![license](https://img.shields.io/github/license/yafnet/yafnet)
+**YetAnotherForum.NET** (YAF.NET) is an open source forum for ASP.NET. The project is an international collaboration of like-minded, skilled and creative people who strive to make YAF.NET the most robust and flexible forum solution available.
 
-![build status](https://github.com/yafnet/yafnet/actions/workflows/build.yml/badge.svg)
+See a live YAF.NET forum in action at the [community support forum](https://yetanotherforum.net/Forums).
 
-![build status](https://github.com/yafnet/yafnet/actions/workflows/build-netfx.yml/badge.svg)
+## Contents
 
-[![docker pulls](https://img.shields.io/docker/pulls/yafnet/yafnet)](https://hub.docker.com/r/yafnet/yafnet)
+- [Versions](#versions)
+- [Quick start with Docker](#quick-start-with-docker)
+- [Installation & upgrade](#installation--upgrade)
+- [Building from source](#building-from-source)
+- [Screenshots](#screenshots)
+- [Support](#support)
+- [Security](#security)
+- [License](#license)
 
-## Documentation
-We have a preliminary documentation on the [Github Wiki](https://github.com/YAFNET/YAFNET/wiki) page
+## Versions
 
-## Prerequisites:
-* ASP.NET .NET Framework 4.8.1 (YAF v3.2.x)
-* ASP.NET Core 10.0 (YAF v4.x)
+| Version   | Platform                       | Branch                                                 | Status         |
+|-----------|--------------------------------|--------------------------------------------------------|----------------|
+| YAF 4.x   | ASP.NET Core / .NET 10.0       | [`master`](https://github.com/YAFNET/YAFNET)           | Stable         |
+| YAF 3.2.x | ASP.NET / .NET Framework 4.8.1 | [`netfx`](https://github.com/YAFNET/YAFNET/tree/netfx) | Stable         |
 
-## Source 
-* The [netfx branch](https://github.com/YAFNET/YAFNET/tree/netfx) contains the current Stable YAF 3.2.x Release
-* The [master branch](https://github.com/YAFNET/YAFNET) contains the current BETA YAF 4.x.x
+YAF 4.x supports the following databases:
 
-[Building the Source](https://github.com/YAFNET/YAFNET/wiki#building-the-source)
+- Microsoft SQL Server
+- MySQL / MariaDB
+- PostgreSQL
+- SQLite
 
-### Installation & Upgrade
+YAF 3.x is also available as a **DNN module**, see the [YAFNET-DNN project](https://github.com/YAFNET/YAFNET-DNN).
 
-1.  [New Installation](https://github.com/YAFNET/YAFNET/wiki#installation)
-2.  [Upgrade an Existing YAF.NET Installation](https://github.com/YAFNET/YAFNET/wiki/Upgrade-an-Existing-YAF.NET-Installation)
+Release notes are in [CHANGES.md](CHANGES.md).
 
-### DNN Module
+## Quick start with Docker
 
-YAF v3.x.x is also available as a DNN Module, you can download it on the [GitHub Project Page](https://github.com/YAFNET/YAFNET-DNN)
+Prebuilt images are published on Docker Hub as [`yafnet/yafnet`](https://hub.docker.com/r/yafnet/yafnet), with a Docker Compose file for each database provider. From the `yafsrc` folder:
 
-### Screen Shots
+```bash
+docker compose -f docker-compose-SqlServer.yml up -d
+```
 
-![mainscreen](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/main.webp)
+Then open <http://localhost:8001>. On the first start you are taken to the installation wizard, which creates the database tables and the admin account.
 
-![forumsscreen](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/forum.webp)
+> [!IMPORTANT]
+> Change the default database password `MyPass@word` in the compose file before starting the stack.
 
-![topicsscreen](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/topic.webp)
+Compose files for MySQL, PostgreSQL and SQLite, configuration via environment variables, mail setup and data volumes are described in the [Docker guide](yafsrc/docker/readme.md).
 
-Admin Control Panel
-![adminpanel](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/admin.webp)
+## Installation & upgrade
 
+- [New installation](https://github.com/YAFNET/YAFNET/wiki#installation)
+- [Upgrade an existing YAF.NET installation](https://github.com/YAFNET/YAFNET/wiki/Upgrade-an-Existing-YAF.NET-Installation)
 
-## Community Support Forum
+More documentation can be found in the [GitHub wiki](https://github.com/YAFNET/YAFNET/wiki).
 
-See a real live YAF Forum by visiting the YetAnotherForum.NET community support forum: [https://yetanotherforum.net/Forums](https://yetanotherforum.net/Forums). Also, get your questions answered by the YAF community.
+## Building from source
+
+Prerequisites: the [.NET 10.0 SDK](https://dotnet.microsoft.com/download) and [Node.js](https://nodejs.org/).
+
+```bash
+cd yafsrc/YetAnotherForum.NET
+npm install
+grunt                                   # compile the JS and CSS files
+
+cd ..
+dotnet build YAF.NET-SqlServer.slnx     # or YAF.NET-MySql / -PostgreSQL / -Sqlite
+```
+
+See [BUILDING.md](BUILDING.md) for the full instructions, including building with Visual Studio. How to run the unit and UI tests is described in the [tests README](yafsrc/Tests/README.md).
+
+## Screenshots
+
+**Board index**
+
+![Board index](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/main.webp)
+
+**Forum**
+
+![Forum](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/forum.webp)
+
+**Topic**
+
+![Topic](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/topic.webp)
+
+**Admin control panel**
+
+![Admin control panel](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/assets/admin.webp)
+
+## Support
+
+- Ask questions and get help from the community at the [YAF.NET support forum](https://yetanotherforum.net/Forums).
+- Report bugs and request features in the [issue tracker](https://github.com/YAFNET/YAFNET/issues).
+- Read the [wiki](https://github.com/YAFNET/YAFNET/wiki) for documentation.
+
+## Security
+
+Please do **not** report security vulnerabilities in public issues. See [SECURITY.md](SECURITY.md) for how to report them.
 
 ## License
 
-Yet Another Forum.NET is licensed under the Apache 2.0 license. 
-
-
-### Yet Another Forum Community Support
-
-If you have any questions, please visit the YAF Community Support forum: [https://yetanotherforum.net/Forums](https://yetanotherforum.net/Forums), or visit the Wiki for More Informations.
-
+YAF.NET is licensed under the [Apache License 2.0](LICENSE.md).
