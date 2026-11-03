@@ -93,7 +93,9 @@ public static class IApplicationBuilderExtensions
                 app.UseHttpsRedirection();
             }
 
-            app.UseUserAgentClientHints();
+            // not critical, a critical client hint makes chromium browsers request every first page twice,
+            // the platform version is only needed for the (os) info of the active users.
+            app.UseUserAgentClientHints(critical: false);
 
             // Database Connection String
             Config.DatabaseObjectQualifier = serviceLocator.Get<BoardConfiguration>().DatabaseObjectQualifier;
