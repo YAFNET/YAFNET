@@ -1,0 +1,56 @@
+// Font Awesome with only the icons used by the forum (see fontawesome-icons.js and _fontawesome-icons.scss),
+// instead of fontawesome.scss and brands.scss, which add all ~2600 icon classes.
+@use "sass:map";
+@use "sass:string";
+
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/variables" as v with ( $font-path: "../../webfonts" );
+
+// fontawesome.scss without the icons
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/core";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/sizing";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/widths";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/list";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/bordered";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/pulled";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/animated";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/rotated-flipped";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/stacked";
+
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/solid";
+@use "../../node_modules/@fortawesome/fontawesome-free/scss/regular";
+
+@use "fontawesome-icons" as used;
+
+// same as icons.scss, for the used icons
+@each $name in used.$icons {
+    .#{v.$css-prefix}-#{$name} {
+        #{v.$icon-property}: string.unquote("\"#{ map.get(v.$icons, $name) }\"");
+    }
+}
+
+// same as brands.scss, for the used brand icons (the font is only loaded when a brand icon is shown)
+:root, :host {
+    --#{v.$css-prefix}-family-brands: 'Font Awesome 7 Brands';
+    --#{v.$css-prefix}-font-brands: normal 400 1em/1 var(--#{v.$css-prefix}-family-brands);
+}
+
+@font-face {
+    font-family: 'Font Awesome 7 Brands';
+    font-style: normal;
+    font-weight: 400;
+    font-display: v.$font-display;
+    src: url('#{v.$font-path}/fa-brands-400.woff2');
+}
+
+.fab,
+.#{v.$css-prefix}-brands,
+.#{v.$css-prefix}-classic.#{v.$css-prefix}-brands {
+    --#{v.$css-prefix}-family: var(--#{v.$css-prefix}-family-brands);
+    --#{v.$css-prefix}-style: 400;
+}
+
+@each $name in used.$brand-icons {
+    .#{v.$css-prefix}-#{$name} {
+        #{v.$icon-property}: string.unquote("\"#{ map.get(v.$brand-icons, $name) }\"");
+    }
+}

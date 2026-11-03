@@ -7,6 +7,7 @@
 
 var webpackConfig = require('./webpack.config.js');
 var sass = require('sass');
+var generateFontAwesomeIcons = require('./fontawesome-icons.js');
 
 module.exports = function(grunt) {
 	require('@lodder/time-grunt')(grunt);
@@ -645,8 +646,15 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default',
 		[
-			'webpack', 'sass', 'postcss', 'cssmin'
+			'webpack', 'fontAwesomeIcons', 'sass', 'postcss', 'cssmin'
 		]);
+
+	// writes the Font Awesome icons used by the forum to wwwroot/lib/_fontawesome-icons.scss (after webpack, the built scripts are scanned too)
+	grunt.registerTask('fontAwesomeIcons',
+		'Finds the used Font Awesome icons',
+		function() {
+			generateFontAwesomeIcons(grunt.log.writeln);
+		});
 
 	grunt.registerTask('updateFontAwesome',
 		[
@@ -675,7 +683,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('css',
 		[
-			'sass', 'postcss', 'cssmin'
+			'fontAwesomeIcons', 'sass', 'postcss', 'cssmin'
 		]);
 
 	grunt.registerTask('publishDocker',
