@@ -23,12 +23,14 @@
  */
 
 using System;
+using System.IO.Compression;
 using System.Threading.RateLimiting;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -129,6 +131,19 @@ public static class ServiceCollectionExtensionsExtensions
             services.AddControllers();
 
             services.AddSignalR();
+
+            // compress text responses (html, css, js, json, svg), the forum css and js files are several hundred KB
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<BrotliCompressionProvider>();
+                options.Providers.Add<GzipCompressionProvider>();
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(["image/svg+xml"]);
+            });
+
+            // optimal is brotli quality 4 and gzip level 6, a lot smaller than fastest and still fast enough for dynamic pages
+            services.Configure<BrotliCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
 
             services.AddYafExtensions();
 

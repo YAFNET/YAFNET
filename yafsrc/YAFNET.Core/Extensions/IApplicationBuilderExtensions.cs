@@ -71,6 +71,9 @@ public static class IApplicationBuilderExtensions
 
             app.UseSecurityHeader(serviceLocator.Get<BoardConfiguration>());
 
+            // before the static files, so the css and js files are compressed too
+            app.UseResponseCompression();
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
