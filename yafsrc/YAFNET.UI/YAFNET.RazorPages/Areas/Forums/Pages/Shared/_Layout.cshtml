@@ -37,7 +37,7 @@
 </head>
 <body id="YafBody">
     <a title="@Html.Raw(Current.Get<ILocalization>().GetText("TOOLBAR", "FORUM_TITLE"))" href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Index))" class="d-block w-50">
-    <img alt="board logo" src="@Html.Raw($"/{Current.Get<BoardFolders>().Logos}/{Current.BoardSettings.ForumLogo}")" class="my-3 img-fluid" loading="lazy"  />
+    <img alt="board logo" src="@Html.Raw($"/{Current.Get<BoardFolders>().Logos}/{Current.BoardSettings.ForumLogo}")" class="my-3 img-fluid" fetchpriority="high" />
 </a>
 <div class="yafnet">
     <div class="page-@pageName">
