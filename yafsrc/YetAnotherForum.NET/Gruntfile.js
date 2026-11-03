@@ -546,7 +546,7 @@ module.exports = function(grunt) {
 			options: {
 				map: false,
 				processors: [
-					require('autoprefixer')({ overrideBrowserslist: 'last 2 versions' })
+					require('autoprefixer')({ overrideBrowserslist: 'defaults' })
 				]
 			},
 			flagIcons: {
