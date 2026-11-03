@@ -14,6 +14,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Docker (SQLite): the database file was stored inside the container and was lost when the container was recreated (e.g. on an update), it is now stored in the volume sqlite-data
 * [FIXED] Behind a reverse proxy that terminates https (nginx, Caddy, Traefik, a Docker proxy container), the forum ignored X-Forwarded-Proto and saw every request as http: links in e-mails and feeds started with http://, and the cookies were not marked as secure; X-Forwarded-Proto is now used for requests of trusted proxies (same as X-Forwarded-For)
 * [CHANGES] Responses are now compressed (Brotli or gzip, also over https), the css and js files of the forum (several hundred KB) were sent uncompressed
+* [FIXED] Static files: the Cache-Control header was invalid (max-age: 31536000 instead of max-age=31536000), browsers didn't cache the css, js, font and image files; files with a version (?v=) are now cached for a year, all others for a week
 
 # YetAnotherForum.NET v4.0.10
 * [NEW] Extended unit test suite including repository tests against an in-memory SQLite database

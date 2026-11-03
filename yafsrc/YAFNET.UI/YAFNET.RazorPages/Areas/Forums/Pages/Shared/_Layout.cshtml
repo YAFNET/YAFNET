@@ -29,7 +29,7 @@
           type="text/css" />
 	<link rel="stylesheet" href="~/css/@Html.Raw($"{forumCss}.css")" asp-append-version="true" />
     @await RenderSectionAsync("StyleSheets", required: false)
-    <script src="~/js/themeSelector.min.js"></script>
+    <script src="~/js/themeSelector.min.js" asp-append-version="true"></script>
 	
     @Html.DescriptionMetaTag()
     @Html.RssFeedLink(RssFeeds.LatestPosts)

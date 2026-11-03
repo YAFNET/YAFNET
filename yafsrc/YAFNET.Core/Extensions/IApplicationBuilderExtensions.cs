@@ -78,7 +78,11 @@ public static class IApplicationBuilderExtensions
             {
                 OnPrepareResponse = ctx =>
                 {
-                    ctx.Context.Response.Headers.CacheControl = "max-age: 31536000";
+                    // files with a version (asp-append-version) get a new url when they change,
+                    // all others (fonts and images from the css, uploaded images) only a week, so updates are loaded
+                    ctx.Context.Response.Headers.CacheControl = ctx.Context.Request.Query.ContainsKey("v")
+                        ? "public, max-age=31536000, immutable"
+                        : "public, max-age=604800";
                 }
             });
 
