@@ -17,6 +17,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Static files: the Cache-Control header was invalid (max-age: 31536000 instead of max-age=31536000), browsers didn't cache the css, js, font and image files; files with a version (?v=) are now cached for a year, all others for a week
 * [FIXED] Chromium browsers (Chrome, Edge) requested the first page of every visit twice, the user agent client hint Sec-CH-UA-Platform-Version was sent as critical (Critical-CH)
 * [FIXED] The board logo was loaded lazily although it is at the top of the page, it was loaded late and moved the page content down
+* [FIXED] Accessibility: the icon buttons of a post (reply, quote) had no accessible name on small screens, the link to the quoted post in a quote had none at all
 
 # YetAnotherForum.NET v4.0.10
 * [NEW] Extended unit test suite including repository tests against an in-memory SQLite database

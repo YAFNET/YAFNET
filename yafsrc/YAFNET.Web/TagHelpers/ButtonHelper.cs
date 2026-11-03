@@ -366,6 +366,17 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
         {
             output.Content.AppendHtml(spanTextTag);
+
+            // the text is hidden on small screens (display: none), so it is not the accessible name of the button there
+            if (this.IconMobileOnly && !output.Attributes.ContainsName(HtmlAttribute.AriaLabel))
+            {
+                using var writer = new System.IO.StringWriter();
+                spanTextTag.InnerHtml.WriteTo(writer, System.Text.Encodings.Web.HtmlEncoder.Default);
+
+                output.Attributes.SetAttribute(
+                    HtmlAttribute.AriaLabel,
+                    System.Net.WebUtility.HtmlDecode(writer.ToString()));
+            }
         }
 
         if (this.TitleNonLocalized.IsSet())

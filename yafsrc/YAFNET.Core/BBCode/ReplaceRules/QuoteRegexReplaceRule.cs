@@ -98,6 +98,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
 
             var localQuoteWrote = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
             var localQuotePosted = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
+            var localGoToMessage = BoardContext.Current.Get<ILocalization>().GetText("MESSAGEHISTORY", "TOMESSAGE");
 
             // a plain [quote] has no author line
             if (quote.IsNotSet())
@@ -126,7 +127,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
 
                 quote = postId.IsSet()
                             ? $"""
-                               <p class="card-text text-end fst-italic"><small class="text-body-secondary">{localQuotePosted.Replace("{0}", userName)}&nbsp;<a class="card-link" href="{topicLink}"><i class="fas fa-external-link-alt ms-2"></i></a></small></p>
+                               <p class="card-text text-end fst-italic"><small class="text-body-secondary">{localQuotePosted.Replace("{0}", userName)}&nbsp;<a class="card-link" href="{topicLink}" aria-label="{localGoToMessage}"><i class="fas fa-external-link-alt ms-2"></i></a></small></p>
                                """
                             : $"""
                                <p class="card-text text-end fst-italic"><small class="text-body-secondary">{localQuoteWrote.Replace("{0}", quote)}</small></p>
