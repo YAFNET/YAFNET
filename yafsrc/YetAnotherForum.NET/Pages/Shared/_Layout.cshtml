@@ -29,6 +29,8 @@
           type="text/css" />
 	<link rel="stylesheet" href="~/css/@Html.Raw($"{forumCss}.css")" asp-append-version="true" />
     @await RenderSectionAsync("StyleSheets", required: false)
+    @* the icon font is used on every page, the browser finds it only after the css is loaded *@
+    <link rel="preload" href="~/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin />
     <script src="~/js/themeSelector.min.js" asp-append-version="true"></script>
 	
     @Html.DescriptionMetaTag()

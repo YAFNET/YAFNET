@@ -14,6 +14,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Docker (SQLite): the database file was stored inside the container and was lost when the container was recreated (e.g. on an update), it is now stored in the volume sqlite-data
 * [FIXED] Behind a reverse proxy that terminates https (nginx, Caddy, Traefik, a Docker proxy container), the forum ignored X-Forwarded-Proto and saw every request as http: links in e-mails and feeds started with http://, and the cookies were not marked as secure; X-Forwarded-Proto is now used for requests of trusted proxies (same as X-Forwarded-For)
 * [CHANGES] Responses are now compressed (Brotli or gzip, also over https), the css and js files of the forum (several hundred KB) were sent uncompressed
+* [CHANGES] The icon font (Font Awesome solid) is preloaded, the browser found it only after the css was loaded, the icons appeared later
 * [FIXED] Static files: the Cache-Control header was invalid (max-age: 31536000 instead of max-age=31536000), browsers didn't cache the css, js, font and image files; files with a version (?v=) are now cached for a year, all others for a week
 * [FIXED] Chromium browsers (Chrome, Edge) requested the first page of every visit twice, the user agent client hint Sec-CH-UA-Platform-Version was sent as critical (Critical-CH)
 * [FIXED] The board logo was loaded lazily although it is at the top of the page, it was loaded late and moved the page content down
