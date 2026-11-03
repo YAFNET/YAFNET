@@ -45,7 +45,7 @@ public class MultiQuoteController : ForumBaseController
     /// The quote Button.
     /// </param>
     /// <returns>
-    /// Returns the Message Id and the Updated CSS Class for the Button
+    /// Returns the button id, the button shows the selection itself (checked state)
     /// </returns>
     [ValidateAntiForgeryToken]
     [HttpPost("HandleMultiQuote")]
@@ -55,7 +55,6 @@ public class MultiQuoteController : ForumBaseController
         var isMultiQuoteButton = quoteButton.IsMultiQuoteButton;
         var messageId = quoteButton.MessageId;
         var topicId = quoteButton.TopicId;
-        var buttonCssClass = quoteButton.ButtonCssClass;
 
         var yafSession = this.Get<ISessionService>();
 
@@ -69,18 +68,14 @@ public class MultiQuoteController : ForumBaseController
             {
                 multiQuoteIds.Add(multiQuote);
             }
-
-            buttonCssClass += " Checked";
         }
         else
         {
             multiQuoteIds.RemoveAll(m => m.MessageID == messageId);
-
-            buttonCssClass = "btn-multiquote form-check btn btn-link";
         }
 
         yafSession.MultiQuoteIds = multiQuoteIds;
 
-        return this.Ok(new ReturnClass { Id = buttonId, NewTitle = buttonCssClass });
+        return this.Ok(new ReturnClass { Id = buttonId });
     }
 }

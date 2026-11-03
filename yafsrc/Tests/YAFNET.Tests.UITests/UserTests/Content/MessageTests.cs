@@ -323,12 +323,12 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     /////
 
-                    // Find the MultiQuote Buttons for Post Replace A,B,C
-                    await page.Locator("//input[contains(@id,'multiQuote')]").Nth(1).ClickAsync();
+                    // Find the MultiQuote Buttons for Post Replace A,B,C (the label is the button, the checkbox is hidden)
+                    await page.Locator("label.btn-multiquote").Nth(1).ClickAsync();
                     await Task.Delay(5000);
-                    await page.Locator("//input[contains(@id,'multiQuote')]").Nth(2).ClickAsync();
+                    await page.Locator("label.btn-multiquote").Nth(2).ClickAsync();
                     await Task.Delay(5000);
-                    await page.Locator("//input[contains(@id,'multiQuote')]").Nth(3).ClickAsync();
+                    await page.Locator("label.btn-multiquote").Nth(3).ClickAsync();
                     await Task.Delay(5000);
 
                     await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Reply with Quote" }).Last.ClickAsync();

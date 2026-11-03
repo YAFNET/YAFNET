@@ -87,7 +87,6 @@ public class JavaScriptBlocksTests
     /// </summary>
     private static IEnumerable<TestCaseData> OtherBlocks()
     {
-        yield return Case("MultiQuoteCallbackSuccessJs", () => JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
         yield return Case("MultiQuoteButtonJs", () => JavaScriptBlocks.MultiQuoteButtonJs);
         yield return Case("BootstrapTabsLoadJs", () => JavaScriptBlocks.BootstrapTabsLoadJs("ProfileTabs", "LastTab"));
         yield return Case("EditUserTabsLoadJs", () => JavaScriptBlocks.EditUserTabsLoadJs("Admin", 5, "var x = 1;"));

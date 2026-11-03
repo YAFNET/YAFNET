@@ -65,18 +65,8 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Gets the multi quote callback success JS.
-    /// </summary>
-    public static string MultiQuoteCallbackSuccessJs =>
-        """
-        function multiQuoteSuccess(res) {
-            const multiQuoteButton = document.getElementById(res.id).parentNode;
-            multiQuoteButton.setAttribute("class", res.newTitle);
-        }
-        """;
-
-    /// <summary>
-    /// Gets the multi quote button JS.
+    /// Gets the multi quote button JS, the checked state of the button (btn-check) shows if the post is selected,
+    /// the selection is stored in the session, if that fails the button is reset.
     /// </summary>
     public static string MultiQuoteButtonJs =>
         """
@@ -86,8 +76,7 @@ public static class JavaScriptBlocks
               multiQuoteButton.IsMultiQuoteButton = button.checked;
               multiQuoteButton.MessageId = msgId;
               multiQuoteButton.TopicId = tpId;
-              multiQuoteButton.ButtonCssClass = document.getElementById(button.id).parentNode.className;
-          
+
               fetch("/api/MultiQuote/HandleMultiQuote",
                       {
                           method: "POST",
@@ -97,12 +86,14 @@ public static class JavaScriptBlocks
                               "Content-Type": "application/json;charset=utf-8",
                               "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
                           }
-                      }).then(res => res.json())
-                  .then(response => {
-                      multiQuoteSuccess(response);
-                  }).catch(function(error) {
-                      errorLog(error);
-                  });
+                      }).then(res => {
+                          if (!res.ok) {
+                              throw new Error(res.statusText);
+                          }
+                      }).catch(function(error) {
+                          button.checked = !multiQuoteButton.IsMultiQuoteButton;
+                          errorLog(error);
+                      });
           }
           """;
 

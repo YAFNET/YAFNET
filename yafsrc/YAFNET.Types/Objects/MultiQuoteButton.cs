@@ -48,9 +48,4 @@ public class MultiQuoteButton
     /// Gets or sets the topic id.
     /// </summary>
     public int TopicId { get; set; }
-
-    /// <summary>
-    /// Gets or sets the button CSS class.
-    /// </summary>
-    public string ButtonCssClass { get; set; }
 }

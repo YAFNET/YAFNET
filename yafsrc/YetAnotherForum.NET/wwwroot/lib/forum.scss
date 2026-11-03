@@ -46,18 +46,19 @@
     white-space: pre-wrap;
 }
 
-// MultiQuote Button
+// MultiQuote Button (label of a hidden btn-check checkbox)
 .btn-multiquote {
-    display: inline-block;
     margin-left: 10px !important;
-
-    label {
-        margin-top: -1px;
-    }
 
     .fa-stack {
         margin-top: -2px;
     }
+}
+
+// selected for the multi quote
+.btn-check:checked + .btn-multiquote {
+    background-color: var(--bs-primary-bg-subtle);
+    border-color: var(--bs-primary-border-subtle);
 }
 
 // Similar topic lists

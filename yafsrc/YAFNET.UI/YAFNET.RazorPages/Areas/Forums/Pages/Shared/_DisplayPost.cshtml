@@ -62,10 +62,13 @@
 
     var thankVisible = postData.CanThankPost && !Current.IsGuest;
 
+    // the posts selected for the multi quote are kept in the session (also when changing the page of the topic)
+    var multiQuoteSelected = multiQuoteVisible
+                             && Current.Get<ISessionService>().MultiQuoteIds?.Exists(m => m.MessageID == postData.MessageId) == true;
+
     if (multiQuoteVisible)
     {
         Current.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.MultiQuoteButtonJs), JavaScriptBlocks.MultiQuoteButtonJs);
-        Current.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.MultiQuoteCallbackSuccessJs), JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
     }
 
     if (Current.BoardSettings.EnableUserReputation)
@@ -685,16 +688,18 @@
 
                                             @if (multiQuoteVisible)
                                             {
-                                                <span class="btn-multiquote form-check btn btn-link">
-                                                    <input type="checkbox"
-                                                           id="@($"multiQuote{postData.MessageId}")"
-                                                           title="@(Current.Get<ILocalization>().GetText("BUTTON_MULTI_QUOTE_TT"))"
-                                                           onclick="@($"handleMultiQuoteButton(this, '{postData.MessageId}', '{postData.TopicId}')")"
-                                                           class="form-check-input" />
-                                                    <label for="@($"multiQuote{postData.MessageId}")" class="form-check-label">
-                                                        @Html.IconBadge("quote-left", "plus")<span class="ms-1 d-none d-lg-inline-block">@Html.LocalizedText("BUTTON_MULTI_QUOTE")</span>
-                                                    </label>
-                                                </span>
+                                                <input type="checkbox"
+                                                       id="@($"multiQuote{postData.MessageId}")"
+                                                       aria-label="@(Current.Get<ILocalization>().GetText("BUTTON_MULTI_QUOTE_TT"))"
+                                                       autocomplete="off"
+                                                       checked="@multiQuoteSelected"
+                                                       onclick="@($"handleMultiQuoteButton(this, '{postData.MessageId}', '{postData.TopicId}')")"
+                                                       class="btn-check" />
+                                                <label for="@($"multiQuote{postData.MessageId}")"
+                                                       title="@(Current.Get<ILocalization>().GetText("BUTTON_MULTI_QUOTE_TT"))"
+                                                       class="btn btn-link btn-multiquote">
+                                                    @Html.IconBadge("quote-left", "plus")<span class="ms-1 d-none d-lg-inline-block">@Html.LocalizedText("BUTTON_MULTI_QUOTE")</span>
+                                                </label>
                                             }
 
                                         </div>

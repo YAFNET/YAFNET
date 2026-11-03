@@ -78,7 +78,7 @@ public class MultiQuoteBBCodeForumControllerTests
     }
 
     [Test]
-    [Description("Checking a quote button adds the message once, the css class shows the checked state")]
+    [Description("Checking a quote button adds the message once")]
     public void MultiQuote_Add_Test()
     {
         var controller = this.board.CreateController<MultiQuoteController>();
@@ -88,7 +88,6 @@ public class MultiQuoteBBCodeForumControllerTests
         controller.HandleMultiQuote(Button(6, true));
 
         result.Id.Should().Be("btn-5");
-        result.NewTitle.Should().Be("btn-multiquote Checked");
         this.Session.MultiQuoteIds.Select(m => m.MessageID).Should().Equal(5, 6);
         this.Session.MultiQuoteIds[0].TopicID.Should().Be(10);
     }
@@ -104,7 +103,7 @@ public class MultiQuoteBBCodeForumControllerTests
 
         var result = Value<ReturnClass>(controller.HandleMultiQuote(Button(5, false)));
 
-        result.NewTitle.Should().Be("btn-multiquote form-check btn btn-link");
+        result.Id.Should().Be("btn-5");
         this.Session.MultiQuoteIds.Select(m => m.MessageID).Should().Equal(6);
 
         controller.HandleMultiQuote(Button(7, false));
@@ -188,7 +187,6 @@ public class MultiQuoteBBCodeForumControllerTests
         return new MultiQuoteButton
         {
             ButtonId = $"btn-{messageId}",
-            ButtonCssClass = "btn-multiquote",
             IsMultiQuoteButton = isChecked,
             MessageId = messageId,
             TopicId = 10
