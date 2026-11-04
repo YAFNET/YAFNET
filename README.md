@@ -8,6 +8,8 @@
 
 ![build status](https://github.com/yafnet/yafnet/actions/workflows/build-netfx.yml/badge.svg)
 
+[![code coverage (3.x)](https://github.com/YAFNET/YAFNET/raw/badges-netfx/badge_linecoverage.svg)](https://github.com/YAFNET/YAFNET/actions/workflows/build-netfx.yml)
+
 ## Documentation
 We have a preliminary documentation on the [Github Wiki](https://github.com/YAFNET/YAFNET/wiki) page
 
