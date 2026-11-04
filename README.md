@@ -6,6 +6,8 @@
   <a href="LICENSE.md"><img src="https://img.shields.io/github/license/yafnet/yafnet" alt="license"></a>
   <a href="https://github.com/YAFNET/YAFNET/actions/workflows/build.yml"><img src="https://github.com/yafnet/yafnet/actions/workflows/build.yml/badge.svg" alt="build status (4.x)"></a>
   <a href="https://github.com/YAFNET/YAFNET/actions/workflows/build-netfx.yml"><img src="https://github.com/yafnet/yafnet/actions/workflows/build-netfx.yml/badge.svg" alt="build status (3.x)"></a>
+  <a href="https://github.com/YAFNET/YAFNET/actions/workflows/build.yml"><img src="https://github.com/YAFNET/YAFNET/raw/badges/badge_linecoverage.svg" alt="code coverage (4.x)"></a>
+  <a href="https://github.com/YAFNET/YAFNET/actions/workflows/build-netfx.yml"><img src="https://github.com/YAFNET/YAFNET/raw/badges-netfx/badge_linecoverage.svg" alt="code coverage (3.x)"></a>
   <a href="https://hub.docker.com/r/yafnet/yafnet"><img src="https://img.shields.io/docker/pulls/yafnet/yafnet" alt="docker pulls"></a>
 </p>
 

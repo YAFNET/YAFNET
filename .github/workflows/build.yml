@@ -11,6 +11,9 @@ jobs:
   build:
 
     runs-on: windows-latest
+    permissions:
+      contents: write # needed to publish the coverage badges to the "badges" branch
+      pull-requests: write
     strategy:
       matrix:
         dotnet-version: [ '10.0.x' ]
@@ -31,4 +34,36 @@ jobs:
         run: npm install
       - name: Test
         working-directory: ./
-        run: dotnet test ./yafsrc/YAF.NET-SqlServer.slnx
+        run: dotnet test ./yafsrc/YAF.NET-SqlServer.slnx --collect:"XPlat Code Coverage" --results-directory TestResults
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage
+          path: TestResults/**/coverage.cobertura.xml
+      - name: Generate coverage report
+        shell: bash
+        run: |
+          dotnet tool install --global dotnet-reportgenerator-globaltool
+          reportgenerator \
+            "-reports:TestResults/**/coverage.cobertura.xml" \
+            "-targetdir:coveragereport" \
+            "-reporttypes:Badges;MarkdownSummaryGithub" \
+            "-assemblyfilters:+YAFNET.*;-YAFNET.Tests" \
+            "-classfilters:-System.Text.RegularExpressions.Generated*"
+          cat coveragereport/SummaryGithub.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Publish coverage badges
+        if: github.ref == 'refs/heads/master'
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir badges
+          cp coveragereport/badge_linecoverage.svg coveragereport/badge_branchcoverage.svg badges/
+          cd badges
+          git init -q -b badges
+          git add .
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -q -m "Update coverage badges"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" badges
