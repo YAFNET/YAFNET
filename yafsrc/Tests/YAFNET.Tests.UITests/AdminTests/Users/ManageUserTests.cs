@@ -273,11 +273,11 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 await page.Locator("input[name='Input.YearsOld']").EvaluateAsync("input => input.value = '1000000'");
 
-                response = await page.RunAndWaitForResponseAsync(
-                               () => page.EvaluateAsync("() => document.querySelector(\"button[formaction*='/LockAccounts']\").click()"),
-                               r => r.Request.Method == "POST" && r.Url.Contains("Admin/Users"));
+                // waits for the new page, closing the page while it is loaded never ends
+                response = await page.RunAndWaitForNavigationAsync(
+                               () => page.EvaluateAsync("() => document.querySelector(\"button[formaction*='/LockAccounts']\").click()"));
 
-                Assert.That(response.Status, Is.EqualTo(200), "Lock inactive accounts failed");
+                Assert.That(response?.Status, Is.EqualTo(200), "Lock inactive accounts failed");
             });
     }
 

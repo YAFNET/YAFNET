@@ -74,7 +74,15 @@ public static class IBrowserContextExtensions
             {
                 // the page of the test is closed: the pages of all tests stayed open (a browser process each, many
                 // GB), closing the context after a full run never ended and the run hung
-                await page.CloseAsync();
+                try
+                {
+                    await page.CloseAsync().WaitAsync(TimeSpan.FromSeconds(30));
+                }
+                catch (TimeoutException)
+                {
+                    // a page that can't be closed must not stop the remaining tests of the run
+                    await TestContext.Error.WriteLineAsync($"The page {page.Url} could not be closed");
+                }
             }
         }
     }
