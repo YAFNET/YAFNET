@@ -57,7 +57,7 @@
                 <button class="dropdown-item"
                         button-style="None"
                         bs-toggle="ajax-modal"
-                        bs-target-url="@Url.Page("Posts", "MoveTopic", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Request.GetQueryOrRouteValue<int>("t"), p =  Request.Query["p"], m = Request.Query["m"]})"
+                        bs-target-url="@Url.Page("Posts", "MoveTopic", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Request.GetQueryOrRouteValue<int>("t"), p =  Request.GetQueryOrRouteValue<string>("p"), m = Request.Query["m"]})"
                         text-localized-tag="BUTTON_MOVETOPIC" title-localized-tag="BUTTON_MOVETOPIC_TT"
                         Icon="arrows-alt"></button>
 
@@ -69,7 +69,7 @@
                             asp-page="@ForumPages.Posts.GetPageName()"
                             asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
                             asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-                            asp-route-p="@Request.Query["p"]"
+                            asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
                             asp-route-m="@Request.Query["m"]"
                             text-localized-tag="BUTTON_UNLOCKTOPIC" title-localized-tag="BUTTON_UNLOCKTOPIC_TT"
                             icon="lock-open"></button>
@@ -82,7 +82,7 @@
                             asp-page="@ForumPages.Posts.GetPageName()"
                             asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
                             asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-                            asp-route-p="@Request.Query["p"]"
+                            asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
                             asp-route-m="@Request.Query["m"]"
                             text-localized-tag="BUTTON_LOCKTOPIC" title-localized-tag="BUTTON_LOCKTOPIC_TT"
                             icon="lock"></button>
@@ -94,7 +94,7 @@
                         asp-page="@ForumPages.Posts.GetPageName()"
                         asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
                         asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-                        asp-route-p="@Request.Query["p"]"
+                        asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
                         asp-route-m="@Request.Query["m"]"
                         return-confirm-tag="confirm_deletetopic"
                         text-localized-tag="BUTTON_DELETETOPIC" title-localized-tag="BUTTON_DELETETOPIC_TT"
@@ -120,7 +120,7 @@
                     asp-page="@ForumPages.Posts.GetPageName()"
                     asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
                     asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-                    asp-route-p="@Request.Query["p"]"
+                    asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
                     asp-route-m="@Request.Query["m"]"
                     text-localized-tag="BUTTON_POSTREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
                     icon="reply"></button>
@@ -149,7 +149,7 @@
 							        asp-page="@ForumPages.Posts.GetPageName()"
 							        asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
 							        asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-							        asp-route-p="@Request.Query["p"]"
+							        asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
 							        asp-route-m="@Request.Query["m"]"
 							        text-localized-tag="PREVTOPIC"
 							        title-localized-tag="PREVTOPIC"
@@ -162,7 +162,7 @@
 							        asp-page="@ForumPages.Posts.GetPageName()"
 							        asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
 							        asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-							        asp-route-p="@Request.Query["p"]"
+							        asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
 							        asp-route-m="@Request.Query["m"]"
 							        text-localized-tag="NEXTTOPIC"
 							        title-localized-tag="NEXTTOPIC"
@@ -196,7 +196,7 @@
 										        asp-page="@ForumPages.Posts.GetPageName()"
 										        asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
 										        asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-										        asp-route-p="@Request.Query["p"]"
+										        asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
 										        asp-route-m="@Request.Query["m"]"></button>
 									}
                                         
@@ -236,7 +236,7 @@
 										        asp-page="@ForumPages.Posts.GetPageName()"
 										        asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
 										        asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-										        asp-route-p="@Request.Query["p"]"
+										        asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
 										        asp-route-m="@Request.Query["m"]"></button>
 									}
 									else
@@ -249,7 +249,7 @@
 										        asp-page="@ForumPages.Posts.GetPageName()"
 										        asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
 										        asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-										        asp-route-p="@Request.Query["p"]"
+										        asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
 										        asp-route-m="@Request.Query["m"]"></button>
 									}
 								}
@@ -321,7 +321,7 @@
 <form method="post">
     <div class="row mb-3 d-flex justify-content-between posts-toolbar">
     <div class="col-md-4">
-	    <pager page-size="@Model.Size" use-submit="false"
+	    <pager page-size="@Model.Size" use-submit="false" current-page-index="Model.PageBoardContext.PageIndex"
                count="Model.Messages.NullOrEmpty() ? 0 : Model.Messages.FirstOrDefault().TotalRows">
         </pager>
     </div>
@@ -339,7 +339,7 @@
                     <button button-style="None"
                             class="dropdown-item"
                             bs-toggle="ajax-modal"
-                            bs-target-url="@Url.Page("Posts", "MoveTopic", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Request.GetQueryOrRouteValue<int>("t"), p =  Request.Query["p"], m = Request.Query["m"]})"
+                            bs-target-url="@Url.Page("Posts", "MoveTopic", new { name = Request.GetQueryOrRouteValue<string>("name"), t = Request.GetQueryOrRouteValue<int>("t"), p =  Request.GetQueryOrRouteValue<string>("p"), m = Request.Query["m"]})"
                             text-localized-tag="BUTTON_MOVETOPIC" title-localized-tag="BUTTON_MOVETOPIC_TT"
                             icon="arrows-alt"></button>
                     @if (Model.PageBoardContext.PageTopic.TopicFlags.IsLocked)
@@ -350,7 +350,7 @@
                                 asp-page="@ForumPages.Posts.GetPageName()"
                                 asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
                                 asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-                                asp-route-p="@Request.Query["p"]"
+                                asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
                                 asp-route-m="@Request.Query["m"]"
                                 text-localized-tag="BUTTON_UNLOCKTOPIC" title-localized-tag="BUTTON_UNLOCKTOPIC_TT"
                                 icon="lock-open"></button>
@@ -363,7 +363,7 @@
                                 asp-page="@ForumPages.Posts.GetPageName()"
                                 asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
                                 asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-                                asp-route-p="@Request.Query["p"]"
+                                asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
                                 asp-route-m="@Request.Query["m"]"
                                 text-localized-tag="BUTTON_LOCKTOPIC" title-localized-tag="BUTTON_LOCKTOPIC_TT"
                                 icon="lock"></button>
@@ -375,7 +375,7 @@
                             asp-page="@ForumPages.Posts.GetPageName()"
                             asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
                             asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-                            asp-route-p="@Request.Query["p"]"
+                            asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
                             asp-route-m="@Request.Query["m"]"
                             return-confirm-tag="confirm_deletetopic"
                             text-localized-tag="BUTTON_DELETETOPIC" title-localized-tag="BUTTON_DELETETOPIC_TT"
@@ -401,7 +401,7 @@
                         asp-page="@ForumPages.Posts.GetPageName()"
                         asp-route-name="@(UrlRewriteHelper.CleanStringForUrl(Request.GetQueryOrRouteValue<string>("name")))"
                         asp-route-t="@(Request.GetQueryOrRouteValue<int>("t"))"
-                        asp-route-p="@Request.Query["p"]"
+                        asp-route-p="@(Request.GetQueryOrRouteValue<string>("p"))"
                         asp-route-m="@Request.Query["m"]"
                         text-localized-tag="BUTTON_POSTREPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
                         icon="reply"></button>

@@ -127,9 +127,9 @@ public static class IApplicationBuilderExtensions
             app.UseMiddleware<CheckBannedUserAgents>();
             app.UseMiddleware<CheckBannedCountries>();
 
-            // Rewrite /Category/{id}/{name} to /Index?c={id}
+            // Redirect the old urls to the short urls, and rewrite /category/{id}/{name} to /Index?c={id}
             app.UseRewriter(CategoryRouteHelper.AddCategoryRules(
-                new RewriteOptions(),
+                new RewriteOptions().Add(new LegacyUrlRedirectRule(serviceLocator.Get<BoardConfiguration>().Area)),
                 serviceLocator.Get<BoardConfiguration>().Area,
                 serviceLocator.Get<IOptions<RouteOptions>>().Value));
 

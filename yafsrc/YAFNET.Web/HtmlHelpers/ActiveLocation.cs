@@ -377,8 +377,8 @@ public static class ActiveLocationHtmlHelper
             return content;
         }
 
-        // the path is /Album/{user id}/{album id}[/{page}]
-        var parts = path.Replace("/Album/", string.Empty).Split('/', StringSplitOptions.RemoveEmptyEntries);
+        // the path is /album/{user id}/{album id}[/{page}]
+        var parts = GetPathValues(path);
 
         var album = parts.Length > 1 && int.TryParse(parts[1], out var albumId)
                         ? context.GetRepository<UserAlbum>().GetById(albumId)
@@ -460,8 +460,8 @@ public static class ActiveLocationHtmlHelper
             return content;
         }
 
-        // the path is /Albums/{user id}[/{page}] (the name is not in the path)
-        var user = GetPathUser(path.Replace("/Albums/", string.Empty));
+        // the path is /albums/{user id}[/{page}] (the name is not in the path)
+        var user = GetPathUser(path);
 
         if (user is null)
         {
@@ -518,8 +518,8 @@ public static class ActiveLocationHtmlHelper
 
         var content = new HtmlContentBuilder();
 
-        // the path is /UserProfile/{user id}/{name}, the name is any text of the address (not shown)
-        var user = GetPathUser(path.Replace("/UserProfile/", string.Empty));
+        // the path is /user/{user id}/{name}, the name is any text of the address (not shown)
+        var user = GetPathUser(path);
 
         if (user is null)
         {
@@ -563,7 +563,7 @@ public static class ActiveLocationHtmlHelper
     /// <returns>The user or null.</returns>
     private static User GetPathUser(string path)
     {
-        var parts = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        var parts = GetPathValues(path);
 
         if (parts.Length == 0 || !int.TryParse(parts[0], out var userId))
         {
@@ -573,5 +573,15 @@ public static class ActiveLocationHtmlHelper
         var user = BoardContext.Current.GetRepository<User>().GetById(userId);
 
         return user is not null && user.BoardID == BoardContext.Current.PageBoardID ? user : null;
+    }
+
+    /// <summary>
+    /// Gets the values of a path, starting with the first id (after the area and the page segment).
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <returns>The values of the path.</returns>
+    public static string[] GetPathValues(string path)
+    {
+        return [.. path.Split('/', StringSplitOptions.RemoveEmptyEntries).SkipWhile(part => !int.TryParse(part, out _))];
     }
 }

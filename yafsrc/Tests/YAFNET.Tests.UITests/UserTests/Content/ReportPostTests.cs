@@ -139,7 +139,7 @@ public class ReportPostTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 Assert.That(response.Status, Is.LessThan(500), "The view of an unknown post failed");
                 Assert.That(
                     response.Headers.TryGetValue("location", out var location) ? location : string.Empty,
-                    Does.Not.Contain("/Post/"),
+                    Does.Not.Contain("/post/"),
                     "The view leads to a post of another forum");
             });
     }

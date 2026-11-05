@@ -165,7 +165,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                     await page.GotoAsync(this.TestSettings.TestForumUrl);
 
                     Assert.That(
-                        await page.Locator("a.dropdown-item[href*='/Albums/']").CountAsync(),
+                        await page.Locator("a.dropdown-item[href*='/albums/']").CountAsync(),
                         Is.GreaterThan(0),
                         "The albums of the user are not shown after the albums were enabled");
                 }
@@ -349,7 +349,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
 
                 var profileLink = await page.Locator("a", new PageLocatorOptions { HasText = "View Profile" }).First.GetAttributeAsync("href");
-                var userId = System.Text.RegularExpressions.Regex.Match(profileLink ?? string.Empty, @"/UserProfile/(\d+)/").Groups[1].Value;
+                var userId = System.Text.RegularExpressions.Regex.Match(profileLink ?? string.Empty, @"/user/(\d+)/").Groups[1].Value;
 
                 Assert.That(userId, Is.Not.Empty, "The id of the admin was not found");
 
@@ -480,7 +480,7 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                 Assert.That(await page.Locator("#Input_PostsPerPage").InputValueAsync(), Is.EqualTo(postsPerPage), "The empty field was saved");
                 Assert.That(await page.Locator("#Input_AlbumsPerPage").InputValueAsync(), Is.EqualTo(albumsPerPage), "The page size 0 was saved");
 
-                var response = await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{this.TestSettings.TestTopicId}/topic");
+                var response = await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{this.TestSettings.TestTopicId}/topic");
 
                 Assert.That(response!.Status, Is.LessThan(500), "The topic page failed");
                 Assert.That(await page.Locator("[id^='post']").CountAsync(), Is.GreaterThan(0), "The topic page shows no posts");

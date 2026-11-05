@@ -247,7 +247,7 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                                                 await fetch(url);
                                                 const response = await fetch(url + '&handler=ShowMore&index=1');
                                                 const html = new DOMParser().parseFromString(await response.text(), 'text/html');
-                                                const link = [...html.querySelectorAll("a[href*='/Topics/']")]
+                                                const link = [...html.querySelectorAll("a[href*='/forum/']")]
                                                     .find(a => a.textContent.trim() === name);
                                                 if (!link) {
                                                     return null;
@@ -264,7 +264,7 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
                 Assert.That(row, Is.Not.Null, "The last forum is not loaded with show more");
 
-                var forumId = int.Parse(Regex.Match(row[0], @"/Topics/(\d+)/").Groups[1].Value);
+                var forumId = int.Parse(Regex.Match(row[0], @"/forum/(\d+)/").Groups[1].Value);
 
                 Assert.That(
                     await page.CreateTopicAsync(this.TestSettings, forumId, $"Mark all {suffix}", "a new post"),
@@ -377,12 +377,12 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
     private async Task<int> ForumIdAsync(IPage page, string name, int? parentId = null)
     {
-        await page.GotoAsync(parentId.HasValue ? $"{this.TestSettings.TestForumUrl}Topics/{parentId}/forum" : this.TestSettings.TestForumUrl);
+        await page.GotoAsync(parentId.HasValue ? $"{this.TestSettings.TestForumUrl}forum/{parentId}/forum" : this.TestSettings.TestForumUrl);
 
-        var link = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = name }).First.GetAttributeAsync("href");
+        var link = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = name }).First.GetAttributeAsync("href");
 
         Assert.That(link, Is.Not.Null, $"The forum {name} was not found");
 
-        return int.Parse(Regex.Match(link, @"/Topics/(\d+)/").Groups[1].Value);
+        return int.Parse(Regex.Match(link, @"/forum/(\d+)/").Groups[1].Value);
     }
 }

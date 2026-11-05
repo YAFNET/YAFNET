@@ -49,7 +49,7 @@ public class ActiveUsersTests(ComposeScenario scenario) : DatabaseTestBase(scena
                             this.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}ActiveUsers/0");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}active-users/0");
 
                     Assert.That(await page.ContentAsync(), Does.Contain("Active Users"), "Active users list is not shown");
 
@@ -140,7 +140,7 @@ public class ActiveUsersTests(ComposeScenario scenario) : DatabaseTestBase(scena
                                 this.TestSettings.TestUserPassword), Is.True,
                             "Login failed");
 
-                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}ActiveUsers/0");
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}active-users/0");
 
                         await page.SubmitAndWaitAsync(
                             page.Locator(".pagination .page-link", new PageLocatorOptions { HasTextRegex = new System.Text.RegularExpressions.Regex(@"^\s*2\s*$") }).First);

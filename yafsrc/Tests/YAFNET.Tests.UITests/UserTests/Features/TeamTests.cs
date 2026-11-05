@@ -77,7 +77,7 @@ public class TeamTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
                     // the admin moderates the forum and sees it on the team page
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Team");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}team");
 
                     Assert.That(
                         await page.ContentAsync(),
@@ -94,7 +94,7 @@ public class TeamTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         Is.True,
                         "Login failed");
 
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Team");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}team");
 
                     Assert.That(
                         await page.Locator("body").InnerTextAsync(),
@@ -110,7 +110,7 @@ public class TeamTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // (the link contains the name), the id is sent by the client
                     foreach (var value in new[] { forumId, "x" })
                     {
-                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Team");
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}team");
 
                         IResponse response = null;
 
@@ -119,7 +119,7 @@ public class TeamTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                                             () => page.Locator("select[name$='SelectedForumId']").First.EvaluateAsync(
                                                 "(select, value) => { select.add(new Option(value, value, true, true)); select.value = value; select.form.submit(); }",
                                                 value),
-                                            r => r.Request.Method == "POST" && r.Url.Contains("Team")));
+                                            r => r.Request.Method == "POST" && r.Url.Contains("team")));
 
                         Assert.That(response.Status, Is.LessThan(400), $"The forum select failed for {value}");
                         Assert.That(
@@ -167,7 +167,7 @@ public class TeamTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Team");
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}team");
 
                 // the choices of the forum select (shown by the select script)
                 var choices = await page.Locator(".choices__item--choice").EvaluateAllAsync<string[]>(
@@ -199,7 +199,7 @@ public class TeamTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Is.True,
                     "Login failed");
 
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Team");
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}team");
 
                 Assert.That(
                     await page.ContentAsync(),
@@ -215,7 +215,7 @@ public class TeamTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         () => {
                             const form = document.createElement('form');
                             form.method = 'post';
-                            form.action = '/Team';
+                            form.action = '/team';
                             form.appendChild(document.querySelector("input[name='__RequestVerificationToken']").cloneNode());
                             document.body.appendChild(form);
                             form.submit();

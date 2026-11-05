@@ -64,8 +64,8 @@ public class PageTests : Setup
     public static IEnumerable<TestCaseData> Pages()
     {
         yield return new TestCaseData("", true).SetName("Lighthouse_Index");
-        yield return new TestCaseData("Topics/{forumId}/test", true).SetName("Lighthouse_Topics");
-        yield return new TestCaseData("Posts/{topicId}/test?p=1", true).SetName("Lighthouse_Posts");
+        yield return new TestCaseData("forum/{forumId}/test", true).SetName("Lighthouse_Topics");
+        yield return new TestCaseData("topic/{topicId}/test/1", true).SetName("Lighthouse_Posts");
         yield return new TestCaseData("Help", false).SetName("Lighthouse_Help");
         yield return new TestCaseData("Privacy", false).SetName("Lighthouse_Privacy");
         yield return new TestCaseData("Cookies", false).SetName("Lighthouse_Cookies");

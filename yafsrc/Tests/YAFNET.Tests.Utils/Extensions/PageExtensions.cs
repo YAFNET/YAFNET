@@ -91,7 +91,7 @@ public static class PageExtensions
             // Do actual test
 
             // Go to Members Page and Find the Test User
-            await page.GotoAsync($"{testSettings.TestForumUrl}Members");
+            await page.GotoAsync($"{testSettings.TestForumUrl}members");
 
             var pageSource = await page.ContentAsync();
 
@@ -102,7 +102,7 @@ public static class PageExtensions
             await page.Locator("//input[contains(@id,'_UserSearchName')]")
                 .FillAsync(testSettings.TestUserName);
 
-            await page.Locator("//button[contains(@formaction,'Members/Search')]").ClickAsync();
+            await page.Locator("//button[contains(@formaction,'members/Search')]").ClickAsync();
 
             var userProfileLink = page.GetByText(testSettings.TestUserName).First;
 

@@ -107,7 +107,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // Do actual test
 
                     // Go to Post New Topic
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{this.TestSettings.TestTopicId}/test");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{this.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
@@ -165,7 +165,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     // Go to Post New Topic
                     await page.GotoAsync(
-                        $"{this.TestSettings.TestForumUrl}Posts/{this.TestSettings.TestTopicId}/test");
+                        $"{this.TestSettings.TestForumUrl}topic/{this.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
@@ -511,7 +511,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(await page.ContentAsync(), Does.Contain(replyText), "Posting the reply failed");
 
                 // after posting, the new message is shown (Post/{id}/... or Posts/{topic}/...?m={id})
-                var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/Post/(\d+)/|[?&]m=(\d+)");
+                var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/post/(\d+)/|[?&]m=(\d+)");
                 var messageId = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
 
                 Assert.That(messageId, Is.Not.Empty, $"The id of the reply is not in {page.Url}");
@@ -629,7 +629,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
-                var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/Post/(\d+)/|[?&]m=(\d+)");
+                var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/post/(\d+)/|[?&]m=(\d+)");
                 var messageId = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
 
                 Assert.That(messageId, Is.Not.Empty, $"The id of the reply is not in {page.Url}");
@@ -749,7 +749,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
-                    var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/Post/(\d+)/|[?&]m=(\d+)");
+                    var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/post/(\d+)/|[?&]m=(\d+)");
                     var messageId = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
 
                     Assert.That(messageId, Is.Not.Empty, $"The id of the reply is not in {page.Url}");
@@ -1003,7 +1003,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
-                var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/Post/(\d+)/|[?&]m=(\d+)");
+                var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/post/(\d+)/|[?&]m=(\d+)");
                 var messageId = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
 
                 Assert.That(messageId, Is.Not.Empty, $"The id of the reply is not in {page.Url}");
@@ -1067,7 +1067,7 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.ContentAsync(), Does.Contain("A topic with this subject already exists."),
                     "The subject of the other topic was saved");
 
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{second}/topic");
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{second}/topic");
 
                 Assert.That(await page.TitleAsync(), Does.Contain($"Second {id}"), "The subject was changed");
 

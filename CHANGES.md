@@ -2,6 +2,8 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.11
+* [FIXED] Topics: every link to a topic or post was redirected to a longer url (with p, t or m in the query) just to set the page number, the right page is now shown at the requested url; a new topic opens at its topic url
+* [NEW] Short urls: the public pages have shorter lowercase urls (/topic/1/name, /forum/1/name, /post/1/name, /user/1/name, /category/1/name, /album, /albums, /members, /active-users and /team), the page number of a topic is in the path (/topic/1/name/2), the slugs are lowercase and at most 80 characters long, the old urls and urls with an outdated name redirect permanently to the new url
 * [NEW] Reactions: the thanks button is replaced by reactions (like, love, haha, hooray, wow) as on Facebook or GitHub, each user can give one reaction to a post, change it, or remove it by clicking it again; the existing thanks are shown as love, and every reaction counts as a thanks for the profile statistics and the hide-thanks BB codes
 * [CHANGES] Notify dropdown in the user menu: shows the latest 5 notifications as dropdown items (the whole item links to the post, with the time of the notification) and a "See all Notifications" link to the notification page, instead of the list with the pager that didn't work
 * [FIXED] Admin edit user: the tab shown first was loaded twice, the second response replaced the tab, changes made in the meantime (e.g. moderated or the rank in the user info) were lost when saving

@@ -88,12 +88,12 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
                     "Login failed");
 
                 // the user starts a topic in the forum
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the user");
 
-                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 var topicId = await page.CreateTopicAsync(
                                   this.TestSettings,
@@ -151,12 +151,12 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
 
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the admin");
 
-                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 var topicId = await page.CreateTopicAsync(
                                   this.TestSettings,
@@ -177,11 +177,11 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
                     "Login failed");
 
                 // the page size form of a readable forum, sent to the hidden forum
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Topics/{this.TestSettings.TestForumId}/testForum");
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/testForum");
 
                 await page.RunAndWaitForNextPageAsync(
                     () => page.EvaluateAsync(
-                        "forumId => { const form = document.querySelector('select#Size').form; form.action = `/Topics/${forumId}/x/1/PageSize`; form.submit(); }",
+                        "forumId => { const form = document.querySelector('select#Size').form; form.action = `/forum/${forumId}/x/1/PageSize`; form.submit(); }",
                         forumId));
 
                 var pageSource = await page.ContentAsync();
@@ -233,12 +233,12 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
 
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the admin");
 
-                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 var topicId = await page.CreateTopicAsync(
                                   this.TestSettings,

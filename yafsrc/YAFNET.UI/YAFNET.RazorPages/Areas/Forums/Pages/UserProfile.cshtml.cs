@@ -210,6 +210,13 @@ public class UserProfileModel : ForumPage
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
+        var slugRedirect = this.RedirectToCurrentSlug(this.CombinedUser.Item1.DisplayOrUserName());
+
+        if (slugRedirect is not null)
+        {
+            return slugRedirect;
+        }
+
         // populate user information controls...
         // Is BuddyList feature enabled?
         if (this.PageBoardContext.BoardSettings.EnableBuddyList && !this.PageBoardContext.IsGuest)

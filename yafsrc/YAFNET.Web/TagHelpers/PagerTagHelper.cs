@@ -113,26 +113,11 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
 
         var routeData = this.ViewContext.HttpContext.GetRouteData();
 
-        int index;
-
-        if (this.ViewContext.HttpContext.Request.Query.ContainsKey(this.QueryName))
+        // the page can set the current page, otherwise it is the page of the url
+        if (!context.AllAttributes.ContainsName("current-page-index"))
         {
-            var query = this.ViewContext.HttpContext.Request.Query[this.QueryName].FirstOrDefault()
-            .ToType<int>();
-
-            index = query > 0 ? query - 1 : 0;
+            this.CurrentPageIndex = this.GetUrlPageIndex();
         }
-        else
-        {
-            index = routeData.Values[this.QueryName].ToTypeOrDefault(0) - 1;
-        }
-
-        if (index == -1)
-        {
-            index = 0;
-        }
-
-        this.CurrentPageIndex = index;
 
         if (this.PageCount() < 2)
         {
@@ -354,5 +339,28 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
         };
 
         return url;
+    }
+
+    /// <summary>
+    /// Gets the current page index from the url.
+    /// </summary>
+    /// <returns>The zero-based page index.</returns>
+    private int GetUrlPageIndex()
+    {
+        int index;
+
+        if (this.ViewContext.HttpContext.Request.Query.ContainsKey(this.QueryName))
+        {
+            var query = this.ViewContext.HttpContext.Request.Query[this.QueryName].FirstOrDefault()
+            .ToType<int>();
+
+            index = query > 0 ? query - 1 : 0;
+        }
+        else
+        {
+            index = this.ViewContext.HttpContext.GetRouteData().Values[this.QueryName].ToTypeOrDefault(0) - 1;
+        }
+
+        return index == -1 ? 0 : index;
     }
 }

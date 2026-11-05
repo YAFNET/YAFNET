@@ -132,6 +132,13 @@ public class TopicsModel : ForumPage
             return this.Redirect(this.PageBoardContext.PageForum.RemoteURL);
         }
 
+        var slugRedirect = this.RedirectToCurrentSlug(this.PageBoardContext.PageForum.Name);
+
+        if (slugRedirect is not null)
+        {
+            return slugRedirect;
+        }
+
         await this.BindDataAsync();
 
         return this.Page();

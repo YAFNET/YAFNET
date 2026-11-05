@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Context;
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 
@@ -122,11 +123,18 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             {
                 if (!path.Equals("/"))
                 {
+                    // the url of a page can differ from its name (e.g. /topic/1/name is the page Posts)
+                    var routedPage = context.GetEndpoint()?.Metadata.GetMetadata<PageActionDescriptor>()?.ViewEnginePath;
+
                     var endpointPath = this.EndpointSources.Where(path.Contains).ToList();
 
                     try
                     {
-                        forumPage = endpointPath.Count != 0 ? endpointPath[0].ToPageName().ToString() : path.ToPageName().ToString();
+                        forumPage = routedPage.IsSet()
+                                        ? routedPage.ToPageName().ToString()
+                                        : endpointPath.Count != 0
+                                            ? endpointPath[0].ToPageName().ToString()
+                                            : path.ToPageName().ToString();
                     }
                     catch (Exception)
                     {

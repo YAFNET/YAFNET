@@ -152,6 +152,13 @@ public class PostModel : ForumPage
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
+        var slugRedirect = this.RedirectToCurrentSlug(this.Get<IBadWordReplace>().Replace(this.PageBoardContext.PageTopic.TopicName));
+
+        if (slugRedirect is not null)
+        {
+            return slugRedirect;
+        }
+
         // Clear Multi-quotes if topic is different
         if (this.Get<ISessionService>().MultiQuoteIds != null && !this.Get<ISessionService>().MultiQuoteIds
                 .Exists(x => x.TopicID.Equals(this.PageBoardContext.PageTopicID)))
@@ -310,6 +317,12 @@ public class PostModel : ForumPage
 
         var findMessageId = this.GetFindMessageId(showDeleted, out var messagePosition, p, m);
 
+        // the first message is on the first page, whatever page the url contains
+        if (findMessageId > 0 && messagePosition == 0)
+        {
+            this.PageBoardContext.PageData.Item4.PageIndex = 0;
+        }
+
         // Mark topic read
         this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageBoardContext.PageTopicID);
         this.Size = this.PageBoardContext.BoardSettings.PostsPerPage;
@@ -347,14 +360,8 @@ public class PostModel : ForumPage
 
         if (findMessageId > 0)
         {
-            if (p != firstPost!.PageIndex)
-            {
-                return this.Get<ILinkBuilder>().Redirect(ForumPages.Posts,
-                    new {
-                        m = findMessageId, p = firstPost.PageIndex, name = this.PageBoardContext.PageTopic.TopicName,
-                        t = this.PageBoardContext.PageTopic.ID
-                    });
-            }
+            // the page of the message is shown at the same url, the pager and the post numbers use the shown page
+            this.PageBoardContext.PageData.Item4.PageIndex = firstPost!.PageIndex;
 
             // move to this message on load...
             if (!this.PageBoardContext.IsCrawler && this.PageBoardContext.BoardSettings.ScrollToPost)

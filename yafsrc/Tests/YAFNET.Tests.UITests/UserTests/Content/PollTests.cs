@@ -221,12 +221,12 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
 
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the user");
 
-                var forumId = System.Text.RegularExpressions.Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = System.Text.RegularExpressions.Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
 
@@ -570,12 +570,12 @@ public class PollTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
 
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum is not shown to the user");
 
-                var forumId = System.Text.RegularExpressions.Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = System.Text.RegularExpressions.Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{forumId}");
 

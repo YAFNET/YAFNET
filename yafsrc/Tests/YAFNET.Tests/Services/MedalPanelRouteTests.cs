@@ -142,8 +142,8 @@ public class MedalPanelRouteTests
     [Description("Category urls contain id and a cleaned name, with the route options")]
     public void Category_Url_Test()
     {
-        CategoryRouteHelper.BuildUrl(null, 5, "General Talk").Should().Be("/Category/5/General-Talk");
-        CategoryRouteHelper.BuildUrl("Forums", 5, "General Talk").Should().Be("/Forums/Category/5/General-Talk");
+        CategoryRouteHelper.BuildUrl(null, 5, "General Talk").Should().Be("/category/5/general-talk");
+        CategoryRouteHelper.BuildUrl("Forums", 5, "General Talk").Should().Be("/Forums/category/5/general-talk");
         CategoryRouteHelper.BuildUrl(null, 5, "General Talk", new RouteOptions { LowercaseUrls = true, AppendTrailingSlash = true })
             .Should().Be("/category/5/general-talk/");
     }

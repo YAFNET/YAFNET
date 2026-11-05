@@ -59,7 +59,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
 
                     // Go to Test Topic
                     await page.GotoAsync(
-                        $"{this.TestSettings.TestForumUrl}Posts/{this.TestSettings.TestTopicId}/test");
+                        $"{this.TestSettings.TestForumUrl}topic/{this.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
@@ -124,7 +124,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
 
                     // Go to Test Topic
                     await page.GotoAsync(
-                        $"{this.TestSettings.TestForumUrl}Posts/{this.TestSettings.TestTopicId}/test");
+                        $"{this.TestSettings.TestForumUrl}topic/{this.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
@@ -175,7 +175,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
 
                     // Do actual test
                     await page.GotoAsync(
-                        $"{this.TestSettings.TestForumUrl}Topics/{this.TestSettings.TestForumId}/testForum");
+                        $"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/testForum");
 
                     var pageSource = await page.ContentAsync();
 
@@ -237,7 +237,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
 
                     // Do actual test
                     await page.GotoAsync(
-                        $"{this.TestSettings.TestForumUrl}Topics/{this.TestSettings.TestForumId}/testForum");
+                        $"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/testForum");
 
                     var pageSource = await page.ContentAsync();
 
@@ -279,7 +279,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
 
                     // Go to Test Topic
                     await page.GotoAsync(
-                        $"{this.TestSettings.TestForumUrl}Posts/{this.TestSettings.TestTopicId}/test");
+                        $"{this.TestSettings.TestForumUrl}topic/{this.TestSettings.TestTopicId}/test");
 
                     var pageSource = await page.ContentAsync();
 
@@ -659,7 +659,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                     // a guest is refused
                     Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{topicId}/topic");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{topicId}/topic");
 
                     var guest = await page.EvaluateAsync<string[]>(post, trackUrl);
 
@@ -689,7 +689,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                     await page.SubmitAndWaitAsync(page.Locator("button[formaction*='WatchAll']"));
 
                     await page.GotoAsync(
-                        $"{this.TestSettings.TestForumUrl}Topics/{this.TestSettings.TestForumId}/testForum");
+                        $"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/testForum");
 
                     Assert.That(
                         await page.ContentAsync(), Does.Contain("Unwatch Forum"),

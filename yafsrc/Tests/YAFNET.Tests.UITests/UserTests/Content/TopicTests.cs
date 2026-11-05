@@ -68,12 +68,12 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
 
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum was not created");
 
-                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
@@ -310,12 +310,12 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
 
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum was not created");
 
-                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
@@ -335,7 +335,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 Assert.That(messageId, Is.Not.Null.And.Not.Empty, $"The topic was not created ({page.Url})");
 
-                var topicId = Regex.Match(page.Url, @"/Posts/(\d+)").Groups[1].Value;
+                var topicId = Regex.Match(page.Url, @"/topic/(\d+)").Groups[1].Value;
 
                 Assert.That(topicId, Is.Not.Empty, $"The topic id was not found ({page.Url})");
 
@@ -404,12 +404,12 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
 
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum was not created");
 
-                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
@@ -488,12 +488,12 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
 
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum was not created");
 
-                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
@@ -527,7 +527,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), forumLink).ToString());
 
                 Assert.That(
-                    await page.Locator("a[href*='/Posts/']", new PageLocatorOptions { HasText = topicName }).CountAsync(),
+                    await page.Locator("a[href*='/topic/']", new PageLocatorOptions { HasText = topicName }).CountAsync(),
                     Is.Zero,
                     "The topic is shown before the approval");
 
@@ -539,7 +539,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), forumLink).ToString());
 
-                var topicLink = page.Locator("a[href*='/Posts/']", new PageLocatorOptions { HasText = topicName });
+                var topicLink = page.Locator("a[href*='/topic/']", new PageLocatorOptions { HasText = topicName });
 
                 Assert.That(await topicLink.CountAsync(), Is.GreaterThan(0), "The topic is not shown after the approval");
 
@@ -598,12 +598,12 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
 
-                var forumLink = await page.Locator("a[href*='/Topics/']", new PageLocatorOptions { HasText = forumName })
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
                                     .First.GetAttributeAsync("href");
 
                 Assert.That(forumLink, Is.Not.Null, "The forum was not created");
 
-                var forumId = Regex.Match(forumLink, @"/Topics/(\d+)/").Groups[1].Value;
+                var forumId = Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value;
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
@@ -653,7 +653,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         approveAction));
 
                 // the user has one post
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Members");
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}members");
 
                 await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
                 await page.Locator("#Input_UserSearchName").FillAsync(userName);
@@ -862,7 +862,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.WaitForLoadStateAsync(LoadState.Load);
 
-                Assert.That(page.Url, Does.Contain("/Posts/"), "The topic was not created");
+                Assert.That(page.Url, Does.Contain("/topic/"), "The topic was not created");
             });
     }
 
@@ -929,7 +929,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
-                Assert.That(page.Url, Does.Contain("/Post"), "The topic was not created");
+                Assert.That(page.Url, Does.Contain("/topic/"), "The topic was not created");
 
                 Assert.That(await page.ContentAsync(), Does.Contain(tag), "The tag of the topic was not saved");
 
@@ -965,7 +965,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 Assert.That(await page.ContentAsync(), Does.Not.Contain("Forum Error"), "The error page is shown");
 
-                Assert.That(page.Url, Does.Contain("/Post"), "The topic was not created");
+                Assert.That(page.Url, Does.Contain("/topic/"), "The topic was not created");
 
                 Assert.That(await page.ContentAsync(), Does.Contain(tag), "The tag of the topic was not saved");
 
@@ -1014,7 +1014,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     await otherPage.GotoAsync(topicUrl);
 
-                    Assert.That(otherPage.Url, Does.Contain("/Posts/"), $"The topic is not shown ({otherPage.Url})");
+                    Assert.That(otherPage.Url, Does.Contain("/topic/"), $"The topic is not shown ({otherPage.Url})");
 
                     var browsers = otherPage.Locator(".card", new PageLocatorOptions { HasText = "Users browsing this topic" });
 
@@ -1096,7 +1096,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                         await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
-                        Assert.That(page.Url, Does.Contain("/Posts/"), "The topic was not created");
+                        Assert.That(page.Url, Does.Contain("/topic/"), "The topic was not created");
 
                         await page.GotoAsync(this.TestSettings.TestForumUrl);
 

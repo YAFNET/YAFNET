@@ -314,6 +314,73 @@ public class ForumPageFilterTests
         (await this.RunAsync(new TestModeratePage())).Result.Should().BeNull("a moderator of the forum");
     }
 
+    [Test]
+    [Description("An outdated slug redirects to the routed page, the PageName can differ (the page Post has the PageName Posts)")]
+    public void Outdated_Slug_Redirect_Test()
+    {
+        this.board.HttpContext.Request.QueryString = new Microsoft.AspNetCore.Http.QueryString("?p=2&name=other");
+
+        var result = this.NewSlugPage("old-title").SlugRedirect("New Title").Should().BeOfType<RedirectToPageResult>().Subject;
+
+        result.PageName.Should().Be("/Post");
+        result.Permanent.Should().BeTrue();
+        result.RouteValues["name"].Should().Be("new-title", "the name of the query can't replace the slug");
+        result.RouteValues["m"].Should().Be(1);
+        result.RouteValues["p"].Should().Be("2", "the query is kept");
+    }
+
+    [Test]
+    [Description("The current slug doesn't redirect, so there is no loop")]
+    public void Current_Slug_Test()
+    {
+        this.NewSlugPage("new-title").SlugRedirect("New Title").Should().BeNull();
+    }
+
+    [Test]
+    [Description("A page number of an old url moves from the query to the path, an invalid one can't cause a redirect loop")]
+    [TestCase("?p=3", true)]
+    [TestCase("?p=0", false)]
+    [TestCase("?p=abc", false)]
+    [TestCase("?p=-1", false)]
+    public void Page_Number_In_Path_Test(string query, bool redirected)
+    {
+        this.board.HttpContext.Request.QueryString = new Microsoft.AspNetCore.Http.QueryString(query);
+
+        var result = this.NewSlugPage("new-title").SlugRedirect("New Title", pageInPath: true);
+
+        if (redirected)
+        {
+            result.Should().BeOfType<RedirectToPageResult>().Which.RouteValues["p"].Should().Be("3");
+        }
+        else
+        {
+            result.Should().BeNull();
+        }
+    }
+
+    [Test]
+    [Description("A page that keeps the page number in the query is not redirected, so there is no loop")]
+    public void Page_Number_In_Query_Test()
+    {
+        this.board.HttpContext.Request.QueryString = new Microsoft.AspNetCore.Http.QueryString("?p=3");
+
+        this.NewSlugPage("new-title").SlugRedirect("New Title").Should().BeNull();
+    }
+
+    private TestPage NewSlugPage(string slug)
+    {
+        var routeData = new RouteData();
+
+        routeData.Values["page"] = "/Post";
+        routeData.Values["m"] = 1;
+        routeData.Values["name"] = slug;
+
+        return new TestPage(ForumPages.Posts)
+        {
+            PageContext = new PageContext(new ActionContext(this.board.HttpContext, routeData, new CompiledPageActionDescriptor()))
+        };
+    }
+
     private async Task<PageHandlerExecutingContext> RunAsync(ForumPage page)
     {
         this.handlerCalls = 0;
@@ -343,6 +410,9 @@ public class ForumPageFilterTests
             : base("DEFAULT", page)
         {
         }
+
+        public IActionResult SlugRedirect(string name, bool pageInPath = false) =>
+            this.RedirectToCurrentSlug(name, pageInPath);
 
         public bool Account
         {

@@ -31,8 +31,10 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
 
 using YAF.Core.Handlers;
+using YAF.Core.Helpers;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
 
@@ -262,6 +264,40 @@ public abstract class ForumPage : PageModel,
     ///   Gets or sets a value indicating whether IsRegisteredPage.
     /// </summary>
     public bool IsRegisteredPage { get; protected set; }
+
+    /// <summary>
+    /// Redirects permanently to the current url if the slug of the url is outdated or wrong (e.g. the
+    /// name was changed). Only call this after the access checks, the url contains the name.
+    /// </summary>
+    /// <param name="name">The current name.</param>
+    /// <param name="pageInPath">The page number belongs in the path, an old url has it in the query.</param>
+    /// <returns>The redirect, or null if the url is correct.</returns>
+    protected IActionResult RedirectToCurrentSlug(string name, bool pageInPath = false)
+    {
+        var slug = UrlRewriteHelper.CleanStringForUrl(name ?? string.Empty);
+
+        // only a valid page number can be moved, anything else would stay in the query and redirect forever
+        var movePage = pageInPath && int.TryParse(this.Request.Query["p"], out var pageNumber) && pageNumber > 0;
+
+        if (!movePage && string.Equals(this.RouteData.Values["name"]?.ToString(), slug, StringComparison.Ordinal))
+        {
+            return null;
+        }
+
+        var values = new RouteValueDictionary(this.RouteData.Values) { ["name"] = slug };
+
+        // the routed page, the PageName can differ from it (the page Post has the PageName Posts)
+        var page = values["page"]?.ToString();
+
+        values.Remove("page");
+
+        foreach (var (key, value) in this.Request.Query)
+        {
+            values.TryAdd(key, value.ToString());
+        }
+
+        return this.RedirectToPagePermanent(page, values);
+    }
 
     /// <summary>
     ///   Gets or sets the PageName.

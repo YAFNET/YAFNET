@@ -507,7 +507,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
-        Assert.That(page.Url, Does.Contain("/Posts/"), "The bb code topic was not created");
+        Assert.That(page.Url, Does.Contain("/topic/"), "The bb code topic was not created");
     }
 
     /// <summary>
@@ -547,7 +547,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     {
         Assert.That(await page.TryCreateNewReplyInTestTopicAsync(this.TestSettings, "A reply to move"), Is.True, "The reply was not created");
 
-        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{this.TestSettings.TestTopicId}/test");
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{this.TestSettings.TestTopicId}/test");
 
         var moveLink = await page.Locator("a[href*='MoveMessage/']").Last.GetAttributeAsync("href");
 
@@ -738,7 +738,7 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
         await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
         // the page of the category (the index only shows the first forums, other tests add forums too)
-        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Category/{categoryId}/crawl");
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}category/{categoryId}/crawl");
 
         Assert.That(await page.ContentAsync(), Does.Contain("Crawl forum").And.Contain("Crawl category"), "The forum or the category was not created");
 

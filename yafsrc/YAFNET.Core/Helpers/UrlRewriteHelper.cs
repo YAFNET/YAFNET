@@ -34,6 +34,11 @@ using System.Web;
 public static class UrlRewriteHelper
 {
     /// <summary>
+    /// The maximum length of a slug.
+    /// </summary>
+    private const int MaxSlugLength = 80;
+
+    /// <summary>
     /// Cleans the string for URL.
     /// </summary>
     /// <param name="inputString">The input String.</param>
@@ -68,6 +73,30 @@ public static class UrlRewriteHelper
     }
 
     /// <summary>
+    /// Finishes a slug: lowercase, without repeated or outer dashes, and
+    /// not longer than <see cref="MaxSlugLength"/> (cut at the end of a word if possible).
+    /// </summary>
+    /// <param name="slug">The formatted text.</param>
+    /// <returns>The slug.</returns>
+    private static string FinishSlug(string slug)
+    {
+        slug = Regex.Replace(slug, "-{2,}", "-", RegexOptions.None, Constants.RegexTimeout)
+            .Trim('-')
+            .ToLowerInvariant();
+
+        if (slug.Length > MaxSlugLength)
+        {
+            slug = slug[..MaxSlugLength];
+
+            var lastDash = slug.LastIndexOf('-');
+
+            slug = lastDash > 0 ? slug[..lastDash] : slug;
+        }
+
+        return slug.Length.Equals(0) ? "default" : slug;
+    }
+
+    /// <summary>
     /// Formats as default.
     /// </summary>
     /// <param name="inputString">The input string.</param>
@@ -89,14 +118,7 @@ public static class UrlRewriteHelper
                     }
                 });
 
-        var strNew = sb.ToString();
-
-        while (strNew.EndsWith('-'))
-        {
-            strNew = strNew[..^1];
-        }
-
-        return strNew.Length.Equals(0) ? "Default" : strNew;
+        return FinishSlug(sb.ToString());
     }
 
     /// <summary>
@@ -132,14 +154,7 @@ public static class UrlRewriteHelper
                     }
                 });
 
-        var strNew = sb.ToString();
-
-        while (strNew.EndsWith('-'))
-        {
-            strNew = strNew[..^1];
-        }
-
-        return strNew.Length.Equals(0) ? "Default" : strNew;
+        return FinishSlug(sb.ToString());
     }
 
     /// <summary>
@@ -164,13 +179,6 @@ public static class UrlRewriteHelper
                     }
                 });
 
-        var strNew = sb.ToString();
-
-        while (strNew.EndsWith('-'))
-        {
-            strNew = strNew[..^1];
-        }
-
-        return strNew.Length.Equals(0) ? "Default" : strNew;
+        return FinishSlug(sb.ToString());
     }
 }

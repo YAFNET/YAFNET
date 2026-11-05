@@ -1007,7 +1007,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.SubmitAndWaitAsync(page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save" }).Last);
 
                     // the own row of the active users list shows if the user is hidden
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}ActiveUsers/0");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}active-users/0");
 
                     Assert.That(
                         await page.Locator(".active-user-row .fa-user-secret").CountAsync(),
@@ -1102,7 +1102,7 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
 
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{topicId}/topic");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{topicId}/topic");
 
                     await page.RunAndWaitForNextPageAsync(
                         () => page.Locator("[formaction*='AddIgnoredUser']").First.EvaluateAsync("button => button.click()"));

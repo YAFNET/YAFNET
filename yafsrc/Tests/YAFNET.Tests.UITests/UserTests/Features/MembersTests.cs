@@ -64,7 +64,7 @@ public class MembersTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
     private async static Task SearchAsync(IPage page, TestConfig testSettings, string userName, string comparison, string numberOfPosts)
     {
-        await page.GotoAsync($"{testSettings.TestForumUrl}Members");
+        await page.GotoAsync($"{testSettings.TestForumUrl}members");
 
         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
         await page.Locator("#Input_UserSearchName").FillAsync(userName);

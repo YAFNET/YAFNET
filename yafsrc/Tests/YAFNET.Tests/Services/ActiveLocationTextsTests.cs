@@ -37,6 +37,17 @@ using YAF.Web.HtmlHelpers;
 [TestFixture]
 public class ActiveLocationTextsTests
 {
+    [TestCase("/user/1/ingo", new[] { "1", "ingo" })]
+    [TestCase("/UserProfile/1/ingo", new[] { "1", "ingo" })]
+    [TestCase("/album/1/2", new[] { "1", "2" })]
+    [TestCase("/Forums/albums/1", new[] { "1" })]
+    [TestCase("/albums", new string[0])]
+    [Description("The ids of the active location are found in short urls, old urls and urls of an area")]
+    public void Path_Values_Test(string path, string[] expected)
+    {
+        ActiveLocationHtmlHelper.GetPathValues(path).Should().Equal(expected);
+    }
+
     [Test]
     [Description("Every page of the forum has a location text in english.json")]
     public void Every_Page_Has_A_Location_Text_Test()

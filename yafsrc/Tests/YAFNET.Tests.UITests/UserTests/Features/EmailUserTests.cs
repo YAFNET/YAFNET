@@ -50,7 +50,7 @@ public class EmailUserTests(ComposeScenario scenario) : DatabaseTestBase(scenari
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
 
                 var profileLink = await page.Locator("a", new PageLocatorOptions { HasText = "View Profile" }).First.GetAttributeAsync("href");
-                var recipientId = Regex.Match(profileLink ?? string.Empty, @"/UserProfile/(\d+)/").Groups[1].Value;
+                var recipientId = Regex.Match(profileLink ?? string.Empty, @"/user/(\d+)/").Groups[1].Value;
 
                 Assert.That(recipientId, Is.Not.Empty, $"The id of {recipient} was not found (link {profileLink}, page {page.Url})");
 
@@ -99,7 +99,7 @@ public class EmailUserTests(ComposeScenario scenario) : DatabaseTestBase(scenari
                     Is.True,
                     "Login failed");
 
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{topicId}/topic");
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{topicId}/topic");
 
                 await page.RunAndWaitForNextPageAsync(
                     () => page.Locator("[formaction*='AddIgnoredUser']").First.EvaluateAsync("button => button.click()"));

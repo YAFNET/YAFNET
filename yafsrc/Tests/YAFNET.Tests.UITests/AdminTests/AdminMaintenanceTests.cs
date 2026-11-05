@@ -653,7 +653,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                 await page.Locator("#Input_ReplaceRegEx").FillAsync($"<span class=\"{tag}\">${{inner}}</span>");
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Add']"));
 
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{topicId}/topic");
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{topicId}/topic");
 
                 Assert.That(
                     await page.Locator($"span.{tag}").CountAsync(), Is.EqualTo(1),
@@ -678,7 +678,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/EditProfile");
 
                 var profileLink = await page.Locator("a", new PageLocatorOptions { HasText = "View Profile" }).First.GetAttributeAsync("href");
-                var userId = System.Text.RegularExpressions.Regex.Match(profileLink ?? string.Empty, @"/UserProfile/(\d+)/").Groups[1].Value;
+                var userId = System.Text.RegularExpressions.Regex.Match(profileLink ?? string.Empty, @"/user/(\d+)/").Groups[1].Value;
                 var profileUrl = new Uri(new Uri(this.TestSettings.TestForumUrl), profileLink).ToString();
 
                 Assert.That(userId, Is.Not.Empty, "The id of the admin was not found");
@@ -1100,12 +1100,12 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                     Assert.That(topicId, Is.Not.Null, "The topic was not created");
 
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Posts/{topicId}/topic");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{topicId}/topic");
 
                     Assert.That(await page.Locator($"#{marker}").CountAsync(), Is.Zero, "The good word is html on the topic page");
                     Assert.That(await page.Locator("body").InnerTextAsync(), Does.Contain("Replace nice subject"), "The good word is not shown");
 
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Topics/{this.TestSettings.TestForumId}/testForum");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{this.TestSettings.TestForumId}/testForum");
 
                     Assert.That(await page.Locator($"#{marker}").CountAsync(), Is.Zero, "The good word is html in the topic list");
                 }

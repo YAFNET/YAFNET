@@ -232,7 +232,7 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// </summary>
     private async static Task<string> UserStyleAsync(IPage page, TestConfig testSettings, string userName)
     {
-        await page.GotoAsync($"{testSettings.TestForumUrl}Members");
+        await page.GotoAsync($"{testSettings.TestForumUrl}members");
 
         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
         await page.Locator("#Input_UserSearchName").FillAsync(userName);

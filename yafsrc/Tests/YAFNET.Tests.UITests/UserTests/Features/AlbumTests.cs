@@ -640,7 +640,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     // guests at these addresses, they don't follow the redirects (the location stays)
                     var contexts = new List<IBrowserContext>();
 
-                    foreach (var path in new[] { "Album/1/999999", "Albums/1", $"UserProfile/1/{spoofedName}" })
+                    foreach (var path in new[] { "album/1/999999", "albums/1", $"UserProfile/1/{spoofedName}" })
                     {
                         var guestContext = await this.Fixture.Context.Browser!.NewContextAsync(
                                                new BrowserNewContextOptions
@@ -666,10 +666,10 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                             Is.True,
                             "Login failed");
 
-                        var response = await page.GotoAsync($"{this.TestSettings.TestForumUrl}ActiveUsers/2");
+                        var response = await page.GotoAsync($"{this.TestSettings.TestForumUrl}active-users/2");
 
                         Assert.That(response?.Status, Is.EqualTo(200), "The active users page failed");
-                        Assert.That(page.Url, Does.Contain("ActiveUsers"), $"The active users page is not shown ({page.Url})");
+                        Assert.That(page.Url, Does.Contain("active-users"), $"The active users page is not shown ({page.Url})");
 
                         Assert.That(
                             await page.ContentAsync(),
@@ -715,7 +715,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     // "Back" shows the new album
                     var albumUrl = page.Url;
-                    var albumId = Regex.Match(albumUrl, @"/Album/\d+/(\d+)").Groups[1].Value;
+                    var albumId = Regex.Match(albumUrl, @"/album/\d+/(\d+)").Groups[1].Value;
 
                     Assert.That(albumId, Is.Not.Empty, $"The album was not created ({albumUrl})");
 
@@ -888,7 +888,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.GetByText("Delete Album").ClickAsync();
                     await page.SubmitAndWaitAsync(page.Locator(".btn-success"));
 
-                    Assert.That(page.Url, Does.Contain("/Albums/"), "The album was not deleted");
+                    Assert.That(page.Url, Does.Contain("/albums/"), "The album was not deleted");
                     Assert.That(await page.ContentAsync(), Does.Not.Contain("Delete me"), "The album is still listed");
                 });
     }

@@ -27,6 +27,7 @@ namespace YAF.Tests.Services;
 using Autofac;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -189,6 +190,23 @@ public class LoadPageFromDatabaseTests
         this.Handler().Handle(@event);
 
         @event.PageLoadData.Item2.DarkMode.Should().Be(darkMode);
+    }
+
+    [Test]
+    [Description("The page name of a short url comes from the routed page, the url doesn't contain the name")]
+    public void Page_Name_Of_Short_Url_Test()
+    {
+        this.board.HttpContext.Request.Path = "/topic/5/hello";
+        this.board.HttpContext.SetEndpoint(
+            new Endpoint(
+                _ => System.Threading.Tasks.Task.CompletedTask,
+                new EndpointMetadataCollection(new PageActionDescriptor { ViewEnginePath = "/Posts" }),
+                "Page: /Posts"));
+
+        this.Handler().Handle(this.NewEvent());
+
+        this.board.Current.GetRepository<Active>().GetSingle(a => a.SessionID == this.board.HttpContext.Session.Id)
+            .ForumPage.Should().Be("Posts");
     }
 
     [Test]

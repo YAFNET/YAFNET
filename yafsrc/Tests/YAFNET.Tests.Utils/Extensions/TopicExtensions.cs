@@ -58,7 +58,7 @@ public static class TopicExtensions
 
             await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
 
-            var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/Posts/(\d+)/");
+            var match = System.Text.RegularExpressions.Regex.Match(page.Url, @"/topic/(\d+)/");
 
             return match.Success ? int.Parse(match.Groups[1].Value) : null;
         }
@@ -162,7 +162,7 @@ public static class TopicExtensions
         {
             // Go to Post New Topic
             await page.GotoAsync(
-                $"{testSettings.TestForumUrl}Posts/{testSettings.TestTopicId}/test");
+                $"{testSettings.TestForumUrl}topic/{testSettings.TestTopicId}/test");
 
             var pageSource = await page.ContentAsync();
 

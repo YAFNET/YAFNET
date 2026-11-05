@@ -101,12 +101,12 @@ public class TextHelperTests
         HtmlTagHelper.IsValidTag(tag, ["b", "i", "a", "br"]).Should().Be(expected);
     }
 
-    [TestCase("Hello World & Friends!", "Hello-World-and-Friends")]
-    [TestCase("Über Café", "Uber-Cafe")]
+    [TestCase("Hello World & Friends!", "hello-world-and-friends")]
+    [TestCase("Über Café", "uber-cafe")]
     [TestCase("  trimmed  ", "trimmed")]
     [TestCase("a&amp;b", "a-b")]
-    [TestCase("Привет мир", "Default")]
-    [TestCase("!!!", "Default")]
+    [TestCase("Привет мир", "default")]
+    [TestCase("!!!", "default")]
     [Description("CleanStringForUrl (default mode) produces ASCII slugs")]
     public void CleanStringForUrl_Default_Test(string input, string expected)
     {
@@ -115,9 +115,9 @@ public class TextHelperTests
         UrlRewriteHelper.CleanStringForUrl(input).Should().Be(expected);
     }
 
-    [TestCase("Привет мир", "Privet-mir")]
-    [TestCase("Hello World", "Hello-World")]
-    [TestCase("???", "Default")]
+    [TestCase("Привет мир", "privet-mir")]
+    [TestCase("Hello World", "hello-world")]
+    [TestCase("???", "default")]
     [Description("CleanStringForUrl (Translit mode) transliterates non latin text")]
     public void CleanStringForUrl_Translit_Test(string input, string expected)
     {
@@ -126,9 +126,9 @@ public class TextHelperTests
         UrlRewriteHelper.CleanStringForUrl(input).Should().Be(expected);
     }
 
-    [TestCase("Привет мир", "Привет-мир")]
-    [TestCase("Hello%20World", "Hello-World")]
-    [TestCase("...", "Default")]
+    [TestCase("Привет мир", "привет-мир")]
+    [TestCase("Hello%20World", "hello-world")]
+    [TestCase("...", "default")]
     [Description("CleanStringForUrl (Unicode mode) keeps non latin letters")]
     public void CleanStringForUrl_Unicode_Test(string input, string expected)
     {

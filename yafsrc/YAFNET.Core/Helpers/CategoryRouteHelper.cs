@@ -30,7 +30,7 @@ using Microsoft.AspNetCore.Routing;
 using YAF.Types.Extensions;
 
 /// <summary>
-/// Centralizes the /Category/{id}/{name} route definition
+/// Centralizes the /category/{id}/{name} route definition
 /// used by both URL generation (LinkBuilder) and URL rewriting (middleware).
 /// </summary>
 public static class CategoryRouteHelper
@@ -38,10 +38,10 @@ public static class CategoryRouteHelper
     /// <summary>
     /// The route segment.
     /// </summary>
-    private const string PathSegment = "Category";
+    public const string PathSegment = "category";
 
     /// <summary>
-    /// Builds a category URL: /Category/{id}/{name} or /{area}/Category/{id}/{name}.
+    /// Builds a category URL: /category/{id}/{name} or /{area}/category/{id}/{name}.
     /// When <paramref name="routeOptions"/> is provided, the URL respects
     /// <see cref="RouteOptions.LowercaseUrls"/> and <see cref="RouteOptions.AppendTrailingSlash"/>.
     /// </summary>
@@ -68,7 +68,7 @@ public static class CategoryRouteHelper
     }
 
     /// <summary>
-    /// Adds rewrite rules that map /Category/{id}/{name} to the Index page.
+    /// Adds rewrite rules that map /category/{id}/{name} to the Index page.
     /// When <paramref name="routeOptions"/> is provided, the rewrite targets respect
     /// <see cref="RouteOptions.LowercaseUrls"/> and <see cref="RouteOptions.AppendTrailingSlash"/>.
     /// </summary>
@@ -117,7 +117,7 @@ public static class CategoryRouteHelper
             .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/?$",
                 $"{areaSegment}{indexPage}{trailingSlash}?c=$1",
                 skipRemainingRules: true)
-            // Also rewrite /Category/{id}/{name}/{handler} so page handlers like ShowMore work
+            // Also rewrite /category/{id}/{name}/{handler} so page handlers like ShowMore work
             .AddRewrite($@"(?i)^{areaSegment}{PathSegment}/(\d+)/([^/]+)/([A-Za-z]+)/?$",
                 $"{areaSegment}{indexPage}/$3{trailingSlash}?c=$1",
                 skipRemainingRules: true);
