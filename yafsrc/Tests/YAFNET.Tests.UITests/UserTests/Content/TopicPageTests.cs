@@ -122,6 +122,7 @@ public class TopicPageTests(ComposeScenario scenario) : DatabaseTestBase(scenari
                 Assert.That(response?.Status, Is.EqualTo(200), "Mark as answer failed");
 
                 Assert.That(page.Url, Does.Contain("/post/"), "The post is shown after the action");
+                Assert.That(page.Url, Does.Not.Contain("?"), "The url of the post has no query");
 
                 await AssertPageAsync(page, 2);
 

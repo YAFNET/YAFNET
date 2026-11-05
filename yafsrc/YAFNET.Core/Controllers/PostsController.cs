@@ -74,7 +74,7 @@ public class PostsController : ForumBaseController
                 || source.UserID.Equals(this.PageBoardContext.PageUserID))
             {
                 return this.Get<ILinkBuilder>().Redirect(ForumPages.Post,
-                    new { m, name = source.Topic, t = source.TopicID });
+                    new { m, name = source.Topic });
             }
 
             var messageFlags = new MessageFlags(current.Flags);
@@ -113,7 +113,7 @@ public class PostsController : ForumBaseController
             }
 
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Post,
-                new { m, name = source.Topic, t = source.TopicID });
+                new { m, name = source.Topic });
         }
         catch (Exception)
         {
