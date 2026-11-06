@@ -33,7 +33,7 @@ See a live YAF.NET forum in action at the [community support forum](https://yeta
 | YAF 4.x   | ASP.NET Core / .NET 10.0       | [`master`](https://github.com/YAFNET/YAFNET)           | Stable         |
 | YAF 3.2.x | ASP.NET / .NET Framework 4.8.1 | [`netfx`](https://github.com/YAFNET/YAFNET/tree/netfx) | Stable         |
 
-YAF 4.x supports the following databases:
+YAF supports the following databases:
 
 - Microsoft SQL Server
 - MySQL / MariaDB
