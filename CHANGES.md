@@ -2,6 +2,7 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.11
+* [FIXED] Search: the search keyword was not highlighted in the text of the results, the mark tags were html encoded and shown as text (the title was highlighted correctly)
 * [FIXED] Topics: marking a post as answer added the topic id to the url of the post (?t=1)
 * [FIXED] Topics: every link to a topic or post was redirected to a longer url (with p, t or m in the query) just to set the page number, the right page is now shown at the requested url; a new topic opens at its topic url
 * [NEW] Short urls: the public pages have shorter lowercase urls (/topic/1/name, /forum/1/name, /post/1/name, /user/1/name, /category/1/name, /album, /albums, /members, /active-users and /team), the page number of a topic is in the path (/topic/1/name/2), the slugs are lowercase and at most 80 characters long, the old urls and urls with an outdated name redirect permanently to the new url

@@ -29,6 +29,7 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -69,6 +70,17 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// the Search Version
     /// </summary>
     private const LuceneVersion MatchVersion = LuceneVersion.LUCENE_48;
+
+    /// <summary>
+    /// Marks the start of a match (private use character). The message is html encoded and its BB codes are
+    /// replaced after the highlighting, the markers pass through that and are replaced by the mark tags at the end.
+    /// </summary>
+    private const char HighlightStart = '';
+
+    /// <summary>
+    /// Marks the end of a match (private use character).
+    /// </summary>
+    private const char HighlightEnd = '';
 
     /// <summary>
     /// The search index folder.
@@ -520,6 +532,40 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     }
 
     /// <summary>
+    /// Replaces the highlight markers with mark tags. Markers inside a html tag (a match in the url
+    /// of a link or image) are removed, a mark tag there would break the html.
+    /// </summary>
+    /// <param name="html">The html with the highlight markers.</param>
+    /// <returns>
+    /// Returns the html with the mark tags.
+    /// </returns>
+    private static string ReplaceHighlightMarkers(string html)
+    {
+        var result = new StringBuilder(html.Length);
+        var insideTag = false;
+
+        foreach (var character in html)
+        {
+            insideTag = character == '<' || insideTag && character != '>';
+
+            switch (character)
+            {
+                case HighlightStart:
+                    result.Append(insideTag ? string.Empty : "<mark>");
+                    break;
+                case HighlightEnd:
+                    result.Append(insideTag ? string.Empty : "</mark>");
+                    break;
+                default:
+                    result.Append(character);
+                    break;
+            }
+        }
+
+        return result.ToString();
+    }
+
+    /// <summary>
     /// Maps the search to data list.
     /// </summary>
     /// <param name="searcher">The searcher.</param>
@@ -718,7 +764,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             message, doc.Get("MessageId").ToType<int>(),
             doc.Get("UserId").ToType<int>());
 
-        message = formattedMessage;
+        message = ReplaceHighlightMarkers(formattedMessage);
 
         // the results are shown with javascript (innerHTML), the texts of the users are html encoded
         // (before the highlighting, the <mark> tags of the highlighter stay html)
@@ -728,7 +774,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         try
         {
-            topic = GetHighlight(highlighter, analyzer, "Topic", encodedTopic);
+            topic = ReplaceHighlightMarkers(GetHighlight(highlighter, analyzer, "Topic", encodedTopic));
         }
         catch (Exception)
         {
@@ -860,7 +906,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         var analyzer = new StandardAnalyzer(MatchVersion);
 
-        var formatter = new SimpleHTMLFormatter("<mark>", "</mark>");
+        var formatter = new SimpleHTMLFormatter(HighlightStart.ToString(), HighlightEnd.ToString());
         var fragmenter = new SimpleFragmenter(hitsLimit);
 
         QueryScorer scorer;

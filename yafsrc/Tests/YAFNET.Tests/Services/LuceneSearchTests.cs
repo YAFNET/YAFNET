@@ -38,9 +38,11 @@ using Lucene.Net.Util;
 
 using NSubstitute;
 
+using YAF.Core.BBCode;
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Flags;
+using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Services;
 using YAF.Types.Objects;
 
@@ -75,24 +77,16 @@ public class LuceneSearchTests
         var environment = Substitute.For<IWebHostEnvironment>();
         environment.WebRootPath.Returns(this.webRoot);
 
-        var formatMessage = Substitute.For<IFormatMessage>();
-        formatMessage.FormatMessageWithAllBBCodesAsync(
-                Arg.Any<string>(),
-                Arg.Any<int>(),
-                Arg.Any<int?>(),
-                Arg.Any<bool?>(),
-                Arg.Any<DateTime?>())
-            .Returns(c => Task.FromResult(c.ArgAt<string>(0)));
-
-        // the real removal of hidden content (it is not indexed)
-        formatMessage.RemoveHiddenBBCodeContent(Arg.Any<string>())
-            .Returns(c => new FormatMessage(null, null).RemoveHiddenBBCodeContent(c.ArgAt<string>(0)));
-
         this.board = new TestBoardContext(
             b =>
             {
                 b.RegisterInstance(environment).As<IWebHostEnvironment>();
-                b.RegisterInstance(formatMessage).As<IFormatMessage>();
+
+                // the real formatting, it html encodes the message after the highlighting
+                b.Register<Func<IEnumerable<bool>, IProcessReplaceRules>>(_ => _ => new ProcessReplaceRules());
+                b.RegisterType<BBCodeService>().As<IBBCodeService>();
+                b.RegisterType<FormatMessage>().As<IFormatMessage>();
+                b.RegisterType<BadWordReplace>().As<IBadWordReplace>();
                 b.RegisterInstance(Substitute.For<IDateTimeService>()).As<IDateTimeService>();
             },
             useDatabase: true);
@@ -145,6 +139,56 @@ public class LuceneSearchTests
         hit.ForumId.Should().Be(this.forumA);
         hit.Message.Should().Contain("<mark>fox</mark>");
         hit.ForumUrl.Should().Be($"/forum/{this.forumA}");
+    }
+
+    [Test]
+    [Description("The highlighting of a match survives the BB code formatting of the message")]
+    public async Task Highlight_In_Formatted_Message_Test()
+    {
+        this.Index(1, 10, this.forumA, "Topic", "the [b]quick fox[/b] <script>");
+
+        var (results, _) = await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10);
+
+        results.Single().Message.Should().Be("the <strong>quick <mark>fox</mark></strong> &lt;script&gt;");
+    }
+
+    [Test]
+    [Description("A match in a code block is highlighted, no marker is left in the code")]
+    public async Task Highlight_In_Code_Block_Test()
+    {
+        this.Index(1, 10, this.forumA, "Topic", "[code]var fox = 1;[/code]");
+
+        var (results, _) = await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10);
+
+        results.Single().Message.Should().Contain("<mark>fox</mark>").And.NotContain("[h]").And.NotContain("&lt;mark");
+    }
+
+    [Test]
+    [Description("A match in the url of a link stays a working link, only its text is highlighted")]
+    public async Task Highlight_In_Link_Url_Test()
+    {
+        this.Index(1, 10, this.forumA, "Topic", "[url=https://example.com/fox]the fox[/url]");
+
+        var (results, _) = await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10);
+
+        var message = results.Single().Message;
+
+        message.Should().Contain("href=\"https://example.com/fox\"").And.Contain("the <mark>fox</mark>");
+        message.Should().NotContain("").And.NotContain("");
+    }
+
+    [Test]
+    [Description("A match in the url of an image keeps the image")]
+    public async Task Highlight_In_Image_Url_Test()
+    {
+        this.Index(1, 10, this.forumA, "Topic", "[img]https://example.com/fox/image.png[/img]");
+
+        var (results, _) = await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10);
+
+        var message = results.Single().Message;
+
+        message.Should().Contain("src=\"https://example.com/fox/image.png\"").And.NotContain("[img]");
+        message.Should().NotContain("").And.NotContain("");
     }
 
     [Test]
