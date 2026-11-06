@@ -85,5 +85,6 @@
     <PackageReference Include="Lucene.Net.Queries" Version="4.8.0-beta00018" />
     <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00018" />
     <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.14" />
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="10.0.14" />
   </ItemGroup>
 </Project>
