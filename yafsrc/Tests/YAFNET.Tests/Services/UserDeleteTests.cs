@@ -243,7 +243,7 @@ public class UserDeleteTests
 
         foreach (var file in aliceFiles.Append(bobFile))
         {
-            File.WriteAllBytes(file, [1]);
+            await File.WriteAllBytesAsync(file, [1]);
         }
 
         (await this.helper.DeleteUserAsync(alice)).Should().BeTrue();
@@ -261,8 +261,8 @@ public class UserDeleteTests
 
         var aliceFile = Path.Combine(this.webRoot, "uploads", $"{alice}.png");
         var bobFile = Path.Combine(this.webRoot, "uploads", $"{bob}.png");
-        File.WriteAllBytes(aliceFile, [1]);
-        File.WriteAllBytes(bobFile, [1]);
+        await File.WriteAllBytesAsync(aliceFile, [1]);
+        await File.WriteAllBytesAsync(bobFile, [1]);
 
         this.board.BoardSettings.AvatarUpload = false;
         (await this.helper.DeleteUserAsync(alice)).Should().BeTrue();
@@ -378,7 +378,7 @@ public class UserDeleteTests
 
     private (int AlbumId, string File) AddAlbumWithImage(int userId)
     {
-        var albumId = (int)this.Repository<UserAlbum>().Insert(
+        var albumId = this.Repository<UserAlbum>().Insert(
             new UserAlbum { UserID = userId, Title = "Album", Updated = DateTime.UtcNow },
             true);
         this.Repository<UserAlbumImage>().Insert(

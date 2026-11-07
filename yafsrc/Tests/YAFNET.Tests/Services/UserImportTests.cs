@@ -184,7 +184,7 @@ public class UserImportTests
         var alice = this.created.Single(u => u.UserName == "alice");
         alice.Profile_RealName.Should().Be("Smith, Alice");
         alice.Profile_Gender.Should().Be(2);
-        alice.Profile_Birthday.Should().Be(new DateTime(1990, 5, 17));
+        alice.Profile_Birthday.Should().Be(new DateTime(1990, 5, 17, 0, 0, 0, DateTimeKind.Unspecified));
         alice.Profile_City.Should().Be("Berlin");
         alice.Profile_Homepage.Should().Be("https://alice.example");
 

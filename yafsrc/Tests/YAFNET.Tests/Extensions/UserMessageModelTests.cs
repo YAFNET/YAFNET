@@ -89,7 +89,7 @@ public class UserMessageModelTests
     [Description("A message can be created from a paged message row")]
     public void Message_From_Paged_Message_Test()
     {
-        var posted = new DateTime(2026, 1, 2, 3, 4, 5);
+        var posted = new DateTime(2026, 1, 2, 3, 4, 5, DateTimeKind.Unspecified);
         var edited = posted.AddHours(1);
 
         var row = new PagedMessage

@@ -202,7 +202,7 @@ public class AvatarActivityRegistryTests
         this.board.User.IsGuest = true;
         this.board.HttpContext.Request.Headers.Cookie = $"PreviousVisit={Uri.EscapeDataString("01/02/2026 03:04:05")}";
         handler.Handle(new ForumPagePreLoadEvent());
-        session.LastVisit.Should().Be(new DateTime(2026, 1, 2, 3, 4, 5));
+        session.LastVisit.Should().Be(new DateTime(2026, 1, 2, 3, 4, 5, DateTimeKind.Unspecified));
         this.board.HttpContext.Response.Headers.SetCookie.ToString().Should().Contain("PreviousVisit=");
 
         this.board.HttpContext.Session.Clear();

@@ -146,7 +146,7 @@ public class DisplayNameCleanUpAndCacheTests
     public void Date_Time_Format_Test()
     {
         var service = Substitute.For<IDateTimeService>();
-        var date = new DateTime(2026, 10, 9, 12, 30, 0);
+        var date = new DateTime(2026, 10, 9, 12, 30, 0, DateTimeKind.Unspecified);
 
         service.FormatDateTimeShort(date).Returns("short");
         service.FormatDateTimeTopic(date).Returns("topic");

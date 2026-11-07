@@ -154,7 +154,10 @@ public class ServiceLocatorTests
         public string Text { get; } = text;
     }
 
+    // only the type is needed, the tests register and resolve it
+#pragma warning disable S2094
     public class Clock;
+#pragma warning restore S2094
 
     public class Owner : IHaveServiceLocator
     {

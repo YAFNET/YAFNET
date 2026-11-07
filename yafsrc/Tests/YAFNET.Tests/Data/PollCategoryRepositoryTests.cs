@@ -67,7 +67,7 @@ public class PollCategoryRepositoryTests
     [Description("Create and update a poll with its flags")]
     public void Poll_Create_Update_Test()
     {
-        var closes = new DateTime(2030, 1, 1);
+        var closes = new DateTime(2030, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
         var pollId = this.Polls.Create(this.alice, "Best color?", closes, true, false, true, "q.png");
 
         var poll = this.Polls.GetById(pollId);

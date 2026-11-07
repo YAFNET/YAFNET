@@ -82,7 +82,7 @@ public class DateTimeServiceTests
     [Description("A calendar date (a birthday) is the same day in every time zone, also for guests (no time zone appended)")]
     public void Format_Calendar_Date_Test()
     {
-        var birthday = new DateTime(1990, 5, 10);
+        var birthday = new DateTime(1990, 5, 10, 0, 0, 0, DateTimeKind.Unspecified);
 
         foreach (var timeZone in new[] { Berlin, "UTC", "Hawaiian Standard Time", "Tokyo Standard Time" })
         {
@@ -173,7 +173,7 @@ public class DateTimeServiceTests
     {
         var service = this.CreateService();
 
-        service.GetUserDateTime(this.summerNoonUtc).Should().Be(new DateTime(2026, 7, 1, 14, 0, 0));
+        service.GetUserDateTime(this.summerNoonUtc).Should().Be(new DateTime(2026, 7, 1, 14, 0, 0, DateTimeKind.Unspecified));
         service.GetUserDateTime(this.summerNoonUtc, TimeZoneInfo.Utc).Should().Be(this.summerNoonUtc);
     }
 
@@ -218,7 +218,7 @@ public class DateTimeServiceTests
     public void FormatDateTimeTopic_Local_Kind_Test()
     {
         this.board.User.TimeZoneUser = "UTC";
-        var older = DateTime.SpecifyKind(new DateTime(2020, 3, 4, 5, 6, 0), DateTimeKind.Local);
+        var older = new DateTime(2020, 3, 4, 5, 6, 0, DateTimeKind.Local);
 
         this.CreateService().FormatDateTimeTopic(older).Should().Be("2020-03-04 05:06");
     }

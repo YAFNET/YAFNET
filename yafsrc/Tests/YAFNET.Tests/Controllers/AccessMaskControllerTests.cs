@@ -102,7 +102,7 @@ public class AccessMaskControllerTests
 
     private int AddMask(int boardId)
     {
-        return (int)this.board.Current.GetRepository<AccessMask>().Insert(
+        return this.board.Current.GetRepository<AccessMask>().Insert(
             new AccessMask { BoardID = boardId, Name = $"Mask {boardId}", Flags = 1, SortOrder = 1 },
             true);
     }

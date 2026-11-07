@@ -55,8 +55,6 @@ public class RolesTests
 {
     private TestBoardContext board;
 
-    private TestDatabase db;
-
     private IAspNetRolesHelper roles;
 
     private AspNetUsersManager users;
@@ -90,7 +88,6 @@ public class RolesTests
             },
             useDatabase: true);
 
-        this.db = this.board.Database;
         this.board.PageLoad.GuestUserID = 9999;
         this.roles = this.board.Resolve<IAspNetRolesHelper>();
         this.users = this.board.Resolve<AspNetUsersManager>();

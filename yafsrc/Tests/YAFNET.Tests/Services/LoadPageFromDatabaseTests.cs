@@ -119,12 +119,12 @@ public class LoadPageFromDatabaseTests
 
         this.Handler().Handle(@event);
 
-        var (pageLoad, user, category, forum, topic, _) = @event.PageLoadData;
+        var (pageLoad, user, category, loadedForum, loadedTopic, _) = @event.PageLoadData;
         user.ID.Should().Be(this.guest);
         pageLoad.ReadAccess.Should().BeTrue();
         pageLoad.PostAccess.Should().BeFalse();
-        topic.ID.Should().Be(this.topic);
-        forum.ID.Should().Be(this.forum);
+        loadedTopic.ID.Should().Be(this.topic);
+        loadedForum.ID.Should().Be(this.forum);
 
         @event.PageQueryData.TopicID.Should().Be(this.topic);
         @event.PageQueryData.ForumID.Should().Be(this.forum);

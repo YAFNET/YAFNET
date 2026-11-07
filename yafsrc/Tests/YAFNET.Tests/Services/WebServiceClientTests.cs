@@ -264,7 +264,7 @@ public class WebServiceClientTests
 
         var blackList = await service.GetAbuseIpDbBlackListAsync("api-key", 90, 5);
         blackList.Data.Single().IpAddress.Should().Be("203.0.113.5");
-        this.handler.Requests.Last().RequestUri!.Query.Should().Be("?confidenceMinimum=90&limit=5");
+        this.handler.Requests[^1].RequestUri!.Query.Should().Be("?confidenceMinimum=90&limit=5");
     }
 
     [Test]

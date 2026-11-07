@@ -150,10 +150,10 @@ public class TopicMessageTests
         await this.Topics.UpdateOnlyAsync(() => new Topic { Description = "The description" }, t => t.ID == topic.ID);
         await this.board.Current.GetRepository<TopicTag>().AddTagsToTopicAsync("astronomy,stars", topic.ID);
 
-        var user = this.Users.GetById(this.board.PageUser.ID);
+        var user = await this.Users.GetByIdAsync(this.board.PageUser.ID);
 
         var reply = await this.Messages.SaveNewAsync(
-            this.Forums.GetById(this.forumId),
+            await this.Forums.GetByIdAsync(this.forumId),
             await this.Topics.GetByIdAsync(topic.ID),
             user,
             "second",

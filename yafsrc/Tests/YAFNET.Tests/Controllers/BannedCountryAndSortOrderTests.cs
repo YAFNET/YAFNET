@@ -98,7 +98,7 @@ public class BannedCountryAndSortOrderTests
     [Description("Countries of other boards do not count as duplicates and can not be changed")]
     public void Other_Board_Test()
     {
-        var other = (int)this.Countries.Insert(new BannedCountry { BoardID = 2, Country = "DE" }, true);
+        var other = this.Countries.Insert(new BannedCountry { BoardID = 2, Country = "DE" }, true);
 
         this.Countries.Save(null, "DE").Should().BeTrue("the ban of the other board is separate");
         this.Countries.Save(other, "FR");

@@ -169,6 +169,7 @@ public class MailServiceTests
 
                     while (await reader.ReadLineAsync() is { } data && data != ".")
                     {
+                        // the content of the mail is not needed
                     }
 
                     this.Delivered.Add(recipient);

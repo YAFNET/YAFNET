@@ -34,17 +34,17 @@ public class DateTimeHelperTests
     [Description("SqlDbMinTime is 1903-01-01, above the SQL Server datetime minimum")]
     public void SqlDbMinTime_Test()
     {
-        DateTimeHelper.SqlDbMinTime().Should().Be(new DateTime(1903, 1, 1));
+        DateTimeHelper.SqlDbMinTime().Should().Be(new DateTime(1903, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
     }
 
     [Test]
     [Description("DateDiffDay counts calendar days and ignores the time of day")]
     public void DateDiffDay_Test()
     {
-        DateTimeHelper.DateDiffDay(new DateTime(2026, 1, 1, 23, 59, 0), new DateTime(2026, 1, 2, 0, 1, 0))
+        DateTimeHelper.DateDiffDay(new DateTime(2026, 1, 1, 23, 59, 0, DateTimeKind.Unspecified), new DateTime(2026, 1, 2, 0, 1, 0, DateTimeKind.Unspecified))
             .Should().Be(1);
-        DateTimeHelper.DateDiffDay(new DateTime(2026, 3, 1), new DateTime(2026, 2, 1)).Should().Be(-28);
-        DateTimeHelper.DateDiffDay(new DateTime(2026, 1, 1, 8, 0, 0), new DateTime(2026, 1, 1, 20, 0, 0))
+        DateTimeHelper.DateDiffDay(new DateTime(2026, 3, 1, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2026, 2, 1, 0, 0, 0, DateTimeKind.Unspecified)).Should().Be(-28);
+        DateTimeHelper.DateDiffDay(new DateTime(2026, 1, 1, 8, 0, 0, DateTimeKind.Unspecified), new DateTime(2026, 1, 1, 20, 0, 0, DateTimeKind.Unspecified))
             .Should().Be(0);
     }
 

@@ -350,7 +350,7 @@ public class LuceneSearchTests
         var message = this.Message(1, 10, this.forumA, "Hello", "body");
         message.UserName = "Zebedee";
         message.TopicTags = "astronomy,telescopes";
-        search.AddSearchIndexAsync([message]);
+        await search.AddSearchIndexAsync([message]);
 
         (await this.NewSearch().SearchPagedAsync(0, "zebedee", 0, 10)).Item1.Should().ContainSingle();
         (await this.NewSearch().SearchPagedAsync(0, "astronomy", 0, 10)).Item1.Should().ContainSingle();
@@ -503,7 +503,7 @@ public class LuceneSearchTests
         message.Description = "<b>bold</b>";
         message.TopicTags = "<i>tag</i>";
         message.ForumName = "Q&A <beta>";
-        search.AddSearchIndexAsync([message]);
+        await search.AddSearchIndexAsync([message]);
 
         var hit = (await this.NewSearch().SearchPagedAsync(0, "cake", 0, 10)).Item1.Single();
 
@@ -557,7 +557,7 @@ public class LuceneSearchTests
     {
         this.Index(1, 10, this.forumA, "first", "the first fox");
 
-        File.WriteAllText(Path.Combine(this.webRoot, "Search_Data", "write.lock"), string.Empty);
+        await File.WriteAllTextAsync(Path.Combine(this.webRoot, "Search_Data", "write.lock"), string.Empty);
 
         this.Index(2, 11, this.forumA, "second", "the second fox");
 

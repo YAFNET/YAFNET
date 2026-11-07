@@ -149,7 +149,7 @@ public class AttachmentAndForumAccessRepositoryTests
 
         File.Exists(alicesFile).Should().BeFalse();
         File.Exists(bobsFile).Should().BeTrue();
-        this.Attachments.Get(_ => true).Select(a => a.ID).Should().Equal(bobsAttachment);
+        (await this.Attachments.GetAsync(_ => true)).Select(a => a.ID).Should().Equal(bobsAttachment);
     }
 
     [Test]
@@ -208,16 +208,16 @@ public class AttachmentAndForumAccessRepositoryTests
         var otherMask = await this.board.Current.GetRepository<AccessMask>()
             .InsertAsync(new AccessMask { BoardID = TestDatabase.BoardId, Name = "Read only", Flags = 1 }, true);
 
-        await forumAccess.SaveAsync(second, group, (int)otherMask);
+        await forumAccess.SaveAsync(second, group, otherMask);
 
-        forumAccess.ListByGroups(group).Single(l => l.ForumID == second).AccessMaskID.Should().Be((int)otherMask);
+        forumAccess.ListByGroups(group).Single(l => l.ForumID == second).AccessMaskID.Should().Be(otherMask);
     }
 
     private IRepository<Attachment> Attachments => this.board.Current.GetRepository<Attachment>();
 
     private int AddAttachment(int userId, string fileName, int messageId = 0)
     {
-        return (int)this.Attachments.Insert(
+        return this.Attachments.Insert(
             new Attachment { UserID = userId, MessageID = messageId, FileName = fileName, ContentType = "text/plain", Bytes = 1 },
             true);
     }

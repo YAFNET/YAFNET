@@ -121,7 +121,7 @@ public class AlbumMedalUserForumRepositoryTests
     {
         var forum = this.db.AddForum("Forum");
         var other = this.db.AddForum("Other");
-        var mask = (int)this.Repository<AccessMask>().Insert(
+        var mask = this.Repository<AccessMask>().Insert(
             new AccessMask { BoardID = TestDatabase.BoardId, Name = "Moderator", Flags = 64, SortOrder = 1 },
             true);
 
@@ -146,10 +146,10 @@ public class AlbumMedalUserForumRepositoryTests
     [Description("The holders of a medal (users and groups) are listed by name, or a single holder")]
     public void Medal_Holders_Test()
     {
-        var medal = (int)this.Repository<Medal>().Insert(
+        var medal = this.Repository<Medal>().Insert(
             new Medal { BoardID = TestDatabase.BoardId, Name = "Hero", Message = "m", MedalURL = "hero.png", Flags = 0 },
             true);
-        var otherMedal = (int)this.Repository<Medal>().Insert(
+        var otherMedal = this.Repository<Medal>().Insert(
             new Medal { BoardID = TestDatabase.BoardId, Name = "Other", Message = "m", MedalURL = "other.png", Flags = 0 },
             true);
 

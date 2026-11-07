@@ -130,8 +130,8 @@ public class ControllerActionTests
         this.db.AddForumAccess(this.alice, this.forum);
         this.board.PageUser.Activity = true;
 
-        var alice = await this.Repository<User>().GetByIdAsync(this.alice);
-        this.board.Current.Get<IUserDisplayName>().FindUserByName("Alice").Returns(alice);
+        var aliceUser = await this.Repository<User>().GetByIdAsync(this.alice);
+        this.board.Current.Get<IUserDisplayName>().FindUserByName("Alice").Returns(aliceUser);
 
         await this.QuickReplyAsync("@[userlink]Alice[/userlink] did you see this?");
 
@@ -196,7 +196,7 @@ public class ControllerActionTests
     [TestCase(true, false, 5, 2, false, false, false)]
     [TestCase(true, false, null, 0, true, false, true)]
     [TestCase(false, false, null, 0, false, true, false)]
-    public async Task QuickReply_Moderated_Forum_Test(
+    public async Task QuickReply_Moderated_Forum_Approval_Test(
         bool moderated,
         bool newTopicsOnly,
         int? moderatedPostCount,
@@ -597,7 +597,7 @@ public class ControllerActionTests
         (await this.CreateController<ReactionController>().React(this.firstPost, 0)).Result.Should().BeOfType<NotFoundResult>();
         (await this.CreateController<ReactionController>().React(this.firstPost, 6)).Result.Should().BeOfType<NotFoundResult>();
 
-        this.Repository<Thanks>().Count(t => true).Should().Be(0);
+        (await this.Repository<Thanks>().CountAsync(t => true)).Should().Be(0);
     }
 
     [Test]
@@ -613,7 +613,7 @@ public class ControllerActionTests
 
         (await this.CreateController<ReactionController>().React(hiddenPost, 2)).Result.Should().BeOfType<NotFoundResult>();
 
-        this.Repository<Thanks>().Count(t => t.MessageID == hiddenPost).Should().Be(1);
+        (await this.Repository<Thanks>().CountAsync(t => t.MessageID == hiddenPost)).Should().Be(1);
     }
 
     [Test]

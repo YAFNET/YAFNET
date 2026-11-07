@@ -251,13 +251,13 @@ public class BoardRepositoryTests
 
         // the board's data with a foreign key to the board (the delete failed on PostgreSQL, SQL Server and MySQL)
         var boardUser = (await this.Repository<User>().GetSingleAsync(u => u.BoardID == boardId)).ID;
-        this.Repository<Tag>().Insert(new Tag { BoardID = boardId, TagName = "tag" });
-        this.Repository<BannedCountry>().Insert(new BannedCountry { BoardID = boardId, Country = "XX" });
-        this.Repository<BannedUserAgent>().Insert(new BannedUserAgent { BoardID = boardId, UserAgent = "bot" });
-        var definition = (int)this.Repository<ProfileDefinition>().Insert(
+        await this.Repository<Tag>().InsertAsync(new Tag { BoardID = boardId, TagName = "tag" });
+        await this.Repository<BannedCountry>().InsertAsync(new BannedCountry { BoardID = boardId, Country = "XX" });
+        await this.Repository<BannedUserAgent>().InsertAsync(new BannedUserAgent { BoardID = boardId, UserAgent = "bot" });
+        var definition = await this.Repository<ProfileDefinition>().InsertAsync(
             new ProfileDefinition { BoardID = boardId, Name = "Field", DataType = "Text", DefaultValue = string.Empty },
             true);
-        this.Repository<ProfileCustom>().Insert(new ProfileCustom { ProfileDefinitionID = definition, UserID = boardUser, Value = "v" });
+        await this.Repository<ProfileCustom>().InsertAsync(new ProfileCustom { ProfileDefinitionID = definition, UserID = boardUser, Value = "v" });
 
         await this.Repository<Board>().DeleteBoardAsync(boardId);
 

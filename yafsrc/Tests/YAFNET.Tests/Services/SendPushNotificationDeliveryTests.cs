@@ -168,7 +168,7 @@ public class SendPushNotificationDeliveryTests
 
         await this.SendAsync();
 
-        this.board.Current.GetRepository<DeviceSubscription>().Get(d => d.UserID == this.alice).Select(d => d.Device)
+        (await this.board.Current.GetRepository<DeviceSubscription>().GetAsync(d => d.UserID == this.alice)).Select(d => d.Device)
             .Should().Equal("Firefox");
         this.logger.ReceivedCalls().Should().BeEmpty();
     }

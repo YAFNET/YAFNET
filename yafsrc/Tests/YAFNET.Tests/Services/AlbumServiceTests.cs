@@ -190,22 +190,30 @@ public class AlbumServiceTests
         var albumId = this.AddAlbum(this.alice);
         var image = this.AddImage(albumId, "a.png", withFile: true, userId: this.alice);
 
-        await using ((await this.board.CreateController<Albums>().GetImage(image)).Should().BeOfType<FileStreamResult>().Subject.FileStream)
-        {
-        }
+        var imageResult = await this.board.CreateController<Albums>().GetImage(image);
+        await imageResult.Should().BeOfType<FileStreamResult>().Subject.FileStream.DisposeAsync();
 
-        await using ((await this.board.CreateController<Albums>().GetImagePreview(image)).Should().BeOfType<FileStreamResult>().Subject.FileStream)
-        {
-        }
+        var previewResult = await this.board.CreateController<Albums>().GetImagePreview(image);
+        await previewResult.Should().BeOfType<FileStreamResult>().Subject.FileStream.DisposeAsync();
 
         this.permissions.Check(Arg.Any<ViewPermissions>()).Returns(false);
 
         var denied = await this.board.CreateController<Albums>().GetImage(image);
-        (denied as FileStreamResult)?.FileStream.Dispose();
+
+        if (denied is FileStreamResult deniedFile)
+        {
+            await deniedFile.FileStream.DisposeAsync();
+        }
+
         denied.Should().BeOfType<NotFoundResult>();
 
         var deniedPreview = await this.board.CreateController<Albums>().GetImagePreview(image);
-        (deniedPreview as FileStreamResult)?.FileStream.Dispose();
+
+        if (deniedPreview is FileStreamResult deniedPreviewFile)
+        {
+            await deniedPreviewFile.FileStream.DisposeAsync();
+        }
+
         deniedPreview.Should().BeOfType<NotFoundResult>();
     }
 

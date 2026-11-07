@@ -118,8 +118,8 @@ public class FileHelperReadTrackAndCamelCaseTests
     public void Forum_Topic_Read_Test()
     {
         var readTrack = Substitute.For<IReadTrackCurrentUser>();
-        var forumRead = new DateTime(2026, 1, 2);
-        var topicRead = new DateTime(2026, 1, 1);
+        var forumRead = new DateTime(2026, 1, 2, 0, 0, 0, DateTimeKind.Unspecified);
+        var topicRead = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
 
         readTrack.GetForumRead(5, null).Returns(forumRead);
         readTrack.GetTopicRead(7, null).Returns(topicRead);

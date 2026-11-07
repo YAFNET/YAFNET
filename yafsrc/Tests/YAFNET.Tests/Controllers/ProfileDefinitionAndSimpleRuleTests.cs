@@ -118,10 +118,10 @@ public class ProfileDefinitionAndSimpleRuleTests
             new ProfileDefinition { BoardID = 2, Name = "Other", DataType = "Text", Length = 10, DefaultValue = string.Empty },
             true);
 
-        var result = await this.board.CreateController<ProfileDefinitionController>().Edit(Modal((int)other, "Hijacked"));
+        var result = await this.board.CreateController<ProfileDefinitionController>().Edit(Modal(other, "Hijacked"));
 
         result.Should().BeOfType<NotFoundResult>();
-        var unchanged = await this.Definitions.GetByIdAsync((int)other);
+        var unchanged = await this.Definitions.GetByIdAsync(other);
         unchanged.Name.Should().Be("Other");
         unchanged.BoardID.Should().Be(2);
     }

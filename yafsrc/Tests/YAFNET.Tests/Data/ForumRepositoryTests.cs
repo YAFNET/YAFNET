@@ -208,7 +208,7 @@ public class ForumRepositoryTests
         group.id.Should().Be(-this.category);
         group.text.Should().Be("General");
         group.children.Select(c => c.text).Should().Equal("Support", " - Support &lt;old&gt;");
-        group.children.First().url.Should().Be($"/forum/{parent}");
+        group.children[0].url.Should().Be($"/forum/{parent}");
 
         this.Forums.ListAllSorted(TestDatabase.BoardId, this.alice, general).Single().children.Single().id
             .Should().Be(general.ToString());
@@ -222,8 +222,8 @@ public class ForumRepositoryTests
     [Description("The forum jump shows the texts as html: the names of the categories are encoded like the names of the forums")]
     public void ListAllSorted_Encodes_Category_Name_Test()
     {
-        var category = this.db.AddCategory("<img src=x onerror=alert(1)>");
-        var forum = this.db.AddForum("Forum", category);
+        var evilCategory = this.db.AddCategory("<img src=x onerror=alert(1)>");
+        var forum = this.db.AddForum("Forum", evilCategory);
 
         this.board.GrantAccess(this.bob, forum);
 

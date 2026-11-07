@@ -385,14 +385,14 @@ public class TopicListTests
         this.Topics.Latest(TestDatabase.BoardId, forumACategory, 10, this.alice, false, false)
             .Select(t => t.TopicID).Should().Equal(busy, popular);
 
-        this.Topics.Latest(TestDatabase.BoardId, 0, 10, this.alice, false, false, sortOrder: 1)
-            .First().TopicID.Should().Be(popular);
+        this.Topics.Latest(TestDatabase.BoardId, 0, 10, this.alice, false, false, sortOrder: 1)[0]
+            .TopicID.Should().Be(popular);
 
-        this.Topics.Latest(TestDatabase.BoardId, 0, 10, this.alice, false, false, sortOrder: 2)
-            .First().TopicID.Should().Be(busy);
+        this.Topics.Latest(TestDatabase.BoardId, 0, 10, this.alice, false, false, sortOrder: 2)[0]
+            .TopicID.Should().Be(busy);
 
-        this.Topics.Latest(TestDatabase.BoardId, 0, 10, this.alice, false, false)
-            .First().TopicID.Should().Be(recent);
+        this.Topics.Latest(TestDatabase.BoardId, 0, 10, this.alice, false, false)[0]
+            .TopicID.Should().Be(recent);
     }
 
     private IRepository<Topic> Topics => this.board.Current.GetRepository<Topic>();

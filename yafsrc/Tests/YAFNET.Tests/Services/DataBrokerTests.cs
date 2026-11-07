@@ -113,13 +113,13 @@ public class DataBrokerTests
     [Description("A guest request records a guest session and returns the guest's forum access")]
     public void GetPageLoad_Guest_Test()
     {
-        var (pageLoad, user, category, forum, topic, message) = this.Load("s1", null, forumId: this.forum);
+        var (pageLoad, user, loadedCategory, loadedForum, loadedTopic, loadedMessage) = this.Load("s1", null, forumId: this.forum);
 
         user.ID.Should().Be(this.guest);
-        forum.ID.Should().Be(this.forum);
-        category.ID.Should().Be(this.category);
-        topic.Should().BeNull();
-        message.Should().BeNull();
+        loadedForum.ID.Should().Be(this.forum);
+        loadedCategory.ID.Should().Be(this.category);
+        loadedTopic.Should().BeNull();
+        loadedMessage.Should().BeNull();
 
         pageLoad.UserID.Should().Be(this.guest);
         pageLoad.GuestUserID.Should().Be(this.guest);
@@ -228,25 +228,25 @@ public class DataBrokerTests
     [Description("A message id alone resolves topic, forum and category")]
     public void GetPageLoad_From_Message_Test()
     {
-        var (_, _, category, forum, topic, message) = this.Load("s1", "alice-key", messageId: this.message);
+        var (_, _, loadedCategory, loadedForum, loadedTopic, loadedMessage) = this.Load("s1", "alice-key", messageId: this.message);
 
-        message.ID.Should().Be(this.message);
-        topic.ID.Should().Be(this.topic);
-        forum.ID.Should().Be(this.forum);
-        category.ID.Should().Be(this.category);
+        loadedMessage.ID.Should().Be(this.message);
+        loadedTopic.ID.Should().Be(this.topic);
+        loadedForum.ID.Should().Be(this.forum);
+        loadedCategory.ID.Should().Be(this.category);
     }
 
     [Test]
     [Description("A topic id alone resolves the topic, forum and category")]
     public void GetPageLoad_From_Topic_Test()
     {
-        var (_, _, category, forum, topic, _) = this.Load("s1", "alice-key", topicId: this.topic);
+        var (_, _, loadedCategory, loadedForum, loadedTopic, _) = this.Load("s1", "alice-key", topicId: this.topic);
 
-        topic.ID.Should().Be(this.topic);
-        topic.TopicName.Should().Be("Hello");
-        forum.ID.Should().Be(this.forum);
-        forum.Name.Should().Be("General");
-        category.ID.Should().Be(this.category);
+        loadedTopic.ID.Should().Be(this.topic);
+        loadedTopic.TopicName.Should().Be("Hello");
+        loadedForum.ID.Should().Be(this.forum);
+        loadedForum.Name.Should().Be("General");
+        loadedCategory.ID.Should().Be(this.category);
 
         this.Repository<Active>().GetSingle(a => a.SessionID == "s1").TopicID.Should().Be(this.topic);
     }
@@ -261,14 +261,14 @@ public class DataBrokerTests
 
         this.db.AddForumAccess(this.alice, hiddenForum, AccessFlags.Flags.None);
 
-        var (pageLoad, _, _, forum, topic, _) =
+        var (pageLoad, _, _, loadedForum, loadedTopic, _) =
             this.Load("s1", "alice-key", categoryId: this.category, forumId: this.forum, topicId: hiddenTopic);
 
-        topic.ID.Should().Be(hiddenTopic);
-        forum.ID.Should().Be(hiddenForum, "the forum of the topic is used, not the forum of the request");
+        loadedTopic.ID.Should().Be(hiddenTopic);
+        loadedForum.ID.Should().Be(hiddenForum, "the forum of the topic is used, not the forum of the request");
         pageLoad.ReadAccess.Should().BeFalse();
 
-        (pageLoad, _, _, forum, topic, var message) = this.Load(
+        (pageLoad, _, _, loadedForum, loadedTopic, var loadedMessage) = this.Load(
             "s1",
             "alice-key",
             categoryId: this.category,
@@ -276,9 +276,9 @@ public class DataBrokerTests
             topicId: this.topic,
             messageId: hiddenMessage);
 
-        message.ID.Should().Be(hiddenMessage);
-        topic.ID.Should().Be(hiddenTopic, "the topic of the message is used");
-        forum.ID.Should().Be(hiddenForum);
+        loadedMessage.ID.Should().Be(hiddenMessage);
+        loadedTopic.ID.Should().Be(hiddenTopic, "the topic of the message is used");
+        loadedForum.ID.Should().Be(hiddenForum);
         pageLoad.ReadAccess.Should().BeFalse();
     }
 
@@ -286,13 +286,13 @@ public class DataBrokerTests
     [Description("Ids that do not exist are dropped")]
     public void GetPageLoad_Invalid_Ids_Test()
     {
-        var (pageLoad, _, category, forum, topic, message) =
+        var (pageLoad, _, loadedCategory, loadedForum, loadedTopic, loadedMessage) =
             this.Load("s1", "alice-key", forumId: 9999, categoryId: 9999, topicId: 9999, messageId: 9999);
 
-        category.Should().BeNull();
-        forum.Should().BeNull();
-        topic.Should().BeNull();
-        message.Should().BeNull();
+        loadedCategory.Should().BeNull();
+        loadedForum.Should().BeNull();
+        loadedTopic.Should().BeNull();
+        loadedMessage.Should().BeNull();
         pageLoad.Should().NotBeNull("the board level access is returned");
 
         var active = this.Repository<Active>().GetSingle(a => a.SessionID == "s1");

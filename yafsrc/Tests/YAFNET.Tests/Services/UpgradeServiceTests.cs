@@ -112,8 +112,8 @@ public class UpgradeServiceTests
 
         foreach (var boardId in new[] { TestDatabase.BoardId, secondBoard })
         {
-            this.Repository<BBCode>().Count(b => b.BoardID == boardId).Should().BePositive();
-            this.Repository<SpamWords>().Count(s => s.BoardID == boardId).Should().BePositive();
+            (await this.Repository<BBCode>().CountAsync(b => b.BoardID == boardId)).Should().BePositive();
+            (await this.Repository<SpamWords>().CountAsync(s => s.BoardID == boardId)).Should().BePositive();
         }
     }
 
@@ -129,16 +129,16 @@ public class UpgradeServiceTests
 
         await upgrade.UpgradeAsync();
 
-        var bbCodes = this.Repository<BBCode>().Count(b => b.BoardID == TestDatabase.BoardId);
-        var spamWords = this.Repository<SpamWords>().Count(s => s.BoardID == TestDatabase.BoardId);
+        var bbCodes = await this.Repository<BBCode>().CountAsync(b => b.BoardID == TestDatabase.BoardId);
+        var spamWords = await this.Repository<SpamWords>().CountAsync(s => s.BoardID == TestDatabase.BoardId);
 
         await upgrade.UpgradeAsync();
 
         this.Global("baseurlmask").Should().Be("https://old.example.com");
-        this.Registry.Count(r => r.Name == "forceupdatesearchindex").Should().Be(0);
+        (await this.Registry.CountAsync(r => r.Name == "forceupdatesearchindex")).Should().Be(0);
 
-        this.Repository<BBCode>().Count(b => b.BoardID == TestDatabase.BoardId).Should().Be(bbCodes);
-        this.Repository<SpamWords>().Count(s => s.BoardID == TestDatabase.BoardId).Should().Be(spamWords);
+        (await this.Repository<BBCode>().CountAsync(b => b.BoardID == TestDatabase.BoardId)).Should().Be(bbCodes);
+        (await this.Repository<SpamWords>().CountAsync(s => s.BoardID == TestDatabase.BoardId)).Should().Be(spamWords);
     }
 
     [Test]
@@ -169,8 +169,8 @@ public class UpgradeServiceTests
 
         using (var db = this.board.Database.Open())
         {
-            db.TableExists<Thanks>().Should().BeTrue();
-            db.TableExists<PMessage>().Should().BeFalse();
+            (await db.TableExistsAsync<Thanks>()).Should().BeTrue();
+            (await db.TableExistsAsync<PMessage>()).Should().BeFalse();
             db.Select<PrivateMessage>().Should().ContainSingle(m => m.FromUserId == alice && m.ToUserId == bob);
         }
     }
@@ -207,7 +207,7 @@ public class UpgradeServiceTests
 
         await upgrade.UpgradeAsync();
 
-        this.Repository<AspNetRoles>().Get(_ => true).Should().ContainSingle(r => r.Id == "r1" && r.Name == "Registered Users");
+        (await this.Repository<AspNetRoles>().GetAsync(_ => true)).Should().ContainSingle(r => r.Id == "r1" && r.Name == "Registered Users");
     }
 
     [Test]
@@ -229,8 +229,8 @@ public class UpgradeServiceTests
 
         await upgrade.UpgradeAsync();
 
-        this.Repository<AspNetRoles>().Get(_ => true).Select(r => r.Name).Should().Equal("Registered Users");
-        this.Repository<AspNetUserRoles>().Get(_ => true).Select(r => $"{r.UserId}:{r.RoleId}").Should()
+        (await this.Repository<AspNetRoles>().GetAsync(_ => true)).Select(r => r.Name).Should().Equal("Registered Users");
+        (await this.Repository<AspNetUserRoles>().GetAsync(_ => true)).Select(r => $"{r.UserId}:{r.RoleId}").Should()
             .BeEquivalentTo("alice:r2", "bob:r2");
     }
 

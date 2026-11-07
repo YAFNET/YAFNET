@@ -121,13 +121,13 @@ public class ForumPageFilterTests
         this.board.BoardSettings.RequireLogin = true;
         this.board.User.IsGuest = true;
 
-        var context = await this.RunAsync(new TestPage(ForumPages.Account_Login) { Account = true });
+        var context = await this.RunAsync(new TestPage(ForumPages.Account_Login, account: true));
 
         this.handlerCalls.Should().Be(1, "the handler (e.g. a login attempt) must not run twice");
         context.Result.Should().BeNull();
 
         this.board.BoardSettings.RequireLogin = false;
-        await this.RunAsync(new TestPage(ForumPages.Account_Register) { Account = true });
+        await this.RunAsync(new TestPage(ForumPages.Account_Register, account: true));
         this.handlerCalls.Should().Be(1, "also without the login requirement");
     }
 
@@ -135,7 +135,7 @@ public class ForumPageFilterTests
     [Description("Without a database nothing runs")]
     public async Task No_Database_Test()
     {
-        await this.RunAsync(new TestPage(ForumPages.Index) { WithoutDatabase = true });
+        await this.RunAsync(new TestPage(ForumPages.Index, withoutDatabase: true));
 
         this.handlerCalls.Should().Be(0);
     }
@@ -150,7 +150,7 @@ public class ForumPageFilterTests
         (await this.RunAsync(new TestPage(ForumPages.Index))).Result.Should().BeSameAs(this.loginRedirect);
         this.handlerCalls.Should().Be(0);
 
-        (await this.RunAsync(new TestPage(ForumPages.Info) { Protected = false })).Result.Should().BeNull();
+        (await this.RunAsync(new TestPage(ForumPages.Info, isProtected: false))).Result.Should().BeNull();
         this.handlerCalls.Should().Be(1);
     }
 
@@ -160,25 +160,25 @@ public class ForumPageFilterTests
     {
         this.board.Current.MembershipUser = null;
 
-        (await this.RunAsync(new TestPage(ForumPages.MyTopics) { Registered = true })).Result.Should().BeSameAs(this.loginRedirect);
+        (await this.RunAsync(new TestPage(ForumPages.MyTopics, registered: true))).Result.Should().BeSameAs(this.loginRedirect);
 
         this.board.Current.MembershipUser = new AspNetUsers { Id = "alice" };
-        (await this.RunAsync(new TestPage(ForumPages.MyTopics) { Registered = true })).Result.Should().BeNull();
+        (await this.RunAsync(new TestPage(ForumPages.MyTopics, registered: true))).Result.Should().BeNull();
     }
 
     [Test]
     [Description("Admin pages need an admin, and an admin who is no host admin needs access to the page")]
     public async Task Admin_Page_Test()
     {
-        (await this.RunAsync(new TestPage(ForumPages.Admin_Admin) { Admin = true })).Result.Should().BeSameAs(this.accessDenied);
+        (await this.RunAsync(new TestPage(ForumPages.Admin_Admin, admin: true))).Result.Should().BeSameAs(this.accessDenied);
 
         this.board.PageLoad.IsAdmin = true;
-        (await this.RunAsync(new TestPage(ForumPages.Admin_Admin) { Admin = true })).Result.Should().BeSameAs(this.infoRedirect);
+        (await this.RunAsync(new TestPage(ForumPages.Admin_Admin, admin: true))).Result.Should().BeSameAs(this.infoRedirect);
 
         await this.board.Current.GetRepository<AdminPageUserAccess>().InsertAsync(
             new AdminPageUserAccess { UserID = this.board.PageLoad.UserID, PageName = nameof(ForumPages.Admin_Admin) });
 
-        (await this.RunAsync(new TestPage(ForumPages.Admin_Admin) { Admin = true })).Result.Should().BeNull();
+        (await this.RunAsync(new TestPage(ForumPages.Admin_Admin, admin: true))).Result.Should().BeNull();
     }
 
     [Test]
@@ -193,11 +193,11 @@ public class ForumPageFilterTests
         await this.board.Current.GetRepository<AdminPageUserAccess>().InsertAsync(
             new AdminPageUserAccess { UserID = this.board.PageLoad.UserID, PageName = hostPage.ToString() });
 
-        (await this.RunAsync(new TestPage(hostPage) { Admin = true })).Result.Should().BeSameAs(this.infoRedirect);
+        (await this.RunAsync(new TestPage(hostPage, admin: true))).Result.Should().BeSameAs(this.infoRedirect);
 
         this.board.PageUser.Flags |= (int)UserFlags.Flags.IsHostAdmin;
 
-        (await this.RunAsync(new TestPage(hostPage) { Admin = true })).Result.Should().BeNull();
+        (await this.RunAsync(new TestPage(hostPage, admin: true))).Result.Should().BeNull();
     }
 
     [Test]
@@ -404,39 +404,25 @@ public class ForumPageFilterTests
 
     private class TestModeratePage() : ModerateForumPage("MODERATE", ForumPages.Moderate_Moderate);
 
-    private class TestPage : ForumPage
+    private sealed class TestPage : ForumPage
     {
-        public TestPage(ForumPages page)
+        public TestPage(
+            ForumPages page,
+            bool account = false,
+            bool admin = false,
+            bool registered = false,
+            bool isProtected = true,
+            bool withoutDatabase = false)
             : base("DEFAULT", page)
         {
+            this.IsAccountPage = account;
+            this.IsAdminPage = admin;
+            this.IsRegisteredPage = registered;
+            this.IsProtected = isProtected;
+            this.NoDataBase = withoutDatabase;
         }
 
         public IActionResult SlugRedirect(string name, bool pageInPath = false) =>
             this.RedirectToCurrentSlug(name, pageInPath);
-
-        public bool Account
-        {
-            set => this.IsAccountPage = value;
-        }
-
-        public bool Admin
-        {
-            set => this.IsAdminPage = value;
-        }
-
-        public bool Registered
-        {
-            set => this.IsRegisteredPage = value;
-        }
-
-        public bool Protected
-        {
-            set => this.IsProtected = value;
-        }
-
-        public bool WithoutDatabase
-        {
-            set => this.NoDataBase = value;
-        }
     }
 }

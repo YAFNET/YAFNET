@@ -382,6 +382,8 @@ public class AspNetUsersHelperTests
     {
         await this.AddMemberAsync("alice-key", "alice", "alice@example.com");
 
+        // this test is about the sync method, GetUserAsync has its own test
+#pragma warning disable S6966
         this.helper.GetUser().Should().BeNull("the request is anonymous");
 
         this.board.HttpContext.User = new ClaimsPrincipal();
@@ -392,6 +394,7 @@ public class AspNetUsersHelperTests
             new ClaimsIdentity([new Claim(ClaimTypes.Name, "ALICE")], "test"));
 
         this.helper.GetUser().Id.Should().Be("alice-key");
+#pragma warning restore S6966
     }
 
     [Test]

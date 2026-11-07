@@ -172,7 +172,7 @@ public class InstallServiceTests
 
         await this.InitializeForumAsync(install, applicationId, culture: "de-DE");
 
-        var newBoard = this.board.Current.GetRepository<Board>().GetSingle(b => b.Name == "My Forum");
+        var newBoard = await this.board.Current.GetRepository<Board>().GetSingleAsync(b => b.Name == "My Forum");
         newBoard.Description.Should().Be("The description");
 
         var registry = this.board.Current.GetRepository<Registry>();
@@ -183,10 +183,10 @@ public class InstallServiceTests
         Global("forumlogo").Should().Be("logo.svg");
         Global("baseurlmask").Should().Be("https://forum.example.com/");
 
-        registry.GetSingle(r => r.Name == "culture" && r.BoardID == newBoard.ID).Value.Should().Be("de-DE");
-        registry.GetSingle(r => r.Name == "language" && r.BoardID == newBoard.ID).Value.Should().Be("german.json");
+        (await registry.GetSingleAsync(r => r.Name == "culture" && r.BoardID == newBoard.ID)).Value.Should().Be("de-DE");
+        (await registry.GetSingleAsync(r => r.Name == "language" && r.BoardID == newBoard.ID)).Value.Should().Be("german.json");
 
-        var admin = this.board.Current.GetRepository<User>().GetSingle(u => u.BoardID == newBoard.ID && u.Name == "admin");
+        var admin = await this.board.Current.GetRepository<User>().GetSingleAsync(u => u.BoardID == newBoard.ID && u.Name == "admin");
         admin.Email.Should().Be("admin@example.com");
         admin.ProviderUserKey.Should().Be("admin-key");
         admin.UserFlags.IsHostAdmin.Should().BeTrue();
@@ -198,8 +198,8 @@ public class InstallServiceTests
 
         this.board.Events.OfType<ImportStaticDataEvent>().Should().ContainSingle(e => e.BoardID == newBoard.ID);
 
-        this.board.Current.GetRepository<BBCode>().Count(b => b.BoardID == newBoard.ID).Should().BePositive();
-        this.board.Current.GetRepository<SpamWords>().Count(s => s.BoardID == newBoard.ID).Should().BePositive();
+        (await this.board.Current.GetRepository<BBCode>().CountAsync(b => b.BoardID == newBoard.ID)).Should().BePositive();
+        (await this.board.Current.GetRepository<SpamWords>().CountAsync(s => s.BoardID == newBoard.ID)).Should().BePositive();
     }
 
     [Test]
@@ -214,14 +214,14 @@ public class InstallServiceTests
 
         await this.InitializeForumAsync(install, Guid.NewGuid(), culture: "xx-XX", forumEmail: string.Empty);
 
-        var newBoard = this.board.Current.GetRepository<Board>().GetSingle(b => b.Name == "My Forum");
+        var newBoard = await this.board.Current.GetRepository<Board>().GetSingleAsync(b => b.Name == "My Forum");
 
         var registry = this.board.Current.GetRepository<Registry>();
-        registry.GetSingle(r => r.Name == "language" && r.BoardID == newBoard.ID).Value.Should().Be("english.json");
-        registry.Count(r => r.Name == "forumemail").Should().Be(0, "an empty forum email is not saved");
+        (await registry.GetSingleAsync(r => r.Name == "language" && r.BoardID == newBoard.ID)).Value.Should().Be("english.json");
+        (await registry.CountAsync(r => r.Name == "forumemail")).Should().Be(0, "an empty forum email is not saved");
 
-        this.board.Current.GetRepository<BBCode>().Count(b => b.BoardID == newBoard.ID).Should().Be(0);
-        this.board.Current.GetRepository<SpamWords>().Count(s => s.BoardID == newBoard.ID).Should().Be(0);
+        (await this.board.Current.GetRepository<BBCode>().CountAsync(b => b.BoardID == newBoard.ID)).Should().Be(0);
+        (await this.board.Current.GetRepository<SpamWords>().CountAsync(s => s.BoardID == newBoard.ID)).Should().Be(0);
     }
 
     [Test]
@@ -253,7 +253,7 @@ public class InstallServiceTests
         await FluentActions.Awaiting(() => this.InitializeForumAsync(install, Guid.NewGuid(), forumEmail: null))
             .Should().ThrowAsync<ArgumentNullException>();
 
-        this.board.Current.GetRepository<Board>().Count(b => b.Name == "My Forum").Should().Be(0);
+        (await this.board.Current.GetRepository<Board>().CountAsync(b => b.Name == "My Forum")).Should().Be(0);
     }
 
     private Task InitializeForumAsync(

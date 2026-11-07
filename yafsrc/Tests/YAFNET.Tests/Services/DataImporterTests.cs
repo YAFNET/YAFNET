@@ -103,11 +103,11 @@ public class DataImporterTests
         (await this.importer.BannedEmailAddressesImportAsync(Board, Text("spam@example.com"))).Should().Be(1);
         (await this.importer.BannedNamesImportAsync(Board, Text("^Spammer$"))).Should().Be(1);
 
-        this.board.Current.GetRepository<BannedIP>().Get(_ => true).Single().Since.Should()
+        (await this.board.Current.GetRepository<BannedIP>().GetAsync(_ => true)).Single().Since.Should()
             .BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
-        this.board.Current.GetRepository<BannedEmail>().Get(_ => true).Single().Since.Should()
+        (await this.board.Current.GetRepository<BannedEmail>().GetAsync(_ => true)).Single().Since.Should()
             .BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
-        this.board.Current.GetRepository<BannedName>().Get(_ => true).Single().Since.Should()
+        (await this.board.Current.GetRepository<BannedName>().GetAsync(_ => true)).Single().Since.Should()
             .BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
     }
 

@@ -103,8 +103,8 @@ public class SendNotificationTests
         var environment = Substitute.For<IWebHostEnvironment>();
         environment.WebRootPath.Returns(this.webRoot);
 
-        var displayName = this.displayName = Substitute.For<IUserDisplayName>();
-        displayName.GetNameById(Arg.Any<int>()).Returns(c => $"User {c.Arg<int>()}");
+        this.displayName = Substitute.For<IUserDisplayName>();
+        this.displayName.GetNameById(Arg.Any<int>()).Returns(c => $"User {c.Arg<int>()}");
 
         this.mail = new RecordingMailService();
         this.aspNetUsers = Substitute.For<IAspNetUsersHelper>();
@@ -125,7 +125,7 @@ public class SendNotificationTests
                 b.RegisterInstance(new VapidConfiguration());
                 b.RegisterInstance(theme).As<ITheme>();
                 b.RegisterInstance(environment).As<IWebHostEnvironment>();
-                b.RegisterInstance(displayName).As<IUserDisplayName>();
+                b.RegisterInstance(this.displayName).As<IUserDisplayName>();
                 b.RegisterInstance(this.mail).As<IMailService>();
                 b.RegisterInstance(this.aspNetUsers).As<IAspNetUsersHelper>();
             },

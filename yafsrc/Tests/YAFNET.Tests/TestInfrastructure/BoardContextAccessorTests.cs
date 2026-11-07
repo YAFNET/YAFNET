@@ -84,7 +84,7 @@ public class BoardContextAccessorTests
         user.ModeratePosts = 9;
         user.UserHasBuddies = true;
         user.UserHasPrivateConversations = true;
-        user.LastPendingBuddies = new DateTime(2026, 1, 1);
+        user.LastPendingBuddies = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
 
         var current = this.board.Current;
 
@@ -93,7 +93,7 @@ public class BoardContextAccessorTests
             .Should().Be((2, 3, 4, 5, 6, 7, 8, 9));
         current.UserHasBuddies.Should().BeTrue();
         current.UserHasPrivateConversations.Should().BeTrue();
-        current.LastPendingBuddies.Should().Be(new DateTime(2026, 1, 1));
+        current.LastPendingBuddies.Should().Be(new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Unspecified));
 
         current.IsSuspended.Should().BeFalse();
         current.SuspendedReason.Should().BeEmpty();

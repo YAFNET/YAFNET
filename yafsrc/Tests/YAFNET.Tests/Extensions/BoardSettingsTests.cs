@@ -136,7 +136,7 @@ public class BoardSettingsTests
 
         if (underlying == typeof(DateTime))
         {
-            return new DateTime(2026, 10, 9, 12, 0, 0);
+            return new DateTime(2026, 10, 9, 12, 0, 0, DateTimeKind.Unspecified);
         }
 
         if (underlying.IsEnum)

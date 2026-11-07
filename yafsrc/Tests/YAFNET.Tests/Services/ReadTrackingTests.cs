@@ -91,7 +91,7 @@ public class ReadTrackingTests
         this.readTrack.GetForumRead(5, null).Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
         this.readTrack.GetTopicRead(7, null).Should().BeCloseTo(DateTime.UtcNow, TimeSpan.FromMinutes(1));
 
-        var overrideTime = new DateTime(2020, 1, 1);
+        var overrideTime = new DateTime(2020, 1, 1, 0, 0, 0, DateTimeKind.Unspecified);
         this.readTrack.GetForumRead(5, overrideTime).Should().Be(overrideTime);
         this.readTrack.GetTopicRead(7, overrideTime).Should().Be(overrideTime);
 

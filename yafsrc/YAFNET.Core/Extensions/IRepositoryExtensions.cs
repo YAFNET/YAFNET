@@ -233,9 +233,11 @@ public static class IRepositoryExtensions
         {
             ArgumentNullException.ThrowIfNull(entity);
 
+            var newId = repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity));
+
             repository.FireNew();
 
-            return repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity)).ToType<int>();
+            return newId.ToType<int>();
         }
 
         /// <summary>

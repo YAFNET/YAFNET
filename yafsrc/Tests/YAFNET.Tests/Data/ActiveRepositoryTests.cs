@@ -128,9 +128,9 @@ public class ActiveRepositoryTests
 
         foreach (var users in new[] { this.Active.ListForum(this.forum), this.Active.ListTopic(this.topic) })
         {
-            var alice = users.Single(u => u.UserID == this.alice);
-            alice.IsGuest.Should().BeFalse("an approved user is no guest");
-            alice.IsActiveExcluded.Should().BeFalse();
+            var aliceActive = users.Single(u => u.UserID == this.alice);
+            aliceActive.IsGuest.Should().BeFalse("an approved user is no guest");
+            aliceActive.IsActiveExcluded.Should().BeFalse();
 
             var hidden = users.Single(u => u.UserID == carol);
             hidden.IsActiveExcluded.Should().BeTrue("the user is hidden from the active lists");
@@ -150,11 +150,11 @@ public class ActiveRepositoryTests
 
         var members = this.Active.List(false, 15);
 
-        var alice = members.Should().ContainSingle().Subject;
-        alice.UserID.Should().Be(this.alice);
-        alice.ForumName.Should().Be("General");
-        alice.TopicName.Should().Be("Hello");
-        alice.IsGuest.Should().BeFalse();
+        var aliceActive = members.Should().ContainSingle().Subject;
+        aliceActive.UserID.Should().Be(this.alice);
+        aliceActive.ForumName.Should().Be("General");
+        aliceActive.TopicName.Should().Be("Hello");
+        aliceActive.IsGuest.Should().BeFalse();
 
         this.Active.List(true, 15).Select(u => u.SessionID).Should().BeEquivalentTo(["s1", "s2"], "plain guests are never listed");
     }

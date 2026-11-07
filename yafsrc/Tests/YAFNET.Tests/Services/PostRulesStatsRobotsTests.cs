@@ -231,7 +231,7 @@ public class PostRulesStatsRobotsTests
         this.AddActive("Firefox", "Linux", "--");
         this.AddActive("Chrome", "Windows", null);
 
-        this.board.Database.AddUser("Recent", u => u.Joined = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1));
+        this.board.Database.AddUser("Recent", u => u.Joined = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1, 0, 0, 0, DateTimeKind.Unspecified));
 
         var stats = await this.GetStatsAsync();
 

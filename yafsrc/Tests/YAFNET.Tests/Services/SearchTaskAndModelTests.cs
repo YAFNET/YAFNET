@@ -151,7 +151,7 @@ public class SearchTaskAndModelTests
     [Description("A message built from a post row has the values of the row")]
     public void Message_From_Row_Test()
     {
-        var posted = new DateTime(2026, 3, 1);
+        var posted = new DateTime(2026, 3, 1, 0, 0, 0, DateTimeKind.Unspecified);
         var row = new PagedMessage
         {
             MessageID = 5,

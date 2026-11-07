@@ -183,7 +183,11 @@ public class UserStoreTests
         await this.store.SetPhoneNumberAsync(user, "555", this.none);
         await this.store.SetPhoneNumberConfirmedAsync(user, true, this.none);
         await this.store.SetTwoFactorEnabledAsync(user, true, this.none);
+
+        // this overload saves the stamp, the one with the token only sets it for the UserManager to update the user
+#pragma warning disable S8949
         await this.store.SetSecurityStampAsync(user, "stamp");
+#pragma warning restore S8949
 
         var stored = await this.store.FindByIdAsync("u1", this.none);
 
@@ -194,7 +198,10 @@ public class UserStoreTests
         (await this.store.GetPhoneNumberAsync(stored, this.none)).Should().Be("555");
         (await this.store.GetPhoneNumberConfirmedAsync(stored, this.none)).Should().BeTrue();
         (await this.store.GetTwoFactorEnabledAsync(stored, this.none)).Should().BeTrue();
+
+#pragma warning disable S8949
         (await this.store.GetSecurityStampAsync(stored)).Should().Be("stamp");
+#pragma warning restore S8949
     }
 
     [Test]

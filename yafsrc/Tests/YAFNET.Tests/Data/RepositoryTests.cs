@@ -109,6 +109,28 @@ public class RepositoryTests
     }
 
     [Test]
+    [Description("The new event is raised after the row is written, the cache handlers must not run before the row exists")]
+    public void Insert_Raises_New_Event_After_Row_Is_Written_Test()
+    {
+        var rowsAtEvent = this.CountRowsAtNewEvent();
+
+        this.Repository<BannedIP>().Insert(NewBannedIp("10.0.0.1"));
+
+        rowsAtEvent.Should().Equal(1L);
+    }
+
+    [Test]
+    [Description("The new event of InsertAsync is raised after the row is written")]
+    public async Task InsertAsync_Raises_New_Event_After_Row_Is_Written_Test()
+    {
+        var rowsAtEvent = this.CountRowsAtNewEvent();
+
+        await this.Repository<BannedIP>().InsertAsync(NewBannedIp("10.0.0.1"));
+
+        rowsAtEvent.Should().Equal(1L);
+    }
+
+    [Test]
     [Description("Get, GetSingle, Exists, Count and GetByBoardId filter correctly")]
     public void Query_Methods_Test()
     {
@@ -245,6 +267,21 @@ public class RepositoryTests
     private static BannedIP NewBannedIp(string mask, int boardId = TestDatabase.BoardId)
     {
         return new BannedIP { BoardID = boardId, Mask = mask, Reason = "test", Since = DateTime.UtcNow, UserID = 2 };
+    }
+
+    private List<long> CountRowsAtNewEvent()
+    {
+        var rowsAtEvent = new List<long>();
+
+        this.board.Events.OnRaise = raised =>
+        {
+            if (raised is RepositoryEvent<BannedIP>)
+            {
+                rowsAtEvent.Add(this.Repository<BannedIP>().Count(_ => true));
+            }
+        };
+
+        return rowsAtEvent;
     }
 
     private IRepository<T> Repository<T>()

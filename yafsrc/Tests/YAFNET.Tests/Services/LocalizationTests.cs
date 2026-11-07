@@ -263,7 +263,7 @@ public class LocalizationTests
         localization.Culture.Name.Should().Be("de-DE");
         localization.LanguageCode.Should().Be("de");
         localization.FormatString("{0:N1}", 1.5).Should().Be("1,5");
-        localization.FormatDateTime("MMMM", new DateTime(2026, 3, 1)).Should().Be("März");
+        localization.FormatDateTime("MMMM", new DateTime(2026, 3, 1, 0, 0, 0, DateTimeKind.Unspecified)).Should().Be("März");
     }
 
     [Test]

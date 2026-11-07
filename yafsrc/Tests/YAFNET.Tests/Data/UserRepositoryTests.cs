@@ -240,7 +240,7 @@ public class UserRepositoryTests
         var all = await this.Users.LastActiveAsync(TestDatabase.BoardId, this.guest, this.now.AddDays(-7), 10);
 
         all.Select(u => u.ID).Should().Equal(this.bob, carol, this.alice);
-        all.Last().NumOfPosts.Should().Be(1, "the post older than the start date doesn't count");
+        all[^1].NumOfPosts.Should().Be(1, "the post older than the start date doesn't count");
     }
 
     [Test]
@@ -359,11 +359,11 @@ public class UserRepositoryTests
         this.board.GrantAccess(this.bob, forum);
 
         // rows with a foreign key to the user (the delete failed on PostgreSQL, SQL Server and MySQL)
-        var medal = (int)this.Repository<Medal>().Insert(
+        var medal = await this.Repository<Medal>().InsertAsync(
             new Medal { BoardID = TestDatabase.BoardId, Name = "Hero", Message = "m", MedalURL = "hero.png", Flags = 0 },
             true);
-        this.Repository<UserMedal>().Insert(new UserMedal { UserID = this.bob, MedalID = medal, DateAwarded = this.now, SortOrder = 1 });
-        this.Repository<DeviceSubscription>().Insert(
+        await this.Repository<UserMedal>().InsertAsync(new UserMedal { UserID = this.bob, MedalID = medal, DateAwarded = this.now, SortOrder = 1 });
+        await this.Repository<DeviceSubscription>().InsertAsync(
             new DeviceSubscription
                 {
                     UserID = this.bob,
@@ -544,8 +544,8 @@ public class UserRepositoryTests
     [Description("LazyData counts the unread private messages and returns the date of the newest one")]
     public async Task LazyDataAsync_Unread_Private_Messages_Test()
     {
-        var older = new DateTime(2026, 1, 1, 10, 0, 0);
-        var newer = new DateTime(2026, 2, 1, 10, 0, 0);
+        var older = new DateTime(2026, 1, 1, 10, 0, 0, DateTimeKind.Unspecified);
+        var newer = new DateTime(2026, 2, 1, 10, 0, 0, DateTimeKind.Unspecified);
 
         var messages = this.Repository<PrivateMessage>();
         await messages.InsertAsync(new PrivateMessage { FromUserId = this.bob, ToUserId = this.alice, Created = older, Body = "a", Flags = 0 });

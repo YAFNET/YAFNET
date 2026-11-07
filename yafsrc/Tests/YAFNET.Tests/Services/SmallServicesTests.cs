@@ -74,12 +74,12 @@ public class SmallServicesTests
 
     [Test]
     [Description("The page timer measures the time in seconds and can be reset")]
-    public void Stop_Watch_Test()
+    public async Task Stop_Watch_Test()
     {
         var watch = new StopWatch();
 
         watch.Start();
-        Thread.Sleep(20);
+        await Task.Delay(20);
         watch.Stop();
 
         watch.Duration.Should().BeGreaterThan(0).And.BeLessThan(10);

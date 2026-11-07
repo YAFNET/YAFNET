@@ -270,7 +270,7 @@ public class FileAndAlbumControllerTests
     [TestCase(77, "{message}.{name}")]
     public async Task Download_File_Names_Test(int messageId, string pattern)
     {
-        var id = (int)await this.Repository<Attachment>().InsertAsync(
+        var id = await this.Repository<Attachment>().InsertAsync(
             new Attachment { UserID = this.alice, MessageID = messageId, FileName = "pic.png", ContentType = "image/png", Bytes = 3 },
             true);
 
@@ -298,7 +298,7 @@ public class FileAndAlbumControllerTests
     {
         (await this.board.CreateController<Attachments>().GetAttachment(9999, sig: AttachmentLinkHelper.Sign(9999))).Should().BeOfType<NotFoundResult>();
 
-        var id = (int)await this.Repository<Attachment>().InsertAsync(
+        var id = await this.Repository<Attachment>().InsertAsync(
             new Attachment { UserID = this.alice, FileName = "gone.png", ContentType = "image/png", Bytes = 3 },
             true);
 
