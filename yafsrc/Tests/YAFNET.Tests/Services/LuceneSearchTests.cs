@@ -506,6 +506,12 @@ public class LuceneSearchTests
 
         search.Invoking(s => s.SearchSimilar(string.Empty, "Topic: (test] AND", "Topic")).Should().NotThrow();
         search.Invoking(s => s.SearchSimilar(string.Empty, "NOT", "Topic")).Should().NotThrow();
+
+        // only stop words: no query, no results
+        search.SearchSimilar(string.Empty, "the and of", "Topic").Should().BeEmpty();
+
+        // the searcher is released on that path too
+        search.SearchSimilar("10", "test", "Topic").Select(s => s.TopicId).Should().Equal(20);
     }
 
     [Test]

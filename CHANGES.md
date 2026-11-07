@@ -3,7 +3,7 @@ YetAnotherForum.NET Changelog
 
 # YetAnotherForum.NET v4.0.11
 * [CHANGES] Build: npm run webp converts the images with webp-converter directly in build.js, simple-webp-converter is removed because it depends on a vulnerable glob version (GHSA-3g3m-2fjr-6pw4, GHSA-g3hv-75wg-m249); gif files are converted with gif2webp so animations are kept
-* [FIXED] Search: the similar topics parsed the topic title as query syntax, so a title with special characters (e.g. the colon of a time) threw a ParseException on every topic view; words like AND / OR / NOT in a title could break the query
+* [FIXED] Search: the similar topics parsed the topic title as query syntax, so a title with special characters (e.g. the colon of a time) threw a ParseException on every topic view; the query is now built from the analyzed title without the QueryParser (no internal "read past eof" IOException either)
 * [FIXED] Cache: deleted and updated rows were announced before the change was written, a delete without rows cleared the caches, and every UpsertAsync raised its event twice
 * [FIXED] Cache: a new row was announced before it was written, so the caches were cleared too early and could be filled again with the old data
 * [FIXED] OrmLite: the SqlServer, MySql and Sqlite string converters ignored a custom MaxColumnDefinition

@@ -1048,12 +1048,17 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;
 
-        // the input is a plain topic title, not query syntax: escape it, otherwise titles with
-        // special characters (e.g. the ':' in a time) throw a ParseException on every topic view.
-        // Lower case it too so words like AND / OR / NOT are not parsed as operators (the analyzer
-        // lower cases the terms anyway)
-        var parser = new QueryParser(MatchVersion, searchField, this.standardAnalyzer);
-        var query = parser.Parse(QueryParserBase.Escape(searchQuery.Trim().ToLowerInvariant()));
+        // the input is a plain topic title, not query syntax: build the (OR) query from the analyzed
+        // words directly. The QueryParser would throw a ParseException for special characters (e.g. the
+        // ':' in a time) and always throws an internal IOException ("read past eof") on every topic view
+        var query = new QueryBuilder(this.standardAnalyzer).CreateBooleanQuery(searchField, searchQuery);
+
+        if (query == null)
+        {
+            // only stop words
+            this.searcherManager.Release(searcher);
+            return [];
+        }
 
         var hits = filter.IsSet()
                        ? searcher.Search(query, booleanFilter, hitsLimit).ScoreDocs
