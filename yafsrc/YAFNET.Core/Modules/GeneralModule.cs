@@ -68,9 +68,11 @@ public class GeneralModule : BaseModule
         // register generic IRepository handler, which can be easily overriden by more advanced repository handler
         builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
 
+#pragma warning disable S125
         // register filters -- even if they require BoardContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
         // Do the BoardContext check inside the constructor and throw an exception if it's required.
         //builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
+#pragma warning restore S125
     }
 
     /// <summary>

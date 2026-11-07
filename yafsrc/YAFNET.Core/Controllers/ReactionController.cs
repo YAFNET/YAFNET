@@ -80,8 +80,8 @@ public class ReactionController : ForumBaseController
             return this.NotFound();
         }
 
-        var existing = this.GetRepository<Thanks>()
-            .GetSingle(x => x.MessageID == messageId && x.ThanksFromUserID == userId);
+        var existing = await this.GetRepository<Thanks>()
+            .GetSingleAsync(x => x.MessageID == messageId && x.ThanksFromUserID == userId);
 
         if (existing is null)
         {

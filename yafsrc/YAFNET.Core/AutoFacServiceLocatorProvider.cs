@@ -216,8 +216,6 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     public void InjectMarked<TAttribute>(object instance)
         where TAttribute : Attribute
     {
-        //this.Container.InjectUnsetProperties(instance);
-
         ArgumentNullException.ThrowIfNull(instance);
 
         var type = instance.GetType();

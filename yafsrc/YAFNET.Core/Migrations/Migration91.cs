@@ -43,7 +43,9 @@ public class Migration91 : MigrationBase
         this.Db.DropTable<NntpForum>();
         this.Db.DropTable<NntpServer>();
 
+#pragma warning disable S1125
         // Reset TwoFactorEnabled User Settings
         this.Db.UpdateOnly(() => new AspNetUsers { TwoFactorEnabled = false }, a => a.TwoFactorEnabled == true);
+#pragma warning restore S1125
     }
 }

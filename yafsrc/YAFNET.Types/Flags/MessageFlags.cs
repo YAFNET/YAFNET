@@ -131,8 +131,10 @@ public class MessageFlags : FlagsBase
         /// <summary>
         /// Legacy flag not in use.
         /// </summary>
+#pragma warning disable S1133
         [Obsolete("Legacy MessageFlag. Not in use.")]
         IsReportedSpam = 256,
+#pragma warning restore S1133
 
         /// <summary>
         /// Is Message Persistent
@@ -251,6 +253,7 @@ public class MessageFlags : FlagsBase
     /// <summary>
     /// Gets or sets a value indicating whether this message is reported as spam
     /// </summary>
+#pragma warning disable S1133
     [Obsolete("Legacy flag. Not in use.")]
     public bool IsReportedSpam
     {
@@ -259,6 +262,7 @@ public class MessageFlags : FlagsBase
 
         set => this[8] = value;
     }
+#pragma warning restore S1133
 
     /// <summary>
     /// Gets or sets a value indicating whether this message is persistent.

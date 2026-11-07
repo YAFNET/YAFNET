@@ -548,8 +548,11 @@ public static class IDbAccessExtensions
 
         using var cmd = db.CreateCommand();
 
+        // table names cannot be passed as parameters, they come from the database and are quoted by the dialect provider
+#pragma warning disable S2077
         cmd.CommandText =
             $"OPTIMIZE TABLE {string.Join(", ", tables.Select(t => OrmLiteConfig.DialectProvider.GetQuotedName(t)))}";
+#pragma warning restore S2077
 
         // one row per table (and notes, e.g. InnoDB recreates the table), only the errors are shown
         var errors = new List<string>();

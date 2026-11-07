@@ -53,6 +53,7 @@ public enum RepositoryEventType
 /// <typeparam name="T">
 /// The Typed Parameter
 /// </typeparam>
+#pragma warning disable S2326
 public class RepositoryEvent<T> : IAmEvent
     where T : class, IEntity
 {
@@ -72,3 +73,4 @@ public class RepositoryEvent<T> : IAmEvent
     /// </summary>
     public RepositoryEventType RepositoryEventType { get; set; }
 }
+#pragma warning restore S2326

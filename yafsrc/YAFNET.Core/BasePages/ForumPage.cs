@@ -223,7 +223,10 @@ public abstract class ForumPage : PageModel,
 
         this.PageBoardContext.PageLinks.AddRoot();
 
+#pragma warning disable S1699
+        // ReSharper disable once VirtualMemberCallInConstructor
         this.CreatePageLinks();
+#pragma warning restore S1699
     }
 
     /// <summary>

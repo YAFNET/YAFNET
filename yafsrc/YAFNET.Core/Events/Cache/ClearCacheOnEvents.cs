@@ -313,12 +313,14 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// </param>
     public void Handle(RepositoryEvent<Category> @event)
     {
+#pragma warning disable S125
         /*if (!@event.RepositoryEventType.IsIn(RepositoryEventType.Delete, RepositoryEventType.Update))
         {
             return;
         }*/
+#pragma warning restore S125
 
-        // clear active discussions cache..
+        // clear active discussions cache ..
         this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
 
         this.ClearModeratorsCache();

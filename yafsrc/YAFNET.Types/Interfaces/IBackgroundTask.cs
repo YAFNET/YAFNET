@@ -46,11 +46,9 @@ public interface IBackgroundTask : IDisposable
     string TaskDescription { get; }
 
     /// <summary>
-    /// Sets Data
+    /// Gets or sets Data
     /// </summary>
-    object Data {
-        set;
-    }
+    object Data { get; set; }
 
     /// <summary>
     /// Gets Started.

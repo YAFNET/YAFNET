@@ -263,9 +263,11 @@ public static class LoggerExtensions
         public void Warn(string format, params object[] args)
         {
             var logEntry = new EventLog { Type = EventLogTypes.Warning.ToInt() };
+            var message = string.Format(format, args);
+
             using (logger.BeginScope(logEntry))
             {
-                logger.Log(LogLevel.Warning, string.Format(format, args));
+                logger.Log(LogLevel.Warning, message);
             }
         }
     }

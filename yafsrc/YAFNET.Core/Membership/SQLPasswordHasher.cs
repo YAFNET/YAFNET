@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace YAF.Core.Membership;
 
 using System;
@@ -32,9 +34,11 @@ using Microsoft.AspNetCore.Identity;
 
 using PasswordVerificationResult = Microsoft.AspNetCore.Identity.PasswordVerificationResult;
 
+#pragma warning disable S101
 /// <summary>
 /// The SQL password hasher.
 /// </summary>
+[SuppressMessage("ReSharper", "InconsistentNaming")]
 public class SQLPasswordHasher : PasswordHasher<AspNetUsers>
 {
     /// <summary>
@@ -149,3 +153,4 @@ public class SQLPasswordHasher : PasswordHasher<AspNetUsers>
             Encoding.UTF8.GetBytes(stored));
     }
 }
+#pragma warning restore S101

@@ -32,6 +32,7 @@ using YAF.Types.Interfaces.Events;
 /// <typeparam name="T">
 /// The Type Parameter
 /// </typeparam>
+#pragma warning disable S2326
 public interface IRepository<T> : IEntity, IHaveBoardID
 {
     /// <summary>
@@ -44,3 +45,4 @@ public interface IRepository<T> : IEntity, IHaveBoardID
     /// </summary>
     IRaiseEvent DbEvent { get; }
 }
+#pragma warning restore S2326

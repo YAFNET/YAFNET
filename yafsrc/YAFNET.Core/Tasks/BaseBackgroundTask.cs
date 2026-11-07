@@ -91,7 +91,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// </summary>
     public virtual object Data
     {
-        protected get => this.BoardId;
+        get => this.BoardId;
 
         set => this.BoardId = (int)value;
     }

@@ -272,12 +272,9 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         var members = (await userRoles.GetAsync(r => r.RoleId == registeredUsersRole.Id)).Select(r => r.UserId)
             .ToList();
 
-        foreach (var userRole in await userRoles.GetAsync(r => r.RoleId == registeredRole.Id))
+        foreach (var userRole in (await userRoles.GetAsync(r => r.RoleId == registeredRole.Id)).Where(userRole => !members.Contains(userRole.UserId)))
         {
-            if (!members.Contains(userRole.UserId))
-            {
-                await userRoles.InsertAsync(new AspNetUserRoles { UserId = userRole.UserId, RoleId = registeredUsersRole.Id });
-            }
+            await userRoles.InsertAsync(new AspNetUserRoles { UserId = userRole.UserId, RoleId = registeredUsersRole.Id });
         }
 
         await userRoles.DeleteAsync(r => r.RoleId == registeredRole.Id);
