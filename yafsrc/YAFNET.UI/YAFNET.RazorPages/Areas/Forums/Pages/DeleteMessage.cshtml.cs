@@ -61,11 +61,6 @@ public class DeleteMessageModel : ForumPage
     public MessageFlags DeleteMessageFlags { get; set; }
 
     /// <summary>
-    ///   The is moderator changed.
-    /// </summary>
-    private bool isModeratorChanged;
-
-    /// <summary>
     ///   Initializes a new instance of the <see cref = "DeleteMessageModel" /> class.
     /// </summary>
     public DeleteMessageModel()
@@ -128,9 +123,9 @@ public class DeleteMessageModel : ForumPage
             return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        this.isModeratorChanged = this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID;
+        var isModeratorChanged = this.PageBoardContext.PageUserID != this.PageBoardContext.PageMessage.UserID;
 
-        if (!this.PageBoardContext.ForumModeratorAccess && this.isModeratorChanged)
+        if (!this.PageBoardContext.ForumModeratorAccess && isModeratorChanged)
         {
             return this.Get<ILinkBuilder>().AccessDenied();
         }

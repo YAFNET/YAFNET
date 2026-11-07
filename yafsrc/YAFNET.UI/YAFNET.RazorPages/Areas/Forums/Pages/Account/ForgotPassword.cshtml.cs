@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -113,11 +113,14 @@ public class ForgotPasswordModel : AccountPage
     {
         var userName = this.Input?.UserName?.Trim();
 
-        var user = userName.IsNotSet()
-                       ? null
-                       : userName.Contains('@')
-                           ? await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(userName)
-                           : await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName);
+        AspNetUsers user = null;
+
+        if (userName.IsSet())
+        {
+            user = userName.Contains('@')
+                       ? await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(userName)
+                       : await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName);
+        }
 
         // over the limit nothing is sent (otherwise the inbox of the user could be flooded)
         if (user is not null

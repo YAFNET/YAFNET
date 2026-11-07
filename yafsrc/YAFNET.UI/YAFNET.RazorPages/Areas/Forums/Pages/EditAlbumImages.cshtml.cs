@@ -519,11 +519,15 @@ public class EditAlbumImagesModel : ForumPageRegistered
 
         var unique = filename;
 
-        for (var number = 2; taken.Contains(unique); number++)
+        var number = 2;
+
+        while (taken.Contains(unique))
         {
             var suffix = $" ({number}){extension}";
 
             unique = $"{name[..Math.Max(0, Math.Min(name.Length, 255 - suffix.Length))]}{suffix}";
+
+            number++;
         }
 
         return unique;

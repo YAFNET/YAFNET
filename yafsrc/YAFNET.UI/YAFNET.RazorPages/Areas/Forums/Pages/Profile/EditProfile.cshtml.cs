@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -290,7 +290,7 @@ public class EditProfileModel : ProfilePage
 
         // the required fields and the types are taken from the database (the client can leave out fields)
         var invalidField = CustomProfileHelper.FindInvalidField(
-            this.GetRepository<ProfileDefinition>().GetByBoardId(),
+            await this.GetRepository<ProfileDefinition>().GetByBoardIdAsync(),
             this.Input.CustomProfile,
             true,
             out var isNumberError);

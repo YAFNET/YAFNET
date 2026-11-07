@@ -258,7 +258,7 @@ public class EditGroupModel : AdminPage
         // only forums and access masks of the board, the ids are sent by the client
         var boardForums = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
             .Where(x => x.Item2 != null).Select(x => x.Item2.ID).ToHashSet();
-        var boardMasks = this.GetRepository<AccessMask>().GetByBoardId().Select(x => x.ID).ToHashSet();
+        var boardMasks = (await this.GetRepository<AccessMask>().GetByBoardIdAsync()).Select(x => x.ID).ToHashSet();
 
         var currentMasks = this.GetRepository<ForumAccess>().ListByGroups(groupId)
             .DistinctBy(x => x.ForumID).ToDictionary(x => x.ForumID, x => x.AccessMaskID);

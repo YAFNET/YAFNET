@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2003-2005 Bjï¿½rnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -35,7 +35,10 @@ using YAF.Types.Extensions;
 /// The error model.
 /// </summary>
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+// a failed post is executed again on this page, it only shows the error and changes nothing
+#pragma warning disable S4502
 [IgnoreAntiforgeryToken]
+#pragma warning restore S4502
 public class ErrorModel : ForumPage
 {
     /// <summary>
