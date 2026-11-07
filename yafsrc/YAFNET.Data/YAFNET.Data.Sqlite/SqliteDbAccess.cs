@@ -71,17 +71,20 @@ public class SqliteDbAccess : DbAccessBase
             return base.Execute(execFunc, cmd, dbTransaction);
         }
 
-        for (var attempt = 0; ; attempt++)
+        foreach (var delay in BusyRetryDelays)
         {
             try
             {
                 return base.Execute(execFunc, cmd, dbTransaction);
             }
-            catch (SQLiteException ex) when (IsBusy(ex) && attempt < BusyRetryDelays.Length)
+            catch (SQLiteException ex) when (IsBusy(ex))
             {
-                System.Threading.Thread.Sleep(BusyRetryDelays[attempt]);
+                System.Threading.Thread.Sleep(delay);
             }
         }
+
+        // the last attempt, now the exception is passed on
+        return base.Execute(execFunc, cmd, dbTransaction);
     }
 
     /// <summary>
@@ -93,17 +96,20 @@ public class SqliteDbAccess : DbAccessBase
     /// <returns>The result.</returns>
     public async override Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> execFunc)
     {
-        for (var attempt = 0; ; attempt++)
+        foreach (var delay in BusyRetryDelays)
         {
             try
             {
                 return await base.ExecuteAsync(execFunc);
             }
-            catch (SQLiteException ex) when (IsBusy(ex) && attempt < BusyRetryDelays.Length)
+            catch (SQLiteException ex) when (IsBusy(ex))
             {
-                await Task.Delay(BusyRetryDelays[attempt]);
+                await Task.Delay(delay);
             }
         }
+
+        // the last attempt, now the exception is passed on
+        return await base.ExecuteAsync(execFunc);
     }
 
     /// <summary>
@@ -113,7 +119,9 @@ public class SqliteDbAccess : DbAccessBase
     /// <returns>Returns if the operation can be tried again.</returns>
     private static bool IsBusy(SQLiteException ex)
     {
-        return ex.ResultCode is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked
-               || (ex.ResultCode & (SQLiteErrorCode)0xFF) is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked;
+        // the low byte of an extended result code (e.g. Busy_Recovery) is the primary result code
+        var primaryCode = (SQLiteErrorCode)((int)ex.ResultCode & 0xFF);
+
+        return primaryCode is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked;
     }
 }
