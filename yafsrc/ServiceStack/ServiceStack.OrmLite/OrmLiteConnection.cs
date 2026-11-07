@@ -8,6 +8,7 @@
 #nullable enable
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
@@ -597,7 +598,8 @@ public class OrmLiteConnection
     /// Gets or sets the string used to open a database.
     /// </summary>
     /// <value>The connection string.</value>
-    public string? ConnectionString {
+    [AllowNull]
+    public string ConnectionString {
         get => field ?? this.Factory.ConnectionString;
         set;
     }
@@ -646,7 +648,7 @@ internal interface ISetDbTransaction
     /// Gets or sets the transaction.
     /// </summary>
     /// <value>The transaction.</value>
-    IDbTransaction Transaction { get; set; }
+    IDbTransaction? Transaction { get; set; }
 }
 
 /// <summary>

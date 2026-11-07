@@ -7,6 +7,7 @@
 
 #nullable enable
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 
 using ServiceStack.Data;
 
@@ -252,7 +253,8 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Gets or sets the text command to run against the data source.
     /// </summary>
     /// <value>The command text.</value>
-    public string? CommandText {
+    [AllowNull]
+    public string CommandText {
         get => this.DbCommand.CommandText;
         set => this.DbCommand.CommandText = value;
     }

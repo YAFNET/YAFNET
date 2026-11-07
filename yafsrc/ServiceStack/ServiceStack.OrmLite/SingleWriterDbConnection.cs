@@ -8,6 +8,7 @@
 #nullable enable
 using System;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Data.Common;
 using ServiceStack.Data;
 using ServiceStack.Model;
@@ -103,9 +104,10 @@ public class SingleWriterDbConnection : DbConnection, IHasWriteLock, IHasTag
     }
 
     private string connectionString;
+    [AllowNull]
     public override string ConnectionString {
         get => this.connectionString;
-        set => this.connectionString = value;
+        set => this.connectionString = value ?? string.Empty;
     }
 
     public override string Database => this.Db.Database;
@@ -140,6 +142,7 @@ public class SingleWriterDbCommand(SingleWriterDbConnection db, DbCommand cmd, o
         cmd.Prepare();
     }
 
+    [AllowNull]
     public override string CommandText {
         get => cmd.CommandText;
         set => cmd.CommandText = value;

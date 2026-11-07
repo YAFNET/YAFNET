@@ -41,7 +41,7 @@ public class ApiAttribute : AttributeBase
     /// The overall description of an API. Used by Swagger.
     /// </summary>
     /// <value>The description.</value>
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// Create or not body param for request type when verb is POST or PUT.

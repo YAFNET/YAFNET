@@ -206,7 +206,7 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// Specifies the Connection object to associate with the transaction.
     /// </summary>
     /// <value>The connection.</value>
-    public IDbConnection Connection => this.Transaction.Connection;
+    public IDbConnection? Connection => this.Transaction.Connection;
 
     /// <summary>
     /// Gets the isolation level.

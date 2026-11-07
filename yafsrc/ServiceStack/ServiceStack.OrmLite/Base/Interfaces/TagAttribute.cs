@@ -22,7 +22,7 @@ public class TagAttribute : AttributeBase
     /// Get or sets tag name
     /// </summary>
     /// <value>The name.</value>
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Get or sets operation verbs for which the attribute be applied
@@ -38,13 +38,13 @@ public class TagAttribute : AttributeBase
     /// Initializes a new instance of the <see cref="TagAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
-    public TagAttribute(string name) : this(name, ApplyTo.All) { }
+    public TagAttribute(string? name) : this(name, ApplyTo.All) { }
     /// <summary>
     /// Initializes a new instance of the <see cref="TagAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="applyTo">The apply to.</param>
-    public TagAttribute(string name, ApplyTo applyTo)
+    public TagAttribute(string? name, ApplyTo applyTo)
     {
         this.Name = name;
         this.ApplyTo = applyTo;
