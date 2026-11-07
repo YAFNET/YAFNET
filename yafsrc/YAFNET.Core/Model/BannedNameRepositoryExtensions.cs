@@ -67,7 +67,7 @@ public static class BannedNameRepositoryExtensions
                 () => new BannedName { Mask = mask, Reason = reason },
                 b => b.ID == id.Value && b.BoardID == repository.BoardID);
 
-            // UpdateOnly raises no event, the cached ban list must be refreshed
+            // UpdateOnly raises no event, it is raised like for every other change of the bans (the banned names are not cached)
             repository.FireUpdated();
 
             return true;
