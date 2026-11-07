@@ -278,7 +278,7 @@
 	</div>
 
 	<div class="row mt-3">
-		<div class="col col-lg-8">
+	<div class="@(!Model.Albums.NullOrEmpty() ? "col col-lg-8": "col")">
 
 			@if (!Model.LastPosts.NullOrEmpty())
 			{
