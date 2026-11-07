@@ -493,6 +493,22 @@ public class LuceneSearchTests
     }
 
     [Test]
+    [Description("Similar topics treat the title as plain text: query syntax characters and operator words do not throw")]
+    public void Search_Similar_Title_With_Query_Syntax_Test()
+    {
+        this.Index(1, 10, this.forumA, "Auto Created Test Topic - 12.09.2025 11:55:58", "a");
+        this.Index(2, 20, this.forumA, "Test Topic", "b");
+
+        var search = this.NewSearch();
+
+        search.SearchSimilar("10", "Auto Created Test Topic - 12.09.2025 11:55:58", "Topic").Select(s => s.TopicId)
+            .Should().Equal(20);
+
+        search.Invoking(s => s.SearchSimilar(string.Empty, "Topic: (test] AND", "Topic")).Should().NotThrow();
+        search.Invoking(s => s.SearchSimilar(string.Empty, "NOT", "Topic")).Should().NotThrow();
+    }
+
+    [Test]
     [Description("The results are shown with javascript (innerHTML): topic, description, tags and forum name are html encoded, the highlighting stays html")]
     public async Task Results_Are_Html_Encoded_Test()
     {
