@@ -290,7 +290,8 @@ _global.loadForumChoiceOptions = (params: ReturnParams, url: string, selectedFor
 			return {
 				value: forum.id,
 				label: forum.text,
-				selected: selectedId > 0 && selectedForumId == forum.id,
+				// 0 is the "All Forums" option
+				selected: selectedId >= 0 && selectedForumId == forum.id,
 				customProperties: {
 					page: params.Page,
 					total: data.total,

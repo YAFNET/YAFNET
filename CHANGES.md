@@ -2,6 +2,7 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.11
+* [FIXED] Search: "All Forums" was not selected in the forum select of the search page, a search url without a forum had no forum selected, a forum in the url was ignored without a search text
 * [FIXED] Search: the search keyword was not highlighted in the text of the results, the mark tags were html encoded and shown as text (the title was highlighted correctly)
 * [FIXED] Topics: marking a post as answer added the topic id to the url of the post (?t=1)
 * [FIXED] Topics: every link to a topic or post was redirected to a longer url (with p, t or m in the query) just to set the page number, the right page is now shown at the requested url; a new topic opens at its topic url

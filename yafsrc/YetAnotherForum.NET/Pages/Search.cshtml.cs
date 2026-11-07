@@ -132,17 +132,8 @@ public class SearchModel : ForumPage
             this.Input.SearchInput = HttpUtility.UrlDecode(searchString);
         }
 
-        if (searchString.IsSet())
-        {
-            try
-            {
-                this.Input.ForumListSelected = forum;
-            }
-            catch (Exception)
-            {
-                this.Input.ForumListSelected = "0";
-            }
-        }
+        // without a valid forum "All Forums" is selected
+        this.Input.ForumListSelected = int.TryParse(forum, out var forumId) && forumId > 0 ? forum : "0";
 
         if (postedBy.IsSet() && postedBy.Length < 50)
         {
