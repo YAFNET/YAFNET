@@ -13,6 +13,7 @@ const autoprefixer = require('autoprefixer');
 const CleanCSS = require('clean-css');
 const postcss = require('postcss');
 const sass = require('sass');
+const webp = require('webp-converter');
 
 const generateFontAwesomeIcons = require('./fontawesome-icons.js');
 const pkg = require('./package.json');
@@ -160,6 +161,48 @@ async function buildStylesheets() {
 	console.log(`${stylesheets.length} css files created`);
 }
 
+/**
+ * The images which are converted to webp, the webp file is written next to the source image.
+ */
+const webpImages = 'wwwroot/**/*.{png,jpg,gif}';
+
+const webpQuality = 80;
+
+/**
+ * Converts the images to webp, gif files with gif2webp so animations are kept.
+ */
+async function convertToWebp() {
+	webp.grant_permission();
+
+	const images = fs.globSync(webpImages, { exclude: name => name === 'node_modules' });
+
+	if (images.length === 0) {
+		console.log(`no images found for ${webpImages}`);
+		return;
+	}
+
+	const results = await Promise.allSettled(images.map(async image => {
+		const destination = path.join(path.dirname(image), `${path.parse(image).name}.webp`);
+		const convert = path.extname(image).toLowerCase() === '.gif' ? webp.gwebp : webp.cwebp;
+
+		await convert(image, destination, `-q ${webpQuality}`);
+
+		console.log(`${image} -> ${destination}`);
+	}));
+
+	const failed = results.filter(result => result.status === 'rejected');
+
+	for (const { reason } of failed) {
+		console.error(reason.message);
+	}
+
+	if (failed.length > 0) {
+		throw new Error(`${failed.length} of ${images.length} images could not be converted`);
+	}
+
+	console.log(`${images.length} images converted`);
+}
+
 function buildEmailTemplates(template, config) {
 	for (const theme of themes) {
 		console.log(`Build ${theme} theme ${template}`);
@@ -187,6 +230,8 @@ const tasks = {
 	webpack: runWebpack,
 
 	fontAwesomeIcons: findFontAwesomeIcons,
+
+	webp: convertToWebp,
 
 	updateFontAwesome() {
 		copyFiles('node_modules/@fortawesome/fontawesome-free/webfonts', 'wwwroot/webfonts', name => name.includes('.'));
