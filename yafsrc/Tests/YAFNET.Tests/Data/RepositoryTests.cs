@@ -112,7 +112,7 @@ public class RepositoryTests
     [Description("The new event is raised after the row is written, the cache handlers must not run before the row exists")]
     public void Insert_Raises_New_Event_After_Row_Is_Written_Test()
     {
-        var rowsAtEvent = this.CountRowsAtNewEvent();
+        var rowsAtEvent = this.CountRowsAtEvent();
 
         this.Repository<BannedIP>().Insert(NewBannedIp("10.0.0.1"));
 
@@ -123,7 +123,7 @@ public class RepositoryTests
     [Description("The new event of InsertAsync is raised after the row is written")]
     public async Task InsertAsync_Raises_New_Event_After_Row_Is_Written_Test()
     {
-        var rowsAtEvent = this.CountRowsAtNewEvent();
+        var rowsAtEvent = this.CountRowsAtEvent();
 
         await this.Repository<BannedIP>().InsertAsync(NewBannedIp("10.0.0.1"));
 
@@ -147,6 +147,74 @@ public class RepositoryTests
         repository.Count(x => x.BoardID == TestDatabase.BoardId).Should().Be(2);
         repository.GetByBoardId().Should().HaveCount(2);
         repository.GetByBoardId(2).Should().ContainSingle();
+    }
+
+    [Test]
+    [Description("The delete event is raised after the rows are deleted, and only when rows were deleted")]
+    public void Delete_Raises_Event_After_Rows_Are_Deleted_Test()
+    {
+        var repository = this.Repository<BannedIP>();
+        repository.Insert(NewBannedIp("10.0.0.1"));
+
+        var rowsAtEvent = this.CountRowsAtEvent();
+
+        repository.Delete(x => x.Mask == "10.0.0.9").Should().Be(0);
+        repository.Delete(x => x.Mask == "10.0.0.1").Should().Be(1);
+
+        rowsAtEvent.Should().Equal(0L);
+    }
+
+    [Test]
+    [Description("The delete event of DeleteAsync is raised after the rows are deleted, and only when rows were deleted")]
+    public async Task DeleteAsync_Raises_Event_After_Rows_Are_Deleted_Test()
+    {
+        var repository = this.Repository<BannedIP>();
+        await repository.InsertAsync(NewBannedIp("10.0.0.1"));
+
+        var rowsAtEvent = this.CountRowsAtEvent();
+
+        (await repository.DeleteAsync(x => x.Mask == "10.0.0.9")).Should().Be(0);
+        (await repository.DeleteAsync(x => x.Mask == "10.0.0.1")).Should().Be(1);
+
+        rowsAtEvent.Should().Equal(0L);
+    }
+
+    [Test]
+    [Description("The update event of UpdateAsync is raised after the row is written")]
+    public async Task UpdateAsync_Raises_Event_After_Row_Is_Written_Test()
+    {
+        var repository = this.Repository<BannedIP>();
+        var id = await repository.InsertAsync(NewBannedIp("10.0.0.1"));
+
+        var entity = await repository.GetByIdAsync(id);
+        entity.Reason = "changed";
+
+        var reasonsAtEvent = new List<string>();
+
+        this.board.Events.OnRaise = raised =>
+        {
+            if (raised is RepositoryEvent<BannedIP>)
+            {
+                reasonsAtEvent.Add(this.Repository<BannedIP>().GetById(id).Reason);
+            }
+        };
+
+        await repository.UpdateAsync(entity);
+
+        reasonsAtEvent.Should().Equal("changed");
+    }
+
+    [Test]
+    [Description("UpsertAsync raises one event for each save")]
+    public async Task UpsertAsync_Raises_One_Event_Test()
+    {
+        var repository = this.Repository<BannedIP>();
+
+        var id = await repository.UpsertAsync(NewBannedIp("10.0.0.1"));
+        await repository.UpsertAsync(await repository.GetByIdAsync(id));
+
+        this.board.Events.OfType<RepositoryEvent<BannedIP>>().Select(e => e.RepositoryEventType).Should()
+            .Equal(RepositoryEventType.New, RepositoryEventType.Update);
     }
 
     [Test]
@@ -269,7 +337,7 @@ public class RepositoryTests
         return new BannedIP { BoardID = boardId, Mask = mask, Reason = "test", Since = DateTime.UtcNow, UserID = 2 };
     }
 
-    private List<long> CountRowsAtNewEvent()
+    private List<long> CountRowsAtEvent()
     {
         var rowsAtEvent = new List<long>();
 

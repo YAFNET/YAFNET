@@ -214,14 +214,17 @@ public class EventsAndCacheClearingTests
     [Description("New posts drop the board statistics, deleting a user clears the whole cache")]
     public void Stats_And_User_Delete_Test()
     {
+        var message = this.db.AddMessage(this.db.AddTopic(this.forum, this.alice), this.alice);
+        var user = this.db.AddUser("Bob");
+
         this.board.Cache.Set(Constants.Cache.BoardStats, "cached");
         this.board.Cache.Set("SomethingElse", "cached");
 
-        this.board.Current.GetRepository<Message>().Delete(m => m.ID == -1);
+        this.board.Current.GetRepository<Message>().Delete(m => m.ID == message);
         this.board.Cache.Get(Constants.Cache.BoardStats).Should().BeNull();
         this.board.Cache.Get("SomethingElse").Should().NotBeNull();
 
-        this.board.Current.GetRepository<User>().Delete(u => u.ID == -1);
+        this.board.Current.GetRepository<User>().Delete(u => u.ID == user);
         this.board.Cache.Get("SomethingElse").Should().BeNull();
     }
 

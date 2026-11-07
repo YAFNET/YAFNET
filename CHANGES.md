@@ -2,6 +2,7 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.11
+* [FIXED] Cache: deleted and updated rows were announced before the change was written, a delete without rows cleared the caches, and every UpsertAsync raised its event twice
 * [FIXED] Cache: a new row was announced before it was written, so the caches were cleared too early and could be filled again with the old data
 * [FIXED] OrmLite: the SqlServer, MySql and Sqlite string converters ignored a custom MaxColumnDefinition
 * [FIXED] OrmLite MySql: the temporary file of the bulk insert now has a random name and is created exclusively

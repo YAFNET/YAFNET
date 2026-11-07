@@ -156,11 +156,15 @@ public class DataBrokerTests
     [Description("A parallel request of the same new session inserts the session row after it was checked: the row is updated, the page load does not fail with the unique key of the session")]
     public void GetPageLoad_Session_Inserted_By_Parallel_Request_Test()
     {
-        this.board.Events.OnRaise = e =>
+        var parallelRowInserted = false;
+
+        // the filter runs right before the insert of the page load, after its check for the session
+        OrmLiteConfig.InsertFilter = (_, row) =>
         {
-            if (e is RepositoryEvent<Active>)
+            if (row is Active)
             {
-                this.board.Events.OnRaise = null;
+                OrmLiteConfig.InsertFilter = null;
+                parallelRowInserted = true;
 
                 this.Repository<Active>().Insert(
                     new Active
@@ -175,9 +179,19 @@ public class DataBrokerTests
             }
         };
 
-        var (pageLoad, user, _, _, _, _) = this.Load("s1", "alice-key", forumId: this.forum);
+        PageLoad pageLoad;
+        User user;
 
-        this.board.Events.OnRaise.Should().BeNull("the session row was inserted while loading");
+        try
+        {
+            (pageLoad, user, _, _, _, _) = this.Load("s1", "alice-key", forumId: this.forum);
+        }
+        finally
+        {
+            OrmLiteConfig.InsertFilter = null;
+        }
+
+        parallelRowInserted.Should().BeTrue("the session row was inserted while loading");
         user.ID.Should().Be(this.alice);
         pageLoad.UserID.Should().Be(this.alice);
 

@@ -76,9 +76,14 @@ public static class IRepositoryExtensions
         /// </returns>
         public int Delete(Expression<Func<T, bool>> criteria)
         {
-            repository.FireDeleted();
+            var deleted = repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
 
-            return repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
+            if (deleted > 0)
+            {
+                repository.FireDeleted();
+            }
+
+            return deleted;
         }
 
         /// <summary>
@@ -93,12 +98,17 @@ public static class IRepositoryExtensions
         /// <returns>
         /// The <see cref="int"/>.
         /// </returns>
-        public Task<int> DeleteAsync(Expression<Func<T, bool>> criteria,
+        public async Task<int> DeleteAsync(Expression<Func<T, bool>> criteria,
             CancellationToken token = default)
         {
-            repository.FireDeleted();
+            var deleted = await repository.DbAccess.ExecuteAsync(db => db.DeleteAsync(criteria, token: token));
 
-            return repository.DbAccess.ExecuteAsync(db => db.DeleteAsync(criteria, token: token));
+            if (deleted > 0)
+            {
+                repository.FireDeleted();
+            }
+
+            return deleted;
         }
     }
 
@@ -356,14 +366,10 @@ public static class IRepositoryExtensions
         if (entity.ID > 0)
         {
             await repository.UpdateAsync(entity);
-
-            repository.FireUpdated();
         }
         else
         {
             newId = await repository.InsertAsync(entity, selectIdentity: true);
-
-            repository.FireNew();
         }
 
         return newId;
@@ -409,14 +415,16 @@ public static class IRepositoryExtensions
         /// <returns>
         /// The <see cref="bool"/> .
         /// </returns>
-        public Task<int> UpdateAsync(T entity,
+        public async Task<int> UpdateAsync(T entity,
             CancellationToken token = default)
         {
             ArgumentNullException.ThrowIfNull(entity);
 
+            var updated = await repository.DbAccess.UpdateAsync(entity, token);
+
             repository.FireUpdated();
 
-            return repository.DbAccess.UpdateAsync(entity, token);
+            return updated;
         }
     }
 
