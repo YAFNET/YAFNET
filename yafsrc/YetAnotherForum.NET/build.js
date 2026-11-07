@@ -37,7 +37,7 @@ const stylesheets = [
 ];
 
 const sassOptions = {
-	silenceDeprecations: ['color-functions', 'global-builtin', 'import', 'legacy-js-api', 'if-function']
+	silenceDeprecations: ['color-functions', 'global-builtin', 'import', 'legacy-js-api', 'if-function', 'color-adjust']
 };
 
 /**
