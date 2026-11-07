@@ -9,30 +9,30 @@ namespace ServiceStack.OrmLite.SqlServer;
 /// <summary>
 /// Class SqlServerTableHint.
 /// </summary>
-public class SqlServerTableHint
+public static class SqlServerTableHint
 {
     /// <summary>
     /// The read uncommitted
     /// </summary>
-    public static JoinFormatDelegate ReadUncommitted = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (READUNCOMMITTED) {expr}";
+    public static readonly JoinFormatDelegate ReadUncommitted = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (READUNCOMMITTED) {expr}";
     /// <summary>
     /// The read committed
     /// </summary>
-    public static JoinFormatDelegate ReadCommitted = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (READCOMMITTED) {expr}";
+    public static readonly JoinFormatDelegate ReadCommitted = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (READCOMMITTED) {expr}";
     /// <summary>
     /// The read past
     /// </summary>
-    public static JoinFormatDelegate ReadPast = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (READPAST) {expr}";
+    public static readonly JoinFormatDelegate ReadPast = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (READPAST) {expr}";
     /// <summary>
     /// The serializable
     /// </summary>
-    public static JoinFormatDelegate Serializable = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (SERIALIZABLE) {expr}";
+    public static readonly JoinFormatDelegate Serializable = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (SERIALIZABLE) {expr}";
     /// <summary>
     /// The repeatable read
     /// </summary>
-    public static JoinFormatDelegate RepeatableRead = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (REPEATABLEREAD) {expr}";
+    public static readonly JoinFormatDelegate RepeatableRead = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (REPEATABLEREAD) {expr}";
     /// <summary>
     /// The no lock
     /// </summary>
-    public static JoinFormatDelegate NoLock = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (NOLOCK) {expr}";
+    public static readonly JoinFormatDelegate NoLock = (dialect, tableDef, expr) => $"{dialect.GetQuotedTableName(tableDef)} WITH (NOLOCK) {expr}";
 }

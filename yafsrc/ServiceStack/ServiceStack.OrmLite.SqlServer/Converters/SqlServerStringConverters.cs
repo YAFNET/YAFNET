@@ -28,16 +28,7 @@ public class SqlServerStringConverter : StringConverter
     /// Gets the maximum column definition.
     /// </summary>
     /// <value>The maximum column definition.</value>
-    public override string MaxColumnDefinition {
-        get {
-            if (this.UseUnicode)
-            {
-                return "NVARCHAR(MAX)";
-            }
-
-            return "VARCHAR(MAX)";
-        }
-    }
+    public override string MaxColumnDefinition => this.maxColumnDefinition ?? (this.UseUnicode ? "NVARCHAR(MAX)" : "VARCHAR(MAX)");
 
     /// <summary>
     /// Gets the maximum length of the variable character.

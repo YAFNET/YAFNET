@@ -32,7 +32,7 @@ public class MySqlStringConverter : StringConverter
     /// Gets the maximum column definition.
     /// </summary>
     /// <value>The maximum column definition.</value>
-    public override string MaxColumnDefinition => "LONGTEXT";
+    public override string MaxColumnDefinition => this.maxColumnDefinition ?? "LONGTEXT";
 }
 
 /// <summary>
@@ -51,7 +51,7 @@ public class MySqlCharArrayConverter : CharArrayConverter
     /// Gets the maximum column definition.
     /// </summary>
     /// <value>The maximum column definition.</value>
-    public override string MaxColumnDefinition => "LONGTEXT";
+    public override string MaxColumnDefinition => this.maxColumnDefinition ?? "LONGTEXT";
 }
 
 /// <summary>
@@ -77,7 +77,7 @@ public class MySql55StringConverter : StringConverter
     /// Gets the maximum column definition.
     /// </summary>
     /// <value>The maximum column definition.</value>
-    public override string MaxColumnDefinition => "LONGTEXT";
+    public override string MaxColumnDefinition => this.maxColumnDefinition ?? "LONGTEXT";
 }
 
 /// <summary>
@@ -96,5 +96,5 @@ public class MySql55CharArrayConverter : CharArrayConverter
     /// Gets the maximum column definition.
     /// </summary>
     /// <value>The maximum column definition.</value>
-    public override string MaxColumnDefinition => "LONGTEXT";
+    public override string MaxColumnDefinition => this.maxColumnDefinition ?? "LONGTEXT";
 }

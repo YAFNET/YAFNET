@@ -2,6 +2,8 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.11
+* [FIXED] OrmLite: the SqlServer, MySql and Sqlite string converters ignored a custom MaxColumnDefinition
+* [FIXED] OrmLite MySql: the temporary file of the bulk insert now has a random name and is created exclusively
 * [FIXED] Cookies: the cookies of the last visit and the panel states had no HttpOnly flag and no Secure flag, they are HttpOnly now and Secure on https
 * [CHANGES] Build: Grunt (only in maintenance mode) is replaced by the Node script build.js, the tasks are started with npm run (npm run build, npm run css, npm run updateVersionNumber, ...)
 * [FIXED] Theme Brite: the css file was not minified, it was 297 KB instead of 246 KB

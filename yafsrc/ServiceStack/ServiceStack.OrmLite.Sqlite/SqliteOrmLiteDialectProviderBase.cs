@@ -43,8 +43,6 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         // Only for SQLite, GetValues() changes the behavior of System.Data.SQLite's GetGuid()
         DeoptimizeReader = true;
         base.RegisterConverter<DateTime>(new SqliteCoreDateTimeConverter());
-        //Old behavior using native sqlite3.dll
-        //base.RegisterConverter<DateTime>(new SqliteNativeDateTimeConverter());
 
         base.RegisterConverter<string>(new SqliteStringConverter());
         base.RegisterConverter<DateTimeOffset>(new SqliteDateTimeOffsetConverter());
@@ -59,8 +57,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                                  { OrmLiteVariables.SystemUtc, "CURRENT_TIMESTAMP" },
                                  { OrmLiteVariables.MaxText, "VARCHAR(1000000)" },
                                  { OrmLiteVariables.MaxTextUnicode, "NVARCHAR(1000000)" },
-                                 { OrmLiteVariables.True, this.SqlBool(true) },
-                                 { OrmLiteVariables.False, this.SqlBool(false) }
+                                 { OrmLiteVariables.True, ToSqlBool(true) },
+                                 { OrmLiteVariables.False, ToSqlBool(false) }
                              };
     }
 
@@ -88,8 +86,11 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// </summary>
     public TimeSpan BusyTimeout
     {
+        get;
         set
         {
+            field = value;
+
             this.ConnectionCommands.RemoveAll(x => x.StartsWith("PRAGMA busy_timeout"));
             if (value > TimeSpan.Zero)
             {
@@ -103,6 +104,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// </summary>
     public bool UseUtc
     {
+        get => ((OrmLite.Converters.DateTimeConverter)this.GetConverter<DateTime>()).DateStyle == DateTimeKind.Utc;
         set => ((OrmLite.Converters.DateTimeConverter)this.GetConverter<DateTime>()).DateStyle = value
             ? DateTimeKind.Utc
             : DateTimeKind.Unspecified;
@@ -114,7 +116,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// Gets or sets the password.
     /// </summary>
     /// <value>The password.</value>
-    public static string Password { get; set; }
+    public static string? Password { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [ut f8 encoded].
@@ -240,8 +242,11 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             ? "DO NOTHING"
             : "DO UPDATE SET " + GetUpsertUpdateSql(updateFieldDefs);
 
+        // the values are parameters, only the quoted names of the table and columns are part of the statement
+#pragma warning disable S2077
         cmd.CommandText = $"{GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
                           $"ON CONFLICT ({conflictTarget}) {conflictAction}";
+#pragma warning restore S2077
     }
 
     /// <summary>
@@ -272,7 +277,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="objs">The objs.</param>
     /// <param name="insertFields">The insert fields.</param>
     /// <returns>System.String.</returns>
-    public override string ToInsertRowsSql<T>(IEnumerable<T> objs, ICollection<string> insertFields = null)
+    public override string ToInsertRowsSql<T>(IEnumerable<T> objs, ICollection<string>? insertFields = null)
     {
         var modelDef = ModelDefinition<T>.Definition;
         var sb = StringBuilderCache.Allocate()
@@ -335,7 +340,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <summary>
     /// The row version trigger format
     /// </summary>
-    public static string RowVersionTriggerFormat = "{0}RowVersionUpdateTrigger";
+    public const string RowVersionTriggerFormat = "{0}RowVersionUpdateTrigger";
 
     /// <summary>
     /// Gets or sets a value indicating whether [enable foreign keys].
@@ -362,7 +367,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
-    public override string ToPostDropTableStatement(ModelDefinition modelDef)
+    public override string? ToPostDropTableStatement(ModelDefinition modelDef)
     {
         if (modelDef.RowVersion == null)
         {
@@ -414,7 +419,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
-    public override string ToPostCreateTableStatement(ModelDefinition modelDef)
+    public override string? ToPostCreateTableStatement(ModelDefinition modelDef)
     {
         if (modelDef.RowVersion == null)
         {
@@ -487,7 +492,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         return this.CreateConnection(StringBuilderCache.ReturnAndFree(connString));
     }
 
-    public override OrmLiteConnection CreateOrmLiteConnection(OrmLiteConnectionFactory factory, string namedConnection = null)
+    public override OrmLiteConnection CreateOrmLiteConnection(OrmLiteConnectionFactory factory, string? namedConnection = null)
     {
         var conn = base.CreateOrmLiteConnection(factory, namedConnection);
         if (EnableWriterLock)
@@ -503,7 +508,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// Gets or sets the connection string filter.
     /// </summary>
     /// <value>The connection string filter.</value>
-    public Action<StringBuilder> ConnectionStringFilter { get; set; }
+    public Action<StringBuilder>? ConnectionStringFilter { get; set; }
 
     /// <summary>
     /// Creates the connection.
@@ -629,7 +634,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             };
             // VARCHAR(50) or DECIMAL(18,2)
             var size = to.DataTypeName?.RightPart('(').LeftPart(')').Split(',');
-            if (to.DataTypeName?.EndsWith(")") == true && int.TryParse(size[0].Trim(), out var first))
+            if (size != null && to.DataTypeName?.EndsWith(')') == true && int.TryParse(size[0].Trim(), out var first))
             {
                 to.DataTypeName = to.DataTypeName.LeftPart('(').Trim();
                 if (size.Length == 2 && int.TryParse(size[1].Trim(), out var scale))
@@ -695,15 +700,11 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                 {
                     inQuotes = !inQuotes;
                 }
-                else if (inQuotes)
-                {
-                    continue;
-                }
-                else if (c == '(')
+                else if (!inQuotes && c == '(')
                 {
                     depth++;
                 }
-                else if (c == ')' && --depth == 0)
+                else if (!inQuotes && c == ')' && --depth == 0)
                 {
                     to.Add(new CheckConstraintSchema
                     {
@@ -792,19 +793,19 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         return $"COALESCE((SELECT -bm25({fts}) FROM {fts} WHERE {fts} MATCH {parameters[0]} AND rowid = {columns.PrimaryKey}), 0)";
     }
 
-    public override string ToAddConstraintStatement(TableRef tableRef, string constraint) => null;
+    public override string? ToAddConstraintStatement(TableRef tableRef, string constraint) => null;
 
-    public override string ToDropUniqueConstraintStatement(TableRef tableRef, string constraintName) => null;
+    public override string? ToDropUniqueConstraintStatement(TableRef tableRef, string constraintName) => null;
 
-    public override string ToDropCheckConstraintStatement(TableRef tableRef, string constraintName) => null;
+    public override string? ToDropCheckConstraintStatement(TableRef tableRef, string constraintName) => null;
 
-    public override Dictionary<string, string> GetColumnDefaults(IDbConnection db, string quotedTable)
+    public override Dictionary<string, string?> GetColumnDefaults(IDbConnection db, string quotedTable)
     {
-        var to = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var to = new Dictionary<string, string?>(StringComparer.OrdinalIgnoreCase);
         foreach (var column in db.SqlList<Dictionary<string, object>>($"PRAGMA table_xinfo({quotedTable})"))
         {
             var defaultValue = column["dflt_value"];
-            to[column["name"].ToString()] = defaultValue is null or DBNull ? null : defaultValue.ToString();
+            to[column["name"].ToString()!] = defaultValue is null or DBNull ? null : defaultValue.ToString();
         }
         return to;
     }
@@ -818,9 +819,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                 .SqlFmt(this, this.UnquotedTable(tableRef))));
 
     // Constraints and defaults can only be changed by creating the table again
-    public override string ToAddForeignKeyStatement(TableRef tableRef, FieldDefinition fieldDef) => null;
+    public override string? ToAddForeignKeyStatement(TableRef tableRef, FieldDefinition fieldDef) => null;
 
-    public override string ToAlterColumnDefaultStatement(TableRef tableRef, FieldDefinition fieldDef) => null;
+    public override string? ToAlterColumnDefaultStatement(TableRef tableRef, FieldDefinition fieldDef) => null;
 
     /// <summary>
     /// Doeses the table exist.
@@ -939,6 +940,16 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>System.String.</returns>
     public override string SqlBool(bool value)
     {
+        return ToSqlBool(value);
+    }
+
+    /// <summary>
+    /// The SQL value of a bool (the constructor can't call the virtual <see cref="SqlBool"/>).
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>System.String.</returns>
+    private static string ToSqlBool(bool value)
+    {
         return value ? "1" : "0";
     }
 
@@ -984,7 +995,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="isDelete">if set to <c>true</c> [is delete].</param>
     /// <param name="returnFields">The fields to return, or null for all fields.</param>
     /// <returns>System.String.</returns>
-    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete, ICollection<FieldDefinition> returnFields = null) =>
+    public override string ToReturningStatement(string sql, ModelDefinition modelDef, bool isDelete, ICollection<FieldDefinition>? returnFields = null) =>
         sql.TrimEnd().TrimEnd(';') + " RETURNING " + this.GetReturningColumns(modelDef, returnFields);
 
     /// <summary>
@@ -1196,14 +1207,14 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     {
         var sqlCommand = command as SQLiteCommand;
 
-        SQLiteDataReader reader = null;
+        SQLiteDataReader? reader = null;
         var results = new StringBuilder();
 
         try
         {
             try
             {
-                reader = sqlCommand.ExecuteReader();
+                reader = sqlCommand!.ExecuteReader();
 
                 if (reader.HasRows)
                 {
@@ -1230,7 +1241,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                         columnNames.ForEach(
                             col => results.AppendFormat(
                                 @",""{0}""",
-                                reader[col].ToString().Replace("\"", "\"\"")));
+                                reader[col].ToString()?.Replace("\"", "\"\"")));
 
                         results.AppendLine();
                     }
@@ -1337,7 +1348,7 @@ public static class SqliteExtensions
     /// <param name="utf8Encoding">if set to <c>true</c> [UTF8 encoding].</param>
     /// <returns>IOrmLiteDialectProvider.</returns>
     public static IOrmLiteDialectProvider Configure(this IOrmLiteDialectProvider provider,
-                                                    string password = null, bool parseViaFramework = false, bool utf8Encoding = false)
+                                                    string? password = null, bool parseViaFramework = false, bool utf8Encoding = false)
     {
         if (password != null)
         {

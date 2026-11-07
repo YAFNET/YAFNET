@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -58,15 +57,20 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <summary>
     /// Whether a MySQL error number is a temporary error
     /// </summary>
-    protected static TransientError GetTransientError(int errorNumber) =>
-        NotAppliedErrors.Contains(errorNumber) ? TransientError.NotApplied
-        : ConnectionLostErrors.Contains(errorNumber) ? TransientError.MaybeApplied
-        : TransientError.None;
+    protected static TransientError GetTransientError(int errorNumber)
+    {
+        if (NotAppliedErrors.Contains(errorNumber))
+        {
+            return TransientError.NotApplied;
+        }
+
+        return ConnectionLostErrors.Contains(errorNumber) ? TransientError.MaybeApplied : TransientError.None;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MySqlDialectProviderBase{TDialect}" /> class.
     /// </summary>
-    public MySqlDialectProviderBase()
+    protected MySqlDialectProviderBase()
     {
         base.AutoIncrementDefinition = "AUTO_INCREMENT";
         base.DefaultValueFormat = " DEFAULT {0}";
@@ -95,8 +99,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             { OrmLiteVariables.SystemUtc, "CURRENT_TIMESTAMP" },
             { OrmLiteVariables.MaxText, "LONGTEXT" },
             { OrmLiteVariables.MaxTextUnicode, "LONGTEXT" },
-            { OrmLiteVariables.True, this.SqlBool(true) },
-            { OrmLiteVariables.False, this.SqlBool(false) }
+            { OrmLiteVariables.True, ToSqlBool(true) },
+            { OrmLiteVariables.False, ToSqlBool(false) }
         };
     }
 
@@ -144,8 +148,11 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             ? GetUpsertUpdateSql(updateFieldDefs)
             : $"{GetQuotedColumnName(modelDef.PrimaryKey)}={GetQuotedColumnName(modelDef.PrimaryKey)}";
 
+        // the values are parameters, only the quoted names of the table and columns are part of the statement
+#pragma warning disable S2077
         cmd.CommandText = $"{GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
                           $"ON DUPLICATE KEY UPDATE {updateSql}";
+#pragma warning restore S2077
     }
 
     // DROP TABLE without TEMPORARY commits the current transaction
@@ -171,7 +178,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <summary>
     /// The reserved words
     /// </summary>
-    public static HashSet<string> ReservedWords = new([
+    private readonly static HashSet<string> ReservedWords = new([
         "ACCESSIBLE",
         "ADD",
         "ALL",
@@ -693,10 +700,20 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     // aren't indexed, as they're shorter than innodb_ft_min_token_size (3) or stop words, would match no rows when
     // they're required, so they're optional.
     public override List<string> ToFullTextSearch(List<FullTextTerm> terms) => [
-        terms.Map(x => x.IsPhrase ? "+\"" + x.Words.Join(" ") + "\""
-            : x.Words[0].Length < 3 || FullTextStopWords.Contains(x.Words[0]) ? x.Words[0] + "*"
-            : "+" + x.Words[0] + "*").Join(" "),
+        terms.Map(ToBooleanModeTerm).Join(" "),
     ];
+
+    private static string ToBooleanModeTerm(FullTextTerm term)
+    {
+        if (term.IsPhrase)
+        {
+            return "+\"" + term.Words.Join(" ") + "\"";
+        }
+
+        var word = term.Words[0];
+
+        return word.Length < 3 || FullTextStopWords.Contains(word) ? word + "*" : "+" + word + "*";
+    }
 
     public override string ToFullTextMatch(FullTextColumns columns, List<string> parameters) =>
         $"MATCH({columns.Columns.Join(", ")}) AGAINST({parameters[0]} IN BOOLEAN MODE)";
@@ -1065,9 +1082,17 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
     public override bool SupportsSystemVersioning => this.IsMariaDb == true;
 
-    protected override string GetSystemTimeColumnDefinition(FieldDefinition fieldDef) => this.SupportsSystemVersioning
-        ? $"{this.GetQuotedColumnName(fieldDef)} TIMESTAMP(6) GENERATED ALWAYS AS ROW {(fieldDef.IsRowStart ? "START" : "END")}"
-        : throw this.SystemVersioningNotSupported();
+    protected override string GetSystemTimeColumnDefinition(FieldDefinition fieldDef)
+    {
+        if (!this.SupportsSystemVersioning)
+        {
+            throw this.SystemVersioningNotSupported();
+        }
+
+        var period = fieldDef.IsRowStart ? "START" : "END";
+
+        return $"{this.GetQuotedColumnName(fieldDef)} TIMESTAMP(6) GENERATED ALWAYS AS ROW {period}";
+    }
 
     protected override string ToSystemVersionedTableStatement(ModelDefinition modelDef, string createTableSql)
     {
@@ -1211,6 +1236,16 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="value">if set to <c>true</c> [value].</param>
     /// <returns>System.String.</returns>
     public override string SqlBool(bool value)
+    {
+        return ToSqlBool(value);
+    }
+
+    /// <summary>
+    /// The SQL value of a bool (the constructor can't call the virtual <see cref="SqlBool"/>).
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>System.String.</returns>
+    private static string ToSqlBool(bool value)
     {
         return value ? "1" : "0";
     }
@@ -1680,7 +1715,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string ShrinkDatabase(string database)
     {
-        return ""; //$"optimize table {database}";
+        return "";
     }
 
     /// <summary>
@@ -1691,7 +1726,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string ReIndexDatabase(string database, string objectQualifier)
     {
-        return ""; //$"REINDEX DATABASE {database}";
+        return "";
     }
 
     /// <summary>

@@ -42,7 +42,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <summary>
     /// The instance
     /// </summary>
-    public static SqlServerOrmLiteDialectProvider Instance = new();
+    public static readonly SqlServerOrmLiteDialectProvider Instance = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SqlServerOrmLiteDialectProvider" /> class.
@@ -80,8 +80,8 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             { OrmLiteVariables.SystemUtc, "SYSUTCDATETIME()" },
             { OrmLiteVariables.MaxText, "VARCHAR(MAX)" },
             { OrmLiteVariables.MaxTextUnicode, "NVARCHAR(MAX)" },
-            { OrmLiteVariables.True, this.SqlBool(true) },
-            { OrmLiteVariables.False, this.SqlBool(false) }
+            { OrmLiteVariables.True, ToSqlBool(true) },
+            { OrmLiteVariables.False, ToSqlBool(false) }
         };
     }
 
@@ -124,22 +124,24 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
             return new SqlConnection(connectionString);
         }
 
+        var fullConnectionString = new StringBuilder(connectionString);
+
         foreach (var option in options)
         {
             if (option.Key.ToLower() == "read only")
             {
                 if (option.Value.ToLower() == "true")
                 {
-                    connectionString += "Mode = Read Only;";
+                    fullConnectionString.Append("Mode = Read Only;");
                 }
 
                 continue;
             }
 
-            connectionString += option.Key + "=" + option.Value + ";";
+            fullConnectionString.Append(option.Key).Append('=').Append(option.Value).Append(';');
         }
 
-        return new SqlConnection(connectionString);
+        return new SqlConnection(fullConnectionString.ToString());
     }
 
     /// <summary>
@@ -235,15 +237,15 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// Does schema exist as an asynchronous operation.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    /// <param name="schemaName">Name of the schema.</param>
+    /// <param name="schema">Name of the schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
     public async override Task<bool> DoesSchemaExistAsync(
         IDbCommand dbCmd,
-        string schemaName,
+        string schema,
         CancellationToken token = default)
     {
-        var sql = $"SELECT count(*) FROM sys.schemas WHERE name = '{schemaName.SqlParam()}'";
+        var sql = $"SELECT count(*) FROM sys.schemas WHERE name = '{schema.SqlParam()}'";
         var result = await dbCmd.ExecLongScalarAsync(sql, token);
         return result > 0;
     }
@@ -770,9 +772,12 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     {
         var sb = StringBuilderCache.Allocate();
 
-        var foreignKeyName = name.IsNullOrEmpty() ? $"PK_{this.NamingStrategy.GetTableName(modelDef)}" :
-            name.StartsWith("PK_", StringComparison.CurrentCultureIgnoreCase) ? name :
-            $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+        var foreignKeyName = $"PK_{this.NamingStrategy.GetTableName(modelDef)}";
+
+        if (!name.IsNullOrEmpty())
+        {
+            foreignKeyName = name.StartsWith("PK_", StringComparison.CurrentCultureIgnoreCase) ? name : $"{foreignKeyName}_{name}";
+        }
 
         var tableName = this.GetQuotedTableName(modelDef);
 
@@ -870,7 +875,6 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <returns>System.String.</returns>
     public override string GetDropForeignKeyConstraints(ModelDefinition modelDef)
     {
-        // TODO: find out if this should go in base class?
         var sb = StringBuilderCache.Allocate();
 
         modelDef.FieldDefinitions.Where(fieldDef => fieldDef.ForeignKey != null).ToList().ForEach(
@@ -1028,11 +1032,11 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     // Vectors use the VECTOR type of SQL Server 2025 and Azure SQL
     public override string GetVectorColumnDefinition(int dimensions) => $"VECTOR({dimensions})";
 
-    public override string ToVectorParam(string param, int dimensions) => $"CAST({param} AS VECTOR({dimensions}))";
-
     // Half-precision vectors are a preview feature of SQL Server 2025, which needs PREVIEW_FEATURES to be enabled
     public override string GetVectorColumnDefinition(int dimensions, VectorPrecision precision) =>
         precision == VectorPrecision.Half ? $"VECTOR({dimensions}, float16)" : this.GetVectorColumnDefinition(dimensions);
+
+    public override string ToVectorParam(string param, int dimensions) => $"CAST({param} AS VECTOR({dimensions}))";
 
     public override string ToVectorParam(string param, int dimensions, VectorPrecision precision) =>
         precision == VectorPrecision.Half ? $"CAST({param} AS VECTOR({dimensions}, float16))" : this.ToVectorParam(param, dimensions);
@@ -1322,8 +1326,13 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
 
         var table = this.GetQuotedTableName(modelDef);
         var language = modelDef.FullTextIndex?.Language;
-        var languageTerm = string.IsNullOrEmpty(language) ? "0"
-            : int.TryParse(language, out var lcid) ? lcid.ToString() : this.GetQuotedValue(language);
+        var languageTerm = "0";
+
+        if (!string.IsNullOrEmpty(language))
+        {
+            languageTerm = int.TryParse(language, out var lcid) ? lcid.ToString() : this.GetQuotedValue(language);
+        }
+
         var columns = this.GetFullTextColumnNames(modelDef).Map(x => $"{x} LANGUAGE {languageTerm}").Join(", ");
         var catalog = this.GetQuotedName(FullTextCatalog);
         return [
@@ -2049,7 +2058,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
         {
             if (modelDef.PrimaryKey == null)
             {
-                throw new ArgumentNullException("Malformed model, no PrimaryKey defined");
+                throw new ArgumentNullException(nameof(modelDef), "Malformed model, no PrimaryKey defined");
             }
 
             orderByExpression = $"ORDER BY {this.GetQuotedColumnName(modelDef, modelDef.PrimaryKey)}";
@@ -2176,6 +2185,16 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <returns>System.String.</returns>
     public override string SqlBool(bool value)
     {
+        return ToSqlBool(value);
+    }
+
+    /// <summary>
+    /// The SQL value of a bool (the constructor can't call the virtual <see cref="SqlBool"/>).
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>System.String.</returns>
+    private static string ToSqlBool(bool value)
+    {
         return value ? "1" : "0";
     }
 
@@ -2187,9 +2206,14 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     /// <returns>System.String.</returns>
     public override string SqlLimit(int? offset = null, int? rows = null)
     {
-        return rows == null && offset == null ? string.Empty :
-            rows != null ? $"OFFSET {offset.GetValueOrDefault()} ROWS FETCH NEXT {rows} ROWS ONLY" :
-            $"OFFSET {offset.GetValueOrDefault(int.MaxValue)} ROWS";
+        if (rows == null && offset == null)
+        {
+            return string.Empty;
+        }
+
+        return rows != null
+                   ? $"OFFSET {offset.GetValueOrDefault()} ROWS FETCH NEXT {rows} ROWS ONLY"
+                   : $"OFFSET {offset.GetValueOrDefault(int.MaxValue)} ROWS";
     }
 
     /// <summary>
@@ -2305,7 +2329,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
     public override string SqlRandom => "NEWID()";
 
     // strftime('%Y-%m-%d %H:%M:%S', 'now')
-    public Dictionary<string, string> DateFormatMap = new() {
+    private readonly Dictionary<string, string> DateFormatMap = new() {
         {"%Y", "YYYY"},
         {"%m", "MM"},
         {"%d", "DD"},

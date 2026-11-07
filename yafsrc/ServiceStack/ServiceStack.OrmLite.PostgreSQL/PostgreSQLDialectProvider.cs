@@ -11,6 +11,9 @@ using ServiceStack.Logging;
 using ServiceStack.OrmLite.Base.Common;
 using ServiceStack.OrmLite.Base.Text;
 
+// NpgsqlDbType.Array is combined with the type of the items, this is how Npgsql defines the array types
+#pragma warning disable S3265
+
 namespace ServiceStack.OrmLite.PostgreSQL;
 
 using System;
@@ -43,7 +46,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <summary>
     /// The instance
     /// </summary>
-    public static PostgreSqlDialectProvider Instance = new();
+    public static readonly PostgreSqlDialectProvider Instance = new();
 
     /// <summary>
     /// Gets or sets a value indicating whether [use returning for last insert identifier].
@@ -93,7 +96,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         this.RegisterConverter<byte[]>(new PostrgreSqlByteArrayConverter());
 
-        // TODO provide support for pgsql native data structures:
+        // the native data structures of pgsql
         this.RegisterConverter<string[]>(new PostgreSqlStringArrayConverter());
         this.RegisterConverter<short[]>(new PostgreSqlShortArrayConverter());
         this.RegisterConverter<int[]>(new PostgreSqlIntArrayConverter());
@@ -115,19 +118,22 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             { OrmLiteVariables.SystemUtc, "now() at time zone 'utc'" },
             { OrmLiteVariables.MaxText, "TEXT" },
             { OrmLiteVariables.MaxTextUnicode, "TEXT" },
-            { OrmLiteVariables.True, this.SqlBool(true) },
-            { OrmLiteVariables.False, this.SqlBool(false) }
+            { OrmLiteVariables.True, base.SqlBool(true) },
+            { OrmLiteVariables.False, base.SqlBool(false) }
         };
     }
 
     /// <summary>
-    /// Sets a value indicating whether [use hstore].
+    /// Gets or sets a value indicating whether [use hstore].
     /// </summary>
     /// <value><c>true</c> if [use hstore]; otherwise, <c>false</c>.</value>
     public bool UseHstore
     {
+        get;
         set
         {
+            field = value;
+
             if (value)
             {
                 this.RegisterConverter<IDictionary<string, string>>(new PostgreSqlHstoreConverter());
@@ -161,7 +167,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <summary>
     /// The reserved words
     /// </summary>
-    public static HashSet<string> ReservedWords = new([
+    private readonly static HashSet<string> ReservedWords = new([
         "ALL",
         "ANALYSE",
         "ANALYZE",
@@ -777,11 +783,16 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         var dbType = converter.DbType;
         if (converter is ServiceStack.OrmLite.Converters.EnumConverter)
         {
-            dbType = fieldDef.TreatAsType == typeof(int)
-                ? DbType.Int32
-                : fieldDef.TreatAsType == typeof(long)
-                    ? DbType.Int64
-                    : DbType.String;
+            dbType = DbType.String;
+
+            if (fieldDef.TreatAsType == typeof(int))
+            {
+                dbType = DbType.Int32;
+            }
+            else if (fieldDef.TreatAsType == typeof(long))
+            {
+                dbType = DbType.Int64;
+            }
         }
         return columnDef switch
         {
@@ -957,8 +968,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             ? "DO NOTHING"
             : "DO UPDATE SET " + this.GetUpsertUpdateSql(updateFieldDefs);
 
+        // the values are parameters, only the quoted names of the table and columns are part of the statement
+#pragma warning disable S2077
         cmd.CommandText = $"{this.GetUpsertInsertSql(modelDef, insertFieldDefs)} " +
                           $"ON CONFLICT ({conflictTarget}) {conflictAction}";
+#pragma warning restore S2077
     }
 
     // Convert xmin into an integer so it can be used in comparisons
@@ -1316,8 +1330,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public override bool DoesSchemaExist(IDbCommand dbCmd, string schemaName)
     {
+        // the name is escaped by SqlParam
+#pragma warning disable S2077
         dbCmd.CommandText =
             $"SELECT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = '{this.NamingStrategy.GetSchemaName(schemaName).SqlParam()}');";
+#pragma warning restore S2077
         var query = dbCmd.ExecuteScalar();
         return query as bool? ?? false;
     }
@@ -1326,14 +1343,17 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// Does schema exist as an asynchronous operation.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    /// <param name="schemaName">Name of the schema.</param>
+    /// <param name="schema">Name of the schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public async override Task<bool> DoesSchemaExistAsync(IDbCommand dbCmd, string schemaName,
+    public async override Task<bool> DoesSchemaExistAsync(IDbCommand dbCmd, string schema,
         CancellationToken token = default)
     {
+        // the name is escaped by SqlParam
+#pragma warning disable S2077
         dbCmd.CommandText =
-            $"SELECT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = '{this.NamingStrategy.GetSchemaName(schemaName).SqlParam()}');";
+            $"SELECT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = '{this.NamingStrategy.GetSchemaName(schema).SqlParam()}');";
+#pragma warning restore S2077
         var query = await dbCmd.ScalarAsync();
         return query as bool? ?? false;
     }
@@ -1682,7 +1702,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <summary>
     /// The native types
     /// </summary>
-    public Dictionary<string, NpgsqlDbType> NativeTypes = new() {
+    private readonly Dictionary<string, NpgsqlDbType> NativeTypes = new() {
         { "json", NpgsqlDbType.Json },
         { "jsonb", NpgsqlDbType.Jsonb },
         { "hstore", NpgsqlDbType.Hstore },
@@ -1872,7 +1892,6 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override string ToChangeColumnNameStatement(TableRef tableRef, FieldDefinition fieldDef,
         string oldColumn)
     {
-        // var column = GetColumnDefinition(fieldDef);
         var columnType = this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
         var newColumnName = this.NamingStrategy.GetColumnName(fieldDef.FieldName);
 
@@ -1951,7 +1970,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override string SqlRandom => "RANDOM()";
 
     // strftime('%Y-%m-%d %H:%M:%S', 'now')
-    public Dictionary<string, string> DateFormatMap = new() {
+    private readonly Dictionary<string, string> DateFormatMap = new() {
         {"%Y", "YYYY"},
         {"%m", "MM"},
         {"%d", "DD"},
@@ -1975,16 +1994,6 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override string SqlChar(int charCode)
     {
         return $"CHR({charCode})";
-    }
-
-    /// <summary>
-    /// Unwraps the specified database.
-    /// </summary>
-    /// <param name="db">The database.</param>
-    /// <returns>NpgsqlConnection.</returns>
-    protected static DbConnection Unwrap(IDbConnection db)
-    {
-        return (DbConnection)db.ToDbConnection();
     }
 
     /// <summary>
@@ -2019,6 +2028,16 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             return TransientError.None;
         }
         return base.GetTransientError(ex);
+    }
+
+    /// <summary>
+    /// Unwraps the specified database.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <returns>NpgsqlConnection.</returns>
+    protected static DbConnection Unwrap(IDbConnection db)
+    {
+        return (DbConnection)db.ToDbConnection();
     }
 
     /// <summary>

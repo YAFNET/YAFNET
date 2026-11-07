@@ -20,7 +20,7 @@ public class SqlServerTimeConverter : OrmLiteConverter
     /// <summary>
     /// The time span offset
     /// </summary>
-    private readonly static DateTime timeSpanOffset = new(1900, 01, 01);
+    private readonly static DateTime timeSpanOffset = new(1900, 01, 01, 0, 0, 0, DateTimeKind.Unspecified);
 
     /// <summary>
     /// Gets or sets the precision.

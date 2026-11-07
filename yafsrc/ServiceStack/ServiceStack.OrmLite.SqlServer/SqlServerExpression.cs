@@ -152,7 +152,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
 /// <summary>
 /// Class SqlServerExpressionUtils.
 /// </summary>
-internal class SqlServerExpressionUtils
+internal static class SqlServerExpressionUtils
 {
     /// <summary>
     /// Prepares the SQL server update statement.
@@ -215,6 +215,9 @@ internal class SqlServerExpressionUtils
             throw new ArgumentException($"No non-null or non-default values were provided for type: {typeof(T).Name}");
         }
 
+        // the values are parameters, only the quoted names of the table and columns are part of the statement
+#pragma warning disable S2077
         dbCmd.CommandText = $"UPDATE {dialectProvider.GetQuotedTableName(modelDef)} SET {strFields} {q.WhereExpression}";
+#pragma warning restore S2077
     }
 }

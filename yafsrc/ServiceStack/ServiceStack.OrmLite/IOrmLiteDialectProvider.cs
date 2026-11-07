@@ -345,10 +345,10 @@ public interface IOrmLiteDialectProvider
     /// <summary>
     /// Creates the connection.
     /// </summary>
-    /// <param name="filePath">The file path.</param>
+    /// <param name="connectionString">The connection string.</param>
     /// <param name="options">The options.</param>
     /// <returns>IDbConnection.</returns>
-    IDbConnection CreateConnection(string filePath, Dictionary<string, string> options);
+    IDbConnection CreateConnection(string connectionString, Dictionary<string, string> options);
 
     string GetTableNameOnly(TableRef tableRef);
     string UnquotedTable(TableRef tableRef);

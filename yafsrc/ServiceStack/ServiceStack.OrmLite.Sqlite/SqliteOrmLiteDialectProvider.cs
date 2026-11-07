@@ -23,7 +23,7 @@ public class SqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProviderBase
     /// <summary>
     /// The instance
     /// </summary>
-    public static SqliteOrmLiteDialectProvider Instance = new();
+    public static readonly SqliteOrmLiteDialectProvider Instance = new();
 
     /// <summary>
     /// Creates the connection.

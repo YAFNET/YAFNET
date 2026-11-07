@@ -23,7 +23,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
     /// <summary>
     /// The instance
     /// </summary>
-    public new static SqlServer2014OrmLiteDialectProvider Instance = new();
+    public new static readonly SqlServer2014OrmLiteDialectProvider Instance = new();
 
     /// <summary>
     /// Gets the column definition.

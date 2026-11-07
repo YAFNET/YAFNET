@@ -23,7 +23,7 @@ public class MySqlDateTimeConverter : MySqlDateTimeConverterBase
     /// <returns>System.Object.</returns>
     public override object FromDbValue(object value)
     {
-        // TODO throws error if connection string option not set - https://stackoverflow.com/questions/5754822/unable-to-convert-mysql-date-time-value-to-system-datetime
+        // throws an error if the connection string option is not set - https://stackoverflow.com/questions/5754822/unable-to-convert-mysql-date-time-value-to-system-datetime
         if (value is MySqlDateTime time)
         {
             return time.GetDateTime();

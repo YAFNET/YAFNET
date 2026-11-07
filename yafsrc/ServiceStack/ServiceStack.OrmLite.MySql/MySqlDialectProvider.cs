@@ -32,7 +32,7 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
     /// <summary>
     /// The instance
     /// </summary>
-    public static MySqlDialectProvider Instance = new();
+    public static readonly MySqlDialectProvider Instance = new();
 
     public override TransientError GetTransientError(Exception ex)
     {
@@ -46,11 +46,6 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
         }
         return base.GetTransientError(ex);
     }
-
-    /// <summary>
-    /// The text column definition
-    /// </summary>
-    private const string TextColumnDefinition = "TEXT";
 
     /// <summary>
     /// Creates the connection.
@@ -106,8 +101,8 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
         await CreateBulkLoader(db, objs, fs).LoadAsync(fs, token).ConfigAwait();
     }
 
-    private static FileStream CreateTempFileStream() => new(Path.GetTempFileName(),
-        FileMode.Create, FileAccess.ReadWrite, FileShare.None, 4096, FileOptions.DeleteOnClose);
+    private static FileStream CreateTempFileStream() => new(Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()),
+        FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None, 4096, FileOptions.DeleteOnClose);
 
     private static MySqlBulkLoader CreateBulkLoader<T>(IDbConnection db, IEnumerable<T> objs, Stream stream)
     {
@@ -152,12 +147,7 @@ public class MySql55DialectProvider : MySqlDialectProviderBase<MySqlDialectProvi
     /// <summary>
     /// The instance
     /// </summary>
-    public static MySql55DialectProvider Instance = new();
-
-    /// <summary>
-    /// The text column definition
-    /// </summary>
-    private const string TextColumnDefinition = "TEXT";
+    public static readonly MySql55DialectProvider Instance = new();
 
     /// <summary>
     /// Creates the connection.

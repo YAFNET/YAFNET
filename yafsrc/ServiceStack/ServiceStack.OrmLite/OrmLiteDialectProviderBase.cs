@@ -690,10 +690,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <summary>
     /// Creates the connection.
     /// </summary>
-    /// <param name="filePath">The file path.</param>
+    /// <param name="connectionString">The connection string.</param>
     /// <param name="options">The options.</param>
     /// <returns>IDbConnection.</returns>
-    public abstract IDbConnection CreateConnection(string filePath, Dictionary<string, string> options);
+    public abstract IDbConnection CreateConnection(string connectionString, Dictionary<string, string> options);
 
     /// <summary>
     /// Returns an unquoted table name (inc schema if exists), using naming strategy 

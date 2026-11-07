@@ -126,11 +126,11 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
 
             if (value is not string dateStr)
             {
-                throw new Exception($"Converting from {value.GetType().Name} to DateTime is not supported");
+                throw new NotSupportedException($"Converting from {value.GetType().Name} to DateTime is not supported");
             }
 
             Log.Warn("Error reading string as DateTime in Sqlite: " + dateStr, ex);
-            return DateTime.Parse(dateStr);
+            return DateTime.Parse(dateStr, CultureInfo.CurrentCulture);
         }
     }
 }

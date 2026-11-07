@@ -187,11 +187,8 @@ public class SqlServer2016Expression<T> : SqlServerExpression<T>
         return new PartialSqlString(statement);
     }
 
-    private object BooleanJsonExpression(string predicate, string scalar)
+    private static PartialSqlString BooleanJsonExpression(string scalar)
     {
-        /*return new PartialSqlString(isSelectExpression
-            ? scalar
-            : predicate);*/
         return new PartialSqlString(scalar);
     }
 
@@ -200,7 +197,7 @@ public class SqlServer2016Expression<T> : SqlServerExpression<T>
         var scalar = DialectProvider is SqlServer2022OrmLiteDialectProvider
             ? $"ISJSON({json}, VALUE)"
             : $"ISJSON({json})";
-        return BooleanJsonExpression($"({scalar} = 1)", scalar);
+        return BooleanJsonExpression(scalar);
     }
 
     protected override object VisitJsonValueMethod(object json, JsonPathExpression path, Type returnType) =>
@@ -240,7 +237,7 @@ public class SqlServer2016Expression<T> : SqlServerExpression<T>
             throw new NotSupportedException("Sql.JsonExists() requires SQL Server 2022 or later.");
 
         var scalar = $"JSON_PATH_EXISTS({json}, {path})";
-        return BooleanJsonExpression($"({scalar} = 1)", scalar);
+        return BooleanJsonExpression(scalar);
     }
 
     protected override object VisitJsonTypeMethod(object json, JsonPathExpression path)
@@ -380,6 +377,6 @@ public class SqlServer2016Expression<T> : SqlServerExpression<T>
 
         var predicate = $"EXISTS (SELECT 1 FROM OPENJSON({json}, {path}) j WHERE {comparison})";
         var scalar = $"CASE WHEN {predicate} THEN CAST(1 AS bit) ELSE CAST(0 AS bit) END";
-        return BooleanJsonExpression(predicate, scalar);
+        return BooleanJsonExpression(scalar);
     }
 }

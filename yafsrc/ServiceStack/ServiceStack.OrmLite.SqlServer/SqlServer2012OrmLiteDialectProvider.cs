@@ -30,7 +30,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// <summary>
     /// The instance
     /// </summary>
-    public new static SqlServer2012OrmLiteDialectProvider Instance = new();
+    public new static readonly SqlServer2012OrmLiteDialectProvider Instance = new();
 
     /// <summary>
     /// Doeses the sequence exist.

@@ -41,7 +41,7 @@ public class PostgreSqlExpression<T> : SqlExpression<T>
     /// <returns>string.</returns>
     protected override string CreateInListSql(object quotedColName, List<object> values)
     {
-        if (DialectProvider.MaxInListParams > 0 && values.Count > DialectProvider.MaxInListParams && ToArrayParam(values) is { } array)
+        if (DialectProvider.MaxInListParams > 0 && values.Count > DialectProvider.MaxInListParams && TryToArrayParam(values, out var array))
         {
             return $"{quotedColName} = ANY({ConvertToParam(array)})";
         }
@@ -51,31 +51,36 @@ public class PostgreSqlExpression<T> : SqlExpression<T>
 
     /// <summary>
     /// Converts the values to an array parameter.
-    /// Returns null if values aren't all non-null values of the same natively supported array type
+    /// Returns false if values aren't all non-null values of the same natively supported array type
     /// </summary>
     /// <param name="values">The values.</param>
-    /// <returns>Array.</returns>
-    private static Array ToArrayParam(List<object> values)
+    /// <param name="array">The array parameter.</param>
+    /// <returns><c>true</c> if the values can be sent as an array.</returns>
+    private static bool TryToArrayParam(List<object> values, out Array array)
     {
+        array = null;
+
         var type = values[0]?.GetType();
         if (type == null || !ArrayParamTypes.Contains(type))
         {
-            return null;
+            return false;
         }
 
-        var array = Array.CreateInstance(type, values.Count);
+        var items = Array.CreateInstance(type, values.Count);
         for (var i = 0; i < values.Count; i++)
         {
             var value = values[i];
             if (value == null || value.GetType() != type)
             {
-                return null;
+                return false;
             }
 
-            array.SetValue(value, i);
+            items.SetValue(value, i);
         }
 
-        return array;
+        array = items;
+
+        return true;
     }
 
     /// <summary>
@@ -140,10 +145,18 @@ public class PostgreSqlExpression<T> : SqlExpression<T>
         if (type == typeof(string) || type.IsEnum)
             return JsonScalar($"CASE WHEN {jsonType} NOT IN ('object','array') THEN {text} END", returnType);
 
-        var requiredType = type == typeof(bool) ? "boolean"
-            : type == typeof(char) || type == typeof(Guid) || type == typeof(DateTime)
-              || type == typeof(DateTimeOffset) || type == typeof(TimeSpan) ? "string"
-            : "number";
+        var requiredType = "number";
+
+        if (type == typeof(bool))
+        {
+            requiredType = "boolean";
+        }
+        else if (type == typeof(char) || type == typeof(Guid) || type == typeof(DateTime)
+                 || type == typeof(DateTimeOffset) || type == typeof(TimeSpan))
+        {
+            requiredType = "string";
+        }
+
         var cast = $"CAST({text} AS {GetJsonDbType(type)})";
         return JsonScalar($"CASE WHEN {jsonType} = '{requiredType}' THEN {cast} END", returnType);
     }
