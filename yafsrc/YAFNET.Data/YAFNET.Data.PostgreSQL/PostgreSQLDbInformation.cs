@@ -29,10 +29,13 @@ using YAF.Types.Interfaces;
 
 namespace YAF.Data.PostgreSQL;
 
+#pragma warning disable S101
 /// <summary>
 /// MySQL DB Information
 /// </summary>
+// ReSharper disable once InconsistentNaming
 public class PostgreSQLDbInformation : IDbInformation, IHaveServiceLocator
+#pragma warning restore S101
 {
     /// <summary>
     /// The YAF Provider Upgrade script list

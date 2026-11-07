@@ -165,8 +165,11 @@ public static class HashHelper
 
         return hashAlgorithmType switch
             {
+                // only needed to verify the passwords of a legacy membership database
+#pragma warning disable S4790
                 HashAlgorithmType.SHA1 => SHA1.HashData(clearBytes),
                 HashAlgorithmType.MD5 => MD5.HashData(clearBytes),
+#pragma warning restore S4790
                 HashAlgorithmType.SHA256 => SHA256.HashData(clearBytes),
                 HashAlgorithmType.SHA384 => SHA384.HashData(clearBytes),
                 HashAlgorithmType.SHA512 => SHA512.HashData(clearBytes),

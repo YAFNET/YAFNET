@@ -24,11 +24,14 @@
 
 namespace YAF.Data.PostgreSQL;
 
+#pragma warning disable S101
 /// <summary>
 /// Set the PostgreSQL dialect event.
 /// </summary>
 [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
+// ReSharper disable once InconsistentNaming
 public class SetPostgreSQLDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
+#pragma warning restore S101
 {
     /// <summary>
     ///     Gets the order.

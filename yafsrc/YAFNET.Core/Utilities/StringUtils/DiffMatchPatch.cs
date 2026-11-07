@@ -16,6 +16,9 @@
  * limitations under the License.
  */
 
+// third party code, it is kept close to the original
+#pragma warning disable S1643 // Strings should not be concatenated using '+' in a loop
+
 namespace YAF.Core.Utilities.StringUtils;
 
 using System;

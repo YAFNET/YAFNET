@@ -155,53 +155,50 @@ public class PostsModalController : ForumBaseController
             var isPossibleSpamMessage = false;
 
             // Check for SPAM
-            if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess
+                && this.Get<ISpamCheck>().CheckPostForSpam(
+                    this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName(),
+                    this.HttpContext.GetUserRealIPAddress(),
+                    message,
+                    this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
+                    out var spamResult))
             {
-                // Check content for spam
-                if (this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName(),
-                        this.HttpContext.GetUserRealIPAddress(),
-                        message,
-                        this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
-                        out var spamResult))
+                var description =
+                    $"""
+                     Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
+                                                    posted by User: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}
+                     """;
+
+                switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
                 {
-                    var description =
-                        $"""
-                         Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
-                                                        posted by User: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}
-                         """;
+                    case SpamPostHandling.DoNothing:
+                        this.Get<ILogger<PostsModalController>>().SpamMessageDetected(
+                            this.PageBoardContext.PageUserID,
+                            description);
+                        break;
+                    case SpamPostHandling.FlagMessageUnapproved:
+                        spamApproved = false;
+                        isPossibleSpamMessage = true;
+                        this.Get<ILogger<PostsModalController>>().SpamMessageDetected(
+                            this.PageBoardContext.PageUserID,
+                            $"{description}, it was flagged as unapproved post");
+                        break;
+                    case SpamPostHandling.RejectMessage:
+                        this.Get<ILogger<PostsModalController>>().SpamMessageDetected(
+                            this.PageBoardContext.PageUserID,
+                            $"{description}, post was rejected");
 
-                    switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
-                    {
-                        case SpamPostHandling.DoNothing:
-                            this.Get<ILogger<PostsModalController>>().SpamMessageDetected(
-                                this.PageBoardContext.PageUserID,
-                                description);
-                            break;
-                        case SpamPostHandling.FlagMessageUnapproved:
-                            spamApproved = false;
-                            isPossibleSpamMessage = true;
-                            this.Get<ILogger<PostsModalController>>().SpamMessageDetected(
-                                this.PageBoardContext.PageUserID,
-                                $"{description}, it was flagged as unapproved post");
-                            break;
-                        case SpamPostHandling.RejectMessage:
-                            this.Get<ILogger<PostsModalController>>().SpamMessageDetected(
-                                this.PageBoardContext.PageUserID,
-                                $"{description}, post was rejected");
+                        return this.Ok(new MessageModalNotification(this.GetText("SPAM_MESSAGE"), MessageTypes.danger));
+                    case SpamPostHandling.DeleteBanUser:
+                        this.Get<ILogger<PostsModalController>>().SpamMessageDetected(
+                            this.PageBoardContext.PageUserID,
+                            $"{description}, user was deleted and banned");
 
-                            return this.Ok(new MessageModalNotification(this.GetText("SPAM_MESSAGE"), MessageTypes.danger));
-                        case SpamPostHandling.DeleteBanUser:
-                            this.Get<ILogger<PostsModalController>>().SpamMessageDetected(
-                                this.PageBoardContext.PageUserID,
-                                $"{description}, user was deleted and banned");
-
-                            await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
-                                this.PageBoardContext.PageUser,
-                                this.PageBoardContext.MembershipUser,
-                                this.PageBoardContext.PageUser.IP);
-                            return this.Ok();
-                    }
+                        await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
+                            this.PageBoardContext.PageUser,
+                            this.PageBoardContext.MembershipUser,
+                            this.PageBoardContext.PageUser.IP);
+                        return this.Ok();
                 }
             }
 

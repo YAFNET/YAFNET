@@ -213,7 +213,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
-    public virtual void Dispose()
+    public void Dispose()
     {
         this.Dispose(true);
         GC.SuppressFinalize(this);

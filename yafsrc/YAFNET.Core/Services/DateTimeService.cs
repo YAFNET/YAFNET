@@ -351,9 +351,9 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
         // the offset of the date itself, so summer and winter time are right
         var offset = BoardContext.Current.TimeZoneInfoUser.GetUtcOffset(userDateTime);
 
-        var offsetText = offset == TimeSpan.Zero
-                             ? string.Empty
-                             : $"{(offset < TimeSpan.Zero ? "-" : "+")}{offset:hh\\:mm}";
+        var sign = offset < TimeSpan.Zero ? "-" : "+";
+
+        var offsetText = offset == TimeSpan.Zero ? string.Empty : $"{sign}{offset:hh\\:mm}";
 
         // the space is added here, translations would drop a leading space of the text
         return $"{dateFormat} {string.Format(

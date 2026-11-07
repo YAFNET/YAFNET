@@ -26,10 +26,13 @@ namespace YAF.Data.PostgreSQL;
 
 using Autofac;
 
+#pragma warning disable S101
 /// <summary>
 /// The PostgreSQL module.
 /// </summary>
+// ReSharper disable once InconsistentNaming
 public class PostgreSQLModule : Module
+#pragma warning restore S101
 {
     /// <summary>
     /// The load.

@@ -507,7 +507,10 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The set reaction JS.
     /// </returns>
+    // a method like the other script blocks
+#pragma warning disable S3400
     public static string SetReactionJs()
+#pragma warning restore S3400
     {
         return """
                function reactionTooltips(box) {
@@ -1113,6 +1116,8 @@ public static class JavaScriptBlocks
         string passwordStrongerText,
         string passwordWeakText)
     {
+        // "password" is the name of a JavaScript variable, not a credential
+#pragma warning disable S2068
         return $$"""
                document.addEventListener("DOMContentLoaded",
                function() {
@@ -1200,6 +1205,7 @@ public static class JavaScriptBlocks
                    });
                });
                """;
+#pragma warning restore S2068
     }
 
     /// <summary>

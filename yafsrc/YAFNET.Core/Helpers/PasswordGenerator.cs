@@ -87,7 +87,9 @@ public static class PasswordGenerator
         var password = new char[lengthOfPassword];
         var characterSetLength = characterSet.Length;
 
-        for (var characterPosition = 0; characterPosition < lengthOfPassword; characterPosition++)
+        var characterPosition = 0;
+
+        while (characterPosition < lengthOfPassword)
         {
             password[characterPosition] = characterSet[RandomNumberGenerator.GetInt32(characterSetLength)];
 
@@ -95,9 +97,9 @@ public static class PasswordGenerator
                                              && password[characterPosition] == password[characterPosition - 1]
                                              && password[characterPosition - 1] == password[characterPosition - 2];
 
-            if (moreThanTwoIdenticalInARow)
+            if (!moreThanTwoIdenticalInARow)
             {
-                characterPosition--;
+                characterPosition++;
             }
         }
 

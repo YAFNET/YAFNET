@@ -39,7 +39,7 @@ public class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
     /// <summary>
     /// The global instance.
     /// </summary>
-    private static BoardContext globalInstance;
+    private BoardContext globalInstance;
 
     /// <summary>
     /// The container.
@@ -79,7 +79,7 @@ public class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
         {
             if (this.httpContext.HttpContext == null)
             {
-                return globalInstance ??= this.CreateContextInstance();
+                return this.globalInstance ??= this.CreateContextInstance();
             }
 
             if (this.httpContext.HttpContext.Items[PageBoardContextName] is BoardContext context)

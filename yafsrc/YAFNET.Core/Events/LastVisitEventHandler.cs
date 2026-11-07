@@ -106,7 +106,16 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>
                 this.context.HttpContext.Response.Cookies.Append(
                     PreviousVisitKey,
                     DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
-                    new CookieOptions { Expires = DateTime.Now.AddMonths(6) });
+
+                    // a board can run without https, a browser would not store a secure cookie then
+#pragma warning disable S2092
+                    new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddMonths(6),
+                        HttpOnly = true,
+                        Secure = this.context.HttpContext.Request.IsHttps
+                    });
+#pragma warning restore S2092
                 break;
             }
         }

@@ -202,7 +202,7 @@ public class SessionService : ISessionService
     public DateTime GetForumRead(int forumId)
     {
         var t = this.ForumRead;
-        if (t == null || !t.ContainsKey(forumId))
+        if (!t.ContainsKey(forumId))
         {
             return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
         }
@@ -223,7 +223,7 @@ public class SessionService : ISessionService
     {
         var t = this.TopicRead;
 
-        if (t == null || !t.ContainsKey(topicId))
+        if (!t.ContainsKey(topicId))
         {
             return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
         }
@@ -242,7 +242,7 @@ public class SessionService : ISessionService
     /// </param>
     public void SetForumRead(int forumId, DateTime date)
     {
-        var t = this.ForumRead ?? [];
+        var t = this.ForumRead;
 
         t[forumId] = date;
         this.ForumRead = t;
@@ -259,7 +259,7 @@ public class SessionService : ISessionService
     /// </param>
     public void SetTopicRead(int topicId, DateTime date)
     {
-        var t = this.TopicRead ?? [];
+        var t = this.TopicRead;
 
         t[topicId] = date;
         this.TopicRead = t;
@@ -275,7 +275,7 @@ public class SessionService : ISessionService
     {
         if (stored is null)
         {
-            return null;
+            return [];
         }
 
         var readTimes = new Hashtable();

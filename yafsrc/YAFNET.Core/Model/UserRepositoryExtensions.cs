@@ -124,7 +124,12 @@ public static class UserRepositoryExtensions
             var rankStyle = await BoardContext.Current.GetRepository<Rank>().GetRankStyleForUserAsync(userId);
 
             // also without a group or rank style: an old style (e.g. of a group the user was removed from) is cleared
-            var style = groupStyle.IsSet() ? groupStyle : rankStyle.IsSet() ? rankStyle : null;
+            var style = rankStyle.IsSet() ? rankStyle : null;
+
+            if (groupStyle.IsSet())
+            {
+                style = groupStyle;
+            }
 
             await repository.UpdateOnlyAsync(() => new User { UserStyle = style }, u => u.ID == userId);
         }
@@ -774,8 +779,9 @@ public static class UserRepositoryExtensions
             else
             {
                 // only one of them allows bb codes (also only the rank)
-                data.UsrSigBBCodes = groupMax.usrSigBBCodes.IsSet() ? groupMax.usrSigBBCodes :
-                                     rankMax.usrSigBBCodes.IsSet() ? rankMax.usrSigBBCodes : string.Empty;
+                var rankBBCodes = rankMax.usrSigBBCodes.IsSet() ? rankMax.usrSigBBCodes : string.Empty;
+
+                data.UsrSigBBCodes = groupMax.usrSigBBCodes.IsSet() ? groupMax.usrSigBBCodes : rankBBCodes;
             }
 
             return data;

@@ -92,7 +92,7 @@ public sealed class TestBoardContext : IDisposable
         builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>()
             .InstancePerLifetimeScope();
 
-        // BoardContextPageProvider caches a static instance when there is no HttpContext,
+        // BoardContextPageProvider caches one instance when there is no HttpContext,
         // a dedicated HttpContext per test keeps contexts from leaking between tests
         builder.RegisterInstance(new FixedHttpContextAccessor(this.HttpContext)).As<IHttpContextAccessor>();
         builder.RegisterType<BoardContextPageProvider>().AsSelf().SingleInstance();

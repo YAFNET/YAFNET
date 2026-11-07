@@ -24,9 +24,11 @@
 
 namespace YAF.Data.PostgreSQL;
 
+#pragma warning disable S101
 /// <summary>
 /// The PostgreSQL Database access.
 /// </summary>
+// ReSharper disable once InconsistentNaming
 public class PostgreSQLDbAccess : DbAccessBase
 {
     /// <summary>
@@ -45,3 +47,4 @@ public class PostgreSQLDbAccess : DbAccessBase
     {
     }
 }
+#pragma warning restore S101

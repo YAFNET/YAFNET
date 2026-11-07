@@ -768,130 +768,6 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
-    /// <summary>
-    /// Upgrades the tables polls.
-    /// </summary>
-    /// <param name="dbCommand">The database command.</param>
-    public static void UpgradeTablesPolls(IDbCommand dbCommand)
-    {
-        // should drop it else error
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
-
-        var foreignKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%Poll'");
-
-        if (foreignKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Topic>(foreignKeyName);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Choice>(x => x.ObjectPath))
-        {
-            dbCommand.Connection.AddColumn<Choice>(x => x.ObjectPath);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.Closes))
-        {
-            dbCommand.Connection.AddColumn<Poll>(x => x.Closes);
-        }
-
-        if (dbCommand.Connection.ColumnMaxLength<Poll>(x => x.Question) < 256)
-        {
-            dbCommand.Connection.AlterColumn<Poll>(x => x.Question);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.UserID))
-        {
-            dbCommand.Connection.AddColumn<Poll>(x => x.UserID);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.ObjectPath))
-        {
-            dbCommand.Connection.AddColumn<Poll>(x => x.ObjectPath);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.Flags))
-        {
-            dbCommand.Connection.AddColumn<Poll>(x => x.Flags);
-        }
-
-        if (dbCommand.Connection.ColumnExists<Poll>("MimeType"))
-        {
-            dbCommand.Connection.DropColumn<Poll>("MimeType");
-        }
-
-        if (dbCommand.Connection.ColumnExists<Choice>("MimeType"))
-        {
-            dbCommand.Connection.DropColumn<Choice>("MimeType");
-        }
-
-        var foreignTopicKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignTopicKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Topic>(foreignTopicKeyName);
-        }
-
-        var foreignPollKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Poll>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignPollKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Poll>(foreignPollKeyName);
-        }
-
-        var foreignForumKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Forum>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignForumKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Forum>(foreignForumKeyName);
-        }
-
-        var foreignCategoryKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Category>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignCategoryKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Category>(foreignCategoryKeyName);
-        }
-
-        var foreignClusterKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<PollGroupCluster>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignClusterKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<PollGroupCluster>(foreignClusterKeyName);
-        }
-
-        if (dbCommand.Connection.TableExists(new TableRef("PollVoteRefuse")))
-        {
-            dbCommand.Connection.DropTable("PollVoteRefuse");
-        }
-
-        // Drop Columns first
-        if (dbCommand.Connection.ColumnExists<Poll>("PollGroupID"))
-        {
-            dbCommand.Connection.DropColumn<Poll>("PollGroupID");
-        }
-
-        if (dbCommand.Connection.ColumnExists<Category>("PollGroupID"))
-        {
-            dbCommand.Connection.DropColumn<Category>("PollGroupID");
-        }
-
-        if (dbCommand.Connection.ColumnExists<Forum>("PollGroupID"))
-        {
-            dbCommand.Connection.DropColumn<Forum>("PollGroupID");
-        }
-
-        if (dbCommand.Connection.TableExists<PollGroupCluster>())
-        {
-            dbCommand.Connection.DropTable<PollGroupCluster>();
-        }
-    }
-
     private static void UpgradeTable(IRepository<Forum> repository, IDbCommand dbCommand)
     {
         ArgumentNullException.ThrowIfNull(repository);
@@ -1420,6 +1296,130 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         if (!dbCommand.Connection.ColumnExists<AccessMask>(x => x.SortOrder))
         {
             dbCommand.Connection.AddColumn<AccessMask>(x => x.SortOrder);
+        }
+    }
+
+    /// <summary>
+    /// Upgrades the tables polls.
+    /// </summary>
+    /// <param name="dbCommand">The database command.</param>
+    public static void UpgradeTablesPolls(IDbCommand dbCommand)
+    {
+        // should drop it else error
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+        var foreignKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%Poll'");
+
+        if (foreignKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Topic>(foreignKeyName);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Choice>(x => x.ObjectPath))
+        {
+            dbCommand.Connection.AddColumn<Choice>(x => x.ObjectPath);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.Closes))
+        {
+            dbCommand.Connection.AddColumn<Poll>(x => x.Closes);
+        }
+
+        if (dbCommand.Connection.ColumnMaxLength<Poll>(x => x.Question) < 256)
+        {
+            dbCommand.Connection.AlterColumn<Poll>(x => x.Question);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.UserID))
+        {
+            dbCommand.Connection.AddColumn<Poll>(x => x.UserID);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.ObjectPath))
+        {
+            dbCommand.Connection.AddColumn<Poll>(x => x.ObjectPath);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.Flags))
+        {
+            dbCommand.Connection.AddColumn<Poll>(x => x.Flags);
+        }
+
+        if (dbCommand.Connection.ColumnExists<Poll>("MimeType"))
+        {
+            dbCommand.Connection.DropColumn<Poll>("MimeType");
+        }
+
+        if (dbCommand.Connection.ColumnExists<Choice>("MimeType"))
+        {
+            dbCommand.Connection.DropColumn<Choice>("MimeType");
+        }
+
+        var foreignTopicKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignTopicKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Topic>(foreignTopicKeyName);
+        }
+
+        var foreignPollKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Poll>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignPollKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Poll>(foreignPollKeyName);
+        }
+
+        var foreignForumKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Forum>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignForumKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Forum>(foreignForumKeyName);
+        }
+
+        var foreignCategoryKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Category>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignCategoryKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Category>(foreignCategoryKeyName);
+        }
+
+        var foreignClusterKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<PollGroupCluster>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignClusterKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<PollGroupCluster>(foreignClusterKeyName);
+        }
+
+        if (dbCommand.Connection.TableExists(new TableRef("PollVoteRefuse")))
+        {
+            dbCommand.Connection.DropTable("PollVoteRefuse");
+        }
+
+        // Drop Columns first
+        if (dbCommand.Connection.ColumnExists<Poll>("PollGroupID"))
+        {
+            dbCommand.Connection.DropColumn<Poll>("PollGroupID");
+        }
+
+        if (dbCommand.Connection.ColumnExists<Category>("PollGroupID"))
+        {
+            dbCommand.Connection.DropColumn<Category>("PollGroupID");
+        }
+
+        if (dbCommand.Connection.ColumnExists<Forum>("PollGroupID"))
+        {
+            dbCommand.Connection.DropColumn<Forum>("PollGroupID");
+        }
+
+        if (dbCommand.Connection.TableExists<PollGroupCluster>())
+        {
+            dbCommand.Connection.DropTable<PollGroupCluster>();
         }
     }
 

@@ -53,7 +53,10 @@ public class BotScout : ICheckForBot
 
         try
         {
+            // the fixed address of the public api, it does not depend on the environment
+#pragma warning disable S1075
             const string BotScoutUrl = "https://www.botscout.com/test/?multi";
+#pragma warning restore S1075
 
             var url =
                 $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={Uri.EscapeDataString(ipAddress)}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={Uri.EscapeDataString(emailAddress)}" : string.Empty)}{(userName.IsSet() ? $"&name={Uri.EscapeDataString(userName)}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={Uri.EscapeDataString(BoardContext.Current.BoardSettings.BotScoutApiKey)}" : string.Empty)}";

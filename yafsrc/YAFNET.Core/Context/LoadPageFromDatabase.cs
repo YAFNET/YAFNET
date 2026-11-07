@@ -30,9 +30,7 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Routing;
 
-#if !DEBUG
 using Microsoft.AspNetCore.Http.Extensions;
-#endif
 using Microsoft.Extensions.Logging;
 
 using YAF.Types.Attributes;
@@ -130,11 +128,9 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
 
                     try
                     {
-                        forumPage = routedPage.IsSet()
-                                        ? routedPage.ToPageName().ToString()
-                                        : endpointPath.Count != 0
-                                            ? endpointPath[0].ToPageName().ToString()
-                                            : path.ToPageName().ToString();
+                        var pageSource = endpointPath.Count != 0 ? endpointPath[0] : path;
+
+                        forumPage = (routedPage.IsSet() ? routedPage : pageSource).ToPageName().ToString();
                     }
                     catch (Exception)
                     {
@@ -264,7 +260,6 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             }
         }
 
-#if !DEBUG
         catch (Exception x)
         {
             // log the exception...
@@ -276,12 +271,5 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             // (a redirect can't be returned from here, the page would continue with missing data)
             throw;
         }
-#else
-        catch (Exception)
-        {
-            // re-throw exception...
-            throw;
-        }
-#endif
     }
 }

@@ -32,7 +32,10 @@ using System.Threading.Tasks;
 ///   Provides compare functionality based on the rule rank.
 ///   Override replace to handle replacement differently.
 /// </summary>
+// the rank only defines the order of the rules, two rules with the same rank are not equal
+#pragma warning disable S1210
 public abstract class BaseReplaceRule : IComparable, IReplaceRule
+#pragma warning restore S1210
 {
     /// <summary>
     ///   The rule rank.

@@ -43,28 +43,31 @@ public abstract class BaseModule : Autofac.Module, IHaveSortOrder
     /// <summary>
     ///     Gets or sets ExtensionAssemblies.
     /// </summary>
-    protected readonly static Assembly[] ExtensionAssemblies;
+    protected readonly static Assembly[] ExtensionAssemblies = LoadExtensionAssemblies();
 
     /// <summary>
-    /// Initializes static members of the <see cref="BaseModule"/> class.
+    /// Loads the extension assemblies.
     /// </summary>
-    static BaseModule()
+    /// <returns>The extension assemblies, sorted by their sort order.</returns>
+    private static Assembly[] LoadExtensionAssemblies()
     {
-        ExtensionAssemblies =
+        Assembly[] assemblies =
         [
             .. ModuleScanner.GetModules("YAF*.dll")
                         .Concat(
                             AppDomain.CurrentDomain.GetAssemblies().Where(
-                                a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
-                                                                      && a.FullName.StartsWith("ServiceStack.")))
+                                a => a.FullName.StartsWith("Autofac") || a.FullName.StartsWith("FarsiLibrary")
+                                                                      || a.FullName.StartsWith("ServiceStack.")))
                         .Except([Assembly.GetExecutingAssembly()]).Where(a => !a.IsDynamic).Distinct()
                         .OrderByDescending(x => x.GetAssemblySortOrder())
         ];
 #if DEBUG
 
-        ExtensionAssemblies.ForEach(s => Debug.WriteLine("Extension Assembly: {0}", s));
+        assemblies.ForEach(s => Debug.WriteLine("Extension Assembly: {0}", s));
 
 #endif
+
+        return assemblies;
     }
 
     /// <summary>

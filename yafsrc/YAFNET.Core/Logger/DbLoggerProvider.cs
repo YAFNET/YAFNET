@@ -57,22 +57,10 @@ public class DbLoggerProvider : ILoggerProvider, ISupportExternalScope
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
-    void IDisposable.Dispose()
+    public void Dispose()
     {
-        if (this.IsDisposed)
-        {
-            return;
-        }
-
-        try
-        {
-            this.Dispose(true);
-        }
-        finally
-        {
-            this.IsDisposed = true;
-            GC.SuppressFinalize(this);  // instructs GC not bother to call the destructor
-        }
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>
@@ -81,12 +69,14 @@ public class DbLoggerProvider : ILoggerProvider, ISupportExternalScope
     /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
     protected virtual void Dispose(bool disposing)
     {
-        if (this.SettingsChangeToken == null)
+        if (this.IsDisposed)
         {
             return;
         }
 
-        this.SettingsChangeToken.Dispose();
+        this.IsDisposed = true;
+
+        this.SettingsChangeToken?.Dispose();
         this.SettingsChangeToken = null;
     }
 
@@ -99,11 +89,6 @@ public class DbLoggerProvider : ILoggerProvider, ISupportExternalScope
     public DbLoggerProvider(IInjectServices injectServices)
     {
         this.InjectServices = injectServices;
-
-        if (!this.IsDisposed)
-        {
-            this.Dispose(false);
-        }
     }
 
     /// <summary>

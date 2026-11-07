@@ -75,7 +75,14 @@ public class PanelSessionState : IPanelSessionState
             context.Response.Cookies.Append(
                 sessionPanelID,
                 ((int)value).ToString(),
-                new CookieOptions { Expires = DateTime.UtcNow.AddYears(1) });
+
+                // a board can run without https, a browser would not store a secure cookie then
+#pragma warning disable S2092
+                new CookieOptions
+                {
+                    Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true, Secure = context.Request.IsHttps
+                });
+#pragma warning restore S2092
         }
     }
 

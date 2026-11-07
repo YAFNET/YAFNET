@@ -53,10 +53,8 @@ public class ShortRouteConvention : IPageRouteModelConvention
         var areaPrefix = model.AreaName.IsSet() ? $"{model.AreaName}/" : string.Empty;
         var pagePrefix = $"{areaPrefix}{page}";
 
-        foreach (var selector in model.Selectors)
+        foreach (var route in model.Selectors.Select(selector => selector.AttributeRouteModel))
         {
-            var route = selector.AttributeRouteModel;
-
             if (route?.Template is null || !route.Template.StartsWith(pagePrefix, StringComparison.OrdinalIgnoreCase))
             {
                 continue;

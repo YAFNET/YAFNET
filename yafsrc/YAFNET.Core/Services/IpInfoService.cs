@@ -42,6 +42,13 @@ using YAF.Types.Objects;
 public class IpInfoService : IIpInfoService, IHaveServiceLocator
 {
     /// <summary>
+    /// The fixed address of the public AbuseIPDB api, it does not depend on the environment.
+    /// </summary>
+#pragma warning disable S1075
+    private readonly static Uri AbuseIpDbEndpoint = new("https://api.abuseipdb.com/api/v2/");
+#pragma warning restore S1075
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="IpInfoService"/> class.
     /// </summary>
     /// <param name="serviceLocator">
@@ -104,9 +111,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// <returns>A Task&lt;AbuseIpDbBlackList&gt; representing the asynchronous operation.</returns>
     public async Task<AbuseIpDbBlackList> GetAbuseIpDbBlackListAsync(string apiKey, int confidenceMinimum = 55, int limit = 10, CancellationToken cancellationToken = default)
     {
-        var v2Endpoint = new Uri("https://api.abuseipdb.com/api/v2/");
-
-        var blackListUri = new Uri(v2Endpoint, $"blacklist?confidenceMinimum={confidenceMinimum}&limit={limit}");
+        var blackListUri = new Uri(AbuseIpDbEndpoint, $"blacklist?confidenceMinimum={confidenceMinimum}&limit={limit}");
 
         var httpClient = this.Get<IHttpClientFactory>().CreateClient();
 
@@ -134,9 +139,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
             return null;
         }
 
-        var v2Endpoint = new Uri("https://api.abuseipdb.com/api/v2/");
-
-        var checkUri = new Uri(v2Endpoint, $"check?ipAddress={HttpUtility.UrlEncode(ipAddress)}&maxAgeInDays={maxAgeInDays}");
+        var checkUri = new Uri(AbuseIpDbEndpoint, $"check?ipAddress={HttpUtility.UrlEncode(ipAddress)}&maxAgeInDays={maxAgeInDays}");
 
         var httpClient = this.Get<IHttpClientFactory>().CreateClient();
 

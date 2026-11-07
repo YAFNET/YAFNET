@@ -550,7 +550,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         if (Value(row, "Birthday").IsSet())
         {
-            _ = DateTime.TryParse(Value(row, "Birthday"), out var userBirthdate);
+            _ = DateTime.TryParse(Value(row, "Birthday"), CultureInfo.CurrentCulture, out var userBirthdate);
 
             if (userBirthdate > DateTimeHelper.SqlDbMinTime())
             {

@@ -24,10 +24,13 @@
 
 namespace YAF.Data.PostgreSQL;
 
+#pragma warning disable S101
 /// <summary>
 /// The YAF PostgreSQL ORM lite dialect provider.
 /// </summary>
+// ReSharper disable once InconsistentNaming
 public class YafPostgreSQLOrmLiteDialectProvider : PostgreSqlDialectProvider
+#pragma warning restore S101
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="YafPostgreSQLOrmLiteDialectProvider"/> class.

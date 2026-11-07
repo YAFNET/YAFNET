@@ -94,6 +94,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
         return versionString.ToString();
     }
 
+#pragma warning disable CA1822
     /// <summary>
     /// Helper function that creates the URL to the themes folder.
     /// </summary>
@@ -119,6 +120,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
 
         return $"~/css/{resourceName}";
     }
+#pragma warning restore CA1822
 
     /// <summary>
     /// Gets complete application external (client-side) URL of the forum. (e.g. https://domain.com/forum

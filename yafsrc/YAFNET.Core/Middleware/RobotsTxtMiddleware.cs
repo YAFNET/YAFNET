@@ -107,7 +107,7 @@ public class RobotsTxtMiddleware : IHaveServiceLocator
             }
 
             context.Response.ContentType = "text/plain";
-            await context.Response.WriteAsync(output);
+            await context.Response.WriteAsync(output, context.RequestAborted);
         }
         else
         {
