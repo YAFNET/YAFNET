@@ -12628,22 +12628,6 @@
             "#text": "内容"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "每页 10 条"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "每页 25 条"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "每页 5 条"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "每页 50 条"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "搜索结果"
           },

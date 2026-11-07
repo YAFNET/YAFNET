@@ -12628,22 +12628,6 @@
             "#text": "Meddelanden"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 träffar per sida"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 träffar per sida"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 träffar per sida"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 träffar per sida"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Resultat"
           },

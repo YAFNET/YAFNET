@@ -12628,22 +12628,6 @@
             "#text": "Zprávy"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 záznamů na stránce"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 záznamů na stránce"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 záznamů na stránce"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 záznamů na stránce"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Výsledky"
           },

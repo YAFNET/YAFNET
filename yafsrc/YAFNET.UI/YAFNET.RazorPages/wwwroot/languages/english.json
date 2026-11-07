@@ -12620,22 +12620,6 @@
                     "#text": "Posts"
                 },
                 {
-                    "@tag": "RESULT10",
-                    "#text": "10 results per page"
-                },
-                {
-                    "@tag": "RESULT25",
-                    "#text": "25 results per page"
-                },
-                {
-                    "@tag": "RESULT5",
-                    "#text": "5 results per page"
-                },
-                {
-                    "@tag": "RESULT50",
-                    "#text": "50 results per page"
-                },
-                {
                     "@tag": "RESULTS",
                     "#text": "Results"
                 },

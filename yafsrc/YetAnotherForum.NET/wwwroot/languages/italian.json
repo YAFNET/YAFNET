@@ -12612,22 +12612,6 @@
             "#text": "Messaggi"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 risultati per pagina"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 risultati per pagina"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 risultati per pagina"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 risultati per pagina"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Risultati"
           },

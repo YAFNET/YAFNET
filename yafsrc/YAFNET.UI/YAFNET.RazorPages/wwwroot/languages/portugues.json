@@ -12628,22 +12628,6 @@
             "#text": "Envios"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 resultados por página"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 resultados por página"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 resultados por página"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 resultados por página"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Resultados"
           },

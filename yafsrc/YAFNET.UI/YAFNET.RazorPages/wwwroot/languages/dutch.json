@@ -12612,22 +12612,6 @@
             "#text": "Berichten"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 resultaten per pagina"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 resultaten per pagina"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 resultaten per pagina"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 resultaten per pagina"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Resultaten"
           },

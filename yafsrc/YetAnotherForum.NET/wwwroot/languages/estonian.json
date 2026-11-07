@@ -12628,22 +12628,6 @@
             "#text": "Postitusi"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 tulemust/lk."
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 tulemust/lk."
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 tulemust/lk."
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 tulemust/lk."
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Tulemused"
           },

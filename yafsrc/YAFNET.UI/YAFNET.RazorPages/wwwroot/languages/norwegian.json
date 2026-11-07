@@ -12628,22 +12628,6 @@
             "#text": "Meldinger"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 resultater per side"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 resultater per side"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 resultater per side"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 resultater per side"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Resultater"
           },

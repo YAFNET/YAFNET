@@ -12628,22 +12628,6 @@
             "#text": "Postari"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 rezultate pe pagina"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 de rezultate pe pagină"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 rezultate pe pagina"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 rezultate pe pagina"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Rezultate"
           },

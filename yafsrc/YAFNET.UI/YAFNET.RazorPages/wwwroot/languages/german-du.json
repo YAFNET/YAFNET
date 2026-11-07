@@ -12612,22 +12612,6 @@
             "#text": "Zu suchende Begriffe innerhalb eines Beitrags"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 Ergebnisse pro Seite"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 Ergebnisse pro Seite"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 Ergebnisse pro Seite"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 Ergebnisse pro Seite"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Ergebnisse"
           },

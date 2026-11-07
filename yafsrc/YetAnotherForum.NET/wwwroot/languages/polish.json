@@ -12616,22 +12616,6 @@
             "#text": "Posty"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 wyników na stronie"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 wyników na stronie"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 wyników na stronie"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 wyników na stronie"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Wyniki"
           },

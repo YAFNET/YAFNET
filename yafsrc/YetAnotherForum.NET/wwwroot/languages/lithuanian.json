@@ -12628,22 +12628,6 @@
             "#text": "Žinutės "
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 rezultatų puslapyje "
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 rezultatų puslapyje "
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 rezultatų puslapyje "
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 rezultatų puslapyje "
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Rezultatai "
           },

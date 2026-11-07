@@ -12628,22 +12628,6 @@
             "#text": "hae viesteistä"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "näytä 10 tulosta sivulla"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "näytä 25 tulosta sivulla"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "näytä 5 tulosta sivulla"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "näytä 50 tulosta sivulla"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Tulokset"
           },

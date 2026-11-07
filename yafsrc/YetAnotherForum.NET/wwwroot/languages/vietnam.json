@@ -12628,22 +12628,6 @@
             "#text": "Bài viết"
           },
           {
-            "@tag": "RESULT10",
-            "#text": "10 kết quả trên trang"
-          },
-          {
-            "@tag": "RESULT25",
-            "#text": "25 kết quả trên trang"
-          },
-          {
-            "@tag": "RESULT5",
-            "#text": "5 kết quả trên trang"
-          },
-          {
-            "@tag": "RESULT50",
-            "#text": "50 kết quả trên trang"
-          },
-          {
             "@tag": "RESULTS",
             "#text": "Kết quả"
           },
