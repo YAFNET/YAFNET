@@ -1180,7 +1180,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                     "The edit page shows the language of the current board");
 
                 // saved without a description
-                var response = await page.RunAndWaitForNavigationAsync(
+                var response = await page.RunAndWaitForNextPageResponseAsync(
                                    () => page.Locator("button[formaction$='/Save'], button[formaction*='handler=Save']").First.ClickAsync());
 
                 Assert.That(response?.Status, Is.LessThan(500), "The board without a description can not be saved");

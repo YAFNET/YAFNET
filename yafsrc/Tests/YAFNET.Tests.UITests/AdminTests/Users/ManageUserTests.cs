@@ -74,7 +74,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 await page.GotoAsync(signatureUrl);
                 await page.EvaluateAsync("text => { const t = document.querySelector('#Signature'); const e = window.sceditor && sceditor.instance(t); if (e) { e.val(text); e.updateOriginal(); } else { t.value = text; } }", signature);
 
-                var response = await page.RunAndWaitForNavigationAsync(
+                var response = await page.RunAndWaitForNextPageResponseAsync(
                                    () => page.Locator("button[formaction*='Save']").First.ClickAsync());
 
                 Assert.That(response?.Status, Is.LessThan(500), "Saving the signature failed");
@@ -86,7 +86,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 // removed with an empty field
                 await page.EvaluateAsync("text => { const t = document.querySelector('#Signature'); const e = window.sceditor && sceditor.instance(t); if (e) { e.val(text); e.updateOriginal(); } else { t.value = text; } }", string.Empty);
 
-                response = await page.RunAndWaitForNavigationAsync(
+                response = await page.RunAndWaitForNextPageResponseAsync(
                                () => page.Locator("button[formaction*='Save']").First.ClickAsync());
 
                 Assert.That(response?.Status, Is.LessThan(500), "Removing the signature failed");
@@ -259,7 +259,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     """);
 
                 // waits for the new page (the old page is loaded already when the response arrives)
-                var response = await page.RunAndWaitForNavigationAsync(
+                var response = await page.RunAndWaitForNextPageResponseAsync(
                                    () => page.EvaluateAsync("() => document.querySelector(\"button[formaction*='/Search']\").click()"));
 
                 Assert.That(response?.Status, Is.EqualTo(200), "The filter failed");
@@ -274,7 +274,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 await page.Locator("input[name='Input.YearsOld']").EvaluateAsync("input => input.value = '1000000'");
 
                 // waits for the new page, closing the page while it is loaded never ends
-                response = await page.RunAndWaitForNavigationAsync(
+                response = await page.RunAndWaitForNextPageResponseAsync(
                                () => page.EvaluateAsync("() => document.querySelector(\"button[formaction*='/LockAccounts']\").click()"));
 
                 Assert.That(response?.Status, Is.EqualTo(200), "Lock inactive accounts failed");

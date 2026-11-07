@@ -855,17 +855,20 @@ public class CrawlTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     /// </summary>
     private async Task GoHomeAsync(IPage page)
     {
-        for (var attempt = 0; ; attempt++)
+        for (var attempt = 0; attempt < 3; attempt++)
         {
             try
             {
                 await page.GotoAsync(this.TestSettings.TestForumUrl);
                 return;
             }
-            catch (PlaywrightException) when (attempt < 3)
+            catch (PlaywrightException)
             {
                 await page.WaitForTimeoutAsync(1000);
             }
         }
+
+        // the last attempt, now the exception is passed on
+        await page.GotoAsync(this.TestSettings.TestForumUrl);
     }
 }

@@ -114,7 +114,7 @@ public class TeamTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                         IResponse response = null;
 
-                        await page.RunAndWaitForNavigationAsync(
+                        await page.RunAndWaitForNextPageAsync(
                             async () => response = await page.RunAndWaitForResponseAsync(
                                             () => page.Locator("select[name$='SelectedForumId']").First.EvaluateAsync(
                                                 "(select, value) => { select.add(new Option(value, value, true, true)); select.value = value; select.form.submit(); }",

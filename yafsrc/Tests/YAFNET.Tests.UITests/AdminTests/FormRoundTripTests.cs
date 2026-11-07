@@ -135,7 +135,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
 
                             try
                             {
-                                response = await page.RunAndWaitForNavigationAsync(
+                                response = await page.RunAndWaitForNextPageResponseAsync(
                                                () => page.EvaluateAsync(
                                                    """
                                                    ([index, action]) => {
@@ -146,7 +146,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
                                                    }
                                                    """,
                                                    new object[] { index, action }),
-                                               new PageRunAndWaitForNavigationOptions { Timeout = 15000 });
+                                               15000);
                             }
                             catch (TimeoutException)
                             {
@@ -332,7 +332,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
     {
         try
         {
-            var response = await page.RunAndWaitForNavigationAsync(
+            var response = await page.RunAndWaitForNextPageResponseAsync(
                                () => page.EvaluateAsync(
                                    """
                                    ([index, action]) => {
@@ -343,7 +343,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
                                    }
                                    """,
                                    new object[] { index, action }),
-                               new PageRunAndWaitForNavigationOptions { Timeout = 15000 });
+                               15000);
 
             if (response is { Status: >= 500 })
             {

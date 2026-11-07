@@ -234,7 +234,8 @@ public static class PageExtensions
         /// and waits until the new page is completely loaded.
         /// </summary>
         /// <param name="action">The action.</param>
-        public async Task RunAndWaitForNextPageAsync(Func<Task> action)
+        /// <param name="timeout">The timeout in milliseconds, without one the default timeout is used.</param>
+        public async Task RunAndWaitForNextPageAsync(Func<Task> action, float? timeout = null)
         {
             // a page that is still loading (e.g. from the step before) can not be marked
             await page.WaitForLoadStateAsync();
@@ -244,7 +245,43 @@ public static class PageExtensions
 
             await action();
 
-            await page.WaitForFunctionAsync("() => !window.yafTestOldPage && document.readyState === 'complete'");
+            await page.WaitForFunctionAsync(
+                "() => !window.yafTestOldPage && document.readyState === 'complete'",
+                null,
+                new PageWaitForFunctionOptions { Timeout = timeout });
+        }
+
+        /// <summary>
+        /// Runs an action that loads a new page (see <see cref="RunAndWaitForNextPageAsync"/>)
+        /// and returns the response of the new page, the last one if the request was redirected.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        /// <param name="timeout">The timeout in milliseconds, without one the default timeout is used.</param>
+        /// <returns>The response of the new page.</returns>
+        public async Task<IResponse> RunAndWaitForNextPageResponseAsync(Func<Task> action, float? timeout = null)
+        {
+            IResponse response = null;
+
+            void OnResponse(object sender, IResponse pageResponse)
+            {
+                if (pageResponse.Request.IsNavigationRequest && pageResponse.Frame == page.MainFrame)
+                {
+                    response = pageResponse;
+                }
+            }
+
+            page.Response += OnResponse;
+
+            try
+            {
+                await page.RunAndWaitForNextPageAsync(action, timeout);
+            }
+            finally
+            {
+                page.Response -= OnResponse;
+            }
+
+            return response;
         }
 
         /// <summary>

@@ -100,7 +100,7 @@ public class TopicPageTests(ComposeScenario scenario) : DatabaseTestBase(scenari
 
                 await AssertPageAsync(page, 1);
 
-                await page.RunAndWaitForNavigationAsync(
+                await page.RunAndWaitForNextPageAsync(
                     () => page.Locator(".pagination a.page-link[href$='/2']").First.ClickAsync());
 
                 Assert.That(page.Url, Is.EqualTo($"{topicUrl}/2"), "The pager links to the path");
@@ -115,7 +115,7 @@ public class TopicPageTests(ComposeScenario scenario) : DatabaseTestBase(scenari
                 await AssertPageAsync(page, 2);
 
                 // an action on a post of the second page returns to that page. The button is in a dropdown
-                var response = await page.RunAndWaitForNavigationAsync(
+                var response = await page.RunAndWaitForNextPageResponseAsync(
                                    () => page.Locator("button[formaction*='MarkAsAnswer']").First
                                        .EvaluateAsync("button => button.click()"));
 
