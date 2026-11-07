@@ -3,6 +3,7 @@ YetAnotherForum.NET Changelog
 
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
+* [FIXED] Search: the similar topics parsed the topic title as query syntax, so a title with special characters (e.g. the colon of a time) threw a ParseException on every topic view; the query is now built from the analyzed title without the QueryParser (no internal "read past eof" IOException either)
 
 # YetAnotherForum.NET v3.2.17
 * [NEW] Extended unit test suite (YAF.Tests, renamed from YAF.Tests.CoreTests) including repository tests against an in-memory SQLite database
