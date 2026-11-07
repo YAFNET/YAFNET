@@ -174,7 +174,7 @@ jobs:
           foreach ($file in $nuspecs) {
             $content = Get-Content $file.FullName -Raw
             if ($content -notmatch "<version>$([regex]::Escape($expected))</version>") {
-              throw "Version mismatch in $($file.FullName): expected $expected. Run 'grunt updateVersionNumber' and commit before releasing."
+              throw "Version mismatch in $($file.FullName): expected $expected. Run 'npm run updateVersionNumber' and commit before releasing."
             }
           }
 

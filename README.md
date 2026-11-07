@@ -74,7 +74,7 @@ Prerequisites: the [.NET 10.0 SDK](https://dotnet.microsoft.com/download) and [N
 ```bash
 cd yafsrc/YetAnotherForum.NET
 npm install
-npm run build                           # compile the JS and CSS files (Grunt)
+npm run build                           # compile the JS and CSS files (build.js)
 
 cd ..
 dotnet build YAF.NET-SqlServer.slnx     # or YAF.NET-MySql / -PostgreSQL / -Sqlite
