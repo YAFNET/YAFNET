@@ -127,6 +127,7 @@ public interface ISearch
     /// <param name="pageIndex">Index of the page.</param>
     /// <param name="pageSize">Size of the page.</param>
     /// <param name="fieldName">Name of the field.</param>
+    /// <param name="groupByTopic">Only return the latest matching post of each topic.</param>
     /// <returns>
     /// Returns the search results
     /// </returns>
@@ -135,7 +136,8 @@ public interface ISearch
         string input,
         int pageIndex,
         int pageSize,
-        string fieldName = "");
+        string fieldName = "",
+        bool groupByTopic = false);
 
     /// <summary>
     /// Searches the default.

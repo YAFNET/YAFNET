@@ -33,6 +33,8 @@ using Autofac;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+using NSubstitute;
+
 using YAF.Core.Controllers;
 using YAF.Core.Controllers.Modals;
 using YAF.Core.Extensions;
@@ -59,11 +61,15 @@ public class MultiQuoteBBCodeForumControllerTests
     [SetUp]
     public void SetUp()
     {
+        var permissions = Substitute.For<IPermissions>();
+        permissions.Check(Arg.Any<ViewPermissions>()).Returns(true);
+
         this.board = new TestBoardContext(
             b =>
             {
                 b.RegisterType<SessionService>().As<ISessionService>();
                 b.RegisterType<DataImporter>().As<IDataImporter>();
+                b.RegisterInstance(permissions).As<IPermissions>();
             },
             useDatabase: true);
 
@@ -166,6 +172,43 @@ public class MultiQuoteBBCodeForumControllerTests
             await controller.GetForums(new SearchTopic { SearchTerm = "READ" }));
         searched.Total.Should().Be(1);
         searched.Results.Single().children.Single().text.Should().Be("Readable");
+    }
+
+    [Test]
+    [Description("The search for forums finds the readable forums by name, the category is the description, the results are paged")]
+    public async Task Search_Forums_Test()
+    {
+        var db = this.board.Database;
+        var category = db.AddCategory("Category");
+        var first = db.AddForum("Support one", category);
+        var second = db.AddForum("Support two", category);
+        db.AddForum("Support hidden", category);
+
+        this.board.GrantAccess(this.alice, first);
+        this.board.GrantAccess(this.alice, second);
+
+        var controller = this.board.CreateController<SearchController>();
+
+        var found = Value(
+            await controller.GetSearchResults(
+                new SearchTopic { SearchType = SearchResultType.Forums, SearchTerm = "SUPPORT", PageSize = 10 }));
+
+        found.TotalRecords.Should().Be(2);
+        found.SearchResults.Select(r => r.ForumName).Should().Equal("Support one", "Support two");
+        found.SearchResults[0].ForumId.Should().Be(first);
+        found.SearchResults[0].Description.Should().Be("Category");
+
+        var secondPage = Value(
+            await controller.GetSearchResults(
+                new SearchTopic { SearchType = SearchResultType.Forums, SearchTerm = "support", PageSize = 1, Page = 1 }));
+
+        secondPage.TotalRecords.Should().Be(2);
+        secondPage.SearchResults.Single().ForumName.Should().Be("Support two");
+
+        Value(
+                await controller.GetSearchResults(
+                    new SearchTopic { SearchType = SearchResultType.Forums, SearchTerm = string.Empty, PageSize = 10 }))
+            .TotalRecords.Should().Be(0);
     }
 
     [Test]

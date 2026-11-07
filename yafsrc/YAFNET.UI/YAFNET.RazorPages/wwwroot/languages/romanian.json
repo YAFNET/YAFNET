@@ -12648,6 +12648,10 @@
             "#text": "Rezultate"
           },
           {
+            "@tag": "SEARCH_FOR",
+            "#text": "Caută"
+          },
+          {
             "@tag": "SEARCH_IN",
             "#text": "Căutați în Forum(uri)"
           },

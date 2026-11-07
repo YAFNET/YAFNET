@@ -6,6 +6,21 @@
 @using YAF.Types.Interfaces
 @model YAF.Pages.SearchModel
 
+@{
+    // the options as a group of buttons (radio buttons), the label of the group has the id {name}Label
+    void RenderOptionButtons(string name, string cssClass, List<SelectListItem> items, string selected, bool vertical = false)
+    {
+        <div class="@(vertical ? "btn-group-vertical" : "btn-group") w-100" role="group" aria-labelledby="@(name)Label">
+            @foreach (var item in items)
+            {
+                <input type="radio" class="btn-check @cssClass" name="Input.@name" id="@name@(item.Value)"
+                       value="@item.Value" checked="@(item.Value == selected)" autocomplete="off"/>
+                <label class="btn btn-outline-primary" for="@name@(item.Value)">@item.Text</label>
+            }
+        </div>
+    }
+}
+
 <form method="post">
     <div class="row mb-3">
         <div class="col-lg-8">
@@ -41,6 +56,7 @@
                      data-by='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("By") )'
                      data-lastpost='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("GO_LAST_POST") )'
                      data-topic='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("COMMON","VIEW_TOPIC") )'
+                     data-forum='@Html.Raw( Model.Get<ILocalization>().GetAttributeText("COMMON","VIEW_FORUM") )'
                      style="clear: both;">
                 </div>
 
@@ -54,6 +70,10 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
+                        <label id="SearchTypeLabel" localized-tag="SEARCH_FOR" class="form-label d-block"></label>
+                        @{ RenderOptionButtons("SearchType", "searchType", Model.SearchTypeList, Model.Input.SearchType); }
+                    </div>
+                    <div class="mb-3">
                         <label asp-for="Input.SearchStringFromWho" localized-tag="POSTEDBY" class="form-label"></label>
                         <input asp-for="Input.SearchStringFromWho" class="form-control searchUserInput" data-display="@Html.Raw(Model.PageBoardContext.BoardSettings.EnableDisplayName.ToString())"/>
                     </div>
@@ -63,10 +83,8 @@
                     </div>
                     <hr/>
                     <div class="mb-3">
-                        <label asp-for="Input.SearchWhat" localized-tag="KEYWORDS" class="form-label"></label>
-                        <select asp-for="Input.SearchWhat"
-                                asp-items="Model.SearchWhatList"
-                                class="form-select searchWhat"></select>
+                        <label id="SearchWhatLabel" localized-tag="KEYWORDS" class="form-label d-block"></label>
+                        @{ RenderOptionButtons("SearchWhat", "searchWhat", Model.SearchWhatList, Model.Input.SearchWhat, true); }
                     </div>
                     <div class="mb-3">
                         <label for="ForumList" localized-tag="SEARCH_IN" class="form-label"></label>
@@ -74,16 +92,12 @@
                         <input type="hidden" asp-for="Input.ForumListSelected" value="@Model.Input.ForumListSelected"/>
                     </div>
                     <div class="mb-3">
-                        <label asp-for="Input.TitleOnly" localized-tag="SEARCH_TITLEORBOTH" class="form-label"></label>
-                        <select asp-for="Input.TitleOnly"
-                                asp-items="Model.TitleOnlyList"
-                                class="form-select titleOnly"></select>
+                        <label id="TitleOnlyLabel" localized-tag="SEARCH_TITLEORBOTH" class="form-label d-block"></label>
+                        @{ RenderOptionButtons("TitleOnly", "titleOnly", Model.TitleOnlyList, Model.Input.TitleOnly, true); }
                     </div>
                     <div class="mb-3">
-                        <label asp-for="Input.ResultsPerPage" localized-tag="SEARCH_RESULTS" class="form-label"></label>
-                        <select asp-for="Input.ResultsPerPage"
-                                asp-items="Model.ResultsPerPageList"
-                                class="form-select resultsPage"></select>
+                        <label id="ResultsPerPageLabel" localized-tag="SEARCH_RESULTS" class="form-label d-block"></label>
+                        @{ RenderOptionButtons("ResultsPerPage", "resultsPage", Model.ResultsPerPageList, Model.Input.ResultsPerPage); }
                     </div>
                 </div>
             </div>

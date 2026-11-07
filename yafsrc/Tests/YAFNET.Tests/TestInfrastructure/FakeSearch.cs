@@ -106,7 +106,8 @@ public class FakeSearch : ISearch
         string input,
         int pageIndex,
         int pageSize,
-        string fieldName = "")
+        string fieldName = "",
+        bool groupByTopic = false)
     {
         return Task.FromResult(Tuple.Create(new List<SearchMessage>(), 0));
     }

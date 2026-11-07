@@ -287,6 +287,34 @@ public class LuceneSearchTests
     }
 
     [Test]
+    [Description("Grouped by topic each topic is one result (its latest matching post), counted and paged as one")]
+    public async Task Search_Group_By_Topic_Test()
+    {
+        var search = this.NewSearch();
+
+        search.UpdateSearchIndexItem(this.Message(1, 100, this.forumA, "First topic", "grouped content"));
+        search.UpdateSearchIndexItem(this.Message(2, 100, this.forumA, "First topic", "grouped content"));
+        search.UpdateSearchIndexItem(this.Message(3, 101, this.forumA, "Second topic", "grouped content"));
+        search.UpdateSearchIndexItem(this.Message(4, 100, this.forumA, "First topic", "grouped content"));
+
+        search.Optimize();
+
+        var (posts, postsTotal) = await this.NewSearch().SearchPagedAsync(0, "grouped", 0, 10);
+
+        postsTotal.Should().Be(4);
+        posts.Select(r => r.MessageId).Should().Equal(4, 3, 2, 1);
+
+        var (topics, topicsTotal) = await this.NewSearch().SearchPagedAsync(0, "grouped", 0, 10, groupByTopic: true);
+
+        topicsTotal.Should().Be(2);
+        topics.Select(r => r.MessageId).Should().Equal(4, 3);
+
+        var (secondPage, _) = await this.NewSearch().SearchPagedAsync(0, "grouped", 1, 1, groupByTopic: true);
+
+        secondPage.Select(r => r.MessageId).Should().Equal(3);
+    }
+
+    [Test]
     [Description("Message ids are sorted as numbers, not as strings, so newer messages are not cut off")]
     public async Task Search_Sorts_Ids_Numerically_Test()
     {

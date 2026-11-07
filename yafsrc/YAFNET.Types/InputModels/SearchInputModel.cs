@@ -48,6 +48,12 @@ public class SearchInputModel
     public string SearchStringTag { get; set; }
 
     /// <summary>
+    /// Gets or sets what is searched for (posts, topics or forums).
+    /// </summary>
+    /// <value>The search type.</value>
+    public string SearchType { get; set; }
+
+    /// <summary>
     /// Gets or sets the search what.
     /// </summary>
     /// <value>The search what.</value>

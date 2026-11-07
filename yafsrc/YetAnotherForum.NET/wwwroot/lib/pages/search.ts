@@ -3,6 +3,8 @@ import { Modal } from 'bootstrap';
 
 const _global = (window /* browser */ || global /* node */) as any;
 
+const searchTypeForums = '2';
+
 function setSearchPageNumber(pageSize: number, pageNumber: number, total: number): void {
 		const pages = Math.ceil(total / pageSize),
 			pagerHolderTop = document.getElementById('SearchResultsPagerTop') as HTMLDivElement,
@@ -128,6 +130,26 @@ function addSearchFilter(searchText: string, field: string, value: string): stri
 	return searchText.length ? `${searchText} AND ${filter}` : `+${filter}`;
 }
 
+function getSearchType(): string {
+	return (document.querySelector('.searchType:checked') as HTMLInputElement).value;
+}
+
+// the search for forums only uses the search text, the other filters are for posts
+function setSearchOptionsState(): void {
+	const searchForums = getSearchType() === searchTypeForums;
+
+	document.querySelectorAll<HTMLInputElement>('.searchUserInput, .searchTagInput, .searchWhat, .titleOnly')
+		.forEach(element => {
+			element.disabled = searchForums;
+		});
+
+	if (searchForums) {
+		_global.forumsSelect?.disable();
+	} else {
+		_global.forumsSelect?.enable();
+	}
+}
+
 function getSearchResultsData(pageNumber: number): void {
 		const searchInput = (document.querySelector('.searchInput') as HTMLInputElement).value;
 		const searchInputUser = (document.querySelector('.searchUserInput') as HTMLInputElement).value;
@@ -140,9 +162,10 @@ function getSearchResultsData(pageNumber: number): void {
 			(document.querySelector('.searchUserInput') as HTMLInputElement).dataset.display === 'True';
 
 		// filter options
-		const pageSize = parseInt((document.querySelector('.resultsPage') as HTMLInputElement).value);
-		const titleOnly = (document.querySelector('.titleOnly') as HTMLInputElement).value;
-		const searchWhat = (document.querySelector('.searchWhat') as HTMLInputElement).value;
+		const pageSize = parseInt((document.querySelector('.resultsPage:checked') as HTMLInputElement).value);
+		const titleOnly = (document.querySelector('.titleOnly:checked') as HTMLInputElement).value;
+		const searchWhat = (document.querySelector('.searchWhat:checked') as HTMLInputElement).value;
+		const searchType = getSearchType();
 
 		const minimumLength = placeHolder.dataset.minimum as string;
 
@@ -198,11 +221,14 @@ function getSearchResultsData(pageNumber: number): void {
 				searchText = addSearchFilter(searchText, 'TopicTags', searchInputTag);
 			}
 
-			const searchTopic: { ForumId: number; PageSize: number; Page: number; SearchTerm: string } = {
+			const searchTopic: { ForumId: number; PageSize: number; Page: number; SearchTerm: string; SearchType: number } = {
 				ForumId: searchForum,
 				PageSize: pageSize,
 				Page: pageNumber,
-				SearchTerm: searchText
+
+				// the names of the forums are not searched with the search index, only the plain text is used
+				SearchTerm: searchType === searchTypeForums ? searchInput : searchText,
+				SearchType: parseInt(searchType)
 			};
 
 			Utilities.empty(placeHolder);
@@ -229,6 +255,7 @@ function getSearchResultsData(pageNumber: number): void {
 				const by = placeHolder.dataset.by || '';
 				const lastPost = placeHolder.dataset.lastpost || '';
 				const topic = placeHolder.dataset.topic || '';
+				const forum = placeHolder.dataset.forum || '';
 
 				if (data.searchResults.length === 0) {
 					loadModal.hide();
@@ -248,6 +275,27 @@ function getSearchResultsData(pageNumber: number): void {
 
 					data.searchResults.forEach((dataItem: any) => {
 						const item: HTMLDivElement = document.createElement('div');
+
+						if (searchType === searchTypeForums) {
+							item.innerHTML = `
+                <div class="row">
+                    <div class="col">
+                        <div class="card mb-3">
+                            <div class="card-header topicTitle">
+                                <h5><a title="${forum}" href="${dataItem.forumUrl}">${dataItem.forumName}</a></h5>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-subtitle text-body-secondary">${dataItem.description}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+
+							placeHolder.appendChild(item);
+
+							return;
+						}
+
 						let tags = ' ';
 
 						if (dataItem.topicTags) {
@@ -328,7 +376,16 @@ searchInput.addEventListener('keypress', (event: KeyboardEvent) => {
 	}
 });
 
+document.querySelectorAll('.searchType, .searchWhat, .titleOnly, .resultsPage').forEach(element => {
+	element.addEventListener('change', () => {
+		setSearchOptionsState();
+		getSearchResultsData(0);
+	});
+});
+
 document.addEventListener('DOMContentLoaded', () => {
+	setSearchOptionsState();
+
 	var url = new URL(window.location.href);
 
 	if (url.searchParams.has('search') ||

@@ -46,6 +46,12 @@ public class SearchModel : ForumPage
     public SearchInputModel Input { get; set; }
 
     /// <summary>
+    /// Gets or sets the list of what can be searched for (posts, topics or forums).
+    /// </summary>
+    /// <value>The search type list.</value>
+    public List<SelectListItem> SearchTypeList { get; set; }
+
+    /// <summary>
     /// Gets or sets the search what list.
     /// </summary>
     /// <value>The search what list.</value>
@@ -92,10 +98,17 @@ public class SearchModel : ForumPage
 
         // Load result dropdown
         this.ResultsPerPageList = [
-            new SelectListItem { Text = this.GetText("result5"), Value = "5" },
-            new SelectListItem { Text = this.GetText("result10"), Value = "10" },
-            new SelectListItem { Text = this.GetText("result25"), Value = "25" },
-            new SelectListItem { Text = this.GetText("result50"), Value = "50" }
+            new SelectListItem { Text = "5", Value = "5" },
+            new SelectListItem { Text = "10", Value = "10" },
+            new SelectListItem { Text = "25", Value = "25" },
+            new SelectListItem { Text = "50", Value = "50" }
+        ];
+
+        // Load search type dropdown
+        this.SearchTypeList = [
+            new SelectListItem { Text = this.GetText("POSTS"), Value = "0" },
+            new SelectListItem { Text = this.Get<ILocalization>().GetText("DEFAULT", "TOPICS"), Value = "1" },
+            new SelectListItem { Text = this.Get<ILocalization>().GetText("DEFAULT", "FORUMS"), Value = "2" }
         ];
 
         // Load listSearchWhat dropdown
@@ -123,6 +136,9 @@ public class SearchModel : ForumPage
         ];
 
         this.Input.SearchWhat = "2";
+        this.Input.SearchType = "0";
+        this.Input.TitleOnly = "0";
+        this.Input.ResultsPerPage = "5";
 
         // Handle search by url
         var searchString = search;

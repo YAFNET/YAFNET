@@ -12648,6 +12648,10 @@
             "#text": "Tulokset"
           },
           {
+            "@tag": "SEARCH_FOR",
+            "#text": "Hae"
+          },
+          {
             "@tag": "SEARCH_IN",
             "#text": "Haku foorumi(e)ssa"
           },

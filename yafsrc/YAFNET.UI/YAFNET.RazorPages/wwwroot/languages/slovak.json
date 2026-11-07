@@ -12648,6 +12648,10 @@
             "#text": "Výsledky"
           },
           {
+            "@tag": "SEARCH_FOR",
+            "#text": "Hľadať"
+          },
+          {
             "@tag": "SEARCH_IN",
             "#text": "Vyhľadávanie vo fórach"
           },

@@ -12632,6 +12632,10 @@
             "#text": "Resultaten"
           },
           {
+            "@tag": "SEARCH_FOR",
+            "#text": "Zoeken naar"
+          },
+          {
             "@tag": "SEARCH_IN",
             "#text": "Zoeken in Forum(s)"
           },

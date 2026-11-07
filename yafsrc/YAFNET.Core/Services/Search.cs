@@ -391,6 +391,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <param name="pageIndex">Index of the page.</param>
     /// <param name="pageSize">Size of the page.</param>
     /// <param name="fieldName">Name of the field.</param>
+    /// <param name="groupByTopic">Only return the latest matching post of each topic.</param>
     /// <returns>
     /// Returns the search results
     /// </returns>
@@ -399,7 +400,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         string input,
         int pageIndex,
         int pageSize,
-        string fieldName = "")
+        string fieldName = "",
+        bool groupByTopic = false)
     {
         if (!input.IsSet())
         {
@@ -408,7 +410,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         try
         {
-            return await this.SearchIndexAsync(forumId, input, fieldName, pageIndex, pageSize);
+            return await this.SearchIndexAsync(forumId, input, fieldName, pageIndex, pageSize, groupByTopic);
         }
         catch (Exception exception)
         {
@@ -832,6 +834,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <param name="pageIndex">Index of the page.</param>
     /// <param name="pageSize">Size of the page.</param>
     /// <param name="userAccessList">The user access list.</param>
+    /// <param name="groupByTopic">Only return the latest matching post of each topic.</param>
     /// <returns>
     /// Returns the search list of the page and the number of hits the user can see
     /// </returns>
@@ -842,11 +845,18 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         IEnumerable<ScoreDoc> hits,
         int pageIndex,
         int pageSize,
-        List<VAccess> userAccessList)
+        List<VAccess> userAccessList,
+        bool groupByTopic)
     {
         // only the hits the user can see are counted (and paged), only the page is formatted
         var visible = hits.Select(hit => searcher.Doc(hit.Doc)).Where(doc => CanSeeDocument(doc, userAccessList))
             .OrderByDescending(doc => doc.Get("MessageId").ToType<int>()).ToList();
+
+        if (groupByTopic)
+        {
+            // the hits are sorted newest first, the latest post of each topic stays
+            visible = [.. visible.DistinctBy(doc => doc.Get("TopicId"))];
+        }
 
         var results = new List<SearchMessage>();
 
@@ -866,6 +876,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <param name="searchField">The search field.</param>
     /// <param name="pageIndex">Index of the page.</param>
     /// <param name="pageSize">Size of the page.</param>
+    /// <param name="groupByTopic">Only return the latest matching post of each topic.</param>
     /// <returns>
     /// Returns the Search results
     /// </returns>
@@ -874,7 +885,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         string searchQuery,
         string searchField = "",
         int pageIndex = 0,
-        int pageSize = 1000)
+        int pageSize = 1000,
+        bool groupByTopic = false)
     {
         if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
         {
@@ -929,7 +941,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 hits,
                 pageIndex,
                 pageSize,
-                userAccessList);
+                userAccessList,
+                groupByTopic);
 
             analyzer.Dispose();
 
@@ -984,7 +997,8 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 hits,
                 pageIndex,
                 pageSize,
-                userAccessList);
+                userAccessList,
+                groupByTopic);
 
             this.searcherManager.Release(searcher);
 

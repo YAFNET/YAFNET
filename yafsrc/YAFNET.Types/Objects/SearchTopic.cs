@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Objects;
 
+using YAF.Types.Constants;
+
 /// <summary>
 /// The search topic.
 /// </summary>
@@ -58,4 +60,9 @@ public class SearchTopic
     /// Gets or sets a value indicating whether all forums option.
     /// </summary>
     public bool AllForumsOption { get; set; }
+
+    /// <summary>
+    /// Gets or sets what is searched for.
+    /// </summary>
+    public SearchResultType SearchType { get; set; }
 }

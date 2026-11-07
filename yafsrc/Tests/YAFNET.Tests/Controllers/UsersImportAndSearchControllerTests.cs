@@ -172,6 +172,20 @@ public class UsersImportAndSearchControllerTests
     }
 
     [Test]
+    [Description("The search for topics returns one result for each topic")]
+    public async Task Search_Topics_Test()
+    {
+        this.search.SearchPagedAsync(0, "term", 0, 10, groupByTopic: true).Returns(
+            Tuple.Create(new List<SearchMessage> { new() { Topic = "a" } }, 1));
+
+        var result = Value(
+            await this.board.CreateController<SearchController>()
+                .GetSearchResults(new SearchTopic { SearchType = SearchResultType.Topics, SearchTerm = "term", PageSize = 10 }));
+
+        result.TotalRecords.Should().Be(1);
+    }
+
+    [Test]
     [Description("Searching needs the search permission of the board, the page size is limited")]
     public async Task Search_Permission_And_Page_Size_Test()
     {

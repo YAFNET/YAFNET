@@ -12648,6 +12648,10 @@
             "#text": "Resultat"
           },
           {
+            "@tag": "SEARCH_FOR",
+            "#text": "Sök efter"
+          },
+          {
             "@tag": "SEARCH_IN",
             "#text": "Sök i forum"
           },

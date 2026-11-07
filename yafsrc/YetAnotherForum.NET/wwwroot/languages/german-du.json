@@ -12632,6 +12632,10 @@
             "#text": "Ergebnisse"
           },
           {
+            "@tag": "SEARCH_FOR",
+            "#text": "Suchen nach"
+          },
+          {
             "@tag": "SEARCH_IN",
             "#text": "Suche in Foren"
           },

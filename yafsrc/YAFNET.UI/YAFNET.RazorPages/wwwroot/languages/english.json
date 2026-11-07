@@ -12640,6 +12640,10 @@
                     "#text": "Results"
                 },
                 {
+                    "@tag": "SEARCH_FOR",
+                    "#text": "Search for"
+                },
+                {
                     "@tag": "SEARCH_IN",
                     "#text": "Search in Forum(s)"
                 },

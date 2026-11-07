@@ -27,11 +27,15 @@ using YAF.Types.Attributes;
 namespace YAF.Core.Controllers;
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.OutputCaching;
 
 using YAF.Core.BasePages;
+using YAF.Core.Model;
+using YAF.Types.Constants;
+using YAF.Types.Models;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -102,11 +106,17 @@ public class SearchController : ForumBaseController
         searchTopic.PageSize = Math.Clamp(searchTopic.PageSize, 1, 50);
         searchTopic.Page = Math.Max(searchTopic.Page, 0);
 
+        if (searchTopic.SearchType == SearchResultType.Forums)
+        {
+            return this.Ok(this.SearchForums(searchTopic));
+        }
+
         var results = await this.Get<ISearch>().SearchPagedAsync(
             searchTopic.ForumId,
             searchTopic.SearchTerm,
             searchTopic.Page,
-            searchTopic.PageSize);
+            searchTopic.PageSize,
+            groupByTopic: searchTopic.SearchType == SearchResultType.Topics);
 
         return await Task.FromResult<ActionResult<SearchGridDataSet>>(
                    this.Ok(
@@ -117,5 +127,43 @@ public class SearchController : ForumBaseController
                            PageSize = searchTopic.PageSize,
                            SearchResults = results.Item1
                        }));
+    }
+
+    /// <summary>
+    /// Searches the names of the forums the user can read (forums are not part of the search index).
+    /// </summary>
+    /// <param name="searchTopic">
+    /// The search Topic.
+    /// </param>
+    /// <returns>
+    /// Returns the page of the forums, the category of a forum is the description of the result.
+    /// </returns>
+    private SearchGridDataSet SearchForums(SearchTopic searchTopic)
+    {
+        var forums = searchTopic.SearchTerm.IsSet()
+                         ? this.GetRepository<Forum>()
+                             .ListAllSorted(
+                                 this.PageBoardContext.PageBoardID,
+                                 this.PageBoardContext.PageUserID,
+                                 searchTopic.SearchTerm.Trim())
+                             .SelectMany(
+                                 category => category.children.Select(
+                                     forum => new SearchMessage
+                                                  {
+                                                      ForumId = forum.id.ToType<int>(),
+                                                      ForumName = forum.text.TrimStart(' ', '-'),
+                                                      ForumUrl = forum.url,
+                                                      Description = category.text
+                                                  }))
+                             .ToList()
+                         : [];
+
+        return new SearchGridDataSet
+                   {
+                       PageNumber = searchTopic.Page,
+                       TotalRecords = forums.Count,
+                       PageSize = searchTopic.PageSize,
+                       SearchResults = [.. forums.Skip(searchTopic.Page * searchTopic.PageSize).Take(searchTopic.PageSize)]
+                   };
     }
 }

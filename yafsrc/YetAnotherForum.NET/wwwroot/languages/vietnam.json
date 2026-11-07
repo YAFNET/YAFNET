@@ -12648,6 +12648,10 @@
             "#text": "Kết quả"
           },
           {
+            "@tag": "SEARCH_FOR",
+            "#text": "Tìm kiếm"
+          },
+          {
             "@tag": "SEARCH_IN",
             "#text": "Tìm kiếm trong (các) Diễn đàn"
           },
