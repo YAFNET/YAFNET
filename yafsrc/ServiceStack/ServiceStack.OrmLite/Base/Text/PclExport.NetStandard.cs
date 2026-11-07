@@ -602,8 +602,8 @@ public class NetStandardPclExport : PclExport
 
             // Include List deserialisations from the Register<> method above.  This solves issue where List<Guid> properties on responses deserialise to null.
             // No idea why this is happening because there is no visible exception raised.  Suspect IOS is swallowing an AOT exception somewhere.
-            DeserializeArrayWithElements<TElement, TSerializer>.ParseGenericArray(default(ReadOnlySpan<char>), null);
-            DeserializeListWithElements<TElement, TSerializer>.ParseGenericList(default(ReadOnlySpan<char>), null, null);
+            DeserializeArrayWithElements<TElement, TSerializer>.ParseGenericArray(default, null);
+            DeserializeListWithElements<TElement, TSerializer>.ParseGenericList(default, null, null);
 
             // Cannot use the line below for some unknown reason - when trying to compile to run on device, mtouch bombs during native code compile.
             // Something about this line or its inner workings is offensive to mtouch. Luckily this was not needed for my List<Guide> issue.

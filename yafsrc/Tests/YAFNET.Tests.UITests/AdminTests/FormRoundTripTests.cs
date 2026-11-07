@@ -257,7 +257,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
 
                             await TestContext.Progress.WriteLineAsync($"[persist] {url}: {string.Join(", ", fields.Select(f => f[0]))}");
 
-                            await SetFieldsAsync(page, index, fields.Select(f => new[] { f[0], f[2] }).ToArray());
+                            await SetFieldsAsync(page, index, [.. fields.Select(f => new[] { f[0], f[2] })]);
 
                             var error = await SubmitAsync(page, index, action);
 
@@ -276,7 +276,7 @@ public class FormRoundTripTests(ComposeScenario scenario) : DatabaseTestBase(sce
                                     .Select(f => $"{url} ({action}) {f[0]}: '{f[2]}' was saved as '{after.GetValueOrDefault(f[0])}'"));
 
                             // the old values again
-                            await SetFieldsAsync(page, index, fields.Select(f => new[] { f[0], f[1] }).ToArray());
+                            await SetFieldsAsync(page, index, [.. fields.Select(f => new[] { f[0], f[1] })]);
                             await SubmitAsync(page, index, action);
                             await page.GotoAsync(url);
                         }

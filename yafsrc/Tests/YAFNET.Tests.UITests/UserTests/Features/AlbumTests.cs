@@ -802,7 +802,8 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                         Assert.That(
                             shown,
-                            Is.EquivalentTo(new[] { await File.ReadAllBytesAsync(firstFile), await File.ReadAllBytesAsync(secondFile) }),
+                            Is.EquivalentTo([await File.ReadAllBytesAsync(firstFile), await File.ReadAllBytesAsync(secondFile)
+                            ]),
                             "One image shows the file of the other image");
 
                         // delete the first listed image, the other one is still there
@@ -840,9 +841,8 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     await page.Locator("#AlbumTitle").FillAsync("Image and other file");
                     await page.Locator("#ImageFiles").SetInputFilesAsync(
-                        new[]
-                            {
-                                new FilePayload
+                    [
+                        new FilePayload
                                     {
                                         Name = "image.png",
                                         MimeType = "image/png",
@@ -850,9 +850,9 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                                     },
                                 new FilePayload
                                     {
-                                        Name = "document.pdf", MimeType = "application/pdf", Buffer = "%PDF-1.4"u8.ToArray()
+                                        Name = "document.pdf", MimeType = "application/pdf", Buffer = [.. "%PDF-1.4"u8]
                                     }
-                            });
+                    ]);
                     await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
 
                     Assert.That(

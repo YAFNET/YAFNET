@@ -726,9 +726,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     }
 
     private List<FieldDefinition> GetBinaryImportFieldDefinitions<T>(BulkInsertConfig config) =>
-        GetInsertFieldDefinitions(ModelDefinition<T>.Definition, insertFields: config.InsertFields)
+    [
+        .. this.GetInsertFieldDefinitions(ModelDefinition<T>.Definition, insertFields: config.InsertFields)
             .Where(x => !this.ShouldSkipInsert(x) || x.AutoId)
-            .ToList();
+    ];
 
     private string ToBinaryImportCommand<T>(List<FieldDefinition> fieldDefs) =>
         this.ToBinaryImportCommand(this.GetQuotedTableName(ModelDefinition<T>.Definition), fieldDefs);

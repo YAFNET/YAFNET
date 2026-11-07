@@ -229,8 +229,8 @@ public class JsReader<TSerializer>
         var hold = DeserializeBuiltin<T>.Parse;
         hold = DeserializeArray<T[], TSerializer>.Parse;
         DeserializeType<TSerializer>.ExtractType(default(ReadOnlySpan<char>));
-        DeserializeArrayWithElements<T, TSerializer>.ParseGenericArray(default(ReadOnlySpan<char>), null);
+        DeserializeArrayWithElements<T, TSerializer>.ParseGenericArray(default, null);
         DeserializeCollection<TSerializer>.ParseCollection<T>(default(ReadOnlySpan<char>), null, null);
-        DeserializeListWithElements<T, TSerializer>.ParseGenericList(default(ReadOnlySpan<char>), null, null);
+        DeserializeListWithElements<T, TSerializer>.ParseGenericList(default, null, null);
     }
 }

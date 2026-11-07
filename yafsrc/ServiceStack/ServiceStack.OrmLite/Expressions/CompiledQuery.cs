@@ -507,7 +507,7 @@ public abstract class CompiledQueryBase<T>
                 {
                     var tables = new HashSet<Type>(normal.FilterTables ?? []);
                     tables.UnionWith(bound.FilterTables ?? []);
-                    filterTables = tables.ToArray();
+                    filterTables = [.. tables];
                 }
                 if (!SameFilterUses(normal.FilterUses, bound.FilterUses))
                 {
@@ -554,7 +554,7 @@ public abstract class CompiledQueryBase<T>
             {
                 // Kept for the connection's filters, with the SQL each had with the values of its scope
                 var group = state.Filtered.GetOrAdd(new FilteredKey(new StatementKey(key, kind, into), filters.Shape),
-                    _ => new FilterGroup(bound.FilterUses.ToArray()));
+                    _ => new FilterGroup([.. bound.FilterUses]));
                 var filterKey = FilterGroup.KeyOf(bound.FilterUses);
                 if (filterKey == null)
                 {

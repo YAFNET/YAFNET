@@ -82,7 +82,7 @@ public class OrmLiteRetryPolicy
     /// </summary>
     public bool Jitter { get; set; } = true;
 
-    private readonly List<(Func<Exception, bool> predicate, TransientError kind)> handlers = new();
+    private readonly List<(Func<Exception, bool> predicate, TransientError kind)> handlers = [];
     private Action<Exception, int, TimeSpan>? onRetry;
 
     public OrmLiteRetryPolicy(int maxRetries, TimeSpan delay, TimeSpan maxDelay)

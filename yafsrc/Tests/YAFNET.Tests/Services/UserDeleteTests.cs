@@ -354,7 +354,7 @@ public class UserDeleteTests
 
         scopes.Should().HaveSameCount(messages);
 
-        return scopes.Zip(messages, (scope, message) => (scope.UserID, message)).ToList();
+        return [.. scopes.Zip(messages, (scope, message) => (scope.UserID, message))];
     }
 
     private (int UserId, AspNetUsers AspNetUser) AddIdentityUser(string name)

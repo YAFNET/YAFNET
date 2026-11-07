@@ -54,7 +54,7 @@ internal static class Encryptor
         var key = ecdhAgreement.CalculateAgreement(userPublicKey).ToByteArrayUnsigned();
         var serverPublicKey = ((ECPublicKeyParameters)serverKeyPair.Public).Q.GetEncoded(false);
 
-        var prk = HKDF(userSecret, key, "Content-Encoding: auth\0"u8.ToArray(), 32);
+        var prk = HKDF(userSecret, key, [.. "Content-Encoding: auth\0"u8], 32);
         var cek = HKDF(salt, prk, CreateInfoChunk("aesgcm", userKey, serverPublicKey), 16);
         var nonce = HKDF(salt, prk, CreateInfoChunk("nonce", userKey, serverPublicKey), 12);
 
@@ -184,6 +184,6 @@ internal static class Encryptor
         output.AddRange(recipientPublicKey);
         output.AddRange(ConvertInt(senderPublicKey.Length));
         output.AddRange(senderPublicKey);
-        return output.ToArray();
+        return [.. output];
     }
 }

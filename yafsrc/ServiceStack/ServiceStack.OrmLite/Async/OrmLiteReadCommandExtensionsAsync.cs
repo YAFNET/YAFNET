@@ -141,7 +141,7 @@ internal static class OrmLiteReadCommandExtensionsAsync
             {
                 var sqlIn = dbCmd.SetIdsInSqlParams(batches[0]);
             return string.IsNullOrEmpty(sqlIn)
-                    ? new List<T>()
+                    ? []
                     : await SelectAsync<T>(dbCmd, pkColumn + " IN (" + sqlIn + ")", (object)null, token).ConfigAwait();
             }
 

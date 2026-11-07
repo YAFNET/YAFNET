@@ -296,9 +296,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         to.ConnectionFilters = this.ConnectionFilters;
         to.ParamPrefix = this.ParamPrefix;
 
-        to.Params = new List<IDbDataParameter>(this.Params);
-        to.setOperations = this.setOperations != null ? new List<SetOperation>(this.setOperations) : null;
-        to.setOperationParams = this.setOperationParams != null ? new List<IDbDataParameter>(this.setOperationParams) : null;
+        to.Params = [.. this.Params];
+        to.setOperations = this.setOperations != null ? [.. this.setOperations] : null;
+        to.setOperationParams = this.setOperationParams != null ? [.. this.setOperationParams] : null;
         to.setOperationsSelect = this.setOperationsSelect;
         to.commonTableExpressions = this.commonTableExpressions != null ? [.. this.commonTableExpressions] : null;
         to.systemTimeClause = this.systemTimeClause;
@@ -2335,7 +2335,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         return fieldNames.Count > 0
-                   ? this.OrderByFields(OrderBySuffix.Asc, fieldNames.ToArray())
+                   ? this.OrderByFields(OrderBySuffix.Asc, [.. fieldNames])
                    : this;
     }
 
@@ -5978,7 +5978,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         if (isArrayColumn)
         {
             from = this.ArrayItemsFrom(column, arrayField, alias);
-            (this.arrayItemAliases ??= new HashSet<string>()).Add(alias);
+            (this.arrayItemAliases ??= []).Add(alias);
         }
         else
         {

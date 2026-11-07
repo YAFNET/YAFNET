@@ -154,7 +154,7 @@ public sealed class OrmLiteConnectionFilters
                     ? WriteRuleType.OnInsert : WriteRuleType.OnUpdate, rule.MemberName!, value));
             }
         }
-        return new OrmLiteConnectionFilters([.. this.sets, bound], filters.ToArray(), rules.ToArray());
+        return new OrmLiteConnectionFilters([.. this.sets, bound], [.. filters], [.. rules]);
     }
 
     /// <summary>
@@ -193,7 +193,7 @@ public sealed class OrmLiteConnectionFilters
                 to.Add(new WriteRule(fieldDef, rule.ValueFn));
             }
             return ensureWrites.Count + onInsert.Count + onUpdate.Count > 0
-                ? new TableWriteRules(ensureWrites.ToArray(), onInsert.ToArray(), onUpdate.ToArray())
+                ? new TableWriteRules([.. ensureWrites], [.. onInsert], [.. onUpdate])
                 : null;
         });
     }

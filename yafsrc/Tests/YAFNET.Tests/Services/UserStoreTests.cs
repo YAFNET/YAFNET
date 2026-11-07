@@ -235,7 +235,7 @@ public class UserStoreTests
     {
         var user = await this.CreateUserAsync("u1", "Alice");
 
-        (await this.store.GetLockoutEndDateAsync(user)).Should().Be(default(DateTimeOffset), "no lockout yet");
+        (await this.store.GetLockoutEndDateAsync(user)).Should().Be(default, "no lockout yet");
 
         (await this.store.IncrementAccessFailedCountAsync(user)).Should().Be(1);
         (await this.store.IncrementAccessFailedCountAsync(user)).Should().Be(2);

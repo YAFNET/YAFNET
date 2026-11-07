@@ -79,9 +79,9 @@ public abstract partial class SqlExpression<T>
             string Text(string sql) => this.DialectProvider.SqlCast(sql, Sql.VARCHAR);
             var stepId = Text(cte.StepPrimaryKey);
             extraColumns += ", " + path;
-            seedColumns += ", " + Text(this.DialectProvider.SqlConcat(new object[] { "'/'", Text(cte.SeedPrimaryKey), "'/'" })) + " AS " + path;
-            stepColumns += ", " + Text(this.DialectProvider.SqlConcat(new object[] { $"{cte.Name}.{path}", stepId, "'/'" }));
-            stepConditions.Add($"{cte.Name}.{path} NOT LIKE " + this.DialectProvider.SqlConcat(new object[] { "'%/'", stepId, "'/%'" }));
+            seedColumns += ", " + Text(this.DialectProvider.SqlConcat(["'/'", Text(cte.SeedPrimaryKey), "'/'"])) + " AS " + path;
+            stepColumns += ", " + Text(this.DialectProvider.SqlConcat([$"{cte.Name}.{path}", stepId, "'/'"]));
+            stepConditions.Add($"{cte.Name}.{path} NOT LIKE " + this.DialectProvider.SqlConcat(["'%/'", stepId, "'/%'"]));
         }
 
         return $"{cte.Name} ({cte.ColumnNames}{extraColumns}) AS (\n" +

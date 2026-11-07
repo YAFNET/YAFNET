@@ -92,12 +92,14 @@ public class ExplainQuery
             }
 
             rows.Clear();
-            rows.Add(indexes.ConvertAll(reader.GetName).ToArray());
+            rows.Add([.. indexes.ConvertAll(reader.GetName)]);
             while (reader.Read())
             {
-                rows.Add(indexes.ConvertAll(i => reader.IsDBNull(i)
-                    ? ""
-                    : ToSingleLine(Convert.ToString(reader.GetValue(i)) ?? "")).ToArray());
+                rows.Add([
+                    .. indexes.ConvertAll(i => reader.IsDBNull(i)
+                        ? ""
+                        : ToSingleLine(Convert.ToString(reader.GetValue(i)) ?? ""))
+                ]);
             }
         } while (reader.NextResult());
 

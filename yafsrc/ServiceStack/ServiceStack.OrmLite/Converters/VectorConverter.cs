@@ -68,9 +68,9 @@ public class VectorConverter : OrmLiteConverter
             case Memory<float> memory:
                 return memory.ToArray();
             case IEnumerable<float> enumerable:
-                return enumerable.ToArray();
+                return [.. enumerable];
             case IEnumerable<double> doubles:
-                return doubles.Select(x => (float)x).ToArray();
+                return [.. doubles.Select(x => (float)x)];
         }
 
         // e.g. Microsoft.Data.SqlTypes.SqlVector<float> and Pgvector.Vector

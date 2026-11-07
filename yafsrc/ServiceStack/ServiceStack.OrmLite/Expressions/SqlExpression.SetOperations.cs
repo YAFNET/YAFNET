@@ -74,7 +74,7 @@ public abstract partial class SqlExpression<T>
             throw new ArgumentException("A query can't be combined with itself, use a Clone() instead", nameof(query));
 
         GetSetOperator(op); // fail fast if the RDBMS doesn't support it
-        (setOperations ??= new List<SetOperation>()).Add(new SetOperation(op, query));
+        (setOperations ??= []).Add(new SetOperation(op, query));
         return this;
     }
 
@@ -126,7 +126,7 @@ public abstract partial class SqlExpression<T>
             var alias = "q" + (i + 1);
             var sql = setOp.Query.ToSetOperandStatement(alias);
 
-            sql = AddRenamedParams(setOp.Query.Params, sql, setOperationParams ??= new List<IDbDataParameter>());
+            sql = AddRenamedParams(setOp.Query.Params, sql, setOperationParams ??= []);
 
             sb.Append('\n').Append(GetSetOperator(setOp.Op)).Append('\n').Append(sql);
         }

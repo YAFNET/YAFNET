@@ -1131,7 +1131,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <returns>List&lt;FieldDefinition&gt;.</returns>
     internal static List<FieldDefinition> GetUpsertReadBackFields(ModelDefinition modelDef)
     {
-        return modelDef.FieldDefinitions.Where(x => x.IsRowVersion || x.ReturnOnInsert).ToList();
+        return [.. modelDef.FieldDefinitions.Where(x => x.IsRowVersion || x.ReturnOnInsert)];
     }
 
     /// <summary>
@@ -1144,7 +1144,7 @@ public static class OrmLiteWriteCommandExtensions
     {
         var fields = GetUpsertReadBackFields(modelDef);
         return dialect.HasInsertReturnValues(modelDef)
-                   ? fields.Where(x => !x.ReturnOnInsert).ToList()
+                   ? [.. fields.Where(x => !x.ReturnOnInsert)]
                    : fields;
     }
 
@@ -1893,12 +1893,14 @@ public static class OrmLiteWriteCommandExtensions
                     throw new ArgumentException($"'{invalidField.Name}' cannot be included in updateOnly", nameof(updateOnly));
             }
 
-            return modelDef.FieldDefinitions
-                .Where(x => !x.IsPrimaryKey
-                            && !x.IsRowVersion
-                            && !x.ShouldSkipUpdate()
-                            && (selectedFields == null || selectedFields.Contains(x)))
-                .ToList();
+            return
+            [
+                .. modelDef.FieldDefinitions
+                    .Where(x => !x.IsPrimaryKey
+                                && !x.IsRowVersion
+                                && !x.ShouldSkipUpdate()
+                                && (selectedFields == null || selectedFields.Contains(x)))
+            ];
         }
 
         /// <summary>

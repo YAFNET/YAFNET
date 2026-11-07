@@ -618,37 +618,42 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override ColumnSchema[] GetSchemaColumns(IDbConnection db, string quotedTable)
     {
         var columns = db.SqlList<Dictionary<string, object>>($"PRAGMA table_xinfo({quotedTable})");
-        return columns.Map(column =>
-        {
-            var to = new ColumnSchema
+        return
+        [
+            .. columns.Map(column =>
             {
-                ColumnName = column["name"]?.ToString(),
-                ColumnOrdinal = Convert.ToInt32(column["cid"]),
-                DataTypeName = column["type"]?.ToString(),
-                DataType = typeof(object),
-                ColumnSize = -1,
-                // A primary key is only reported as not null when it's declared as NOT NULL
-                AllowDBNull = Convert.ToInt32(column["notnull"]) == 0 && Convert.ToInt32(column["pk"]) == 0,
-                IsKey = Convert.ToInt32(column["pk"]) > 0,
-                DefaultValue = column["dflt_value"],
-            };
-            // VARCHAR(50) or DECIMAL(18,2)
-            var size = to.DataTypeName?.RightPart('(').LeftPart(')').Split(',');
-            if (size != null && to.DataTypeName?.EndsWith(')') == true && int.TryParse(size[0].Trim(), out var first))
-            {
-                to.DataTypeName = to.DataTypeName.LeftPart('(').Trim();
-                if (size.Length == 2 && int.TryParse(size[1].Trim(), out var scale))
+                var to = new ColumnSchema
                 {
-                    to.NumericPrecision = first;
-                    to.NumericScale = scale;
-                }
-                else
+                    ColumnName = column["name"]?.ToString(),
+                    ColumnOrdinal = Convert.ToInt32(column["cid"]),
+                    DataTypeName = column["type"]?.ToString(),
+                    DataType = typeof(object),
+                    ColumnSize = -1,
+                    // A primary key is only reported as not null when it's declared as NOT NULL
+                    AllowDBNull = Convert.ToInt32(column["notnull"]) == 0 && Convert.ToInt32(column["pk"]) == 0,
+                    IsKey = Convert.ToInt32(column["pk"]) > 0,
+                    DefaultValue = column["dflt_value"],
+                };
+                // VARCHAR(50) or DECIMAL(18,2)
+                var size = to.DataTypeName?.RightPart('(').LeftPart(')').Split(',');
+                if (size != null && to.DataTypeName?.EndsWith(')') == true &&
+                    int.TryParse(size[0].Trim(), out var first))
                 {
-                    to.ColumnSize = first;
+                    to.DataTypeName = to.DataTypeName.LeftPart('(').Trim();
+                    if (size.Length == 2 && int.TryParse(size[1].Trim(), out var scale))
+                    {
+                        to.NumericPrecision = first;
+                        to.NumericScale = scale;
+                    }
+                    else
+                    {
+                        to.ColumnSize = first;
+                    }
                 }
-            }
-            return to;
-        }).ToArray();
+
+                return to;
+            })
+        ];
     }
 
     public override List<string> GetTableIndexNames(IDbConnection db, TableRef tableRef) => db.Column<string>(

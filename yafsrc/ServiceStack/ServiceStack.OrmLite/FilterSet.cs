@@ -51,7 +51,7 @@ public sealed class FilterSet
 
         var builder = new FilterSetBuilder<TScope>();
         configure(builder);
-        return new FilterSet<TScope>(builder.Rules.ToArray());
+        return new FilterSet<TScope>([.. builder.Rules]);
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public sealed class FilterSet
 
         var builder = new FilterSetBuilder();
         configure(builder);
-        return new FilterSet(builder.Rules.ToArray());
+        return new FilterSet([.. builder.Rules]);
     }
 }
 

@@ -58,7 +58,7 @@ internal class JwsSigner
             b = ByteArrayPadLeft(b, largestLength);
         }
 
-        var signature = UrlBase64.Encode(a.Concat(b).ToArray());
+        var signature = UrlBase64.Encode([.. a, .. b]);
         return $"{securedInput}.{signature}";
     }
 

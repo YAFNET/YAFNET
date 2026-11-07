@@ -834,8 +834,10 @@ public static class OrmLiteSchemaDiffApi
         IOrmLiteDialectProvider dialect)
     {
         var modelIndexes = createIndexes.Distinct().ToDictionary(x => x, ParseIndex);
-        UseWrittenConditions(diff, db, table, fieldDefs, modelIndexes.Values.Where(x => x?.Where != null
-            && dbIndexes.Any(d => d.Where != null && d.Name.EqualsIgnoreCase(x.Name))).ToList(), dialect);
+        UseWrittenConditions(diff, db, table, fieldDefs, [
+            .. modelIndexes.Values.Where(x => x?.Where != null
+                                              && dbIndexes.Any(d => d.Where != null && d.Name.EqualsIgnoreCase(x.Name)))
+        ], dialect);
 
         var modelIndexNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         // The full-text index is an index of the table in some RDBMS, e.g. PostgreSQL and MySQL
@@ -914,7 +916,8 @@ public static class OrmLiteSchemaDiffApi
                     Name = dbIndex.Name,
                     Field = keyFields.Count == 1 ? keyFields[0] : null,
                     DatabaseColumn = dbIndex.ToString(),
-                    Attribute = fields.Count > 0 && fields.All(f => f != null) ? ToIndexAttribute(dbIndex, keyFields, fields.Skip(keyFields.Count).ToList()) : null
+                    Attribute = fields.Count > 0 && fields.All(f => f != null) ? ToIndexAttribute(dbIndex, keyFields,
+                        [.. fields.Skip(keyFields.Count)]) : null
                 });
                 continue;
             }
@@ -1212,8 +1215,8 @@ public static class OrmLiteSchemaDiffApi
 
         if (!ordered)
         {
-            a = a.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).ToList();
-            b = b.OrderBy(x => x, StringComparer.OrdinalIgnoreCase).ToList();
+            a = [.. a.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)];
+            b = [.. b.OrderBy(x => x, StringComparer.OrdinalIgnoreCase)];
         }
         return a.Zip(b, (x, y) => x.EqualsIgnoreCase(y)).All(x => x);
     }
@@ -1505,7 +1508,7 @@ public static class OrmLiteSchemaDiffApi
         // MariaDB adds the end of a system-versioned table's period to its primary key
         var periodColumns = modelDef.FieldDefinitions.Where(x => x.IsRowStart || x.IsRowEnd)
             .Map(x => dialect.NamingStrategy.GetColumnName(x.FieldName));
-        dbKey = dbKey.Where(x => !periodColumns.Any(p => p.EqualsIgnoreCase(x))).ToList();
+        dbKey = [.. dbKey.Where(x => !periodColumns.Any(p => p.EqualsIgnoreCase(x)))];
         if (IsSameColumns(modelKey, dbKey, ordered: true))
         {
             return;
@@ -1858,7 +1861,11 @@ internal static class SchemaMigrationWriter
             // Its primary key is included so the properties that are changed aren't used as one
             var fieldDefs = createsTable
                 ? modelDef.FieldDefinitions
-                : modelDef.FieldDefinitions.Where(f => f.IsPrimaryKey || model.Any(x => x.Field == f && x.Sql != null)).ToList();
+                :
+                [
+                    .. modelDef.FieldDefinitions.Where(f =>
+                        f.IsPrimaryKey || model.Any(x => x.Field == f && x.Sql != null))
+                ];
             var first = true;
             foreach (var fieldDef in fieldDefs)
             {

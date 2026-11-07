@@ -48,7 +48,7 @@ internal sealed class ConnectionFilter<T>(FilterTemplate<T> template, object? sc
     {
         var q = dialect.SqlExpression<T>();
         q.ParamPrefix = paramPrefix;
-        q.Params = new List<IDbDataParameter>(dbParams);
+        q.Params = [.. dbParams];
         if (alias != null)
         {
             q.SetTableAlias(alias);
@@ -479,7 +479,7 @@ internal sealed class FilterTemplate<T>
             this.Folded = template.root!.Fold(bits);
             var finder = new SlotsFinder();
             finder.Visit(this.Folded);
-            this.Slots = finder.Slots.ToArray();
+            this.Slots = [.. finder.Slots];
         }
 
         // The filter as it's normally translated, with the values read from the scope

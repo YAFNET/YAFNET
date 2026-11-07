@@ -483,7 +483,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
         {
             return (T)result;
         }
-        return default(T);
+        return default;
     }
 
     /// <summary>
@@ -540,7 +540,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     {
         if (value == null)
         {
-            return default(T);
+            return default;
         }
 
         if (value is T)

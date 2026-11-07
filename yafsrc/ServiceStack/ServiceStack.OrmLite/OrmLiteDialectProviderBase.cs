@@ -1784,7 +1784,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             else
             {
-                db.UpsertAll(objs, updateOnly.ToArray());
+                db.UpsertAll(objs, [.. updateOnly]);
             }
 
             return;
@@ -1840,7 +1840,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             else
             {
-                await db.UpsertAllAsync(objs, updateOnly.ToArray(), token).ConfigAwait();
+                await db.UpsertAllAsync(objs, [.. updateOnly], token).ConfigAwait();
             }
 
             return;
@@ -2159,22 +2159,26 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         var requestedInsertFields = GetInsertFieldDefinitions(modelDef, insertFields).ToSet();
         requestedInsertFields.Add(primaryKey);
 
-        insertFieldDefs = modelDef.FieldDefinitions
-            .Where(x => requestedInsertFields.Contains(x)
-                        && (!ShouldSkipInsert(x) || x.AutoId || x.IsPrimaryKey))
-            .ToList();
+        insertFieldDefs =
+        [
+            .. modelDef.FieldDefinitions
+                .Where(x => requestedInsertFields.Contains(x)
+                            && (!this.ShouldSkipInsert(x) || x.AutoId || x.IsPrimaryKey))
+        ];
 
         var updateAllFields = updateOnly == null;
         var requestedUpdateFields = updateAllFields
             ? null
             : GetInsertFieldDefinitions(modelDef, updateOnly).ToSet();
 
-        updateFieldDefs = modelDef.FieldDefinitions
-            .Where(x => !x.IsPrimaryKey
-                        && !x.IsRowVersion
-                        && !x.ShouldSkipUpdate()
-                        && (updateAllFields || requestedUpdateFields.Contains(x)))
-            .ToList();
+        updateFieldDefs =
+        [
+            .. modelDef.FieldDefinitions
+                .Where(x => !x.IsPrimaryKey
+                            && !x.IsRowVersion
+                            && !x.ShouldSkipUpdate()
+                            && (updateAllFields || requestedUpdateFields.Contains(x)))
+        ];
 
         cmd.Parameters.Clear();
         foreach (var fieldDef in modelDef.FieldDefinitions)
@@ -4482,7 +4486,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                               $"({indexes[i].Columns.Map(this.GetQuotedName).Join(", ")}) WHERE {indexes[i].Where}");
             }
             var written = readConditions(tempTable);
-            return indexes.Select((_, i) => written.TryGetValue(prefix + i, out var condition) ? condition : null).ToList();
+            return [.. indexes.Select((_, i) => written.TryGetValue(prefix + i, out var condition) ? condition : null)];
         }
         finally
         {
@@ -4521,11 +4525,15 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 return null;
             }
 
-            return checks.Select((check, i) => new CheckConstraintSchema
-            {
-                Name = check.Name,
-                Condition = created.FirstOrDefault(x => string.Equals(x.Name, prefix + i, StringComparison.OrdinalIgnoreCase))?.Condition
-            }).ToList();
+            return
+            [
+                .. checks.Select((check, i) => new CheckConstraintSchema
+                {
+                    Name = check.Name,
+                    Condition = created.FirstOrDefault(x =>
+                        string.Equals(x.Name, prefix + i, StringComparison.OrdinalIgnoreCase))?.Condition
+                })
+            ];
         }
         finally
         {
@@ -4592,7 +4600,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     private static List<string> RowList(Dictionary<string, object> row, string name) =>
-        (RowValue(row, name)?.ToString() ?? "").Split([','], StringSplitOptions.RemoveEmptyEntries).ToList();
+        [.. (RowValue(row, name)?.ToString() ?? "").Split([','], StringSplitOptions.RemoveEmptyEntries)];
 
     /// <summary>
     /// Converts to alter column statement.
