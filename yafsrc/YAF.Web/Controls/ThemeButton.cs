@@ -496,11 +496,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
 
         writer.WriteAttribute("role", "button");
 
-        if (this.DataToggle.IsSet() && this.DataToggle is "dropdown" or "popover")
-        {
-            // this.NavigateUrl = "#";
-        }
-        else
+        if (!this.DataToggle.IsSet() || this.DataToggle is not ("dropdown" or "popover"))
         {
             writer.WriteAttribute(
                 "href",
