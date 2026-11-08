@@ -2,25 +2,30 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.11
+* [NEW] Search: new option "Search for" with Posts (all matching posts), Topics (one result for each topic, with its latest matching post) and Forums (the forums with a matching name)
+* [NEW] Short urls: the public pages have shorter lowercase urls (/topic/1/name, /forum/1/name, /post/1/name, /user/1/name, /category/1/name, /album, /albums, /members, /active-users and /team), the page number of a topic is in the path (/topic/1/name/2), the slugs are lowercase and at most 80 characters long, the old urls and urls with an outdated name redirect permanently to the new url
+* [NEW] Reactions: the thanks button is replaced by reactions (like, love, haha, hooray, wow) as on Facebook or GitHub, each user can give one reaction to a post, change it, or remove it by clicking it again; the existing thanks are shown as love, and every reaction counts as a thanks for the profile statistics and the hide-thanks BB codes
+* [CHANGES] Search: a clear button resets the search page
 * [CHANGES] Build: npm run webp converts the images with webp-converter directly in build.js, simple-webp-converter is removed because it depends on a vulnerable glob version (GHSA-3g3m-2fjr-6pw4, GHSA-g3hv-75wg-m249); gif files are converted with gif2webp so animations are kept
+* [CHANGES] Build: Grunt (only in maintenance mode) is replaced by the Node script build.js, the tasks are started with npm run (npm run build, npm run css, npm run updateVersionNumber, ...)
+* [CHANGES] Search: the options (search for, keywords, titles only, results per page) are buttons instead of select lists, changing one updates the results
+* [CHANGES] Responses are now compressed (Brotli or gzip, also over https), the css and js files of the forum (several hundred KB) were sent uncompressed
+* [CHANGES] The icon font (Font Awesome solid) is preloaded, the browser found it only after the css was loaded, the icons appeared later
+* [CHANGES] The forum css only contains the Font Awesome icons used by the forum (found by the new build task fontAwesomeIcons, part of the build and css task) instead of all ~2600 icons: forum.min.css is 52 KB instead of 169 KB (10 KB instead of 29 KB compressed), forum-admin.min.css 39 KB instead of 151 KB
+* [CHANGES] The css files no longer contain vendor prefixes for outdated browsers (autoprefixer uses the browserslist defaults instead of the last 2 versions of every browser), each theme is ~40 KB smaller
+* [CHANGES] Notify dropdown in the user menu: shows the latest 5 notifications as dropdown items (the whole item links to the post, with the time of the notification) and a "See all Notifications" link to the notification page, instead of the list with the pager that didn't work
 * [FIXED] Search: the similar topics parsed the topic title as query syntax, so a title with special characters (e.g. the colon of a time) threw a ParseException on every topic view; the query is now built from the analyzed title without the QueryParser (no internal "read past eof" IOException either)
+* [FIXED] user profile when there are no user albums
 * [FIXED] Cache: deleted and updated rows were announced before the change was written, a delete without rows cleared the caches, and every UpsertAsync raised its event twice
 * [FIXED] Cache: a new row was announced before it was written, so the caches were cleared too early and could be filled again with the old data
 * [FIXED] OrmLite: the SqlServer, MySql and Sqlite string converters ignored a custom MaxColumnDefinition
 * [FIXED] OrmLite MySql: the temporary file of the bulk insert now has a random name and is created exclusively
 * [FIXED] Cookies: the cookies of the last visit and the panel states had no HttpOnly flag and no Secure flag, they are HttpOnly now and Secure on https
-* [CHANGES] Build: Grunt (only in maintenance mode) is replaced by the Node script build.js, the tasks are started with npm run (npm run build, npm run css, npm run updateVersionNumber, ...)
 * [FIXED] Theme Brite: the css file was not minified, it was 297 KB instead of 246 KB
 * [FIXED] Search: "All Forums" was not selected in the forum select of the search page, a search url without a forum had no forum selected, a forum in the url was ignored without a search text
-* [NEW] Search: a clear button resets the search page
-* [NEW] Search: new option "Search for" with Posts (all matching posts), Topics (one result for each topic, with its latest matching post) and Forums (the forums with a matching name)
-* [CHANGES] Search: the options (search for, keywords, titles only, results per page) are buttons instead of select lists, changing one updates the results
 * [FIXED] Search: the search keyword was not highlighted in the text of the results, the mark tags were html encoded and shown as text (the title was highlighted correctly)
 * [FIXED] Topics: marking a post as answer added the topic id to the url of the post (?t=1)
 * [FIXED] Topics: every link to a topic or post was redirected to a longer url (with p, t or m in the query) just to set the page number, the right page is now shown at the requested url; a new topic opens at its topic url
-* [NEW] Short urls: the public pages have shorter lowercase urls (/topic/1/name, /forum/1/name, /post/1/name, /user/1/name, /category/1/name, /album, /albums, /members, /active-users and /team), the page number of a topic is in the path (/topic/1/name/2), the slugs are lowercase and at most 80 characters long, the old urls and urls with an outdated name redirect permanently to the new url
-* [NEW] Reactions: the thanks button is replaced by reactions (like, love, haha, hooray, wow) as on Facebook or GitHub, each user can give one reaction to a post, change it, or remove it by clicking it again; the existing thanks are shown as love, and every reaction counts as a thanks for the profile statistics and the hide-thanks BB codes
-* [CHANGES] Notify dropdown in the user menu: shows the latest 5 notifications as dropdown items (the whole item links to the post, with the time of the notification) and a "See all Notifications" link to the notification page, instead of the list with the pager that didn't work
 * [FIXED] Admin edit user: the tab shown first was loaded twice, the second response replaced the tab, changes made in the meantime (e.g. moderated or the rank in the user info) were lost when saving
 * [FIXED] Register: the page after the registration (the message to confirm the e-mail address) had a script error, the password strength script was added without the password fields
 * [FIXED] Register: visiting the register page again after a registration showed the message of the registration again instead of the form
@@ -30,10 +35,6 @@ YetAnotherForum.NET Changelog
 * [FIXED] Docker compose files: the empty mail settings (MailConfiguration__Host / __Port) overrode the defaults with empty values, they are now commented-out examples (with UserName and Password); the setting MailConfiguration__Mail was removed, it doesn't exist
 * [FIXED] Docker (SQLite): the database file was stored inside the container and was lost when the container was recreated (e.g. on an update), it is now stored in the volume sqlite-data
 * [FIXED] Behind a reverse proxy that terminates https (nginx, Caddy, Traefik, a Docker proxy container), the forum ignored X-Forwarded-Proto and saw every request as http: links in e-mails and feeds started with http://, and the cookies were not marked as secure; X-Forwarded-Proto is now used for requests of trusted proxies (same as X-Forwarded-For)
-* [CHANGES] Responses are now compressed (Brotli or gzip, also over https), the css and js files of the forum (several hundred KB) were sent uncompressed
-* [CHANGES] The icon font (Font Awesome solid) is preloaded, the browser found it only after the css was loaded, the icons appeared later
-* [CHANGES] The forum css only contains the Font Awesome icons used by the forum (found by the new build task fontAwesomeIcons, part of the build and css task) instead of all ~2600 icons: forum.min.css is 52 KB instead of 169 KB (10 KB instead of 29 KB compressed), forum-admin.min.css 39 KB instead of 151 KB
-* [CHANGES] The css files no longer contain vendor prefixes for outdated browsers (autoprefixer uses the browserslist defaults instead of the last 2 versions of every browser), each theme is ~40 KB smaller
 * [FIXED] Static files: the Cache-Control header was invalid (max-age: 31536000 instead of max-age=31536000), browsers didn't cache the css, js, font and image files; files with a version (?v=) are now cached for a year, all others for a week
 * [FIXED] Chromium browsers (Chrome, Edge) requested the first page of every visit twice, the user agent client hint Sec-CH-UA-Platform-Version was sent as critical (Critical-CH)
 * [FIXED] The board logo was loaded lazily although it is at the top of the page, it was loaded late and moved the page content down
