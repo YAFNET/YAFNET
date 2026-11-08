@@ -70,6 +70,8 @@ if (ReleaseNotes.Length > 30000)
 
 	<ItemGroup>
 	  <Content Remove="package.json" />
+	  <Content Remove="package-lock.json" />
+	  <Content Remove="tsconfig.json" />
 	</ItemGroup>          
 	
 	<ItemGroup>

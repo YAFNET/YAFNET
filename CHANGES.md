@@ -16,6 +16,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Notify dropdown in the user menu: shows the latest 5 notifications as dropdown items (the whole item links to the post, with the time of the notification) and a "See all Notifications" link to the notification page, instead of the list with the pager that didn't work
 * [FIXED] Search: the similar topics parsed the topic title as query syntax, so a title with special characters (e.g. the colon of a time) threw a ParseException on every topic view; the query is now built from the analyzed title without the QueryParser (no internal "read past eof" IOException either)
 * [FIXED] user profile when there are no user albums
+* [FIXED] NuGet packages: YAFNET.UI.Chat no longer contains tsconfig.json and package-lock.json, YAFNET.RazorPages no longer contains package-lock.json
 * [FIXED] Cache: deleted and updated rows were announced before the change was written, a delete without rows cleared the caches, and every UpsertAsync raised its event twice
 * [FIXED] Cache: a new row was announced before it was written, so the caches were cleared too early and could be filled again with the old data
 * [FIXED] OrmLite: the SqlServer, MySql and Sqlite string converters ignored a custom MaxColumnDefinition
