@@ -64,6 +64,7 @@
 		"updatePackages": "set npm_config_allow_scripts=&& npm-check -y",
 		"webp": "node build.js webp",
 		"syncLanguages": "@echo off && echo update languages && yaf-langmgr %CD%\\wwwroot\\languages\\ -sync",
-		"translateLanguages": "@echo off && echo translate languages && yaf-langmgr %CD%\\wwwroot\\languages\\ -translateGoogle"
+		"translateLanguages": "@echo off && echo translate languages && yaf-langmgr %CD%\\wwwroot\\languages\\ -translateGoogle",
+		"updateWebsiteScreenshot": "set YAF_MOCKUP_OUTPUT=%CD%\\..\\..\\..\\YAF.Website\\YAF.Website\\wwwroot\\images\\Img1.png&& dotnet test ..\\Tests\\YAFNET.Tests.UITests --filter Category=Mockup"
 	}
 }
