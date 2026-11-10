@@ -1,0 +1,228 @@
+<!doctype html>
+<!--
+    The device frames of the website mockup image (see WebsiteMockupGenerator).
+    The screenshots monitor.png, laptop.png, tablet.png and phone.png are taken next to this file,
+    the stage is screenshot with a transparent background.
+    The screen sizes keep the aspect ratio of the screenshot viewports.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>YAF.NET Mockup</title>
+    <style>
+        html, body {
+            margin: 0;
+            background: transparent;
+        }
+
+        .stage {
+            position: relative;
+            width: 2000px;
+            height: 1160px;
+        }
+
+        .stage > * {
+            position: absolute;
+            box-sizing: border-box;
+        }
+
+        .screen {
+            position: absolute;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .screen img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top left;
+        }
+
+        /* a faint reflection on the glass */
+        .screen::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, rgba(255, 255, 255, .10) 0%, rgba(255, 255, 255, .03) 38%, rgba(255, 255, 255, 0) 38.2%);
+            pointer-events: none;
+        }
+
+        .ground {
+            border-radius: 50%;
+            background: radial-gradient(closest-side, rgba(0, 0, 0, .45), rgba(0, 0, 0, .18) 55%, rgba(0, 0, 0, 0));
+        }
+
+        /* Monitor, the screen is 1600 x 900 */
+        .monitor {
+            left: 440px;
+            top: 10px;
+            width: 1140px;
+            height: 692px;
+            z-index: 1;
+            border-radius: 22px;
+            background: #101012;
+            box-shadow: inset 0 0 0 2px #3a3a3e, 0 24px 60px rgba(0, 0, 0, .25);
+        }
+
+        .monitor .screen {
+            left: 20px;
+            top: 20px;
+            width: 1100px;
+            height: 619px;
+            border-radius: 3px;
+        }
+
+        .monitor-neck {
+            left: 940px;
+            top: 690px;
+            width: 140px;
+            height: 300px;
+            z-index: 0;
+            background: linear-gradient(90deg, #8c8d90, #e6e7e9 42%, #c5c6c9 62%, #85868a);
+        }
+
+        .monitor-base {
+            left: 800px;
+            top: 982px;
+            width: 420px;
+            height: 24px;
+            z-index: 0;
+            border-radius: 8px 8px 16px 16px;
+            background: linear-gradient(#f0f1f2, #b4b5b8 60%, #8f9093);
+        }
+
+        /* Laptop, the screen is 1440 x 900 */
+        .laptop-lid {
+            left: 70px;
+            top: 558px;
+            width: 860px;
+            height: 556px;
+            z-index: 3;
+            border-radius: 26px 26px 6px 6px;
+            background: #0d0d0f;
+            box-shadow: inset 0 0 0 2px #4a4a4f;
+        }
+
+        .laptop-lid .screen {
+            left: 30px;
+            top: 26px;
+            width: 800px;
+            height: 500px;
+            border-radius: 4px;
+        }
+
+        .laptop-lid .camera {
+            position: absolute;
+            left: 426px;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #26262b;
+        }
+
+        .laptop-base {
+            left: 0;
+            top: 1110px;
+            width: 1000px;
+            height: 30px;
+            z-index: 4;
+            border-radius: 2px 2px 40px 40px / 2px 2px 26px 26px;
+            background: linear-gradient(#e9eaec, #c9cacd 35%, #9c9da1 80%, #6f7074);
+        }
+
+        .laptop-base::before {
+            content: "";
+            position: absolute;
+            left: 430px;
+            top: 0;
+            width: 140px;
+            height: 10px;
+            border-radius: 0 0 12px 12px;
+            background: linear-gradient(#9fa0a4, #c3c4c7);
+        }
+
+        /* Tablet, the screen is 820 x 1180 */
+        .tablet {
+            left: 1420px;
+            top: 398px;
+            width: 512px;
+            height: 718px;
+            z-index: 3;
+            border-radius: 38px;
+            background: #111114;
+            box-shadow: inset 0 0 0 3px #4b4b50, 0 0 0 2px #a9aaae, 0 20px 40px rgba(0, 0, 0, .25);
+        }
+
+        .tablet .screen {
+            left: 21px;
+            top: 21px;
+            width: 470px;
+            height: 676px;
+            border-radius: 18px;
+        }
+
+        /* Phone, the screen is 390 x 844 */
+        .phone {
+            left: 1150px;
+            top: 688px;
+            width: 210px;
+            height: 431px;
+            z-index: 5;
+            border-radius: 34px;
+            background: #111114;
+            box-shadow: inset 0 0 0 2px #4b4b50, 0 0 0 2px #b9babe, 0 14px 30px rgba(0, 0, 0, .3);
+        }
+
+        .phone .screen {
+            left: 10px;
+            top: 10px;
+            width: 190px;
+            height: 411px;
+            border-radius: 25px;
+        }
+
+        .phone .island {
+            position: absolute;
+            left: 78px;
+            top: 16px;
+            width: 54px;
+            height: 15px;
+            z-index: 1;
+            border-radius: 8px;
+            background: #0a0a0c;
+        }
+    </style>
+</head>
+<body>
+<div class="stage" id="stage">
+    <div class="ground" style="left: 700px; top: 975px; width: 620px; height: 70px;"></div>
+    <div class="ground" style="left: -20px; top: 1100px; width: 1040px; height: 70px; z-index: 2;"></div>
+    <div class="ground" style="left: 1380px; top: 1085px; width: 600px; height: 60px; z-index: 2;"></div>
+    <div class="ground" style="left: 1120px; top: 1090px; width: 270px; height: 50px; z-index: 4;"></div>
+
+    <div class="monitor-neck"></div>
+    <div class="monitor-base"></div>
+    <div class="monitor">
+        <div class="screen"><img src="monitor.png" alt=""></div>
+    </div>
+
+    <div class="laptop-lid">
+        <div class="camera"></div>
+        <div class="screen"><img src="laptop.png" alt=""></div>
+    </div>
+    <div class="laptop-base"></div>
+
+    <div class="tablet">
+        <div class="screen"><img src="tablet.png" alt=""></div>
+    </div>
+
+    <div class="phone">
+        <div class="island"></div>
+        <div class="screen"><img src="phone.png" alt=""></div>
+    </div>
+</div>
+</body>
+</html>

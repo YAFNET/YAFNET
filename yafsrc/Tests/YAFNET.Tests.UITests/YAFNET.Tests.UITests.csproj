@@ -21,6 +21,9 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <None Update="Mockup\mockup.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="AwesomeAssertions" Version="9.6.0" />
