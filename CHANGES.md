@@ -43,6 +43,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Multi quote button: the posts selected on another page of the topic were shown as not selected (they could not be deselected), the selected state wasn't visible, and the small checkbox was hard to hit on touch screens; the whole button is now a toggle button
 * [FIXED] Error page (e.g. a page that doesn't exist): the home icon of the "Try Again" button was missing, the page didn't load the icon font css
 * [FIXED] Admin dashboard: the start date of the board (e.g. "<strong>Today</strong> at 6:25:59 AM") was shown with its html tags as text
+* [FIXED] Admin dashboard: the number of categories was shown in white on the light theme (the span had two class attributes)
 
 # YetAnotherForum.NET v4.0.10
 * [NEW] Extended unit test suite including repository tests against an in-memory SQLite database
