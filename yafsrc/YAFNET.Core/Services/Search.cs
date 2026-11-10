@@ -50,6 +50,7 @@ using Microsoft.Extensions.Logging;
 using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Types.Constants;
+using YAF.Types.Exceptions;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -132,6 +133,9 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 return this.indexWriter;
             }
 
+            // without write access Lucene only reports a "Lock obtain timed out" error
+            this.EnsureSearchIndexFolderIsWritable();
+
             var lockFile = Path.Combine(this.searchIndexFolder, WriteLockFile);
 
             if (File.Exists(lockFile))
@@ -206,6 +210,11 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         {
             this.Writer.DeleteAll();
         }
+        catch (SearchIndexNotWritableException ex)
+        {
+            this.LogNotWritable(ex);
+            return false;
+        }
         catch (Exception)
         {
             return false;
@@ -225,9 +234,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         // remove older index entry
         var searchQuery = new TermQuery(new Term("MessageId", messageId.ToString()));
 
-        this.Writer.DeleteDocuments(searchQuery);
-
-        this.Optimize();
+        this.DeleteDocuments(searchQuery);
     }
 
     /// <summary>
@@ -241,9 +248,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         // remove older index entry
         var searchQuery = new TermQuery(new Term("TopicId", topicId.ToString()));
 
-        this.Writer.DeleteDocuments(searchQuery);
-
-        this.Optimize();
+        this.DeleteDocuments(searchQuery);
     }
 
     /// <summary>
@@ -260,6 +265,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         try
         {
             messageList.ForEach(message => this.UpdateSearchIndexItemAsync(message));
+        }
+        catch (SearchIndexNotWritableException ex)
+        {
+            this.LogNotWritable(ex);
         }
         finally
         {
@@ -291,6 +300,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                 this.Writer.AddDocument(doc);
             }
         }
+        catch (SearchIndexNotWritableException ex)
+        {
+            this.LogNotWritable(ex);
+        }
         finally
         {
             this.Optimize();
@@ -319,7 +332,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                     doc,
                     this.standardAnalyzer);
             }
-            catch (Exception)
+            catch (Exception ex) when (ex is not SearchIndexNotWritableException)
             {
                 this.DisposeWriter();
                 this.Writer.UpdateDocument(
@@ -327,6 +340,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                     doc,
                     this.standardAnalyzer);
             }
+        }
+        catch (SearchIndexNotWritableException ex)
+        {
+            this.LogNotWritable(ex);
         }
         finally
         {
@@ -677,7 +694,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                     doc,
                     this.standardAnalyzer);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is not SearchIndexNotWritableException)
             {
                 this.Get<ILogger<Search>>().Log(null, this, ex);
                 this.DisposeWriter();
@@ -1077,6 +1094,60 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     private void DisposeWriter()
     {
         this.indexWriter?.Dispose(true);
+    }
+
+    /// <summary>
+    /// Deletes the documents matching the query from the search index.
+    /// </summary>
+    /// <param name="query">The query.</param>
+    private void DeleteDocuments(Query query)
+    {
+        try
+        {
+            this.Writer.DeleteDocuments(query);
+        }
+        catch (SearchIndexNotWritableException ex)
+        {
+            this.LogNotWritable(ex);
+        }
+
+        this.Optimize();
+    }
+
+    /// <summary>
+    /// Creates the search index folder if needed and checks that files can be created in it.
+    /// </summary>
+    /// <exception cref="SearchIndexNotWritableException">
+    /// The folder can't be created or written by the user the forum runs as.
+    /// </exception>
+    private void EnsureSearchIndexFolderIsWritable()
+    {
+        try
+        {
+            System.IO.Directory.CreateDirectory(this.searchIndexFolder);
+
+            // the index writer creates the write lock and the index files in the folder
+            var testFile = Path.Combine(this.searchIndexFolder, $"write-test-{Guid.NewGuid():N}.tmp");
+
+            using (new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.None, 1, FileOptions.DeleteOnClose))
+            {
+            }
+        }
+        catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+        {
+            throw new SearchIndexNotWritableException(
+                $"The search index folder \"{this.searchIndexFolder}\" cannot be written by the user \"{Environment.UserName}\" the forum runs as ({ex.Message}). Grant this user write access to the folder (and to its parent folder, if the folder does not exist yet). Until then new and changed posts are not added to the search index.",
+                ex);
+        }
+    }
+
+    /// <summary>
+    /// Logs that the search index could not be updated, because its folder is not writable.
+    /// </summary>
+    /// <param name="exception">The exception.</param>
+    private void LogNotWritable(SearchIndexNotWritableException exception)
+    {
+        this.Get<ILogger<Search>>().Error(exception, exception.Message);
     }
 
     /// <summary>

@@ -30,6 +30,7 @@ using System.Threading.Tasks;
 using Autofac;
 
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
@@ -41,6 +42,7 @@ using NSubstitute;
 using YAF.Core.BBCode;
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
+using YAF.Types.Exceptions;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Services;
@@ -57,6 +59,8 @@ public class LuceneSearchTests
     private string webRoot;
 
     private TestBoardContext board;
+
+    private ILogger<Search> searchLogger;
 
     private int alice;
 
@@ -77,10 +81,14 @@ public class LuceneSearchTests
         var environment = Substitute.For<IWebHostEnvironment>();
         environment.WebRootPath.Returns(this.webRoot);
 
+        this.searchLogger = Substitute.For<ILogger<Search>>();
+        this.searchLogger.IsEnabled(Arg.Any<LogLevel>()).Returns(true);
+
         this.board = new TestBoardContext(
             b =>
             {
                 b.RegisterInstance(environment).As<IWebHostEnvironment>();
+                b.RegisterInstance(this.searchLogger).As<ILogger<Search>>();
 
                 // the real formatting, it html encodes the message after the highlighting
                 b.Register<Func<IEnumerable<bool>, IProcessReplaceRules>>(_ => _ => new ProcessReplaceRules());
@@ -584,6 +592,39 @@ public class LuceneSearchTests
         this.Index(2, 11, this.forumA, "second", "the second fox");
 
         (await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10)).Item2.Should().Be(2);
+    }
+
+    [Test]
+    [Description("When the search index folder can't be created the posts are not indexed, the cause is logged instead of a lock error and nothing throws")]
+    public async Task Search_Index_Folder_Not_Writable_Test()
+    {
+        // a file with the name of the folder: the folder can't be created (like without write access to wwwroot)
+        var folder = Path.Combine(this.webRoot, "Search_Data");
+        await File.WriteAllTextAsync(folder, string.Empty);
+
+        var search = this.NewSearch();
+        var message = this.Message(1, 10, this.forumA, "Lucene rocks", "the quick brown fox");
+        message.Flags = new MessageFlags { IsApproved = true }.BitValue;
+
+        search.AddSearchIndexItem(message);
+        search.UpdateSearchIndexItem(message, true);
+        await search.AddSearchIndexAsync([message]);
+        search.DeleteSearchIndexRecordByMessageId(1);
+        search.DeleteSearchIndexRecordByTopicId(10);
+        search.ClearSearchIndex().Should().BeFalse();
+        search.Dispose();
+
+        // the event log entries of the errors
+        var logged = this.searchLogger.ReceivedCalls()
+            .SelectMany(call => call.GetArguments())
+            .OfType<YAF.Types.Models.EventLog>()
+            .Select(entry => entry.Exception)
+            .ToList();
+
+        logged.Should().HaveCount(6).And.AllBeOfType<SearchIndexNotWritableException>();
+        logged[0].Message.Should().Contain(folder).And.Contain(Environment.UserName);
+
+        (await this.NewSearch().SearchPagedAsync(0, "fox", 0, 10)).Item2.Should().Be(0);
     }
 
     [Test]
