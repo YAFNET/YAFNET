@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion />
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net11.0</TargetFramework>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <RootNamespace>YAF.Tests.LighthouseTests</RootNamespace>
     <AssemblyName>YAF.Tests.LighthouseTests</AssemblyName>
@@ -20,7 +20,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <PackageReference Include="LighthousePlaywright.Net" Version="1.0.2" />
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.1" />
 	  <PackageReference Include="NUnit3TestAdapter" Version="6.3.1" />
 	  <PackageReference Include="SonarAnalyzer.CSharp" Version="10.35.0.4138">
 	    <PrivateAssets>all</PrivateAssets>

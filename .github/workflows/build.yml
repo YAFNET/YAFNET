@@ -1,4 +1,4 @@
-name: YAF.NET v4 (.NET v10)
+name: YAF.NET v4 (.NET v11)
 permissions:
   contents: read
   pull-requests: write
@@ -16,7 +16,7 @@ jobs:
       pull-requests: write
     strategy:
       matrix:
-        dotnet-version: [ '10.0.x' ]
+        dotnet-version: [ '11.0.x' ]
         node-version: [latest]
 
     steps:

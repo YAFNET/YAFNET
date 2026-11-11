@@ -16,7 +16,7 @@
     <tags>forums yaf yaf.net YetAnotherForum.net forum</tags>
     <repository type="git" url="https://github.com/YAFNET/YAFNET" />
     <dependencies>
-		<group targetFramework="net10.0">
+		<group targetFramework="net11.0">
 			<dependency id="YAFNET.Configuration" version="4.0.10" exclude="Build,Analyzers" />
 			<dependency id="YAFNET.Core" version="4.0.10" exclude="Build,Analyzers" />
 			<dependency id="YAFNET.Types" version="4.0.10" exclude="Build,Analyzers" />
@@ -31,15 +31,15 @@
 	    <reference file="YAF.Data.Sqlite.dll" />
     </references>
     <frameworkReferences>
-	    <group targetFramework="net10.0">
+	    <group targetFramework="net11.0">
 		    <frameworkReference name="Microsoft.AspNetCore.App" />
 	    </group>
     </frameworkReferences>
   </metadata>
   <files>
-    <file src="bin\Release\net10.0\YAF.Data.Sqlite.dll" target="lib\net10.0\"/>
-    <file src="bin\Release\net10.0\ServiceStack.OrmLite.dll" target="lib\net10.0\"/>
-    <file src="bin\Release\net10.0\ServiceStack.OrmLite.Sqlite.dll" target="lib\net10.0\"/>
+    <file src="bin\Release\net11.0\YAF.Data.Sqlite.dll" target="lib\net11.0\"/>
+    <file src="bin\Release\net11.0\ServiceStack.OrmLite.dll" target="lib\net11.0\"/>
+    <file src="bin\Release\net11.0\ServiceStack.OrmLite.Sqlite.dll" target="lib\net11.0\"/>
 	<file src="..\..\..\LICENSE.md" target=""/>
     <file src="..\..\..\README.md" target=""/>
     <file src="..\..\yaf.png" target=""/>

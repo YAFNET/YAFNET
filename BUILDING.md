@@ -7,7 +7,7 @@ The full build instructions for YAF.NET v4 are in the wiki:
 
 ## Quick start
 
-Prerequisites: the [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) and [Node.js](https://nodejs.org/).
+Prerequisites: the [.NET 11.0 SDK](https://dotnet.microsoft.com/download/dotnet/11.0) and [Node.js](https://nodejs.org/).
 
 ```bash
 cd yafsrc/YetAnotherForum.NET
