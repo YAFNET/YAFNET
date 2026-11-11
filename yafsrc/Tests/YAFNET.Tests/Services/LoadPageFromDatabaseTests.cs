@@ -229,6 +229,22 @@ public class LoadPageFromDatabaseTests
     }
 
     [Test]
+    [Description("Endpoints without a display name (e.g. MapStaticAssets) don't stop the page name lookup")]
+    public void Page_Name_With_Unnamed_Endpoint_Test()
+    {
+        this.board.HttpContext.Request.Path = "/Members";
+
+        var endpoints = new DefaultEndpointDataSource(
+            new Endpoint(_ => System.Threading.Tasks.Task.CompletedTask, EndpointMetadataCollection.Empty, null),
+            new Endpoint(_ => System.Threading.Tasks.Task.CompletedTask, EndpointMetadataCollection.Empty, "Page: /Members"));
+
+        this.Handler([endpoints]).Handle(this.NewEvent());
+
+        this.board.Current.GetRepository<Active>().GetSingle(a => a.SessionID == this.board.HttpContext.Session.Id)
+            .ForumPage.Should().Be("Members");
+    }
+
+    [Test]
     [Description("Paths that are not a forum page record an empty page name")]
     public void Unknown_Page_Name_Test()
     {
