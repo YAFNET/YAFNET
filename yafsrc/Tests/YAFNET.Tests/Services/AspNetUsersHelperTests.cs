@@ -490,19 +490,6 @@ public class AspNetUsersHelperTests
     }
 
     [Test]
-    [Description("An external login is added once per user")]
-    public async Task AddLogin_Test()
-    {
-        await this.AddMemberAsync("alice-key", "alice", "alice@example.com");
-
-        this.helper.AddLogin("alice-key", new UserLoginInfo("Google", "g-1", "Google"));
-        this.helper.AddLogin("alice-key", new UserLoginInfo("Google", "g-1", "Google"));
-
-        (await this.Repository<AspNetUserLogins>().CountAsync(l => l.UserId == "alice-key")).Should().Be(1);
-        this.helper.Invoking(h => h.AddLogin(null, new UserLoginInfo("Google", "g", "Google"))).Should().Throw<ArgumentNullException>();
-    }
-
-    [Test]
     [Description("Roles through the user manager")]
     public async Task Roles_Test()
     {

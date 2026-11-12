@@ -290,27 +290,34 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                                    && !admins.Contains(user.ID) && user.LastVisit < createdCutoff).ToList();
 
         // iterate through each one...
-        inactiveUsers.ForEach(
-                user =>
-                {
-                    var flags = user.UserFlags;
+        foreach (var user in inactiveUsers)
+        {
+            var aspNetUser = user.ProviderUserKey.IsSet()
+                                 ? await this.Get<AspNetUsersManager>().FindUserByIdAsync(user.ProviderUserKey)
+                                 : null;
 
-                    // Set user to un-approve...
-                    flags.IsApproved = false;
-                    flags.IsDeleted = true;
+            if (aspNetUser is not null)
+            {
+                // the login checks the identity, a new security stamp ends the existing logins
+                aspNetUser.IsApproved = false;
+                aspNetUser.SecurityStamp = UserStore.NewSecurityStamp();
 
-                    this.GetRepository<User>().UpdateOnly(
-                        () => new User
-                                  {
-                                      Flags = flags.BitValue
-                                  },
-                        u => u.ID == user.ID);
+                await this.Get<AspNetUsersManager>().UpdateUsrAsync(aspNetUser);
+            }
 
-                    // the login checks the identity, a new security stamp ends the existing logins
-                    this.GetRepository<AspNetUsers>().UpdateOnly(
-                        () => new AspNetUsers { IsApproved = false, SecurityStamp = UserStore.NewSecurityStamp() },
-                        u => u.Id == user.ProviderUserKey);
-                });
+            var flags = user.UserFlags;
+
+            // Set user to un-approve...
+            flags.IsApproved = false;
+            flags.IsDeleted = true;
+
+            await this.GetRepository<User>().UpdateOnlyAsync(
+                () => new User
+                          {
+                              Flags = flags.BitValue
+                          },
+                u => u.ID == user.ID);
+        }
 
         return inactiveUsers.Count;
     }
@@ -524,10 +531,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             return null;
         }
 
+        // ASP.NET Core has no synchronization context, blocking here does not dead lock
         return httpContext.User.Identity.IsAuthenticated
-            ? this.GetRepository<AspNetUsers>().GetSingle(
-                u => u.UserName.ToLower(CultureInfo.InvariantCulture) ==
-                     httpContext.User.Identity.Name.ToLower(CultureInfo.InvariantCulture))
+            ? this.Get<AspNetUsersManager>().FindUserByNameAsync(httpContext.User.Identity.Name).GetAwaiter().GetResult()
             : null;
     }
 
@@ -945,33 +951,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public Task<IdentityResult> ChangePasswordAsync(AspNetUsers user, string currentPassword, string newPassword)
     {
         return this.Get<AspNetUsersManager>().ChangeUserPasswordAsync(user, currentPassword, newPassword);
-    }
-
-    /// <summary>
-    /// The add login.
-    /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="login">
-    /// The login.
-    /// </param>
-    public void AddLogin(string userId, UserLoginInfo login)
-    {
-        ArgumentNullException.ThrowIfNull(userId);
-        ArgumentNullException.ThrowIfNull(login);
-
-        if (this.GetRepository<AspNetUserLogins>().GetSingle(l => l.UserId == userId) != null)
-        {
-            return;
-        }
-
-        var userLogin = new AspNetUserLogins
-                            {
-                                UserId = userId, ProviderKey = login.ProviderKey, LoginProvider = login.LoginProvider
-                            };
-
-        this.GetRepository<AspNetUserLogins>().Insert(userLogin);
     }
 
     /// <summary>
@@ -1460,7 +1439,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public async Task ImportAllMembershipUsersAsync()
     {
         // get all users in membership...
-        var users = await BoardContext.Current.GetRepository<AspNetUsers>().GetAsync(x => x.Email != null && x.Id != null);
+        var users = this.Get<AspNetUsersManager>().AspNetUsers.Where(x => x.Email != null && x.Id != null).ToList();
 
         // create the missing forum users one after the other (they use the services of the current request)
         foreach (var user in users)
