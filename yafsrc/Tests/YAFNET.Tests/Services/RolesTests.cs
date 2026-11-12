@@ -101,6 +101,25 @@ public class RolesTests
     }
 
     [Test]
+    [Description("A renamed role keeps its id and its users")]
+    public async Task RenameRole_Test()
+    {
+        var manager = this.board.Resolve<IAspNetRoleManager>();
+        await this.roles.CreateRoleAsync("Editors");
+        var alice = await this.CreateIdentityAsync("alice");
+        this.roles.AddUserToRole(alice, "Editors");
+
+        var role = await manager.FindByRoleNameAsync("Editors");
+
+        (await manager.RenameRoleAsync(role, "Authors")).Succeeded.Should().BeTrue();
+
+        (await manager.FindByRoleNameAsync("Authors")).Id.Should().Be(role.Id);
+        (await this.roles.RoleNameExistsAsync("Editors")).Should().BeFalse();
+        (await this.roles.GetUsersInRoleAsync("Authors")).Select(u => u.UserName).Should().Equal("alice");
+        this.board.Resolve<AspNetRolesHelper>().Roles.Select(r => r.Name).Should().Equal("Authors");
+    }
+
+    [Test]
     [Description("RoleStore: create, find (case insensitive), update and delete")]
     public async Task RoleStore_Crud_Test()
     {

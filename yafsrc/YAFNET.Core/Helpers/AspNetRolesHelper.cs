@@ -59,7 +59,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <summary>
     /// The users.
     /// </summary>
-    public IQueryable<AspNetRoles> Roles => this.Get<AspNetRoleManager>().AspNetRoles;
+    public IQueryable<AspNetRoles> Roles => this.Get<IAspNetRoleManager>().AspNetRoles;
 
     /// <summary>
     /// The add user to role.
