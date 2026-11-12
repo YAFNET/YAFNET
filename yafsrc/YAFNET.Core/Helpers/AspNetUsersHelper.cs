@@ -1046,8 +1046,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-        expression.LeftJoin<VAccess>((u, v) => v.UserID == u.ID).LeftJoin<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
-            .Join<Rank>((u, r) => r.ID == u.RankID);
+        expression.LeftJoin<VAccess>((u, v) => v.UserID == u.ID).Join<Rank>((u, r) => r.ID == u.RankID);
 
         if (includeNonApproved)
         {
@@ -1062,9 +1061,21 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         }
 
         var users = await this.GetRepository<User>().DbAccess
-            .ExecuteAsync(db => db.SelectMultiAsync<User, AspNetUsers, Rank, VAccess>(expression));
+            .ExecuteAsync(db => db.SelectMultiAsync<User, Rank, VAccess>(expression));
 
-        return users.FirstOrDefault();
+        var boardUser = users.FirstOrDefault();
+
+        if (boardUser is null)
+        {
+            return null;
+        }
+
+        // the identity comes from the user store, a forum user without identity (e.g. the guest) gets an empty one
+        var aspNetUser = boardUser.Item1.ProviderUserKey.IsSet()
+                             ? await this.Get<AspNetUsersManager>().FindUserByIdAsync(boardUser.Item1.ProviderUserKey)
+                             : null;
+
+        return Tuple.Create(boardUser.Item1, aspNetUser ?? new AspNetUsers(), boardUser.Item2, boardUser.Item3);
     }
 
     /// <summary>
@@ -1109,8 +1120,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     // -- count total
                     var countTotalExpression = db.Connection.From<User>();
 
-                    expression.Join<Rank>((u, r) => r.ID == u.RankID)
-                        .LeftJoin<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey);
+                    expression.Join<Rank>((u, r) => r.ID == u.RankID);
 
                     countTotalExpression.Where(whereCriteria);
 
@@ -1192,8 +1202,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     var countTotalSql = countTotalExpression
                         .Select(Sql.Count($"{countTotalExpression.Column<User>(x => x.ID)}")).ToSelectStatement();
 
-                    expression.Select<User, AspNetUsers, Rank>(
-                        (u, a, r) => new {
+                    expression.Select<User, Rank>(
+                        (u, r) => new {
                                                  UserID = u.ID,
                                                  u.Name,
                                                  u.DisplayName,
@@ -1291,10 +1301,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
                     Expression<Func<User, bool>> whereCriteria = u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID) && (u.Flags & 2) == 2;
 
-                    expression.Join<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
-                        .Join<Rank>((u, r) => r.ID == u.RankID);
+                    expression.Join<Rank>((u, r) => r.ID == u.RankID);
 
                     expression.Where(whereCriteria);
+
+                    // only users with an identity
+                    expression.And<User>(u => u.ProviderUserKey != null);
 
                     if (startLetter == char.MinValue)
                     {
@@ -1355,8 +1367,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     var countTotalSql = countTotalExpression2
                         .Select(Sql.Count($"{countTotalExpression2.Column<User>(x => x.ID)}")).ToSelectStatement();
 
-                    expression.Select<User, AspNetUsers, Rank>(
-                        (u, a, r) => new {
+                    expression.Select<User, Rank>(
+                        (u, r) => new {
                                                  UserID = u.ID,
                                                  u.Name,
                                                  u.DisplayName,

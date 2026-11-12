@@ -28,7 +28,10 @@ using System.Threading.Tasks;
 
 using Autofac;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
 using NSubstitute;
 
@@ -36,6 +39,7 @@ using ServiceStack.OrmLite;
 
 using YAF.Core.Controllers;
 using YAF.Core.Helpers;
+using YAF.Core.Identity;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Constants;
 using YAF.Types.Flags;
@@ -75,6 +79,17 @@ public class UserControllersTests
             b =>
             {
                 b.RegisterType<AspNetUsersHelper>().As<IAspNetUsersHelper>();
+                b.Register(
+                    c => new AspNetUsersManager(
+                        new UserStore(c.Resolve<IServiceLocator>()),
+                        Options.Create(new IdentityOptions()),
+                        null,
+                        [],
+                        [],
+                        new UpperInvariantLookupNormalizer(),
+                        new IdentityErrorDescriber(),
+                        null,
+                        NullLogger<AspNetUsersManager>.Instance)).AsSelf().SingleInstance();
                 b.RegisterInstance(this.permissions).As<IPermissions>();
                 b.RegisterInstance(dateTime).As<IDateTimeService>();
                 b.RegisterInstance(Substitute.For<IAvatars>()).As<IAvatars>();
