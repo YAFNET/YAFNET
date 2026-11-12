@@ -35,6 +35,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
 using YAF.Core.Data;
+using YAF.Core.Identity;
 using YAF.Core.Model;
 using YAF.Types.Models;
 
@@ -254,38 +255,37 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
     /// <returns>A Task representing the asynchronous operation.</returns>
     private async Task RenameRegisteredRoleAsync()
     {
-        var roles = this.GetRepository<AspNetRoles>();
+        var roles = this.Get<IAspNetRoleManager>();
 
-        var registeredRole = await roles.GetSingleAsync(x => x.Name == "Registered");
+        var registeredRole = await roles.FindByRoleNameAsync("Registered");
 
         if (registeredRole == null)
         {
             return;
         }
 
-        var registeredUsersRole = await roles.GetSingleAsync(x => x.Name == "Registered Users");
+        var registeredUsersRole = await roles.FindByRoleNameAsync("Registered Users");
 
         if (registeredUsersRole == null)
         {
-            registeredRole.Name = "Registered Users";
-
-            await roles.UpdateAsync(registeredRole);
+            await roles.RenameRoleAsync(registeredRole, "Registered Users");
 
             return;
         }
 
-        var userRoles = this.GetRepository<AspNetUserRoles>();
+        var users = this.Get<AspNetUsersManager>();
 
-        var members = (await userRoles.GetAsync(r => r.RoleId == registeredUsersRole.Id)).Select(r => r.UserId)
-            .ToList();
-
-        foreach (var userRole in (await userRoles.GetAsync(r => r.RoleId == registeredRole.Id)).Where(userRole => !members.Contains(userRole.UserId)))
+        foreach (var user in await users.GetUsersInRoleAsync(registeredRole.Name))
         {
-            await userRoles.InsertAsync(new AspNetUserRoles { UserId = userRole.UserId, RoleId = registeredUsersRole.Id });
+            if (!await users.IsInRoleAsync(user, registeredUsersRole.Name))
+            {
+                await users.AddToRoleAsync(user, registeredUsersRole.Name);
+            }
+
+            await users.RemoveFromRoleAsync(user, registeredRole.Name);
         }
 
-        await userRoles.DeleteAsync(r => r.RoleId == registeredRole.Id);
-        await roles.DeleteAsync(r => r.Id == registeredRole.Id);
+        await roles.DeleteRoleAsync(registeredRole);
     }
 
     /// <summary>

@@ -236,27 +236,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// </returns>
     public async Task<List<AspNetUsers>> GetUsersInRoleAsync(string roleName)
     {
-        var role = await this.Get<IAspNetRoleManager>().FindByRoleNameAsync(roleName);
-
-        if (role is null)
-        {
-            return [];
-        }
-
-        var users = await this.GetRepository<AspNetUserRoles>().GetAsync(r => r.RoleId == role.Id);
-
-        var userList = new List<AspNetUsers>();
-
-        this.Get<IAspNetUsersHelper>().Users.AsEnumerable().ForEach(
-            user =>
-                {
-                    if (users.Exists(u => u.UserId == user.Id))
-                    {
-                        userList.Add(user);
-                    }
-                });
-
-        return userList;
+        return [.. await this.Get<AspNetUsersManager>().GetUsersInRoleAsync(roleName)];
     }
 
     /// <summary>
