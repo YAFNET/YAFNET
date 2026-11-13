@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Creează o copie de siguranță arhivată (zip) a întregii baze de date. Copiile sunt salvate în folderul:"
+            "#text": "Creează o copie de siguranță arhivată (zip) a întregii baze de date, cu fișierele încărcate și imaginile (folderele uploads și images). Copiile sunt salvate în folderul:"
           },
           {
             "@tag": "KEEP",

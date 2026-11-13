@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Skapar en zippad säkerhetskopia av hela databasen. Säkerhetskopiorna sparas i mappen:"
+            "#text": "Skapar en zippad säkerhetskopia av hela databasen med de uppladdade filerna och bilderna (mapparna uploads och images). Säkerhetskopiorna sparas i mappen:"
           },
           {
             "@tag": "KEEP",

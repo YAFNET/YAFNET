@@ -316,6 +316,64 @@ public class DatabaseBackupTests
     }
 
     [Test]
+    [Description("The backup contains the uploads and images of wwwroot (in the folder wwwroot of the zip), not the other files of wwwroot")]
+    public async Task Backup_Contains_Uploads_And_Images_Test()
+    {
+        var webRoot = Path.Combine(this.folder, "site", "wwwroot");
+        var backupFolder = Path.Combine(this.folder, "backups");
+
+        Directory.CreateDirectory(Path.Combine(webRoot, "uploads"));
+        Directory.CreateDirectory(Path.Combine(webRoot, "images", "Avatars"));
+        Directory.CreateDirectory(Path.Combine(webRoot, "js"));
+
+        await File.WriteAllTextAsync(Path.Combine(webRoot, "uploads", "attachment.yafupload"), "upload");
+        await File.WriteAllTextAsync(Path.Combine(webRoot, "images", "Avatars", "avatar.png"), "avatar");
+        await File.WriteAllTextAsync(Path.Combine(webRoot, "js", "forum.js"), "script");
+
+        using var board = new TestBoardContext(
+            b =>
+            {
+                b.RegisterInstance(new BoardConfiguration { BackupFolder = backupFolder });
+                b.RegisterInstance(Environment(Path.Combine(this.folder, "site"), webRoot)).As<IWebHostEnvironment>();
+                b.RegisterType<SqliteDbBackupProvider>().Named<IDbBackupProvider>(SqliteDbAccess.ProviderTypeName);
+                b.RegisterType<DatabaseBackupService>().As<IDatabaseBackupService>();
+            },
+            useDatabase: true);
+
+        var backupService = board.Resolve<IDatabaseBackupService>();
+
+        (await backupService.GetSupportAsync(true)).IsSupported.Should().BeTrue();
+
+        var backup = await backupService.CreateBackupAsync();
+
+        await using var zip = await ZipFile.OpenReadAsync(Path.Combine(backupFolder, backup.Name));
+
+        zip.Entries.Select(e => e.FullName).Should().BeEquivalentTo(
+            Path.ChangeExtension(backup.Name, ".db"),
+            "wwwroot/uploads/attachment.yafupload",
+            "wwwroot/images/Avatars/avatar.png");
+
+        using var reader = new StreamReader(await zip.GetEntry("wwwroot/images/Avatars/avatar.png")!.OpenAsync());
+        (await reader.ReadToEndAsync()).Should().Be("avatar");
+    }
+
+    [Test]
+    [Description("The folders of the files in the backup: uploads and images, in the static files root, of each board with the board folders")]
+    public void File_Folders_Test()
+    {
+        DatabaseBackupService.GetFileFolders(new BoardConfiguration(), [1, 2]).Should()
+            .Equal("uploads", "images");
+
+        DatabaseBackupService.GetFileFolders(new BoardConfiguration { StaticFilesRoot = "Forums/" }, [1]).Should()
+            .Equal("Forums/uploads", "Forums/images");
+
+        DatabaseBackupService.GetFileFolders(
+                new BoardConfiguration { StaticFilesRoot = "Forums/", MultiBoardFolders = true },
+                [1, 2]).Should()
+            .Equal("Forums/1/uploads", "Forums/1/images", "Forums/2/uploads", "Forums/2/images");
+    }
+
+    [Test]
     [Description("The nightly backup runs once a night between 1 and 6 o'clock (server time), only when it is enabled")]
     [TestCase(false, null, "2026-11-13T03:00:00", false, TestName = "Disabled")]
     [TestCase(true, null, "2026-11-13T00:59:00", false, TestName = "Before the night")]

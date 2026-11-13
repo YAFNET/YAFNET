@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Erstellt eine gezippte Sicherung der ganzen Datenbank. Die Sicherungen werden in diesem Ordner gespeichert:"
+            "#text": "Erstellt eine gezippte Sicherung der ganzen Datenbank, mit den hochgeladenen Dateien und den Bildern (Ordner uploads und images). Die Sicherungen werden in diesem Ordner gespeichert:"
           },
           {
             "@tag": "KEEP",

@@ -144,7 +144,7 @@ public partial class DatabaseBackupService : IDatabaseBackupService, IHaveServic
     }
 
     /// <summary>
-    /// Creates a zipped backup of the database, deletes the oldest backups (the number of backups to keep of the host settings)
+    /// Creates a zipped backup of the database with the files of the forum (uploads and images), deletes the oldest backups (the number of backups to keep of the host settings)
     /// and saves the time of the last backup.
     /// </summary>
     /// <returns>The new backup file.</returns>
@@ -196,6 +196,8 @@ public partial class DatabaseBackupService : IDatabaseBackupService, IHaveServic
                     await using var zip = new ZipArchive(zipStream, ZipArchiveMode.Create);
 
                     await zip.CreateEntryFromFileAsync(backupPath, Path.GetFileName(backupPath), CompressionLevel.Optimal);
+
+                    await this.AddFilesAsync(zip);
                 }
 
                 File.Move(tempZipPath, zipPath, true);
@@ -360,6 +362,67 @@ public partial class DatabaseBackupService : IDatabaseBackupService, IHaveServic
         var fullParent = Path.TrimEndingDirectorySeparator(Path.GetFullPath(parent)) + Path.DirectorySeparatorChar;
 
         return full.StartsWith(fullParent, StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Gets the folders of the files of the forum, relative to wwwroot: the uploads and images folder
+    /// (of each board when every board has its own folders).
+    /// </summary>
+    /// <param name="boardConfiguration">The board configuration.</param>
+    /// <param name="boardIds">The IDs of all boards.</param>
+    /// <returns>The folders.</returns>
+    public static List<string> GetFileFolders(BoardConfiguration boardConfiguration, IEnumerable<int> boardIds)
+    {
+        var root = boardConfiguration.StaticFilesRoot ?? string.Empty;
+
+        var boardFolders = boardConfiguration.MultiBoardFolders
+                               ? boardIds.Select(boardId => $"{root}{boardId}/")
+                               : [root];
+
+        return [.. boardFolders.SelectMany(folder => new[] { $"{folder}uploads", $"{folder}images" }).Distinct()];
+    }
+
+    /// <summary>
+    /// Adds the files of the forum (uploads and images) to the backup, in the folder wwwroot of the zip.
+    /// A file that can't be read is skipped (and logged).
+    /// </summary>
+    /// <param name="zip">The zip of the backup.</param>
+    /// <returns>The <see cref="Task"/>.</returns>
+    private async Task AddFilesAsync(ZipArchive zip)
+    {
+        if (!this.ServiceLocator.TryGet(typeof(IWebHostEnvironment), out var environment)
+            || ((IWebHostEnvironment)environment).WebRootPath is not { } webRoot
+            || !Directory.Exists(webRoot))
+        {
+            return;
+        }
+
+        var boardIds = await this.GetRepository<Board>().GetAllBoardIdsAsync();
+
+        foreach (var folder in GetFileFolders(this.Get<BoardConfiguration>(), boardIds))
+        {
+            var path = Path.GetFullPath(Path.Combine(webRoot, folder));
+
+            if (!Directory.Exists(path) || !IsInFolder(path, webRoot))
+            {
+                continue;
+            }
+
+            foreach (var file in Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories))
+            {
+                var entryName = $"wwwroot/{Path.GetRelativePath(webRoot, file).Replace('\\', '/')}";
+
+                try
+                {
+                    // the images and uploads are mostly compressed already
+                    await zip.CreateEntryFromFileAsync(file, entryName, CompressionLevel.Fastest);
+                }
+                catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+                {
+                    this.Get<ILogger<DatabaseBackupService>>().Warn("Database backup: {0} skipped: {1}", file, ex.Message);
+                }
+            }
+        }
     }
 
     /// <summary>

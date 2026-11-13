@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Crée une sauvegarde zippée de toute la base de données. Les sauvegardes sont enregistrées dans le dossier :"
+            "#text": "Crée une sauvegarde zippée de toute la base de données, avec les fichiers envoyés et les images (dossiers uploads et images). Les sauvegardes sont enregistrées dans le dossier :"
           },
           {
             "@tag": "KEEP",

@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Cria uma cópia de segurança comprimida (zip) de toda a base de dados. As cópias são guardadas na pasta:"
+            "#text": "Cria uma cópia de segurança comprimida (zip) de toda a base de dados, com os ficheiros carregados e as imagens (pastas uploads e images). As cópias são guardadas na pasta:"
           },
           {
             "@tag": "KEEP",

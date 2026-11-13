@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Crea un backup compresso (zip) dell'intero database. I backup vengono salvati nella cartella:"
+            "#text": "Crea un backup compresso (zip) dell'intero database, con i file caricati e le immagini (cartelle uploads e images). I backup vengono salvati nella cartella:"
           },
           {
             "@tag": "KEEP",

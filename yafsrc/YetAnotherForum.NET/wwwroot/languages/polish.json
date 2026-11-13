@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Tworzy spakowaną (zip) kopię zapasową całej bazy danych. Kopie są zapisywane w folderze:"
+            "#text": "Tworzy spakowaną (zip) kopię zapasową całej bazy danych wraz z przesłanymi plikami i obrazami (foldery uploads i images). Kopie są zapisywane w folderze:"
           },
           {
             "@tag": "KEEP",

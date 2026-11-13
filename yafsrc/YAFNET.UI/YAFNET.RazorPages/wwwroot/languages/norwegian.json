@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Lager en zippet sikkerhetskopi av hele databasen. Sikkerhetskopiene lagres i mappen:"
+            "#text": "Lager en zippet sikkerhetskopi av hele databasen med de opplastede filene og bildene (mappene uploads og images). Sikkerhetskopiene lagres i mappen:"
           },
           {
             "@tag": "KEEP",

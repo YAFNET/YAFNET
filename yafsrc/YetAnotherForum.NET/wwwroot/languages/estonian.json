@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Loob kogu andmebaasist pakitud (zip) varukoopia. Varukoopiad salvestatakse kausta:"
+            "#text": "Loob kogu andmebaasist koos üleslaaditud failide ja piltidega (kaustad uploads ja images) pakitud (zip) varukoopia. Varukoopiad salvestatakse kausta:"
           },
           {
             "@tag": "KEEP",

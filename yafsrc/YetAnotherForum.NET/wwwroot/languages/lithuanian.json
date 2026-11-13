@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Sukuria suglaudintą (zip) visos duomenų bazės atsarginę kopiją. Kopijos saugomos aplanke:"
+            "#text": "Sukuria suglaudintą (zip) visos duomenų bazės atsarginę kopiją su įkeltais failais ir paveikslėliais (aplankai uploads ir images). Kopijos saugomos aplanke:"
           },
           {
             "@tag": "KEEP",

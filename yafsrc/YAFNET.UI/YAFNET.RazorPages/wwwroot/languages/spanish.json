@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Crea una copia de seguridad comprimida de toda la base de datos. Las copias se guardan en la carpeta:"
+            "#text": "Crea una copia de seguridad comprimida de toda la base de datos, con los archivos subidos y las imágenes (carpetas uploads e images). Las copias se guardan en la carpeta:"
           },
           {
             "@tag": "KEEP",

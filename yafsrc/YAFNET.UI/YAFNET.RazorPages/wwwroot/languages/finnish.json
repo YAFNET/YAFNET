@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Luo pakatun (zip) varmuuskopion koko tietokannasta. Varmuuskopiot tallennetaan kansioon:"
+            "#text": "Luo pakatun (zip) varmuuskopion koko tietokannasta sekä ladatuista tiedostoista ja kuvista (kansiot uploads ja images). Varmuuskopiot tallennetaan kansioon:"
           },
           {
             "@tag": "KEEP",

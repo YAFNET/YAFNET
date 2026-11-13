@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Vytvoří zazipovanou zálohu celé databáze. Zálohy se ukládají do složky:"
+            "#text": "Vytvoří zazipovanou zálohu celé databáze s nahranými soubory a obrázky (složky uploads a images). Zálohy se ukládají do složky:"
           },
           {
             "@tag": "KEEP",

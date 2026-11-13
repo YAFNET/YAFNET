@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Tạo bản sao lưu nén (zip) của toàn bộ cơ sở dữ liệu. Các bản sao lưu được lưu trong thư mục:"
+            "#text": "Tạo bản sao lưu nén (zip) của toàn bộ cơ sở dữ liệu, kèm các tệp đã tải lên và hình ảnh (thư mục uploads và images). Các bản sao lưu được lưu trong thư mục:"
           },
           {
             "@tag": "KEEP",

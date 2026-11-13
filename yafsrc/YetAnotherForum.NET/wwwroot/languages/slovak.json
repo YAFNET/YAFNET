@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Vytvorí zazipovanú zálohu celej databázy. Zálohy sa ukladajú do priečinka:"
+            "#text": "Vytvorí zazipovanú zálohu celej databázy s nahranými súbormi a obrázkami (priečinky uploads a images). Zálohy sa ukladajú do priečinka:"
           },
           {
             "@tag": "KEEP",

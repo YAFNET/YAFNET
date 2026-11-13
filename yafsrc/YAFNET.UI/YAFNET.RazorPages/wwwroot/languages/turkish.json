@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Tüm veritabanının sıkıştırılmış (zip) bir yedeğini oluşturur. Yedekler şu klasörde saklanır:"
+            "#text": "Tüm veritabanının, yüklenen dosyalar ve resimlerle (uploads ve images klasörleri) birlikte sıkıştırılmış (zip) bir yedeğini oluşturur. Yedekler şu klasörde saklanır:"
           },
           {
             "@tag": "KEEP",

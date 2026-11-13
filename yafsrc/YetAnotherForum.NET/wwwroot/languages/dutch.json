@@ -1007,7 +1007,7 @@
           },
           {
             "@tag": "INFO",
-            "#text": "Maakt een gezipte back-up van de hele database. De back-ups worden opgeslagen in de map:"
+            "#text": "Maakt een gezipte back-up van de hele database, met de geüploade bestanden en de afbeeldingen (mappen uploads en images). De back-ups worden opgeslagen in de map:"
           },
           {
             "@tag": "KEEP",

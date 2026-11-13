@@ -1007,7 +1007,7 @@
                 },
                 {
                     "@tag": "INFO",
-                    "#text": "Creates a zipped backup of the whole database. The backups are stored in the folder:"
+                    "#text": "Creates a zipped backup of the whole database, with the uploaded files and the images (folders uploads and images). The backups are stored in the folder:"
                 },
                 {
                     "@tag": "KEEP",
