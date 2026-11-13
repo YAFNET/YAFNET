@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net11.0</TargetFramework>
@@ -99,7 +99,7 @@ if (ReleaseNotes.Length > 30000)
   <ItemGroup>
 	<PackageReference Include="HtmlProperties" Version="1.0.2" />
 	<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="11.0.0" />
-	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.35.0.4138">
+	<PackageReference Include="SonarAnalyzer.CSharp" Version="10.36.0.15337">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>

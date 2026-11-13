@@ -38,9 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="9.3.4" />
-    <PackageReference Include="SkiaSharp" Version="4.155.0" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.155.0" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.35.0.4138">
+    <PackageReference Include="SkiaSharp" Version="4.156.0" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="4.156.0" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.36.0.15337">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
