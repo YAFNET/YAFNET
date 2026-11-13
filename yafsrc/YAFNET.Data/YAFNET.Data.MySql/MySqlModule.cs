@@ -44,5 +44,9 @@ public class MySqlModule : Module
         builder.RegisterType<MySqlDbAccess>()
             .Named<IDbAccess>(MySqlDbAccess.ProviderTypeName)
             .InstancePerLifetimeScope();
+
+        builder.RegisterType<MySqlDbBackupProvider>()
+            .Named<IDbBackupProvider>(MySqlDbAccess.ProviderTypeName)
+            .InstancePerLifetimeScope();
     }
 }
