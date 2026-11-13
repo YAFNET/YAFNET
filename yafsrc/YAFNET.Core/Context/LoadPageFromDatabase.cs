@@ -57,7 +57,8 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
         this.Logger = logger;
         this.DataCache = dataCache;
         this.EndpointSources = endpointSources
-            .SelectMany(es => es.Endpoints).Select(x => x.DisplayName.Replace("Page: ", "")).OrderByDescending(x => x);
+            .SelectMany(es => es.Endpoints).Where(x => x.DisplayName != null)
+            .Select(x => x.DisplayName.Replace("Page: ", "")).OrderByDescending(x => x);
     }
 
     /// <summary>
