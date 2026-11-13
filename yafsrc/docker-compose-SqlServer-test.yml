@@ -13,6 +13,8 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=data source=sql-server-db;Initial Catalog=yaf;User Id=sa;Password=MyPass@word;TrustServerCertificate=true # change default password
       - BoardConfiguration__ConnectionProviderName=Microsoft.Data.SqlClient
+      # the database backup: SQL Server writes the backup into the yaf-backups volume, mounted into both containers
+      - BoardConfiguration__SqlServerBackupFolder=/var/opt/mssql/backup
       - MailConfiguration__Host=host.docker.internal # only for testing, replace with real mail settings
       - MailConfiguration__Port=2525 # only for testing, replace with real mail settings
       - BoardConfiguration__RateLimiterPermitLimit=1000 # only for testing, all requests of the ui tests come from one ip address, the default (10 per minute) would block them
@@ -24,6 +26,8 @@ services:
         # old test images are removed before a new one is built (DockerComposeFixture)
         - "yafnet.test=true"
     container_name: yafnet
+    volumes:
+      - yaf-backups:/app/App_Data/Backups   # the database backups (Admin > Database > Backup)
     ports:
       - "8001:89"
     extra_hosts:
@@ -34,6 +38,9 @@ services:
   sql-server-db:
     container_name: sql-server-db
     image: mcr.microsoft.com/mssql/server:2025-latest
+    depends_on:
+      sql-server-backup-init:
+        condition: service_completed_successfully   # the backup folder is writable for SQL Server
     ports:
       - "8002:1433"
     environment:
@@ -41,6 +48,7 @@ services:
       - ACCEPT_EULA=Y
     volumes:
       - mssql-data:/var/opt/mssql
+      - yaf-backups:/var/opt/mssql/backup   # shared with yafnet for the database backups
     healthcheck:
       test: >
         /opt/mssql-tools18/bin/sqlcmd
@@ -52,6 +60,17 @@ services:
       start_period: 30s        # SQL Server takes ~20s to start
     networks:
       - dev
+
+  sql-server-backup-init:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    user: root
+    volumes:
+      - yaf-backups:/backup
+    # SQL Server runs as the user mssql (10001), the application as root
+    entrypoint: /bin/bash -c "chown 10001:0 /backup && chmod 775 /backup"
+    networks:
+      - dev
+    restart: "no"                        # run once and exit
 
   sql-server-init:
     image: mcr.microsoft.com/mssql/server:2025-latest
@@ -70,3 +89,4 @@ services:
 # Define persistent volumes to store SQL Server data.
 volumes:
   mssql-data:
+  yaf-backups:

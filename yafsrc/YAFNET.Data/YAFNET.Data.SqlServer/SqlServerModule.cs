@@ -44,5 +44,9 @@ public class SqlServerModule : Module
         builder.RegisterType<SqlServerDbAccess>()
             .Named<IDbAccess>(SqlServerDbAccess.ProviderTypeName)
             .InstancePerLifetimeScope();
+
+        builder.RegisterType<SqlServerDbBackupProvider>()
+            .Named<IDbBackupProvider>(SqlServerDbAccess.ProviderTypeName)
+            .InstancePerLifetimeScope();
     }
 }
