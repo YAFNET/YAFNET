@@ -201,7 +201,7 @@ public class SqlServerDbBackupProvider : IDbBackupProvider
     /// </summary>
     /// <param name="fileName">The file name.</param>
     /// <returns>The path.</returns>
-    private string SqlServerPath(string fileName)
+    internal string SqlServerPath(string fileName)
     {
         var folder = this.SqlServerBackupFolder.TrimEnd('/', '\\');
         var separator = folder.Contains('/') ? '/' : '\\';
