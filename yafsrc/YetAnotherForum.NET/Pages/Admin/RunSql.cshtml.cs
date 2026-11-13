@@ -38,7 +38,10 @@ public class RunSqlModel : AdminPage
     [BindProperty]
     public string Editor { get; set; }
 
-    [BindProperty]
+    /// <summary>
+    /// Gets or sets the result of the query. Not bound from the post: the textarea of the result is part of
+    /// the form, a bound value would stay in the ModelState and the next query would show the old result.
+    /// </summary>
     public string Result { get; set; }
 
     /// <summary>

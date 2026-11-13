@@ -50,6 +50,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin dashboard: the start date of the board (e.g. "<strong>Today</strong> at 6:25:59 AM") was shown with its html tags as text
 * [FIXED] Admin dashboard: the number of categories was shown in white on the light theme (the span had two class attributes)
 * [FIXED] Search index: when the Search_Data folder can't be created or written (e.g. on Linux when the forum user has no write access to wwwroot) the error log only showed "Lock obtain timed out" and editing or deleting a post failed; now the folder and the user the forum runs as are logged, and the post is saved without updating the search index
+* [FIXED] Admin > Run SQL Query: running a second query still showed the result of the first query (the posted result textarea overwrote the new result)
 
 # YetAnotherForum.NET v4.0.10
 * [NEW] Extended unit test suite including repository tests against an in-memory SQLite database
