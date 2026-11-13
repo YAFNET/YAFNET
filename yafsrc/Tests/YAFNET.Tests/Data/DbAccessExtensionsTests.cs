@@ -36,6 +36,7 @@ using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The <see cref="IDbAccess"/> helpers (updates, existence checks, maintenance and script execution)
@@ -137,7 +138,62 @@ public class DbAccessExtensionsTests
     [Description("RunSql returns the results of the statement")]
     public void Run_Sql_Test()
     {
-        this.db.RunSql("select 42 as Answer", 30).Should().Contain("42");
+        var result = this.db.RunSql("select 42 as Answer, null as Empty", 30);
+
+        result.Error.Should().BeNull();
+        result.ResultSets.Should().ContainSingle();
+        result.ResultSets[0].Columns.Should().Equal("Answer", "Empty");
+        result.ResultSets[0].Rows.Should().ContainSingle().Which.Should().Equal("42", null);
+        result.ResultSets[0].Truncated.Should().BeFalse();
+        result.ToString().Should().Contain("\"42\"");
+    }
+
+    [Test]
+    [Description("RunSql returns every result set, an empty result set keeps its columns")]
+    public void Run_Sql_Multiple_Result_Sets_Test()
+    {
+        var result = this.db.RunSql("select 1 as A; select 2 as B where 1 = 0", 30);
+
+        result.ResultSets.Should().HaveCount(2);
+        result.ResultSets[0].Rows.Should().ContainSingle();
+        result.ResultSets[1].Columns.Should().Equal("B");
+        result.ResultSets[1].Rows.Should().BeEmpty();
+    }
+
+    [Test]
+    [Description("RunSql reads at most MaxRows rows of a result set")]
+    public void Run_Sql_Truncated_Test()
+    {
+        var result = this.db.RunSql(
+            $"with recursive n(x) as (select 1 union all select x + 1 from n where x < {RunSqlResult.MaxRows + 10}) select x from n",
+            30);
+
+        result.ResultSets[0].Rows.Should().HaveCount(RunSqlResult.MaxRows);
+        result.ResultSets[0].Truncated.Should().BeTrue();
+    }
+
+    [Test]
+    [Description("RunSql returns the records affected of a statement without a result set")]
+    public void Run_Sql_Records_Affected_Test()
+    {
+        this.db.RunSql("create table run_sql_test (id int)", 30).Error.Should().BeNull();
+
+        var result = this.db.RunSql("insert into run_sql_test values (1), (2), (3)", 30);
+
+        result.ResultSets.Should().BeEmpty();
+        result.RecordsAffected.Should().Be(3);
+        result.Message.Should().Be("3 Record(s) Affected");
+    }
+
+    [Test]
+    [Description("RunSql returns the error of an invalid statement instead of throwing")]
+    public void Run_Sql_Error_Test()
+    {
+        var result = this.db.RunSql("select * from table_that_does_not_exist", 30);
+
+        result.Error.Should().Contain("table_that_does_not_exist");
+        result.ResultSets.Should().BeEmpty();
+        result.ToString().Should().Contain("SQL ERROR:");
     }
 
     [Test]

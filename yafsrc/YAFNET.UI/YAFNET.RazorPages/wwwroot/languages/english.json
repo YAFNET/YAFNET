@@ -6120,8 +6120,20 @@
                     "#text": "Run SQL Query"
                 },
                 {
+                    "@tag": "ROWS_TRUNCATED",
+                    "#text": "Only the first {0} rows are shown."
+                },
+                {
                     "@tag": "RUN_QUERY",
                     "#text": "Run Query"
+                },
+                {
+                    "@tag": "NO_RESULTS",
+                    "#text": "No results returned."
+                },
+                {
+                    "@tag": "RECORDS_AFFECTED",
+                    "#text": "{0} record(s) affected."
                 },
                 {
                     "@tag": "RESULT",
@@ -6130,6 +6142,10 @@
                 {
                     "@tag": "SQL_COMMAND",
                     "#text": "SQL Command:"
+                },
+                {
+                    "@tag": "TABLE",
+                    "#text": "Table"
                 },
                 {
                     "@tag": "TITLE",

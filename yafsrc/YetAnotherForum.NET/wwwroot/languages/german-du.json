@@ -6120,8 +6120,20 @@
             "#text": "SQL Query ausführen"
           },
           {
+            "@tag": "NO_RESULTS",
+            "#text": "Keine Ergebnisse."
+          },
+          {
+            "@tag": "RECORDS_AFFECTED",
+            "#text": "{0} Datensätze betroffen."
+          },
+          {
             "@tag": "RESULT",
             "#text": "Ergebnis"
+          },
+          {
+            "@tag": "ROWS_TRUNCATED",
+            "#text": "Es werden nur die ersten {0} Zeilen angezeigt."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6130,6 +6142,10 @@
           {
             "@tag": "SQL_COMMAND",
             "#text": "SQL-Befehl:"
+          },
+          {
+            "@tag": "TABLE",
+            "#text": "Tabelle"
           },
           {
             "@tag": "TITLE",

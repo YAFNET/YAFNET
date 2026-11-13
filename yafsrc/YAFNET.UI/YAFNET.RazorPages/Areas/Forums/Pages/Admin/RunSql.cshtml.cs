@@ -29,6 +29,7 @@ using YAF.Core.Extensions;
 using YAF.Types.Extensions;
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Data;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The run SQL Query Page.
@@ -39,10 +40,9 @@ public class RunSqlModel : AdminPage
     public string Editor { get; set; }
 
     /// <summary>
-    /// Gets or sets the result of the query. Not bound from the post: the textarea of the result is part of
-    /// the form, a bound value would stay in the ModelState and the next query would show the old result.
+    /// Gets or sets the result of the query (only output, not bound from the post).
     /// </summary>
-    public string Result { get; set; }
+    public RunSqlResult Result { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RunSqlModel"/> class.
@@ -81,8 +81,6 @@ public class RunSqlModel : AdminPage
     /// </summary>
     public void OnPostRunQuery()
     {
-        this.Result = string.Empty;
-
         if (this.Editor.IsSet())
         {
             this.Result = this.Get<IDbAccess>().RunSql(

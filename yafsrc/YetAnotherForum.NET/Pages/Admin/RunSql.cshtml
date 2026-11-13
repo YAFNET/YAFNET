@@ -1,5 +1,6 @@
 @page "{handler?}"
 @using YAF.Types.Extensions
+@using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 @model RunSqlModel
 
@@ -32,9 +33,11 @@
             </div>
         </div>
     </div>
-    
-    @if (Model.Result.IsSet())
+
+    @if (Model.Result is not null)
     {
+        var result = Model.Result;
+
         <div class="row">
             <div class="col-xl-12">
                 <div class="card mb-3">
@@ -42,7 +45,97 @@
                         @Html.IconHeader("rocket", "ADMIN_RUNSQL", "RESULT")
                     </div>
                     <div class="card-body">
-                        <textarea asp-for="Result" width="100%" height="300px" wrap="false" style="font-size: 8pt;" class="form-control text-bg-dark" rows="15"></textarea>
+                        @if (result.Error is not null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <pre class="mb-0 text-wrap">@result.Error</pre>
+                            </div>
+                        }
+
+                        @if (result.RecordsAffected > 0)
+                        {
+                            <div class="alert alert-info" role="alert">
+                                @Model.GetTextFormatted("RECORDS_AFFECTED", result.RecordsAffected)
+                            </div>
+                        }
+                        else if (result.ResultSets.Count == 0 && result.Error is null)
+                        {
+                            <div class="alert alert-info" role="alert">
+                                @Model.GetText("ADMIN_RUNSQL", "NO_RESULTS")
+                            </div>
+                        }
+
+                        @if (result.ResultSets.Count > 0)
+                        {
+                            <ul class="nav nav-tabs mb-3" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" type="button" role="tab"
+                                            data-bs-toggle="tab" data-bs-target="#RunSqlTable"
+                                            aria-controls="RunSqlTable" aria-selected="true">
+                                        @Html.LocalizedText("ADMIN_RUNSQL", "TABLE")
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" type="button" role="tab"
+                                            data-bs-toggle="tab" data-bs-target="#RunSqlCsv"
+                                            aria-controls="RunSqlCsv" aria-selected="false">
+                                        CSV
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="RunSqlTable" role="tabpanel">
+                                    @foreach (var resultSet in result.ResultSets)
+                                    {
+                                        @if (resultSet.Truncated)
+                                        {
+                                            <div class="alert alert-warning" role="alert">
+                                                @Model.GetTextFormatted("ROWS_TRUNCATED", RunSqlResult.MaxRows)
+                                            </div>
+                                        }
+
+                                        <div class="table-responsive mb-3" style="max-height: 600px;">
+                                            <table class="table table-sm table-striped table-hover table-bordered mb-0 small">
+                                                <thead class="sticky-top">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        @foreach (var column in resultSet.Columns)
+                                                        {
+                                                            <th scope="col" class="text-nowrap">@column</th>
+                                                        }
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @for (var i = 0; i < resultSet.Rows.Count; i++)
+                                                    {
+                                                        <tr>
+                                                            <th scope="row" class="text-body-secondary">@(i + 1)</th>
+                                                            @foreach (var value in resultSet.Rows[i])
+                                                            {
+                                                                <td>
+                                                                    @if (value is null)
+                                                                    {
+                                                                        <span class="text-body-secondary fst-italic">NULL</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @value
+                                                                    }
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="tab-pane fade" id="RunSqlCsv" role="tabpanel">
+                                    <textarea class="form-control text-bg-dark" rows="15" wrap="off" readonly
+                                              style="font-size: 8pt;" aria-label="CSV">@result.ToString()</textarea>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

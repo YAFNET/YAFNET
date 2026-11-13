@@ -19,6 +19,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] The forum css only contains the Font Awesome icons used by the forum (found by the new build task fontAwesomeIcons, part of the build and css task) instead of all ~2600 icons: forum.min.css is 52 KB instead of 169 KB (10 KB instead of 29 KB compressed), forum-admin.min.css 39 KB instead of 151 KB
 * [CHANGES] The css files no longer contain vendor prefixes for outdated browsers (autoprefixer uses the browserslist defaults instead of the last 2 versions of every browser), each theme is ~40 KB smaller
 * [CHANGES] Notify dropdown in the user menu: shows the latest 5 notifications as dropdown items (the whole item links to the post, with the time of the notification) and a "See all Notifications" link to the notification page, instead of the list with the pager that didn't work
+* [CHANGES] Admin > Run SQL Query: the results of a select are shown as a table (one table for each result set, NULL values marked, at most 1000 rows each), the CSV text is still available on the CSV tab; the records affected and SQL errors are shown as messages
 * [FIXED] Search: the similar topics parsed the topic title as query syntax, so a title with special characters (e.g. the colon of a time) threw a ParseException on every topic view; the query is now built from the analyzed title without the QueryParser (no internal "read past eof" IOException either)
 * [FIXED] user profile when there are no user albums
 * [FIXED] NuGet packages: YAFNET.UI.Chat no longer contains tsconfig.json and package-lock.json, YAFNET.RazorPages no longer contains package-lock.json
@@ -51,6 +52,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin dashboard: the number of categories was shown in white on the light theme (the span had two class attributes)
 * [FIXED] Search index: when the Search_Data folder can't be created or written (e.g. on Linux when the forum user has no write access to wwwroot) the error log only showed "Lock obtain timed out" and editing or deleting a post failed; now the folder and the user the forum runs as are logged, and the post is saved without updating the search index
 * [FIXED] Admin > Run SQL Query: running a second query still showed the result of the first query (the posted result textarea overwrote the new result)
+* [FIXED] Admin > Run SQL Query: running a query on PostgreSQL threw a NotImplementedException (the result is now read the same way for all databases)
 
 # YetAnotherForum.NET v4.0.10
 * [NEW] Extended unit test suite including repository tests against an in-memory SQLite database

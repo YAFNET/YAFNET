@@ -6128,8 +6128,20 @@
             "#text": "Exécuter une requête SQL"
           },
           {
+            "@tag": "NO_RESULTS",
+            "#text": "No results returned."
+          },
+          {
+            "@tag": "RECORDS_AFFECTED",
+            "#text": "{0} record(s) affected."
+          },
+          {
             "@tag": "RESULT",
             "#text": "Résultat"
+          },
+          {
+            "@tag": "ROWS_TRUNCATED",
+            "#text": "Only the first {0} rows are shown."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6138,6 +6150,10 @@
           {
             "@tag": "SQL_COMMAND",
             "#text": "Commande SQL :"
+          },
+          {
+            "@tag": "TABLE",
+            "#text": "Table"
           },
           {
             "@tag": "TITLE",

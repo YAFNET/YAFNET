@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -37,6 +37,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using YAF.Types.Interfaces.Data;
+using YAF.Types.Objects;
 
 /// <summary>
 ///     The DBAccess extensions.
@@ -465,22 +466,75 @@ public static class IDbAccessExtensions
         /// The time-Out.
         /// </param>
         /// <returns>
-        /// The <see cref="string"/>.
+        /// The result: the result sets (at most <see cref="RunSqlResult.MaxRows"/> rows each),
+        /// the records affected or the error.
         /// </returns>
-        public string RunSql(string sql,
+        public RunSqlResult RunSql(string sql,
             int timeOut)
         {
             return dbAccess.Execute(
                 db =>
                 {
-                    using var cmd = db.Connection.CreateCommand();
+                    var result = new RunSqlResult();
+
+                    using var cmd = (DbCommand)db.Connection.CreateCommand();
 
                     // added so command won't time out anymore...
                     cmd.CommandTimeout = timeOut;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql;
 
-                    return db.GetDialectProvider().InnerRunSqlExecuteReader(cmd);
+                    try
+                    {
+                        using var reader = cmd.ExecuteReader();
+
+                        do
+                        {
+                            // FieldCount is 0 for a statement without a result set (insert, update, ...)
+                            if (reader.FieldCount == 0)
+                            {
+                                continue;
+                            }
+
+                            var resultSet = new RunSqlResultSet();
+
+                            for (var i = 0; i < reader.FieldCount; i++)
+                            {
+                                resultSet.Columns.Add(reader.GetName(i));
+                            }
+
+                            while (reader.Read())
+                            {
+                                if (resultSet.Rows.Count == RunSqlResult.MaxRows)
+                                {
+                                    resultSet.Truncated = true;
+                                    break;
+                                }
+
+                                var row = new string[reader.FieldCount];
+
+                                for (var i = 0; i < reader.FieldCount; i++)
+                                {
+                                    row[i] = reader.IsDBNull(i) ? null : reader.GetValue(i).ToString();
+                                }
+
+                                resultSet.Rows.Add(row);
+                            }
+
+                            result.ResultSets.Add(resultSet);
+                        }
+                        while (reader.NextResult());
+
+                        reader.Close();
+
+                        result.RecordsAffected = reader.RecordsAffected;
+                    }
+                    catch (Exception x)
+                    {
+                        result.Error = x.Message;
+                    }
+
+                    return result;
                 });
         }
 
