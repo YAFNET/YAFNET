@@ -27,8 +27,9 @@ namespace YAF.Data.SqlServer;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Hosting;
 using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -52,15 +53,52 @@ public class SqlServerDbBackupProvider : IDbBackupProvider
     /// Initializes a new instance of the <see cref="SqlServerDbBackupProvider"/> class.
     /// </summary>
     /// <param name="boardConfiguration">The board configuration.</param>
-    public SqlServerDbBackupProvider(BoardConfiguration boardConfiguration)
+    public SqlServerDbBackupProvider(IServiceLocator serviceLocator, BoardConfiguration boardConfiguration)
     {
+        this.ServiceLocator = serviceLocator;
         this.boardConfiguration = boardConfiguration;
     }
+
+    /// <summary>
+    /// Gets the service locator.
+    /// </summary>
+    public IServiceLocator ServiceLocator { get; }
 
     /// <summary>
     /// Gets the file extension of the backup file in the zip.
     /// </summary>
     public string FileExtension => ".bak";
+
+    /// <summary>
+    /// Gets the content root path of the application.
+    /// </summary>
+    private string ContentRootPath =>
+        this.ServiceLocator.TryGet(typeof(IWebHostEnvironment), out var environment)
+            ? ((IWebHostEnvironment)environment).ContentRootPath
+            : AppContext.BaseDirectory;
+
+    /// <summary>
+    /// Gets the backup folder as SQL Server sees it. An absolute path is used as it is (SQL Server can run on another
+    /// operating system, e.g. /var/opt/mssql/backup in a container), a relative path (SQL Server on the same machine)
+    /// is relative to the content root of the application.
+    /// </summary>
+    public string SqlServerBackupFolder {
+        get {
+            var folder = this.boardConfiguration.SqlServerBackupFolder;
+
+            if (folder.IsNotSet())
+            {
+                folder = Path.Combine("App_Data", "Backups");
+            }
+
+            if (Path.IsPathRooted(folder) || folder.StartsWith('/') || folder.StartsWith('\\'))
+            {
+                return folder;
+            }
+
+            return Path.GetFullPath(Path.Combine(this.ContentRootPath, folder));
+        }
+    }
 
     /// <summary>
     /// Checks the configuration, the SQL Server edition, the permission and if SQL Server sees the backup folder of the application.
@@ -70,7 +108,7 @@ public class SqlServerDbBackupProvider : IDbBackupProvider
     /// <returns>The <see cref="DbBackupSupport"/>.</returns>
     public async Task<DbBackupSupport> CheckSupportAsync(IDbAccess dbAccess, string backupFolder)
     {
-        var sqlServerFolder = this.boardConfiguration.SqlServerBackupFolder;
+        var sqlServerFolder = this.SqlServerBackupFolder;
 
         if (sqlServerFolder.IsNotSet())
         {
@@ -121,9 +159,10 @@ public class SqlServerDbBackupProvider : IDbBackupProvider
                 });
 
             return exists
-                       ? DbBackupSupport.Supported()
-                       : DbBackupSupport.NotSupported(
-                           $"SQL Server doesn't see the backup folder of the application: {sqlServerFolder} (SQL Server) and {backupFolder} (application) are not the same folder.");
+                         ? DbBackupSupport.Supported()
+                         : DbBackupSupport.NotSupported(
+                             $"SQL Server doesn't see the backup folder of the application: {sqlServerFolder} (SQL Server) and {backupFolder} (application) are not the same folder.");
+
         }
         finally
         {
@@ -164,7 +203,7 @@ public class SqlServerDbBackupProvider : IDbBackupProvider
     /// <returns>The path.</returns>
     private string SqlServerPath(string fileName)
     {
-        var folder = this.boardConfiguration.SqlServerBackupFolder.TrimEnd('/', '\\');
+        var folder = this.SqlServerBackupFolder.TrimEnd('/', '\\');
         var separator = folder.Contains('/') ? '/' : '\\';
 
         return $"{folder}{separator}{fileName}";
