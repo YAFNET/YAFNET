@@ -205,6 +205,10 @@
             "#text": "查看管理索引"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "正在创建数据库备份"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "查看禁止国家列表"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "用户附件"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "备份"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "立即备份"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "现在创建数据库备份吗？这可能需要一些时间。"
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "删除此备份吗？"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "夜间备份"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "每晚 1 点到 6 点之间（服务器时间）创建一次备份。此时应用程序必须在运行：空闲时被停止的应用程序池不会创建备份。"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "创建整个数据库的 zip 压缩备份。备份保存在以下文件夹中："
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "保留的备份数量"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "创建新备份后会删除最旧的备份。0 表示保留所有备份。"
+          },
+          {
+            "@tag": "LAST",
+            "#text": "上次备份"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "备份 {0} 已创建。"
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "备份已删除。"
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "备份失败：{0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "设置已保存。"
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "从未"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "数据库备份"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "裁剪图像的预览并将上述尺寸用作图像尺寸。"
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "数据库备份"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "可用"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "显示能否从应用程序创建数据库备份（管理 > 数据库 > 备份），如果不能，原因是什么。"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "不可用：{0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "帖子被锁定的前几天："
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "附件"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "数据库备份"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

@@ -39,7 +39,7 @@ public static class ForumPagesExtensions
     [
         nameof(ForumPages.Admin_Boards), nameof(ForumPages.Admin_EditBoard), nameof(ForumPages.Admin_HostSettings),
         nameof(ForumPages.Admin_PageAccessList), nameof(ForumPages.Admin_PageAccessEdit), nameof(ForumPages.Admin_RunSql),
-        nameof(ForumPages.Admin_ReIndex), nameof(ForumPages.Admin_Languages), nameof(ForumPages.Admin_EditLanguage),
+        nameof(ForumPages.Admin_ReIndex), nameof(ForumPages.Admin_Backup), nameof(ForumPages.Admin_Languages), nameof(ForumPages.Admin_EditLanguage),
         nameof(ForumPages.Admin_RestartApp), nameof(ForumPages.Admin_TestData)
     ];
 

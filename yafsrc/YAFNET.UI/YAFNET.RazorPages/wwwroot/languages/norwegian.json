@@ -205,6 +205,10 @@
             "#text": "Viser administratorindeksen"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Lager sikkerhetskopier av databasen"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Viser listen over forbudte land"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Brukervedlegg"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Sikkerhetskopier"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Ta backup nå"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Lage en sikkerhetskopi av databasen nå? Dette kan ta en stund."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Slette denne sikkerhetskopien?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Nattlig backup"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Lager en sikkerhetskopi hver natt mellom kl. 1 og 6 (servertid). Programmet må kjøre da: en programgruppe som stoppes ved inaktivitet, tar ikke backupen."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Lager en zippet sikkerhetskopi av hele databasen. Sikkerhetskopiene lagres i mappen:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Antall sikkerhetskopier som beholdes"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Etter en ny sikkerhetskopi slettes de eldste. 0 beholder alle sikkerhetskopier."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Siste backup"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Sikkerhetskopien {0} ble laget."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Sikkerhetskopien ble slettet."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Sikkerhetskopieringen mislyktes: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Innstillingene er lagret."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Aldri"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Databasebackup"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "Beskjær forhåndsvisningen av bildet og bruk dimensjonene ovenfor som bildestørrelse."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Databasebackup"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Tilgjengelig"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Viser om det kan tas en sikkerhetskopi av databasen fra programmet (Admin > Database > Backup), og hvis ikke, hvorfor."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Ikke tilgjengelig: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Dager før innlegg låses:"
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Vedlegg"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Databasebackup"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

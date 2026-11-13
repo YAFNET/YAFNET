@@ -465,6 +465,11 @@ public enum ForumPages
     Admin_RunSql,
 
     /// <summary>
+    /// The Admin database backup page.
+    /// </summary>
+    Admin_Backup,
+
+    /// <summary>
     /// The Admin task manager page.
     /// </summary>
     Admin_TaskManager,

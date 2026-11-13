@@ -17,6 +17,7 @@ services:
     container_name: yafnet
     volumes:
       - sqlite-data:/data
+      - yaf-backups:/app/App_Data/Backups   # the database backups (Admin > Database > Backup)
     ports:
       - "8001:89"
     networks:
@@ -25,3 +26,4 @@ services:
 # Define persistent volumes to store SQLite data.
 volumes:
   sqlite-data:
+  yaf-backups:

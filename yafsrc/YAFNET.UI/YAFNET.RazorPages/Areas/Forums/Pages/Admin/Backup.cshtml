@@ -1,0 +1,121 @@
+@page "{handler?}"
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
+@using YAF.Web.HtmlHelpers
+@model BackupModel
+
+<form method="post">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("database", "ADMIN_BACKUP", "TITLE")
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Html.LocalizedText("ADMIN_BACKUP", "INFO")
+                        <code>@Model.BackupFolder</code>
+                    </p>
+                    @if (Model.SupportNote.IsSet())
+                    {
+                        <alert type="info" icon="info-circle">
+                            @Model.SupportNote
+                        </alert>
+                    }
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Enabled"
+                                   localized-tag="ENABLED"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" asp-for="Enabled" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Keep"
+                                   localized-tag="KEEP"></label>
+                            <input type="number" min="0" class="form-control" asp-for="Keep" />
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" localized-tag="LAST"></label>
+                            <p class="form-control-plaintext">
+                                @if (Model.LastBackup.HasValue)
+                                {
+                                    @Html.DisplayDateTime(DateTimeFormat.Both, Model.LastBackup.Value)
+                                }
+                                else
+                                {
+                                    @Html.LocalizedText("ADMIN_BACKUP", "NEVER")
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button button-style="Primary"
+                            asp-page-handler="Save"
+                            Icon="save"
+                            text-localized-tag="SAVE"
+                            text-localized-page="COMMON"></button>
+                    <button button-style="Secondary"
+                            asp-page-handler="Backup"
+                            return-confirm-tag="CONFIRM_BACKUP"
+                            Icon="database"
+                            text-localized-tag="BACKUP_NOW"></button>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.IconHeader("download", "ADMIN_BACKUP", "BACKUPS")
+                </div>
+                <div class="card-body">
+                    @if (!Model.Backups.NullOrEmpty())
+                    {
+                        <ul class="list-group">
+                            @foreach (var backup in Model.Backups)
+                            {
+                                <li class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between text-break">
+                                        <h5 class="mb-1">@backup.Name</h5>
+                                        <small class="d-none d-md-block">
+                                            <span class="badge text-bg-secondary">
+                                                @Html.Raw($"{backup.Size / 1024.0 / 1024.0:N1} MB")
+                                            </span>
+                                        </small>
+                                    </div>
+                                    <p>
+                                        @Html.DisplayDateTime(DateTimeFormat.Both, backup.Created)
+                                    </p>
+                                    <small>
+                                        <div class="btn-group btn-group-sm">
+                                            <button button-style="Info"
+                                                    button-size="Small"
+                                                    asp-page-handler="Download"
+                                                    asp-route-name="@backup.Name"
+                                                    Icon="download"
+                                                    text-localized-tag="DOWNLOAD"
+                                                    text-localized-page="COMMON"></button>
+                                            <button button-style="Danger"
+                                                    button-size="Small"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-name="@backup.Name"
+                                                    return-confirm-tag="CONFIRM_DELETE"
+                                                    Icon="trash"
+                                                    text-localized-tag="DELETE"
+                                                    text-localized-page="COMMON"></button>
+                                        </div>
+                                    </small>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        @await Html.PartialAsync("_NoEntryInfo")
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

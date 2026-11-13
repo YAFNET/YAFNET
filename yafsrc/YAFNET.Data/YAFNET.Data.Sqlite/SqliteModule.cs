@@ -44,5 +44,9 @@ public class SqliteModule : Module
         builder.RegisterType<SqliteDbAccess>()
             .Named<IDbAccess>(SqliteDbAccess.ProviderTypeName)
             .InstancePerLifetimeScope();
+
+        builder.RegisterType<SqliteDbBackupProvider>()
+            .Named<IDbBackupProvider>(SqliteDbAccess.ProviderTypeName)
+            .InstancePerLifetimeScope();
     }
 }

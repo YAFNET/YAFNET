@@ -205,6 +205,10 @@
             "#text": "Zobrazenia indexu správcu"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Vytvára zálohy databázy"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Zobrazuje zoznam zakázaných krajín"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Prílohy používateľa"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Zálohy"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Zálohovať teraz"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Vytvoriť teraz zálohu databázy? Môže to chvíľu trvať."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Zmazať túto zálohu?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Nočná záloha"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Vytvára zálohu každú noc medzi 1. a 6. hodinou (čas servera). Aplikácia musí v tom čase bežať: fond aplikácií zastavený pri nečinnosti zálohu nevykoná."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Vytvorí zazipovanú zálohu celej databázy. Zálohy sa ukladajú do priečinka:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Počet uchovávaných záloh"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Po novej zálohe sa najstaršie zálohy zmažú. 0 uchová všetky zálohy."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Posledná záloha"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Záloha {0} bola vytvorená."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Záloha bola zmazaná."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Zálohovanie zlyhalo: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Nastavenia boli uložené."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Nikdy"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Záloha databázy"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "Orežte náhľad obrázka a použite vyššie uvedené rozmery ako veľkosť obrázka."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Záloha databázy"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Dostupná"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Ukazuje, či sa dá z aplikácie vytvoriť záloha databázy (Admin > Databáza > Záloha), a ak nie, prečo."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Nedostupná: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Dni pred uzamknutím príspevkov:"
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Prílohy"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Záloha databázy"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

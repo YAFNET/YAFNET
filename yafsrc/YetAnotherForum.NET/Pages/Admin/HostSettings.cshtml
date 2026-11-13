@@ -98,6 +98,13 @@
 				<input type="text" asp-for="Input.AppMemory"
 				       class="form-control" disabled="disabled" />
 			</div>
+			<div class="mb-3">
+				<label class="form-label" info-button="true"
+				       asp-for="Input.DatabaseBackup"
+				       localized-tag="DATABASE_BACKUP"></label>
+				<textarea asp-for="Input.DatabaseBackup" class="form-control"
+				          rows="2" disabled="disabled"></textarea>
+			</div>
 		</div>
 	</div>
 </div>

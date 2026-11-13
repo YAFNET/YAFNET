@@ -205,6 +205,10 @@
             "#text": "Xem chỉ mục quản trị viên"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Đang tạo bản sao lưu cơ sở dữ liệu"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Xem danh sách các quốc gia bị cấm"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Tệp đính kèm của người dùng"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Các bản sao lưu"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Sao lưu ngay"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Tạo bản sao lưu cơ sở dữ liệu ngay bây giờ? Việc này có thể mất một lúc."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Xóa bản sao lưu này?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Sao lưu hằng đêm"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Tạo một bản sao lưu mỗi đêm từ 1 đến 6 giờ (giờ máy chủ). Lúc đó ứng dụng phải đang chạy: nhóm ứng dụng bị dừng khi nhàn rỗi sẽ không sao lưu."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Tạo bản sao lưu nén (zip) của toàn bộ cơ sở dữ liệu. Các bản sao lưu được lưu trong thư mục:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Số bản sao lưu cần giữ"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Sau một bản sao lưu mới, các bản cũ nhất sẽ bị xóa. 0 giữ lại tất cả."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Lần sao lưu gần nhất"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Đã tạo bản sao lưu {0}."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Đã xóa bản sao lưu."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Sao lưu thất bại: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Đã lưu cài đặt."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Chưa bao giờ"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Sao lưu cơ sở dữ liệu"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "Cắt Bản xem trước của Hình ảnh và sử dụng Kích thước phía trên làm Kích thước Hình ảnh."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Sao lưu cơ sở dữ liệu"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Có sẵn"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Cho biết có thể sao lưu cơ sở dữ liệu từ ứng dụng hay không (Quản trị > Cơ sở dữ liệu > Sao lưu), và nếu không thì vì sao."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Không có sẵn: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Những ngày trước khi bài viết bị khóa:"
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Tập tin đính kèm"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Sao lưu cơ sở dữ liệu"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

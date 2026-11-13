@@ -205,6 +205,10 @@
             "#text": "Viste indice di amministrazione"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Crea backup del database"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Visualizza l'elenco dei paesi vietati"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Allegati dell'utente"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Backup"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Esegui backup ora"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Creare ora un backup del database? L'operazione può richiedere del tempo."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Eliminare questo backup?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Backup notturno"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Crea un backup ogni notte tra l'1 e le 6 (ora del server). L'applicazione deve essere in esecuzione: un pool di applicazioni arrestato per inattività non esegue il backup."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Crea un backup compresso (zip) dell'intero database. I backup vengono salvati nella cartella:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Numero di backup da conservare"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Dopo un nuovo backup vengono eliminati i più vecchi. 0 conserva tutti i backup."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Ultimo backup"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Il backup {0} è stato creato."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Il backup è stato eliminato."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Il backup non è riuscito: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Le impostazioni sono state salvate."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Mai"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Backup del database"
           }
         ]
       },
@@ -3929,6 +4002,22 @@
             "#text": "Ritagliare l'anteprima dell'immagine e utilizzare le dimensioni sopra indicate come dimensione dell'immagine."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Backup del database"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Disponibile"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Mostra se è possibile creare un backup del database dall'applicazione (Admin > Database > Backup) e, in caso contrario, perché."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Non disponibile: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Giorni prima che i messaggi vengano bloccati:"
           },
@@ -6399,6 +6488,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Allegati"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Backup del database"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

@@ -631,6 +631,12 @@ public class HostSettingsModel : AdminPage
             $"{SystemInfo.AllocatedMemory.ToType<long>() / 1000000} MB of {SystemInfo.MappedMemory.ToType<long>() / 1000000} MB";
         this.Input.AppOsName = SystemInfo.VersionString;
         this.Input.AppRuntime = $".NET {Environment.Version}";
+
+        var backupSupport = await this.Get<IDatabaseBackupService>().GetSupportAsync(true);
+
+        this.Input.DatabaseBackup = backupSupport.IsSupported
+                                        ? this.GetText("ADMIN_HOSTSETTINGS", "DATABASE_BACKUP_AVAILABLE")
+                                        : this.GetTextFormatted("DATABASE_BACKUP_NOT_AVAILABLE", backupSupport.Reason);
     }
 
     private void SetHostPage()

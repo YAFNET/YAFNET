@@ -205,6 +205,10 @@
             "#text": "Bekijkt admin index"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Maakt databaseback-ups"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Bekijkt de lijst met verboden landen"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Gebruikersbijlagen"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Back-ups"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Nu back-up maken"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Nu een back-up van de database maken? Dit kan even duren."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Deze back-up verwijderen?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Nachtelijke back-up"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Maakt elke nacht tussen 1 en 6 uur (servertijd) een back-up. De applicatie moet dan draaien: een applicatiegroep die bij inactiviteit stopt, maakt geen back-up."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Maakt een gezipte back-up van de hele database. De back-ups worden opgeslagen in de map:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Aantal te bewaren back-ups"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Na een nieuwe back-up worden de oudste back-ups verwijderd. 0 bewaart alle back-ups."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Laatste back-up"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "De back-up {0} is gemaakt."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "De back-up is verwijderd."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "De back-up is mislukt: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "De instellingen zijn opgeslagen."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Nooit"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Databaseback-up"
           }
         ]
       },
@@ -3929,6 +4002,22 @@
             "#text": "Knip het voorbeeld van het plaatje uit en gebruik bovenstaande afmetingen als grootte."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Databaseback-up"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Beschikbaar"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Toont of er vanuit de applicatie een back-up van de database gemaakt kan worden (Admin > Database > Back-up), en zo niet, waarom."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Niet beschikbaar: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Dagen voordat berichten worden geblokkeerd:"
           },
@@ -6399,6 +6488,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Bijlagen"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Databaseback-up"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

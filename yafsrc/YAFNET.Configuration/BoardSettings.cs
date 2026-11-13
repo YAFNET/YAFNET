@@ -1962,6 +1962,36 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the database backup runs every night (a host setting, for all boards).
+    /// </summary>
+    public bool DatabaseBackupEnabled
+    {
+        get => this.Registry.GetValue("DatabaseBackupEnabled", false);
+
+        set => this.Registry.SetValue("DatabaseBackupEnabled", value);
+    }
+
+    /// <summary>
+    /// Gets or sets the number of database backups to keep, the older ones are deleted (0 = keep all).
+    /// </summary>
+    public int DatabaseBackupKeep
+    {
+        get => this.Registry.GetValue("DatabaseBackupKeep", 7);
+
+        set => this.Registry.SetValue("DatabaseBackupKeep", value);
+    }
+
+    /// <summary>
+    /// Gets or sets the time (UTC, round-trip format) of the last database backup.
+    /// </summary>
+    public string LastDatabaseBackup
+    {
+        get => this.Registry.GetValue<string>("LastDatabaseBackup", null);
+
+        set => this.Registry.SetValue("LastDatabaseBackup", value);
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether ForceDigestSend.
     /// </summary>
     public bool ForceDigestSend

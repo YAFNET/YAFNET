@@ -633,6 +633,12 @@ public class HostSettingsInputModel
     public string AppMemory { get; set; }
 
     /// <summary>
+    /// Gets or sets if a database backup can be made (Admin > Database > Backup), and why not.
+    /// </summary>
+    /// <value>The database backup status.</value>
+    public string DatabaseBackup { get; set; }
+
+    /// <summary>
     /// Gets or sets the server time correction.
     /// </summary>
     /// <value>The server time correction.</value>

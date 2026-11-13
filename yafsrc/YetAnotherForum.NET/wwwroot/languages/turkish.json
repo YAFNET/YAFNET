@@ -205,6 +205,10 @@
             "#text": "Admin Sayfası"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Veritabanı yedekleri oluşturuyor"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Yasaklanan ülkeler listesini görüntüler"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Kullanıcı Ekleri"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Yedekler"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Şimdi yedekle"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Veritabanının yedeği şimdi oluşturulsun mu? Bu biraz zaman alabilir."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Bu yedek silinsin mi?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Gece yedeği"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Her gece saat 1 ile 6 arasında (sunucu saati) bir yedek oluşturur. Uygulama o sırada çalışıyor olmalıdır: boşta kalınca durdurulan bir uygulama havuzu yedek almaz."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Tüm veritabanının sıkıştırılmış (zip) bir yedeğini oluşturur. Yedekler şu klasörde saklanır:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Saklanacak yedek sayısı"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Yeni bir yedekten sonra en eski yedekler silinir. 0 tüm yedekleri saklar."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Son yedek"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "{0} yedeği oluşturuldu."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Yedek silindi."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Yedekleme başarısız oldu: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Ayarlar kaydedildi."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Hiçbir zaman"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Veritabanı Yedeği"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "Görüntünün Önizlemesini Kırpın ve Görüntü Boyutu olarak yukarıdaki Boyutları kullanın."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Veritabanı Yedeği"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Kullanılabilir"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Uygulamadan veritabanının yedeğinin alınıp alınamayacağını (Yönetim > Veritabanı > Yedek), alınamıyorsa nedenini gösterir."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Kullanılamıyor: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Gönderiler kilitlenmeden günler önce:"
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Ekler"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Veritabanı Yedeği"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

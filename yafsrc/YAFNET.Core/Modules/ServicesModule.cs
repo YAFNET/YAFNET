@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -70,6 +70,8 @@ public class ServicesModule : BaseModule
         builder.RegisterType<SendNotification>().As<ISendNotification>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
         builder.RegisterType<DigestService>().As<IDigestService>().InstancePerLifetimeScope()
+            .PreserveExistingDefaults();
+        builder.RegisterType<DatabaseBackupService>().As<IDatabaseBackupService>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
         builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();

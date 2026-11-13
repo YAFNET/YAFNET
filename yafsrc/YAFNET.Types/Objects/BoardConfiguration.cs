@@ -235,4 +235,33 @@ public class BoardConfiguration
     /// </summary>
     /// <value>The trusted proxies.</value>
     public string[] TrustedProxies { get; set; } = [];
+
+    /// <summary>
+    /// The folder where the database backups (Admin > Database > Backup) are stored, as the application sees it.
+    /// A relative path is relative to the application folder. The folder must not be in wwwroot.
+    ///
+    /// ** Defaults to: 'App_Data/Backups'  **
+    /// </summary>
+    /// <value>The backup folder.</value>
+    public string BackupFolder { get; set; } = "App_Data/Backups";
+
+    /// <summary>
+    /// SQL Server only: the same backup folder as SQL Server sees it. SQL Server writes the backup file itself,
+    /// on its own disk, so this folder must be shared with the application (e.g. a docker volume mounted into
+    /// both containers, or the same folder when both run on the same machine). Without this setting the
+    /// database backup is not available for SQL Server.
+    ///
+    /// ** Defaults to: empty  **
+    /// </summary>
+    /// <value>The SQL Server backup folder.</value>
+    public string SqlServerBackupFolder { get; set; }
+
+    /// <summary>
+    /// PostgreSQL only: the pg_dump program used for the database backups (a full path, or the name when it is in
+    /// the PATH). Its version must be the same or newer than the version of the PostgreSQL server.
+    ///
+    /// ** Defaults to: 'pg_dump'  **
+    /// </summary>
+    /// <value>The pg_dump path.</value>
+    public string PgDumpPath { get; set; } = "pg_dump";
 }

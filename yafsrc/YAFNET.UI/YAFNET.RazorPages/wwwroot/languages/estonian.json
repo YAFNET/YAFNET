@@ -205,6 +205,10 @@
             "#text": "Avab admin indeksi"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Loob andmebaasi varukoopiaid"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Vaatab keelatud riikide loendit"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Kasutaja manused"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Varukoopiad"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Tee varukoopia kohe"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Kas luua andmebaasist varukoopia kohe? See võib võtta aega."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Kas kustutada see varukoopia?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Öine varukoopia"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Loob igal ööl kella 1 ja 6 vahel (serveri aeg) varukoopia. Rakendus peab siis töötama: jõudeolekus peatatud rakenduskogum varukoopiat ei tee."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Loob kogu andmebaasist pakitud (zip) varukoopia. Varukoopiad salvestatakse kausta:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Säilitatavate varukoopiate arv"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Pärast uut varukoopiat kustutatakse vanimad. 0 säilitab kõik varukoopiad."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Viimane varukoopia"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Varukoopia {0} loodi."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Varukoopia kustutati."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Varukoopia tegemine ebaõnnestus: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Seaded salvestati."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Mitte kunagi"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Andmebaasi varukoopia"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "Kärpige pildi eelvaadet ja kasutage ülaltoodud mõõdud pildi suurusena."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Andmebaasi varukoopia"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Saadaval"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Näitab, kas rakendusest saab teha andmebaasi varukoopia (Admin > Andmebaas > Varukoopia), ja kui ei, siis miks."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Pole saadaval: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Päevad enne postituste lukustamist:"
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Manused"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Andmebaasi varukoopia"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

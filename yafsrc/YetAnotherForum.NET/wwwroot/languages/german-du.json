@@ -205,6 +205,10 @@
             "#text": "Betrachtet Admin Index"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Erstellt Datenbank-Sicherungen"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Zeigt die Liste der gesperrten Länder an"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Benutzer-Anhänge"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Sicherungen"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Jetzt sichern"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Jetzt eine Sicherung der Datenbank erstellen? Das kann eine Weile dauern."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Diese Sicherung löschen?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Nächtliche Sicherung"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Erstellt jede Nacht zwischen 1 und 6 Uhr (Serverzeit) eine Sicherung. Die Anwendung muss dann laufen: ein Anwendungspool, der im Leerlauf beendet wird, erstellt keine Sicherung."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Erstellt eine gezippte Sicherung der ganzen Datenbank. Die Sicherungen werden in diesem Ordner gespeichert:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Anzahl der aufbewahrten Sicherungen"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Nach einer neuen Sicherung werden die ältesten Sicherungen gelöscht. 0 behält alle Sicherungen."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Letzte Sicherung"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Die Sicherung {0} wurde erstellt."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Die Sicherung wurde gelöscht."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Die Sicherung ist fehlgeschlagen: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Die Einstellungen wurden gespeichert."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Nie"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Datenbank-Sicherung"
           }
         ]
       },
@@ -3929,6 +4002,22 @@
             "#text": "Die Vorschau des Bildes Beschneiden und die Größen Werte oberhalb Verwenden für das Bild."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Datenbank-Sicherung"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Verfügbar"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Zeigt, ob eine Sicherung der Datenbank aus der Anwendung erstellt werden kann (Admin > Datenbank > Sicherung), und wenn nicht, warum."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Nicht verfügbar: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Tage bevor Beiträge gesperrt sind:"
           },
@@ -6399,6 +6488,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Anhänge"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Datenbank-Sicherung"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

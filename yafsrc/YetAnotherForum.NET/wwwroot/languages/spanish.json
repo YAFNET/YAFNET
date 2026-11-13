@@ -205,6 +205,10 @@
             "#text": "Ver índice de administrador"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Crea copias de seguridad de la base de datos"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Ver lista de países prohibidos"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Archivos adjuntos de los usuarios"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Copias de seguridad"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Copiar ahora"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "¿Crear ahora una copia de seguridad de la base de datos? Puede tardar un rato."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "¿Eliminar esta copia de seguridad?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Copia nocturna"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Crea una copia de seguridad cada noche entre la 1 y las 6 (hora del servidor). La aplicación debe estar en ejecución: un grupo de aplicaciones que se detiene por inactividad no hace la copia."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Crea una copia de seguridad comprimida de toda la base de datos. Las copias se guardan en la carpeta:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Número de copias a conservar"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Tras una nueva copia se eliminan las más antiguas. 0 conserva todas las copias."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Última copia"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Se ha creado la copia de seguridad {0}."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "La copia de seguridad se ha eliminado."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "La copia de seguridad ha fallado: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "La configuración se ha guardado."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Nunca"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Copia de seguridad de la base de datos"
           }
         ]
       },
@@ -3929,6 +4002,22 @@
             "#text": "Recorta la vista previa de la imagen y el uso por encima de las dimensiones máximas, como el tamaño de la imagen."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Copia de seguridad de la base de datos"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Disponible"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Muestra si se puede hacer una copia de seguridad de la base de datos desde la aplicación (Admin > Base de datos > Copia de seguridad) y, si no, por qué."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "No disponible: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Días antes de que una publicación sea bloqueada:"
           },
@@ -6399,6 +6488,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Anexos"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Copia de seguridad"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

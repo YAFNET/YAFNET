@@ -205,6 +205,10 @@
             "#text": "Näkymät admin index"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Luo tietokannan varmuuskopioita"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Näyttää kiellettyjen maiden luettelon"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Käyttäjän liitteet"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Varmuuskopiot"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Varmuuskopioi nyt"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Luodaanko tietokannasta varmuuskopio nyt? Tämä voi kestää hetken."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Poistetaanko tämä varmuuskopio?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Yöllinen varmuuskopio"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Luo varmuuskopion joka yö kello 1 ja 6 välillä (palvelimen aika). Sovelluksen on oltava silloin käynnissä: joutokäynnillä pysäytetty sovelluspooli ei tee varmuuskopiota."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Luo pakatun (zip) varmuuskopion koko tietokannasta. Varmuuskopiot tallennetaan kansioon:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Säilytettävien varmuuskopioiden määrä"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Uuden varmuuskopion jälkeen vanhimmat poistetaan. 0 säilyttää kaikki varmuuskopiot."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Viimeisin varmuuskopio"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Varmuuskopio {0} luotiin."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Varmuuskopio poistettiin."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Varmuuskopiointi epäonnistui: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Asetukset tallennettiin."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Ei koskaan"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Tietokannan varmuuskopio"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "Rajaa kuvan esikatselukuva ja käytä edellä mainittuja mittoja kuvakokona."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Tietokannan varmuuskopio"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Käytettävissä"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Näyttää, voiko tietokannasta tehdä varmuuskopion sovelluksesta (Ylläpito > Tietokanta > Varmuuskopio), ja jos ei, miksi."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Ei käytettävissä: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Päiviä ennen kuin viestit lukitaan:"
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Liitteet"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Tietokannan varmuuskopio"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

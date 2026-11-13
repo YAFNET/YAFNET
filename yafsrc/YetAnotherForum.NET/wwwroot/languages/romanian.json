@@ -205,6 +205,10 @@
             "#text": "Vezi index admin"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Creează copii de siguranță ale bazei de date"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Vizualizează lista țărilor interzise"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Atașamente de utilizator"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Copii de siguranță"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Copie acum"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Creați acum o copie de siguranță a bazei de date? Poate dura ceva timp."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Ștergeți această copie de siguranță?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Copie de noapte"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Creează o copie de siguranță în fiecare noapte între orele 1 și 6 (ora serverului). Aplicația trebuie să ruleze atunci: un pool de aplicații oprit la inactivitate nu face copia."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Creează o copie de siguranță arhivată (zip) a întregii baze de date. Copiile sunt salvate în folderul:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Numărul de copii păstrate"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "După o copie nouă, cele mai vechi sunt șterse. 0 păstrează toate copiile."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Ultima copie"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Copia de siguranță {0} a fost creată."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Copia de siguranță a fost ștearsă."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Copia de siguranță a eșuat: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Setările au fost salvate."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Niciodată"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Copie de siguranță a bazei de date"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "Tăiați previzualizarea imaginii și utilizați dimensiunile de mai sus ca dimensiune a imaginii."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Copie de siguranță a bazei de date"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Disponibil"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Arată dacă se poate face o copie de siguranță a bazei de date din aplicație (Admin > Bază de date > Copie de siguranță) și, dacă nu, de ce."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Indisponibil: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Cu câteva zile înainte ca mesajele să fie blocate:"
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Atașamente"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Copie de siguranță"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

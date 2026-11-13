@@ -205,6 +205,10 @@
                     "#text": "Views admin index"
                 },
                 {
+                    "@tag": "ADMIN_BACKUP",
+                    "#text": "Creates database backups"
+                },
+                {
                     "@tag": "ADMIN_BANNEDEMAIL",
                     "#text": "Views banned Emails list"
                 },
@@ -971,6 +975,75 @@
                 {
                     "@tag": "CONFIRM_DELETE",
                     "#text": "Delete attachment(s)?"
+                }
+            ]
+        },
+        {
+            "@name": "ADMIN_BACKUP",
+            "Resource": [
+                {
+                    "@tag": "BACKUPS",
+                    "#text": "Backups"
+                },
+                {
+                    "@tag": "BACKUP_NOW",
+                    "#text": "Backup now"
+                },
+                {
+                    "@tag": "CONFIRM_BACKUP",
+                    "#text": "Create a backup of the database now? This may take a while."
+                },
+                {
+                    "@tag": "CONFIRM_DELETE",
+                    "#text": "Delete this backup?"
+                },
+                {
+                    "@tag": "ENABLED",
+                    "#text": "Nightly backup"
+                },
+                {
+                    "@tag": "ENABLED_HELP",
+                    "#text": "Creates a backup every night between 1 and 6 o'clock (server time). The application must be running then: an application pool that is stopped when idle doesn't make the backup."
+                },
+                {
+                    "@tag": "INFO",
+                    "#text": "Creates a zipped backup of the whole database. The backups are stored in the folder:"
+                },
+                {
+                    "@tag": "KEEP",
+                    "#text": "Number of backups to keep"
+                },
+                {
+                    "@tag": "KEEP_HELP",
+                    "#text": "After a new backup the oldest backups are deleted. 0 keeps all backups."
+                },
+                {
+                    "@tag": "LAST",
+                    "#text": "Last backup"
+                },
+                {
+                    "@tag": "MSG_CREATED",
+                    "#text": "The backup {0} was created."
+                },
+                {
+                    "@tag": "MSG_DELETED",
+                    "#text": "The backup was deleted."
+                },
+                {
+                    "@tag": "MSG_FAILED",
+                    "#text": "The backup failed: {0}"
+                },
+                {
+                    "@tag": "MSG_SAVED",
+                    "#text": "The settings were saved."
+                },
+                {
+                    "@tag": "NEVER",
+                    "#text": "Never"
+                },
+                {
+                    "@tag": "TITLE",
+                    "#text": "Database Backup"
                 }
             ]
         },
@@ -3921,6 +3994,22 @@
                     "#text": "Crop the Preview of the Image and use above Dimensions as Image Size."
                 },
                 {
+                    "@tag": "DATABASE_BACKUP",
+                    "#text": "Database Backup"
+                },
+                {
+                    "@tag": "DATABASE_BACKUP_AVAILABLE",
+                    "#text": "Available"
+                },
+                {
+                    "@tag": "DATABASE_BACKUP_HELP",
+                    "#text": "Shows if a backup of the database can be made from the application (Admin > Database > Backup), and if not, why."
+                },
+                {
+                    "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+                    "#text": "Not available: {0}"
+                },
+                {
                     "@tag": "DAYS_BEFORE_POSTLOCK",
                     "#text": "Days before posts are locked:"
                 },
@@ -6399,6 +6488,10 @@
                 {
                     "@tag": "ADMIN_ATTACHMENTS",
                     "#text": "Attachments"
+                },
+                {
+                    "@tag": "ADMIN_BACKUP",
+                    "#text": "Database Backup"
                 },
                 {
                     "@tag": "ADMIN_BANNEDEMAIL",

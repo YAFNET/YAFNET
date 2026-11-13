@@ -205,6 +205,10 @@
             "#text": "Peržiūros admin indeksas"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Kuria duomenų bazės atsargines kopijas"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Peržiūrėti uždraustų šalių sąrašą"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Naudotojo priedai"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Atsarginės kopijos"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Kurti kopiją dabar"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Sukurti duomenų bazės atsarginę kopiją dabar? Tai gali užtrukti."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Ištrinti šią atsarginę kopiją?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Naktinė atsarginė kopija"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Kiekvieną naktį nuo 1 iki 6 valandos (serverio laiku) sukuria atsarginę kopiją. Programa tuo metu turi veikti: neveikiant sustabdytas programų telkinys kopijos nesukuria."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Sukuria suglaudintą (zip) visos duomenų bazės atsarginę kopiją. Kopijos saugomos aplanke:"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Saugomų atsarginių kopijų skaičius"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Po naujos kopijos seniausios ištrinamos. 0 saugo visas kopijas."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Paskutinė atsarginė kopija"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "Atsarginė kopija {0} sukurta."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "Atsarginė kopija ištrinta."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "Atsarginės kopijos sukurti nepavyko: {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Nustatymai išsaugoti."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Niekada"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Duomenų bazės atsarginė kopija"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "Apkirpkite paveikslėlio peržiūrą ir naudokite pirmiau nurodytus matmenis kaip paveikslėlio dydį."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Duomenų bazės atsarginė kopija"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Galima"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Rodo, ar iš programos galima sukurti duomenų bazės atsarginę kopiją (Admin > Duomenų bazė > Atsarginė kopija), o jei ne – kodėl."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Negalima: {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Dienos iki pranešimų užrakinimo:"
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Priedai"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Duomenų bazės atsarginė kopija"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

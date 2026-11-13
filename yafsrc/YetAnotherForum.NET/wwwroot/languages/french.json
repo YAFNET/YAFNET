@@ -205,6 +205,10 @@
             "#text": "Vues de l'index admin"
           },
           {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Crée des sauvegardes de la base de données"
+          },
+          {
             "@tag": "ADMIN_BANNED_COUNTRIES",
             "#text": "Consultez la liste des pays interdits"
           },
@@ -971,6 +975,75 @@
           {
             "@tag": "TITLE",
             "#text": "Pièces jointes par l'utilisateur"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BACKUP",
+        "Resource": [
+          {
+            "@tag": "BACKUPS",
+            "#text": "Sauvegardes"
+          },
+          {
+            "@tag": "BACKUP_NOW",
+            "#text": "Sauvegarder maintenant"
+          },
+          {
+            "@tag": "CONFIRM_BACKUP",
+            "#text": "Créer maintenant une sauvegarde de la base de données ? Cela peut prendre un moment."
+          },
+          {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Supprimer cette sauvegarde ?"
+          },
+          {
+            "@tag": "ENABLED",
+            "#text": "Sauvegarde nocturne"
+          },
+          {
+            "@tag": "ENABLED_HELP",
+            "#text": "Crée une sauvegarde chaque nuit entre 1 h et 6 h (heure du serveur). L'application doit alors être en cours d'exécution : un pool d'applications arrêté en cas d'inactivité ne fait pas la sauvegarde."
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Crée une sauvegarde zippée de toute la base de données. Les sauvegardes sont enregistrées dans le dossier :"
+          },
+          {
+            "@tag": "KEEP",
+            "#text": "Nombre de sauvegardes à conserver"
+          },
+          {
+            "@tag": "KEEP_HELP",
+            "#text": "Après une nouvelle sauvegarde, les plus anciennes sont supprimées. 0 conserve toutes les sauvegardes."
+          },
+          {
+            "@tag": "LAST",
+            "#text": "Dernière sauvegarde"
+          },
+          {
+            "@tag": "MSG_CREATED",
+            "#text": "La sauvegarde {0} a été créée."
+          },
+          {
+            "@tag": "MSG_DELETED",
+            "#text": "La sauvegarde a été supprimée."
+          },
+          {
+            "@tag": "MSG_FAILED",
+            "#text": "La sauvegarde a échoué : {0}"
+          },
+          {
+            "@tag": "MSG_SAVED",
+            "#text": "Les paramètres ont été enregistrés."
+          },
+          {
+            "@tag": "NEVER",
+            "#text": "Jamais"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Sauvegarde de la base de données"
           }
         ]
       },
@@ -3937,6 +4010,22 @@
             "#text": "Recadrez l'aperçu de l'image et utilisez les dimensions ci-dessus comme taille d'image."
           },
           {
+            "@tag": "DATABASE_BACKUP",
+            "#text": "Sauvegarde de la base de données"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_AVAILABLE",
+            "#text": "Disponible"
+          },
+          {
+            "@tag": "DATABASE_BACKUP_HELP",
+            "#text": "Indique si une sauvegarde de la base de données peut être faite depuis l'application (Admin > Base de données > Sauvegarde), et sinon pourquoi."
+          },
+          {
+            "@tag": "DATABASE_BACKUP_NOT_AVAILABLE",
+            "#text": "Non disponible : {0}"
+          },
+          {
             "@tag": "DAYS_BEFORE_POSTLOCK",
             "#text": "Des jours avant que les messages ne soient verrouillés :"
           },
@@ -6407,6 +6496,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Pièces jointes"
+          },
+          {
+            "@tag": "ADMIN_BACKUP",
+            "#text": "Sauvegarde de la base"
           },
           {
             "@tag": "ADMIN_BANNED_COUNTRIES",

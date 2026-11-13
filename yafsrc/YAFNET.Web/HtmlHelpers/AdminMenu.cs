@@ -756,7 +756,7 @@ public static class AdminMenuHtmlHelper
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 context.Get<ILocalization>().GetText("ADMINMENU", "Database"),
                 "#",
-                context.CurrentForumPage.PageName is ForumPages.Admin_ReIndex or ForumPages.Admin_RunSql,
+                context.CurrentForumPage.PageName is ForumPages.Admin_ReIndex or ForumPages.Admin_RunSql or ForumPages.Admin_Backup,
                 true,
                 "database"));
 
@@ -786,6 +786,20 @@ public static class AdminMenuHtmlHelper
                     context.Get<ILocalization>().GetText("ADMINMENU", "admin_RunSql"),
                     context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_RunSql),
                     context.CurrentForumPage.PageName == ForumPages.Admin_RunSql,
+                    false,
+                    "database"));
+        }
+
+        // Admin Backup: only for the host admin, and only when a backup can be made (e.g. not on a shared hosting
+        // without a backup folder that SQL Server and the application share)
+        if (context.PageUser.UserFlags.IsHostAdmin && context.Get<IDatabaseBackupService>().GetSupport().IsSupported)
+        {
+            list.InnerHtml.AppendHtml(
+                RenderMenuItem(
+                    "dropdown-item",
+                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_Backup"),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Backup),
+                    context.CurrentForumPage.PageName == ForumPages.Admin_Backup,
                     false,
                     "database"));
         }

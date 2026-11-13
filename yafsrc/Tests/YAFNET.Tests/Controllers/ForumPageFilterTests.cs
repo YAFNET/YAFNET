@@ -185,6 +185,7 @@ public class ForumPageFilterTests
     [Description("The host pages (host settings, boards, run sql...) are only for the host admin, a stored access of a board admin (e.g. granted by an older version) does not open them")]
     [TestCase(ForumPages.Admin_HostSettings)]
     [TestCase(ForumPages.Admin_RunSql)]
+    [TestCase(ForumPages.Admin_Backup)]
     [TestCase(ForumPages.Admin_EditBoard)]
     public async Task Host_Page_Test(ForumPages hostPage)
     {
