@@ -38,7 +38,7 @@ public abstract class PclExport
         /// <summary>
         /// The net core
         /// </summary>
-        public const string Net10 = "NET10";
+        public const string Net11 = "NET11";
     }
 
     /// <summary>

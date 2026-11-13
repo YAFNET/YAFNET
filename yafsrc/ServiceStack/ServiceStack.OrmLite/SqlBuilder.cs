@@ -140,7 +140,7 @@ public class SqlBuilder
         public object CreateDynamicType()
         {
             var assemblyName = new AssemblyName { Name = "tmpAssembly" };
-#if NET10_0_OR_GREATER
+#if NET11_0_OR_GREATER
                 var typeBuilder =
                     AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
                     .DefineDynamicModule("tmpModule")
@@ -215,7 +215,7 @@ public class SqlBuilder
 
             ctorIL.Emit(OpCodes.Ret);
 
-#if NET10_0_OR_GREATER
+#if NET11_0_OR_GREATER
                 var generetedType = typeBuilder.CreateTypeInfo().AsType();
 #else
             var generetedType = typeBuilder.CreateType();

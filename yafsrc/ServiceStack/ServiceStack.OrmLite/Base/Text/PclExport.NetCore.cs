@@ -22,7 +22,7 @@ public class NetPclExport : NetStandardPclExport
     /// </summary>
     public NetPclExport()
     {
-        this.PlatformName = Platforms.Net10;
+        this.PlatformName = Platforms.Net11;
         ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;
     }
 

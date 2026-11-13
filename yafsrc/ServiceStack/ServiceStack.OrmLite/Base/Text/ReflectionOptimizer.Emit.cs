@@ -440,7 +440,7 @@ public static class DynamicProxy
     static DynamicProxy()
     {
         var assemblyName = new AssemblyName("DynImpl");
-#if NET10_0_OR_GREATER
+#if NET11_0_OR_GREATER
         DynamicAssembly = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
 #else
             DynamicAssembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
@@ -471,7 +471,7 @@ public static class DynamicProxy
             IncludeType(face, typeBuilder);
         }
 
-#if NET10_0_OR_GREATER
+#if NET11_0_OR_GREATER
         return typeBuilder.CreateTypeInfo().AsType();
 #else
             return typeBuilder.CreateType();

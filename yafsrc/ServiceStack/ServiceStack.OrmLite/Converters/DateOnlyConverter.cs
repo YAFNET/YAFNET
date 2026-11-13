@@ -7,7 +7,7 @@
 
 using System;
 
-#if NET10_0_OR_GREATER
+#if NET11_0_OR_GREATER
 namespace ServiceStack.OrmLite.Converters;
 
 /// <summary>
