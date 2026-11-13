@@ -20,6 +20,8 @@ services:
       #- MailConfiguration__Password=
       - ASPNETCORE_URLS=http://+:89
     container_name: yafnet
+    volumes:
+      - yaf-backups:/app/App_Data/Backups   # the database backups (Admin > Database > Backup)
     ports:
       - "8001:89"
     networks:
@@ -61,3 +63,4 @@ services:
     
 volumes:
   postgresql-data:
+  yaf-backups:

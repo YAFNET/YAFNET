@@ -47,5 +47,9 @@ public class PostgreSQLModule : Module
         builder.RegisterType<PostgreSQLDbAccess>()
             .Named<IDbAccess>(PostgreSQLDbAccess.ProviderTypeName)
             .InstancePerLifetimeScope();
+
+        builder.RegisterType<PostgreSQLDbBackupProvider>()
+            .Named<IDbBackupProvider>(PostgreSQLDbAccess.ProviderTypeName)
+            .InstancePerLifetimeScope();
     }
 }

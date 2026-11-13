@@ -36,6 +36,15 @@ FROM build AS publish
 RUN dotnet publish "YAF-PostgreSQL.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
+
+# pg_dump for the database backup (Admin > Database > Backup): the newest version of the PostgreSQL apt repository,
+# pg_dump must be the same or a newer version than the PostgreSQL server
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates postgresql-common \
+    && /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y \
+    && apt-get install -y --no-install-recommends postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "YAF.dll"]
