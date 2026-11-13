@@ -12,12 +12,12 @@ We have a preliminary documentation on the [Github Wiki](https://github.com/YAFN
 
 ## Prerequisites:
 * ASP.NET .NET Framework 4.8.1 (YAF v3.2.x)
-* ASP.NET Core 10.0 (YAF v4.x)
-* BuildPackages requires .NET v10
+* ASP.NET Core 11.0 (YAF v4.x)
+* BuildPackages requires .NET v11
 
 ## Source 
 * The [netfx branch](https://github.com/YAFNET/YAFNET/tree/netfx) contains the current Stable YAF 3.2.x Release
-* The [master branch](https://github.com/YAFNET/YAFNET) contains the current BETA YAF 4.x.x
+* The [master branch](https://github.com/YAFNET/YAFNET) contains the current YAF 4.x.x
 
 [Building the Source](https://github.com/YAFNET/YAFNET/wiki#building-the-source)
 

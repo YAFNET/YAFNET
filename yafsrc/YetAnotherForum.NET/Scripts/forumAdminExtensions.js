@@ -506,7 +506,7 @@
             }
         }
     }
-    const VERSION = "5.3.8";
+    const VERSION = "5.3.9";
     class BaseComponent extends Config {
         constructor(element, config) {
             super();
@@ -740,6 +740,7 @@
                 return;
             }
             this._config = this._getConfig(config);
+            this._startX = 0;
             this._deltaX = 0;
             this._supportPointerEvents = Boolean(window.PointerEvent);
             this._initEvents();
@@ -757,23 +758,24 @@
             EventHandler.off(this._element, EVENT_KEY$9);
         }
         _start(event) {
+            this._deltaX = 0;
             if (!this._supportPointerEvents) {
-                this._deltaX = event.touches[0].clientX;
+                this._startX = event.touches[0].clientX;
                 return;
             }
             if (this._eventIsPointerPenTouch(event)) {
-                this._deltaX = event.clientX;
+                this._startX = event.clientX;
             }
         }
         _end(event) {
             if (this._eventIsPointerPenTouch(event)) {
-                this._deltaX = event.clientX - this._deltaX;
+                this._deltaX = event.clientX - this._startX;
             }
             this._handleSwipe();
             execute(this._config.endCallback);
         }
         _move(event) {
-            this._deltaX = event.touches && event.touches.length > 1 ? 0 : event.touches[0].clientX - this._deltaX;
+            this._deltaX = event.touches && event.touches.length > 1 ? 0 : event.touches[0].clientX - this._startX;
         }
         _handleSwipe() {
             const absDeltaX = Math.abs(this._deltaX);
@@ -990,8 +992,10 @@
                 return;
             }
             const activeIndicator = SelectorEngine.findOne(SELECTOR_ACTIVE, this._indicatorsElement);
-            activeIndicator.classList.remove(CLASS_NAME_ACTIVE$2);
-            activeIndicator.removeAttribute("aria-current");
+            if (activeIndicator) {
+                activeIndicator.classList.remove(CLASS_NAME_ACTIVE$2);
+                activeIndicator.removeAttribute("aria-current");
+            }
             const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slide-to="${index}"]`, this._indicatorsElement);
             if (newActiveIndicator) {
                 newActiveIndicator.classList.add(CLASS_NAME_ACTIVE$2);
@@ -2640,11 +2644,6 @@
             return instance;
         };
     }
-    var createPopper$2 = popperGenerator();
-    var defaultModifiers$1 = [ eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1 ];
-    var createPopper$1 = popperGenerator({
-        defaultModifiers: defaultModifiers$1
-    });
     var defaultModifiers = [ eventListeners, popperOffsets$1, computeStyles$1, applyStyles$1, offset$1, flip$1, preventOverflow$1, arrow$1, hide$1 ];
     var createPopper = popperGenerator({
         defaultModifiers: defaultModifiers
@@ -2665,8 +2664,6 @@
         clippingParents: clippingParents,
         computeStyles: computeStyles$1,
         createPopper: createPopper,
-        createPopperBase: createPopper$2,
-        createPopperLite: createPopper$1,
         detectOverflow: detectOverflow,
         end: end,
         eventListeners: eventListeners,
@@ -2836,7 +2833,7 @@
         }
         _createPopper() {
             if (typeof Popper === "undefined") {
-                throw new TypeError("Bootstrap's dropdowns require Popper (https://popper.js.org/docs/v2/)");
+                throw new TypeError("Bootstrap's dropdowns require Popper (https://github.com/floating-ui/popper-docs/blob/main/docs/v2/index.md)");
             }
             let referenceElement = this._element;
             if (this._config.reference === "parent") {
@@ -3944,7 +3941,7 @@
     class Tooltip extends BaseComponent {
         constructor(element, config) {
             if (typeof Popper === "undefined") {
-                throw new TypeError("Bootstrap's tooltips require Popper (https://popper.js.org/docs/v2/)");
+                throw new TypeError("Bootstrap's tooltips require Popper (https://github.com/floating-ui/popper-docs/blob/main/docs/v2/index.md)");
             }
             super(element, config);
             this._isEnabled = true;
@@ -4262,6 +4259,14 @@
         }
         _getConfig(config) {
             const dataAttributes = Manipulator.getDataAttributes(this._element);
+            const title = this._element.getAttribute("data-bs-title");
+            const content = this._element.getAttribute("data-bs-content");
+            if (title !== null) {
+                dataAttributes.title = title;
+            }
+            if (content !== null) {
+                dataAttributes.content = content;
+            }
             for (const dataAttribute of Object.keys(dataAttributes)) {
                 if (DISALLOWED_ATTRIBUTES.has(dataAttribute)) {
                     delete dataAttributes[dataAttribute];
@@ -4463,7 +4468,7 @@
             }
             EventHandler.off(this._config.target, EVENT_CLICK);
             EventHandler.on(this._config.target, EVENT_CLICK, SELECTOR_TARGET_LINKS, event => {
-                const observableSection = this._observableSections.get(event.target.hash);
+                const observableSection = this._observableSections.get(event.delegateTarget.hash);
                 if (observableSection) {
                     event.preventDefault();
                     const root = this._rootElement || window;
