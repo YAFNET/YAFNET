@@ -36,7 +36,7 @@
 		"autoprefixer": "^10.6.2",
 		"bootstrap": "5.3.9",
 		"clean-css": "^5.3.3",
-		"postcss": "^8.5.32",
+		"postcss": "^8.5.33",
 		"sass": "^1.108.2"
 	}
 }
