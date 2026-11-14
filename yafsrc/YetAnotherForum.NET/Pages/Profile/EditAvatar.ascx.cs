@@ -45,7 +45,7 @@ public partial class EditAvatar : ProfilePage
     protected void Page_Load(object sender, EventArgs e)
     {
         // Disable Avatar edit in dnn because it is already handled in the dnn profile page.
-        if (Config.IsDotNetNuke)
+        if (Config.IsAnyPortal)
         {
             this.RedirectNoAccess();
         }

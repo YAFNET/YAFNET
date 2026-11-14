@@ -87,7 +87,7 @@ public partial class ChangePassword : ProfilePage
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Config.IsDotNetNuke)
+        if (Config.IsAnyPortal)
         {
             // Not accessible...
             this.Get<LinkBuilder>().AccessDenied();

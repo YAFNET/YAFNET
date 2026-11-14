@@ -155,7 +155,7 @@ public static class Config
     /// <summary>
     ///     Gets a value indicating whether IsAnyPortal.
     /// </summary>
-    public static bool IsAnyPortal => IsDotNetNuke || IsMojoPortal || IsPortal;
+    public static bool IsAnyPortal => IsDotNetNuke || IsMojoPortal;
 
     /// <summary>
     ///     Gets a value indicating whether IsDotNetNuke.
@@ -192,11 +192,6 @@ public static class Config
             return obj != null && obj.ToString().ToLower().IndexOf("mojoportal", StringComparison.Ordinal) >= 0;
         }
     }
-
-    /// <summary>
-    ///     Gets a value indicating whether IsPortal.
-    /// </summary>
-    public static bool IsPortal => HttpContext.Current.Session != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
 
     /// <summary>
     ///     Gets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot Example : true /false

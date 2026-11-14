@@ -234,7 +234,7 @@
                         <YAF:ThemeButton ID="ThemeButton2" runat="server"
                                          Type="None"
                                          CssClass="dropdown-item"
-                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest && !((GroupFlags)this.Eval("GroupFlags")).IsAdmin && !YAF.Configuration.Config.IsDotNetNuke %>'
+                                         Visible='<%#!((GroupFlags)this.Eval("GroupFlags")).IsGuest && !((GroupFlags)this.Eval("GroupFlags")).IsAdmin && !YAF.Configuration.Config.IsAnyPortal %>'
                                          CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
                                          ReturnConfirmTag="CONFIRM_DELETE"
                                          TitleLocalizedTag="DELETE"
@@ -243,7 +243,7 @@
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="NewGroup" runat="server"
-                                         Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>"
+                                         Visible="<%# !YAF.Configuration.Config.IsAnyPortal %>"
                                          OnClick="NewGroupClick"
                                          Type="None"
                                          CssClass="dropdown-item"
@@ -262,7 +262,7 @@
             <div class="card-footer text-center">
                     <YAF:ThemeButton ID="NewGroup" runat="server"
                                      OnClick="NewGroupClick"
-                                     Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>"
+                                     Visible="<%# !YAF.Configuration.Config.IsAnyPortal %>"
                                      Type="Primary"
                                      Icon="plus-square"
                                      TextLocalizedTag="NEW_ROLE">

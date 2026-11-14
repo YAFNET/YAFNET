@@ -112,7 +112,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         if (prevVersion < 80)
         {
-            if (!Config.IsDotNetNuke)
+            if (!Config.IsAnyPortal)
             {
                 MigrateConfig();
             }
@@ -120,7 +120,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             this.Get<Migration80>().MigrateDatabase(this.DbAccess);
 
             // Upgrade to ASPNET Identity
-            if (!Config.IsDotNetNuke)
+            if (!Config.IsAnyPortal)
             {
                 this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
             }

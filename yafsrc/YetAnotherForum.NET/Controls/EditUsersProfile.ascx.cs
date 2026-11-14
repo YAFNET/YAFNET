@@ -240,7 +240,7 @@ public partial class EditUsersProfile : BaseUserControl
                                               this.PageBoardContext.BoardSettings.AllowDisplayNameModification;
 
         // override placeholders for DNN, dnn users should only see the forum settings but not the profile page
-        if (Config.IsDotNetNuke)
+        if (Config.IsAnyPortal)
         {
             this.ProfilePlaceHolder.Visible = false;
 
@@ -655,7 +655,7 @@ public partial class EditUsersProfile : BaseUserControl
         this.CustomProfile.DataSource = this.ProfileDefinitions;
         this.CustomProfile.DataBind();
 
-        if (!Config.IsDotNetNuke)
+        if (!Config.IsAnyPortal)
         {
             this.CustomProfile.Visible = true;
         }

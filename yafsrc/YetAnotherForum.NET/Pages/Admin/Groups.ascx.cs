@@ -291,7 +291,7 @@ public partial class Groups : AdminPage
         }
 
         // check if there are any roles for syncing
-        if (this.availableRoles.Count > 0 && !Config.IsDotNetNuke)
+        if (this.availableRoles.Count > 0 && !Config.IsAnyPortal)
         {
             // make it data-source
             this.RoleListNet.DataSource = this.availableRoles;

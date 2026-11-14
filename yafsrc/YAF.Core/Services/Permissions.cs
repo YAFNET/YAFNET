@@ -95,7 +95,7 @@ public class Permissions : IPermissions, IHaveServiceLocator
                         noAccess = false;
                         break;
                     }
-                case false when Config.IsDotNetNuke:
+                case false when Config.IsAnyPortal:
                     {
                         // automatic DNN redirect...
                         var appPath = HostingEnvironment.ApplicationVirtualPath;

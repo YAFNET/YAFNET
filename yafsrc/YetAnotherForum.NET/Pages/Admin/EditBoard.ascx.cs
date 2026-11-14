@@ -223,7 +223,7 @@ public partial class EditBoard : AdminPage
             this.UserEmail.Text = this.User.Email;
         }
 
-        if (Config.IsDotNetNuke)
+        if (Config.IsAnyPortal)
         {
             this.CreateNewAdminHolder.Visible = false;
         }

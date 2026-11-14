@@ -67,8 +67,8 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
 
         var version = this.PageBoardContext.BoardSettings.CdvVersion;
 
-        var forumJsName = Config.IsDotNetNuke ? "forumExtensionsDnn" : "forumExtensions";
-        var adminForumJsName = Config.IsDotNetNuke ? "forumAdminExtensionsDnn" : "forumAdminExtensions";
+        var forumJsName = Config.IsAnyPortal ? "forumExtensionsDnn" : "forumExtensions";
+        var adminForumJsName = Config.IsAnyPortal ? "forumAdminExtensionsDnn" : "forumAdminExtensions";
 
         ScriptManager.ScriptResourceMapping.AddDefinition(
             "forumAdminExtensions",
@@ -122,7 +122,7 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
                         ? $"forum-admin.min.css?v={version}"
                         : $"forum.min.css?v={version}")));
 
-        if (Config.IsDotNetNuke)
+        if (Config.IsAnyPortal)
         {
             return;
         }

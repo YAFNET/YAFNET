@@ -44,7 +44,7 @@ public class Migration94 : MigrationBase
             return;
         }
 
-        if (Config.IsDotNetNuke)
+        if (Config.IsAnyPortal)
         {
             return;
         }

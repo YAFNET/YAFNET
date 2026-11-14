@@ -232,10 +232,6 @@ public abstract class BaseUrlBuilder : IUrlBuilder
             {
                 pathBuilder.Append("DesktopModules/YetAnotherForumDotNet/");
             }
-            else if (Config.IsPortal)
-            {
-                pathBuilder.Append("Modules/Forum/");
-            }
 
             if (!pathBuilder.ToString().EndsWith("/"))
             {

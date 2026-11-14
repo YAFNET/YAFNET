@@ -46,7 +46,7 @@ public class Migration91 : MigrationBase
         this.Db.DropTable<NntpServer>();
 
         // Reset TwoFactorEnabled User Settings
-        if (!Config.IsDotNetNuke)
+        if (!Config.IsAnyPortal)
         {
 #pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
             this.Db.UpdateOnly(() => new AspNetUsers { TwoFactorEnabled = false }, a => a.TwoFactorEnabled == true);

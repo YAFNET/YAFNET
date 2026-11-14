@@ -112,7 +112,7 @@ public partial class EditUsersSettings : BaseUserControl
         this.CurrentPasswordRow.Visible = !this.PageBoardContext.CurrentForumPage.IsAdminPage;
 
         // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
-        if (Config.IsDotNetNuke)
+        if (Config.IsAnyPortal)
         {
             this.LoginInfo.Visible = false;
         }

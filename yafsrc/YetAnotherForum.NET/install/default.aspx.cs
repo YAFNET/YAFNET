@@ -114,7 +114,7 @@ public partial class install : BasePage, IHaveServiceLocator
     {
         // the installed forum keeps its connection (the wizard is closed): the connection string provider is shared
         // by all requests, every request of the wizard wrapped the provider of the forum again
-        if (Config.IsDotNetNuke || this.InstallService.IsForumInstalled)
+        if (Config.IsAnyPortal || this.InstallService.IsForumInstalled)
         {
             return;
         }
@@ -648,7 +648,7 @@ public partial class install : BasePage, IHaveServiceLocator
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private void Page_Load(object sender, EventArgs e)
     {
-        if (Config.IsDotNetNuke)
+        if (Config.IsAnyPortal)
         {
             this.Get<HttpResponseBase>().Redirect("~/");
             return;

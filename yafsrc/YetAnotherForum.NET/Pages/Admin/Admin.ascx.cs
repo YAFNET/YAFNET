@@ -379,7 +379,7 @@ public partial class Admin : AdminPage
     /// </summary>
     private void BindUnverifiedUsers()
     {
-        this.UnverifiedUsersHolder.Visible = !Config.IsDotNetNuke;
+        this.UnverifiedUsersHolder.Visible = !Config.IsAnyPortal;
 
         if (!this.UnverifiedUsersHolder.Visible)
         {

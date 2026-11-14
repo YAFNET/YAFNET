@@ -168,15 +168,15 @@ public partial class HostSettings : AdminPage
         this.CheckCache();
 
         // Hide Some settings if yaf is inside dnn
-        this.AvatarSettingsHolder.Visible = !Config.IsDotNetNuke;
-        this.SSLSettings.Visible = !Config.IsDotNetNuke;
-        this.BotRegisterCheck.Visible = !Config.IsDotNetNuke;
-        this.LoginSettings.Visible = !Config.IsDotNetNuke;
+        this.AvatarSettingsHolder.Visible = !Config.IsAnyPortal;
+        this.SSLSettings.Visible = !Config.IsAnyPortal;
+        this.BotRegisterCheck.Visible = !Config.IsAnyPortal;
+        this.LoginSettings.Visible = !Config.IsAnyPortal;
 
         // the posts are indexed with the dnn search inside dnn
-        this.SearchTabMenu.Visible = !Config.IsDotNetNuke;
-        this.SearchTabNav.Visible = !Config.IsDotNetNuke;
-        this.SearchTab.Visible = !Config.IsDotNetNuke;
+        this.SearchTabMenu.Visible = !Config.IsAnyPortal;
+        this.SearchTabNav.Visible = !Config.IsAnyPortal;
+        this.SearchTab.Visible = !Config.IsAnyPortal;
     }
 
     /// <summary>

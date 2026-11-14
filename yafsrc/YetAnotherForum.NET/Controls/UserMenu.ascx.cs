@@ -219,7 +219,7 @@ public partial class UserMenu : BaseUserControl
             this.PageBoardContext.CurrentForumPage.PageType == ForumPages.MyAccount,
             "address-card");
 
-        if (!Config.IsDotNetNuke)
+        if (!Config.IsAnyPortal)
         {
             RenderMenuItem(
                 this.MySettings,
@@ -261,7 +261,7 @@ public partial class UserMenu : BaseUserControl
             this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Profile_Attachments,
             "paperclip");
 
-        if (!Config.IsDotNetNuke && (this.PageBoardContext.BoardSettings.AvatarUpload
+        if (!Config.IsAnyPortal && (this.PageBoardContext.BoardSettings.AvatarUpload
                                      || this.PageBoardContext.BoardSettings.AvatarGallery))
         {
             RenderMenuItem(
@@ -320,7 +320,7 @@ public partial class UserMenu : BaseUserControl
             this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Profile_BlockOptions,
             "user-lock");
 
-        if (!Config.IsDotNetNuke)
+        if (!Config.IsAnyPortal)
         {
             // Render Change Password Item
             RenderMenuItem(
@@ -337,7 +337,7 @@ public partial class UserMenu : BaseUserControl
                 "lock");
         }
 
-        if (!Config.IsDotNetNuke && !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        if (!Config.IsAnyPortal && !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
         {
             // Render Delete Account Item
             RenderMenuItem(

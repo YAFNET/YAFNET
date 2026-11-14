@@ -476,7 +476,7 @@ public partial class PostTopic : ForumPage
                     this.PageBoardContext.PageUserID);
 
                 this.Get<IActivityStream>().AddTopicToStream(
-                    Config.IsDotNetNuke ? this.PageBoardContext.PageForumID : this.PageBoardContext.PageUserID,
+                    Config.IsAnyPortal ? this.PageBoardContext.PageForumID : this.PageBoardContext.PageUserID,
                     newMessage.TopicID,
                     newMessage.ID,
                     HtmlTagHelper.StripHtml(this.TopicSubjectTextBox.Text),

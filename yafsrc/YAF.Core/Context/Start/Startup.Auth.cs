@@ -56,7 +56,7 @@ public partial class Startup
     /// </param>
     public void ConfigureAuth(IAppBuilder app)
     {
-        if (Config.IsDotNetNuke)
+        if (Config.IsAnyPortal)
         {
             return;
         }

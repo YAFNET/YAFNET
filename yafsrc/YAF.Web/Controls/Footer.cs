@@ -163,7 +163,7 @@ public class Footer : BaseControl
         {
             writer.Write(" {0} ", BoardInfo.AppVersionName);
 
-            if (Config.IsDotNetNuke)
+            if (Config.IsAnyPortal)
             {
                 writer.Write(" Under DNN ");
             }

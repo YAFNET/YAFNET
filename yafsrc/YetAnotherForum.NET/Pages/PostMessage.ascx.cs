@@ -499,7 +499,7 @@ public partial class PostMessage : ForumPage
                     this.PageBoardContext.PageUserID);
 
                 this.Get<IActivityStream>().AddReplyToStream(
-                    Config.IsDotNetNuke ? this.PageBoardContext.PageForumID : this.PageBoardContext.PageUserID,
+                    Config.IsAnyPortal ? this.PageBoardContext.PageForumID : this.PageBoardContext.PageUserID,
                     this.PageBoardContext.PageTopicID,
                     newMessage.ID,
                     this.PageBoardContext.PageTopic.TopicName,

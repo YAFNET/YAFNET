@@ -238,7 +238,7 @@
                                                          TextLocalizedTag="DELETE"
                                                          TitleLocalizedTag="DELETE"
                                                          Icon="trash"
-                                                         Visible="<%# ((PagedUser)Container.DataItem).IsGuest == false && !YAF.Configuration.Config.IsDotNetNuke %>">
+                                                         Visible="<%# ((PagedUser)Container.DataItem).IsGuest == false && !YAF.Configuration.Config.IsAnyPortal %>">
                                         </YAF:ThemeButton>
                                     </div>
                                 </small>
@@ -261,7 +261,7 @@
                                                      TextLocalizedTag="DELETE"
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash"
-                                                     Visible="<%# ((PagedUser)Container.DataItem).IsGuest == false && !YAF.Configuration.Config.IsDotNetNuke %>">
+                                                     Visible="<%# ((PagedUser)Container.DataItem).IsGuest == false && !YAF.Configuration.Config.IsAnyPortal %>">
                                     </YAF:ThemeButton>
                                 </div>
                             </li>

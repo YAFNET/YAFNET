@@ -88,7 +88,7 @@
                                 <uc1:QuickEdit ID="QuickEditControl" runat="server" />
                             </div>
                             <div class="tab-pane fade" id="View2" role="tabpanel">
-                                <uc1:GroupsEdit ID="GroupEditControl" runat="server" Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>" />
+                                <uc1:GroupsEdit ID="GroupEditControl" runat="server" Visible="<%# !YAF.Configuration.Config.IsAnyPortal %>" />
                             </div>
                             <div class="tab-pane fade" id="View3" role="tabpanel">
                                 <uc1:ProfileEdit ID="ProfileEditControl" runat="server" />

@@ -95,7 +95,7 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<ProfileCustom>();
 
         // Create Identity tables (for all databases, not only for MySQL)
-        if (!Config.IsDotNetNuke)
+        if (!Config.IsAnyPortal)
         {
             this.Db.CreateTable<AspNetUsers>();
             this.Db.CreateTable<AspNetRoles>();

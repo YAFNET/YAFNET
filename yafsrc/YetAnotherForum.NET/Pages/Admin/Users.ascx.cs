@@ -296,7 +296,7 @@ public partial class Users : AdminPage
         this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
         // Hide "New User" & Sync Button on DotNetNuke
-        this.ImportAndSyncHolder.Visible = !Config.IsDotNetNuke;
+        this.ImportAndSyncHolder.Visible = !Config.IsAnyPortal;
 
         this.BindData();
     }

@@ -77,7 +77,7 @@ public class ProfileMenu : BaseControl
             "user",
             new { u = this.PageBoardContext.PageUserID, name = this.PageBoardContext.PageUser.DisplayOrUserName() });
 
-        if (!Config.IsDotNetNuke)
+        if (!Config.IsAnyPortal)
         {
             this.RenderMenuItem(
                 html,
@@ -163,7 +163,7 @@ public class ProfileMenu : BaseControl
                 new { u = this.PageBoardContext.PageUserID });
         }
 
-        if (!Config.IsDotNetNuke && (this.PageBoardContext.BoardSettings.AvatarUpload
+        if (!Config.IsAnyPortal && (this.PageBoardContext.BoardSettings.AvatarUpload
                                      || this.PageBoardContext.BoardSettings.AvatarGallery))
         {
             this.RenderMenuItem(
@@ -226,7 +226,7 @@ public class ProfileMenu : BaseControl
             this.GetText("BLOCK_OPTIONS", "TITLE"),
             "user-lock");
 
-        if (!Config.IsDotNetNuke)
+        if (!Config.IsAnyPortal)
         {
             // Render Change Password Item
             this.RenderMenuItem(
@@ -244,7 +244,7 @@ public class ProfileMenu : BaseControl
                 "lock");
         }
 
-        if (!Config.IsDotNetNuke && !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
+        if (!Config.IsAnyPortal && !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
         {
             // Render Delete Account Item
             this.RenderMenuItem(

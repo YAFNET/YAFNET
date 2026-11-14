@@ -61,7 +61,7 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
     /// </param>
     public void MigrateDatabase(IDbAccess dbAccess)
     {
-        if (!Config.IsDotNetNuke)
+        if (!Config.IsAnyPortal)
         {
             // Install Membership Scripts
             dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());

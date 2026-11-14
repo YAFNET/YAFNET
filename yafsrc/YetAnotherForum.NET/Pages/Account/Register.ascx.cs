@@ -128,7 +128,7 @@ public partial class Register : AccountPage
         this.CustomProfile.DataSource = this.ProfileDefinitions;
         this.CustomProfile.DataBind();
 
-        if (!Config.IsDotNetNuke)
+        if (!Config.IsAnyPortal)
         {
             this.CustomProfile.Visible = true;
         }
