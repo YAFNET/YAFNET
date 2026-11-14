@@ -78,7 +78,7 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
 
             var release = releases.First(x => x.TagName.StartsWith("v4"));
 
-            version.UpgradeUrl = "https://yetanotherforum.net/download";
+            version.UpgradeUrl = "https://yetanotherforum.net/downloads";
             version.VersionDate = release.PublishedAt;
             version.Version = release.TagName.Replace("v", string.Empty);
 #pragma warning restore S1075
