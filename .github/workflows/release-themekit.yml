@@ -38,9 +38,6 @@ jobs:
       - name: Publish @yafnet/theme-kit to npm
         working-directory: ./yafsrc/YAFNET.ThemeKit
         shell: pwsh
-        env:
-          # only needed until trusted publishing is set up for the package on npmjs.com, npm uses OIDC first when it is
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           if ('${{ inputs.dry-run }}' -eq 'true') {
             npm publish --access public --dry-run
