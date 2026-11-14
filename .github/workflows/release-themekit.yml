@@ -1,0 +1,50 @@
+name: Release YAF.NET Theme Kit npm Package
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Only build and pack the package (npm publish --dry-run)'
+        type: boolean
+        default: false
+
+jobs:
+  publish-themekit:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v7
+
+      - name: Use Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: latest
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Node Packages
+        working-directory: ./yafsrc/YetAnotherForum.NET
+        run: npm install
+
+      - name: Create the theme kit
+        working-directory: ./yafsrc/YetAnotherForum.NET
+        run: npm run themeKit
+
+      - name: Publish @yafnet/theme-kit to npm
+        working-directory: ./yafsrc/YAFNET.ThemeKit
+        shell: pwsh
+        env:
+          # only needed until trusted publishing is set up for the package on npmjs.com, npm uses OIDC first when it is
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if ('${{ inputs.dry-run }}' -eq 'true') {
+            npm publish --access public --dry-run
+          } else {
+            npm publish --access public --provenance
+          }
+          if ($LASTEXITCODE -ne 0) { throw "npm publish failed" }

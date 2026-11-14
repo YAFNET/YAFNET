@@ -354,12 +354,6 @@ const tasks = {
 
 	themeKit: buildThemeKit,
 
-	async publishThemeKit() {
-		await buildThemeKit();
-
-		execSync('npm publish --access public', { cwd: themeKitFolder, stdio: 'inherit' });
-	},
-
 	publishDocker() {
 		for (const database of ['sqlserver', 'mysql', 'postgresql', 'sqlite']) {
 			const image = `yafnet/yafnet:latest-${database}`;
