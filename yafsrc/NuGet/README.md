@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/github/license/yafnet/yafnet)](https://github.com/YAFNET/YAFNET/blob/master/LICENSE.md)
 [![NuGet](https://img.shields.io/nuget/v/YAFNET.Core.svg)](https://www.nuget.org/packages/YAFNET.Core)
 [![Docker pulls](https://img.shields.io/docker/pulls/yafnet/yafnet)](https://hub.docker.com/r/yafnet/yafnet)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-ff5e5b?logo=ko-fi&logoColor=white)](https://ko-fi.com/w8tcha)
 
 **YetAnotherForum.NET** (YAF.NET) is an open source forum for ASP.NET Core. This package is one of the libraries that make up YAF.NET 4.x.
 

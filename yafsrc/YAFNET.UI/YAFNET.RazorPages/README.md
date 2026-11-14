@@ -1,5 +1,8 @@
 ![YAFLogo](https://raw.githubusercontent.com/YAFNET/YAFNET/master/yafsrc/YetAnotherForum.NET/wwwroot/images/Logos/YAFLogo.svg)
 
+
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-ff5e5b?logo=ko-fi&logoColor=white)](https://ko-fi.com/w8tcha)
+
 [YAF.NET](https://yetanotherforum.net) Razor Pages Client Library  
 
 ## Prerequisites:
