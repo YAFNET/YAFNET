@@ -103,9 +103,9 @@ if (ReleaseNotes.Length > 30000)
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	</PackageReference>
-	<PackageReference Include="YAFNET.Core" Version="4.0.10" />
-	<PackageReference Include="YAFNET.Types" Version="4.0.10" />
-	<PackageReference Include="YAFNET.Web" Version="4.0.10" />
+	<PackageReference Include="YAFNET.Core" Version="4.0.11" />
+	<PackageReference Include="YAFNET.Types" Version="4.0.11" />
+	<PackageReference Include="YAFNET.Web" Version="4.0.11" />
 	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" version="11.0.0" />
   </ItemGroup>
 
