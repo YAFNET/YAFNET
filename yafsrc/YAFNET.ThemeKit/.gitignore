@@ -1,0 +1,10 @@
+# created by "npm run themeKit" in YetAnotherForum.NET
+email/
+scss/
+themes/
+LICENSE.md
+*.tgz
+node_modules/
+
+# the command line tool (bin/ is ignored by the root .gitignore)
+!bin/

@@ -1,0 +1,2 @@
+# the shebang of the command line tool must end with LF, also when the package is published from Windows
+bin/* text eol=lf

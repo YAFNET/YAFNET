@@ -8,6 +8,7 @@
 const { execFileSync, execSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
+const { fileURLToPath } = require('node:url');
 
 const autoprefixer = require('autoprefixer');
 const CleanCSS = require('clean-css');
@@ -21,6 +22,11 @@ const pkg = require('./package.json');
 process.chdir(__dirname);
 
 const themesFolder = 'wwwroot/lib/themes';
+
+/**
+ * The npm package @yafnet/theme-kit, the theme sources and forum styles to build a theme without the source code.
+ */
+const themeKitFolder = '../YAFNET.ThemeKit';
 
 const themes = fs.readdirSync(themesFolder, { withFileTypes: true })
 	.filter(entry => entry.isDirectory())
@@ -85,6 +91,12 @@ const versionReplacements = [
 		],
 		patterns: [
 			[/version>([\d.]+)<\//, `version>${pkg.version}</`]
+		]
+	},
+	{
+		files: [`${themeKitFolder}/package.json`],
+		patterns: [
+			[/"version": "([\d.]+)"/, `"version": "${pkg.version}"`]
 		]
 	},
 	{
@@ -220,6 +232,78 @@ function buildEmailTemplates(template, config) {
 	fs.rmSync('.sass-cache', { recursive: true, force: true });
 }
 
+/**
+ * The files of the forum (outside the theme folders) which the themes import, found by compiling every theme.
+ */
+async function themeImports() {
+	const lib = path.resolve('wwwroot/lib') + path.sep;
+	const themesRoot = path.resolve(themesFolder) + path.sep;
+	const files = new Set();
+
+	for (const theme of themes) {
+		const compiled = await sass.compileAsync(`${themesFolder}/${theme}/bootstrap-forum.scss`, sassOptions);
+
+		compiled.loadedUrls
+			.map(url => fileURLToPath(url))
+			.filter(file => file.startsWith(lib) && !file.startsWith(themesRoot))
+			.forEach(file => files.add(path.relative(lib, file)));
+	}
+
+	return [...files].sort();
+}
+
+/**
+ * Creates the content of the theme kit package: the theme sources, the forum styles they import, the email sass files
+ * and templates, and the prebuilt email templates (used when bootstrap-email isn't installed).
+ */
+async function buildThemeKit() {
+	for (const folder of ['email', 'scss', 'themes']) {
+		fs.rmSync(path.join(themeKitFolder, folder), { recursive: true, force: true });
+	}
+
+	for (const file of await themeImports()) {
+		const destination = path.join(themeKitFolder, 'scss', file);
+
+		fs.mkdirSync(path.dirname(destination), { recursive: true });
+		fs.copyFileSync(path.join('wwwroot/lib', file), destination);
+		console.log(`scss/${file.replaceAll('\\', '/')}`);
+	}
+
+	fs.cpSync(themesFolder, path.join(themeKitFolder, 'themes'), { recursive: true });
+	fs.cpSync('wwwroot/lib/bootstrap-email', path.join(themeKitFolder, 'email/bootstrap-email'), { recursive: true });
+
+	fs.mkdirSync(path.join(themeKitFolder, 'email/resources'), { recursive: true });
+
+	for (const template of ['EmailTemplate.html', 'DigestTopicTemplate.html']) {
+		fs.copyFileSync(`wwwroot/resources/${template}`, path.join(themeKitFolder, 'email/resources', template));
+
+		for (const theme of themes) {
+			const destination = path.join(themeKitFolder, 'email/prebuilt', theme, template);
+
+			fs.mkdirSync(path.dirname(destination), { recursive: true });
+			fs.copyFileSync(`wwwroot/css/themes/${theme}/${template}`, destination);
+		}
+	}
+
+	fs.copyFileSync('../../LICENSE.md', path.join(themeKitFolder, 'LICENSE.md'));
+
+	// the kit has the version of the forum, and the Bootstrap and build tool versions the forum is built with
+	const kitPackageFile = path.join(themeKitFolder, 'package.json');
+	const kitPackage = JSON.parse(fs.readFileSync(kitPackageFile, 'utf8'));
+	const bootstrap = JSON.parse(fs.readFileSync('node_modules/bootstrap/package.json', 'utf8'));
+
+	kitPackage.version = pkg.version;
+	kitPackage.dependencies.bootstrap = bootstrap.version;
+
+	for (const dependency of ['autoprefixer', 'clean-css', 'postcss', 'sass']) {
+		kitPackage.dependencies[dependency] = pkg.devDependencies[dependency];
+	}
+
+	fs.writeFileSync(kitPackageFile, `${JSON.stringify(kitPackage, null, '\t')}\n`);
+
+	console.log(`theme kit ${kitPackage.version} with ${themes.length} themes and Bootstrap ${bootstrap.version} created in ${themeKitFolder}`);
+}
+
 const tasks = {
 	async default() {
 		runWebpack();
@@ -266,6 +350,14 @@ const tasks = {
 	emailTemplates() {
 		buildEmailTemplates('EmailTemplate.html', 'bootstrap_email.json');
 		buildEmailTemplates('DigestTopicTemplate.html', 'bootstrap_email-digest.json');
+	},
+
+	themeKit: buildThemeKit,
+
+	async publishThemeKit() {
+		await buildThemeKit();
+
+		execSync('npm publish --access public', { cwd: themeKitFolder, stdio: 'inherit' });
 	},
 
 	publishDocker() {

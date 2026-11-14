@@ -1,0 +1,42 @@
+{
+	"name": "@yafnet/theme-kit",
+	"version": "4.0.10",
+	"description": "Create and build custom themes for YetAnotherForum.NET without the forum source code",
+	"keywords": [
+		"yafnet",
+		"yetanotherforum",
+		"forum",
+		"theme",
+		"bootstrap",
+		"bootswatch",
+		"sass"
+	],
+	"author": "Ingo Herbote",
+	"homepage": "https://github.com/YAFNET/YAFNET/wiki/Customization",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/YAFNET/YAFNET.git",
+		"directory": "yafsrc/YAFNET.ThemeKit"
+	},
+	"bugs": "https://github.com/YAFNET/YAFNET/issues",
+	"license": "Apache-2.0",
+	"bin": {
+		"yafnet-theme": "bin/yafnet-theme.js"
+	},
+	"files": [
+		"bin",
+		"email",
+		"scss",
+		"themes"
+	],
+	"engines": {
+		"node": ">=20"
+	},
+	"dependencies": {
+		"autoprefixer": "^10.6.2",
+		"bootstrap": "5.3.9",
+		"clean-css": "^5.3.3",
+		"postcss": "^8.5.32",
+		"sass": "^1.108.2"
+	}
+}
