@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.12
+* [FIXED] NuGet: the packages YAFNET.Core, YAFNET.Types, YAFNET.Configuration, YAFNET.Web and YAFNET.Data.* used the README of the repository, its HTML (logo and badges) and relative links can not be shown on nuget.org; they now contain their own README (yafsrc/NuGet/README.md) in plain Markdown with absolute links
+
 # YetAnotherForum.NET v4.0.11
 * [NEW] Search: new option "Search for" with Posts (all matching posts), Topics (one result for each topic, with its latest matching post) and Forums (the forums with a matching name)
 * [NEW] Short urls: the public pages have shorter lowercase urls (/topic/1/name, /forum/1/name, /post/1/name, /user/1/name, /category/1/name, /album, /albums, /members, /active-users and /team), the page number of a topic is in the path (/topic/1/name/2), the slugs are lowercase and at most 80 characters long, the old urls and urls with an outdated name redirect permanently to the new url

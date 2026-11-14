@@ -60,7 +60,7 @@
     <file src="bin\Release\net11.0\ServiceStack.OrmLite.dll" target="lib\net11.0\"/>
     <file src="bin\Release\net11.0\YAF.Core.dll" target="lib\net11.0\"/>
 	<file src="..\..\LICENSE.md" target=""/>
-    <file src="..\..\README.md" target=""/>
+    <file src="..\NuGet\README.md" target=""/>
     <file src="..\yaf.png" target=""/>
   </files>
 </package>
