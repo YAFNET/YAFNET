@@ -6,6 +6,7 @@
 ![build status](https://github.com/yafnet/yafnet/actions/workflows/build.yml/badge.svg)
 ![build status](https://github.com/yafnet/yafnet/actions/workflows/build-netfx.yml/badge.svg)
 [![code coverage (3.x)](https://github.com/YAFNET/YAFNET/raw/badges-netfx/badge_linecoverage.svg)](https://github.com/YAFNET/YAFNET/actions/workflows/build-netfx.yml)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-ff5e5b?logo=ko-fi&logoColor=white)](https://ko-fi.com/w8tcha)
 
 ## Documentation
 We have a preliminary documentation on the [Github Wiki](https://github.com/YAFNET/YAFNET/wiki) page
