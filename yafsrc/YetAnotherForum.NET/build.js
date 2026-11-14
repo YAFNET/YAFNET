@@ -37,8 +37,13 @@ const stylesheets = [
 	...themes.map(theme => [`${themesFolder}/${theme}/bootstrap-forum.scss`, `wwwroot/css/themes/${theme}/bootstrap-forum.min.css`])
 ];
 
+/**
+ * The themes import Bootstrap ("bootstrap/scss/bootstrap") and the forum styles ("forum/chat.scss", ...) from the load paths,
+ * not with relative paths, so a theme folder can be compiled outside of the source too (see the theme kit).
+ */
 const sassOptions = {
-	silenceDeprecations: ['color-functions', 'global-builtin', 'import', 'legacy-js-api', 'if-function']
+	silenceDeprecations: ['color-functions', 'global-builtin', 'import', 'legacy-js-api', 'if-function'],
+	loadPaths: ['node_modules', 'wwwroot/lib']
 };
 
 /**

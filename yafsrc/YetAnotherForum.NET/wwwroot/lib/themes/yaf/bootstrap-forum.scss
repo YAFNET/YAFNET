@@ -1,8 +1,8 @@
 ﻿@import "_variables.scss";
 
-@import "../../../../node_modules/bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";
 
-@import "../../forum/chat.scss";
+@import "forum/chat.scss";
 
-@import "../../choices/bs-theme.scss";
-@import "../../netStack.scss";
+@import "choices/bs-theme.scss";
+@import "netStack.scss";
