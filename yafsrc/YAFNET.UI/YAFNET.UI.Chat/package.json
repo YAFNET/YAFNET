@@ -5,7 +5,7 @@
 	"version": "4.0.9",
 	"license": "Apache-2.0",
 	"devDependencies": {
-		"@tsconfig/recommended": "^1.0.13",
+		"@tsconfig/recommended": "^1.0.14",
 		"terser-webpack-plugin": "^5.6.1",
 		"ts-loader": "^9.6.2",
 		"typescript": "npm:@typescript/typescript6@^6.0.2",

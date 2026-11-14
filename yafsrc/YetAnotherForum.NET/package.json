@@ -13,7 +13,7 @@
 		"babel-loader": "^10.1.1",
 		"clean-css": "^5.3.3",
 		"css-loader": "^7.1.5",
-		"postcss": "^8.5.32",
+		"postcss": "^8.5.33",
 		"sass": "^1.108.2",
 		"style-loader": "^4.0.0",
 		"ts-loader": "^9.6.2",
