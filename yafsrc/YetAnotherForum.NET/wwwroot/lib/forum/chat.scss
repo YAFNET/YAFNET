@@ -64,6 +64,17 @@
         margin-right: 50px;
         margin-left: 0;
 
+        a {
+            color: inherit;
+            text-decoration: underline;
+
+            &:hover,
+            &:focus {
+                color: inherit;
+                opacity: .85;
+            }
+        }
+
         &:before,
         &:after {
             border-right-color: $primary;
