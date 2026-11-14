@@ -141,7 +141,11 @@ public class User : IEntity, IHaveBoardID, IHaveID
 
             var tz = this.TimeZone;
 
-            if (tz.IsNotSet() || System.Text.RegularExpressions.Regex.IsMatch(tz, @"^[\-?\+?\d]*$"))
+            if (tz.IsNotSet() || System.Text.RegularExpressions.Regex.IsMatch(
+                    tz,
+                    @"^[\-?\+?\d]*$",
+                    System.Text.RegularExpressions.RegexOptions.None,
+                    Constants.Regex.Timeout))
             {
                 return TimeZoneInfo.Local;
             }

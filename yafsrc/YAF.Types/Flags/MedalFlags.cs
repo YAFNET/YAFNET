@@ -85,7 +85,9 @@ public class MedalFlags : FlagsBase
     /// Use for bit comparisons
     /// </summary>
     [Flags]
+#pragma warning disable S2344 // public API: the nested enum is used as MedalFlags.Flags
     public enum Flags
+#pragma warning restore S2344
     {
         /// <summary>
         /// The none.
@@ -143,7 +145,9 @@ public class MedalFlags : FlagsBase
     /// <summary>
     /// Gets or sets a value indicating whether the medal can be displayed as ribbon bar.
     /// </summary>
+#pragma warning disable S1133 // kept: the bit is still stored in existing medal flags
     [Obsolete("Not Used anymore")]
+#pragma warning restore S1133
     public virtual bool AllowRibbon
     {
         // int value 2
@@ -166,7 +170,9 @@ public class MedalFlags : FlagsBase
     /// <summary>
     /// Gets or sets a value indicating whether the medal can be re-ordered by user.
     /// </summary>
+#pragma warning disable S1133 // kept: the bit is still stored in existing medal flags
     [Obsolete("Not Used anymore")]
+#pragma warning restore S1133
     public virtual bool AllowReOrdering
     {
         // int value 8

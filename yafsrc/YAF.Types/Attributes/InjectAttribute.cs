@@ -27,6 +27,8 @@ namespace YAF.Types.Attributes;
 /// The inject attribute -- mark a property that needs injection. Must be public.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
+#pragma warning disable S3376 // public API: renaming would break existing usages of the attribute
 public class Inject : Attribute
+#pragma warning restore S3376
 {
 }

@@ -39,4 +39,16 @@ public class NoValidGuestUserForBoardException : Exception
         : base(message)
     {
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NoValidGuestUserForBoardException"/> class with serialized data.
+    /// </summary>
+    /// <param name="info">The serialization info.</param>
+    /// <param name="context">The streaming context.</param>
+    protected NoValidGuestUserForBoardException(
+        System.Runtime.Serialization.SerializationInfo info,
+        System.Runtime.Serialization.StreamingContext context)
+        : base(info, context)
+    {
+    }
 }

@@ -85,7 +85,9 @@ public class TopicFlags : FlagsBase
     /// Use for bit comparisons
     /// </summary>
     [Flags]
+#pragma warning disable S2344 // public API: the nested enum is used as TopicFlags.Flags
     public enum Flags
+#pragma warning restore S2344
     {
         /// <summary>
         /// The none.
@@ -154,15 +156,4 @@ public class TopicFlags : FlagsBase
 
         set => this[9] = value;
     }
-    /*
-    /// <summary>
-    /// Gets or sets a value indicating whether topic is a question.
-    /// </summary>
-    public virtual bool IsQuestion
-    {
-        // int value 1024
-        get => this[this.EnumToIndex(Flags.IsQuestion)];
-
-        set => this[this.EnumToIndex(Flags.IsQuestion)] = value;
-    }*/
 }

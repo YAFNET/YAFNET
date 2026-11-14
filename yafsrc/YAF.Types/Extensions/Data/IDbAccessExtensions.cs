@@ -367,8 +367,10 @@ public static class IDbAccessExtensions
 
         using var cmd = db.CreateCommand();
 
+#pragma warning disable S2077 // only the quoted names of the existing forum tables are formatted in (table names can't be parameters)
         cmd.CommandText =
             $"OPTIMIZE TABLE {string.Join(", ", tables.Select(t => OrmLiteConfig.DialectProvider.GetQuotedName(t)))}";
+#pragma warning restore S2077
 
         // one row per table (and notes, e.g. InnoDB recreates the table), only the errors are shown
         var errors = new List<string>();
@@ -464,7 +466,7 @@ public static class IDbAccessExtensions
         string scriptFile,
         int timeOut)
     {
-        var statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
+        var statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase, Constants.Constants.Regex.Timeout).ToList();
 
         using var trans = dbAccess.CreateConnectionOpen().BeginTransaction();
 
@@ -485,7 +487,9 @@ public static class IDbAccessExtensions
                     catch (Exception x)
                     {
                         trans.Rollback();
-                        throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
+                        throw new InvalidOperationException(
+                            $"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}",
+                            x);
                     }
                 });
 

@@ -24,7 +24,9 @@
 namespace YAF.Types.Models;
 
 [Serializable]
+#pragma warning disable S101 // OrmLite model: the class name is the view name
 public class vaccess_user : IEntity
+#pragma warning restore S101
 {
     [AutoIncrement]
     public int UserID { get; set; }

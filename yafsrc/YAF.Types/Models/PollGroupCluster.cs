@@ -30,7 +30,9 @@ using System.Data.Linq.Mapping;
 /// </summary>
 [Serializable]
 [Table(Name = "PollGroupCluster")]
+#pragma warning disable S1133 // kept on purpose: the migration needs the model to drop the old table
 [Obsolete("Only used for Droping")]
+#pragma warning restore S1133
 public class PollGroupCluster : IEntity, IHaveID
 {
     [Alias("PollGroupID")]

@@ -27,7 +27,9 @@ namespace YAF.Types.Attributes;
 /// The assembly sort order -- sorts the assembly load order in the modules.
 /// </summary>
 [AttributeUsage(AttributeTargets.Assembly)]
+#pragma warning disable S3376 // public API: renaming would break existing usages of the attribute
 public class AssemblyModuleSortOrder : Attribute, IHaveSortOrder
+#pragma warning restore S3376
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="AssemblyModuleSortOrder"/> class.

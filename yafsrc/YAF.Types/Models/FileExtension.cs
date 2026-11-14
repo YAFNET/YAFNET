@@ -28,7 +28,9 @@ namespace YAF.Types.Models;
 /// </summary>
 [Serializable]
 [Alias("Extension")]
+#pragma warning disable S1133 // kept on purpose: the old table is still read by the migration
 [Obsolete("Only used for Migration")]
+#pragma warning restore S1133
 public partial class FileExtension : IEntity, IHaveID
 {
     [AutoIncrement]

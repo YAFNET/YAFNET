@@ -236,9 +236,6 @@ public class AspNetUsers<TKey> : IUser<TKey>, IEntity, IHasId<TKey>
 
     public string Comment { get; set; }
 
-    //        [Ignore]
-    //public virtual ProfileInfo Profile { get; set; }
-
     /// <summary>
     /// Gets or sets Birthday.
     /// </summary>

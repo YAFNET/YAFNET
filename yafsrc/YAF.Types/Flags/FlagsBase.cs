@@ -155,7 +155,9 @@ public abstract class FlagsBase
     /// <returns>
     /// The enum to index.
     /// </returns>
+#pragma warning disable S2325 // public API of the flags base class (used as this.EnumToIndex by derived flags)
     public int EnumToIndex(Enum theEnum)
+#pragma warning restore S2325
     {
         return Convert.ToInt32(Math.Log(Convert.ToInt32(theEnum), 2));
     }

@@ -59,7 +59,21 @@ public static class StreamExtensions
     {
         var data = new byte[stream.Length];
         stream.Seek(0, SeekOrigin.Begin);
-        stream.Read(data, 0, (int)stream.Length);
+
+        // a single Read can return fewer bytes than requested
+        var offset = 0;
+
+        while (offset < data.Length)
+        {
+            var read = stream.Read(data, offset, data.Length - offset);
+
+            if (read == 0)
+            {
+                break;
+            }
+
+            offset += read;
+        }
 
         return data;
     }

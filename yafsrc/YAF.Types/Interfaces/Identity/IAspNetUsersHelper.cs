@@ -163,6 +163,15 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// Method returns MembershipUser
     /// </summary>
+    /// <param name="providerKey">The provider key.</param>
+    /// <returns>
+    /// Returns MembershipUser
+    /// </returns>
+    AspNetUsers GetUser(object providerKey);
+
+    /// <summary>
+    /// Method returns MembershipUser
+    /// </summary>
     /// <param name="username">The username.</param>
     /// <returns>
     /// Returns MembershipUser
@@ -179,15 +188,6 @@ public interface IAspNetUsersHelper
     /// The <see cref="AspNetUsers"/>.
     /// </returns>
     AspNetUsers GetUserByEmail(string email);
-
-    /// <summary>
-    /// Method returns MembershipUser
-    /// </summary>
-    /// <param name="providerKey">The provider key.</param>
-    /// <returns>
-    /// Returns MembershipUser
-    /// </returns>
-    AspNetUsers GetUser(object providerKey);
 
     /// <summary>
     /// Get the User from the ProviderUserKey

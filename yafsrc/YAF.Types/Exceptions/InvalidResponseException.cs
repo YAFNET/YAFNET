@@ -25,10 +25,6 @@ using System.Runtime.Serialization;
 /// <summary>
 /// Exception thrown when a response other than 200 is returned.
 /// </summary>
-/// <remarks>
-/// This exception does not have any custom properties, 
-///   thus it does not implement ISerializable.
-/// </remarks>
 [Serializable]
 public sealed class InvalidResponseException : Exception
 {
@@ -57,8 +53,21 @@ public sealed class InvalidResponseException : Exception
     /// The context.
     /// </param>
     private InvalidResponseException(SerializationInfo info, StreamingContext context)
+        : base(info, context)
     {
         this.HttpStatus = (HttpStatusCode)info.GetValue("Status", typeof(HttpStatusCode));
+    }
+
+    /// <summary>
+    /// Sets the <see cref="SerializationInfo"/> with information about the exception (including the HTTP status).
+    /// </summary>
+    /// <param name="info">The serialization info.</param>
+    /// <param name="context">The streaming context.</param>
+    public override void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        base.GetObjectData(info, context);
+
+        info.AddValue("Status", this.HttpStatus, typeof(HttpStatusCode));
     }
 
     /// <summary>

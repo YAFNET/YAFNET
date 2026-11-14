@@ -188,4 +188,16 @@ public static class Constants
             "ForumDeleteTask"
         ];
     }
+
+    /// <summary>
+    /// Regular expression constants
+    /// </summary>
+    public readonly struct Regex
+    {
+        /// <summary>
+        /// The time a regular expression may run before a <see cref="System.Text.RegularExpressions.RegexMatchTimeoutException"/> is thrown
+        /// (limits the execution time of a crafted input).
+        /// </summary>
+        public static readonly TimeSpan Timeout = TimeSpan.FromSeconds(2);
+    }
 }

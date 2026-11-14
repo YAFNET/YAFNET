@@ -31,7 +31,9 @@ public interface IBackgroundTask : IDisposable
     /// <summary>
     /// Sets Data
     /// </summary>
+#pragma warning disable S2376 // public interface: adding a getter would break the implementations
     object Data
+#pragma warning restore S2376
     {
         set;
     }

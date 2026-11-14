@@ -40,4 +40,16 @@ public class EmptyBoardSettingException : Exception
         : base(message)
     {
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EmptyBoardSettingException"/> class with serialized data.
+    /// </summary>
+    /// <param name="info">The serialization info.</param>
+    /// <param name="context">The streaming context.</param>
+    protected EmptyBoardSettingException(
+        System.Runtime.Serialization.SerializationInfo info,
+        System.Runtime.Serialization.StreamingContext context)
+        : base(info, context)
+    {
+    }
 }

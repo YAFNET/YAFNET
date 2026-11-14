@@ -29,7 +29,9 @@ namespace YAF.Types.Interfaces.Data;
 /// <typeparam name="T">
 /// The Type Parameter
 /// </typeparam>
+#pragma warning disable S2326 // public API: T selects the repository of the entity (IRepository<T> extension methods)
 public interface IRepository<T> : IEntity, IHaveBoardID
+#pragma warning restore S2326
 {
     /// <summary>
     /// Gets the DB access.

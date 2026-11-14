@@ -27,7 +27,9 @@ namespace YAF.Types.Models;
 /// A class which represents the Spam_Words table.
 /// </summary>
 [Serializable]
+#pragma warning disable S101 // OrmLite model: the class name is the table name
 public class Spam_Words : IEntity, IHaveBoardID, IHaveID
+#pragma warning restore S101
 {
     /// <summary>
     /// Gets or sets the id.

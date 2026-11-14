@@ -184,19 +184,11 @@ public static class ObjectExtensions
         {
             return ToType<T>(instance);
         }
-        catch (ArgumentNullException)
+        catch (Exception ex) when (ex is ArgumentNullException or FormatException or InvalidCastException
+                                       or OverflowException)
         {
+            // the value can't be converted: the default value is returned
+            return defaultValue;
         }
-        catch (FormatException)
-        {
-        }
-        catch (InvalidCastException)
-        {
-        }
-        catch (OverflowException)
-        {
-        }
-
-        return defaultValue;
     }
 }

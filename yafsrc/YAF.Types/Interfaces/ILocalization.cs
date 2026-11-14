@@ -119,6 +119,37 @@ public interface ILocalization
     string GetText(string text);
 
     /// <summary>
+    /// Gets the Text
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The get text.
+    /// </returns>
+    string GetText(string page, string tag);
+
+    /// <summary>
+    /// Gets text with a language file.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <param name="languageFile">
+    /// The language File.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    string GetText(string page, string tag, string languageFile);
+
+    /// <summary>
     /// Gets the attribute encoded text.
     /// </summary>
     /// <param name="text">
@@ -141,38 +172,7 @@ public interface ILocalization
     /// <returns>
     /// The get text.
     /// </returns>
-    string GetText(string page, string tag);
-
-    /// <summary>
-    /// Gets the Text
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
     string GetAttributeText(string page, string tag);
-
-    /// <summary>
-    /// Gets text with a language file.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <param name="languageFile">
-    /// The language File.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    string GetText(string page, string tag, string languageFile);
 
     /// <summary>
     /// Checks if the Text exists

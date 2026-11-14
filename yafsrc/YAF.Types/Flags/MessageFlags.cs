@@ -81,41 +81,13 @@ public class MessageFlags : FlagsBase
     {
     }
 
-    // #region Operators
-
-    ///// <summary>
-    ///// The op_ implicit.
-    ///// </summary>
-    ///// <param name="newBitValue">
-    ///// The new bit value.
-    ///// </param>
-    ///// <returns>
-    ///// </returns>
-    // public static implicit operator MessageFlags(int newBitValue)
-    // {
-    // return new MessageFlags(newBitValue);
-    // }
-
-    ///// <summary>
-    ///// The op_ implicit.
-    ///// </summary>
-    ///// <param name="flags">
-    ///// The flags.
-    ///// </param>
-    ///// <returns>
-    ///// </returns>
-    // public static implicit operator MessageFlags(Flags flags)
-    // {
-    // return new MessageFlags(flags);
-    // }
-
-    // #endregion
-
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
     [Flags]
+#pragma warning disable S2344 // public API: the nested enum is used as MessageFlags.Flags
     public enum Flags
+#pragma warning restore S2344
     {
         /// <summary>
         /// The is html.
@@ -160,7 +132,9 @@ public class MessageFlags : FlagsBase
         /// <summary>
         /// Legacy flag not in use.
         /// </summary>
+#pragma warning disable S1133 // kept: the bit value is reserved in existing message flags
         [Obsolete("Legacy MessageFlag. Not in use.")]
+#pragma warning restore S1133
         IsReportedSpam = 256,
 
         /// <summary>
@@ -279,7 +253,9 @@ public class MessageFlags : FlagsBase
     /// <summary>
     /// Gets or sets a value indicating whether this message is reported as spam
     /// </summary>
+#pragma warning disable S1133 // kept: the bit value is reserved in existing message flags
     [Obsolete("Legacy flag. Not in use.")]
+#pragma warning restore S1133
     public bool IsReportedSpam
     {
         // int value 256

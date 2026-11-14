@@ -28,7 +28,9 @@ namespace YAF.Types.Attributes;
 /// The YAF module.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
+#pragma warning disable S3376 // public API: renaming would break existing usages of the attribute
 public class Module : Attribute
+#pragma warning restore S3376
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Module"/> class.

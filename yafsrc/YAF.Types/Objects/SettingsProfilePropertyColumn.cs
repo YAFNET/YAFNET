@@ -35,17 +35,17 @@ public class SettingsPropertyColumn
     /// <summary>
     /// The data type.
     /// </summary>
-    public SqlDbType DataType;
+    public SqlDbType DataType { get; set; }
 
     /// <summary>
     /// The settings.
     /// </summary>
-    public SettingsProperty Settings;
+    public SettingsProperty Settings { get; set; }
 
     /// <summary>
     /// The size.
     /// </summary>
-    public int Size;
+    public int Size { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsPropertyColumn"/> class.

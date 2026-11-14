@@ -27,7 +27,9 @@ namespace YAF.Types.Models;
 ///     A class which represents the yaf_vaccess_null views.
 /// </summary>
 [Serializable]
+#pragma warning disable S101 // OrmLite model: the class name is the view name
 public class vaccess_null : IEntity
+#pragma warning restore S101
 {
     [Required]
     public int UserID { get; set; }

@@ -85,7 +85,9 @@ public class UserFlags : FlagsBase
     /// Use for bit comparisons
     /// </summary>
     [Flags]
+#pragma warning disable S2344 // public API: the nested enum is used as UserFlags.Flags
     public enum Flags
+#pragma warning restore S2344
     {
         /// <summary>
         /// None Flag
@@ -174,7 +176,9 @@ public class UserFlags : FlagsBase
     /// <summary>
     /// Gets or sets a value indicating whether user is guest, i.e. not registered and logged in.
     /// </summary>
-    [Obsolete]
+#pragma warning disable S1133 // kept: the bit value is reserved in existing user flags
+    [Obsolete("Legacy flag. Not in use.")]
+#pragma warning restore S1133
     public bool IsCaptchaExcluded
     {
         // int value 8

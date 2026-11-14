@@ -84,7 +84,9 @@ public class RankFlags : FlagsBase
     /// <summary>
     /// Use for bit comparisons
     /// </summary>
+#pragma warning disable S2344 // public API: the nested enum is used as RankFlags.Flags
     public enum Flags
+#pragma warning restore S2344
     {
         /// <summary>
         /// The none.

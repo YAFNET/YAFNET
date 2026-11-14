@@ -33,5 +33,5 @@ public static class RegexHelper
     /// The time a regular expression may run before a <see cref="System.Text.RegularExpressions.RegexMatchTimeoutException"/> is thrown
     /// (limits the execution time of a crafted input).
     /// </summary>
-    public static readonly System.TimeSpan Timeout = System.TimeSpan.FromSeconds(2);
+    public static readonly System.TimeSpan Timeout = YAF.Types.Constants.Constants.Regex.Timeout;
 }

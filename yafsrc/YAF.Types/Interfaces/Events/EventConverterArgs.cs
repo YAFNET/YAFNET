@@ -29,7 +29,9 @@ namespace YAF.Types.Interfaces.Events;
 /// <typeparam name="T">
 /// The type parameter
 /// </typeparam>
+#pragma warning disable S3376 // public API: renaming would break existing event handlers
 public class EventConverterArgs<T> : EventArgs
+#pragma warning restore S3376
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="EventConverterArgs{T}"/> class.

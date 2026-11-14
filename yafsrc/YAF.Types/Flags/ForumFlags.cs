@@ -85,7 +85,9 @@ public class ForumFlags : FlagsBase
     /// Use for bit comparisons
     /// </summary>
     [Flags]
+#pragma warning disable S2344 // public API: the nested enum is used as ForumFlags.Flags
     public enum Flags
+#pragma warning restore S2344
     {
         /// <summary>
         /// The is locked.
