@@ -38,7 +38,6 @@ using Lucene.Net.Index;
 using Lucene.Net.Util;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Flags;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Services;
 using YAF.Types.Objects;
 

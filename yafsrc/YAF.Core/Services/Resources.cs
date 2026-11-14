@@ -33,7 +33,6 @@ using System.Text;
 using Newtonsoft.Json;
 
 using YAF.Core.Model;
-using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Constants;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;

@@ -25,21 +25,13 @@
 namespace YAF.Tests.Data;
 
 using System.IO;
-using System.Threading.Tasks;
-
-using Autofac;
-
-
-using NSubstitute;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Models;
-using YAF.Types.Objects;
 
 /// <summary>
 /// The attachment repository (admin list, delete with the upload file, download counter) and the

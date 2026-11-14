@@ -24,8 +24,6 @@
 
 namespace YAF.Tests.Data;
 
-using System.Threading.Tasks;
-
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Tests.TestInfrastructure;

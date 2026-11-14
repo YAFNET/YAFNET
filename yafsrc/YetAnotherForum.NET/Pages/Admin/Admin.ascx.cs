@@ -24,8 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-using System.Net.Mail;
-
 using FarsiLibrary.Utils;
 
 using YAF.Types.Extensions.Data;

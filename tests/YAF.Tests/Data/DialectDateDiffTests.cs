@@ -25,8 +25,6 @@
 namespace YAF.Tests.Data;
 
 using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.MySql;
-using ServiceStack.OrmLite.PostgreSQL;
 
 /// <summary>
 /// The date functions of the dialects, PostgreSQL and MySQL are not covered by the database tests (they run on SQLite).

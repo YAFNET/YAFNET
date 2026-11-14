@@ -29,7 +29,6 @@ using System.IO;
 using NSubstitute;
 
 using YAF.Core.Helpers;
-using YAF.Tests.TestInfrastructure;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Services;
 using YAF.Types.Objects;

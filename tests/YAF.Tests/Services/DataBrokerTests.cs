@@ -24,8 +24,6 @@
 
 namespace YAF.Tests.Services;
 
-using System.Threading.Tasks;
-
 using Autofac;
 
 using NSubstitute;
@@ -35,7 +33,6 @@ using ServiceStack.OrmLite;
 using YAF.Core.Extensions;
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
-using YAF.Types.EventProxies;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;

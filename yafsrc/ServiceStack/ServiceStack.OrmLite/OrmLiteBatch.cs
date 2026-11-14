@@ -7,10 +7,8 @@
 
 using System;
 using System.Data;
-using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
-using ServiceStack.Data;
 using ServiceStack.Logging;
 using ServiceStack.OrmLite.Base.Text;
 

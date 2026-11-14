@@ -27,8 +27,6 @@ namespace YAF.Tests.UITests.Tests;
 using System;
 using System.Threading.Tasks;
 
-using Microsoft.Playwright;
-
 using YAF.Tests.UITests.Infrastructure;
 
 /// <summary>

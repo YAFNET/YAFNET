@@ -25,7 +25,6 @@
 namespace YAF.Tests.Services;
 
 using System.Runtime.Caching;
-using System.Threading.Tasks;
 
 using NSubstitute;
 

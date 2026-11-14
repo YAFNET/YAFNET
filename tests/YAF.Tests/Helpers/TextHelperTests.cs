@@ -26,8 +26,6 @@ namespace YAF.Tests.Helpers;
 
 using YAF.Tests.TestInfrastructure;
 
-using YAF.Configuration;
-
 /// <summary>
 /// Tests for the text related helpers: StringHelper, HtmlTagHelper, UrlRewriteHelper and BBCodeHelper
 /// </summary>

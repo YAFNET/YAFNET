@@ -33,7 +33,6 @@ using YAF.Core.Model;
 using YAF.Core.Services.Startup;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Interfaces;
-using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
 

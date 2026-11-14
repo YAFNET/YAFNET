@@ -31,7 +31,6 @@ using Autofac;
 using ServiceStack.OrmLite;
 
 using YAF.Core.BBCode;
-using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;

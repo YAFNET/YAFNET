@@ -25,7 +25,6 @@
 namespace YAF.Tests.UITests.Tests;
 
 using System;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Microsoft.Playwright;

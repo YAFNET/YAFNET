@@ -30,7 +30,6 @@ using NSubstitute;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Flags;

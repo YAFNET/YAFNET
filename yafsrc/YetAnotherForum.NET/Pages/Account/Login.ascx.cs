@@ -24,8 +24,6 @@
 
 namespace YAF.Pages.Account;
 
-using System.Net.Mail;
-
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 using YAF.Web.Controls;

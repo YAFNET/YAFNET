@@ -6,9 +6,6 @@
 // ***********************************************************************
 //
 
-using System;
-using System.Globalization;
-
 #if NET6_0
 namespace ServiceStack.OrmLite.Converters;
 

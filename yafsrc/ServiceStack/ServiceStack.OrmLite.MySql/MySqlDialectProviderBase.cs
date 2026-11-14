@@ -1,13 +1,10 @@
 ﻿using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite.Base.Text;
 
-namespace ServiceStack.OrmLite.MySql;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,8 +12,8 @@ using System.Threading.Tasks;
 using global::MySql.Data.MySqlClient;
 using ServiceStack.OrmLite.MySql.Converters;
 using ServiceStack.OrmLite.MySql.DataAnnotations;
-using static Google.Protobuf.WellKnownTypes.Field.Types;
 
+namespace ServiceStack.OrmLite.MySql;
 /// <summary>
 /// Class MySqlDialectProviderBase.
 /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteDialectProviderBase{TDialect}" />

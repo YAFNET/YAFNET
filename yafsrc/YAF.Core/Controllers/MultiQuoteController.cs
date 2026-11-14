@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Controllers;
 
-using System.Collections.Generic;
 using System.Web.Http;
 
 using YAF.Types.Objects;

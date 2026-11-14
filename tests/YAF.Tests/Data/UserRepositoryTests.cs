@@ -25,7 +25,6 @@
 namespace YAF.Tests.Data;
 
 using System.IO;
-using System.Threading.Tasks;
 
 using NSubstitute;
 

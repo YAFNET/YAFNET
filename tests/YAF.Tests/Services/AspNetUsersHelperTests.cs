@@ -33,7 +33,6 @@ using NSubstitute;
 using YAF.Core.Context.Start;
 using YAF.Core.Extensions;
 using YAF.Core.Identity;
-using YAF.Core.Model;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces;

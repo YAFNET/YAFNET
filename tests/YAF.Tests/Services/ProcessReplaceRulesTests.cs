@@ -28,7 +28,6 @@ namespace YAF.Tests.Services;
 using YAF.Core.BBCode;
 using YAF.Core.BBCode.ReplaceRules;
 using YAF.Tests.TestInfrastructure;
-using YAF.Types.Interfaces;
 
 /// <summary>
 /// The rule engine of the BBCodes: order of the rules, copies of the engine and rules that time out.

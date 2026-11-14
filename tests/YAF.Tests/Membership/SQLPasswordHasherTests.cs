@@ -27,8 +27,6 @@ namespace YAF.Tests.Membership;
 using System.Security.Cryptography;
 using System.Text;
 
-using Microsoft.AspNet.Identity;
-
 using YAF.Core.Helpers;
 using YAF.Core.Membership;
 using YAF.Tests.TestInfrastructure;

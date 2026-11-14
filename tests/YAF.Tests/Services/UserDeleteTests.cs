@@ -35,7 +35,6 @@ using NSubstitute;
 using YAF.Core.Context.Start;
 using YAF.Core.Extensions;
 using YAF.Core.Identity;
-using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Constants;

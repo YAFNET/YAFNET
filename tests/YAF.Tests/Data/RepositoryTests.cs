@@ -24,9 +24,6 @@
 
 namespace YAF.Tests.Data;
 
-using System.Threading.Tasks;
-
-
 using NSubstitute;
 
 using ServiceStack.OrmLite;

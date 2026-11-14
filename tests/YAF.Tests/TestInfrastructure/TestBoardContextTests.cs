@@ -27,7 +27,6 @@ namespace YAF.Tests.TestInfrastructure;
 using Autofac;
 
 using YAF.Configuration;
-using YAF.Core;
 using YAF.Core.Context;
 using YAF.Types;
 using YAF.Types.Interfaces;

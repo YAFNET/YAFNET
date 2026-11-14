@@ -24,8 +24,6 @@
 
 namespace YAF.Tests.Data;
 
-using System.Threading.Tasks;
-
 using ServiceStack.OrmLite;
 
 using YAF.Core.Events;

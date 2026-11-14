@@ -35,7 +35,6 @@ using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
 using YAF.Types.Constants;
 using YAF.Types.Flags;
-using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Services;
 
 /// <summary>
