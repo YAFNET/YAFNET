@@ -10,7 +10,7 @@
       "rollForward": false
     },
     "bootstrapemail.net.cli": {
-      "version": "1.7.1",
+      "version": "2.0.0",
       "commands": [
         "bootstrap-email"
       ],
