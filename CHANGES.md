@@ -698,6 +698,12 @@ YetAnotherForum.NET Changelog
 * Replaced Private Messages with real-time user chat
 * Two Factor Authentication
 
+# YetAnotherForum.NET v3.2.18
+* [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
+* [FIXED] Search: the search keyword was not highlighted in the text of the results, the mark tags were html encoded and shown as text (the title was highlighted correctly)
+* [FIXED] Search: the similar topics parsed the topic title as query syntax, so a title with special characters (e.g. the colon of a time) threw a ParseException on every topic view; the query is now built from the analyzed title without the QueryParser (no internal "read past eof" IOException either)
+* Bug fixes
+
 # YetAnotherForum.NET v3.2.17
 * [NEW] Extended unit test suite (YAF.Tests, renamed from YAF.Tests.CoreTests) including repository tests against an in-memory SQLite database
 * [NEW] UI tests (YAF.Tests.UITests, Playwright): the forum is installed with the install wizard into a LocalDB database and run with IIS Express (no Docker); login, registration, topics, posts, private messages, profile, every page for guests, members and admins, and access checks

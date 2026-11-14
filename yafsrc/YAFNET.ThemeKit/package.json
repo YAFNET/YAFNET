@@ -1,6 +1,6 @@
 {
 	"name": "@yafnet/theme-kit",
-	"version": "4.0.10",
+	"version": "4.0.11",
 	"description": "Create and build custom themes for YetAnotherForum.NET without the forum source code",
 	"keywords": [
 		"yafnet",
