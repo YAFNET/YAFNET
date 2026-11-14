@@ -9,6 +9,7 @@
   <a href="https://github.com/YAFNET/YAFNET/actions/workflows/build.yml"><img src="https://github.com/YAFNET/YAFNET/raw/badges/badge_linecoverage.svg" alt="code coverage (4.x)"></a>
   <a href="https://github.com/YAFNET/YAFNET/actions/workflows/build-netfx.yml"><img src="https://github.com/YAFNET/YAFNET/raw/badges-netfx/badge_linecoverage.svg" alt="code coverage (3.x)"></a>
   <a href="https://hub.docker.com/r/yafnet/yafnet"><img src="https://img.shields.io/docker/pulls/yafnet/yafnet" alt="docker pulls"></a>
+  <a href="https://ko-fi.com/w8tcha"><img src="https://img.shields.io/badge/Ko--fi-Support%20Me-ff5e5b?logo=ko-fi&logoColor=white" alt="Support Me"></a>
 </p>
 
 **YetAnotherForum.NET** (YAF.NET) is an open source forum for ASP.NET. The project is an international collaboration of like-minded, skilled and creative people who strive to make YAF.NET the most robust and flexible forum solution available.
