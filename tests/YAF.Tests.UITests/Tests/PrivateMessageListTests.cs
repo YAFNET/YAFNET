@@ -214,7 +214,7 @@ public class PrivateMessageListTests : ForumTestBase
 
         (await this.SubjectsAsync()).Should().HaveCount(5, "the page size of a new user");
 
-        await this.Page.RunAndWaitForNavigationAsync(() => this.Inbox("PageSize").SelectOptionAsync("10"));
+        await this.Page.RunAndWaitForPostBackAsync(() => this.Inbox("PageSize").SelectOptionAsync("10"));
         await this.AssertNoServerErrorAsync();
 
         (await this.SubjectsAsync()).Should().HaveCount(6);

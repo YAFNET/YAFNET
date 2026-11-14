@@ -5408,7 +5408,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
     // The columns of the query's tables in a subquery of an array's items are prefixed with their table, as the
     // subquery's own columns can have the same names, e.g. the id, key and value of SQLite's json_each()
-    private T WithTablePrefixes<T>(Func<T> fn)
+    private TResult WithTablePrefixes<TResult>(Func<TResult> fn)
     {
         var hold = this.PrefixFieldWithTableName;
         this.PrefixFieldWithTableName = true;

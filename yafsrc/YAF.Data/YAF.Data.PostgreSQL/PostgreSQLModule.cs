@@ -29,7 +29,9 @@ using Autofac;
 /// <summary>
 /// The PostgreSQL module.
 /// </summary>
+#pragma warning disable S101 // public API (type name of the PostgreSQL provider), renaming would break existing code
 public class PostgreSQLModule : Module
+#pragma warning restore S101
 {
     /// <summary>
     /// The load.

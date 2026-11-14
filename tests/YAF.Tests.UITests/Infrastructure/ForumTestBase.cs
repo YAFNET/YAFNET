@@ -165,7 +165,7 @@ public abstract class ForumTestBase
     /// <param name="button">The button.</param>
     protected async Task ClickAndWaitAsync(ILocator button)
     {
-        await this.Page.RunAndWaitForNavigationAsync(() => button.ClickAsync());
+        await this.Page.RunAndWaitForPostBackAsync(() => button.ClickAsync());
 
         await this.AssertNoServerErrorAsync();
     }

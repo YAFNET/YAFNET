@@ -176,7 +176,7 @@ public class RestoreTests : ForumTestBase
 
         foreach (var list in new[] { "PageSize", "PageSizeMessages" })
         {
-            await this.Page.RunAndWaitForNavigationAsync(
+            await this.Page.RunAndWaitForPostBackAsync(
                 () => this.Control(list).SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
         }
     }

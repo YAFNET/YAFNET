@@ -96,7 +96,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
                 return null;
             }
 
-            var linkedPager = this.Parent.FindControlAs<Pager>(this.LinkedPager) ?? throw new Exception($"Failed to link pager to '{this.LinkedPager}'.");
+            var linkedPager = this.Parent.FindControlAs<Pager>(this.LinkedPager) ?? throw new InvalidOperationException($"Failed to link pager to '{this.LinkedPager}'.");
             return linkedPager;
         }
     }

@@ -27,7 +27,9 @@ namespace YAF.Data.PostgreSQL;
 /// <summary>
 /// The YAF PostgreSQL ORM lite dialect provider.
 /// </summary>
+#pragma warning disable S101 // public API (type name of the PostgreSQL provider), renaming would break existing code
 public class YafPostgreSQLOrmLiteDialectProvider : PostgreSqlDialectProvider
+#pragma warning restore S101
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="YafPostgreSQLOrmLiteDialectProvider"/> class.

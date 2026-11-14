@@ -49,7 +49,7 @@ public class BoardTests : ForumTestBase
         // a new admin with the name of an existing user
         await this.GotoAsync("Admin/EditBoard");
         await this.Control("Name").FillAsync(name);
-        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("CreateAdminUser").CheckAsync());
+        await this.Page.RunAndWaitForPostBackAsync(() => this.Control("CreateAdminUser").CheckAsync());
         await this.Control("UserName").FillAsync(TestConfig.AdminUserName);
         await this.Control("UserEmail").FillAsync($"other.{EmailOf(TestConfig.AdminUserName)}");
         await this.Control("UserPass1").FillAsync(TestConfig.TestUserPassword);
@@ -92,7 +92,7 @@ public class BoardTests : ForumTestBase
 
         await this.GotoAsync("Admin/EditBoard");
         await this.Control("Name").FillAsync(name);
-        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("CreateAdminUser").CheckAsync());
+        await this.Page.RunAndWaitForPostBackAsync(() => this.Control("CreateAdminUser").CheckAsync());
         await this.Control("UserName").FillAsync(admin);
         await this.Control("UserEmail").FillAsync(EmailOf(admin));
         await this.Control("UserPass1").FillAsync(TestConfig.TestUserPassword);

@@ -66,7 +66,9 @@ public class SqliteDbAccess : DbAccessBase
             return base.Execute(execFunc, cmd, dbTransaction);
         }
 
-        for (var attempt = 0; ; attempt++)
+        var attempt = 0;
+
+        while (true)
         {
             try
             {
@@ -75,6 +77,7 @@ public class SqliteDbAccess : DbAccessBase
             catch (SQLiteException ex) when (IsBusy(ex) && attempt < BusyRetryDelays.Length)
             {
                 System.Threading.Thread.Sleep(BusyRetryDelays[attempt]);
+                attempt++;
             }
         }
     }
@@ -86,7 +89,9 @@ public class SqliteDbAccess : DbAccessBase
     /// <returns>Returns if the operation can be tried again.</returns>
     private static bool IsBusy(SQLiteException ex)
     {
-        return ex.ResultCode is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked
-               || (ex.ResultCode & (SQLiteErrorCode)0xFF) is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked;
+        // the extended result codes (e.g. Busy_Snapshot) contain the primary result code in the lowest byte
+        var primaryCode = (SQLiteErrorCode)((int)ex.ResultCode & 0xFF);
+
+        return primaryCode is SQLiteErrorCode.Busy or SQLiteErrorCode.Locked;
     }
 }

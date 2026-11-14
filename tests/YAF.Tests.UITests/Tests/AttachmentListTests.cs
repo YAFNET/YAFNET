@@ -99,7 +99,7 @@ public class AttachmentListTests : ForumTestBase
         await this.UploadAsync(name);
 
         await this.GotoAsync("Admin/Attachments");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
 
         (await this.Row(name).CountAsync()).Should().Be(1);

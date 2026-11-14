@@ -70,7 +70,7 @@ public class InstallWizard(IPage page)
 
             if (await finish.IsVisibleAsync())
             {
-                await page.RunAndWaitForNavigationAsync(() => finish.ClickAsync());
+                await page.RunAndWaitForPostBackAsync(() => finish.ClickAsync());
 
                 return;
             }
@@ -95,7 +95,7 @@ public class InstallWizard(IPage page)
             var next = page.Locator("[id$='StartNextButton'], [id$='StepNextButton']").First;
 
             // the buttons post back with __doPostBack: the next step is checked after the new page is loaded
-            await page.RunAndWaitForNavigationAsync(() => next.ClickAsync());
+            await page.RunAndWaitForPostBackAsync(() => next.ClickAsync());
         }
 
         throw new InvalidOperationException($"The install wizard did not finish, the last page was {page.Url}.");
@@ -113,7 +113,7 @@ public class InstallWizard(IPage page)
             return;
         }
 
-        await page.RunAndWaitForNavigationAsync(() => button.ClickAsync());
+        await page.RunAndWaitForPostBackAsync(() => button.ClickAsync());
 
         await page.Locator("[id$='StartNextButton'], [id$='StepNextButton'], [id$='FinishButton']").First
             .WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible });

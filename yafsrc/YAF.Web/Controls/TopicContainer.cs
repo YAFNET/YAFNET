@@ -41,10 +41,12 @@ public class TopicContainer : BaseControl
     }
 
     /// <summary>
-    /// Sets the item.
+    /// Gets or sets the item.
     /// </summary>
     public PagedTopic Item
     {
+        get => this.TopicItem;
+
         set
         {
             this.TopicItem = value;

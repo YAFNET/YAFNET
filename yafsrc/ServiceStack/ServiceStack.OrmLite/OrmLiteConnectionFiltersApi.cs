@@ -111,14 +111,16 @@ public static class OrmLiteConnectionFiltersApi
     /// </summary>
     public static OrmLiteConnectionFilters GetFilters(this IDbCommand dbCmd)
     {
-        for (var i = 0; dbCmd != null && i < 10; i++)
+        IDbCommand? current = dbCmd;
+
+        for (var i = 0; current != null && i < 10; i++)
         {
-            if (dbCmd is OrmLiteCommand ormLiteCmd)
+            if (current is OrmLiteCommand ormLiteCmd)
             {
                 return ormLiteCmd.OrmLiteConnection.Filters;
             }
 
-            dbCmd = (dbCmd as IHasDbCommand)?.DbCommand is { } inner && inner != dbCmd ? inner : null;
+            current = (current as IHasDbCommand)?.DbCommand is { } inner && inner != current ? inner : null;
         }
         return OrmLiteConnectionFilters.Empty;
     }

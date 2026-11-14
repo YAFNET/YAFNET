@@ -93,14 +93,14 @@ public class UiTestSetup
         await page.GotoAsync("Account/Login");
         await page.Locator("[id$='_UserName']").FillAsync(TestConfig.AdminUserName);
         await page.Locator("[id$='_Password']").FillAsync(TestConfig.AdminPassword);
-        await page.RunAndWaitForNavigationAsync(() => page.Locator("[id$='_LoginButton']").ClickAsync());
+        await page.RunAndWaitForPostBackAsync(() => page.Locator("[id$='_LoginButton']").ClickAsync());
 
         await page.GotoAsync("Admin/HostSettings");
 
         // the fields and the save buttons are in tabs, they are changed with script
         await page.EvaluateAsync("() => document.querySelector(\"[id$='_PostFloodDelay']\").value = '0'");
         await page.EvaluateAsync("() => document.querySelector(\"[id$='_EnableAlbum']\").checked = true");
-        await page.RunAndWaitForNavigationAsync(
+        await page.RunAndWaitForPostBackAsync(
             () => page.EvaluateAsync("() => document.querySelector(\"[id$='_Save']\").click()"));
     }
 

@@ -47,7 +47,14 @@ public class SetCookieAction : IRewriteAction
             throw new ArgumentNullException(nameof(context));
         }
 
-        var cookie = new HttpCookie(this.Name, context.Expand(this.Value)) { HttpOnly = true };
+        // secure only over https (a secure cookie would not be sent back over http)
+#pragma warning disable S2092 // Secure is set for https requests, always setting it would break sites without https
+        var cookie = new HttpCookie(this.Name, context.Expand(this.Value))
+                         {
+                             HttpOnly = true,
+                             Secure = string.Equals(context.Properties["HTTPS"], "on", StringComparison.OrdinalIgnoreCase)
+                         };
+#pragma warning restore S2092
 
         context.ResponseCookies.Add(cookie);
 

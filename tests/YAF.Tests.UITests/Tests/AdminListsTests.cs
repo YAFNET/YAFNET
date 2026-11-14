@@ -241,7 +241,7 @@ public class AdminListsTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Control("PostReply"));
 
         await this.GotoAsync("Admin/Tags");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
 
         var row = this.Page.Locator("li.list-group-item", new PageLocatorOptions { HasTextString = tag });
@@ -315,7 +315,7 @@ public class AdminListsTests : ForumTestBase
     {
         await this.GotoAsync("Admin/BBCodes");
 
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
     }
 }

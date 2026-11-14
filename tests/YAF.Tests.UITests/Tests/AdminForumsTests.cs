@@ -61,7 +61,7 @@ public class AdminForumsTests : ForumTestBase
 
         // the category with the forum has no delete button
         await this.GotoAsync("Admin/Forums");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
         var categoryRow = this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = category }).First;
         (await categoryRow.Locator("[id*='_CategoryList_'][id$='_ThemeButtonDelete']").CountAsync()).Should().Be(0);
@@ -109,7 +109,7 @@ public class AdminForumsTests : ForumTestBase
 
         // five entries per page: the new category is not on the first page
         await this.GotoAsync("Admin/Forums");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("5", new LocatorSelectOptionOptions { Force = true }));
         (await this.Page.InnerTextAsync("body")).Should().NotContain(first);
 
@@ -123,7 +123,7 @@ public class AdminForumsTests : ForumTestBase
 
         // the first category by name is on the first page now
         await this.GotoAsync("Admin/Forums");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("5", new LocatorSelectOptionOptions { Force = true }));
         (await this.Page.InnerTextAsync("body")).Should().Contain(first);
     }
@@ -153,8 +153,8 @@ public class AdminForumsTests : ForumTestBase
         // the parent and its child, moderated after 3 posts
         await this.GotoAsync("Admin/EditForum");
         await this.FillForumAsync(parent, "60");
-        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
-        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("ModerateAllPosts").UncheckAsync());
+        await this.Page.RunAndWaitForPostBackAsync(() => this.Control("Moderated").CheckAsync());
+        await this.Page.RunAndWaitForPostBackAsync(() => this.Control("ModerateAllPosts").UncheckAsync());
         await this.Control("ModeratedPostCount").FillAsync("3");
         await this.ClickAndWaitAsync(this.Control("Save"));
 
@@ -351,7 +351,7 @@ public class AdminForumsTests : ForumTestBase
         await this.CreateCategoryAsync(category, "97");
 
         await this.GotoAsync("Admin/Forums");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
         await this.ClickAndWaitAsync(
             this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = category }).First
@@ -375,7 +375,7 @@ public class AdminForumsTests : ForumTestBase
         await this.GotoAsync("Admin/Forums");
 
         // all categories on one page
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
 
         var row = this.Page.Locator(".list-group-item-menu", new PageLocatorOptions { HasTextString = category }).First;

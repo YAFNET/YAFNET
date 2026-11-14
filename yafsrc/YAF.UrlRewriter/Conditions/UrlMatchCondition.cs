@@ -60,7 +60,10 @@ public sealed class UrlMatchCondition : IRewriteCondition
 
         lock (this._lock)
         {
-            this._regex ??= new Regex(context.ResolveLocation(this.Pattern), RegexOptions.IgnoreCase);
+            this._regex ??= new Regex(
+                context.ResolveLocation(this.Pattern),
+                RegexOptions.IgnoreCase,
+                YAF.Types.Constants.Constants.Regex.Timeout);
         }
 
         return this._regex;

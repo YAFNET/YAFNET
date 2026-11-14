@@ -193,7 +193,7 @@ public class QuickReplyTests : ForumTestBase
         await this.Control("Description").FillAsync("A moderated forum of the quick reply test");
         await this.Control("CategoryList").SelectOptionAsync(new SelectOptionValue { Label = "Test Category" });
         await this.Control("SortOrder").FillAsync("85");
-        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
+        await this.Page.RunAndWaitForPostBackAsync(() => this.Control("Moderated").CheckAsync());
         await this.ClickAndWaitAsync(this.Control("Save"));
 
         var forumId = ForumId(forumName);

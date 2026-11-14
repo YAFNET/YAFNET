@@ -67,7 +67,7 @@ public class ActivityTests : ForumTestBase
         (await this.Page.InnerTextAsync("body")).Should().Contain(subject);
 
         // another page size (posts back)
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("10", new LocatorSelectOptionOptions { Force = true }));
         await this.AssertNoServerErrorAsync();
         (await this.Page.InnerTextAsync("body")).Should().Contain(subject);

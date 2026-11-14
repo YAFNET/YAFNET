@@ -200,7 +200,7 @@ public class MembersTests : ForumTestBase
         await this.GotoAsync("Members");
 
         // all members on one page
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
 
         await this.OpenFilterAsync();

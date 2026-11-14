@@ -27,6 +27,7 @@ namespace YAF.Web.EventsArgs;
 /// <summary>
 /// EventArgs class for the PageTitleSet event
 /// </summary>
+#pragma warning disable S3376 // public API, renaming would break existing code
 public class ForumPageTitleArgs : EventArgs
 {
     /// <summary>
@@ -45,3 +46,4 @@ public class ForumPageTitleArgs : EventArgs
     /// </summary>
     public string Title { get; }
 }
+#pragma warning restore S3376

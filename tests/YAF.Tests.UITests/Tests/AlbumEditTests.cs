@@ -317,7 +317,7 @@ public class AlbumEditTests : ForumTestBase
             await other.GotoAsync($"{TestConfig.BaseUrl}EditAlbumImages?a={albumId}");
             await other.Locator("[id$='_File']").SetInputFilesAsync(
                 new FilePayload { Name = "image2.png", MimeType = "image/png", Buffer = Png });
-            await other.RunAndWaitForNavigationAsync(() => other.Locator("[id$='_Upload']").ClickAsync());
+            await other.RunAndWaitForPostBackAsync(() => other.Locator("[id$='_Upload']").ClickAsync());
             await other.CloseAsync();
 
             await this.Control("File").SetInputFilesAsync(

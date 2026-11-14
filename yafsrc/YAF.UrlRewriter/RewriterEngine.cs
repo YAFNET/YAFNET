@@ -424,7 +424,11 @@ public class RewriterEngine
 
             if (isMap)
             {
-                var match = Regex.Match(expr, @"^([^\:]+)\:([^\|]+)(\|(.+))?$");
+                var match = Regex.Match(
+                    expr,
+                    @"^([^\:]+)\:([^\|]+)(\|(.+))?$",
+                    RegexOptions.None,
+                    YAF.Types.Constants.Constants.Regex.Timeout);
                 var mapName = match.Groups[1].Value;
                 var mapArgument = match.Groups[2].Value;
                 var mapDefault = match.Groups[4].Value;
@@ -436,7 +440,11 @@ public class RewriterEngine
             }
             else if (isFunction)
             {
-                var match = Regex.Match(expr, @"^([^\(]+)\((.+)\)$");
+                var match = Regex.Match(
+                    expr,
+                    @"^([^\(]+)\((.+)\)$",
+                    RegexOptions.None,
+                    YAF.Types.Constants.Constants.Regex.Timeout);
                 var functionName = match.Groups[1].Value;
                 var functionArgument = match.Groups[2].Value;
 

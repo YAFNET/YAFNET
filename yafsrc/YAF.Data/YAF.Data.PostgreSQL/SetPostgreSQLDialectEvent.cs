@@ -27,7 +27,9 @@ namespace YAF.Data.PostgreSQL;
 /// Set the PostgreSQL dialect event.
 /// </summary>
 [ExportService(ServiceLifetimeScope.InstancePerDependency, new[] { typeof(IHandleEvent<InitDatabaseProviderEvent>) })]
+#pragma warning disable S101 // public API (type name of the PostgreSQL provider), renaming would break existing code
 public class SetPostgreSQLDialectEvent : IHandleEvent<InitDatabaseProviderEvent>
+#pragma warning restore S101
 {
     /// <summary>
     ///     Gets the order.

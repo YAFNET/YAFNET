@@ -59,7 +59,7 @@ public class TopicsPageTests : ForumTestBase
         await this.ClickAndWaitAsync(this.Page.Locator(".btn-group[aria-label='Tools'] [id$='_MarkRead']"));
 
         // the topics of the last day
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("ShowList").SelectOptionAsync(new SelectOptionValue { Index = 1 }, new LocatorSelectOptionOptions { Force = true }));
         await this.AssertNoServerErrorAsync();
     }

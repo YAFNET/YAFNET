@@ -55,9 +55,11 @@ public class ActionParserFactory
     /// <returns>A list of parsers</returns>
     public IList<IRewriteActionParser> GetParsers(string verb)
     {
+#pragma warning disable S1168 // null means "unknown element": the callers skip it, an empty list would make IfConditionActionParser throw
         return this._parsers.TryGetValue(verb, out var parser)
                    ? parser
                    : null;
+#pragma warning restore S1168
     }
 
     private readonly IDictionary<string, IList<IRewriteActionParser>> _parsers = new Dictionary<string, IList<IRewriteActionParser>>();

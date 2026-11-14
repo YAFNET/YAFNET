@@ -56,7 +56,7 @@ public class HostSettingsTests : ForumTestBase
             }
 
             // the buttons are on tabs that are not shown
-            await this.Page.RunAndWaitForNavigationAsync(() => this.Control(button).EvaluateAsync("e => e.click()"));
+            await this.Page.RunAndWaitForPostBackAsync(() => this.Control(button).EvaluateAsync("e => e.click()"));
             await this.AssertNoServerErrorAsync();
         }
 

@@ -26,7 +26,9 @@ namespace YAF.Data.PostgreSQL;
 /// <summary>
 /// The PostgreSQL Database access.
 /// </summary>
+#pragma warning disable S101 // public API (type name of the PostgreSQL provider), renaming would break existing code
 public class PostgreSQLDbAccess : DbAccessBase
+#pragma warning restore S101
 {
     /// <summary>
     /// The provider type name.

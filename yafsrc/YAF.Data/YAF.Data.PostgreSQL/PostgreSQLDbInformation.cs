@@ -27,7 +27,9 @@ namespace YAF.Data.PostgreSQL;
 /// <summary>
 /// MySQL DB Information
 /// </summary>
+#pragma warning disable S101 // public API (type name of the PostgreSQL provider), renaming would break existing code
 public class PostgreSQLDbInformation : IDbInformation
+#pragma warning restore S101
 {
     /// <summary>
     /// The YAF Provider Upgrade script list

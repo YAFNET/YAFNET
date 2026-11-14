@@ -26,7 +26,7 @@ public abstract class MatchCondition : IRewriteCondition
             throw new ArgumentNullException(nameof(pattern));
         }
 
-        this.Pattern = new Regex(pattern, RegexOptions.IgnoreCase);
+        this.Pattern = new Regex(pattern, RegexOptions.IgnoreCase, YAF.Types.Constants.Constants.Regex.Timeout);
     }
 
     /// <summary>

@@ -143,7 +143,7 @@ public class TestDataTests : ForumTestBase
 
         if (postBack)
         {
-            await this.Page.RunAndWaitForNavigationAsync(
+            await this.Page.RunAndWaitForPostBackAsync(
                 () => select.SelectOptionAsync(value, new LocatorSelectOptionOptions { Force = true }));
         }
         else

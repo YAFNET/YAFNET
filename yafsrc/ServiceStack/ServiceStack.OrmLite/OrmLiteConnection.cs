@@ -203,7 +203,7 @@ public class OrmLiteConnection
     /// Gets or sets the last command text.
     /// </summary>
     /// <value>The last command text.</value>
-    public string LastCommandText { get; set; }
+    public string? LastCommandText { get; set; }
 
     public IDbCommand? LastCommand { get; set; }
 
@@ -640,7 +640,7 @@ internal interface ISetDbTransaction
     /// Gets or sets the transaction.
     /// </summary>
     /// <value>The transaction.</value>
-    IDbTransaction Transaction { get; set; }
+    IDbTransaction? Transaction { get; set; }
 }
 
 /// <summary>

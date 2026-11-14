@@ -152,7 +152,7 @@ public class ResourceTests : ForumTestBase
         await this.LoginAsync(member, TestConfig.TestUserPassword);
 
         await this.GotoAsync("Profile/EditProfile");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("ProfileEditor_Country").SelectOptionAsync(
                 "US",
                 new Microsoft.Playwright.LocatorSelectOptionOptions { Force = true }));

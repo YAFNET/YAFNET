@@ -120,7 +120,7 @@ public class TopicAndUserListsTests : ForumTestBase
         await this.LoginAsAdminAsync();
         // the active users are cached (a list of an earlier test)
         await this.GotoAsync("Admin/HostSettings");
-        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("ResetCacheAll").EvaluateAsync("e => e.click()"));
+        await this.Page.RunAndWaitForPostBackAsync(() => this.Control("ResetCacheAll").EvaluateAsync("e => e.click()"));
 
         await this.GotoAsync("ActiveUsers?v=0");
 
@@ -216,7 +216,7 @@ public class TopicAndUserListsTests : ForumTestBase
             return;
         }
 
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => select.SelectOptionAsync(new SelectOptionValue { Index = index }, new LocatorSelectOptionOptions { Force = true }));
         await this.AssertNoServerErrorAsync();
     }

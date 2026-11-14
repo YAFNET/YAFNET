@@ -111,7 +111,7 @@ public class ProfileTests : ForumTestBase
 
         await this.GotoAsync("Profile/EditProfile");
 
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("ProfileEditor_Country").SelectOptionAsync(
                 "US",
                 new LocatorSelectOptionOptions { Force = true }));
@@ -408,7 +408,7 @@ public class ProfileTests : ForumTestBase
 
         (await this.Control("ProfileEditor_Region").CountAsync()).Should().Be(0, "no country is selected");
 
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("ProfileEditor_Country").SelectOptionAsync(
                 "US",
                 new LocatorSelectOptionOptions { Force = true }));
@@ -422,7 +422,7 @@ public class ProfileTests : ForumTestBase
         (await this.Control("ProfileEditor_Region").InputValueAsync()).Should().Be("CA");
 
         // a country without regions
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("ProfileEditor_Country").SelectOptionAsync(
                 "FR",
                 new LocatorSelectOptionOptions { Force = true }));

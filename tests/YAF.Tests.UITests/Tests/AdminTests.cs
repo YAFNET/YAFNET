@@ -246,7 +246,7 @@ public class AdminTests : ForumTestBase
 
         await this.Page.EvaluateAsync(
             "() => { document.querySelector(\"[id$='_SuspendUserControl_SuspendedReason']\").value = 'UI test'; document.querySelector(\"[id$='_SuspendUserControl_SuspendCount']\").value = '2'; }");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Page.EvaluateAsync("() => document.querySelector(\"[id$='_SuspendUserControl_Suspend']\").click()"));
         await this.AssertNoServerErrorAsync();
 

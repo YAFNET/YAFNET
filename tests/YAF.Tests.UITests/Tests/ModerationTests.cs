@@ -188,7 +188,7 @@ public class ModerationTests : ForumTestBase
         await this.Control("SortOrder").FillAsync("5");
 
         // the option posts the page back
-        await this.Page.RunAndWaitForNavigationAsync(() => this.Control("Moderated").CheckAsync());
+        await this.Page.RunAndWaitForPostBackAsync(() => this.Control("Moderated").CheckAsync());
         await this.ClickAndWaitAsync(this.Control("Save"));
 
         var forumId = ForumId(forumName);

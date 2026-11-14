@@ -37,10 +37,12 @@ public class MessagePostData : MessagePost
     /// <summary>
     ///   Sets the DataRow.
     /// </summary>
+#pragma warning disable S2376 // set from the markup only, the value is converted into CurrentMessage
     public PagedMessage DataRow
     {
         set => this.CurrentMessage = value != null ? new Message(value) : null;
     }
+#pragma warning restore S2376
 
     /// <summary>
     /// Gets or sets the current message.

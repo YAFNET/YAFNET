@@ -65,7 +65,7 @@ public class Form : HtmlForm
         writer.WriteAttribute(Constants.AttrMethod, this.GetMethod());
         this.Attributes.Remove(Constants.AttrMethod);
 
-        writer.WriteAttribute(Constants.AttrAction, this.GetAction(), true);
+        writer.WriteAttribute(Constants.AttrAction, GetAction(), true);
         this.Attributes.Remove(Constants.AttrAction);
 
         this.Attributes.Render(writer);
@@ -115,7 +115,7 @@ public class Form : HtmlForm
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private string GetAction()
+    private static string GetAction()
     {
         return RewriterHttpModule.RawUrl;
     }

@@ -228,11 +228,11 @@ public class EventLogTests : ForumTestBase
         await this.GotoAsync($"Admin/EditUser?u={userId}");
         await this.Page.EvaluateAsync(
             "() => { document.querySelector(\"[id$='_SuspendUserControl_SuspendedReason']\").value = 'Event log test'; document.querySelector(\"[id$='_SuspendUserControl_SuspendCount']\").value = '2'; }");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Page.EvaluateAsync("() => document.querySelector(\"[id$='_SuspendUserControl_Suspend']\").click()"));
 
         await this.GotoAsync($"Admin/EditUser?u={userId}");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Page.EvaluateAsync("() => document.querySelector(\"[id$='_SuspendUserControl_RemoveSuspension']\").click()"));
         await this.AssertNoServerErrorAsync();
     }
@@ -243,7 +243,7 @@ public class EventLogTests : ForumTestBase
     private async Task<string> EventLogTextAsync()
     {
         await this.GotoAsync("Admin/EventLog");
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSize").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
 
         return await this.Page.Locator("body").TextContentAsync();

@@ -134,7 +134,7 @@ public class AdminDashboardTests : ForumTestBase
         await this.GotoAsync("Admin/Admin");
 
         // all not approved users on one page
-        await this.Page.RunAndWaitForNavigationAsync(
+        await this.Page.RunAndWaitForPostBackAsync(
             () => this.Control("PageSizeUnverified").SelectOptionAsync("50", new LocatorSelectOptionOptions { Force = true }));
 
         var row = this.Page.Locator("li", new PageLocatorOptions { HasTextString = userName }).Last;

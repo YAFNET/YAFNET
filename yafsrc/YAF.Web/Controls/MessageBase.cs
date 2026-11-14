@@ -46,7 +46,7 @@ public class MessageBase : BaseControl
                     var bbcodeTable = this.Get<IBBCode>().GetCustomBBCode();
                     return
                         bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).ToDictionary(
-                            codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
+                            codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options, YAF.Types.Constants.Constants.Regex.Timeout));
                 });
 
     /// <summary>

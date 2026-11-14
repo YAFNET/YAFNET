@@ -64,9 +64,11 @@ public sealed class IPRange
     /// <returns>The IPRange instance.</returns>
     public static IPRange Parse(string pattern)
     {
-        pattern = Regex.Replace(pattern, @"([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})\.\*", @"$1.0-$1.255");
-        pattern = Regex.Replace(pattern, @"([0-9]{1,3}\.[0-9]{1,3})\.\*", @"$1.0.0-$1.255.255");
-        pattern = Regex.Replace(pattern, @"([0-9]{1,3})\.\*", @"$1.0.0.0-$1.255.255.255");
+        var timeout = YAF.Types.Constants.Constants.Regex.Timeout;
+
+        pattern = Regex.Replace(pattern, @"([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})\.\*", @"$1.0-$1.255", RegexOptions.None, timeout);
+        pattern = Regex.Replace(pattern, @"([0-9]{1,3}\.[0-9]{1,3})\.\*", @"$1.0.0-$1.255.255", RegexOptions.None, timeout);
+        pattern = Regex.Replace(pattern, @"([0-9]{1,3})\.\*", @"$1.0.0.0-$1.255.255.255", RegexOptions.None, timeout);
 
         var parts = pattern.Split('-');
         return parts.Length > 1
