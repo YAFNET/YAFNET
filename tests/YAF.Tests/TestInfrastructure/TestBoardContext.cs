@@ -73,13 +73,6 @@ public sealed class TestBoardContext : IDisposable
     private static readonly FieldInfo MembershipUserField =
         typeof(BoardContext).GetField("membershipUser", BindingFlags.Instance | BindingFlags.NonPublic);
 
-    /// <summary>
-    /// The board context of code without http context (e.g. the thread pool threads of the sync identity methods),
-    /// it must not survive the container of a test.
-    /// </summary>
-    private static readonly FieldInfo GlobalBoardContextField =
-        typeof(BoardContextPageProvider).GetField("_globalInstance", BindingFlags.Static | BindingFlags.NonPublic);
-
     private readonly IServiceLocator previousServiceProvider;
 
     private readonly HttpContext previousHttpContext;
@@ -150,8 +143,9 @@ public sealed class TestBoardContext : IDisposable
         // not the getter of the previous container, it would build the production container
         this.previousServiceProvider = ServiceLocatorAccess.CurrentServiceProvider;
 
+        // the board context of code without http context (e.g. the thread pool threads of the sync identity
+        // methods) is cached by the single instance BoardContextPageProvider, the new container has a new one
         GlobalContainer.Container = this.container;
-        GlobalBoardContextField.SetValue(null, null);
         ServiceLocatorAccess.CurrentServiceProvider = this.container.Resolve<IServiceLocator>();
 
         this.SetPageData();
@@ -373,7 +367,6 @@ public sealed class TestBoardContext : IDisposable
     public void Dispose()
     {
         GlobalContainer.Container = null;
-        GlobalBoardContextField.SetValue(null, null);
         ServiceLocatorAccess.CurrentServiceProvider = this.previousServiceProvider;
         HttpContext.Current = this.previousHttpContext;
 
