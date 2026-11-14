@@ -167,7 +167,7 @@ public class IPHelperTests
     [Description("The forwarded headers middleware uses X-Forwarded-For of loopback, private and configured proxies only")]
     public async Task Forwarded_Headers_Middleware_Test()
     {
-        async Task<string> ClientAddressAsync(string remoteAddress, string forwardedFor, params string[] trustedProxies)
+        static async Task<string> ClientAddressAsync(string remoteAddress, string forwardedFor, params string[] trustedProxies)
         {
             var context = CreateContext(remoteAddress);
             context.Request.Headers["X-Forwarded-For"] = forwardedFor;
@@ -198,7 +198,7 @@ public class IPHelperTests
     [Description("The forwarded headers middleware uses X-Forwarded-Proto of trusted proxies only")]
     public async Task Forwarded_Headers_Middleware_Scheme_Test()
     {
-        async Task<(string Scheme, string Address)> ForwardAsync(
+        static async Task<(string Scheme, string Address)> ForwardAsync(
             string remoteAddress,
             string forwardedFor,
             string forwardedProto,

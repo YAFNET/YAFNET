@@ -1102,7 +1102,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override List<IndexSchema> GetTableIndexes(IDbConnection db, TableRef tableRef)
     {
         var schema = this.GetSchemaName(tableRef);
-        string Columns(string where) =>
+        static string Columns(string where) =>
             "array_to_string(ARRAY(SELECT COALESCE(a.attname, '?') FROM unnest(ix.indkey) WITH ORDINALITY AS k(attnum, ord) " +
             "LEFT JOIN pg_attribute a ON a.attrelid = t.oid AND a.attnum = k.attnum " +
             $"WHERE {where} ORDER BY k.ord), ',')";
@@ -1213,10 +1213,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
     public override List<ForeignKeySchema> GetTableForeignKeys(IDbConnection db, TableRef tableRef)
     {
-        string Columns(string keys, string table) =>
+        static string Columns(string keys, string table) =>
             $"array_to_string(ARRAY(SELECT a.attname FROM unnest(c.{keys}) WITH ORDINALITY AS k(attnum, ord) " +
             $"JOIN pg_attribute a ON a.attrelid = c.{table} AND a.attnum = k.attnum ORDER BY k.ord), ',')";
-        string Action(string type) =>
+        static string Action(string type) =>
             $"CASE c.{type} WHEN 'c' THEN 'CASCADE' WHEN 'n' THEN 'SET NULL' WHEN 'd' THEN 'SET DEFAULT' " +
             "WHEN 'r' THEN 'RESTRICT' ELSE 'NO ACTION' END";
 

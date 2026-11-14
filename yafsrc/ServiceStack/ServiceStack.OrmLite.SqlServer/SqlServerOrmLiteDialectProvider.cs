@@ -1292,7 +1292,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
 
     public override List<IndexSchema> GetTableIndexes(IDbConnection db, TableRef tableRef)
     {
-        string Columns(int included, string orderBy) =>
+        static string Columns(int included, string orderBy) =>
             "STUFF((SELECT ',' + c.name FROM sys.index_columns ic " +
             "JOIN sys.columns c ON c.object_id = ic.object_id AND c.column_id = ic.column_id " +
             $"WHERE ic.object_id = i.object_id AND ic.index_id = i.index_id AND ic.is_included_column = {included} " +
@@ -1414,7 +1414,7 @@ public class SqlServerOrmLiteDialectProvider : OrmLiteDialectProviderBase<SqlSer
 
     public override List<ForeignKeySchema> GetTableForeignKeys(IDbConnection db, TableRef tableRef)
     {
-        string Columns(string table, string column) =>
+        static string Columns(string table, string column) =>
             "STUFF((SELECT ',' + c.name FROM sys.foreign_key_columns fkc " +
             $"JOIN sys.columns c ON c.object_id = fkc.{table} AND c.column_id = fkc.{column} " +
             "WHERE fkc.constraint_object_id = fk.object_id ORDER BY fkc.constraint_column_id FOR XML PATH('')), 1, 1, '')";

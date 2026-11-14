@@ -129,8 +129,8 @@ public class DatabaseBackupTests
 
         File.Delete(extracted);
 
-        var saved = this.board.Current.GetRepository<Registry>()
-            .GetSingle(r => r.Name == "lastdatabasebackup" && r.BoardID == null);
+        var saved = await this.board.Current.GetRepository<Registry>()
+            .GetSingleAsync(r => r.Name == "lastdatabasebackup" && r.BoardID == null);
 
         saved.Should().NotBeNull();
         DateTime.Parse(saved.Value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind)
@@ -229,7 +229,7 @@ public class DatabaseBackupTests
     [Description("A relative backup folder is in the application folder (content root)")]
     public void Relative_Backup_Folder_Test()
     {
-        using var board = new TestBoardContext(
+        using var testBoard = new TestBoardContext(
             b =>
             {
                 b.RegisterInstance(new BoardConfiguration { BackupFolder = "App_Data/Backups" });
@@ -237,7 +237,7 @@ public class DatabaseBackupTests
                 b.RegisterType<DatabaseBackupService>().As<IDatabaseBackupService>();
             });
 
-        board.Resolve<IDatabaseBackupService>().BackupFolder.Should()
+        testBoard.Resolve<IDatabaseBackupService>().BackupFolder.Should()
             .Be(Path.GetFullPath(Path.Combine("C:/app", "App_Data", "Backups")));
     }
 
@@ -245,7 +245,7 @@ public class DatabaseBackupTests
     [Description("A backup folder in wwwroot is not supported: the backups could be downloaded by everybody")]
     public async Task Backup_Folder_In_WebRoot_Not_Supported_Test()
     {
-        using var board = new TestBoardContext(
+        using var testBoard = new TestBoardContext(
             b =>
             {
                 b.RegisterInstance(new BoardConfiguration { BackupFolder = Path.Combine(this.folder, "wwwroot", "backups") });
@@ -255,7 +255,7 @@ public class DatabaseBackupTests
             },
             useDatabase: true);
 
-        var backupService = board.Resolve<IDatabaseBackupService>();
+        var backupService = testBoard.Resolve<IDatabaseBackupService>();
 
         var support = await backupService.GetSupportAsync(true);
 
@@ -266,14 +266,16 @@ public class DatabaseBackupTests
             .Should().ThrowAsync<InvalidOperationException>();
 
         // the not supported result is cached for the menu (GetSupport)
+        #pragma warning disable S6966 // the synchronous method is tested
         backupService.GetSupport().IsSupported.Should().BeFalse();
+        #pragma warning restore S6966
     }
 
     [Test]
     [Description("Without a backup provider for the database type the backup is not supported")]
     public async Task No_Provider_Not_Supported_Test()
     {
-        using var board = new TestBoardContext(
+        using var testBoard = new TestBoardContext(
             b =>
             {
                 b.RegisterInstance(new BoardConfiguration { BackupFolder = this.folder });
@@ -281,7 +283,7 @@ public class DatabaseBackupTests
             },
             useDatabase: true);
 
-        var support = await board.Resolve<IDatabaseBackupService>().GetSupportAsync(true);
+        var support = await testBoard.Resolve<IDatabaseBackupService>().GetSupportAsync(true);
 
         support.IsSupported.Should().BeFalse();
         support.Reason.Should().Contain(SqliteDbAccess.ProviderTypeName);
@@ -295,7 +297,7 @@ public class DatabaseBackupTests
         provider.FileExtension.Returns(".bak");
         provider.CheckSupportAsync(Arg.Any<IDbAccess>(), Arg.Any<string>()).Returns(DbBackupSupport.Supported());
 
-        using var board = new TestBoardContext(
+        using var testBoard = new TestBoardContext(
             b =>
             {
                 b.RegisterInstance(new BoardConfiguration { BackupFolder = this.folder });
@@ -304,7 +306,7 @@ public class DatabaseBackupTests
             },
             useDatabase: true);
 
-        var backupService = board.Resolve<IDatabaseBackupService>();
+        var backupService = testBoard.Resolve<IDatabaseBackupService>();
 
         (await backupService.GetSupportAsync(true)).IsSupported.Should().BeTrue();
 
@@ -330,7 +332,7 @@ public class DatabaseBackupTests
         await File.WriteAllTextAsync(Path.Combine(webRoot, "images", "Avatars", "avatar.png"), "avatar");
         await File.WriteAllTextAsync(Path.Combine(webRoot, "js", "forum.js"), "script");
 
-        using var board = new TestBoardContext(
+        using var testBoard = new TestBoardContext(
             b =>
             {
                 b.RegisterInstance(new BoardConfiguration { BackupFolder = backupFolder });
@@ -340,7 +342,7 @@ public class DatabaseBackupTests
             },
             useDatabase: true);
 
-        var backupService = board.Resolve<IDatabaseBackupService>();
+        var backupService = testBoard.Resolve<IDatabaseBackupService>();
 
         (await backupService.GetSupportAsync(true)).IsSupported.Should().BeTrue();
 

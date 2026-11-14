@@ -288,7 +288,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var doc = CreateDocument(message);
+            var doc = this.CreateDocument(message);
 
             try
             {
@@ -323,7 +323,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var doc = CreateDocument(message);
+            var doc = this.CreateDocument(message);
 
             try
             {
@@ -685,7 +685,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var doc = CreateDocument(message);
+            var doc = this.CreateDocument(message);
 
             try
             {
@@ -1131,6 +1131,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
             using (new FileStream(testFile, FileMode.CreateNew, FileAccess.Write, FileShare.None, 1, FileOptions.DeleteOnClose))
             {
+                // the file is only created to check the write access, it is deleted when it is closed
             }
         }
         catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)

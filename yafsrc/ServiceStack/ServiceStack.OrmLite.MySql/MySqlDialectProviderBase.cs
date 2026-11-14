@@ -739,7 +739,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
     public override List<ForeignKeySchema> GetTableForeignKeys(IDbConnection db, TableRef tableRef)
     {
-        string Columns(string column) =>
+        static string Columns(string column) =>
             $"(SELECT GROUP_CONCAT(k.{column} ORDER BY k.ORDINAL_POSITION SEPARATOR ',') FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE k " +
             "WHERE k.CONSTRAINT_SCHEMA = rc.CONSTRAINT_SCHEMA AND k.TABLE_NAME = rc.TABLE_NAME AND k.CONSTRAINT_NAME = rc.CONSTRAINT_NAME)";
         return ToForeignKeySchemas(db.SqlList<Dictionary<string, object>>(
