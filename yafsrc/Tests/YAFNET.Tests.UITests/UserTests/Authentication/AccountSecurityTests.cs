@@ -139,7 +139,7 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
                     }
                     finally
                     {
-                        this.Fixture.SmtpServer = netDumbster.smtp.SimpleSmtpServer.Start(this.TestSettings.TestMailPort);
+                        this.Fixture.SmtpServer = TestSmtpServer.Start(this.TestSettings.TestMailPort);
                     }
 
                     // the verification mail can be sent again on the login
@@ -252,7 +252,7 @@ public class AccountSecurityTests(ComposeScenario scenario) : DatabaseTestBase(s
 
                     int CountMails() =>
                         this.Fixture.SmtpServer.ReceivedEmail.Count(
-                            m => m.ToAddresses.Any(a => string.Equals(a.Address, email, StringComparison.OrdinalIgnoreCase)));
+                            m => m.To.Mailboxes.Any(a => string.Equals(a.Address, email, StringComparison.OrdinalIgnoreCase)));
 
                     // the mails are sent while the requests are handled, give the smtp server a moment
                     for (var wait = 0; wait < 20 && CountMails() < 3; wait++)

@@ -28,7 +28,7 @@ namespace YAF.Tests.Utils.Extensions;
 
 using System.Linq;
 
-using netDumbster.smtp;
+using MimeKit;
 
 /// <summary>
 /// Helpers for the test mail server.
@@ -38,7 +38,7 @@ public static class SmtpServerExtensions
     /// <param name="server">
     /// The test mail server.
     /// </param>
-    extension(SimpleSmtpServer server)
+    extension(TestSmtpServer server)
     {
         /// <summary>
         /// Waits until a mail to the given address is received, the forum sends the mails in the background.
@@ -46,14 +46,14 @@ public static class SmtpServerExtensions
         /// <param name="toAddress">The recipient address.</param>
         /// <param name="timeout">How long to wait (default 60 seconds).</param>
         /// <returns>The newest mail to that address, or null if none arrived in time.</returns>
-        public async Task<SmtpMessage> WaitForEmailAsync(string toAddress, TimeSpan? timeout = null)
+        public async Task<MimeMessage> WaitForEmailAsync(string toAddress, TimeSpan? timeout = null)
         {
             var deadline = DateTime.UtcNow + (timeout ?? TimeSpan.FromSeconds(60));
 
             while (DateTime.UtcNow < deadline)
             {
                 var mail = server.ReceivedEmail.LastOrDefault(
-                    m => m.ToAddresses.Any(
+                    m => m.To.Mailboxes.Any(
                         a => string.Equals(a.Address, toAddress, StringComparison.OrdinalIgnoreCase)));
 
                 if (mail is not null)
@@ -76,7 +76,7 @@ public static class SmtpServerExtensions
         {
             var mail = await server.WaitForEmailAsync(toAddress);
 
-            return mail is null ? null : StringUtils.GetLinks(mail.MessageParts[0].BodyData).FirstOrDefault();
+            return mail is null ? null : StringUtils.GetLinks(mail.TextBody ?? mail.HtmlBody).FirstOrDefault();
         }
     }
 }

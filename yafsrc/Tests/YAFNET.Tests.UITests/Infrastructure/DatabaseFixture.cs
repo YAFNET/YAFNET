@@ -23,8 +23,6 @@
  */
 
 
-using netDumbster.smtp;
-
 using NUnit.Framework.Interfaces;
 
 using YAF.Tests.UITests.Pages;
@@ -85,7 +83,7 @@ public abstract class DatabaseFixture : IAsyncDisposable
     /// <value>
     /// The SMTP server.
     /// </value>
-    public SimpleSmtpServer SmtpServer { get; set; }
+    public TestSmtpServer SmtpServer { get; set; }
 
     public async Task LaunchBrowserAsync(ComposeScenario scenario)
     {
@@ -96,7 +94,7 @@ public abstract class DatabaseFixture : IAsyncDisposable
         });
 
         // Launch Mail Server
-        this.SmtpServer = SimpleSmtpServer.Start(this.TestSettings.TestMailPort);
+        this.SmtpServer = TestSmtpServer.Start(this.TestSettings.TestMailPort);
 
         if (this.TestSettings.UseDocker)
         {

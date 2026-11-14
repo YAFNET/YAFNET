@@ -318,7 +318,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 }
                 finally
                 {
-                    this.Fixture.SmtpServer = netDumbster.smtp.SimpleSmtpServer.Start(this.TestSettings.TestMailPort);
+                    this.Fixture.SmtpServer = TestSmtpServer.Start(this.TestSettings.TestMailPort);
                 }
 
                 await page.GetByText($"User {userName} Created Successfully.").WaitForAsync();

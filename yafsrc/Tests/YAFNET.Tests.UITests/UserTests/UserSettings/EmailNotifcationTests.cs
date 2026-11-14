@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Linq;
+
 using YAF.Tests.UITests.Infrastructure;
 
 namespace YAF.Tests.UITests.UserTests.UserSettings;
@@ -320,24 +322,24 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                     var mail = this.Fixture.SmtpServer.ReceivedEmail[0];
 
                     Assert.That(
-                        mail.ToAddresses[0].ToString(), Is.EqualTo($"{this.TestSettings.TestUserName.ToLower()}@test.com"),
+                        mail.To.Mailboxes.First().Address, Is.EqualTo($"{this.TestSettings.TestUserName.ToLower()}@test.com"),
                         "Receiver does not match");
 
                     Assert.That(
-                        mail.FromAddress.Address, Is.EqualTo(this.TestSettings.TestForumMail),
+                        mail.From.Mailboxes.First().Address, Is.EqualTo(this.TestSettings.TestForumMail),
                         "Sender does not match");
 
                     Assert.That(
-                        mail.Headers["Subject"], Is.EqualTo($"Topic Subscription New Post Notification (From {this.TestSettings.TestApplicationName})"),
+                        mail.Subject, Is.EqualTo($"Topic Subscription New Post Notification (From {this.TestSettings.TestApplicationName})"),
                         "Subject does not match");
 
                     Assert.That(
-                        mail.MessageParts[0].BodyData.StartsWith("There's a new post in topic \""), Is.True,
+                        mail.TextBody.StartsWith("There's a new post in topic \""), Is.True,
                         "Body does not match");
 
                     // hidden content is only shown in the forum
                     Assert.That(
-                        mail.MessageParts[0].BodyData, Does.Not.Contain("Only for repliers"),
+                        mail.TextBody, Does.Not.Contain("Only for repliers"),
                         "The mail contains hidden content");
                 });
     }
@@ -414,20 +416,20 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                 var mail = this.Fixture.SmtpServer.ReceivedEmail[0];
 
                 Assert.That(
-                    mail.ToAddresses[0].ToString(), Is.EqualTo($"{this.TestSettings.TestUserName.ToLower()}@test.com"),
+                    mail.To.Mailboxes.First().Address, Is.EqualTo($"{this.TestSettings.TestUserName.ToLower()}@test.com"),
                     "Receiver does not match");
 
                 Assert.That(
-                    mail.FromAddress.Address, Is.EqualTo(this.TestSettings.TestForumMail),
+                    mail.From.Mailboxes.First().Address, Is.EqualTo(this.TestSettings.TestForumMail),
                     "Sender does not match");
 
                 Assert.That(
-                    mail.Headers["Subject"],
+                    mail.Subject,
                     Is.EqualTo($"Active and New Topics - Daily Digest for {this.TestSettings.TestApplicationName}"),
                     "Subject does not match");
 
                 Assert.That(
-                    mail.MessageParts[1].BodyData
+                    mail.HtmlBody
                         .Contains($"Active and New Topics - Daily Digest for {this.TestSettings.TestApplicationName}"),
                     Is.True,
                     "Body does not match");

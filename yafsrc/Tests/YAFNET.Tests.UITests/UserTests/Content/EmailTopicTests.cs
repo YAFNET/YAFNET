@@ -88,10 +88,10 @@ public class EmailTopicTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                     Assert.That(mail, Is.Not.Null, "The email was not sent");
 
-                    var body = mail.MessageParts[0].BodyData;
+                    var body = mail.TextBody;
 
                     Assert.That(body, Does.Not.Contain("Buy cheap pills"), "The posted text was sent");
-                    Assert.That(mail.Headers["Subject"], Does.Not.Contain("Buy cheap pills"), "The posted subject was sent");
+                    Assert.That(mail.Subject, Does.Not.Contain("Buy cheap pills"), "The posted subject was sent");
                     Assert.That(body, Does.Contain($"topic/{this.TestSettings.TestTopicId}/"), "The topic link is missing");
                     Assert.That(
                         body.Replace("\r", string.Empty),

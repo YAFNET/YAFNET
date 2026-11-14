@@ -3,6 +3,7 @@ YetAnotherForum.NET Changelog
 
 # YetAnotherForum.NET v4.0.12
 * [FIXED] NuGet: the packages YAFNET.Core, YAFNET.Types, YAFNET.Configuration, YAFNET.Web and YAFNET.Data.* used the README of the repository, its HTML (logo and badges) and relative links can not be shown on nuget.org; they now contain their own README (yafsrc/NuGet/README.md) in plain Markdown with absolute links
+* [CHANGES] Tests: the test mail server netDumbster (no longer maintained) is replaced by TestSmtpServer (YAFNET.Tests.Utils), an in-process server based on the SmtpServer library (the SMTP engine of Papercut SMTP); the received mails are MimeKit MimeMessages
 
 # YetAnotherForum.NET v4.0.11
 * [NEW] Search: new option "Search for" with Posts (all matching posts), Topics (one result for each topic, with its latest matching post) and Forums (the forums with a matching name)

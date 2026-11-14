@@ -28,7 +28,6 @@ namespace YAF.Tests.Utils.Extensions;
 
 using Microsoft.Playwright;
 
-using netDumbster.smtp;
 
 /// <summary>
 /// Test Helper Class
@@ -207,7 +206,7 @@ public static class PageExtensions
         }
 
         public Task<bool> RegisterRandomTestUserAsync(TestConfig testSettings,
-            SimpleSmtpServer simpleSmtpServer)
+            TestSmtpServer simpleSmtpServer)
         {
             // Create New Random Test User (not "TestUser…", other tests look up TestUser1 and TestUser2 by name)
             var userName = $"TempUser{Random.Shared.Next()}";
@@ -291,7 +290,7 @@ public static class PageExtensions
         /// <param name="testSettings">The test Settings</param>
         /// <param name="simpleSmtpServer">The test mail server.</param>
         /// <returns>The user name, the password is the test user password.</returns>
-        public async Task<string> RegisterNewTestUserAsync(TestConfig testSettings, SimpleSmtpServer simpleSmtpServer)
+        public async Task<string> RegisterNewTestUserAsync(TestConfig testSettings, TestSmtpServer simpleSmtpServer)
         {
             var userName = $"TempUser{Random.Shared.Next()}";
 
@@ -321,7 +320,7 @@ public static class PageExtensions
         /// If User was Registered or not
         /// </returns>
         public Task<bool> RegisterUserAsync(TestConfig testSettings,
-            SimpleSmtpServer simpleSmtpServer,
+            TestSmtpServer simpleSmtpServer,
             string userName,
             string password)
         {
@@ -469,7 +468,7 @@ public static class PageExtensions
         /// <returns>
         /// If User was Registered or not
         /// </returns>
-        private async Task<bool> RegisterUserAsync(TestConfig testSettings, SimpleSmtpServer simpleSmtpServer, string userName, string email, string password)
+        private async Task<bool> RegisterUserAsync(TestConfig testSettings, TestSmtpServer simpleSmtpServer, string userName, string email, string password)
         {
             if (!await page.SubmitRegistrationAsync(testSettings, userName, email, password))
             {

@@ -560,7 +560,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                 }
                 finally
                 {
-                    this.Fixture.SmtpServer = netDumbster.smtp.SimpleSmtpServer.Start(this.TestSettings.TestMailPort);
+                    this.Fixture.SmtpServer = TestSmtpServer.Start(this.TestSettings.TestMailPort);
                 }
 
                 // with the mail server the group gets the mail
