@@ -46,7 +46,7 @@ internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
     /// <summary>
     /// The _global instance.
     /// </summary>
-    private static BoardContext _globalInstance;
+    private BoardContext _globalInstance;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BoardContextPageProvider"/> class.
@@ -72,7 +72,7 @@ internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
         {
             if (HttpContext.Current is null)
             {
-                return _globalInstance ??= this.CreateContextInstance();
+                return this._globalInstance ??= this.CreateContextInstance();
             }
 
             if (HttpContext.Current.Items[PageBoardContextName] is BoardContext pageInstance)

@@ -100,7 +100,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
             this.InitLookup();
         }
 
-        return this.eventLogTypeLookup!.ContainsKey(type) && this.eventLogTypeLookup[type];
+        return this.eventLogTypeLookup.ContainsKey(type) && this.eventLogTypeLookup[type];
     }
 
     /// <summary>
@@ -158,7 +158,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
         {
             if (this.Type != null)
             {
-                source = this.Type.FullName!.Length > 50 ? this.Type.FullName.Truncate(47) : this.Type.FullName;
+                source = this.Type.FullName.Length > 50 ? this.Type.FullName.Truncate(47) : this.Type.FullName;
             }
             else
             {
@@ -167,7 +167,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
         }
         else
         {
-            if (source!.Length > 50)
+            if (source.Length > 50)
             {
                 source = source.Truncate(47);
             }

@@ -190,7 +190,9 @@ public abstract class UserPageBase
     /// <summary>
     ///   Gets PageBoardID.
     /// </summary>
+#pragma warning disable S2325 // public API, used on the page context instance
     public int PageBoardID => BoardContext.Current.Get<ControlSettings>().BoardID;
+#pragma warning restore S2325
 
     /// <summary>
     ///   Gets the CategoryID for the current page, or 0 if not in any category

@@ -69,10 +69,9 @@ public static class DbAccessV2Extensions
 
         try
         {
-            using (var connection = dbAccess.CreateConnectionOpen())
+            using (dbAccess.CreateConnectionOpen())
             {
                 // we're connected!
-                var conn = connection;
             }
 
             // success

@@ -53,7 +53,10 @@ public class MailService : IMailService, IHaveServiceLocator
     {
         var mailMessages = messages.ToList();
 
+        // the smtp settings (incl. EnableSsl) come from the web.config (system.net/mailSettings)
+#pragma warning disable S5332
         using var smtpClient = new SmtpClient();
+#pragma warning restore S5332
 
         var sent = 0;
         Exception firstError = null;

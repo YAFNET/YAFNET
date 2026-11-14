@@ -163,9 +163,6 @@ public class ServicesModule : BaseModule
         // Migrations
         builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AssignableTo<IRepositoryMigration>().AsSelf()
             .PreserveExistingDefaults();
-
-        // Caching
-        //builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
     }
 
     /// <summary>

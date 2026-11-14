@@ -36,7 +36,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <summary>
     /// The task manager.
     /// </summary>
-    static protected ConcurrentDictionary<string, IBackgroundTask> taskManager = new();
+    static protected readonly ConcurrentDictionary<string, IBackgroundTask> taskManager = new();
 
     /// <summary>
     ///     Gets TaskCount.
@@ -46,7 +46,9 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <summary>
     ///     All the names of tasks running.
     /// </summary>
+#pragma warning disable S2365 // public API of the task manager (returns a snapshot of the names)
     public virtual IList<string> TaskManagerInstances => taskManager.Keys.ToList();
+#pragma warning restore S2365
 
     /// <summary>
     ///     Gets TaskManagerSnapshot.

@@ -50,7 +50,7 @@ public static class DataImport
     /// <returns>
     /// Returns How Many Extensions where imported.
     /// </returns>
-    /// <exception cref="Exception">Import stream is not expected format.
+    /// <exception cref="FormatException">Import stream is not expected format.
     /// </exception>
     public static int BBCodeExtensionImport(int boardId, Stream inputStream)
     {
@@ -135,7 +135,7 @@ public static class DataImport
         }
         else
         {
-            throw new Exception("Import stream is not expected format.");
+            throw new FormatException("Import stream is not expected format.");
         }
 
         return importedCount;

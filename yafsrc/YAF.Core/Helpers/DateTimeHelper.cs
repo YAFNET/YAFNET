@@ -75,7 +75,7 @@ public static class DateTimeHelper
     /// <returns>Returns the Time Zone Info</returns>
     public static TimeZoneInfo GetTimeZoneInfo(string input)
     {
-        if (Regex.IsMatch(input, @"^[\-?\+?\d]*$"))
+        if (Regex.IsMatch(input, @"^[\-?\+?\d]*$", RegexOptions.None, RegexHelper.Timeout))
         {
             return TimeZoneInfo.Local;
         }
@@ -165,17 +165,13 @@ public static class DateTimeHelper
         switch (delta)
         {
             case < 1 * Minute:
-                return isFuture
-                           ? localizer.GetTextFormatted(
-                               "FUTURE",
-                               ts.Seconds == 1
-                                   ? localizer.GetText("RELATIVE_TIME", "S")
-                                   : localizer.GetTextFormatted("SS", ts.Seconds))
-                           : localizer.GetTextFormatted(
-                               "PAST",
-                               ts.Seconds == 1
-                                   ? localizer.GetText("RELATIVE_TIME", "S")
-                                   : localizer.GetTextFormatted("SS", ts.Seconds));
+                {
+                    var seconds = ts.Seconds == 1
+                                      ? localizer.GetText("RELATIVE_TIME", "S")
+                                      : localizer.GetTextFormatted("SS", ts.Seconds);
+
+                    return localizer.GetTextFormatted(isFuture ? "FUTURE" : "PAST", seconds);
+                }
             case < 2 * Minute:
                 return isFuture
                            ? localizer.GetTextFormatted("FUTURE", localizer.GetText("RELATIVE_TIME", "M"))
@@ -207,32 +203,20 @@ public static class DateTimeHelper
             case < 12 * Month:
                 {
                     var months = Convert.ToInt32(Math.Floor((double) ts.Days / 30));
-                    return isFuture
-                               ? localizer.GetTextFormatted(
-                                   "FUTURE",
-                                   months <= 1
-                                       ? localizer.GetText("RELATIVE_TIME", "MO")
-                                       : localizer.GetTextFormatted("MOMO", months))
-                               : localizer.GetTextFormatted(
-                                   "PAST",
-                                   months <= 1
-                                       ? localizer.GetText("RELATIVE_TIME", "MO")
-                                       : localizer.GetTextFormatted("MOMO", months));
+                    var monthsText = months <= 1
+                                         ? localizer.GetText("RELATIVE_TIME", "MO")
+                                         : localizer.GetTextFormatted("MOMO", months);
+
+                    return localizer.GetTextFormatted(isFuture ? "FUTURE" : "PAST", monthsText);
                 }
             default:
                 {
                     var years = Convert.ToInt32(Math.Floor((double) ts.Days / 365));
-                    return isFuture
-                               ? localizer.GetTextFormatted(
-                                   "FUTURE",
-                                   years <= 1
-                                       ? localizer.GetText("RELATIVE_TIME", "Y")
-                                       : localizer.GetTextFormatted("YY", years))
-                               : localizer.GetTextFormatted(
-                                   "PAST",
-                                   years <= 1
-                                       ? localizer.GetText("RELATIVE_TIME", "Y")
-                                       : localizer.GetTextFormatted("YY", years));
+                    var yearsText = years <= 1
+                                        ? localizer.GetText("RELATIVE_TIME", "Y")
+                                        : localizer.GetTextFormatted("YY", years);
+
+                    return localizer.GetTextFormatted(isFuture ? "FUTURE" : "PAST", yearsText);
                 }
         }
     }

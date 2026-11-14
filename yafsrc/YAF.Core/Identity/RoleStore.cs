@@ -33,7 +33,9 @@ using YAF.Types.Models.Identity;
 /// <summary>
 /// The role store.
 /// </summary>
+#pragma warning disable S3881 // the public virtual Dispose is part of the public API
 public class RoleStore : IQueryableRoleStore<AspNetRoles, string>,
+#pragma warning restore S3881
                          IHaveServiceLocator
 {
     /// <summary>

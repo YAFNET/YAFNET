@@ -217,7 +217,18 @@ public static class IPHelper
 
         return TrustedProxyNetworks.Concat(Config.TrustedProxies.Split([','], StringSplitOptions.RemoveEmptyEntries))
             .Select(entry => entry.Trim())
-            .Select(entry => entry.Contains("/") ? entry : $"{entry}/{(entry.Contains(":") ? 128 : 32)}")
+            .Select(entry =>
+            {
+                if (entry.Contains("/"))
+                {
+                    return entry;
+                }
+
+                // a single address is a network of the full length of the address
+                var prefixLength = entry.Contains(":") ? 128 : 32;
+
+                return $"{entry}/{prefixLength}";
+            })
             .Any(
                 network => IPAddress.TryParse(network.Split('/')[0], out var networkAddress)
                            && networkAddress.AddressFamily == address.AddressFamily

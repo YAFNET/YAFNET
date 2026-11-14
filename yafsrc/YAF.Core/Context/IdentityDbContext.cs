@@ -59,7 +59,9 @@ public class IdentityDbContext<TUser, TRole> : IdentityDbContext<TUser, TRole, s
 /// </typeparam>
 /// <typeparam name="TRoleKey">
 /// </typeparam>
+#pragma warning disable S2326 // the type parameters are part of the public API (used in the constraints)
 public class IdentityDbContext<TUser, TRole, TKey, TRoleKey> : IDisposable
+#pragma warning restore S2326
     where TUser : AspNetUsers<TKey>
     where TRole : AspNetRoles<TRoleKey>
 {
@@ -68,5 +70,18 @@ public class IdentityDbContext<TUser, TRole, TKey, TRoleKey> : IDisposable
     /// </summary>
     public void Dispose()
     {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Releases the resources (there are none for now).
+    /// </summary>
+    /// <param name="disposing">
+    /// <c>true</c> to release managed resources.
+    /// </param>
+    protected virtual void Dispose(bool disposing)
+    {
+        // no resources to release
     }
 }

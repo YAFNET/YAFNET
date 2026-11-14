@@ -47,7 +47,9 @@ public class ConfigHelper
     /// <summary>
     ///     Gets AppSettings.
     /// </summary>
+#pragma warning disable S2325 // public API of the injected service
     public NameValueCollection AppSettings => WebConfigurationManager.AppSettings;
+#pragma warning restore S2325
 
     /// <summary>
     ///     Gets AppSettingsFull.
@@ -67,7 +69,9 @@ public class ConfigHelper
     /// <typeparam name="T">The type parameter name</typeparam>
     /// <param name="sectionName">Name of the section.</param>
     /// <returns>Returns the the configuration section.</returns>
+#pragma warning disable S2325 // public API of the injected service
     public T GetConfigSection<T>(string sectionName)
+#pragma warning restore S2325
         where T : class
     {
         var section = WebConfigurationManager.GetWebApplicationSection(sectionName) as T;

@@ -63,7 +63,9 @@ public static class UrlHelper
         return
             Regex.Matches(
                     message,
-                    @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)")
+                    @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)",
+                    RegexOptions.None,
+                    RegexHelper.Timeout)
                 .Count;
     }
 }

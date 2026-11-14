@@ -968,6 +968,7 @@ public static class JavaScriptBlocks
     /// <param name="passwordStrongerText">The password stronger text.</param>
     /// <param name="passwordWeakText">The password weak text.</param>
     /// <returns>Returns the Passwords strength checker JavaScript</returns>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Blocker Vulnerability", "S2068:Credentials should not be hard-coded", Justification = "False positive: 'password' is the name of a JavaScript variable, no credential.")]
     public static string PasswordStrengthCheckerJs(
         string passwordClientId,
         string confirmPasswordClientId,

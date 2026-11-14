@@ -112,7 +112,9 @@ public class StopForumSpam : ICheckForBot
     /// <param name="emailAddress">The email address.</param>
     /// <param name="userName">Name of the user.</param>
     /// <returns>Returns If the report was successful or not</returns>
+#pragma warning disable S2325 // public API, called on an instance
     public bool ReportUserAsBot(
+#pragma warning restore S2325
         string ipAddress,
         string emailAddress,
         string userName)
@@ -120,8 +122,10 @@ public class StopForumSpam : ICheckForBot
         var parameters =
             $"username={Uri.EscapeDataString(userName ?? string.Empty)}&ip_addr={Uri.EscapeDataString(ipAddress ?? string.Empty)}&email={Uri.EscapeDataString(emailAddress ?? string.Empty)}&api_key={Uri.EscapeDataString(BoardContext.Current.BoardSettings.StopForumSpamApiKey ?? string.Empty)}";
 
+#pragma warning disable S1075 // the fixed address of the StopForumSpam api
         var result = new HttpClient().PostRequest(
             new Uri("https://www.stopforumspam.com/add.php"),
+#pragma warning restore S1075
             null,
             60 * 1000,
             parameters);

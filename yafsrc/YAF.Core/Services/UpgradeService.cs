@@ -114,7 +114,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         {
             if (!Config.IsDotNetNuke)
             {
-                this.MigrateConfig();
+                MigrateConfig();
             }
 
             this.Get<Migration80>().MigrateDatabase(this.DbAccess);
@@ -377,7 +377,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
     /// <summary>
     /// Migrate Legacy Membership Settings
     /// </summary>
-    private void MigrateConfig()
+    private static void MigrateConfig()
     {
         try
         {

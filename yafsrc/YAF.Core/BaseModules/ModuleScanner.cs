@@ -42,7 +42,9 @@ public class ModuleScanner
     /// </param>
     /// <returns>
     /// </returns>
+#pragma warning disable S2325 // public API, called on an instance
     public IEnumerable<Assembly> GetModules(string pattern)
+#pragma warning restore S2325
     {
         var files = GetMatchingFiles(pattern).ToList();
 

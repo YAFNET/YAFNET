@@ -27,6 +27,7 @@ namespace YAF.Core.Migrations;
 using ServiceStack.OrmLite;
 
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 
@@ -164,6 +165,8 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
                     dbCommand.Connection.DropTable("UserProfile");
                 }
 
+                // FileExtension is obsolete, it is only used to migrate the old table
+#pragma warning disable CS0618
                 if (dbCommand.Connection.TableExists<FileExtension>())
                 {
                     // Migrate File Extensions
@@ -176,6 +179,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
 
                     dbCommand.Connection.DropTable<FileExtension>();
                 }
+#pragma warning restore CS0618
 
                 return true;
             });
@@ -361,11 +365,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
 
         var timeZoneType = dbCommand.Connection.ColumnDataType<User>(x => x.TimeZone);
 
-        if (timeZoneType == "ntext")
-        {
-            dbCommand.Connection.AlterColumn<User>(x => x.TimeZone);
-        }
-        else if (timeZoneType == "int")
+        if (timeZoneType is "ntext" or "int")
         {
             dbCommand.Connection.AlterColumn<User>(x => x.TimeZone);
         }
@@ -497,6 +497,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
+    [SuppressMessage("Security Hotspot", "S2077:Formatting SQL queries is security-sensitive", Justification = "Only table names of the models are formatted into the query (no user input).")]
     private static void UpgradeTable(IRepository<Attachment> repository, IDbCommand dbCommand)
     {
         CodeContracts.ThrowIfNull(repository);
@@ -777,126 +778,6 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         if (!dbCommand.Connection.ColumnExists<EventLog>(x => x.Type))
         {
             dbCommand.Connection.AddColumn<EventLog>(x => x.Type);
-        }
-    }
-
-    public void UpgradeTablesPolls(IDbCommand dbCommand)
-    {
-        // should drop it else error
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
-
-        var foreignKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%Poll'");
-
-        if (foreignKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Topic>(foreignKeyName);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Choice>(x => x.ObjectPath))
-        {
-            dbCommand.Connection.AddColumn<Choice>(x => x.ObjectPath);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.Closes))
-        {
-            dbCommand.Connection.AddColumn<Poll>(x => x.Closes);
-        }
-
-        if (dbCommand.Connection.ColumnMaxLength<Poll>(x => x.Question) < 256)
-        {
-            dbCommand.Connection.AlterColumn<Poll>(x => x.Question);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.UserID))
-        {
-            dbCommand.Connection.AddColumn<Poll>(x => x.UserID);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.ObjectPath))
-        {
-            dbCommand.Connection.AddColumn<Poll>(x => x.ObjectPath);
-        }
-
-        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.Flags))
-        {
-            dbCommand.Connection.AddColumn<Poll>(x => x.Flags);
-        }
-
-        if (dbCommand.Connection.ColumnExists<Poll>("MimeType"))
-        {
-            dbCommand.Connection.DropColumn<Poll>("MimeType");
-        }
-
-        if (dbCommand.Connection.ColumnExists<Choice>("MimeType"))
-        {
-            dbCommand.Connection.DropColumn<Choice>("MimeType");
-        }
-
-        var foreignTopicKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignTopicKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Topic>(foreignTopicKeyName);
-        }
-
-        var foreignPollKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Poll>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignPollKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Poll>(foreignPollKeyName);
-        }
-
-        var foreignForumKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Forum>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignForumKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Forum>(foreignForumKeyName);
-        }
-
-        var foreignCategoryKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Category>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignCategoryKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<Category>(foreignCategoryKeyName);
-        }
-
-        var foreignClusterKeyName = dbCommand.Connection.SqlScalar<string>(
-            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<PollGroupCluster>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
-
-        if (foreignClusterKeyName.IsSet())
-        {
-            dbCommand.Connection.DropForeignKey<PollGroupCluster>(foreignClusterKeyName);
-        }
-
-        if (dbCommand.Connection.TableExists(new TableRef("PollVoteRefuse")))
-        {
-            dbCommand.Connection.DropTable("PollVoteRefuse");
-        }
-
-        // Drop Columns first
-        if (dbCommand.Connection.ColumnExists<Poll>("PollGroupID"))
-        {
-            dbCommand.Connection.DropColumn<Poll>("PollGroupID");
-        }
-
-        if (dbCommand.Connection.ColumnExists<Category>("PollGroupID"))
-        {
-            dbCommand.Connection.DropColumn<Category>("PollGroupID");
-        }
-
-        if (dbCommand.Connection.ColumnExists<Forum>("PollGroupID"))
-        {
-            dbCommand.Connection.DropColumn<Forum>("PollGroupID");
-        }
-
-        if (dbCommand.Connection.TableExists<PollGroupCluster>())
-        {
-            dbCommand.Connection.DropTable<PollGroupCluster>();
         }
     }
 
@@ -1476,10 +1357,136 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
         }
     }
 
+    [SuppressMessage("Minor Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Public api is kept.")]
+    [SuppressMessage("Security Hotspot", "S2077:Formatting SQL queries is security-sensitive", Justification = "Only table names of the models are formatted into the query (no user input).")]
+    public void UpgradeTablesPolls(IDbCommand dbCommand)
+    {
+        // should drop it else error
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+        var foreignKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%Poll'");
+
+        if (foreignKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Topic>(foreignKeyName);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Choice>(x => x.ObjectPath))
+        {
+            dbCommand.Connection.AddColumn<Choice>(x => x.ObjectPath);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.Closes))
+        {
+            dbCommand.Connection.AddColumn<Poll>(x => x.Closes);
+        }
+
+        if (dbCommand.Connection.ColumnMaxLength<Poll>(x => x.Question) < 256)
+        {
+            dbCommand.Connection.AlterColumn<Poll>(x => x.Question);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.UserID))
+        {
+            dbCommand.Connection.AddColumn<Poll>(x => x.UserID);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.ObjectPath))
+        {
+            dbCommand.Connection.AddColumn<Poll>(x => x.ObjectPath);
+        }
+
+        if (!dbCommand.Connection.ColumnExists<Poll>(x => x.Flags))
+        {
+            dbCommand.Connection.AddColumn<Poll>(x => x.Flags);
+        }
+
+        if (dbCommand.Connection.ColumnExists<Poll>("MimeType"))
+        {
+            dbCommand.Connection.DropColumn<Poll>("MimeType");
+        }
+
+        if (dbCommand.Connection.ColumnExists<Choice>("MimeType"))
+        {
+            dbCommand.Connection.DropColumn<Choice>("MimeType");
+        }
+
+        var foreignTopicKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Topic>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignTopicKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Topic>(foreignTopicKeyName);
+        }
+
+        var foreignPollKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Poll>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignPollKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Poll>(foreignPollKeyName);
+        }
+
+        var foreignForumKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Forum>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignForumKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Forum>(foreignForumKeyName);
+        }
+
+        var foreignCategoryKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<Category>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignCategoryKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<Category>(foreignCategoryKeyName);
+        }
+
+        // PollGroupCluster is obsolete, it is only used to drop the old table
+#pragma warning disable CS0618
+        var foreignClusterKeyName = dbCommand.Connection.SqlScalar<string>(
+            $"SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME='{expression.TableName<PollGroupCluster>()}' and CONSTRAINT_NAME like '%PollGroupCluster'");
+
+        if (foreignClusterKeyName.IsSet())
+        {
+            dbCommand.Connection.DropForeignKey<PollGroupCluster>(foreignClusterKeyName);
+        }
+
+        if (dbCommand.Connection.TableExists(new TableRef("PollVoteRefuse")))
+        {
+            dbCommand.Connection.DropTable("PollVoteRefuse");
+        }
+
+        // Drop Columns first
+        if (dbCommand.Connection.ColumnExists<Poll>("PollGroupID"))
+        {
+            dbCommand.Connection.DropColumn<Poll>("PollGroupID");
+        }
+
+        if (dbCommand.Connection.ColumnExists<Category>("PollGroupID"))
+        {
+            dbCommand.Connection.DropColumn<Category>("PollGroupID");
+        }
+
+        if (dbCommand.Connection.ColumnExists<Forum>("PollGroupID"))
+        {
+            dbCommand.Connection.DropColumn<Forum>("PollGroupID");
+        }
+
+        if (dbCommand.Connection.TableExists<PollGroupCluster>())
+        {
+            dbCommand.Connection.DropTable<PollGroupCluster>();
+        }
+#pragma warning restore CS0618
+    }
+
     /// <summary>
     /// Deletes all the stored procedures.
     /// </summary>
     /// <param name="dbCommand">The database command.</param>
+    [SuppressMessage("Security Hotspot", "S2077:Formatting SQL queries is security-sensitive", Justification = "Only the configured database object qualifier is formatted into the query (no user input).")]
     private static void DeleteStoredProcedures(IDbCommand dbCommand)
     {
         var list = dbCommand.Connection.SqlList<string>(
@@ -1504,6 +1511,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// Deletes the triggers.
     /// </summary>
     /// <param name="dbCommand">The database command.</param>
+    [SuppressMessage("Security Hotspot", "S2077:Formatting SQL queries is security-sensitive", Justification = "Only the configured database object qualifier is formatted into the query (no user input).")]
     private static void DeleteTriggers(IDbCommand dbCommand)
     {
         var list = dbCommand.Connection.SqlList<string>(

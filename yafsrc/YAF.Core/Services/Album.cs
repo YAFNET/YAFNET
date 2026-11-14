@@ -414,8 +414,6 @@ public class Album : IAlbum, IHaveServiceLocator
                 return;
             }
 
-            byte[] data;
-
             var uploadFolder = Path.Combine(BaseUrlBuilder.ServerFileRoot, this.Get<BoardFolders>().Uploads);
 
             var oldFileName = context.Server.MapPath(
@@ -426,12 +424,8 @@ public class Album : IAlbum, IHaveServiceLocator
             // use the new fileName (with extension) if it exists...
             var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
-            using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                data = new byte[input.Length];
-                input.Read(data, 0, data.Length);
-                input.Close();
-            }
+            // reads the whole file (a single Read call may return less bytes than requested)
+            var data = File.ReadAllBytes(fileName);
 
             // the content type comes from the browser of the uploader: only images are sent with their type,
             // other types (e.g. svg or xhtml with scripts) as png, the browser must not run them in the forum
@@ -440,13 +434,11 @@ public class Album : IAlbum, IHaveServiceLocator
                                                : "image/png";
             context.Response.AppendHeader("X-Content-Type-Options", "nosniff");
 
-            {
-                context.Response.OutputStream.Write(data, 0, data.Length);
+            context.Response.OutputStream.Write(data, 0, data.Length);
 
-                // add a download count...
-                this.GetRepository<UserAlbumImage>().IncrementDownload(
-                    context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));
-            }
+            // add a download count...
+            this.GetRepository<UserAlbumImage>().IncrementDownload(
+                context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));
         }
         catch (Exception x)
         {

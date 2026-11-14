@@ -288,11 +288,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// </param>
     public void Handle(RepositoryEvent<Category> @event)
     {
-        /*if (!@event.RepositoryEventType.IsIn(RepositoryEventType.Delete, RepositoryEventType.Update))
-        {
-            return;
-        }*/
-
         // clear active discussions cache..
         this.DataCache.Remove(k => k.StartsWith(Constants.Cache.ActiveDiscussions));
 

@@ -33,7 +33,9 @@ using Microsoft.AspNet.Identity;
 /// <summary>
 /// The SQL password hasher.
 /// </summary>
+#pragma warning disable S101 // public API, renaming it would break existing code
 public class SQLPasswordHasher : PasswordHasher
+#pragma warning restore S101
 {
     /// <summary>
     /// The verify hashed password.

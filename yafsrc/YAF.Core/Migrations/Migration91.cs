@@ -48,7 +48,9 @@ public class Migration91 : MigrationBase
         // Reset TwoFactorEnabled User Settings
         if (!Config.IsDotNetNuke)
         {
+#pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
             this.Db.UpdateOnly(() => new AspNetUsers { TwoFactorEnabled = false }, a => a.TwoFactorEnabled == true);
+#pragma warning restore S1125
         }
     }
 }

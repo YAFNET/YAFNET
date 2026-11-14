@@ -59,7 +59,9 @@ public class LoadMessage
     /// <summary>
     /// Gets the session load string.
     /// </summary>
+#pragma warning disable S2325 // protected API of a public service class
     protected List<MessageNotification> SessionLoadString
+#pragma warning restore S2325
     {
         get
         {

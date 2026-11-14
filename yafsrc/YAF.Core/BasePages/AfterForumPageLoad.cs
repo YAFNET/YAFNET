@@ -29,4 +29,6 @@ using System;
 /// <summary>
 /// EventArgs class for the YafForumPageReady event -- created for future options
 /// </summary>
+#pragma warning disable S2094, S3376 // public event args type (kept for future options), renaming it would break the public API
 public class AfterForumPageLoad : EventArgs;
+#pragma warning restore S2094, S3376

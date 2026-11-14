@@ -44,7 +44,7 @@ public static class ValidationHelper
     public static bool IsValidEmail(string email)
     {
         return Regex.IsMatch(
-            email, @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$", RegexOptions.IgnoreCase);
+            email, @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$", RegexOptions.IgnoreCase, RegexHelper.Timeout);
     }
 
     /// <summary>
@@ -72,15 +72,7 @@ public static class ValidationHelper
     /// </returns>
     public static bool IsValidURL(string url)
     {
-        try
-        {
-            var uri = new Uri(url, UriKind.Absolute);
-            return true;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
+        return Uri.TryCreate(url, UriKind.Absolute, out _);
     }
 
     /// <summary>
@@ -111,7 +103,7 @@ public static class ValidationHelper
     /// </returns>
     public static bool IsNumeric(string valueToCheck)
     {
-        return double.TryParse(valueToCheck, System.Globalization.NumberStyles.Any, null, out var dummy);
+        return double.TryParse(valueToCheck, System.Globalization.NumberStyles.Any, null, out _);
     }
 
     /// <summary>
@@ -171,7 +163,7 @@ public static class ValidationHelper
 
         try
         {
-            var test = Regex.Match(string.Empty, pattern);
+            _ = Regex.Match(string.Empty, pattern, RegexOptions.None, RegexHelper.Timeout);
         }
         catch (ArgumentException)
         {

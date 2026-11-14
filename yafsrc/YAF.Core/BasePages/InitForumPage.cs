@@ -29,4 +29,6 @@ using System;
 /// <summary>
 /// EventArgs class for the ForumPage Init event
 /// </summary>
+#pragma warning disable S2094, S3376 // public event args type, renaming it would break the public API
 public class InitForumPage : EventArgs;
+#pragma warning restore S2094, S3376

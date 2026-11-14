@@ -46,14 +46,17 @@ public abstract class BaseModule : Module, IHaveSortOrder
     /// <summary>
     ///     Gets or sets ExtensionAssemblies.
     /// </summary>
-    readonly static protected Assembly[] ExtensionAssemblies;
+    readonly static protected Assembly[] ExtensionAssemblies = LoadExtensionAssemblies();
 
     /// <summary>
-    /// Initializes static members of the <see cref="BaseModule"/> class.
+    /// Loads the extension assemblies.
     /// </summary>
-    static BaseModule()
+    /// <returns>
+    /// The extension assemblies.
+    /// </returns>
+    private static Assembly[] LoadExtensionAssemblies()
     {
-        ExtensionAssemblies =
+        Assembly[] extensionAssemblies =
         [
             .. new ModuleScanner().GetModules("YAF*.dll")
                         .Concat(
@@ -66,9 +69,11 @@ public abstract class BaseModule : Module, IHaveSortOrder
         ];
 #if DEBUG
 
-        ExtensionAssemblies.ForEach(s => Debug.WriteLine("Extension Assembly: {0}", s));
+        extensionAssemblies.ForEach(s => Debug.WriteLine("Extension Assembly: {0}", s));
 
 #endif
+
+        return extensionAssemblies;
     }
 
     /// <summary>

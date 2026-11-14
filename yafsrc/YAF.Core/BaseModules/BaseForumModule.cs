@@ -26,7 +26,9 @@ namespace YAF.Core.BaseModules;
 /// <summary>
 /// The base forum module.
 /// </summary>
+#pragma warning disable S3881 // the public virtual Dispose is overridden by the modules, changing it would break them
 public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, IHaveLocalization
+#pragma warning restore S3881
 {
     /// <summary>
     ///   Gets a value indicating whether Active.
@@ -51,7 +53,9 @@ public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, I
     /// <summary>
     /// Gets PageBoardContext.
     /// </summary>
+#pragma warning disable S2325 // public API, used as this.PageBoardContext everywhere
     public BoardContext PageBoardContext => BoardContext.Current;
+#pragma warning restore S2325
 
     /// <summary>
     ///   Gets ServiceLocator.

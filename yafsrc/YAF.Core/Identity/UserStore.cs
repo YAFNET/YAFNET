@@ -36,7 +36,9 @@ using YAF.Types.Models.Identity;
 /// <summary>
 /// The user store.
 /// </summary>
+#pragma warning disable S3881 // the public virtual Dispose is part of the public API
 public class UserStore : IUserLoginStore<AspNetUsers>,
+#pragma warning restore S3881
                          IUserClaimStore<AspNetUsers>,
                          IUserRoleStore<AspNetUsers>,
                          IUserPasswordStore<AspNetUsers>,

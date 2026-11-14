@@ -29,7 +29,9 @@ using System;
 /// <summary>
 /// The base background task.
 /// </summary>
+#pragma warning disable S3881 // the public virtual Dispose is part of the public API of the tasks
 public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
+#pragma warning restore S3881
 {
     /// <summary>
     /// The board id.

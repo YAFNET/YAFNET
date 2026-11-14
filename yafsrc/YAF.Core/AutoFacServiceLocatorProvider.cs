@@ -98,6 +98,23 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </summary>
     public void Dispose()
     {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    ///     Releases the container (and in debug the diagnostic event source).
+    /// </summary>
+    /// <param name="disposing">
+    ///     <c>true</c> to release managed resources.
+    /// </param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposing)
+        {
+            return;
+        }
+
 #if DEBUG
         var diagnosticsLib =
             Assembly.Load(

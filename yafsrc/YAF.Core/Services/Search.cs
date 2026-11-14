@@ -559,69 +559,6 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     }
 
     /// <summary>
-    /// Maps the search to data list.
-    /// </summary>
-    /// <param name="searcher">The searcher.</param>
-    /// <param name="hits">The hits.</param>
-    /// <param name="userAccessList">The user access list.</param>
-    /// <returns>
-    /// Returns the search list
-    /// </returns>
-    private List<SearchMessage> MapSearchToDataList(
-        IndexSearcher searcher,
-        IEnumerable<ScoreDoc> hits,
-        List<VAccess> userAccessList)
-    {
-        var results = hits.Select(hit => this.MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
-            .ToList();
-
-        return results.Any()
-                   ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList()
-                   : null;
-    }
-
-    /// <summary>
-    /// Maps the search document to data.
-    /// </summary>
-    /// <param name="doc">The document.</param>
-    /// <param name="userAccessList">The user access list.</param>
-    /// <returns>
-    /// Returns the Search Message
-    /// </returns>
-    private SearchMessage MapSearchDocumentToData(Document doc, List<VAccess> userAccessList)
-    {
-        var forumId = doc.Get("ForumId").ToType<int>();
-
-        if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
-        {
-            return null;
-        }
-
-        // posts that wait for approval (e.g. spam) or are deleted only for the moderators of the forum
-        if (IsHiddenPost(doc) && !userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0))
-        {
-            return null;
-        }
-
-        // the results are shown as html (also by javascript): the texts are encoded
-        return new SearchMessage
-                   {
-                       Topic = HttpUtility.HtmlEncode(doc.Get("Topic")),
-                       TopicId = doc.Get("TopicId").ToType<int>(),
-                       TopicUrl = this.Get<LinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
-                       Posted = doc.Get("Posted"),
-                       UserId = doc.Get("UserId").ToType<int>(),
-                       UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
-                       UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
-                       ForumName = doc.Get("ForumName"),
-                       ForumUrl = this.Get<LinkBuilder>().GetForumLink(
-                           doc.Get("ForumId").ToType<int>(),
-                           doc.Get("ForumName")),
-                       UserStyle = doc.Get("AuthorStyle")
-                   };
-    }
-
-    /// <summary>
     /// The update search index item async.
     /// </summary>
     /// <param name="message">
@@ -692,6 +629,47 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         this.searcherManager.MaybeRefreshBlocking();
 
         return this.searcherManager.Acquire();
+    }
+
+    /// <summary>
+    /// Maps the search document to data.
+    /// </summary>
+    /// <param name="doc">The document.</param>
+    /// <param name="userAccessList">The user access list.</param>
+    /// <returns>
+    /// Returns the Search Message
+    /// </returns>
+    private SearchMessage MapSearchDocumentToData(Document doc, List<VAccess> userAccessList)
+    {
+        var forumId = doc.Get("ForumId").ToType<int>();
+
+        if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
+        {
+            return null;
+        }
+
+        // posts that wait for approval (e.g. spam) or are deleted only for the moderators of the forum
+        if (IsHiddenPost(doc) && !userAccessList.Exists(v => v.ForumID == forumId && v.ModeratorAccess > 0))
+        {
+            return null;
+        }
+
+        // the results are shown as html (also by javascript): the texts are encoded
+        return new SearchMessage
+                   {
+                       Topic = HttpUtility.HtmlEncode(doc.Get("Topic")),
+                       TopicId = doc.Get("TopicId").ToType<int>(),
+                       TopicUrl = this.Get<LinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
+                       Posted = doc.Get("Posted"),
+                       UserId = doc.Get("UserId").ToType<int>(),
+                       UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
+                       UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
+                       ForumName = doc.Get("ForumName"),
+                       ForumUrl = this.Get<LinkBuilder>().GetForumLink(
+                           doc.Get("ForumId").ToType<int>(),
+                           doc.Get("ForumName")),
+                       UserStyle = doc.Get("AuthorStyle")
+                   };
     }
 
     /// <summary>
@@ -820,6 +798,26 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                        ForumName = HttpUtility.HtmlEncode(doc.Get("ForumName")),
                        UserStyle = doc.Get("AuthorStyle")
                    };
+    }
+
+    /// <summary>
+    /// Maps the search to data list.
+    /// </summary>
+    /// <param name="searcher">The searcher.</param>
+    /// <param name="hits">The hits.</param>
+    /// <param name="userAccessList">The user access list.</param>
+    /// <returns>
+    /// Returns the search list
+    /// </returns>
+    private List<SearchMessage> MapSearchToDataList(
+        IndexSearcher searcher,
+        IEnumerable<ScoreDoc> hits,
+        List<VAccess> userAccessList)
+    {
+        var results = hits.Select(hit => this.MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
+            .ToList();
+
+        return results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList();
     }
 
     /// <summary>

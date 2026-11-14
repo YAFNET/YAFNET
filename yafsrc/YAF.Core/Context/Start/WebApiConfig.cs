@@ -48,9 +48,12 @@ public static class WebApiConfig
     /// </param>
     public static void Register(HttpConfiguration config)
     {
+        // replaces the route handler of web api with one that has the session state (no public api for it)
+#pragma warning disable S3011
         var httpControllerRouteHandler = typeof(HttpControllerRouteHandler).GetField(
             "_instance",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+#pragma warning restore S3011
 
         if (httpControllerRouteHandler != null)
         {

@@ -62,7 +62,9 @@ public static class MedalRepositoryExtensions
                                   Message = b.Message != null ? b.Message : a.Message,
                                   a.MedalURL,
                                   b.SortOrder,
+#pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
                                   Hide = (a.Flags & 4) == 0 ? false : b.Hide,
+#pragma warning restore S1125
                                   a.Flags,
                                   b.DateAwarded
                               });
@@ -84,7 +86,9 @@ public static class MedalRepositoryExtensions
                                   Message = b.Message != null ? b.Message : a.Message,
                                   a.MedalURL,
                                   b.SortOrder,
+#pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
                                   Hide = (a.Flags & 4) == 0 ? false : b.Hide,
+#pragma warning restore S1125
                                   a.Flags,
                                   DateAwarded = default(DateTime)
                               });

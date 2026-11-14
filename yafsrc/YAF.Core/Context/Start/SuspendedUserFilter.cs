@@ -34,7 +34,10 @@ using System.Web.Http.Filters;
 /// Refuses the api requests of suspended users: the pages show the suspension (info page), but the scripts of the
 /// pages could still thank posts, vote, upload files or send friend requests.
 /// </summary>
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
+#pragma warning disable S3376 // public API, renaming it would break the registrations
 public class SuspendedUserFilter : ActionFilterAttribute
+#pragma warning restore S3376
 {
     /// <summary>
     /// Refuses the request of a suspended user.

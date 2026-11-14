@@ -124,7 +124,16 @@ public static class UserRepositoryExtensions
         var rankStyle = BoardContext.Current.GetRepository<Rank>().GetRankStyleForUser(userId);
 
         // also without a group or rank style: an old style (e.g. of a group the user was removed from) is cleared
-        var style = groupStyle.IsSet() ? groupStyle : rankStyle.IsSet() ? rankStyle : null;
+        string style = null;
+
+        if (groupStyle.IsSet())
+        {
+            style = groupStyle;
+        }
+        else if (rankStyle.IsSet())
+        {
+            style = rankStyle;
+        }
 
         repository.UpdateOnly(() => new User { UserStyle = style }, u => u.ID == userId);
     }
@@ -886,11 +895,14 @@ public static class UserRepositoryExtensions
         {
             data.UsrSigBBCodes = groupMax.usrSigBBCodes.Length > rankMax.usrSigBBCodes.Length ? groupMax.usrSigBBCodes : rankMax.usrSigBBCodes;
         }
-        else
+        else if (groupMax.usrSigBBCodes.IsSet())
         {
             // the codes of the groups or the rank, whichever has codes
-            data.UsrSigBBCodes = groupMax.usrSigBBCodes.IsSet() ? groupMax.usrSigBBCodes :
-                                 rankMax.usrSigBBCodes.IsSet() ? rankMax.usrSigBBCodes : string.Empty;
+            data.UsrSigBBCodes = groupMax.usrSigBBCodes;
+        }
+        else
+        {
+            data.UsrSigBBCodes = rankMax.usrSigBBCodes.IsSet() ? rankMax.usrSigBBCodes : string.Empty;
         }
 
         return data;
@@ -1039,7 +1051,9 @@ public static class UserRepositoryExtensions
                     // -- count Buddies
                     var countBuddiesExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
 
+#pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
                     countBuddiesExpression.Where(x => x.ToUserID == userId && x.Approved == false);
+#pragma warning restore S1125
 
                     countBuddiesSql = countBuddiesExpression.Select(Sql.Count("1"))
                         .ToMergedParamsSelectStatement();
@@ -1048,7 +1062,9 @@ public static class UserRepositoryExtensions
                     var lastBuddyExpression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>()
                         .OrderByDescending<Buddy>(x => x.Requested).Limit(1);
 
+#pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
                     lastBuddyExpression.Where(x => x.ToUserID == userId && x.Approved == false);
+#pragma warning restore S1125
 
                     lastBuddySql = lastBuddyExpression
                         .Select(lastBuddyExpression.Column<Buddy>(x => x.Requested))
@@ -1250,9 +1266,12 @@ public static class UserRepositoryExtensions
 
             if (stream != null)
             {
-                data = new byte[stream.Length];
+                // copy the whole stream (a single Read call may return less bytes than requested)
                 stream.Seek(0, SeekOrigin.Begin);
-                stream.Read(data, 0, stream.Length.ToType<int>());
+
+                using var memoryStream = new MemoryStream();
+                stream.CopyTo(memoryStream);
+                data = memoryStream.ToArray();
             }
 
             repository.UpdateOnly(

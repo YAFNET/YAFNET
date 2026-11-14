@@ -47,7 +47,9 @@ public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
     /// <value>
     /// The page context.
     /// </value>
+#pragma warning disable S2325 // public API, used as this.PageBoardContext everywhere
     public BoardContext PageBoardContext => BoardContext.Current;
+#pragma warning restore S2325
 
     /// <summary>
     /// The initialize culture.

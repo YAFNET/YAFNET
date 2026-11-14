@@ -71,7 +71,9 @@ public class LinkBuilder : IHaveServiceLocator
     /// <returns>
     /// The get safe raw URL.
     /// </returns>
+#pragma warning disable S2325 // public API of the injected service
     public string GetSafeRawUrl(string url)
+#pragma warning restore S2325
     {
         var processedRaw = url;
 
@@ -233,7 +235,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetLink(ForumPages page, object values)
     {
-        var queryString = this.BuildQueryString(values);
+        var queryString = BuildQueryString(values);
 
         return this.Get<IUrlBuilder>().BuildUrl($"g={page}{queryString}").Replace("&amp;", "&");
     }
@@ -266,7 +268,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// </returns>
     public string GetAbsoluteLink(ForumPages page, object values)
     {
-        var queryString = this.BuildQueryString(values);
+        var queryString = BuildQueryString(values);
 
         return this.Get<IUrlBuilder>().BuildUrlFull($"g={page}{queryString}");
     }
@@ -331,7 +333,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private string BuildQueryString(object values)
+    private static string BuildQueryString(object values)
     {
         var queryString = string.Empty;
 

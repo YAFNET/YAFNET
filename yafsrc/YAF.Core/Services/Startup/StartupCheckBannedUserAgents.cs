@@ -133,8 +133,6 @@ public class StartupCheckBannedUserAgents : BaseStartupService
         }
         catch (Exception)
         {
-            //this.Logger.Error(exception, "Error during IP Check");
-
             // Fails if YAF is not installed
             return true;
         }

@@ -112,7 +112,7 @@ public class JSMinify
 
                     if (this.theA <= '\n')
                     {
-                        throw new Exception($"Error: JSMIN unterminated string literal: {this.theA}\n");
+                        throw new FormatException($"Error: JSMIN unterminated string literal: {this.theA}\n");
                     }
 
                     if (this.theA != '\\')
@@ -159,7 +159,7 @@ public class JSMinify
             }
             else if (this.theA <= '\n')
             {
-                throw new Exception(
+                throw new FormatException(
                     $"Error: JSMIN unterminated Regular Expression literal : {this.theA}.\n");
             }
 
@@ -212,7 +212,7 @@ public class JSMinify
     /// <returns>
     /// The next.
     /// </returns>
-    /// <exception cref="Exception">
+    /// <exception cref="FormatException">
     /// Error: JSMIN Unterminated comment.
     /// </exception>
     private int Next()
@@ -257,7 +257,7 @@ public class JSMinify
 
                             case EOF:
                                 {
-                                    throw new Exception("Error: JSMIN Unterminated comment.\n");
+                                    throw new FormatException("Error: JSMIN Unterminated comment.\n");
                                 }
                         }
                     }

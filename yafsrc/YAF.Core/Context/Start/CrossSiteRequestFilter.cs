@@ -36,7 +36,10 @@ using System.Web.Http.Filters;
 /// forum send json or an own header, a browser only sends them to another site after asking it (CORS), the
 /// forum does not allow that.
 /// </summary>
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
+#pragma warning disable S3376 // public API, renaming it would break the registrations
 public class CrossSiteRequestFilter : ActionFilterAttribute
+#pragma warning restore S3376
 {
     /// <summary>
     /// The headers the scripts of the forum send.

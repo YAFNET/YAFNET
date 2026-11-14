@@ -43,7 +43,7 @@ public static class HtmlTagHelper
     /// </returns>
     public static string StripHtml(string text)
     {
-        return text.IsNotSet() ? text : Regex.Replace(text, @"<(.|\n)*?>", string.Empty);
+        return text.IsNotSet() ? text : Regex.Replace(text, @"<(.|\n)*?>", string.Empty, RegexOptions.None, RegexHelper.Timeout);
     }
 
     /// <summary>
@@ -98,7 +98,7 @@ public static class HtmlTagHelper
         }
 
         // block any inline event handler attribute (onclick, onerror, onload, onmouseover, etc.), not just onclick
-        if (Regex.IsMatch(tag, @"\bon[a-z]+\s*=", RegexOptions.IgnoreCase))
+        if (Regex.IsMatch(tag, @"\bon[a-z]+\s*=", RegexOptions.IgnoreCase, RegexHelper.Timeout))
         {
             return false;
         }

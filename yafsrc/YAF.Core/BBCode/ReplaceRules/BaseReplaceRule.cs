@@ -30,12 +30,16 @@ using System;
 ///   Provides compare functionality based on the rule rank.
 ///   Override replace to handle replacement differently.
 /// </summary>
+#pragma warning disable S1210 // only compared to sort the rules by rank, the operators are not needed
 public abstract class BaseReplaceRule : IComparable, IReplaceRule
+#pragma warning restore S1210
 {
     /// <summary>
     ///   The rule rank.
     /// </summary>
+#pragma warning disable S1104 // public API, set by the rules (a property would break existing rules)
     public int RuleRank = 50;
+#pragma warning restore S1104
 
     /// <summary>
     ///   Gets RuleDescription.

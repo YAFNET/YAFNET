@@ -63,7 +63,9 @@ public class BaseControl : Control, IRaiseControlLifeCycles, IHaveServiceLocator
     /// <summary>
     ///   Gets PageBoardContext.
     /// </summary>
+#pragma warning disable S2325 // public API, used as this.PageBoardContext everywhere
     public BoardContext PageBoardContext => BoardContext.Current;
+#pragma warning restore S2325
 
     /// <summary>
     ///   Gets ServiceLocator.

@@ -90,8 +90,7 @@ public static class IReplaceBlocksExtensions
             // insert the replaced value back in...
             sb.Insert(m.Groups[0].Index, replace);
 
-            // text = text.Substring( 0, m.Groups [0].Index ) + replace + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-            m = _regExHtml.Match(sb.ToString());
+            m =_regExHtml.Match(sb.ToString());
         }
     }
 }

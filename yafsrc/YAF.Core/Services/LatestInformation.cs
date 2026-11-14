@@ -71,10 +71,12 @@ public class LatestInformation : IHaveServiceLocator, ILatestInformation
 
             var tagName = (string)json.tag_name;
             var date = DateTime.SpecifyKind(
-                DateTime.Parse(json.published_at),
+                DateTime.Parse((string)json.published_at, CultureInfo.InvariantCulture),
                 DateTimeKind.Unspecified);
 
+#pragma warning disable S1075 // the fixed download address of the project
             version.UpgradeUrl = "https://yetanotherforum.net/download";
+#pragma warning restore S1075
             version.VersionDate = date;
             version.Version = tagName.Replace("v", string.Empty);
         }

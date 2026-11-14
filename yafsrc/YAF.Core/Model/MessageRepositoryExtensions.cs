@@ -418,7 +418,9 @@ public static class MessageRepositoryExtensions
                                                       RankStyle = c.Style,
                                                       Style = b.UserStyle,
                                                       Edited = m.Edited != null ? m.Edited : m.Posted,
+#pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
                                                       HasAvatarImage = b.AvatarImage != null ? true : false,
+#pragma warning restore S1125
                                                       IsThankedByUser = Sql.Custom($"({isThankByUserSql})"),
                                                       ThanksNumber = Sql.Custom($"({thanksCountSql})"),
                                                       PageIndex = pageIndex,

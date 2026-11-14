@@ -103,6 +103,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
     /// <summary>
     ///     Gets the current user id.
     /// </summary>
+#pragma warning disable S2325 // protected API of a public service class
     protected int CurrentUserId => BoardContext.Current.PageUserID;
 
     /// <summary>
@@ -112,6 +113,7 @@ public class ReadTrackCurrentUser : IReadTrackCurrentUser, IHaveServiceLocator
     ///     <c>true</c> if this user is guest; otherwise, <c>false</c>.
     /// </value>
     protected bool IsGuest => BoardContext.Current.IsGuest;
+#pragma warning restore S2325
 
     /// <summary>
     /// Gets a value indicating whether [use database read tracking].

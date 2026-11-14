@@ -360,22 +360,6 @@ public static class PMessageRepositoryExtensions
     }
 
     /// <summary>
-    /// Gets the the Private Messages By Id
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="userPMessageID">
-    /// The user Private Message ID.
-    /// </param>
-    public static PagedPm GetMessage(this IRepository<PMessage> repository, int userPMessageID)
-    {
-        
-
-        return repository.List(userPMessageID, false).FirstOrDefault();
-    }
-
-    /// <summary>
     /// Gets the list of Private Messages By Id
     /// </summary>
     /// <param name="repository">
@@ -418,7 +402,9 @@ public static class PMessageRepositoryExtensions
                                                     FromStyle = Sql.TableAlias(d.UserStyle, "d"),
                                                     FromSuspended = Sql.TableAlias(d.Suspended, "d"),
                                                     FromAvatar = Sql.TableAlias(d.Avatar, "d"),
+#pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
                                                     FromHasAvatarImage = Sql.TableAlias(d.AvatarImage, "d") != null ? true : false,
+#pragma warning restore S1125
                                                     ToUserID = b.UserID,
                                                     ToUser = Sql.TableAlias(c.Name, "c"),
                                                     ToUserDisplayName = Sql.TableAlias(c.DisplayName, "c"),
@@ -446,6 +432,20 @@ public static class PMessageRepositoryExtensions
         return !includeReplies
                    ? [.. messages.OrderBy(m => m.Created).ThenBy(m => m.PMessageID)]
                    : [.. repository.GetReplies(messages).OrderBy(m => m.Created).ThenBy(m => m.PMessageID)];
+    }
+
+    /// <summary>
+    /// Gets the the Private Messages By Id
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="userPMessageID">
+    /// The user Private Message ID.
+    /// </param>
+    public static PagedPm GetMessage(this IRepository<PMessage> repository, int userPMessageID)
+    {
+        return repository.List(userPMessageID, false).FirstOrDefault();
     }
 
     /// <summary>
@@ -542,7 +542,9 @@ public static class PMessageRepositoryExtensions
                                                     FromStyle = Sql.TableAlias(d.UserStyle, "d"),
                                                     FromSuspended = Sql.TableAlias(d.Suspended, "d"),
                                                     FromAvatar = Sql.TableAlias(d.Avatar, "d"),
+#pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
                                                     FromHasAvatarImage = Sql.TableAlias(d.AvatarImage, "d") != null ? true : false,
+#pragma warning restore S1125
                                                     ToUserID = b.UserID,
                                                     ToUser = Sql.TableAlias(c.Name, "c"),
                                                     ToUserDisplayName = Sql.TableAlias(c.DisplayName, "c"),

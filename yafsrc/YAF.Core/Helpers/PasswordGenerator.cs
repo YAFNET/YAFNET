@@ -89,7 +89,9 @@ public static class PasswordGenerator
         var characterSetLength = characterSet.Length;
 
         var random = new RandomGenerator();
-        for (var characterPosition = 0; characterPosition < lengthOfPassword; characterPosition++)
+        var characterPosition = 0;
+
+        while (characterPosition < lengthOfPassword)
         {
             password[characterPosition] = characterSet[random.Next(0, characterSetLength)];
 
@@ -97,9 +99,10 @@ public static class PasswordGenerator
                                              password[characterPosition] == password[characterPosition - 1] &&
                                              password[characterPosition - 1] == password[characterPosition - 2];
 
-            if (moreThanTwoIdenticalInARow)
+            // the character is generated again when it is the third identical in a row
+            if (!moreThanTwoIdenticalInARow)
             {
-                characterPosition--;
+                characterPosition++;
             }
         }
 
@@ -137,11 +140,11 @@ public static class PasswordGenerator
         const string REGEX_SPECIAL = @"([!#$%&*@\\])+";
         const string REGEX_SPACE = @"([ ])+";
 
-        var lowerCaseIsValid = !includeLowercase || Regex.IsMatch(password, REGEX_LOWERCASE);
-        var upperCaseIsValid = !includeUppercase || Regex.IsMatch(password, REGEX_UPPERCASE);
-        var numericIsValid = !includeNumeric || Regex.IsMatch(password, REGEX_NUMERIC);
-        var symbolsAreValid = !includeSpecial || Regex.IsMatch(password, REGEX_SPECIAL);
-        var spacesAreValid = !includeSpaces || Regex.IsMatch(password, REGEX_SPACE);
+        var lowerCaseIsValid = !includeLowercase || Regex.IsMatch(password, REGEX_LOWERCASE, RegexOptions.None, RegexHelper.Timeout);
+        var upperCaseIsValid = !includeUppercase || Regex.IsMatch(password, REGEX_UPPERCASE, RegexOptions.None, RegexHelper.Timeout);
+        var numericIsValid = !includeNumeric || Regex.IsMatch(password, REGEX_NUMERIC, RegexOptions.None, RegexHelper.Timeout);
+        var symbolsAreValid = !includeSpecial || Regex.IsMatch(password, REGEX_SPECIAL, RegexOptions.None, RegexHelper.Timeout);
+        var spacesAreValid = !includeSpaces || Regex.IsMatch(password, REGEX_SPACE, RegexOptions.None, RegexHelper.Timeout);
 
         return lowerCaseIsValid && upperCaseIsValid && numericIsValid && symbolsAreValid && spacesAreValid;
     }

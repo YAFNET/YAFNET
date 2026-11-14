@@ -86,11 +86,14 @@ public class PanelSessionState : IPanelSessionState
             BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
 
             // create persistent cookie with visibility setting for panel
+            // (secure on https, forcing it would lose the cookie on http-only installs)
+#pragma warning disable S2092
             var c = new HttpCookie(sessionPanelID, ((int)value).ToString())
                         {
                             Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true,
                             Secure = BoardContext.Current.Get<HttpRequestBase>().IsSecureConnection
                         };
+#pragma warning restore S2092
 
             BoardContext.Current.Get<HttpResponseBase>().SetCookie(c);
         }

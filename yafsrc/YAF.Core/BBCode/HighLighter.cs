@@ -58,7 +58,9 @@ public class HighLighter
     /// <returns>
     /// The color text.
     /// </returns>
+#pragma warning disable S2325 // public API, callers use an instance
     public string ColorText(string codeText, string language)
+#pragma warning restore S2325
     {
         language = language.ToLower();
 
@@ -72,8 +74,8 @@ public class HighLighter
         }
 
         // only characters of language names and line numbers, they are used in html attributes
-        language = Regex.Replace(language, "[^a-z0-9#+-]", string.Empty);
-        highlight = Regex.Replace(highlight, "[^0-9,-]", string.Empty);
+        language = Regex.Replace(language, "[^a-z0-9#+-]", string.Empty, RegexOptions.None, RegexHelper.Timeout);
+        highlight = Regex.Replace(highlight, "[^0-9,-]", string.Empty, RegexOptions.None, RegexHelper.Timeout);
 
         language = language switch
             {

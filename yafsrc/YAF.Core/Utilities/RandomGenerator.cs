@@ -75,7 +75,7 @@ public class RandomGenerator
     {
         if (minValue >= maxExclusiveValue)
         {
-            throw new ArgumentOutOfRangeException("minValue must be lower than maxExclusiveValue");
+            throw new ArgumentOutOfRangeException(nameof(minValue), "minValue must be lower than maxExclusiveValue");
         }
 
         var diff = (long)maxExclusiveValue - minValue;

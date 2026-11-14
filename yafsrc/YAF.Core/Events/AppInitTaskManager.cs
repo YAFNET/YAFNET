@@ -76,13 +76,13 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
     /// <param name="instanceName">
     /// Unique name of this task
     /// </param>
-    /// <param name="start">
+    /// <param name="startTask">
     /// Task to run
     /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public override bool StartTask(string instanceName, Func<IBackgroundTask> start)
+    public override bool StartTask(string instanceName, Func<IBackgroundTask> startTask)
     {
         if (this.appInstance is null)
         {
@@ -103,7 +103,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
             instanceName,
             _ =>
                 {
-                    var task = start();
+                    var task = startTask();
                     injectServices.Inject(task);
                     task.Run();
                     return task;
@@ -112,7 +112,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
                 {
                     task?.Dispose();
 
-                    var newTask = start();
+                    var newTask = startTask();
                     injectServices.Inject(newTask);
                     newTask.Run();
                     return newTask;

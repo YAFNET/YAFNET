@@ -20,6 +20,7 @@ namespace YAF.Core.Utilities.StringUtils;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -98,9 +99,11 @@ public enum Operation
      */
 public class Diff
 {
+    [SuppressMessage("Minor Code Smell", "S1104:Fields should not have public accessibility", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     public Operation Operation;
 
     // The text associated with this diff operation.
+    [SuppressMessage("Minor Code Smell", "S1104:Fields should not have public accessibility", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     public string Text;
 
     /**
@@ -126,17 +129,21 @@ public class DiffMatchPatch
     // Set these on your diff_match_patch instance to override the defaults.
 
     // Number of seconds to map a diff before giving up (0 for infinity).
+    [SuppressMessage("Minor Code Smell", "S1104:Fields should not have public accessibility", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     public float DiffTimeout = 1.0f;
 
     // Cost of an empty edit operation in terms of edit characters.
+    [SuppressMessage("Minor Code Smell", "S1104:Fields should not have public accessibility", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     public short DiffEditCost = 4;
 
     // How far to search for a match (0 = exact location, 1000+ = broad match).
     // A match this many characters away from the expected location will add
     // 1.0 to the score (0.0 is a perfect match).
+    [SuppressMessage("Minor Code Smell", "S1104:Fields should not have public accessibility", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     public int MatchDistance = 1000;
 
     // Chunk size for context length.
+    [SuppressMessage("Minor Code Smell", "S1104:Fields should not have public accessibility", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     public short PatchMargin = 4;
 
     /**
@@ -312,6 +319,7 @@ public class DiffMatchPatch
          * @param deadline Time when the diff should be complete by.
          * @return List of Diff objects.
          */
+    [SuppressMessage("Minor Code Smell", "S1643:Strings should not be concatenated using '+' in a loop", Justification = "Port of Google's diff-match-patch, the algorithm is kept as is.")]
     private List<Diff> LineMode(string text1, string text2, DateTime deadline)
     {
         // Scan the text on a line-by-line basis first.
@@ -562,6 +570,7 @@ public class DiffMatchPatch
          *     encoded text2 and the List of unique strings.  The zeroth element
          *     of the List of unique strings is intentionally blank.
          */
+    [SuppressMessage("Minor Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     protected object[] LinesToChars(string text1, string text2)
     {
         var lineArray = new List<string>();
@@ -638,6 +647,7 @@ public class DiffMatchPatch
          * @param diffs List of Diff objects.
          * @param lineArray List of unique strings.
          */
+    [SuppressMessage("Minor Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     protected void CharsToLines(ICollection<Diff> diffs, IList<string> lineArray)
     {
         foreach (var diff in diffs)
@@ -658,6 +668,7 @@ public class DiffMatchPatch
          * @param text2 Second string.
          * @return The number of characters common to the start of each string.
          */
+    [SuppressMessage("Minor Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     public int CommonPrefix(string text1, string text2)
     {
         // Performance analysis: https://neil.fraser.name/news/2007/10/09/
@@ -679,6 +690,7 @@ public class DiffMatchPatch
          * @param text2 Second string.
          * @return The number of characters common to the end of each string.
          */
+    [SuppressMessage("Minor Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     public int CommonSuffix(string text1, string text2)
     {
         // Performance analysis: https://neil.fraser.name/news/2007/10/09/
@@ -703,6 +715,7 @@ public class DiffMatchPatch
          * @return The number of characters common to the end of the first
          *     string and the start of the second string.
          */
+    [SuppressMessage("Minor Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     protected int CommonOverlap(string text1, string text2)
     {
         // Cache the text lengths to prevent multiple calls.
@@ -986,6 +999,7 @@ public class DiffMatchPatch
          * e.g: The c<ins>at c</ins>ame. -> The <ins>cat </ins>came.
          * @param diffs List of Diff objects.
          */
+    [SuppressMessage("Minor Code Smell", "S1643:Strings should not be concatenated using '+' in a loop", Justification = "Port of Google's diff-match-patch, the algorithm is kept as is.")]
     public void CleanupSemanticLossless(List<Diff> diffs)
     {
         var pointer = 1;
@@ -1132,15 +1146,16 @@ public class DiffMatchPatch
     }
 
     // Define some regex patterns for matching boundaries.
-    private readonly Regex blankLineEnd = new("\\n\\r?\\n\\Z");
+    private readonly Regex blankLineEnd = new("\\n\\r?\\n\\Z", RegexOptions.None, RegexHelper.Timeout);
 
-    private readonly Regex blankLineStart = new("\\A\\r?\\n\\r?\\n");
+    private readonly Regex blankLineStart = new("\\A\\r?\\n\\r?\\n", RegexOptions.None, RegexHelper.Timeout);
 
     /**
          * Reorder and merge like edit sections.  Merge equalities.
          * Any edit section can move as long as it doesn't cross an equality.
          * @param diffs List of Diff objects.
          */
+    [SuppressMessage("Minor Code Smell", "S1643:Strings should not be concatenated using '+' in a loop", Justification = "Port of Google's diff-match-patch, the algorithm is kept as is.")]
     public void CleanupMerge(List<Diff> diffs)
     {
         while (true)
@@ -1288,6 +1303,7 @@ public class DiffMatchPatch
          * @param diffs List of Diff objects.
          * @return HTML representation.
          */
+    [SuppressMessage("Minor Code Smell", "S2325:Methods and properties that don't access instance data should be static", Justification = "Port of Google's diff-match-patch, the public api is kept.")]
     public string PrettyHtml(List<Diff> diffs)
     {
         var html = new StringBuilder();

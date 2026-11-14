@@ -162,9 +162,12 @@ public static class HashHelper
     {
         CodeContracts.ThrowIfNull(clearBytes);
 
+        // SHA1 and MD5 are needed to verify the password hashes of older versions (legacy compatibility)
+#pragma warning disable S4790 // Using weak hashing algorithms is security-sensitive
         return hashAlgorithmType switch {
             HashAlgorithmType.SHA1 => SHA1.Create().ComputeHash(clearBytes),
             HashAlgorithmType.MD5 => MD5.Create().ComputeHash(clearBytes),
+#pragma warning restore S4790
             HashAlgorithmType.SHA256 => SHA256.Create().ComputeHash(clearBytes),
             HashAlgorithmType.SHA384 => SHA384.Create().ComputeHash(clearBytes),
             HashAlgorithmType.SHA512 => SHA512.Create().ComputeHash(clearBytes),

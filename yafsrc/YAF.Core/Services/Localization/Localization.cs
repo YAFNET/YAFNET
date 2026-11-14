@@ -42,12 +42,12 @@ public class Localization : ILocalization
     /// <summary>
     /// The begin no parse regex.
     /// </summary>
-    private readonly static Regex BeginNoParseRegex = new(@"(?<!\[noparse\])(?<inner>\[b\])", RegexOptions.Compiled);
+    private readonly static Regex BeginNoParseRegex = new(@"(?<!\[noparse\])(?<inner>\[b\])", RegexOptions.Compiled, RegexHelper.Timeout);
 
     /// <summary>
     /// The end no parse regex.
     /// </summary>
-    private readonly static Regex EndNoParseRegex = new(@"(?<inner>\[/b\])(?!\[/noparse\])", RegexOptions.Compiled);
+    private readonly static Regex EndNoParseRegex = new(@"(?<inner>\[/b\])(?!\[/noparse\])", RegexOptions.Compiled, RegexHelper.Timeout);
 
     /// <summary>
     ///   The _culture.
@@ -266,33 +266,6 @@ public class Localization : ILocalization
     }
 
     /// <summary>
-    /// Gets the attribute encoded text.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public string GetAttributeText(string text)
-    {
-        return HttpUtility.HtmlAttributeEncode(this.GetText(text));
-    }
-
-    /// <summary>
-    /// Gets the localized text
-    /// </summary>
-    /// <param name="page">The page.</param>
-    /// <param name="tag">The tag.</param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public string GetAttributeText(string page, string tag)
-    {
-        return HttpUtility.HtmlAttributeEncode(this.GetText(page, tag));
-    }
-
-    /// <summary>
     /// The get text, with a Specific Language.
     /// </summary>
     /// <param name="page">
@@ -368,6 +341,33 @@ public class Localization : ILocalization
         localizedText = localizedText.Replace("[/b]", "</b>");
 
         return localizedText;
+    }
+
+    /// <summary>
+    /// Gets the attribute encoded text.
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The get text.
+    /// </returns>
+    public string GetAttributeText(string text)
+    {
+        return HttpUtility.HtmlAttributeEncode(this.GetText(text));
+    }
+
+    /// <summary>
+    /// Gets the localized text
+    /// </summary>
+    /// <param name="page">The page.</param>
+    /// <param name="tag">The tag.</param>
+    /// <returns>
+    /// The get text.
+    /// </returns>
+    public string GetAttributeText(string page, string tag)
+    {
+        return HttpUtility.HtmlAttributeEncode(this.GetText(page, tag));
     }
 
     /// <summary>
@@ -473,7 +473,10 @@ public class Localization : ILocalization
                 }
 #endif
 
+            // can't be merged: in release builds the cache lookup above is part of the enclosing block
+#pragma warning disable S1066
             if (this.defaultLocale == null)
+#pragma warning restore S1066
             {
                 this.defaultLocale =
                     new Localizer(

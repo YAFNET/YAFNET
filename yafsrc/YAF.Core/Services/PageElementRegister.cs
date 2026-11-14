@@ -250,7 +250,9 @@ public class PageElementRegister
     /// <param name="scriptReference">
     /// The script reference.
     /// </param>
+#pragma warning disable S2325 // public API of the injected service
     public void AddScriptReference(ScriptReference scriptReference)
+#pragma warning restore S2325
     {
         var scriptManager = ScriptManager.GetCurrent(GetCurrentPage().Page);
 

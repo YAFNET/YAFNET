@@ -30,7 +30,9 @@ using System.Text;
 /// <summary>
 /// Helps parse URLs
 /// </summary>
+#pragma warning disable S101 // public API, renaming it would break existing code
 public class SimpleURLParameterParser
+#pragma warning restore S101
 {
     /// <summary>
     ///   The _url parameters.

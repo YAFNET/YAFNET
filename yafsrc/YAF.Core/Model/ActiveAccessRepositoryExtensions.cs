@@ -115,7 +115,9 @@ public static class ActiveAccessRepositoryExtensions
                             expression.Column<ActiveAccess>(x => x.LastActive, true),
                             OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {activeTime} ");
 
+#pragma warning disable S1125 // the boolean literal is needed by the OrmLite expression
                     expression.And(x => x.IsGuestX == false);
+#pragma warning restore S1125
 
                     return db.Connection.Delete(expression);
                 });

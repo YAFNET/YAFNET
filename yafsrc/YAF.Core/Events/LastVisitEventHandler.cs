@@ -109,13 +109,15 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
                 this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
             }
 
-            // set the last visit cookie...
-            var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
+            // set the last visit cookie (secure on https, forcing it would lose the cookie on http-only installs)...
+#pragma warning disable S2092
+            var httpCookie =new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
                                  {
                                      Expires = DateTime.Now.AddMonths(6),
                                      HttpOnly = true,
                                      Secure = this.request.IsSecureConnection
                                  };
+#pragma warning restore S2092
             this.response.Cookies.Add(httpCookie);
         }
     }

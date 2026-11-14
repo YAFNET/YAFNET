@@ -127,7 +127,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                     BoardContext.Current.MembershipUser,
                     BoardContext.Current.PageBoardID))
             {
-                throw new ArgumentNullException("Failed to create new user.");
+                throw new InvalidOperationException("Failed to create new user.");
             }
 
             if (pageRow is not null && pageRow.Item1 == null)
@@ -168,7 +168,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
 
         if (pageRow is null)
         {
-            throw new ArgumentNullException("Unable to find the Guest User!");
+            throw new InvalidOperationException("Unable to find the Guest User!");
         }
 
         // add all loaded page data into our data dictionary...

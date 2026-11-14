@@ -205,11 +205,6 @@ public class AdvancedUrlBuilder : BaseUrlBuilder
             {
                 var page = parser["p"].ToType<int>();
 
-                /*if (page != 1)
-                {
-                    description += $"/page{page}";
-                }*/
-
                 description += $"/page{page}";
 
                 parser.Parameters.Remove("p");

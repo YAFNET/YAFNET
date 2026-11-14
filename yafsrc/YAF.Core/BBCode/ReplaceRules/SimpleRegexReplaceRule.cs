@@ -55,7 +55,7 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
     /// </param>
     public SimpleRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
     {
-        this.RegExSearch = new Regex(regExSearch, regExOptions);
+        this.RegExSearch = new Regex(regExSearch, regExOptions, RegexHelper.Timeout);
         this.RegExReplace = regExReplace;
     }
 
@@ -106,8 +106,7 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
             // insert replaced value(s)
             sb.Insert(m.Groups[0].Index, replaceString);
 
-            // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-            m = this.RegExSearch.Match(sb.ToString());
+            m =this.RegExSearch.Match(sb.ToString());
         }
 
         text = sb.ToString();

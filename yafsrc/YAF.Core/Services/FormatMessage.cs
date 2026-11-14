@@ -288,11 +288,12 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// Returns a forbidden HTML tag or a null string
     /// </returns>
-    
+#pragma warning disable S2325 // public API of the service, callers use the instance
     public string HtmlTagForbiddenDetector(
         string stringToClear,
         string stringToMatch,
         char delimiter)
+#pragma warning restore S2325
     {
         var codes = stringToMatch.Split(delimiter);
 
@@ -339,7 +340,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     {
         const RegexOptions RegexOptions =
             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
-        var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", RegexOptions);
+        var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", RegexOptions, RegexHelper.Timeout);
 
         // remove quotes from old messages
         return quote.Replace(body, string.Empty).TrimStart();
@@ -362,7 +363,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         var hiddenRegex = new Regex(
             @"\[hide-reply\](?<inner>(.|\n)*?)\[\/hide-reply\]|\[hide-reply-thanks\](?<inner>(.|\n)*?)\[\/hide-reply-thanks\]|\[group-hide\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[group-hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide-thanks(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-thanks\]|\[hide-posts(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-posts\]",
-            RegexOptions);
+            RegexOptions,
+            RegexHelper.Timeout);
 
         var hiddenTagMatch = hiddenRegex.Match(body);
 
@@ -389,7 +391,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         const RegexOptions RegexOptions =
             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
 
-        var spoilerRegex = new Regex(@"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]", RegexOptions);
+        var spoilerRegex = new Regex(@"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]", RegexOptions, RegexHelper.Timeout);
 
         // keep the spoiler content, only drop the tags (the rest of the post was removed)
         return spoilerRegex.Replace(body, "${inner}");
@@ -411,13 +413,13 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     {
         // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
         // These are '\n\r' things related to multiline regexps.
-        var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+        var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase, RegexHelper.Timeout);
         for (var i = mc1.Count - 1; i >= 0; i--)
         {
             html = html.Insert(mc1[i].Index + 1, " \r");
         }
 
-        var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+        var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase, RegexHelper.Timeout);
         for (var i = mc2.Count - 1; i >= 0; i--)
         {
             html = html.Insert(mc2[i].Index + 1, " \r");
@@ -486,7 +488,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     {
         const RegexOptions RegexOptions = RegexOptions.IgnoreCase;
 
-        var matches = Regex.Matches(text, matchRegEx, RegexOptions).Cast<Match>().OrderByDescending(x => x.Index);
+        var matches = Regex.Matches(text, matchRegEx, RegexOptions, RegexHelper.Timeout).Cast<Match>().OrderByDescending(x => x.Index);
 
         matches.ForEach(
             match =>

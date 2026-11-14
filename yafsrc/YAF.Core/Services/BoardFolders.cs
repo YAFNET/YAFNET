@@ -32,7 +32,9 @@ public class BoardFolders
     /// <summary>
     /// Gets BoardFolder.
     /// </summary>
+#pragma warning disable S2325 // public API of the injected service
     public string BoardFolder =>
+#pragma warning restore S2325
         Config.MultiBoardFolders
             ? $"{Config.BoardRoot}{BoardContext.Current.Get<ControlSettings>().BoardID}/"
             : Config.BoardRoot;

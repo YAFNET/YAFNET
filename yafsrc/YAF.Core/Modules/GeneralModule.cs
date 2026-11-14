@@ -69,10 +69,6 @@ public class GeneralModule : BaseModule
 
         // register generic IRepository handler, which can be easily overriden by more advanced repository handler
         builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
-
-        // register filters -- even if they require BoardContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
-        // Do the BoardContext check inside the constructor and throw an exception if it's required.
-        // builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
     }
 
     /// <summary>
@@ -85,10 +81,6 @@ public class GeneralModule : BaseModule
     {
         builder.RegisterType<ServiceLocatorEventRaiser>().As<IRaiseEvent>().InstancePerLifetimeScope();
         builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
-
-        //// scan assemblies for events to wire up...
-        // builder.RegisterAssemblyTypes(this.ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
-        // AsImplementedInterfaces().InstancePerLifetimeScope();
     }
 
     /// <summary>

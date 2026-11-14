@@ -29,7 +29,9 @@ using System.Web.UI;
 /// <summary>
 /// EventArgs class for the PageTitleSet event
 /// </summary>
+#pragma warning disable S3376 // public event args type, renaming it would break the public API
 public class ForumPageRenderedArgs : EventArgs
+#pragma warning restore S3376
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumPageRenderedArgs"/> class.
