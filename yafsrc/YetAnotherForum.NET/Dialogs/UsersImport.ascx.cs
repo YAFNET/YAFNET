@@ -323,7 +323,7 @@ public partial class UsersImport : BaseUserControl
 
         if (row.Table.Columns.Contains("Birthday") && GetValue(row, "Birthday").IsSet())
         {
-            DateTime.TryParse(GetValue(row, "Birthday"), out var userBirthdate);
+            DateTime.TryParse(GetValue(row, "Birthday"), CultureInfo.CurrentCulture, DateTimeStyles.None, out var userBirthdate);
 
             if (userBirthdate > DateTimeHelper.SqlDbMinTime())
             {

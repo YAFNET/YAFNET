@@ -94,7 +94,6 @@ public partial class MoveTopic : BaseUserControl
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void Move_Click(object sender, EventArgs e)
     {
-        int? linkDays = null;
         var ld = -2;
 
         // a number below -2 left the days empty and the move failed with an error
@@ -122,18 +121,13 @@ public partial class MoveTopic : BaseUserControl
         // only move if it's a destination is a different forum.
         if (this.ForumListSelected.Value.ToType<int>() != this.PageBoardContext.PageForumID)
         {
-            if (ld >= -2)
-            {
-                linkDays = ld;
-            }
-
             // Ederon : 7/14/2007
             this.GetRepository<Topic>().Move(
                 this.PageBoardContext.PageTopic,
                 this.PageBoardContext.PageForumID,
                 this.ForumListSelected.Value.ToType<int>(),
                 this.LeavePointer.Checked,
-                linkDays.Value);
+                ld);
         }
 
         this.Get<LinkBuilder>().Redirect(

@@ -200,12 +200,13 @@ public partial class ActiveUsers : ForumPage
                 return;
         }
 
-        this.PagerTop.Count = activeUsers.Any() ? activeUsers[0].UserCount : 0;
-
-        if (activeUsers.NullOrEmpty())
+        if (activeUsers == null || activeUsers.Count == 0)
         {
+            this.PagerTop.Count = 0;
             return;
         }
+
+        this.PagerTop.Count = activeUsers[0].UserCount;
 
         this.UserList.DataSource = activeUsers;
 

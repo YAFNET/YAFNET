@@ -141,6 +141,7 @@ public partial class EditGroup : AdminPage
         if (group == null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
         }
 
         // get role flags

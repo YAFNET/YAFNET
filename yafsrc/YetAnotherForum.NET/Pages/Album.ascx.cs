@@ -79,6 +79,7 @@ public partial class Album : ForumPage
         if (album == null || album.UserID != this.CurrentUserID)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
         }
 
         // Generate the page links.
@@ -104,6 +105,7 @@ public partial class Album : ForumPage
     /// </summary>
     public override void CreatePageLinks()
     {
+        // the page links are created in Page_Load (they need the album of the address)
     }
 
     /// <summary>

@@ -339,9 +339,7 @@ public partial class SpamLog : AdminPage
 
         this.List.DataSource = list;
 
-        this.PagerTop.Count = !list.NullOrEmpty()
-                                  ? list.FirstOrDefault().TotalRows
-                                  : 0;
+        this.PagerTop.Count = list?.FirstOrDefault()?.TotalRows ?? 0;
 
         // bind data to controls
         this.DataBind();

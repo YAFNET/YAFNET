@@ -95,6 +95,11 @@ public partial class UserMedalEdit : BaseUserControl
             // load user-medal to the controls
             var row = this.GetRepository<UserMedal>().List(this.UserId, this.MedalId).FirstOrDefault();
 
+            if (row == null)
+            {
+                return;
+            }
+
             // tweak it for editing
             this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_USER");
             this.UserName.Enabled = false;

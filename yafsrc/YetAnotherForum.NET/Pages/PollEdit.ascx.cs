@@ -286,6 +286,7 @@ public partial class PollEdit : ForumPage
                              && !this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                return;
             }
 
             this.IsClosedBoundCheckBox.Checked = poll.PollFlags.IsClosedBound;

@@ -109,8 +109,8 @@ public partial class Restore : AdminPage
     /// </param>
     protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        int? forumId = null;
-        int? topicId = null;
+        var forumId = 0;
+        var topicId = 0;
 
         if (e.CommandArgument != null)
         {
@@ -124,7 +124,7 @@ public partial class Restore : AdminPage
         {
             case "delete":
                 {
-                    this.GetRepository<Topic>().Delete(forumId.Value, topicId.Value, true);
+                    this.GetRepository<Topic>().Delete(forumId, topicId, true);
 
                     this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -140,12 +140,12 @@ public partial class Restore : AdminPage
                     if (getFirstMessage != null)
                     {
                         this.GetRepository<Message>().Restore(
-                            forumId.Value,
-                            topicId.Value,
+                            forumId,
+                            topicId,
                             getFirstMessage);
                     }
 
-                    var topic = this.GetRepository<Topic>().GetById(topicId.Value);
+                    var topic = this.GetRepository<Topic>().GetById(topicId);
 
                     var flags = topic.TopicFlags;
 
@@ -207,19 +207,19 @@ public partial class Restore : AdminPage
     /// </param>
     protected void Messages_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        int? forumId = null;
-        int? topicId = null;
+        var forumId = 0;
+        var topicId = 0;
         Message message = null;
 
         if (e.CommandArgument != null)
         {
             var commandArgs = e.CommandArgument.ToString().Split(';');
 
-            int? messageId = commandArgs[0].ToType<int>();
+            var messageId = commandArgs[0].ToType<int>();
             forumId = commandArgs[1].ToType<int>();
             topicId = commandArgs[2].ToType<int>();
 
-            message = this.GetRepository<Message>().GetById(messageId.Value);
+            message = this.GetRepository<Message>().GetById(messageId);
         }
 
         switch (e.CommandName)
@@ -228,8 +228,8 @@ public partial class Restore : AdminPage
                 {
                     // delete message
                     this.GetRepository<Message>().Delete(
-                        forumId.Value,
-                        topicId.Value,
+                        forumId,
+                        topicId,
                         message,
                         true,
                         string.Empty,
@@ -245,8 +245,8 @@ public partial class Restore : AdminPage
             case "restore":
                 {
                     this.GetRepository<Message>().Restore(
-                        forumId.Value,
-                        topicId.Value,
+                        forumId,
+                        topicId,
                         message);
 
                     this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);

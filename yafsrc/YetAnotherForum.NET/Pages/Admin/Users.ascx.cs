@@ -397,9 +397,11 @@ public partial class Users : AdminPage
             this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue.ToType<int?>(),
             this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue.ToType<int?>());
 
-        if (!users.NullOrEmpty())
+        var firstUser = users?.FirstOrDefault();
+
+        if (firstUser != null)
         {
-            this.PagerTop.Count = users.FirstOrDefault().TotalRows;
+            this.PagerTop.Count = firstUser.TotalRows;
         }
 
         // bind list

@@ -177,7 +177,10 @@ public partial class EditForum : AdminPage
                 var forumCheck = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
                     .OrderByDescending(a => a.Item2.SortOrder).FirstOrDefault();
 
-                sortOrder = forumCheck.Item2.SortOrder + sortOrder;
+                if (forumCheck != null)
+                {
+                    sortOrder = forumCheck.Item2.SortOrder + sortOrder;
+                }
             }
             catch
             {

@@ -97,6 +97,20 @@ public partial class Members : ForumPage
     /// </returns>
     protected List<PagedUser> GetUserList(char startLetter, string userName, out int totalCount)
     {
+        var numPostsSet = this.NumPostsTB.Text.Trim().IsSet();
+
+        // the comparison of the number of posts (3 when none is selected, 0 without a number of posts)
+        int numPostsCompare;
+
+        if (this.NumPostDDL.SelectedIndex < 0)
+        {
+            numPostsCompare = 3;
+        }
+        else
+        {
+            numPostsCompare = numPostsSet ? this.NumPostDDL.SelectedValue.ToType<int>() : 0;
+        }
+
         this.userList = this.Get<IAspNetUsersHelper>().ListMembersPaged(
             this.PageBoardContext.PageBoardID,
             this.Group.SelectedIndex <= 0 ? null : this.Group.SelectedValue.ToType<int?>(),
@@ -110,10 +124,10 @@ public partial class Members : ForumPage
             this.ViewState["SortJoinedField"].ToType<int?>(),
             this.ViewState["SortNumPostsField"].ToType<int?>(),
             this.ViewState["SortLastVisitField"].ToType<int?>(),
-            this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostsTB.Text.Trim().ToType<int?>() : null,
-            this.NumPostDDL.SelectedIndex < 0 ? 3 : this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0);
+            numPostsSet ? this.NumPostsTB.Text.Trim().ToType<int?>() : null,
+            numPostsCompare);
 
-        totalCount = this.userList.Any() ? this.userList.FirstOrDefault().TotalRows : 0;
+        totalCount = this.userList?.FirstOrDefault()?.TotalRows ?? 0;
 
         return this.userList;
     }
@@ -435,14 +449,12 @@ public partial class Members : ForumPage
     {
         this.Pager.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
-        if (this.NumPostsTB.Text.IsSet())
+        // a number of posts that is no number (e.g. too big) is an invalid value
+        if (this.NumPostsTB.Text.IsSet()
+            && (!int.TryParse(this.NumPostsTB.Text.Trim(), out var numberOfPosts) || numberOfPosts < 0))
         {
-            // a number of posts that is no number (e.g. too big) is an invalid value
-            if (!int.TryParse(this.NumPostsTB.Text.Trim(), out var numberOfPosts) || numberOfPosts < 0)
-            {
-                this.PageBoardContext.Notify(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
-                return;
-            }
+            this.PageBoardContext.Notify(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
+            return;
         }
 
         // get the user list...

@@ -41,7 +41,7 @@ public class ActionParserFactory
         }
         else
         {
-            list = new List<IRewriteActionParser>();
+            list = [];
             this._parsers.Add(parser.Name, list);
         }
 

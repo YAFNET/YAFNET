@@ -32,10 +32,11 @@ using System.Collections;
 public partial class ForumSubForumList : BaseUserControl
 {
     /// <summary>
-    ///   Sets DataSource.
+    ///   Gets or sets DataSource.
     /// </summary>
     public IEnumerable DataSource
     {
+        get => this.SubforumList.DataSource as IEnumerable;
         set => this.SubforumList.DataSource = value;
     }
 

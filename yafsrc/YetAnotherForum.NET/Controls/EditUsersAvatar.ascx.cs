@@ -333,10 +333,12 @@ public partial class EditUsersAvatar : BaseUserControl
                 {
                     showNoAvatar = true;
                 }
+                else
+                {
+                    item.Selected = true;
+                }
 
                 this.AvatarImg.ImageUrl = $"{user.Avatar}?v={DateTime.Now.Ticks}";
-
-                item.Selected = true;
 
                 this.DeleteAvatar.Visible = true;
             }

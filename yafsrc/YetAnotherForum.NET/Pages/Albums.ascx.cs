@@ -70,6 +70,7 @@ public partial class Albums : ForumPage
         {
             // No such user exists
             this.Get<LinkBuilder>().AccessDenied();
+            return;
         }
 
         if (!user.UserFlags.IsApproved)

@@ -528,7 +528,9 @@ public partial class Posts : ForumPage
             this.Pager.PageSize,
             messagePosition);
 
-        if (!postList.Any())
+        var firstPost = postList.FirstOrDefault();
+
+        if (firstPost == null)
         {
             var topicException = new NoPostsFoundForTopicException(
                 this.PageBoardContext.PageTopicID,
@@ -544,9 +546,8 @@ public partial class Posts : ForumPage
             this.Logger.Error(topicException, "No posts were found for topic");
 
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
         }
-
-        var firstPost = postList.FirstOrDefault();
 
         this.Pager.Count = firstPost.TotalRows;
 

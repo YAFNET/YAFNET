@@ -74,6 +74,7 @@ public partial class Jabber : ForumPage
             || !userHe.UserFlags.IsApproved)
         {
             this.Get<LinkBuilder>().AccessDenied();
+            return;
         }
 
         this.PageBoardContext.PageLinks.AddRoot();

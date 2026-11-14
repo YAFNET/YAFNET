@@ -95,6 +95,7 @@ public partial class Email : ForumPage
     /// </summary>
     public override void CreatePageLinks()
     {
+        // the page links are created in Page_Load (they need the user of the address)
     }
 
     /// <summary>

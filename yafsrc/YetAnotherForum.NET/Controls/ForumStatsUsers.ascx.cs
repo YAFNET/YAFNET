@@ -91,10 +91,16 @@ public partial class ForumStatsUsers : BaseUserControl
 
         if (activeMembers > 0)
         {
+            var activeMembersText = this.GetTextFormatted(
+                activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2",
+                activeMembers);
+
+            var noFollow = this.PageBoardContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty;
+
             sb.Append(
                 canViewActive
-                    ? $", <a href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 1 })}\" title=\"{this.GetText("COMMON", "VIEW_FULLINFO")}\"{(this.PageBoardContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)}>{this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}</a>"
-                    : $", {this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}");
+                    ? $", <a href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 1 })}\" title=\"{this.GetText("COMMON", "VIEW_FULLINFO")}\"{noFollow}>{activeMembersText}</a>"
+                    : $", {activeMembersText}");
         }
 
         if (activeGuests > 0)

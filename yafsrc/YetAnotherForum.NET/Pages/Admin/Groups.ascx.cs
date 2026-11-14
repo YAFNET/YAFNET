@@ -256,7 +256,7 @@ public partial class Groups : AdminPage
                 this.GetRepository<Group>().Delete(g => g.ID == groupId);
 
                 // the members lose the style of the group
-                if (group != null && group.Style.IsSet())
+                if (group.Style.IsSet())
                 {
                     this.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(this.PageBoardContext.PageBoardID));
                 }

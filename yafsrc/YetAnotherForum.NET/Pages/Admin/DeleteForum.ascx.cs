@@ -94,16 +94,15 @@ public partial class DeleteForum : AdminPage
 
         var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
-        if (!this.Get<HttpRequestBase>().QueryString.Exists("fa") && forumId.HasValue)
+        if (!forumId.HasValue)
         {
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
+            return;
         }
-        else
-        {
-            var forum = this.GetRepository<Forum>().GetById(forumId.Value);
 
-            this.IconHeader.Text = $"{this.GetText("HEADER1")}: <strong>{this.HtmlEncode(forum.Name)}</strong>";
-        }
+        var forum = this.GetRepository<Forum>().GetById(forumId.Value);
+
+        this.IconHeader.Text = $"{this.GetText("HEADER1")}: <strong>{this.HtmlEncode(forum.Name)}</strong>";
     }
 
     /// <summary>

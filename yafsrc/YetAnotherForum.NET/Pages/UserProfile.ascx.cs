@@ -168,6 +168,7 @@ public partial class UserProfile : ForumPage
         {
             // No such user exists or this is an nntp user ("0")
             this.Get<LinkBuilder>().AccessDenied();
+            return;
         }
 
         // populate user information controls...

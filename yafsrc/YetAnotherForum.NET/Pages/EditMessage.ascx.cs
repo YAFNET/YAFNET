@@ -508,13 +508,11 @@ public partial class EditMessage : ForumPage
     {
         var postLocked = false;
 
-        if (!this.PageBoardContext.IsAdmin && this.PageBoardContext.BoardSettings.LockPosts > 0)
+        // the period starts when the post was written (an edit must not start it again)
+        if (!this.PageBoardContext.IsAdmin && this.PageBoardContext.BoardSettings.LockPosts > 0
+            && message.Posted.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow)
         {
-            // the period starts when the post was written (an edit must not start it again)
-            if (message.Posted.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow)
-            {
-                postLocked = true;
-            }
+            postLocked = true;
         }
 
         // get  forum information

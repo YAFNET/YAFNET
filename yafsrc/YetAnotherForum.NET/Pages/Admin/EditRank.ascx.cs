@@ -79,6 +79,7 @@ public partial class EditRank : AdminPage
         if (rank == null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return;
         }
 
         this.Name.Text = rank.Name;

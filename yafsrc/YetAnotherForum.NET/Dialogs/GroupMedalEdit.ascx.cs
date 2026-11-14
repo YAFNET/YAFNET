@@ -95,6 +95,11 @@ public partial class GroupMedalEdit : BaseUserControl
             // load group-medal to the controls
             var row = this.GetRepository<GroupMedal>().List(this.GroupId.Value, this.MedalId).FirstOrDefault();
 
+            if (row == null)
+            {
+                return;
+            }
+
             // tweak it for editing
             this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_GROUP");
             this.AvailableGroupList.Enabled = false;

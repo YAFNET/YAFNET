@@ -137,10 +137,10 @@ public partial class PrivateMessage : ForumPageRegistered
 
         var messages = this.GetRepository<PMessage>().List(messageId, true);
 
-        if (!messages.NullOrEmpty())
-        {
-            var message = messages.FirstOrDefault();
+        var message = messages?.FirstOrDefault();
 
+        if (message != null)
+        {
             this.SetMessageView(message.FromUserID, message.ToUserID, message.IsInOutbox);
 
             // only the messages the user received are read (after the access check, the sender reading the sent

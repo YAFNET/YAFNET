@@ -82,12 +82,12 @@ public partial class Settings : AdminPage
     {
         var languageFile = "english.json";
 
-        var cultures = StaticDataHelper.Cultures()
-            .Where(c => c.CultureTag.Equals(this.Culture.SelectedValue)).ToList();
+        var culture = StaticDataHelper.Cultures()
+            .FirstOrDefault(c => c.CultureTag.Equals(this.Culture.SelectedValue));
 
-        if (cultures.Any())
+        if (culture != null)
         {
-            languageFile = cultures.FirstOrDefault().CultureFile;
+            languageFile = culture.CultureFile;
         }
 
         this.GetRepository<Board>().Save(

@@ -22,17 +22,6 @@ using YAF.UrlRewriter.Transforms;
 /// </summary>
 public class TransformFactory
 {
-    /*
-    /// <summary>
-    /// Adds a transform.
-    /// </summary>
-    /// <param name="transformType">The type of the transform.</param>
-    public void AddTransform(string transformType)
-    {
-        AddTransform((IRewriteTransform)TypeHelper.Activate(transformType, null));
-    }
-     */
-
     /// <summary>
     /// Adds a transform.
     /// </summary>

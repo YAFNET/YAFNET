@@ -118,14 +118,16 @@ public partial class QuickReply : BaseUserControl
 
             // the last post of the user (not of the session: a new session would skip the delay),
             // all guests are the same user: the delay of a guest is the one of the address
+            var guestIpAddress = this.PageBoardContext.IsGuest
+                                     ? this.Get<HttpRequestBase>().GetUserRealIPAddress()
+                                     : null;
+
             var lastPosted = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess
                                                            || this.PageBoardContext.BoardSettings.PostFloodDelay <= 0
                                  ? null
                                  : this.GetRepository<Message>().GetUserLastPosted(
                                      this.PageBoardContext.PageUserID,
-                                     this.PageBoardContext.IsGuest
-                                         ? this.Get<HttpRequestBase>().GetUserRealIPAddress()
-                                         : null);
+                                     guestIpAddress);
 
             if (lastPosted.HasValue
                 && lastPosted > DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
@@ -158,58 +160,55 @@ public partial class QuickReply : BaseUserControl
             var isPossibleSpamMessage = false;
 
             // Check for SPAM
-            if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess
+                && this.Get<ISpamCheck>().CheckPostForSpam(
+                    this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName(),
+                    this.PageBoardContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                    this.quickReplyEditor.Text,
+                    this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
+                    out var spamResult))
             {
-                // Check content for spam
-                if (this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName(),
-                        this.PageBoardContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                        this.quickReplyEditor.Text,
-                        this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
-                        out var spamResult))
-                {
-                    var description =
-                        $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.quickReplyEditor.Text}]
+                var description =
+                    $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.quickReplyEditor.Text}]
                                posted by User: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}";
 
-                    switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
-                    {
-                        case SpamPostHandling.DoNothing:
-                            this.Logger.SpamMessageDetected(
-                                this.PageBoardContext.PageUserID,
-                                description);
-                            break;
-                        case SpamPostHandling.FlagMessageUnapproved:
-                            spamApproved = false;
-                            isPossibleSpamMessage = true;
-                            this.Logger.SpamMessageDetected(
-                                this.PageBoardContext.PageUserID,
-                                $"{description}, it was flagged as unapproved post");
-                            break;
-                        case SpamPostHandling.RejectMessage:
-                            this.Logger.SpamMessageDetected(
-                                this.PageBoardContext.PageUserID,
-                                $"{description}, post was rejected");
+                switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
+                {
+                    case SpamPostHandling.DoNothing:
+                        this.Logger.SpamMessageDetected(
+                            this.PageBoardContext.PageUserID,
+                            description);
+                        break;
+                    case SpamPostHandling.FlagMessageUnapproved:
+                        spamApproved = false;
+                        isPossibleSpamMessage = true;
+                        this.Logger.SpamMessageDetected(
+                            this.PageBoardContext.PageUserID,
+                            $"{description}, it was flagged as unapproved post");
+                        break;
+                    case SpamPostHandling.RejectMessage:
+                        this.Logger.SpamMessageDetected(
+                            this.PageBoardContext.PageUserID,
+                            $"{description}, post was rejected");
 
-                            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                                "openModalJs",
-                                JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
+                        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                            "openModalJs",
+                            JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                            this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                        this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
-                            return;
-                        case SpamPostHandling.DeleteBanUser:
-                            this.Logger.SpamMessageDetected(
-                                this.PageBoardContext.PageUserID,
-                                $"{description}, user was deleted and banned");
+                        return;
+                    case SpamPostHandling.DeleteBanUser:
+                        this.Logger.SpamMessageDetected(
+                            this.PageBoardContext.PageUserID,
+                            $"{description}, user was deleted and banned");
 
-                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                this.PageBoardContext.PageUser,
-                                this.PageBoardContext.MembershipUser,
-                                this.PageBoardContext.PageUser.IP);
+                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                            this.PageBoardContext.PageUser,
+                            this.PageBoardContext.MembershipUser,
+                            this.PageBoardContext.PageUser.IP);
 
-                            return;
-                    }
+                        return;
                 }
             }
 
