@@ -233,6 +233,11 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     protected virtual void Dispose(bool disposing)
     {
         this.Unload?.Invoke(this, EventArgs.Empty);
+
+        if (disposing)
+        {
+            this.contextLifetimeContainer.Dispose();
+        }
     }
 
     /// <summary>
