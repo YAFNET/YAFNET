@@ -150,7 +150,7 @@ public class PostRenderingTests
     [TestCase("[img=https://example.com/picture.{0}]description[/img]")]
     public void Image_Formats_Test(string bbCode)
     {
-        foreach (var extension in new[] { "png", "jpg", "gif", "webp" })
+        foreach (var extension in new[] { "png", "jpg", "gif", "webp", "svg" })
         {
             this.Format(string.Format(bbCode, extension)).Should()
                 .Contain($"<img src=\"https://example.com/picture.{extension}\"", extension);

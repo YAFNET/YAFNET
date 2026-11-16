@@ -818,7 +818,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)((?!.+logout)[^""\r\n\t\]\[]+?\.((googleusercontent[^\[]*)|(webp[^\[]*)|(jpg[^\[]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*)|(aspx[^\[]*))))\[/img\]",
+                        @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)((?!.+logout)[^""\r\n\t\]\[]+?\.((googleusercontent[^\[]*)|(webp[^\[]*)|(svg[^\[]*)|(jpg[^\[]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*)|(aspx[^\[]*))))\[/img\]",
                         Options | RegexOptions.Compiled,
                         RegexHelper.Timeout),
                     imageHtml,
@@ -833,7 +833,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)((?!.+logout)[^""\r\n\t\]\[]+?\.((googleusercontent[^\[]*)|(webp[^\]\[/img\]]*)|(jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
+                        @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)((?!.+logout)[^""\r\n\t\]\[]+?\.((googleusercontent[^\[]*)|(webp[^\]\[/img\]]*)|(svg[^\]\[/img\]]*)|(jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
                         Options | RegexOptions.Compiled,
                         RegexHelper.Timeout),
                     imageHtml,
@@ -848,7 +848,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)((?!.+logout)[^""\r\n\t\]\[]+?\.((googleusercontent[^\[]*)|(webp[^\]]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]",
+                        @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>(?!\s*(?:javascript|data|vbscript|file)\s*:)((?!.+logout)[^""\r\n\t\]\[]+?\.((googleusercontent[^\[]*)|(webp[^\]]*)|(svg[^\]]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]",
                         Options | RegexOptions.Compiled,
                         RegexHelper.Timeout),
                     imageHtmlWithDesc,

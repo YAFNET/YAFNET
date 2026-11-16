@@ -2,6 +2,7 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v3.2.19
+* [NEW] BB code [img]: svg images are shown (the url must end with .svg), they were shown as bb code text
 * [FIXED] BB code [img]: webp images were not shown, none of the image bb codes accepted the webp extension
 
 # YetAnotherForum.NET v3.2.18
