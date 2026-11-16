@@ -9,6 +9,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Tests: the test mail server netDumbster (no longer maintained) is replaced by TestSmtpServer (YAFNET.Tests.Utils), an in-process server based on the SmtpServer library (the SMTP engine of Papercut SMTP); the received mails are MimeKit MimeMessages
 
 # YetAnotherForum.NET v4.0.11
+* Upgraded to .NET 11
 * [NEW] Search: new option "Search for" with Posts (all matching posts), Topics (one result for each topic, with its latest matching post) and Forums (the forums with a matching name)
 * [NEW] Short urls: the public pages have shorter lowercase urls (/topic/1/name, /forum/1/name, /post/1/name, /user/1/name, /category/1/name, /album, /albums, /members, /active-users and /team), the page number of a topic is in the path (/topic/1/name/2), the slugs are lowercase and at most 80 characters long, the old urls and urls with an outdated name redirect permanently to the new url
 * [NEW] Reactions: the thanks button is replaced by reactions (like, love, haha, hooray, wow) as on Facebook or GitHub, each user can give one reaction to a post, change it, or remove it by clicking it again; the existing thanks are shown as love, and every reaction counts as a thanks for the profile statistics and the hide-thanks BB codes
