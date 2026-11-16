@@ -12,6 +12,17 @@
             height: 45px;
         }
 
+        // the user is online
+        .chat-avatar-online {
+            border: 2px solid var(--bs-success);
+            padding: 1px;
+        }
+
+        // the conversation has unread messages
+        &.unread .name {
+            font-weight: 700;
+        }
+
         .chat-user-info {
             min-width: 0;
 

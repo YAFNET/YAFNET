@@ -3,6 +3,8 @@ YetAnotherForum.NET Changelog
 
 # YetAnotherForum.NET v4.0.12
 * [NEW] BB code [img]: svg images are shown (the url must end with .svg), they were shown as bb code text
+* [NEW] Private messages: the conversation list shows the number of unread messages of each conversation (bold name and badge), a new message in another conversation updates the badge right away
+* [CHANGES] Private messages: the online status of the users in the conversation list is shown as a green border around the avatar instead of a red/green dot
 * [FIXED] BB code [img=url][/img] and [img=url]description[/img]: webp images were not shown, only [img]url[/img] accepted the webp extension
 * [FIXED] Private messages / chat: links in your own messages were invisible because the link color and the message bubble were both the primary color; they now use the text color of the bubble and are underlined
 * [FIXED] Profile menu (my account, profile pages, private messages): on mobile devices in landscape mode the icons were shown vertical (one below the other) instead of horizontal above the content

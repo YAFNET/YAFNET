@@ -52,6 +52,27 @@ chatHub.on('sendPrivateMessage', (toUserId: number, message: string, toAvatar: s
 	addMessage(ctrId, message, dateTime, side, timeSide, msgClass, toAvatar);
 });
 
+// a new message in a conversation that is not open, the conversation is marked as unread
+chatHub.on('newPrivateMessage', (fromUserId: number) => {
+	const li = document.getElementById(`${fromUserId}`);
+
+	if (!li?.classList.contains('chat-list-user')) {
+		return;
+	}
+
+	let badge = li.querySelector<HTMLSpanElement>('.chat-unread');
+
+	if (!badge) {
+		badge = document.createElement('span');
+		badge.className = 'chat-unread badge rounded-pill text-bg-danger ms-2 flex-shrink-0';
+		badge.textContent = '0';
+		li.append(badge);
+	}
+
+	badge.textContent = `${parseInt(badge.textContent ?? '0') + 1}`;
+	li.classList.add('unread');
+});
+
 function registerEvents(): void {
     const li = document.querySelector('.chat-list-user.active') as HTMLLIElement;
 
@@ -161,6 +182,10 @@ document.querySelectorAll<HTMLLIElement>('.chat-list-user').forEach(user => {
 		const li = user;
 
 		li.classList.add('active');
+
+		// opening the conversation marks all messages as read
+		li.classList.remove('unread');
+		li.querySelector('.chat-unread')?.remove();
 
         addMessageUser(li);
 	});

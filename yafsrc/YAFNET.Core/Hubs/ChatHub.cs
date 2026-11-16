@@ -201,6 +201,17 @@ public class ChatHub : Hub, IHaveServiceLocator
                     ToUserId = toUserId
                 });
 
+        // the other connections (browser tabs) of the other user show another conversation,
+        // they get a notification to mark the conversation with the sender as unread
+        var otherConnections = ConnectedUsers.Values.Where(x => x.UserId == toUserId && !toConnections.Contains(x));
+
+        foreach (var otherConnection in otherConnections)
+        {
+            await this.Clients.Client(otherConnection.ConnectionId).SendAsync(
+                "newPrivateMessage",
+                fromConnectUser.UserId);
+        }
+
         // send to caller user
         await this.Clients.Caller.SendAsync(
             "sendPrivateMessage",

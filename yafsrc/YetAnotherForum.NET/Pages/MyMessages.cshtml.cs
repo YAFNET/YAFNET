@@ -25,6 +25,7 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -52,6 +53,11 @@ public class MyMessagesModel : ForumPageRegistered
     /// <value>The users.</value>
     [BindProperty]
     public List<User> Users { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of unread messages of each conversation (by the user id of the sender).
+    /// </summary>
+    public Dictionary<int, int> UnreadCounts { get; set; } = [];
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MyMessagesModel" /> class.
@@ -95,6 +101,12 @@ public class MyMessagesModel : ForumPageRegistered
         this.Users = [];
 
         this.Users = await this.GetRepository<PrivateMessage>().GetUserListAsync(this.PageBoardContext.PageUserID);
+
+        // the unread messages to the user (that the user not deleted) by the sender
+        var unreadMessages = await this.GetRepository<PrivateMessage>().GetAsync(
+            p => p.ToUserId == this.PageBoardContext.PageUserID && (p.Flags & 1) != 1 && (p.Flags & 4) != 4);
+
+        this.UnreadCounts = unreadMessages.GroupBy(p => p.FromUserId).ToDictionary(g => g.Key, g => g.Count());
 
         User conversationUser;
 

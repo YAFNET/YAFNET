@@ -1,6 +1,7 @@
 @page "{handler?}"
 
 @using YAF.Core.Context
+@using YAF.Core.Extensions
 @using YAF.Core.Model
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
@@ -38,25 +39,25 @@
 
                         @foreach (var user in Model.Users)
                         {
-                            <li id="@(user.ID)" class="chat-list-user list-group-item list-group-item-action d-flex align-items-center@(user.Selected ? " active" : "")">
-                                <img class="img-thumbnail rounded chat-avatar me-2 flex-shrink-0 object-fit-cover" loading="lazy" src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))" alt="User Image">
-                                <div class="chat-user-info">
+                            var unread = user.Selected ? 0 : Model.UnreadCounts.GetValueOrDefault(user.ID);
+                            var showStatus = Model.PageBoardContext.BoardSettings.ShowUserOnlineStatus;
+                            var isOnline = showStatus && activeUsers.Exists(x => x.UserID == user.ID && !x.IsActiveExcluded);
+
+                            <li id="@(user.ID)" class="chat-list-user list-group-item list-group-item-action d-flex align-items-center@(user.Selected ? " active" : "")@(unread > 0 ? " unread" : "")">
+                                <img class="img-thumbnail rounded chat-avatar me-2 flex-shrink-0 object-fit-cover@(isOnline ? " chat-avatar-online" : "")" loading="lazy"
+                                     src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))"
+                                     alt="@(user.DisplayOrUserName())"
+                                     title="@(showStatus ? Model.GetText("POSTS", isOnline ? "USERONLINESTATUS" : "USEROFFLINESTATUS") : null)">
+                                <div class="chat-user-info flex-grow-1">
                                     <span class="name d-block text-truncate">@Html.UserLabel(user)</span>
                                     <small class="text-secondary">
-                                        @if (Model.PageBoardContext.BoardSettings.ShowUserOnlineStatus)
-                                        {
-                                            if (activeUsers.Exists(x => x.UserID == user.ID && !x.IsActiveExcluded))
-                                            {
-                                                <i class="fa fa-circle text-success pe-1"></i>
-                                            }
-                                            else
-                                            {
-                                                <i class="fa fa-circle text-danger pe-1"></i>
-                                            }
-                                        }
                                         @Html.DisplayDateTime(DateTimeFormat.Both, user.LastVisit)
                                     </small>
                                 </div>
+                                @if (unread > 0)
+                                {
+                                    <span class="chat-unread badge rounded-pill text-bg-danger ms-2 flex-shrink-0" title="@Model.GetText("COMMON", "UNREAD_MSG_TITLE")">@unread</span>
+                                }
                             </li>
                         }
 

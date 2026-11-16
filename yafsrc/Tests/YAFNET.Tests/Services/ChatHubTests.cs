@@ -123,6 +123,8 @@ public class ChatHubTests
             "sendPrivateMessage",
             Arg.Is<object[]>(a => (int)a[0] == this.alice && (string)a[1] == "<p>Hello Bob</p>" && (string)a[2] == avatar),
             Arg.Any<CancellationToken>());
+
+        await this.clients["bob-tab"].DidNotReceive().SendCoreAsync("newPrivateMessage", Arg.Any<object[]>(), Arg.Any<CancellationToken>());
     }
 
     [Test]
@@ -136,6 +138,21 @@ public class ChatHubTests
 
         (await this.Messages.GetSingleAsync(m => m.FromUserId == this.alice)).PrivateMessageFlags.IsRead.Should().BeFalse();
         await this.clients["bob-tab"].DidNotReceive().SendCoreAsync("sendPrivateMessage", Arg.Any<object[]>(), Arg.Any<CancellationToken>());
+
+        // the conversation list of bob marks the conversation with alice as unread
+        await this.clients["bob-tab"].Received(1).SendCoreAsync(
+            "newPrivateMessage",
+            Arg.Is<object[]>(a => (int)a[0] == this.alice),
+            Arg.Any<CancellationToken>());
+
+        await this.Hub("alice-tab").SendPrivateMessageAsync(this.bob, "Are you there?");
+
+        // the badge of the conversation (MyMessages) counts the unread messages
+        await this.clients["bob-tab"].Received(2).SendCoreAsync(
+            "newPrivateMessage",
+            Arg.Is<object[]>(a => (int)a[0] == this.alice),
+            Arg.Any<CancellationToken>());
+        (await this.Messages.CountAsync(m => m.ToUserId == this.bob && (m.Flags & 1) != 1)).Should().Be(2);
     }
 
     [Test]
