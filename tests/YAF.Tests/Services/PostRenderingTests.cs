@@ -144,6 +144,20 @@ public class PostRenderingTests
     }
 
     [Test]
+    [Description("All image bbcode forms render the supported image formats")]
+    [TestCase("[img]https://example.com/picture.{0}[/img]")]
+    [TestCase("[img=https://example.com/picture.{0}][/img]")]
+    [TestCase("[img=https://example.com/picture.{0}]description[/img]")]
+    public void Image_Formats_Test(string bbCode)
+    {
+        foreach (var extension in new[] { "png", "jpg", "gif", "webp" })
+        {
+            this.Format(string.Format(bbCode, extension)).Should()
+                .Contain($"<img src=\"https://example.com/picture.{extension}\"", extension);
+        }
+    }
+
+    [Test]
     [Description("Code blocks keep their content encoded (posts are saved with BBCodeHelper.EncodeCodeBlocks)")]
     public void Code_Test()
     {

@@ -1,6 +1,9 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.19
+* [FIXED] BB code [img]: webp images were not shown, none of the image bb codes accepted the webp extension
+
 # YetAnotherForum.NET v3.2.18
 * [FIXED] Search index update task: the nightly update indexed every post of each forum with new posts again (and loaded them all into memory at once), which caused a high cpu load for a long time on bigger boards; only the posts posted or edited since the last update are indexed now
 * [FIXED] Search: the search keyword was not highlighted in the text of the results, the mark tags were html encoded and shown as text (the title was highlighted correctly)
