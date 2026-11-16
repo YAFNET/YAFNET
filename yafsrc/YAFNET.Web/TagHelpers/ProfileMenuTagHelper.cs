@@ -46,6 +46,18 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     public IServiceLocator ServiceLocator => this.PageContext.ServiceLocator;
 
     /// <summary>
+    /// Gets or sets the bootstrap breakpoint (sm, md, lg, xl, xxl) from which on the menu is shown vertical
+    /// (as sidebar), below it the menu is shown horizontal. Default is lg.
+    /// </summary>
+    [HtmlAttributeName("vertical-from")]
+    public string VerticalFrom { get; set; } = "lg";
+
+    /// <summary>
+    /// Gets the bootstrap breakpoint from which on the menu item texts are shown.
+    /// </summary>
+    private string TextFrom => this.VerticalFrom is "xl" or "xxl" ? this.VerticalFrom : "lg";
+
+    /// <summary>
     /// The process.
     /// </summary>
     /// <param name="context">
@@ -60,7 +72,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var html = new TagBuilder(HtmlTag.Div);
 
-        html.AddCssClass("nav nav-pills flex-md-column");
+        html.AddCssClass($"nav nav-pills flex-{this.VerticalFrom}-column");
 
         html.InnerHtml.AppendHtml(this.RenderMenuItem(
             "nav-link",
@@ -237,7 +249,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var span = new TagBuilder(HtmlTag.Span);
 
-        span.AddCssClass("d-none d-lg-inline-block");
+        span.AddCssClass($"d-none d-{this.TextFrom}-inline-block");
 
         span.InnerHtml.Append(getText);
 

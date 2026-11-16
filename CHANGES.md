@@ -5,6 +5,7 @@ YetAnotherForum.NET Changelog
 * [NEW] BB code [img]: svg images are shown (the url must end with .svg), they were shown as bb code text
 * [FIXED] BB code [img=url][/img] and [img=url]description[/img]: webp images were not shown, only [img]url[/img] accepted the webp extension
 * [FIXED] Private messages / chat: links in your own messages were invisible because the link color and the message bubble were both the primary color; they now use the text color of the bubble and are underlined
+* [FIXED] Profile menu (my account, profile pages, private messages): on mobile devices in landscape mode the icons were shown vertical (one below the other) instead of horizontal above the content
 * [FIXED] NuGet: the packages YAFNET.Core, YAFNET.Types, YAFNET.Configuration, YAFNET.Web and YAFNET.Data.* used the README of the repository, its HTML (logo and badges) and relative links can not be shown on nuget.org; they now contain their own README (yafsrc/NuGet/README.md) in plain Markdown with absolute links
 * [CHANGES] Tests: the test mail server netDumbster (no longer maintained) is replaced by TestSmtpServer (YAFNET.Tests.Utils), an in-process server based on the SmtpServer library (the SMTP engine of Papercut SMTP); the received mails are MimeKit MimeMessages
 
