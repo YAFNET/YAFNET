@@ -11008,16 +11008,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "¿Eliminar esta conversación?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Tus conversaciones"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtrar conversaciones..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Encuentra un usuario (al menos 3 letras)..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Nueva conversación"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Aún no tienes conversaciones."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "No se encontraron usuarios."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Tipo de mensaje ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Enviar (Enter), una nueva línea con Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Mensajes privado"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Tú:"
           }
         ]
       },

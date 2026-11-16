@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Poistetaanko tämä keskustelu?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Keskustelut"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Suodata keskustelut..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Etsi käyttäjä (vähintään 3 kirjainta) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Uusi keskustelu"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Sinulla ei ole vielä keskusteluja."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Käyttäjiä ei löytynyt."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Kirjoita viesti ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Lähetä (Enter), uusi rivi näppäinyhdistelmällä Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Yksityisviestit"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Sinä:"
           }
         ]
       },

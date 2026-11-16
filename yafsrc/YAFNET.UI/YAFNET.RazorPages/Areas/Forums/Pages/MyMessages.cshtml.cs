@@ -30,7 +30,10 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+using ServiceStack.OrmLite;
+
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
@@ -58,6 +61,28 @@ public class MyMessagesModel : ForumPageRegistered
     /// Gets or sets the number of unread messages of each conversation (by the user id of the sender).
     /// </summary>
     public Dictionary<int, int> UnreadCounts { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the last message of each conversation (by the user id of the other user).
+    /// </summary>
+    public Dictionary<int, PrivateMessage> LastMessages { get; set; } = [];
+
+    /// <summary>
+    /// Gets the preview (plain text, shortened) of the last message of the conversation with the user.
+    /// </summary>
+    /// <param name="userId">The user id of the other user.</param>
+    /// <returns>The preview or null if the conversation has no messages.</returns>
+    public string GetLastMessagePreview(int userId)
+    {
+        if (!this.LastMessages.TryGetValue(userId, out var message) || message.Body.IsNotSet())
+        {
+            return null;
+        }
+
+        var text = BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(message.Body)).Replace('\n', ' ').Trim();
+
+        return text.Truncate(60);
+    }
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MyMessagesModel" /> class.
@@ -108,6 +133,15 @@ public class MyMessagesModel : ForumPageRegistered
 
         this.UnreadCounts = unreadMessages.GroupBy(p => p.FromUserId).ToDictionary(g => g.Key, g => g.Count());
 
+        await this.LoadLastMessagesAsync();
+
+        // the conversations with unread messages first, then the latest conversation first
+        this.Users =
+        [
+            .. this.Users.OrderByDescending(x => this.UnreadCounts.ContainsKey(x.ID))
+                .ThenByDescending(x => this.LastMessages.TryGetValue(x.ID, out var message) ? message.ID : 0)
+        ];
+
         User conversationUser;
 
         if (u.HasValue)
@@ -137,11 +171,56 @@ public class MyMessagesModel : ForumPageRegistered
             return this.OpenUserChat(conversationUser);
         }
 
+        // no conversations yet, the page shows the button to start a new conversation
         return this.Users.NullOrEmpty()
-            ? this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount)
+            ? this.Page()
             :
-            // If no user is selected open
-            this.OpenUserChat(this.Users[^1]);
+            // If no user is selected open the latest conversation
+            this.OpenUserChat(this.Users[0]);
+    }
+
+    /// <summary>
+    /// Loads the last message of each conversation (that the user not deleted).
+    /// </summary>
+    private async Task LoadLastMessagesAsync()
+    {
+        var userId = this.PageBoardContext.PageUserID;
+
+        var repository = this.GetRepository<PrivateMessage>();
+
+        // the id of the last message by the user id of the other user
+        var lastIds = await repository.DbAccess.ExecuteAsync(
+            async db =>
+            {
+                var sent = await db.DictionaryAsync<int, int>(
+                    db.From<PrivateMessage>().Where(p => p.FromUserId == userId && (p.Flags & 2) != 2)
+                        .GroupBy(p => p.ToUserId).Select(p => new { p.ToUserId, Id = Sql.Max(p.ID) }));
+
+                var received = await db.DictionaryAsync<int, int>(
+                    db.From<PrivateMessage>().Where(p => p.ToUserId == userId && (p.Flags & 4) != 4)
+                        .GroupBy(p => p.FromUserId).Select(p => new { p.FromUserId, Id = Sql.Max(p.ID) }));
+
+                foreach (var (otherUserId, id) in received)
+                {
+                    if (!sent.TryGetValue(otherUserId, out var sentId) || sentId < id)
+                    {
+                        sent[otherUserId] = id;
+                    }
+                }
+
+                return sent;
+            });
+
+        if (lastIds.Count == 0)
+        {
+            return;
+        }
+
+        var ids = lastIds.Values.ToList();
+
+        var messages = await repository.GetAsync(p => Sql.In(p.ID, ids));
+
+        this.LastMessages = messages.ToDictionary(p => p.FromUserId == userId ? p.ToUserId : p.FromUserId);
     }
 
     /// <summary>
@@ -158,8 +237,9 @@ public class MyMessagesModel : ForumPageRegistered
         }
         else
         {
+            // a new conversation is shown on top of the list
             conversationUser.Selected = true;
-            this.Users.Add(conversationUser);
+            this.Users.Insert(0, conversationUser);
         }
 
         return this.Page();

@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Xóa cuộc trò chuyện này?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Cuộc trò chuyện của bạn"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Lọc cuộc trò chuyện..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Tìm người dùng (ít nhất 3 chữ cái) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Cuộc trò chuyện mới"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Bạn chưa có cuộc trò chuyện nào."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Không tìm thấy người dùng nào."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Nhập tin nhắn ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Gửi (Enter), một dòng mới với Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tin nhắn"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Bạn:"
           }
         ]
       },

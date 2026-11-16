@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "删除此对话？"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "您的对话"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "过滤对话..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "查找用户（至少 3 个字母）..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "新的对话"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "你们还没有对话。"
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "没有找到用户。"
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "类型消息..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "发送 (Enter)，使用 Shift+Enter 换行"
+          },
+          {
             "@tag": "TITLE",
             "#text": "私信"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "你："
           }
         ]
       },

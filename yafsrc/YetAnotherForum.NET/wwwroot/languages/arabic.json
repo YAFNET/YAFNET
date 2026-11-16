@@ -11004,16 +11004,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "هل تريد حذف هذه المحادثة؟"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "محادثاتك"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "تصفية المحادثات..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "ابحث عن مستخدم (3 أحرف على الأقل) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "محادثة جديدة"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "ليس لديك محادثات بعد."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "لم يتم العثور على مستخدمين."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "اكتب الرسالة ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "أرسل (أدخل)، سطر جديد باستخدام Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "الرسائل الخاصة"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "أنت:"
           }
         ]
       },

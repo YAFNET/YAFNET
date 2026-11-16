@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Vil du slette denne samtale?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Dine samtaler"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtrer samtaler..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Find en bruger (mindst 3 bogstaver) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Ny samtale"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Du har ingen samtaler endnu."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Ingen brugere fundet."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Skriv besked ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Send (Enter), en ny linje med Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Private beskeder"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Du:"
           }
         ]
       },

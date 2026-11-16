@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Chcete odstrániť túto konverzáciu?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Vaše rozhovory"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtrovať konverzácie..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Nájsť používateľa (aspoň 3 písmená) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Nová konverzácia"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Zatiaľ nemáte žiadne konverzácie."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Nenašli sa žiadni používatelia."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Zadajte správu ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Send (Enter), nový riadok s Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Súkromné správy"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Ty:"
           }
         ]
       },

@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Bu görüşme silinsin mi?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Sohbetleriniz"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Konuşmaları filtrele..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Bir kullanıcı bulun (en az 3 harf) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Yeni Konuşma"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Henüz hiç konuşmanız yok."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Hiçbir kullanıcı bulunamadı."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Mesaj yazın ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Shift+Enter ile yeni bir satır gönder (Enter)"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Özel Mesajlar"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Sen:"
           }
         ]
       },

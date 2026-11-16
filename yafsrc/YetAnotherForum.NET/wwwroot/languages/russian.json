@@ -11008,16 +11008,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Удалить этот разговор?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Ваши разговоры"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Фильтровать разговоры..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Найдите пользователя (минимум 3 буквы)..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Новый разговор"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "У вас пока нет разговоров."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Пользователи не найдены."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Тип сообщения ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Отправить (Enter), новую строку с помощью Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Личные сообщения"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Ты:"
           }
         ]
       },

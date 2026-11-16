@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Smazat tuto konverzaci?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Vaše rozhovory"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtrovat konverzace..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Najít uživatele (alespoň 3 písmena) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Nová konverzace"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Zatím nemáte žádné konverzace."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Nebyli nalezeni žádní uživatelé."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Typ zprávy ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Send (Enter), nový řádek s Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Soukromé zprávy"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Vy:"
           }
         ]
       },

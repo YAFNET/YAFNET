@@ -11008,16 +11008,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Да се изтрие ли този разговор?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Вашите разговори"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Филтриране на разговори..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Намерете потребител (поне 3 букви) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Нов разговор"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Все още нямате разговори."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Няма намерени потребители."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Въведете съобщение ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Изпратете (Enter), нов ред с Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Частни съобщения"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Вие:"
           }
         ]
       },

@@ -121,7 +121,14 @@ public class ChatHubTests
 
         await this.clients["bob-tab"].Received(1).SendCoreAsync(
             "sendPrivateMessage",
-            Arg.Is<object[]>(a => (int)a[0] == this.alice && (string)a[1] == "<p>Hello Bob</p>" && (string)a[2] == avatar),
+            Arg.Is<object[]>(a => (int)a[0] == this.alice && (string)a[1] == "<p>Hello Bob</p>" && (string)a[2] == avatar
+                                  && (int)a[4] == this.alice),
+            Arg.Any<CancellationToken>());
+
+        // the sender gets the message too, the conversation is the one with bob, the author is alice
+        await this.clients["alice-tab"].Received(1).SendCoreAsync(
+            "sendPrivateMessage",
+            Arg.Is<object[]>(a => (int)a[0] == this.bob && (int)a[4] == this.alice),
             Arg.Any<CancellationToken>());
 
         await this.clients["bob-tab"].DidNotReceive().SendCoreAsync("newPrivateMessage", Arg.Any<object[]>(), Arg.Any<CancellationToken>());

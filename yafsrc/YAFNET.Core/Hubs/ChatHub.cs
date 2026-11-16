@@ -188,7 +188,8 @@ public class ChatHub : Hub, IHaveServiceLocator
                 fromConnectUser.UserId,
                 bodyFormatted,
                 fromConnectUser.Avatar,
-                dateTimeFormatted);
+                dateTimeFormatted,
+                fromConnectUser.UserId);
         }
 
         await this.GetRepository<PrivateMessage>().InsertAsync(
@@ -218,7 +219,8 @@ public class ChatHub : Hub, IHaveServiceLocator
             toUserId,
             bodyFormatted,
             fromConnectUser.Avatar,
-            dateTimeFormatted);
+            dateTimeFormatted,
+            fromConnectUser.UserId);
     }
 
     /// <summary>

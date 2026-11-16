@@ -1,10 +1,18 @@
 // MyMessages (Private Conversations) Page
 .page-MyMessages {
 
+    // on the desktop the list has the height of the chat
+    .chat-list {
+        // bootstrap xl breakpoint
+        @media (min-width: 1200px) {
+            max-height: clamp(18rem, calc(100dvh - 22rem), 45rem);
+        }
+    }
+
     .chat-list-user {
         transition: background-color .15s ease;
 
-        &:hover {
+        &:hover:not(.active) {
             background: var(--bs-tertiary-bg);
         }
 
@@ -18,11 +26,6 @@
             padding: 1px;
         }
 
-        // the conversation has unread messages
-        &.unread .name {
-            font-weight: 700;
-        }
-
         .chat-user-info {
             min-width: 0;
 
@@ -30,5 +33,31 @@
                 font-weight: 500;
             }
         }
+
+        // the conversation has unread messages
+        &.unread .chat-user-info .name {
+            font-weight: 700;
+        }
+
+        &.unread .chat-preview {
+            color: var(--bs-body-color) !important;
+        }
+
+        // the texts of the selected conversation are readable on the active (primary) background
+        &.active .text-secondary {
+            color: inherit !important;
+            opacity: .85;
+        }
+    }
+
+    // the found users of the new conversation
+    #FindUserResults img {
+        width: 32px;
+        height: 32px;
+    }
+
+    // the chat fits into the screen (also on mobile devices in landscape mode)
+    .direct-chat-messages {
+        height: clamp(12rem, calc(100dvh - 16rem), 45rem);
     }
 }

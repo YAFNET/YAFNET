@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Ștergeți această conversație?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Conversațiile tale"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtrați conversațiile..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Găsiți un utilizator (cel puțin 3 litere)..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Conversație nouă"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Nu aveți încă conversații."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Nu s-au găsit utilizatori."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Tastați mesaj ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Trimiteți (Enter), o nouă linie cu Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Messaj Privat"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Tu:"
           }
         ]
       },

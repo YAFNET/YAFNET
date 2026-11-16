@@ -11012,16 +11012,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Usunąć tę rozmowę?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Twoje rozmowy"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtruj rozmowy..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Znajdź użytkownika (co najmniej 3 litery) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Nowa rozmowa"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Nie masz jeszcze żadnych rozmów."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Nie znaleziono żadnych użytkowników."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Wpisz wiadomość ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Wyślij (Enter), nową linię za pomocą Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Prywatne wiadomości"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Ty:"
           }
         ]
       },

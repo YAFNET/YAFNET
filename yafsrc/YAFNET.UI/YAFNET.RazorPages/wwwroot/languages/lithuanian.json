@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Ištrinti šį pokalbį?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Jūsų pokalbiai"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtruoti pokalbius..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Raskite vartotoją (bent 3 raidės)..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Naujas pokalbis"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Dar neturite jokių pokalbių."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Nerasta jokių vartotojų."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Įveskite pranešimą ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Siųskite (Enter), naują eilutę su Shift + Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Privačios žinutės"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Jūs:"
           }
         ]
       },

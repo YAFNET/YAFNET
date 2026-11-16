@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Vill du ta bort den här konversationen?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Dina konversationer"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtrera konversationer..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Hitta en användare (minst 3 bokstäver) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Nytt samtal"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Du har inga konversationer än."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Inga användare hittades."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Typmeddelande ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Skicka (Enter), en ny rad med Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Privata meddelanden"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Du:"
           }
         ]
       },

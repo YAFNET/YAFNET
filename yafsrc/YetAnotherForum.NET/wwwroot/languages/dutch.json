@@ -11008,16 +11008,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Dit gesprek verwijderen?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Uw gesprekken"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Gesprekken filteren..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Zoek een gebruiker (minimaal 3 letters) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Nieuw gesprek"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Je hebt nog geen gesprekken."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Geen gebruikers gevonden."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Type bericht ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Verzenden (Enter), een nieuwe regel met Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Privé-berichten"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Jij:"
           }
         ]
       },

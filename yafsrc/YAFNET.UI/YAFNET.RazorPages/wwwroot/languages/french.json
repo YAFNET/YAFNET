@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Supprimer cette conversation ?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Vos conversations"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtrer les conversations..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Trouver un utilisateur (au moins 3 lettres)..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Nouvelle conversation"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Vous n'avez pas encore de conversations."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Aucun utilisateur trouvé."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Tapez Message..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Envoyer (Entrée), une nouvelle ligne avec Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Messages privés"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Toi:"
           }
         ]
       },

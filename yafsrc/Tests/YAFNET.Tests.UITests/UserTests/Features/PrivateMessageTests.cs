@@ -96,23 +96,75 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
                     var text = $"Chat message {Random.Shared.Next()}";
                     var message = page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = text });
 
+                    // Enter sends the message
                     await page.Locator("#txtPrivateMessage").FillAsync(text);
-                    await page.Locator("#btnSendMessage").ClickAsync();
+                    await page.Locator("#txtPrivateMessage").PressAsync("Enter");
 
                     await message.WaitForAsync();
+
+                    Assert.That(
+                        await page.Locator("#txtPrivateMessage").InputValueAsync(),
+                        Is.Empty,
+                        "The message is not sent by the enter key");
 
                     // the conversation is loaded from the database
                     await page.ReloadAsync();
 
                     await message.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
 
-                    // deleted for the test user (the page is reloaded)
-                    await page.RunAndWaitForNextPageAsync(() => page.Locator("#deleteConversation").ClickAsync());
+                    // the conversation list shows the last message
+                    Assert.That(
+                        await page.Locator($"li.chat-list-user[id='{adminId}'] .chat-preview").TextContentAsync(),
+                        Does.Contain(text),
+                        "The last message is not shown in the conversation list");
+
+                    // deleted for the test user after the confirm dialog (the page is reloaded)
+                    await page.Locator("#deleteConversation").ClickAsync();
+                    await page.RunAndWaitForNextPageAsync(() => page.Locator(".bootbox .btn-success").ClickAsync());
 
                     await page.Locator("#divMessage").WaitForAsync();
                     await page.WaitForTimeoutAsync(2000);
 
                     Assert.That(await message.CountAsync(), Is.Zero, "The deleted conversation is shown");
+                });
+    }
+
+    /// <summary>
+    /// A new conversation is started with a user found by the user search of the private messages page.
+    /// </summary>
+    [Test]
+    public async Task NewConversationTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var adminId = await this.GetAdminIdAsync(page);
+
+                    Assert.That(
+                        await page.LoginUserAsync(
+                            this.TestSettings,
+                            this.TestSettings.TestUserName,
+                            this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages");
+
+                    await page.Locator("[data-bs-target='#NewConversation']").First.ClickAsync();
+
+                    await page.Locator("#FindUser").FillAsync(this.TestSettings.AdminUserName[..3]);
+
+                    var userLink = page.Locator($"#FindUserResults a[href*='u={adminId}']");
+
+                    await userLink.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+
+                    await page.RunAndWaitForNextPageAsync(() => userLink.ClickAsync());
+
+                    Assert.That(
+                        await page.Locator($"li.chat-list-user.active[id='{adminId}']").CountAsync(),
+                        Is.EqualTo(1),
+                        "The new conversation is not opened");
                 });
     }
 

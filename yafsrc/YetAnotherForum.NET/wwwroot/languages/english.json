@@ -11026,6 +11026,38 @@
                 {
                     "@tag": "PLACEHOLDER",
                     "#text": "Type Message ..."
+                },
+                {
+                    "@tag": "CONFIRM_DELETE",
+                    "#text": "Delete this conversation?"
+                },
+                {
+                    "@tag": "NEW_CONVERSATION",
+                    "#text": "New Conversation"
+                },
+                {
+                    "@tag": "FIND_USER",
+                    "#text": "Find a user (at least 3 letters) ..."
+                },
+                {
+                    "@tag": "NO_USERS_FOUND",
+                    "#text": "No users found."
+                },
+                {
+                    "@tag": "FILTER",
+                    "#text": "Filter conversations ..."
+                },
+                {
+                    "@tag": "NO_CONVERSATIONS",
+                    "#text": "You have no conversations yet."
+                },
+                {
+                    "@tag": "YOU",
+                    "#text": "You:"
+                },
+                {
+                    "@tag": "SEND_TT",
+                    "#text": "Send (Enter), a new line with Shift+Enter"
                 }
             ]
         },

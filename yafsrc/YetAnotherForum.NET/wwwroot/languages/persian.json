@@ -11004,16 +11004,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "این مکالمه حذف شود؟"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "مکالمات شما"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "فیلتر کردن مکالمات ..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "یافتن یک کاربر (حداقل 3 حرف) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "مکالمه جدید"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "شما هنوز مکالمه ای ندارید."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "هیچ کاربری پیدا نشد"
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "پیام را تایپ کنید ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "ارسال (Enter)، یک خط جدید با Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "پیام‌های شخصی"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "شما:"
           }
         ]
       },

@@ -11008,16 +11008,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Eliminare questa conversazione?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Le tue conversazioni"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Filtra conversazioni..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Trova un utente (almeno 3 lettere) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Nuova conversazione"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Non hai ancora conversazioni."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Nessun utente trovato."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Digitare il messaggio ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Invia (Invio), una nuova riga con Maiusc+Invio"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Messaggi privati"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Voi:"
           }
         ]
       },

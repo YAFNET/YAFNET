@@ -5,6 +5,14 @@ YetAnotherForum.NET Changelog
 * [NEW] BB code [img]: svg images are shown (the url must end with .svg), they were shown as bb code text
 * [NEW] Private messages: the conversation list shows the number of unread messages of each conversation (bold name and badge), a new message in another conversation updates the badge right away
 * [CHANGES] Private messages: the online status of the users in the conversation list is shown as a green border around the avatar instead of a red/green dot
+* [NEW] Private messages: the conversation list is sorted by the latest message (conversations with unread messages first) and shows the last message (preview) and its time
+* [NEW] Private messages: new conversation button with a user search (at least 3 letters), without conversations the page shows the button instead of redirecting to the account page
+* [NEW] Private messages: filter for the conversation list (with more than 5 conversations)
+* [CHANGES] Private messages: Enter sends the message, Shift+Enter adds a new line (was the other way round)
+* [CHANGES] Private messages: deleting a conversation has to be confirmed
+* [CHANGES] Private messages: the height of the chat fits the screen (also on mobile devices in landscape mode), the conversation list is wider on the desktop
+* [FIXED] Private messages: a message of the other user that arrived while the conversation was open was shown on your own side in your bubble color
+* [FIXED] Private messages: the selected conversation lost its background color on hover
 * [FIXED] BB code [img=url][/img] and [img=url]description[/img]: webp images were not shown, only [img]url[/img] accepted the webp extension
 * [FIXED] Private messages / chat: links in your own messages were invisible because the link color and the message bubble were both the primary color; they now use the text color of the bubble and are underlined
 * [FIXED] Profile menu (my account, profile pages, private messages): on mobile devices in landscape mode the icons were shown vertical (one below the other) instead of horizontal above the content

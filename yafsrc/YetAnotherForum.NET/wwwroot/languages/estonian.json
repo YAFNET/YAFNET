@@ -11024,16 +11024,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Kas kustutada see vestlus?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "Teie vestlused"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "Vestluste filtreerimine ..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "Leia kasutaja (vähemalt 3 tähte) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "Uus vestlus"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "Teil pole veel vestlusi."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "Ühtegi kasutajat ei leitud."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "Tüüpi teade ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "Saada (Enter) uus rida klahvikombinatsiooniga Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Privaatsõnumid"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "Sina:"
           }
         ]
       },

@@ -11028,16 +11028,48 @@
         "@name": "PM",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "למחוק את השיחה הזו?"
+          },
+          {
             "@tag": "CONVERSATION_TITLE",
             "#text": "השיחות שלך"
+          },
+          {
+            "@tag": "FILTER",
+            "#text": "סינון שיחות..."
+          },
+          {
+            "@tag": "FIND_USER",
+            "#text": "מצא משתמש (לפחות 3 אותיות) ..."
+          },
+          {
+            "@tag": "NEW_CONVERSATION",
+            "#text": "שיחה חדשה"
+          },
+          {
+            "@tag": "NO_CONVERSATIONS",
+            "#text": "אין לך עדיין שיחות."
+          },
+          {
+            "@tag": "NO_USERS_FOUND",
+            "#text": "לא נמצאו משתמשים."
           },
           {
             "@tag": "PLACEHOLDER",
             "#text": "הקלד הודעה ..."
           },
           {
+            "@tag": "SEND_TT",
+            "#text": "שלח (Enter), שורה חדשה עם Shift+Enter"
+          },
+          {
             "@tag": "TITLE",
             "#text": "הודעות פרטיות"
+          },
+          {
+            "@tag": "YOU",
+            "#text": "אַתָה:"
           }
         ]
       },
