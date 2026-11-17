@@ -22,4 +22,19 @@ Prebuilt images are published on Docker Hub as [`yafnet/yafnet`](https://hub.doc
 | PostgreSQL           | `docker-compose-PostgreSQL.yml`  |
 | SQLite               | `docker-compose-Sqlite.yml`      |
 
+## Data volumes
+
+Everything the forum needs to keep is stored in named volumes, so it survives an update (`docker compose pull` and `up -d` recreate the container):
+
+| Volume | Path in the container | Content |
+|---|---|---|
+| `mssql-data`, `mysql-data`, `postgresql-data`, `sqlite-data` | depends on the database | the database |
+| `yaf-uploads` | `/app/wwwroot/uploads` | the uploaded files (attachments) |
+| `yaf-images` | `/app/wwwroot/images` | avatars, logos, category, forum and medal images |
+| `yaf-backups` | `/app/App_Data/Backups` | the database backups (Admin > Database > Backup) |
+
+A new, empty volume is filled with the files of the image (e.g. the default medals) when it is mounted the first time. After that the volume keeps its content: images that a newer version adds to `wwwroot/images` are not copied into an existing `yaf-images` volume.
+
+With `MultiBoardFolders` every board has its own folders (`wwwroot/<board id>/uploads` and `/images`), add a volume for each of them.
+
 This folder contains the Dockerfile of each provider (`yaf-sqlserver`, `yaf-mysql`, `yaf-postgresql`, `yaf-sqlite`) and the database init scripts.

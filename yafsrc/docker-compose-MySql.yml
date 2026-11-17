@@ -22,6 +22,8 @@ services:
     container_name: yafnet
     volumes:
       - yaf-backups:/app/App_Data/Backups   # the database backups (Admin > Database > Backup)
+      - yaf-uploads:/app/wwwroot/uploads    # the uploaded files (attachments)
+      - yaf-images:/app/wwwroot/images      # the images (avatars, logos, category/forum images, medals)
     ports:
       - "8001:89"
     networks:
@@ -63,3 +65,5 @@ services:
 volumes:
   mysql-data:
   yaf-backups:
+  yaf-uploads:
+  yaf-images:
