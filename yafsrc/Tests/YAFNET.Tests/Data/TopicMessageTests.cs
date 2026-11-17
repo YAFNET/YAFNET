@@ -99,6 +99,12 @@ public class TopicMessageTests
         (await this.Messages.GetByIdAsync(message.ID)).MessageFlags.IsApproved.Should().BeTrue();
         this.board.Search.Indexed.Should().ContainKey(message.ID).WhoseValue.Topic.Should().Be("Hello World");
         this.board.Events.OfType<UpdateForumStatsEvent>().Should().NotBeEmpty();
+
+        var published = this.board.Events.OfType<PostPublishedEvent>().Should().ContainSingle().Subject;
+        published.ForumId.Should().Be(this.forumId);
+        published.TopicId.Should().Be(topic.ID);
+        published.MessageId.Should().Be(message.ID);
+        published.IsNewTopic.Should().BeTrue();
     }
 
     [Test]
@@ -110,8 +116,12 @@ public class TopicMessageTests
         (await this.Messages.GetByIdAsync(message.ID)).MessageFlags.IsApproved.Should().BeFalse();
         (await this.Users.GetByIdAsync(this.alice)).NumPosts.Should().Be(0);
         (await this.Topics.GetByIdAsync(topic.ID)).LastMessageID.Should().BeNull();
+        this.board.Events.OfType<PostPublishedEvent>().Should().BeEmpty("the real-time updates must not show a post before it is approved");
 
         await this.Messages.ApproveAsync(message.ID, this.forumId);
+
+        this.board.Events.OfType<PostPublishedEvent>().Should().ContainSingle()
+            .Which.MessageId.Should().Be(message.ID, "the approval publishes the post");
 
         (await this.Messages.GetByIdAsync(message.ID)).MessageFlags.IsApproved.Should().BeTrue();
         new MessageFlags(this.board.Search.Indexed[message.ID].Flags).IsApproved.Should()
@@ -139,6 +149,23 @@ public class TopicMessageTests
 
         this.Messages.RepliedTopic(topic.ID, this.bob).Should().BeTrue();
         this.Messages.Replies(first.ID).Should().ContainSingle().Which.ID.Should().Be(reply.ID);
+
+        var published = this.board.Events.OfType<PostPublishedEvent>().Last();
+        published.MessageId.Should().Be(reply.ID);
+        published.IsNewTopic.Should().BeFalse();
+    }
+
+    [Test]
+    [Description("A quick reply (no quoted post) is not a new topic for the real-time updates")]
+    public async Task Reply_Without_ReplyTo_Is_Not_New_Topic_Test()
+    {
+        var (topic, _) = await this.PostTopicAsync("Topic", "first");
+
+        var reply = await this.ReplyAsync(topic, "second");
+
+        var published = this.board.Events.OfType<PostPublishedEvent>().Last();
+        published.MessageId.Should().Be(reply.ID);
+        published.IsNewTopic.Should().BeFalse();
     }
 
     [Test]

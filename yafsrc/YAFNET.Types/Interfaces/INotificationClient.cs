@@ -26,6 +26,8 @@ namespace YAF.Types.Interfaces;
 
 using System.Threading.Tasks;
 
+using YAF.Types.Objects;
+
 /// <summary>
 /// Interface INotificationClient
 /// </summary>
@@ -37,4 +39,11 @@ public interface INotificationClient
     /// <param name="alerts">The alerts.</param>
     /// <returns>Task.</returns>
     Task NewActivityAsync(int alerts);
+
+    /// <summary>
+    /// A post was published in a forum the client can read (real-time updates of the pages).
+    /// </summary>
+    /// <param name="info">The ids of the post.</param>
+    /// <returns>Task.</returns>
+    Task PostPublishedAsync(PostPublishedInfo info);
 }

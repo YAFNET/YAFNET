@@ -491,6 +491,12 @@ public class HostSettingsInputModel
     public bool ShowSimilarTopics { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether new topics and posts are shown without reloading the page.
+    /// </summary>
+    /// <value><c>true</c> if [enable live updates]; otherwise, <c>false</c>.</value>
+    public bool EnableLiveUpdates { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether [show forum jump].
     /// </summary>
     /// <value><c>true</c> if [show forum jump]; otherwise, <c>false</c>.</value>

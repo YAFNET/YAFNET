@@ -26,6 +26,8 @@ using Microsoft.AspNetCore.SignalR;
 
 using System.Threading.Tasks;
 
+using YAF.Types.Objects;
+
 namespace YAF.Core.Hubs;
 
 /// <summary>
@@ -59,5 +61,19 @@ public class NotificationClient
             .Clients
             .User(userName)
             .NewActivityAsync(alerts);
+    }
+
+    /// <summary>
+    /// Sends the published post to all connections that can read the forum
+    /// (they joined the group of the forum in <see cref="NotificationHub.SubscribeAsync"/>).
+    /// </summary>
+    /// <param name="info">The ids of the post.</param>
+    /// <returns>Task.</returns>
+    public Task SendPostPublishedAsync(PostPublishedInfo info)
+    {
+        return this.notificationHub
+            .Clients
+            .Group(NotificationHub.ForumGroup(info.ForumId))
+            .PostPublishedAsync(info);
     }
 }

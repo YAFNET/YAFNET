@@ -1,0 +1,68 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2026 Ingo Herbote
+ * https://www.yetanotherforum.net/
+ * 
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * https://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+namespace YAF.Types.EventProxies;
+
+using YAF.Types.Interfaces.Events;
+
+/// <summary>
+/// A post (or the first post of a new topic) became visible: it was saved approved or a moderator approved it.
+/// </summary>
+public class PostPublishedEvent : IAmEvent
+{
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PostPublishedEvent"/> class.
+    /// </summary>
+    /// <param name="forumId">The forum id.</param>
+    /// <param name="topicId">The topic id.</param>
+    /// <param name="messageId">The message id.</param>
+    /// <param name="isNewTopic">The post is the first post of a new topic.</param>
+    public PostPublishedEvent(int forumId, int topicId, int messageId, bool isNewTopic)
+    {
+        this.ForumId = forumId;
+        this.TopicId = topicId;
+        this.MessageId = messageId;
+        this.IsNewTopic = isNewTopic;
+    }
+
+    /// <summary>
+    /// Gets the forum id.
+    /// </summary>
+    public int ForumId { get; }
+
+    /// <summary>
+    /// Gets the topic id.
+    /// </summary>
+    public int TopicId { get; }
+
+    /// <summary>
+    /// Gets the message id.
+    /// </summary>
+    public int MessageId { get; }
+
+    /// <summary>
+    /// Gets a value indicating whether the post is the first post of a new topic.
+    /// </summary>
+    public bool IsNewTopic { get; }
+}

@@ -1870,6 +1870,17 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether new topics and posts are shown on the open pages
+    /// (active discussions, forum list, topic list, topic) without reloading them (real-time updates).
+    /// </summary>
+    public bool EnableLiveUpdates
+    {
+        get => this.Registry.GetValue("EnableLiveUpdates", true);
+
+        set => this.Registry.SetValue("EnableLiveUpdates", value);
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether ShowMedals.
     /// </summary>
     public bool ShowMedals

@@ -585,6 +585,10 @@ public static class MessageRepositoryExtensions
             await repository.UpdateSearchIndexAsync(message, forumId, flags.BitValue);
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
+
+            // the post is visible now (saved approved or approved by a moderator): real-time update of the pages
+            BoardContext.Current.Get<IRaiseEvent>().Raise(
+                new PostPublishedEvent(message.Topic.ForumID, message.TopicID, message.ID, message.Position == 0));
         }
 
         /// <summary>
