@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Cópias de segurança"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Copiar agora"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Cópias de segurança"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ficha utilizada para fazer chamadas seguras de serviço web. Mudança constante até guardar as configurações do seu anfitrião."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Habilite atualizações em tempo real:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Novos tópicos e postagens são mostrados nas páginas abertas (discussões ativas, lista de fóruns, lista de tópicos e tópico) sem recarregar a página."
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "Responder com citação"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Adicionar uma reação à mensagem"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Resposta"
           },
@@ -7222,30 +7234,6 @@
             "#text": "Definir como Capa"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Adicionar uma reação à mensagem"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Gosto"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Adoro"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Viva"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Uau"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Recuperar"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Desbloquear este tópico"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Viva"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Gosto"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Adoro"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Uau"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "Sim"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Uma nova resposta foi postada neste tópico, mostre-a"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "Amigáveis"
           },
           {
+            "@tag": "HATED",
+            "#text": "Odiado"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Homenageado"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Hostil"
           },
           {
             "@tag": "NEUTRAL",
@@ -12636,14 +12656,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Não amigável"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Odiado"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Hostil"
           }
         ]
       },

@@ -173,6 +173,63 @@ public class PostsModel : ForumPage
     }
 
     /// <summary>
+    /// The posts after a post of a page (real-time updates of the last page of the topic).
+    /// The header X-Topic-More-Pages tells the client that the topic has a next page now.
+    /// </summary>
+    /// <param name="page">The zero-based page index shown by the client.</param>
+    /// <param name="after">The id of the last post shown by the client.</param>
+    public IActionResult OnGetNewPosts(int page, int after)
+    {
+        if (this.PageBoardContext.PageTopic is null || !this.PageBoardContext.ForumReadAccess)
+        {
+            return this.NotFound();
+        }
+
+        page = Math.Max(page, 0);
+
+        var showDeleted = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
+                          this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;
+
+        this.Size = this.PageBoardContext.BoardSettings.PostsPerPage;
+
+        var postList = this.GetRepository<Message>().PostListPaged(
+            this.PageBoardContext.PageTopicID,
+            this.PageBoardContext.PageUserID,
+            false,
+            showDeleted,
+            DateTimeHelper.SqlDbMinTime(),
+            DateTime.UtcNow,
+            page,
+            this.Size,
+            0);
+
+        if (postList.Count > 0 && postList[0].TotalRows > (page + 1) * this.Size)
+        {
+            this.Response.Headers["X-Topic-More-Pages"] = "true";
+        }
+
+        var newPosts = postList.Select((post, index) => (Post: post, Index: index))
+            .Where(x => x.Post.MessageID > after).ToList();
+
+        if (newPosts.Count == 0)
+        {
+            return new NoContentResult();
+        }
+
+        // the reader has seen the new posts
+        this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageBoardContext.PageTopicID);
+
+        // the post numbers use the page index of the context (1-based in the page data)
+        this.PageBoardContext.PageData.Item4.PageIndex = page + 1;
+
+        return new PartialViewResult
+        {
+            ViewName = "_LivePosts",
+            ViewData = new ViewDataDictionary<List<(PagedMessage Post, int Index)>>(this.ViewData, newPosts)
+        };
+    }
+
+    /// <summary>
     /// Called when [get quick reply dialog].
     /// </summary>
     /// <returns>PartialViewResult.</returns>

@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Atsarginės kopijos"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Kurti kopiją dabar"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Atsarginės kopijos"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ženklas, naudojamas saugiems žiniatinklio paslaugos skambučiams atlikti. Nuolat keičiasi, kol išsaugote prieglobos nustatymus."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Įgalinti naujinimus realiuoju laiku:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Naujos temos ir įrašai rodomi atidarytuose puslapiuose (aktyviose diskusijose, forumo sąraše, temų sąraše ir temoje) neperkraunant puslapio."
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "Atsakyti su citata"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Pridėti reakciją prie įrašo"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Atsakyti"
           },
@@ -7222,30 +7234,6 @@
             "#text": "Nustatyti kaip dangtelį"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Pridėti reakciją prie įrašo"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Patinka"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Myliu"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Cha cha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Valio"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Oho"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Ištrinti"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Atrakinti šią temą"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Valio"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Cha cha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Patinka"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Myliu"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Oho"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "Taip"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Šioje temoje paskelbtas naujas atsakymas, parodyk"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "Draugiškas"
           },
           {
+            "@tag": "HATED",
+            "#text": "Nekentė"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Pagerbtas"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Priešiškas"
           },
           {
             "@tag": "NEUTRAL",
@@ -12636,14 +12656,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Nedraugiškas"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Nekentė"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Priešiškas"
           }
         ]
       },

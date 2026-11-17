@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Varmuuskopiot"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Varmuuskopioi nyt"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Varmuuskopiot"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, jota käytetään turvallisten verkkopalvelukutsujen tekemiseen. Muuttuu jatkuvasti, kunnes tallennat isäntäasetukset."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Ota reaaliaikaiset päivitykset käyttöön:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Uudet aiheet ja viestit näkyvät avoimilla sivuilla (aktiiviset keskustelut, foorumilista, aihelista ja aihe) lataamatta sivua uudelleen."
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "Vastaa lainauksella"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Lisää reaktio viestiin"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Vastaa"
           },
@@ -7222,30 +7234,6 @@
             "#text": "Aseta kansi"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Lisää reaktio viestiin"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Tykkää"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Ihastu"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Hurraa"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Vau"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Kumoa poisto"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Avaa tämän aiheen lukitus"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurraa"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Tykkää"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Ihastu"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Vau"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "Kyllä"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Uusi vastaus lähetettiin tähän aiheeseen, näytä se"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "Ystävällinen"
           },
           {
+            "@tag": "HATED",
+            "#text": "Vihaan"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Kunnioitettu"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Vihamielinen"
           },
           {
             "@tag": "NEUTRAL",
@@ -12636,14 +12656,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Epäystävällinen"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Vihaan"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Vihamielinen"
           }
         ]
       },

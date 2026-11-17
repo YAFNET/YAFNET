@@ -127,6 +127,33 @@ public class IndexModel : ForumPage
     }
 
     /// <summary>
+    /// Reloads the forums loaded so far, with the current last posts (real-time updates)
+    /// </summary>
+    public async Task<IActionResult> OnGetRefreshCategoriesAsync()
+    {
+        var loadedIndex = this.Get<ISessionService>().BoardForumsIndex;
+
+        await this.BindDataAsync();
+
+        for (var index = 1; index <= loadedIndex; index++)
+        {
+            this.Get<ISessionService>().BoardForumsIndex = index;
+
+            await this.BindDataAsync(true);
+        }
+
+        return this.Partial("_CategoryList", this.Categories);
+    }
+
+    /// <summary>
+    /// The Active Discussions with the current posts (real-time updates)
+    /// </summary>
+    public IActionResult OnGetActiveDiscussions()
+    {
+        return this.Partial("_ActiveDiscussions");
+    }
+
+    /// <summary>
     /// Mark all Forums (of the current category) as Read, not only the forums loaded so far
     /// </summary>
     public Task OnPostMarkAllAsync()

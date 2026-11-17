@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Copias de seguridad"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Copiar ahora"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Copias de seguridad"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5464,6 +5464,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token usado para hacer llamadas a servicios web seguros. En cambio constante hasta que se guarda la configuración del servidor."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Habilite actualizaciones en tiempo real:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Los nuevos temas y publicaciones se muestran en las páginas abiertas (discusiones activas, lista de foros, lista de temas y el tema) sin recargar la página."
           }
         ]
       },
@@ -7190,6 +7198,10 @@
             "#text": "Contestar citando"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Añadir una reacción al mensaje"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Contestar"
           },
@@ -7214,30 +7226,6 @@
             "#text": "Marcar como versión"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Añadir una reacción al mensaje"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Me gusta"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Me encanta"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Jaja"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Hurra"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Me asombra"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Recuperar"
           },
@@ -7252,6 +7240,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Desproteger este tema"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurra"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Jaja"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Me gusta"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Me encanta"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Me asombra"
           }
         ]
       },
@@ -7860,6 +7868,10 @@
           {
             "@tag": "YES",
             "#text": "Si"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Se publicó una nueva respuesta en este tema, muéstrala"
           }
         ]
       },
@@ -12610,8 +12622,16 @@
             "#text": "Marqués"
           },
           {
+            "@tag": "HATED",
+            "#text": "Peligroso"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Barón"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Troll"
           },
           {
             "@tag": "NEUTRAL",
@@ -12620,14 +12640,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Conflictivo"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Peligroso"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Troll"
           }
         ]
       },

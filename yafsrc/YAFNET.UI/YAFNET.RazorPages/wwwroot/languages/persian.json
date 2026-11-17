@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "نسخه‌های پشتیبان"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "اکنون پشتیبان بگیر"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "نسخه‌های پشتیبان"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5464,6 +5464,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "توکن برای فراخوانی امن وب سرویس استفاده می شود. و مدام در حال تغییر است تا زمانی که شما تنظمیات میزبان را ذخیره کنید."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "فعال کردن به‌روزرسانی‌های بلادرنگ:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "موضوعات و پست‌های جدید در صفحات باز (بحث‌های فعال، فهرست انجمن، فهرست موضوع و موضوع) بدون بارگیری مجدد صفحه نشان داده می‌شوند."
           }
         ]
       },
@@ -7186,6 +7194,10 @@
             "#text": "پاسخ با ایجاد نقل قول"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "افزودن واکنش به پست"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "پاسخ"
           },
@@ -7210,30 +7222,6 @@
             "#text": "تنظیم به عنوان جلد"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "افزودن واکنش به پست"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "پسندیدم"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "عشق"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "هاها"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "هورا"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "وای"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "عدم حذف "
           },
@@ -7248,6 +7236,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "بازکردن قفل این عنوان"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "هورا"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "هاها"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "پسندیدم"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "عشق"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "وای"
           }
         ]
       },
@@ -7856,6 +7864,10 @@
           {
             "@tag": "YES",
             "#text": "بلی"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "یک پاسخ جدید در این تاپیک ارسال شد، آن را نشان دهید"
           }
         ]
       },
@@ -12606,8 +12618,16 @@
             "#text": "دوستانه"
           },
           {
+            "@tag": "HATED",
+            "#text": "منفور"
+          },
+          {
             "@tag": "HONORED",
             "#text": "مفتخر"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "دشمن"
           },
           {
             "@tag": "NEUTRAL",
@@ -12616,14 +12636,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "غیردوستانه"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "منفور"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "دشمن"
           }
         ]
       },

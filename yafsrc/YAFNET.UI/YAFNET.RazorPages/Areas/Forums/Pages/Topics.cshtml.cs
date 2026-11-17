@@ -185,6 +185,45 @@ public class TopicsModel : ForumPage
     }
 
     /// <summary>
+    /// The announcements and the first page of topics with the current last posts (real-time updates).
+    /// </summary>
+    /// <param name="show">
+    /// The date filter, mirrors <see cref="ShowTopicListSelected"/>.
+    /// </param>
+    /// <param name="size">
+    /// The page size.
+    /// </param>
+    public IActionResult OnGetLiveTopics(int show, int size)
+    {
+        if (!this.PageBoardContext.ForumReadAccess)
+        {
+            return this.NotFound();
+        }
+
+        var announcements = this.GetRepository<Topic>().ListAnnouncementsPaged(
+            this.PageBoardContext.PageForumID,
+            this.PageBoardContext.PageUserID,
+            0,
+            10,
+            this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
+
+        var result = this.OnGetLoadMoreTopics(0, show, size);
+
+        if (result is not PartialViewResult { ViewData.Model: List<PagedTopic> topics } partial)
+        {
+            return result;
+        }
+
+        var liveTopics = new List<PagedTopic>(announcements);
+
+        liveTopics.AddRange(topics);
+
+        partial.ViewData = new ViewDataDictionary<List<PagedTopic>>(this.ViewData, liveTopics);
+
+        return partial;
+    }
+
+    /// <summary>
     /// Toggle Collapse State
     /// </summary>
     /// <param name="target">

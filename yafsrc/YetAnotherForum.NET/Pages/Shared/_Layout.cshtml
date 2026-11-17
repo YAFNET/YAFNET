@@ -37,7 +37,7 @@
     @Html.RssFeedLink(RssFeeds.LatestPosts)
     @Html.CanonicalMetaTag()
 </head>
-<body id="YafBody">
+<body id="YafBody" data-live-updates="@(Current.BoardSettings.EnableLiveUpdates ? "true" : null)">
     <a title="@Html.Raw(Current.Get<ILocalization>().GetText("TOOLBAR", "FORUM_TITLE"))" href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Index))" class="d-block w-50">
     <img alt="board logo" src="@Html.Raw($"/{Current.Get<BoardFolders>().Logos}/{Current.BoardSettings.ForumLogo}")" class="my-3 img-fluid" fetchpriority="high" />
 </a>

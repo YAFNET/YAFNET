@@ -5170,6 +5170,14 @@
                     "#text": "Should similar topics to be displayed at the bottom of a topic."
                 },
                 {
+                    "@tag": "ENABLE_LIVEUPDATES",
+                    "#text": "Enable Real-Time Updates:"
+                },
+                {
+                    "@tag": "ENABLE_LIVEUPDATES_HELP",
+                    "#text": "New topics and posts are shown on the open pages (active discussions, forum list, topic list and the topic) without reloading the page."
+                },
+                {
                     "@tag": "SHOW_THANK_DATE",
                     "#text": "Show The Date on Which Users Have Thanked Posts:"
                 },
@@ -7540,6 +7548,10 @@
                 {
                     "@tag": "IN_FORUM",
                     "#text": "in Forum: {0}"
+                },
+                {
+                    "@tag": "LIVE_NEW_REPLY",
+                    "#text": "A new reply was posted in this topic, show it"
                 },
                 {
                     "@tag": "LOADING",

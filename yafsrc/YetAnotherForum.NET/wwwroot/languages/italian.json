@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Backup"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Esegui backup ora"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Backup"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5464,6 +5464,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizzato per effettuare chiamate sicure al servizio web. Cambia continuamente finché non si salvano le impostazioni dell'host."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Abilita aggiornamenti in tempo reale:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Nuovi argomenti e post vengono visualizzati nelle pagine aperte (discussioni attive, elenco forum, elenco argomenti e argomento) senza ricaricare la pagina."
           }
         ]
       },
@@ -7190,6 +7198,10 @@
             "#text": "Rispondi citando"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Aggiungi una reazione al messaggio"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Rispondi"
           },
@@ -7214,30 +7226,6 @@
             "#text": "Imposta come copertina"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Aggiungi una reazione al messaggio"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Mi piace"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Adoro"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Ahah"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Evviva"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Wow"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Ripristina"
           },
@@ -7252,6 +7240,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Apri questa discussione"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Evviva"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Ahah"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Mi piace"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Adoro"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           }
         ]
       },
@@ -7860,6 +7868,10 @@
           {
             "@tag": "YES",
             "#text": "Sì"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Una nuova risposta è stata pubblicata in questo argomento, mostrala"
           }
         ]
       },
@@ -12610,8 +12622,16 @@
             "#text": "Amichevole"
           },
           {
+            "@tag": "HATED",
+            "#text": "Odiato"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Onorato"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Ostile"
           },
           {
             "@tag": "NEUTRAL",
@@ -12620,14 +12640,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Avverso"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Odiato"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Ostile"
           }
         ]
       },

@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Yedekler"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Şimdi yedekle"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Yedekler"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Güvenli web hizmeti çağrıları yapmak için kullanılan belirteç. Ana bilgisayar ayarlarınızı kaydedinceye kadar sürekli değişir."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Gerçek Zamanlı Güncellemeleri Etkinleştir:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Açık sayfalarda (aktif tartışmalar, forum listesi, konu listesi ve konu) yeni konular ve yazılar sayfayı yeniden yüklemeden gösterilir."
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "Alıntı ile cevapla"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Gönderiye bir tepki ekle"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Cevapla"
           },
@@ -7222,30 +7234,6 @@
             "#text": "Kapak olarak ayarla"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Gönderiye bir tepki ekle"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Beğen"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Bayıldım"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Yaşasın"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Vay"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Kurtar"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Bu Konudaki Kilidi Kaldır"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Yaşasın"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Beğen"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Bayıldım"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Vay"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "Evet"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Bu konuya yeni bir yanıt gönderildi, göster"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "Dostça"
           },
           {
+            "@tag": "HATED",
+            "#text": "Nefret"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Onurlandırıldı"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Düşmanca"
           },
           {
             "@tag": "NEUTRAL",
@@ -12635,14 +12655,6 @@
           },
           {
             "@tag": "UNFRIENDLY",
-            "#text": "Düşmanca"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Nefret"
-          },
-          {
-            "@tag": "HOSTILE",
             "#text": "Düşmanca"
           }
         ]

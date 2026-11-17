@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Back-ups"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Nu back-up maken"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Back-ups"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5464,6 +5464,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Schakel realtime updates in:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Nieuwe onderwerpen en berichten worden op de geopende pagina's (actieve discussies, forumlijst, onderwerpenlijst en het onderwerp) weergegeven zonder dat de pagina opnieuw wordt geladen."
           }
         ]
       },
@@ -7190,6 +7198,10 @@
             "#text": "Antwoord met quote"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Voeg een emoji-reactie toe aan het bericht"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Antwoord"
           },
@@ -7214,30 +7226,6 @@
             "#text": "Gebruik als voorblad"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Voeg een emoji-reactie toe aan het bericht"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Vind ik leuk"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Geweldig"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Hoera"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Wow"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Maak verwijdering ongedaan"
           },
@@ -7252,6 +7240,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Ontgrendel dit topic"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hoera"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Vind ik leuk"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Geweldig"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           }
         ]
       },
@@ -7860,6 +7868,10 @@
           {
             "@tag": "YES",
             "#text": "Ja"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Er is een nieuw antwoord in dit onderwerp geplaatst, laat het zien"
           }
         ]
       },
@@ -12610,8 +12622,16 @@
             "#text": "Vriendelijk"
           },
           {
+            "@tag": "HATED",
+            "#text": "Gehaat"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Ge&euml;erd"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Vijandig"
           },
           {
             "@tag": "NEUTRAL",
@@ -12620,14 +12640,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Onvriendelijk"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Gehaat"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Vijandig"
           }
         ]
       },

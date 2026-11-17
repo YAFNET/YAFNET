@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Резервни копия"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Създай копие сега"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Резервни копия"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5464,6 +5464,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Токен използва за сигурни разговори за уеб услуги. "
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Активиране на актуализации в реално време:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Новите теми и публикации се показват на отворените страници (активни дискусии, списък с форуми, списък с теми и темата) без презареждане на страницата."
           }
         ]
       },
@@ -7190,6 +7198,10 @@
             "#text": "Отговор с цитат"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Добави реакция към публикацията"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Отговор"
           },
@@ -7214,30 +7226,6 @@
             "#text": "Задайте като капак"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Добави реакция към публикацията"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Харесва ми"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Любов"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Ха-ха"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Ура"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Уау"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Разгара"
           },
@@ -7252,6 +7240,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Отключете тази тема"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Ура"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Ха-ха"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Харесва ми"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Любов"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Уау"
           }
         ]
       },
@@ -7860,6 +7868,10 @@
           {
             "@tag": "YES",
             "#text": "Да"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "В тази тема беше публикуван нов отговор, покажете го"
           }
         ]
       },
@@ -12610,8 +12622,16 @@
             "#text": "Приятелски настроен"
           },
           {
+            "@tag": "HATED",
+            "#text": "Мразеше"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Почетен"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Враждебен"
           },
           {
             "@tag": "NEUTRAL",
@@ -12620,14 +12640,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Неприятен"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Мразеше"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Враждебен"
           }
         ]
       },

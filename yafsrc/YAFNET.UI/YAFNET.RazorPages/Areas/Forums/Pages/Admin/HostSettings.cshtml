@@ -1148,6 +1148,14 @@
 	</div>
 	<div class="mb-3 col-md-6">
 		<label class="form-label" info-button="true"
+		       asp-for="Input.EnableLiveUpdates"
+		       localized-tag="ENABLE_LIVEUPDATES"></label>
+		<div class="form-check form-switch">
+			<input type="checkbox" class="form-check-input" asp-for="Input.EnableLiveUpdates"/>
+		</div>
+	</div>
+	<div class="mb-3 col-md-6">
+		<label class="form-label" info-button="true"
 		       asp-for="Input.ShowForumJump"
 		       localized-tag="SHOW_FORUM_JUMP"></label>
 		<div class="form-check form-switch">

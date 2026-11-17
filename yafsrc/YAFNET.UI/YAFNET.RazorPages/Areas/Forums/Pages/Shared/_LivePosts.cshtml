@@ -1,0 +1,9 @@
+@using YAF.Types.Objects.Model
+
+@model List<(PagedMessage Post, int Index)>
+
+@* the posts added to a topic by the real-time updates, the index is the position of the post on its page *@
+@foreach (var item in Model)
+{
+    @await Html.PartialAsync("_DisplayPost", item.Post, new ViewDataDictionary(ViewData) { { "index", item.Index } })
+}

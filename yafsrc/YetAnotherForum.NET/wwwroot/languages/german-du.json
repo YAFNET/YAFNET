@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Sicherungen"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Jetzt sichern"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Sicherungen"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5464,6 +5464,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token die verwendet werden, um sichere Web-Service-Anrufe zu tätigen. Ständig wechselnde, bis Sie Ihren Host Einstellungen  speichern."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Aktivieren Sie Echtzeit-Updates:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Neue Themen und Beiträge werden auf den geöffneten Seiten (aktive Diskussionen, Forenliste, Themenliste und das Thema) angezeigt, ohne dass die Seite neu geladen werden muss."
           }
         ]
       },
@@ -7190,6 +7198,10 @@
             "#text": "Auf diesen Beitrag mit Zitat Antworten"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Reagiere auf den Beitrag"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Antworten"
           },
@@ -7214,30 +7226,6 @@
             "#text": "Als Cover auswählen"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Reagiere auf den Beitrag"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Gefällt mir"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Liebe"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Hurra"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Wow"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Löschen Rückgängig"
           },
@@ -7252,6 +7240,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Dieses Thema wieder entsperren"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurra"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Gefällt mir"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Liebe"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           }
         ]
       },
@@ -7860,6 +7868,10 @@
           {
             "@tag": "YES",
             "#text": "Ja"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "In diesem Thema wurde eine neue Antwort gepostet, zeige sie"
           }
         ]
       },
@@ -12610,8 +12622,16 @@
             "#text": "Freundlich"
           },
           {
+            "@tag": "HATED",
+            "#text": "Verhasst"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Geehrt"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Feindlich"
           },
           {
             "@tag": "NEUTRAL",
@@ -12620,14 +12640,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Unfreundlich"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Verhasst"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Feindlich"
           }
         ]
       },

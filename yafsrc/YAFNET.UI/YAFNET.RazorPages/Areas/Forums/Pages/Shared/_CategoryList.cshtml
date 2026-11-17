@@ -97,7 +97,7 @@
                     {
                         var lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(forum.ForumID, forum.LastTopicID, forum.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(), forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
-                        <div class="row forum-row align-items-start">
+                        <div class="row forum-row align-items-start" data-forum-id="@forum.ForumID">
                             <div class="@Html.Raw(forum.RemoteURL.IsNotSet() ? "col-md-8 row-menu" : "col row-menu")">
                                 <h5>
                                     @Html.GetForumIcon(forum, lastRead)

@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Sikkerhedskopier"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Tag backup nu"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Sikkerhedskopier"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token bruges til at foretage sikre webserviceopkald. "
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Aktiver realtidsopdateringer:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Nye emner og indlæg vises på de åbne sider (aktive diskussioner, forumliste, emneliste og emnet) uden at genindlæse siden."
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "Svar med citering"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Tilføj en reaktion til indlægget"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Svar"
           },
@@ -7222,30 +7234,6 @@
             "#text": "Brug som forside"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Tilføj en reaktion til indlægget"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Synes godt om"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Elsker"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Hurra"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Wow"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Gendannet"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Lås dette emne op"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurra"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Synes godt om"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Elsker"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "Ja"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Et nyt svar blev indsendt i dette emne, vis det"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "Venlige"
           },
           {
+            "@tag": "HATED",
+            "#text": "Hadet"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Æret"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Fjendtlig"
           },
           {
             "@tag": "NEUTRAL",
@@ -12636,14 +12656,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Uvenlig"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Hadet"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Fjendtlig"
           }
         ]
       },

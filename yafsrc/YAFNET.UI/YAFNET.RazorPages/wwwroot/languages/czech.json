@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Zálohy"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Zálohovat nyní"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Zálohy"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný k volání zabezpečené webové služby. "
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Povolit aktualizace v reálném čase:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Nová témata a příspěvky se zobrazují na otevřených stránkách (aktivní diskuse, seznam fór, seznam témat a téma) bez opětovného načítání stránky."
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "Odpovězte s citací"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Přidat reakci k příspěvku"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Odpověď"
           },
@@ -7222,30 +7234,6 @@
             "#text": "Nastavit jako kryt"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Přidat reakci k příspěvku"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Líbí se mi"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Srdce"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Hurá"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Páni"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Obnovit"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Odemkněte toto téma"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurá"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Líbí se mi"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Srdce"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Páni"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "Ano"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "V tomto tématu byla zveřejněna nová odpověď, ukaž ji"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "Přátelský"
           },
           {
+            "@tag": "HATED",
+            "#text": "Nenáviděný"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Ctěný"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Nepřátelský"
           },
           {
             "@tag": "NEUTRAL",
@@ -12635,14 +12655,6 @@
           },
           {
             "@tag": "UNFRIENDLY",
-            "#text": "Nepřátelský"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Nenáviděný"
-          },
-          {
-            "@tag": "HOSTILE",
             "#text": "Nepřátelský"
           }
         ]

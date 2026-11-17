@@ -280,6 +280,32 @@
 </div>
 </form>
 
+@{
+    // the posts added by the real-time updates use these functions, also when no post of the page registered them
+    if (Model.PageBoardContext.BoardSettings.EnableLiveUpdates)
+    {
+        Model.PageBoardContext.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.MultiQuoteButtonJs), JavaScriptBlocks.MultiQuoteButtonJs);
+
+        if (!Model.PageBoardContext.IsGuest)
+        {
+            Model.PageBoardContext.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.SetReactionJs), JavaScriptBlocks.SetReactionJs());
+        }
+    }
+
+    var postsTotal = Model.Messages.NullOrEmpty() ? 0 : Model.Messages[0].TotalRows;
+    var isLastPage = (Model.PageBoardContext.PageIndex + 1) * Model.Size >= postsTotal;
+}
+
+<div id="live-posts" class="d-none"
+     data-topic-id="@Model.PageBoardContext.PageTopicID"
+     data-page="@Model.PageBoardContext.PageIndex"
+     data-last-page="@(isLastPage ? "true" : "false")"
+     data-last-message-id="@(Model.Messages.NullOrEmpty() ? 0 : Model.Messages.Max(x => x.MessageID))"
+     data-new-posts-url="@Url.Page("Posts", "NewPosts", new { t = Model.PageBoardContext.PageTopicID, name = Model.PageBoardContext.PageTopic.TopicName })"
+     data-post-url="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.Post, new { m = int.MaxValue, name = Model.PageBoardContext.PageTopic.TopicName }))"
+     data-hover-card-delay="@(Model.Get<IPermissions>().Check(Model.PageBoardContext.BoardSettings.ProfileViewPermissions) || Model.PageBoardContext.BoardSettings.EnableUserInfoHoverCards ? (int?)Model.PageBoardContext.BoardSettings.HoverCardOpenDelay : null)"
+     data-new-reply-text="@Model.GetText("COMMON", "LIVE_NEW_REPLY")"></div>
+
 @for (var index = 0; index < Model.Messages.Count; index++)
 {
     @await Html.PartialAsync("_DisplayPost",  Model.Messages[index], new ViewDataDictionary(ViewData){ {"index", index}})

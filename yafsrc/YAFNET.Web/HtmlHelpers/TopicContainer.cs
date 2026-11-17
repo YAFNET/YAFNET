@@ -63,6 +63,9 @@ public static class TopicContainerHtmlHelper
 
         mainDiv.AddCssClass(isLastItem ? "row" : "row border-bottom mb-3 pb-3");
 
+        // the real-time updates replace the row of the topic
+        mainDiv.MergeAttribute("data-topic-id", topic.TopicID.ToString(CultureInfo.InvariantCulture));
+
         var titleColumn = new TagBuilder(HtmlTag.Div);
 
         titleColumn.AddCssClass("col-md-8");

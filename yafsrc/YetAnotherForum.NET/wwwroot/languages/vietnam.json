@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Các bản sao lưu"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Sao lưu ngay"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Các bản sao lưu"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Mã thông báo được sử dụng để thực hiện các cuộc gọi dịch vụ web an toàn. Liên tục thay đổi cho đến khi bạn lưu cài đặt máy chủ của mình."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Bật cập nhật theo thời gian thực:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Các chủ đề và bài viết mới được hiển thị trên các trang đang mở (thảo luận tích cực, danh sách diễn đàn, danh sách chủ đề và chủ đề) mà không cần tải lại trang."
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "Trả lời với trích dẫn"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Thêm cảm xúc cho bài viết"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Trả lời"
           },
@@ -7222,30 +7234,6 @@
             "#text": "Đặt làm bìa"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Thêm cảm xúc cho bài viết"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Thích"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Yêu thích"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Hoan hô"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Wow"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Khôi phục"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Mở khoá chủ đề này"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hoan hô"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Thích"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Yêu thích"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Wow"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "Đúng"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Một câu trả lời mới đã được đăng trong chủ đề này, hãy hiển thị nó"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "Thân thiện"
           },
           {
+            "@tag": "HATED",
+            "#text": "Bị ghét"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Được vinh danh"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Thù địch"
           },
           {
             "@tag": "NEUTRAL",
@@ -12636,14 +12656,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Không thân thiện"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Bị ghét"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Thù địch"
           }
         ]
       },

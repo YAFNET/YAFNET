@@ -100,7 +100,7 @@
                                                                              : topic.LastUserName, topic.LastUserSuspended, topic.LastUserStyle).RenderToString()}
 {iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>";
 
-                <li class="list-group-item pt-2 list-group-item-action">
+                <li class="list-group-item pt-2 list-group-item-action" data-topic-id="@topic.TopicID">
 	                <a button-style="@ButtonStyle.Link"
 	                   icon="comment"
 	                   icon-css-class="far"

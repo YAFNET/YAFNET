@@ -80,6 +80,7 @@
                 <div class="card-body topic-list"
                      id="topicsContainer"
                      data-load-more-url="@Url.Page("MyTopics", "LoadMoreTopics")"
+                     data-live-url="@(Model.PageBoardContext.PageIndex == 0 ? Url.Page("MyTopics", "LoadMoreTopics") : null)"
                      data-next-page="@(Model.PageBoardContext.PageIndex + 1)"
                      data-page-size="@Model.Size"
                      data-show="@Model.Input.SinceValue"

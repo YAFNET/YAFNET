@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Varukoopiad"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Tee varukoopia kohe"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Varukoopiad"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, mida kasutatakse turvaliste veebiteenuste kõnede tegemiseks. "
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Lubage reaalajas värskendused:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Uusi teemasid ja postitusi näidatakse avatud lehtedel (aktiivsed arutelud, foorumiloend, teemaloend ja teema) lehte uuesti laadimata."
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "Vasta tsitaadiga"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Lisa postitusele reaktsioon"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Vasta"
           },
@@ -7222,30 +7234,6 @@
             "#text": "Pane kaanepildiks"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Lisa postitusele reaktsioon"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Meeldib"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Armastan"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Hurraa"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Vau"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Taasta"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Eemalda lukustus sellelt teemalt"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Hurraa"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Meeldib"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Armastan"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Vau"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "Jah"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Sellesse teemasse postitati uus vastus, näita seda"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "Sõbralik"
           },
           {
+            "@tag": "HATED",
+            "#text": "Vihkas"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Austatud"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Vaenulik"
           },
           {
             "@tag": "NEUTRAL",
@@ -12636,14 +12656,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Ebasõbralik"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Vihkas"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Vaenulik"
           }
         ]
       },

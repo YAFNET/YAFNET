@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "备份"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "立即备份"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "备份"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "用于进行安全 Web 服务调用的令牌。"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "启用实时更新："
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "新主题和帖子显示在打开的页面（活跃讨论、论坛列表、主题列表和主题）上，无需重新加载页面。"
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "引用回复"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "对帖子添加回应"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "回复"
           },
@@ -7222,30 +7234,6 @@
             "#text": "设为封面"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "对帖子添加回应"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "赞"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "爱心"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "哈哈"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "欢呼"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "哇"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "恢复删除"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "解锁主题"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "欢呼"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "哈哈"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "赞"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "爱心"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "哇"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "是"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "该主题已发布新回复，请显示"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "友谊赛"
           },
           {
+            "@tag": "HATED",
+            "#text": "讨厌"
+          },
+          {
             "@tag": "HONORED",
             "#text": "荣幸"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "敌对的"
           },
           {
             "@tag": "NEUTRAL",
@@ -12636,14 +12656,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "不友好"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "讨厌"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "敌对的"
           }
         ]
       },

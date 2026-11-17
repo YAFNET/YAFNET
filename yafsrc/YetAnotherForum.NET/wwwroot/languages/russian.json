@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Резервные копии"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Создать копию сейчас"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Резервные копии"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5464,6 +5464,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Токен для безопасного вызова веб-служб. Чтобы зафиксировать его вы должны сохранить настройки хоста хотя бы раз."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Включить обновления в реальном времени:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Новые темы и сообщения отображаются на открытых страницах (активные обсуждения, список форума, список тем и тема) без перезагрузки страницы."
           }
         ]
       },
@@ -7190,6 +7198,10 @@
             "#text": "Ответить с цитатой"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Добавить реакцию к сообщению"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Ответить"
           },
@@ -7214,30 +7226,6 @@
             "#text": "Использовать как обложку"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Добавить реакцию к сообщению"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Нравится"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Супер"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Ха-ха"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Ура"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Ух ты"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Восстановить"
           },
@@ -7252,6 +7240,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Открыть эту тему"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Ура"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Ха-ха"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Нравится"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Супер"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Ух ты"
           }
         ]
       },
@@ -7860,6 +7868,10 @@
           {
             "@tag": "YES",
             "#text": "Да"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "В этой теме опубликован новый ответ, покажите его"
           }
         ]
       },
@@ -12610,8 +12622,16 @@
             "#text": "Хороший"
           },
           {
+            "@tag": "HATED",
+            "#text": "Редиска"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Отличный"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Ненавидимый"
           },
           {
             "@tag": "NEUTRAL",
@@ -12620,14 +12640,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Нелюбимый"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Редиска"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Ненавидимый"
           }
         ]
       },

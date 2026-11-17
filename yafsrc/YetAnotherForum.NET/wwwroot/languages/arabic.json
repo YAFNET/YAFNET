@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "النسخ الاحتياطية"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "انسخ احتياطيًا الآن"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "النسخ الاحتياطية"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5464,6 +5464,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "رمز يستخدم لإجراء مكالمات خدمة ويب آمنة. "
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "تمكين التحديثات في الوقت الحقيقي:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "يتم عرض المواضيع والمشاركات الجديدة على الصفحات المفتوحة (المناقشات النشطة وقائمة المنتديات وقائمة المواضيع والموضوع) دون إعادة تحميل الصفحة."
           }
         ]
       },
@@ -7186,6 +7194,10 @@
             "#text": "الرد مع إقتباس"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "أضف تفاعلاً إلى المشاركة"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "رد"
           },
@@ -7210,30 +7222,6 @@
             "#text": "اختياره كغطاء"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "أضف تفاعلاً إلى المشاركة"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "إعجاب"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "أحببته"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "هاها"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "احتفال"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "واو"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "عدم الازالة"
           },
@@ -7248,6 +7236,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "إلغاء القفل عن الموضوع"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "احتفال"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "هاها"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "إعجاب"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "أحببته"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "واو"
           }
         ]
       },
@@ -7856,6 +7864,10 @@
           {
             "@tag": "YES",
             "#text": "نعم"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "تم نشر رد جديد في هذا الموضوع، إظهاره"
           }
         ]
       },
@@ -12606,8 +12618,16 @@
             "#text": "ودي"
           },
           {
+            "@tag": "HATED",
+            "#text": "مكروه"
+          },
+          {
             "@tag": "HONORED",
             "#text": "تكريم"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "عدائي"
           },
           {
             "@tag": "NEUTRAL",
@@ -12616,14 +12636,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "غير ودي"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "مكروه"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "عدائي"
           }
         ]
       },

@@ -982,12 +982,12 @@
         "@name": "ADMIN_BACKUP",
         "Resource": [
           {
-            "@tag": "BACKUPS",
-            "#text": "Copii de siguranță"
-          },
-          {
             "@tag": "BACKUP_NOW",
             "#text": "Copie acum"
+          },
+          {
+            "@tag": "BACKUPS",
+            "#text": "Copii de siguranță"
           },
           {
             "@tag": "CONFIRM_BACKUP",
@@ -5472,6 +5472,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizat pentru a efectua apeluri securizate de servicii web. Se schimbă constant până când salvați setările de gazdă."
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Activați actualizările în timp real:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Subiectele și postările noi sunt afișate pe paginile deschise (discuții active, lista de forumuri, lista de subiecte și subiectul) fără a reîncărca pagina."
           }
         ]
       },
@@ -7198,6 +7206,10 @@
             "#text": "Raspunde cu citat"
           },
           {
+            "@tag": "BUTTON_REACT_TT",
+            "#text": "Adaugă o reacție la mesaj"
+          },
+          {
             "@tag": "BUTTON_REPLY",
             "#text": "Răspuns"
           },
@@ -7222,30 +7234,6 @@
             "#text": "Seteaza ca coperta"
           },
           {
-            "@tag": "BUTTON_REACT_TT",
-            "#text": "Adaugă o reacție la mesaj"
-          },
-          {
-            "@tag": "REACTION_LIKE",
-            "#text": "Îmi place"
-          },
-          {
-            "@tag": "REACTION_LOVE",
-            "#text": "Ador"
-          },
-          {
-            "@tag": "REACTION_LAUGH",
-            "#text": "Haha"
-          },
-          {
-            "@tag": "REACTION_HOORAY",
-            "#text": "Ura"
-          },
-          {
-            "@tag": "REACTION_WOW",
-            "#text": "Uau"
-          },
-          {
             "@tag": "BUTTON_UNDELETE",
             "#text": "Recupereaza element sters"
           },
@@ -7260,6 +7248,26 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Deblocheaza acest topic"
+          },
+          {
+            "@tag": "REACTION_HOORAY",
+            "#text": "Ura"
+          },
+          {
+            "@tag": "REACTION_LAUGH",
+            "#text": "Haha"
+          },
+          {
+            "@tag": "REACTION_LIKE",
+            "#text": "Îmi place"
+          },
+          {
+            "@tag": "REACTION_LOVE",
+            "#text": "Ador"
+          },
+          {
+            "@tag": "REACTION_WOW",
+            "#text": "Uau"
           }
         ]
       },
@@ -7868,6 +7876,10 @@
           {
             "@tag": "YES",
             "#text": "Da"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Un nou răspuns a fost postat în acest subiect, arată-l"
           }
         ]
       },
@@ -12626,8 +12638,16 @@
             "#text": "Prietenos"
           },
           {
+            "@tag": "HATED",
+            "#text": "Urau"
+          },
+          {
             "@tag": "HONORED",
             "#text": "Onorat"
+          },
+          {
+            "@tag": "HOSTILE",
+            "#text": "Ostil"
           },
           {
             "@tag": "NEUTRAL",
@@ -12636,14 +12656,6 @@
           {
             "@tag": "UNFRIENDLY",
             "#text": "Neprietenos"
-          },
-          {
-            "@tag": "HATED",
-            "#text": "Urau"
-          },
-          {
-            "@tag": "HOSTILE",
-            "#text": "Ostil"
           }
         ]
       },

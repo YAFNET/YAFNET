@@ -55,6 +55,7 @@
 
         <div id="category-list"
              data-load-more-url="@Url.Page("", "ShowMore")"
+             data-refresh-url="@Url.Page("", "RefreshCategories", Model.PageBoardContext.PageCategoryID > 0 ? new { c = Model.PageBoardContext.PageCategoryID } : null)"
              data-forum-icon-legend-content="@((await Html.PartialAsync("_ForumIconLegend")).RenderToString())"
              data-last-post-title="@($"{Model.Get<ILocalization>().GetText("LASTPOST")} {Model.Get<ILocalization>().GetText("SEARCH", "BY")} ...")">
             @await Html.PartialAsync("_CategoryList", Model.Categories)
@@ -69,7 +70,9 @@
     }
 
     <div class="@Html.Raw(Model.PageBoardContext.BoardSettings.TwoColumnBoardLayout ? "col-md-4" : "col")">
-        @await Html.PartialAsync("_ActiveDiscussions")
+        <div id="active-discussions" data-refresh-url="@Url.Page("", "ActiveDiscussions", Model.PageBoardContext.PageCategoryID > 0 ? new { c = Model.PageBoardContext.PageCategoryID } : null)">
+            @await Html.PartialAsync("_ActiveDiscussions")
+        </div>
         @await Html.PartialAsync("_ForumStatsUsers")
     </div>
 </div>
