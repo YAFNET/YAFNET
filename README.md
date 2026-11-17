@@ -41,7 +41,10 @@ YAF supports the following databases:
 - PostgreSQL
 - SQLite
 
-YAF 3.x is also available as a **DNN module**, see the [YAFNET-DNN project](https://github.com/YAFNET/YAFNET-DNN).
+YAF 3.x is also available as a module for these CMSs:
+
+- **DNN** (DotNetNuke): see the [YAFNET-DNN project](https://github.com/YAFNET/YAFNET-DNN).
+- **mojoPortal**: see the [YAFNET-mojoPortal project](https://github.com/YAFNET/YAFNET-mojoPortal).
 
 Release notes are in [CHANGES.md](CHANGES.md).
 
@@ -63,6 +66,7 @@ Compose files for MySQL, PostgreSQL and SQLite, configuration via environment va
 ## Installation & upgrade
 
 - [New installation](https://github.com/YAFNET/YAFNET/wiki#getting-started) (IIS, Linux with nginx, Docker)
+- [Upgrade YAF.NET v4 to a newer v4 version](https://github.com/YAFNET/YAFNET/wiki/Upgrade-YAF.NET-v4.x.x) (IIS, Linux, Docker, NuGet)
 - [Upgrade from YAF.NET 3.x or older](https://github.com/YAFNET/YAFNET/wiki/Upgrade-to-YAF-v4)
 - [Troubleshooting](https://github.com/YAFNET/YAFNET/wiki/Troubleshooting)
 
