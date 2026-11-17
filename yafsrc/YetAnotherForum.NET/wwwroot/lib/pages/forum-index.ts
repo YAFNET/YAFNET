@@ -1,4 +1,5 @@
 import * as bootstrap from 'bootstrap';
+import { fetchHtml, highlight, onPostPublished } from '../forum/liveUpdates';
 
 const popoverTemplate =
 	'<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>';
@@ -26,6 +27,62 @@ function initCategoryListWidgets(scope: ParentNode, forumIconLegendContent: stri
 	});
 }
 
+/**
+ * Real-time updates: the active discussions and the last posts of the forums are loaded again when a post is published.
+ */
+function initLiveUpdates(forumIconLegendContent: string, lastPostTitle: string, isLoading: () => boolean): void {
+	if (document.body.dataset.liveUpdates !== 'true') {
+		return;
+	}
+
+	const activeDiscussions = document.getElementById('active-discussions');
+	const categoryList = document.getElementById('category-list');
+
+	onPostPublished(async posts => {
+		const topics = new Set(posts.map(post => post.topicId.toString()));
+		const forums = new Set(posts.map(post => post.forumId.toString()));
+
+		const activeUrl = activeDiscussions?.dataset.refreshUrl;
+
+		if (activeDiscussions && activeUrl) {
+			const result = await fetchHtml(activeUrl);
+
+			if (result) {
+				activeDiscussions.innerHTML = result.html;
+
+				initCategoryListWidgets(activeDiscussions, forumIconLegendContent, lastPostTitle);
+
+				activeDiscussions.querySelectorAll<HTMLElement>('[data-topic-id]').forEach(item => {
+					if (topics.has(item.dataset.topicId!)) {
+						highlight(item);
+					}
+				});
+			}
+		}
+
+		const categoriesUrl = categoryList?.dataset.refreshUrl;
+
+		// not while more forums are loaded (the list is replaced)
+		if (categoryList && categoriesUrl && !isLoading()) {
+			const result = await fetchHtml(categoriesUrl);
+
+			if (result) {
+				categoryList.innerHTML = result.html;
+
+				initCategoryListWidgets(categoryList, forumIconLegendContent, lastPostTitle);
+
+				categoryList.querySelectorAll<HTMLElement>('[data-forum-id]').forEach(row => {
+					if (forums.has(row.dataset.forumId!)) {
+						highlight(row.querySelector('.card-post-last') ?? row);
+					}
+				});
+
+				document.dispatchEvent(new CustomEvent('yaf:categoryListRefreshed'));
+			}
+		}
+	});
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	const categoryList = document.getElementById('category-list') as HTMLDivElement;
 	const categoryIndexInput = document.getElementById('category-index') as HTMLInputElement;
@@ -38,11 +95,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	const forumIconLegendContent = categoryList.dataset.forumIconLegendContent || '';
 	const lastPostTitle = categoryList.dataset.lastPostTitle || '';
 
+	let loading = false;
+
+	initLiveUpdates(forumIconLegendContent, lastPostTitle, () => loading);
+
 	if (!loadMoreUrl) {
 		return;
 	}
 
-	let loading = false;
 	let observer: IntersectionObserver | null = null;
 
 	// The "N of Total forums shown" alert is rendered by the server as the last
@@ -93,6 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				loading = false;
 			});
 	}
+
+	// the "N of Total forums shown" alert is new after a refresh of the list
+	document.addEventListener('yaf:categoryListRefreshed', () => observeMoreButton());
 
 	observeMoreButton();
 });

@@ -1,4 +1,5 @@
 import * as bootstrap from 'bootstrap';
+import { fetchHtml, highlight, onPostPublished, toElements, withParams } from '../forum/liveUpdates';
 
 const _global = (window /* browser */ || global /* node */) as any;
 
@@ -55,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	initTopicRowWidgets(container, iconLegendContent, topicStarterTitle, lastPostTitle);
 
+	initLiveTopics(container, iconLegendContent, topicStarterTitle, lastPostTitle);
+
 	const loadMoreUrl = container.dataset.loadMoreUrl;
 	const pageSize = parseInt(container.dataset.pageSize || '0', 10);
 	const show = parseInt(container.dataset.show || '0', 10);
@@ -103,7 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
 				const template = document.createElement('template');
 				template.innerHTML = html.trim();
 
-				const newRows = Array.from(template.content.children) as HTMLElement[];
+				// a topic can already be shown (the real-time updates moved it up)
+				const newRows = (Array.from(template.content.children) as HTMLElement[])
+					.filter(row => !row.dataset.topicId || !container.querySelector(`[data-topic-id="${row.dataset.topicId}"]`));
 
 				newRows.forEach(row => sentinel.parentElement!.insertBefore(row, sentinel));
 				newRows.forEach(row => initTopicRowWidgets(row, iconLegendContent, topicStarterTitle, lastPostTitle));
@@ -124,5 +129,68 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 	}
 });
+
+/**
+ * Real-time updates: the topics of the first page are loaded again when a post is published,
+ * a new (or answered) topic moves to the top of the list.
+ */
+function initLiveTopics(
+	container: HTMLElement,
+	iconLegendContent: string,
+	topicStarterTitle: string,
+	lastPostTitle: string): void {
+	const liveUrl = container.dataset.liveUrl;
+
+	if (!liveUrl || document.body.dataset.liveUpdates !== 'true') {
+		return;
+	}
+
+	// the topic list of a forum shows only its topics, my topics the topics of all forums
+	const forumId = container.dataset.forumId ? parseInt(container.dataset.forumId, 10) : undefined;
+
+	onPostPublished(async posts => {
+		const result = await fetchHtml(withParams(liveUrl, {
+			page: 0,
+			show: container.dataset.show,
+			size: container.dataset.pageSize,
+			mode: container.dataset.mode
+		}));
+
+		if (!result) {
+			return;
+		}
+
+		const rows = toElements(result.html).filter(row => row.dataset.topicId);
+
+		if (rows.length === 0) {
+			return;
+		}
+
+		// the rows of the head are replaced, the rows further down (loaded by scrolling) stay
+		rows.forEach(row => {
+			container.querySelectorAll(`[data-topic-id="${row.dataset.topicId}"]`).forEach(old => old.remove());
+		});
+
+		// "no topics" placeholder
+		container.querySelectorAll(':scope > p.text-center, :scope > .alert').forEach(element => element.remove());
+
+		const first = container.querySelector(':scope > [data-topic-id]')
+			?? document.getElementById('topicsLoadMoreSentinel');
+
+		rows.forEach(row => {
+			if (first) {
+				container.insertBefore(row, first);
+			} else {
+				container.appendChild(row);
+			}
+
+			initTopicRowWidgets(row, iconLegendContent, topicStarterTitle, lastPostTitle);
+		});
+
+		const changed = new Set(posts.map(post => post.topicId.toString()));
+
+		rows.filter(row => changed.has(row.dataset.topicId!)).forEach(row => highlight(row));
+	}, post => forumId === undefined || post.forumId === forumId);
+}
 
 _global.initTopicRowWidgets = initTopicRowWidgets;

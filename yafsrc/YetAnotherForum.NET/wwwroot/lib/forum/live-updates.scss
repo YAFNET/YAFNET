@@ -1,0 +1,16 @@
+// real-time updates: new or changed rows and posts are highlighted for a moment
+// (a fading color, no movement, so also with prefers-reduced-motion)
+@keyframes yaf-live-new {
+	from {
+		background-color: rgba(var(--bs-warning-rgb), .35);
+	}
+
+	to {
+		background-color: transparent;
+	}
+}
+
+.yaf-live-new {
+	animation: yaf-live-new 2.5s ease-out;
+}
+

@@ -1,8 +1,19 @@
 ﻿import * as Utilities from '../forum/utilities';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => initContextMenus(document));
 
-    document.querySelectorAll<HTMLElement>('.list-group-item-menu, .message, .row-menu').forEach(element => {
+/**
+ * Binds the context menus of the elements in the scope (once per element, the real-time updates add posts).
+ */
+export function initContextMenus(scope: ParentNode): void {
+
+    scope.querySelectorAll<HTMLElement>('.list-group-item-menu, .message, .row-menu').forEach(element => {
+
+        if (element.dataset.contextMenuInit) {
+            return;
+        }
+
+        element.dataset.contextMenuInit = 'true';
 
         const isMessageContext = element.classList.contains('message');
 
@@ -104,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     });
-});
+}
 
 // shows the menu at the position of the click (the position in the page), the menu is positioned in its
 // offset parent (the offset of the event is the one in the clicked element, e.g. a quote of the post)
@@ -190,3 +201,4 @@ const _global = (window /* browser */ || global /* node */) as any;
 
 _global.goToURL = goToURL;
 _global.searchText = searchText;
+_global.initContextMenus = initContextMenus;
