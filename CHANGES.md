@@ -19,6 +19,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Profile menu (my account, profile pages): on mobile devices in landscape mode the icons were shown vertical (one below the other) instead of horizontal above the content
 * [FIXED] NuGet: the packages YAFNET.Core, YAFNET.Types, YAFNET.Configuration, YAFNET.Web and YAFNET.Data.* used the README of the repository, its HTML (logo and badges) and relative links can not be shown on nuget.org; they now contain their own README (yafsrc/NuGet/README.md) in plain Markdown with absolute links
 * [CHANGES] Tests: the test mail server netDumbster (no longer maintained) is replaced by TestSmtpServer (YAFNET.Tests.Utils), an in-process server based on the SmtpServer library (the SMTP engine of Papercut SMTP); the received mails are MimeKit MimeMessages
+* [NEW] Real-time updates: new topics and posts are shown without reloading the page (also for guests): the active discussions and the last post of the forums on the board index, the topic list of a forum and my topics move the topic to the top, the last page of an open topic gets the new reply (on another page a notice links to it). Only readers of the forum get the update, posts waiting for the approval are shown after the approval. Can be switched off in the host settings (Enable Real-Time Updates)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -37,4 +37,8 @@ A new, empty volume is filled with the files of the image (e.g. the default meda
 
 With `MultiBoardFolders` every board has its own folders (`wwwroot/<board id>/uploads` and `/images`), add a volume for each of them.
 
+## Real-time updates and more than one container
+
+The real-time updates (new topics and posts without reloading the page) and the notifications use SignalR. A SignalR message only reaches the browsers connected to the same container, so the compose files run one forum container. To run several containers behind a load balancer, a SignalR backplane (e.g. Redis) and sticky sessions are needed, this is not set up. Without them, switch the real-time updates off in the host settings.
+
 This folder contains the Dockerfile of each provider (`yaf-sqlserver`, `yaf-mysql`, `yaf-postgresql`, `yaf-sqlite`) and the database init scripts.
