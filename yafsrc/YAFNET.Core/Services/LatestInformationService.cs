@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -42,6 +42,17 @@ using Microsoft.Extensions.Logging;
 public class LatestInformationService : IHaveServiceLocator, ILatestInformationService
 {
     /// <summary>
+    /// The release package name for each database provider.
+    /// </summary>
+    private static readonly Dictionary<string, string> PackageNames = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["Microsoft.Data.SqlClient"] = "SqlServer",
+        ["MySql.Data.MySqlClient"] = "MySql",
+        ["Npgsql Data Provider"] = "PostgreSQL",
+        ["System.Data.SQLite"] = "Sqlite"
+    };
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="LatestInformationService"/> class.
     /// </summary>
     /// <param name="serviceLocator">
@@ -78,7 +89,7 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
 
             var release = releases.First(x => x.TagName.StartsWith("v4"));
 
-            version.UpgradeUrl = "https://yetanotherforum.net/downloads";
+            version.UpgradeUrl = this.GetDownloadUrl(release) ?? "https://yetanotherforum.net/downloads";
             version.VersionDate = release.PublishedAt;
             version.Version = release.TagName.Replace("v", string.Empty);
 #pragma warning restore S1075
@@ -89,5 +100,40 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
         }
 
         return version;
+    }
+
+    /// <summary>
+    /// Gets the download url of the release package for the database this forum runs on
+    /// (e.g. YAF.SqlServer-v4.0.11.zip), or the release page when there is no matching package.
+    /// </summary>
+    /// <param name="release">The release.</param>
+    /// <returns>The download url, or null when the release has no url at all.</returns>
+    private string GetDownloadUrl(GitHubRelease release)
+    {
+        string providerName = null;
+
+        try
+        {
+            providerName = this.Get<IDbAccess>().Information.ProviderName;
+        }
+        catch (Exception x)
+        {
+            this.Get<ILogger<LatestInformationService>>().Error(x, "Unable to get the database provider");
+        }
+
+        if (providerName != null && PackageNames.TryGetValue(providerName, out var packageName))
+        {
+            var fileName = $"YAF.{packageName}-{release.TagName}.zip";
+
+            var asset = release.Assets?.Find(
+                a => string.Equals(a.Name, fileName, StringComparison.OrdinalIgnoreCase));
+
+            if (asset?.BrowserDownloadUrl.IsSet() == true)
+            {
+                return asset.BrowserDownloadUrl;
+            }
+        }
+
+        return release.HtmlUrl.IsSet() ? release.HtmlUrl : null;
     }
 }

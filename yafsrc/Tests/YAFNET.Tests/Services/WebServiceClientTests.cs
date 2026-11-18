@@ -279,7 +279,29 @@ public class WebServiceClientTests
         var version = await service.GetLatestVersionAsync();
 
         ((string)version.Version).Should().Be("4.0.10");
+        ((string)version.UpgradeUrl).Should().Be("https://yetanotherforum.net/downloads");
         this.handler.Requests.Single().Headers.UserAgent.ToString().Should().Be("YAF.NET");
+
+        // the test board runs on SQLite, so the SQLite package is linked
+        this.handler.Respond(
+            """
+            [{"tag_name":"v4.0.11","published_at":"2026-10-01T00:00:00Z","html_url":"https://github.com/YAFNET/YAFNET/releases/tag/v4.0.11",
+              "assets":[{"name":"YAF.SqlServer-v4.0.11.zip","browser_download_url":"https://github.com/YAFNET/YAFNET/releases/download/v4.0.11/YAF.SqlServer-v4.0.11.zip"},
+                        {"name":"YAF.Sqlite-v4.0.11.zip","browser_download_url":"https://github.com/YAFNET/YAFNET/releases/download/v4.0.11/YAF.Sqlite-v4.0.11.zip"}]}]
+            """);
+
+        ((string)(await service.GetLatestVersionAsync()).UpgradeUrl).Should()
+            .Be("https://github.com/YAFNET/YAFNET/releases/download/v4.0.11/YAF.Sqlite-v4.0.11.zip");
+
+        // no package for this database, the release page is linked
+        this.handler.Respond(
+            """
+            [{"tag_name":"v4.0.11","published_at":"2026-10-01T00:00:00Z","html_url":"https://github.com/YAFNET/YAFNET/releases/tag/v4.0.11",
+              "assets":[{"name":"YAF.SqlServer-v4.0.11.zip","browser_download_url":"https://github.com/YAFNET/YAFNET/releases/download/v4.0.11/YAF.SqlServer-v4.0.11.zip"}]}]
+            """);
+
+        ((string)(await service.GetLatestVersionAsync()).UpgradeUrl).Should()
+            .Be("https://github.com/YAFNET/YAFNET/releases/tag/v4.0.11");
 
         this.handler.Fail();
         ((IDictionary<string, object>)await service.GetLatestVersionAsync()).Should().NotContainKey("Version");

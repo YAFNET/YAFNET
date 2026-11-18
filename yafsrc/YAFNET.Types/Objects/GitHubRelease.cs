@@ -22,6 +22,7 @@
  * under the License.
  */
 
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace YAF.Types.Objects;
@@ -44,4 +45,38 @@ public class GitHubRelease
     /// <value>The published at.</value>
     [JsonPropertyName("published_at")]
     public DateTime PublishedAt { get; set; }
+
+    /// <summary>
+    /// Gets or sets the url of the release page.
+    /// </summary>
+    /// <value>The release page url.</value>
+    [JsonPropertyName("html_url")]
+    public string HtmlUrl { get; set; }
+
+    /// <summary>
+    /// Gets or sets the files attached to the release.
+    /// </summary>
+    /// <value>The assets.</value>
+    [JsonPropertyName("assets")]
+    public List<GitHubReleaseAsset> Assets { get; set; }
+}
+
+/// <summary>
+/// A file attached to a GitHub release.
+/// </summary>
+public class GitHubReleaseAsset
+{
+    /// <summary>
+    /// Gets or sets the file name.
+    /// </summary>
+    /// <value>The name.</value>
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the download url.
+    /// </summary>
+    /// <value>The browser download url.</value>
+    [JsonPropertyName("browser_download_url")]
+    public string BrowserDownloadUrl { get; set; }
 }
