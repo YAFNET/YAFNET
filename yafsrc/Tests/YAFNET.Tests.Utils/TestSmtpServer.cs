@@ -172,7 +172,7 @@ public sealed class TestSmtpServer : IDisposable
 
         try
         {
-            this.server.ShutdownTask.Wait(TimeSpan.FromSeconds(10));
+            this.server.ShutdownTask.Wait(TimeSpan.FromSeconds(10), this.cancellation.Token);
         }
         catch (AggregateException)
         {
