@@ -131,6 +131,34 @@ public class MedalTagRepositoryTests
     }
 
     [Test]
+    [Description("A medal awarded to the user and to the user's groups is listed once, with the personal message, and is hidden if one of the awards is hidden: the union kept a visible and a hidden row and the medal was shown anyway")]
+    public void Medal_ListUserMedals_Personal_And_Group_Test()
+    {
+        var medal = this.AddMedal("Both", MedalFlags.Flags.AllowHiding);
+        var visible = this.AddMedal("Visible", MedalFlags.Flags.AllowHiding);
+        var group1 = this.db.AddForumAccess(this.alice, this.db.AddForum());
+        var group2 = this.db.AddForumAccess(this.alice, this.db.AddForum());
+
+        using (var connection = this.db.Open())
+        {
+            connection.Insert(new UserMedal { UserID = this.alice, MedalID = medal, Message = "personal", Hide = false, SortOrder = 1, DateAwarded = DateTime.UtcNow });
+            connection.Insert(new GroupMedal { GroupID = group1, MedalID = medal, Message = "group", Hide = true, SortOrder = 2 });
+            connection.Insert(new GroupMedal { GroupID = group1, MedalID = visible, Message = "group 1", Hide = false, SortOrder = 3 });
+            connection.Insert(new GroupMedal { GroupID = group2, MedalID = visible, Message = "group 2", Hide = false, SortOrder = 4 });
+        }
+
+        var medals = this.Medals.ListUserMedals(this.alice);
+
+        medals.Should().HaveCount(2);
+
+        var both = medals.Single(m => m.MedalID == medal);
+        both.Message.Should().Be("personal");
+        both.Hide.Should().BeTrue();
+
+        medals.Single(m => m.MedalID == visible).Hide.Should().BeFalse();
+    }
+
+    [Test]
     [Description("A user without medals gets an empty list")]
     public void Medal_ListUserMedals_None_Test()
     {
