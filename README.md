@@ -13,8 +13,8 @@ We have a preliminary documentation on the [Github Wiki](https://github.com/YAFN
 
 ## Prerequisites:
 * ASP.NET .NET Framework 4.8.1 (YAF v3.2.x)
-* ASP.NET Core 11.0 (YAF v4.x)
-* BuildPackages requires .NET v11
+* ASP.NET Core 10.0 (YAF v4.x)
+* BuildPackages requires .NET v10
 
 ## Source 
 * The [netfx branch](https://github.com/YAFNET/YAFNET/tree/netfx) contains the current Stable YAF 3.2.x Release
@@ -30,6 +30,10 @@ We have a preliminary documentation on the [Github Wiki](https://github.com/YAFN
 ### DNN Module
 
 YAF v3.x.x is also available as a DNN Module, you can download it on the [GitHub Project Page](https://github.com/YAFNET/YAFNET-DNN)
+
+### mojoPortal Integration
+
+YAF v3.x.x is also available as mojoPortal integration [GitHub Project Page](https://github.com/YAFNET/YAFNET-mojoPortal)
 
 ### Screen Shots
 
