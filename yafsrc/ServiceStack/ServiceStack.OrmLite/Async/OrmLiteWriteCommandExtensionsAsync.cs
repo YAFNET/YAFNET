@@ -88,7 +88,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {
@@ -135,7 +135,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {

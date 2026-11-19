@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading;
 using ServiceStack.Logging;
 
 namespace ServiceStack.OrmLite;
@@ -344,6 +345,21 @@ public static class OrmLiteConfig
     /// </summary>
     /// <value>The after execute filter.</value>
     public static Action<IDbCommand> AfterExecFilter { get; set; }
+
+    /// <summary>
+    /// Captures the SQL of the migration running in the current execution context.
+    /// </summary>
+    internal static readonly AsyncLocal<Action<IDbCommand>> MigrationSqlCapture = new();
+
+    /// <summary>
+    /// Invokes the before execute filter and the migration SQL capture.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    internal static void InvokeBeforeExecFilter(IDbCommand dbCmd)
+    {
+        BeforeExecFilter?.Invoke(dbCmd);
+        MigrationSqlCapture.Value?.Invoke(dbCmd);
+    }
 
     /// <summary>
     /// Gets or sets the insert filter.

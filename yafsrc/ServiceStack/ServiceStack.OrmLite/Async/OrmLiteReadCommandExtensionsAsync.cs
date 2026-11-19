@@ -46,7 +46,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             return dbCmd.WithLog(dbCmd.ExecReaderWithRetryAsync(token));
         }
@@ -74,7 +74,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             return dbCmd.WithLog(dbCmd.ExecReaderWithRetryAsync(token));
         }

@@ -46,7 +46,7 @@ namespace ServiceStack.OrmLite
 
             dbCmd.CommandText = sql;
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {
@@ -78,7 +78,7 @@ namespace ServiceStack.OrmLite
 
             dbCmd.CommandText = sql;
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {
@@ -101,7 +101,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, CancellationToken token = default)
         {
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {
@@ -413,7 +413,7 @@ namespace ServiceStack.OrmLite
                 Log.DebugCommand(dbCmd);
             }
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {

@@ -50,7 +50,7 @@ public static class OrmLiteReadCommandExtensions
             Log.DebugCommand(dbCmd);
         }
 
-        OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+        OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
         return dbCmd.WithLog(dbCmd.ExecuteReader());
     }
@@ -71,7 +71,7 @@ public static class OrmLiteReadCommandExtensions
             Log.DebugCommand(dbCmd);
         }
 
-        OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+        OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
         return dbCmd.WithLog(dbCmd.ExecuteReader(commandBehavior));
     }
@@ -101,7 +101,7 @@ public static class OrmLiteReadCommandExtensions
             Log.DebugCommand(dbCmd);
         }
 
-        OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+        OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
         return dbCmd.WithLog(dbCmd.ExecuteReader());
     }
