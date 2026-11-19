@@ -92,7 +92,7 @@ internal static class OrmLiteWriteCommandExtensionsAsync
                 Log.DebugCommand(dbCmd);
             }
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {
@@ -139,7 +139,7 @@ internal static class OrmLiteWriteCommandExtensionsAsync
                 Log.DebugCommand(dbCmd);
             }
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {

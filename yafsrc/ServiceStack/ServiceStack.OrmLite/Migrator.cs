@@ -920,9 +920,28 @@ public class Migrator
     public static MigrationBase Run(IDbConnectionFactory dbFactory, Type nextRun, Action<MigrationBase> migrateAction,
         string? namedConnection = null)
     {
-        var holdFilter = OrmLiteConfig.BeforeExecFilter;
         var instance = nextRun.CreateInstance<MigrationBase>();
-        OrmLiteConfig.BeforeExecFilter = dbCmd => instance.MigrationLog.AppendLine(dbCmd.GetDebugString());
+        var previousCapture = OrmLiteConfig.MigrationSqlCapture.Value;
+        var captureLock = new object();
+        IDbConnection? captureConnection = null;
+
+        OrmLiteConfig.MigrationSqlCapture.Value = cmd =>
+        {
+            lock (captureLock)
+            {
+                if (captureConnection == null)
+                {
+                    return;
+                }
+
+                var commandConnection = cmd is OrmLiteCommand ormLiteCmd ? ormLiteCmd.OrmLiteConnection : cmd.Connection;
+                if (ReferenceEquals(commandConnection, captureConnection) ||
+                    commandConnection != null && ReferenceEquals(commandConnection.ToDbConnection(), captureConnection.ToDbConnection()))
+                {
+                    instance.MigrationLog.AppendLine(cmd.GetDebugString());
+                }
+            }
+        };
 
         IDbConnection? useDb = null;
         IDbTransaction? trans = null;
@@ -932,6 +951,11 @@ public class Migrator
             useDb = namedConnection == null
                 ? dbFactory.OpenDbConnection()
                 : dbFactory.OpenDbConnection(namedConnection);
+
+            lock (captureLock)
+            {
+                captureConnection = useDb;
+            }
 
             instance.DbFactory = dbFactory;
             instance.Db = useDb;
@@ -945,7 +969,10 @@ public class Migrator
             migrateAction(instance);
 
             instance.CompletedDate = DateTime.UtcNow;
-            instance.Log = instance.MigrationLog.ToString();
+            lock (captureLock)
+            {
+                instance.Log = instance.MigrationLog.ToString();
+            }
 
             instance.BeforeCommit();
             trans.Commit();
@@ -956,7 +983,10 @@ public class Migrator
         {
             instance.CompletedDate = DateTime.UtcNow;
             instance.Error = e;
-            instance.Log = instance.MigrationLog.ToString();
+            lock (captureLock)
+            {
+                instance.Log = instance.MigrationLog.ToString();
+            }
             try
             {
                 instance.BeforeRollback();
@@ -972,7 +1002,13 @@ public class Migrator
         {
             instance.Db = null;
             instance.Transaction = null;
-            OrmLiteConfig.BeforeExecFilter = holdFilter;
+            // Invalidate the capture in any execution context that inherited it.
+            lock (captureLock)
+            {
+                captureConnection = null;
+            }
+
+            OrmLiteConfig.MigrationSqlCapture.Value = previousCapture;
             try
             {
                 useDb?.Dispose();

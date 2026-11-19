@@ -377,7 +377,7 @@ public static class OrmLiteWriteCommandExtensions
                 Log.DebugCommand(dbCmd);
             }
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {
@@ -410,7 +410,7 @@ public static class OrmLiteWriteCommandExtensions
                 Log.DebugCommand(dbCmd);
             }
 
-            OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
+            OrmLiteConfig.InvokeBeforeExecFilter(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
             {
