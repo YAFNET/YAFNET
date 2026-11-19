@@ -2,6 +2,7 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.12
+* [FIXED] Admin > Medals: wrong help text of Allow Hiding (users can not hide medals, the medal can be hidden for single users or groups with the Hide option of the award), the help of Hide mentioned the no longer existing user box and that hiding needs Allow Hiding
 * [FIXED] Modal dialogs (e.g. Admin > Medals > add/edit user or group, banned names/emails/IPs, replace words, spam words, profile definitions): the help (info button) of the fields was not shown, the tooltips of the loaded dialog were not initialized
 * [FIXED] Medals: a medal hidden in a group award (or the user award) was still shown in the profile and user info when the user also had it from another award, and a medal awarded to several groups of the user was shown more than once
 * [CHANGES] Runs on .NET 10 or .NET 11: the application targets .NET 10 (LTS) and rolls forward to .NET 11 when only .NET 11 is installed (RollForward Major), the same release package works on both; the NuGet packages target net10.0 (also usable from .NET 11 projects)

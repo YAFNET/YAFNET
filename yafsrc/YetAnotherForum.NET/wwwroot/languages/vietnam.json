@@ -2877,7 +2877,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Có nghĩa là người dùng sẽ được phép / không được phép ẩn huy chương này."
+            "#text": "Nếu được bật, huy chương có thể được ẩn cho từng người dùng hoặc nhóm bằng tùy chọn Ẩn khi trao tặng."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2913,7 +2913,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Nếu được chọn, huy chương không được hiển thị trong hộp người dùng."
+            "#text": "Nếu được chọn, huy chương không được hiển thị trong hồ sơ người dùng và thông tin người dùng. Chỉ có thể nếu huy chương cho phép ẩn."
           },
           {
             "@tag": "MEDAL_CATEGORY",

@@ -2877,7 +2877,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Signifie que les utilisateurs seront autorisés/interdits à cacher cette médaille."
+            "#text": "Si activé, la médaille peut être cachée pour certains utilisateurs ou groupes avec l'option Cacher de l'attribution."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2913,7 +2913,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Si cette case est cochée, la médaille n'est pas affichée dans la boîte de l'utilisateur."
+            "#text": "Si cette case est cochée, la médaille n'est pas affichée dans le profil et les infos de l'utilisateur. Possible uniquement si la médaille autorise le masquage."
           },
           {
             "@tag": "MEDAL_CATEGORY",

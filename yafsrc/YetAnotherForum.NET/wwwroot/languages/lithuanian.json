@@ -2877,7 +2877,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Reiškia, kad naudotojams bus leidžiama/neleidžiama slėpti šį medalį."
+            "#text": "Jei įjungta, medalį galima paslėpti atskiriems naudotojams ar grupėms naudojant apdovanojimo parinktį Slėpti."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2913,7 +2913,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Jei pažymėta, medalis nerodomas naudotojo lange."
+            "#text": "Jei pažymėta, medalis nerodomas naudotojo profilyje ir naudotojo informacijoje. Galima tik jei medalis leidžia slėpimą."
           },
           {
             "@tag": "MEDAL_CATEGORY",

@@ -2877,7 +2877,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Betyder, at brugere får lov/ikke tilladt at skjule denne medalje."
+            "#text": "Hvis aktiveret, kan medaljen skjules for enkelte brugere eller grupper med indstillingen Skjul ved tildelingen."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2913,7 +2913,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Hvis markeret, vises medaljen ikke i brugerboksen."
+            "#text": "Hvis markeret, vises medaljen ikke i brugerprofilen og brugerinfo. Kun muligt hvis medaljen tillader skjulning."
           },
           {
             "@tag": "MEDAL_CATEGORY",

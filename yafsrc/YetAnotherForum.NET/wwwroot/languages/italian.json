@@ -2873,7 +2873,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Significa che gli utenti possono o non possono nascondere questa medaglia."
+            "#text": "Se attivato, la medaglia può essere nascosta per singoli utenti o gruppi con l'opzione Nascondi dell'assegnazione."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2909,7 +2909,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Se è selezionata, la medaglia non viene visualizzata nella casella dell'utente."
+            "#text": "Se è selezionata, la medaglia non viene visualizzata nel profilo e nelle informazioni dell'utente. Possibile solo se la medaglia consente di nasconderla."
           },
           {
             "@tag": "MEDAL_CATEGORY",

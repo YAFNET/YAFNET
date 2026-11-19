@@ -2877,7 +2877,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Znamená, že uživatelům bude povoleno/nepovoleno skrýt tuto medaili."
+            "#text": "Pokud je povoleno, lze medaili pro jednotlivé uživatele nebo skupiny skrýt volbou Skrýt u udělení."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2913,7 +2913,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Pokud je zaškrtnuto, medaile se v uživatelské schránce nezobrazuje."
+            "#text": "Pokud je zaškrtnuto, medaile se nezobrazuje v profilu uživatele ani v informacích o uživateli. Možné pouze pokud medaile povoluje skrytí."
           },
           {
             "@tag": "MEDAL_CATEGORY",

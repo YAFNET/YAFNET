@@ -2877,7 +2877,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Tarkoittaa, että käyttäjät saavat/ei saa piilottaa tämän mitalin."
+            "#text": "Jos käytössä, mitali voidaan piilottaa yksittäisiltä käyttäjiltä tai ryhmiltä myöntämisen Piilota-valinnalla."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2913,7 +2913,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Jos valintamerkki on valittuna, mitalia ei näytetä käyttäjälaatikossa."
+            "#text": "Jos valittu, mitalia ei näytetä käyttäjäprofiilissa eikä käyttäjätiedoissa. Mahdollista vain, jos mitali sallii piilottamisen."
           },
           {
             "@tag": "MEDAL_CATEGORY",

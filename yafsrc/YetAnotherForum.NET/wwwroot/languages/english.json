@@ -2873,7 +2873,7 @@
                 },
                 {
                     "@tag": "ALLOW_HIDING_HELP",
-                    "#text": "Means that users will be allowed/disallowed to hide this medal."
+                    "#text": "If enabled, the medal can be hidden for single users or groups with the Hide option of the award."
                 },
                 {
                     "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2909,7 +2909,7 @@
                 },
                 {
                     "@tag": "HIDE_HELP",
-                    "#text": "If checked, medal is not displayed in user box."
+                    "#text": "If checked, the medal is not shown in the user profile and the user info. Only possible if the medal allows hiding."
                 },
                 {
                     "@tag": "MEDAL_CATEGORY",

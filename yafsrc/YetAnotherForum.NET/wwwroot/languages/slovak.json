@@ -2877,7 +2877,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Znamená, že používatelia budú môcť/nemôžu skryť túto medailu."
+            "#text": "Ak je povolené, medailu možno pre jednotlivých používateľov alebo skupiny skryť voľbou Skryť pri udelení."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2913,7 +2913,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Ak je začiarknuté, medaila sa nezobrazuje v poli používateľa."
+            "#text": "Ak je začiarknuté, medaila sa nezobrazuje v profile používateľa ani v informáciách o používateľovi. Možné len ak medaila povoľuje skrytie."
           },
           {
             "@tag": "MEDAL_CATEGORY",

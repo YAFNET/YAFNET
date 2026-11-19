@@ -2877,7 +2877,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Innebär att användarna tillåts/förbjuds att dölja denna medalj."
+            "#text": "Om aktiverad kan medaljen döljas för enskilda användare eller grupper med alternativet Dölj vid tilldelningen."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2913,7 +2913,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Om den är markerad visas inte medaljen i användarrutan."
+            "#text": "Om den är markerad visas inte medaljen i användarprofilen och användarinformationen. Endast möjligt om medaljen tillåter döljning."
           },
           {
             "@tag": "MEDAL_CATEGORY",

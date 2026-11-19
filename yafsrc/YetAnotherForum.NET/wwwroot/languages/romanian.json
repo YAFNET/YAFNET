@@ -2877,7 +2877,7 @@
           },
           {
             "@tag": "ALLOW_HIDING_HELP",
-            "#text": "Înseamnă că utilizatorilor li se va permite/nu li se va permite să ascundă această medalie."
+            "#text": "Dacă este activat, medalia poate fi ascunsă pentru anumiți utilizatori sau grupuri cu opțiunea Ascunde a acordării."
           },
           {
             "@tag": "CONFIRM_REMOVE_GROUP",
@@ -2913,7 +2913,7 @@
           },
           {
             "@tag": "HIDE_HELP",
-            "#text": "Dacă este bifată, medalia nu este afișată în caseta utilizatorului."
+            "#text": "Dacă este bifată, medalia nu este afișată în profilul și informațiile utilizatorului. Posibil doar dacă medalia permite ascunderea."
           },
           {
             "@tag": "MEDAL_CATEGORY",
