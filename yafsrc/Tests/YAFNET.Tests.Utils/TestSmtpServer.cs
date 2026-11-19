@@ -172,7 +172,7 @@ public sealed class TestSmtpServer : IDisposable
 
         try
         {
-            this.server.ShutdownTask.Wait(TimeSpan.FromSeconds(10), this.cancellation.Token);
+            this.server.ShutdownTask.Wait(TimeSpan.FromSeconds(10));
         }
         catch (AggregateException)
         {
@@ -193,7 +193,7 @@ public sealed class TestSmtpServer : IDisposable
     private sealed class Store(TestSmtpServer owner) : MessageStore
     {
         /// <inheritdoc />
-        public override async Task<SmtpResponse> SaveAsync(
+        public async override Task<SmtpResponse> SaveAsync(
             ISessionContext context,
             IMessageTransaction transaction,
             ReadOnlySequence<byte> buffer,
