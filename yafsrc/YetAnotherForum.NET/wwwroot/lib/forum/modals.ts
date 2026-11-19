@@ -70,6 +70,14 @@ document.addEventListener('DOMContentLoaded',
 		}
 	});
 function loadModal(modal: any, placeholderElement: HTMLDivElement) {
+	// the dialog content is loaded after the page, the tooltips (e.g. the help of the info buttons) are not initialized yet
+	const toolTips = Array.from(placeholderElement.querySelectorAll<HTMLElement>('[data-bs-toggle="tooltip"]'))
+		.map(toolTip => new bootstrap.Tooltip(toolTip));
+
+	modal._element.addEventListener('hidden.bs.modal', () => {
+		toolTips.forEach(toolTip => toolTip.dispose());
+	});
+
 	modal.show();
 
 	modal._element.addEventListener('shown.bs.modal', (event: Event) => {
