@@ -31,7 +31,7 @@ See a live YAF.NET forum in action at the [community support forum](https://yeta
 
 | Version   | Platform                       | Branch                                                 | Status         |
 |-----------|--------------------------------|--------------------------------------------------------|----------------|
-| YAF 4.x   | ASP.NET Core / .NET 11.0       | [`master`](https://github.com/YAFNET/YAFNET)           | Stable         |
+| YAF 4.x   | ASP.NET Core / .NET 10 or 11   | [`master`](https://github.com/YAFNET/YAFNET)           | Stable         |
 | YAF 3.2.x | ASP.NET / .NET Framework 4.8.1 | [`netfx`](https://github.com/YAFNET/YAFNET/tree/netfx) | Stable         |
 
 YAF supports the following databases:

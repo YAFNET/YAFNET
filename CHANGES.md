@@ -2,6 +2,7 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.12
+* [CHANGES] Runs on .NET 10 or .NET 11: the application targets .NET 10 (LTS) and rolls forward to .NET 11 when only .NET 11 is installed (RollForward Major), the same release package works on both; the NuGet packages target net10.0 (also usable from .NET 11 projects)
 * [NEW] BB code [img]: svg images are shown (the url must end with .svg), they were shown as bb code text
 * [NEW] Private messages: the conversation list shows the number of unread messages of each conversation (bold name and badge), a new message in another conversation updates the badge right away
 * [CHANGES] Private messages: the online status of the users in the conversation list is shown as a green border around the avatar instead of a red/green dot
