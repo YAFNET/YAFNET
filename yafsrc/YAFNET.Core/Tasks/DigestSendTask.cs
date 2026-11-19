@@ -65,6 +65,11 @@ public class DigestSendTask : LongBackgroundTask
     public override string TaskDescription => "Sends digest emails.";
 
     /// <summary>
+    /// Gets or sets the clock that decides whether the digest is due (the system clock, tests set a fixed time).
+    /// </summary>
+    public TimeProvider TimeProvider { get; set; } = TimeProvider.System;
+
+    /// <summary>
     /// The run once.
     /// </summary>
     public override Task RunOnceAsync()
@@ -79,7 +84,7 @@ public class DigestSendTask : LongBackgroundTask
     /// <returns>
     /// The is time to send digest for board.
     /// </returns>
-    private static bool IsTimeToSendDigestForBoard(BoardSettings boardSettings)
+    private bool IsTimeToSendDigestForBoard(BoardSettings boardSettings)
     {
         ArgumentNullException.ThrowIfNull(boardSettings);
 
@@ -88,6 +93,7 @@ public class DigestSendTask : LongBackgroundTask
             return false;
         }
 
+        var now = this.TimeProvider.GetLocalNow().DateTime;
         var lastSend = DateTime.MinValue;
         var sendEveryXHours = boardSettings.DigestSendEveryXHours;
 
@@ -105,11 +111,11 @@ public class DigestSendTask : LongBackgroundTask
 
 #if (DEBUG)
         // haven't sent in X hours or more and it's 12 to 5 am.
-        var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours);
+        var sendDigest = lastSend < now.AddHours(-sendEveryXHours);
 #else
         // haven't sent in X hours or more and it's 12 to 5 am.
-        var sendDigest = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
-                         && DateTime.Now < DateTime.Today.AddHours(6);
+        var sendDigest = lastSend < now.AddHours(-sendEveryXHours)
+                         && now < now.Date.AddHours(6);
 #endif
         if (!sendDigest && !boardSettings.ForceDigestSend)
         {
@@ -117,7 +123,7 @@ public class DigestSendTask : LongBackgroundTask
         }
 
         // we're good to send -- update latest send so no duplication...
-        boardSettings.LastDigestSend = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+        boardSettings.LastDigestSend = now.ToString(CultureInfo.InvariantCulture);
         boardSettings.ForceDigestSend = false;
 
         BoardContext.Current.Get<BoardSettingsService>().SaveRegistry(boardSettings);

@@ -53,6 +53,12 @@ public class DigestSendTaskTests
 {
     private const int SecondBoard = TestDatabase.BoardId + 1;
 
+    /// <summary>
+    /// The time of the task: 4 am, inside the time window of the release build (12 to 6 am), outside the
+    /// daylight saving time changes (2 and 3 am)
+    /// </summary>
+    private static readonly DateTime Now = DateTime.Today.AddHours(4);
+
     private TestBoardContext board;
 
     private TestDatabase db;
@@ -117,11 +123,27 @@ public class DigestSendTaskTests
         this.mail.Sent.Should().BeEmpty("digests are disabled");
 
         this.board.BoardSettings.AllowDigestEmail = true;
-        this.board.BoardSettings.LastDigestSend = DateTime.Now.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        this.board.BoardSettings.LastDigestSend = Now.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
         await this.RunAsync();
         this.mail.Sent.Should().BeEmpty("the last digest was just sent");
     }
+
+#if !DEBUG
+    [Test]
+    [Description("The release build sends a due digest only between 12 and 6 am")]
+    public async Task Not_Sent_During_The_Day_Test()
+    {
+        this.board.BoardSettings.AllowDigestEmail = true;
+
+        this.AddDigestUser("Alice");
+
+        await this.RunAsync(DateTime.Today.AddHours(12));
+
+        this.mail.Sent.Should().BeEmpty("it is noon");
+        this.board.BoardSettings.LastDigestSend.Should().BeNullOrEmpty();
+    }
+#endif
 
     [Test]
     [Description("A user without a provider key is skipped, the other users still get their digest")]
@@ -175,7 +197,7 @@ public class DigestSendTaskTests
 
         this.mail.Sent.Select(m => m.Subject).Should().Equal("digest for Alice");
         DateTime.Parse(this.board.BoardSettings.LastDigestSend, System.Globalization.CultureInfo.InvariantCulture)
-            .Should().BeCloseTo(DateTime.Now, TimeSpan.FromMinutes(1));
+            .Should().Be(Now);
     }
 
     [Test]
@@ -228,10 +250,22 @@ public class DigestSendTaskTests
             });
     }
 
-    private Task RunAsync()
+    private Task RunAsync(DateTime? now = null)
     {
-        var task = new DigestSendTask { ServiceLocator = this.board.Resolve<IServiceLocator>() };
+        var task = new DigestSendTask
+                       {
+                           ServiceLocator = this.board.Resolve<IServiceLocator>(),
+                           TimeProvider = new FixedTimeProvider(now ?? Now)
+                       };
 
         return task.RunOnceAsync();
+    }
+
+    /// <summary>
+    /// A clock that always shows the same local time.
+    /// </summary>
+    private sealed class FixedTimeProvider(DateTime localNow) : TimeProvider
+    {
+        public override DateTimeOffset GetUtcNow() => new DateTimeOffset(localNow).ToUniversalTime();
     }
 }
