@@ -2,6 +2,7 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.12
+* [NEW] Admin > Users: "Lock inactive accounts" writes an entry to the event log (type User Suspended) with the number of locked accounts, the years of inactivity and the admin who locked them
 * [FIXED] Admin > Medals: wrong help text of Allow Hiding (users can not hide medals, the medal can be hidden for single users or groups with the Hide option of the award), the help of Hide mentioned the no longer existing user box and that hiding needs Allow Hiding
 * [FIXED] Modal dialogs (e.g. Admin > Medals > add/edit user or group, banned names/emails/IPs, replace words, spam words, profile definitions): the help (info button) of the fields was not shown, the tooltips of the loaded dialog were not initialized
 * [FIXED] Medals: a medal hidden in a group award (or the user award) was still shown in the profile and user info when the user also had it from another award, and a medal awarded to several groups of the user was shown more than once

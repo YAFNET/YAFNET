@@ -270,7 +270,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <param name="createdCutoff">
     ///     The created cutoff.
     /// </param>
-    public async Task LockInactiveAccountsAsync(DateTime createdCutoff)
+    /// <returns>
+    ///     The number of locked accounts.
+    /// </returns>
+    public async Task<int> LockInactiveAccountsAsync(DateTime createdCutoff)
     {
         var allUsers = await this.GetRepository<User>().GetByBoardIdAsync();
 
@@ -283,10 +286,11 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         admins.Add(BoardContext.Current.PageUserID);
 
+        var inactiveUsers = allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && (user.Flags & 32) != 32 && (user.Flags & 1) != 1
+                                                   && !admins.Contains(user.ID) && user.LastVisit < createdCutoff).ToList();
+
         // iterate through each one...
-        allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && (user.Flags & 32) != 32 && (user.Flags & 1) != 1
-                               && !admins.Contains(user.ID) && user.LastVisit < createdCutoff)
-            .ForEach(
+        inactiveUsers.ForEach(
                 user =>
                 {
                     var flags = user.UserFlags;
@@ -307,6 +311,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                         () => new AspNetUsers { IsApproved = false, SecurityStamp = UserStore.NewSecurityStamp() },
                         u => u.Id == user.ProviderUserKey);
                 });
+
+        return inactiveUsers.Count;
     }
 
     /// <summary>

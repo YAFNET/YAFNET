@@ -33,6 +33,7 @@ using System.Web;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Logging;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
@@ -274,7 +275,15 @@ public class UsersModel : AdminPage
     public async Task OnPostLockAccountsAsync()
     {
         // at least one year, 0 or a negative value would lock (almost) all users
-        await this.Get<IAspNetUsersHelper>().LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-Math.Clamp(this.Input.YearsOld, 1, 100)));
+        var years = Math.Clamp(this.Input.YearsOld, 1, 100);
+
+        var lockedCount = await this.Get<IAspNetUsersHelper>().LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-years));
+
+        this.Get<ILogger<UsersModel>>().Log(
+            this.PageBoardContext.PageUserID,
+            this,
+            $"{lockedCount} inactive account(s) (no visit for more than {years} year(s)) were locked by {this.PageBoardContext.PageUser.DisplayOrUserName()}",
+            EventLogTypes.UserSuspended);
 
         this.BindData();
     }

@@ -124,7 +124,10 @@ public interface IAspNetUsersHelper
     /// <param name="createdCutoff">
     ///     The created cutoff.
     /// </param>
-    Task LockInactiveAccountsAsync(DateTime createdCutoff);
+    /// <returns>
+    ///     The number of locked accounts.
+    /// </returns>
+    Task<int> LockInactiveAccountsAsync(DateTime createdCutoff);
 
     /// <summary>
     /// Deletes the user.

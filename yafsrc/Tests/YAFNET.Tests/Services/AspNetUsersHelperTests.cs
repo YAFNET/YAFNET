@@ -285,7 +285,7 @@ public class AspNetUsersHelperTests
         // the admin who locks the accounts (the current user is never locked)
         this.board.LoginAs(active);
 
-        await this.helper.LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-1));
+        (await this.helper.LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-1))).Should().Be(1);
 
         var locked = (await this.Repository<User>().GetByIdAsync(inactive)).UserFlags;
         locked.IsApproved.Should().BeFalse();
@@ -318,7 +318,7 @@ public class AspNetUsersHelperTests
 
         this.board.LoginAs(current);
 
-        await this.helper.LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-1));
+        (await this.helper.LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-1))).Should().Be(1);
 
         (await this.Repository<User>().GetByIdAsync(hostAdmin)).UserFlags.IsApproved.Should().BeTrue();
         (await this.Repository<User>().GetByIdAsync(admin)).UserFlags.IsApproved.Should().BeTrue();
