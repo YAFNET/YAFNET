@@ -57,13 +57,137 @@ public static class HostMenuHtmlHelper
     /// </returns>
     private static HtmlContentBuilder RenderMenuItems(HtmlContentBuilder content, BoardContext context)
     {
-        // Host - Settings Menu
-        if (context.PageUser.UserFlags.IsHostAdmin)
+        if (!context.PageUser.UserFlags.IsHostAdmin)
         {
-            content.AppendHtml(RenderSettingsMenu(context));
+            return content;
         }
 
+        // Host - Settings Menu
+        content.AppendHtml(RenderSettingsMenu(context));
+
+        // Host - Boards
+        content.AppendHtml(
+            RenderMenuItem(
+                "dropdown-item",
+                context.Get<ILocalization>().GetText("ADMINMENU", "ADMIN_BOARDS"),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Boards),
+                context.CurrentForumPage.PageName is ForumPages.Admin_Boards or ForumPages.Admin_EditBoard,
+                false,
+                "globe"));
+
+        // Host - Page Access
+        content.AppendHtml(
+            RenderMenuItem(
+                "dropdown-item",
+                context.Get<ILocalization>().GetText("ADMINMENU", "ADMIN_PAGEACCESSLIST"),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_PageAccessList),
+                context.CurrentForumPage.PageName is ForumPages.Admin_PageAccessList or ForumPages.Admin_PageAccessEdit,
+                false,
+                "building"));
+
+        // Host - Languages (the language files are used by all boards)
+        content.AppendHtml(
+            RenderMenuItem(
+                "dropdown-item",
+                context.Get<ILocalization>().GetText("ADMINMENU", "admin_Languages"),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Languages),
+                context.CurrentForumPage.PageName is ForumPages.Admin_Languages or ForumPages.Admin_EditLanguage,
+                false,
+                "language"));
+
+        // Host - Database Menu
+        content.AppendHtml(RenderDatabaseMenu(context));
+
+        // Host - Restart App (it stops the application of all boards)
+        content.AppendHtml(
+            RenderMenuItem(
+                "dropdown-item",
+                context.Get<ILocalization>().GetText("ADMINMENU", "admin_RestartApp"),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_RestartApp),
+                context.CurrentForumPage.PageName == ForumPages.Admin_RestartApp,
+                false,
+                "sync"));
+
+#if DEBUG
+        // Host - Test Generator
+        content.AppendHtml(
+            RenderMenuItem(
+                "dropdown-item",
+                "Test Generator",
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_TestData),
+                context.CurrentForumPage.PageName == ForumPages.Admin_TestData,
+                false,
+                "vial-virus"));
+#endif
+
         return content;
+    }
+
+    /// <summary>
+    /// Render the database sub menu
+    /// </summary>
+    /// <param name="context">
+    /// The context.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IHtmlContent"/>.
+    /// </returns>
+    private static TagBuilder RenderDatabaseMenu(BoardContext context)
+    {
+        var listItem = new TagBuilder(HtmlTag.Li);
+
+        listItem.AddCssClass("dropdown dropend");
+
+        listItem.InnerHtml.AppendHtml(
+            RenderMenuItem(
+                "dropdown-item dropdown-toggle subdropdown-toggle",
+                context.Get<ILocalization>().GetText("ADMINMENU", "Database"),
+                "#",
+                context.CurrentForumPage.PageName is ForumPages.Admin_ReIndex or ForumPages.Admin_RunSql or ForumPages.Admin_Backup,
+                true,
+                "database"));
+
+        var list = new TagBuilder(HtmlTag.Ul);
+
+        list.AddCssClass("dropdown-menu dropdown-submenu");
+
+        // ReIndex
+        list.InnerHtml.AppendHtml(
+            RenderMenuItem(
+                "dropdown-item",
+                context.Get<ILocalization>().GetText("ADMINMENU", "admin_ReIndex"),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_ReIndex),
+                context.CurrentForumPage.PageName == ForumPages.Admin_ReIndex,
+                false,
+                "database"));
+
+        // RunSql
+        list.InnerHtml.AppendHtml(
+            RenderMenuItem(
+                "dropdown-item",
+                context.Get<ILocalization>().GetText("ADMINMENU", "admin_RunSql"),
+                context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_RunSql),
+                context.CurrentForumPage.PageName == ForumPages.Admin_RunSql,
+                false,
+                "database"));
+
+        // Backup: only when a backup can be made (e.g. not on a shared hosting
+        // without a backup folder that SQL Server and the application share)
+        if (context.Get<IDatabaseBackupService>().GetSupport().IsSupported)
+        {
+            list.InnerHtml.AppendHtml(
+                RenderMenuItem(
+                    "dropdown-item",
+                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_Backup"),
+                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Backup),
+                    context.CurrentForumPage.PageName == ForumPages.Admin_Backup,
+                    false,
+                    "database"));
+        }
+
+        listItem.InnerHtml.AppendHtml(list);
+
+        return listItem;
     }
 
     /// <summary>

@@ -94,16 +94,9 @@ public static class AdminMenuHtmlHelper
 
         // Admin - Maintenance Menu
         if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
-                x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or "Admin_TaskManager" or "Admin_EventLog" or "Admin_RestartApp"))
+                x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or "Admin_TaskManager" or "Admin_EventLog"))
         {
             content.AppendHtml(RenderAdminMaintenance(pagesAccess, context));
-        }
-
-        // Admin - Database Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
-                x => x.PageName is "Admin_ReIndex" or "Admin_RunSql"))
-        {
-            content.AppendHtml(RenderAdminDatabase(pagesAccess, context));
         }
 
         // Admin - Upgrade Menu
@@ -111,21 +104,6 @@ public static class AdminMenuHtmlHelper
         {
             content.AppendHtml(RenderAdminUpgrade(pagesAccess, context));
         }
-
-#if DEBUG
-        // Admin Admin
-        if (context.PageUser.UserFlags.IsHostAdmin)
-        {
-            content.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    "Test Generator",
-                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_TestData),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_TestData,
-                    false,
-                    "vial-virus"));
-        }
-#endif
 
         return content;
     }
@@ -222,8 +200,7 @@ public static class AdminMenuHtmlHelper
                 "#",
                 context.CurrentForumPage.PageName is ForumPages.Admin_BoardAnnouncement or ForumPages.Admin_Settings
                     or ForumPages.Admin_Forums or ForumPages.Admin_EditForum or ForumPages.Admin_EditCategory or
-                    ForumPages.Admin_ReplaceWords or ForumPages.Admin_BBCodes or ForumPages.Admin_EditBBCode or
-                    ForumPages.Admin_Languages or ForumPages.Admin_EditLanguage,
+                    ForumPages.Admin_ReplaceWords or ForumPages.Admin_BBCodes or ForumPages.Admin_EditBBCode,
                 true,
                 "cogs"));
 
@@ -294,19 +271,6 @@ public static class AdminMenuHtmlHelper
                     context.CurrentForumPage.PageName is ForumPages.Admin_BBCodes or ForumPages.Admin_EditBBCode,
                     false,
                     "plug"));
-        }
-
-        // Admin Languages (host admin only, the language files are used by all boards)
-        if (context.PageUser.UserFlags.IsHostAdmin)
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_Languages"),
-                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Languages),
-                    context.CurrentForumPage.PageName is ForumPages.Admin_Languages or ForumPages.Admin_EditLanguage,
-                    false,
-                    "language"));
         }
 
         listItem.InnerHtml.AppendHtml(list);
@@ -614,7 +578,7 @@ public static class AdminMenuHtmlHelper
                 "#",
                 context.CurrentForumPage.PageName is ForumPages.Admin_Attachments or ForumPages.Admin_Tags or
                     ForumPages.Admin_Prune or ForumPages.Admin_Restore or ForumPages.Admin_TaskManager or
-                    ForumPages.Admin_EventLog or ForumPages.Admin_RestartApp,
+                    ForumPages.Admin_EventLog,
                 true,
                 "toolbox"));
 
@@ -711,97 +675,6 @@ public static class AdminMenuHtmlHelper
                     context.CurrentForumPage.PageName == ForumPages.Admin_EventLog,
                     false,
                     "book"));
-        }
-
-        // Admin RestartApp (host admin only, it stops the application of all boards)
-        if (context.PageUser.UserFlags.IsHostAdmin)
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_RestartApp"),
-                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_RestartApp),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_RestartApp,
-                    false,
-                    "sync"));
-        }
-
-        listItem.InnerHtml.AppendHtml(list);
-
-        return listItem;
-    }
-
-    /// <summary>
-    /// Render Admin database sub menu
-    /// </summary>
-    /// <param name="pagesAccess">
-    /// The pages access.
-    /// </param>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    private static TagBuilder RenderAdminDatabase(
-        IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
-        BoardContext context)
-    {
-        var listItem = new TagBuilder(HtmlTag.Li);
-
-        listItem.AddCssClass("dropdown dropend");
-
-        listItem.InnerHtml.AppendHtml(
-            RenderMenuItem(
-                "dropdown-item dropdown-toggle subdropdown-toggle",
-                context.Get<ILocalization>().GetText("ADMINMENU", "Database"),
-                "#",
-                context.CurrentForumPage.PageName is ForumPages.Admin_ReIndex or ForumPages.Admin_RunSql or ForumPages.Admin_Backup,
-                true,
-                "database"));
-
-        var list = new TagBuilder(HtmlTag.Ul);
-
-        list.AddCssClass("dropdown-menu dropdown-submenu");
-
-        // Admin ReIndex
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_ReIndex"))
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_ReIndex"),
-                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_ReIndex),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_ReIndex,
-                    false,
-                    "database"));
-        }
-
-        // Admin RunSql
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_RunSql"))
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_RunSql"),
-                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_RunSql),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_RunSql,
-                    false,
-                    "database"));
-        }
-
-        // Admin Backup: only for the host admin, and only when a backup can be made (e.g. not on a shared hosting
-        // without a backup folder that SQL Server and the application share)
-        if (context.PageUser.UserFlags.IsHostAdmin && context.Get<IDatabaseBackupService>().GetSupport().IsSupported)
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_Backup"),
-                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Backup),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_Backup,
-                    false,
-                    "database"));
         }
 
         listItem.InnerHtml.AppendHtml(list);
