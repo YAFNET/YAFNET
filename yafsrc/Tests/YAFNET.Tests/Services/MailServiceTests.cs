@@ -36,6 +36,7 @@ using MimeKit;
 
 using YAF.Core.Services;
 using YAF.Tests.TestInfrastructure;
+using YAF.Types.Exceptions;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -94,6 +95,66 @@ public class MailServiceTests
         server.Delivered.Should().BeEmpty();
     }
 
+    [Test]
+    [Description("The mail server throttles the sending (hourly limit of the hoster): one warning, no new connection for an hour, then the mails are sent again")]
+    public async Task Throttled_Sending_Is_Paused_Test()
+    {
+        var clock = new ManualTimeProvider { UtcNow = new DateTimeOffset(2026, 11, 20, 10, 0, 0, TimeSpan.Zero) };
+
+        MailService service;
+
+        using (var server = new FakeSmtpServer("refused@example.com", throttleAfter: 1))
+        {
+            service = new MailService(
+                Options.Create(new MailConfiguration { Host = "127.0.0.1", Port = server.Port }))
+            {
+                TimeProvider = clock
+            };
+
+            await service.Invoking(
+                    s => s.SendAllAsync(
+                        [Mail("first@example.com"), Mail("second@example.com"), Mail("third@example.com")]))
+                .Should().ThrowAsync<MailThrottledException>();
+
+            server.Delivered.Should().Equal("first@example.com");
+        }
+
+        // paused: no connection (the server is gone), the caller gets the throttle error again, not a connection error
+        clock.UtcNow = clock.UtcNow.AddMinutes(30);
+
+        (await service.Invoking(s => s.SendAllAsync([Mail("fourth@example.com")]))
+                .Should().ThrowAsync<MailThrottledException>())
+            .Which.InnerException.Should().BeNull();
+
+        // the pause is over
+        clock.UtcNow = clock.UtcNow.AddMinutes(31);
+
+        using var nextServer = new FakeSmtpServer("refused@example.com");
+
+        service = new MailService(
+            Options.Create(new MailConfiguration { Host = "127.0.0.1", Port = nextServer.Port }))
+        {
+            TimeProvider = clock
+        };
+
+        await service.SendAllAsync([Mail("fifth@example.com")]);
+
+        nextServer.Delivered.Should().Equal("fifth@example.com");
+    }
+
+    [Test]
+    [Description("A permanent refusal of the sender (e.g. a mail too large) is no throttling: the sending is not paused")]
+    public async Task Refused_Sender_Is_No_Throttling_Test()
+    {
+        using var server = new FakeSmtpServer("refused@example.com", throttleAfter: 0, throttleResponse: "552 message size exceeds fixed maximum message size limit");
+
+        var service = new MailService(
+            Options.Create(new MailConfiguration { Host = "127.0.0.1", Port = server.Port }));
+
+        await service.Invoking(s => s.SendAllAsync([Mail("first@example.com")]))
+            .Should().ThrowAsync<MailKit.Net.Smtp.SmtpCommandException>();
+    }
+
     private static MimeMessage Mail(string to)
     {
         var message = new MimeMessage();
@@ -106,7 +167,18 @@ public class MailServiceTests
     }
 
     /// <summary>
-    /// A smtp server for one connection, it refuses one recipient.
+    /// A clock the test moves forward.
+    /// </summary>
+    private sealed class ManualTimeProvider : TimeProvider
+    {
+        public DateTimeOffset UtcNow { get; set; }
+
+        public override DateTimeOffset GetUtcNow() => this.UtcNow;
+    }
+
+    /// <summary>
+    /// A smtp server for one connection, it refuses one recipient, and refuses the sender after a number of mails
+    /// (the throttling of a hoster).
     /// </summary>
     private sealed class FakeSmtpServer : IDisposable
     {
@@ -114,9 +186,18 @@ public class MailServiceTests
 
         private readonly string refused;
 
-        public FakeSmtpServer(string refused)
+        private readonly int throttleAfter;
+
+        private readonly string throttleResponse;
+
+        public FakeSmtpServer(
+            string refused,
+            int throttleAfter = int.MaxValue,
+            string throttleResponse = "421 You have exceeded your session messaging limits, closing session")
         {
             this.refused = refused;
+            this.throttleAfter = throttleAfter;
+            this.throttleResponse = throttleResponse;
             this.listener.Start();
             _ = Task.Run(this.ServeAsync);
         }
@@ -148,6 +229,15 @@ public class MailServiceTests
                 if (command.StartsWith("EHLO") || command.StartsWith("HELO"))
                 {
                     await writer.WriteLineAsync("250 localhost");
+                }
+                else if (command.StartsWith("MAIL") && this.Delivered.Count >= this.throttleAfter)
+                {
+                    await writer.WriteLineAsync(this.throttleResponse);
+
+                    if (this.throttleResponse.StartsWith("421"))
+                    {
+                        break;
+                    }
                 }
                 else if (command.StartsWith("RCPT TO:"))
                 {

@@ -163,6 +163,10 @@ public class DigestSendTask : LongBackgroundTask
                 this.Get<ILogger<DigestSendTask>>().Info("no user found");
             }
         }
+        catch (MailThrottledException)
+        {
+            // the mail service wrote one warning (with the number of mails not sent) to the event log
+        }
         catch (Exception ex)
         {
             this.Get<ILogger<DigestSendTask>>().Error(ex, $"Error In {this.TaskName} Task");

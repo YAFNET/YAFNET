@@ -2,6 +2,7 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.12
+* [FIXED] Mails: when the mail server throttles the sending (e.g. the hourly mail limit of the hoster, "You have exceeded your session messaging limits"), every following mail (watch notifications, digest) wrote an error to the event log; now one warning with the number of mails not sent is written and no mails are sent for an hour
 * [FIXED] Admin > Dashboard user stats: "Missing Translation For .PS" was written to the event log, the country names of Palestine, Kuwait, Serbia, South Sudan, Kosovo, Timor-Leste, Åland Islands, Saint Barthélemy, Caribbean Netherlands, Curaçao, Guernsey, Isle of Man, Jersey, Saint Martin and Sint Maarten were missing in all language files
 * [NEW] Admin > Users: "Lock inactive accounts" writes an entry to the event log (type User Suspended) with the number of locked accounts, the years of inactivity and the admin who locked them
 * [FIXED] Admin > Medals: wrong help text of Allow Hiding (users can not hide medals, the medal can be hidden for single users or groups with the Hide option of the award), the help of Hide mentioned the no longer existing user box and that hiding needs Allow Hiding

@@ -54,6 +54,29 @@ public class MailService : IMailService, IHaveServiceLocator
     private readonly MailConfiguration mailConfig;
 
     /// <summary>
+    /// How long no mails are sent after the mail server throttled the sending (hosters limit the mails per hour).
+    /// </summary>
+    private static readonly TimeSpan ThrottlePause = TimeSpan.FromHours(1);
+
+    /// <summary>
+    /// The words of a mail server error that tell the sending is throttled.
+    /// </summary>
+    private static readonly string[] ThrottleWords =
+    [
+        "throttl", "messaging limit", "sending limit", "message limit", "rate limit", "too many messages"
+    ];
+
+    /// <summary>
+    /// Until when no mails are sent (the service is a single instance).
+    /// </summary>
+    private DateTimeOffset pausedUntil = DateTimeOffset.MinValue;
+
+    /// <summary>
+    /// Gets or sets the clock of the throttle pause (the system clock, tests set a fixed time).
+    /// </summary>
+    public TimeProvider TimeProvider { get; set; } = TimeProvider.System;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MailService"/> class.
     /// </summary>
     /// <param name="mailConfiguration">
@@ -76,6 +99,12 @@ public class MailService : IMailService, IHaveServiceLocator
 
         ArgumentNullException.ThrowIfNull(mailMessages);
 
+        // the mail server throttled the sending: no new connection (each would fail and write an error to the event log)
+        if (this.TimeProvider.GetUtcNow() < this.pausedUntil)
+        {
+            throw new MailThrottledException(this.pausedUntil.ToLocalTime());
+        }
+
         var smtpClient = new SmtpClient();
 
         await smtpClient.ConnectAsync(this.mailConfig.Host, this.mailConfig.Port, SecureSocketOptions.StartTlsWhenAvailable);
@@ -87,14 +116,33 @@ public class MailService : IMailService, IHaveServiceLocator
 
         var sent = 0;
         Exception firstError = null;
+        MailThrottledException throttled = null;
 
-        foreach (var m in mailMessages.Where(m => m != null))
+        var toSend = mailMessages.Where(m => m != null).ToList();
+
+        foreach (var m in toSend)
         {
             // a refused mail (e.g. an unknown recipient) does not stop the other mails
             try
             {
                 await smtpClient.SendAsync(new MailKit.SendRequest(m));
                 sent++;
+            }
+            catch (Exception ex) when (IsThrottled(ex))
+            {
+                // e.g. the hourly mail limit of the hoster: one warning, the sending is paused, the other mails are not sent
+                this.pausedUntil = this.TimeProvider.GetUtcNow().Add(ThrottlePause);
+
+                throttled = new MailThrottledException(this.pausedUntil.ToLocalTime(), ex);
+
+                this.Get<ILogger<MailService>>().Warn(
+                    "{0} ({1}). {2} of {3} mail(s) not sent.",
+                    throttled.Message,
+                    ex.Message,
+                    toSend.Count - sent,
+                    toSend.Count);
+
+                break;
             }
             catch (Exception ex)
             {
@@ -114,10 +162,37 @@ public class MailService : IMailService, IHaveServiceLocator
             await smtpClient.DisconnectAsync(true);
         }
 
+        // the callers do not log it again (the warning is in the event log), the digest is not reported as sent
+        if (throttled is not null)
+        {
+            throw throttled;
+        }
+
         // no mail was sent (e.g. the only mail, a test mail or a mail to a user): the caller reports the error
         if (sent == 0 && firstError is not null)
         {
             System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(firstError).Throw();
         }
+    }
+
+    /// <summary>
+    /// Determines whether the mail server throttles the sending (e.g. "You have exceeded your session messaging limits",
+    /// "Sender is throttled"): a temporary (4xx) refusal of the sender, or a refusal that names a limit.
+    /// </summary>
+    /// <param name="ex">The error of the mail server.</param>
+    /// <returns>Returns if the sending is throttled.</returns>
+    private static bool IsThrottled(Exception ex)
+    {
+        if (ex is not SmtpCommandException command)
+        {
+            return false;
+        }
+
+        if (command.ErrorCode == SmtpErrorCode.SenderNotAccepted && (int)command.StatusCode is >= 400 and < 500)
+        {
+            return true;
+        }
+
+        return ThrottleWords.Any(w => command.Message.Contains(w, StringComparison.OrdinalIgnoreCase));
     }
 }

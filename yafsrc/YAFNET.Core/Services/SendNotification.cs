@@ -192,6 +192,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                     subject);
             }
         }
+        catch (MailThrottledException)
+        {
+            // the mail service wrote one warning to the event log when the mail server throttled the sending
+        }
         catch (Exception x)
         {
             // report exception to the forum's event log
@@ -738,6 +742,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         try
         {
             await send();
+        }
+        catch (MailThrottledException)
+        {
+            // the mail service wrote one warning to the event log when the mail server throttled the sending
         }
         catch (Exception x)
         {
