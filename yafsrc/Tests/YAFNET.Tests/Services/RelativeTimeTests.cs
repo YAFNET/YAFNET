@@ -101,4 +101,14 @@ public class RelativeTimeTests
     {
         DateTime.UtcNow.AddSeconds(-1.2).ToRelativeTime().Should().Be("a few seconds ago");
     }
+
+    [Test]
+    [Description("The texts are read from RELATIVE_TIME, not from the current page: SS is also the country South Sudan")]
+    public void ToRelativeTime_Uses_The_Relative_Time_Texts_Test()
+    {
+        this.board.Localization.Add("COUNTRY", "SS", "South Sudan").Add("COUNTRY", "PAST", "wrong {0}");
+        this.board.Localization.TransPage = "COUNTRY";
+
+        DateTime.UtcNow.AddSeconds(-30.2).ToRelativeTime().Should().Be("30 seconds ago");
+    }
 }

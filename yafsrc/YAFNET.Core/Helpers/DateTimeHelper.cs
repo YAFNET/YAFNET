@@ -165,83 +165,25 @@ public static partial class DateTimeHelper
                      ? new TimeSpan(dateTime.Ticks - DateTime.UtcNow.Ticks)
                      : new TimeSpan(DateTime.UtcNow.Ticks - dateTime.Ticks);
 
-        var delta = ts.TotalSeconds;
+        // the texts are always read from RELATIVE_TIME, a tag without the page is searched on all pages,
+        // e.g. "SS" (seconds) is also the country South Sudan
+        string Text(string tag, object value = null) =>
+            value is null ? localizer.GetText("RELATIVE_TIME", tag) : localizer.GetText("RELATIVE_TIME", tag).FormatWith(value);
 
-        switch (delta)
+        var text = ts.TotalSeconds switch
         {
-            case < 1 * Minute:
-                var text = ts.Seconds == 1
-                    ? localizer.GetText("RELATIVE_TIME", "S")
-                    : localizer.GetTextFormatted("SS", ts.Seconds);
+            < 1 * Minute => ts.Seconds == 1 ? Text("S") : Text("SS", ts.Seconds),
+            < 2 * Minute => Text("M"),
+            < 45 * Minute => Text("MM", ts.Minutes),
+            < 90 * Minute => Text("H"),
+            < 24 * Hour => Text("HH", ts.Hours),
+            < 48 * Hour => Text("D"),
+            < 30 * Day => Text("DD", ts.Days),
+            < 12 * Month => ts.Days / 30 <= 1 ? Text("MO") : Text("MOMO", ts.Days / 30),
+            _ => ts.Days / 365 <= 1 ? Text("Y") : Text("YY", ts.Days / 365)
+        };
 
-                return isFuture
-                    ? localizer.GetTextFormatted(
-                        "FUTURE", text
-                    )
-                    : localizer.GetTextFormatted(
-                        "PAST",
-                        text);
-            case < 2 * Minute:
-                return isFuture
-                           ? localizer.GetTextFormatted("FUTURE", localizer.GetText("RELATIVE_TIME", "M"))
-                           : localizer.GetTextFormatted("PAST", localizer.GetText("RELATIVE_TIME", "M"));
-            case < 45 * Minute:
-                return isFuture
-                           ? localizer.GetTextFormatted(
-                               "FUTURE",
-                               localizer.GetText("RELATIVE_TIME", "MM").FormatWith(ts.Minutes))
-                           : localizer.GetTextFormatted(
-                               "PAST",
-                               localizer.GetText("RELATIVE_TIME", "MM").FormatWith(ts.Minutes));
-            case < 90 * Minute:
-                return isFuture
-                           ? localizer.GetTextFormatted("FUTURE", localizer.GetText("RELATIVE_TIME", "H"))
-                           : localizer.GetTextFormatted("PAST", localizer.GetText("RELATIVE_TIME", "H"));
-            case < 24 * Hour:
-                return isFuture
-                           ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("HH", ts.Hours))
-                           : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("HH", ts.Hours));
-            case < 48 * Hour:
-                return isFuture
-                           ? localizer.GetTextFormatted("FUTURE", localizer.GetText("RELATIVE_TIME", "D"))
-                           : localizer.GetTextFormatted("PAST", localizer.GetText("RELATIVE_TIME", "D"));
-            case < 30 * Day:
-                return isFuture
-                           ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("DD", ts.Days))
-                           : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("DD", ts.Days));
-            case < 12 * Month:
-                {
-                    var months = Convert.ToInt32(Math.Floor((double) ts.Days / 30));
-
-                    var monthText = months <= 1
-                        ? localizer.GetText("RELATIVE_TIME", "MO")
-                        : localizer.GetTextFormatted("MOMO", months);
-
-                    return isFuture
-                               ? localizer.GetTextFormatted(
-                                   "FUTURE",
-                                   monthText)
-                               : localizer.GetTextFormatted(
-                                   "PAST",
-                                   monthText);
-                }
-            default:
-                {
-                    var years = Convert.ToInt32(Math.Floor((double) ts.Days / 365));
-
-                    var yearsText = years <= 1
-                        ? localizer.GetText("RELATIVE_TIME", "Y")
-                        : localizer.GetTextFormatted("YY", years);
-
-                    return isFuture
-                        ? localizer.GetTextFormatted(
-                            "FUTURE", yearsText
-                        )
-                        : localizer.GetTextFormatted(
-                            "PAST",
-                            yearsText);
-                }
-        }
+        return Text(isFuture ? "FUTURE" : "PAST", text);
     }
 
     [GeneratedRegex(@"^[\-?\+?\d]*$")]
