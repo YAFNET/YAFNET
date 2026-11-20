@@ -413,10 +413,6 @@
             "#text": "در حال مشاهده درون ریزی کلمات اسپم"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "در حال مشاهده/مدیریت مدیر فرمان"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "در حال مشاهده کاربران در قسمت مدیریت"
           },
@@ -6314,6 +6310,14 @@
             "#text": "در حال اجرا"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "پایان یافته"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "در حال اجرا"
+          },
+          {
             "@tag": "TITLE",
             "#text": "مدیر فرآیند"
           }
@@ -6652,10 +6656,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "برچسب ها"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "مدیر وظایف"
           },
           {
             "@tag": "ADMIN_USERS",

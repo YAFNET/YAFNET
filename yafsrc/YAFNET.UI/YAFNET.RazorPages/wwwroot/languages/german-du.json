@@ -413,10 +413,6 @@
             "#text": "Importiert Spam-Wörter"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Betrachtet Aufgabenmanager"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Betrachtet Benutzer im Adminbereich"
           },
@@ -6314,8 +6310,16 @@
             "#text": "Läuft"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Beendet"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Läuft"
+          },
+          {
             "@tag": "TITLE",
-            "#text": "Taskmanger"
+            "#text": "Taskmanager"
           }
         ]
       },
@@ -6652,10 +6656,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Stichworte"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Task-Manager"
           },
           {
             "@tag": "ADMIN_USERS",

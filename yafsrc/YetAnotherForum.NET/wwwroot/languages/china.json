@@ -413,10 +413,6 @@
             "#text": "导入垃圾词"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "查看/管理任务管理器"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "在管理部分查看用户"
           },
@@ -6322,6 +6318,14 @@
             "#text": "在跑"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "已完成"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "运行中"
+          },
+          {
             "@tag": "TITLE",
             "#text": "任务管理器"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "标签"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "任务管理器"
           },
           {
             "@tag": "ADMIN_USERS",

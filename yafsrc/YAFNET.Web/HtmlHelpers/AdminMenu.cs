@@ -94,7 +94,7 @@ public static class AdminMenuHtmlHelper
 
         // Admin - Maintenance Menu
         if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
-                x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or "Admin_TaskManager" or "Admin_EventLog"))
+                x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or "Admin_EventLog"))
         {
             content.AppendHtml(RenderAdminMaintenance(pagesAccess, context));
         }
@@ -577,8 +577,7 @@ public static class AdminMenuHtmlHelper
                 context.Get<ILocalization>().GetText("ADMINMENU", "Maintenance"),
                 "#",
                 context.CurrentForumPage.PageName is ForumPages.Admin_Attachments or ForumPages.Admin_Tags or
-                    ForumPages.Admin_Prune or ForumPages.Admin_Restore or ForumPages.Admin_TaskManager or
-                    ForumPages.Admin_EventLog,
+                    ForumPages.Admin_Prune or ForumPages.Admin_Restore or ForumPages.Admin_EventLog,
                 true,
                 "toolbox"));
 
@@ -649,19 +648,6 @@ public static class AdminMenuHtmlHelper
                     context.CurrentForumPage.PageName == ForumPages.Admin_Pm,
                     false,
                     "envelope-square"));
-        }
-
-        // Admin TaskManager
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_TaskManager"))
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_TaskManager"),
-                    context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_TaskManager),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_TaskManager,
-                    false,
-                    "tasks"));
         }
 
         // Admin EventLog

@@ -14,11 +14,27 @@
 	@await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
 }
 
-<form method="post">
+@{
+	// the stat labels end with a colon ("Number of posts:"), not needed as a tile title
+	Func<string, string> statLabel = tag => Model.GetText("ADMIN_ADMIN", tag).TrimEnd(' ', ':', '：');
+
+	// the page comes from the url, a page after the last one has no rows
+	var countActive = Model.ActiveUserList.HasItems() ? Model.ActiveUserList[0].UserCount : 0;
+	var indexActive = Math.Max(HttpContext.Request.GetQueryOrRouteValue<int>("p").ToTypeOrDefault(1) - 1, 0);
+	var showingFromActive = Model.ActiveUserList.HasItems() ? (long)indexActive * Model.Size + 1 : 0;
+	var showingToActive = Model.ActiveUserList.HasItems() ? (long)indexActive * Model.Size + Model.ActiveUserList.Count : 0;
+
+	// the unverified users have their own page (p2) and page size
+	var indexUnverified = Math.Max(HttpContext.Request.GetQueryOrRouteValue<int>("p2").ToTypeOrDefault(1) - 1, 0);
+	var showingFromUnverified = !Model.UserList.NullOrEmpty() ? (long)indexUnverified * Model.Input.UnverifiedPageSize + 1 : 0;
+	var showingToUnverified = !Model.UserList.NullOrEmpty() ? (long)indexUnverified * Model.Input.UnverifiedPageSize + Model.UserList.Count : 0;
+}
+
+<form method="post" class="admin-dashboard">
 @if (Model.UpdateHighlight.IsSet())
 {
 	<alert type="info">
-		<h6 class="alert-heading">
+		<h6 class="alert-heading mb-0">
 			@Html.Icon("box-open", "text-info")
 			@Html.LocalizedText("NEW_VERSION")
 			<a text-localized-tag="UPGRADE_VERSION"
@@ -29,298 +45,243 @@
 	</alert>
 }
 
-<div class="row">
-	<div class="col-xl-12">
-		<div class="card mb-3">
-			<div class="card-header">
-				@Html.IconHeader("tachometer-alt", "ADMIN_ADMIN", "HEADER3")
-				<strong>@(Model.PageBoardContext.BoardSettings.Name)</strong>
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-xl-3 col-lg-6">
-						<div class="card stats-card mb-4">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title text-uppercase text-body-secondary mb-0">
-											@Html.LocalizedText("ADMIN_ADMIN", "NUM_CATEGORIES")
-										</h5>
-										<span class="h2 fw-bold mb-0 text-info stats" data-count-target="@Model.Input.NumCategories">
-											@Model.Input.NumCategories
-										</span>
-									</div>
-									<div class="col-auto">
-										<span class="fa-stack fa-2x align-top">
-											<i class="fas fa-circle fa-stack-2x"></i>
-											<i class="fas fa-folder fa-stack-1x fa-inverse text-info"></i>
-										</span>
-									</div>
-								</div>
-								<p class="mt-3 mb-0 text-body-secondary small">&nbsp;</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6">
-						<div class="card stats-card mb-4">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title text-uppercase text-body-secondary mb-0">
-											@Html.LocalizedText("ADMIN_ADMIN", "NUM_FORUMS")
-										</h5>
-										@if (Model.PageBoardContext.PageUser.DarkMode)
-										{
-											<span class="h2 fw-bold mb-0 text-light stats" data-count-target="@Model.Input.NumForums">
-												@Model.Input.NumForums
-											</span>
-										}
-										else
-										{
-											<span class="h2 fw-bold mb-0 text-dark stats" data-count-target="@Model.Input.NumForums">
-												@Model.Input.NumForums
-											</span>
-										}
-
-									</div>
-									<div class="col-auto">
-										<span class="fa-stack fa-2x align-top">
-											<i class="fas fa-circle fa-stack-2x"></i>
-
-											@if (Model.PageBoardContext.PageUser.DarkMode)
-											{
-												<i class="fas fa-comments fa-stack-1x fa-inverse text-dark"></i>
-											}
-											else
-											{
-												<i class="fas fa-comments fa-stack-1x fa-inverse text-light"></i>
-											}
-										</span>
-									</div>
-								</div>
-								<p class="mt-3 mb-0 text-body-secondary small">&nbsp;</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6">
-						<div class="card stats-card mb-4">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title text-uppercase text-body-secondary mb-0">
-											@Html.LocalizedText("ADMIN_ADMIN", "NUM_TOPICS")
-										</h5>
-										<span class="h2 fw-bold mb-0 text-secondary stats" data-count-target="@Model.Input.NumTopics">
-											@Model.Input.NumTopics
-										</span>
-									</div>
-									<div class="col-auto">
-										<span class="fa-stack fa-2x align-top">
-											<i class="fas fa-circle fa-stack-2x"></i>
-											<i class="fas fa-comments fa-stack-1x fa-inverse text-secondary"></i>
-										</span>
-									</div>
-								</div>
-								<p class="mt-3 mb-0 text-body-secondary small">
-									@Html.LocalizedText("ADMIN_ADMIN", "TOPICS_DAY")
-									<span class="text-nowrap">
-										@Model.Input.DayTopics
-									</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6">
-						<div class="card stats-card mb-4">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title text-uppercase text-body-secondary mb-0">
-											@Html.LocalizedText("ADMIN_ADMIN", "NUM_POSTS")
-										</h5>
-										<span class="h2 fw-bold mb-0 text-primary stats" data-count-target="@Model.Input.NumPosts">
-											@Model.Input.NumPosts
-										</span>
-									</div>
-									<div class="col-auto">
-										<span class="fa-stack fa-2x align-top">
-											<i class="fas fa-circle fa-stack-2x"></i>
-											<i class="fas fa-comment fa-stack-1x fa-inverse text-primary"></i>
-										</span>
-									</div>
-								</div>
-								<p class="mt-3 mb-0 text-body-secondary small">
-									@Html.LocalizedText("ADMIN_ADMIN", "POSTS_DAY")
-									<span class="text-nowrap">
-										@Model.Input.DayPosts
-									</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6">
-						<div class="card stats-card mb-4">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title text-uppercase text-body-secondary mb-0">
-											@Html.LocalizedText("ADMIN_ADMIN", "NUM_USERS")
-										</h5>
-										<span class="h2 fw-bold mb-0 text-success stats" data-count-target="@Model.Input.NumUsers">
-											@Model.Input.NumUsers
-										</span>
-									</div>
-									<div class="col-auto">
-										<span class="fa-stack fa-2x align-top">
-											<i class="fas fa-circle fa-stack-2x"></i>
-											<i class="fas fa-users fa-stack-1x fa-inverse text-success"></i>
-										</span>
-									</div>
-								</div>
-								<p class="mt-3 mb-0 text-body-secondary small">
-									@Html.LocalizedText("ADMIN_ADMIN", "USERS_DAY")
-									<span class="text-nowrap">
-										@Model.Input.DayUsers
-									</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6">
-						<div class="card stats-card mb-4">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title text-uppercase text-body-secondary mb-0">
-											@Html.LocalizedText("ADMIN_ADMIN", "BOARD_STARTED")
-										</h5>
-										<span class="h2 fw-bold mb-0 text-warning">
-											@Html.DisplayDateTime(DateTimeFormat.BothTopic, Model.Input.BoardStartAgo)
-										</span>
-									</div>
-									<div class="col-auto">
-										<span class="fa-stack fa-2x align-top">
-											<i class="fas fa-circle fa-stack-2x"></i>
-											<i class="fas fa-globe fa-stack-1x fa-inverse text-warning"></i>
-										</span>
-									</div>
-								</div>
-								<p class="mt-3 mb-0 text-body-secondary small">
-									<span class="text-nowrap">
-										@Html.Raw(Model.Input.BoardStart)
-									</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-lg-6">
-						<div class="card stats-card mb-4">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title text-uppercase text-body-secondary mb-0">
-											@Html.LocalizedText("ADMIN_ADMIN", "SIZE_DATABASE")
-										</h5>
-										<span class="h2 fw-bold mb-0 text-danger">
-											@Model.Input.DBSize
-										</span>
-									</div>
-									<div class="col-auto">
-										<span class="fa-stack fa-2x align-top">
-											<i class="fas fa-circle fa-stack-2x"></i>
-											<i class="fas fa-database fa-stack-1x fa-inverse text-danger"></i>
-										</span>
-									</div>
-								</div>
-								<p class="mt-3 mb-0 text-body-secondary small">&nbsp;</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card-footer text-body-secondary">
-				@Html.LocalizedText("ADMIN_ADMIN", "STATS_DONTCOUNT")
-			</div>
-		</div>
-	</div>
+<div class="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
+	<h2 class="h4 mb-0">
+		@Html.IconHeader("tachometer-alt", "ADMIN_ADMIN", "HEADER3")
+		<strong>@(Model.PageBoardContext.BoardSettings.Name)</strong>
+	</h2>
+	<small class="text-body-secondary">
+		@Html.LocalizedText("ADMIN_ADMIN", "STATS_DONTCOUNT")
+	</small>
 </div>
 
-<div class="row">
-	<div class="col-xl-12">
-		<div class="card mb-3">
-			<div class="card-header">
-				@Html.IconHeader("chart-pie", "ADMIN_ADMIN", "STATS_TITLE")
-			</div>
-			<div class="card-body">
-				<div class="row">
-					<div class="col-xl-2 col-lg-6">
-						<div class="card mb-3">
-							<div class="card-body">
-								<div class="chart-container mx-auto">
-									<canvas id="chart-browsers"
-									        data-url="@(Model.Get<IUrlHelper>().Action("GetUserStats", "Stats"))"
-									        data-label="@(Model.GetText("BROWSER"))"
-									        data-title="@(Model.GetText("ADMIN_ADMIN", "BROWSER"))"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-2 col-lg-6">
-						<div class="card mb-3">
-							<div class="card-body">
-								<div class="chart-container mx-auto">
-									<canvas id="chart-platforms"
-									        data-label="@(Model.GetText("PLATFORM"))"
-									        data-title="@(Model.GetText("ADMIN_ADMIN", "PLATFORM"))"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					@if (Model.Get<IGeoIpCountryService>().DatabaseExists())
-					{
-						<div class="col-xl-2 col-lg-6">
-							<div class="card mb-3">
-								<div class="card-body">
-									<div class="chart-container mx-auto">
-										<canvas id="chart-countries"
-										        data-label="@(Model.GetText("ADMIN_ADMIN", "COUNTRY"))"
-										        data-title="@(Model.GetText("ADMIN_ADMIN", "COUNTRIES"))"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-					}
-
-					<div class="col-xl-5 col-lg-6">
-						<div class="card mb-3">
-							<div class="card-body">
-								<div class="chart-container mx-auto">
-									<canvas id="chart-registrations"
-									        data-label="@(Model.GetText("ADMIN_ADMIN", "REGISTRATIONS"))"
-									        data-title="@(Model.GetText("ADMIN_ADMIN", "REGISTRATIONS_TITLE"))"></canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-<div class="row">
+@* key figures *@
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-6 g-3 mb-3">
 	<div class="col">
-		<div class="card mb-3">
+		<div class="card stats-card h-100">
+			<div class="card-body d-flex align-items-center gap-3">
+				<div class="stats-icon bg-primary-subtle text-primary-emphasis">
+					@Html.Icon("comment", marginEnd: false)
+				</div>
+				<div class="stats-body">
+					<div class="stats-label">@statLabel("NUM_POSTS")</div>
+					<div class="stats-value stats" data-count-target="@Model.Stats.Posts">@Model.Input.NumPosts</div>
+					<div class="stats-caption">
+						@Html.LocalizedText("ADMIN_ADMIN", "POSTS_DAY") <span class="text-nowrap">@Model.Input.DayPosts</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card stats-card h-100">
+			<div class="card-body d-flex align-items-center gap-3">
+				<div class="stats-icon bg-info-subtle text-info-emphasis">
+					@Html.Icon("comments", marginEnd: false)
+				</div>
+				<div class="stats-body">
+					<div class="stats-label">@statLabel("NUM_TOPICS")</div>
+					<div class="stats-value stats" data-count-target="@Model.Stats.Topics">@Model.Input.NumTopics</div>
+					<div class="stats-caption">
+						@Html.LocalizedText("ADMIN_ADMIN", "TOPICS_DAY") <span class="text-nowrap">@Model.Input.DayTopics</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card stats-card h-100">
+			<div class="card-body d-flex align-items-center gap-3">
+				<div class="stats-icon bg-success-subtle text-success-emphasis">
+					@Html.Icon("users", marginEnd: false)
+				</div>
+				<div class="stats-body">
+					<div class="stats-label">@statLabel("NUM_USERS")</div>
+					<div class="stats-value stats" data-count-target="@Model.Stats.Users">@Model.Input.NumUsers</div>
+					<div class="stats-caption">
+						@Html.LocalizedText("ADMIN_ADMIN", "USERS_DAY") <span class="text-nowrap">@Model.Input.DayUsers</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card stats-card h-100">
+			<div class="card-body d-flex align-items-center gap-3">
+				<div class="stats-icon bg-warning-subtle text-warning-emphasis">
+					@Html.Icon("layer-group", marginEnd: false)
+				</div>
+				<div class="stats-body">
+					<div class="stats-label">@statLabel("NUM_FORUMS")</div>
+					<div class="stats-value stats" data-count-target="@Model.Input.NumForums">@Model.Input.NumForums</div>
+					<div class="stats-caption">
+						@Html.LocalizedText("ADMIN_ADMIN", "NUM_CATEGORIES") <span class="text-nowrap">@Model.Input.NumCategories</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card stats-card h-100">
+			<div class="card-body d-flex align-items-center gap-3">
+				<div class="stats-icon bg-danger-subtle text-danger-emphasis">
+					@Html.Icon("database", marginEnd: false)
+				</div>
+				<div class="stats-body">
+					<div class="stats-label">@statLabel("SIZE_DATABASE")</div>
+					<div class="stats-value">@Model.Input.DBSize</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="card stats-card h-100">
+			<div class="card-body d-flex align-items-center gap-3">
+				<div class="stats-icon bg-secondary-subtle text-secondary-emphasis">
+					@Html.Icon("globe", marginEnd: false)
+				</div>
+				<div class="stats-body">
+					<div class="stats-label">@statLabel("BOARD_STARTED")</div>
+					<div class="stats-value stats-value-sm">
+						@Html.DisplayDateTime(DateTimeFormat.BothTopic, Model.Input.BoardStartAgo)
+					</div>
+					<div class="stats-caption">@Html.Raw(Model.Input.BoardStart)</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@* registrations and the background tasks *@
+<div class="row g-3 mb-3">
+	<div class="col-xl-8">
+		<div class="card h-100">
 			<div class="card-header">
-				<div class="row justify-content-between align-items-center">
+				@Html.IconHeader("chart-line", "ADMIN_ADMIN", "REGISTRATIONS_TITLE")
+			</div>
+			<div class="card-body">
+				<div class="chart-container chart-container-wide">
+					<canvas id="chart-registrations"
+					        data-url="@(Model.Get<IUrlHelper>().Action("GetUserStats", "Stats"))"
+					        data-label="@(Model.GetText("ADMIN_ADMIN", "REGISTRATIONS"))"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-4">
+		<div class="card h-100">
+			<div class="card-header d-flex justify-content-between align-items-center">
+				<span>@Html.IconHeader("tasks", "ADMIN_TASKMANAGER", "TITLE")</span>
+				<span class="badge rounded-pill @(Model.RunningTaskCount > 0 ? "text-bg-success" : "text-bg-secondary")"
+				      data-bs-toggle="tooltip"
+				      data-bs-title="@string.Format(Model.GetText("ADMIN_TASKMANAGER", "HEADER"), Model.RunningTaskCount)">
+					@Model.RunningTaskCount / @Model.Tasks.Count
+				</span>
+			</div>
+			@if (!Model.Tasks.NullOrEmpty())
+			{
+				<ul class="list-group list-group-flush task-list"
+				    data-server-now="@AdminModel.StartedTimestamp(DateTime.UtcNow)">
+					@foreach (var task in Model.Tasks)
+					{
+						<li class="list-group-item">
+							<div class="d-flex justify-content-between align-items-start gap-2">
+								<div class="text-break">
+									<div class="fw-semibold">@task.TaskName</div>
+									<div class="small text-body-secondary">@task.TaskDescription</div>
+								</div>
+								@if (task.IsRunning)
+								{
+									<span class="badge rounded-pill text-bg-success flex-shrink-0">
+										@Html.Icon("sync", "fa-spin")@Html.LocalizedText("ADMIN_TASKMANAGER", "STATUS_RUNNING")
+									</span>
+								}
+								else
+								{
+									<span class="badge rounded-pill text-bg-secondary flex-shrink-0">
+										@Html.Icon("check")@Html.LocalizedText("ADMIN_TASKMANAGER", "STATUS_FINISHED")
+									</span>
+								}
+							</div>
+							<div class="small text-body-secondary mt-1">
+								@Html.Icon("clock")@Html.LocalizedText("ADMIN_TASKMANAGER", "DURATION"):
+								<span class="font-monospace task-duration"
+								      data-started="@AdminModel.StartedTimestamp(task.Started)">@AdminModel.FormatDuration(task.Started)</span>
+							</div>
+						</li>
+					}
+				</ul>
+			}
+			else
+			{
+				<div class="card-body flex-grow-1">
+					<p class="text-body-secondary text-center mb-0 py-3">
+						@Html.Icon("circle-info")@Html.LocalizedText("ADMIN_EVENTLOG", "NO_ENTRY")
+					</p>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+@* user statistics *@
+<div class="row g-3 mb-3">
+	<div class="col-md-6 @(Model.Get<IGeoIpCountryService>().DatabaseExists() ? "col-xl-4" : "")">
+		<div class="card h-100">
+			<div class="card-header">
+				@Html.IconHeader("chart-pie", "ADMIN_ADMIN", "BROWSER")
+			</div>
+			<div class="card-body">
+				<div class="chart-container">
+					<canvas id="chart-browsers"
+					        data-label="@(Model.GetText("BROWSER"))"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 @(Model.Get<IGeoIpCountryService>().DatabaseExists() ? "col-xl-4" : "")">
+		<div class="card h-100">
+			<div class="card-header">
+				@Html.IconHeader("chart-pie", "ADMIN_ADMIN", "PLATFORM")
+			</div>
+			<div class="card-body">
+				<div class="chart-container">
+					<canvas id="chart-platforms"
+					        data-label="@(Model.GetText("PLATFORM"))"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	@if (Model.Get<IGeoIpCountryService>().DatabaseExists())
+	{
+		<div class="col-xl-4">
+			<div class="card h-100">
+				<div class="card-header">
+					@Html.IconHeader("globe", "ADMIN_ADMIN", "COUNTRIES")
+				</div>
+				<div class="card-body">
+					<div class="chart-container">
+						<canvas id="chart-countries"
+						        data-label="@(Model.GetText("ADMIN_ADMIN", "COUNTRY"))"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</div>
+
+@* who is online and the unverified users *@
+<div class="row g-3 mb-3">
+	<div class="col-xl-8">
+		<div class="card h-100">
+			<div class="card-header">
+				<div class="row justify-content-between align-items-center g-2">
 					<div class="col-auto">
 						@Html.IconHeader("users", "ADMIN_ADMIN", "HEADER1")
+						<span class="badge rounded-pill text-bg-primary ms-1">@countActive</span>
 					</div>
 					<div class="col-auto">
-						<div class="input-group input-group-sm me-2" role="group">
+						<div class="input-group input-group-sm" role="group">
 							<div class="input-group-text">
 								@Html.LocalizedText("SHOW"):
 							</div>
@@ -331,326 +292,309 @@
 							        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
 							        class="form-select"
 							        onchange="this.form.submit();"></select>
-
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="card-body">
-				@if (!Model.ActiveUserList.NullOrEmpty())
-				{
-					var bannedIPs = Model.Get<IDataCache>().GetOrSet(
-						Constants.Cache.BannedIP,
-						() => Model.GetRepository<BannedIP>().Get(x => x.BoardID == BoardContext.Current.PageBoardID)
-							.Select(x => x.Mask.Trim()).ToList());
+			@if (!Model.ActiveUserList.NullOrEmpty())
+			{
+				var bannedIPs = Model.Get<IDataCache>().GetOrSet(
+					Constants.Cache.BannedIP,
+					() => Model.GetRepository<BannedIP>().Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+						.Select(x => x.Mask.Trim()).ToList());
 
-					<ul class="list-group">
+				<ul class="list-group list-group-flush flex-grow-1">
 
-						@foreach (var activeUser in Model.ActiveUserList)
-						{
-							var ipAddress = IPHelper.GetIpAddressAsString(activeUser.IP);
+					@foreach (var activeUser in Model.ActiveUserList)
+					{
+						var ipAddress = IPHelper.GetIpAddressAsString(activeUser.IP);
 
-							var isBanned = bannedIPs.Contains(ipAddress);
+						var isBanned = bannedIPs.Contains(ipAddress);
 
-							<li class="list-group-item list-group-item-action list-group-item-menu">
-								<div class="d-flex w-100 justify-content-between text-break">
-									<h5 class="mb-1">
+						<li class="list-group-item list-group-item-action list-group-item-menu">
+							<div class="d-flex flex-wrap w-100 justify-content-between align-items-start gap-2 text-break">
+								<div>
+									<div class="fw-semibold">
 										@Html.UserLabel(
 											Model.PageBoardContext.BoardSettings.EnableDisplayName ? activeUser.UserDisplayName : activeUser.UserName,
 											activeUser.UserStyle,
 											activeUser.ActiveFlags.IsCrawler ? activeUser.Browser : string.Empty)
-									</h5>
-									<small>
-										<div class="btn-group btn-group-sm">
-											<a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress))"
-											   button-style="Info"
-											   button-size="Small"
-											   target="_blank" title-localized-tag="TT_IPDETAILS" title-localized-page="COMMON"
-											   rel="noopener">
-												@Html.Icon("computer")@Html.Raw(ipAddress) (@Model.CountRequests(activeUser.IP))
-											</a>
-											@if (!isBanned)
-											{
-												<button button-style="Danger"
-												        button-size="Small"
-												        asp-page-handler="BanIp"
-												        asp-route-mask="@Html.Raw(ipAddress)"
-												        asp-route-p="@Model.Request.RouteValues["p"]"
-												        asp-route-p2="@Model.Request.RouteValues["p2"]"
-												        text-localized-page="ADMIN_BANNEDIP_EDIT"
-												        text-localized-tag="TITLE"
-												        Icon="edit"></button>
-											}
-										</div>
 
-									</small>
+										@if (activeUser.Country.IsSet() && !activeUser.Country.Equals("--"))
+										{
+											<span class="@($"fi fi-{activeUser.Country.ToLower()} ms-1")" title="@(Model.GetText("COUNTRY", activeUser.Country))"></span>
+										}
+									</div>
+									<div class="small">
+										<span data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("ADMIN_ADMIN", "BOARD_LOCATION")">
+											@Html.Icon("file-lines", "text-body-secondary")@Html.ActiveLocation(activeUser.UserID,
+												                        false,
+												                        activeUser.ForumPage,
+												                        activeUser.Path,
+												                        activeUser.ForumID ?? 0,
+												                        activeUser.ForumName,
+												                        activeUser.TopicID ?? 0,
+												                        activeUser.TopicName,
+												                        false)
+										</span>
+										<span class="text-body-secondary">(@activeUser.Path)</span>
+									</div>
 								</div>
-								<p>
-									<span data-bs-toggle="tooltip" data-bs-title="@Html.LocalizedText("ADMIN_ADMIN", "BOARD_LOCATION")">
-										@Html.Icon("file-lines")@Html.ActiveLocation(activeUser.UserID,
-											                        false,
-											                        activeUser.ForumPage,
-											                        activeUser.Path,
-											                        activeUser.ForumID ?? 0,
-											                        activeUser.ForumName,
-											                        activeUser.TopicID ?? 0,
-											                        activeUser.TopicName,
-											                        false)
-										(@activeUser.Path)
-									</span>
-
-									@if (activeUser.Country.IsSet() && !activeUser.Country.Equals("--"))
+								<div class="btn-group btn-group-sm flex-shrink-0">
+									<a href="@Html.Raw(string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress))"
+									   button-style="OutlineInfo"
+									   button-size="Small"
+									   target="_blank" title-localized-tag="TT_IPDETAILS" title-localized-page="COMMON"
+									   rel="noopener">
+										@Html.Icon("computer")@Html.Raw(ipAddress) (@Model.CountRequests(activeUser.IP))
+									</a>
+									@if (!isBanned)
 									{
-										@Html.Icon("globe")
-										<span class="@($"fi fi-{activeUser.Country.ToLower()}")" title="@(Model.GetText("COUNTRY", activeUser.Country))"></span>
-									}
-
-								</p>
-								<small>
-									<span>
-										@Html.Icon("user-secret")
-										@activeUser.UserAgent
-									</span>
-									<span>
-										@Html.Icon("file-lines")
-										@activeUser.Referer
-									</span>
-								</small>
-								<div class="dropdown-menu context-menu" aria-labelledby="context menu">
-									@if (isBanned)
-									{
-										<button button-style="None"
-										        class="dropdown-item"
-										        bs-toggle="ajax-modal"
-										        bs-target-url="@(Url.Page("BannedIps", "Edit", new { mask = ipAddress }))"
+										<button button-style="Danger"
+										        button-size="Small"
+										        asp-page-handler="BanIp"
+										        asp-route-mask="@Html.Raw(ipAddress)"
+										        asp-route-p="@Model.Request.RouteValues["p"]"
+										        asp-route-p2="@Model.Request.RouteValues["p2"]"
 										        text-localized-page="ADMIN_BANNEDIP_EDIT"
 										        text-localized-tag="TITLE"
-										        Icon="edit"></button>
+										        Icon="ban"></button>
 									}
 								</div>
-							</li>
-						}
+							</div>
+							<div class="small text-body-secondary mt-1 text-break">
+								<div>
+									@Html.Icon("user-secret")@activeUser.UserAgent
+								</div>
+								@if (activeUser.Referer.IsSet())
+								{
+									<div>
+										@Html.Icon("link")@activeUser.Referer
+									</div>
+								}
+							</div>
+							<div class="dropdown-menu context-menu" aria-labelledby="context menu">
+								@if (isBanned)
+								{
+									<button button-style="None"
+									        class="dropdown-item"
+									        bs-toggle="ajax-modal"
+									        bs-target-url="@(Url.Page("BannedIps", "Edit", new { mask = ipAddress }))"
+									        text-localized-page="ADMIN_BANNEDIP_EDIT"
+									        text-localized-tag="TITLE"
+									        Icon="edit"></button>
+								}
+							</div>
+						</li>
+					}
 
-					</ul>
-				}
+				</ul>
+			}
+			else
+			{
+				<div class="card-body flex-grow-1">
+					<p class="text-body-secondary text-center mb-0 py-3">
+						@Html.Icon("circle-info")@Html.LocalizedText("ADMIN_EVENTLOG", "NO_ENTRY")
+					</p>
+				</div>
+			}
+			<div class="card-footer">
+				<div class="row justify-content-between align-items-center g-2">
+					<div class="col-auto">
+						<small class="text-body-secondary">
+							@Html.LocalizedTextFormatted("SHOWING_X_TO_X_OF_X", showingFromActive, showingToActive, countActive)
+						</small>
+					</div>
+					<div class="col-auto">
+						<pager page-size="@Model.Size"
+						       count="@countActive"
+						       query-name="p" use-submit="false">
+						</pager>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
-	@{
-		// the page comes from the url, a page after the last one has no rows
-		var countActive = Model.ActiveUserList.HasItems() ? Model.ActiveUserList[0].UserCount : 0;
-		var indexActive = Math.Max(HttpContext.Request.GetQueryOrRouteValue<int>("p").ToTypeOrDefault(1) - 1, 0);
-		var showingFromActive = Model.ActiveUserList.HasItems() ? (long)indexActive * Model.Size + 1 : 0;
-		var showingToActive = Model.ActiveUserList.HasItems() ? (long)indexActive * Model.Size + Model.ActiveUserList.Count : 0;
-	}
-<div class="row justify-content-between align-items-center">
-		<div class="col-auto">
-			<p class="text-secondary">
-				@Html.LocalizedTextFormatted("SHOWING_X_TO_X_OF_X", showingFromActive, showingToActive, countActive)
-			</p>
-		</div>
-		<div class="col-auto">
-			<pager page-size="@Model.Size"
-			       count="@countActive"
-			       query-name="p" use-submit="false">
-			</pager>
-		</div>
-</div>
-
-	<div class="row">
-		<div class="col-xl-12">
-			<div class="card mb-3">
-				<div class="card-header">
-					<div class="row justify-content-between align-items-center">
-						<div class="col-auto">
-							@Html.IconHeader("user-plus", "ADMIN_ADMIN", "HEADER2")
-						</div>
-						<div class="col-auto">
-							<div class="input-group input-group-sm me-2" role="group">
-								<div class="input-group-text">
-									@Html.LocalizedText("SHOW"):
-								</div>
-								<select asp-for="@Model.Input.UnverifiedPageSize"
-								        asp-items="Model.UnverifiedPageSizeList"
-								        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-								        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-								        class="form-select"
-								        onchange="this.form.submit();"></select>
+	<div class="col-xl-4">
+		<div class="card h-100">
+			<div class="card-header">
+				<div class="row justify-content-between align-items-center g-2">
+					<div class="col-auto">
+						@Html.IconHeader("user-plus", "ADMIN_ADMIN", "HEADER2")
+						<span class="badge rounded-pill @(Model.Input.UnverifiedCount > 0 ? "text-bg-warning" : "text-bg-secondary") ms-1">@Model.Input.UnverifiedCount</span>
+					</div>
+					<div class="col-auto">
+						<div class="input-group input-group-sm" role="group">
+							<div class="input-group-text">
+								@Html.LocalizedText("SHOW"):
 							</div>
+							<select asp-for="@Model.Input.UnverifiedPageSize"
+							        asp-items="Model.UnverifiedPageSizeList"
+							        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+							        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+							        class="form-select"
+							        onchange="this.form.submit();"></select>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				@if (!Model.UserList.NullOrEmpty())
-				{
-					<div class="card-body">
-						<ul class="list-group">
-							@foreach (var user in Model.UserList)
-							{
-								<li class="list-group-item list-group-item-action list-group-item-menu d-flex justify-content-between align-items-start">
-									<div class="align-items-baseline">
-										<div class="me-2">
-											<span class="fw-bold">
-												@Model.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)
-											</span>
-										</div>
-										<div class="me-2">
-											<span class="fw-bold">
-												@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_JOINED"):
-											</span>
-											@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(user.Joined))
-										</div>
-										<div>
-											<span class="fw-bold">
-												@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_EMAIL"):
-											</span>
-											@user.Email
-										</div>
-									</div>
-									<small>
-										<button class="dropdown-toggle"
-										        button-style="Secondary"
-										        button-size="Small"
-										        bs-toggle="dropdown"
-										        aria-label="@Model.GetText("TOOLS")"
-										        Icon="ellipsis-v"></button>
-										<div class="dropdown-menu">
-											<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
-											   asp-route-u="@Html.Raw(user.ID)"
-											   Icon="user-edit"
-											   text-localized-tag="EDITUSER"
-											   button-style="None"
-											   class="dropdown-item">
-											</a>
-											<button asp-page-handler="ResendEmail"
-											        asp-route-id="@Html.Raw(user.ID)"
-											        asp-route-p="@Model.Request.RouteValues["p"]"
-											        asp-route-p2="@Model.Request.RouteValues["p2"]"
-											        Icon="share"
-											        text-localized-tag="ADMIN_RESEND_EMAIL"
-											        button-style="None"
-											        class="dropdown-item">
-											</button>
-											<button asp-page-handler="Approve"
-											        asp-route-id="@Html.Raw(user.ID)"
-											        asp-route-p="@Model.Request.RouteValues["p"]"
-											        asp-route-p2="@Model.Request.RouteValues["p2"]"
-											        button-style="None"
-											        class="dropdown-item"
-											        Icon="check"
-											        text-localized-tag="ADMIN_APPROVE">
-											</button>
-											<button asp-page-handler="Delete"
-											        asp-route-id="@Html.Raw(user.ID)"
-											        asp-route-p="@Model.Request.RouteValues["p"]"
-											        asp-route-p2="@Model.Request.RouteValues["p2"]"
-											        button-style="None"
-											        class="dropdown-item"
-											        return-confirm-tag="CONFIRM_DELETE"
-											        Icon="trash"
-											        text-localized-tag="ADMIN_DELETE">
-											</button>
-										</div>
-									</small>
-									<div class="dropdown-menu context-menu" aria-labelledby="context menu">
-										<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
-										   asp-route-u="@Html.Raw(user.ID)"
-										   Icon="user-edit"
-										   text-localized-tag="EDITUSER"
-										   button-style="None"
-										   class="dropdown-item">
-										</a>
-										<button asp-page-handler="ResendEmail"
-										        asp-route-id="@Html.Raw(user.ID)"
-										        asp-route-p="@Model.Request.RouteValues["p"]"
-										        asp-route-p2="@Model.Request.RouteValues["p2"]"
-										        Icon="share"
-										        text-localized-tag="ADMIN_RESEND_EMAIL"
-										        button-style="None"
-										        class="dropdown-item">
-										</button>
-										<button asp-page-handler="Approve"
-										        asp-route-id="@Html.Raw(user.ID)"
-										        asp-route-p="@Model.Request.RouteValues["p"]"
-										        asp-route-p2="@Model.Request.RouteValues["p2"]"
-										        button-style="None"
-										        class="dropdown-item"
-										        Icon="check"
-										        text-localized-tag="ADMIN_APPROVE">
-										</button>
-										<button asp-page-handler="Delete"
-										        asp-route-id="@Html.Raw(user.ID)"
-										        asp-route-p="@Model.Request.RouteValues["p"]"
-										        asp-route-p2="@Model.Request.RouteValues["p2"]"
-										        button-style="None"
-										        class="dropdown-item"
-										        return-confirm-tag="CONFIRM_DELETE"
-										        Icon="trash"
-										        text-localized-tag="ADMIN_DELETE">
-										</button>
-									</div>
-								</li>
-							}
-
-						</ul>
-					</div>
-					<div class="card-footer">
-						<div class="d-lg-flex">
-							<div>
-								<button asp-page-handler="ApproveAll"
+			@if (!Model.UserList.NullOrEmpty())
+			{
+				<ul class="list-group list-group-flush flex-grow-1">
+					@foreach (var user in Model.UserList)
+					{
+						<li class="list-group-item list-group-item-action list-group-item-menu d-flex justify-content-between align-items-start gap-2">
+							<div class="text-break">
+								<div class="fw-semibold">
+									@Model.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name)
+								</div>
+								<div class="small">
+									@Html.Icon("envelope", "text-body-secondary")@user.Email
+								</div>
+								<div class="small text-body-secondary">
+									@Html.LocalizedText("ADMIN_ADMIN", "ADMIN_JOINED"):
+									@Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(user.Joined))
+								</div>
+							</div>
+							<div class="flex-shrink-0">
+								<button class="dropdown-toggle"
+								        button-style="Secondary"
+								        button-size="Small"
+								        bs-toggle="dropdown"
+								        aria-label="@Model.GetText("TOOLS")"
+								        Icon="ellipsis-v"></button>
+								<div class="dropdown-menu">
+									<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+									   asp-route-u="@Html.Raw(user.ID)"
+									   Icon="user-edit"
+									   text-localized-tag="EDITUSER"
+									   button-style="None"
+									   class="dropdown-item">
+									</a>
+									<button asp-page-handler="ResendEmail"
+									        asp-route-id="@Html.Raw(user.ID)"
+									        asp-route-p="@Model.Request.RouteValues["p"]"
+									        asp-route-p2="@Model.Request.RouteValues["p2"]"
+									        Icon="share"
+									        text-localized-tag="ADMIN_RESEND_EMAIL"
+									        button-style="None"
+									        class="dropdown-item">
+									</button>
+									<button asp-page-handler="Approve"
+									        asp-route-id="@Html.Raw(user.ID)"
+									        asp-route-p="@Model.Request.RouteValues["p"]"
+									        asp-route-p2="@Model.Request.RouteValues["p2"]"
+									        button-style="None"
+									        class="dropdown-item"
+									        Icon="check"
+									        text-localized-tag="ADMIN_APPROVE">
+									</button>
+									<button asp-page-handler="Delete"
+									        asp-route-id="@Html.Raw(user.ID)"
+									        asp-route-p="@Model.Request.RouteValues["p"]"
+									        asp-route-p2="@Model.Request.RouteValues["p2"]"
+									        button-style="None"
+									        class="dropdown-item"
+									        return-confirm-tag="CONFIRM_DELETE"
+									        Icon="trash"
+									        text-localized-tag="ADMIN_DELETE">
+									</button>
+								</div>
+							</div>
+							<div class="dropdown-menu context-menu" aria-labelledby="context menu">
+								<a asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+								   asp-route-u="@Html.Raw(user.ID)"
+								   Icon="user-edit"
+								   text-localized-tag="EDITUSER"
+								   button-style="None"
+								   class="dropdown-item">
+								</a>
+								<button asp-page-handler="ResendEmail"
+								        asp-route-id="@Html.Raw(user.ID)"
 								        asp-route-p="@Model.Request.RouteValues["p"]"
 								        asp-route-p2="@Model.Request.RouteValues["p2"]"
-								        button-style="Primary"
+								        Icon="share"
+								        text-localized-tag="ADMIN_RESEND_EMAIL"
+								        button-style="None"
+								        class="dropdown-item">
+								</button>
+								<button asp-page-handler="Approve"
+								        asp-route-id="@Html.Raw(user.ID)"
+								        asp-route-p="@Model.Request.RouteValues["p"]"
+								        asp-route-p2="@Model.Request.RouteValues["p2"]"
+								        button-style="None"
+								        class="dropdown-item"
 								        Icon="check"
-								        text-localized-tag="APROVE_ALL"
-								        class="mb-1"
-								        return-confirm-tag="CONFIRM_APROVE_ALL"></button>
-								<button asp-page-handler="DeleteAll"
+								        text-localized-tag="ADMIN_APPROVE">
+								</button>
+								<button asp-page-handler="Delete"
+								        asp-route-id="@Html.Raw(user.ID)"
 								        asp-route-p="@Model.Request.RouteValues["p"]"
 								        asp-route-p2="@Model.Request.RouteValues["p2"]"
-								        button-style="Danger"
+								        button-style="None"
+								        class="dropdown-item"
+								        return-confirm-tag="CONFIRM_DELETE"
 								        Icon="trash"
-								        text-localized-tag="DELETE_ALL"
-								        return-confirm-tag="CONFIRM_DELETE_ALL"
-								        class="me-1 mb-1"></button>
+								        text-localized-tag="ADMIN_DELETE">
+								</button>
 							</div>
-							<div>
-								<input type="number" asp-for="Input.DaysOld" placeholder="@Model.GetText("DELETE_ALL")"
-								       class="form-control"/>
-							</div>
-						</div>
+						</li>
+					}
+				</ul>
+				<div class="card-body border-top">
+					<div class="d-flex flex-wrap gap-2 mb-2">
+						<button asp-page-handler="ApproveAll"
+						        asp-route-p="@Model.Request.RouteValues["p"]"
+						        asp-route-p2="@Model.Request.RouteValues["p2"]"
+						        button-style="Primary"
+						        button-size="Small"
+						        Icon="check"
+						        text-localized-tag="APROVE_ALL"
+						        return-confirm-tag="CONFIRM_APROVE_ALL"></button>
 					</div>
-				}
-				else
-				{
-					<div class="card-body">
-						@await Html.PartialAsync("_NoEntryInfo")
+					<div class="input-group input-group-sm">
+						<input type="number" asp-for="Input.DaysOld"
+						       placeholder="@Model.GetText("DELETE_ALL")"
+						       aria-label="@Model.GetText("DELETE_ALL")"
+						       class="form-control"/>
+						<button asp-page-handler="DeleteAll"
+						        asp-route-p="@Model.Request.RouteValues["p"]"
+						        asp-route-p2="@Model.Request.RouteValues["p2"]"
+						        button-style="Danger"
+						        Icon="trash"
+						        text-localized-tag="DELETE_ALL"
+						        return-confirm-tag="CONFIRM_DELETE_ALL"></button>
 					</div>
-				}
+				</div>
+			}
+			else
+			{
+				<div class="card-body flex-grow-1">
+					<p class="text-body-secondary text-center mb-0 py-3">
+						@Html.Icon("circle-info")@Html.LocalizedText("ADMIN_EVENTLOG", "NO_ENTRY")
+					</p>
+				</div>
+			}
+			<div class="card-footer">
+				<div class="row justify-content-between align-items-center g-2">
+					<div class="col-auto">
+						<small class="text-body-secondary">
+							@Html.LocalizedTextFormatted("SHOWING_X_TO_X_OF_X", showingFromUnverified, showingToUnverified, Model.Input.UnverifiedCount)
+						</small>
+					</div>
+					<div class="col-auto">
+						<pager page-size="@Model.Input.UnverifiedPageSize"
+						       count="@Model.Input.UnverifiedCount"
+						       query-name="p2" use-submit="false">
+						</pager>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	@{
-		// the unverified users have their own page (p2) and page size
-		var indexUnverified = Math.Max(HttpContext.Request.GetQueryOrRouteValue<int>("p2").ToTypeOrDefault(1) - 1, 0);
-		var showingFromUnverified = !Model.UserList.NullOrEmpty() ? (long)indexUnverified * Model.Input.UnverifiedPageSize + 1 : 0;
-		var showingToUnverified = !Model.UserList.NullOrEmpty() ? (long)indexUnverified * Model.Input.UnverifiedPageSize + Model.UserList.Count : 0;
-	}
-	<div class="row justify-content-between align-items-center">
-		<div class="col-auto">
-			<p class="text-secondary">
-				@Html.LocalizedTextFormatted("SHOWING_X_TO_X_OF_X", showingFromUnverified, showingToUnverified, Model.Input.UnverifiedCount)
-			</p>
-		</div>
-		<div class="col-auto">
-			<pager page-size="@Model.Input.UnverifiedPageSize"
-			       count="@Model.Input.UnverifiedCount"
-			       query-name="p2" use-submit="false">
-			</pager>
-		</div>
-	</div>
+</div>
 </form>
 
 @section Scripts {

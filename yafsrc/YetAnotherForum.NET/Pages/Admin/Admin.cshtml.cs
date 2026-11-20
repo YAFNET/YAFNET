@@ -92,6 +92,21 @@ public class AdminModel : AdminPage
     public SelectList UnverifiedPageSizeList { get; set; }
 
     /// <summary>
+    /// Gets or sets the board statistics.
+    /// </summary>
+    public BoardStat Stats { get; set; }
+
+    /// <summary>
+    /// Gets or sets the background tasks, the running tasks first.
+    /// </summary>
+    public IList<IBackgroundTask> Tasks { get; set; }
+
+    /// <summary>
+    /// Gets the number of the running background tasks.
+    /// </summary>
+    public int RunningTaskCount => this.Tasks?.Count(t => t.IsRunning) ?? 0;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="AdminModel"/> class.
     /// </summary>
     public AdminModel()
@@ -275,6 +290,35 @@ public class AdminModel : AdminPage
     }
 
     /// <summary>
+    /// Formats the time since a task was started, e.g. 03:04:05 or 2.03:04:05 (with days).
+    /// </summary>
+    /// <param name="started">The start time (UTC).</param>
+    /// <returns>Returns the formatted duration.</returns>
+    public static string FormatDuration(DateTime started)
+    {
+        var elapsed = DateTime.UtcNow - started;
+
+        if (elapsed < TimeSpan.Zero)
+        {
+            elapsed = TimeSpan.Zero;
+        }
+
+        return elapsed.Days > 0
+                   ? $"{elapsed.Days}.{elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}"
+                   : $"{elapsed.Hours:D2}:{elapsed.Minutes:D2}:{elapsed.Seconds:D2}";
+    }
+
+    /// <summary>
+    /// The start time of a task as unix time in milliseconds, the dashboard script updates the durations with it.
+    /// </summary>
+    /// <param name="started">The start time (UTC).</param>
+    /// <returns>Returns the unix time in milliseconds.</returns>
+    public static long StartedTimestamp(DateTime started)
+    {
+        return new DateTimeOffset(DateTime.SpecifyKind(started, DateTimeKind.Utc)).ToUnixTimeMilliseconds();
+    }
+
+    /// <summary>
     /// Shows the upgrade message.
     /// </summary>
     private async Task ShowUpgradeMessageAsync()
@@ -354,6 +398,8 @@ public class AdminModel : AdminPage
         var data = await this.Get<IDataCache>().GetOrSetAsync(
             Constants.Cache.AdminStats, () => this.GetRepository<Board>().StatsAsync(this.PageBoardContext.PageBoardID));
 
+        this.Stats = data;
+
         this.Input.NumCategories = data.Categories;
         this.Input.NumForums = data.Forums;
         this.Input.NumTopics = $"{data.Topics:N0}";
@@ -389,6 +435,9 @@ public class AdminModel : AdminPage
         }
 
         this.BindActiveUserData(p);
+
+        this.Tasks = [.. this.Get<ITaskModuleManager>().TaskManagerSnapshot.Values
+                          .OrderByDescending(t => t.IsRunning).ThenBy(t => t.TaskName)];
     }
 
     /// <summary>

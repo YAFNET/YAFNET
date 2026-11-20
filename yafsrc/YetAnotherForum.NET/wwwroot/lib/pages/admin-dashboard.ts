@@ -8,28 +8,25 @@ const canvasPlatforms = document.getElementById('chart-platforms') as HTMLCanvas
 const canvasCountries = document.getElementById('chart-countries') as HTMLCanvasElement;
 const canvasRegistrations = document.getElementById('chart-registrations') as HTMLCanvasElement;
 
-const labelsBrowsers = new Array();
-const labelsPlatforms = new Array();
-const labelsCountries = new Array();
-const labelsRegistrations = new Array();
-
-const dataBrowsers = new Array();
-const dataPlatforms = new Array();
-const dataCountries = new Array();
-const dataRegistrations = new Array();
-
 const style = getComputedStyle(document.body);
 
+const cssVar = (name: string) => style.getPropertyValue(name).trim();
+
+// The theme colors, without light and dark (one of them is (nearly) the background color).
 const colors = [
-	style.getPropertyValue('--bs-primary'),
-	style.getPropertyValue('--bs-secondary'),
-	style.getPropertyValue('--bs-success'),
-	style.getPropertyValue('--bs-info'),
-	style.getPropertyValue('--bs-warning'),
-	style.getPropertyValue('--bs-danger'),
-	style.getPropertyValue('--bs-light'),
-	style.getPropertyValue('--bs-dark')
+	cssVar('--bs-primary'),
+	cssVar('--bs-success'),
+	cssVar('--bs-info'),
+	cssVar('--bs-warning'),
+	cssVar('--bs-danger'),
+	cssVar('--bs-secondary')
 ];
+
+// Text and grid lines follow the theme (light and dark mode).
+Chart.defaults.color = cssVar('--bs-secondary-color') || Chart.defaults.color;
+Chart.defaults.borderColor = cssVar('--bs-border-color-translucent') || Chart.defaults.borderColor;
+Chart.defaults.maintainAspectRatio = false;
+Chart.defaults.resizeDelay = 200;
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -72,10 +69,71 @@ function whenVisible(el: Element, create: () => void) {
 	chartObserver.observe(el);
 }
 
-if (canvasBrowsers && canvasPlatforms && canvasRegistrations) {
-	var url = canvasBrowsers.dataset.url!;
+function arcChart(canvas: HTMLCanvasElement, type: 'pie' | 'polarArea', stats: StatsData[]) {
+	whenVisible(canvas,
+		() => {
+			new Chart(canvas.getContext('2d') as any,
+				{
+					type: type,
+					data: {
+						labels: stats.map(s => s.label),
+						datasets: [
+							{
+								label: canvas.dataset.label,
+								data: stats.map(s => s.data),
+								backgroundColor: colors,
+								// the gaps between the slices in the color of the card (white by default)
+								borderColor: getComputedStyle(canvas.closest('.card') ?? document.body).backgroundColor
+							}
+						]
+					},
+					options: {
+						animation: arcAnimation,
+						scales: type === 'polarArea'
+							? { r: { ticks: { backdropColor: 'transparent' } } }
+							: {},
+						plugins: {
+							legend: { position: 'bottom' }
+						}
+					}
+				});
+		});
+}
 
-	fetch(url,
+function barChart(canvas: HTMLCanvasElement, stats: StatsData[]) {
+	whenVisible(canvas,
+		() => {
+			new Chart(canvas.getContext('2d') as any,
+				{
+					type: 'bar',
+					data: {
+						labels: stats.map(s => s.label),
+						datasets: [
+							{
+								label: canvas.dataset.label,
+								data: stats.map(s => s.data),
+								backgroundColor: colors[0],
+								borderRadius: 4,
+								maxBarThickness: 48
+							}
+						]
+					},
+					options: {
+						animation: barAnimation,
+						scales: {
+							x: { grid: { display: false } },
+							y: { beginAtZero: true, ticks: { precision: 0 } }
+						},
+						plugins: {
+							legend: { display: false }
+						}
+					}
+				});
+		});
+}
+
+if (canvasBrowsers && canvasPlatforms && canvasRegistrations) {
+	fetch(canvasRegistrations.dataset.url!,
 		{
 			method: 'GET',
 			headers: {
@@ -83,186 +141,80 @@ if (canvasBrowsers && canvasPlatforms && canvasRegistrations) {
 					HTMLInputElement).value
 			}
 		}).then(res => res.json()).then(data => {
-
-		data.browsers.forEach((stats: StatsData) => {
-			labelsBrowsers.push(stats.label);
-			dataBrowsers.push(stats.data);
-		});
-
-		data.platforms.forEach((stats: StatsData) => {
-			labelsPlatforms.push(stats.label);
-			dataPlatforms.push(stats.data);
-		});
-
-		data.countries.forEach((stats: StatsData) => {
-			labelsCountries.push(stats.label);
-			dataCountries.push(stats.data);
-		});
-
-		data.registrations.forEach((stats: StatsData) => {
-			labelsRegistrations.push(stats.label);
-			dataRegistrations.push(stats.data);
-		});
-
-		whenVisible(canvasBrowsers,
-			() => {
-				const ctxBrowsers = canvasBrowsers.getContext('2d') as any;
-
-				new Chart(ctxBrowsers,
-					{
-						type: 'polarArea',
-						data: {
-							labels: labelsBrowsers,
-							datasets: [
-								{
-									label: canvasBrowsers.dataset.label,
-									data: dataBrowsers,
-									backgroundColor: colors
-								}
-							]
-						},
-						options: {
-							animation: arcAnimation,
-							resizeDelay: 1500,
-							plugins: {
-								title: {
-									display: true,
-									text: canvasBrowsers.dataset.title
-								}
-							}
-						}
-					});
-			});
-
-		whenVisible(canvasPlatforms,
-			() => {
-				const ctxPlatforms = canvasPlatforms.getContext('2d') as any;
-
-				new Chart(ctxPlatforms,
-					{
-						type: 'pie',
-						data: {
-							labels: labelsPlatforms,
-							datasets: [
-								{
-									label: canvasPlatforms.dataset.label,
-									data: dataPlatforms,
-									backgroundColor: colors
-								}
-							]
-						},
-						options: {
-							animation: arcAnimation,
-							resizeDelay: 1500,
-							plugins: {
-								title: {
-									display: true,
-									text: canvasPlatforms.dataset.title
-								}
-							}
-						}
-					});
-			});
+		barChart(canvasRegistrations, data.registrations);
+		arcChart(canvasBrowsers, 'polarArea', data.browsers);
+		arcChart(canvasPlatforms, 'pie', data.platforms);
 
 		if (canvasCountries) {
-			whenVisible(canvasCountries,
-				() => {
-					const ctxCountries = canvasCountries.getContext('2d') as any;
-
-					new Chart(ctxCountries,
-						{
-							type: 'bar',
-							data: {
-								labels: labelsCountries,
-								datasets: [
-									{
-										label: canvasCountries.dataset.label,
-										data: dataCountries,
-										backgroundColor: colors
-									}
-								]
-							},
-							options: {
-								animation: barAnimation,
-								resizeDelay: 1500,
-								plugins: {
-									title: {
-										display: true,
-										text: canvasCountries.dataset.title
-									}
-								}
-							}
-						});
-				});
+			barChart(canvasCountries, data.countries);
 		}
-
-		whenVisible(canvasRegistrations,
-			() => {
-				const ctxRegistrations = canvasRegistrations.getContext('2d') as any;
-
-				new Chart(ctxRegistrations,
-					{
-						type: 'bar',
-						data: {
-							labels: labelsRegistrations,
-							datasets: [
-								{
-									label: canvasRegistrations.dataset.label,
-									data: dataRegistrations,
-									backgroundColor: colors
-								}
-							]
-						},
-						options: {
-							animation: barAnimation,
-							resizeDelay: 1500,
-							plugins: {
-								title: {
-									display: true,
-									text: canvasRegistrations.dataset.title
-								}
-							}
-						}
-					});
-			});
 	});
 }
 
-function animateCount(el: Element, target: number, duration: number) {
-	const start = 0;
+// Count the key figures up from 0, the number ends with the text formatted by the server (e.g. 1.234 in German).
+function animateCount(el: HTMLElement, target: number, duration: number) {
+	const text = el.dataset.countText!;
 	const startTime = performance.now();
+
 	function update(now: number) {
-		const elapsed = now - startTime;
-		const progress = Math.min(elapsed / duration, 1);
+		const progress = Math.min((now - startTime) / duration, 1);
 		const eased = 1 - Math.pow(1 - progress, 3);
-		const current = Math.floor(start + (target - start) * eased);
-		el.textContent = current.toLocaleString();
-		if (progress < 1) requestAnimationFrame(update);
-		else el.textContent = target.toLocaleString();
+
+		if (progress < 1) {
+			el.textContent = Math.floor(target * eased).toLocaleString();
+			requestAnimationFrame(update);
+		} else {
+			el.textContent = text;
+		}
 	}
+
 	requestAnimationFrame(update);
 }
 
+const counters = Array.from(document.querySelectorAll<HTMLElement>('.stats[data-count-target]'))
+	.filter(el => parseInt(el.dataset.countTarget!, 10) > 0);
 
-document.querySelectorAll<HTMLElement>('.stats[data-count-target]').forEach(el => {
-	const target = parseInt(el.dataset.countTarget!, 10);
-	if (target > 0) el.textContent = '0';
-});
+if (!reduceMotion && 'IntersectionObserver' in window) {
+	const observer = new IntersectionObserver((entries, obs) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const el = entry.target as HTMLElement;
+				animateCount(el, parseInt(el.dataset.countTarget!, 10), 1200);
+				obs.unobserve(el);
+			}
+		});
+	}, { threshold: 0.3 });
 
-const observer = new IntersectionObserver((entries, obs) => {
-	entries.forEach(entry => {
-		if (entry.isIntersecting) {
-			const el = entry.target as HTMLElement;
-			const target = parseInt(el.dataset.countTarget!, 10);
-			if (target > 0) animateCount(el, target, 1200);
-			obs.unobserve(el);
-		}
-	});
-}, { threshold: 0.3 });
-
-document.querySelectorAll<HTMLElement>('.stats[data-count-target]').forEach(el => {
-	const target = parseInt(el.dataset.countTarget!, 10);
-	if (target > 0) {
+	counters.forEach(el => {
+		el.dataset.countText = el.textContent!.trim();
+		el.textContent = '0';
 		observer.observe(el);
-	}
-});
+	});
+}
+
+// The time since a background task was started, updated every second. It is counted from the server time, so a
+// wrong clock of the client doesn't change the durations.
+const taskList = document.querySelector<HTMLElement>('.task-list[data-server-now]');
+
+function formatDuration(ms: number) {
+	const total = Math.max(Math.floor(ms / 1000), 0);
+	const days = Math.floor(total / 86400);
+	const pad = (n: number) => n.toString().padStart(2, '0');
+	const time = `${pad(Math.floor(total % 86400 / 3600))}:${pad(Math.floor(total % 3600 / 60))}:${pad(total % 60)}`;
+
+	return days > 0 ? `${days}.${time}` : time;
+}
+
+if (taskList) {
+	const durations = taskList.querySelectorAll<HTMLElement>('.task-duration[data-started]');
+	const serverNow = Number(taskList.dataset.serverNow);
+	const loaded = Date.now();
+
+	window.setInterval(() => {
+		const now = serverNow + (Date.now() - loaded);
+
+		durations.forEach(el => {
+			el.textContent = formatDuration(now - Number(el.dataset.started));
+		});
+	}, 1000);
+}

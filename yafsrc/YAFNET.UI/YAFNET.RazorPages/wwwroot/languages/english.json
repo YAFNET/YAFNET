@@ -413,10 +413,6 @@
                     "#text": "Imports spam words"
                 },
                 {
-                    "@tag": "ADMIN_TASKMANAGER",
-                    "#text": "Views/manages task manager"
-                },
-                {
                     "@tag": "ADMIN_USERS",
                     "#text": "Views users in admin section"
                 },
@@ -6314,8 +6310,16 @@
                     "#text": "Is Running"
                 },
                 {
+                    "@tag": "STATUS_FINISHED",
+                    "#text": "Finished"
+                },
+                {
+                    "@tag": "STATUS_RUNNING",
+                    "#text": "Running"
+                },
+                {
                     "@tag": "TITLE",
-                    "#text": "Task Manger"
+                    "#text": "Task Manager"
                 }
             ]
         },
@@ -6652,10 +6656,6 @@
                 {
                     "@tag": "ADMIN_TAGS",
                     "#text": "Tags"
-                },
-                {
-                    "@tag": "ADMIN_TASKMANAGER",
-                    "#text": "Task Manager"
                 },
                 {
                     "@tag": "ADMIN_USERS",

@@ -413,10 +413,6 @@
             "#text": "Importe des mots de spam"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Afficher/gérer le gestionnaire de tâches"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Voir les utilisateurs dans la section admin"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Est en cours d'exécution"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Terminée"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "En cours"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Gestionnaire de tâches"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Mots clés"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Gestionnaire des tâches"
           },
           {
             "@tag": "ADMIN_USERS",

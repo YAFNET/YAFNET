@@ -413,10 +413,6 @@
             "#text": "Spam kelimeleri içe aktarır"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Görev yöneticisini görüntüleme/yönetme"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Yönetici bölümündeki kullanıcıları görüntüleme"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Koşuyor"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Tamamlandı"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Çalışıyor"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Görev Yöneticisi"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Etiketler"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Görev Yöneticisi"
           },
           {
             "@tag": "ADMIN_USERS",

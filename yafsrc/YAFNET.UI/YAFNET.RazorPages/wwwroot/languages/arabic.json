@@ -413,10 +413,6 @@
             "#text": "يستورد الكلمات غير المرغوب فيها"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "عرض أو ادارة المهام"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "عرض المستخدمين في القسم الاداري"
           },
@@ -6314,6 +6310,14 @@
             "#text": "يجري"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "منتهية"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "قيد التشغيل"
+          },
+          {
             "@tag": "TITLE",
             "#text": "مدير المهام"
           }
@@ -6652,10 +6656,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "العلامات"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "مدير المهام"
           },
           {
             "@tag": "ADMIN_USERS",

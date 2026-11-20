@@ -413,10 +413,6 @@
             "#text": "Import spamových slov"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Zobrazenie/správu správcu úloh"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Zobrazenia používateľov v sekcii administrátora"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Je spustený"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Dokončené"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Beží"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Správca úloh"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Značky"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Správca úloh"
           },
           {
             "@tag": "ADMIN_USERS",

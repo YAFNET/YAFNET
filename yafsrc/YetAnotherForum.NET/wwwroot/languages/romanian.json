@@ -413,10 +413,6 @@
             "#text": "Importă cuvinte spam"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Vezi/executa \"task manager\""
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Vezi sectiunea admin utilizatori"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Rulează"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Finalizată"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Rulează"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Manager de sarcini"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Etichete"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Manager de activități"
           },
           {
             "@tag": "ADMIN_USERS",

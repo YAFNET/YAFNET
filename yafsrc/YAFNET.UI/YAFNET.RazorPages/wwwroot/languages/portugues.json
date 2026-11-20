@@ -413,10 +413,6 @@
             "#text": "Importação de palavras spam"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Gestor de tarefas de visualização/gestão"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Ver utilizadores na secção administrativa"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Está a Funcionar"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Concluída"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Em execução"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Gestor de tarefas"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Etiquetas"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Gestor de tarefas"
           },
           {
             "@tag": "ADMIN_USERS",

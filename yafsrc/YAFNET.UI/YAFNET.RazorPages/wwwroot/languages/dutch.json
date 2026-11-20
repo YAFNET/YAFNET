@@ -413,10 +413,6 @@
             "#text": "Importeert spamwoorden"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Bekijkt/bewerkt taakbeheer"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Bekijkt gebruikers in het admin gedeelte"
           },
@@ -6314,6 +6310,14 @@
             "#text": "Is bezig"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Voltooid"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Actief"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Taakbeheer"
           }
@@ -6652,10 +6656,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Labels"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Taakbeheer"
           },
           {
             "@tag": "ADMIN_USERS",

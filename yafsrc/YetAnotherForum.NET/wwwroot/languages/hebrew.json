@@ -413,10 +413,6 @@
             "#text": "מייבא מילות ספאם"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "מציג/מנהל את מנהל המשימות"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "מציג את המשתמשים בקטע הניהול"
           },
@@ -6322,6 +6318,14 @@
             "#text": "רץ"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "הסתיימה"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "פועלת"
+          },
+          {
             "@tag": "TITLE",
             "#text": "מנהל משימות"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "תגים"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "מנהל משימות"
           },
           {
             "@tag": "ADMIN_USERS",

@@ -413,10 +413,6 @@
             "#text": "Importazione di parole spam"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Visualizza/gestisce il task manager"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Visualizza gli utenti nella sezione di amministrazione"
           },
@@ -6314,6 +6310,14 @@
             "#text": "È in esecuzione"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Terminata"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "In esecuzione"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Responsabile dei compiti"
           }
@@ -6652,10 +6656,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Tag"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Gestione attività"
           },
           {
             "@tag": "ADMIN_USERS",

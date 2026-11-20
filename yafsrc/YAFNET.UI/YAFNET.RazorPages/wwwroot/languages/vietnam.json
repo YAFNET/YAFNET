@@ -413,10 +413,6 @@
             "#text": "Nhập các từ spam"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Chế độ xem / quản lý trình quản lý tác vụ"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Xem người dùng trong phần quản trị"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Đang chạy"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Đã hoàn tất"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Đang chạy"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Nhiệm vụ máng cỏ"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Thẻ"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Quản lý công việc"
           },
           {
             "@tag": "ADMIN_USERS",

@@ -413,10 +413,6 @@
             "#text": "Importerar spam-ord"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Visar/hanterar aktivitetshanteraren"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Visar användare i administratörsavsnittet"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Är i gång"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Klar"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Körs"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Uppgiftsansvarig"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Taggar"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Aktivitetshanteraren"
           },
           {
             "@tag": "ADMIN_USERS",

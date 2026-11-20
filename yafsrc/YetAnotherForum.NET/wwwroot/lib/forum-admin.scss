@@ -57,17 +57,82 @@
     padding-top: 10px;
 }
 
-.stats-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
-}
-
 .dropdown-mentions {
     max-height: 200px;
     margin-bottom: 10px;
     overflow: scroll;
 }
 
-.stats {
-    animation: countUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+// Admin dashboard
+.admin-dashboard {
+    .stats-card {
+        transition: transform .15s ease, box-shadow .15s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
+        }
+    }
+
+    .stats-icon {
+        display: inline-flex;
+        flex: 0 0 3rem;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: var(--bs-border-radius-lg);
+        font-size: 1.25rem;
+    }
+
+    .stats-body {
+        min-width: 0;
+    }
+
+    .stats-label {
+        font-size: .75rem;
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        color: var(--bs-secondary-color);
+    }
+
+    .stats-value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        line-height: 1.25;
+        font-variant-numeric: tabular-nums;
+        overflow-wrap: anywhere;
+    }
+
+    .stats-value-sm {
+        font-size: 1.1rem;
+    }
+
+    .stats-caption {
+        font-size: .8rem;
+        color: var(--bs-secondary-color);
+    }
+
+    .chart-container {
+        position: relative;
+        height: 260px;
+    }
+
+    .chart-container-wide {
+        height: 300px;
+    }
+
+    .task-list {
+        max-height: 340px;
+        overflow-y: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .admin-dashboard .stats-card,
+    .admin-dashboard .stats-card:hover {
+        transition: none;
+        transform: none;
+    }
 }

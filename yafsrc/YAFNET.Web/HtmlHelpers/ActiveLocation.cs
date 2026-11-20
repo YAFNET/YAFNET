@@ -154,12 +154,12 @@ public static class ActiveLocationHtmlHelper
 
         var context = BoardContext.Current;
 
-        if (forumPage.IsNotSet())
+        // a page that no longer exists (e.g. the removed task manager page) is shown as the board index
+        if (forumPage.IsNotSet() || !Enum.TryParse<ForumPages>(forumPage, out var forumPageName))
         {
             forumPage = "Index";
+            forumPageName = ForumPages.Index;
         }
-
-        var forumPageName = forumPage.ToEnum<ForumPages>();
 
         switch (forumPageName)
         {

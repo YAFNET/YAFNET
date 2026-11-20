@@ -413,10 +413,6 @@
             "#text": "Importa palabras de spam"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Ver/administrar administrador de tareas"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Ver usuario en sección de administración"
           },
@@ -6314,6 +6310,14 @@
             "#text": "En ejecución"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Finalizada"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "En ejecución"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Administrador de tareas"
           }
@@ -6652,10 +6656,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Etiquetas:"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Administrador de tareas"
           },
           {
             "@tag": "ADMIN_USERS",

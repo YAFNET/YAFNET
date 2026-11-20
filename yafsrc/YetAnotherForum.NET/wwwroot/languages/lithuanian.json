@@ -413,10 +413,6 @@
             "#text": "Importuojami nepageidaujami žodžiai"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Peržiūri / tvarko užduočių tvarkyklę"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Naudotojų peržiūros administratoriaus skyriuje"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Ar veikia"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Baigta"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Vykdoma"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Užduočių tvarkytojas"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Žymos"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Užduočių tvarkyklė"
           },
           {
             "@tag": "ADMIN_USERS",

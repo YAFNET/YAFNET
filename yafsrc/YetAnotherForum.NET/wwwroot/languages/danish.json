@@ -413,10 +413,6 @@
             "#text": "Importerer spam-ord"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Vis/håndter job liste"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Vis brugere i admin sektionen"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Løber"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Afsluttet"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Kører"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Opgaveleder"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Tags"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Jobliste"
           },
           {
             "@tag": "ADMIN_USERS",

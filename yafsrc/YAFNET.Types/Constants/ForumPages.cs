@@ -470,11 +470,6 @@ public enum ForumPages
     Admin_Backup,
 
     /// <summary>
-    /// The Admin task manager page.
-    /// </summary>
-    Admin_TaskManager,
-
-    /// <summary>
     /// The admin_ test data.
     /// </summary>
     Admin_TestData,

@@ -413,10 +413,6 @@
             "#text": "Impordib rämpspostisõnu"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Avab/haldab tegumihaldurit"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Avab kasutajad admin peatükis"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Jookseb"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Lõpetatud"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Töötab"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Ülesannete haldur"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Sildid"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Tegumihaldur"
           },
           {
             "@tag": "ADMIN_USERS",

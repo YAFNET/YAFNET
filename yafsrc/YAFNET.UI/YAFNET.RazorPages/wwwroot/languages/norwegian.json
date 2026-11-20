@@ -413,10 +413,6 @@
             "#text": "Importerer spam-ord"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Viser/administrerer oppgavebehandler"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Viser brukere i admin-delen"
           },
@@ -6322,6 +6318,14 @@
             "#text": "Løper"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Fullført"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Kjører"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Oppgaveleder"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Tagger"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Oppgavebehandling"
           },
           {
             "@tag": "ADMIN_USERS",

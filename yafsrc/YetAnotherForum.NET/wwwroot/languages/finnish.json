@@ -413,10 +413,6 @@
             "#text": "Tuo roskapostisanoja"
           },
           {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Katselee/hallitsee Task Manageria"
-          },
-          {
             "@tag": "ADMIN_USERS",
             "#text": "Käyttäjien näkymät admin-osiossa"
           },
@@ -6322,6 +6318,14 @@
             "#text": "On käynnissä"
           },
           {
+            "@tag": "STATUS_FINISHED",
+            "#text": "Valmis"
+          },
+          {
+            "@tag": "STATUS_RUNNING",
+            "#text": "Käynnissä"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tehtävämies"
           }
@@ -6660,10 +6664,6 @@
           {
             "@tag": "ADMIN_TAGS",
             "#text": "Tunnisteet"
-          },
-          {
-            "@tag": "ADMIN_TASKMANAGER",
-            "#text": "Tehtävien hallinta"
           },
           {
             "@tag": "ADMIN_USERS",
