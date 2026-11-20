@@ -7964,6 +7964,10 @@
             "#text": "ארובה"
           },
           {
+            "@tag": "AX",
+            "#text": "Åland Islands"
+          },
+          {
             "@tag": "AZ",
             "#text": "אזרבייג&#39;ן"
           },
@@ -8004,6 +8008,10 @@
             "#text": "בנין"
           },
           {
+            "@tag": "BL",
+            "#text": "Saint Barthélemy"
+          },
+          {
             "@tag": "BM",
             "#text": "ברמודה"
           },
@@ -8014,6 +8022,10 @@
           {
             "@tag": "BO",
             "#text": "בוליביה"
+          },
+          {
+            "@tag": "BQ",
+            "#text": "Caribbean Netherlands"
           },
           {
             "@tag": "BR",
@@ -8102,6 +8114,10 @@
           {
             "@tag": "CV",
             "#text": "קייפ ורדה"
+          },
+          {
+            "@tag": "CW",
+            "#text": "Curaçao"
           },
           {
             "@tag": "CX",
@@ -8216,6 +8232,10 @@
             "#text": "גיאנה הצרפתית"
           },
           {
+            "@tag": "GG",
+            "#text": "Guernsey"
+          },
+          {
             "@tag": "GH",
             "#text": "גאנה"
           },
@@ -8304,6 +8324,10 @@
             "#text": "ישראל"
           },
           {
+            "@tag": "IM",
+            "#text": "Isle of Man"
+          },
+          {
             "@tag": "IN",
             "#text": "הוֹדוּ"
           },
@@ -8326,6 +8350,10 @@
           {
             "@tag": "IT",
             "#text": "אִיטַלִיָה"
+          },
+          {
+            "@tag": "JE",
+            "#text": "Jersey"
           },
           {
             "@tag": "JM",
@@ -8370,6 +8398,10 @@
           {
             "@tag": "KR",
             "#text": "קוריאה, הרפובליקה של"
+          },
+          {
+            "@tag": "KW",
+            "#text": "Kuwait"
           },
           {
             "@tag": "KY",
@@ -8438,6 +8470,10 @@
           {
             "@tag": "ME",
             "#text": "מונטנגרו"
+          },
+          {
+            "@tag": "MF",
+            "#text": "Saint Martin"
           },
           {
             "@tag": "MG",
@@ -8604,6 +8640,10 @@
             "#text": "פוארטו ריקו"
           },
           {
+            "@tag": "PS",
+            "#text": "Palestine"
+          },
+          {
             "@tag": "PT",
             "#text": "פּוֹרטוּגָל"
           },
@@ -8626,6 +8666,10 @@
           {
             "@tag": "RO",
             "#text": "רומניה"
+          },
+          {
+            "@tag": "RS",
+            "#text": "Serbia"
           },
           {
             "@tag": "RU",
@@ -8700,12 +8744,20 @@
             "#text": "סורינאם"
           },
           {
+            "@tag": "SS",
+            "#text": "South Sudan"
+          },
+          {
             "@tag": "ST",
             "#text": "סאו טומה ופרינסיפה"
           },
           {
             "@tag": "SV",
             "#text": "אל סלבדור"
+          },
+          {
+            "@tag": "SX",
+            "#text": "Sint Maarten"
           },
           {
             "@tag": "SY",
@@ -8742,6 +8794,10 @@
           {
             "@tag": "TK",
             "#text": "טוקלאו"
+          },
+          {
+            "@tag": "TL",
+            "#text": "Timor-Leste"
           },
           {
             "@tag": "TM",
@@ -8838,6 +8894,10 @@
           {
             "@tag": "WS",
             "#text": "סמואה"
+          },
+          {
+            "@tag": "XK",
+            "#text": "Kosovo"
           },
           {
             "@tag": "YE",

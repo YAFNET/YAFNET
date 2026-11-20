@@ -7956,6 +7956,10 @@
             "#text": "Aruba"
           },
           {
+            "@tag": "AX",
+            "#text": "Åland Islands"
+          },
+          {
             "@tag": "AZ",
             "#text": "Azerbejdżan"
           },
@@ -7996,6 +8000,10 @@
             "#text": "Benin"
           },
           {
+            "@tag": "BL",
+            "#text": "Saint Barthélemy"
+          },
+          {
             "@tag": "BM",
             "#text": "Bermudy"
           },
@@ -8006,6 +8014,10 @@
           {
             "@tag": "BO",
             "#text": "Boliwia"
+          },
+          {
+            "@tag": "BQ",
+            "#text": "Caribbean Netherlands"
           },
           {
             "@tag": "BR",
@@ -8094,6 +8106,10 @@
           {
             "@tag": "CV",
             "#text": "Wyspy Zielonego Przylądka"
+          },
+          {
+            "@tag": "CW",
+            "#text": "Curaçao"
           },
           {
             "@tag": "CX",
@@ -8208,6 +8224,10 @@
             "#text": "Gujana Francuska"
           },
           {
+            "@tag": "GG",
+            "#text": "Guernsey"
+          },
+          {
             "@tag": "GH",
             "#text": "Ghana"
           },
@@ -8296,6 +8316,10 @@
             "#text": "Izrael"
           },
           {
+            "@tag": "IM",
+            "#text": "Isle of Man"
+          },
+          {
             "@tag": "IN",
             "#text": "Indie"
           },
@@ -8318,6 +8342,10 @@
           {
             "@tag": "IT",
             "#text": "Włochy"
+          },
+          {
+            "@tag": "JE",
+            "#text": "Jersey"
           },
           {
             "@tag": "JM",
@@ -8362,6 +8390,10 @@
           {
             "@tag": "KR",
             "#text": "Korea Południowa"
+          },
+          {
+            "@tag": "KW",
+            "#text": "Kuwait"
           },
           {
             "@tag": "KY",
@@ -8430,6 +8462,10 @@
           {
             "@tag": "ME",
             "#text": "Czarnogóra"
+          },
+          {
+            "@tag": "MF",
+            "#text": "Saint Martin"
           },
           {
             "@tag": "MG",
@@ -8596,6 +8632,10 @@
             "#text": "Portoryko"
           },
           {
+            "@tag": "PS",
+            "#text": "Palestine"
+          },
+          {
             "@tag": "PT",
             "#text": "Portugalia"
           },
@@ -8618,6 +8658,10 @@
           {
             "@tag": "RO",
             "#text": "Rumunia"
+          },
+          {
+            "@tag": "RS",
+            "#text": "Serbia"
           },
           {
             "@tag": "RU",
@@ -8692,12 +8736,20 @@
             "#text": "Surinam"
           },
           {
+            "@tag": "SS",
+            "#text": "South Sudan"
+          },
+          {
             "@tag": "ST",
             "#text": "Wyspy Świętego Tomasza i Książęca"
           },
           {
             "@tag": "SV",
             "#text": "Salwador"
+          },
+          {
+            "@tag": "SX",
+            "#text": "Sint Maarten"
           },
           {
             "@tag": "SY",
@@ -8734,6 +8786,10 @@
           {
             "@tag": "TK",
             "#text": "Tokelau"
+          },
+          {
+            "@tag": "TL",
+            "#text": "Timor-Leste"
           },
           {
             "@tag": "TM",
@@ -8830,6 +8886,10 @@
           {
             "@tag": "WS",
             "#text": "Samoa"
+          },
+          {
+            "@tag": "XK",
+            "#text": "Kosovo"
           },
           {
             "@tag": "YE",
