@@ -2,32 +2,32 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v4.0.12
-* [FIXED] Mails: when the mail server throttles the sending (e.g. the hourly mail limit of the hoster, "You have exceeded your session messaging limits"), every following mail (watch notifications, digest) wrote an error to the event log; now one warning with the number of mails not sent is written and no mails are sent for an hour
-* [FIXED] Admin > Dashboard user stats: "Missing Translation For .PS" was written to the event log, the country names of Palestine, Kuwait, Serbia, South Sudan, Kosovo, Timor-Leste, Åland Islands, Saint Barthélemy, Caribbean Netherlands, Curaçao, Guernsey, Isle of Man, Jersey, Saint Martin and Sint Maarten were missing in all language files
-* [NEW] Admin > Users: "Lock inactive accounts" writes an entry to the event log (type User Suspended) with the number of locked accounts, the years of inactivity and the admin who locked them
-* [FIXED] Admin > Medals: wrong help text of Allow Hiding (users can not hide medals, the medal can be hidden for single users or groups with the Hide option of the award), the help of Hide mentioned the no longer existing user box and that hiding needs Allow Hiding
-* [FIXED] Modal dialogs (e.g. Admin > Medals > add/edit user or group, banned names/emails/IPs, replace words, spam words, profile definitions): the help (info button) of the fields was not shown, the tooltips of the loaded dialog were not initialized
-* [FIXED] Medals: a medal hidden in a group award (or the user award) was still shown in the profile and user info when the user also had it from another award, and a medal awarded to several groups of the user was shown more than once
-* [CHANGES] Runs on .NET 10 or .NET 11: the application targets .NET 10 (LTS) and rolls forward to .NET 11 when only .NET 11 is installed (RollForward Major), the same release package works on both; the NuGet packages target net10.0 (also usable from .NET 11 projects)
-* [NEW] BB code [img]: svg images are shown (the url must end with .svg), they were shown as bb code text
-* [NEW] Private messages: the conversation list shows the number of unread messages of each conversation (bold name and badge), a new message in another conversation updates the badge right away
-* [CHANGES] Private messages: the online status of the users in the conversation list is shown as a green border around the avatar instead of a red/green dot
+* Runs on .NET 10 or .NET 11: the application targets .NET 10 (LTS) and rolls forward to .NET 11 when only .NET 11 is installed (RollForward Major), the same release package works on both; the NuGet packages target net10.0 (also usable from .NET 11 projects)
+* [NEW] Real-time updates: new topics and posts are shown without reloading the page (also for guests): the active discussions and the last post of the forums on the board index, the topic list of a forum and my topics move the topic to the top, the last page of an open topic gets the new reply (on another page a notice links to it). Only readers of the forum get the update, posts waiting for the approval are shown after the approval. Can be switched off in the host settings (Enable Real-Time Updates)
 * [NEW] Private messages: the conversation list is sorted by the latest message (conversations with unread messages first) and shows the last message (preview) and its time
 * [NEW] Private messages: new conversation button with a user search (at least 3 letters), without conversations the page shows the button instead of redirecting to the account page
 * [NEW] Private messages: filter for the conversation list (with more than 5 conversations)
+* [NEW] Admin > Users: "Lock inactive accounts" writes an entry to the event log (type User Suspended) with the number of locked accounts, the years of inactivity and the admin who locked them
+* [NEW] BB code [img]: svg images are shown (the url must end with .svg), they were shown as bb code text
+* [NEW] Private messages: the conversation list shows the number of unread messages of each conversation (bold name and badge), a new message in another conversation updates the badge right away
+* [CHANGES] Private messages: the online status of the users in the conversation list is shown as a green border around the avatar instead of a red/green dot
 * [CHANGES] Private messages: Enter sends the message, Shift+Enter adds a new line (was the other way round)
 * [CHANGES] Private messages: deleting a conversation has to be confirmed
 * [CHANGES] Private messages: the height of the chat fits the screen (also on mobile devices in landscape mode), the conversation list is wider on the desktop
 * [CHANGES] Private messages: the page no longer shows the profile menu (like the my topics page), the conversations and the chat have more space
+* [CHANGES] Tests: the test mail server netDumbster (no longer maintained) is replaced by TestSmtpServer (YAFNET.Tests.Utils), an in-process server based on the SmtpServer library (the SMTP engine of Papercut SMTP); the received mails are MimeKit MimeMessages
+* [CHANGES] Admin: the upgrade button of a new version links directly to the release package for the database of the forum (e.g. YAF.SqlServer-v4.0.12.zip) instead of the downloads page
+* [FIXED] Mails: when the mail server throttles the sending (e.g. the hourly mail limit of the hoster, "You have exceeded your session messaging limits"), every following mail (watch notifications, digest) wrote an error to the event log; now one warning with the number of mails not sent is written and no mails are sent for an hour
+* [FIXED] Admin > Dashboard user stats: "Missing Translation For .PS" was written to the event log, the country names of Palestine, Kuwait, Serbia, South Sudan, Kosovo, Timor-Leste, Åland Islands, Saint Barthélemy, Caribbean Netherlands, Curaçao, Guernsey, Isle of Man, Jersey, Saint Martin and Sint Maarten were missing in all language files
+* [FIXED] Admin > Medals: wrong help text of Allow Hiding (users can not hide medals, the medal can be hidden for single users or groups with the Hide option of the award), the help of Hide mentioned the no longer existing user box and that hiding needs Allow Hiding
+* [FIXED] Modal dialogs (e.g. Admin > Medals > add/edit user or group, banned names/emails/IPs, replace words, spam words, profile definitions): the help (info button) of the fields was not shown, the tooltips of the loaded dialog were not initialized
+* [FIXED] Medals: a medal hidden in a group award (or the user award) was still shown in the profile and user info when the user also had it from another award, and a medal awarded to several groups of the user was shown more than once
 * [FIXED] Private messages: a message of the other user that arrived while the conversation was open was shown on your own side in your bubble color
 * [FIXED] Private messages: the selected conversation lost its background color on hover
 * [FIXED] BB code [img=url][/img] and [img=url]description[/img]: webp images were not shown, only [img]url[/img] accepted the webp extension
 * [FIXED] Private messages / chat: links in your own messages were invisible because the link color and the message bubble were both the primary color; they now use the text color of the bubble and are underlined
 * [FIXED] Profile menu (my account, profile pages): on mobile devices in landscape mode the icons were shown vertical (one below the other) instead of horizontal above the content
 * [FIXED] NuGet: the packages YAFNET.Core, YAFNET.Types, YAFNET.Configuration, YAFNET.Web and YAFNET.Data.* used the README of the repository, its HTML (logo and badges) and relative links can not be shown on nuget.org; they now contain their own README (yafsrc/NuGet/README.md) in plain Markdown with absolute links
-* [CHANGES] Tests: the test mail server netDumbster (no longer maintained) is replaced by TestSmtpServer (YAFNET.Tests.Utils), an in-process server based on the SmtpServer library (the SMTP engine of Papercut SMTP); the received mails are MimeKit MimeMessages
-* [NEW] Real-time updates: new topics and posts are shown without reloading the page (also for guests): the active discussions and the last post of the forums on the board index, the topic list of a forum and my topics move the topic to the top, the last page of an open topic gets the new reply (on another page a notice links to it). Only readers of the forum get the update, posts waiting for the approval are shown after the approval. Can be switched off in the host settings (Enable Real-Time Updates)
-* [CHANGES] Admin: the upgrade button of a new version links directly to the release package for the database of the forum (e.g. YAF.SqlServer-v4.0.12.zip) instead of the downloads page
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
