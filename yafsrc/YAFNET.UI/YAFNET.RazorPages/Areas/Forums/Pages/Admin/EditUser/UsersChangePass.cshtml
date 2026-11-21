@@ -8,52 +8,48 @@
     Layout = "_EditUserLayout";
 }
 
-<h2>
-    @Html.LocalizedText("ADMIN_EDITUSER", "HEAD_USER_CHANGEPASS")
-</h2>
+<h3 class="h5 mb-3">
+    @Html.Icon("key")@Html.LocalizedText("ADMIN_EDITUSER", "HEAD_USER_CHANGEPASS")
+</h3>
 
 <form method="post">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
-    
-    <alert type="warning" icon="info-circle">
+
+    <alert type="info" icon="info-circle">
         @Model.GetText("PASSWORD_REQUIREMENTS")
         @Model.GetTextFormatted("PASS_REQUIREMENT",
             Model.PageBoardContext.BoardSettings.MinRequiredPasswordLength,
             1)
     </alert>
-    
-    <hr />
+
     <div class="row">
-        <div class="mb-3 col-md-4">
+        <div class="mb-3 col-md-6">
             <label asp-for="Input.NewPassword" localized-page="ADMIN_EDITUSER" localized-tag="CHANGE_NEW_PASS" class="form-label">
             </label>
-            <input asp-for="Input.NewPassword" class="form-control" required />
+            <input asp-for="Input.NewPassword" class="form-control" autocomplete="new-password" required />
             <div class="invalid-feedback">
-	            @Html.LocalizedText("REGISTER", "NEED_PASSWORD")
+                @Html.LocalizedText("REGISTER", "NEED_PASSWORD")
             </div>
         </div>
-        <div class="mb-3 col-md-4">
-            <label asp-for="Input.NewPasswordConfirm" localized-page="ADMIN_EDITUSER" localized-tag="CHANGE_NEW_PASS" class="form-label">
+        <div class="mb-3 col-md-6">
+            @* the second field is the confirmation (it had the label of the first) *@
+            <label asp-for="Input.NewPasswordConfirm" localized-page="CHANGE_PASSWORD" localized-tag="CONFIRM_PASSWORD" class="form-label">
             </label>
-            <input asp-for="Input.NewPasswordConfirm" class="form-control" required />
+            <input asp-for="Input.NewPasswordConfirm" class="form-control" autocomplete="new-password" required />
             <div class="invalid-feedback">
-	            @Html.LocalizedText("REGISTER", "RETYPE_PASSWORD")
+                @Html.LocalizedText("REGISTER", "RETYPE_PASSWORD")
             </div>
         </div>
     </div>
 
-    <div class="mb-3">
-        <div class="form-check form-switch">
+    <div class="edit-user-actions">
+        <div class="form-check form-switch me-auto mb-0">
             <input asp-for="Input.EmailNotify" class="form-check-input" role="switch" switch/>
             <label asp-for="Input.EmailNotify" class="form-check-label"
                    localized-page="ADMIN_EDITUSER"
                    localized-tag="CHANGE_PASS_NOTIFICATION">
             </label>
         </div>
-    </div>
-    
-    <hr/>
-    <div class="text-lg-center">
         <button asp-page-handler="ChangePassword"
                 button-style="Primary"
                 Icon="key"

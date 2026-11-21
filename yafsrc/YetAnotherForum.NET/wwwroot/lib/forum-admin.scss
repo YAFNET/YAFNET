@@ -379,6 +379,32 @@
         overflow-wrap: anywhere;
     }
 
+    // the tabs: the read only facts, a choice in a box, the actions at the end
+    .edit-user-facts {
+        dt {
+            font-weight: 600;
+            color: var(--bs-secondary-color);
+        }
+    }
+
+    .edit-user-option {
+        padding: .5rem .75rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+    }
+
+    .edit-user-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: .5rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--bs-border-color);
+    }
+
     .edit-user-nav {
         .nav-link {
             text-align: start;

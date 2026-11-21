@@ -3,6 +3,8 @@
 @using YAF.Core.Context
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
 @using YAF.Web.HtmlHelpers
 
 @model YAF.Pages.Admin.EditUser.UsersInfoModel
@@ -11,43 +13,67 @@
 
 @{
     Layout = "_EditUserLayout";
+
+    var user = Model.EditUser.Item1;
+    var dateTime = Model.Get<IDateTimeService>();
+
+    // the labels of the fields end with a colon
+    Func<string, string, string> label = (page, tag) => Model.GetText(page, tag).TrimEnd(' ', ':', '：');
 }
 
-<h2>
-    @Html.LocalizedText("ADMIN_EDITUSER", "HEAD_USER_DETAILS")
-</h2>
-<hr />
+<h3 class="h5 mb-3">
+    @Html.Icon("user")@Html.LocalizedText("ADMIN_EDITUSER", "HEAD_USER_DETAILS")
+</h3>
 
 <form method="post">
-    <div class="row">
-        <div class="mb-3 col-md-4">
-            <label info-button="true" class="form-label"
-                   asp-for="Input.Name"
-                   localized-tag="USERINFO_NAME" localized-page="ADMIN_EDITUSER"></label>
-            <input type="text" class="form-control" asp-for="Input.Name"
-                   disabled="disabled" />
+    @* the account (read only) *@
+    <dl class="row edit-user-facts">
+        <dt class="col-sm-4">@label("ADMIN_EDITUSER", "USERINFO_NAME")</dt>
+        <dd class="col-sm-8 text-break">@user.Name</dd>
+        <dt class="col-sm-4">@label("ADMIN_EDITUSER", "USERINFO_DISPLAYNAME")</dt>
+        <dd class="col-sm-8 text-break">@user.DisplayName</dd>
+        <dt class="col-sm-4">@label("PROFILE", "EMAIL")</dt>
+        <dd class="col-sm-8 text-break">@user.Email</dd>
+        <dt class="col-sm-4">@label("PROFILE", "JOINED")</dt>
+        <dd class="col-sm-8">@dateTime.FormatDateTime(user.Joined)</dd>
+        <dt class="col-sm-4">@label("PROFILE", "LASTVISIT")</dt>
+        <dd class="col-sm-8">@dateTime.FormatDateTime(user.LastVisit)</dd>
+    </dl>
+
+    @* the status *@
+    @if (user.UserFlags.IsGuest)
+    {
+        <div class="alert alert-secondary py-2">
+            @Html.Icon("info-circle")@Html.LocalizedText("ADMIN_EDITUSER", "USERINFO_GUEST")
         </div>
-        <div class="mb-3 col-md-4">
-            <label info-button="true" class="form-label"
-                   asp-for="Input.DisplayName"
-                   localized-tag="USERINFO_DISPLAYNAME" localized-page="ADMIN_EDITUSER"></label>
-            <input type="text" class="form-control" asp-for="Input.DisplayName" disabled="disabled" />
+    }
+    else if (user.UserFlags.IsDeleted)
+    {
+        <div class="alert alert-warning py-2">
+            @Html.Icon("user-slash")@Html.LocalizedText("ADMIN_EDITUSER", "DISABLED")
         </div>
-        <div class="mb-3 col-md-4">
-            <label info-button="true" class="form-label"
-                   asp-for="Input.Email"
-                   localized-tag="EMAIL" localized-page="PROFILE"></label>
-            <input type="email" asp-for="Input.Email" disabled="disabled"
-                   class="form-control" />
+    }
+    else if (!user.UserFlags.IsApproved)
+    {
+        <div class="alert alert-warning py-2 d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <span>@Html.Icon("user-clock")@Html.LocalizedText("ADMIN_USERS", "NOT_APPROVED")</span>
+            <button button-style="Success"
+                    button-size="Small"
+                    Icon="check"
+                    asp-page-handler="ApproveUser"
+                    asp-route-id="@user.ID"
+                    text-localized-tag="ADMIN_APPROVE"></button>
         </div>
-    </div>
-    <div class="mb-3">
+    }
+
+    @* the settings of the user *@
+    <div class="mb-3 col-md-6">
         <label info-button="true" class="form-label"
                asp-for="Input.RankID"
                localized-tag="RANK" localized-page="ADMIN_USERS"></label>
         <select asp-for="Input.RankID" asp-items="Model.Ranks" class="form-select"></select>
     </div>
-    
+
     <div class="row">
         <div class="mb-3 col-md-6">
             <div class="form-check form-switch">
@@ -55,6 +81,14 @@
                 <label info-button="true" class="form-check-label"
                        asp-for="Input.Moderated"
                        localized-tag="MODERATE" localized-page="ADMIN_EDITUSER"></label>
+            </div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <div class="form-check form-switch">
+                <input type="checkbox" asp-for="Input.IsExcludedFromActiveUsers" class="form-check-input" />
+                <label info-button="true" class="form-check-label"
+                       asp-for="Input.IsExcludedFromActiveUsers"
+                       localized-tag="USERINFO_EX_ACTIVE" localized-page="ADMIN_EDITUSER"></label>
             </div>
         </div>
         @if (Current.PageUser.UserFlags.IsHostAdmin)
@@ -70,79 +104,11 @@
         }
     </div>
 
-    <div class="row">
-        <div class="mb-3 col-md-6">
-            <div class="form-check form-switch">
-                <input type="checkbox" asp-for="Input.IsExcludedFromActiveUsers" class="form-check-input" />
-                <label info-button="true" class="form-check-label"
-                       asp-for="Input.IsExcludedFromActiveUsers"
-                       localized-tag="USERINFO_EX_ACTIVE" localized-page="ADMIN_EDITUSER"></label>
-            </div>
-        </div>
-        <div class="mb-3 col-md-6">
-            <div class="form-check form-switch">
-                <input type="checkbox" asp-for="Input.IsApproved" disabled="disabled" class="form-check-input" />
-                <label info-button="true" class="form-check-label"
-                       asp-for="Input.IsApproved"
-                       localized-tag="USERINFO_APPROVED" localized-page="ADMIN_EDITUSER"></label>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        @if (!Model.EditUser.Item1.UserFlags.IsApproved && !Model.EditUser.Item1.UserFlags.IsDeleted)
-        {
-            <div class="mb-3 col-md-6">
-                <button button-style="Secondary"
-                        Icon="check"
-                        asp-page-handler="ApproveUser"
-                        asp-route-id="@Model.EditUser.Item1.ID"
-                        text-localized-tag="ADMIN_APPROVE"></button>
-            </div>
-        }
-        
-        @if (!Model.EditUser.Item1.UserFlags.IsApproved && Model.EditUser.Item1.UserFlags.IsDeleted)
-        {
-            <div class="mb-3 col-md-6">
-                <div class="form-check form-switch">
-                    <input type="checkbox" asp-for="Input.UnDisableUser" disabled="disabled" class="form-check-input" />
-                    <label info-button="true" class="form-check-label"
-                           asp-for="Input.UnDisableUser"
-                           localized-tag="DISABLED" localized-page="ADMIN_EDITUSER"></label>
-                </div>
-            </div>
-        }
-    </div>
-    <div class="mb-3">
-        <div class="form-check form-switch">
-            <input type="checkbox" asp-for="Input.IsGuestX" disabled="disabled" class="form-check-input" />
-            <label info-button="true" class="form-check-label"
-                   asp-for="Input.IsGuestX"
-                   localized-tag="USERINFO_GUEST" localized-page="ADMIN_EDITUSER"></label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="mb-3 col-md-6">
-            <label info-button="true" class="form-label"
-                   asp-for="Input.Joined"
-                   localized-tag="JOINED" localized-page="PROFILE"></label>
-            <input type="text" class="form-control" asp-for="Input.Joined" disabled="disabled" />
-        </div>
-        <div class="mb-3 col-md-6">
-            <label info-button="true" class="form-label"
-                   asp-for="Input.LastVisit"
-                   localized-tag="LASTVISIT" localized-page="PROFILE"></label>
-            <input type="text" class="form-control" asp-for="Input.LastVisit" disabled="disabled" />
-        </div>
-    </div>
-    <div class="text-lg-center">
+    <div class="edit-user-actions">
         <button button-style="Primary"
-                Icon="save" 
+                Icon="save"
                 text-localized-tag="SAVE"
                 asp-page-handler="Save"
-                asp-route-userId="@Model.EditUser.Item1.ID"></button>
-        <a button-style="Secondary"
-                Icon="xmark"
-                text-localized-tag="CANCEL"
-                asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
+                asp-route-userId="@user.ID"></button>
     </div>
 </form>
