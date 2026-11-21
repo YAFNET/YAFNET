@@ -107,6 +107,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin > Test Data: the priority of the topics (sticky, announcement) was never used
 [FIXED] Admin > Test Data: all created topics had the same name
 [FIXED] Admin > Test Data: the selects were empty after the data was created, a second launch used no board
+[FIXED] Admin > Backup: a number of backups to keep that is too large was saved as 0 (all backups are kept)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

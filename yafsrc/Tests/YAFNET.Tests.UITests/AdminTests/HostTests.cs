@@ -109,6 +109,53 @@ public class HostTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A number of backups to keep that is too large keeps the setting: it was saved as 0 (all backups are kept).
+    /// </summary>
+    [Test]
+    public async Task BackupKeepTooLargeKeepsTheSettingTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Backup");
+
+                var keep = page.Locator("#Keep");
+
+                if (await keep.CountAsync() == 0)
+                {
+                    Assert.Ignore("The database has no backup");
+                }
+
+                var value = await keep.InputValueAsync();
+
+                try
+                {
+                    // a number of backups that is not 0
+                    await keep.FillAsync("7");
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                    // the number is larger than an int
+                    await keep.EvaluateAsync("e => e.value = '99999999999'");
+                    await page.RunAndWaitForNavigationAsync(
+                        () => page.Locator("button[formaction*='Save']").EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Backup");
+
+                    Assert.That(await keep.InputValueAsync(), Is.EqualTo("7"), "The number was saved as 0 (all backups)");
+                }
+                finally
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Backup");
+                    await keep.FillAsync(value);
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                }
+            });
+    }
+
+    /// <summary>
     /// Loads a page of the vietnamese language file.
     /// </summary>
     /// <returns>The status of the response.</returns>

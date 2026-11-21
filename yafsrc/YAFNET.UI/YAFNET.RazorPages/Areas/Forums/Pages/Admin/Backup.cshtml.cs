@@ -126,7 +126,11 @@ public class BackupModel : AdminPage
         var boardSettings = this.PageBoardContext.BoardSettings;
 
         boardSettings.DatabaseBackupEnabled = this.Enabled;
-        boardSettings.DatabaseBackupKeep = Math.Max(0, this.Keep);
+        // a number that is too large (no int) keeps the setting, it was saved as 0 (all backups are kept)
+        if (!this.ModelState.TryGetValue(nameof(this.Keep), out var keep) || keep.Errors.Count == 0)
+        {
+            boardSettings.DatabaseBackupKeep = Math.Max(0, this.Keep);
+        }
 
         // host settings (for all boards)
         this.GetRepository<Registry>().Save(
