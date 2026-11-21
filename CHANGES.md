@@ -92,6 +92,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Admin > Ranks, Edit Rank, Medals, Edit Medal: new layouts; the rank ladder shows the steps by their minimum posts with the users of each rank (linked to the users list), the start rank and ranks in use can't be deleted (the reason is shown); the edit rank page has sections and a style preview; the medals are listed by category with the number of awards, the delete dialog names the removed awards; the edit medal page shows a preview of the medal in the profile, suggests the categories and lists the awarded users and groups in cards
 * [FIXED] Admin > Recycle Bin: the selected page size of the deleted posts was always reset to the page size of the user, the pager of the posts used the page size of the topics
 * [FIXED] Admin > Recycle Bin: the search of the deleted topics searched on the shown page, a search with less results showed nothing
+* [FIXED] Admin > Event Log: the filter was applied on the shown page, a filter with less entries showed nothing
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -105,4 +105,26 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 Assert.That(action, Does.Not.Contain("/2/"), $"The search is on the shown page ({action})");
             });
     }
+
+    /// <summary>
+    /// The filter of the event log starts on the first page: it was applied on the shown page, a filter with less
+    /// entries than that page showed nothing.
+    /// </summary>
+    [Test]
+    public async Task EventLogFilterStartsOnTheFirstPageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                // the second page of the event log
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EventLog/2");
+
+                var action = await page.Locator("button[formaction*='ApplyButton']").GetAttributeAsync("formaction");
+
+                Assert.That(action, Does.Not.Contain("/2/"), $"The filter is applied on the shown page ({action})");
+            });
+    }
 }
