@@ -449,6 +449,12 @@ public static class IDbAccessExtensions
         /// </remarks>
         public Task<string> ChangeRecoveryModeAsync(string recoveryMode)
         {
+            // the mode is added to the statement, only the recovery modes are allowed (it is posted by the page)
+            if (recoveryMode is not ("FULL" or "SIMPLE" or "BULK_LOGGED"))
+            {
+                throw new ArgumentOutOfRangeException(nameof(recoveryMode), recoveryMode, "Unknown recovery mode");
+            }
+
             return dbAccess.ExecuteAsync(
                 db =>
                 {

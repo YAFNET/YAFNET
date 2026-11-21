@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -175,6 +175,14 @@ public class DbAccessExtensionsTests
         }
 
         statements.Should().NotContain(s => s.Contains("auto_vacuum"), "that is the re-index statement");
+    }
+
+    [Test]
+    [Description("Only the recovery modes are added to the statement (the mode is posted by the page)")]
+    public async Task Change_Recovery_Mode_Unknown_Mode_Test()
+    {
+        await this.db.Invoking(d => d.ChangeRecoveryModeAsync("FULL; DROP TABLE yaf_User"))
+            .Should().ThrowAsync<ArgumentOutOfRangeException>();
     }
 
     [Test]
