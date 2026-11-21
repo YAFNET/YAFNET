@@ -105,6 +105,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin > Test Data: messages without a selected topic failed with an error (the topics of the forum were not loaded)
 [FIXED] Admin > Test Data: forums of the categories of another board failed with an error (the start access mask of the current board was searched in that board)
 [FIXED] Admin > Test Data: the priority of the topics (sticky, announcement) was never used
+[FIXED] Admin > Test Data: all created topics had the same name
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

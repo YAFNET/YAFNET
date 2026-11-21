@@ -721,13 +721,14 @@ public class TestDataModel : AdminPage
             return 0;
         }
 
-        var topicName = this.Input.TopicPrefixTB + this.randomGuid;
-
         int topics;
 
         for (topics = 0; topics < numTopics; topics++)
         {
             this.randomGuid = Guid.NewGuid().ToString();
+
+            // every topic has its own name (all topics had the same name)
+            var topicName = this.Input.TopicPrefixTB + this.randomGuid;
 
             var (topic, _) = await this.GetRepository<Topic>().SaveNewAsync(
                 forum,
