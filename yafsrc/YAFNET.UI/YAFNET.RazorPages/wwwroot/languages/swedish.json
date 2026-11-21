@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Godkänn direkt"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Inget verifieringsmejl skickas, användaren kan logga in direkt."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Skapa en ny användare"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Användarnamn eller e-post är redan registrerade."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} till {1} tecken."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registrera användare"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Lösenord"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Ny användare"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Användaren får ett mejl för att verifiera e-postadressen och är inte godkänd förrän adressen är verifierad."
           }
         ]
       },

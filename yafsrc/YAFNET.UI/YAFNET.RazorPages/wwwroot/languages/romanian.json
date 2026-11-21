@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Aprobă imediat"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Nu se trimite niciun e-mail de verificare, utilizatorul se poate autentifica imediat."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Creați un nou utilizator"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Numele de utilizator sau adresa de e-mail sunt deja înregistrate."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "Între {0} și {1} caractere."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Înregistrare utilizator"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Cont"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Parolă"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Utilizator nou"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Utilizatorul primește un e-mail pentru verificarea adresei și nu este aprobat până la verificarea adresei."
           }
         ]
       },

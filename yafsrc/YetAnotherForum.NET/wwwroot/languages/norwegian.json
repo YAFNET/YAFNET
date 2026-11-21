@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Godkjenn med en gang"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Ingen bekreftelsesepost sendes, brukeren kan logge inn med en gang."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Opprett ny bruker"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Brukernavn eller e-post er allerede registrert."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} til {1} tegn."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registrer bruker"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Passord"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Ny bruker"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Brukeren får en e-post for å bekrefte e-postadressen og er ikke godkjent før adressen er bekreftet."
           }
         ]
       },

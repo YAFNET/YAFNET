@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Duyệt ngay"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Không gửi thư xác minh, người dùng có thể đăng nhập ngay."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Tạo người dùng mới"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Tên người dùng hoặc email đã được đăng ký."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "Từ {0} đến {1} ký tự."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Đăng ký người dùng"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Tài khoản"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Mật khẩu"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Người dùng mới"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Người dùng nhận được thư để xác minh địa chỉ e-mail và chưa được duyệt cho đến khi địa chỉ được xác minh."
           }
         ]
       },

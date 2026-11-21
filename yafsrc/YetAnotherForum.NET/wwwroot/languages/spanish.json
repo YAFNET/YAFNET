@@ -6033,6 +6033,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Aprobar de inmediato"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "No se envía ningún correo de verificación, el usuario puede iniciar sesión enseguida."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Crear nuevo usuario"
           },
@@ -6057,12 +6065,28 @@
             "#text": "Este nombre de usuario o email ya están en uso."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "De {0} a {1} caracteres."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registrar usuario"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Cuenta"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Contraseña"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Nuevo usuario"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "El usuario recibe un correo para verificar la dirección de correo y no está aprobado hasta que la verifique."
           }
         ]
       },

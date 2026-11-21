@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Approuver immédiatement"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Aucun e-mail de vérification n'est envoyé, l'utilisateur peut se connecter tout de suite."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Créer un nouvel utilisateur"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Le nom d'utilisateur ou l'adresse électronique sont déjà enregistrés."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} à {1} caractères."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Enregistrer l'utilisateur"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Compte"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Mot de passe"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Nouvel utilisateur"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "L'utilisateur reçoit un e-mail pour vérifier son adresse et n'est pas approuvé tant que l'adresse n'est pas vérifiée."
           }
         ]
       },

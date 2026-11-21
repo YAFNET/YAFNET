@@ -76,9 +76,22 @@ public class RegisterUserModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostForumRegisterAsync()
     {
-        if (!this.ModelState.IsValid)
+        // the fields are checked in the browser as well (the messages of the model are not localized)
+        var missing = this.Input?.UserName.IsNotSet() != false ? "NEED_USERNAME"
+                      : this.Input.Email.IsNotSet() ? "NEED_EMAIL"
+                      : this.Input.Password.IsNotSet() ? "NEED_PASSWORD"
+                      : this.Input.Password2.IsNotSet() ? "RETYPE_PASSWORD" : null;
+
+        if (missing != null)
         {
-            return this.Page();
+            this.Input ??= new RegisterUserInputModel();
+
+            return this.PageBoardContext.Notify(this.GetText("REGISTER", missing), MessageTypes.danger);
+        }
+
+        if (this.Input.Password != this.Input.Password2)
+        {
+            return this.PageBoardContext.Notify(this.GetText("REGISTER", "PASSWORD_NOTMATCH"), MessageTypes.danger);
         }
 
         var newEmail = this.Input.Email.Trim();
@@ -122,8 +135,9 @@ public class RegisterUserModel : AdminPage
             LoweredUserName = newUsername.ToLower(),
             Email = newEmail,
             LoweredEmail = newEmail.ToLower(),
-            IsApproved = false,
-            EmailConfirmed = false
+            // approved right away the address is not verified by the user
+            IsApproved = this.Input.Approve,
+            EmailConfirmed = this.Input.Approve
         };
 
         var result = await this.Get<IAspNetUsersHelper>().CreateUserAsync(user, this.Input.Password);
@@ -140,6 +154,11 @@ public class RegisterUserModel : AdminPage
         // create the user in the YAF DB as well as sync roles...
         var userId = await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, this.PageBoardContext.PageBoardID);
 
+        if (userId is null)
+        {
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
+        }
+
         var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
             .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
@@ -149,26 +168,32 @@ public class RegisterUserModel : AdminPage
             this.PageBoardContext.BoardSettings.DefaultNotificationSetting.ToInt(),
             this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);
 
-        var created = this.GetTextFormatted("MSG_CREATED", this.HtmlEncode(this.Input.UserName));
+        var created = this.GetTextFormatted("MSG_CREATED", this.HtmlEncode(newUsername));
 
-        try
+        // the new user is opened in the user editor
+        var editUser = new { u = userId.Value };
+
+        if (!this.Input.Approve)
         {
-            await this.Get<ISendNotification>().SendVerificationEmailAsync(user, newEmail, userId.Value, newUsername);
-        }
-        catch (Exception x)
-        {
-            // the user is created, the verification mail can be sent again on the admin index
-            this.Get<ILogger<RegisterUserModel>>().Error(x, $"Verification mail to {newEmail} failed");
+            try
+            {
+                await this.Get<ISendNotification>().SendVerificationEmailAsync(user, newEmail, userId.Value, newUsername);
+            }
+            catch (Exception x)
+            {
+                // the user is created, the verification mail can be sent again on the admin index
+                this.Get<ILogger<RegisterUserModel>>().Error(x, $"Verification mail to {newEmail} failed");
 
-            this.PageBoardContext.SessionNotify($"{created} {this.HtmlEncode(x.Message)}", MessageTypes.warning);
+                this.PageBoardContext.SessionNotify($"{created} {this.HtmlEncode(x.Message)}", MessageTypes.warning);
 
-            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, editUser);
+            }
         }
 
         // success
         this.PageBoardContext.SessionNotify(created, MessageTypes.success);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, editUser);
     }
 
     /// <summary>

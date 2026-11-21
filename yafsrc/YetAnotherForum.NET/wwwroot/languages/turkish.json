@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Hemen onayla"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Doğrulama e-postası gönderilmez, kullanıcı hemen giriş yapabilir."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Yeni Kullanıcı Oluştur"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Kullanıcı adı veya e-posta zaten kayıtlı."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} ile {1} karakter arası."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Kullanıcı Kaydı"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Hesap"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Parola"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Yeni Kullanıcı"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Kullanıcı e-posta adresini doğrulamak için bir e-posta alır ve adres doğrulanana kadar onaylanmaz."
           }
         ]
       },

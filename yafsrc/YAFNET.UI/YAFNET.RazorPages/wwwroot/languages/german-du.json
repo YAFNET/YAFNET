@@ -6033,6 +6033,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Sofort freischalten"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Es wird keine Bestätigungs-E-Mail gesendet, der Benutzer kann sich sofort anmelden."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Neuen Benutzer erstellen"
           },
@@ -6057,12 +6065,28 @@
             "#text": "Benutzername oder E-Mail sind bereits registriert."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} bis {1} Zeichen."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Benutzer registrieren"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Passwort"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Neuer Nutzer"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Der Benutzer erhält eine E-Mail zur Bestätigung der E-Mail-Adresse und ist bis zur Bestätigung nicht freigeschaltet."
           }
         ]
       },

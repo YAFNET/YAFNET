@@ -6033,6 +6033,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Approva subito"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Non viene inviata alcuna e-mail di verifica, l'utente può accedere subito."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Creare un nuovo utente"
           },
@@ -6057,12 +6065,28 @@
             "#text": "Username or e-mail are already registered."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "Da {0} a {1} caratteri."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registrazione dell'utente"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Account"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Password"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Nuovo utente"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "L'utente riceve un'e-mail per verificare l'indirizzo e non è approvato finché l'indirizzo non è verificato."
           }
         ]
       },

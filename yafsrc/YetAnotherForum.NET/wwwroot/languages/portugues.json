@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Aprovar imediatamente"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Não é enviado nenhum e-mail de verificação, o utilizador pode iniciar sessão de imediato."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Criar Novo Utilizador"
           },
@@ -6065,12 +6073,28 @@
             "#text": "O nome de utilizador ou e-mail já estão registados."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "De {0} a {1} caracteres."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registar Utilizador"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Conta"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Palavra-passe"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Novo Utilizador"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "O utilizador recebe um e-mail para verificar o endereço e não fica aprovado até o endereço ser verificado."
           }
         ]
       },

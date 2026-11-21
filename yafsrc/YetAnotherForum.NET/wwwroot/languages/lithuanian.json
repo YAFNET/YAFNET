@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Patvirtinti iš karto"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Patvirtinimo laiškas nesiunčiamas, vartotojas gali prisijungti iš karto."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Sukurti naują naudotoją"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Vartotojo vardas arba el. pašto adresas jau užregistruoti."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "Nuo {0} iki {1} simbolių."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registruoti naudotoją"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Paskyra"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Slaptažodis"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Naujas naudotojas"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Vartotojas gauna laišką el. pašto adresui patvirtinti ir nėra patvirtintas, kol adresas nepatvirtintas."
           }
         ]
       },

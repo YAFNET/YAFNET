@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "立即批准"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "不发送验证邮件，用户可以立即登录。"
+          },
+          {
             "@tag": "HEADER",
             "#text": "创建新用户"
           },
@@ -6065,12 +6073,28 @@
             "#text": "用户名或电子邮件已注册。"
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} 到 {1} 个字符。"
+          },
+          {
             "@tag": "REGISTER",
             "#text": "注册用户"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "账户"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "密码"
+          },
+          {
             "@tag": "TITLE",
             "#text": "新用户"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "用户会收到一封验证电子邮件地址的邮件，在地址验证之前不会被批准。"
           }
         ]
       },

@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Ihneď schváliť"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Overovací e-mail sa neodošle, používateľ sa môže hneď prihlásiť."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Vytvoriť nového používateľa"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Užívateľské meno alebo e-mail sú už zaregistrované."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} až {1} znakov."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registrácia používateľa"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Účet"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Heslo"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Nový používateľ"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Používateľ dostane e-mail na overenie e-mailovej adresy a nie je schválený, kým adresu neoverí."
           }
         ]
       },

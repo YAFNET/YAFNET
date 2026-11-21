@@ -6033,6 +6033,14 @@
             "@name": "ADMIN_REGUSER",
             "Resource": [
                 {
+                    "@tag": "APPROVE",
+                    "#text": "Approve right away"
+                },
+                {
+                    "@tag": "APPROVE_HELP",
+                    "#text": "No verification mail is sent, the user can log in at once."
+                },
+                {
                     "@tag": "HEADER",
                     "#text": "Create New User"
                 },
@@ -6057,12 +6065,28 @@
                     "#text": "Username or email are already registered."
                 },
                 {
+                    "@tag": "NAME_HINT",
+                    "#text": "{0} to {1} characters."
+                },
+                {
                     "@tag": "REGISTER",
                     "#text": "Register User"
                 },
                 {
+                    "@tag": "SECTION_ACCOUNT",
+                    "#text": "Account"
+                },
+                {
+                    "@tag": "SECTION_PASSWORD",
+                    "#text": "Password"
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "New User"
+                },
+                {
+                    "@tag": "VERIFY_NOTE",
+                    "#text": "The user gets a mail to verify the e-mail address and is not approved until the address is verified."
                 }
             ]
         },

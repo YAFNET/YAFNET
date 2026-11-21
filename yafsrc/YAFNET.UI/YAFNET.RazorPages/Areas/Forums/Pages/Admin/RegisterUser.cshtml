@@ -1,16 +1,29 @@
 @page "{handler?}"
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
 
 @model RegisterUserModel
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col-xl-12">
+@{
+    var settings = Model.PageBoardContext.BoardSettings;
+}
+
+<form method="post" class="needs-validation admin-edit-form" novalidate>
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("user-plus")@Html.LocalizedText("ADMIN_REGUSER", "HEADER")
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-8">
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.IconHeader("user-plus","ADMIN_REGUSER","HEADER2")
+                    @Html.Icon("user")@Html.LocalizedText("ADMIN_REGUSER", "SECTION_ACCOUNT")
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -18,51 +31,123 @@
                             <label asp-for="Input.UserName" class="form-label"
                                    localized-page="REGISTER" localized-tag="USERNAME">
                             </label>
-                            <input type="text" class="form-control" asp-for="Input.UserName" maxlength="50" />
-                            <span asp-validation-for="Input.UserName" class="text-danger">User Name is required</span>
+                            <input type="text" class="form-control" asp-for="Input.UserName"
+                                   maxlength="@settings.UserNameMaxLength"
+                                   autocomplete="off"
+                                   required="required"
+                                   aria-describedby="UserNameHint" />
+                            <div class="form-text" id="UserNameHint">
+                                @Html.LocalizedTextFormatted("NAME_HINT", settings.DisplayNameMinLength, settings.UserNameMaxLength)
+                            </div>
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("REGISTER", "NEED_USERNAME")
+                            </div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label asp-for="Input.Email" class="form-label"
                                    localized-page="REGISTER" localized-tag="EMAIL">
                             </label>
-                            <input type="email" asp-for="Input.Email" maxlength="100" class="form-control" />
-                            <span asp-validation-for="Input.Email" class="text-danger">Email address is required.</span>
+                            <input type="email" asp-for="Input.Email" maxlength="100" class="form-control"
+                                   autocomplete="off"
+                                   required="required" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("REGISTER", "NEED_EMAIL")
+                            </div>
                         </div>
                     </div>
+                    <div class="form-check form-switch mb-2">
+                        <input type="checkbox" asp-for="Input.Approve" class="form-check-input"
+                               role="switch"
+                               data-hides="#VerifyNote"
+                               aria-describedby="ApproveHint" />
+                        <label asp-for="Input.Approve" class="form-check-label"
+                               localized-page="ADMIN_REGUSER" localized-tag="APPROVE">
+                        </label>
+                        <div class="form-text" id="ApproveHint">
+                            @Html.LocalizedText("ADMIN_REGUSER", "APPROVE_HELP")
+                        </div>
+                    </div>
+                    <div class="alert alert-info mb-0 mt-3" id="VerifyNote">
+                        @Html.Icon("envelope")@Html.LocalizedText("ADMIN_REGUSER", "VERIFY_NOTE")
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("key")@Html.LocalizedText("ADMIN_REGUSER", "SECTION_PASSWORD")
+                </div>
+                <div class="card-body">
                     <div class="row">
                         <div class="mb-3 col-md-6">
                             <label asp-for="Input.Password" class="form-label"
                                    localized-page="REGISTER" localized-tag="PASSWORD">
                             </label>
                             <input type="password" asp-for="Input.Password"
-                                   class="form-control" />
-                            <span asp-validation-for="Input.Password" class="text-danger">Password is required.</span>
+                                   class="form-control"
+                                   autocomplete="new-password"
+                                   required="required" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("REGISTER", "NEED_PASSWORD")
+                            </div>
+                            <div class="d-none mt-2" id="passwordStrength">
+                                <small class="form-text text-body-secondary mb-2" id="passwordHelp"></small>
+                                <div class="progress">
+                                    <div id="progress-password"
+                                         class="progress-bar"
+                                         role="progressbar"
+                                         aria-label="password strength"
+                                         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-3 col-md-6">
                             <label asp-for="Input.Password2" class="form-label"
                                    localized-page="REGISTER" localized-tag="CONFIRM_PASSWORD">
                             </label>
                             <input type="password" asp-for="Input.Password2"
-                                   class="form-control" />
-                            <span asp-validation-for="Input.Password2" class="text-danger">Password is required.</span>
+                                   class="form-control"
+                                   autocomplete="new-password"
+                                   required="required" />
+                            <div class="invalid-feedback" id="PasswordInvalid">
+                                @Html.LocalizedText("REGISTER", "RETYPE_PASSWORD")
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-center">
-                    <button asp-page-handler="ForumRegister" 
-                            class="me-1"
-                            button-style="Primary"
-                            Icon="user-plus" 
-                            text-localized-tag="REGISTER" 
-                            text-localized-page="ADMIN_REGUSER">
-                    </button>
-                    <a asp-page="@ForumPages.Admin_Users.GetPageName()"
-                       button-style="Secondary"
-                       Icon="xmark" 
-                       text-localized-tag="CANCEL">
-                    </a>
-                </div>
+            </div>
+
+            @* the actions stay visible at the bottom of the window *@
+            <div class="admin-edit-actions">
+                <a asp-page="@ForumPages.Admin_Users.GetPageName()"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   text-localized-tag="CANCEL">
+                </a>
+                <button asp-page-handler="ForumRegister"
+                        button-style="Primary"
+                        Icon="user-plus"
+                        text-localized-tag="REGISTER"
+                        text-localized-page="ADMIN_REGUSER">
+                </button>
             </div>
         </div>
     </div>
 </form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptPartial")
+    <script src="~/js/admin-users.min.js" asp-append-version="true"></script>
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.PasswordStrengthCheckerJs(
+            "Input_Password",
+            "Input_Password2",
+            settings.MinRequiredPasswordLength,
+            Model.Get<ILocalization>().GetText("REGISTER", "PASSWORD_NOTMATCH"),
+            string.Format(Model.Get<ILocalization>().GetText("REGISTER", "PASSWORD_MIN"), settings.MinRequiredPasswordLength),
+            Model.Get<ILocalization>().GetText("REGISTER", "PASSWORD_GOOD"),
+            Model.Get<ILocalization>().GetText("REGISTER", "PASSWORD_STRONGER"),
+            Model.Get<ILocalization>().GetText("REGISTER", "PASSWORD_WEAK"))))
+    </script>
+}

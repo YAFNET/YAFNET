@@ -6033,6 +6033,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Zatwierdź od razu"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "E-mail weryfikacyjny nie jest wysyłany, użytkownik może się od razu zalogować."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Utwórz nowego użytkownika"
           },
@@ -6057,12 +6065,28 @@
             "#text": "Nazwa użytkownika lub adres e-mail są już zarejestrowane."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "Od {0} do {1} znaków."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Zarejestruj użytkownika"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Hasło"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Nowy użytkownik"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Użytkownik otrzymuje e-mail w celu weryfikacji adresu i nie jest zatwierdzony, dopóki adres nie zostanie zweryfikowany."
           }
         ]
       },

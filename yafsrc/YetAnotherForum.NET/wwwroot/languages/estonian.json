@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Kinnita kohe"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Kinnituskirja ei saadeta, kasutaja saab kohe sisse logida."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Loo uus kasutaja"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Kasutajanimi või email on juba registreeritud."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} kuni {1} märki."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registreeri kasutaja"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Parool"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Uus kasutaja"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Kasutaja saab e-kirja e-posti aadressi kinnitamiseks ega ole enne aadressi kinnitamist heaks kiidetud."
           }
         ]
       },

@@ -363,6 +363,59 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
     }
 
     /// <summary>
+    /// A user approved right away by the admin can log in at once (without the verification mail), the new user
+    /// is opened in the user editor; passwords that do not match are refused with the localized message.
+    /// </summary>
+    [Test]
+    public async Task AdminRegistersApprovedUserTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var userName = $"Approved{Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/RegisterUser");
+
+                await page.Locator("#Input_UserName").FillAsync(userName);
+                await page.Locator("#Input_Email").FillAsync($"{userName.ToLower()}@test.com");
+                await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                await page.Locator("#Input_Password2").FillAsync($"{this.TestSettings.TestUserPassword}x");
+
+                // the verification note is hidden for an approved user
+                await Assertions.Expect(page.Locator("#VerifyNote")).ToBeVisibleAsync();
+                await page.Locator("#Input_Approve").CheckAsync();
+                await Assertions.Expect(page.Locator("#VerifyNote")).ToBeHiddenAsync();
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForumRegister']"));
+
+                Assert.That(page.Url, Does.Contain("Admin/RegisterUser"), "Passwords that do not match were registered");
+                Assert.That(await page.ContentAsync(), Does.Contain("Password and Confirm Password do not match"));
+
+                await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                await page.Locator("#Input_Password2").FillAsync(this.TestSettings.TestUserPassword);
+                await page.Locator("#Input_Approve").CheckAsync();
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForumRegister']"));
+
+                Assert.That(page.Url, Does.Contain("Admin/EditUser"), "The new user is not opened in the user editor");
+                await Assertions.Expect(page.Locator("h1, h2, h3, h4, h5").Filter(new LocatorFilterOptions { HasText = userName }).First).ToBeVisibleAsync();
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                    Is.True,
+                    "The approved user can not log in");
+            });
+    }
+
+    /// <summary>
     /// "Import" of Admin > Users opens the import of users (it opened the import of the spam words).
     /// </summary>
     [Test]

@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Ihned schválit"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Ověřovací e-mail se neodešle, uživatel se může hned přihlásit."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Vytvořit nového uživatele"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Uživatelské jméno nebo e-mail jsou již zaregistrovány."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} až {1} znaků."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registrovat uživatele"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Účet"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Heslo"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Nový uživatel"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Uživatel dostane e-mail k ověření e-mailové adresy a není schválen, dokud adresu neověří."
           }
         ]
       },

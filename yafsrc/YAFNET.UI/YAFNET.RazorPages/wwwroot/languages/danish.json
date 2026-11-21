@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Godkend med det samme"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Der sendes ingen bekræftelsesmail, brugeren kan logge ind med det samme."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Opret ny bruger"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Brugernavn eller e-mail er allerede registreret."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} til {1} tegn."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registrer bruger"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Adgangskode"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Ny bruger"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Brugeren får en mail for at bekræfte e-mailadressen og er ikke godkendt, før adressen er bekræftet."
           }
         ]
       },

@@ -6033,6 +6033,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Direct goedkeuren"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Er wordt geen verificatiemail verzonden, de gebruiker kan meteen inloggen."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Maak Nieuwe Gebruiker"
           },
@@ -6057,12 +6065,28 @@
             "#text": "Gebruikersnaam of e-mail is al bekend."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0} tot {1} tekens."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Registeer Gebruiker"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Account"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Wachtwoord"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Nieuwe Gebruiker"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "De gebruiker krijgt een e-mail om het e-mailadres te bevestigen en is pas goedgekeurd als het adres bevestigd is."
           }
         ]
       },

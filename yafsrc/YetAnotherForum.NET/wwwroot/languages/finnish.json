@@ -6041,6 +6041,14 @@
         "@name": "ADMIN_REGUSER",
         "Resource": [
           {
+            "@tag": "APPROVE",
+            "#text": "Hyväksy heti"
+          },
+          {
+            "@tag": "APPROVE_HELP",
+            "#text": "Vahvistussähköpostia ei lähetetä, käyttäjä voi kirjautua heti."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Luo uusi käyttäjä"
           },
@@ -6065,12 +6073,28 @@
             "#text": "Käyttäjätunnus tai sähköpostiosoite on jo rekisteröity."
           },
           {
+            "@tag": "NAME_HINT",
+            "#text": "{0}–{1} merkkiä."
+          },
+          {
             "@tag": "REGISTER",
             "#text": "Rekisteröi käyttäjä"
           },
           {
+            "@tag": "SECTION_ACCOUNT",
+            "#text": "Tili"
+          },
+          {
+            "@tag": "SECTION_PASSWORD",
+            "#text": "Salasana"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Uusi käyttäjä"
+          },
+          {
+            "@tag": "VERIFY_NOTE",
+            "#text": "Käyttäjä saa sähköpostin osoitteen vahvistamiseksi, eikä häntä ole hyväksytty ennen kuin osoite on vahvistettu."
           }
         ]
       },

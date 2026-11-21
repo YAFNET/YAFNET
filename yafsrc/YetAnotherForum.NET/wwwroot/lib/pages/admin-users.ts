@@ -1,4 +1,6 @@
-﻿// Admin > Users: the delete dialog shows the user of the clicked button (button or context menu)
+﻿import './admin-edit-form';
+
+// Admin > Users: the delete dialog shows the user of the clicked button (button or context menu)
 document.addEventListener('DOMContentLoaded', () => {
 	const dialog = document.getElementById('DeleteUserDialog');
 

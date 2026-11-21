@@ -43,7 +43,6 @@ public class RegisterUserInputModel
     /// </summary>
     /// <value>The password2.</value>
     [Required]
-    [Compare(nameof(Password), ErrorMessage = "Passwords didn't match.")]
     public string Password2 { get; set; }
 
     /// <summary>
@@ -59,4 +58,10 @@ public class RegisterUserInputModel
     /// <value>The email.</value>
     [Required]
     public string Email { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the user is approved right away (without the verification mail).
+    /// </summary>
+    /// <value><c>true</c> if the user is approved right away.</value>
+    public bool Approve { get; set; }
 }
