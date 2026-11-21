@@ -2850,6 +2850,10 @@
             "#text": "Ya existe un grupo con ese nombre."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "No se puede quitar el permiso de administrador al último grupo que lo tiene, sin él el foro no tiene administradores."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Debe introducir un nombre de función."
           },

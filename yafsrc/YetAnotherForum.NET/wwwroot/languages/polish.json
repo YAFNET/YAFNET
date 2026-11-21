@@ -2850,6 +2850,10 @@
             "#text": "Grupa o takiej nazwie już istnieje."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Nie można odebrać uprawnień administratora ostatniej grupie, która je ma, bez niej forum nie ma administratorów."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Należy wprowadzić nazwę roli."
           },

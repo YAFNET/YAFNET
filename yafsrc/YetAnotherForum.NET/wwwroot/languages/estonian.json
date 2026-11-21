@@ -2854,6 +2854,10 @@
             "#text": "Sellise nimega rühm on juba olemas."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Administraatori õigust ei saa eemaldada viimaselt administraatoriõigustega grupilt, ilma selleta pole foorumil administraatoreid."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Peate sisestama rolli nime."
           },

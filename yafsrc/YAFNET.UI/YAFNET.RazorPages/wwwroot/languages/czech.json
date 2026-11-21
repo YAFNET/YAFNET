@@ -2854,6 +2854,10 @@
             "#text": "Skupina s takovým názvem již existuje."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Právo správce nelze odebrat poslední skupině s právy správce, bez ní fórum nemá žádné správce."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Musíte zadat název role."
           },

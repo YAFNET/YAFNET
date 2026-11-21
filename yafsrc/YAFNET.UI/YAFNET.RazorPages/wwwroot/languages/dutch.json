@@ -2850,6 +2850,10 @@
             "#text": "Er bestaat al een groep met een dergelijke naam."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "De beheerdersrechten kunnen niet van de laatste groep met beheerdersrechten worden verwijderd, zonder die groep heeft het forum geen beheerders."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "U moet een rolnaam invoeren."
           },

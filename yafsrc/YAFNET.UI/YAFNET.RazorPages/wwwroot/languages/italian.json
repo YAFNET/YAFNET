@@ -2850,6 +2850,10 @@
             "#text": "Esiste già un gruppo con questo nome."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Il permesso di amministratore non può essere tolto all'ultimo gruppo che lo ha, senza di esso il forum non ha amministratori."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "È necessario inserire un nome di ruolo."
           },

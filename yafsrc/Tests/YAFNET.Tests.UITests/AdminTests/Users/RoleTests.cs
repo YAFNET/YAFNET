@@ -297,6 +297,50 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The admin flag of the only admin group could be removed: the board had no admins anymore (the group can't
+    /// be deleted for the same reason).
+    /// </summary>
+    [Test]
+    public async Task LastAdminGroupKeepsTheAdminFlagTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    var groupId = await GetGroupIdAsync(page, this.TestSettings, "Administrators");
+
+                    try
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditGroup/{groupId}");
+
+                        await page.Locator("#Input_IsAdminX").UncheckAsync();
+                        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                        Assert.That(await page.ContentAsync(), Does.Contain("the board has no admins"), "The removed admin flag has no message");
+
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditGroup/{groupId}");
+
+                        Assert.That(await page.Locator("#Input_IsAdminX").IsCheckedAsync(), Is.True, "The only admin group lost the admin flag");
+                    }
+                    finally
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditGroup/{groupId}");
+
+                        if (!await page.Locator("#Input_IsAdminX").IsCheckedAsync())
+                        {
+                            await page.Locator("#Input_IsAdminX").CheckAsync();
+                            await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                        }
+                    }
+                });
+    }
+
+    /// <summary>
     /// The id of a group of the groups page.
     /// </summary>
     private static async Task<string> GetGroupIdAsync(IPage page, TestConfig testSettings, string groupName)

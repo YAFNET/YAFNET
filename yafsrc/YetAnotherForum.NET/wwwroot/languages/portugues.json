@@ -2854,6 +2854,10 @@
             "#text": "Já existe um grupo com esse nome."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "A permissão de administrador não pode ser retirada do último grupo que a tem, sem ela o fórum não tem administradores."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "É necessário introduzir um nome para o papel."
           },

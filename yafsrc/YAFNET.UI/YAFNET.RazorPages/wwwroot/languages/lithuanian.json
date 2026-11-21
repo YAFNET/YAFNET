@@ -2854,6 +2854,10 @@
             "#text": "Grupė tokiu pavadinimu jau yra."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Administratoriaus teisės negalima atimti iš paskutinės grupės, kuri ją turi, be jos forumas neturi administratorių."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Reikia įvesti Vaidmens pavadinimą."
           },

@@ -2854,6 +2854,10 @@
             "#text": "Un grup cu un astfel de nume există deja."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Dreptul de administrator nu poate fi eliminat de la ultimul grup care îl are, fără el forumul nu are administratori."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Trebuie să introduceți un nume de rol."
           },

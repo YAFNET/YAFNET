@@ -176,6 +176,19 @@ public class EditGroupModel : AdminPage
 
         this.Input.IsGuestX = isGuest;
 
+        // the admin flag of the last admin group is kept (without it the board has no admins, the group can't be
+        // deleted for the same reason)
+        if (roleId.HasValue && !this.Input.IsAdminX
+            && await this.GetRepository<Group>().ExistsAsync(g => g.ID == roleId.Value && (g.Flags & 1) == 1)
+            && !await this.GetRepository<Group>().ExistsAsync(
+                g => g.BoardID == this.PageBoardContext.PageBoardID && g.ID != roleId.Value && (g.Flags & 1) == 1))
+        {
+            this.Input.IsAdminX = true;
+            this.BindData(roleId);
+
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITGROUP", "MSG_LAST_ADMIN"), MessageTypes.warning);
+        }
+
         // the name must be unique in the board (also when a group is renamed), the database refuses a second one
         if (await this.GetRepository<Group>().ExistsAsync(
                 g => g.BoardID == this.PageBoardContext.PageBoardID && g.Name == roleName && g.ID != (roleId ?? 0)))

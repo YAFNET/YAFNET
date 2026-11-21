@@ -2854,6 +2854,10 @@
             "#text": "Một nhóm có tên như vậy đã tồn tại."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Không thể gỡ quyền quản trị khỏi nhóm cuối cùng có quyền quản trị, nếu không diễn đàn sẽ không còn quản trị viên."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Bạn cần nhập tên Vai trò."
           },

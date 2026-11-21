@@ -2850,6 +2850,10 @@
             "#text": "Eine Gruppe mit einem solchen Namen existiert bereits."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Das Admin-Recht kann der letzten Gruppe mit Admin-Rechten nicht entzogen werden, ohne sie hat das Board keine Admins."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Sie müssen einen Rollennamen eingeben."
           },

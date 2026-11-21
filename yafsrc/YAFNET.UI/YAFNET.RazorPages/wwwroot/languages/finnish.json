@@ -2854,6 +2854,10 @@
             "#text": "Ryhmä, jolla on tällainen nimi, on jo olemassa."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Ylläpitäjän oikeutta ei voi poistaa viimeiseltä ryhmältä, jolla se on, ilman sitä foorumilla ei ole ylläpitäjiä."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Sinun on annettava roolin nimi."
           },

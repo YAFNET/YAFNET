@@ -2854,6 +2854,10 @@
             "#text": "Böyle bir ada sahip bir grup zaten mevcut."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Yönetici hakkı, yönetici haklarına sahip son gruptan kaldırılamaz, o olmadan forumun yöneticisi kalmaz."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Bir Rol adı girmeniz gerekir."
           },

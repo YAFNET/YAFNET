@@ -2854,6 +2854,10 @@
             "#text": "En grupp med ett sådant namn finns redan."
           },
           {
+            "@tag": "MSG_LAST_ADMIN",
+            "#text": "Administratörsrätten kan inte tas bort från den sista gruppen med administratörsrättigheter, utan den har forumet inga administratörer."
+          },
+          {
             "@tag": "MSG_NAME",
             "#text": "Du måste ange ett rollnamn."
           },

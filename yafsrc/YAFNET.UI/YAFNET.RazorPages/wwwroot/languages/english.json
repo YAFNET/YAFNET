@@ -2842,6 +2842,10 @@
                     "#text": "Is Start:"
                 },
                 {
+                    "@tag": "MSG_LAST_ADMIN",
+                    "#text": "The admin flag can't be removed from the last group with admin rights, without it the board has no admins."
+                },
+                {
                     "@tag": "IS_START_HELP",
                     "#text": "If this is checked, all new users will be a member of this role. [br][b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register."
                 },
