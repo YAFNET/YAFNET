@@ -7,57 +7,95 @@
 @using YAF.Web.HtmlHelpers
 @model DeleteForumModel
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("comments", "ADMIN_DELETEFORUM", "HEADER1") <strong>@Model.Forum.Name</strong>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label class="form-label" info-button="true" 
-                               asp-for="MoveTopics"
-                               localized-tag="MOVE_TOPICS" localized-page="ADMIN_DELETEFORUM"></label>
-                        <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="MoveTopics" role="switch" switch
-                                   class="form-check-input"/>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" info-button="true" 
-                               localized-tag="NEW_FORUM" localized-page="ADMIN_DELETEFORUM"></label>
-                        <select id="ForumList" name="forumList"></select>
-                        <input type="hidden" asp-for="ForumListSelected" Value="@Model.ForumListSelected" />
-                    </div>
-                </div>
-                <div class="card-footer text-center">
-                    <button button-style="Danger"
-                            Icon="trash"
-                            return-confirm-tag="CONFIRM_DELETE"
-                            asp-route-fa="@Model.Request.RouteValues["fa"]"
-                            text-localized-tag="DELETE_FORUM" text-localized-page="ADMIN_DELETEFORUM">
-                    </button>
-                    <a button-style="Secondary"
-                       Icon="xmark"
-                       text-localized-tag="CANCEL"
-                       asp-page="@ForumPages.Admin_Forums.GetPageName()"></a>
-                </div>
-            </div>
-        </div>
-    </div>
+<form method="post" class="admin-delete-forum" data-forum-id="@Model.Forum.ID">
+	<div class="row justify-content-center">
+		<div class="col-xl-8">
+			<div class="card border-danger mb-3">
+				<div class="card-header">
+					@Html.Icon("trash", "text-danger")@Html.LocalizedText("ADMIN_DELETEFORUM", "TITLE"):
+					<strong class="forum-name">@Model.Forum.Name</strong>
+				</div>
+				<div class="card-body">
+					<ul class="list-group list-group-horizontal-sm mb-3 text-center">
+						<li class="list-group-item flex-fill">
+							<div class="fw-bold">@($"{Model.Forum.NumTopics:N0}")</div>
+							<small class="text-body-secondary">@Html.LocalizedText("ADMIN_FORUMS", "TOPICS")</small>
+						</li>
+						<li class="list-group-item flex-fill">
+							<div class="fw-bold">@($"{Model.Forum.NumPosts:N0}")</div>
+							<small class="text-body-secondary">@Html.LocalizedText("ADMIN_FORUMS", "POSTS")</small>
+						</li>
+						<li class="list-group-item flex-fill">
+							<div class="fw-bold">@Model.SubForumCount</div>
+							<small class="text-body-secondary">@Html.LocalizedText("ADMIN_DELETEFORUM", "SUBFORUMS")</small>
+						</li>
+					</ul>
+
+					@if (Model.SubForumCount > 0)
+					{
+						<alert type="info" icon="info-circle">
+							@Html.LocalizedText("ADMIN_DELETEFORUM", "SUBFORUMS_KEPT")
+						</alert>
+					}
+
+					@* first choice: keep the topics in another forum *@
+					<div class="mb-3">
+						<label class="form-label" info-button="true"
+						       asp-for="MoveTopics"
+						       localized-tag="MOVE_TOPICS" localized-page="ADMIN_DELETEFORUM"></label>
+						<div class="form-check form-switch">
+							<input type="checkbox" asp-for="MoveTopics" role="switch" switch
+							       class="form-check-input" data-delete-move/>
+						</div>
+					</div>
+					<div class="mb-3" data-delete-move-target>
+						<label class="form-label" info-button="true"
+						       localized-tag="NEW_FORUM" localized-page="ADMIN_DELETEFORUM"></label>
+						<select id="ForumList" name="forumList"></select>
+						<input type="hidden" asp-for="ForumListSelected" Value="@Model.ForumListSelected" data-delete-target/>
+					</div>
+
+					@* without moving: the topics are deleted, the name has to be typed in *@
+					<div data-delete-confirm>
+						<div class="alert alert-danger" role="alert">
+							@Html.Raw(string.Format(
+								Model.GetText("ADMIN_DELETEFORUM", "DELETE_WARNING"),
+								$"<strong>{Html.Encode(Model.Forum.Name)}</strong>"))
+						</div>
+						<label class="form-label" for="ConfirmName">
+							@Html.Raw(string.Format(
+								Model.GetText("ADMIN_DELETEFORUM", "CONFIRM_NAME"),
+								$"<code class=\"user-select-all\">{Html.Encode(Model.Forum.Name)}</code>"))
+						</label>
+						<input type="text" asp-for="ConfirmName" class="form-control"
+						       autocomplete="off" spellcheck="false"
+						       data-confirm-name="@Model.Forum.Name"/>
+					</div>
+				</div>
+				<div class="card-footer d-flex flex-wrap justify-content-end gap-2">
+					<a button-style="Secondary"
+					   Icon="xmark"
+					   text-localized-tag="CANCEL"
+					   asp-page="@ForumPages.Admin_Forums.GetPageName()"></a>
+					<button type="submit" class="btn btn-danger" data-delete-submit>
+						@Html.Icon("trash")@Html.LocalizedText("ADMIN_DELETEFORUM", "DELETE_FORUM")
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
 
 @section Scripts {
-    @await Html.PartialAsync("_ChoicesScriptsPartial")
-    <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.SelectForumsLoadJs(
-                "ForumList",
-                Model.GetText("ADMIN_DELETEFORUM", "NEW_FORUM"),
-                false,
-                false,
-                "ForumListSelected")))
-            
-    </script>
+	@await Html.PartialAsync("_ChoicesScriptsPartial")
+	<script>
+		@Html.Raw(JsAndCssHelper.CompressJavaScript(
+			JavaScriptBlocks.SelectForumsLoadJs(
+				"ForumList",
+				Model.GetText("ADMIN_DELETEFORUM", "NEW_FORUM"),
+				false,
+				false,
+				"ForumListSelected")))
+	</script>
+	<script src="~/js/admin-forums.min.js" asp-append-version="true"></script>
 }

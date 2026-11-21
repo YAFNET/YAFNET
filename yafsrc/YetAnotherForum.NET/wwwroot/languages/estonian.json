@@ -2091,8 +2091,20 @@
             "#text": "Kustutage see foorum püsivalt, sealhulgas kõik teemad, küsitlused, manused ja sellega seotud sõnumid?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Foorumi kustutamiseks koos kõigi teemadega sisesta foorumi nimi {0}:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Kustuta foorum"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Teemasid teisaldamata kustutatakse foorum {0} jäädavalt koos kõigi teemade, postituste, küsitluste ja manustega. Seda ei saa tagasi võtta."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Foorum {0} kustutati."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Teisalda kõik foorumis olevad teemad allpool valitud foorumisse."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Sisestatud nimi ei ühti, foorumit ei kustutatud."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Uus foorum:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Valige teemade jaoks uus foorum."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Alamfoorumid"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Alamfoorumeid ei kustutata, neist saavad ülemfoorumita foorumid."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Kategooriad"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "Kategooria {0} kustutati."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Foorumitega kategooriat ei saa kustutada, teisalda või kustuta esmalt selle foorumid."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Kas kustutada see foorum jäädavalt, sealhulgas KÕIK sellega seotud teemad, küsitlused, manused ja sõnumid?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Oled sa kindel? "
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Lohista pidemeid, et muuta kategooriate ja ühe taseme foorumite järjestust, uus järjestus salvestatakse kohe. Foorumi teise kategooriasse või teise foorumi alla viimine käib selle muutmislehel."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Lohista järjestuse muutmiseks"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Kategooriaid pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Loo esmalt kategooria ja lisa sellesse foorumid."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Foorumid"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Mitteaktiivne"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Viimane postitus"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Link"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Lukustatud"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Modereeritud"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Uus foorum"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Selles kategoorias pole veel foorumeid."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Postitusi pole"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Uut järjestust ei õnnestunud salvestada, leht laaditakse uuesti."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Uus järjestus on salvestatud."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Postitused"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Telli uuesti kõik kategooriad ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Telli kõik foorumid uuesti DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Teemad"
           }
         ]
       },

@@ -2091,8 +2091,20 @@
             "#text": "永久删除该论坛，包括所有主题，民意调查，附件和与之相关的消息？"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "输入版块名称 {0} 以删除该版块及其所有主题："
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "删除论坛"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "如果不移动主题，版块 {0} 及其所有主题、帖子、投票和附件将被永久删除。此操作无法撤销。"
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "版块 {0} 已删除。"
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "将论坛内的所有主题移动到以下选定的论坛。"
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "输入的名称不匹配，版块未被删除。"
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "新论坛："
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "为主题选择新论坛。"
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "子版块"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "子版块不会被删除，它们将成为没有上级版块的版块。"
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "分类"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "分类 {0} 已删除。"
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "包含版块的分类无法删除，请先移动或删除其版块。"
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "永久删除此论坛，包括与之相关的所有主题、投票、附件和消息？"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "你确定吗？"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "拖动手柄可更改分类以及同一层级版块的顺序，新顺序会立即保存。要将版块移到其他分类或其他上级版块，请在其编辑页面操作。"
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "拖动以更改顺序"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有分类"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "请先创建一个分类，然后向其中添加版块。"
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "版块"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "未启用"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "最新帖子"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "链接"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "已锁定"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "需审核"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "新论坛"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "此分类还没有版块。"
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "暂无帖子"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "无法保存新顺序，页面将重新加载。"
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "新顺序已保存。"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "帖子"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "重新排序所有类别 ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "重新排序所有论坛 DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "测试"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "主题"
           }
         ]
       },

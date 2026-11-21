@@ -2091,8 +2091,20 @@
             "#text": "Slett dette forumet permanent inkludert alle emner, avstemninger, vedlegg og meldinger tilknyttet det?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Skriv inn navnet på forumet {0} for å slette forumet med alle emnene:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Slett forumet"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Uten å flytte emnene slettes forumet {0} permanent med alle emner, innlegg, avstemninger og vedlegg. Dette kan ikke angres."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Forumet {0} er slettet."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Flytt alle emner i forumet til et forum valgt under."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Navnet du skrev inn stemmer ikke, forumet ble ikke slettet."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Nytt forum:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Velg det nye forumet for emnene."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Underforum"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Underforumene slettes ikke, de blir forum uten overordnet forum."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Kategorier"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "Kategorien {0} er slettet."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "En kategori med forum kan ikke slettes, flytt eller slett forumene først."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vil du slette dette forumet permanent, inkludert ALLE emner, avstemninger, vedlegg og meldinger knyttet til det?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Er du sikker? dette trinnet er irreversibelt!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Dra i håndtakene for å endre rekkefølgen på kategoriene og på forumene på ett nivå, den nye rekkefølgen lagres med en gang. Et forum flyttes til en annen kategori eller et annet overordnet forum på redigeringssiden."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Dra for å endre rekkefølgen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen kategorier"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Opprett først en kategori, og legg deretter til forum."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forum"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inaktiv"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Siste innlegg"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Lenke"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Låst"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Moderert"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Nytt forum"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Denne kategorien har ingen forum ennå."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Ingen innlegg ennå"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Den nye rekkefølgen kunne ikke lagres, siden lastes inn på nytt."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Den nye rekkefølgen er lagret."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Innlegg"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Bestill alle kategorier ASC på nytt"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Bestill alle fora på nytt DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Emner"
           }
         ]
       },

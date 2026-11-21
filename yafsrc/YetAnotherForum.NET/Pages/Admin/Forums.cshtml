@@ -1,274 +1,344 @@
 @page "{p:int=1}/{handler?}"
 
 @model ForumsModel
+@using YAF.Core.Services
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using YAF.Types.Flags
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
-@using YAF.Types.Models
-@using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
+@{
+	var canSort = Model.CategoryList.Count > 1;
+	var dragTitle = Model.GetText("ADMIN_FORUMS", "DRAG_TO_SORT");
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-auto">
-                            @Html.IconHeader("comments","ADMINMENU","admin_forums")
-                        </div>
-                        <div class="col-auto">
-	                        <div class="btn-toolbar" role="toolbar">
-		                        <div class="btn-group btn-group-sm me-2 mb-1" role="group" aria-label="tools">
-			                        <div class="input-group input-group-sm me-2" role="group">
-				                        <div class="input-group-text">
-					                        @Html.LocalizedText("SHOW"):
-				                        </div>
-				                        <select asp-for="@Model.Size"
-				                                asp-items="Model.PageSizeList"
-				                                title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-				                                aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-				                                class="form-select"
-				                                onchange="this.form.submit();"></select>
-			                        </div>
-			                        <button class="dropdown-toggle"
-			                                bs-toggle="dropdown"
-			                                button-size="Small"
-			                                button-style="Secondary"
-			                                Icon="tools"
-			                                text-localized-tag="TOOLS"></button>
-			                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-				                        <button class="dropdown-item"
-				                                Icon="arrow-down-a-z"
-				                                asp-page-handler="SortCategoriesAscending"
-				                                return-confirm-tag="CONFIRM_SORTING"
-				                                button-style="None"
-				                                text-localized-tag="SORT_CATEGORIES_ASC"></button>
-				                        <button class="dropdown-item"
-				                                Icon="arrow-down-z-a"
-				                                asp-page-handler="SortCategoriesDescending"
-				                                return-confirm-tag="CONFIRM_SORTING"
-				                                button-style="None"
-				                                text-localized-tag="SORT_CATEGORIES_DESC"></button>
-				                        <div class="dropdown-divider"></div>
-				                        <button class="dropdown-item"
-				                                Icon="arrow-down-a-z"
-				                                asp-page-handler="SortForumsAscending"
-				                                return-confirm-tag="CONFIRM_SORTING"
-				                                button-style="None"
-				                                text-localized-tag="SORT_FORUMS_ASC"></button>
-				                        <button class="dropdown-item"
-				                                Icon="arrow-down-z-a"
-				                                asp-page-handler="SortForumsDescending"
-				                                return-confirm-tag="CONFIRM_SORTING"
-				                                button-style="None"
-				                                text-localized-tag="SORT_FORUMS_DESC"></button>
-			                        </div>
-		                        </div>
-	                        </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    @if (!Model.CategoryList.NullOrEmpty())
-                    {
-                        <ul class="list-group">
+	// a forum with its sub forums, the sub forums of a forum are sorted among themselves
+	async Task RenderForum(ForumsModel.ForumNode node, bool sortable)
+	{
+		var forum = node.Forum;
+		var flags = new ForumFlags(forum.Flags);
 
-                            @for (var i = 0; i < Model.CategoryList.Count; i++)
-                            {
-                                var forums = Model.GetForumTree(Model.CategoryList[i].ID);
+		<li class="forum-node" data-forum-id="@forum.ID">
+			<div class="forum-row row-menu" data-forum-id="@forum.ID" data-depth="@node.Depth">
+				@if (sortable)
+				{
+					<span class="drag-handle forum-drag-handle" title="@dragTitle" aria-hidden="true">
+						@Html.Icon("grip-vertical", marginEnd: false)
+					</span>
+				}
+				else
+				{
+					@* keeps the rows of a level aligned *@
+					<span class="drag-handle drag-handle-placeholder" aria-hidden="true">
+						@Html.Icon("grip-vertical", marginEnd: false)
+					</span>
+				}
+				<div class="forum-main">
+					<div class="d-flex flex-wrap align-items-center gap-1">
+						@Html.Icon(forum.RemoteURL.IsSet() ? "link" : "comments", "text-body-secondary")
+						<span class="forum-name">@forum.Name</span>
+						@if (flags.IsLocked)
+						{
+							<span class="badge text-bg-warning">@Html.Icon("lock")@Html.LocalizedText("ADMIN_FORUMS", "LOCKED")</span>
+						}
+						@if (flags.IsModerated)
+						{
+							<span class="badge text-bg-info">@Html.Icon("user-shield")@Html.LocalizedText("ADMIN_FORUMS", "MODERATED")</span>
+						}
+						@if (flags.IsTest)
+						{
+							<span class="badge bg-body-tertiary text-body-secondary border">@Html.Icon("flask")@Html.LocalizedText("ADMIN_FORUMS", "TEST")</span>
+						}
+						@if (forum.RemoteURL.IsSet())
+						{
+							<span class="badge bg-body-tertiary text-body-secondary border" title="@forum.RemoteURL">@Html.Icon("external-link-alt")@Html.LocalizedText("ADMIN_FORUMS", "LINK")</span>
+						}
+					</div>
+					@if (forum.Description.IsSet())
+					{
+						<div class="forum-description" title="@forum.Description">@forum.Description</div>
+					}
+				</div>
+				@if (!forum.RemoteURL.IsSet())
+				{
+					<div class="forum-figures">
+						<span title="@Model.GetText("ADMIN_FORUMS", "TOPICS")">@Html.Icon("comments")@($"{forum.NumTopics:N0}")</span>
+						<span title="@Model.GetText("ADMIN_FORUMS", "POSTS")">@Html.Icon("comment")@($"{forum.NumPosts:N0}")</span>
+						<span class="forum-last-post" title="@Model.GetText("ADMIN_FORUMS", "LAST_POST")">
+							@Html.Icon("clock")@(forum.LastPosted.HasValue
+								                     ? Model.Get<IDateTimeService>().FormatDateTimeShort(forum.LastPosted.Value)
+								                     : Model.GetText("ADMIN_FORUMS", "NO_POSTS"))
+						</span>
+					</div>
+				}
+				<div class="forum-actions btn-group btn-group-sm">
+					<a button-style="Primary"
+					   button-size="Small"
+					   asp-page="@ForumPages.Admin_EditForum.GetPageName()"
+					   asp-route-fa="@forum.ID"
+					   asp-route-copy="false"
+					   title-localized-tag="EDIT"
+					   Icon="edit"></a>
+					<a button-style="OutlineSecondary"
+					   button-size="Small"
+					   asp-page="@ForumPages.Admin_EditForum.GetPageName()"
+					   asp-route-fa="@forum.ID"
+					   asp-route-copy="true"
+					   title-localized-tag="COPY"
+					   Icon="copy"></a>
+					<a class="btn btn-sm btn-outline-danger"
+					   asp-page="@ForumPages.Admin_DeleteForum.GetPageName()"
+					   asp-route-fa="@forum.ID"
+					   title="@Model.GetText("DELETE")">
+						@Html.Icon("trash", marginEnd: false)
+					</a>
+				</div>
+				<div class="dropdown-menu context-menu" aria-label="context menu">
+					<a button-style="None"
+					   class="dropdown-item"
+					   asp-page="@ForumPages.Admin_EditForum.GetPageName()"
+					   asp-route-fa="@forum.ID"
+					   asp-route-copy="false"
+					   text-localized-tag="EDIT"
+					   Icon="edit"></a>
+					<a button-style="None"
+					   class="dropdown-item"
+					   asp-page="@ForumPages.Admin_EditForum.GetPageName()"
+					   asp-route-fa="@forum.ID"
+					   asp-route-copy="true"
+					   text-localized-tag="COPY"
+					   Icon="copy"></a>
+					<a button-style="None"
+					   class="dropdown-item"
+					   asp-page="@ForumPages.Admin_DeleteForum.GetPageName()"
+					   asp-route-fa="@forum.ID"
+					   text-localized-tag="DELETE"
+					   Icon="trash"></a>
+					<div class="dropdown-divider"></div>
+					<a asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
+					   button-style="None"
+					   class="dropdown-item"
+					   Icon="folder-plus"
+					   text-localized-tag="NEW_CATEGORY"></a>
+					<a asp-page="@ForumPages.Admin_EditForum.GetPageName()"
+					   asp-route-copy="false"
+					   button-style="None"
+					   class="dropdown-item"
+					   Icon="plus-square"
+					   text-localized-tag="NEW_FORUM"
+					   text-localized-page="ADMIN_FORUMS"></a>
+				</div>
+			</div>
+			@if (node.Children.Count > 0)
+			{
+				<ul class="forum-tree" data-sortable="forums">
+					@foreach (var child in node.Children)
+					{
+						await RenderForum(child, node.Children.Count > 1);
+					}
+				</ul>
+			}
+		</li>
+	}
+}
 
-                                <li class="list-group-item list-group-item-action active list-group-item-menu">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">
-                                            <i class="fa fa-folder pe-1"></i>
-                                            @Html.HtmlEncode(Model.CategoryList[i].Name)
-                                        </h5>
-                                        <small class="d-none d-md-block">
-                                            @Html.LocalizedText("SORT_ORDER")&nbsp;
-                                            @Html.Raw(Model.CategoryList[i].SortOrder)
-                                        </small>
-                                    </div>
-                                    <div class="small">
-                                        <div class="btn-group btn-group-sm">
-                                            <a button-style="Info"
-                                               button-size="Small"
-                                               asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
-                                               asp-route-c="@Html.Raw(Model.CategoryList[i].ID)"
-                                               title-localized-tag="EDIT"
-                                               Icon="edit"
-                                               text-localized-tag="EDIT">
-                                            </a>
+<form method="post" class="admin-forums"
+      data-save-url="@Url.Page(ForumPages.Admin_Forums.GetPageName(), "SaveOrder")"
+      data-text-saved="@Model.GetText("ADMIN_FORUMS", "ORDER_SAVED")"
+      data-text-error="@Model.GetText("ADMIN_FORUMS", "ORDER_NOT_SAVED")">
+	<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+		<h2 class="h4 mb-0">
+			@Html.IconHeader("comments", "ADMINMENU", "admin_forums")
+			<span class="badge rounded-pill text-bg-secondary align-middle" title="@Model.GetText("ADMIN_FORUMS", "CATEGORIES")">
+				@Html.Icon("folder")@Model.CategoryList.Count
+			</span>
+			<span class="badge rounded-pill text-bg-secondary align-middle" title="@Model.GetText("ADMIN_FORUMS", "FORUMS")">
+				@Html.Icon("comments")@Model.ForumCount
+			</span>
+		</h2>
+		<div class="d-flex flex-wrap gap-2">
+			<a asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
+			   button-style="OutlineSecondary"
+			   Icon="folder-plus"
+			   text-localized-tag="NEW_CATEGORY"></a>
+			@if (Model.CategoryList.Count > 0)
+			{
+				<a asp-page="@ForumPages.Admin_EditForum.GetPageName()"
+				   asp-route-copy="false"
+				   button-style="Primary"
+				   Icon="plus-square"
+				   text-localized-tag="NEW_FORUM"
+				   text-localized-page="ADMIN_FORUMS"></a>
+				<div class="dropdown">
+					<button class="dropdown-toggle"
+					        bs-toggle="dropdown"
+					        button-style="OutlineSecondary"
+					        Icon="tools"
+					        text-localized-tag="TOOLS"></button>
+					<div class="dropdown-menu dropdown-menu-end">
+						<button class="dropdown-item"
+						        Icon="arrow-down-a-z"
+						        asp-page-handler="SortCategoriesAscending"
+						        return-confirm-tag="CONFIRM_SORTING"
+						        button-style="None"
+						        text-localized-tag="SORT_CATEGORIES_ASC"></button>
+						<button class="dropdown-item"
+						        Icon="arrow-down-z-a"
+						        asp-page-handler="SortCategoriesDescending"
+						        return-confirm-tag="CONFIRM_SORTING"
+						        button-style="None"
+						        text-localized-tag="SORT_CATEGORIES_DESC"></button>
+						<div class="dropdown-divider"></div>
+						<button class="dropdown-item"
+						        Icon="arrow-down-a-z"
+						        asp-page-handler="SortForumsAscending"
+						        return-confirm-tag="CONFIRM_SORTING"
+						        button-style="None"
+						        text-localized-tag="SORT_FORUMS_ASC"></button>
+						<button class="dropdown-item"
+						        Icon="arrow-down-z-a"
+						        asp-page-handler="SortForumsDescending"
+						        return-confirm-tag="CONFIRM_SORTING"
+						        button-style="None"
+						        text-localized-tag="SORT_FORUMS_DESC"></button>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
 
-                                            @if (forums.NullOrEmpty())
-                                            {
-                                                <button button-style="Danger"
-                                                        button-size="Small"
-                                                        return-confirm-tag="CONFIRM_DELETE_CAT"
-                                                        asp-page-handler="DeleteCategory"
-                                                        asp-route-id="@Html.Raw(Model.CategoryList[i].ID)"
-                                                        title-localized-tag="DELETE"
-                                                        Icon="trash"
-                                                        text-localized-tag="DELETE">
-                                                </button>
-                                            }
+	@if (Model.CategoryList.Count == 0)
+	{
+		<div class="card mb-3">
+			<div class="card-body">
+				<empty icon="folder-open"
+				       header-text-page="ADMIN_FORUMS" header-text-tag="EMPTY_HEADER"
+				       message-text-page="ADMIN_FORUMS" message-text-tag="EMPTY_MESSAGE">
+				</empty>
+			</div>
+		</div>
+	}
+	else
+	{
+		<p class="small text-body-secondary mb-2">
+			@Html.Icon("grip-vertical")@Html.LocalizedText("ADMIN_FORUMS", "DRAG_HELP")
+		</p>
 
-                                        </div>
-                                        <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                            <a button-style="None"
-                                               class="dropdown-item"
-                                               asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
-                                               asp-route-c="@Html.Raw(Model.CategoryList[i].ID)"
-                                               title-localized-tag="EDIT" Icon="edit"
-                                               text-localized-tag="EDIT">
-                                            </a>
+		<div class="category-list" data-sortable="categories">
+			@foreach (var category in Model.CategoryList)
+			{
+				var forumCount = Model.ForumCountOf(category.ID);
+				var tree = Model.GetForumTree(category.ID);
+				var isActive = new CategoryFlags(category.Flags).IsActive;
 
-                                            @if (forums.NullOrEmpty())
-                                            {
-                                                <button button-style="None"
-                                                        class="dropdown-item"
-                                                        return-confirm-tag="CONFIRM_DELETE_CAT"
-                                                        asp-page-handler="DeleteCategory"
-                                                        asp-route-id="@Html.Raw(Model.CategoryList[i].ID)"
-                                                        title-localized-tag="DELETE"
-                                                        Icon="trash"
-                                                        text-localized-tag="DELETE">
-                                                </button>
-                                            }
-
-                                            <div class="dropdown-divider"></div>
-
-                                            <a asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
-                                               button-style="None"
-                                               class="dropdown-item"
-                                               Icon="plus-square"
-                                               text-localized-tag="NEW_CATEGORY"></a>
-                                            <a asp-page="@ForumPages.Admin_EditForum.GetPageName()"
-                                               asp-route-copy="false"
-                                               button-style="None"
-                                               class="dropdown-item"
-                                               Icon="plus-square"
-                                               text-localized-tag="NEW_FORUM"
-                                               text-localized-page="ADMIN_FORUMS"></a>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                @if (!forums.NullOrEmpty())
-                                {
-                                    @foreach (var (forum, depth) in forums)
-                                    {
-                                        <li class="list-group-item list-group-item-action list-group-item-menu"
-                                            data-forum-id="@forum.ID" data-depth="@depth">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1" style="padding-inline-start: @(depth * 24)px">
-                                                    <i class="fa fa-comments me-2"></i>
-                                                    @(new string('-', 1 + depth * 2)) @Html.HtmlEncode(forum.Name)
-                                                </h5>
-                                                <small class="d-none d-md-block">
-                                                    @Html.LocalizedText("SORT_ORDER")&nbsp;
-                                                    @Html.Raw(forum.SortOrder)
-                                                </small>
-                                            </div>
-                                            <p class="mb-1">
-                                                @Html.HtmlEncode(forum.Description)
-                                            </p>
-                                            <div class="small">
-                                                <div class="btn-group btn-group-sm">
-                                                    <a button-style="Info"
-                                                       button-size="Small"
-                                                       asp-page="@ForumPages.Admin_EditForum.GetPageName()"
-                                                       asp-route-fa="@Html.Raw(forum.ID)"
-                                                       asp-route-copy="false"
-                                                       text-localized-tag="EDIT"
-                                                       title-localized-tag="EDIT"
-                                                       Icon="edit"></a>
-                                                    <a button-style="Info"
-                                                       button-size="Small"
-                                                       asp-page="@ForumPages.Admin_EditForum.GetPageName()"
-                                                       asp-route-fa="@Html.Raw(forum.ID)"
-                                                       asp-route-copy="true"
-                                                       text-localized-tag="COPY"
-                                                       title-localized-tag="COPY"
-                                                       Icon="copy"></a>
-                                                    <a button-style="Danger"
-                                                       button-size="Small"
-                                                       asp-page="@ForumPages.Admin_DeleteForum.GetPageName()"
-                                                       asp-route-fa="@Html.Raw(forum.ID)"
-                                                       text-localized-tag="DELETE"
-                                                       title-localized-tag="DELETE"
-                                                       Icon="trash"></a>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                                <a button-style="None"
-                                                   asp-page="@ForumPages.Admin_EditForum.GetPageName()"
-                                                   asp-route-fa="@Html.Raw(forum.ID)"
-                                                   asp-route-copy="false"
-                                                   class="dropdown-item"
-                                                   text-localized-tag="EDIT"
-                                                   title-localized-tag="EDIT" Icon="edit"></a>
-                                                <a button-style="None"
-                                                   class="dropdown-item"
-                                                   asp-page="@ForumPages.Admin_EditForum.GetPageName()"
-                                                   asp-route-fa="@Html.Raw(forum.ID)"
-                                                   asp-route-copy="true"
-                                                   text-localized-tag="COPY"
-                                                   title-localized-tag="COPY" Icon="copy"></a>
-                                                <a button-style="None"
-                                                   class="dropdown-item"
-                                                   asp-page="@ForumPages.Admin_DeleteForum.GetPageName()"
-                                                   asp-route-fa="@Html.Raw(forum.ID)"
-                                                   text-localized-tag="DELETE"
-                                                   title-localized-tag="DELETE" Icon="trash"></a>
-                                                <div class="dropdown-divider"></div>
-                                                <a asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
-                                                   button-style="None"
-                                                   class="dropdown-item"
-                                                   Icon="plus-square"
-                                                   text-localized-tag="NEW_CATEGORY"></a>
-
-                                                @if (!Model.CategoryList.NullOrEmpty())
-                                                {
-                                                    <a asp-page="@ForumPages.Admin_EditForum.GetPageName()"
-                                                       asp-route-copy="false"
-                                                       button-style="None"
-                                                       class="dropdown-item"
-                                                       Icon="plus-square"
-                                                       text-localized-tag="NEW_FORUM"
-                                                       text-localized-page="ADMIN_FORUMS"></a>
-                                                }
-
-                                            </div>
-                                        </li>
-                                    }
-                                }
-                            }
-
-                        </ul>
-                    }
-                </div>
-                <div class="card-footer text-center">
-                    <a asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
-                       button-style="Primary"
-                       Icon="plus-square"
-                       text-localized-tag="NEW_CATEGORY"></a>
-
-                    @if (!Model.CategoryList.NullOrEmpty())
-                    {
-                        <a asp-page="@ForumPages.Admin_EditForum.GetPageName()"
-                           asp-route-copy="false"
-                           button-style="Primary"
-                           Icon="plus-square"
-                           text-localized-tag="NEW_FORUM"
-                           text-localized-page="ADMIN_FORUMS"></a>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.CategoryCount, Size = Model.Size })
+				<div class="card category-card mb-3 @(isActive ? "" : "category-inactive")" data-category-id="@category.ID">
+					<div class="card-header row-menu d-flex flex-wrap align-items-center gap-2">
+						@if (canSort)
+						{
+							<span class="drag-handle category-drag-handle" title="@dragTitle" aria-hidden="true">
+								@Html.Icon("grip-vertical", marginEnd: false)
+							</span>
+						}
+						@if (category.CategoryImage.IsSet())
+						{
+							<img class="category-image" alt=""
+							     src="@(category.CategoryImage.Contains('/') ? category.CategoryImage : $"/{Model.Get<BoardFolders>().Categories}/{category.CategoryImage}")" />
+						}
+						else
+						{
+							@Html.Icon("folder", "text-body-secondary")
+						}
+						<h3 class="h6 mb-0 category-name">@category.Name</h3>
+						<span class="badge rounded-pill bg-body-tertiary text-body-secondary border" title="@Model.GetText("ADMIN_FORUMS", "FORUMS")">@forumCount</span>
+						@if (!isActive)
+						{
+							<span class="badge text-bg-secondary">@Html.Icon("eye-slash")@Html.LocalizedText("ADMIN_FORUMS", "INACTIVE")</span>
+						}
+						<div class="ms-auto btn-group btn-group-sm">
+							<a button-style="Primary"
+							   button-size="Small"
+							   asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
+							   asp-route-c="@category.ID"
+							   title-localized-tag="EDIT"
+							   text-localized-tag="EDIT"
+							   Icon="edit"></a>
+							@if (forumCount == 0)
+							{
+								<button class="btn btn-sm btn-outline-danger"
+								        button-style="None"
+								        return-confirm-tag="CONFIRM_DELETE_CAT"
+								        asp-page-handler="DeleteCategory"
+								        asp-route-id="@category.ID"
+								        title-localized-tag="DELETE"
+								        Icon="trash"
+								        text-localized-tag="DELETE"></button>
+							}
+							else
+							{
+								@* a disabled button shows no tooltip, the wrapper does *@
+								<span class="d-inline-block" tabindex="0"
+								      data-bs-toggle="tooltip"
+								      data-bs-title="@Model.GetText("ADMIN_FORUMS", "CATEGORY_HAS_FORUMS")">
+									<button type="button" class="btn btn-sm btn-outline-danger rounded-start-0" disabled>
+										@Html.Icon("trash")@Html.LocalizedText("DELETE")
+									</button>
+								</span>
+							}
+						</div>
+						<div class="dropdown-menu context-menu" aria-label="context menu">
+							<a button-style="None"
+							   class="dropdown-item"
+							   asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
+							   asp-route-c="@category.ID"
+							   text-localized-tag="EDIT"
+							   Icon="edit"></a>
+							@if (forumCount == 0)
+							{
+								<button button-style="None"
+								        class="dropdown-item"
+								        return-confirm-tag="CONFIRM_DELETE_CAT"
+								        asp-page-handler="DeleteCategory"
+								        asp-route-id="@category.ID"
+								        text-localized-tag="DELETE"
+								        Icon="trash"></button>
+							}
+							<div class="dropdown-divider"></div>
+							<a asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
+							   button-style="None"
+							   class="dropdown-item"
+							   Icon="folder-plus"
+							   text-localized-tag="NEW_CATEGORY"></a>
+							<a asp-page="@ForumPages.Admin_EditForum.GetPageName()"
+							   asp-route-copy="false"
+							   button-style="None"
+							   class="dropdown-item"
+							   Icon="plus-square"
+							   text-localized-tag="NEW_FORUM"
+							   text-localized-page="ADMIN_FORUMS"></a>
+						</div>
+					</div>
+					@if (tree.Count == 0)
+					{
+						<div class="card-body py-2 small text-body-secondary fst-italic">
+							@Html.LocalizedText("ADMIN_FORUMS", "NO_FORUMS")
+						</div>
+					}
+					else
+					{
+						<ul class="forum-tree forum-tree-root" data-sortable="forums">
+							@foreach (var node in tree)
+							{
+								await RenderForum(node, tree.Count > 1);
+							}
+						</ul>
+					}
+				</div>
+			}
+		</div>
+	}
 </form>
+
+@section Scripts {
+	<script src="~/js/admin-forums.min.js" asp-append-version="true"></script>
+}

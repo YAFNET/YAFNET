@@ -2091,8 +2091,20 @@
             "#text": "Verwijder dit forum permanent, inclusief alle onderwerpen, peilingen, bijlagen en berichten die eraan verbonden zijn?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Typ de naam van het forum {0} om het forum met alle onderwerpen te verwijderen:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Verwijder Forum"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Zonder de onderwerpen te verplaatsen wordt het forum {0} definitief verwijderd met alle onderwerpen, berichten, peilingen en bijlagen. Dit kan niet ongedaan worden gemaakt."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Het forum {0} is verwijderd."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Verplaats alle topics in het forum naar het forum hieronder."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "De getypte naam komt niet overeen, het forum is niet verwijderd."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Nieuw Forum:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Selecteer het nieuwe Forum voor de topics."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Subforums"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "De subforums worden niet verwijderd, ze worden forums zonder bovenliggend forum."
           },
           {
             "@tag": "TITLE",
@@ -3512,6 +3536,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Categorieën"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "De categorie {0} is verwijderd."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Een categorie met forums kan niet worden verwijderd, verplaats of verwijder eerst de forums."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Verwijder dit forum definitief, inclusief ALLE topics, polls, bijlagen en berichten?"
           },
@@ -3522,6 +3558,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Weet je het zeker? "
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Sleep de grepen om de volgorde van de categorieën en van de forums op één niveau te wijzigen, de nieuwe volgorde wordt direct opgeslagen. Een forum wordt op de bewerkpagina naar een andere categorie of ander bovenliggend forum verplaatst."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Slepen om de volgorde te wijzigen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen categorieën"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Maak eerst een categorie aan en voeg er dan forums aan toe."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forums"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inactief"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Laatste bericht"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Link"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Gesloten"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Gemodereerd"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3544,6 +3620,26 @@
             "#text": "Nieuw Forum"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Deze categorie heeft nog geen forums."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Nog geen berichten"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "De nieuwe volgorde kon niet worden opgeslagen, de pagina wordt opnieuw geladen."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "De nieuwe volgorde is opgeslagen."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Berichten"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Alle categorieën opnieuw bestellen ASC"
           },
@@ -3558,6 +3654,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Alle forums opnieuw bestellen DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Onderwerpen"
           }
         ]
       },

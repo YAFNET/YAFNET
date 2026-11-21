@@ -2091,8 +2091,20 @@
             "#text": "Exclua permanentemente este fórum, incluindo todos os tópicos, pesquisas, anexos e mensagens associados a ele?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Escreva o nome do fórum {0} para eliminar o fórum com todos os seus tópicos:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Apagar Fórum"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Sem mover os tópicos, o fórum {0} é eliminado permanentemente com todos os tópicos, mensagens, sondagens e anexos. Esta ação não pode ser anulada."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "O fórum {0} foi eliminado."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Mova todos os tópicos dentro do Fórum para um Fórum seleccionado em baixo."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "O nome escrito não corresponde, o fórum não foi eliminado."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Novo Fórum:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Seleccione o novo Fórum para os Tópicos."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Subfóruns"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Os subfóruns não são eliminados, passam a ser fóruns sem fórum principal."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Categorias"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "A categoria {0} foi eliminada."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Uma categoria com fóruns não pode ser eliminada, mova ou elimine primeiro os seus fóruns."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Eliminar permanentemente este Fórum incluindo TODOS os tópicos, sondagens, anexos e mensagens a ele associadas?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Tens a certeza? este passo é irreversível!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Arraste as pegas para alterar a ordem das categorias e dos fóruns de um nível, a nova ordem é guardada de imediato. Um fórum muda de categoria ou de fórum principal na sua página de edição."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Arrastar para alterar a ordem"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Sem categorias"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Crie primeiro uma categoria e depois adicione-lhe fóruns."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Fóruns"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inativa"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Última mensagem"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Ligação"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Bloqueado"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Moderado"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Novo Fórum"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Esta categoria ainda não tem fóruns."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Sem mensagens"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Não foi possível guardar a nova ordem, a página é recarregada."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "A nova ordem foi guardada."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Mensagens"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Reencomendar todas as categorias ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Reencomendar todos os Fóruns DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Teste"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Tópicos"
           }
         ]
       },

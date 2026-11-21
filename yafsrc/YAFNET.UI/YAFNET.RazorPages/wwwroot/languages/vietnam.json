@@ -2091,8 +2091,20 @@
             "#text": "Xóa vĩnh viễn diễn đàn này bao gồm tất cả các chủ đề, cuộc thăm dò, đính kèm và thông điệp liên quan đến nó?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Nhập tên diễn đàn {0} để xóa diễn đàn cùng tất cả chủ đề:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Xóa diễn đàn"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Nếu không chuyển chủ đề, diễn đàn {0} sẽ bị xóa vĩnh viễn cùng tất cả chủ đề, bài viết, bình chọn và tệp đính kèm. Không thể hoàn tác thao tác này."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Đã xóa diễn đàn {0}."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Di chuyển tất cả các Chủ đề bên trong Diễn đàn đến một Diễn đàn đã chọn Dưới đây."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Tên đã nhập không khớp, diễn đàn chưa bị xóa."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Diễn đàn mới:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Chọn Diễn đàn mới cho Chủ đề."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Diễn đàn con"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Các diễn đàn con không bị xóa, chúng trở thành diễn đàn không có diễn đàn cha."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Chuyên mục"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "Đã xóa chuyên mục {0}."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Không thể xóa chuyên mục có diễn đàn, hãy chuyển hoặc xóa các diễn đàn của nó trước."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Xóa vĩnh viễn Diễn đàn này bao gồm TẤT CẢ các chủ đề, cuộc thăm dò, tệp đính kèm và tin nhắn liên quan đến nó?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Bạn có chắc không? bước này là không thể thay đổi!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Kéo tay cầm để thay đổi thứ tự các chuyên mục và các diễn đàn cùng cấp, thứ tự mới được lưu ngay. Việc chuyển diễn đàn sang chuyên mục khác hoặc diễn đàn cha khác được thực hiện trên trang sửa của nó."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Kéo để thay đổi thứ tự"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có chuyên mục"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Hãy tạo một chuyên mục trước, sau đó thêm diễn đàn vào."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Diễn đàn"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Không hoạt động"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Bài viết mới nhất"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Liên kết"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Đã khóa"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Được kiểm duyệt"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Diễn đàn mới"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Chuyên mục này chưa có diễn đàn nào."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Chưa có bài viết"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Không thể lưu thứ tự mới, trang sẽ được tải lại."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Đã lưu thứ tự mới."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Bài viết"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Đặt hàng lại tất cả Danh mục ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Sắp xếp lại tất cả các diễn đàn DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Thử nghiệm"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Chủ đề"
           }
         ]
       },

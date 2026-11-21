@@ -2091,8 +2091,20 @@
             "#text": "Stale usuń to forum, w tym wszystkie tematy, sondaże, załączniki i powiązane z nim wiadomości?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Wpisz nazwę działu {0}, aby usunąć dział ze wszystkimi tematami:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Usuwanie działu"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Bez przeniesienia tematów dział {0} zostanie trwale usunięty ze wszystkimi tematami, postami, ankietami i załącznikami. Tej operacji nie można cofnąć."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Dział {0} został usunięty."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Przenosi wszystkie tematy z tego działu do działu wybranego niżej."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Wpisana nazwa nie zgadza się, dział nie został usunięty."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Nowy dział:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Wybierz nowy dział dla tematów."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Poddziały"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Poddziały nie są usuwane, stają się działami bez działu nadrzędnego."
           },
           {
             "@tag": "TITLE",
@@ -3512,6 +3536,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Kategorie"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "Kategoria {0} została usunięta."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Nie można usunąć kategorii zawierającej działy, najpierw przenieś lub usuń jej działy."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Trwale usunąć to forum wraz ze WSZYSTKIMI tematami, ankietami, załącznikami i wiadomościami z nim związanymi?"
           },
@@ -3522,6 +3558,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Czy jesteś pewien? Ten krok jest nieodwracalny!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Przeciągnij uchwyty, aby zmienić kolejność kategorii i działów na jednym poziomie, nowa kolejność jest zapisywana od razu. Dział przenosi się do innej kategorii lub pod inny dział na stronie jego edycji."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Przeciągnij, aby zmienić kolejność"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak kategorii"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Najpierw utwórz kategorię, a potem dodaj do niej działy."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Działy"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Nieaktywna"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Ostatni post"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Link"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Zablokowany"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Moderowany"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3544,6 +3620,26 @@
             "#text": "Nowe forum"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Ta kategoria nie ma jeszcze działów."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Brak postów"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Nie udało się zapisać nowej kolejności, strona zostanie przeładowana."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Nowa kolejność została zapisana."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Posty"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Ponowne zamawianie wszystkich kategorii ASC"
           },
@@ -3558,6 +3654,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Zmień kolejność wszystkich forów DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Tematy"
           }
         ]
       },

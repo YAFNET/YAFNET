@@ -2091,8 +2091,20 @@
                     "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
                 },
                 {
+                    "@tag": "CONFIRM_NAME",
+                    "#text": "Type the forum name {0} to delete the forum with all its topics:"
+                },
+                {
                     "@tag": "DELETE_FORUM",
                     "#text": "Delete Forum"
+                },
+                {
+                    "@tag": "DELETE_WARNING",
+                    "#text": "Without moving the topics, the forum {0} is deleted permanently with all its topics, posts, polls and attachments. This can not be undone."
+                },
+                {
+                    "@tag": "FORUM_DELETED",
+                    "#text": "The forum {0} was deleted."
                 },
                 {
                     "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
                     "#text": "Move all Topics inside the Forum to a Forum selected Bellow."
                 },
                 {
+                    "@tag": "NAME_MISMATCH",
+                    "#text": "The typed forum name did not match, the forum was not deleted."
+                },
+                {
                     "@tag": "NEW_FORUM",
                     "#text": "New Forum:"
                 },
                 {
                     "@tag": "NEW_FORUM_HELP",
                     "#text": "Select the new Forum for the Topics."
+                },
+                {
+                    "@tag": "SUBFORUMS",
+                    "#text": "Sub forums"
+                },
+                {
+                    "@tag": "SUBFORUMS_KEPT",
+                    "#text": "The sub forums are not deleted, they become forums without a parent forum."
                 },
                 {
                     "@tag": "TITLE",
@@ -3512,6 +3536,18 @@
             "@name": "ADMIN_FORUMS",
             "Resource": [
                 {
+                    "@tag": "CATEGORIES",
+                    "#text": "Categories"
+                },
+                {
+                    "@tag": "CATEGORY_DELETED",
+                    "#text": "The category {0} was deleted."
+                },
+                {
+                    "@tag": "CATEGORY_HAS_FORUMS",
+                    "#text": "A category with forums can not be deleted, move or delete its forums first."
+                },
+                {
                     "@tag": "CONFIRM_DELETE",
                     "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
                 },
@@ -3522,6 +3558,46 @@
                 {
                     "@tag": "CONFIRM_SORTING",
                     "#text": "Are you sure? this step is irreversible!"
+                },
+                {
+                    "@tag": "DRAG_HELP",
+                    "#text": "Drag the handles to change the order of the categories and of the forums of a level, the new order is saved right away. A forum is moved to another category or parent forum on its edit page."
+                },
+                {
+                    "@tag": "DRAG_TO_SORT",
+                    "#text": "Drag to change the order"
+                },
+                {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No categories"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "Create a category first, then add forums to it."
+                },
+                {
+                    "@tag": "FORUMS",
+                    "#text": "Forums"
+                },
+                {
+                    "@tag": "INACTIVE",
+                    "#text": "Inactive"
+                },
+                {
+                    "@tag": "LAST_POST",
+                    "#text": "Last post"
+                },
+                {
+                    "@tag": "LINK",
+                    "#text": "Link"
+                },
+                {
+                    "@tag": "LOCKED",
+                    "#text": "Locked"
+                },
+                {
+                    "@tag": "MODERATED",
+                    "#text": "Moderated"
                 },
                 {
                     "@tag": "MSG_NOT_DELETE",
@@ -3544,6 +3620,26 @@
                     "#text": "New Forum"
                 },
                 {
+                    "@tag": "NO_FORUMS",
+                    "#text": "This category has no forums yet."
+                },
+                {
+                    "@tag": "NO_POSTS",
+                    "#text": "No posts yet"
+                },
+                {
+                    "@tag": "ORDER_NOT_SAVED",
+                    "#text": "The new order could not be saved, the page is reloaded."
+                },
+                {
+                    "@tag": "ORDER_SAVED",
+                    "#text": "The new order is saved."
+                },
+                {
+                    "@tag": "POSTS",
+                    "#text": "Posts"
+                },
+                {
                     "@tag": "SORT_CATEGORIES_ASC",
                     "#text": "Re-Order all Categories ASC"
                 },
@@ -3558,6 +3654,14 @@
                 {
                     "@tag": "SORT_FORUMS_DESC",
                     "#text": "Re-Order all Forums DESC"
+                },
+                {
+                    "@tag": "TEST",
+                    "#text": "Test"
+                },
+                {
+                    "@tag": "TOPICS",
+                    "#text": "Topics"
                 }
             ]
         },

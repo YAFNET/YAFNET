@@ -22,6 +22,7 @@
  * under the License.
  */
 
+using System.Linq;
 using System.Text.RegularExpressions;
 
 using YAF.Tests.UITests.Infrastructure;
@@ -103,11 +104,11 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
-    /// "Copy" in the context menu of a forum in Admin > Forums copies that forum
-    /// (the link had no forum id and opened an empty new forum).
+    /// "Copy" of a forum in Admin > Forums (button and context menu) copies that forum
+    /// (the link of the context menu had no forum id and opened an empty new forum).
     /// </summary>
     [Test]
-    public async Task CopyInContextMenuCopiesTheForumTest()
+    public async Task CopyButtonCopiesTheForumTest()
     {
         await this.Fixture.Context.GotoPageAsync(
             this.TestSettings.TestForumUrl,
@@ -118,27 +119,21 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                     Is.True,
                     "Login failed");
 
-                var name = $"ContextCopy{Random.Shared.Next()}";
+                var name = $"CopyButton{Random.Shared.Next()}";
 
                 var forumId = await this.SaveForumAsync(page, null, name, null);
 
-                string copyLink = null;
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
 
-                // the list is paged (the forums of the other tests come first)
-                for (var p = 1; p <= 50 && copyLink is null; p++)
-                {
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
+                var copyLink = await page.Locator($".forum-row[data-forum-id='{forumId}'] .forum-actions a[href*='/EditForum/true']").GetAttributeAsync("href");
 
-                    var item = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = name });
+                Assert.That(copyLink, Does.EndWith($"/EditForum/true/{forumId}"), "The copy link has no forum");
 
-                    if (await item.CountAsync() > 0)
-                    {
-                        copyLink = await item.First.Locator(".context-menu a[href*='/EditForum/true']").GetAttributeAsync("href");
-                    }
-                }
-
-                Assert.That(copyLink, Is.Not.Null, "The forum or its copy link was not found");
-                Assert.That(copyLink, Does.EndWith($"/EditForum/true/{forumId}"), "The copy link of the context menu has no forum");
+                // the context menu (right click) has the same link
+                Assert.That(
+                    await page.Locator($".forum-row[data-forum-id='{forumId}'] .context-menu a[href*='/EditForum/true']").GetAttributeAsync("href"),
+                    Is.EqualTo(copyLink),
+                    "The copy link of the context menu has no forum");
 
                 await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), copyLink).ToString());
 
@@ -150,12 +145,11 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
-    /// Admin > Forums pages the categories: a category with more forums than the page size is shown on one page
-    /// with all its forums (the rows of categories and forums were paged, the category was shown on more pages,
-    /// each time with all its forums).
+    /// Admin > Forums shows each category once with all its forums (the rows of categories and forums were paged,
+    /// a category with more forums than the page size was shown on several pages, each time with all its forums).
     /// </summary>
     [Test]
-    public async Task ForumListPagesTheCategoriesTest()
+    public async Task ForumListShowsEachCategoryOnceTest()
     {
         await this.Fixture.Context.GotoPageAsync(
             this.TestSettings.TestForumUrl,
@@ -166,59 +160,26 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                     Is.True,
                     "Login failed");
 
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
-
-                var pageSize = int.Parse(await page.Locator("select[name='Size']").InputValueAsync());
-
                 var suffix = Random.Shared.Next();
-                var categoryName = $"PagingCategory{suffix}";
+                var categoryName = $"ListCategory{suffix}";
 
                 var categoryId = await this.CreateCategoryAsync(page, categoryName);
 
-                // more forums than the page size
-                for (var i = 1; i <= pageSize + 1; i++)
+                for (var i = 1; i <= 6; i++)
                 {
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
-                    await page.Locator("#Input_Name").FillAsync($"Paging{suffix}_{i:00}");
-                    await page.Locator("#Input_Description").FillAsync("A forum of the paging test");
-                    await page.Locator("#Input_SortOrder").FillAsync(i.ToString());
-                    await page.EvaluateAsync(
-                        """
-                        id => {
-                            const select = document.querySelector('#Input_CategoryID');
-                            select.add(new Option('', id, true, true));
-                            select.value = id;
-                        }
-                        """,
-                        categoryId);
-                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                    await this.SaveForumInCategoryAsync(page, $"List{suffix}_{i:00}", categoryId, i, null);
                 }
 
-                var pagesWithCategory = 0;
-                var forumsOnPage = 0;
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
 
-                for (var p = 1; p <= 50; p++)
-                {
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
-
-                    var items = page.Locator("li.list-group-item");
-
-                    if (await items.CountAsync() == 0)
-                    {
-                        break;
-                    }
-
-                    if (await page.Locator("li.list-group-item h5", new PageLocatorOptions { HasTextRegex = new Regex($"^\\s*{categoryName}\\s*$") }).CountAsync() == 0)
-                    {
-                        continue;
-                    }
-
-                    pagesWithCategory++;
-                    forumsOnPage = await page.Locator("li.list-group-item h5", new PageLocatorOptions { HasText = $"Paging{suffix}_" }).CountAsync();
-                }
-
-                Assert.That(pagesWithCategory, Is.EqualTo(1), "The category is not shown on exactly one page");
-                Assert.That(forumsOnPage, Is.EqualTo(pageSize + 1), "The forums of the category are not shown with the category");
+                Assert.That(
+                    await page.Locator($"[data-category-id='{categoryId}']").CountAsync(),
+                    Is.EqualTo(1),
+                    "The category is not shown once");
+                Assert.That(
+                    await page.Locator($"[data-category-id='{categoryId}'] .forum-row").CountAsync(),
+                    Is.EqualTo(6),
+                    "The forums of the category are not shown with the category");
             });
     }
 
@@ -251,16 +212,15 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                 await this.SaveForumInCategoryAsync(page, $"TreeBottom{suffix}", categoryId, 1, middle);
                 await this.SaveForumInCategoryAsync(page, $"TreeOther{suffix}", categoryId, 3, null);
 
-                // opens the page with the category
-                await this.AdminForumIdAsync(page, $"TreeOther{suffix}");
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
 
                 // the forums of the category in the order of the list, with their depth
                 var rows = await page.EvaluateAsync<string[]>(
                                """
-                               suffix => [...document.querySelectorAll('li[data-forum-id]')]
-                                   .map(li => [li.querySelector('h5').textContent.trim(), li.dataset.depth])
+                               suffix => [...document.querySelectorAll('.forum-row')]
+                                   .map(row => [row.querySelector('.forum-name').textContent.trim(), row.dataset.depth])
                                    .filter(([name]) => name.includes(suffix))
-                                   .map(([name, depth]) => name.replace(/^-+\s*/, '').replace(suffix, '') + ':' + depth)
+                                   .map(([name, depth]) => name.replace(suffix, '') + ':' + depth)
                                """,
                                suffix.ToString());
 
@@ -268,6 +228,139 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                     rows,
                     Is.EqualTo(new[] { "TreeOther:0", "TreeTop:0", "TreeMiddle:1", "TreeBottom:2" }),
                     "The forums are not shown as a tree");
+            });
+    }
+
+    /// <summary>
+    /// The order of the forums of one level is changed with drag and drop and saved right away,
+    /// the server only saves the order of forums of one level (the same category and parent).
+    /// </summary>
+    [Test]
+    public async Task DragAndDropSavesTheForumOrderTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var suffix = Random.Shared.Next();
+                var categoryId = await this.CreateCategoryAsync(page, $"DragCategory{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"DragA{suffix}", categoryId, 1, null);
+                await this.SaveForumInCategoryAsync(page, $"DragB{suffix}", categoryId, 2, null);
+                await this.SaveForumInCategoryAsync(page, $"DragC{suffix}", categoryId, 3, null);
+
+                var other = await this.SaveForumAsync(page, null, $"DragOther{suffix}", null);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
+
+                var card = page.Locator($"[data-category-id='{categoryId}']");
+
+                // C is dragged above A
+                var response = await page.RunAndWaitForResponseAsync(
+                                   () => card.Locator(".forum-row", new LocatorLocatorOptions { HasText = $"DragC{suffix}" })
+                                       .Locator(".forum-drag-handle")
+                                       .DragToAsync(card.Locator(".forum-row", new LocatorLocatorOptions { HasText = $"DragA{suffix}" }).Locator(".forum-drag-handle")),
+                                   r => r.Url.Contains("SaveOrder"));
+
+                Assert.That(response.Status, Is.EqualTo(200), "The new order was not saved");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
+
+                var names = await card.Locator(".forum-name").AllInnerTextsAsync();
+
+                Assert.That(
+                    names.Select(n => n.Trim().Replace(suffix.ToString(), string.Empty)),
+                    Is.EqualTo(new[] { "DragC", "DragA", "DragB" }),
+                    "The order was not saved");
+
+                // forums of different levels (categories) are refused
+                var ids = await card.Locator(".forum-row").EvaluateAllAsync<int[]>("rows => rows.map(r => Number(r.dataset.forumId))");
+
+                var status = await page.EvaluateAsync<int>(
+                                 """
+                                 async ([url, ids]) => {
+                                     const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                                     const response = await fetch(url, {
+                                         method: 'POST',
+                                         headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': token },
+                                         body: JSON.stringify({ type: 'forums', ids: ids })
+                                     });
+                                     return response.status;
+                                 }
+                                 """,
+                                 new object[] { await page.Locator(".admin-forums").GetAttributeAsync("data-save-url"), ids.Append(other).ToArray() });
+
+                Assert.That(status, Is.EqualTo(400), "Forums of different levels were sorted together");
+            });
+    }
+
+    /// <summary>
+    /// A forum is deleted with its topics only when its name is typed in (also checked by the server),
+    /// or its topics are moved to another forum; the sub forums are kept without parent.
+    /// </summary>
+    [Test]
+    public async Task DeleteForumNeedsTheNameOrATargetTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var suffix = Random.Shared.Next();
+                var name = $"Delete <{suffix}>";
+
+                var forumId = await this.SaveForumAsync(page, null, name, null);
+                var subForumId = await this.SaveForumAsync(page, null, $"DeleteSub{suffix}", forumId, parentOfNew: forumId);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/DeleteForum/{forumId}");
+
+                var submit = page.Locator("[data-delete-submit]");
+                var confirmName = page.Locator("#ConfirmName");
+
+                Assert.That(await page.Locator(".admin-delete-forum").TextContentAsync(), Does.Contain("1"), "The sub forum count is missing");
+                await Assertions.Expect(submit).ToBeDisabledAsync();
+
+                await confirmName.FillAsync(name[..^1]);
+                await Assertions.Expect(submit).ToBeDisabledAsync();
+
+                // a wrong name is refused by the server (without the check of the page)
+                await confirmName.FillAsync("wrong name");
+                await submit.EvaluateAsync("b => { b.disabled = false; b.form.requestSubmit(b); }");
+                await page.WaitForLoadStateAsync();
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
+
+                Assert.That(
+                    await page.Locator($".forum-row[data-forum-id='{forumId}']").CountAsync(),
+                    Is.EqualTo(1),
+                    "The forum was deleted with a wrong name");
+
+                // the right name
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/DeleteForum/{forumId}");
+                await confirmName.FillAsync(name);
+                await Assertions.Expect(submit).ToBeEnabledAsync();
+
+                await page.SubmitAndWaitAsync(submit);
+
+                Assert.That(page.Url, Does.Contain("Admin/Forums"), "The list of forums is not shown after the delete");
+                Assert.That(
+                    await page.Locator($".forum-row[data-forum-id='{forumId}']").CountAsync(),
+                    Is.Zero,
+                    "The forum was not deleted");
+                Assert.That(
+                    await page.Locator($".forum-row[data-forum-id='{subForumId}']").GetAttributeAsync("data-depth"),
+                    Is.EqualTo("0"),
+                    "The sub forum was not kept as a forum without parent");
+                await Assertions.Expect(page.Locator(".toast").Last).ToContainTextAsync(name);
             });
     }
 
@@ -366,31 +459,8 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                 var categoryName = $"MarkAllCategory{suffix}";
 
                 // a category with more forums than the index loads at once, shown after all other categories
-                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditCategory/0");
-                await page.Locator("#Input_Name").FillAsync(categoryName);
-                await page.Locator("#Input_SortOrder").FillAsync("999");
-                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                var categoryId = await this.CreateCategoryAsync(page, categoryName);
 
-                // the list is paged (the forums of the other tests come first)
-                string categoryId = null;
-
-                for (var p = 1; p <= 50 && categoryId is null; p++)
-                {
-                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
-
-                    categoryId = await page.EvaluateAsync<string>(
-                                     """
-                                     name => {
-                                         const item = [...document.querySelectorAll('li.list-group-item')]
-                                             .find(li => li.querySelector('h5')?.textContent.trim() === name);
-                                         const href = item?.querySelector("a[href*='EditCategory/']")?.getAttribute('href');
-                                         return href ? href.match(/EditCategory\/(\d+)/)[1] : null;
-                                     }
-                                     """,
-                                     categoryName);
-                }
-
-                Assert.That(categoryId, Is.Not.Null, "The category was not created");
 
                 for (var i = 1; i <= 21; i++)
                 {
@@ -494,7 +564,7 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                 await page.Locator("#Input_Name").FillAsync(categoryName);
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-                var item = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = categoryName });
+                var item = page.Locator(".category-card", new PageLocatorOptions { HasText = categoryName });
 
                 Assert.That(await item.CountAsync(), Is.GreaterThan(0), "The category was not created");
 
@@ -509,7 +579,7 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                 Assert.That(response.Status, Is.LessThan(500), "Deleting the category failed");
 
                 Assert.That(
-                    await page.Locator("li.list-group-item", new PageLocatorOptions { HasText = categoryName }).CountAsync(),
+                    await page.Locator(".category-card", new PageLocatorOptions { HasText = categoryName }).CountAsync(),
                     Is.Zero,
                     "The deleted category is still shown");
             });
@@ -554,31 +624,18 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
         await page.Locator("#Input_SortOrder").FillAsync("999");
         await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
-        // the list is paged (the categories of the other tests come first)
-        for (var p = 1; p <= 50; p++)
-        {
-            await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
 
-            var categoryId = await page.EvaluateAsync<string>(
-                                 """
-                                 name => {
-                                     const item = [...document.querySelectorAll('li.list-group-item')]
-                                         .find(li => li.querySelector('h5')?.textContent.trim() === name);
-                                     const href = item?.querySelector("a[href*='EditCategory/']")?.getAttribute('href');
-                                     return href ? href.match(/EditCategory\/(\d+)/)[1] : null;
-                                 }
-                                 """,
-                                 name);
+        var categoryId = await page.EvaluateAsync<string>(
+                             """
+                             name => [...document.querySelectorAll('[data-category-id]')]
+                                 .find(card => card.querySelector('.category-name')?.textContent.trim() === name)?.dataset.categoryId ?? null
+                             """,
+                             name);
 
-            if (categoryId is not null)
-            {
-                return categoryId;
-            }
-        }
+        Assert.That(categoryId, Is.Not.Null, $"The category {name} was not created");
 
-        Assert.Fail($"The category {name} was not created");
-
-        return null;
+        return categoryId;
     }
 
     /// <summary>
@@ -616,21 +673,18 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     /// </summary>
     private async Task<int> AdminForumIdAsync(IPage page, string name)
     {
-        for (var p = 1; p <= 50; p++)
-        {
-            await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
 
-            var item = page.Locator("li[data-forum-id]", new PageLocatorOptions { HasText = name });
+        var forumId = await page.EvaluateAsync<string>(
+                          """
+                          name => [...document.querySelectorAll('.forum-row')]
+                              .find(row => row.querySelector('.forum-name')?.textContent.trim() === name)?.dataset.forumId ?? null
+                          """,
+                          name);
 
-            if (await item.CountAsync() > 0)
-            {
-                return int.Parse(await item.First.GetAttributeAsync("data-forum-id"));
-            }
-        }
+        Assert.That(forumId, Is.Not.Null, $"The forum {name} was not found");
 
-        Assert.Fail($"The forum {name} was not found");
-
-        return 0;
+        return int.Parse(forumId);
     }
 
     private async Task<int> ForumIdAsync(IPage page, string name, int? parentId = null)

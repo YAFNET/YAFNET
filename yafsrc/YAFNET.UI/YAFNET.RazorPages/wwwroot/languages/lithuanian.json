@@ -2091,8 +2091,20 @@
             "#text": "Visam laikui ištrinti šį forumą, įskaitant visas su juo susijusius temas, apklausas, priedus ir pranešimus?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Įveskite forumo pavadinimą {0}, kad ištrintumėte forumą su visomis temomis:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Ištrinti forumą"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Neperkėlus temų, forumas {0} visam laikui ištrinamas su visomis temomis, pranešimais, apklausomis ir priedais. Šio veiksmo atšaukti negalima."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Forumas {0} ištrintas."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Perkelkite visas temas iš forumo į pasirinktą forumą."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Įvestas pavadinimas nesutampa, forumas neištrintas."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Naujas forumas:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Pasirinkite naują temų forumą."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Poforumiai"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Poforumiai neištrinami, jie tampa forumais be tėvinio forumo."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Kategorijos"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "Kategorija {0} ištrinta."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Kategorijos su forumais ištrinti negalima, pirmiausia perkelkite arba ištrinkite jos forumus."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Visam laikui ištrinti šį forumą, įskaitant VISAS su juo susijusias temas, apklausas, priedus ir žinutes?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Ar tikrai? šis žingsnis yra negrįžtamas!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Vilkite rankenėles, kad pakeistumėte kategorijų ir vieno lygio forumų tvarką, nauja tvarka išsaugoma iš karto. Forumas perkeliamas į kitą kategoriją ar po kitu forumu jo redagavimo puslapyje."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Vilkite, kad pakeistumėte tvarką"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Kategorijų nėra"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Pirmiausia sukurkite kategoriją, tada pridėkite forumų."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forumai"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Neaktyvi"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Paskutinis pranešimas"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Nuoroda"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Užrakintas"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Moderuojamas"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Naujas forumas"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Šioje kategorijoje dar nėra forumų."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Pranešimų dar nėra"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Naujos tvarkos išsaugoti nepavyko, puslapis įkeliamas iš naujo."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Nauja tvarka išsaugota."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Pranešimai"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Perskirstyti visas kategorijas ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Iš naujo surūšiuoti visus forumus DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Bandomasis"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Temos"
           }
         ]
       },

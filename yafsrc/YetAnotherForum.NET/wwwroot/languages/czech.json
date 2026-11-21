@@ -2091,8 +2091,20 @@
             "#text": "Trvale smažte toto fórum včetně všech témat, průzkumů veřejného mínění, příloh a zpráv s ním?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Zadejte název fóra {0} pro smazání fóra se všemi tématy:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Smazat fórum"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Bez přesunu témat bude fórum {0} trvale smazáno se všemi tématy, příspěvky, anketami a přílohami. Tuto akci nelze vrátit."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Fórum {0} bylo smazáno."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Přesunout všechna témata ve fóru do fóra vybraného níže."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Zadaný název se neshoduje, fórum nebylo smazáno."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Nové fórum:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Vyberte nové fórum pro témata."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Podfóra"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Podfóra se nemažou, stanou se fóry bez nadřazeného fóra."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Kategorie"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "Kategorie {0} byla smazána."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Kategorii s fóry nelze smazat, nejprve přesuňte nebo smažte její fóra."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Trvale smazat toto fórum včetně VŠECH témat, anket, příloh a zpráv s ním spojených?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Jsi si jistá? "
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Přetažením úchytů změníte pořadí kategorií a fór jedné úrovně, nové pořadí se uloží hned. Fórum se do jiné kategorie nebo pod jiné fórum přesouvá na stránce jeho úprav."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Přetažením změníte pořadí"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žádné kategorie"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Nejprve vytvořte kategorii a pak do ní přidejte fóra."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Fóra"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Neaktivní"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Poslední příspěvek"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Odkaz"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Zamčené"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Moderované"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Nové fórum"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Tato kategorie zatím nemá žádná fóra."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Zatím žádné příspěvky"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Nové pořadí se nepodařilo uložit, stránka se znovu načte."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Nové pořadí je uloženo."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Příspěvky"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Znovu objednejte všechny kategorie ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Znovu objednejte všechna fóra DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Témata"
           }
         ]
       },

@@ -25,6 +25,8 @@
 
 namespace YAF.Pages.Admin;
 
+using System;
+using System.Net;
 using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
@@ -59,6 +61,17 @@ public class DeleteForumModel : AdminPage
     public int ForumListSelected { get; set; }
 
     /// <summary>
+    /// Gets or sets the forum name typed in to confirm the delete (needed when the topics are deleted).
+    /// </summary>
+    [BindProperty]
+    public string ConfirmName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of sub forums (they are kept as forums without parent).
+    /// </summary>
+    public int SubForumCount { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="DeleteForumModel"/> class.
     /// </summary>
     public DeleteForumModel()
@@ -84,9 +97,7 @@ public class DeleteForumModel : AdminPage
     /// </summary>
     public IActionResult OnGet(int fa)
     {
-        this.Forum = this.GetRepository<Forum>().GetById(fa);
-
-        if (this.Forum is null)
+        if (!this.LoadForum(fa))
         {
             return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
@@ -103,19 +114,29 @@ public class DeleteForumModel : AdminPage
     {
         string errorMessage;
 
+        // the page is shown again with the forum (it is not sent with the form)
+        if (!this.LoadForum(fa))
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
+        }
+
         var newForumId = this.ForumListSelected;
+        var moveTopics = this.MoveTopics && newForumId != fa;
 
         // the topics are only moved to a forum of the board (without a selected forum they were moved to the
         // forum 0 and lost)
-        if (this.MoveTopics && newForumId != fa && !this.IsBoardForum(newForumId))
+        if (moveTopics && !this.IsBoardForum(newForumId))
         {
-            // the page is shown again with the forum (it is not sent with the form)
-            this.Forum = await this.GetRepository<Forum>().GetByIdAsync(fa);
-
             return this.PageBoardContext.Notify(this.GetText("ADMIN_DELETEFORUM", "NEW_FORUM_HELP"), MessageTypes.warning);
         }
 
-        if (this.MoveTopics && newForumId != fa)
+        // the topics are deleted only when the name of the forum is typed in (the same check as on the page)
+        if (!moveTopics && !string.Equals(this.ConfirmName?.Trim(), this.Forum.Name.Trim(), StringComparison.Ordinal))
+        {
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_DELETEFORUM", "NAME_MISMATCH"), MessageTypes.danger);
+        }
+
+        if (moveTopics)
         {
             // schedule...
             ForumDeleteTask.Start(this.PageBoardContext.PageBoardID, fa, newForumId, out errorMessage);
@@ -128,9 +149,6 @@ public class DeleteForumModel : AdminPage
 
         if (errorMessage.IsSet())
         {
-            // the page is shown again with the forum (it is not sent with the form)
-            this.Forum = await this.GetRepository<Forum>().GetByIdAsync(fa);
-
             return this.PageBoardContext.Notify(errorMessage, MessageTypes.danger);
         }
 
@@ -139,7 +157,30 @@ public class DeleteForumModel : AdminPage
             await Task.Delay(4000);
         }
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
+        // the notification shows the message as html
+        return this.PageBoardContext.SessionNotify(
+            this.GetTextFormatted("FORUM_DELETED", WebUtility.HtmlEncode(this.Forum.Name)),
+            MessageTypes.success,
+            ForumPages.Admin_Forums);
+    }
+
+    /// <summary>
+    /// Loads the forum and the number of its sub forums.
+    /// </summary>
+    /// <param name="forumId">The forum identifier.</param>
+    /// <returns><c>true</c> if the forum exists.</returns>
+    private bool LoadForum(int forumId)
+    {
+        this.Forum = this.GetRepository<Forum>().GetById(forumId);
+
+        if (this.Forum is null)
+        {
+            return false;
+        }
+
+        this.SubForumCount = (int)this.GetRepository<Forum>().Count(f => f.ParentID == forumId);
+
+        return true;
     }
 
     /// <summary>

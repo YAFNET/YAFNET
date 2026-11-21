@@ -247,12 +247,8 @@ public class WebsiteMockupGenerator
 
         var categoryId = await page.EvaluateAsync<string>(
                              """
-                             name => {
-                                 const item = [...document.querySelectorAll('li.list-group-item')]
-                                     .find(li => li.querySelector('h5')?.textContent.trim() === name);
-                                 const href = item?.querySelector("a[href*='EditCategory/']")?.getAttribute('href');
-                                 return href ? href.match(/EditCategory\/(\d+)/)[1] : null;
-                             }
+                             name => [...document.querySelectorAll('[data-category-id]')]
+                                 .find(card => card.querySelector('.category-name')?.textContent.trim() === name)?.dataset.categoryId ?? null
                              """,
                              name);
 

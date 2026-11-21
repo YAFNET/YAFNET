@@ -2091,8 +2091,20 @@
             "#text": "Ta bort detta forum permanent inklusive alla ämnen, omröstningar, bilagor och meddelanden som är associerade med det?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Skriv namnet på forumet {0} för att ta bort forumet med alla dess ämnen:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Ta bort forum"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Utan att flytta ämnena tas forumet {0} bort permanent med alla ämnen, inlägg, omröstningar och bilagor. Detta kan inte ångras."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Forumet {0} har tagits bort."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Flytta alla ämnen i forumet till ett forum som valts nedan."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Namnet du skrev stämmer inte, forumet togs inte bort."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Nytt forum:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Välj det nya forumet för ämnena."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Underforum"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Underforumen tas inte bort, de blir forum utan överordnat forum."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Kategorier"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "Kategorin {0} har tagits bort."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "En kategori med forum kan inte tas bort, flytta eller ta bort dess forum först."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ta bort det här forumet permanent, inklusive ALLA ämnen, omröstningar, bilagor och meddelanden som är kopplade till det?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Är du säker? Detta steg är oåterkalleligt!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Dra i handtagen för att ändra ordningen på kategorierna och på forumen på en nivå, den nya ordningen sparas direkt. Ett forum flyttas till en annan kategori eller ett annat överordnat forum på dess redigeringssida."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Dra för att ändra ordningen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga kategorier"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Skapa först en kategori och lägg sedan till forum."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forum"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inaktiv"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Senaste inlägg"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Länk"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Låst"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Modererad"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Nytt forum"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Den här kategorin har inga forum ännu."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Inga inlägg ännu"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Den nya ordningen kunde inte sparas, sidan laddas om."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Den nya ordningen har sparats."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Inlägg"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Beställ om alla kategorier ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Omordna alla forum DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Ämnen"
           }
         ]
       },

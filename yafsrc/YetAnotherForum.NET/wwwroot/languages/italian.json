@@ -2091,8 +2091,20 @@
             "#text": "Elimina permanentemente questo forum, compresi tutti gli argomenti, i sondaggi, gli allegati e i messaggi ad esso associati?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Digita il nome della sezione {0} per eliminarla con tutte le sue discussioni:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Cancellare il forum"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Senza spostare le discussioni, la sezione {0} viene eliminata definitivamente con tutte le discussioni, i messaggi, i sondaggi e gli allegati. L'operazione non può essere annullata."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "La sezione {0} è stata eliminata."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Spostare tutti gli argomenti all'interno del Forum in un Forum selezionato qui sotto."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Il nome digitato non corrisponde, la sezione non è stata eliminata."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Nuovo Forum:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Selezionare il nuovo Forum per gli argomenti."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Sottosezioni"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Le sottosezioni non vengono eliminate, diventano sezioni senza sezione superiore."
           },
           {
             "@tag": "TITLE",
@@ -3512,6 +3536,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Categorie"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "La categoria {0} è stata eliminata."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Una categoria con sezioni non può essere eliminata, sposta o elimina prima le sue sezioni."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Cancellare definitivamente questo Forum, compresi TUTTI gli argomenti, i sondaggi, gli allegati e i messaggi ad esso associati?"
           },
@@ -3522,6 +3558,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Sei sicuro? Questo passo è irreversibile!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Trascina le maniglie per cambiare l'ordine delle categorie e delle sezioni di un livello, il nuovo ordine viene salvato subito. Una sezione si sposta in un'altra categoria o sotto un'altra sezione dalla sua pagina di modifica."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Trascina per cambiare l'ordine"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessuna categoria"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Crea prima una categoria, poi aggiungi le sezioni."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Sezioni"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inattiva"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Ultimo messaggio"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Link"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Bloccata"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Moderata"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3544,6 +3620,26 @@
             "#text": "Nuovo Forum"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Questa categoria non ha ancora sezioni."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Nessun messaggio"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Non è stato possibile salvare il nuovo ordine, la pagina viene ricaricata."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Il nuovo ordine è stato salvato."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Messaggi"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Riordinare tutte le categorie ASC"
           },
@@ -3558,6 +3654,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Riordinare tutti i forum DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Discussioni"
           }
         ]
       },

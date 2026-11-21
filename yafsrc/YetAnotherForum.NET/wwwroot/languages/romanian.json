@@ -2091,8 +2091,20 @@
             "#text": "Ștergeți permanent acest forum, inclusiv toate subiectele, sondajele, atașamentele și mesajele asociate acestuia?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Introduceți numele secțiunii {0} pentru a o șterge cu toate subiectele:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Ștergeți Forumul"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Fără mutarea subiectelor, secțiunea {0} este ștearsă definitiv cu toate subiectele, mesajele, sondajele și atașamentele. Acțiunea nu poate fi anulată."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Secțiunea {0} a fost ștearsă."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Mutați toate subiectele din cadrul forumului într-un forum selectat mai jos."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Numele introdus nu se potrivește, secțiunea nu a fost ștearsă."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Forum nou:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Selectați noul forum pentru subiecte."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Subsecțiuni"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Subsecțiunile nu sunt șterse, devin secțiuni fără secțiune părinte."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Categorii"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "Categoria {0} a fost ștearsă."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "O categorie cu secțiuni nu poate fi ștearsă, mutați sau ștergeți mai întâi secțiunile ei."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ștergeți definitiv acest forum, inclusiv TOATE subiectele, sondajele, atașamentele și mesajele asociate cu el?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Sunteți sigur? Acest pas este ireversibil!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Trageți de mânere pentru a schimba ordinea categoriilor și a secțiunilor de pe un nivel, noua ordine se salvează imediat. O secțiune se mută în altă categorie sau sub altă secțiune din pagina ei de editare."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Trageți pentru a schimba ordinea"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nicio categorie"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Creați mai întâi o categorie, apoi adăugați secțiuni."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Secțiuni"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Inactivă"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Ultimul mesaj"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Link"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Blocată"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Moderată"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Forum nou"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Această categorie nu are încă secțiuni."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Niciun mesaj"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Noua ordine nu a putut fi salvată, pagina se reîncarcă."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Noua ordine a fost salvată."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Mesaje"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Re-ordonați toate categoriile ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Re-ordonați toate forumurile DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Subiecte"
           }
         ]
       },

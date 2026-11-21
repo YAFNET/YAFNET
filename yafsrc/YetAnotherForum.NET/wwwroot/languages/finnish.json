@@ -2091,8 +2091,20 @@
             "#text": "Poista tämä foorumi pysyvästi, mukaan lukien kaikki siihen liittyvät aiheet, kyselyt, liitteet ja viestit?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Kirjoita alueen nimi {0} poistaaksesi alueen kaikkine aiheineen:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Poista foorumi"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Ilman aiheiden siirtämistä alue {0} poistetaan pysyvästi kaikkine aiheineen, viesteineen, kyselyineen ja liitteineen. Toimintoa ei voi perua."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "Alue {0} poistettiin."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Siirrä kaikki aiheet foorumin sisällä valitulle foorumille."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Kirjoitettu nimi ei täsmää, aluetta ei poistettu."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Uusi foorumi:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Valitse uusi foorumi aiheita varten."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Ala-alueet"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Ala-alueita ei poisteta, niistä tulee alueita ilman yläaluetta."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Luokat"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "Luokka {0} poistettiin."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Luokkaa, jossa on alueita, ei voi poistaa, siirrä tai poista sen alueet ensin."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Poistetaanko tämä foorumi pysyvästi, mukaan lukien KAIKKI siihen liittyvät aiheet, kyselyt, liitteet ja viestit?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Oletko varma? Tämä vaihe on peruuttamaton!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Vedä kahvoista muuttaaksesi luokkien ja saman tason alueiden järjestystä, uusi järjestys tallennetaan heti. Alue siirretään toiseen luokkaan tai toisen alueen alle sen muokkaussivulla."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Vedä muuttaaksesi järjestystä"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei luokkia"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Luo ensin luokka ja lisää siihen sitten alueita."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Alueet"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Ei käytössä"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Viimeisin viesti"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Linkki"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Lukittu"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Moderoitu"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Uusi foorumi"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Tässä luokassa ei ole vielä alueita."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Ei viestejä"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Uutta järjestystä ei voitu tallentaa, sivu ladataan uudelleen."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Uusi järjestys on tallennettu."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Viestit"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Järjestä kaikki kategoriat uudelleen ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Järjestä kaikki foorumit uudelleen DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Testi"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Aiheet"
           }
         ]
       },

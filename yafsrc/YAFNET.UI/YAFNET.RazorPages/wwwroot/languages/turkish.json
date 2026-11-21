@@ -2091,8 +2091,20 @@
             "#text": "Kendisiyle ilişkili tüm konular, anketler, ekler ve mesajlar dahil bu forumu kalıcı olarak silin?"
           },
           {
+            "@tag": "CONFIRM_NAME",
+            "#text": "Forumu tüm konularıyla silmek için forum adını {0} yazın:"
+          },
+          {
             "@tag": "DELETE_FORUM",
             "#text": "Forumu Sil"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Konular taşınmadan {0} forumu tüm konuları, mesajları, anketleri ve ekleriyle birlikte kalıcı olarak silinir. Bu işlem geri alınamaz."
+          },
+          {
+            "@tag": "FORUM_DELETED",
+            "#text": "{0} forumu silindi."
           },
           {
             "@tag": "HEADER1",
@@ -2107,12 +2119,24 @@
             "#text": "Forum içindeki tüm Konuları aşağıda seçilen bir Foruma taşıyın."
           },
           {
+            "@tag": "NAME_MISMATCH",
+            "#text": "Yazılan ad eşleşmiyor, forum silinmedi."
+          },
+          {
             "@tag": "NEW_FORUM",
             "#text": "Yeni Forum:"
           },
           {
             "@tag": "NEW_FORUM_HELP",
             "#text": "Konular için yeni Forumu seçin."
+          },
+          {
+            "@tag": "SUBFORUMS",
+            "#text": "Alt forumlar"
+          },
+          {
+            "@tag": "SUBFORUMS_KEPT",
+            "#text": "Alt forumlar silinmez, üst forumu olmayan forumlara dönüşür."
           },
           {
             "@tag": "TITLE",
@@ -3520,6 +3544,18 @@
         "@name": "ADMIN_FORUMS",
         "Resource": [
           {
+            "@tag": "CATEGORIES",
+            "#text": "Kategoriler"
+          },
+          {
+            "@tag": "CATEGORY_DELETED",
+            "#text": "{0} kategorisi silindi."
+          },
+          {
+            "@tag": "CATEGORY_HAS_FORUMS",
+            "#text": "Forum içeren bir kategori silinemez, önce forumlarını taşıyın veya silin."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Bu Forumu, onunla ilişkili TÜM konular, anketler, ekler ve mesajlar dahil olmak üzere kalıcı olarak silecek misiniz?"
           },
@@ -3530,6 +3566,46 @@
           {
             "@tag": "CONFIRM_SORTING",
             "#text": "Emin misin? Bu adım geri döndürülemez!"
+          },
+          {
+            "@tag": "DRAG_HELP",
+            "#text": "Kategorilerin ve aynı düzeydeki forumların sırasını değiştirmek için tutamaçları sürükleyin, yeni sıra hemen kaydedilir. Bir forum, düzenleme sayfasında başka bir kategoriye veya üst foruma taşınır."
+          },
+          {
+            "@tag": "DRAG_TO_SORT",
+            "#text": "Sırayı değiştirmek için sürükleyin"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Kategori yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Önce bir kategori oluşturun, ardından forum ekleyin."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forumlar"
+          },
+          {
+            "@tag": "INACTIVE",
+            "#text": "Etkin değil"
+          },
+          {
+            "@tag": "LAST_POST",
+            "#text": "Son mesaj"
+          },
+          {
+            "@tag": "LINK",
+            "#text": "Bağlantı"
+          },
+          {
+            "@tag": "LOCKED",
+            "#text": "Kilitli"
+          },
+          {
+            "@tag": "MODERATED",
+            "#text": "Denetimli"
           },
           {
             "@tag": "MSG_NOT_DELETE",
@@ -3552,6 +3628,26 @@
             "#text": "Yeni Forum"
           },
           {
+            "@tag": "NO_FORUMS",
+            "#text": "Bu kategoride henüz forum yok."
+          },
+          {
+            "@tag": "NO_POSTS",
+            "#text": "Henüz mesaj yok"
+          },
+          {
+            "@tag": "ORDER_NOT_SAVED",
+            "#text": "Yeni sıra kaydedilemedi, sayfa yeniden yükleniyor."
+          },
+          {
+            "@tag": "ORDER_SAVED",
+            "#text": "Yeni sıra kaydedildi."
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Mesajlar"
+          },
+          {
             "@tag": "SORT_CATEGORIES_ASC",
             "#text": "Tüm Kategorileri Yeniden Sırala ASC"
           },
@@ -3566,6 +3662,14 @@
           {
             "@tag": "SORT_FORUMS_DESC",
             "#text": "Tüm Forumları Yeniden Sırala DESC"
+          },
+          {
+            "@tag": "TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Konular"
           }
         ]
       },

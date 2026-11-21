@@ -219,7 +219,7 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
 
-                var editLink = await page.Locator("li.list-group-item", new PageLocatorOptions { HasText = forumName })
+                var editLink = await page.Locator(".forum-row", new PageLocatorOptions { HasText = forumName })
                                    .Locator("a[href*='EditForum/false/']").First.GetAttributeAsync("href");
 
                 Assert.That(editLink, Is.Not.Null, "The forum was not created");
