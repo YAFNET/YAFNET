@@ -103,6 +103,53 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// "Copy" in the context menu of a forum in Admin > Forums copies that forum
+    /// (the link had no forum id and opened an empty new forum).
+    /// </summary>
+    [Test]
+    public async Task CopyInContextMenuCopiesTheForumTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var name = $"ContextCopy{Random.Shared.Next()}";
+
+                var forumId = await this.SaveForumAsync(page, null, name, null);
+
+                string copyLink = null;
+
+                // the list is paged (the forums of the other tests come first)
+                for (var p = 1; p <= 50 && copyLink is null; p++)
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
+
+                    var item = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = name });
+
+                    if (await item.CountAsync() > 0)
+                    {
+                        copyLink = await item.First.Locator(".context-menu a[href*='/EditForum/true']").GetAttributeAsync("href");
+                    }
+                }
+
+                Assert.That(copyLink, Is.Not.Null, "The forum or its copy link was not found");
+                Assert.That(copyLink, Does.EndWith($"/EditForum/true/{forumId}"), "The copy link of the context menu has no forum");
+
+                await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), copyLink).ToString());
+
+                Assert.That(
+                    await page.Locator("#Input_Description").InputValueAsync(),
+                    Is.EqualTo("A forum of the hierarchy test"),
+                    "The copy does not show the values of the forum");
+            });
+    }
+
+    /// <summary>
     /// The names of the sub forums in the forum list are shown as entered (not encoded twice).
     /// </summary>
     [Test]

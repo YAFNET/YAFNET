@@ -34,6 +34,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Private messages / chat: links in your own messages were invisible because the link color and the message bubble were both the primary color; they now use the text color of the bubble and are underlined
 * [FIXED] Profile menu (my account, profile pages): on mobile devices in landscape mode the icons were shown vertical (one below the other) instead of horizontal above the content
 * [FIXED] NuGet: the packages YAFNET.Core, YAFNET.Types, YAFNET.Configuration, YAFNET.Web and YAFNET.Data.* used the README of the repository, its HTML (logo and badges) and relative links can not be shown on nuget.org; they now contain their own README (yafsrc/NuGet/README.md) in plain Markdown with absolute links
+* [FIXED] Admin > Forums: "Copy" in the context menu (right click) of a forum opened an empty new forum instead of a copy of the forum
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
