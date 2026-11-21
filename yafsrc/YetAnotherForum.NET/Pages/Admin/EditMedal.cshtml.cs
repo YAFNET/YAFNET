@@ -273,6 +273,16 @@ public class EditMedalModel : AdminPage
     {
         this.CreateMedalImagesList();
 
+        // the name is saved without the spaces around it, a name of spaces is no name
+        this.Input.Name = this.Input.Name?.Trim();
+
+        if (this.Input.Name.IsNotSet())
+        {
+            this.BindLists();
+
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITMEDAL", "MSG_NAME"), MessageTypes.warning);
+        }
+
         // only the images of the medals folder (the value is sent by the client, it is shown in the pages)
         if (this.Input.MedalImage.IsNotSet()
             || !this.MedalImages.Exists(x => x.Value.IsSet() && x.Text == this.Input.MedalImage))

@@ -88,6 +88,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Ranks: a new start rank kept the old start rank, the new users got one of them; now the old start rank loses the flag
 * [FIXED] Admin > Ranks: the start rank could lose its flag, then the registration of new users failed with an error; now a warning is shown
 * [FIXED] Admin > Edit Rank: the spaces around the name were saved, a name of spaces was saved too; now it is refused
+* [FIXED] Admin > Edit Medal: the spaces around the name were saved, a name of spaces was saved too; now it is refused
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

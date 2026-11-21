@@ -817,6 +817,39 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// The name of a medal is saved without the spaces around it and a name of spaces is refused: both were saved.
+    /// </summary>
+    [Test]
+    public async Task MedalNameIsTrimmedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                // a name of spaces
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditMedal");
+                await this.SaveMedalAsync(page, "   ");
+
+                Assert.That(await page.ContentAsync(), Does.Contain("You must enter a medal name!"), "The blank name was saved");
+
+                // the spaces around the name are removed
+                var name = $"Trim medal {Guid.NewGuid().ToString("N")[..8]}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditMedal");
+                await this.SaveMedalAsync(page, $"  {name}  ");
+
+                var href = await page.Locator("li.list-group-item", new PageLocatorOptions { HasText = name })
+                               .Locator("a[href*='EditMedal']").First.GetAttributeAsync("href");
+
+                await page.GotoAsync(new Uri(new Uri(page.Url), href).ToString());
+
+                Assert.That(await page.Locator("#Input_Name").InputValueAsync(), Is.EqualTo(name), "The spaces were saved");
+            });
+    }
+
+    /// <summary>
     /// Saves the medal form with the name and the first image.
     /// </summary>
     private async Task SaveMedalAsync(IPage page, string name)
