@@ -103,6 +103,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin > Re-Index: a failed change of the recovery mode (e.g. missing rights, a database without recovery modes) was shown as a success
 [FIXED] Admin > Re-Index on SQL Server: the recovery mode could not be changed for a database name with a - or a space, the name is quoted (and only the recovery modes are accepted)
 [FIXED] Admin > Test Data: messages without a selected topic failed with an error (the topics of the forum were not loaded)
+[FIXED] Admin > Test Data: forums of the categories of another board failed with an error (the start access mask of the current board was searched in that board)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

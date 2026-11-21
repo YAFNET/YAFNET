@@ -529,8 +529,23 @@ public class TestDataModel : AdminPage
 
             var groups = this.GetRepository<Group>().List(null, boardId);
 
+            // the selected mask is a mask of the current board, a forum of another board gets the mask with the same
+            // name of that board (or its first mask), it failed with an error
             var mask = await this.GetRepository<AccessMask>().GetSingleAsync(
-                m => m.BoardID == boardId && m.ID == this.Input.ForumsStartMask);
+                           m => m.BoardID == boardId && m.ID == this.Input.ForumsStartMask);
+
+            if (mask is null)
+            {
+                var selected = await this.GetRepository<AccessMask>().GetByIdAsync(this.Input.ForumsStartMask);
+                var boardMasks = await this.GetRepository<AccessMask>().GetAsync(m => m.BoardID == boardId);
+
+                mask = boardMasks.Find(m => m.Name == selected?.Name) ?? boardMasks.FirstOrDefault();
+            }
+
+            if (mask is null)
+            {
+                continue;
+            }
 
             groups.ForEach(group => this.GetRepository<ForumAccess>().Create(newForumId, group.ID, mask.ID));
 
