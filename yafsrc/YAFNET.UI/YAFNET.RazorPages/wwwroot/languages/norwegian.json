@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Brettet {0} er slettet."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vil du slette dette brettet?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Gjeldende brett"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Brettet forumet kjører på, kan ikke slettes."
           },
           {
             "@tag": "DELETE",
             "#text": "Slett"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Skriv inn navnet på brettet {0} for å bekrefte:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Navnet du skrev inn stemmer ikke, brettet ble ikke slettet."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Brettet {0} slettes permanent med alle kategorier, forum, emner, innlegg, brukere, grupper og innstillinger. Dette kan ikke angres."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Redigere"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen brett"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Det finnes ingen brett ennå, opprett det første."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forum"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Nytt styre"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Ingen beskrivelse"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Innlegg"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Siden {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Styrer"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Emner"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Brukere"
           }
         ]
       },

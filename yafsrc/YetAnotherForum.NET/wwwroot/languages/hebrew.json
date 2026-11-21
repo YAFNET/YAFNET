@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "הלוח {0} נמחק."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "למחוק את הלוח הזה?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "הלוח הנוכחי"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "לא ניתן למחוק את הלוח שעליו הפורום פועל."
           },
           {
             "@tag": "DELETE",
             "#text": "לִמְחוֹק"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "הקלד את שם הלוח {0} לאישור:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "השם שהוקלד אינו תואם, הלוח לא נמחק."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "הלוח {0} יימחק לצמיתות יחד עם כל הקטגוריות, הפורומים, הנושאים, ההודעות, המשתמשים, הקבוצות וההגדרות. לא ניתן לבטל פעולה זו."
+          },
+          {
             "@tag": "EDIT",
             "#text": "לַעֲרוֹך"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "אין לוחות"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "עדיין אין לוחות, צור את הלוח הראשון."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "פורומים"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "לוח חדש"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "אין תיאור"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "הודעות"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "מאז {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "לוחות"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "נושאים"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "משתמשים"
           }
         ]
       },

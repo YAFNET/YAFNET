@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Đã xóa bảng {0}."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Xóa bảng này?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Bảng hiện tại"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Không thể xóa bảng mà diễn đàn đang chạy."
           },
           {
             "@tag": "DELETE",
             "#text": "Xóa bỏ"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Nhập tên bảng {0} để xác nhận:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Tên đã nhập không khớp, bảng chưa bị xóa."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Bảng {0} sẽ bị xóa vĩnh viễn cùng với tất cả chuyên mục, diễn đàn, chủ đề, bài viết, người dùng, nhóm và cài đặt. Không thể hoàn tác thao tác này."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Chỉnh sửa"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có bảng nào"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Chưa có bảng nào, hãy tạo bảng đầu tiên."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Diễn đàn"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Bảng mới"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Không có mô tả"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Bài viết"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Từ {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Hội đồng quản trị"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Chủ đề"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Người dùng"
           }
         ]
       },

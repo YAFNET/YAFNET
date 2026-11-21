@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Nástenka {0} bola odstránená."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vymazať túto tabuľu?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Aktuálna nástenka"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Nástenku, na ktorej fórum beží, nemožno odstrániť."
           },
           {
             "@tag": "DELETE",
             "#text": "Odstrániť"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Na potvrdenie zadajte názov nástenky {0}:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Zadaný názov sa nezhoduje, nástenka nebola odstránená."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Nástenka {0} bude natrvalo odstránená so všetkými kategóriami, fórami, témami, príspevkami, používateľmi, skupinami a nastaveniami. Túto akciu nemožno vrátiť."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Upraviť"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne nástenky"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Zatiaľ tu nie sú žiadne nástenky, vytvorte prvú."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Fóra"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Nová rada"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Bez popisu"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Príspevky"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Od {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Dosky"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Témy"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Používatelia"
           }
         ]
       },

@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Das Board {0} wurde gelöscht."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Dieses Board löschen?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Aktuelles Board"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Das Board, auf dem das Forum läuft, kann nicht gelöscht werden."
           },
           {
             "@tag": "DELETE",
             "#text": "Löschen"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Gib zur Bestätigung den Namen des Boards {0} ein:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Der eingegebene Name stimmt nicht überein, das Board wurde nicht gelöscht."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Das Board {0} wird mit allen Kategorien, Foren, Themen, Beiträgen, Benutzern, Gruppen und Einstellungen endgültig gelöscht. Das kann nicht rückgängig gemacht werden."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Berarbeiten"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine Boards"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Es gibt noch keine Boards, erstelle das erste Board."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Foren"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Neues Board"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Keine Beschreibung"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Beiträge"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Seit {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Bretter"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Themen"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Benutzer"
           }
         ]
       },

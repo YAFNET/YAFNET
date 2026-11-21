@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "El tablero {0} se ha eliminado."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "¿Eliminar este tablero?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Tablero actual"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "El tablero en el que funciona el foro no se puede eliminar."
           },
           {
             "@tag": "DELETE",
             "#text": "Eliminar"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Escriba el nombre del tablero {0} para confirmar:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "El nombre escrito no coincide, el tablero no se ha eliminado."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "El tablero {0} se elimina de forma permanente con todas sus categorías, foros, temas, mensajes, usuarios, grupos y ajustes. Esta acción no se puede deshacer."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Editar"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No hay tableros"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Todavía no hay tableros, cree el primero."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Foros"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Nuevo tablero"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Sin descripción"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Mensajes"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Desde {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tableros"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Temas"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Usuarios"
           }
         ]
       },

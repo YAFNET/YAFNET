@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Forumul {0} a fost șters."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Să ștergem acest forum?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Forumul curent"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Forumul pe care rulează site-ul nu poate fi șters."
           },
           {
             "@tag": "DELETE",
             "#text": "Ștergeți"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Introduceți numele forumului {0} pentru a confirma:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Numele introdus nu se potrivește, forumul nu a fost șters."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Forumul {0} este șters definitiv cu toate categoriile, secțiunile, subiectele, mesajele, utilizatorii, grupurile și setările sale. Acțiunea nu poate fi anulată."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Editați"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Niciun forum"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Nu există încă forumuri, creați primul."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Secțiuni"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Consiliul nou"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Fără descriere"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Mesaje"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Din {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Panouri"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Subiecte"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Utilizatori"
           }
         ]
       },

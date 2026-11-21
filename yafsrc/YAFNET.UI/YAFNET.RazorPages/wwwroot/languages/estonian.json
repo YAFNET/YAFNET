@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Foorum {0} kustutati."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Kas kustutada see tahvel?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Praegune foorum"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Foorumit, millel sait töötab, ei saa kustutada."
           },
           {
             "@tag": "DELETE",
             "#text": "Kustuta"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Kinnitamiseks sisesta foorumi nimi {0}:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Sisestatud nimi ei ühti, foorumit ei kustutatud."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Foorum {0} kustutatakse jäädavalt koos kõigi kategooriate, alamfoorumite, teemade, postituste, kasutajate, gruppide ja seadetega. Seda ei saa tagasi võtta."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Muuda"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Foorumeid pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Foorumeid veel pole, loo esimene."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Alamfoorumid"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Uus juhatus"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Kirjeldus puudub"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Postitused"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Alates {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Lauad"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Teemad"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Kasutajad"
           }
         ]
       },

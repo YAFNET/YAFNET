@@ -1788,16 +1788,52 @@
             "@name": "ADMIN_BOARDS",
             "Resource": [
                 {
+                    "@tag": "BOARD_DELETED",
+                    "#text": "The board {0} was deleted."
+                },
+                {
                     "@tag": "CONFIRM_DELETE",
                     "#text": "Delete this board?"
+                },
+                {
+                    "@tag": "CURRENT_BOARD",
+                    "#text": "Current board"
+                },
+                {
+                    "@tag": "CURRENT_BOARD_NO_DELETE",
+                    "#text": "The board the forum runs on can not be deleted."
                 },
                 {
                     "@tag": "DELETE",
                     "#text": "Delete"
                 },
                 {
+                    "@tag": "DELETE_CONFIRM_LABEL",
+                    "#text": "Type the board name {0} to confirm:"
+                },
+                {
+                    "@tag": "DELETE_NAME_MISMATCH",
+                    "#text": "The typed board name did not match, the board was not deleted."
+                },
+                {
+                    "@tag": "DELETE_WARNING",
+                    "#text": "The board {0} with all its categories, forums, topics, posts, users, groups and settings is deleted permanently. This can not be undone."
+                },
+                {
                     "@tag": "EDIT",
                     "#text": "Edit"
+                },
+                {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No boards"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "There are no boards yet, create the first board."
+                },
+                {
+                    "@tag": "FORUMS",
+                    "#text": "Forums"
                 },
                 {
                     "@tag": "ID",
@@ -1812,8 +1848,28 @@
                     "#text": "New Board"
                 },
                 {
+                    "@tag": "NO_DESCRIPTION",
+                    "#text": "No description"
+                },
+                {
+                    "@tag": "POSTS",
+                    "#text": "Posts"
+                },
+                {
+                    "@tag": "SINCE",
+                    "#text": "Since {0}"
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "Boards"
+                },
+                {
+                    "@tag": "TOPICS",
+                    "#text": "Topics"
+                },
+                {
+                    "@tag": "USERS",
+                    "#text": "Users"
                 }
             ]
         },

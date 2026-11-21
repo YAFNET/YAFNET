@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Il forum {0} è stato eliminato."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Cancellare questo forum?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Forum attuale"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Il forum su cui è in esecuzione il sito non può essere eliminato."
           },
           {
             "@tag": "DELETE",
             "#text": "Cancellare"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Digita il nome del forum {0} per confermare:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Il nome digitato non corrisponde, il forum non è stato eliminato."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Il forum {0} viene eliminato definitivamente con tutte le categorie, sezioni, discussioni, messaggi, utenti, gruppi e impostazioni. L'operazione non può essere annullata."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Modifica"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessun forum"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Non ci sono ancora forum, crea il primo."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Sezioni"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Nuovo consiglio"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Nessuna descrizione"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Messaggi"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Dal {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Schede"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Discussioni"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Utenti"
           }
         ]
       },

@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Nástěnka {0} byla smazána."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Smazat tuto nástěnku?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Aktuální nástěnka"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Nástěnku, na které fórum běží, nelze smazat."
           },
           {
             "@tag": "DELETE",
             "#text": "Vymazat"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Pro potvrzení zadejte název nástěnky {0}:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Zadaný název se neshoduje, nástěnka nebyla smazána."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Nástěnka {0} bude trvale smazána se všemi kategoriemi, fóry, tématy, příspěvky, uživateli, skupinami a nastaveními. Tuto akci nelze vrátit."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Upravit"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žádné nástěnky"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Zatím zde nejsou žádné nástěnky, vytvořte první."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Fóra"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Nová deska"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Bez popisu"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Příspěvky"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Od {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Desky"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Témata"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Uživatelé"
           }
         ]
       },

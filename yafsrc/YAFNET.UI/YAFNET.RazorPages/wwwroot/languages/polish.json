@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Forum {0} zostało usunięte."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Usunąć to forum?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Bieżące forum"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Nie można usunąć forum, na którym działa serwis."
           },
           {
             "@tag": "DELETE",
             "#text": "Usuń"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Wpisz nazwę forum {0}, aby potwierdzić:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Wpisana nazwa nie zgadza się, forum nie zostało usunięte."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Forum {0} zostanie trwale usunięte wraz ze wszystkimi kategoriami, działami, tematami, postami, użytkownikami, grupami i ustawieniami. Tej operacji nie można cofnąć."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Edytuj"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak forów"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Nie ma jeszcze żadnego forum, utwórz pierwsze."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Działy"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Nowe Forum"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Brak opisu"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Posty"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Od {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Fora"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Tematy"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Użytkownicy"
           }
         ]
       },

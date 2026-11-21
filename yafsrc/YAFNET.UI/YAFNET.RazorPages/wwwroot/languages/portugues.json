@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "O quadro {0} foi eliminado."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Eliminar este quadro?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Quadro atual"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "O quadro em que o fórum está a funcionar não pode ser eliminado."
           },
           {
             "@tag": "DELETE",
             "#text": "Eliminar"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Escreva o nome do quadro {0} para confirmar:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "O nome escrito não corresponde, o quadro não foi eliminado."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "O quadro {0} é eliminado permanentemente com todas as suas categorias, fóruns, tópicos, mensagens, utilizadores, grupos e definições. Esta ação não pode ser anulada."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Editar"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Sem quadros"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Ainda não existem quadros, crie o primeiro."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Fóruns"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Novo Conselho"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Sem descrição"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Mensagens"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Desde {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Quadros"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Tópicos"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Utilizadores"
           }
         ]
       },

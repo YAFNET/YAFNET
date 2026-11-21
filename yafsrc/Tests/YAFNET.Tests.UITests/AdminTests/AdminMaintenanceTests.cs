@@ -1165,7 +1165,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                 await page.SubmitAndWaitAsync(page.Locator("button[formaction$='/Save'], button[formaction*='handler=Save']").First);
 
-                var editLink = await page.Locator(".list-group-item", new PageLocatorOptions { HasText = boardName })
+                var editLink = await page.Locator(".board-card", new PageLocatorOptions { HasText = boardName })
                                    .Locator("a[href*='EditBoard/']").First.GetAttributeAsync("href");
 
                 Assert.That(editLink, Is.Not.Null, "The board was not created");
@@ -1640,33 +1640,122 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Boards");
 
-                var current = page.Locator("li.list-group-item.active");
+                var current = page.Locator(".board-card-current");
 
-                var idText = await current.Locator("small").First.InnerTextAsync();
-                var boardId = idText[(idText.LastIndexOf(':') + 1)..].Trim();
+                Assert.That(await current.CountAsync(), Is.EqualTo(1), "The current board is not marked");
 
+                var boardId = await current.GetAttributeAsync("data-board-id");
+                var boardName = (await current.Locator(".card-title").InnerTextAsync()).Trim();
+
+                // the delete button of the current board is disabled and there is no delete dialog for it
                 Assert.That(
-                    await current.Locator("button[formaction*='Delete']").CountAsync(),
+                    await current.Locator("button.btn-outline-danger").IsDisabledAsync(),
+                    Is.True,
+                    "The delete button of the current board is enabled");
+                Assert.That(
+                    await page.Locator($"#deleteBoard{boardId}").CountAsync(),
                     Is.Zero,
-                    "The current board has a delete button");
+                    "The current board has a delete dialog");
 
-                var deleteStatus = await page.EvaluateAsync<int>(
-                    """
-                    async url => {
-                        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-                        const response = await fetch(url, { method: 'POST', body: new URLSearchParams({ '__RequestVerificationToken': token }) });
-                        return response.status;
-                    }
-                    """,
-                    $"{this.TestSettings.TestForumUrl}Admin/Boards/Delete?id={boardId}");
+                // even with the right name the server refuses the delete
+                var deleteStatus = await this.PostDeleteBoardAsync(page, boardId, boardName);
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Boards");
 
                 Assert.That(
-                    await page.Locator("li.list-group-item.active").CountAsync(),
+                    await page.Locator($".board-card-current[data-board-id='{boardId}']").CountAsync(),
                     Is.EqualTo(1),
                     $"The current board was deleted ({deleteStatus})");
             });
+    }
+
+    /// <summary>
+    /// A board is only deleted after its name is typed in the delete dialog: the delete button of the dialog
+    /// stays disabled until the name matches, a request with a wrong name is refused by the server,
+    /// and the deleted board is gone from the list.
+    /// </summary>
+    [Test]
+    public async Task DeleteBoardNeedsTheBoardNameTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                // a name with html, it has to be typed (and shown) as it is
+                var boardName = $"Delete Board <{Random.Shared.Next()}>";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditBoard");
+                await page.Locator("#Input_Name").FillAsync(boardName);
+
+                if (await page.Locator("#Input_CreateAdminUser").IsCheckedAsync())
+                {
+                    await page.Locator("#Input_CreateAdminUser").UncheckAsync();
+                }
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction$='/Save'], button[formaction*='handler=Save']").First);
+
+                var card = page.Locator(".board-card", new PageLocatorOptions { HasText = boardName });
+
+                Assert.That(await card.CountAsync(), Is.EqualTo(1), "The board was not created");
+
+                var boardId = await card.GetAttributeAsync("data-board-id");
+
+                // a wrong name is refused by the server (also without the dialog)
+                await this.PostDeleteBoardAsync(page, boardId, "wrong name");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Boards");
+
+                Assert.That(
+                    await page.Locator($".board-card[data-board-id='{boardId}']").CountAsync(),
+                    Is.EqualTo(1),
+                    "The board was deleted with a wrong name");
+
+                // the dialog: the delete button is enabled only with the right name
+                await page.Locator($"[data-bs-target='#deleteBoard{boardId}']").ClickAsync();
+
+                var dialog = page.Locator($"#deleteBoard{boardId}");
+                var confirmName = dialog.Locator("input[name='confirmName']");
+                var submit = dialog.Locator("[data-confirm-submit]");
+
+                await Assertions.Expect(dialog).ToBeVisibleAsync();
+                await Assertions.Expect(submit).ToBeDisabledAsync();
+
+                await confirmName.FillAsync(boardName[..^1]);
+                await Assertions.Expect(submit).ToBeDisabledAsync();
+
+                await confirmName.FillAsync(boardName);
+                await Assertions.Expect(submit).ToBeEnabledAsync();
+
+                await page.SubmitAndWaitAsync(submit);
+
+                Assert.That(page.Url, Does.Contain("Admin/Boards"), "The list of boards is not shown after the delete");
+                Assert.That(
+                    await page.Locator($".board-card[data-board-id='{boardId}']").CountAsync(),
+                    Is.Zero,
+                    "The board was not deleted");
+                await Assertions.Expect(page.Locator(".toast").Last).ToContainTextAsync(boardName);
+            });
+    }
+
+    /// <summary>
+    /// Posts the delete of a board (like the delete dialog) without the dialog.
+    /// </summary>
+    private Task<int> PostDeleteBoardAsync(IPage page, string boardId, string confirmName)
+    {
+        return page.EvaluateAsync<int>(
+            """
+            async ([url, confirmName]) => {
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    body: new URLSearchParams({ '__RequestVerificationToken': token, 'confirmName': confirmName })
+                });
+                return response.status;
+            }
+            """,
+            new[] { $"{this.TestSettings.TestForumUrl}Admin/Boards/Delete?id={boardId}", confirmName });
     }
 
     private async Task LoginAdminAsync(IPage page)

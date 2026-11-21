@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Het board {0} is verwijderd."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Verwijder dit board?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Huidig board"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Het board waarop het forum draait, kan niet worden verwijderd."
           },
           {
             "@tag": "DELETE",
             "#text": "Verwijder"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Typ ter bevestiging de naam van het board {0}:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "De getypte naam komt niet overeen, het board is niet verwijderd."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Het board {0} wordt definitief verwijderd met alle categorieën, forums, onderwerpen, berichten, gebruikers, groepen en instellingen. Dit kan niet ongedaan worden gemaakt."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Bewerk"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen boards"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Er zijn nog geen boards, maak het eerste board aan."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forums"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Nieuw Board"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Geen beschrijving"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Berichten"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Sinds {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Borden"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Onderwerpen"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Gebruikers"
           }
         ]
       },

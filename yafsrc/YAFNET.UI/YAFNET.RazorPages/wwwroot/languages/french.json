@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Le forum {0} a été supprimé."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Supprimer ce forum ?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Forum actuel"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Le forum sur lequel le site fonctionne ne peut pas être supprimé."
           },
           {
             "@tag": "DELETE",
             "#text": "Supprimer"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Saisissez le nom du forum {0} pour confirmer :"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Le nom saisi ne correspond pas, le forum n'a pas été supprimé."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Le forum {0} est supprimé définitivement avec toutes ses catégories, sous-forums, sujets, messages, utilisateurs, groupes et paramètres. Cette action est irréversible."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Modifier"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucun forum"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Il n'y a encore aucun forum, créez le premier."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forums"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Nouveau Conseil"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Aucune description"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Messages"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Depuis le {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Conseils d'administration"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Sujets"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Utilisateurs"
           }
         ]
       },

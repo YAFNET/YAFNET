@@ -22,6 +22,7 @@ module.exports = [
 			themeSelector: './wwwroot/lib/bootstrap/themeSelector.ts',
 			topics: './wwwroot/lib/pages/topics.ts',
 			'admin-dashboard': './wwwroot/lib/pages/admin-dashboard.ts',
+			'admin-boards': './wwwroot/lib/pages/admin-boards.ts',
 			"serviceWorker": './wwwroot/lib/serviceWorker.ts'
 		},
 		output: {

@@ -23,17 +23,22 @@
  * under the License.
  */
 
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace YAF.Pages.Admin;
 
-using System.Collections.Generic;
-
 using YAF.Core.Extensions;
 using YAF.Core.Model;
+using YAF.Types.Extensions;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// Admin Page for managing Boards
@@ -44,8 +49,17 @@ public class BoardsModel : AdminPage
     /// Gets or sets the list.
     /// </summary>
     /// <value>The list.</value>
-    [BindProperty]
     public List<Board> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the key figures of the boards (by board id).
+    /// </summary>
+    public Dictionary<int, BoardStat> Stats { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the cultures of the boards (by board id), the native name of the culture.
+    /// </summary>
+    public Dictionary<int, string> Cultures { get; set; } = [];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BoardsModel"/> class.
@@ -78,17 +92,39 @@ public class BoardsModel : AdminPage
     /// Delete the board.
     /// </summary>
     /// <param name="id">The identifier.</param>
+    /// <param name="confirmName">The board name typed in to confirm the delete.</param>
     /// <returns>IActionResult.</returns>
-    public async Task<IActionResult> OnPostDeleteAsync(int id)
+    public async Task<IActionResult> OnPostDeleteAsync(int id, string confirmName)
     {
         // the forum runs on its board, the board can not be deleted from itself
-        if (id == this.PageBoardContext.PageBoardID)
+        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || id == this.PageBoardContext.PageBoardID)
         {
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
+        var board = await this.GetRepository<Board>().GetByIdAsync(id);
+
+        if (board is null)
+        {
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Boards);
+        }
+
+        // the name has to be typed in, the same check as in the dialog
+        if (!string.Equals(confirmName?.Trim(), board.Name.Trim(), StringComparison.Ordinal))
+        {
+            return this.PageBoardContext.SessionNotify(
+                this.GetText("ADMIN_BOARDS", "DELETE_NAME_MISMATCH"),
+                MessageTypes.danger,
+                ForumPages.Admin_Boards);
+        }
+
         await this.GetRepository<Board>().DeleteBoardAsync(id);
-        return await this.BindDataAsync();
+
+        return this.PageBoardContext.SessionNotify(
+            // the notification shows the message as html
+            this.GetTextFormatted("BOARD_DELETED", WebUtility.HtmlEncode(board.Name)),
+            MessageTypes.success,
+            ForumPages.Admin_Boards);
     }
 
     /// <summary>
@@ -98,6 +134,34 @@ public class BoardsModel : AdminPage
     {
         this.List = await this.GetRepository<Board>().GetAllAsync();
 
+        foreach (var boardId in this.List.Select(board => board.ID))
+        {
+            this.Stats[boardId] = await this.GetRepository<Board>().StatsAsync(boardId);
+        }
+
+        var cultures = await this.GetRepository<Registry>().GetAsync(r => r.Name == "culture" && r.BoardID != null);
+
+        foreach (var culture in cultures.Where(c => c.Value.IsSet()))
+        {
+            this.Cultures[culture.BoardID.Value] = GetCultureName(culture.Value);
+        }
+
         return this.Page();
+    }
+
+    /// <summary>
+    /// Gets the native name of a culture, or the culture code if it is unknown.
+    /// </summary>
+    /// <param name="culture">The culture code.</param>
+    private static string GetCultureName(string culture)
+    {
+        try
+        {
+            return CultureInfo.GetCultureInfo(culture).NativeName;
+        }
+        catch (CultureNotFoundException)
+        {
+            return culture;
+        }
     }
 }

@@ -129,7 +129,99 @@
     }
 }
 
+// Admin boards
+.admin-boards {
+    .board-card,
+    .board-card-new {
+        transition: transform .15s ease, box-shadow .15s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
+        }
+    }
+
+    // the board the forum runs on
+    .board-card-current {
+        border-color: var(--bs-primary);
+        box-shadow: inset 4px 0 0 var(--bs-primary);
+
+        &:hover {
+            box-shadow: inset 4px 0 0 var(--bs-primary), 0 6px 16px rgba(0, 0, 0, .1);
+        }
+    }
+
+    // the new board tile
+    .board-card-new {
+        min-height: 12rem;
+        border: 2px dashed var(--bs-border-color);
+        background: transparent;
+        color: var(--bs-secondary-color);
+
+        &:hover,
+        &:focus-visible {
+            border-color: var(--bs-primary);
+            color: var(--bs-primary);
+        }
+    }
+
+    // two lines of the description
+    .board-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        min-height: 3em;
+    }
+
+    .board-figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: .5rem .25rem;
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+        text-align: center;
+    }
+
+    .board-figure-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        margin-bottom: .25rem;
+        border-radius: var(--bs-border-radius);
+        font-size: .9rem;
+    }
+
+    .board-figure-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        line-height: 1.2;
+        font-variant-numeric: tabular-nums;
+        overflow-wrap: anywhere;
+    }
+
+    .board-figure-label {
+        font-size: .7rem;
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        color: var(--bs-secondary-color);
+    }
+
+    .board-since {
+        font-size: .8rem;
+        color: var(--bs-secondary-color);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
+    .admin-boards .board-card,
+    .admin-boards .board-card:hover,
+    .admin-boards .board-card-new,
+    .admin-boards .board-card-new:hover,
     .admin-dashboard .stats-card,
     .admin-dashboard .stats-card:hover {
         transition: none;

@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Forumtavlan {0} har tagits bort."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ta bort denna styrelse?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Aktuell forumtavla"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Forumtavlan som forumet körs på kan inte tas bort."
           },
           {
             "@tag": "DELETE",
             "#text": "Ta bort"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Skriv namnet på forumtavlan {0} för att bekräfta:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Namnet du skrev stämmer inte, forumtavlan togs inte bort."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Forumtavlan {0} tas bort permanent med alla kategorier, forum, ämnen, inlägg, användare, grupper och inställningar. Detta kan inte ångras."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Redigera"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga forumtavlor"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Det finns inga forumtavlor ännu, skapa den första."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forum"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Ny styrelse"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Ingen beskrivning"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Inlägg"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Sedan {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Styrelser"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Ämnen"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Användare"
           }
         ]
       },

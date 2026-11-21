@@ -19,6 +19,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Menu: the pages only the host admin can use (Languages, Database: ReIndex, Run SQL, Backup, Restart App, Test Generator) moved from the Admin menu to the Host menu
 * [CHANGES] Admin > Dashboard: new layout: key figures as tiles, the charts and the lists side by side (registrations and background tasks, who is online and unverified users) with counts in the headers, the charts and tiles follow the light/dark theme
 * [CHANGES] Admin: the task manager page is removed, the background tasks (running/finished, live duration) are shown on the dashboard
+* [CHANGES] Admin > Boards: new layout: the boards as cards with description, language and key figures (users, topics, posts, forums, since), the current board is marked; deleting a board shows what is deleted and needs the board name typed in (checked again on the server), the context menu is removed
 * [CHANGES] Admin: the upgrade button of a new version links directly to the release package for the database of the forum (e.g. YAF.SqlServer-v4.0.12.zip) instead of the downloads page
 * [FIXED] Relative times: "30 seconds ago" was shown as "South Sudan ago", the texts were looked up on all language pages and the country code SS was found first
 * [FIXED] Admin > Dashboard: numbers from 1,000 (posts, topics, users) counted up to 1 (the thousands separator stopped the number)

@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "论坛 {0} 已删除。"
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "删除此板？"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "当前论坛"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "无法删除网站正在运行的论坛。"
           },
           {
             "@tag": "DELETE",
             "#text": "删除"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "请输入论坛名称 {0} 以确认："
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "输入的名称不匹配，论坛未被删除。"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "论坛 {0} 及其所有分类、版块、主题、帖子、用户、用户组和设置将被永久删除。此操作无法撤销。"
+          },
+          {
             "@tag": "EDIT",
             "#text": "编辑"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有论坛"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "还没有论坛，请创建第一个论坛。"
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "版块"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "新董事会"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "无描述"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "帖子"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "自 {0} 起"
+          },
+          {
             "@tag": "TITLE",
             "#text": "董事会"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "主题"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "用户"
           }
         ]
       },

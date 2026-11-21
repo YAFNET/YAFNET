@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Foorumi {0} poistettiin."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Poistetaanko tämä foorumi?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Nykyinen foorumi"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Foorumia, jolla sivusto toimii, ei voi poistaa."
           },
           {
             "@tag": "DELETE",
             "#text": "Poista"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Vahvista kirjoittamalla foorumin nimi {0}:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Kirjoitettu nimi ei täsmää, foorumia ei poistettu."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Foorumi {0} poistetaan pysyvästi kaikkine luokkineen, alueineen, aiheineen, viesteineen, käyttäjineen, ryhmineen ja asetuksineen. Toimintoa ei voi perua."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Muokkaa"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei foorumeita"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Foorumeita ei vielä ole, luo ensimmäinen."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Alueet"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Uusi hallitus"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Ei kuvausta"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Viestit"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "{0} alkaen"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Johtokunnat"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Aiheet"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Käyttäjät"
           }
         ]
       },

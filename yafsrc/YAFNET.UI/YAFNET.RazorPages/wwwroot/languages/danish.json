@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Tavlen {0} er slettet."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vil du slette denne tavle?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Aktuel tavle"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Den tavle, forummet kører på, kan ikke slettes."
           },
           {
             "@tag": "DELETE",
             "#text": "Slet"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Skriv navnet på tavlen {0} for at bekræfte:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Det indtastede navn passer ikke, tavlen blev ikke slettet."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Tavlen {0} slettes permanent med alle kategorier, fora, emner, indlæg, brugere, grupper og indstillinger. Dette kan ikke fortrydes."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Redigere"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen tavler"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Der er endnu ingen tavler, opret den første."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Fora"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Ny bestyrelse"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Ingen beskrivelse"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Indlæg"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Siden {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tavler"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Emner"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Brugere"
           }
         ]
       },

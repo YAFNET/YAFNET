@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "{0} panosu silindi."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Bu panoyu silelim mi?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Geçerli pano"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Forumun çalıştığı pano silinemez."
           },
           {
             "@tag": "DELETE",
             "#text": "Silme"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Onaylamak için pano adını {0} yazın:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Yazılan ad eşleşmiyor, pano silinmedi."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "{0} panosu tüm kategorileri, forumları, konuları, mesajları, kullanıcıları, grupları ve ayarlarıyla birlikte kalıcı olarak silinir. Bu işlem geri alınamaz."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Düzenle"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Pano yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Henüz pano yok, ilk panoyu oluşturun."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forumlar"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Yeni Yönetim Kurulu"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Açıklama yok"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Mesajlar"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "{0} tarihinden beri"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Kurullar"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Konular"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Kullanıcılar"
           }
         ]
       },

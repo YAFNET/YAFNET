@@ -1788,16 +1788,52 @@
         "@name": "ADMIN_BOARDS",
         "Resource": [
           {
+            "@tag": "BOARD_DELETED",
+            "#text": "Lenta {0} ištrinta."
+          },
+          {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ištrinti šią lentą?"
+          },
+          {
+            "@tag": "CURRENT_BOARD",
+            "#text": "Dabartinė lenta"
+          },
+          {
+            "@tag": "CURRENT_BOARD_NO_DELETE",
+            "#text": "Lentos, kurioje veikia forumas, ištrinti negalima."
           },
           {
             "@tag": "DELETE",
             "#text": "Ištrinti"
           },
           {
+            "@tag": "DELETE_CONFIRM_LABEL",
+            "#text": "Patvirtinkite įvesdami lentos pavadinimą {0}:"
+          },
+          {
+            "@tag": "DELETE_NAME_MISMATCH",
+            "#text": "Įvestas pavadinimas nesutampa, lenta neištrinta."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Lenta {0} visam laikui ištrinama su visomis kategorijomis, forumais, temomis, pranešimais, naudotojais, grupėmis ir nustatymais. Šio veiksmo atšaukti negalima."
+          },
+          {
             "@tag": "EDIT",
             "#text": "Redaguoti"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Lentų nėra"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Lentų dar nėra, sukurkite pirmąją."
+          },
+          {
+            "@tag": "FORUMS",
+            "#text": "Forumai"
           },
           {
             "@tag": "ID",
@@ -1812,8 +1848,28 @@
             "#text": "Nauja valdyba"
           },
           {
+            "@tag": "NO_DESCRIPTION",
+            "#text": "Aprašymo nėra"
+          },
+          {
+            "@tag": "POSTS",
+            "#text": "Pranešimai"
+          },
+          {
+            "@tag": "SINCE",
+            "#text": "Nuo {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Lentos"
+          },
+          {
+            "@tag": "TOPICS",
+            "#text": "Temos"
+          },
+          {
+            "@tag": "USERS",
+            "#text": "Naudotojai"
           }
         ]
       },
