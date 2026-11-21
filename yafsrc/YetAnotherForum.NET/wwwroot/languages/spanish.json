@@ -4118,6 +4118,14 @@
             "#text": "Cuando está activado muestra tarjetas flotantes (que muestran alguna información rápida sobre el usuario) cuando pasas por encima del nombre de un usuario. Son como las tarjetas flotantes de los botones de perfil de Twitter y Facebook."
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Habilite actualizaciones en tiempo real:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Los nuevos temas y publicaciones se muestran en las páginas abiertas (discusiones activas, lista de foros, lista de temas y el tema) sin recargar la página."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "Activar el botón de Retweetear mensajes:"
           },
@@ -5460,14 +5468,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token usado para hacer llamadas a servicios web seguros. En cambio constante hasta que se guarda la configuración del servidor."
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "Habilite actualizaciones en tiempo real:"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "Los nuevos temas y publicaciones se muestran en las páginas abiertas (discusiones activas, lista de foros, lista de temas y el tema) sin recargar la página."
           }
         ]
       },
@@ -7550,6 +7550,10 @@
             "#text": "en el Foro: {0}"
           },
           {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Se publicó una nueva respuesta en este tema, muéstrala"
+          },
+          {
             "@tag": "LOADING",
             "#text": "Cargando..."
           },
@@ -7868,10 +7872,6 @@
           {
             "@tag": "YES",
             "#text": "Si"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "Se publicó una nueva respuesta en este tema, muéstrala"
           }
         ]
       },

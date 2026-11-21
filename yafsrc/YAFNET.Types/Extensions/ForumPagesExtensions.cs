@@ -43,28 +43,28 @@ public static class ForumPagesExtensions
         nameof(ForumPages.Admin_RestartApp), nameof(ForumPages.Admin_TestData)
     ];
 
-    /// <summary>
-    /// Checks if only the host admin can use the page.
-    /// </summary>
     /// <param name="page">The page.</param>
-    /// <returns>Returns if it is a host admin page.</returns>
-    public static bool IsHostAdminPage(this ForumPages page)
+    extension(ForumPages page)
     {
-        return Array.IndexOf(HostAdminPages, page.ToString()) >= 0;
-    }
+        /// <summary>
+        /// Checks if only the host admin can use the page.
+        /// </summary>
+        /// <returns>Returns if it is a host admin page.</returns>
+        public bool IsHostAdminPage()
+        {
+            return Array.IndexOf(HostAdminPages, page.ToString()) >= 0;
+        }
 
-    /// <summary>
-    /// The get page name.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string GetPageName(this ForumPages page)
-    {
-        return $"/{page.ToString().Replace("_", "/")}";
+        /// <summary>
+        /// The get page name.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string GetPageName()
+        {
+            return $"/{page.ToString().Replace("_", "/")}";
+        }
     }
 
     public static ForumPages ToPageName(this string pageName)

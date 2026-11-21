@@ -4118,6 +4118,14 @@
             "#text": "Se abilitato, quando si passa il mouse sul nome di un utente viene visualizzata una scheda Hover (che mostra alcune informazioni rapide sull'utente). Questa scheda viene visualizzata anche sul pulsante del profilo di Twitter e Facebook.\r\n     "
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Abilita aggiornamenti in tempo reale:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Nuovi argomenti e post vengono visualizzati nelle pagine aperte (discussioni attive, elenco forum, elenco argomenti e argomento) senza ricaricare la pagina."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "Abilita il pulsante Retweet del messaggio:"
           },
@@ -5460,14 +5468,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizzato per effettuare chiamate sicure al servizio web. Cambia continuamente finché non si salvano le impostazioni dell'host."
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "Abilita aggiornamenti in tempo reale:"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "Nuovi argomenti e post vengono visualizzati nelle pagine aperte (discussioni attive, elenco forum, elenco argomenti e argomento) senza ricaricare la pagina."
           }
         ]
       },
@@ -6125,11 +6125,11 @@
           },
           {
             "@tag": "NO_RESULTS",
-            "#text": "No results returned."
+            "#text": "Nessun risultato restituito."
           },
           {
             "@tag": "RECORDS_AFFECTED",
-            "#text": "{0} record(s) affected."
+            "#text": "{0} record interessati."
           },
           {
             "@tag": "RESULT",
@@ -6137,7 +6137,7 @@
           },
           {
             "@tag": "ROWS_TRUNCATED",
-            "#text": "Only the first {0} rows are shown."
+            "#text": "Vengono mostrate solo le prime {0} righe."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6149,7 +6149,7 @@
           },
           {
             "@tag": "TABLE",
-            "#text": "Table"
+            "#text": "Tavolo"
           },
           {
             "@tag": "TITLE",
@@ -7259,7 +7259,7 @@
           },
           {
             "@tag": "REACTION_WOW",
-            "#text": "Wow"
+            "#text": "Oh"
           }
         ]
       },
@@ -7548,6 +7548,10 @@
           {
             "@tag": "IN_FORUM",
             "#text": "nel Forum: {0}"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Una nuova risposta è stata pubblicata in questo argomento, mostrala"
           },
           {
             "@tag": "LOADING",
@@ -7868,10 +7872,6 @@
           {
             "@tag": "YES",
             "#text": "Sì"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "Una nuova risposta è stata pubblicata in questo argomento, mostrala"
           }
         ]
       },
@@ -7953,7 +7953,7 @@
           },
           {
             "@tag": "AX",
-            "#text": "Åland Islands"
+            "#text": "Isole Åland"
           },
           {
             "@tag": "AZ",
@@ -7997,11 +7997,11 @@
           },
           {
             "@tag": "BL",
-            "#text": "Saint Barthélemy"
+            "#text": "San Bartolomeo"
           },
           {
             "@tag": "BM",
-            "#text": "Bermuda"
+            "#text": "Bermude"
           },
           {
             "@tag": "BN",
@@ -8013,7 +8013,7 @@
           },
           {
             "@tag": "BQ",
-            "#text": "Caribbean Netherlands"
+            "#text": "Paesi Bassi caraibici"
           },
           {
             "@tag": "BR",
@@ -8313,7 +8313,7 @@
           },
           {
             "@tag": "IM",
-            "#text": "Isle of Man"
+            "#text": "Isola di Man"
           },
           {
             "@tag": "IN",
@@ -8341,7 +8341,7 @@
           },
           {
             "@tag": "JE",
-            "#text": "Jersey"
+            "#text": "Maglia"
           },
           {
             "@tag": "JM",
@@ -8461,7 +8461,7 @@
           },
           {
             "@tag": "MF",
-            "#text": "Saint Martin"
+            "#text": "San Martino"
           },
           {
             "@tag": "MG",
@@ -8629,7 +8629,7 @@
           },
           {
             "@tag": "PS",
-            "#text": "Palestine"
+            "#text": "Palestina"
           },
           {
             "@tag": "PT",
@@ -8733,7 +8733,7 @@
           },
           {
             "@tag": "SS",
-            "#text": "South Sudan"
+            "#text": "Sudan del Sud"
           },
           {
             "@tag": "ST",
@@ -8785,7 +8785,7 @@
           },
           {
             "@tag": "TL",
-            "#text": "Timor-Leste"
+            "#text": "Timor Est"
           },
           {
             "@tag": "TM",

@@ -4126,6 +4126,14 @@
             "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button."
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Aktivera realtidsuppdateringar:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Nya ämnen och inlägg visas på de öppna sidorna (aktiva diskussioner, forumlista, ämneslista och ämnet) utan att ladda om sidan."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "Aktivera Retweet-knappen:"
           },
@@ -5468,14 +5476,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som används för att göra säkra webbtjänstsamtal. Ändras ständigt tills du sparar dina värdinställningar."
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "Aktivera realtidsuppdateringar:"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "Nya ämnen och inlägg visas på de öppna sidorna (aktiva diskussioner, forumlista, ämneslista och ämnet) utan att ladda om sidan."
           }
         ]
       },
@@ -7558,6 +7558,10 @@
             "#text": "i Forum: {0}"
           },
           {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Ett nytt svar postades i detta ämne, visa det"
+          },
+          {
             "@tag": "LOADING",
             "#text": "Laddar..."
           },
@@ -7876,10 +7880,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "Ett nytt svar postades i detta ämne, visa det"
           }
         ]
       },

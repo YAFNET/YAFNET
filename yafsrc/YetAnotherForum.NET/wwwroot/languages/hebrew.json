@@ -4126,6 +4126,14 @@
             "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button."
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "אפשר עדכונים בזמן אמת:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "נושאים ופוסטים חדשים מוצגים בדפים הפתוחים (דיונים פעילים, רשימת פורומים, רשימת נושאים והנושא) מבלי לטעון מחדש את העמוד."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "לחצן הפעל הודעה מחדש:"
           },
@@ -5468,14 +5476,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "אסימון המשמש לביצוע שיחות שירות אינטרנט מאובטח. משתנה כל הזמן עד שתשמור את הגדרות המארח שלך."
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "אפשר עדכונים בזמן אמת:"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "נושאים ופוסטים חדשים מוצגים בדפים הפתוחים (דיונים פעילים, רשימת פורומים, רשימת נושאים והנושא) מבלי לטעון מחדש את העמוד."
           }
         ]
       },
@@ -6133,11 +6133,11 @@
           },
           {
             "@tag": "NO_RESULTS",
-            "#text": "No results returned."
+            "#text": "לא הוחזרו תוצאות."
           },
           {
             "@tag": "RECORDS_AFFECTED",
-            "#text": "{0} record(s) affected."
+            "#text": "{0} רשומות הושפעו."
           },
           {
             "@tag": "RESULT",
@@ -6145,7 +6145,7 @@
           },
           {
             "@tag": "ROWS_TRUNCATED",
-            "#text": "Only the first {0} rows are shown."
+            "#text": "רק {0} השורות הראשונות מוצגות."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6157,7 +6157,7 @@
           },
           {
             "@tag": "TABLE",
-            "#text": "Table"
+            "#text": "לוּחַ"
           },
           {
             "@tag": "TITLE",
@@ -7562,6 +7562,10 @@
             "#text": "בפורום: {0}"
           },
           {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "תשובה חדשה פורסמה בנושא זה, הצג אותה"
+          },
+          {
             "@tag": "LOADING",
             "#text": "טוען..."
           },
@@ -7880,10 +7884,6 @@
           {
             "@tag": "YES",
             "#text": "כן"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "תשובה חדשה פורסמה בנושא זה, הצג אותה"
           }
         ]
       },
@@ -7965,7 +7965,7 @@
           },
           {
             "@tag": "AX",
-            "#text": "Åland Islands"
+            "#text": "איי אולנד"
           },
           {
             "@tag": "AZ",
@@ -8009,7 +8009,7 @@
           },
           {
             "@tag": "BL",
-            "#text": "Saint Barthélemy"
+            "#text": "סנט ברת'למי"
           },
           {
             "@tag": "BM",
@@ -8025,7 +8025,7 @@
           },
           {
             "@tag": "BQ",
-            "#text": "Caribbean Netherlands"
+            "#text": "הולנד הקאריבית"
           },
           {
             "@tag": "BR",
@@ -8117,7 +8117,7 @@
           },
           {
             "@tag": "CW",
-            "#text": "Curaçao"
+            "#text": "קוראסאו"
           },
           {
             "@tag": "CX",
@@ -8233,7 +8233,7 @@
           },
           {
             "@tag": "GG",
-            "#text": "Guernsey"
+            "#text": "גרנזי"
           },
           {
             "@tag": "GH",
@@ -8325,7 +8325,7 @@
           },
           {
             "@tag": "IM",
-            "#text": "Isle of Man"
+            "#text": "האי מאן"
           },
           {
             "@tag": "IN",
@@ -8353,7 +8353,7 @@
           },
           {
             "@tag": "JE",
-            "#text": "Jersey"
+            "#text": "ג'רזי"
           },
           {
             "@tag": "JM",
@@ -8401,7 +8401,7 @@
           },
           {
             "@tag": "KW",
-            "#text": "Kuwait"
+            "#text": "כווית"
           },
           {
             "@tag": "KY",
@@ -8473,7 +8473,7 @@
           },
           {
             "@tag": "MF",
-            "#text": "Saint Martin"
+            "#text": "סנט מרטין"
           },
           {
             "@tag": "MG",
@@ -8641,7 +8641,7 @@
           },
           {
             "@tag": "PS",
-            "#text": "Palestine"
+            "#text": "פַּלֶשְׂתִינָה"
           },
           {
             "@tag": "PT",
@@ -8669,7 +8669,7 @@
           },
           {
             "@tag": "RS",
-            "#text": "Serbia"
+            "#text": "סרביה"
           },
           {
             "@tag": "RU",
@@ -8745,7 +8745,7 @@
           },
           {
             "@tag": "SS",
-            "#text": "South Sudan"
+            "#text": "דרום סודן"
           },
           {
             "@tag": "ST",
@@ -8757,7 +8757,7 @@
           },
           {
             "@tag": "SX",
-            "#text": "Sint Maarten"
+            "#text": "סנט מרטן"
           },
           {
             "@tag": "SY",
@@ -8797,7 +8797,7 @@
           },
           {
             "@tag": "TL",
-            "#text": "Timor-Leste"
+            "#text": "טימור-לסטה"
           },
           {
             "@tag": "TM",
@@ -8897,7 +8897,7 @@
           },
           {
             "@tag": "XK",
-            "#text": "Kosovo"
+            "#text": "קוסובו"
           },
           {
             "@tag": "YE",

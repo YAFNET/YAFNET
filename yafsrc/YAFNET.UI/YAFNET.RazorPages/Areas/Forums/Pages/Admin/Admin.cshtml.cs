@@ -32,8 +32,6 @@ using FarsiLibrary.Core.Utils;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-using MimeKit;
-
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;

@@ -4118,6 +4118,14 @@
             "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button."
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "تمكين التحديثات في الوقت الحقيقي:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "يتم عرض المواضيع والمشاركات الجديدة على الصفحات المفتوحة (المناقشات النشطة وقائمة المنتديات وقائمة المواضيع والموضوع) دون إعادة تحميل الصفحة."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "تمكين زر إعادة التغريد:"
           },
@@ -5460,14 +5468,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "رمز يستخدم لإجراء مكالمات خدمة ويب آمنة. "
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "تمكين التحديثات في الوقت الحقيقي:"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "يتم عرض المواضيع والمشاركات الجديدة على الصفحات المفتوحة (المناقشات النشطة وقائمة المنتديات وقائمة المواضيع والموضوع) دون إعادة تحميل الصفحة."
           }
         ]
       },
@@ -6125,11 +6125,11 @@
           },
           {
             "@tag": "NO_RESULTS",
-            "#text": "No results returned."
+            "#text": "لم يتم إرجاع أي نتائج."
           },
           {
             "@tag": "RECORDS_AFFECTED",
-            "#text": "{0} record(s) affected."
+            "#text": "{0} سجل (سجلات) متأثرة."
           },
           {
             "@tag": "RESULT",
@@ -6137,7 +6137,7 @@
           },
           {
             "@tag": "ROWS_TRUNCATED",
-            "#text": "Only the first {0} rows are shown."
+            "#text": "يتم عرض الصفوف {0} الأولى فقط."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6149,7 +6149,7 @@
           },
           {
             "@tag": "TABLE",
-            "#text": "Table"
+            "#text": "طاولة"
           },
           {
             "@tag": "TITLE",
@@ -7546,6 +7546,10 @@
             "#text": "في المنتدى: {0}"
           },
           {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "تم نشر رد جديد في هذا الموضوع، إظهاره"
+          },
+          {
             "@tag": "LOADING",
             "#text": "... تحميل   "
           },
@@ -7864,10 +7868,6 @@
           {
             "@tag": "YES",
             "#text": "نعم"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "تم نشر رد جديد في هذا الموضوع، إظهاره"
           }
         ]
       },
@@ -7949,7 +7949,7 @@
           },
           {
             "@tag": "AX",
-            "#text": "Åland Islands"
+            "#text": "جزر آلاند"
           },
           {
             "@tag": "AZ",
@@ -7993,7 +7993,7 @@
           },
           {
             "@tag": "BL",
-            "#text": "Saint Barthélemy"
+            "#text": "القديس بارتيليمي"
           },
           {
             "@tag": "BM",
@@ -8009,7 +8009,7 @@
           },
           {
             "@tag": "BQ",
-            "#text": "Caribbean Netherlands"
+            "#text": "هولندا الكاريبية"
           },
           {
             "@tag": "BR",
@@ -8101,7 +8101,7 @@
           },
           {
             "@tag": "CW",
-            "#text": "Curaçao"
+            "#text": "كوراساو"
           },
           {
             "@tag": "CX",
@@ -8217,7 +8217,7 @@
           },
           {
             "@tag": "GG",
-            "#text": "Guernsey"
+            "#text": "غيرنسي"
           },
           {
             "@tag": "GH",
@@ -8309,7 +8309,7 @@
           },
           {
             "@tag": "IM",
-            "#text": "Isle of Man"
+            "#text": "جزيرة مان"
           },
           {
             "@tag": "IN",
@@ -8337,7 +8337,7 @@
           },
           {
             "@tag": "JE",
-            "#text": "Jersey"
+            "#text": "جيرسي"
           },
           {
             "@tag": "JM",
@@ -8385,7 +8385,7 @@
           },
           {
             "@tag": "KW",
-            "#text": "Kuwait"
+            "#text": "الكويت"
           },
           {
             "@tag": "KY",
@@ -8457,7 +8457,7 @@
           },
           {
             "@tag": "MF",
-            "#text": "Saint Martin"
+            "#text": "سانت مارتن"
           },
           {
             "@tag": "MG",
@@ -8625,7 +8625,7 @@
           },
           {
             "@tag": "PS",
-            "#text": "Palestine"
+            "#text": "فلسطين"
           },
           {
             "@tag": "PT",
@@ -8653,7 +8653,7 @@
           },
           {
             "@tag": "RS",
-            "#text": "Serbia"
+            "#text": "صربيا"
           },
           {
             "@tag": "RU",
@@ -8729,7 +8729,7 @@
           },
           {
             "@tag": "SS",
-            "#text": "South Sudan"
+            "#text": "جنوب السودان"
           },
           {
             "@tag": "ST",
@@ -8741,7 +8741,7 @@
           },
           {
             "@tag": "SX",
-            "#text": "Sint Maarten"
+            "#text": "سينت مارتن"
           },
           {
             "@tag": "SY",
@@ -8781,7 +8781,7 @@
           },
           {
             "@tag": "TL",
-            "#text": "Timor-Leste"
+            "#text": "تيمور الشرقية"
           },
           {
             "@tag": "TM",
@@ -8881,7 +8881,7 @@
           },
           {
             "@tag": "XK",
-            "#text": "Kosovo"
+            "#text": "كوسوفو"
           },
           {
             "@tag": "YE",

@@ -4126,6 +4126,14 @@
             "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button."
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Aktiver realtidsopdateringer:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Nye emner og indlæg vises på de åbne sider (aktive diskussioner, forumliste, emneliste og emnet) uden at genindlæse siden."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "Aktiver retweetmeddelelsesknap:"
           },
@@ -5468,14 +5476,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token bruges til at foretage sikre webserviceopkald. "
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "Aktiver realtidsopdateringer:"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "Nye emner og indlæg vises på de åbne sider (aktive diskussioner, forumliste, emneliste og emnet) uden at genindlæse siden."
           }
         ]
       },
@@ -6133,11 +6133,11 @@
           },
           {
             "@tag": "NO_RESULTS",
-            "#text": "No results returned."
+            "#text": "Ingen resultater returneret."
           },
           {
             "@tag": "RECORDS_AFFECTED",
-            "#text": "{0} record(s) affected."
+            "#text": "{0} registrering(er) påvirket."
           },
           {
             "@tag": "RESULT",
@@ -6145,7 +6145,7 @@
           },
           {
             "@tag": "ROWS_TRUNCATED",
-            "#text": "Only the first {0} rows are shown."
+            "#text": "Kun de første {0} rækker vises."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6157,7 +6157,7 @@
           },
           {
             "@tag": "TABLE",
-            "#text": "Table"
+            "#text": "Tabel"
           },
           {
             "@tag": "TITLE",
@@ -7558,6 +7558,10 @@
             "#text": "i forum: {0}"
           },
           {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Et nyt svar blev indsendt i dette emne, vis det"
+          },
+          {
             "@tag": "LOADING",
             "#text": "Indlæser..."
           },
@@ -7876,10 +7880,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "Et nyt svar blev indsendt i dette emne, vis det"
           }
         ]
       },
@@ -7961,7 +7961,7 @@
           },
           {
             "@tag": "AX",
-            "#text": "Åland Islands"
+            "#text": "Ålandsøerne"
           },
           {
             "@tag": "AZ",
@@ -8005,7 +8005,7 @@
           },
           {
             "@tag": "BL",
-            "#text": "Saint Barthélemy"
+            "#text": "Sankt Barthélemy"
           },
           {
             "@tag": "BM",
@@ -8021,7 +8021,7 @@
           },
           {
             "@tag": "BQ",
-            "#text": "Caribbean Netherlands"
+            "#text": "Caribiske Holland"
           },
           {
             "@tag": "BR",
@@ -8469,7 +8469,7 @@
           },
           {
             "@tag": "MF",
-            "#text": "Saint Martin"
+            "#text": "Sankt Martin"
           },
           {
             "@tag": "MG",
@@ -8637,7 +8637,7 @@
           },
           {
             "@tag": "PS",
-            "#text": "Palestine"
+            "#text": "Palæstina"
           },
           {
             "@tag": "PT",
@@ -8665,7 +8665,7 @@
           },
           {
             "@tag": "RS",
-            "#text": "Serbia"
+            "#text": "Serbien"
           },
           {
             "@tag": "RU",
@@ -8741,7 +8741,7 @@
           },
           {
             "@tag": "SS",
-            "#text": "South Sudan"
+            "#text": "Sydsudan"
           },
           {
             "@tag": "ST",

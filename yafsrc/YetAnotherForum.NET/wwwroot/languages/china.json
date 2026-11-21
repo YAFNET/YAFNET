@@ -4126,6 +4126,14 @@
             "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button."
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "启用实时更新："
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "新主题和帖子显示在打开的页面（活跃讨论、论坛列表、主题列表和主题）上，无需重新加载页面。"
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "启用转推消息按钮："
           },
@@ -5468,14 +5476,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "用于进行安全 Web 服务调用的令牌。"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "启用实时更新："
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "新主题和帖子显示在打开的页面（活跃讨论、论坛列表、主题列表和主题）上，无需重新加载页面。"
           }
         ]
       },
@@ -6133,11 +6133,11 @@
           },
           {
             "@tag": "NO_RESULTS",
-            "#text": "No results returned."
+            "#text": "没有返回结果。"
           },
           {
             "@tag": "RECORDS_AFFECTED",
-            "#text": "{0} record(s) affected."
+            "#text": "{0} 条记录受到影响。"
           },
           {
             "@tag": "RESULT",
@@ -6145,7 +6145,7 @@
           },
           {
             "@tag": "ROWS_TRUNCATED",
-            "#text": "Only the first {0} rows are shown."
+            "#text": "仅显示前 {0} 行。"
           },
           {
             "@tag": "RUN_QUERY",
@@ -6157,7 +6157,7 @@
           },
           {
             "@tag": "TABLE",
-            "#text": "Table"
+            "#text": "桌子"
           },
           {
             "@tag": "TITLE",
@@ -7558,6 +7558,10 @@
             "#text": "在论坛中：{0}"
           },
           {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "该主题已发布新回复，请显示"
+          },
+          {
             "@tag": "LOADING",
             "#text": "正在加载..."
           },
@@ -7876,10 +7880,6 @@
           {
             "@tag": "YES",
             "#text": "是"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "该主题已发布新回复，请显示"
           }
         ]
       },
@@ -7961,7 +7961,7 @@
           },
           {
             "@tag": "AX",
-            "#text": "Åland Islands"
+            "#text": "奥兰群岛"
           },
           {
             "@tag": "AZ",
@@ -8005,7 +8005,7 @@
           },
           {
             "@tag": "BL",
-            "#text": "Saint Barthélemy"
+            "#text": "圣巴泰勒米岛"
           },
           {
             "@tag": "BM",
@@ -8021,7 +8021,7 @@
           },
           {
             "@tag": "BQ",
-            "#text": "Caribbean Netherlands"
+            "#text": "加勒比荷兰"
           },
           {
             "@tag": "BR",
@@ -8113,7 +8113,7 @@
           },
           {
             "@tag": "CW",
-            "#text": "Curaçao"
+            "#text": "库拉索岛"
           },
           {
             "@tag": "CX",
@@ -8229,7 +8229,7 @@
           },
           {
             "@tag": "GG",
-            "#text": "Guernsey"
+            "#text": "根西岛"
           },
           {
             "@tag": "GH",
@@ -8321,7 +8321,7 @@
           },
           {
             "@tag": "IM",
-            "#text": "Isle of Man"
+            "#text": "马恩岛"
           },
           {
             "@tag": "IN",
@@ -8349,7 +8349,7 @@
           },
           {
             "@tag": "JE",
-            "#text": "Jersey"
+            "#text": "球衣"
           },
           {
             "@tag": "JM",
@@ -8397,7 +8397,7 @@
           },
           {
             "@tag": "KW",
-            "#text": "Kuwait"
+            "#text": "科威特"
           },
           {
             "@tag": "KY",
@@ -8469,7 +8469,7 @@
           },
           {
             "@tag": "MF",
-            "#text": "Saint Martin"
+            "#text": "圣马丁岛"
           },
           {
             "@tag": "MG",
@@ -8637,7 +8637,7 @@
           },
           {
             "@tag": "PS",
-            "#text": "Palestine"
+            "#text": "巴勒斯坦"
           },
           {
             "@tag": "PT",
@@ -8665,7 +8665,7 @@
           },
           {
             "@tag": "RS",
-            "#text": "Serbia"
+            "#text": "塞尔维亚"
           },
           {
             "@tag": "RU",
@@ -8741,7 +8741,7 @@
           },
           {
             "@tag": "SS",
-            "#text": "South Sudan"
+            "#text": "南苏丹"
           },
           {
             "@tag": "ST",
@@ -8753,7 +8753,7 @@
           },
           {
             "@tag": "SX",
-            "#text": "Sint Maarten"
+            "#text": "圣马丁岛"
           },
           {
             "@tag": "SY",
@@ -8793,7 +8793,7 @@
           },
           {
             "@tag": "TL",
-            "#text": "Timor-Leste"
+            "#text": "东帝汶"
           },
           {
             "@tag": "TM",
@@ -8893,7 +8893,7 @@
           },
           {
             "@tag": "XK",
-            "#text": "Kosovo"
+            "#text": "科索沃"
           },
           {
             "@tag": "YE",

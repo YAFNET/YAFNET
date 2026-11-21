@@ -4126,6 +4126,14 @@
             "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button."
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Ota reaaliaikaiset päivitykset käyttöön:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Uudet aiheet ja viestit näkyvät avoimilla sivuilla (aktiiviset keskustelut, foorumilista, aihelista ja aihe) lataamatta sivua uudelleen."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "Ota Retweet-viestipainike käyttöön:"
           },
@@ -5468,14 +5476,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, jota käytetään turvallisten verkkopalvelukutsujen tekemiseen. Muuttuu jatkuvasti, kunnes tallennat isäntäasetukset."
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "Ota reaaliaikaiset päivitykset käyttöön:"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "Uudet aiheet ja viestit näkyvät avoimilla sivuilla (aktiiviset keskustelut, foorumilista, aihelista ja aihe) lataamatta sivua uudelleen."
           }
         ]
       },
@@ -6133,11 +6133,11 @@
           },
           {
             "@tag": "NO_RESULTS",
-            "#text": "No results returned."
+            "#text": "Tuloksia ei palautettu."
           },
           {
             "@tag": "RECORDS_AFFECTED",
-            "#text": "{0} record(s) affected."
+            "#text": "Vaikuttaa {0} tietueeseen."
           },
           {
             "@tag": "RESULT",
@@ -6145,7 +6145,7 @@
           },
           {
             "@tag": "ROWS_TRUNCATED",
-            "#text": "Only the first {0} rows are shown."
+            "#text": "Vain ensimmäiset {0} riviä näytetään."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6157,7 +6157,7 @@
           },
           {
             "@tag": "TABLE",
-            "#text": "Table"
+            "#text": "Taulukko"
           },
           {
             "@tag": "TITLE",
@@ -7558,6 +7558,10 @@
             "#text": "foorumissa: {0}"
           },
           {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Uusi vastaus lähetettiin tähän aiheeseen, näytä se"
+          },
+          {
             "@tag": "LOADING",
             "#text": "Ladataan..."
           },
@@ -7876,10 +7880,6 @@
           {
             "@tag": "YES",
             "#text": "Kyllä"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "Uusi vastaus lähetettiin tähän aiheeseen, näytä se"
           }
         ]
       },
@@ -7961,7 +7961,7 @@
           },
           {
             "@tag": "AX",
-            "#text": "Åland Islands"
+            "#text": "Ahvenanmaa"
           },
           {
             "@tag": "AZ",
@@ -8021,7 +8021,7 @@
           },
           {
             "@tag": "BQ",
-            "#text": "Caribbean Netherlands"
+            "#text": "Karibian Alankomaat"
           },
           {
             "@tag": "BR",
@@ -8229,7 +8229,7 @@
           },
           {
             "@tag": "GG",
-            "#text": "Guernsey"
+            "#text": "Guernseyssä"
           },
           {
             "@tag": "GH",
@@ -8321,7 +8321,7 @@
           },
           {
             "@tag": "IM",
-            "#text": "Isle of Man"
+            "#text": "Mansaari"
           },
           {
             "@tag": "IN",
@@ -8469,7 +8469,7 @@
           },
           {
             "@tag": "MF",
-            "#text": "Saint Martin"
+            "#text": "Pyhä Martin"
           },
           {
             "@tag": "MG",
@@ -8637,7 +8637,7 @@
           },
           {
             "@tag": "PS",
-            "#text": "Palestine"
+            "#text": "Palestiina"
           },
           {
             "@tag": "PT",
@@ -8741,7 +8741,7 @@
           },
           {
             "@tag": "SS",
-            "#text": "South Sudan"
+            "#text": "Etelä-Sudan"
           },
           {
             "@tag": "ST",
@@ -8793,7 +8793,7 @@
           },
           {
             "@tag": "TL",
-            "#text": "Timor-Leste"
+            "#text": "Itä-Timor"
           },
           {
             "@tag": "TM",

@@ -4118,6 +4118,14 @@
             "#text": "Indien ingeschakeld, wordt er een zweefkaart weergegeven (die wat snelle informatie over de gebruiker toont) wanneer u de muisaanwijzer op een gebruikersnaam plaatst. "
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Schakel realtime updates in:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Nieuwe onderwerpen en berichten worden op de geopende pagina's (actieve discussies, forumlijst, onderwerpenlijst en het onderwerp) weergegeven zonder dat de pagina opnieuw wordt geladen."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "Zet Retweet Bericht Knop aan:"
           },
@@ -5460,14 +5468,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen."
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "Schakel realtime updates in:"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "Nieuwe onderwerpen en berichten worden op de geopende pagina's (actieve discussies, forumlijst, onderwerpenlijst en het onderwerp) weergegeven zonder dat de pagina opnieuw wordt geladen."
           }
         ]
       },
@@ -6125,11 +6125,11 @@
           },
           {
             "@tag": "NO_RESULTS",
-            "#text": "No results returned."
+            "#text": "Er zijn geen resultaten geretourneerd."
           },
           {
             "@tag": "RECORDS_AFFECTED",
-            "#text": "{0} record(s) affected."
+            "#text": "{0} betrokken record(s)."
           },
           {
             "@tag": "RESULT",
@@ -6137,7 +6137,7 @@
           },
           {
             "@tag": "ROWS_TRUNCATED",
-            "#text": "Only the first {0} rows are shown."
+            "#text": "Alleen de eerste {0} rijen worden weergegeven."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6149,7 +6149,7 @@
           },
           {
             "@tag": "TABLE",
-            "#text": "Table"
+            "#text": "Tafel"
           },
           {
             "@tag": "TITLE",
@@ -7259,7 +7259,7 @@
           },
           {
             "@tag": "REACTION_WOW",
-            "#text": "Wow"
+            "#text": "Wauw"
           }
         ]
       },
@@ -7548,6 +7548,10 @@
           {
             "@tag": "IN_FORUM",
             "#text": "op forum: {0}"
+          },
+          {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Er is een nieuw antwoord in dit onderwerp geplaatst, laat het zien"
           },
           {
             "@tag": "LOADING",
@@ -7868,10 +7872,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "Er is een nieuw antwoord in dit onderwerp geplaatst, laat het zien"
           }
         ]
       },
@@ -7953,7 +7953,7 @@
           },
           {
             "@tag": "AX",
-            "#text": "Åland Islands"
+            "#text": "Åland-eilanden"
           },
           {
             "@tag": "AZ",
@@ -7997,7 +7997,7 @@
           },
           {
             "@tag": "BL",
-            "#text": "Saint Barthélemy"
+            "#text": "Sint-Barthélemy"
           },
           {
             "@tag": "BM",
@@ -8013,7 +8013,7 @@
           },
           {
             "@tag": "BQ",
-            "#text": "Caribbean Netherlands"
+            "#text": "Caribisch Nederland"
           },
           {
             "@tag": "BR",
@@ -8105,7 +8105,7 @@
           },
           {
             "@tag": "CW",
-            "#text": "Curaçao"
+            "#text": "Curacao"
           },
           {
             "@tag": "CX",
@@ -8313,7 +8313,7 @@
           },
           {
             "@tag": "IM",
-            "#text": "Isle of Man"
+            "#text": "Eiland Man"
           },
           {
             "@tag": "IN",
@@ -8389,7 +8389,7 @@
           },
           {
             "@tag": "KW",
-            "#text": "Kuwait"
+            "#text": "Koeweit"
           },
           {
             "@tag": "KY",
@@ -8461,7 +8461,7 @@
           },
           {
             "@tag": "MF",
-            "#text": "Saint Martin"
+            "#text": "Sint Maarten"
           },
           {
             "@tag": "MG",
@@ -8629,7 +8629,7 @@
           },
           {
             "@tag": "PS",
-            "#text": "Palestine"
+            "#text": "Palestina"
           },
           {
             "@tag": "PT",
@@ -8657,7 +8657,7 @@
           },
           {
             "@tag": "RS",
-            "#text": "Serbia"
+            "#text": "Servië"
           },
           {
             "@tag": "RU",
@@ -8733,7 +8733,7 @@
           },
           {
             "@tag": "SS",
-            "#text": "South Sudan"
+            "#text": "Zuid-Soedan"
           },
           {
             "@tag": "ST",
@@ -8785,7 +8785,7 @@
           },
           {
             "@tag": "TL",
-            "#text": "Timor-Leste"
+            "#text": "Oost-Timor"
           },
           {
             "@tag": "TM",

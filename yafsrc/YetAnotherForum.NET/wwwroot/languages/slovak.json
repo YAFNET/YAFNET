@@ -4126,6 +4126,14 @@
             "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button."
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Povoliť aktualizácie v reálnom čase:"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Nové témy a príspevky sa zobrazujú na otvorených stránkach (aktívne diskusie, zoznam fór, zoznam tém a téma) bez opätovného načítania stránky."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "Povolenie tlačidla Retweet správy:"
           },
@@ -5468,14 +5476,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný na bezpečné volania webovej služby. Neustále sa mení, kým neuložíte nastavenia hostiteľa."
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "Povoliť aktualizácie v reálnom čase:"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "Nové témy a príspevky sa zobrazujú na otvorených stránkach (aktívne diskusie, zoznam fór, zoznam tém a téma) bez opätovného načítania stránky."
           }
         ]
       },
@@ -7558,6 +7558,10 @@
             "#text": "vo fóre: {0}"
           },
           {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "V tejto téme bola pridaná nová odpoveď, ukáž ju"
+          },
+          {
             "@tag": "LOADING",
             "#text": "Načítanie..."
           },
@@ -7876,10 +7880,6 @@
           {
             "@tag": "YES",
             "#text": "Áno"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "V tejto téme bola pridaná nová odpoveď, ukáž ju"
           }
         ]
       },

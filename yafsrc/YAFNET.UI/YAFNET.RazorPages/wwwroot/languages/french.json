@@ -4126,6 +4126,14 @@
             "#text": "If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter & Facebook Profile Button."
           },
           {
+            "@tag": "ENABLE_LIVEUPDATES",
+            "#text": "Activer les mises à jour en temps réel :"
+          },
+          {
+            "@tag": "ENABLE_LIVEUPDATES_HELP",
+            "#text": "Les nouveaux sujets et messages sont affichés sur les pages ouvertes (discussions actives, liste du forum, liste des sujets et sujet) sans recharger la page."
+          },
+          {
             "@tag": "ENABLE_RETWEET_MSG",
             "#text": "Activez le bouton de message Retweet :"
           },
@@ -5468,14 +5476,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilisé pour effectuer des appels de service web sécurisés. Il change constamment jusqu'à ce que vous sauvegardiez vos paramètres d'hôte."
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES",
-            "#text": "Activer les mises à jour en temps réel :"
-          },
-          {
-            "@tag": "ENABLE_LIVEUPDATES_HELP",
-            "#text": "Les nouveaux sujets et messages sont affichés sur les pages ouvertes (discussions actives, liste du forum, liste des sujets et sujet) sans recharger la page."
           }
         ]
       },
@@ -6133,11 +6133,11 @@
           },
           {
             "@tag": "NO_RESULTS",
-            "#text": "No results returned."
+            "#text": "Aucun résultat retourné."
           },
           {
             "@tag": "RECORDS_AFFECTED",
-            "#text": "{0} record(s) affected."
+            "#text": "{0} enregistrement(s) concerné(s)."
           },
           {
             "@tag": "RESULT",
@@ -6145,7 +6145,7 @@
           },
           {
             "@tag": "ROWS_TRUNCATED",
-            "#text": "Only the first {0} rows are shown."
+            "#text": "Seules les {0} premières lignes sont affichées."
           },
           {
             "@tag": "RUN_QUERY",
@@ -6157,7 +6157,7 @@
           },
           {
             "@tag": "TABLE",
-            "#text": "Table"
+            "#text": "Tableau"
           },
           {
             "@tag": "TITLE",
@@ -7558,6 +7558,10 @@
             "#text": "dans le Forum : {0}"
           },
           {
+            "@tag": "LIVE_NEW_REPLY",
+            "#text": "Une nouvelle réponse a été publiée dans ce sujet, montrez-la"
+          },
+          {
             "@tag": "LOADING",
             "#text": "Chargement..."
           },
@@ -7876,10 +7880,6 @@
           {
             "@tag": "YES",
             "#text": "Oui"
-          },
-          {
-            "@tag": "LIVE_NEW_REPLY",
-            "#text": "Une nouvelle réponse a été publiée dans ce sujet, montrez-la"
           }
         ]
       },
@@ -7961,7 +7961,7 @@
           },
           {
             "@tag": "AX",
-            "#text": "Åland Islands"
+            "#text": "Îles Åland"
           },
           {
             "@tag": "AZ",
@@ -8021,7 +8021,7 @@
           },
           {
             "@tag": "BQ",
-            "#text": "Caribbean Netherlands"
+            "#text": "Pays-Bas caribéens"
           },
           {
             "@tag": "BR",
@@ -8229,7 +8229,7 @@
           },
           {
             "@tag": "GG",
-            "#text": "Guernsey"
+            "#text": "Guernesey"
           },
           {
             "@tag": "GH",
@@ -8321,7 +8321,7 @@
           },
           {
             "@tag": "IM",
-            "#text": "Isle of Man"
+            "#text": "Île de Man"
           },
           {
             "@tag": "IN",
@@ -8397,7 +8397,7 @@
           },
           {
             "@tag": "KW",
-            "#text": "Kuwait"
+            "#text": "Koweit"
           },
           {
             "@tag": "KY",
@@ -8469,7 +8469,7 @@
           },
           {
             "@tag": "MF",
-            "#text": "Saint Martin"
+            "#text": "Saint-Martin"
           },
           {
             "@tag": "MG",
@@ -8665,7 +8665,7 @@
           },
           {
             "@tag": "RS",
-            "#text": "Serbia"
+            "#text": "Serbie"
           },
           {
             "@tag": "RU",
@@ -8741,7 +8741,7 @@
           },
           {
             "@tag": "SS",
-            "#text": "South Sudan"
+            "#text": "Soudan du Sud"
           },
           {
             "@tag": "ST",
@@ -8753,7 +8753,7 @@
           },
           {
             "@tag": "SX",
-            "#text": "Sint Maarten"
+            "#text": "Saint-Martin"
           },
           {
             "@tag": "SY",
