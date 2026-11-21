@@ -341,7 +341,11 @@ public class RestoreModel : AdminPage
             nameof(SelectListItem.Value),
             nameof(SelectListItem.Text));
 
-        this.MessagesPageSize = this.PageBoardContext.PageUser.PageSize;
+        // the selected page size of the posts is kept (it was always reset to the page size of the user)
+        if (this.MessagesPageSize is < 1 or > 100)
+        {
+            this.MessagesPageSize = this.PageBoardContext.PageUser.PageSize;
+        }
 
         this.BindDeletedTopics(p);
 

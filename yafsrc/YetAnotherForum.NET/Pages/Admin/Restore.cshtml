@@ -258,7 +258,7 @@
     </div>
 <div class="row justify-content-end">
 	<div class="col-auto">
-		<pager page-size="@Model.Size"
+		<pager page-size="@Model.MessagesPageSize"
 		       count="!Model.DeletedMessages.NullOrEmpty() ? Model.DeletedMessages.FirstOrDefault()!.TotalRows : 0"
 		       query-name="p2">
 		</pager>
