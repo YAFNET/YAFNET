@@ -81,6 +81,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Replace Words: the spaces around a bad word were saved (it was checked without them)
 * [FIXED] Admin > Replace Words: the same bad word could be added twice (also by the import), now the dialog shows "already exists"
 * [FIXED] Admin > Edit BBCode: "Cancel" was a submit button, the empty required fields of a new bb code stopped it
+* [FIXED] Admin > Edit BBCode: a bb code without a name stopped the save with an error, now the message is shown
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

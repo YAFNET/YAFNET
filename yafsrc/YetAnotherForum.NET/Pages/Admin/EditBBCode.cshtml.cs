@@ -71,6 +71,14 @@ public class EditBBCodeModel : AdminPage
     {
         int? id = this.Input.BBCodeId == 0 ? null : this.Input.BBCodeId;
 
+        // the name is required (an empty name stopped the save with an error)
+        if (this.Input.Name.IsNotSet())
+        {
+            return this.PageBoardContext.Notify(
+                this.GetText("ADMIN_BBCODE_EDIT", "MSG_NAME"),
+                MessageTypes.warning);
+        }
+
         // an invalid search expression would break the rendering of the posts
         if (this.Input.SearchRegEx.IsSet() && !ValidationHelper.IsValidRegex(this.Input.SearchRegEx))
         {

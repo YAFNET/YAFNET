@@ -157,6 +157,36 @@ public class ContentTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A bb code without a name shows a message (the save stopped with an error).
+    /// </summary>
+    [Test]
+    public async Task BBCodeWithoutNameShowsAMessageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditBBCode");
+
+                // as a crafted request: the name is left out, the check of the browser is removed
+                await page.EvaluateAsync(
+                    """
+                    () => {
+                        document.querySelectorAll('[required]').forEach(e => e.removeAttribute('required'));
+                        document.querySelector('#Input_Name').value = '';
+                        document.querySelector('#Input_Description').value = 'UI test';
+                    }
+                    """);
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Add']"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("You must enter a name."), "The empty name showed no message");
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)
