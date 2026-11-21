@@ -107,7 +107,10 @@ public class SpamWordsController : ForumBaseController
             model.Id = null;
         }
 
-        if (!ValidationHelper.IsValidRegex(model.SpamWord?.Trim()))
+        // saved as it is checked (spaces around the word were saved too)
+        model.SpamWord = model.SpamWord?.Trim();
+
+        if (!ValidationHelper.IsValidRegex(model.SpamWord))
         {
             return this.Ok(
                 new MessageModalNotification(

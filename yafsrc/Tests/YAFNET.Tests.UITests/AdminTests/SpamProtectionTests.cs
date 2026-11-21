@@ -133,6 +133,31 @@ public class SpamProtectionTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// A spam word is saved without the spaces around it (it is checked without them).
+    /// </summary>
+    [Test]
+    public async Task SpamWordIsSavedWithoutSpacesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/SpamWords");
+
+                var word = $"uitesttrim{Random.Shared.Next()}";
+
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/SpamWords/Edit", new { id = 0, spamWord = $"  {word} " });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/SpamWords");
+                await SearchAsync(page, word);
+
+                Assert.That(await page.Locator("li.list-group-item-menu").CountAsync(), Is.EqualTo(1), "The spam word was saved with the spaces");
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)

@@ -72,6 +72,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Admin > Board Settings: new layout with sections (general, appearance, new users, mails, digest, new forums) and the actions at the bottom of the window, a preview of the board logo, the digest options are shown with the digest turned on, after saving the settings stay open with a notice
 * [FIXED] Admin > Spam Protection (spam words, banned emails, ips, names, user agents): the pager of a search counted all entries (empty pages), a search on a later page showed no entries (also the date filter of the spam log)
 * [FIXED] Admin > Spam Protection: a ban changed to the mask of another ban stopped with an error (banned emails, ips, names) or was saved twice (banned user agents), a spam word could be added twice, now the dialog shows "already exists"
+* [FIXED] Admin > Spam Words: the spaces around a spam word were saved (it was checked without them)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
