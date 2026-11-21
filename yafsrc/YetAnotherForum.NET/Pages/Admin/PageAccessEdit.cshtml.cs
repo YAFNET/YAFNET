@@ -102,6 +102,73 @@ public class PageAccessEditModel : AdminPage
     private readonly static string[] HostPages = ForumPagesExtensions.HostAdminPages;
 
     /// <summary>
+    /// The sections of the admin menu (title tag of the admin menu, icon, pages).
+    /// </summary>
+    public readonly static (string Tag, string Icon, string[] Pages)[] Sections =
+    [
+        ("ADMIN_ADMIN", "tachometer-alt", ["Admin_Admin"]),
+        ("SETTINGS", "cogs", ["Admin_BoardAnnouncement", "Admin_Settings", "Admin_Forums", "Admin_EditForum",
+            "Admin_EditCategory", "Admin_DeleteForum", "Admin_ReplaceWords", "Admin_BBCodes", "Admin_EditBBCode"]),
+        ("SPAM_PROTECTION", "shield-alt", ["Admin_SpamLog", "Admin_SpamWords", "Admin_BannedEmails", "Admin_BannedIps",
+            "Admin_BannedNames", "Admin_BannedUserAgents", "Admin_BannedCountries"]),
+        ("USERSANDROLES", "users", ["Admin_ProfileDefinitions", "Admin_AccessMasks", "Admin_EditAccessMask", "Admin_Groups",
+            "Admin_EditGroup", "Admin_Users", "Admin_EditUser", "Admin_RegisterUser", "Admin_Ranks", "Admin_EditRank",
+            "Admin_Medals", "Admin_EditMedal", "Admin_Mail", "Admin_Digest"]),
+        ("MAINTENANCE", "toolbox", ["Admin_Attachments", "Admin_Tags", "Admin_Prune", "Admin_Restore", "Admin_Pm",
+            "Admin_EventLog"]),
+        ("UPGRADE", "download", ["Admin_Version"])
+    ];
+
+    /// <summary>
+    /// The titles of the pages that are not in the admin menu (localization page, tag).
+    /// </summary>
+    private readonly static Dictionary<string, (string Page, string Tag)> PageTitles = new()
+    {
+        ["Admin_Settings"] = ("ADMINMENU", "ADMIN_BOARDSETTINGS"),
+        ["Admin_BBCodes"] = ("ADMINMENU", "ADMIN_BBCODE"),
+        ["Admin_BannedEmails"] = ("ADMINMENU", "ADMIN_BANNEDEMAIL"),
+        ["Admin_BannedIps"] = ("ADMINMENU", "ADMIN_BANNEDIP"),
+        ["Admin_BannedNames"] = ("ADMINMENU", "ADMIN_BANNEDNAME"),
+        ["Admin_BannedUserAgents"] = ("ADMINMENU", "ADMIN_BANNED_USERAGENTS"),
+        ["Admin_BannedCountries"] = ("ADMINMENU", "ADMIN_BANNED_COUNTRIES"),
+        ["Admin_EditForum"] = ("ADMIN_EDITFORUM", "TITLE"),
+        ["Admin_EditCategory"] = ("ADMIN_EDITCATEGORY", "TITLE"),
+        ["Admin_DeleteForum"] = ("ADMIN_DELETEFORUM", "TITLE"),
+        ["Admin_EditBBCode"] = ("ADMIN_BBCODE_EDIT", "TITLE"),
+        ["Admin_EditAccessMask"] = ("ADMIN_EDITACCESSMASKS", "TITLE"),
+        ["Admin_EditGroup"] = ("ADMIN_EDITGROUP", "TITLE"),
+        ["Admin_EditUser"] = ("ADMIN_EDITUSER", "TITLE"),
+        ["Admin_RegisterUser"] = ("ADMIN_REGUSER", "TITLE"),
+        ["Admin_EditRank"] = ("ADMIN_EDITRANK", "TITLE"),
+        ["Admin_EditMedal"] = ("ADMIN_EDITMEDAL", "TITLE")
+    };
+
+    /// <summary>
+    /// The readable title of an admin page (the entry of the admin menu or the title of the page).
+    /// </summary>
+    /// <param name="pageName">The name of the page (e.g. Admin_Forums).</param>
+    public string GetPageTitle(string pageName)
+    {
+        var (page, tag) = PageTitles.TryGetValue(pageName, out var title) ? title : ("ADMINMENU", pageName.ToUpperInvariant());
+
+        // the titles of the edit pages have the name of the item ("Edit User "{0}"")
+        var text = this.GetText(page, tag).Replace("{0}", string.Empty).Trim().Trim('"').Trim();
+
+        return text.IsSet() ? text : pageName;
+    }
+
+    /// <summary>
+    /// The index of the section of a page (the pages that are in no section are the last).
+    /// </summary>
+    /// <param name="pageName">The name of the page.</param>
+    public static int GetSectionIndex(string pageName)
+    {
+        var index = Array.FindIndex(Sections, s => s.Pages.Contains(pageName));
+
+        return index < 0 ? Sections.Length : index;
+    }
+
+    /// <summary>
     /// Handles the Click event of the Save control.
     /// </summary>
     public IActionResult OnPostSave()
@@ -227,6 +294,8 @@ public class PageAccessEditModel : AdminPage
             });
 
         // get admin pages list with access flags.
-        this.AccessList = pagesAll;
+        // in the order of the admin menu
+        this.AccessList = [.. pagesAll.OrderBy(a => GetSectionIndex(a.PageName))
+            .ThenBy(a => Array.FindIndex(Sections.ElementAtOrDefault(GetSectionIndex(a.PageName)).Pages ?? [], p => p == a.PageName))];
     }
 }

@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Tümü"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "İzin verildi"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "Sayfa Erişimi İçin"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Diğer sayfalar"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "Yönetici Kullanıcı"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Forum yöneticileri yalnızca ana yöneticinin izin verdiği yönetim sayfalarını açabilir, ana yöneticiler tüm sayfaları açabilir."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Forum yöneticisi yok, ana yöneticiler tüm yönetim sayfalarını açabilir."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Sayfalar"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} / {1} sayfa"
           },
           {
             "@tag": "TITLE",

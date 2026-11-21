@@ -31,6 +31,7 @@ using System.Linq;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
+using YAF.Types.Extensions;
 using YAF.Types.Models;
 
 /// <summary>
@@ -43,6 +44,16 @@ public class PageAccessListModel : AdminPage
     /// </summary>
     [BindProperty]
     public IEnumerable<User> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of pages each admin can open (user id, count).
+    /// </summary>
+    public Dictionary<int, int> GrantedPages { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the number of admin pages that can be granted (without the pages of the host admin).
+    /// </summary>
+    public int PageCount { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PageAccessListModel"/> class.
@@ -79,6 +90,15 @@ public class PageAccessListModel : AdminPage
     {
         // list admins but not host admins
         this.List = (await this.GetRepository<User>().ListAdminsAsync(this.PageBoardContext.PageBoardID))
-            .Where(u => !u.UserFlags.IsHostAdmin);
+            .Where(u => !u.UserFlags.IsHostAdmin).ToList();
+
+        var pages = Enum.GetNames<ForumPages>()
+            .Where(p => p.StartsWith("Admin_") && !ForumPagesExtensions.HostAdminPages.Contains(p)).ToHashSet();
+
+        this.PageCount = pages.Count;
+
+        this.GrantedPages = this.List.ToDictionary(
+            u => u.ID,
+            u => this.GetRepository<AdminPageUserAccess>().List(u.ID)?.Count(a => pages.Contains(a.PageName)) ?? 0);
     }
 }

@@ -5902,6 +5902,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Alle"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Toegestaan"
           },
@@ -5916,6 +5920,10 @@
           {
             "@tag": "HEADER",
             "#text": "Paginatoegang voor"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Overige pagina's"
           },
           {
             "@tag": "PAGE",
@@ -5953,6 +5961,22 @@
           {
             "@tag": "HEADER",
             "#text": "Admin Gebruiker"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Forumbeheerders kunnen alleen de beheerpagina's openen die de hostbeheerder toestaat, hostbeheerders kunnen alle pagina's openen."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Er zijn geen forumbeheerders, de hostbeheerders kunnen alle beheerpagina's openen."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Pagina's"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} van {1} pagina's"
           },
           {
             "@tag": "TITLE",

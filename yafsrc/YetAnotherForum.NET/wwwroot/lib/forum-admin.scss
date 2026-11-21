@@ -427,6 +427,34 @@
     }
 }
 
+// Admin page access
+.admin-page-access {
+    .page-access-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem .75rem;
+    }
+
+    .page-access-avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        flex: 0 0 auto;
+    }
+
+    .page-access-main {
+        flex: 1 1 16rem;
+        min-width: 0;
+    }
+
+    .page-access-progress {
+        max-width: 12rem;
+        height: .375rem;
+    }
+}
+
 // Admin edit user
 .admin-edit-user {
     .edit-user-avatar {

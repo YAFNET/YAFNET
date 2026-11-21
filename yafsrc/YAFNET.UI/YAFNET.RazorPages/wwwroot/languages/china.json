@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "全部"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "允许"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "页面访问权限"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "其他页面"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "管理员用户"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "论坛管理员只能打开主机管理员允许的管理页面，主机管理员可以打开所有页面。"
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "没有论坛管理员，主机管理员可以打开所有管理页面。"
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "页面"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{1} 个页面中的 {0} 个"
           },
           {
             "@tag": "TITLE",

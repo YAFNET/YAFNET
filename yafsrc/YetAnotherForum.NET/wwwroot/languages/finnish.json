@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Kaikki"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Sallittu"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "Sivun käyttöoikeus"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Muut sivut"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "Admin käyttäjä"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Foorumin ylläpitäjät voivat avata vain ne ylläpitosivut, jotka isännän ylläpitäjä sallii, isännän ylläpitäjät voivat avata kaikki sivut."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Foorumilla ei ole ylläpitäjiä, isännän ylläpitäjät voivat avata kaikki ylläpitosivut."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Sivut"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0}/{1} sivua"
           },
           {
             "@tag": "TITLE",

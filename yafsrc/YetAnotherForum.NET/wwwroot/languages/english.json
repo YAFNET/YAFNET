@@ -5902,6 +5902,10 @@
             "@name": "ADMIN_PAGEACCESSEDIT",
             "Resource": [
                 {
+                    "@tag": "ALL_PAGES",
+                    "#text": "All"
+                },
+                {
                     "@tag": "CANACCESS",
                     "#text": "Allowed"
                 },
@@ -5916,6 +5920,10 @@
                 {
                     "@tag": "HEADER",
                     "#text": "Page Access For"
+                },
+                {
+                    "@tag": "OTHER_PAGES",
+                    "#text": "Other pages"
                 },
                 {
                     "@tag": "PAGE",
@@ -5953,6 +5961,22 @@
                 {
                     "@tag": "HEADER",
                     "#text": "Admin User"
+                },
+                {
+                    "@tag": "INFO",
+                    "#text": "Board admins can only open the admin pages the host admin allows them, host admins can open all pages."
+                },
+                {
+                    "@tag": "NO_ADMINS",
+                    "#text": "There are no board admins, the host admins can open all admin pages."
+                },
+                {
+                    "@tag": "PAGES",
+                    "#text": "Pages"
+                },
+                {
+                    "@tag": "PAGES_COUNT",
+                    "#text": "{0} of {1} pages"
                 },
                 {
                     "@tag": "TITLE",

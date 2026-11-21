@@ -5902,6 +5902,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Tutte"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Consentito"
           },
@@ -5916,6 +5920,10 @@
           {
             "@tag": "HEADER",
             "#text": "Accesso alla pagina Per"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Altre pagine"
           },
           {
             "@tag": "PAGE",
@@ -5953,6 +5961,22 @@
           {
             "@tag": "HEADER",
             "#text": "Utente amministratore"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Gli amministratori del forum possono aprire solo le pagine di amministrazione consentite dall'amministratore host, gli amministratori host possono aprire tutte le pagine."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Non ci sono amministratori del forum, gli amministratori host possono aprire tutte le pagine di amministrazione."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Pagine"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} di {1} pagine"
           },
           {
             "@tag": "TITLE",

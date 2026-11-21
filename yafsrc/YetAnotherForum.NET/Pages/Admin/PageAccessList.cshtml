@@ -1,50 +1,60 @@
 @page "{handler?}"
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
 @using YAF.Web.HtmlHelpers
 @model PageAccessListModel
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("building","ADMIN_PAGEACCESSLIST","TITLE")
-                </div>
-                <div class="card-body">
-                    @if (!Model.List.NullOrEmpty())
-                    {
-                        <ul class="list-group">
+<div class="admin-page-access">
 
-                            @foreach (var item in Model.List)
-                            {
-                                <li class="list-group-item list-group-item-action">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">
-                                            @Html.Icon("user-secret")
-                                            @Html.HtmlEncode(Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name)
-                                        </h5>
-                                    </div>
-                                    <div class="small">
-                                        <div class="btn-group btn-group-sm">
-                                            <a button-style="Info"
-                                               button-size="Small"
-                                               title-localized-page="ADMIN_PAGEACCESSLIST"
-                                               asp-page="@ForumPages.Admin_PageAccessEdit.GetPageName()"
-                                               asp-route-u="@item.ID"
-                                               title-localized-tag="EDIT"
-                                               Icon="edit"
-                                               text-localized-tag="EDIT">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <h2 class="h4 mb-0">
+        @Html.IconHeader("building", "ADMIN_PAGEACCESSLIST", "TITLE")
+    </h2>
+</div>
 
-                        </ul>
-                    }
+<p class="text-body-secondary small">@Html.LocalizedText("ADMIN_PAGEACCESSLIST", "INFO")</p>
+
+@if (!Model.List.NullOrEmpty())
+{
+    <ul class="list-group mb-3">
+        @foreach (var item in Model.List)
+        {
+            var granted = Model.GrantedPages.GetValueOrDefault(item.ID);
+            var percent = Model.PageCount > 0 ? granted * 100 / Model.PageCount : 0;
+
+            <li class="list-group-item page-access-row">
+                <img class="page-access-avatar" alt=""
+                     src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(item.ID, item.Avatar, item.AvatarImage != null))"/>
+                <div class="page-access-main">
+                    <a class="fw-semibold text-break"
+                       asp-page="@ForumPages.Admin_PageAccessEdit.GetPageName()"
+                       asp-route-u="@item.ID">@(Model.PageBoardContext.BoardSettings.EnableDisplayName && item.DisplayName.IsSet() ? item.DisplayName : item.Name)</a>
+                    <div class="d-flex align-items-center gap-2 small text-body-secondary">
+                        <div class="progress flex-grow-1 page-access-progress" role="progressbar"
+                             aria-valuenow="@granted" aria-valuemin="0" aria-valuemax="@Model.PageCount"
+                             aria-label="@Html.LocalizedText("ADMIN_PAGEACCESSLIST", "PAGES")">
+                            <div class="progress-bar" style="width: @(percent)%"></div>
+                        </div>
+                        <span class="text-nowrap">@Html.LocalizedTextFormatted("PAGES_COUNT", granted, Model.PageCount)</span>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</form>
+                <a button-style="Info"
+                   button-size="Small"
+                   asp-page="@ForumPages.Admin_PageAccessEdit.GetPageName()"
+                   asp-route-u="@item.ID"
+                   title-localized-tag="EDIT"
+                   Icon="edit"
+                   text-localized-tag="EDIT">
+                </a>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <div class="alert alert-info">@Html.LocalizedText("ADMIN_PAGEACCESSLIST", "NO_ADMINS")</div>
+}
+
+</div>

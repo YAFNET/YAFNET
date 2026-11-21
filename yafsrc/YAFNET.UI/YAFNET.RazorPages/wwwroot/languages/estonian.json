@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Kõik"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Lubatud"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "Juurdepääs lehele"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Muud lehed"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "Admin kasutaja"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Foorumi administraatorid saavad avada ainult neid halduslehti, mida hosti administraator lubab, hosti administraatorid saavad avada kõiki lehti."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Foorumil pole administraatoreid, hosti administraatorid saavad avada kõiki halduslehti."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Lehed"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} / {1} lehest"
           },
           {
             "@tag": "TITLE",

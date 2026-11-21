@@ -938,6 +938,54 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// The pages of a section of the admin menu are granted with its "all" switch, the list of the admins shows the
+    /// number of granted pages.
+    /// </summary>
+    [Test]
+    public async Task PageAccessSectionIsGrantedWithItsSwitchTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await this.LoginAdminAsync(page);
+
+                var userId = await this.FindUserIdAsync(page, userName);
+
+                // the user becomes an admin of the board
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
+                await page.Locator("//button[contains(@data-bs-target,'#View2')]").ClickAsync();
+                await page.GetByLabel("Administrators").First.CheckAsync();
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'UsersGroups?handler=Save')]"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/PageAccessEdit/{userId}");
+
+                // the settings: board announcement, board settings, forums, ... (9 pages)
+                var section = page.Locator(".card", new PageLocatorOptions { Has = page.Locator("input[value='Admin_Forums']") });
+
+                await section.Locator("input[data-check-all]").CheckAsync();
+
+                Assert.That(
+                    await section.Locator("input.page-access-check:not(:checked)").CountAsync(),
+                    Is.Zero,
+                    "Not all pages of the section are checked");
+
+                await page.SubmitAndWaitAsync(page.Locator(".admin-edit-actions button[formaction*='Save']"));
+
+                Assert.That(page.Url, Does.Contain("Admin/PageAccessList"), "The list is not shown");
+
+                // the settings and the admin index (always allowed)
+                var row = page.Locator(".page-access-row", new PageLocatorOptions { HasText = userName });
+
+                Assert.That(await row.TextContentAsync(), Does.Contain("10 of"), "The granted pages are not counted");
+            });
+    }
+
+    /// <summary>
     /// "Run SQL", "ReIndex", the languages, "Restart App", the board editor and the test data generator work on the whole
     /// database or application: only the host admin can use them, they can't be granted to the admin
     /// of a board (also not with a manipulated form).

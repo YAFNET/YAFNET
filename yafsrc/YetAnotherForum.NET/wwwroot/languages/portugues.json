@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Todas"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Permitido"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "Acesso à Página Para"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Outras páginas"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "Admin Utilizador"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Os administradores do fórum só podem abrir as páginas de administração que o administrador do anfitrião lhes permite, os administradores do anfitrião podem abrir todas as páginas."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Não há administradores do fórum, os administradores do anfitrião podem abrir todas as páginas de administração."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Páginas"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} de {1} páginas"
           },
           {
             "@tag": "TITLE",

@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Alla"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Tillåtet"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "Sidtillgång för"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Övriga sidor"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "Administratör Användare"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Forumadministratörer kan bara öppna de administrationssidor som värdadministratören tillåter, värdadministratörer kan öppna alla sidor."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Det finns inga forumadministratörer, värdadministratörerna kan öppna alla administrationssidor."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Sidor"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} av {1} sidor"
           },
           {
             "@tag": "TITLE",

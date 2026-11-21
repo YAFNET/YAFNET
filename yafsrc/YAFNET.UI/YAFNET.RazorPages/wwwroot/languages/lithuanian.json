@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Visi"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Leidžiama"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "Puslapio prieiga"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Kiti puslapiai"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "Administratoriaus naudotojas"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Forumo administratoriai gali atidaryti tik tuos administravimo puslapius, kuriuos leidžia pagrindinis administratorius, pagrindiniai administratoriai gali atidaryti visus puslapius."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Forumo administratorių nėra, pagrindiniai administratoriai gali atidaryti visus administravimo puslapius."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Puslapiai"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} iš {1} puslapių"
           },
           {
             "@tag": "TITLE",

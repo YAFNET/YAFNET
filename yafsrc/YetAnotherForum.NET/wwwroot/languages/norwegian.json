@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Alle"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Tillatt"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "Sidetilgang for"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Andre sider"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "Admin bruker"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Forumadministratorer kan bare åpne administrasjonssidene som vertsadministratoren tillater, vertsadministratorer kan åpne alle sider."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Det finnes ingen forumadministratorer, vertsadministratorene kan åpne alle administrasjonssider."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Sider"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} av {1} sider"
           },
           {
             "@tag": "TITLE",

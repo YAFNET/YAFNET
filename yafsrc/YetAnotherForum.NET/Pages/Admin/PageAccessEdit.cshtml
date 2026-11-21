@@ -6,62 +6,101 @@
 @using YAF.Web.HtmlHelpers
 @model PageAccessEditModel
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("building", "ADMIN_PAGEACCESSEDIT", "HEADER"): <strong>@Html.HtmlEncode(Model.Get<IUserDisplayName>().GetNameById(Model.UserId))</strong>
-                </div>
-                <div class="card-body">
-                    <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-                    <ul class="list-group">
+@{
+    // the pages grouped by the sections of the admin menu (the list is in this order)
+    var sections = Model.AccessList.Select((access, index) => (access, index))
+        .GroupBy(x => PageAccessEditModel.GetSectionIndex(x.access.PageName));
+}
 
-                        @for (var index = 0; index < Model.AccessList.Count; index++)
+<form method="post" class="admin-edit-form admin-page-access">
+    <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("building")@Html.LocalizedText("ADMIN_PAGEACCESSEDIT", "HEADER")
+            <strong class="ms-1">@(Model.Get<IUserDisplayName>().GetNameById(Model.UserId))</strong>
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+            @foreach (var section in sections)
+            {
+                var (tag, icon) = section.Key < PageAccessEditModel.Sections.Length
+                                      ? (PageAccessEditModel.Sections[section.Key].Tag, PageAccessEditModel.Sections[section.Key].Icon)
+                                      : (null, "ellipsis-h");
+                var sectionId = $"PageSection{section.Key}";
+
+                <div class="card mb-3" id="@sectionId">
+                    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+                        <span>
+                            @Html.Icon(icon)@(tag is null ? Html.LocalizedText("ADMIN_PAGEACCESSEDIT", "OTHER_PAGES") : Html.LocalizedText("ADMINMENU", tag))
+                        </span>
+                        @* all pages of the section (in the browser, saved with the form), not for the admin index (always allowed) *@
+                        @if (section.Any(x => x.access.PageName != "Admin_Admin"))
                         {
-                            <li class="list-group-item list-group-item-action">
-                                <input type="hidden" asp-for="AccessList[index].PageName" value="@Model.AccessList[index].PageName" />
-                                <label class="form-label fw-bold" localized-page="ADMIN_PAGEACCESSEDIT" localized-tag="PAGE">
-                                </label>: @Model.AccessList[index].PageName
-                                <div class="form-check form-switch">
-                                    <input type="checkbox" asp-for="AccessList[index].ReadAccess" class="form-check-input"/>
-                                    <label class="form-check-label" asp-for="AccessList[index].ReadAccess">
-                                        
-                                        @Html.LocalizedText("CANACCESS")
+                        <div class="form-check form-switch mb-0">
+                            <input type="checkbox" class="form-check-input" role="switch"
+                                   id="@(sectionId)_All"
+                                   data-check-all="#@sectionId input.page-access-check:not(:disabled)" />
+                            <label class="form-check-label small" for="@(sectionId)_All">
+                                @Html.LocalizedText("ADMIN_PAGEACCESSEDIT", "ALL_PAGES")
+                            </label>
+                        </div>
+                        }
+                    </div>
+                    <div class="list-group list-group-flush">
+                        @foreach (var (access, index) in section)
+                        {
+                            // the admin index can always be opened
+                            var always = access.PageName == "Admin_Admin";
+
+                            <div class="list-group-item">
+                                <input type="hidden" asp-for="AccessList[index].PageName" value="@access.PageName" />
+                                <div class="form-check form-switch mb-0">
+                                    <input type="checkbox" name="AccessList[@index].ReadAccess" value="true"
+                                           id="AccessList_@(index)__ReadAccess"
+                                           class="form-check-input page-access-check" role="switch"
+                                           checked="@(always || access.ReadAccess)"
+                                           disabled="@always" />
+                                    <label class="form-check-label" for="AccessList_@(index)__ReadAccess">
+                                        @Model.GetPageTitle(access.PageName)
+                                        <code class="small text-body-secondary ms-1">@access.PageName</code>
                                     </label>
                                 </div>
-                            </li>
+                            </div>
                         }
-                    </ul>
+                    </div>
+                </div>
+            }
 
-                </div>
-                <div class="card-footer text-center">
-                    <button asp-page-handler="Save"
-                            class="mt-1"
-                            button-style="Primary"
-                            Icon="save"
-                            text-localized-tag="SAVE"
-                            text-localized-page="ADMIN_PAGEACCESSEDIT"></button>&nbsp;
-                    <button asp-page-handler="GrantAll"
-                            class="mt-1"
-                            button-style="Info"
-                            Icon="check"
-                            text-localized-tag="GRANTALL"
-                            text-localized-page="ADMIN_PAGEACCESSEDIT"></button>&nbsp;
-                    <button asp-page-handler="RevokeAll"
-                            class="mt-1"
-                            button-style="Danger"
-                            Icon="trash"
-                            text-localized-tag="REVOKEALL"
-                            text-localized-page="ADMIN_PAGEACCESSEDIT"></button>&nbsp;
-                    <a asp-page="@ForumPages.Admin_PageAccessList.GetPageName()"
-                       class="mt-1"
-                       button-style="Secondary"
-                       Icon="xmark"
-                       text-localized-tag="CANCEL"
-                       text-localized-page="ADMIN_PAGEACCESSEDIT"></a>
-                </div>
+            @* the actions stay visible at the bottom of the window *@
+            <div class="admin-edit-actions">
+                <a asp-page="@ForumPages.Admin_PageAccessList.GetPageName()"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   text-localized-tag="CANCEL"
+                   text-localized-page="ADMIN_PAGEACCESSEDIT"></a>
+                <button asp-page-handler="RevokeAll"
+                        button-style="OutlineSecondary"
+                        Icon="times"
+                        text-localized-tag="REVOKEALL"
+                        text-localized-page="ADMIN_PAGEACCESSEDIT"></button>
+                <button asp-page-handler="GrantAll"
+                        button-style="OutlineSecondary"
+                        Icon="check"
+                        text-localized-tag="GRANTALL"
+                        text-localized-page="ADMIN_PAGEACCESSEDIT"></button>
+                <button asp-page-handler="Save"
+                        button-style="Primary"
+                        Icon="save"
+                        text-localized-tag="SAVE"
+                        text-localized-page="ADMIN_PAGEACCESSEDIT"></button>
             </div>
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
+}

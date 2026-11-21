@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Tất cả"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Cho phép"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "Truy cập trang cho"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Các trang khác"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "Người dùng quản trị"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Quản trị viên diễn đàn chỉ có thể mở các trang quản trị mà quản trị viên máy chủ cho phép, quản trị viên máy chủ có thể mở tất cả các trang."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Không có quản trị viên diễn đàn, quản trị viên máy chủ có thể mở tất cả các trang quản trị."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Trang"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} trên {1} trang"
           },
           {
             "@tag": "TITLE",

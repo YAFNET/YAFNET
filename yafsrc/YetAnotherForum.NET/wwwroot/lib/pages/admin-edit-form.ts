@@ -86,3 +86,27 @@ document.addEventListener('DOMContentLoaded', () => {
 		input.addEventListener('input', () => preview.textContent = input.value.trim() || fallback);
 	});
 });
+
+// A switch with data-check-all switches all checkboxes of the selector (e.g. the pages of a section), it shows if
+// all, none or some of them are checked
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLInputElement>('.admin-edit-form input[data-check-all]').forEach(master => {
+		const targets = () => Array.from(document.querySelectorAll<HTMLInputElement>(master.dataset.checkAll ?? ''));
+
+		const update = () => {
+			const all = targets();
+			const checked = all.filter(input => input.checked).length;
+
+			master.checked = all.length > 0 && checked === all.length;
+			master.indeterminate = checked > 0 && checked < all.length;
+		};
+
+		master.addEventListener('change', () => {
+			targets().forEach(input => input.checked = master.checked);
+			master.indeterminate = false;
+		});
+
+		targets().forEach(input => input.addEventListener('change', update));
+		update();
+	});
+});

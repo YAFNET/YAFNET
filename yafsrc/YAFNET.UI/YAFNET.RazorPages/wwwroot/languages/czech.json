@@ -5910,6 +5910,10 @@
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
+            "@tag": "ALL_PAGES",
+            "#text": "Vše"
+          },
+          {
             "@tag": "CANACCESS",
             "#text": "Povoleno"
           },
@@ -5924,6 +5928,10 @@
           {
             "@tag": "HEADER",
             "#text": "Přístup na stránku pro"
+          },
+          {
+            "@tag": "OTHER_PAGES",
+            "#text": "Další stránky"
           },
           {
             "@tag": "PAGE",
@@ -5961,6 +5969,22 @@
           {
             "@tag": "HEADER",
             "#text": "Uživatel správce"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "Správci fóra mohou otevírat jen ty stránky administrace, které jim povolí hlavní správce, hlavní správci mohou otevírat všechny stránky."
+          },
+          {
+            "@tag": "NO_ADMINS",
+            "#text": "Fórum nemá žádné správce, hlavní správci mohou otevírat všechny stránky administrace."
+          },
+          {
+            "@tag": "PAGES",
+            "#text": "Stránky"
+          },
+          {
+            "@tag": "PAGES_COUNT",
+            "#text": "{0} z {1} stránek"
           },
           {
             "@tag": "TITLE",
