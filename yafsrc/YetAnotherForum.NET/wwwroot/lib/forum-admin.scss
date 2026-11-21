@@ -387,6 +387,14 @@
         }
     }
 
+    .edit-user-section {
+        margin: 1.5rem 0 .75rem;
+        padding-bottom: .375rem;
+        border-bottom: 1px solid var(--bs-border-color);
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
     .edit-user-option {
         padding: .5rem .75rem;
         border: 1px solid var(--bs-border-color);

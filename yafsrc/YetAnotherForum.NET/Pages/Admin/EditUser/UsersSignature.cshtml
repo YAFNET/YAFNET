@@ -9,9 +9,9 @@
     Layout = "_EditUserLayout";
 }
 
-<h2>
-    @Html.LocalizedText("EDIT_SIGNATURE", "TITLE")
-</h2>
+<h3 class="h5 mb-3">
+    @Html.Icon("signature")@Html.LocalizedText("EDIT_SIGNATURE", "TITLE")
+</h3>
 
 <form method="post">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
@@ -28,8 +28,7 @@
                       users-can-upload="false"
                       maxlength="@Model.AllowedNumberOfCharacters"
                       max-characters="@Model.AllowedNumberOfCharacters"></textarea>
-    <hr />
-    <div class="text-lg-center">
+    <div class="edit-user-actions">
         <button type="submit"
                 asp-page-handler="Preview"
                 button-style="Secondary"
@@ -41,9 +40,5 @@
                 Icon="save"
                 text-localized-tag="SAVE"
                 asp-page-handler="Save"></button>
-        <a button-style="Secondary"
-           Icon="xmark"
-           text-localized-tag="CANCEL"
-           asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
     </div>
 </form>

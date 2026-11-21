@@ -9,9 +9,9 @@
     Layout = "_EditUserLayout";
 }
 
-<h2>
-    @Html.LocalizedText("EDIT_AVATAR", "TITLE")
-</h2>
+<h3 class="h5 mb-3">
+    @Html.Icon("user-circle")@Html.LocalizedText("EDIT_AVATAR", "TITLE")
+</h3>
 
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
@@ -39,7 +39,7 @@
     @if (Model.PageBoardContext.BoardSettings.AvatarGallery && Model.Gallery.HasItems())
         {
 	        <div class="mb-3">
-		        <h4>
+		        <h4 class="edit-user-section">
 			        @Html.LocalizedText("EDIT_AVATAR", "OURAVATAR")
 		        </h4>
 		        <select asp-for="AvatarGallery" class="select2-image-select" placeholder="@Html.LocalizedText("OURAVATAR")" data-allow-clear="true">
@@ -64,7 +64,7 @@
         @if (Model.PageBoardContext.BoardSettings.AvatarUpload)
     {
             <div class="mb-3">
-                <h4>
+                <h4 class="edit-user-section">
                     @Html.LocalizedText("EDIT_AVATAR", "AVATARUPLOAD")
                 </h4>
                 <div class="mb-3">
