@@ -647,7 +647,8 @@ public class TestDataModel : AdminPage
             return 0;
         }
 
-        if (topic.ID <= 0)
+        // no topic is selected (the topics of the forum were not loaded, it failed with an error)
+        if (topic is null || topic.ID <= 0)
         {
             return 0;
         }

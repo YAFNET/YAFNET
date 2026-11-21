@@ -329,7 +329,8 @@
                             <label asp-for="Input.PostsForum" class="form-label">
                                 Choose forum:
                             </label>
-                            <select asp-for="Input.PostsForum" asp-items="Model.PostsForumList" class="select2-select">
+                            <select asp-for="Input.PostsForum" asp-items="Model.PostsForumList"
+                                    onchange="this.form.submit();" class="select2-select">
                             </select>
                         </div>
 
