@@ -613,7 +613,8 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
     }
     /// <summary>
     /// The admin changes the password of a user in the user editor: the editor is shown again with a message
-    /// (the result was shown on the page of the tab, without the forum around it).
+    /// (the result was shown on the page of the tab, without the forum around it) and with the password tab
+    /// (the editor showed the details after every save).
     /// </summary>
     [Test]
     public async Task AdminChangesPasswordOfUserTest()
@@ -668,6 +669,9 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 Assert.That(page.Url, Does.Contain($"Admin/EditUser/{userId}"), "The editor is not shown after the change");
                 await Assertions.Expect(page.Locator("#EditUserTabs")).ToBeVisibleAsync();
                 await Assertions.Expect(page.Locator(".toast").Last).ToBeVisibleAsync();
+
+                // the editor shows the tab that was saved (it showed the details)
+                await Assertions.Expect(page.Locator("button[data-bs-target='#View7']")).ToHaveClassAsync(new Regex(@"\bactive\b"));
             });
     }
 }

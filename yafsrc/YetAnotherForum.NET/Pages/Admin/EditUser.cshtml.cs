@@ -22,6 +22,7 @@
  * under the License.
  */
 
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace YAF.Pages.Admin;
@@ -108,11 +109,14 @@ public class EditUserModel : AdminPage
     /// <param name="u">The user id.</param>
     /// <param name="tab">The tab.</param>
     /// <returns>IActionResult.</returns>
-    public async Task<IActionResult> OnGetAsync(int u,int? p = null, string view = null)
+    public async Task<IActionResult> OnGetAsync(int u, string tab = null, int? p = null, string view = null)
     {
-        if (view.IsSet())
+        // the tab of the route (the redirects after a save of a tab), the editor showed the first tab
+        var lastTab = view.IsSet() ? view : tab;
+
+        if (lastTab.IsSet() && Regex.IsMatch(lastTab, "^View[0-9]{1,2}$"))
         {
-            this.LastTab = view;
+            this.LastTab = lastTab;
         }
 
         var editUser = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(u, includeNonApproved: true);
