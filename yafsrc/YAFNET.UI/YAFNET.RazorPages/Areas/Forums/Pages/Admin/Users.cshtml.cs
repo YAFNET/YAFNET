@@ -223,10 +223,11 @@ public class UsersModel : AdminPage
     {
         var lastVisit = this.Get<ISessionService>().LastVisit;
 
+        // the texts of my topics (the same filter), they were English text in the code and the last visit had no date
         this.SinceList = [
             new SelectListItem(
-                this.GetTextFormatted(
-                    "last_visit",
+                string.Format(
+                    this.GetText("MYTOPICS", "LAST_VISIT"),
                     this.Get<IDateTimeService>().FormatDateTime(
                         lastVisit.HasValue && lastVisit.Value
                         != DateTimeHelper.SqlDbMinTime()
@@ -234,17 +235,16 @@ public class UsersModel : AdminPage
                             : DateTime.UtcNow)),
                 "0"),
             // negative values for hours backward
-
-            new SelectListItem("Last hour", "-1"),
-            new SelectListItem("Last two hours", "-2"),
+            new SelectListItem(this.GetText("MYTOPICS", "LAST_HOUR"), "-1"),
+            new SelectListItem(this.GetText("MYTOPICS", "LAST_TWO_HOURS"), "-2"),
             // positive values for days backward
-            new SelectListItem("Last day", "1"),
-            new SelectListItem("Last two days", "2"),
-            new SelectListItem("Last week", "7"),
-            new SelectListItem("Last two weeks", "14"),
-            new SelectListItem("Last month", "31"),
+            new SelectListItem(this.GetText("MYTOPICS", "LAST_DAY"), "1"),
+            new SelectListItem(this.GetText("MYTOPICS", "LAST_TWO_DAYS"), "2"),
+            new SelectListItem(this.GetText("MYTOPICS", "LAST_WEEK"), "7"),
+            new SelectListItem(this.GetText("MYTOPICS", "LAST_TWO_WEEKS"), "14"),
+            new SelectListItem(this.GetText("MYTOPICS", "LAST_MONTH"), "31"),
             // all time (i.e. no filter)
-            new SelectListItem("All time", "9999")
+            new SelectListItem(this.GetText("MYTOPICS", "SHOW_ALL"), "9999")
         ];
     }
 

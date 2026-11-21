@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Linq;
+
 using YAF.Tests.UITests.Infrastructure;
 
 namespace YAF.Tests.UITests.AdminTests.Users;
@@ -382,6 +384,34 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 Assert.That(response?.Status, Is.LessThan(400), $"The user editor failed ({response?.Status})");
                 Assert.That(page.Url, Does.Contain("Admin/EditUser/"), "The user editor is not opened");
                 await Assertions.Expect(page.Locator("#EditUserTabs")).ToBeVisibleAsync();
+            });
+    }
+
+    /// <summary>
+    /// The "since" filter of Admin > Users is localized and the first option shows the last visit
+    /// (the texts were English text in the code, the last visit was shown without the date).
+    /// </summary>
+    [Test]
+    public async Task SinceFilterIsLocalizedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+
+                var options = await page.Locator("select[name='Input.Since'] option").AllTextContentsAsync();
+
+                Assert.That(options[0], Does.Match(@"^last visit at .*\d"), "The last visit is not shown");
+                Assert.That(
+                    options.Skip(1).Select(o => o.Trim()),
+                    Is.EqualTo(new[] { "last hour", "last two hours", "last day", "last two days", "last week", "last two weeks", "last month", "Show All" }),
+                    "The options are not the texts of the language file");
             });
     }
 }

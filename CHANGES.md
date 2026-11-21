@@ -43,6 +43,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Forum: saving a forum removed its parent forum when the forum was not in the first category, was a forum of the third level or was in an inactive category (the parent list had the forums without parent of the first category); the parent list has all forums of the category of the forum as a tree, without the forum and its sub forums
 * [FIXED] Admin > Users: "Import" opened the import of the spam words instead of the import of the users
 * [FIXED] Admin > Users: "Edit" in the context menu (right click) of a user showed an error page (it sent the filter form to the user editor)
+* [FIXED] Admin > Users: the texts of the "since" filter were not translated (English text in the code), the first option showed "Last Visit" without the date of the last visit
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
