@@ -127,6 +127,36 @@ public class ContentTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// Cancel of a new bb code shows the bb codes (it was a submit button, the empty required fields stopped it).
+    /// </summary>
+    [Test]
+    public async Task CancelOfANewBBCodeShowsTheBBCodesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditBBCode");
+
+                await page.GetByRole(AriaRole.Link, new PageGetByRoleOptions { Name = "Cancel" })
+                    .Or(page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Cancel" })).First.ClickAsync();
+
+                try
+                {
+                    await page.WaitForURLAsync(url => url.Contains("Admin/BBCodes"), new PageWaitForURLOptions { Timeout = 5000 });
+                }
+                catch (TimeoutException)
+                {
+                    // checked below
+                }
+
+                Assert.That(page.Url, Does.Contain("Admin/BBCodes"), "Cancel didn't show the bb codes");
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)

@@ -80,6 +80,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Board Announcement: the end of the announcement was shown as the stored text (e.g. 11/22/2026 15:33:00, the time of the server), now as a date in the time zone of the user (it is saved in utc)
 * [FIXED] Admin > Replace Words: the spaces around a bad word were saved (it was checked without them)
 * [FIXED] Admin > Replace Words: the same bad word could be added twice (also by the import), now the dialog shows "already exists"
+* [FIXED] Admin > Edit BBCode: "Cancel" was a submit button, the empty required fields of a new bb code stopped it
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
