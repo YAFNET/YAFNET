@@ -3717,12 +3717,24 @@
             "#text": "Добавете към YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Администратор"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} албума × {1} изображения"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Команда"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Изтрийте тази роля?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Гост"
           },
           {
             "@tag": "HEADER",
@@ -3749,6 +3761,14 @@
             "#text": "Свързан"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Членове"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Модератор"
+          },
+          {
             "@tag": "NAME",
             "#text": "Име"
           },
@@ -3769,8 +3789,24 @@
             "#text": "Частни съобщения"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Приоритет"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Роли на доставчика"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Показване на членовете на групата"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} знака"
+          },
+          {
+            "@tag": "START",
+            "#text": "Начална група"
           },
           {
             "@tag": "TITLE",

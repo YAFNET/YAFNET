@@ -3725,12 +3725,24 @@
             "#text": "Lisää YAF:iin"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Ylläpitäjä"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} albumia × {1} kuvaa"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Komento"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Poista tämä rooli?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Vieras"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "Linkitetty"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Jäsenet"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Valvoja"
+          },
+          {
             "@tag": "NAME",
             "#text": "Nimi"
           },
@@ -3777,8 +3797,24 @@
             "#text": "Yksityisviestit"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Prioriteetti"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Palveluntarjoajan roolit"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Näytä ryhmän jäsenet"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} merkkiä"
+          },
+          {
+            "@tag": "START",
+            "#text": "Aloitusryhmä"
           },
           {
             "@tag": "TITLE",

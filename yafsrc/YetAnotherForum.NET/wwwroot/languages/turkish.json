@@ -3725,12 +3725,24 @@
             "#text": "YAF'a Ekle"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Yönetici"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} albüm × {1} resim"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Komuta"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Bu Rol Silinsin mi?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Misafir"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "Bağlantılı"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Üyeler"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Moderatör"
+          },
+          {
             "@tag": "NAME",
             "#text": "İsim"
           },
@@ -3777,8 +3797,24 @@
             "#text": "Özel Mesajlar"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Öncelik"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Sağlayıcı Rolleri"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Grubun üyelerini göster"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} karakter"
+          },
+          {
+            "@tag": "START",
+            "#text": "Başlangıç grubu"
           },
           {
             "@tag": "TITLE",

@@ -3717,12 +3717,24 @@
             "#text": "أضف إلى YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "مدير"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} ألبومات × {1} صور"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "يأمر"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "هل تريد حذف هذا الدور؟"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "زائر"
           },
           {
             "@tag": "HEADER",
@@ -3749,6 +3761,14 @@
             "#text": "مرتبط"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "الأعضاء"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "مشرف"
+          },
+          {
             "@tag": "NAME",
             "#text": "اسم"
           },
@@ -3769,8 +3789,24 @@
             "#text": "رسائل خاصة"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "الأولوية"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "أدوار المزود"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "عرض أعضاء المجموعة"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} حرفًا"
+          },
+          {
+            "@tag": "START",
+            "#text": "مجموعة البداية"
           },
           {
             "@tag": "TITLE",

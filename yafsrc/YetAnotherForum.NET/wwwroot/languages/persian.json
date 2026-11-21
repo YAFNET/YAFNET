@@ -3717,12 +3717,24 @@
             "#text": "افزودن به انجمن"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "مدیر"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} آلبوم × {1} تصویر"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "دستور"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "نقش حذف شود؟"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "مهمان"
           },
           {
             "@tag": "HEADER",
@@ -3749,6 +3761,14 @@
             "#text": "متصل"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "اعضا"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "ناظر"
+          },
+          {
             "@tag": "NAME",
             "#text": "نام"
           },
@@ -3769,8 +3789,24 @@
             "#text": "پیام های شخصی"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "اولویت"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "نقشهای Provider"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "نمایش اعضای گروه"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} نویسه"
+          },
+          {
+            "@tag": "START",
+            "#text": "گروه آغازین"
           },
           {
             "@tag": "TITLE",

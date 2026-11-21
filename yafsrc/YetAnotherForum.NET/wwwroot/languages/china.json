@@ -3725,12 +3725,24 @@
             "#text": "添加到 YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "管理员"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} 个相册 × {1} 张图片"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "命令"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "删除此角色？"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "访客"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "链接"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "成员"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "版主"
+          },
+          {
             "@tag": "NAME",
             "#text": "姓名"
           },
@@ -3777,8 +3797,24 @@
             "#text": "产品经理"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "优先级"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "提供者角色"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "显示该组的成员"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} 个字符"
+          },
+          {
+            "@tag": "START",
+            "#text": "初始组"
           },
           {
             "@tag": "TITLE",

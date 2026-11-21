@@ -3725,12 +3725,24 @@
             "#text": "Thêm vào YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Quản trị"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} album × {1} ảnh"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Yêu cầu"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Xóa vai trò này?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Khách"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "Đã liên kết"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Thành viên"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Điều hành viên"
+          },
+          {
             "@tag": "NAME",
             "#text": "Tên"
           },
@@ -3777,8 +3797,24 @@
             "#text": "tin nhắn riêng tư"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Độ ưu tiên"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Vai trò của nhà cung cấp"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Hiển thị thành viên của nhóm"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} ký tự"
+          },
+          {
+            "@tag": "START",
+            "#text": "Nhóm khởi đầu"
           },
           {
             "@tag": "TITLE",

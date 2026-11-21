@@ -146,7 +146,8 @@ public static class PageExtensions
         {
             await page.GotoAsync($"{testSettings.TestForumUrl}Admin/Groups");
 
-            await page.Locator("//a[contains(@href,'EditGroup')]").Last.ClickAsync();
+            // the "new role" button of the page header
+            await page.SubmitAndWaitAsync(page.Locator("a[href$='/Admin/EditGroup']:visible").First);
 
             await page.Locator("#Input_Name").FillAsync(roleName);
             await page.Locator("#Input_Description").FillAsync("Test Role for testing");

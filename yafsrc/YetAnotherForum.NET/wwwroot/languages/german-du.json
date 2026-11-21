@@ -3717,12 +3717,24 @@
             "#text": "Zu YAF hinzufügen"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Admin"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} Alben × {1} Bilder"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Kommando"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Diese Rolle löschen?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Gast"
           },
           {
             "@tag": "HEADER",
@@ -3749,6 +3761,14 @@
             "#text": "Verlinkt"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Mitglieder"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Moderator"
+          },
+          {
             "@tag": "NAME",
             "#text": "Name"
           },
@@ -3769,8 +3789,24 @@
             "#text": "PNs"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Priorität"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Provider Gruppen"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Die Mitglieder der Gruppe anzeigen"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} Zeichen"
+          },
+          {
+            "@tag": "START",
+            "#text": "Startgruppe"
           },
           {
             "@tag": "TITLE",

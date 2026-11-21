@@ -3725,12 +3725,24 @@
             "#text": "Adaugă la YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Administrator"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} albume × {1} imagini"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Comandă"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ștergeți acest rol?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Vizitator"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "Legat de"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Membri"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Moderator"
+          },
+          {
             "@tag": "NAME",
             "#text": "Nume"
           },
@@ -3777,8 +3797,24 @@
             "#text": "Mesaje private"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Prioritate"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Rolurile furnizorului"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Afișează membrii grupului"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} caractere"
+          },
+          {
+            "@tag": "START",
+            "#text": "Grup de start"
           },
           {
             "@tag": "TITLE",

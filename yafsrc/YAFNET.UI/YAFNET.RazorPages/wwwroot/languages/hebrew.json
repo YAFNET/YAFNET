@@ -3725,12 +3725,24 @@
             "#text": "הוסף ל-YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "מנהל"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} אלבומים × {1} תמונות"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "פקודה"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "למחוק את התפקיד הזה?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "אורח"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "צָמוּד"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "חברים"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "מנחה"
+          },
+          {
             "@tag": "NAME",
             "#text": "שֵׁם"
           },
@@ -3777,8 +3797,24 @@
             "#text": "הודעה פרטית"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "עדיפות"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "תפקידי ספק"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "הצג את חברי הקבוצה"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} תווים"
+          },
+          {
+            "@tag": "START",
+            "#text": "קבוצת התחלה"
           },
           {
             "@tag": "TITLE",

@@ -257,11 +257,17 @@ public class UsersModel : AdminPage
     /// <summary>
     /// The page_ load.
     /// </summary>
-    public void OnGet()
+    /// <param name="g">The group to filter by (the members of a group of the groups page).</param>
+    public void OnGet(int? g = null)
     {
         this.Input = new UsersInputModel
         {
-            Since = "9999"
+            Since = "9999",
+
+            // only a group of the board
+            Group = g is > 0 && this.GetRepository<Group>().Exists(x => x.ID == g && x.BoardID == this.PageBoardContext.PageBoardID)
+                        ? g.Value
+                        : 0
         };
 
         this.BindData();

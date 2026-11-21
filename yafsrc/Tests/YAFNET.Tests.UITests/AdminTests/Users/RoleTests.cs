@@ -113,7 +113,7 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     const string findGroup = """
                                              name => {
                                                  for (const item of document.querySelectorAll('li.list-group-item')) {
-                                                     const title = item.querySelector('h5');
+                                                     const title = item.querySelector('.group-name');
                                                      const edit = item.querySelector('a[href*="EditGroup"]');
                                                      if (title && edit && title.textContent.replace(/\s+/g, ' ').trim() === name) {
                                                          const id = edit.getAttribute('href').match(/(\d+)\D*$/)[1];
@@ -367,6 +367,35 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The member count of a group opens the users filtered by the group.
+    /// </summary>
+    [Test]
+    public async Task GroupMembersOpenTheFilteredUsersTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    var groupId = await GetGroupIdAsync(page, this.TestSettings, "Administrators");
+
+                    await page.SubmitAndWaitAsync(page.Locator($".group-row[data-group-id='{groupId}'] .group-members"));
+
+                    Assert.That(page.Url, Does.Contain($"Admin/Users?g={groupId}"), "The members are not opened");
+                    Assert.That(await page.Locator("#Input_Group").InputValueAsync(), Is.EqualTo(groupId), "The users are not filtered by the group");
+                    await Assertions.Expect(page.Locator(".user-row", new PageLocatorOptions { HasText = this.TestSettings.AdminUserName }).First).ToBeVisibleAsync();
+                    Assert.That(
+                        await page.Locator(".user-row", new PageLocatorOptions { HasText = this.TestSettings.TestUserName2 }).CountAsync(),
+                        Is.Zero,
+                        "A user of another group is listed");
+                });
+    }
+
+    /// <summary>
     /// The id of a group of the groups page.
     /// </summary>
     private static async Task<string> GetGroupIdAsync(IPage page, TestConfig testSettings, string groupName)
@@ -378,7 +407,7 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                           name => {
                               for (const edit of document.querySelectorAll('a[href*="EditGroup/"]')) {
                                   const item = edit.closest('li, .group-row');
-                                  const title = item?.querySelector('h5, .group-name');
+                                  const title = item?.querySelector('.group-name');
                                   if (title && title.textContent.replace(/\s+/g, ' ').trim() === name) {
                                       return edit.getAttribute('href').match(/(\d+)\D*$/)[1];
                                   }

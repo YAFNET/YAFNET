@@ -3717,12 +3717,24 @@
                     "#text": "Add to YAF"
                 },
                 {
+                    "@tag": "ADMIN",
+                    "#text": "Admin"
+                },
+                {
+                    "@tag": "ALBUMS_SHORT",
+                    "#text": "{0} albums × {1} images"
+                },
+                {
                     "@tag": "COMMAND",
                     "#text": "Command"
                 },
                 {
                     "@tag": "CONFIRM_DELETE",
                     "#text": "Delete this Role?"
+                },
+                {
+                    "@tag": "GUEST",
+                    "#text": "Guest"
                 },
                 {
                     "@tag": "HEADER",
@@ -3749,6 +3761,14 @@
                     "#text": "Linked"
                 },
                 {
+                    "@tag": "MEMBERS",
+                    "#text": "Members"
+                },
+                {
+                    "@tag": "MODERATOR",
+                    "#text": "Moderator"
+                },
+                {
                     "@tag": "NAME",
                     "#text": "Name"
                 },
@@ -3769,8 +3789,24 @@
                     "#text": "Private Messages"
                 },
                 {
+                    "@tag": "PRIORITY_SHORT",
+                    "#text": "Priority"
+                },
+                {
                     "@tag": "PROVIDER_ROLES",
                     "#text": "Provider Roles"
+                },
+                {
+                    "@tag": "SHOW_MEMBERS",
+                    "#text": "Show the members of the group"
+                },
+                {
+                    "@tag": "SIGNATURE_SHORT",
+                    "#text": "{0} characters"
+                },
+                {
+                    "@tag": "START",
+                    "#text": "Start group"
                 },
                 {
                     "@tag": "TITLE",

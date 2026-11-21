@@ -3717,12 +3717,24 @@
             "#text": "Aggiungi a YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Amministratore"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} album × {1} immagini"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Comando"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Cancellare questo ruolo?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Ospite"
           },
           {
             "@tag": "HEADER",
@@ -3749,6 +3761,14 @@
             "#text": "Collegato"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Membri"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Moderatore"
+          },
+          {
             "@tag": "NAME",
             "#text": "Nome"
           },
@@ -3769,8 +3789,24 @@
             "#text": "Messaggi privati"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Priorità"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Ruoli dei fornitori"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Mostra i membri del gruppo"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} caratteri"
+          },
+          {
+            "@tag": "START",
+            "#text": "Gruppo iniziale"
           },
           {
             "@tag": "TITLE",

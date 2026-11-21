@@ -3725,12 +3725,24 @@
             "#text": "Tilføj til YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Administrator"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} albummer × {1} billeder"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Kommando"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vil du slette denne rolle?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Gæst"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "Forbundet"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Medlemmer"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Moderator"
+          },
+          {
             "@tag": "NAME",
             "#text": "Navn"
           },
@@ -3777,8 +3797,24 @@
             "#text": "PM'er"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Prioritet"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Udbyder roller"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Vis gruppens medlemmer"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} tegn"
+          },
+          {
+            "@tag": "START",
+            "#text": "Startgruppe"
           },
           {
             "@tag": "TITLE",

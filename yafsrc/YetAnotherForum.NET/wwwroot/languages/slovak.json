@@ -3725,12 +3725,24 @@
             "#text": "Pridať do YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Správca"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} albumov × {1} obrázkov"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Príkaz"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Odstrániť túto úlohu?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Hosť"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "Prepojenie"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Členovia"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Moderátor"
+          },
+          {
             "@tag": "NAME",
             "#text": "Názov"
           },
@@ -3777,8 +3797,24 @@
             "#text": "Súkromné správy"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Priorita"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Úlohy poskytovateľa"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Zobraziť členov skupiny"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} znakov"
+          },
+          {
+            "@tag": "START",
+            "#text": "Predvolená skupina"
           },
           {
             "@tag": "TITLE",

@@ -3717,12 +3717,24 @@
             "#text": "Добавить к YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Администратор"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} альбомов × {1} изображений"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Действие"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Удалить эту роль?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Гость"
           },
           {
             "@tag": "HEADER",
@@ -3749,6 +3761,14 @@
             "#text": "Связанная"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Участники"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Модератор"
+          },
+          {
             "@tag": "NAME",
             "#text": "Название"
           },
@@ -3769,8 +3789,24 @@
             "#text": "ЛС"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Приоритет"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Роли провайдера"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Показать участников группы"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} символов"
+          },
+          {
+            "@tag": "START",
+            "#text": "Начальная группа"
           },
           {
             "@tag": "TITLE",

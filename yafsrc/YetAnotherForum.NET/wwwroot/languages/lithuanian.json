@@ -3725,12 +3725,24 @@
             "#text": "Pridėti prie YAF"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Administratorius"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} albumų × {1} paveikslėlių"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Komanda"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ištrinti šį vaidmenį?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Svečias"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "Susietas"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Nariai"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Moderatorius"
+          },
+          {
             "@tag": "NAME",
             "#text": "Pavadinimas"
           },
@@ -3777,8 +3797,24 @@
             "#text": "Privačios žinutės"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Prioritetas"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Teikėjo vaidmenys"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Rodyti grupės narius"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} simbolių"
+          },
+          {
+            "@tag": "START",
+            "#text": "Pradinė grupė"
           },
           {
             "@tag": "TITLE",

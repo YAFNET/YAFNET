@@ -3725,12 +3725,24 @@
             "#text": "Lisa YAF-i"
           },
           {
+            "@tag": "ADMIN",
+            "#text": "Administraator"
+          },
+          {
+            "@tag": "ALBUMS_SHORT",
+            "#text": "{0} albumit × {1} pilti"
+          },
+          {
             "@tag": "COMMAND",
             "#text": "Käsk"
           },
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Kas kustutada see roll?"
+          },
+          {
+            "@tag": "GUEST",
+            "#text": "Külaline"
           },
           {
             "@tag": "HEADER",
@@ -3757,6 +3769,14 @@
             "#text": "Lingitud"
           },
           {
+            "@tag": "MEMBERS",
+            "#text": "Liikmed"
+          },
+          {
+            "@tag": "MODERATOR",
+            "#text": "Moderaator"
+          },
+          {
             "@tag": "NAME",
             "#text": "Nimi"
           },
@@ -3777,8 +3797,24 @@
             "#text": "Privaatsõnumid"
           },
           {
+            "@tag": "PRIORITY_SHORT",
+            "#text": "Prioriteet"
+          },
+          {
             "@tag": "PROVIDER_ROLES",
             "#text": "Pakkuja rollid"
+          },
+          {
+            "@tag": "SHOW_MEMBERS",
+            "#text": "Näita grupi liikmeid"
+          },
+          {
+            "@tag": "SIGNATURE_SHORT",
+            "#text": "{0} märki"
+          },
+          {
+            "@tag": "START",
+            "#text": "Algusgrupp"
           },
           {
             "@tag": "TITLE",

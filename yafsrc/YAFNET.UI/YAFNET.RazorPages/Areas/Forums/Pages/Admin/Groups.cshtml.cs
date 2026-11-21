@@ -58,6 +58,11 @@ public class GroupsModel : AdminPage
     public StringCollection RoleListNet { get; set; }
 
     /// <summary>
+    /// Gets or sets the number of members of each group (group id, count).
+    /// </summary>
+    public Dictionary<int, int> MemberCounts { get; set; } = [];
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="GroupsModel"/> class.
     /// </summary>
     public GroupsModel()
@@ -212,6 +217,11 @@ public class GroupsModel : AdminPage
 
         // set repeater data-source
         this.RoleListYaf = groups;
+
+        // the members of the groups (linked to the users filtered by the group)
+        this.MemberCounts = groups.ToDictionary(
+            g => g.ID,
+            g => (int)this.GetRepository<UserGroup>().Count(x => x.GroupID == g.ID));
 
         // clear cached list of roles
         this.availableRoles.Clear();
