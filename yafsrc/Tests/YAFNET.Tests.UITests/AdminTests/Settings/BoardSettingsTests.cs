@@ -110,6 +110,44 @@ public class BoardSettingsTests(ComposeScenario scenario) : DatabaseTestBase(sce
     }
 
     /// <summary>
+    /// The forum email and the hours between the digests are saved for the board and shown again.
+    /// </summary>
+    [Test]
+    public async Task BoardValuesAreSavedForTheBoardTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+
+                var email = await GetValueAsync(page, "Input.ForumEmail");
+                var hours = await GetValueAsync(page, "Input.DigestSendEveryXHours");
+
+                try
+                {
+                    await page.Locator("#Input_ForumEmail").FillAsync("board@example.com");
+                    await page.Locator("#Input_DigestSendEveryXHours").FillAsync("12");
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+
+                    Assert.That(await GetValueAsync(page, "Input.ForumEmail"), Is.EqualTo("board@example.com"));
+                    Assert.That(await GetValueAsync(page, "Input.DigestSendEveryXHours"), Is.EqualTo("12"));
+                }
+                finally
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+                    await page.Locator("#Input_ForumEmail").FillAsync(email);
+                    await page.Locator("#Input_DigestSendEveryXHours").FillAsync(hours);
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                }
+            });
+    }
+
+    /// <summary>
     /// Gets the value of a field of the board settings.
     /// </summary>
     private static Task<string> GetValueAsync(IPage page, string name)

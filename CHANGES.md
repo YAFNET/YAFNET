@@ -68,6 +68,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Board Settings: the default page size was a free number, a page size of 0 (or less) was saved and the lists of the new users were empty, now one of the page sizes of the user settings is chosen (5 to 50)
 * [FIXED] Admin > Board Settings: the hours between the digests could be 0 or less, the digest was then sent on each run of the task, now at least 1 hour is needed
 * [FIXED] Admin > Board Settings: an empty board name was only checked in the browser, without it the save stopped with an error (NOT NULL constraint) instead of the message, the message of the check in the browser was missing
+* [FIXED] Admin > Board Settings (multi boards): the forum email, the base url mask, the board logo and the hours between the digests were saved for all boards, now they are saved for the board (a board without its own value uses the value of the install)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -105,6 +105,30 @@ public class BoardSettingsTests
         settings.LogError.Should().BeFalse();
     }
 
+    [TestCase(nameof(BoardSettings.ForumEmail))]
+    [TestCase(nameof(BoardSettings.BaseUrlMask))]
+    [TestCase(nameof(BoardSettings.ForumLogo))]
+    [TestCase(nameof(BoardSettings.DigestSendEveryXHours))]
+    [Description("The settings of the board settings page are saved for the board, the other boards keep their value")]
+    public void Board_Settings_Page_Values_Are_Saved_For_The_Board_Test(string name)
+    {
+        var setting = typeof(BoardSettings).GetProperty(name);
+        var hostValue = setting.PropertyType == typeof(int) ? 24 : (object)"host-value";
+        var boardValue = setting.PropertyType == typeof(int) ? 6 : (object)"board-value";
+
+        var host = new RegistryDictionaryOverride { [name] = hostValue.ToString() };
+        var board = new RegistryDictionary();
+        var settings = new BoardSettings(2, "Board", "Description", host, board);
+
+        setting.GetValue(settings).Should().Be(hostValue, "a board without its own value uses the value of the install");
+
+        setting.SetValue(settings, boardValue);
+
+        setting.GetValue(settings).Should().Be(boardValue);
+        board.Should().ContainKey(name, "the value is saved with the board id");
+        host[name].Should().Be(hostValue.ToString(), "the other boards keep their value");
+    }
+
     private static object OtherValue(Type type, object current)
     {
         var underlying = Nullable.GetUnderlyingType(type) ?? type;

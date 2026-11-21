@@ -132,7 +132,8 @@ public class BoardSettings
     {
         get => this.Registry.GetValue<string>("baseurlmask", null);
 
-        set => this.Registry.SetValue("baseurlmask", value);
+        // saved for the board (the value of the install is used until the board has its own value)
+        set => this.Registry.SetValue("baseurlmask", value, true);
     }
 
     /// <summary>
@@ -700,7 +701,8 @@ public class BoardSettings
     {
         get => this.Registry.GetValue("DigestSendEveryXHours", 24);
 
-        set => this.Registry.SetValue("DigestSendEveryXHours", value);
+        // saved for the board (the value of the install is used until the board has its own value)
+        set => this.Registry.SetValue("DigestSendEveryXHours", value, true);
     }
 
     /// <summary>
@@ -1753,7 +1755,8 @@ public class BoardSettings
     {
         get => this.Registry.GetValue("ForumLogo", "YAFLogo.svg");
 
-        set => this.Registry.SetValue("ForumLogo", value);
+        // saved for the board (the value of the install is used until the board has its own value)
+        set => this.Registry.SetValue("ForumLogo", value, true);
     }
 
     /// <summary>
@@ -1763,7 +1766,8 @@ public class BoardSettings
     {
         get => this.Registry.GetValue("ForumEmail", string.Empty);
 
-        set => this.Registry.SetValue("ForumEmail", value);
+        // saved for the board (the value of the install is used until the board has its own value)
+        set => this.Registry.SetValue("ForumEmail", value, true);
     }
 
     /// <summary>
