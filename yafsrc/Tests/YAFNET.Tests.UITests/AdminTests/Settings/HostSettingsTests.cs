@@ -582,4 +582,61 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                 Assert.That(await page.Locator("#Input_SpamServiceType option").CountAsync(), Is.GreaterThan(0), "The select of the spam service is empty");
             });
     }
+
+    /// <summary>
+    /// A size that is no number keeps the setting: the save failed with an error.
+    /// </summary>
+    [Test]
+    public async Task SizeThatIsNoNumberKeepsTheSettingTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                var size = await page.Locator("#Input_MaxFileSize").InputValueAsync();
+
+                try
+                {
+                    // a size that is not 0
+                    await SaveMaxFileSizeAsync(page, this.TestSettings, "5000000");
+
+                    var status = await SaveMaxFileSizeAsync(page, this.TestSettings, "abc");
+
+                    Assert.That(status, Is.LessThan(400), $"The save failed ({status})");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                    Assert.That(await page.Locator("#Input_MaxFileSize").InputValueAsync(), Is.EqualTo("5000000"), "The text was saved as a size");
+                }
+                finally
+                {
+                    await SaveMaxFileSizeAsync(page, this.TestSettings, size);
+                }
+            });
+    }
+
+    /// <summary>
+    /// Saves the maximum file size of the attachments.
+    /// </summary>
+    /// <returns>The status of the response of the save.</returns>
+    private static async Task<int> SaveMaxFileSizeAsync(IPage page, TestConfig testSettings, string size)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
+
+        await page.Locator("#Input_MaxFileSize").EvaluateAsync("(e, v) => e.value = v", size);
+
+        var save = page.Locator("button[formaction*='Save']").First;
+
+        var response = await page.RunAndWaitForResponseAsync(
+                           () => save.EvaluateAsync("b => b.form.requestSubmit(b)"),
+                           r => r.Request.Method == "POST" && r.Url.Contains("Save"));
+
+        await page.WaitForLoadStateAsync();
+
+        return response.Status;
+    }
 }

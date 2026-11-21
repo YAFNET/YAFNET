@@ -367,9 +367,17 @@ public class HostSettingsModel : AdminPage
                     }
                     case "String":
                     {
-                        var value = propertyInfo.GetValue(this.Input, null);
+                        // an empty field is 0 (no limit), a text that is no number keeps the setting (the save failed
+                        // with an error)
+                        var text = propertyInfo.GetValue(this.Input, null) as string;
+                        var number = 0;
 
-                        settingCollection.SettingsInt[name].SetValue(this.PageBoardContext.BoardSettings, value.ToType<int>(), null);
+                        if (text.IsSet() && !int.TryParse(text.Trim(), out number))
+                        {
+                            return;
+                        }
+
+                        settingCollection.SettingsInt[name].SetValue(this.PageBoardContext.BoardSettings, number, null);
                         break;
                     }
                 }
