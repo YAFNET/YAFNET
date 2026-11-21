@@ -217,14 +217,14 @@
 						</div>
 					</small>
 					<div class="dropdown-menu context-menu" aria-labelledby="context menu">
-						<button button-style="None"
-						        class="dropdown-item"
-						        asp-page="@ForumPages.Admin_EditUser.GetPageName()"
-						        asp-route-u="@Html.Raw(user.UserID)"
-						        text-localized-tag="EDIT"
-						        title-localized-tag="EDIT"
-						        Icon="edit">
-						</button>
+						<a button-style="None"
+						   class="dropdown-item"
+						   asp-page="@ForumPages.Admin_EditUser.GetPageName()"
+						   asp-route-u="@Html.Raw(user.UserID)"
+						   text-localized-tag="EDIT"
+						   title-localized-tag="EDIT"
+						   Icon="edit">
+						</a>
                                 
 						@if (user.IsGuest == false)
 						{

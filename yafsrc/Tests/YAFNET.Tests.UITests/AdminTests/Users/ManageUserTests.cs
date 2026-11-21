@@ -351,4 +351,37 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 Assert.That(await form.GetAttributeAsync("action"), Does.Contain("UsersImport"), "The import of the users is not opened");
             });
     }
+
+    /// <summary>
+    /// "Edit" in the context menu (right click) of a user opens the user (it sent the filter form to the edit page).
+    /// </summary>
+    [Test]
+    public async Task ContextMenuEditOpensTheUserTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+
+                var row = page.Locator(".list-group-item-menu", new PageLocatorOptions { HasText = this.TestSettings.AdminUserName }).First;
+
+                await row.Locator("h5").ClickAsync(new LocatorClickOptions { Button = MouseButton.Right, Position = new Position { X = 1, Y = 1 } });
+
+                var edit = row.Locator(".context-menu .dropdown-item", new LocatorLocatorOptions { HasText = "Edit" }).First;
+
+                await Assertions.Expect(edit).ToBeVisibleAsync();
+
+                var response = await page.RunAndWaitForNextPageResponseAsync(() => edit.ClickAsync());
+
+                Assert.That(response?.Status, Is.LessThan(400), $"The user editor failed ({response?.Status})");
+                Assert.That(page.Url, Does.Contain("Admin/EditUser/"), "The user editor is not opened");
+                await Assertions.Expect(page.Locator("#EditUserTabs")).ToBeVisibleAsync();
+            });
+    }
 }
