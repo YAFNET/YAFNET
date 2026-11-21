@@ -9,9 +9,9 @@
     Layout = "_EditUserLayout";
 }
 
-<h2>
-    @Html.LocalizedText("ADMIN_EDITUSER", "USER_REPUTATION")
-</h2>
+<h3 class="h5 mb-3">
+    @Html.Icon("star")@Html.LocalizedText("ADMIN_EDITUSER", "USER_REPUTATION")
+</h3>
 
 <h6>
     @Html.LocalizedText("ADMIN_EDITUSER", "CURRENT_POINTS")
@@ -61,10 +61,4 @@
                 asp-page-handler="RemovePoints"
                 class="mt-1"></button>
     </form>
-</div>
-<div class="text-lg-center">
-    <a button-style="Secondary"
-       Icon="xmark"
-       text-localized-tag="CANCEL"
-       asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
 </div>

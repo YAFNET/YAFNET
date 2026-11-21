@@ -27,6 +27,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Admin > Edit User: new layout: the user with avatar, status (not approved, disabled, suspended, guest, host admin, rank) and key figures (posts, points, joined, last visit) at the top, the tabs as groups (account, profile, content, moderation) in a list next to the tab (a row that scrolls on small screens), "view profile" and back to the users
 * [CHANGES] Admin > Edit User, details, roles and password: new layout; the details show the account as text with the joined date and the last visit in the time zone of the admin (they were shown in UTC), the status with "approve" next to it; the confirmation of the new password has its own label
 * [CHANGES] Admin > Edit User, profile, settings, avatar and signature: new layout (sections, the actions at the end of the tab)
+* [CHANGES] Admin > Edit User, attachments, reputation, suspend and kill: new layout (the same as the other tabs)
 * [CHANGES] Admin: the upgrade button of a new version links directly to the release package for the database of the forum (e.g. YAF.SqlServer-v4.0.12.zip) instead of the downloads page
 * [FIXED] Relative times: "30 seconds ago" was shown as "South Sudan ago", the texts were looked up on all language pages and the country code SS was found first
 * [FIXED] Admin > Dashboard: numbers from 1,000 (posts, topics, users) counted up to 1 (the thousands separator stopped the number)

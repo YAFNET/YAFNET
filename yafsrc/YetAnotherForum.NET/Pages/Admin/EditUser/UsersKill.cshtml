@@ -16,9 +16,9 @@
     Layout = "_EditUserLayout";
 }
 
-<h2>
-    @Html.LocalizedText("ADMIN_EDITUSER", "HEAD_KILL_USER")
-</h2>
+<h3 class="h5 mb-3 text-danger">
+    @Html.Icon("user-slash")@Html.LocalizedText("ADMIN_EDITUSER", "HEAD_KILL_USER")
+</h3>
 
 <form method="post">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
@@ -101,16 +101,11 @@
             </div>
         </div>
     }
-    <hr />
-    <div class="text-lg-center">
+    <div class="edit-user-actions">
         <button button-style="Primary"
                 Icon="ban"
                 text-localized-tag="HEAD_KILL_USER"
                 asp-page-handler="Kill"
                 return-confirm-tag="KILL_USER_CONFIRM"></button>
-        <a button-style="Secondary"
-           Icon="xmark"
-           text-localized-tag="CANCEL"
-           asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
     </div>
 </form>

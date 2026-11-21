@@ -18,9 +18,9 @@
     Layout = "_EditUserLayout";
 }
 
-<h2>
-    @Html.LocalizedText("PROFILE", "SUSPEND_USER")
-</h2>
+<h3 class="h5 mb-3">
+    @Html.Icon("user-clock")@Html.LocalizedText("PROFILE", "SUSPEND_USER")
+</h3>
 
 <form method="post">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
@@ -54,12 +54,11 @@
                         Icon="flag"></button>
             </p>
         </div>
-        <hr />
     }
 
-    <h2>
+    <h4 class="edit-user-section">
         @Html.LocalizedText("PROFILE", "SUSPEND_NEW")
-    </h2>
+    </h4>
     <div class="mb-3">
         <label asp-for="Input.SuspendedReason" localized-page="PROFILE" localized-tag="SUSPEND_REASON" class="form-label">
         </label>
@@ -78,15 +77,10 @@
         @Html.Raw(Model.GetTextFormatted("SUSPEND_INFO",
         Model.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, Model.EditUser.Item1.TimeZoneInfo).ToString(CultureInfo.InvariantCulture)))
     </alert>
-    <hr/>
-    <div class="text-lg-center">
+    <div class="edit-user-actions">
         <button asp-page-handler="Suspend"
                 button-style="Primary"
                 Icon="flag"
                 text-localized-tag="SUSPEND"></button>
-        <a button-style="Secondary"
-           Icon="xmark"
-           text-localized-tag="CANCEL"
-           asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
     </div>
 </form>

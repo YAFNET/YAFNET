@@ -11,9 +11,9 @@
     Layout = "_EditUserLayout";
 }
 
-<h2>
-    @Html.LocalizedText("ATTACHMENTS", "TITLE")
-</h2>
+<h3 class="h5 mb-3">
+    @Html.Icon("paperclip")@Html.LocalizedText("ATTACHMENTS", "TITLE")
+</h3>
 
 <form method="post">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
