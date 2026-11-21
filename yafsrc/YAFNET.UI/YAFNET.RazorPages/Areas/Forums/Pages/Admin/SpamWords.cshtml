@@ -56,7 +56,8 @@
                                                         text-localized-tag="BTNSEARCH"
                                                         text-localized-page="SEARCH"
                                                         Icon="search"
-                                                        asp-page-handler="Search">
+                                                        asp-page-handler="Search"
+                                                        asp-route-p="1">
                                                 </button>
                                             </div>
                                         </div>
@@ -169,8 +170,7 @@
     </div>
     @if (!Model.List.NullOrEmpty())
     {
-	    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = (await Model.GetRepository<SpamWords>()
-		    .CountAsync(x => x.BoardID == Model.PageBoardContext.PageBoardID)).ToType<int>(), Size = Model.Size })
+	    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.TotalRows, Size = Model.Size })
     }
 </form>
 

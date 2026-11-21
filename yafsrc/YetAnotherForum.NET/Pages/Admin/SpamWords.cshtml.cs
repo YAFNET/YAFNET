@@ -52,6 +52,11 @@ public class SpamWordsModel : AdminPage
     [BindProperty] public List<SpamWords> List { get; set; }
 
     /// <summary>
+    /// Gets or sets the number of the entries (of the search) for the pager.
+    /// </summary>
+    public int TotalRows { get; set; }
+
+    /// <summary>
     /// Gets or sets the search input.
     /// </summary>
     /// <value>The search input.</value>
@@ -197,6 +202,12 @@ public class SpamWordsModel : AdminPage
         }
 
         this.List = bannedList;
+
+        // the pager counts the entries of the search
+        this.TotalRows = searchText.IsSet()
+            ? this.GetRepository<SpamWords>()
+                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.SpamWord == searchText).ToType<int>()
+            : this.GetRepository<SpamWords>().Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>();
     }
 
     /// <summary>

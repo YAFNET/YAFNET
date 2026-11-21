@@ -51,6 +51,11 @@ public class BannedNamesModel : AdminPage
     public List<BannedName> List { get; set; }
 
     /// <summary>
+    /// Gets or sets the number of the entries (of the search) for the pager.
+    /// </summary>
+    public int TotalRows { get; set; }
+
+    /// <summary>
     /// Gets or sets the search input.
     /// </summary>
     /// <value>The search input.</value>
@@ -231,5 +236,11 @@ public class BannedNamesModel : AdminPage
         }
 
         this.List = bannedList;
+
+        // the pager counts the entries of the search
+        this.TotalRows = searchText.IsSet()
+            ? this.GetRepository<BannedName>()
+                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.Mask == searchText).ToType<int>()
+            : this.GetRepository<BannedName>().Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>();
     }
 }
