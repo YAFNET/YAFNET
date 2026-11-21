@@ -13,57 +13,58 @@
     @Html.LocalizedText("ADMIN_EDITUSER", "USER_REPUTATION")
 </h2>
 
-<form method="post">
-    <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
-    <h6>
-        @Html.LocalizedText("ADMIN_EDITUSER", "CURRENT_POINTS")
-        <span class="badge text-bg-secondary">
-            @Html.Raw(Model.EditUser.Points)
-        </span>
-    </h6>
+<h6>
+    @Html.LocalizedText("ADMIN_EDITUSER", "CURRENT_POINTS")
+    <span class="badge text-bg-secondary">
+        @Html.Raw(Model.EditUser.Points)
+    </span>
+</h6>
 
-    <div class="row">
-        <div class="mb-3 col-md-4">
-            <label class="form-label" asp-for="Input.UserPoints" 
-                   localized-tag="SET_POINTS"
-                   localized-page="ADMIN_EDITUSER"></label>
-            <input type="number" asp-for="Input.UserPoints"
-                   class="form-control"/>
-            <button text-localized-tag="GO"
-                    Icon="check"
-                    button-style="Secondary"
-                    asp-page-handler="SetUserPoints"
-                    class="mt-1"></button>
-        </div>
-        <div class="mb-3 col-md-4">
-            <label class="form-label" asp-for="Input.AddPoints"
-                   localized-tag="ADD_POINTS" localized-page="ADMIN_EDITUSER">
-            </label>
-            <input type="number" asp-for="Input.AddPoints"
-                   class="form-control"/>
-            <button text-localized-tag="GO"
-                    Icon="check"
-                    button-style="Secondary"
-                    asp-page-handler="AddPoints"
-                    class="mt-1"></button>
-        </div>
-        <div class="mb-3 col-md-4">
-            <label class="form-label" asp-for="Input.RemovePoints"
-                   localized-tag="REMOVE_POINTS" localized-page="ADMIN_EDITUSER">
-            </label>
-            <input type="number" asp-for="Input.RemovePoints"
-                   class="form-control"/>
-            <button button-style="Secondary"
-                    text-localized-tag="GO"
-                    Icon="check"
-                    asp-page-handler="RemovePoints"
-                    Class="mt-1"></button>
-        </div>
-    </div>
-    <div class="text-lg-center">
-        <a button-style="Secondary"
-           Icon="xmark"
-           text-localized-tag="CANCEL"
-           asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
-    </div>
-</form>
+@* a form per field: Enter in a field sends its action (the first button "set" was sent for all fields) *@
+<div class="row">
+    <form method="post" class="mb-3 col-md-4">
+        <input type="hidden" name="Input.UserId" value="@Model.Input.UserId" />
+        <label class="form-label" asp-for="Input.UserPoints"
+               localized-tag="SET_POINTS"
+               localized-page="ADMIN_EDITUSER"></label>
+        <input type="number" asp-for="Input.UserPoints"
+               class="form-control"/>
+        <button text-localized-tag="GO"
+                Icon="check"
+                button-style="Secondary"
+                asp-page-handler="SetUserPoints"
+                class="mt-1"></button>
+    </form>
+    <form method="post" class="mb-3 col-md-4">
+        <input type="hidden" name="Input.UserId" value="@Model.Input.UserId" />
+        <label class="form-label" asp-for="Input.AddPoints"
+               localized-tag="ADD_POINTS" localized-page="ADMIN_EDITUSER">
+        </label>
+        <input type="number" asp-for="Input.AddPoints"
+               class="form-control"/>
+        <button text-localized-tag="GO"
+                Icon="check"
+                button-style="Secondary"
+                asp-page-handler="AddPoints"
+                class="mt-1"></button>
+    </form>
+    <form method="post" class="mb-3 col-md-4">
+        <input type="hidden" name="Input.UserId" value="@Model.Input.UserId" />
+        <label class="form-label" asp-for="Input.RemovePoints"
+               localized-tag="REMOVE_POINTS" localized-page="ADMIN_EDITUSER">
+        </label>
+        <input type="number" asp-for="Input.RemovePoints"
+               class="form-control"/>
+        <button button-style="Secondary"
+                text-localized-tag="GO"
+                Icon="check"
+                asp-page-handler="RemovePoints"
+                class="mt-1"></button>
+    </form>
+</div>
+<div class="text-lg-center">
+    <a button-style="Secondary"
+       Icon="xmark"
+       text-localized-tag="CANCEL"
+       asp-page="@ForumPages.Admin_Users.GetPageName()"></a>
+</div>

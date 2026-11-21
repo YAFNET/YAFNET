@@ -23,6 +23,7 @@
  */
 
 using System.Linq;
+using System.Text.RegularExpressions;
 
 using YAF.Tests.UITests.Infrastructure;
 
@@ -528,6 +529,81 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 Assert.That(await row.CountAsync(), Is.EqualTo(1), "The user that is not approved is not listed");
                 await Assertions.Expect(row.Locator(".badge.text-bg-danger")).ToContainTextAsync("Not Approved");
+            });
+    }
+    /// <summary>
+    /// Enter in a field of a tab of the user editor sends the action of the field: the first button of the form
+    /// was sent (points: set instead of add or remove, suspend: remove the suspension instead of suspend,
+    /// profile: get the location instead of save).
+    /// </summary>
+    [Test]
+    public async Task EnterInTheUserEditorTabsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a new user
+                var userName = $"EnterTabs{Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/RegisterUser");
+                await page.Locator("#Input_UserName").FillAsync(userName);
+                await page.Locator("#Input_Email").FillAsync($"{userName.ToLower()}@test.com");
+                await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                await page.Locator("#Input_Password2").FillAsync(this.TestSettings.TestUserPassword);
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForumRegister']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+                await page.OpenUserFilterAsync();
+                await page.Locator("#Input_Name").FillAsync(userName);
+                await page.RunAndWaitForNextPageAsync(() => page.Locator("#Input_Name").PressAsync("Enter"));
+
+                var userId = await page.Locator(".user-row", new PageLocatorOptions { HasText = userName }).GetAttributeAsync("data-user-id");
+
+                // the tabs edit the user that the editor has loaded
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
+
+                async Task<string> EnterAsync(string tab, string field, string value = null)
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{tab}?userId={userId}");
+
+                    var input = page.Locator(field);
+
+                    if (value is not null)
+                    {
+                        await input.FillAsync(value);
+                    }
+
+                    var request = await page.RunAndWaitForRequestAsync(
+                                      () => input.PressAsync("Enter"),
+                                      r => r.Method == "POST");
+
+                    await page.WaitForLoadStateAsync();
+
+                    return Regex.Match(request.Url, @"handler=(\w+)").Groups[1].Value;
+                }
+
+                // all tabs, then one assert with the handlers that were sent
+                var sent = new[]
+                           {
+                               "points add: " + await EnterAsync("UsersPoints", "#Input_AddPoints", "5"),
+                               "points remove: " + await EnterAsync("UsersPoints", "#Input_RemovePoints", "2"),
+                               "profile: " + await EnterAsync("UsersProfile", "#Input_Occupation", "Tester"),
+
+                               // the second time the user is suspended (it removed the suspension)
+                               "suspend: " + await EnterAsync("UsersSuspend", "#Input_SuspendCount", "2"),
+                               "suspend again: " + await EnterAsync("UsersSuspend", "#Input_SuspendCount", "3")
+                           };
+
+                Assert.That(
+                    sent,
+                    Is.EqualTo(new[] { "points add: AddPoints", "points remove: RemovePoints", "profile: Save", "suspend: Suspend", "suspend again: Suspend" }),
+                    "Enter sent another action");
             });
     }
 }

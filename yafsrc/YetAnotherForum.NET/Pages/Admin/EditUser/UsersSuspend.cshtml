@@ -24,6 +24,9 @@
 
 <form method="post">
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
+
+    @* the default button of the form (Enter in a field): suspend, the first button was "remove suspension" *@
+    <button type="submit" asp-page-handler="Suspend" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
     
     @if (Model.EditUser.Item1.Suspended.HasValue)
     {

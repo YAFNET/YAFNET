@@ -75,7 +75,7 @@ public class SuspendUserTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 var suspendCount = page.Locator("#View8 input[id$='_SuspendCount']");
                 await suspendCount.WaitForAsync();
                 await suspendCount.FillAsync("1");
-                await page.SubmitAndWaitAsync(page.Locator("#View8 button[formaction*='handler=Suspend']"));
+                await page.SubmitAndWaitAsync(page.Locator("#View8 button[formaction*='handler=Suspend']:not(.visually-hidden)"));
 
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
 
