@@ -76,6 +76,30 @@ public class ContentTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A replace word is saved without the spaces around it (it is checked without them).
+    /// </summary>
+    [Test]
+    public async Task ReplaceWordIsSavedWithoutSpacesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ReplaceWords");
+
+                var word = $"uitestbad{Random.Shared.Next()}";
+
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/ReplaceWords/Edit", new { id = 0, badWord = $"  {word} ", goodWord = "good" });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ReplaceWords");
+
+                Assert.That(await GetBadWordOfTheDialogAsync(page, word), Is.EqualTo(word), "The replace word was saved with the spaces");
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)

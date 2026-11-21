@@ -78,6 +78,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Banned Names: the imported names got the reason "Imported PageUser Name" (now "Imported User Name")
 * [CHANGES] Admin > Spam Protection: one layout for the spam log, the spam words and the bans: tabs to switch between the pages, the number of entries, the actions in the header, the search is always shown (Enter searches) and finds the entries that contain the text, compact rows; the spam log shows the message, the ip address, the url and the user agent of each entry; [NEW] "Test" on the banned emails, ips, names and user agents shows which bans match a value
 * [FIXED] Admin > Board Announcement: the end of the announcement was shown as the stored text (e.g. 11/22/2026 15:33:00, the time of the server), now as a date in the time zone of the user (it is saved in utc)
+* [FIXED] Admin > Replace Words: the spaces around a bad word were saved (it was checked without them)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -135,7 +135,10 @@ public class ReplaceWordsController : ForumBaseController
             model.Id = null;
         }
 
-        if (!ValidationHelper.IsValidRegex(model.BadWord?.Trim()))
+        // saved as it is checked (spaces around the word were saved too)
+        model.BadWord = model.BadWord?.Trim();
+
+        if (!ValidationHelper.IsValidRegex(model.BadWord))
         {
             return this.Ok(
                 new MessageModalNotification(
