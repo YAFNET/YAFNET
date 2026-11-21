@@ -38,6 +38,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Forums: "Copy" in the context menu (right click) of a forum opened an empty new forum instead of a copy of the forum
 * [FIXED] Admin > Forums: the pages split the list of categories and forums by rows, a category with more forums than the page size was shown on several pages, each time with all its forums; now the categories are paged (each with all its forums), categories with the same name are no longer merged
 * [FIXED] Admin > Forums: a sub forum with a lower sort order than its parent was shown above the parent, the third level was indented like the second; the forums of a category are shown as a tree (each forum followed by its sub forums at any depth)
+* [FIXED] Forum select (move topics, delete forum, search, forum jump): a sub forum with a lower sort order than its parent was listed above the parent and apart from it, every level had the same indent; the forums are listed as a tree, indented per level
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

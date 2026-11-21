@@ -345,8 +345,8 @@ public static class ForumRepositoryExtensions
                 () => repository.ListAllWithAccess(boardId, userId),
                 TimeSpan.FromMinutes(5));
 
-            return repository.SortList(list.Where(x =>
-                x.Item1.Name.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase)));
+            return repository.SortList(OrderAsTree(list).Where(x =>
+                x.Item.Item1.Name.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         /// <summary>
@@ -373,7 +373,7 @@ public static class ForumRepositoryExtensions
                 () => repository.ListAllWithAccess(boardId, userId),
                 TimeSpan.FromMinutes(5));
 
-            return repository.SortList(list.Where(x => x.Item1.ID == forumId));
+            return repository.SortList(OrderAsTree(list).Where(x => x.Item.Item1.ID == forumId));
         }
 
         /// <summary>
@@ -410,7 +410,8 @@ public static class ForumRepositoryExtensions
                 () => repository.ListAllWithAccess(boardId, userId),
                 TimeSpan.FromMinutes(5));
 
-            var list = forums.GetPaged(pager);
+            // the pages of the tree (a sub forum follows its parent)
+            var list = OrderAsTree(forums).GetPaged(pager);
 
             return repository.SortList(list);
         }
@@ -912,17 +913,17 @@ public static class ForumRepositoryExtensions
         /// <returns>
         /// Returns the Sorted List
         /// </returns>
-        private List<SelectGroup> SortList(IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
+        private List<SelectGroup> SortList(IEnumerable<(Tuple<Forum, Category, ActiveAccess> Item, int Depth)> listSource)
         {
             var enumerable = listSource.ToList();
-            var categories = enumerable.Select(x => x.Item2).DistinctBy(x => x.ID);
+            var categories = enumerable.Select(x => x.Item.Item2).DistinctBy(x => x.ID);
 
             var listDestination = new List<SelectGroup>();
 
             categories.ForEach(
                 category =>
                 {
-                    var forumsByCategory = enumerable.Select(x => x.Item1).Where(x => x.CategoryID == category.ID);
+                    var forumsByCategory = enumerable.Where(x => x.Item.Item1.CategoryID == category.ID);
 
                     var selectGroup = new SelectGroup
                     {
@@ -931,12 +932,15 @@ public static class ForumRepositoryExtensions
                         // the select shows the texts as html (like the names of the forums)
                         text = HttpUtility.HtmlEncode(category.Name),
                         children = [.. forumsByCategory.Select(
-                            forum => new SelectOptions
+                            x => new SelectOptions
                             {
-                                id = forum.ID.ToString(),
-                                text = forum.ParentID.HasValue ? $" - {HttpUtility.HtmlEncode(forum.Name)}"
-                                    : HttpUtility.HtmlEncode(forum.Name),
-                                url = BoardContext.Current.Get<ILinkBuilder>().GetForumLink(forum)
+                                id = x.Item.Item1.ID.ToString(),
+
+                                // a sub forum is indented below its parent (per level)
+                                text = x.Depth > 0
+                                    ? $"{string.Concat(Enumerable.Repeat("&nbsp;&nbsp;&nbsp;", x.Depth - 1))} - {HttpUtility.HtmlEncode(x.Item.Item1.Name)}"
+                                    : HttpUtility.HtmlEncode(x.Item.Item1.Name),
+                                url = BoardContext.Current.Get<ILinkBuilder>().GetForumLink(x.Item.Item1)
                             })]
                     };
 
@@ -945,5 +949,55 @@ public static class ForumRepositoryExtensions
 
             return listDestination;
         }
+    }
+
+    /// <summary>
+    /// Orders the forums (sorted by category and sort order) as a tree: each forum is followed by its sub forums
+    /// (at any depth), the forums of a level keep their order. A forum whose parent is not in the list (no access,
+    /// another category) is shown as a forum without parent.
+    /// </summary>
+    /// <param name="forums">The forums with their category and access.</param>
+    /// <returns>The forums in the order of the tree with their depth.</returns>
+    private static List<(Tuple<Forum, Category, ActiveAccess> Item, int Depth)> OrderAsTree(
+        IList<Tuple<Forum, Category, ActiveAccess>> forums)
+    {
+        var ordered = new List<(Tuple<Forum, Category, ActiveAccess> Item, int Depth)>(forums.Count);
+        var added = new HashSet<int>();
+
+        foreach (var categoryForums in forums.GroupBy(x => x.Item2.ID))
+        {
+            var items = categoryForums.ToList();
+            var ids = items.Select(x => x.Item1.ID).ToHashSet();
+            var children = items.Where(x => x.Item1.ParentID.HasValue).ToLookup(x => x.Item1.ParentID.Value);
+
+            void Add(Tuple<Forum, Category, ActiveAccess> item, int depth)
+            {
+                // a broken hierarchy (a forum below its own sub forum) is listed only once
+                if (!added.Add(item.Item1.ID))
+                {
+                    return;
+                }
+
+                ordered.Add((item, depth));
+
+                foreach (var child in children[item.Item1.ID])
+                {
+                    Add(child, depth + 1);
+                }
+            }
+
+            foreach (var item in items.Where(x => !x.Item1.ParentID.HasValue || !ids.Contains(x.Item1.ParentID.Value)))
+            {
+                Add(item, 0);
+            }
+
+            // forums of a broken hierarchy that were not reached
+            foreach (var item in items.Where(x => !added.Contains(x.Item1.ID)))
+            {
+                Add(item, 0);
+            }
+        }
+
+        return ordered;
     }
 }

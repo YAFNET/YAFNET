@@ -365,6 +365,58 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// The forum select (e.g. "move topics to" when a forum is deleted) lists a sub forum below its parent,
+    /// indented per level (a sub forum with a lower sort order was listed above its parent, every level alike).
+    /// </summary>
+    [Test]
+    public async Task ForumSelectListsSubForumsBelowTheirParentTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var suffix = Random.Shared.Next();
+                var categoryId = await this.CreateCategoryAsync(page, $"SelectCategory{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"SelectTop{suffix}", categoryId, 5, null);
+                var top = await this.AdminForumIdAsync(page, $"SelectTop{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"SelectMiddle{suffix}", categoryId, 1, top);
+                var middle = await this.AdminForumIdAsync(page, $"SelectMiddle{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"SelectBottom{suffix}", categoryId, 1, middle);
+                await this.SaveForumInCategoryAsync(page, $"SelectOther{suffix}", categoryId, 3, null);
+
+                // the forums of the select (searched by the suffix), the indent is shown as "." per space
+                var options = await page.EvaluateAsync<string[]>(
+                                  """
+                                  async suffix => {
+                                      const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                                      const response = await fetch('/api/Forum/GetForums', {
+                                          method: 'POST',
+                                          headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': token },
+                                          body: JSON.stringify({ searchTerm: suffix, page: 0 })
+                                      });
+                                      const json = await response.json();
+                                      return json.results.flatMap(group => group.children)
+                                          .map(option => option.text.replaceAll('&nbsp;', '.').replace(suffix, ''));
+                                  }
+                                  """,
+                                  suffix.ToString());
+
+                Assert.That(
+                    options,
+                    Is.EqualTo(new[] { "SelectOther", "SelectTop", " - SelectMiddle", "... - SelectBottom" }),
+                    "The forums of the select are not listed as a tree");
+            });
+    }
+
+    /// <summary>
     /// The names of the sub forums in the forum list are shown as entered (not encoded twice).
     /// </summary>
     [Test]
