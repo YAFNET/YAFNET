@@ -435,10 +435,23 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                 var userId = await this.FindUserIdAsync(page, this.TestSettings.AdminUserName);
 
-                await page.Locator($"button[formaction$='/Delete?id={userId}']:visible").First.ClickAsync();
+                // the own row has no delete button
+                Assert.That(
+                    await page.Locator($".user-row[data-user-id='{userId}'] [data-bs-target='#DeleteUserDialog']").CountAsync(),
+                    Is.Zero,
+                    "The admin can delete himself");
 
-                // the delete is confirmed in a dialog
-                await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+                // the delete dialog is sent with the own id anyway
+                await page.RunAndWaitForNextPageAsync(
+                    () => page.EvaluateAsync(
+                        """
+                        id => {
+                            const dialog = document.getElementById('DeleteUserDialog');
+                            dialog.querySelector('[data-delete-user-id]').value = id;
+                            dialog.closest('form').requestSubmit(dialog.querySelector("button[formaction*='Delete']"));
+                        }
+                        """,
+                        userId));
 
                 var content = await page.ContentAsync();
 
