@@ -95,6 +95,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Event Log: the filter was applied on the shown page, a filter with less entries showed nothing
 * [FIXED] Admin > Private Messages: the number of the deleted messages was not shown after the delete
 [CHANGES] Admin > Event Log, Recycle Bin, Attachments, Tags, Prune, Private Messages: new layouts, the event types as filter chips with their counts, the deleted topics and posts on tabs with confirmed deletes, attachment previews with size and downloads, the tags as a grid with a search, the prune and the private messages as danger zones
+[FIXED] Admin > Host Settings: after a clear cache button or the search index task the selects were empty, a save then set the permissions, feeds and spam settings to forbidden or off
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

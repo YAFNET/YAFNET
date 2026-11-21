@@ -557,4 +557,29 @@ public class HostSettingsTests(ComposeScenario scenario) : DatabaseTestBase(scen
                 """,
                 enabled));
     }
+
+    /// <summary>
+    /// The selects of the host settings are filled after a cache button: they were empty, a save after it wrote 0
+    /// (forbidden, off) for all of them.
+    /// </summary>
+    [Test]
+    public async Task SelectsAreFilledAfterClearCacheTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                var button = page.Locator("button[formaction*='ResetCacheAll']");
+
+                // the button is on another tab
+                await page.RunAndWaitForNavigationAsync(() => button.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+                Assert.That(await page.Locator("#Input_SearchPermissions option").CountAsync(), Is.GreaterThan(0), "The select of the search permissions is empty");
+                Assert.That(await page.Locator("#Input_SpamServiceType option").CountAsync(), Is.GreaterThan(0), "The select of the spam service is empty");
+            });
+    }
 }

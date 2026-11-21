@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -283,8 +283,6 @@ public class HostSettingsModel : AdminPage
             return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        this.RenderListItems();
-
         await this.BindDataAsync(tab);
 
         return this.Page();
@@ -535,6 +533,10 @@ public class HostSettingsModel : AdminPage
         }
 
         this.SetHostPage();
+
+        // the lists are not posted, they are filled for every page (after a post of the cache or the search
+        // buttons the selects were empty and a save wrote 0 for all of them)
+        this.RenderListItems();
 
         // load Board Setting collection information...
         var settingCollection = new BoardSettingCollection(this.PageBoardContext.BoardSettings);
