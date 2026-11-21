@@ -35,6 +35,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Profile menu (my account, profile pages): on mobile devices in landscape mode the icons were shown vertical (one below the other) instead of horizontal above the content
 * [FIXED] NuGet: the packages YAFNET.Core, YAFNET.Types, YAFNET.Configuration, YAFNET.Web and YAFNET.Data.* used the README of the repository, its HTML (logo and badges) and relative links can not be shown on nuget.org; they now contain their own README (yafsrc/NuGet/README.md) in plain Markdown with absolute links
 * [FIXED] Admin > Forums: "Copy" in the context menu (right click) of a forum opened an empty new forum instead of a copy of the forum
+* [FIXED] Admin > Forums: the pages split the list of categories and forums by rows, a category with more forums than the page size was shown on several pages, each time with all its forums; now the categories are paged (each with all its forums), categories with the same name are no longer merged
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

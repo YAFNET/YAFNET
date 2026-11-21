@@ -269,5 +269,5 @@
         </div>
     </div>
     
-    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>().Count, Size = Model.Size })
+    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.CategoryCount, Size = Model.Size })
 </form>

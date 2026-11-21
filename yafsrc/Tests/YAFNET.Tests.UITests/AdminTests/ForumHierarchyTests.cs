@@ -150,6 +150,79 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// Admin > Forums pages the categories: a category with more forums than the page size is shown on one page
+    /// with all its forums (the rows of categories and forums were paged, the category was shown on more pages,
+    /// each time with all its forums).
+    /// </summary>
+    [Test]
+    public async Task ForumListPagesTheCategoriesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
+
+                var pageSize = int.Parse(await page.Locator("select[name='Size']").InputValueAsync());
+
+                var suffix = Random.Shared.Next();
+                var categoryName = $"PagingCategory{suffix}";
+
+                var categoryId = await this.CreateCategoryAsync(page, categoryName);
+
+                // more forums than the page size
+                for (var i = 1; i <= pageSize + 1; i++)
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+                    await page.Locator("#Input_Name").FillAsync($"Paging{suffix}_{i:00}");
+                    await page.Locator("#Input_Description").FillAsync("A forum of the paging test");
+                    await page.Locator("#Input_SortOrder").FillAsync(i.ToString());
+                    await page.EvaluateAsync(
+                        """
+                        id => {
+                            const select = document.querySelector('#Input_CategoryID');
+                            select.add(new Option('', id, true, true));
+                            select.value = id;
+                        }
+                        """,
+                        categoryId);
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                }
+
+                var pagesWithCategory = 0;
+                var forumsOnPage = 0;
+
+                for (var p = 1; p <= 50; p++)
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
+
+                    var items = page.Locator("li.list-group-item");
+
+                    if (await items.CountAsync() == 0)
+                    {
+                        break;
+                    }
+
+                    if (await page.Locator("li.list-group-item h5", new PageLocatorOptions { HasTextRegex = new Regex($"^\\s*{categoryName}\\s*$") }).CountAsync() == 0)
+                    {
+                        continue;
+                    }
+
+                    pagesWithCategory++;
+                    forumsOnPage = await page.Locator("li.list-group-item h5", new PageLocatorOptions { HasText = $"Paging{suffix}_" }).CountAsync();
+                }
+
+                Assert.That(pagesWithCategory, Is.EqualTo(1), "The category is not shown on exactly one page");
+                Assert.That(forumsOnPage, Is.EqualTo(pageSize + 1), "The forums of the category are not shown with the category");
+            });
+    }
+
+    /// <summary>
     /// The names of the sub forums in the forum list are shown as entered (not encoded twice).
     /// </summary>
     [Test]
@@ -420,6 +493,43 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
         await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
 
         return forumId ?? await this.ForumIdAsync(page, name, parentOfNew);
+    }
+
+    /// <summary>
+    /// Creates a category (shown after the other categories) and returns its id.
+    /// </summary>
+    private async Task<string> CreateCategoryAsync(IPage page, string name)
+    {
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditCategory/0");
+        await page.Locator("#Input_Name").FillAsync(name);
+        await page.Locator("#Input_SortOrder").FillAsync("999");
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+        // the list is paged (the categories of the other tests come first)
+        for (var p = 1; p <= 50; p++)
+        {
+            await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
+
+            var categoryId = await page.EvaluateAsync<string>(
+                                 """
+                                 name => {
+                                     const item = [...document.querySelectorAll('li.list-group-item')]
+                                         .find(li => li.querySelector('h5')?.textContent.trim() === name);
+                                     const href = item?.querySelector("a[href*='EditCategory/']")?.getAttribute('href');
+                                     return href ? href.match(/EditCategory\/(\d+)/)[1] : null;
+                                 }
+                                 """,
+                                 name);
+
+            if (categoryId is not null)
+            {
+                return categoryId;
+            }
+        }
+
+        Assert.Fail($"The category {name} was not created");
+
+        return null;
     }
 
     private async Task<int> ForumIdAsync(IPage page, string name, int? parentId = null)

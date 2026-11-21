@@ -54,6 +54,11 @@ public class ForumsModel : AdminPage
     public List<Category> CategoryList { get; set; }
 
     /// <summary>
+    /// Gets or sets the number of all categories (of all pages).
+    /// </summary>
+    public int CategoryCount { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="ForumsModel"/> class.
     /// </summary>
     public ForumsModel()
@@ -238,12 +243,18 @@ public class ForumsModel : AdminPage
 
         var listAll = this.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>();
 
+        // the categories are paged (each with all its forums): paging the rows of categories and forums
+        // showed a category on more than one page with all its forums on each of them
+        var categories = listAll.Select(x => x.Item1).DistinctBy(x => x.ID).ToList();
+
+        this.CategoryCount = categories.Count;
+
         var pager = new Paging
                     {
                         CurrentPageIndex = this.PageBoardContext.PageIndex,
-                        PageSize = this.Size, Count = listAll.Count
+                        PageSize = this.Size, Count = categories.Count
                     };
 
-        this.CategoryList = [.. listAll.GetPaged(pager).Select(x => x.Item1).DistinctBy(x => x.Name)];
+        this.CategoryList = [.. categories.GetPaged(pager)];
     }
 }
