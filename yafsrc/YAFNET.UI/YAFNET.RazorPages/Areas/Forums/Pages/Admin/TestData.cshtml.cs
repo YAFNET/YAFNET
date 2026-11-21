@@ -204,6 +204,9 @@ public class TestDataModel : AdminPage
 
         this.Get<ILogger<TestDataModel>>().Log(this.PageBoardContext.PageUserID, this, mesRetStr, EventLogTypes.Information);
 
+        // the lists are shown again (the selects were empty, a second launch used no board)
+        await this.BindDataAsync();
+
         return this.PageBoardContext.Notify(mesRetStr, MessageTypes.success);
     }
 
