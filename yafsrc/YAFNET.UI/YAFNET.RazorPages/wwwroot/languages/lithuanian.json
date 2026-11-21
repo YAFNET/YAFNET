@@ -6104,6 +6104,10 @@
             "#text": "Privačios žinutės"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "Ištrinta asmeninių žinučių: {0}."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Privačių žinučių skaičius:"
           },

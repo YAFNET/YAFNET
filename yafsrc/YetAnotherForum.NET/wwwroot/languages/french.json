@@ -6104,6 +6104,10 @@
             "#text": "Messages privés"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "{0} messages privés ont été supprimés."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Nombre de messages privés :"
           },

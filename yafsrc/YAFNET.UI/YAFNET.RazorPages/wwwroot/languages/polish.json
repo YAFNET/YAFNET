@@ -6096,6 +6096,10 @@
             "#text": "Wiadomości prywatne"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "Usunięto prywatne wiadomości: {0}."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Liczba prywatnych wiadomości:"
           },

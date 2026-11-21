@@ -6104,6 +6104,10 @@
             "#text": "Özel mesajlar"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "{0} özel mesaj silindi."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Özel mesaj sayısı:"
           },

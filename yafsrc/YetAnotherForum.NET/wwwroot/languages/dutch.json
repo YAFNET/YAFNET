@@ -6096,6 +6096,10 @@
             "#text": "berichten"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "{0} privéberichten zijn verwijderd."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "berichten:"
           },

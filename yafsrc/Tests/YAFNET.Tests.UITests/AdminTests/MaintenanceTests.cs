@@ -127,4 +127,32 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 Assert.That(action, Does.Not.Contain("/2/"), $"The filter is applied on the shown page ({action})");
             });
     }
+
+    /// <summary>
+    /// The number of the deleted private messages is shown after the delete (nothing was shown), the entered days
+    /// are kept.
+    /// </summary>
+    [Test]
+    public async Task DeletePrivateMessagesKeepsTheDaysTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Pm");
+
+                // only messages older than 9999 days (none)
+                await page.Locator("#Input_Days2").FillAsync("9999");
+
+                var button = page.Locator("button[formaction*='Commit']");
+
+                // the confirm dialog of the button is skipped
+                await page.RunAndWaitForNavigationAsync(() => button.EvaluateAsync("b => b.form.requestSubmit(b)"));
+
+                Assert.That(await page.Locator("#Input_Days2").InputValueAsync(), Is.EqualTo("9999"), "The days were reset");
+                Assert.That(await page.ContentAsync(), Does.Contain("0 private messages were deleted."), "The number of the deleted messages is missing");
+            });
+    }
 }

@@ -6104,6 +6104,10 @@
             "#text": "Privaatsõnumid"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "Kustutati {0} privaatsõnumit."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Privaatsõnumite arv:"
           },

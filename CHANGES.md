@@ -93,6 +93,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Recycle Bin: the selected page size of the deleted posts was always reset to the page size of the user, the pager of the posts used the page size of the topics
 * [FIXED] Admin > Recycle Bin: the search of the deleted topics searched on the shown page, a search with less results showed nothing
 * [FIXED] Admin > Event Log: the filter was applied on the shown page, a filter with less entries showed nothing
+* [FIXED] Admin > Private Messages: the number of the deleted messages was not shown after the delete
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

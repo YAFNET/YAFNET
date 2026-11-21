@@ -63,7 +63,7 @@ public class PmModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new PmInputModel();
+        this.Input = new PmInputModel { Days2 = 180 };
 
         this.BindData();
     }
@@ -73,18 +73,19 @@ public class PmModel : AdminPage
     /// </summary>
     private void BindData()
     {
-        this.Input.Days2 = 180;
-
         this.Input.Count = this.GetRepository<PrivateMessage>().CountBoardMessages(this.PageBoardContext.PageBoardID).ToString();
     }
 
     /// <summary>
     /// Commits the click.
     /// </summary>
-    public async Task OnPostCommitAsync()
+    public async Task<IActionResult> OnPostCommitAsync()
     {
-        await this.GetRepository<PrivateMessage>().PruneAllAsync(this.PageBoardContext.PageBoardID, this.Input.Days2);
+        var count = await this.GetRepository<PrivateMessage>().PruneAllAsync(this.PageBoardContext.PageBoardID, this.Input.Days2);
 
+        // the entered days are kept (they were reset to 180), the number of the deleted messages is shown
         this.BindData();
+
+        return this.PageBoardContext.Notify(this.GetTextFormatted("MSG_DELETED", count), MessageTypes.success);
     }
 }

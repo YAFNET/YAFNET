@@ -6104,6 +6104,10 @@
             "#text": "Yksityisviestit"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "{0} yksityisviestiä poistettiin."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Yksityisviestien määrä:"
           },

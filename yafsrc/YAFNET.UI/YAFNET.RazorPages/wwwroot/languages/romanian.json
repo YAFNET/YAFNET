@@ -6104,6 +6104,10 @@
             "#text": "Mesaje private"
           },
           {
+            "@tag": "MSG_DELETED",
+            "#text": "Au fost șterse {0} mesaje private."
+          },
+          {
             "@tag": "PM_NUMBER",
             "#text": "Numărul de mesaje private:"
           },
