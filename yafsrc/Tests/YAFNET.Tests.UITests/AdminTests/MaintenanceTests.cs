@@ -63,6 +63,9 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Restore");
 
+                // the deleted posts are on their own tab
+                await page.Locator("#DeletedPostsTab").ClickAsync();
+
                 // the page size of the user is selected, another size is chosen
                 var select = page.Locator("#MessagesPageSize");
                 var userSize = int.Parse(await select.InputValueAsync());
@@ -70,7 +73,10 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
                 await page.RunAndWaitForNavigationAsync(() => select.SelectOptionAsync(size.ToString()));
 
-                var rows = await page.Locator("button[formaction*='RestorePost']").CountAsync();
+                // the tab of the posts stays open
+                Assert.That(await page.Locator("#DeletedPostsTab").GetAttributeAsync("class"), Does.Contain("active"), "The tab of the posts was closed");
+
+                var rows = await page.Locator("#DeletedPosts .post-row").CountAsync();
 
                 // the old code listed min(user size, deleted posts) rows, at least 6 posts are deleted
                 if (size == 5)
@@ -153,6 +159,62 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
                 Assert.That(await page.Locator("#Input_Days2").InputValueAsync(), Is.EqualTo("9999"), "The days were reset");
                 Assert.That(await page.ContentAsync(), Does.Contain("0 private messages were deleted."), "The number of the deleted messages is missing");
+            });
+    }
+
+    /// <summary>
+    /// A chip of the event types filters the event log by its type.
+    /// </summary>
+    [Test]
+    public async Task EventLogTypeChipFiltersTheListTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EventLog");
+
+                // the login of the test is logged, there is at least one type
+                var chip = page.Locator(".event-type:not([data-type='-1'])").First;
+                var type = await chip.GetAttributeAsync("data-type");
+
+                await page.RunAndWaitForNavigationAsync(() => chip.ClickAsync());
+
+                var types = await page.Locator(".event-row").EvaluateAllAsync<string[]>("rows => rows.map(r => r.dataset.type)");
+
+                Assert.That(types, Is.Not.Empty, "The type has no entries");
+                Assert.That(types, Is.All.EqualTo(type), "The list is not filtered by the type of the chip");
+                Assert.That(
+                    await page.Locator($".event-type[data-type='{type}']").GetAttributeAsync("class"),
+                    Does.Not.Contain("btn-outline"),
+                    "The chip of the type is not selected");
+            });
+    }
+
+    /// <summary>
+    /// Enter in the search field of the tags searches the tags of the board.
+    /// </summary>
+    [Test]
+    public async Task TagsSearchTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Tags");
+
+                // a text that no tag has
+                await page.Locator("#Filter").FillAsync($"no tag {Random.Shared.Next()}");
+
+                await page.RunAndWaitForNavigationAsync(() => page.Locator("#Filter").PressAsync("Enter"));
+
+                Assert.That(page.Url, Does.Contain("Search"), "Enter did not search");
+                Assert.That(await page.Locator(".tags-no-match").CountAsync(), Is.EqualTo(1), "The search did not filter the tags");
+                Assert.That(await page.Locator(".tag-card").CountAsync(), Is.Zero, "Tags are listed that don't match");
             });
     }
 }

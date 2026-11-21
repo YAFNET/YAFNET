@@ -30,8 +30,11 @@ using YAF.Types.Extensions;
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
+
+using ServiceStack.OrmLite;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
@@ -55,6 +58,17 @@ public class TagsModel : AdminPage
     /// <value>The count.</value>
     [BindProperty]
     public int Count { get; set; }
+
+    /// <summary>
+    /// Gets or sets the search text (a part of the tag name).
+    /// </summary>
+    [BindProperty]
+    public string Filter { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of the topics of each listed tag.
+    /// </summary>
+    public Dictionary<int, int> UsageCounts { get; set; } = [];
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "TagsModel" /> class.
@@ -93,6 +107,14 @@ public class TagsModel : AdminPage
     }
 
     /// <summary>
+    /// Searches the tags (the list starts on the first page).
+    /// </summary>
+    public Task OnPostSearchAsync()
+    {
+        return this.BindDataAsync();
+    }
+
+    /// <summary>
     /// Handles single record commands in a repeater.
     /// </summary>
     public async Task<IActionResult> OnPostDeleteAsync(int id)
@@ -120,19 +142,24 @@ public class TagsModel : AdminPage
 
         var currentPageIndex = this.PageBoardContext.PageIndex;
 
-        // list event for this board
-        this.List = await this.GetRepository<Tag>().GetPagedAsync(
-            x => x.BoardID == this.PageBoardContext.PageBoardID,
-            currentPageIndex,
-            this.Size);
+        var boardId = this.PageBoardContext.PageBoardID;
+        var filter = this.Filter?.Trim();
 
-        this.Count = 0;
+        // the tags of the board (with the search text in the name)
+        System.Linq.Expressions.Expression<Func<Tag, bool>> where = filter.IsSet()
+                                                                         ? x => x.BoardID == boardId && x.TagName.Contains(filter)
+                                                                         : x => x.BoardID == boardId;
 
-        if (!this.List.NullOrEmpty())
-        {
-            var tags =  await this.GetRepository<Tag>().GetByBoardIdAsync();
+        this.List = await this.GetRepository<Tag>().GetPagedAsync(where, currentPageIndex, this.Size);
 
-            this.Count = tags.Count;
-        }
+        this.Count = this.List.NullOrEmpty() ? 0 : (int)await this.GetRepository<Tag>().CountAsync(where);
+
+        // the topics of the listed tags (one query)
+        var ids = this.List.Select(x => x.ID).ToList();
+
+        this.UsageCounts = ids.Count == 0
+                               ? []
+                               : (await this.GetRepository<TopicTag>().GetAsync(x => Sql.In(x.TagID, ids)))
+                               .GroupBy(x => x.TagID).ToDictionary(g => g.Key, g => g.Count());
     }
 }

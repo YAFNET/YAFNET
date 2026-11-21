@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -49,6 +49,17 @@ public class RestoreModel : AdminPage
     /// <value>The filter.</value>
     [BindProperty]
     public string Filter { get; set; }
+
+    /// <summary>
+    /// Gets or sets the shown tab (topics or posts), it stays open after a post.
+    /// </summary>
+    [BindProperty]
+    public string Tab { get; set; }
+
+    /// <summary>
+    /// Gets a value indicating whether the tab of the deleted posts is shown.
+    /// </summary>
+    public bool ShowPosts => this.Tab == "posts";
 
     /// <summary>
     /// Gets or sets the deleted topics.
@@ -400,5 +411,17 @@ public class RestoreModel : AdminPage
                    c => c.ID == forum.CategoryID && c.BoardID == this.PageBoardContext.PageBoardID)
                    ? topic
                    : null;
+    }
+
+    /// <summary>
+    /// Gets the start of the text of a deleted post (without the codes and the html).
+    /// </summary>
+    /// <param name="message">The text of the post.</param>
+    /// <returns>The start of the text.</returns>
+    public static string GetExcerpt(string message)
+    {
+        var text = HtmlTagHelper.StripHtml(BBCodeHelper.StripBBCode(message ?? string.Empty)).Trim();
+
+        return text.Length > 300 ? $"{text[..300]}…" : text;
     }
 }

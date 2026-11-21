@@ -981,8 +981,24 @@
             "#text": "Ek (ler) si silinsin mi?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "İndirmeler"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ek yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Kullanıcıların gönderilerine eklediği dosyalar burada listelenir."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Kullanıcı Ekleri"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Kullanımlar"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Tüm türler"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Başvurmak"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Temizlik"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Kayıt yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Seçilen dönemde hiçbir olay kaydedilmedi."
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "Şundan eski mesajları sil:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Belirtilen günden eski özel mesajlar forumun tüm kullanıcıları için silinir. Bu işlem geri alınamaz."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Özel mesajlar"
           },
@@ -6167,8 +6199,16 @@
             "#text": "Konuları gerçekten budamak istiyor musunuz? Bu süreç geri döndürülemez."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Seçilen forumun son gönderisi belirtilen günden eski olan konularını siler (kalıcı konular korunur). Temizleme arka planda çalışır."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Budama Görevi Zamanlandı"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Konular veritabanından kaldırılır ve geri dönüşüm kutusundan geri yüklenemez."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Silinen tüm gönderiler kalıcı olarak silinsin mi? Bu işlem geri alınamaz."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Listedeki silinen tüm konular kalıcı olarak silinsin mi? Bu işlem geri alınamaz."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Bu gönderi kalıcı olarak silinsin mi? Bu işlem geri alınamaz."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Bu konu kalıcı olarak silinsin mi? Bu işlem geri alınamaz."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Gönderisi olmayan silinen tüm konular kalıcı olarak silinsin mi? Bu işlem geri alınamaz."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "0 Gönderi ile tümünü sil"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Kalıcı olarak sil"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Silinen gönderi yok"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Silinen gönderiler geri yüklenene veya kalıcı olarak silinene kadar burada tutulur."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Silinen konu yok"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Silinen konular geri yüklenene veya kalıcı olarak silinene kadar burada tutulur."
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Konu geri yüklendi"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Silinen gönderiler"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Mesajları Geri Yükleme ve Silme"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Silinen konular"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Etiket silinsin mi?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Etiket yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Kullanıcıların konularına eklediği etiketler burada listelenir."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Aramayla eşleşen etiket yok."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Etiket ara"
           },
           {
             "@tag": "SHOW_TOPICS",

@@ -981,8 +981,24 @@
             "#text": "Kustuta kinnitus (d)?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Allalaadimised"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Manuseid pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Siin on failid, mille kasutajad oma postitustele lisavad."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Kasutaja manused"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Kasutused"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Kõik tüübid"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Rakenda"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Korista ära"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Logikirjeid pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Valitud perioodil sündmusi ei logitud."
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "Kustuta kirjad, mis on vanemad kui:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Antud päevadest vanemad privaatsõnumid kustutatakse foorumi kõigilt kasutajatelt. Seda ei saa tagasi võtta."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Privaatsõnumid"
           },
@@ -6167,8 +6199,16 @@
             "#text": "Kas soovite tõesti teemasid kärpida? "
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Kustutab valitud foorumi teemad, mille viimane postitus on antud päevadest vanem (püsivad teemad jäävad alles). Puhastus toimub taustal."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Pügamisülesanne on plaanitud"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Teemad eemaldatakse andmebaasist ja neid ei saa prügikastist taastada."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Kas kustutada kõik kustutatud postitused jäädavalt? Seda ei saa tagasi võtta."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Kas kustutada kõik loendi kustutatud teemad jäädavalt? Seda ei saa tagasi võtta."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Kas kustutada see postitus jäädavalt? Seda ei saa tagasi võtta."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Kas kustutada see teema jäädavalt? Seda ei saa tagasi võtta."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Kas kustutada kõik postitusteta kustutatud teemad jäädavalt? Seda ei saa tagasi võtta."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Kustuta kõik 0 postitusega"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Kustuta jäädavalt"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Kustutatud postitusi pole"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Kustutatud postitused jäävad siia, kuni need taastatakse või jäädavalt kustutatakse."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Kustutatud teemasid pole"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Kustutatud teemad jäävad siia, kuni need taastatakse või jäädavalt kustutatakse."
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Teema taastatud"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Kustutatud postitused"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Sõnumite taastamine ja kustutamine"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Kustutatud teemad"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Kas kustutada silt?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Silte pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Siin on sildid, mille kasutajad oma teemadele lisavad."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Otsingule ei vasta ükski silt."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Otsi silte"
           },
           {
             "@tag": "SHOW_TOPICS",

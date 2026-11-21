@@ -147,6 +147,33 @@ public static class EventLogRepositoryExtensions
         }
 
         /// <summary>
+        /// Counts the log entries of a board in a period by their type (like they are listed in the event log).
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <param name="sinceDate">The since date.</param>
+        /// <param name="toDate">The to date.</param>
+        /// <returns>The number of the entries of each type.</returns>
+        public Dictionary<int, int> CountByType(int boardId, DateTime sinceDate, DateTime toDate)
+        {
+            return repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
+
+                    var guestUserId = BoardContext.Current.GuestUserID;
+
+                    expression.Join<User>((e, u) => u.ID == (e.UserID ?? guestUserId));
+
+                    expression.Where<EventLog, User>(
+                        (a, b) => b.BoardID == boardId && a.EventTime >= sinceDate && a.EventTime <= toDate);
+
+                    expression.GroupBy(a => a.Type).Select(a => new { a.Type, Count = Sql.Count(a.ID) });
+
+                    return db.Connection.Dictionary<int, int>(expression);
+                });
+        }
+
+        /// <summary>
         /// Deletes log entries of a board: the entries of its users and the entries without a user
         /// (they are listed for every board), like they are listed in the event log of the board.
         /// </summary>

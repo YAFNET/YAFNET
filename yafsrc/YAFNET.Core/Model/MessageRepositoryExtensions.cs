@@ -166,6 +166,7 @@ public static class MessageRepositoryExtensions
 
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                 .Join<Topic>((f, t) => t.ForumID == f.ID).Join<Topic, Message>((t, m) => m.TopicID == t.ID)
+                .Join<Message, User>((m, u) => u.ID == m.UserID)
                 .Where<Message, Category>((m, category) => category.BoardID == boardId && (m.Flags & 8) == 8 && (category.Flags & 1) == 1);
 
             // -- count total
@@ -174,8 +175,12 @@ public static class MessageRepositoryExtensions
             var countTotalSql = countTotalExpression
                 .Select(Sql.Count($"{countTotalExpression.Column<Message>(x => x.ID)}")).ToSelectStatement();
 
-            expression.Select<Forum, Topic, Message>(
-                (g, d, m) => new {
+            expression.Select<Forum, Topic, Message, User>(
+                (g, d, m, u) => new {
+                    m.UserID,
+                    UserName = u.Name,
+                    u.DisplayName,
+                    u.Suspended,
                     TopicID = d.ID,
                     Topic = d.TopicName,
                     d.Priority,

@@ -6,65 +6,80 @@
 @using YAF.Web.HtmlHelpers
 @model PruneModel
 
+@{
+    var running = Model.Get<ITaskModuleManager>().IsTaskRunning(nameof(PruneTopicTask));
+}
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("trash","ADMIN_PRUNE","TITLE")
+<form method="post" class="admin-edit-form admin-prune">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("trash")@Html.LocalizedText("ADMIN_PRUNE", "TITLE")
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+            <div class="card mb-3 border-danger-subtle danger-zone">
+                <div class="card-header bg-danger-subtle text-danger-emphasis">
+                    @Html.Icon("triangle-exclamation")@Html.LocalizedText("ADMIN_PRUNE", "PRUNE_START")
                 </div>
                 <div class="card-body">
-
-                    @if (Model.Get<ITaskModuleManager>().IsTaskRunning(nameof(PruneTopicTask)))
-                    {
-                        @Html.LocalizedText("ADMIN_PRUNE", "PRUNE_INFO")
-                    }
+                    <p class="text-body-secondary">@Html.LocalizedText("ADMIN_PRUNE", "EXPLAIN")</p>
 
                     <div class="mb-3">
-                        <label class="form-label" ID="LocalizedLabel4"
+                        <label class="form-label"
                                localized-tag="PRUNE_FORUM" localized-page="ADMIN_PRUNE"
                                asp-for="Input.ForumListSelected" info-button="true"></label>
                         <select id="ForumList" name="forumList"></select>
-                        <input type="hidden" asp-for="Input.ForumListSelected" Value="@Model.Input.ForumListSelected"/>
+                        <input type="hidden" asp-for="Input.ForumListSelected" Value="@Model.Input.ForumListSelected" />
                     </div>
                     <div class="row">
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label" ID="LocalizedLabel3"
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label"
                                    localized-tag="PRUNE_DAYS" localized-page="ADMIN_PRUNE"
                                    asp-for="Input.Days" info-button="true"></label>
                             <div class="input-group">
                                 <input type="number" asp-for="Input.Days" min="1"
-                                       class="form-control"/>
+                                       class="form-control" />
                                 <div class="input-group-text">
                                     @Html.LocalizedText("DAYS")
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 col-md-4">
-                            <label class="form-label" ID="LocalizedLabel2"
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label"
                                    localized-tag="PRUNE_PERMANENT" localized-page="ADMIN_PRUNE"
                                    asp-for="Input.PermanentDelete" info-button="true"></label>
                             <div class="form-check form-switch">
                                 <input type="checkbox" asp-for="Input.PermanentDelete"
-                                       class="form-check-input"/>
+                                       class="form-check-input" role="switch"
+                                       data-shows="#PermanentWarning" />
                             </div>
                         </div>
                     </div>
+                    <div id="PermanentWarning" class="alert alert-warning mb-0" role="alert">
+                        @Html.Icon("triangle-exclamation")@Html.LocalizedText("ADMIN_PRUNE", "PERMANENT_WARNING")
+                    </div>
                 </div>
-
-                @if (!Model.Get<ITaskModuleManager>().IsTaskRunning(nameof(PruneTopicTask)))
-                {
-                    <div class="card-footer text-center">
-                        <button button-style="Primary"
+                <div class="card-footer d-flex justify-content-end">
+                    @if (running)
+                    {
+                        @* a prune is running, a new one can be started when it is finished *@
+                        <div class="text-body-secondary prune-running" role="status">
+                            <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                            @Html.LocalizedText("ADMIN_PRUNE", "PRUNE_INFO")
+                        </div>
+                    }
+                    else
+                    {
+                        <button button-style="Danger"
                                 asp-page-handler="Commit"
                                 Icon="trash"
                                 text-localized-tag="PRUNE_START"
                                 return-confirm-tag="CONFIRM_PRUNE">
                         </button>
-                    </div>
-                }
-                
+                    }
+                </div>
             </div>
         </div>
     </div>
@@ -76,10 +91,10 @@
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
             JavaScriptBlocks.SelectForumsLoadJs(
                 "ForumList",
-                            Model.GetText("PRUNE_FORUM_HELP"),
+                Model.GetText("PRUNE_FORUM_HELP"),
                 false,
                 true,
                 "Input_ForumListSelected")))
-            
     </script>
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
 }

@@ -981,8 +981,24 @@
             "#text": "Slet tilknytning (er)?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Downloads"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen vedhæftede filer"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Her vises de filer, som brugerne vedhæfter deres indlæg."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Brugervedhæftede filer"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Anvendelser"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Alle typer"
+          },
+          {
             "@tag": "APPLY",
             "#text": "ansøge"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Ryd op"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen logposter"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Der blev ikke logget nogen hændelser i den valgte periode."
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "Slet beskeder ældre end:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Private beskeder, der er ældre end det angivne antal dage, slettes for alle brugere af forummet. Det kan ikke fortrydes."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Private beskeder"
           },
@@ -6167,8 +6199,16 @@
             "#text": "Vil du virkelig beskære emner? "
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Sletter emnerne i det valgte forum, hvor det seneste indlæg er ældre end det angivne antal dage (permanente emner beholdes). Oprydningen kører i baggrunden."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Planlagt beskæringsopgave"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Emnerne fjernes fra databasen og kan ikke gendannes fra papirkurven."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Slet alle slettede indlæg permanent? Det kan ikke fortrydes."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Slet alle slettede emner på listen permanent? Det kan ikke fortrydes."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Slet dette indlæg permanent? Det kan ikke fortrydes."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Slet dette emne permanent? Det kan ikke fortrydes."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Slet alle slettede emner uden indlæg permanent? Det kan ikke fortrydes."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Slet alle med 0 indlæg"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Slet permanent"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Ingen slettede indlæg"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Slettede indlæg gemmes her, indtil de gendannes eller slettes permanent."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Ingen slettede emner"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Slettede emner gemmes her, indtil de gendannes eller slettes permanent."
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Emnet gendannet"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Slettede indlæg"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Gendan og slet beskeder"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Slettede emner"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Vil du slette tag?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen tags"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Her vises de tags, som brugerne tilføjer til deres emner."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Ingen tags matcher søgningen."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Søg efter tags"
           },
           {
             "@tag": "SHOW_TOPICS",

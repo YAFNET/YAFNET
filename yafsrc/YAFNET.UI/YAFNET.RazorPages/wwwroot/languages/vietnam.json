@@ -981,8 +981,24 @@
             "#text": "Xóa (các) tệp đính kèm?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Lượt tải"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có tệp đính kèm"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Các tệp mà người dùng đính kèm vào bài viết được liệt kê ở đây."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tệp đính kèm của người dùng"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Lượt sử dụng"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Tất cả các loại"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Ứng dụng"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Dọn dẹp"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có mục nhật ký"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Không có sự kiện nào được ghi trong khoảng thời gian đã chọn."
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "Xóa các tin nhắn cũ hơn:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Các tin nhắn riêng cũ hơn số ngày đã nhập sẽ bị xóa cho tất cả người dùng của diễn đàn. Không thể hoàn tác."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Tin nhắn riêng tư"
           },
@@ -6167,8 +6199,16 @@
             "#text": "Bạn có thực sự muốn cắt tỉa các chủ đề? Quá trình này là không thể đảo ngược."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Xóa các chủ đề của diễn đàn đã chọn có bài viết cuối cũ hơn số ngày đã nhập (các chủ đề cố định được giữ lại). Việc dọn dẹp chạy ở chế độ nền."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Tỉa tác vụ đã lên lịch"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Các chủ đề sẽ bị xóa khỏi cơ sở dữ liệu và không thể khôi phục từ thùng rác."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Xóa vĩnh viễn tất cả các bài viết đã xóa? Không thể hoàn tác."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Xóa vĩnh viễn tất cả các chủ đề đã xóa trong danh sách? Không thể hoàn tác."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Xóa vĩnh viễn bài viết này? Không thể hoàn tác."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Xóa vĩnh viễn chủ đề này? Không thể hoàn tác."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Xóa vĩnh viễn tất cả các chủ đề đã xóa không có bài viết? Không thể hoàn tác."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Xóa tất cả với 0 bài đăng"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Xóa vĩnh viễn"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Không có bài viết đã xóa"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Các bài viết đã xóa được giữ ở đây cho đến khi được khôi phục hoặc xóa vĩnh viễn."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Không có chủ đề đã xóa"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Các chủ đề đã xóa được giữ ở đây cho đến khi được khôi phục hoặc xóa vĩnh viễn."
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Đã khôi phục chủ đề"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Bài viết đã xóa"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Khôi phục và xóa tin nhắn"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Chủ đề đã xóa"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Xóa thẻ?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có thẻ"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Các thẻ mà người dùng thêm vào chủ đề được liệt kê ở đây."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Không có thẻ nào khớp với tìm kiếm."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Tìm thẻ"
           },
           {
             "@tag": "SHOW_TOPICS",

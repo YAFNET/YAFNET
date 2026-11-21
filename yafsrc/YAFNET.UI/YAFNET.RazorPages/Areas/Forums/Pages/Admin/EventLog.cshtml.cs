@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -63,10 +63,14 @@ public class EventLogModel : AdminPage
     public List<PagedEventLog> List { get; set; }
 
     /// <summary>
-    /// Gets or sets the types.
+    /// Gets or sets the number of the entries of each type in the period of the filter.
     /// </summary>
-    /// <value>The types.</value>
-    public List<SelectListItem> Types { get; set; }
+    public Dictionary<int, int> TypeCounts { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the filter is not the default filter (it stays open on small screens).
+    /// </summary>
+    public bool FilterActive { get; set; }
 
     private readonly StackTraceBeautify beautify;
 
@@ -154,121 +158,82 @@ public class EventLogModel : AdminPage
     }
 
     /// <summary>
-    /// Gets HTML IMG code representing given log event icon.
+    /// Gets the icon and the color of an event type.
     /// </summary>
-    /// <returns>
-    /// return HTML code of event log entry image
-    /// </returns>
-    public string EventIcon(PagedEventLog item)
+    /// <param name="type">The event type.</param>
+    /// <returns>The icon name and the color (a theme color like danger).</returns>
+    public static (string Icon, string Color) GetTypeIcon(int type)
     {
-        string cssClass, icon;
-
         EventLogTypes eventType;
 
         try
         {
             // find out of what type event log entry is
-            eventType = item.Type.ToEnum<EventLogTypes>();
+            eventType = type.ToEnum<EventLogTypes>();
         }
         catch (Exception)
         {
             eventType = EventLogTypes.Information;
         }
 
-        switch (eventType)
+        return eventType switch
         {
-            case EventLogTypes.Error:
-                icon = "radiation";
-                cssClass = "danger";
-                break;
-            case EventLogTypes.Debug:
-            case EventLogTypes.Warning:
-            case EventLogTypes.Trace:
-            case EventLogTypes.SqlError:
-                icon = "exclamation-triangle";
-                cssClass = "warning";
-                break;
-            case EventLogTypes.Information:
-                icon = "exclamation";
-                cssClass = "info";
-                break;
-            case EventLogTypes.UserSuspended:
-                icon = "user-clock";
-                cssClass = "warning";
-                break;
-            case EventLogTypes.UserUnsuspended:
-                icon = "user-check";
-                cssClass = "info";
-                break;
-            case EventLogTypes.LoginFailure:
-                icon = "user-injured";
-                cssClass = "warning";
-                break;
-            case EventLogTypes.UserDeleted:
-                icon = "user-alt-slash";
-                cssClass = "danger";
-                break;
-            case EventLogTypes.IpBanSet:
-            case EventLogTypes.IpBanDetected:
-                icon = "hand-paper";
-                cssClass = "warning";
-                break;
-            case EventLogTypes.IpBanLifted:
-                icon = "slash";
-                cssClass = "success";
-                break;
-            case EventLogTypes.SpamBotReported:
-                icon = "user-ninja";
-                cssClass = "warning";
-                break;
-            case EventLogTypes.SpamBotDetected:
-                icon = "user-lock";
-                cssClass = "warning";
-                break;
-            case EventLogTypes.SpamMessageReported:
-                icon = "flag";
-                cssClass = "success";
-                break;
-            case EventLogTypes.SpamMessageDetected:
-                icon = "shield-alt";
-                cssClass = "warning";
-                break;
-            default:
-                icon = "exclamation-circle";
-                cssClass = "primary";
-                break;
-        }
-
-        return $"""<i class="fas fa-{icon} text-{cssClass}"></i>""";
+            EventLogTypes.Error => ("radiation", "danger"),
+            EventLogTypes.Debug or EventLogTypes.Warning or EventLogTypes.Trace or EventLogTypes.SqlError => (
+                "exclamation-triangle", "warning"),
+            EventLogTypes.Information => ("exclamation", "info"),
+            EventLogTypes.UserSuspended => ("user-clock", "warning"),
+            EventLogTypes.UserUnsuspended => ("user-check", "info"),
+            EventLogTypes.LoginFailure => ("user-injured", "warning"),
+            EventLogTypes.UserDeleted => ("user-alt-slash", "danger"),
+            EventLogTypes.IpBanSet or EventLogTypes.IpBanDetected => ("hand-paper", "warning"),
+            EventLogTypes.IpBanLifted => ("slash", "success"),
+            EventLogTypes.SpamBotReported => ("user-ninja", "warning"),
+            EventLogTypes.SpamBotDetected => ("user-lock", "warning"),
+            EventLogTypes.SpamMessageReported => ("flag", "success"),
+            EventLogTypes.SpamMessageDetected => ("shield-alt", "warning"),
+            _ => ("exclamation-circle", "primary")
+        };
     }
 
-    public string GetIconName(SelectListItem item)
+    /// <summary>
+    /// Gets the name of an event type (the words of the name, e.g. "Login Failure").
+    /// </summary>
+    /// <param name="type">The event type.</param>
+    /// <returns>The name.</returns>
+    public static string GetTypeName(int type)
     {
-        var type = item.Value.ToEnum<EventLogTypes>();
+        var name = Enum.IsDefined(typeof(EventLogTypes), type) ? ((EventLogTypes)type).ToString() : type.ToString();
 
-        var icon = type switch
+        return System.Text.RegularExpressions.Regex.Replace(name, "(?<=[a-z])(?=[A-Z])", " ");
+    }
+
+    /// <summary>
+    /// Gets the message of a log entry for the list (the details show the full entry).
+    /// </summary>
+    /// <param name="item">The log entry.</param>
+    /// <returns>The message.</returns>
+    public static string GetSummary(PagedEventLog item)
+    {
+        var text = item.Description ?? string.Empty;
+
+        try
         {
-            EventLogTypes.Error => "radiation",
-            EventLogTypes.Warning => "exclamation-triangle",
-            EventLogTypes.Information => "exclamation",
-            EventLogTypes.Debug => "exclamation-triangle",
-            EventLogTypes.Trace => "exclamation-triangle",
-            EventLogTypes.SqlError => "exclamation-triangle",
-            EventLogTypes.UserSuspended => "user-clock",
-            EventLogTypes.UserUnsuspended => "user-check",
-            EventLogTypes.LoginFailure => "user-injured",
-            EventLogTypes.UserDeleted => "user-alt-slash",
-            EventLogTypes.IpBanSet => "hand-paper",
-            EventLogTypes.IpBanLifted => "slash",
-            EventLogTypes.IpBanDetected => "hand-paper",
-            EventLogTypes.SpamBotReported => "user-ninja",
-            EventLogTypes.SpamBotDetected => "user-lock",
-            EventLogTypes.SpamMessageReported => "flag",
-            EventLogTypes.SpamMessageDetected => "shield-alt",
-            _ => "exclamation-circle"
-        };
+            dynamic json = JsonConvert.DeserializeObject(text);
 
-        return icon;
+            string message = json?.Message;
+            string exceptionMessage = json?.ExceptionMessage;
+
+            text = message.IsSet() ? message : exceptionMessage ?? text;
+        }
+        catch (Exception)
+        {
+            // no json, the text is shown
+        }
+
+        text = text.Trim();
+
+        return text.Length > 200 ? $"{text[..200]}…" : text;
     }
 
     /// <summary>
@@ -276,25 +241,9 @@ public class EventLogModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new EventLogInputModel();
+        var (sinceDate, toDate) = this.GetDefaultDates();
 
-        var ci = this.Get<ILocalization>().Culture;
-
-        if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
-        {
-            // the smallest persian date (1/01/02) was read as 1401/01/02 (2022)
-            this.Input.SinceDate = PersianDateConverter
-                .ToPersianDate(DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays))
-                .ToString("d");
-
-            this.Input.ToDate = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
-        }
-        else
-        {
-            this.Input.SinceDate = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays).ToString("yyyy-MM-dd");
-
-            this.Input.ToDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
-        }
+        this.Input = new EventLogInputModel { SinceDate = sinceDate, ToDate = toDate };
 
         // bind data to controls
         this.BindData();
@@ -304,6 +253,14 @@ public class EventLogModel : AdminPage
     /// Handles the Click event of the ApplyButton control.
     /// </summary>
     public void OnPostApplyButton()
+    {
+        this.BindData();
+    }
+
+    /// <summary>
+    /// A chip of the types filters the list by its type.
+    /// </summary>
+    public void OnPostTypeFilter()
     {
         this.BindData();
     }
@@ -335,14 +292,6 @@ public class EventLogModel : AdminPage
     private void BindData()
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
-
-        this.Types = [new SelectListItem(this.GetText("ALL"), "-1")];
-
-        EnumExtensions.GetAllItems<EventLogTypes>().ForEach(
-            type =>
-            {
-                this.Types.Add(new SelectListItem(type.ToString(), type.ToInt().ToString()));
-            });
 
         var currentPageIndex = this.PageBoardContext.PageIndex;
 
@@ -399,6 +348,17 @@ public class EventLogModel : AdminPage
             }
         }
 
+        var (defaultSinceDate, defaultToDate) = this.GetDefaultDates();
+
+        this.FilterActive = this.Input.Type != -1 || this.Input.SinceDate != defaultSinceDate
+                                                  || this.Input.ToDate != defaultToDate;
+
+        // the chips of the types count the entries of the period
+        this.TypeCounts = this.GetRepository<EventLog>().CountByType(
+            this.PageBoardContext.PageBoardID,
+            sinceDate,
+            toDate.AddDays(1).AddMinutes(-1));
+
         // list event for this board
         this.List = this.GetRepository<EventLog>()
             .ListPaged(
@@ -410,5 +370,28 @@ public class EventLogModel : AdminPage
                 sinceDate,
                 toDate.AddDays(1).AddMinutes(-1),
                 this.Input.Type.Equals(-1) ? null : this.Input.Type);
+    }
+
+    /// <summary>
+    /// Gets the dates of the default filter (the days that are kept).
+    /// </summary>
+    /// <returns>The since date and the to date as they are shown in the fields.</returns>
+    private (string SinceDate, string ToDate) GetDefaultDates()
+    {
+        var ci = this.Get<ILocalization>().Culture;
+
+        if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
+        {
+            // the smallest persian date (1/01/02) was read as 1401/01/02 (2022)
+            return (
+                PersianDateConverter
+                    .ToPersianDate(DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays))
+                    .ToString("d"),
+                PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d"));
+        }
+
+        return (
+            DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays).ToString("yyyy-MM-dd"),
+            DateTime.UtcNow.Date.ToString("yyyy-MM-dd"));
     }
 }

@@ -712,6 +712,253 @@
     }
 }
 
+// The rows of the maintenance lists (event log, recycle bin, attachments): an icon, the text and the actions
+%maintenance-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1rem;
+
+    &:hover {
+        background-color: var(--bs-tertiary-bg);
+    }
+}
+
+%maintenance-icon {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+}
+
+%maintenance-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .25rem 1rem;
+    margin-top: .25rem;
+
+    .badge {
+        font-weight: 500;
+    }
+}
+
+// Admin event log
+.admin-event-log {
+    .event-type .badge {
+        font-weight: 500;
+    }
+
+    .event-row {
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .event-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem 1rem;
+    }
+
+    .event-icon {
+        @extend %maintenance-icon;
+    }
+
+    .event-main {
+        flex: 1 1 18rem;
+        min-width: 0;
+    }
+
+    .event-message {
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .event-meta {
+        @extend %maintenance-meta;
+    }
+
+    // the button says show or hide
+    .event-toggle {
+        .event-hide {
+            display: none;
+        }
+
+        &:not(.collapsed) {
+            .event-show {
+                display: none;
+            }
+
+            .event-hide {
+                display: inline;
+            }
+        }
+    }
+
+    .event-details pre {
+        max-height: 24rem;
+        white-space: pre-wrap;
+    }
+}
+
+// Admin recycle bin
+.admin-restore {
+    .restore-search {
+        flex: 1 1 16rem;
+        max-width: 28rem;
+    }
+
+    .restore-row {
+        @extend %maintenance-row;
+    }
+
+    .restore-icon {
+        @extend %maintenance-icon;
+    }
+
+    .restore-main {
+        flex: 1 1 18rem;
+        min-width: 0;
+    }
+
+    .restore-title {
+        font-weight: 600;
+    }
+
+    .restore-meta {
+        @extend %maintenance-meta;
+    }
+
+    .restore-excerpt {
+        margin-top: .25rem;
+        color: var(--bs-secondary-color);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .restore-reason {
+        margin-top: .25rem;
+        color: var(--bs-warning-text-emphasis);
+    }
+}
+
+// Admin attachments
+.admin-attachments {
+    .attachment-row {
+        @extend %maintenance-row;
+    }
+
+    .attachment-preview {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        width: 3.5rem;
+    }
+
+    .attachment-thumb {
+        width: 3.5rem;
+        height: 3.5rem;
+        object-fit: cover;
+        cursor: zoom-in;
+    }
+
+    .attachment-icon {
+        @extend %maintenance-icon;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: var(--bs-border-radius);
+        font-size: 1.5rem;
+    }
+
+    .attachment-main {
+        flex: 1 1 18rem;
+        min-width: 0;
+    }
+
+    .attachment-name {
+        font-weight: 600;
+    }
+
+    .attachment-meta {
+        @extend %maintenance-meta;
+    }
+}
+
+// Admin tags: a grid of the tags
+.admin-tags {
+    .tags-search {
+        width: 16rem;
+    }
+
+    .tag-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+        gap: .75rem;
+    }
+
+    .tag-card {
+        transition: border-color .15s ease-in-out;
+
+        &:hover {
+            border-color: var(--bs-primary-border-subtle);
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            padding: .75rem;
+        }
+    }
+
+    .tag-name {
+        font-weight: 600;
+    }
+
+    .tag-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .5rem;
+        margin-top: auto;
+
+        .badge {
+            font-weight: 500;
+        }
+    }
+}
+
+// Admin prune and private messages: the dangerous actions
+.admin-prune,
+.admin-pm {
+    .danger-zone .card-header {
+        font-weight: 600;
+    }
+}
+
+.admin-pm {
+    .pm-stat-icon {
+        @extend %maintenance-icon;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+
+    .pm-stat-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+}
+
 // Admin edit medal: the preview and the awards
 .admin-edit-medal {
     .medal-preview {

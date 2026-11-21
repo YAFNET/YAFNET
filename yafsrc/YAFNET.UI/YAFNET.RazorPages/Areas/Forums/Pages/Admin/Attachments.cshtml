@@ -7,107 +7,95 @@
 @using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
-<form method="post">
-	<div class="row">
-		<div class="col-xl-12">
-			<div class="card mb-3">
-				<div class="card-header">
-					<div class="row justify-content-between align-items-center">
-						<div class="col-auto">
-							@Html.IconHeader("paperclip","ADMIN_ATTACHMENTS","TITLE")
-						</div>
-						<div class="col-auto">
-							<div class="btn-toolbar" role="toolbar">
-								<div class="input-group input-group-sm me-2" role="group">
-									<div class="input-group-text">
-										@Html.LocalizedText("SHOW"):
-									</div>
-									<select asp-for="@Model.Size"
-									        asp-items="Model.PageSizeList"
-									        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-									        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-									        class="form-select"
-									        onchange="this.form.submit();"></select>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="card-body">
-					@if (!Model.List.NullOrEmpty())
-					{
-						<ul class="list-group">
-							@foreach (var t in Model.List)
-							{
-								<li class="list-group-item list-group-item-action list-group-item-menu">
-									<div class="d-flex w-100 justify-content-between text-break">
-										<h5 class="mb-1">
-											@Html.Raw(Model.GetPreviewImage(t.Item2))
-											@t.Item2.FileName
-										</h5>
-										<small class="d-none d-md-block">
-											@Html.LocalizedText("USAGES")
-											<span class="badge text-bg-secondary">
-												@Html.Raw(Model.Get<ISearch>().CountHits($"]{t.Item2.ID}["))
-											</span>
-										</small>
-									</div>
-									<p><strong>@Html.LocalizedText( "DELETEMESSAGE","FROM")</strong>
-										@Html.UserLink(t.Item1)
-									</p>
-									<small>
-										<div class="btn-group btn-group-sm">
-											<a asp-route-search="@($"]{t.Item2.ID}[")"
-											   asp-page="@ForumPages.Search.GetPageName()"
-											   button-style="@ButtonStyle.Info"
-											   text-localized-tag="SHOW_TOPICS">
-											</a>
-											<button button-style="@ButtonStyle.Danger"
-											        button-size="@ButtonSize.Small"
-											        asp-page-handler="Delete"
-											        asp-route-id="@t.Item2.ID"
-											        return-confirm-tag="CONFIRM_DELETE"
-											        Icon="trash"
-											        text-localized-tag="DELETE">
-											</button>
-										</div>
-									</small>
-									<div class="dropdown-menu context-menu" aria-labelledby="context menu">
-										<a asp-route-search="@($"]{t.Item2.ID}[")"
-										   class="dropdown-item"
-										   asp-page="@ForumPages.Search.GetPageName()"
-										   button-style="@ButtonStyle.None"
-										   text-localized-tag="SHOW_TOPICS">
-										</a>
-										<button class="dropdown-item"
-										        button-style="@ButtonStyle.None"
-										        asp-page-handler="Delete"
-										        asp-route-id="@t.Item2.ID"
-										        return-confirm-tag="CONFIRM_DELETE"
-										        Icon="trash"
-										        text-localized-tag="DELETE">
-										</button>
-									</div>
-								</li>
-							}
+<form method="post" class="admin-attachments">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("paperclip")@Html.LocalizedText("ADMIN_ATTACHMENTS", "TITLE")
+            <span class="badge text-bg-secondary align-middle ms-1">@Model.Count</span>
+        </h2>
+        <div class="input-group input-group-sm w-auto" role="group">
+            <div class="input-group-text">
+                @Html.LocalizedText("SHOW"):
+            </div>
+            <select asp-for="@Model.Size"
+                    asp-items="Model.PageSizeList"
+                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    class="form-select"
+                    onchange="this.form.submit();"></select>
+        </div>
+    </div>
 
-						</ul>
-					}
-					else
-					{
-						@await Html.PartialAsync("_NoEntryInfo")
-					}
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	@if (!Model.List.NullOrEmpty())
-	{
-		@await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.Count, Size = Model.Size })
-	}
+    @if (!Model.List.NullOrEmpty())
+    {
+        <ul class="list-group mb-3">
+            @foreach (var (user, attachment) in Model.List)
+            {
+                var usages = Model.Get<ISearch>().CountHits($"]{attachment.ID}[");
+
+                <li class="list-group-item list-group-item-menu attachment-row">
+                    <div class="attachment-preview">@Html.Raw(Model.GetPreviewImage(attachment))</div>
+                    <div class="attachment-main">
+                        <div class="attachment-name text-break">@attachment.FileName</div>
+                        <div class="attachment-meta small text-body-secondary">
+                            <span>@Html.Icon("user")@Html.UserLink(user)</span>
+                            <span title="@Html.LocalizedText("ATTACHMENTS", "SIZE")">@Html.Icon("weight-hanging")@AttachmentsModel.FormatSize(attachment.Bytes)</span>
+                            <span title="@Html.LocalizedText("ADMIN_ATTACHMENTS", "DOWNLOADS")">@Html.Icon("download")@attachment.Downloads</span>
+                            <span class="badge @(usages > 0 ? "text-bg-secondary" : "bg-body-tertiary text-body-secondary border")"
+                                  title="@Html.LocalizedText("ADMIN_ATTACHMENTS", "USAGES")">@Html.Icon("link")@usages</span>
+                        </div>
+                    </div>
+                    <div class="btn-group btn-group-sm attachment-actions">
+                        <a asp-route-search="@($"]{attachment.ID}[")"
+                           asp-page="@ForumPages.Search.GetPageName()"
+                           button-style="Info"
+                           button-size="Small"
+                           Icon="search"
+                           title-localized-tag="SHOW_TOPICS"
+                           text-localized-tag="SHOW_TOPICS"></a>
+                        <button button-style="Danger"
+                                button-size="Small"
+                                asp-page-handler="Delete"
+                                asp-route-id="@attachment.ID"
+                                return-confirm-tag="CONFIRM_DELETE"
+                                title-localized-tag="DELETE"
+                                Icon="trash"
+                                text-localized-tag="DELETE"></button>
+                    </div>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <a asp-route-search="@($"]{attachment.ID}[")"
+                           class="dropdown-item"
+                           asp-page="@ForumPages.Search.GetPageName()"
+                           button-style="None"
+                           Icon="search"
+                           text-localized-tag="SHOW_TOPICS"></a>
+                        <button class="dropdown-item"
+                                button-style="None"
+                                asp-page-handler="Delete"
+                                asp-route-id="@attachment.ID"
+                                return-confirm-tag="CONFIRM_DELETE"
+                                Icon="trash"
+                                text-localized-tag="DELETE"></button>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        @await Html.PartialAsync("_Pagination", new Pagination { TotalRows = Model.Count, Size = Model.Size })
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <empty icon="paperclip"
+                       header-text-page="ADMIN_ATTACHMENTS" header-text-tag="EMPTY_HEADER"
+                       message-text-page="ADMIN_ATTACHMENTS" message-text-tag="EMPTY_MESSAGE">
+                </empty>
+            </div>
+        </div>
+    }
 </form>
 
 @section Scripts {
-	@await Html.PartialAsync("_PostScriptsPartial")
+    @await Html.PartialAsync("_PostScriptsPartial")
 }

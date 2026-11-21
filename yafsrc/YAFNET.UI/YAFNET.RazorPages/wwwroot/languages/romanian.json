@@ -981,8 +981,24 @@
             "#text": "Ștergeți atașamentul (e)?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Descărcări"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Niciun atașament"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Aici sunt listate fișierele pe care utilizatorii le atașează la mesajele lor."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Atașamente de utilizator"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Utilizări"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Toate tipurile"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Aplicați"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Curățați"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nicio intrare"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Nu au fost înregistrate evenimente în perioada selectată."
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "Ștergeți mesajele mai vechi de:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Mesajele private mai vechi decât numărul de zile indicat sunt șterse pentru toți utilizatorii forumului. Acțiunea nu poate fi anulată."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Mesaje private"
           },
@@ -6167,8 +6199,16 @@
             "#text": "Chiar vreți să curățați subiectele? Acest proces este ireversibil."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Șterge subiectele forumului selectat al căror ultim mesaj este mai vechi decât numărul de zile indicat (subiectele permanente sunt păstrate). Curățarea rulează în fundal."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Sarcină de tăiere programată"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Subiectele sunt eliminate din baza de date și nu pot fi restaurate din coșul de reciclare."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Ștergeți definitiv toate mesajele șterse? Acțiunea nu poate fi anulată."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Ștergeți definitiv toate subiectele șterse din listă? Acțiunea nu poate fi anulată."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Ștergeți definitiv acest mesaj? Acțiunea nu poate fi anulată."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Ștergeți definitiv acest subiect? Acțiunea nu poate fi anulată."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Ștergeți definitiv toate subiectele șterse fără mesaje? Acțiunea nu poate fi anulată."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Șterge toate cu 0 Posts"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Șterge definitiv"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Niciun mesaj șters"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Mesajele șterse rămân aici până când sunt restaurate sau șterse definitiv."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Niciun subiect șters"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Subiectele șterse rămân aici până când sunt restaurate sau șterse definitiv."
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Subiect restaurat"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Mesaje șterse"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Restaurarea și ștergerea mesajelor"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Subiecte șterse"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ștergeți eticheta?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nicio etichetă"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Aici sunt listate etichetele pe care utilizatorii le adaugă la subiectele lor."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Nicio etichetă nu se potrivește căutării."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Caută etichete"
           },
           {
             "@tag": "SHOW_TOPICS",

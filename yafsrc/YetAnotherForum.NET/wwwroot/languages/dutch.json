@@ -981,8 +981,24 @@
             "#text": "Bijlage (s) verwijderen?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Downloads"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen bijlagen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Hier staan de bestanden die gebruikers aan hun berichten toevoegen."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Gebruikersbijlagen"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Gebruik"
           }
         ]
       },
@@ -3647,6 +3663,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Alle typen"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Van toepassing zijn"
           },
@@ -3669,6 +3689,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Schoonmaken"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen logboekitems"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Er zijn geen gebeurtenissen gelogd in de gekozen periode."
           },
           {
             "@tag": "HIDE",
@@ -6092,6 +6120,10 @@
             "#text": "Verwijder berichten ouder dan:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "De privéberichten die ouder zijn dan het opgegeven aantal dagen worden voor alle gebruikers van het forum verwijderd. Dit kan niet ongedaan worden gemaakt."
+          },
+          {
             "@tag": "HEADER",
             "#text": "berichten"
           },
@@ -6159,8 +6191,16 @@
             "#text": "Weet je zeker dat je topics wilt schonen? Deze aktie kan niet ongedaan gemaakt worden."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Verwijdert de onderwerpen van het gekozen forum waarvan het laatste bericht ouder is dan het opgegeven aantal dagen (blijvende onderwerpen blijven bestaan). Het opschonen loopt op de achtergrond."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Opschoontaak ingepland."
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "De onderwerpen worden uit de database verwijderd en kunnen niet uit de prullenbak worden hersteld."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6563,8 +6603,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Alle verwijderde berichten definitief verwijderen? Dit kan niet ongedaan worden gemaakt."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Alle verwijderde onderwerpen van de lijst definitief verwijderen? Dit kan niet ongedaan worden gemaakt."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Dit bericht definitief verwijderen? Dit kan niet ongedaan worden gemaakt."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Dit onderwerp definitief verwijderen? Dit kan niet ongedaan worden gemaakt."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Alle verwijderde onderwerpen zonder berichten definitief verwijderen? Dit kan niet ongedaan worden gemaakt."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Alles verwijderen met 0 berichten"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Definitief verwijderen"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Geen verwijderde berichten"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Verwijderde berichten blijven hier tot ze worden hersteld of definitief verwijderd."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Geen verwijderde onderwerpen"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Verwijderde onderwerpen blijven hier tot ze worden hersteld of definitief verwijderd."
           },
           {
             "@tag": "FILTER",
@@ -6581,6 +6661,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Onderwerp hersteld"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Verwijderde berichten"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6601,6 +6685,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Berichten herstellen en verwijderen"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Verwijderde onderwerpen"
           }
         ]
       },
@@ -6771,6 +6859,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Label verwijderen?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen tags"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Hier staan de tags die gebruikers aan hun onderwerpen toevoegen."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Geen tags komen overeen met de zoekopdracht."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Tags zoeken"
           },
           {
             "@tag": "SHOW_TOPICS",

@@ -110,21 +110,50 @@ public class AttachmentsModel : AdminPage
     }
 
     /// <summary>
-    /// Gets the preview image.
+    /// Gets the preview image (a thumbnail of an image, an icon of the file type for other files).
     /// </summary>
-    /// <param name="o">The Data Row object.</param>
+    /// <param name="attachment">The attachment.</param>
     /// <returns>Returns the Preview Image</returns>
-    public string GetPreviewImage(object o)
+    public string GetPreviewImage(Attachment attachment)
     {
-        var attach = o.ToType<Attachment>();
+        var fileName = attachment.FileName;
+        var url = AttachmentLinkHelper.GetUrl(attachment.ID, true);
 
-        var fileName = attach.FileName;
-        var isImage = fileName.IsImageName();
-        var url = AttachmentLinkHelper.GetUrl(attach.ID, true);
+        if (fileName.IsImageName())
+        {
+            return $"<img src=\"{url}\" alt=\"{this.HtmlEncode(fileName)}\" title=\"{this.HtmlEncode(fileName)}\" data-url=\"{url}\" class=\"img-thumbnail attachments-preview attachment-thumb\" loading=\"lazy\" />";
+        }
 
-        return isImage
-                   ? $"<img src=\"{url}\" alt=\"{this.HtmlEncode(fileName)}\" title=\"{this.HtmlEncode(fileName)}\" data-url=\"{url}\" style=\"max-width:30px\" class=\"me-2 img-thumbnail attachments-preview\" />"
-                   : "<i class=\"far fa-file-alt attachment-icon me-2\"></i>";
+        var icon = System.IO.Path.GetExtension(fileName ?? string.Empty).ToLowerInvariant() switch
+        {
+            ".pdf" => "file-pdf",
+            ".zip" or ".rar" or ".7z" or ".gz" or ".tar" => "file-zipper",
+            ".doc" or ".docx" or ".odt" or ".rtf" => "file-word",
+            ".xls" or ".xlsx" or ".ods" or ".csv" => "file-excel",
+            ".ppt" or ".pptx" or ".odp" => "file-powerpoint",
+            ".mp3" or ".wav" or ".ogg" or ".flac" => "file-audio",
+            ".mp4" or ".avi" or ".mov" or ".mkv" or ".webm" => "file-video",
+            ".txt" or ".log" or ".md" => "file-lines",
+            ".cs" or ".js" or ".ts" or ".html" or ".css" or ".xml" or ".json" or ".sql" => "file-code",
+            _ => "file"
+        };
+
+        return $"<span class=\"attachment-icon bg-body-tertiary text-body-secondary\"><i class=\"fas fa-{icon} fa-fw\"></i></span>";
+    }
+
+    /// <summary>
+    /// Formats the size of a file (bytes, KB, MB).
+    /// </summary>
+    /// <param name="bytes">The size in bytes.</param>
+    /// <returns>The formatted size.</returns>
+    public static string FormatSize(long bytes)
+    {
+        return bytes switch
+        {
+            < 1024 => $"{bytes} B",
+            < 1024 * 1024 => $"{bytes / 1024d:0.#} KB",
+            _ => $"{bytes / (1024d * 1024d):0.#} MB"
+        };
     }
 
     /// <summary>

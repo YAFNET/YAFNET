@@ -94,6 +94,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Recycle Bin: the search of the deleted topics searched on the shown page, a search with less results showed nothing
 * [FIXED] Admin > Event Log: the filter was applied on the shown page, a filter with less entries showed nothing
 * [FIXED] Admin > Private Messages: the number of the deleted messages was not shown after the delete
+[CHANGES] Admin > Event Log, Recycle Bin, Attachments, Tags, Prune, Private Messages: new layouts, the event types as filter chips with their counts, the deleted topics and posts on tabs with confirmed deletes, attachment previews with size and downloads, the tags as a grid with a search, the prune and the private messages as danger zones
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

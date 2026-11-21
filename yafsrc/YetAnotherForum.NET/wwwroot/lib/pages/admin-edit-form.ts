@@ -183,3 +183,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		update();
 	});
 });
+
+// The tabs of a list with data-tab-input keep the shown tab in the field of the selector (data-tab of the tab),
+// the tab stays open after a post (e.g. the deleted posts of the recycle bin)
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLElement>('.admin-edit-form [data-tab-input]').forEach(nav => {
+		const input = document.querySelector<HTMLInputElement>(nav.dataset.tabInput ?? '');
+
+		if (!input) {
+			return;
+		}
+
+		nav.querySelectorAll<HTMLElement>('[data-bs-toggle="tab"]').forEach(tab => {
+			tab.addEventListener('shown.bs.tab', () => input.value = tab.dataset.tab ?? '');
+		});
+	});
+});

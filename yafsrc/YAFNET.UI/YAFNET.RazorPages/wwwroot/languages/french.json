@@ -981,8 +981,24 @@
             "#text": "Supprimer les pièces jointes?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Téléchargements"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucune pièce jointe"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Les fichiers que les utilisateurs joignent à leurs messages sont listés ici."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Pièces jointes par l'utilisateur"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Utilisations"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Tous les types"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Appliquer"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Nettoyage"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucune entrée"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Aucun événement n’a été enregistré pendant la période choisie."
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "Supprimer les messages plus anciens que :"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Les messages privés plus anciens que le nombre de jours indiqué sont supprimés pour tous les utilisateurs du forum. Cette action est irréversible."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Messages privés"
           },
@@ -6167,8 +6199,16 @@
             "#text": "Voulez-vous vraiment élaguer les sujets ? Ce processus est irréversible."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Supprime les sujets du forum choisi dont le dernier message est plus ancien que le nombre de jours indiqué (les sujets persistants sont conservés). Le nettoyage s’exécute en arrière-plan."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Tâche d'élagage programmée"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Les sujets sont supprimés de la base de données et ne peuvent pas être restaurés depuis la corbeille."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Supprimer définitivement tous les messages supprimés ? Cette action est irréversible."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Supprimer définitivement tous les sujets supprimés de la liste ? Cette action est irréversible."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Supprimer définitivement ce message ? Cette action est irréversible."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Supprimer définitivement ce sujet ? Cette action est irréversible."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Supprimer définitivement tous les sujets supprimés sans messages ? Cette action est irréversible."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Supprimer tous ceux qui ont 0 message"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Supprimer définitivement"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Aucun message supprimé"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Les messages supprimés restent ici jusqu’à leur restauration ou leur suppression définitive."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Aucun sujet supprimé"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Les sujets supprimés restent ici jusqu’à leur restauration ou leur suppression définitive."
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Sujet restauré"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Messages supprimés"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Restaurer et supprimer des messages"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Sujets supprimés"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Supprimer la balise ?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucun mot-clé"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Les mots-clés que les utilisateurs ajoutent à leurs sujets sont listés ici."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Aucun mot-clé ne correspond à la recherche."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Rechercher des mots-clés"
           },
           {
             "@tag": "SHOW_TOPICS",

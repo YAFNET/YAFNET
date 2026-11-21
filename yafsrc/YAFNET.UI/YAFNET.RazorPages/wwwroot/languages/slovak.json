@@ -981,8 +981,24 @@
             "#text": "Odstrániť prílohy?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Stiahnutia"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne prílohy"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tu sú súbory, ktoré používatelia prikladajú k svojim príspevkom."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Prílohy používateľa"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Použitia"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Všetky typy"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Aplikovať"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Vyčistiť"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne záznamy"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Vo zvolenom období neboli zaznamenané žiadne udalosti."
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "Odstránenie správ starších ako:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Súkromné správy staršie ako zadaný počet dní sa odstránia všetkým používateľom fóra. Túto akciu nemožno vrátiť."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Súkromné správy"
           },
@@ -6167,8 +6199,16 @@
             "#text": "Naozaj chcete orezávať témy? Tento proces je nezvratný."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Odstráni témy vybraného fóra, ktorých posledný príspevok je starší ako zadaný počet dní (trvalé témy zostanú). Čistenie beží na pozadí."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Naplánovaná úloha orezávania"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Témy sa odstránia z databázy a nemožno ich obnoviť z koša."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Natrvalo odstrániť všetky odstránené príspevky? Túto akciu nemožno vrátiť."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Natrvalo odstrániť všetky odstránené témy zoznamu? Túto akciu nemožno vrátiť."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Natrvalo odstrániť tento príspevok? Túto akciu nemožno vrátiť."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Natrvalo odstrániť túto tému? Túto akciu nemožno vrátiť."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Natrvalo odstrániť všetky odstránené témy bez príspevkov? Túto akciu nemožno vrátiť."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Vymazať všetky s 0 príspevkami"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Odstrániť natrvalo"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Žiadne odstránené príspevky"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Odstránené príspevky zostávajú tu, kým ich neobnovíte alebo natrvalo neodstránite."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Žiadne odstránené témy"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Odstránené témy zostávajú tu, kým ich neobnovíte alebo natrvalo neodstránite."
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Téma obnovená"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Odstránené príspevky"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Obnovenie a vymazanie správ"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Odstránené témy"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Odstrániť značku?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne štítky"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tu sú štítky, ktoré používatelia pridávajú k svojim témam."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Vyhľadávaniu nezodpovedá žiadny štítok."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Hľadať štítky"
           },
           {
             "@tag": "SHOW_TOPICS",

@@ -977,12 +977,28 @@
             "@name": "ADMIN_ATTACHMENTS",
             "Resource": [
                 {
+                    "@tag": "DOWNLOADS",
+                    "#text": "Downloads"
+                },
+                {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No attachments"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "The files that users attach to their posts are listed here."
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "User Attachments"
                 },
                 {
                     "@tag": "CONFIRM_DELETE",
                     "#text": "Delete attachment(s)?"
+                },
+                {
+                    "@tag": "USAGES",
+                    "#text": "Usages"
                 }
             ]
         },
@@ -3647,6 +3663,10 @@
             "@name": "ADMIN_EVENTLOG",
             "Resource": [
                 {
+                    "@tag": "ALL_TYPES",
+                    "#text": "All types"
+                },
+                {
                     "@tag": "APPLY",
                     "#text": "Apply"
                 },
@@ -3669,6 +3689,14 @@
                 {
                     "@tag": "DELETE_ALLOWED",
                     "#text": "Clean Up"
+                },
+                {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No log entries"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "No events were logged in the selected period."
                 },
                 {
                     "@tag": "HIDE",
@@ -6092,6 +6120,10 @@
                     "#text": "Delete messages older than:"
                 },
                 {
+                    "@tag": "EXPLAIN",
+                    "#text": "The private messages that are older than the given days are deleted for all users of the board. This can't be undone."
+                },
+                {
                     "@tag": "HEADER",
                     "#text": "Private messages"
                 },
@@ -6159,8 +6191,16 @@
                     "#text": "Do you really want to prune topics? This process is irreversible."
                 },
                 {
+                    "@tag": "EXPLAIN",
+                    "#text": "Deletes the topics of the selected forum whose last post is older than the given days (persistent topics are kept). The prune runs in the background."
+                },
+                {
                     "@tag": "MSG_TASK",
                     "#text": "Prune Task Scheduled"
+                },
+                {
+                    "@tag": "PERMANENT_WARNING",
+                    "#text": "The topics are removed from the database and can't be restored from the recycle bin."
                 },
                 {
                     "@tag": "PRUNE_DAYS",
@@ -6563,8 +6603,48 @@
             "@name": "ADMIN_RESTORE",
             "Resource": [
                 {
+                    "@tag": "CONFIRM_DELETE_ALL_POSTS",
+                    "#text": "Delete all deleted posts for good? This can't be undone."
+                },
+                {
+                    "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+                    "#text": "Delete all deleted topics of the list for good? This can't be undone."
+                },
+                {
+                    "@tag": "CONFIRM_DELETE_POST",
+                    "#text": "Delete this post for good? This can't be undone."
+                },
+                {
+                    "@tag": "CONFIRM_DELETE_TOPIC",
+                    "#text": "Delete this topic for good? This can't be undone."
+                },
+                {
+                    "@tag": "CONFIRM_DELETE_ZERO",
+                    "#text": "Delete all deleted topics without posts for good? This can't be undone."
+                },
+                {
                     "@tag": "DELETE_ALL_ZERO",
                     "#text": "Delete all with 0 Posts"
+                },
+                {
+                    "@tag": "DELETE_FOR_GOOD",
+                    "#text": "Delete for good"
+                },
+                {
+                    "@tag": "EMPTY_POSTS",
+                    "#text": "No deleted posts"
+                },
+                {
+                    "@tag": "EMPTY_POSTS_MESSAGE",
+                    "#text": "Deleted posts are kept here until they are restored or deleted for good."
+                },
+                {
+                    "@tag": "EMPTY_TOPICS",
+                    "#text": "No deleted topics"
+                },
+                {
+                    "@tag": "EMPTY_TOPICS_MESSAGE",
+                    "#text": "Deleted topics are kept here until they are restored or deleted for good."
                 },
                 {
                     "@tag": "FILTER",
@@ -6581,6 +6661,10 @@
                 {
                     "@tag": "MSG_RESTORED",
                     "#text": "Topic restored"
+                },
+                {
+                    "@tag": "POSTS_TAB",
+                    "#text": "Deleted posts"
                 },
                 {
                     "@tag": "RESTORE_MESSAGE",
@@ -6601,6 +6685,10 @@
                 {
                     "@tag": "TITLE_MESSAGE",
                     "#text": "Restore & Delete Messages"
+                },
+                {
+                    "@tag": "TOPICS_TAB",
+                    "#text": "Deleted topics"
                 }
             ]
         },
@@ -6771,6 +6859,22 @@
                 {
                     "@tag": "CONFIRM_DELETE",
                     "#text": "Delete tag?"
+                },
+                {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No tags"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "The tags that users add to their topics are listed here."
+                },
+                {
+                    "@tag": "NO_MATCH",
+                    "#text": "No tags match the search."
+                },
+                {
+                    "@tag": "SEARCH_PLACEHOLDER",
+                    "#text": "Search tags"
                 },
                 {
                     "@tag": "SHOW_TOPICS",

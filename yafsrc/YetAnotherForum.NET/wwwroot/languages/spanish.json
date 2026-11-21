@@ -981,8 +981,24 @@
             "#text": "¿Eliminar el accesorio (s)?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Descargas"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No hay archivos adjuntos"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Aquí se muestran los archivos que los usuarios adjuntan a sus mensajes."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Archivos adjuntos de los usuarios"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Usos"
           }
         ]
       },
@@ -3647,6 +3663,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Todos los tipos"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Aplicar"
           },
@@ -3669,6 +3689,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Limpiar"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No hay entradas"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "No se registraron eventos en el periodo seleccionado."
           },
           {
             "@tag": "HIDE",
@@ -6092,6 +6120,10 @@
             "#text": "Eliminar mensajes más antiguos que:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Los mensajes privados con más antigüedad que los días indicados se eliminan para todos los usuarios del foro. No se puede deshacer."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Mensajes privados"
           },
@@ -6159,8 +6191,16 @@
             "#text": "¿Estás seguro que quieres podar los temas? Este proceso es irreversible."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Elimina los temas del foro seleccionado cuyo último mensaje tenga más antigüedad que los días indicados (los temas persistentes se conservan). La depuración se ejecuta en segundo plano."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Tarea de podado ejecutada."
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Los temas se eliminan de la base de datos y no se pueden restaurar desde la papelera."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6563,8 +6603,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "¿Eliminar definitivamente todos los mensajes eliminados? No se puede deshacer."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "¿Eliminar definitivamente todos los temas eliminados de la lista? No se puede deshacer."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "¿Eliminar definitivamente este mensaje? No se puede deshacer."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "¿Eliminar definitivamente este tema? No se puede deshacer."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "¿Eliminar definitivamente todos los temas eliminados sin mensajes? No se puede deshacer."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Borrar todo con 0 Mensajes"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Eliminar definitivamente"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "No hay mensajes eliminados"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Los mensajes eliminados se guardan aquí hasta que se restauren o se eliminen definitivamente."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "No hay temas eliminados"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Los temas eliminados se guardan aquí hasta que se restauren o se eliminen definitivamente."
           },
           {
             "@tag": "FILTER",
@@ -6581,6 +6661,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Tema restaurado"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Mensajes eliminados"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6601,6 +6685,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Restaurar y eliminar mensajes"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Temas eliminados"
           }
         ]
       },
@@ -6771,6 +6859,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "¿Eliminar etiqueta?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No hay etiquetas"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Aquí se muestran las etiquetas que los usuarios añaden a sus temas."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Ninguna etiqueta coincide con la búsqueda."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Buscar etiquetas"
           },
           {
             "@tag": "SHOW_TOPICS",

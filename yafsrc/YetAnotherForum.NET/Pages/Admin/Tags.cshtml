@@ -2,105 +2,107 @@
 
 @model TagsModel
 @using YAF.Types.Interfaces
-@using YAF.Types.Models
-@using YAF.Core.Extensions
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
-
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-auto">
-                            @Html.IconHeader("tags", "ADMIN_TAGS", "TITLE")
-                        </div>
-                        <div class="col-auto">
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="input-group input-group-sm me-2" role="group">
-                                    <div class="input-group-text">
-                                        @Html.LocalizedText("SHOW"):
-                                    </div>
-                                    <select asp-for="@Model.Size"
-                                            asp-items="Model.PageSizeList"
-                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            class="form-select"
-                                            onchange="this.form.submit();"></select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<form method="post" class="admin-tags">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("tags")@Html.LocalizedText("ADMIN_TAGS", "TITLE")
+            <span class="badge text-bg-secondary align-middle ms-1">@Model.Count</span>
+        </h2>
+        <div class="d-flex flex-wrap align-items-center gap-2">
+            @* Enter in the search field searches (the first submit button of the form) *@
+            <div class="input-group input-group-sm tags-search">
+                <input type="search" asp-for="Filter"
+                       class="form-control"
+                       maxlength="100"
+                       placeholder="@Html.LocalizedText("ADMIN_TAGS", "SEARCH_PLACEHOLDER")"
+                       aria-label="@Html.LocalizedText("ADMIN_TAGS", "SEARCH_PLACEHOLDER")" />
+                <button button-style="Secondary"
+                        button-size="Small"
+                        asp-page-handler="Search"
+                        asp-route-p="1"
+                        Icon="search"
+                        text-localized-tag="SEARCH"
+                        text-localized-page="ADMIN_USERS"></button>
+            </div>
+            <div class="input-group input-group-sm w-auto" role="group">
+                <div class="input-group-text">
+                    @Html.LocalizedText("SHOW"):
                 </div>
-                <div class="card-body">
-                    @if (!Model.List.NullOrEmpty())
-                    {
-                        <ul class="list-group">
-                            @foreach (var item in Model.List)
-                            {
-                                <li class="list-group-item list-group-item-action list-group-item-menu">
-                                    <div class="d-flex w-100 justify-content-between text-break">
-                                        <h5 class="mb-1">
-                                            @Html.Icon("tag")
-                                            @item.TagName
-                                        </h5>
-                                        <small class="d-none d-md-block">
-                                            @Html.LocalizedText("USAGES")
-                                            <span class="badge text-bg-secondary">
-                                                @Html.Raw(await Model.GetRepository<TopicTag>().CountAsync(x => x.TagID == item.ID))
-                                            </span>
-                                        </small>
-                                    </div>
-                                    <small>
-                                        <div class="btn-group btn-group-sm">
-                                            <a asp-page="@ForumPages.Search.GetPageName()"
-                                               asp-route-tag="@item.TagName"
-                                               text-localized-tag="SHOW_TOPICS"
-                                               class="btn btn-info"></a>
-                                            <button
-                                                button-style="Danger"
-                                                button-size="Small"
-                                                asp-page-handler="Delete"
-                                                asp-route-id="@item.ID"
-                                                return-confirm-tag="CONFIRM_DELETE"
-                                                Icon="trash"
-                                                text-localized-tag="DELETE">
-                                            </button>
-                                        </div>
-                                    </small>
-                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                        <a asp-page="@ForumPages.Search.GetPageName()"
-                                           class="dropdown-item"
-                                           asp-route-tag="@item.TagName"
-                                           text-localized-tag="SHOW_TOPICS"
-                                           button-style="@ButtonStyle.None"></a>
-                                        <button button-style="@ButtonStyle.None"
-                                                class="dropdown-item"
-                                                asp-page-handler="Delete"
-                                                asp-route-id="@item.ID"
-                                                return-confirm-tag="CONFIRM_DELETE"
-                                                Icon="trash"
-                                                text-localized-tag="DELETE">
-                                        </button>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-	                    @await Html.PartialAsync("_NoEntryInfo")
-                    }
-                </div>
+                <select asp-for="@Model.Size"
+                        asp-items="Model.PageSizeList"
+                        title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                        aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                        class="form-select"
+                        onchange="this.form.submit();"></select>
             </div>
         </div>
     </div>
+
     @if (!Model.List.NullOrEmpty())
     {
-        @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = @Model.Count, Size = Model.Size })
+        <div class="tag-grid mb-3">
+            @foreach (var item in Model.List)
+            {
+                var usages = Model.UsageCounts.GetValueOrDefault(item.ID);
+
+                <div class="card tag-card list-group-item-menu">
+                    <div class="card-body">
+                        <div class="tag-name text-break">@Html.Icon("tag")@item.TagName</div>
+                        <div class="tag-footer">
+                            <a asp-page="@ForumPages.Search.GetPageName()"
+                               asp-route-tag="@item.TagName"
+                               class="badge rounded-pill @(usages > 0 ? "text-bg-secondary" : "bg-body-tertiary text-body-secondary border") text-decoration-none tag-usages"
+                               title="@Html.LocalizedText("ADMIN_TAGS", "SHOW_TOPICS")">@Html.Icon("comments")@usages</a>
+                            <button button-style="None"
+                                    class="btn btn-sm btn-outline-danger tag-delete"
+                                    asp-page-handler="Delete"
+                                    asp-route-id="@item.ID"
+                                    return-confirm-tag="CONFIRM_DELETE"
+                                    title-localized-tag="DELETE"
+                                    Icon="trash"></button>
+                        </div>
+                    </div>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <a asp-page="@ForumPages.Search.GetPageName()"
+                           class="dropdown-item"
+                           asp-route-tag="@item.TagName"
+                           Icon="search"
+                           text-localized-tag="SHOW_TOPICS"
+                           button-style="None"></a>
+                        <button button-style="None"
+                                class="dropdown-item"
+                                asp-page-handler="Delete"
+                                asp-route-id="@item.ID"
+                                return-confirm-tag="CONFIRM_DELETE"
+                                Icon="trash"
+                                text-localized-tag="DELETE"></button>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @await Html.PartialAsync("_Pagination", new Pagination { TotalRows = Model.Count, Size = Model.Size })
+    }
+    else if (Model.Filter.IsSet())
+    {
+        <div class="alert alert-secondary tags-no-match" role="status">
+            @Html.Icon("search")@Html.LocalizedText("ADMIN_TAGS", "NO_MATCH")
+        </div>
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <empty icon="tags"
+                       header-text-page="ADMIN_TAGS" header-text-tag="EMPTY_HEADER"
+                       message-text-page="ADMIN_TAGS" message-text-tag="EMPTY_MESSAGE">
+                </empty>
+            </div>
+        </div>
     }
 </form>

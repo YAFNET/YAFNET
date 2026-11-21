@@ -981,8 +981,24 @@
             "#text": "Eliminare gli allegati?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Download"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessun allegato"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Qui sono elencati i file che gli utenti allegano ai loro messaggi."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Allegati dell'utente"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Utilizzi"
           }
         ]
       },
@@ -3647,6 +3663,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Tutti i tipi"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Applicare"
           },
@@ -3669,6 +3689,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Pulizia"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessuna voce"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Nessun evento è stato registrato nel periodo selezionato."
           },
           {
             "@tag": "HIDE",
@@ -6092,6 +6120,10 @@
             "#text": "Elimina i messaggi più vecchi di:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "I messaggi privati più vecchi dei giorni indicati vengono eliminati per tutti gli utenti del forum. L’operazione non può essere annullata."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Messaggi privati"
           },
@@ -6159,8 +6191,16 @@
             "#text": "Volete davvero sfrondare gli argomenti? Questo processo è irreversibile."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Elimina le discussioni del forum selezionato il cui ultimo messaggio è più vecchio dei giorni indicati (le discussioni persistenti vengono mantenute). La pulizia viene eseguita in background."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Attività di potatura programmata"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Le discussioni vengono rimosse dal database e non possono essere ripristinate dal cestino."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6563,8 +6603,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Eliminare definitivamente tutti i messaggi eliminati? L’operazione non può essere annullata."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Eliminare definitivamente tutte le discussioni eliminate dell’elenco? L’operazione non può essere annullata."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Eliminare definitivamente questo messaggio? L’operazione non può essere annullata."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Eliminare definitivamente questa discussione? L’operazione non può essere annullata."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Eliminare definitivamente tutte le discussioni eliminate senza messaggi? L’operazione non può essere annullata."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Cancellare tutti quelli con 0 messaggi"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Elimina definitivamente"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Nessun messaggio eliminato"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "I messaggi eliminati restano qui finché non vengono ripristinati o eliminati definitivamente."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Nessuna discussione eliminata"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Le discussioni eliminate restano qui finché non vengono ripristinate o eliminate definitivamente."
           },
           {
             "@tag": "FILTER",
@@ -6581,6 +6661,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Argomento restaurato"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Messaggi eliminati"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6601,6 +6685,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Ripristino e cancellazione dei messaggi"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Discussioni eliminate"
           }
         ]
       },
@@ -6771,6 +6859,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Eliminare l'etichetta?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessun tag"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Qui sono elencati i tag che gli utenti aggiungono alle loro discussioni."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Nessun tag corrisponde alla ricerca."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Cerca tag"
           },
           {
             "@tag": "SHOW_TOPICS",

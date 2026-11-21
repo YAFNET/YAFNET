@@ -981,8 +981,24 @@
             "#text": "删除附件？"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "下载次数"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有附件"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "这里列出用户附加到帖子中的文件。"
+          },
+          {
             "@tag": "TITLE",
             "#text": "用户附件"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "使用次数"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "所有类型"
+          },
+          {
             "@tag": "APPLY",
             "#text": "申请"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "清理"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有日志记录"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "所选时间段内没有记录任何事件。"
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "删除早于以下时间的消息："
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "早于指定天数的私人消息将为论坛的所有用户删除。此操作无法撤消。"
+          },
+          {
             "@tag": "HEADER",
             "#text": "私人信息"
           },
@@ -6167,8 +6199,16 @@
             "#text": "您真的要修剪主题吗？"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "删除所选论坛中最后一个帖子早于指定天数的主题（永久主题会保留）。清理在后台运行。"
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "修剪任务计划"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "主题将从数据库中删除，无法从回收站恢复。"
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "永久删除所有已删除的帖子？此操作无法撤消。"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "永久删除列表中所有已删除的主题？此操作无法撤消。"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "永久删除此帖子？此操作无法撤消。"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "永久删除此主题？此操作无法撤消。"
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "永久删除所有没有帖子的已删除主题？此操作无法撤消。"
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "删除所有 0 个帖子"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "永久删除"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "没有已删除的帖子"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "已删除的帖子会保留在这里，直到被恢复或永久删除。"
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "没有已删除的主题"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "已删除的主题会保留在这里，直到被恢复或永久删除。"
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "话题已恢复"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "已删除的帖子"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "恢复和删除消息"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "已删除的主题"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "删除标签？"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有标签"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "这里列出用户添加到主题中的标签。"
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "没有与搜索匹配的标签。"
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "搜索标签"
           },
           {
             "@tag": "SHOW_TOPICS",

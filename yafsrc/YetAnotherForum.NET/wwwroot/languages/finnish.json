@@ -981,8 +981,24 @@
             "#text": "Poista liitetiedot?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Lataukset"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei liitteitä"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tässä näkyvät tiedostot, jotka käyttäjät liittävät viesteihinsä."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Käyttäjän liitteet"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Käytöt"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Kaikki tyypit"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Hae"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Siivoa"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei lokimerkintöjä"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Valitulla ajanjaksolla ei kirjattu tapahtumia."
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "Poista viestit, jotka ovat vanhempia kuin:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Annettua päivämäärää vanhemmat yksityisviestit poistetaan foorumin kaikilta käyttäjiltä. Toimintoa ei voi perua."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Yksityisviestit"
           },
@@ -6167,8 +6199,16 @@
             "#text": "Haluatko todella karsia aiheita? Tämä prosessi on peruuttamaton."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Poistaa valitun foorumin aiheet, joiden viimeisin viesti on annettua päivämäärää vanhempi (pysyvät aiheet säilytetään). Siivous suoritetaan taustalla."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Leikkaa tehtävä ajoitettu"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Aiheet poistetaan tietokannasta, eikä niitä voi palauttaa roskakorista."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Poistetaanko kaikki poistetut viestit pysyvästi? Toimintoa ei voi perua."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Poistetaanko kaikki luettelon poistetut aiheet pysyvästi? Toimintoa ei voi perua."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Poistetaanko tämä viesti pysyvästi? Toimintoa ei voi perua."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Poistetaanko tämä aihe pysyvästi? Toimintoa ei voi perua."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Poistetaanko kaikki poistetut aiheet ilman viestejä pysyvästi? Toimintoa ei voi perua."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Poista kaikki, joilla on 0 viestiä"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Poista pysyvästi"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Ei poistettuja viestejä"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Poistetut viestit säilytetään tässä, kunnes ne palautetaan tai poistetaan pysyvästi."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Ei poistettuja aiheita"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Poistetut aiheet säilytetään tässä, kunnes ne palautetaan tai poistetaan pysyvästi."
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Aihe palautettu"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Poistetut viestit"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Palauta ja poista viestejä"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Poistetut aiheet"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Poistetaanko tunniste?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei tunnisteita"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tässä näkyvät tunnisteet, jotka käyttäjät lisäävät aiheisiinsa."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Mikään tunniste ei vastaa hakua."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Hae tunnisteita"
           },
           {
             "@tag": "SHOW_TOPICS",

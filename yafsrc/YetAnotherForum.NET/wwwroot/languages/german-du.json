@@ -981,8 +981,24 @@
             "#text": "Anhaftungen löschen?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Downloads"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine Anhänge"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Hier werden die Dateien aufgelistet, die Benutzer an ihre Beiträge anhängen."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Benutzer-Anhänge"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Verwendungen"
           }
         ]
       },
@@ -3647,6 +3663,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Alle Typen"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Übernehmen"
           },
@@ -3669,6 +3689,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Aufräumen"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine Einträge"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Im gewählten Zeitraum wurden keine Ereignisse protokolliert."
           },
           {
             "@tag": "HIDE",
@@ -6092,6 +6120,10 @@
             "#text": "Nachrichten löschen, die älter sind als:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Die privaten Nachrichten, die älter als die angegebenen Tage sind, werden für alle Benutzer des Boards gelöscht. Das kann nicht rückgängig gemacht werden."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Private Nachrichten"
           },
@@ -6159,8 +6191,16 @@
             "#text": "Möchten Sie wirklich die Themen reduzieren?"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Löscht die Themen des gewählten Forums, deren letzter Beitrag älter als die angegebenen Tage ist (dauerhafte Themen bleiben erhalten). Das Aufräumen läuft im Hintergrund."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Prune Task geplant"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Die Themen werden aus der Datenbank entfernt und können nicht aus dem Papierkorb wiederhergestellt werden."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6563,8 +6603,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Alle gelöschten Beiträge endgültig löschen? Das kann nicht rückgängig gemacht werden."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Alle gelöschten Themen der Liste endgültig löschen? Das kann nicht rückgängig gemacht werden."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Diesen Beitrag endgültig löschen? Das kann nicht rückgängig gemacht werden."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Dieses Thema endgültig löschen? Das kann nicht rückgängig gemacht werden."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Alle gelöschten Themen ohne Beiträge endgültig löschen? Das kann nicht rückgängig gemacht werden."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Alle mit 0 Beiträgen löschen"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Endgültig löschen"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Keine gelöschten Beiträge"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Gelöschte Beiträge bleiben hier, bis sie wiederhergestellt oder endgültig gelöscht werden."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Keine gelöschten Themen"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Gelöschte Themen bleiben hier, bis sie wiederhergestellt oder endgültig gelöscht werden."
           },
           {
             "@tag": "FILTER",
@@ -6581,6 +6661,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Thema wiederhergestellt"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Gelöschte Beiträge"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6601,6 +6685,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Nachrichten wiederherstellen und löschen"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Gelöschte Themen"
           }
         ]
       },
@@ -6771,6 +6859,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Tag löschen?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine Schlagwörter"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Hier werden die Schlagwörter aufgelistet, die Benutzer zu ihren Themen hinzufügen."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Keine Schlagwörter passen zur Suche."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Schlagwörter suchen"
           },
           {
             "@tag": "SHOW_TOPICS",

@@ -2,20 +2,33 @@
 @using YAF.Web.HtmlHelpers
 @model PmModel
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("envelope-square","ADMIN_PM","HEADER")
+<form method="post" class="admin-pm">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("envelope-square")@Html.LocalizedText("ADMIN_PM", "HEADER")
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+            @* the private messages of the board *@
+            <div class="card mb-3 pm-stat">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <span class="pm-stat-icon bg-primary-subtle text-primary-emphasis">@Html.Icon("envelope", marginEnd: false)</span>
+                    <div>
+                        <div class="pm-stat-value" id="PmCount">@Model.Input.Count</div>
+                        <div class="small text-body-secondary">@Model.GetText("ADMIN_PM", "PM_NUMBER").TrimEnd(':', ' ')</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3 border-danger-subtle danger-zone">
+                <div class="card-header bg-danger-subtle text-danger-emphasis">
+                    @Html.Icon("triangle-exclamation")@Html.LocalizedText("ADMIN_PM", "TITLE")
                 </div>
                 <div class="card-body">
-                    <alert type="info" icon="info-circle">
-                        @Html.Icon("info-circle")
-                        @Html.LocalizedText("PM_NUMBER" )
-                        <span class="badge text-bg-info">@Model.Input.Count</span>
-                    </alert>
-                    <div class="mb-3">
+                    <p class="text-body-secondary">@Html.LocalizedText("ADMIN_PM", "EXPLAIN")</p>
+                    <div class="mb-0 col-md-6">
                         <label class="form-label" asp-for="Input.Days2" localized-tag="DELETE_OLDER">
                         </label>
                         <div class="input-group">
@@ -27,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-center">
+                <div class="card-footer d-flex justify-content-end">
                     <button button-style="Danger"
                             Icon="trash" text-localized-tag="DELETE" text-localized-page="COMMON"
                             return-confirm-tag="CONFIRM_DELETE"

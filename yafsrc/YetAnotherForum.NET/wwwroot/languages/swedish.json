@@ -981,8 +981,24 @@
             "#text": "Radera bilagor?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Nedladdningar"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga bilagor"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Här visas filerna som användarna bifogar till sina inlägg."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Användarens bilagor"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Användningar"
           }
         ]
       },
@@ -3655,6 +3671,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Alla typer"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Ansök på"
           },
@@ -3677,6 +3697,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Rensa upp"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga loggposter"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Inga händelser loggades under den valda perioden."
           },
           {
             "@tag": "HIDE",
@@ -6100,6 +6128,10 @@
             "#text": "Radera meddelanden som är äldre än:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Privata meddelanden som är äldre än det angivna antalet dagar tas bort för alla användare i forumet. Det går inte att ångra."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Privata meddelanden"
           },
@@ -6167,8 +6199,16 @@
             "#text": "Vill du verkligen beskära ämnen? Denna process är oåterkallelig."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Tar bort ämnena i det valda forumet vars senaste inlägg är äldre än det angivna antalet dagar (beständiga ämnen behålls). Rensningen körs i bakgrunden."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Prune Uppgift schemalagd"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Ämnena tas bort från databasen och kan inte återställas från papperskorgen."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6571,8 +6611,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Ta bort alla borttagna inlägg permanent? Det går inte att ångra."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Ta bort alla borttagna ämnen i listan permanent? Det går inte att ångra."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Ta bort det här inlägget permanent? Det går inte att ångra."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Ta bort det här ämnet permanent? Det går inte att ångra."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Ta bort alla borttagna ämnen utan inlägg permanent? Det går inte att ångra."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Ta bort alla med 0 inlägg"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Ta bort permanent"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Inga borttagna inlägg"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Borttagna inlägg sparas här tills de återställs eller tas bort permanent."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Inga borttagna ämnen"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Borttagna ämnen sparas här tills de återställs eller tas bort permanent."
           },
           {
             "@tag": "FILTER",
@@ -6589,6 +6669,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Ämnet återställdes"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Borttagna inlägg"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6609,6 +6693,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Återställa och radera meddelanden"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Borttagna ämnen"
           }
         ]
       },
@@ -6779,6 +6867,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Ta bort tagg?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga taggar"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Här visas taggarna som användarna lägger till i sina ämnen."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Inga taggar matchar sökningen."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Sök taggar"
           },
           {
             "@tag": "SHOW_TOPICS",

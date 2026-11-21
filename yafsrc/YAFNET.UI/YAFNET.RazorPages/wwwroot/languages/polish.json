@@ -981,8 +981,24 @@
             "#text": "Usuń załącznik?"
           },
           {
+            "@tag": "DOWNLOADS",
+            "#text": "Pobrania"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak załączników"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tutaj są wyświetlane pliki, które użytkownicy dołączają do swoich postów."
+          },
+          {
             "@tag": "TITLE",
             "#text": "Załączniki użytkownika"
+          },
+          {
+            "@tag": "USAGES",
+            "#text": "Użycia"
           }
         ]
       },
@@ -3647,6 +3663,10 @@
         "@name": "ADMIN_EVENTLOG",
         "Resource": [
           {
+            "@tag": "ALL_TYPES",
+            "#text": "Wszystkie typy"
+          },
+          {
             "@tag": "APPLY",
             "#text": "Aplikuj na"
           },
@@ -3669,6 +3689,14 @@
           {
             "@tag": "DELETE_ALLOWED",
             "#text": "Sprzątanie"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak wpisów"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "W wybranym okresie nie zarejestrowano żadnych zdarzeń."
           },
           {
             "@tag": "HIDE",
@@ -6092,6 +6120,10 @@
             "#text": "Usuń wiadomości starsze niż:"
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Prywatne wiadomości starsze niż podana liczba dni są usuwane wszystkim użytkownikom forum. Tej operacji nie można cofnąć."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Wiadomości prywatne"
           },
@@ -6159,8 +6191,16 @@
             "#text": "Czy naprawdę chcesz zredukować liczbę tematów? Ten proces jest nieodwracalny."
           },
           {
+            "@tag": "EXPLAIN",
+            "#text": "Usuwa tematy wybranego forum, których ostatni post jest starszy niż podana liczba dni (tematy trwałe są zachowywane). Czyszczenie działa w tle."
+          },
+          {
             "@tag": "MSG_TASK",
             "#text": "Zaplanowane zadanie przycinania"
+          },
+          {
+            "@tag": "PERMANENT_WARNING",
+            "#text": "Tematy zostaną usunięte z bazy danych i nie będzie można ich przywrócić z kosza."
           },
           {
             "@tag": "PRUNE_DAYS",
@@ -6563,8 +6603,48 @@
         "@name": "ADMIN_RESTORE",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE_ALL_POSTS",
+            "#text": "Trwale usunąć wszystkie usunięte posty? Tej operacji nie można cofnąć."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ALL_TOPICS",
+            "#text": "Trwale usunąć wszystkie usunięte tematy z listy? Tej operacji nie można cofnąć."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_POST",
+            "#text": "Trwale usunąć ten post? Tej operacji nie można cofnąć."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_TOPIC",
+            "#text": "Trwale usunąć ten temat? Tej operacji nie można cofnąć."
+          },
+          {
+            "@tag": "CONFIRM_DELETE_ZERO",
+            "#text": "Trwale usunąć wszystkie usunięte tematy bez postów? Tej operacji nie można cofnąć."
+          },
+          {
             "@tag": "DELETE_ALL_ZERO",
             "#text": "Usuń wszystkich, którzy mają 0 postów"
+          },
+          {
+            "@tag": "DELETE_FOR_GOOD",
+            "#text": "Usuń trwale"
+          },
+          {
+            "@tag": "EMPTY_POSTS",
+            "#text": "Brak usuniętych postów"
+          },
+          {
+            "@tag": "EMPTY_POSTS_MESSAGE",
+            "#text": "Usunięte posty są tu przechowywane, dopóki nie zostaną przywrócone lub trwale usunięte."
+          },
+          {
+            "@tag": "EMPTY_TOPICS",
+            "#text": "Brak usuniętych tematów"
+          },
+          {
+            "@tag": "EMPTY_TOPICS_MESSAGE",
+            "#text": "Usunięte tematy są tu przechowywane, dopóki nie zostaną przywrócone lub trwale usunięte."
           },
           {
             "@tag": "FILTER",
@@ -6581,6 +6661,10 @@
           {
             "@tag": "MSG_RESTORED",
             "#text": "Temat odnowiony"
+          },
+          {
+            "@tag": "POSTS_TAB",
+            "#text": "Usunięte posty"
           },
           {
             "@tag": "RESTORE_MESSAGE",
@@ -6601,6 +6685,10 @@
           {
             "@tag": "TITLE_MESSAGE",
             "#text": "Przywracanie i usuwanie wiadomości"
+          },
+          {
+            "@tag": "TOPICS_TAB",
+            "#text": "Usunięte tematy"
           }
         ]
       },
@@ -6771,6 +6859,22 @@
           {
             "@tag": "CONFIRM_DELETE",
             "#text": "Usunąć tag?"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak tagów"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tutaj są wyświetlane tagi, które użytkownicy dodają do swoich tematów."
+          },
+          {
+            "@tag": "NO_MATCH",
+            "#text": "Żaden tag nie pasuje do wyszukiwania."
+          },
+          {
+            "@tag": "SEARCH_PLACEHOLDER",
+            "#text": "Szukaj tagów"
           },
           {
             "@tag": "SHOW_TOPICS",
