@@ -36,13 +36,11 @@ using FarsiLibrary.Core.Utils;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
 
 using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Pages.Profile;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
@@ -159,8 +157,6 @@ public class UsersProfileModel : AdminPage
 
         this.EditUser = user;
 
-        var userName = this.EditUser.Item1.DisplayOrUserName();
-
         if (this.Input.HomePage.IsSet())
         {
             // add http:// by default
@@ -178,33 +174,6 @@ public class UsersProfileModel : AdminPage
                 return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View3" });
-            }
-
-            // Check for spam
-            if (this.EditUser.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount
-                && this.Get<ISpamWordCheck>().CheckForSpamWord(this.Input.HomePage, out _))
-            {
-                switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
-                {
-                    // Log and Send Message to Admins
-                    case 1:
-                        this.Get<ILogger<EditProfileModel>>().Log(
-                            null,
-                            "Bot Detected",
-                            $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{userId}') after the user changed the profile Homepage url to: {this.Input.HomePage}",
-                            EventLogTypes.SpamBotDetected);
-                        break;
-                    case 2:
-                    {
-                        this.Get<ILogger<EditProfileModel>>().Log(
-                            null,
-                            "Bot Detected",
-                            $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{userId}') after the user changed the profile Homepage url to: {this.Input.HomePage}, user was deleted and the name, email and IP Address are banned.",
-                            EventLogTypes.SpamBotDetected);
-
-                        break;
-                    }
-                }
             }
         }
 

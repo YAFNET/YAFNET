@@ -55,6 +55,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit User: after changing the password of a user (or an error like passwords that do not match) only the password tab was shown, without the forum and the user editor around it; the user editor is shown again with the message
 * [FIXED] Admin > Edit User: after saving a tab (e.g. the roles or the settings) the editor showed the first tab instead of the saved tab (the tab of the address was not read)
 * [FIXED] Profile, Admin > Edit User: an empty birthday was shown as 1.1.1903 and saving the profile stored it, the profile showed the birthday "January 1, 1903"; the empty birthday stays empty and the profiles saved with it show no birthday
+* [FIXED] Admin > Edit User: the homepage saved by the admin in the profile of a user went through the spam bot check of the own profile, with a spam word the event log reported the user as a spam bot ("user was deleted and the name, email and IP Address are banned", nothing of it was done); the profile of the admin is not checked anymore
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

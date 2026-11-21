@@ -725,4 +725,94 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 Assert.That(await page.ContentAsync(), Does.Not.Contain("1903"), "The profile shows the birthday 1903");
             });
     }
+
+    /// <summary>
+    /// The homepage the admin saves in the profile of a user went through the spam bot check of the own profile:
+    /// with a spam word it logged "user was deleted and the name, email and IP Address are banned" (nothing of it happened).
+    /// </summary>
+    [Test]
+    public async Task AdminSavesHomepageWithoutBotCheckTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var spamWord = $"botcheck{Random.Shared.Next()}";
+                var userName = $"Homepage{Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+
+                var botHandling = await page.Locator("#Input_BotHandlingOnRegister").InputValueAsync();
+
+                try
+                {
+                    // delete and ban the bots
+                    await SetBotHandlingAsync(page, this.TestSettings, "2");
+
+                    var status = await page.EvaluateAsync<int>(
+                        """
+                        async ([baseUrl, word]) => {
+                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                            const response = await fetch(baseUrl + 'api/SpamWords/Edit', {
+                                method: 'POST',
+                                headers: { 'RequestVerificationToken': token, 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ spamWord: word })
+                            });
+                            return response.status;
+                        }
+                        """,
+                        new[] { this.TestSettings.TestForumUrl, spamWord });
+
+                    Assert.That(status, Is.EqualTo(200), "The spam word was not added");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/RegisterUser");
+                    await page.Locator("#Input_UserName").FillAsync(userName);
+                    await page.Locator("#Input_Email").FillAsync($"{userName.ToLower()}@test.com");
+                    await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                    await page.Locator("#Input_Password2").FillAsync(this.TestSettings.TestUserPassword);
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForumRegister']"));
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+                    await page.OpenUserFilterAsync();
+                    await page.Locator("#Input_Name").FillAsync(userName);
+                    await page.RunAndWaitForNextPageAsync(() => page.Locator("#Input_Name").PressAsync("Enter"));
+
+                    var userId = await page.Locator(".user-row", new PageLocatorOptions { HasText = userName }).GetAttributeAsync("data-user-id");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/UsersProfile?userId={userId}");
+
+                    await page.Locator("#Input_HomePage").FillAsync($"https://www.{spamWord}.test");
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                    // the homepage is saved, the user is not reported as a bot
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/UsersProfile?userId={userId}");
+
+                    Assert.That(await page.Locator("#Input_HomePage").InputValueAsync(), Does.Contain(spamWord), "The homepage was not saved");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EventLog");
+
+                    Assert.That(await page.ContentAsync(), Does.Not.Contain(spamWord), "The homepage of the admin was logged as a spam bot");
+                }
+                finally
+                {
+                    await SetBotHandlingAsync(page, this.TestSettings, botHandling);
+                }
+            });
+    }
+
+    /// <summary>
+    /// Sets how the bots found by the spam check are handled.
+    /// </summary>
+    private static async Task SetBotHandlingAsync(IPage page, TestConfig testSettings, string value)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/HostSettings");
+        await page.Locator("#Input_BotHandlingOnRegister").EvaluateAsync("(select, value) => select.value = value", value);
+        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Save')]").First);
+    }
 }
