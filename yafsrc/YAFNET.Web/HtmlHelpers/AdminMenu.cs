@@ -257,7 +257,7 @@ public static class AdminMenuHtmlHelper
                     context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_ReplaceWords),
                     context.CurrentForumPage.PageName == ForumPages.Admin_ReplaceWords,
                     false,
-                    "sticky-note"));
+                    "spell-check"));
         }
 
         // Admin BBCodes
@@ -336,7 +336,7 @@ public static class AdminMenuHtmlHelper
                     context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_SpamWords),
                     context.CurrentForumPage.PageName == ForumPages.Admin_SpamWords,
                     false,
-                    "hand-paper"));
+                    "comment-slash"));
         }
 
         // Admin BannedEmails
@@ -349,7 +349,7 @@ public static class AdminMenuHtmlHelper
                     context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedEmails),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedEmails,
                     false,
-                    "hand-paper"));
+                    "at"));
         }
 
         // Admin BannedIps
@@ -362,7 +362,7 @@ public static class AdminMenuHtmlHelper
                     context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedIps),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedIps,
                     false,
-                    "hand-paper"));
+                    "network-wired"));
         }
 
         // Admin BannedNames
@@ -375,7 +375,7 @@ public static class AdminMenuHtmlHelper
                     context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedNames),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedNames,
                     false,
-                    "hand-paper"));
+                    "user-slash"));
         }
 
         // Admin BannedUserAgents
@@ -401,7 +401,7 @@ public static class AdminMenuHtmlHelper
                     context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BannedCountries),
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedCountries,
                     false,
-                    "user-secret"));
+                    "globe"));
         }
 
         listItem.InnerHtml.AppendHtml(list);
@@ -530,7 +530,7 @@ public static class AdminMenuHtmlHelper
                     context.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Mail),
                     context.CurrentForumPage.PageName == ForumPages.Admin_Mail,
                     false,
-                    "at"));
+                    "envelope"));
         }
 
         // Admin Digest
