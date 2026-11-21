@@ -167,7 +167,7 @@ public class DbAccessExtensionsTests
 
         try
         {
-            await this.db.ChangeRecoveryModeAsync("FULL");
+            await this.db.Invoking(d => d.ChangeRecoveryModeAsync("FULL")).Should().ThrowAsync<NotSupportedException>();
         }
         finally
         {
@@ -175,6 +175,14 @@ public class DbAccessExtensionsTests
         }
 
         statements.Should().NotContain(s => s.Contains("auto_vacuum"), "that is the re-index statement");
+    }
+
+    [Test]
+    [Description("A database without a recovery mode reports that it is not supported (it was reported as the success of the change)")]
+    public async Task Change_Recovery_Mode_Not_Supported_Test()
+    {
+        await this.db.Invoking(d => d.ChangeRecoveryModeAsync("SIMPLE"))
+            .Should().ThrowAsync<NotSupportedException>().WithMessage("*Not Supported*");
     }
 
     [Test]

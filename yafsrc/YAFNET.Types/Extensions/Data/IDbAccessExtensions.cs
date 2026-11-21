@@ -442,18 +442,27 @@ public static class IDbAccessExtensions
         /// <param name="recoveryMode">
         /// The recovery mode.
         /// </param>
-        public async Task<string> ChangeRecoveryModeAsync(string recoveryMode)
+        /// <exception cref="NotSupportedException">The database has no recovery mode.</exception>
+        /// <remarks>
+        /// An error of the database (e.g. the user is not allowed to change it) is thrown, it was reported as the
+        /// success of the change.
+        /// </remarks>
+        public Task<string> ChangeRecoveryModeAsync(string recoveryMode)
         {
-            try
-            {
-                return await dbAccess.ExecuteAsync(
-                    db => db.ScalarAsync<string>(
-                        OrmLiteConfig.DialectProvider.ChangeRecoveryMode(db.Database, recoveryMode)));
-            }
-            catch (Exception)
-            {
-                return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
-            }
+            return dbAccess.ExecuteAsync(
+                db =>
+                {
+                    var sql = OrmLiteConfig.DialectProvider.ChangeRecoveryMode(db.Database, recoveryMode);
+
+                    // an empty statement can not be run
+                    if (string.IsNullOrWhiteSpace(sql))
+                    {
+                        throw new NotSupportedException(
+                            $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server");
+                    }
+
+                    return db.ScalarAsync<string>(sql);
+                });
         }
 
         /// <summary>

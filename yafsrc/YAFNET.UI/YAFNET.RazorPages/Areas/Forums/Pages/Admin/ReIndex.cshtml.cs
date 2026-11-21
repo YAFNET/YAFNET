@@ -128,9 +128,23 @@ public class ReIndexModel : AdminPage
 
         this.IndexStatistics = string.Empty;
 
-        var stats = this.IndexStatistics = await this.Get<IDbAccess>().ChangeRecoveryModeAsync(this.RecoveryMode);
+        try
+        {
+            var stats = await this.Get<IDbAccess>().ChangeRecoveryModeAsync(this.RecoveryMode);
 
-        return this.PageBoardContext.Notify(stats.IsSet() ? stats : result, MessageTypes.success);
+            return this.PageBoardContext.Notify(stats.IsSet() ? stats : result, MessageTypes.success);
+        }
+        catch (NotSupportedException error)
+        {
+            return this.PageBoardContext.Notify(error.Message, MessageTypes.warning);
+        }
+        catch (Exception error)
+        {
+            // e.g. the database user is not allowed to change it (it was shown as a success)
+            return this.PageBoardContext.Notify(
+                this.GetTextFormatted("INDEX_STATS_FAIL", error.Message),
+                MessageTypes.danger);
+        }
     }
 
     /// <summary>

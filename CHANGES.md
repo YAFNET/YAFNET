@@ -100,6 +100,7 @@ YetAnotherForum.NET Changelog
 [FIXED] Admin > Edit Language: saving after selecting another page (without loading it) failed with an error
 [FIXED] Admin > Edit Language: an emptied text was saved as null and the page of the language failed with an error every time
 [FIXED] Admin > Re-Index on SQLite: re-index and shrink only changed the vacuum mode, they now rebuild the indexes (REINDEX) and remove the unused space (VACUUM)
+[FIXED] Admin > Re-Index: a failed change of the recovery mode (e.g. missing rights, a database without recovery modes) was shown as a success
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
