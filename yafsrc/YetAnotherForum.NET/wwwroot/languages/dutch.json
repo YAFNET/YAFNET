@@ -3289,6 +3289,10 @@
             "#text": "Er bestaat al een rang met een dergelijke naam."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Nieuwe gebruikers krijgen de startrang, deze kan de markering niet verliezen. Markeer in plaats daarvan een andere rang als startrang."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "U moet een rangnaam definiëren."
           },

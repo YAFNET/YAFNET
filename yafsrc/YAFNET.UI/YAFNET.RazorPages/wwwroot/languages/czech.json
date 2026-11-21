@@ -3297,6 +3297,10 @@
             "#text": "Hodnost s takovým názvem již existuje."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Noví uživatelé dostávají počáteční hodnost, nemůže o označení přijít. Místo toho označte jako počáteční jinou hodnost."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Musíte definovat název hodnosti."
           },

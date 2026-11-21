@@ -86,6 +86,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Admin menu: the icons of the replace words, the spam protection pages and the mail page are the icons of the headers of the pages
 * [FIXED] Admin > Ranks: the start rank of a new board (Newbie) was not on the rank ladder, the new users were never promoted to Member and Advanced Member (existing boards: switch on "Ladder Group" of the start rank)
 * [FIXED] Admin > Ranks: a new start rank kept the old start rank, the new users got one of them; now the old start rank loses the flag
+* [FIXED] Admin > Ranks: the start rank could lose its flag, then the registration of new users failed with an error; now a warning is shown
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

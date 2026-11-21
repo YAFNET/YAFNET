@@ -3297,6 +3297,10 @@
             "#text": "Böyle bir ada sahip bir rütbe zaten mevcut."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Yeni kullanıcılar başlangıç rütbesini alır, bu işaretini kaybedemez. Bunun yerine başka bir rütbeyi başlangıç rütbesi olarak işaretleyin."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Bir rütbe adı tanımlamalısınız."
           },

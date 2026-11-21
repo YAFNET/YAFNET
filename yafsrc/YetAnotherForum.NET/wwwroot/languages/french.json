@@ -3297,6 +3297,10 @@
             "#text": "Un rang portant un tel nom existe déjà."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Les nouveaux utilisateurs reçoivent le rang de départ, il ne peut pas perdre cette option. Marquez plutôt un autre rang comme rang de départ."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Vous devez définir un nom de rang."
           },

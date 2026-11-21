@@ -115,6 +115,15 @@ public class EditRankModel : AdminPage
             return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITRANK", "MSG_RANK_EXISTS"), MessageTypes.warning);
         }
 
+        // the start rank keeps the flag, the new users need a start rank (another rank can be marked as start rank)
+        if (!this.Input.IsStart && rankId.HasValue
+            && await this.GetRepository<Rank>().ExistsAsync(r => r.ID == rankId.Value && (r.Flags & 1) == 1))
+        {
+            this.Input.IsStart = true;
+
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITRANK", "MSG_START_RANK"), MessageTypes.warning);
+        }
+
         await this.GetRepository<Rank>().SaveAsync(
             rankId,
             this.PageBoardContext.PageBoardID,

@@ -3297,6 +3297,10 @@
             "#text": "En rangering med et slikt navn finnes allerede."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Nye brukere får startrangen, den kan ikke miste markeringen. Merk en annen rang som startrang i stedet."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Du må definere et rangeringsnavn."
           },

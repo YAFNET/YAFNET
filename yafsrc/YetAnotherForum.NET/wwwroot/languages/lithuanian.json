@@ -3297,6 +3297,10 @@
             "#text": "Laipsnis tokiu pavadinimu jau yra."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Nauji vartotojai gauna pradinį rangą, jis negali prarasti žymės. Vietoj to pažymėkite kitą rangą kaip pradinį."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Turite apibrėžti rango pavadinimą."
           },

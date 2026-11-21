@@ -3297,6 +3297,10 @@
             "#text": "Sellise nimega auaste on juba olemas."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "Uued kasutajad saavad algastme, see ei saa märget kaotada. Märgi selle asemel algastmeks mõni teine aste."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "Peate määrama auastme nime."
           },

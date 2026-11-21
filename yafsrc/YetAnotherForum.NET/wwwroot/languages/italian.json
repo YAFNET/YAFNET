@@ -3289,6 +3289,10 @@
             "#text": "Esiste già un rango con questo nome."
           },
           {
+            "@tag": "MSG_START_RANK",
+            "#text": "I nuovi utenti ricevono il grado iniziale, non può perdere il contrassegno. Contrassegna invece un altro grado come grado iniziale."
+          },
+          {
             "@tag": "NEED_NAME",
             "#text": "È necessario definire un nome di rango."
           },

@@ -231,6 +231,42 @@ public class RankTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The start rank can't lose its flag: without a start rank the registration of new users failed with an error.
+    /// </summary>
+    [Test]
+    [Description("The start rank keeps its flag")]
+    public async Task StartRankKeepsTheFlagTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                    var editUrl = await this.GetEditRankUrlAsync(page, "Newbie");
+
+                    try
+                    {
+                        await page.GotoAsync(editUrl);
+                        await page.Locator("#Input_IsStart").UncheckAsync();
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'EditRank') and contains(@formaction,'Save')]"));
+
+                        Assert.That(await page.ContentAsync(), Does.Contain("Mark another rank as start rank instead."), "The warning is missing");
+
+                        await page.GotoAsync(editUrl);
+                        Assert.That(await page.Locator("#Input_IsStart").IsCheckedAsync(), Is.True, "The start rank lost the flag");
+                    }
+                    finally
+                    {
+                        // Newbie is the start rank again
+                        await page.GotoAsync(editUrl);
+                        await page.Locator("#Input_IsStart").CheckAsync();
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'EditRank') and contains(@formaction,'Save')]"));
+                    }
+                });
+    }
+
+    /// <summary>
     /// Deletes a rank.
     /// </summary>
     /// <param name="page">The page.</param>
