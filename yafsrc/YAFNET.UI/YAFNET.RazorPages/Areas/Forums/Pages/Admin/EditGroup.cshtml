@@ -43,8 +43,9 @@
                                asp-for="Input.IsGuestX"
                                localized-tag="IS_GUEST" localized-page="ADMIN_EDITGROUP"></label>
                         <div class="form-check form-switch">
+                            @* the guest flag can't be changed (without it the board has no guest group) *@
                             <input type="checkbox" asp-for="Input.IsGuestX" 
-                                   class="form-check-input" />
+                                   class="form-check-input" disabled="disabled" />
                         </div>
                     </div>
                 }

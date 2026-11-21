@@ -161,6 +161,9 @@ public class EditGroupModel : AdminPage
         var roleName = this.Input.Name;
         var oldRoleName = string.Empty;
 
+        // the guest flag is not changed (without it the board has no guest group), it was saved from the form
+        var isGuest = false;
+
         // if we are editing existing role, get it's original name
         if (roleId.HasValue)
         {
@@ -168,7 +171,10 @@ public class EditGroupModel : AdminPage
             var group = await this.GetRepository<Group>().GetByIdAsync(roleId.Value);
 
             oldRoleName = group.Name;
+            isGuest = group.GroupFlags.IsGuest;
         }
+
+        this.Input.IsGuestX = isGuest;
 
         // the name must be unique in the board (also when a group is renamed), the database refuses a second one
         if (await this.GetRepository<Group>().ExistsAsync(

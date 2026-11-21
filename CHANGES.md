@@ -58,6 +58,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Profile, Admin > Edit User: an empty birthday was shown as 1.1.1903 and saving the profile stored it, the profile showed the birthday "January 1, 1903"; the empty birthday stays empty and the profiles saved with it show no birthday
 * [FIXED] Admin > Edit User: the homepage saved by the admin in the profile of a user went through the spam bot check of the own profile, with a spam word the event log reported the user as a spam bot ("user was deleted and the name, email and IP Address are banned", nothing of it was done); the profile of the admin is not checked anymore
 * [FIXED] Admin > Register User: the name rules of the register page were not checked: the name of the guest was linked to the guest user (the guest got the roles of a new user like "Registered Users", the verification mail was saved for the guest), names with a bad word, too short or too long names were created
+* [FIXED] Admin > Edit Group: the guest flag of the guest group was a switch of the editor, without it the board had no guest group; the flag was also saved from the form for other groups. The guest flag of a group is not changed anymore
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

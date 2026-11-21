@@ -240,4 +240,86 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
         return await page.Locator("a", new PageLocatorOptions { HasTextString = userName }).First.GetAttributeAsync("style");
     }
+
+    /// <summary>
+    /// The guest flag of the guest group was a switch of the editor: without it the board had no guest group
+    /// (and the flag was saved from the form, also for other groups).
+    /// </summary>
+    [Test]
+    public async Task GuestGroupKeepsTheGuestFlagTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    var groupId = await GetGroupIdAsync(page, this.TestSettings, "Guests");
+
+                    try
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditGroup/{groupId}");
+
+                        // the flag is sent as "false"
+                        await page.EvaluateAsync(
+                            "() => document.querySelectorAll('input[name=\"Input.IsGuestX\"]').forEach(i => { if (i.type === 'checkbox') { i.disabled = false; i.checked = false; } else { i.value = 'false'; } })");
+
+                        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                        // a guest group has no access masks of the forums
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditGroup/{groupId}");
+
+                        Assert.That(await page.Locator("select.accessMasks").CountAsync(), Is.Zero, "The guest group lost the guest flag");
+                    }
+                    finally
+                    {
+                        if (await page.Locator("select.accessMasks").CountAsync() > 0)
+                        {
+                            // the flag is set again (the first value of the form is used)
+                            await page.EvaluateAsync(
+                                """
+                                () => {
+                                    const input = document.createElement('input');
+                                    input.type = 'hidden';
+                                    input.name = 'Input.IsGuestX';
+                                    input.value = 'true';
+                                    document.querySelector('form.needs-validation').prepend(input);
+                                }
+                                """);
+
+                            await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                        }
+                    }
+                });
+    }
+
+    /// <summary>
+    /// The id of a group of the groups page.
+    /// </summary>
+    private static async Task<string> GetGroupIdAsync(IPage page, TestConfig testSettings, string groupName)
+    {
+        await page.GotoAsync($"{testSettings.TestForumUrl}Admin/Groups");
+
+        var groupId = await page.EvaluateAsync<string>(
+                          """
+                          name => {
+                              for (const edit of document.querySelectorAll('a[href*="EditGroup/"]')) {
+                                  const item = edit.closest('li, .group-row');
+                                  const title = item?.querySelector('h5, .group-name');
+                                  if (title && title.textContent.replace(/\s+/g, ' ').trim() === name) {
+                                      return edit.getAttribute('href').match(/(\d+)\D*$/)[1];
+                                  }
+                              }
+                              return null;
+                          }
+                          """,
+                          groupName);
+
+        Assert.That(groupId, Is.Not.Null, $"The group {groupName} is not listed");
+
+        return groupId;
+    }
 }
