@@ -84,6 +84,27 @@ public class RegisterUserModel : AdminPage
         var newEmail = this.Input.Email.Trim();
         var newUsername = this.Input.UserName.Trim();
 
+        // the rules of the register page: the name of the guest (it was linked to the guest user, the guest got
+        // the roles of the new user), a semicolon or a bad word, the length of the name
+        if (!await UserHelper.IsAllowedNameAsync(newUsername, this.PageBoardContext.PageBoardID))
+        {
+            return this.PageBoardContext.Notify(this.GetText("COMMON", "BAD_USERNAME"), MessageTypes.danger);
+        }
+
+        if (newUsername.Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
+        {
+            return this.PageBoardContext.Notify(
+                this.GetTextFormatted("USERNAME_TOOSMALL", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
+                MessageTypes.danger);
+        }
+
+        if (newUsername.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
+        {
+            return this.PageBoardContext.Notify(
+                this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
+                MessageTypes.danger);
+        }
+
         if (!ValidationHelper.IsValidEmail(newEmail))
         {
             return this.PageBoardContext.Notify(this.GetText("ADMIN_REGUSER", "MSG_INVALID_MAIL"), MessageTypes.danger);

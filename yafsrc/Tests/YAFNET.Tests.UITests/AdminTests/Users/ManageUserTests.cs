@@ -329,6 +329,40 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
     }
 
     /// <summary>
+    /// The admin registered names the register page refuses: the name of the guest was linked to the guest user
+    /// (the guest got the roles of a new user, e.g. "Registered Users"), a too short name was created.
+    /// </summary>
+    /// <param name="userName">The refused name.</param>
+    /// <param name="message">The message of the refused name.</param>
+    [TestCase("Guest", "Username cannot contain semi-colons")]
+    [TestCase("ab", "must be more than 3 characters")]
+    public async Task AdminRegisterUserWithRefusedNameTest(string userName, string message)
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/RegisterUser");
+
+                await page.Locator("#Input_UserName").FillAsync(userName);
+                await page.Locator("#Input_Email").FillAsync($"refused{Random.Shared.Next()}@test.com");
+                await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                await page.Locator("#Input_Password2").FillAsync(this.TestSettings.TestUserPassword);
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForumRegister']"));
+
+                Assert.That(page.Url, Does.Contain("Admin/RegisterUser"), $"The name {userName} was registered");
+                Assert.That(await page.ContentAsync(), Does.Contain(message), "The refused name has no message");
+                Assert.That(await page.Locator("#Input_UserName").InputValueAsync(), Is.EqualTo(userName), "The typed name is lost");
+            });
+    }
+
+    /// <summary>
     /// "Import" of Admin > Users opens the import of users (it opened the import of the spam words).
     /// </summary>
     [Test]
