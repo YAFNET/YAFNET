@@ -414,4 +414,40 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     "The options are not the texts of the language file");
             });
     }
+    /// <summary>
+    /// Enter in the filter of Admin > Users searches the users (the first button of the form was
+    /// "lock inactive accounts": every Enter locked the accounts without a visit for 5 years).
+    /// </summary>
+    [Test]
+    public async Task EnterInTheUserFilterSearchesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+
+                var name = page.Locator("#Input_Name");
+
+                // the filter can be in a dropdown
+                if (!await name.IsVisibleAsync())
+                {
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                }
+
+                await name.FillAsync(this.TestSettings.AdminUserName);
+
+                var request = await page.RunAndWaitForRequestAsync(
+                                  () => name.PressAsync("Enter"),
+                                  r => r.Method == "POST" && r.Url.Contains("Admin/Users"));
+
+                Assert.That(request.Url, Does.Not.Contain("LockAccounts"), "Enter locked the inactive accounts");
+                Assert.That(request.Url, Does.Contain("Search"), "Enter did not search");
+            });
+    }
 }

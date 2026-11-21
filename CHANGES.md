@@ -44,6 +44,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Users: "Import" opened the import of the spam words instead of the import of the users
 * [FIXED] Admin > Users: "Edit" in the context menu (right click) of a user showed an error page (it sent the filter form to the user editor)
 * [FIXED] Admin > Users: the texts of the "since" filter were not translated (English text in the code), the first option showed "Last Visit" without the date of the last visit
+* [FIXED] Admin > Users: Enter in a field of the user filter locked the inactive accounts (no visit for 5 years) instead of searching, "lock inactive accounts" was the first button of the form
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
