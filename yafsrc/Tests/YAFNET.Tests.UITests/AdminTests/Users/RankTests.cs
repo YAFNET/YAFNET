@@ -167,4 +167,55 @@ public class RankTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(await page.Locator("#Input_UsrSigBBCodes").InputValueAsync(), Is.EqualTo("B,I"), "The BBCodes were removed");
                 });
     }
+
+    /// <summary>
+    /// The start rank of the new users (Newbie) is on the rank ladder: it was not, the users were never promoted to
+    /// the next ranks (Member, Advanced Member).
+    /// </summary>
+    [Test]
+    [Description("The start rank of a new board is on the ladder")]
+    public async Task StartRankIsOnTheLadderTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                    await page.GotoAsync(await this.GetEditRankUrlAsync(page, "Newbie"));
+
+                    Assert.That(await page.Locator("#Input_IsStart").IsCheckedAsync(), Is.True, "Newbie is not the start rank");
+                    Assert.That(await page.Locator("#Input_IsLadder").IsCheckedAsync(), Is.True, "Newbie is not on the ladder");
+                });
+    }
+
+    /// <summary>
+    /// Gets the url of the edit page of a rank.
+    /// </summary>
+    /// <param name="page">The page.</param>
+    /// <param name="name">The name of the rank.</param>
+    /// <returns>Returns the url</returns>
+    private async Task<string> GetEditRankUrlAsync(IPage page, string name)
+    {
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Ranks");
+
+        var href = await page.EvaluateAsync<string>(
+            """
+            name => {
+                for (const item of document.querySelectorAll('li.list-group-item')) {
+                    const title = item.querySelector('h5');
+                    const edit = item.querySelector('a[href*="EditRank"]');
+                    if (title && edit && title.textContent.trim() === name) {
+                        return edit.getAttribute('href');
+                    }
+                }
+                return null;
+            }
+            """,
+            name);
+
+        Assert.That(href, Is.Not.Null, $"The rank {name} is not listed");
+
+        return new Uri(new Uri(page.Url), href).ToString();
+    }
 }

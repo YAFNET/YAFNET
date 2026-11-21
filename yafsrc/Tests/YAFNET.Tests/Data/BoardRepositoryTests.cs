@@ -107,6 +107,37 @@ public class BoardRepositoryTests
     }
 
     [Test]
+    [Description("The start rank of a new board is on the ladder, the new users are promoted with their posts")]
+    public async Task Create_Start_Rank_Is_On_The_Ladder_Test()
+    {
+        var boardId = await this.CreateBoardAsync(isHostAdmin: false, rolePrefix: "B2 ");
+
+        var ranks = await this.Repository<Rank>().GetAsync(r => r.BoardID == boardId);
+        var newbie = ranks.Single(r => r.Name == "Newbie");
+
+        newbie.RankFlags.IsStart.Should().BeTrue();
+        newbie.RankFlags.IsLadder.Should().BeTrue("the users of the start rank were never promoted");
+
+        // a new user with 10 posts is a member
+        var userId = await this.Repository<User>().InsertAsync(
+            new User
+            {
+                BoardID = boardId,
+                RankID = newbie.ID,
+                Name = "Climber",
+                DisplayName = "Climber",
+                Email = "climber@example.com",
+                Joined = DateTime.UtcNow,
+                LastVisit = DateTime.UtcNow,
+                NumPosts = 10
+            });
+
+        await this.Repository<User>().PromoteAsync(userId);
+
+        (await this.Repository<User>().GetByIdAsync(userId)).RankID.Should().Be(ranks.Single(r => r.Name == "Member").ID);
+    }
+
+    [Test]
     [Description("A host admin creating a board makes the new admin a host admin too")]
     public async Task Create_HostAdmin_Test()
     {

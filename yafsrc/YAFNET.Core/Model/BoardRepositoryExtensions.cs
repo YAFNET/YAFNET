@@ -122,8 +122,10 @@ public static class BoardRepositoryExtensions
                 {
                     BoardID = newBoardId,
                     Name = "Newbie",
-                    Flags = 1,
-                    MinPosts = 3,
+
+                    // the start rank is on the ladder, the users are promoted to the next ranks (flags start + ladder)
+                    Flags = 3,
+                    MinPosts = 0,
                     SortOrder = 3
                 });
 
