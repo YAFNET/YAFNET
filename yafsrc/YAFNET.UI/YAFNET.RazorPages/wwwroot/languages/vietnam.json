@@ -1617,12 +1617,24 @@
             "#text": "Sự mô tả"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có tiện ích BBCode"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Chưa có tiện ích BBCode nào. Hãy thêm một cái hoặc nhập từ tệp XML."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Xuất đã chọn sang XML"
           },
           {
             "@tag": "HEADER",
             "#text": "Phần mở rộng BBCode"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Mô-đun"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "Tên"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Chọn tất cả"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Phần mở rộng YafBBCode"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Thanh công cụ"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Thông báo hiện tại hiển thị cho đến khi"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 ngày"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Thông báo Thông báo:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 tháng"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Xem trước"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Gỡ bỏ"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Thông báo hiển thị cho ..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 tuần"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6361,6 +6401,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Xóa thay thế từ này?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Hiển thị văn bản sau tất cả các thay thế (giống cách bài viết được hiển thị)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "một câu có từ cấm"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "Văn bản sau khi thay thế:"
           },
           {
             "@tag": "TITLE",

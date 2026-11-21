@@ -1617,12 +1617,24 @@
             "#text": "Descriere"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nicio extensie BBCode"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Nu există încă extensii BBCode. Adăugați una sau importați-le dintr-un fișier XML."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Exportați selectat în XML"
           },
           {
             "@tag": "HEADER",
             "#text": "Extensii BBCode"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Modul"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "Nume"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Selectează tot"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Extensii YafBBCode"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Bară de instrumente"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Anunțul curent vizibil până la"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 zi"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Mesaj de anunț:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 lună"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Previzualizare"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Elimină"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Anunț vizibil pentru..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 săptămână"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6361,6 +6401,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Ștergeți acest cuvânt de înlocuire?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Arată textul după toate înlocuirile (cum sunt afișate mesajele)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "o propoziție cu un cuvânt interzis"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "Textul după înlocuiri:"
           },
           {
             "@tag": "TITLE",

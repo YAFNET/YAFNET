@@ -1617,12 +1617,24 @@
             "#text": "Beskrivning"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga BBCode-tillägg"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Det finns inga BBCode-tillägg ännu. Lägg till ett eller importera dem från en XML-fil."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Exportera markerade till XML"
           },
           {
             "@tag": "HEADER",
             "#text": "BBCode-tillägg"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Modul"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "Namn"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Markera alla"
+          },
+          {
             "@tag": "TITLE",
             "#text": "YafBBCode-tillägg"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Verktygsfält"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Aktuellt meddelande synligt till och med"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 dag"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Meddelande:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 månad"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Förhandsgranskning"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Ta bort"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Meddelandet är synligt för..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 vecka"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6361,6 +6401,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Ta bort detta ord som ersättning för ett ord?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Visar texten efter alla ersättningar (som inläggen visas)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "en mening med ett förbjudet ord"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "Texten efter ersättningarna:"
           },
           {
             "@tag": "TITLE",

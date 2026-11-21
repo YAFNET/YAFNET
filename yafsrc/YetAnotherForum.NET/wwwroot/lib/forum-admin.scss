@@ -503,6 +503,98 @@
     }
 }
 
+// Admin replace words
+.admin-replace-words {
+    .replace-word-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .25rem 1rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .replace-word-main {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: .25rem .5rem;
+        flex: 1 1 16rem;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .replace-test-text {
+        white-space: pre-wrap;
+    }
+}
+
+// Admin bb codes
+.admin-bbcodes {
+    .bbcode-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .25rem 1rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .bbcode-main {
+        flex: 1 1 16rem;
+        min-width: 0;
+    }
+
+    .bbcode-name {
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .bbcode-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem;
+        margin-top: .25rem;
+
+        .badge {
+            font-weight: 500;
+        }
+    }
+}
+
+// Admin board announcement
+.admin-announcement {
+    .announcement-types {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .375rem;
+    }
+
+    .announcement-type {
+        min-width: 5.5rem;
+        border: 2px solid transparent;
+        opacity: .7;
+    }
+
+    .btn-check:checked + .announcement-type {
+        border-color: var(--bs-body-color);
+        opacity: 1;
+    }
+
+    .btn-check:focus-visible + .announcement-type {
+        box-shadow: var(--bs-focus-ring-x, 0) var(--bs-focus-ring-y, 0) var(--bs-focus-ring-blur, 0) var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+    }
+
+    .announcement-until {
+        width: auto;
+        max-width: 16rem;
+    }
+}
+
 // Admin access masks
 .admin-access-masks {
     .access-mask-name {

@@ -1617,12 +1617,24 @@
             "#text": "توضیحات"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "افزونه BBCode وجود ندارد"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "هنوز افزونه BBCode وجود ندارد. یکی اضافه کنید یا آن‌ها را از یک فایل XML وارد کنید."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "برون‌بری موارد انتخاب شده به XML"
           },
           {
             "@tag": "HEADER",
             "#text": "افزونه های BBCode"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "ماژول"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "نام"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "انتخاب همه"
+          },
+          {
             "@tag": "TITLE",
             "#text": "افزونه های BBCode"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "نوار ابزار"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "اطلاعیه فعلی قابل مشاهده تا"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "۱ روز"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "متن اطلاعیه:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "۱ ماه"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "پیش‌نمایش"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "حذف"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "مشاهده اطلاعیه برای..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "۱ هفته"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6353,6 +6393,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "حذف این جایگزینی کلمات؟"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "متن را پس از همه جایگزینی‌ها نشان می‌دهد (همان‌طور که پست‌ها نمایش داده می‌شوند)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "جمله‌ای با یک واژه ممنوع"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "متن پس از جایگزینی‌ها:"
           },
           {
             "@tag": "TITLE",

@@ -34,6 +34,7 @@ using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using YAF.Core.Extensions;
+using YAF.Types.Extensions;
 using YAF.Types.Modals;
 using YAF.Types.Models;
 
@@ -48,6 +49,17 @@ public class ReplaceWordsModel : AdminPage
     /// <value>The list.</value>
     [BindProperty]
     public IList<ReplaceWords> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text to test the replace words with.
+    /// </summary>
+    [BindProperty]
+    public string TestInput { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tested text after the replacements (null if nothing was tested).
+    /// </summary>
+    public string TestResult { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReplaceWordsModel"/> class.
@@ -160,6 +172,19 @@ public class ReplaceWordsModel : AdminPage
                                                                            GoodWord = replaceWord.GoodWord
                                                                        })
                                      };
+    }
+
+    /// <summary>
+    /// Shows the text after the replacements (like the posts are shown).
+    /// </summary>
+    public async Task OnPostTestAsync()
+    {
+        await this.BindDataAsync();
+
+        if (this.TestInput.IsSet())
+        {
+            this.TestResult = this.Get<IBadWordReplace>().Replace(this.TestInput);
+        }
     }
 
     /// <summary>

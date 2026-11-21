@@ -187,6 +187,34 @@ public class ContentTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The test box of the replace words shows the text after the replacements.
+    /// </summary>
+    [Test]
+    public async Task ReplaceWordsTestShowsTheReplacedTextTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ReplaceWords");
+
+                var word = $"uitestreplace{Random.Shared.Next()}";
+
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/ReplaceWords/Edit", new { id = 0, badWord = word, goodWord = "nice" });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ReplaceWords");
+
+                await page.Locator(".replace-words-actions button[data-bs-target='#ReplaceTest']").ClickAsync();
+                await page.Locator("#TestInput").FillAsync($"a {word} text");
+                await page.SubmitAndWaitAsync(page.Locator("#ReplaceTest button[formaction*='Test']"));
+
+                Assert.That(await page.Locator(".replace-test-text").InnerTextAsync(), Is.EqualTo("a nice text"), "The text was not replaced");
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)

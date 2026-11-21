@@ -190,10 +190,11 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                 await checkBoxes.Nth(1).CheckAsync();
 
-                var name = (await page.Locator($"label[for='{await checkBoxes.Nth(1).GetAttributeAsync("id")}']").InnerTextAsync()).Trim();
+                // the label shows the name as the tag ([name])
+                var name = (await page.Locator($"label[for='{await checkBoxes.Nth(1).GetAttributeAsync("id")}']").InnerTextAsync()).Trim().Trim('[', ']');
 
                 var download = await page.RunAndWaitForDownloadAsync(
-                                   () => page.Locator(".card-footer button[formaction*='Export']").ClickAsync());
+                                   () => page.Locator(".bbcode-actions button[formaction*='Export']").ClickAsync());
 
                 var xml = await System.IO.File.ReadAllTextAsync(await download.PathAsync());
 

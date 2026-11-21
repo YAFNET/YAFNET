@@ -1617,12 +1617,24 @@
             "#text": "Описание"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Нет расширений BBCode"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Расширений BBCode пока нет. Добавьте одно или импортируйте их из XML-файла."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Экспорт в формате XML"
           },
           {
             "@tag": "HEADER",
             "#text": "Расширения BBCode"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Модуль"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "Название"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Выбрать все"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Расширения YafBBCode"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Панель инструментов"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Текущее объявление видно до"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 день"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Объявление Сообщение:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 месяц"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Предпросмотр"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Убрать"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Объявление видно для..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 неделя"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6353,6 +6393,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Удалить эту замену?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Показывает текст после всех замен (как показываются сообщения)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "предложение с запрещённым словом"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "Текст после замен:"
           },
           {
             "@tag": "TITLE",

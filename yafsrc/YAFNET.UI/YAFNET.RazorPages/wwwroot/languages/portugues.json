@@ -1617,12 +1617,24 @@
             "#text": "Descrição"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Sem extensões BBCode"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Ainda não há extensões BBCode. Adicione uma ou importe-as de um ficheiro XML."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Exportação seleccionada para XML"
           },
           {
             "@tag": "HEADER",
             "#text": "Extensões do BBCode"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Módulo"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "Nome"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Selecionar tudo"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Extensões do YafBBCode"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Barra de ferramentas"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Anúncio actual visível até"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 dia"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Mensagem de Anúncio:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 mês"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Pré-visualização"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Remover"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Anúncio visível para..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 semana"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6361,6 +6401,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Eliminar esta substituição de palavras?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Mostra o texto após todas as substituições (como as mensagens são mostradas)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "uma frase com uma palavra proibida"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "O texto após as substituições:"
           },
           {
             "@tag": "TITLE",

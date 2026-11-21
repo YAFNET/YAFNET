@@ -1617,12 +1617,24 @@
             "#text": "Açıklama"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "BBCode uzantısı yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Henüz BBCode uzantısı yok. Bir tane ekleyin veya bir XML dosyasından içe aktarın."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Seçilenleri XML'e Aktar"
           },
           {
             "@tag": "HEADER",
             "#text": "BBCode Uzantıları"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Modül"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "İsim"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Tümünü seç"
+          },
+          {
             "@tag": "TITLE",
             "#text": "YafBBCode Uzantıları"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Araç çubuğu"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Güncel Duyuru şu tarihe kadar görünür"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 gün"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Duyuru Mesajı:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 ay"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Önizleme"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Kaldır"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Duyuru için görünür..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 hafta"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6361,6 +6401,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Bu Kelime Değiştirme Silinsin mi?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Tüm değiştirmelerden sonraki metni gösterir (iletilerin gösterildiği gibi)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "yasaklı bir kelime içeren bir cümle"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "Değiştirmelerden sonraki metin:"
           },
           {
             "@tag": "TITLE",

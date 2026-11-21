@@ -1617,12 +1617,24 @@
                     "#text": "Description"
                 },
                 {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No BBCode Extensions"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "There are no BBCode extensions yet. Add one or import them from an XML file."
+                },
+                {
                     "@tag": "EXPORT",
                     "#text": "Export Selected to XML"
                 },
                 {
                     "@tag": "HEADER",
                     "#text": "BBCode Extensions"
+                },
+                {
+                    "@tag": "MODULE",
+                    "#text": "Module"
                 },
                 {
                     "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
                     "#text": "Name"
                 },
                 {
+                    "@tag": "SELECT_ALL",
+                    "#text": "Select all"
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "BBCode Extensions"
+                },
+                {
+                    "@tag": "TOOLBAR",
+                    "#text": "Toolbar"
                 }
             ]
         },
@@ -1897,8 +1917,24 @@
                     "#text": "Current Announcement visible until"
                 },
                 {
+                    "@tag": "ANNOUNCEMENT_DAY",
+                    "#text": "1 day"
+                },
+                {
                     "@tag": "ANNOUNCEMENT_MESSAGE",
                     "#text": "Announcement Message:"
+                },
+                {
+                    "@tag": "ANNOUNCEMENT_MONTH",
+                    "#text": "1 month"
+                },
+                {
+                    "@tag": "ANNOUNCEMENT_PREVIEW",
+                    "#text": "Preview"
+                },
+                {
+                    "@tag": "ANNOUNCEMENT_REMOVE",
+                    "#text": "Remove"
                 },
                 {
                     "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
                 {
                     "@tag": "ANNOUNCEMENT_UNTIL",
                     "#text": "Announcement visible for..."
+                },
+                {
+                    "@tag": "ANNOUNCEMENT_WEEK",
+                    "#text": "1 week"
                 },
                 {
                     "@tag": "BOARD_ALLOW_DIGEST",
@@ -6337,6 +6377,18 @@
                 {
                     "@tag": "EMPTY_HEADER",
                     "#text": "No Replace Words"
+                },
+                {
+                    "@tag": "TEST_HELP",
+                    "#text": "Shows the text after all replacements (like the posts are shown)."
+                },
+                {
+                    "@tag": "TEST_PLACEHOLDER",
+                    "#text": "a sentence with a bad word"
+                },
+                {
+                    "@tag": "TEST_RESULT",
+                    "#text": "The text after the replacements:"
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",

@@ -4,153 +4,184 @@
 @using YAF.Web.HtmlHelpers
 @model EditBBCodeModel
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col-xl-12">
+@{
+    // the scripts and styles are shown when one is set
+    var hasScripts = Model.Input.OnClickJS.IsSet() || Model.Input.DisplayJS.IsSet() || Model.Input.EditJS.IsSet()
+                     || Model.Input.DisplayCSS.IsSet();
+}
+
+<form method="post" class="needs-validation admin-edit-form admin-edit-bbcode" novalidate>
+    <input type="hidden" asp-for="Input.BBCodeId" value="@Model.Input.BBCodeId" />
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("plug")@Html.LocalizedText("ADMIN_BBCODE_EDIT", "HEADER")
+            @if (Model.Input.Name.IsSet())
+            {
+                <code class="ms-1">[@Model.Input.Name]</code>
+            }
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+
+            @* general *@
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.IconHeader("plug","ADMIN_BBCODE_EDIT","HEADER")
+                    @Html.Icon("info-circle")@Html.LocalizedText("ADMIN_EDITFORUM", "SECTION_GENERAL")
                 </div>
                 <div class="card-body">
-                    <h2>
-                        @Html.LocalizedText("ADMIN_BBCODE_EDIT", "HEADER1")
-                    </h2>
-                    <hr />
-                    <div class="ms-2">
-                        <div class="mb-3">
-                            <input type="hidden" asp-for="Input.BBCodeId" value="@Model.Input.BBCodeId" />
+                    <div class="row">
+                        <div class="mb-3 col-md-8">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.Name"
-                                   localized-tag="BBCODE_NAME" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <input type="text" asp-for="Input.Name" maxlength="255"
-                                   required="required"
-                                   class="form-control"/>
-                            <div class="invalid-feedback">
-                                @Html.LocalizedText("MSG_NAME")
+                                   localized-tag="BBCODE_NAME" localized-page="ADMIN_BBCODE_EDIT"></label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text font-monospace">[</span>
+                                <input type="text" asp-for="Input.Name" maxlength="255"
+                                       required="required"
+                                       class="form-control font-monospace" />
+                                <span class="input-group-text font-monospace">]</span>
+                                <div class="invalid-feedback">
+                                    @Html.LocalizedText("ADMIN_BBCODE_EDIT", "MSG_NAME")
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label info-button="true"
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
                                    asp-for="Input.ExecOrder"
-                                   localized-tag="EXEC_ORDER" localized-page="ADMIN_EXTENSIONS_EDIT">
-                                </label>
+                                   localized-tag="EXEC_ORDER" localized-page="ADMIN_BBCODE_EDIT"></label>
                             <input asp-for="Input.ExecOrder"
                                    required="required"
                                    class="form-control"
                                    maxlength="5"
-                                   data-min="1" min="1"/>
+                                   data-min="1" min="1" />
                             <div class="invalid-feedback">
-                                @Html.LocalizedText("MSG_NUMBER")
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" info-button="true"
-                                   asp-for="Input.Description"
-                                   localized-tag="BBCODE_DESC" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea asp-for="Input.Description" maxlength="4000" class="form-control"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" info-button="true"
-                                   asp-for="Input.UseToolbar"
-                                   localized-tag="USE_TOOLBAR" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-
-                            <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.UseToolbar" class="form-check-input" />
+                                @Html.LocalizedText("ADMIN_BBCODE_EDIT", "MSG_NUMBER")
                             </div>
                         </div>
                     </div>
-                    <h2>
-                        @Html.LocalizedText("ADMIN_BBCODE_EDIT","HEADER2")
-                    </h2>
-                    <hr />
-                    <div class="ms-2">
-                        <div class="mb-3">
-                            <label class="form-label" info-button="true"
-                                   asp-for="Input.SearchRegEx"
-                                   localized-tag="SEARCH_REGEX" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea type="text" asp-for="Input.SearchRegEx"
-                                      class="form-control"></textarea>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Description"
+                               localized-tag="BBCODE_DESC" localized-page="ADMIN_BBCODE_EDIT"></label>
+                        <textarea asp-for="Input.Description" maxlength="4000" rows="2" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.UseToolbar"
+                               localized-tag="USE_TOOLBAR" localized-page="ADMIN_BBCODE_EDIT"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.UseToolbar" class="form-check-input" role="switch" />
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            @* regular expressions *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("code")@Html.LocalizedText("ADMIN_BBCODE_EDIT", "HEADER2")
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.SearchRegEx"
+                               localized-tag="SEARCH_REGEX" localized-page="ADMIN_BBCODE_EDIT"></label>
+                        <textarea asp-for="Input.SearchRegEx" rows="2" spellcheck="false"
+                                  class="form-control font-monospace"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.UseModule"
+                               localized-tag="USE_MODULE" localized-page="ADMIN_BBCODE_EDIT"></label>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" asp-for="Input.UseModule" class="form-check-input" role="switch"
+                                   data-shows="#ModuleOptions" data-hides="#ReplaceOptions" />
+                        </div>
+                    </div>
+                    @* a module replaces the bb code, else the replace expression *@
+                    <div id="ModuleOptions" class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.ModuleClass"
+                               localized-tag="CLASS_NAME" localized-page="ADMIN_BBCODE_EDIT"></label>
+                        <input type="text" asp-for="Input.ModuleClass" maxlength="255" spellcheck="false"
+                               class="form-control font-monospace" />
+                    </div>
+                    <div id="ReplaceOptions">
                         <div class="mb-3">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.ReplaceRegEx"
-                                   localized-tag="REPLACE_REGEX" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea type="text" asp-for="Input.ReplaceRegEx" class="form-control"></textarea>
+                                   localized-tag="REPLACE_REGEX" localized-page="ADMIN_BBCODE_EDIT"></label>
+                            <textarea asp-for="Input.ReplaceRegEx" rows="3" spellcheck="false"
+                                      class="form-control font-monospace"></textarea>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-0">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.Variables"
-                                   localized-tag="REPLACE_VARIABLES" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea type="text" asp-for="Input.Variables" maxlength="1000"
-                                      class="form-control"></textarea>
-                        </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" info-button="true"
-                                       asp-for="Input.UseModule"
-                                       localized-tag="USE_MODULE" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                                <div class="form-check form-switch">
-                                    <input type="checkbox" asp-for="Input.UseModule"
-                                           class="form-check-input" />
-                                </div>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" info-button="true"
-                                       asp-for="Input.ModuleClass"
-                                       localized-tag="CLASS_NAME" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                                <input type="text" asp-for="Input.ModuleClass" maxlength="255"
-                                       class="form-control" />
-                            </div>
+                                   localized-tag="REPLACE_VARIABLES" localized-page="ADMIN_BBCODE_EDIT"></label>
+                            <input type="text" asp-for="Input.Variables" maxlength="1000" spellcheck="false"
+                                   class="form-control font-monospace" />
                         </div>
                     </div>
-                    <h2>
-                        @Html.LocalizedText("ADMIN_BBCODE_EDIT","HEADER3")
-                    </h2>
-                    <hr />
-                    <div class="ms-2">
+                </div>
+            </div>
+
+            @* scripts and styles (optional) *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    <button type="button" class="btn btn-link p-0 text-decoration-none text-reset@(hasScripts ? "" : " collapsed")"
+                            data-bs-toggle="collapse" data-bs-target="#ScriptOptions"
+                            aria-expanded="@(hasScripts ? "true" : "false")" aria-controls="ScriptOptions">
+                        @Html.Icon("file-code")@Html.LocalizedText("ADMIN_BBCODE_EDIT", "HEADER3")
+                    </button>
+                </div>
+                <div id="ScriptOptions" class="collapse@(hasScripts ? " show" : "")">
+                    <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.OnClickJS"
-                                   localized-tag="ONCLICK_JS" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea type="text" asp-for="Input.OnClickJS" maxlength="1000"
-                                      class="form-control"></textarea>
+                                   localized-tag="ONCLICK_JS" localized-page="ADMIN_BBCODE_EDIT"></label>
+                            <textarea asp-for="Input.OnClickJS" rows="3" spellcheck="false"
+                                      class="form-control font-monospace"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.DisplayJS"
-                                   localized-tag="DISPLAY_JS" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea type="text" asp-for="Input.DisplayJS"
-                                      class="form-control"></textarea>
+                                   localized-tag="DISPLAY_JS" localized-page="ADMIN_BBCODE_EDIT"></label>
+                            <textarea asp-for="Input.DisplayJS" rows="3" spellcheck="false"
+                                      class="form-control font-monospace"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.EditJS"
-                                   localized-tag="EDIT_JS" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-                            <textarea type="text" asp-for="Input.EditJS"
-                                      class="form-control"></textarea>
+                                   localized-tag="EDIT_JS" localized-page="ADMIN_BBCODE_EDIT"></label>
+                            <textarea asp-for="Input.EditJS" rows="3" spellcheck="false"
+                                      class="form-control font-monospace"></textarea>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-0">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.DisplayCSS"
-                                   localized-tag="DISPLAY_CSS" localized-page="ADMIN_EXTENSIONS_EDIT"></label>
-
-                            <textarea type="text" asp-for="Input.DisplayCSS"
-                                      class="form-control"></textarea>
+                                   localized-tag="DISPLAY_CSS" localized-page="ADMIN_BBCODE_EDIT"></label>
+                            <textarea asp-for="Input.DisplayCSS" rows="3" spellcheck="false"
+                                      class="form-control font-monospace"></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-center">
-                    <button asp-page-handler="Add"
-                            button-style="Primary"
-                            Icon="save"
-                            text-localized-tag="SAVE">
-                    </button>
-                    @* a link (a submit button was stopped by the empty required fields) *@
-                    <a asp-page="@ForumPages.Admin_BBCodes.GetPageName()"
-                       button-style="Secondary"
-                       Icon="xmark"
-                       text-localized-tag="CANCEL"></a>
-                </div>
+            </div>
+
+            @* the actions stay visible at the bottom of the window *@
+            <div class="admin-edit-actions">
+                <a asp-page="@ForumPages.Admin_BBCodes.GetPageName()"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   text-localized-tag="CANCEL"></a>
+                <button id="Save"
+                        asp-page-handler="Add"
+                        button-style="Primary"
+                        Icon="save"
+                        text-localized-tag="SAVE"></button>
             </div>
         </div>
     </div>
@@ -158,4 +189,5 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptPartial")
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
 }

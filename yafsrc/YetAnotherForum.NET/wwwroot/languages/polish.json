@@ -1617,12 +1617,24 @@
             "#text": "Opis"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak rozszerzeń BBCode"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Nie ma jeszcze rozszerzeń BBCode. Dodaj jedno lub zaimportuj je z pliku XML."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Eksportuj wybrane do XML"
           },
           {
             "@tag": "HEADER",
             "#text": "BBCode wtyczki"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Moduł"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "Nazwa"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Zaznacz wszystkie"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Wtyczka YafBBCode"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Pasek narzędzi"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Bieżące ogłoszenie widoczne do"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 dzień"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Komunikat:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 miesiąc"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Podgląd"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Usuń"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Ogłoszenie widoczne dla..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 tydzień"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6353,6 +6393,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Usunąć ten zamiennik wyrazów?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Pokazuje tekst po wszystkich zamianach (tak jak wyświetlane są posty)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "zdanie z zakazanym słowem"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "Tekst po zamianach:"
           },
           {
             "@tag": "TITLE",

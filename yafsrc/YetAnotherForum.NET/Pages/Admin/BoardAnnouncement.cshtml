@@ -1,69 +1,132 @@
 @page "{handler?}"
+@using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
 @model BoardAnnouncementModel
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="card-header">
-                @Html.IconHeader("bullhorn","ADMIN_BOARDSETTINGS","ANNOUNCEMENT_TITLE")
-            </div>
-            <div class="card-body">
+@{
+    var boardSettings = Model.PageBoardContext.BoardSettings;
+}
 
-                @if (Model.PageBoardContext.BoardSettings.BoardAnnouncement.IsSet())
-                {
-                    <alert ID="Current" type="info">
-                        <strong class="me-2">@Html.LocalizedText("ANNOUNCEMENT_CURRENT"):</strong> @Model.AnnouncementEnd
+<form method="post" class="needs-validation admin-edit-form admin-announcement" novalidate>
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("bullhorn")@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_TITLE")
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+
+            @* the current announcement *@
+            @if (boardSettings.BoardAnnouncement.IsSet())
+            {
+                <div class="card mb-3" id="Current">
+                    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+                        <span>@Html.Icon("eye")@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_CURRENT")</span>
+                        <span class="small text-body-secondary">@Model.AnnouncementEnd</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-@(boardSettings.BoardAnnouncementType) mb-3">
+                            <span class="badge text-bg-@(boardSettings.BoardAnnouncementType) me-1">
+                                @Html.Icon("bullhorn")@Html.LocalizedText("ANNOUNCEMENT")
+                            </span>
+                            @Html.Raw(boardSettings.BoardAnnouncement)
+                        </div>
                         <button button-style="Danger"
+                                button-size="Small"
                                 Icon="trash"
-                                asp-page-handler="Delete">
-                        </button>
-                    </alert>
-                }
-
-                <div class="mb-3">
-                    <label asp-for="Input.Message" localized-tag="ANNOUNCEMENT_MESSAGE" class="form-label">
-                    </label>
-                    <textarea asp-for="Input.Message" class="form-control" rows="3" required="required"></textarea>
-                    <div class="invalid-feedback">
-                        @Html.LocalizedText("NEED_MESSAGE")
+                                asp-page-handler="Delete"
+                                formnovalidate="formnovalidate"
+                                text-localized-tag="ANNOUNCEMENT_REMOVE"
+                                text-localized-page="ADMIN_BOARDSETTINGS"></button>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label asp-for="Input.BoardAnnouncementUntil" class="form-label" localized-tag="ANNOUNCEMENT_UNTIL">
-                    </label>
-                    <div class="input-group">
-                        <input type="number" asp-for="Input.BoardAnnouncementUntil"
-                               class="form-control"/>
+            }
 
-                        <select asp-for="Input.BoardAnnouncementUntilUnit" asp-items="Model.UntilUnits" 
-                                class="form-select" title="@Model.GetText("ANNOUNCEMENT_UNTIL")"></select>
-                    </div>
+            @* the new announcement *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("edit")@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_MESSAGE")
                 </div>
-                <div class="mb-3">
-                    <label asp-for="Input.BoardAnnouncementType" class="form-label" localized-tag="ANNOUNCEMENT_TYPE">
-                    </label>
-                    <select asp-for="Input.BoardAnnouncementType" asp-items="Model.Types"
-                            class="select2-select">
-                    </select>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <textarea asp-for="Input.Message" class="form-control" rows="3" required="required"
+                                  aria-label="@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_MESSAGE")"
+                                  data-preview-html="#AnnouncementPreviewText"></textarea>
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("ADMIN_BOARDSETTINGS", "NEED_MESSAGE")
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-label">@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_TYPE")</div>
+                        <div class="announcement-types" role="radiogroup">
+                            @foreach (var type in Model.Types)
+                            {
+                                <input type="radio" class="btn-check" name="Input.BoardAnnouncementType"
+                                       id="Type_@type.Value" value="@type.Value"
+                                       checked="@(type.Value == Model.Input.BoardAnnouncementType)"
+                                       data-preview-class='{"#AnnouncementPreview":"alert mb-0 alert-","#AnnouncementPreviewBadge":"badge me-1 text-bg-"}' />
+                                <label class="btn btn-sm announcement-type text-bg-@type.Value" for="Type_@type.Value">@type.Text</label>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.BoardAnnouncementUntil" class="form-label"
+                               localized-tag="ANNOUNCEMENT_UNTIL" localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <div class="d-flex flex-wrap gap-2">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-secondary"
+                                        data-set-values='{"#Input_BoardAnnouncementUntil":"1","#Input_BoardAnnouncementUntilUnit":"1"}'>
+                                    @Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_DAY")
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary"
+                                        data-set-values='{"#Input_BoardAnnouncementUntil":"7","#Input_BoardAnnouncementUntilUnit":"1"}'>
+                                    @Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_WEEK")
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary"
+                                        data-set-values='{"#Input_BoardAnnouncementUntil":"1","#Input_BoardAnnouncementUntilUnit":"3"}'>
+                                    @Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_MONTH")
+                                </button>
+                            </div>
+                            <div class="input-group input-group-sm announcement-until">
+                                <input type="number" asp-for="Input.BoardAnnouncementUntil" min="1"
+                                       class="form-control" />
+                                <select asp-for="Input.BoardAnnouncementUntilUnit" asp-items="Model.UntilUnits"
+                                        class="form-select" title="@Model.GetText("ANNOUNCEMENT_UNTIL")"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* how the announcement looks *@
+                    <div class="form-label small text-body-secondary mb-1">@Html.LocalizedText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_PREVIEW")</div>
+                    <div id="AnnouncementPreview" class="alert alert-@(Model.Input.BoardAnnouncementType) mb-0">
+                        <span id="AnnouncementPreviewBadge" class="badge me-1 text-bg-@(Model.Input.BoardAnnouncementType)">@Html.Icon("bullhorn")@Html.LocalizedText("ANNOUNCEMENT")</span>
+                        <span id="AnnouncementPreviewText">@Html.Raw(Model.Input.Message)</span>
+                    </div>
                 </div>
             </div>
-            <div class="card-footer text-center">
-                <button button-style="Primary" 
+
+            @* the actions stay visible at the bottom of the window *@
+            <div class="admin-edit-actions">
+                <a asp-page="@ForumPages.Admin_Admin.GetPageName()"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   text-localized-tag="CANCEL"></a>
+                <button button-style="Primary"
                         asp-page-handler="SaveAnnouncement"
-                        Icon="save" 
-                        text-localized-tag="SAVE">
-                </button>
+                        Icon="save"
+                        text-localized-tag="SAVE"></button>
             </div>
         </div>
     </div>
-</div>
 </form>
 
 @section Scripts {
-    @await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_ValidationScriptPartial")
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
 }

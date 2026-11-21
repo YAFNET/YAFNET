@@ -1617,12 +1617,24 @@
             "#text": "Beschreibung"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine BBCode-Erweiterungen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Es gibt noch keine BBCode-Erweiterungen. Füge eine hinzu oder importiere sie aus einer XML-Datei."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Gewählte als XML exportieren"
           },
           {
             "@tag": "HEADER",
             "#text": "BBCode Erweiterungen"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Modul"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "Name"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Alle auswählen"
+          },
+          {
             "@tag": "TITLE",
             "#text": "YafBBCode Erweiterungen"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Werkzeugleiste"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Aktuelle Ankündigung sichtbar bis"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 Tag"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Ankündigungsnachricht:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 Monat"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Vorschau"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Entfernen"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Ankündigung sichtbar für..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 Woche"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6353,6 +6393,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Diesen Wort Ersatz löschen?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Zeigt den Text nach allen Ersetzungen (wie die Beiträge angezeigt werden)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "ein Satz mit einem bösen Wort"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "Der Text nach den Ersetzungen:"
           },
           {
             "@tag": "TITLE",

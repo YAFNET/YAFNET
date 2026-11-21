@@ -1617,12 +1617,24 @@
             "#text": "Popis"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žádná rozšíření BBCode"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Zatím nejsou žádná rozšíření BBCode. Přidejte jedno nebo je importujte ze souboru XML."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Exportovat vybrané do XML"
           },
           {
             "@tag": "HEADER",
             "#text": "Rozšíření BBCode"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Modul"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "název"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Vybrat vše"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Rozšíření YafBBCode"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Panel nástrojů"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Aktuální oznámení viditelné do"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 den"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Oznamovací zpráva:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 měsíc"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Náhled"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Odebrat"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Oznámení viditelné pro..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 týden"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6361,6 +6401,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Smazat tuto náhradu slova?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Ukáže text po všech náhradách (jak se zobrazují příspěvky)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "věta se zakázaným slovem"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "Text po náhradách:"
           },
           {
             "@tag": "TITLE",

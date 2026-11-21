@@ -1617,12 +1617,24 @@
             "#text": "وصف"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "لا توجد امتدادات BBCode"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "لا توجد امتدادات BBCode بعد. أضف امتداداً أو استوردها من ملف XML."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "تصدير المحدد إلى XML"
           },
           {
             "@tag": "HEADER",
             "#text": "ملحقات BBCode"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "وحدة"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "اسم"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "تحديد الكل"
+          },
+          {
             "@tag": "TITLE",
             "#text": "ملحقات YafBBCode"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "شريط الأدوات"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "الإعلان الحالي مرئي حتى"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "يوم واحد"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "رسالة إعلان:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "شهر واحد"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "معاينة"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "إزالة"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "إعلان مرئي لـ ..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "أسبوع واحد"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6353,6 +6393,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "حذف استبدال الكلمات هذا؟"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "يعرض النص بعد كل الاستبدالات (كما تُعرض المشاركات)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "جملة فيها كلمة محظورة"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "النص بعد الاستبدالات:"
           },
           {
             "@tag": "TITLE",

@@ -48,6 +48,58 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
+// A button with data-set-values sets the fields of its JSON object ({ "#id": "value", ... }), e.g. the quick durations
+// of the board announcement
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLButtonElement>('.admin-edit-form button[data-set-values]').forEach(button => {
+		button.addEventListener('click', () => {
+			const values = JSON.parse(button.dataset.setValues ?? '{}') as Record<string, string>;
+
+			Object.entries(values).forEach(([selector, value]) => {
+				const field = document.querySelector<HTMLInputElement | HTMLSelectElement>(selector);
+
+				if (field) {
+					field.value = value;
+					field.dispatchEvent(new Event('change', { bubbles: true }));
+				}
+			});
+		});
+	});
+});
+
+// A field with data-preview-html shows its text (html like the board announcement) on the preview element
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>('.admin-edit-form [data-preview-html]').forEach(field => {
+		const preview = document.querySelector<HTMLElement>(field.dataset.previewHtml ?? '');
+
+		if (preview) {
+			field.addEventListener('input', () => preview.innerHTML = field.value);
+		}
+	});
+});
+
+// A radio button with data-preview-class sets the class of the preview elements of its JSON object
+// ({ "#id": "class prefix" }), the value is added to the prefix (e.g. the type of the board announcement)
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLInputElement>('.admin-edit-form input[data-preview-class]').forEach(radio => {
+		radio.addEventListener('change', () => {
+			if (!radio.checked) {
+				return;
+			}
+
+			const targets = JSON.parse(radio.dataset.previewClass ?? '{}') as Record<string, string>;
+
+			Object.entries(targets).forEach(([selector, prefix]) => {
+				const element = document.querySelector<HTMLElement>(selector);
+
+				if (element) {
+					element.className = prefix + radio.value;
+				}
+			});
+		});
+	});
+});
+
 // A select with data-image-preview shows the image of the selected option (data-image) on the preview image,
 // without a selection the preview shows its data-default (e.g. the current logo of the board)
 document.addEventListener('DOMContentLoaded', () => {

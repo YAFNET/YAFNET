@@ -1617,12 +1617,24 @@
             "#text": "描述"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有 BBCode 扩展"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "还没有 BBCode 扩展。添加一个或从 XML 文件导入。"
+          },
+          {
             "@tag": "EXPORT",
             "#text": "将所选内容导出为 XML"
           },
           {
             "@tag": "HEADER",
             "#text": "BBCode 扩展"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "模块"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "姓名"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "全选"
+          },
+          {
             "@tag": "TITLE",
             "#text": "YafBB代码扩展"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "工具栏"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "当前公告可见直到"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 天"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "公告信息："
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 个月"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "预览"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "移除"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "公告可见..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 周"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6361,6 +6401,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "删除此单词替换？"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "显示所有替换后的文本（与帖子的显示方式相同）。"
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "一句包含违禁词的话"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "替换后的文本："
           },
           {
             "@tag": "TITLE",

@@ -1617,12 +1617,24 @@
             "#text": "Descrizione"
           },
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessuna estensione BBCode"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Non ci sono ancora estensioni BBCode. Aggiungine una o importale da un file XML."
+          },
+          {
             "@tag": "EXPORT",
             "#text": "Esportazione della selezione in XML"
           },
           {
             "@tag": "HEADER",
             "#text": "Estensioni BBCode"
+          },
+          {
+            "@tag": "MODULE",
+            "#text": "Modulo"
           },
           {
             "@tag": "MSG_NOTHING_SELECTED",
@@ -1633,8 +1645,16 @@
             "#text": "Nome"
           },
           {
+            "@tag": "SELECT_ALL",
+            "#text": "Seleziona tutto"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Estensioni del codice YafBBCode"
+          },
+          {
+            "@tag": "TOOLBAR",
+            "#text": "Barra degli strumenti"
           }
         ]
       },
@@ -1897,8 +1917,24 @@
             "#text": "Annuncio attuale visibile fino a"
           },
           {
+            "@tag": "ANNOUNCEMENT_DAY",
+            "#text": "1 giorno"
+          },
+          {
             "@tag": "ANNOUNCEMENT_MESSAGE",
             "#text": "Messaggio di annuncio:"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_MONTH",
+            "#text": "1 mese"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_PREVIEW",
+            "#text": "Anteprima"
+          },
+          {
+            "@tag": "ANNOUNCEMENT_REMOVE",
+            "#text": "Rimuovi"
           },
           {
             "@tag": "ANNOUNCEMENT_TITLE",
@@ -1911,6 +1947,10 @@
           {
             "@tag": "ANNOUNCEMENT_UNTIL",
             "#text": "Annuncio visibile per..."
+          },
+          {
+            "@tag": "ANNOUNCEMENT_WEEK",
+            "#text": "1 settimana"
           },
           {
             "@tag": "BOARD_ALLOW_DIGEST",
@@ -6353,6 +6393,18 @@
           {
             "@tag": "MSG_DELETE",
             "#text": "Cancellare questa sostituzione di parola?"
+          },
+          {
+            "@tag": "TEST_HELP",
+            "#text": "Mostra il testo dopo tutte le sostituzioni (come vengono mostrati i messaggi)."
+          },
+          {
+            "@tag": "TEST_PLACEHOLDER",
+            "#text": "una frase con una parola vietata"
+          },
+          {
+            "@tag": "TEST_RESULT",
+            "#text": "Il testo dopo le sostituzioni:"
           },
           {
             "@tag": "TITLE",

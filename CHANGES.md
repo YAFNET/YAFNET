@@ -82,6 +82,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Replace Words: the same bad word could be added twice (also by the import), now the dialog shows "already exists"
 * [FIXED] Admin > Edit BBCode: "Cancel" was a submit button, the empty required fields of a new bb code stopped it
 * [FIXED] Admin > Edit BBCode: a bb code without a name stopped the save with an error, now the message is shown
+* [CHANGES] Admin > Board Announcement, Replace Words, BBCodes: new layouts; the announcement has a live preview, the style as colored buttons, quick durations (1 day, 1 week, 1 month) and the current announcement with "Remove"; the replace words are shown as "bad -> good" with a [NEW] "Test" that shows a text after the replacements; the bb codes show the tag, the order and if they use the toolbar or a module, "select all" for the export; Edit BBCode has sections, the module class is only shown with "use module", the scripts and styles can be collapsed
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
