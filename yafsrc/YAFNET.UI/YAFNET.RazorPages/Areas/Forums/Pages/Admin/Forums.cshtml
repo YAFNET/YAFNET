@@ -78,7 +78,7 @@
 
                             @for (var i = 0; i < Model.CategoryList.Count; i++)
                             {
-                                var forums = Model.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>().Select(x => x.Item2).Where(x => x.CategoryID == Model.CategoryList[i].ID).ToList();
+                                var forums = Model.GetForumTree(Model.CategoryList[i].ID);
 
                                 <li class="list-group-item list-group-item-action active list-group-item-menu">
                                     <div class="d-flex w-100 justify-content-between">
@@ -158,13 +158,14 @@
 
                                 @if (!forums.NullOrEmpty())
                                 {
-                                    @foreach (var forum in forums)
+                                    @foreach (var (forum, depth) in forums)
                                     {
-                                        <li class="list-group-item list-group-item-action list-group-item-menu">
+                                        <li class="list-group-item list-group-item-action list-group-item-menu"
+                                            data-forum-id="@forum.ID" data-depth="@depth">
                                             <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">
+                                                <h5 class="mb-1" style="padding-inline-start: @(depth * 24)px">
                                                     <i class="fa fa-comments me-2"></i>
-                                                    @Html.Raw(forum.ParentID.HasValue ? "---" : "-") @Html.HtmlEncode(forum.Name)
+                                                    @(new string('-', 1 + depth * 2)) @Html.HtmlEncode(forum.Name)
                                                 </h5>
                                                 <small class="d-none d-md-block">
                                                     @Html.LocalizedText("SORT_ORDER")&nbsp;

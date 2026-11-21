@@ -257,4 +257,56 @@ public class ForumsModel : AdminPage
 
         this.CategoryList = [.. categories.GetPaged(pager)];
     }
+
+    /// <summary>
+    /// Gets the forums of a category as a tree: each forum is followed by its sub forums (at any depth),
+    /// the forums of a level are ordered by the sort order.
+    /// </summary>
+    /// <param name="categoryId">The category identifier.</param>
+    /// <returns>The forums with their depth (0 = forum without parent in the category).</returns>
+    public List<(Forum Forum, int Depth)> GetForumTree(int categoryId)
+    {
+        // a category without forums has a forum row with the default values (left join)
+        var forums = this.Get<ISessionService>().GetPageData<IList<Tuple<Category, Forum>>>()
+            .Select(x => x.Item2)
+            .Where(f => f is not null && f.ID > 0 && f.CategoryID == categoryId)
+            .OrderBy(f => f.SortOrder).ThenBy(f => f.ID)
+            .ToList();
+
+        var ids = forums.Select(f => f.ID).ToHashSet();
+        var children = forums.Where(f => f.ParentID.HasValue).ToLookup(f => f.ParentID.Value);
+
+        var tree = new List<(Forum Forum, int Depth)>();
+        var added = new HashSet<int>();
+
+        void Add(Forum forum, int depth)
+        {
+            // a broken hierarchy (a forum below its own sub forum) is shown only once
+            if (!added.Add(forum.ID))
+            {
+                return;
+            }
+
+            tree.Add((forum, depth));
+
+            foreach (var child in children[forum.ID])
+            {
+                Add(child, depth + 1);
+            }
+        }
+
+        // the parent of a forum can be in another category, then the forum is a top forum of this category
+        foreach (var forum in forums.Where(f => !f.ParentID.HasValue || !ids.Contains(f.ParentID.Value)))
+        {
+            Add(forum, 0);
+        }
+
+        // forums of a broken hierarchy that were not reached
+        foreach (var forum in forums.Where(f => !added.Contains(f.ID)))
+        {
+            Add(forum, 0);
+        }
+
+        return tree;
+    }
 }

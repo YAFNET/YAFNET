@@ -223,6 +223,55 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// Admin > Forums shows the forums of a category as a tree: a sub forum follows its parent, also when its
+    /// sort order is lower than the one of the parent, and every level is indented (a sub forum was shown above
+    /// its parent, the third level like the second).
+    /// </summary>
+    [Test]
+    public async Task ForumListShowsSubForumsBelowTheirParentTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var suffix = Random.Shared.Next();
+                var categoryId = await this.CreateCategoryAsync(page, $"TreeCategory{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"TreeTop{suffix}", categoryId, 5, null);
+                var top = await this.AdminForumIdAsync(page, $"TreeTop{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"TreeMiddle{suffix}", categoryId, 1, top);
+                var middle = await this.AdminForumIdAsync(page, $"TreeMiddle{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"TreeBottom{suffix}", categoryId, 1, middle);
+                await this.SaveForumInCategoryAsync(page, $"TreeOther{suffix}", categoryId, 3, null);
+
+                // opens the page with the category
+                await this.AdminForumIdAsync(page, $"TreeOther{suffix}");
+
+                // the forums of the category in the order of the list, with their depth
+                var rows = await page.EvaluateAsync<string[]>(
+                               """
+                               suffix => [...document.querySelectorAll('li[data-forum-id]')]
+                                   .map(li => [li.querySelector('h5').textContent.trim(), li.dataset.depth])
+                                   .filter(([name]) => name.includes(suffix))
+                                   .map(([name, depth]) => name.replace(/^-+\s*/, '').replace(suffix, '') + ':' + depth)
+                               """,
+                               suffix.ToString());
+
+                Assert.That(
+                    rows,
+                    Is.EqualTo(new[] { "TreeOther:0", "TreeTop:0", "TreeMiddle:1", "TreeBottom:2" }),
+                    "The forums are not shown as a tree");
+            });
+    }
+
+    /// <summary>
     /// The names of the sub forums in the forum list are shown as entered (not encoded twice).
     /// </summary>
     [Test]
@@ -530,6 +579,58 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
         Assert.Fail($"The category {name} was not created");
 
         return null;
+    }
+
+    /// <summary>
+    /// Saves a new forum in a category with a sort order and an optional parent forum.
+    /// </summary>
+    private async Task SaveForumInCategoryAsync(IPage page, string name, string categoryId, int sortOrder, int? parentId)
+    {
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+        await page.Locator("#Input_Name").FillAsync(name);
+        await page.Locator("#Input_Description").FillAsync("A forum of the tree test");
+        await page.Locator("#Input_SortOrder").FillAsync(sortOrder.ToString());
+
+        // the selects are Choices.js selects (only the selected option is in the form)
+        await page.EvaluateAsync(
+            """
+            ([categoryId, parentId]) => {
+                const set = (id, value) => {
+                    const select = document.querySelector(id);
+                    select.add(new Option('', value, true, true));
+                    select.value = value;
+                };
+                set('#Input_CategoryID', categoryId);
+                if (parentId) {
+                    set('#Input_ParentID', parentId);
+                }
+            }
+            """,
+            new[] { categoryId, parentId?.ToString() });
+
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+    }
+
+    /// <summary>
+    /// Finds the id of a forum in Admin > Forums (the page that is shown after a forum is saved).
+    /// </summary>
+    private async Task<int> AdminForumIdAsync(IPage page, string name)
+    {
+        for (var p = 1; p <= 50; p++)
+        {
+            await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums/{p}");
+
+            var item = page.Locator("li[data-forum-id]", new PageLocatorOptions { HasText = name });
+
+            if (await item.CountAsync() > 0)
+            {
+                return int.Parse(await item.First.GetAttributeAsync("data-forum-id"));
+            }
+        }
+
+        Assert.Fail($"The forum {name} was not found");
+
+        return 0;
     }
 
     private async Task<int> ForumIdAsync(IPage page, string name, int? parentId = null)
