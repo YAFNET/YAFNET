@@ -75,6 +75,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Spam Words: the spaces around a spam word were saved (it was checked without them)
 * [FIXED] Spam protection: the banned emails and names were case sensitive, an address or a name in other case passed the ban
 * [FIXED] Admin > Banned IPs: a failed import of the AbuseIPDB blacklist (e.g. an invalid api key) stopped with an error page, now a message is shown
+* [FIXED] Admin > Banned Names: the imported names got the reason "Imported PageUser Name" (now "Imported User Name")
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

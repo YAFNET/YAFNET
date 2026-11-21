@@ -318,7 +318,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 continue;
             }
 
-            if (repository.Save(null, line, "Imported PageUser Name", boardId))
+            if (repository.Save(null, line, "Imported User Name", boardId))
             {
                 importedCount++;
             }

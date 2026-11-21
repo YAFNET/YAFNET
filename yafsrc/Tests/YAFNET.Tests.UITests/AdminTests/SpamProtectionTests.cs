@@ -230,6 +230,42 @@ public class SpamProtectionTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// The imported banned names get the reason "Imported User Name" (it was "Imported PageUser Name").
+    /// </summary>
+    [Test]
+    public async Task ImportedBannedNameHasTheImportReasonTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BannedNames");
+
+                var name = $"uitestimport{Random.Shared.Next()}";
+
+                await page.EvaluateAsync(
+                    """
+                    async ([url, name]) => {
+                        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                        const data = new FormData();
+                        data.append('file', new File([name + '\n'], 'names.txt', { type: 'text/plain' }));
+                        await fetch(url, { method: 'POST', headers: { 'RequestVerificationToken': token }, body: data });
+                    }
+                    """,
+                    new[] { $"{this.TestSettings.TestForumUrl}api/BannedName/Import", name });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BannedNames");
+                await SearchAsync(page, name);
+
+                var row = await page.Locator("li.list-group-item-menu").First.InnerTextAsync();
+
+                Assert.That(row, Does.Contain("Imported User Name"), "The import reason is wrong");
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)
