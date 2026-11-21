@@ -221,10 +221,10 @@ public class EditForumModel : AdminPage
     /// <param name="copy"></param>
     private IActionResult BindData(int? forumId, bool copy = false)
     {
-        this.BindLists(forumId);
-
         if (!forumId.HasValue)
         {
+            this.BindLists(null);
+
             var sortOrder = 1;
 
             try
@@ -295,6 +295,10 @@ public class EditForumModel : AdminPage
                 : forum.ImageURL;
         }
 
+        // the lists after the values of the forum: the parent forums are the ones of the category of the forum
+        // (the first category was used, the parent of a forum of another category was not in the list and lost)
+        this.BindLists(forumId);
+
         return this.Page();
     }
 
@@ -305,7 +309,10 @@ public class EditForumModel : AdminPage
     {
         this.ParentForums = [];
 
-        var forums = this.GetRepository<Forum>().ListAllFromCategory(this.Input.CategoryID);
+        // all forums of the category except the forum and its sub forums (a forum of the third level keeps its parent)
+        var forums = this.GetRepository<Forum>().ListParentForums(
+            this.Input.CategoryID,
+            this.Input.Id > 0 && !this.Input.Copy ? this.Input.Id : null);
 
         forums.Insert(0, new ForumSorted {ForumID = 0, Forum = this.GetText("NONE")});
 

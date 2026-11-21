@@ -334,8 +334,8 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
                 // a wrong name is refused by the server (without the check of the page)
                 await confirmName.FillAsync("wrong name");
-                await submit.EvaluateAsync("b => { b.disabled = false; b.form.requestSubmit(b); }");
-                await page.WaitForLoadStateAsync();
+                await page.RunAndWaitForNextPageAsync(
+                    () => submit.EvaluateAsync("b => { b.disabled = false; b.form.requestSubmit(b); }"));
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
 
@@ -413,6 +413,61 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                     options,
                     Is.EqualTo(new[] { "SelectOther", "SelectTop", " - SelectMiddle", "... - SelectBottom" }),
                     "The forums of the select are not listed as a tree");
+            });
+    }
+
+    /// <summary>
+    /// Saving a forum without changes keeps its parent: the parent select only had the forums without parent of
+    /// active categories, a forum of the third level (or of an inactive category) lost its parent on every save.
+    /// </summary>
+    [Test]
+    public async Task SavingAForumKeepsItsParentTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var suffix = Random.Shared.Next();
+                var categoryId = await this.CreateCategoryAsync(page, $"ParentCategory{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"ParentTop{suffix}", categoryId, 1, null);
+                var top = await this.AdminForumIdAsync(page, $"ParentTop{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"ParentMiddle{suffix}", categoryId, 1, top);
+                var middle = await this.AdminForumIdAsync(page, $"ParentMiddle{suffix}");
+
+                await this.SaveForumInCategoryAsync(page, $"ParentBottom{suffix}", categoryId, 1, middle);
+                var bottom = await this.AdminForumIdAsync(page, $"ParentBottom{suffix}");
+
+                // the forum of the third level is saved without changes
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false/{bottom}");
+
+                Assert.That(
+                    await page.Locator("#Input_ParentID").InputValueAsync(),
+                    Is.EqualTo(middle.ToString()),
+                    "The parent forum is not selected");
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
+
+                Assert.That(
+                    await page.Locator($".forum-row[data-forum-id='{bottom}']").GetAttributeAsync("data-depth"),
+                    Is.EqualTo("2"),
+                    "The forum lost its parent forum");
+
+                // a forum can't be the parent of itself or of its parent
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false/{middle}");
+
+                var parents = await page.Locator("#Input_ParentID option").EvaluateAllAsync<string[]>("options => options.map(o => o.value)");
+
+                Assert.That(parents, Does.Contain(top.ToString()), "The parent forum is missing");
+                Assert.That(parents, Does.Not.Contain(middle.ToString()).And.Not.Contain(bottom.ToString()), "The forum or its sub forum can be chosen as parent");
             });
     }
 

@@ -287,6 +287,61 @@ public static class ForumRepositoryExtensions
         }
 
         /// <summary>
+        /// Lists the forums of a category that can be the parent of a forum: all forums of the category (also of an
+        /// inactive category) as a tree, indented per level, without the forum and its sub forums.
+        /// </summary>
+        /// <param name="categoryId">The category identifier.</param>
+        /// <param name="forumId">The edited forum (null for a new forum).</param>
+        /// <returns>The forums in the order of the tree.</returns>
+        public List<ForumSorted> ListParentForums(int categoryId, int? forumId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                .Where<Forum, Category>(
+                    (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId)
+                .OrderBy<Forum>(f => f.SortOrder).ThenBy<Forum>(f => f.ID);
+
+            var forums = repository.DbAccess.Execute(db => db.Connection.Select(expression));
+
+            var ids = forums.Select(f => f.ID).ToHashSet();
+            var children = forums.Where(f => f.ParentID.HasValue).ToLookup(f => f.ParentID.Value);
+            var added = new HashSet<int>();
+            var sortedList = new List<ForumSorted>();
+
+            void Add(Forum forum, int depth)
+            {
+                // the forum itself and its sub forums can't be its parent, a broken hierarchy is listed once
+                if (forum.ID == forumId || !added.Add(forum.ID))
+                {
+                    return;
+                }
+
+                sortedList.Add(
+                    new ForumSorted
+                    {
+                        ForumID = forum.ID,
+                        Forum = depth > 0
+                            ? $"{string.Concat(Enumerable.Repeat("\u00A0\u00A0\u00A0", depth - 1))} - {forum.Name}"
+                            : forum.Name,
+                        Icon = "comments"
+                    });
+
+                foreach (var child in children[forum.ID])
+                {
+                    Add(child, depth + 1);
+                }
+            }
+
+            foreach (var forum in forums.Where(f => !f.ParentID.HasValue || !ids.Contains(f.ParentID.Value)))
+            {
+                Add(forum, 0);
+            }
+
+            return sortedList;
+        }
+
+        /// <summary>
         /// Lists all forums within a given category
         /// </summary>
         /// <param name="categoryId">
