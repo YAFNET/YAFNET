@@ -125,9 +125,12 @@ public class BoardSettingsTests(ComposeScenario scenario) : DatabaseTestBase(sce
 
                 var email = await GetValueAsync(page, "Input.ForumEmail");
                 var hours = await GetValueAsync(page, "Input.DigestSendEveryXHours");
+                var digest = await page.Locator("#Input_AllowDigestEmail").IsCheckedAsync();
 
                 try
                 {
+                    // the hours are shown with the digest turned on
+                    await page.Locator("#Input_AllowDigestEmail").SetCheckedAsync(true);
                     await page.Locator("#Input_ForumEmail").FillAsync("board@example.com");
                     await page.Locator("#Input_DigestSendEveryXHours").FillAsync("12");
                     await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
@@ -140,8 +143,10 @@ public class BoardSettingsTests(ComposeScenario scenario) : DatabaseTestBase(sce
                 finally
                 {
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+                    await page.Locator("#Input_AllowDigestEmail").SetCheckedAsync(true);
                     await page.Locator("#Input_ForumEmail").FillAsync(email);
                     await page.Locator("#Input_DigestSendEveryXHours").FillAsync(hours);
+                    await page.Locator("#Input_AllowDigestEmail").SetCheckedAsync(digest);
                     await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
                 }
             });

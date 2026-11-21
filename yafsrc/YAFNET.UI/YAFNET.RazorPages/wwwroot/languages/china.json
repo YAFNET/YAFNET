@@ -2061,8 +2061,28 @@
             "#text": "摘要发送之间的小时数必须至少为 1。"
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "论坛设置已保存。"
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "您需要输入公告消息。"
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "摘要"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "邮件"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "新论坛"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "新用户"
           },
           {
             "@tag": "TITLE",

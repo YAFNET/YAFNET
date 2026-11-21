@@ -2061,8 +2061,28 @@
             "#text": "Antallet af timer mellem afsendelse af sammendraget skal være mindst 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Forumindstillingerne blev gemt."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Du skal indtaste en meddelelsesmeddelelse."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Sammendrag"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-mails"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Nye fora"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Nye brugere"
           },
           {
             "@tag": "TITLE",

@@ -1,197 +1,267 @@
 @page "{handler?}"
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
 @using YAF.Types.Interfaces
+@using YAF.Core.Services
 @using YAF.Web.HtmlHelpers
 @model SettingsModel
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-    <div class="col-xl-12">
-        <div class="card mb-3">
-            <div class="card-header">
-                @Html.IconHeader("cogs","ADMIN_BOARDSETTINGS","BOARD_SETUP")
-            </div>
-            <div class="card-body">
-	            <div class="row">
-		            <div class="mb-3 col-md-6">
-			            <label class="form-label" info-button="true" 
-			                   asp-for="Input.Name"
-			                   localized-tag="BOARD_NAME" localized-page="ADMIN_BOARDSETTINGS"></label>
-			            <input type="text" asp-for="Input.Name" maxlength="50" required="required" 
-			                   class="form-control" />
-			            <div class="invalid-feedback">
-				            @Html.LocalizedText("ADMIN_EDITBOARD", "MSG_NAME_BOARD")
-			            </div>
-		            </div>
-		            <div class="mb-3 col-md-6">
-			            <label class="form-label" info-button="true" 
-			                   asp-for="Input.ForumEmail"
-			                   localized-tag="FORUM_EMAIL" localized-page="ADMIN_HOSTSETTINGS"></label>
-			            <input type="text" asp-for="Input.ForumEmail"  
-			                   class="form-control" />
-		            </div>
-	            </div>
-	            <div class="mb-3">
-		            <label class="form-label" info-button="true"
-		                   asp-for="Input.Description"
-		                   localized-tag="DESCRIPTION" localized-page="ADMIN_EDITBOARD"></label>
-		            <textarea asp-for="Input.Description" rows="3" maxlength="255"
-		                       class="form-control"></textarea>
-	            </div>
-	            <div class="mb-3">
-		            <label class="form-label" info-button="true" 
-		                   asp-for="Input.BoardLogo"
-		                   localized-tag="BOARD_LOGO" localized-page="ADMIN_BOARDSETTINGS"></label>
-            
-		            <select asp-for="Input.BoardLogo"
-		                    class="select2-image-select"
-		                    placeholder="@Html.Raw(Model.GetText("BOARD_LOGO_SELECT"))"
-		                    data-allow-clear="true">
-			            @foreach (var item in Model.LogoImages)
-			            {
-				            <option value="@item.Text" item="@item">
-					            @item.Text
-				            </option>
-			            }
-		            </select>
-	            </div>
-	            <div class="mb-3">
-		            <label class="form-label" info-button="true" 
-		                   asp-for="Input.ForumBaseUrlMask"
-		                   localized-tag="FORUM_BASEURLMASK" localized-page="ADMIN_HOSTSETTINGS"></label>
+@{
+    var currentLogo = Url.Content($"~/{Model.Get<BoardFolders>().Logos}/{Model.PageBoardContext.BoardSettings.ForumLogo}");
+}
 
-		            <input type="text" asp-for="Input.ForumBaseUrlMask" class="form-control"/>
-	            </div>
-                <div class="mb-3">
-                    <label class="form-label" info-button="true"
-                           asp-for="Input.Theme"
-                           localized-tag="BOARD_THEME" localized-page="ADMIN_BOARDSETTINGS"></label>
-                    <select asp-for="Input.Theme" asp-items="Model.Themes" class="select2-select"></select>
+<form method="post" class="needs-validation admin-edit-form admin-board-settings" novalidate>
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("cogs")@Html.LocalizedText("ADMIN_BOARDSETTINGS", "TITLE")
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+
+            @* general *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("info-circle")@Html.LocalizedText("ADMIN_EDITFORUM", "SECTION_GENERAL")
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-	                    <label class="form-label" info-button="true"
-                               asp-for="Input.ShowTopic"
-                               localized-tag="BOARD_TOPIC_DEFAULT"
-                               localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <select asp-for="Input.ShowTopic" asp-items="Model.ShowTopics" class="select2-select">
-                        </select>
-                    </div>
-                    <div class="mb-3 col-md-6">
-	                    <label class="form-label" info-button="true"
-                               asp-for="Input.Culture"
-                               localized-tag="BOARD_CULTURE" localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <select asp-for="Input.Culture" asp-items="Model.Cultures" class="select2-select">
-                        </select>
-                    </div>
-                </div>
-                <div class="mb-3">
+                <div class="card-body">
+                    <div class="mb-3">
                         <label class="form-label" info-button="true"
-                           asp-for="Input.DefaultNotificationSetting"
-                           localized-tag="BOARD_DEFAULT_NOTIFICATION"
-                           localized-page="ADMIN_BOARDSETTINGS"></label>
-                    <select asp-for="Input.DefaultNotificationSetting"  
-                            class="select2-select" 
-                            asp-items="Model.DefaultNotificationSettings"
-                            placeholder="@Html.LocalizedText("BOARD_DEFAULT_NOTIFICATION")">
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" info-button="true" 
-                           asp-for="Input.DefaultCollapsiblePanelState"
-                           localized-tag="BOARD_DEFAULT_PANEL_STATE"
-                           localized-page="ADMIN_BOARDSETTINGS"></label>
-                    <select asp-for="Input.DefaultCollapsiblePanelState"  
-                            asp-items="Model.DefaultCollapsiblePanelStates"
-                            class="select2-select"
-                            placeholder="@Html.LocalizedText("BOARD_DEFAULT_PANEL_STATE")">
-                    </select>
-                </div>
-                <div class="mb-3">
-	                <label class="form-label" info-button="true"
-	                       asp-for="Input.DefaultPageSize"
-	                       localized-tag="BOARD_DEFAULT_PAGESIZE"
-	                       localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <select asp-for="Input.DefaultPageSize" asp-items="Model.PageSizes" class="select2-select"></select>
-                </div>
-                <div class="mb-3">
-                        <label class="form-label" info-button="true"
-                           asp-for="Input.NotificationOnUserRegisterEmailList"
-                           localized-tag="BOARD_EMAIL_ONREGISTER"
-                           localized-page="ADMIN_BOARDSETTINGS"></label>
-                    <input type="text" asp-for="Input.NotificationOnUserRegisterEmailList" class="form-control"/>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                            <label class="form-label" info-button="true"
-                               asp-for="Input.EmailModeratorsOnModeratedPost"
-                               localized-tag="BOARD_EMAIL_MODS"
-                               localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.EmailModeratorsOnModeratedPost" class="form-check-input"/>
+                               asp-for="Input.Name"
+                               localized-tag="BOARD_NAME" localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <input type="text" asp-for="Input.Name" maxlength="50" required="required"
+                               class="form-control" />
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("ADMIN_EDITBOARD", "MSG_NAME_BOARD")
                         </div>
                     </div>
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.EmailModeratorsOnReportedPost"
-                               localized-tag="BOARD_EMAIL_REPORTMODS"
-                               localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.EmailModeratorsOnReportedPost" class="form-check-input" />
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Description"
+                               localized-tag="DESCRIPTION" localized-page="ADMIN_EDITBOARD"></label>
+                        <textarea asp-for="Input.Description" rows="2" maxlength="255"
+                                  class="form-control"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Culture"
+                                   localized-tag="BOARD_CULTURE" localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <select asp-for="Input.Culture" asp-items="Model.Cultures" class="select2-select"></select>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.ForumBaseUrlMask"
+                                   localized-tag="FORUM_BASEURLMASK" localized-page="ADMIN_HOSTSETTINGS"></label>
+                            <input type="text" asp-for="Input.ForumBaseUrlMask" class="form-control"
+                                   placeholder="https://" />
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-md-6">
+            </div>
+
+            @* appearance *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("palette")@Html.LocalizedText("ADMIN_EDITFORUM", "SECTION_APPEARANCE")
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Theme"
+                               localized-tag="BOARD_THEME" localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <select asp-for="Input.Theme" asp-items="Model.Themes" class="select2-select"></select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.BoardLogo"
+                               localized-tag="BOARD_LOGO" localized-page="ADMIN_BOARDSETTINGS"></label>
+                        <select asp-for="Input.BoardLogo"
+                                class="select2-image-select"
+                                placeholder="@Html.Raw(Model.GetText("BOARD_LOGO_SELECT"))"
+                                data-image-preview="#LogoPreview">
+                            @foreach (var item in Model.LogoImages)
+                            {
+                                <option value="@item.Text" item="@item" data-image="@item.Value">
+                                    @item.Text
+                                </option>
+                            }
+                        </select>
+                        @* the selected logo (without a selection the current logo is kept) *@
+                        <div class="board-logo-preview mt-2">
+                            <img id="LogoPreview" src="@currentLogo" data-default="@currentLogo" alt="" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
                             <label class="form-label" info-button="true"
+                                   asp-for="Input.ShowTopic"
+                                   localized-tag="BOARD_TOPIC_DEFAULT"
+                                   localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <select asp-for="Input.ShowTopic" asp-items="Model.ShowTopics" class="select2-select"></select>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.DefaultCollapsiblePanelState"
+                                   localized-tag="BOARD_DEFAULT_PANEL_STATE"
+                                   localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <select asp-for="Input.DefaultCollapsiblePanelState"
+                                    asp-items="Model.DefaultCollapsiblePanelStates"
+                                    class="select2-select"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* defaults of the new users *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("user-plus")@Html.LocalizedText("ADMIN_BOARDSETTINGS", "SECTION_NEW_USERS")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.DefaultNotificationSetting"
+                                   localized-tag="BOARD_DEFAULT_NOTIFICATION"
+                                   localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <select asp-for="Input.DefaultNotificationSetting"
+                                    class="select2-select"
+                                    asp-items="Model.DefaultNotificationSettings"></select>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.DefaultPageSize"
+                                   localized-tag="BOARD_DEFAULT_PAGESIZE"
+                                   localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <select asp-for="Input.DefaultPageSize" asp-items="Model.PageSizes" class="select2-select"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* mails *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("envelope")@Html.LocalizedText("ADMIN_BOARDSETTINGS", "SECTION_MAIL")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.ForumEmail"
+                                   localized-tag="FORUM_EMAIL" localized-page="ADMIN_HOSTSETTINGS"></label>
+                            <input type="email" asp-for="Input.ForumEmail" class="form-control" />
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.NotificationOnUserRegisterEmailList"
+                                   localized-tag="BOARD_EMAIL_ONREGISTER"
+                                   localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <input type="text" asp-for="Input.NotificationOnUserRegisterEmailList" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.EmailModeratorsOnModeratedPost"
+                                   localized-tag="BOARD_EMAIL_MODS"
+                                   localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.EmailModeratorsOnModeratedPost" class="form-check-input" role="switch" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.EmailModeratorsOnReportedPost"
+                                   localized-tag="BOARD_EMAIL_REPORTMODS"
+                                   localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.EmailModeratorsOnReportedPost" class="form-check-input" role="switch" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* digest *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("newspaper")@Html.LocalizedText("ADMIN_BOARDSETTINGS", "SECTION_DIGEST")
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
                                asp-for="Input.AllowDigestEmail"
                                localized-tag="BOARD_ALLOW_DIGEST"
                                localized-page="ADMIN_BOARDSETTINGS"></label>
                         <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.AllowDigestEmail" class="form-check-input" />
+                            <input type="checkbox" asp-for="Input.AllowDigestEmail" class="form-check-input" role="switch"
+                                   data-shows="#DigestOptions" />
                         </div>
                     </div>
-                    <div class="mb-3 col-md-6">
+                    <div class="row" id="DigestOptions">
+                        <div class="mb-3 col-md-6">
                             <label class="form-label" info-button="true"
-                               asp-for="Input.DefaultSendDigestEmail"
-                               localized-tag="BOARD_DIGEST_NEWUSERS"
-                               localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.DefaultSendDigestEmail" class="form-check-input" />
+                                   asp-for="Input.DefaultSendDigestEmail"
+                                   localized-tag="BOARD_DIGEST_NEWUSERS"
+                                   localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.DefaultSendDigestEmail" class="form-check-input" role="switch" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.DigestSendEveryXHours"
+                                   localized-tag="BOARD_DIGEST_HOURS"
+                                   localized-page="ADMIN_BOARDSETTINGS"></label>
+                            <input type="number" asp-for="Input.DigestSendEveryXHours" min="1" class="form-control" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("ADMIN_BOARDSETTINGS", "MSG_DIGEST_HOURS")
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" info-button="true"
-                               asp-for="Input.DigestSendEveryXHours"
-                               localized-tag="BOARD_DIGEST_HOURS"
-                               localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <input type="number" asp-for="Input.DigestSendEveryXHours" min="1" class="form-control"/>
-                    </div>
+            </div>
+
+            @* new forums *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("comments")@Html.LocalizedText("ADMIN_BOARDSETTINGS", "SECTION_NEW_FORUMS")
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" info-button="true" 
+                <div class="card-body">
+                    <label class="form-label" info-button="true"
                            asp-for="Input.ForumDefaultAccessMask"
                            localized-tag="FORUM_DEFAULT_ACCESSMASK"
                            localized-page="ADMIN_BOARDSETTINGS"></label>
-                    <select asp-for="Input.ForumDefaultAccessMask"  
+                    <select asp-for="Input.ForumDefaultAccessMask"
                             class="select2-select"
-                            asp-items="Model.ForumDefaultAccessMasks"
-                            placeholder="@Html.LocalizedText("FORUM_DEFAULT_ACCESSMASK")">
-                    </select>
+                            asp-items="Model.ForumDefaultAccessMasks"></select>
                 </div>
             </div>
-            <div class="card-footer text-center">
-                <button ID="Save" button-style="Primary" asp-page-handler="Save"
-                        Icon="save" text-localized-tag="SAVE">
+
+            @* the actions stay visible at the bottom of the window *@
+            <div class="admin-edit-actions">
+                <a asp-page="@ForumPages.Admin_Admin.GetPageName()"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   text-localized-tag="CANCEL">
+                </a>
+                <button id="Save"
+                        asp-page-handler="Save"
+                        button-style="Primary"
+                        Icon="save"
+                        text-localized-tag="SAVE">
                 </button>
             </div>
         </div>
     </div>
-</div>
 </form>
 
 @section Scripts {
     @await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_ValidationScriptPartial")
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
 }

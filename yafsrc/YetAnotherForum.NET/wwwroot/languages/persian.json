@@ -2061,8 +2061,28 @@
             "#text": "ساعت‌های بین ارسال خلاصه باید دست‌کم ۱ باشد."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "تنظیمات انجمن ذخیره شد."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "شما باید یک پیام برای اطلاعیه وارد کنید."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "خلاصه"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "ایمیل‌ها"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "انجمن‌های جدید"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "کاربران جدید"
           },
           {
             "@tag": "TITLE",

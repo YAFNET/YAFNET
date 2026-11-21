@@ -204,7 +204,11 @@ public class SettingsModel : AdminPage
         // save the settings to the database
         this.Get<BoardSettingsService>().SaveRegistry(boardSettings);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Admin);
+        // the settings stay open with the notice
+        return this.PageBoardContext.SessionNotify(
+            this.GetText("ADMIN_BOARDSETTINGS", "MSG_SAVED"),
+            MessageTypes.success,
+            ForumPages.Admin_Settings);
     }
 
     /// <summary>

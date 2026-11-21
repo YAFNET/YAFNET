@@ -2061,8 +2061,28 @@
             "#text": "Le nombre d'heures entre les envois du résumé doit être d'au moins 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Les paramètres du forum ont été enregistrés."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Vous devez saisir un message d'annonce."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Résumé"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-mails"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Nouveaux forums"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Nouveaux utilisateurs"
           },
           {
             "@tag": "TITLE",

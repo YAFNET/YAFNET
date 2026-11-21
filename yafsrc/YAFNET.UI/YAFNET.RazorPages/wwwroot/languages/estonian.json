@@ -2061,8 +2061,28 @@
             "#text": "Kokkuvõtte saatmiste vahel peab olema vähemalt 1 tund."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Foorumi seaded salvestati."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Peate sisestama teadaande."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Kokkuvõte"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-kirjad"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Uued foorumid"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Uued kasutajad"
           },
           {
             "@tag": "TITLE",

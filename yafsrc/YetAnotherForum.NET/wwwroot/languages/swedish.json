@@ -2061,8 +2061,28 @@
             "#text": "Antalet timmar mellan utskick av sammanfattningen måste vara minst 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Foruminställningarna sparades."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Du måste ange ett meddelande."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Sammanfattning"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-post"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Nya forum"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Nya användare"
           },
           {
             "@tag": "TITLE",

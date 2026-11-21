@@ -2061,8 +2061,28 @@
             "#text": "Las horas entre los envíos del resumen deben ser al menos 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Se guardaron los ajustes del foro."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Es necesario introducir un Mensaje de Anuncio."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Resumen"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "Correos"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Foros nuevos"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Usuarios nuevos"
           },
           {
             "@tag": "TITLE",

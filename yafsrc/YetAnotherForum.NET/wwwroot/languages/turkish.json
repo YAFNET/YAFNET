@@ -2061,8 +2061,28 @@
             "#text": "Özet gönderimleri arasındaki saat en az 1 olmalıdır."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Forum ayarları kaydedildi."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Bir Anons Mesajı girmeniz gerekir."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Özet"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-postalar"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Yeni forumlar"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Yeni kullanıcılar"
           },
           {
             "@tag": "TITLE",

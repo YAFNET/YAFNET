@@ -2061,8 +2061,28 @@
             "#text": "Numărul de ore dintre trimiterile rezumatului trebuie să fie cel puțin 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Setările forumului au fost salvate."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Trebuie să introduceți un mesaj de anunț."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Rezumat"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-mailuri"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Forumuri noi"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Utilizatori noi"
           },
           {
             "@tag": "TITLE",

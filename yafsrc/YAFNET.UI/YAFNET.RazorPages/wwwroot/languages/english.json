@@ -2061,8 +2061,28 @@
                     "#text": "The hours between digest sending must be at least 1."
                 },
                 {
+                    "@tag": "MSG_SAVED",
+                    "#text": "The board settings were saved."
+                },
+                {
                     "@tag": "NEED_MESSAGE",
                     "#text": "You need to enter an Announcement Message."
+                },
+                {
+                    "@tag": "SECTION_DIGEST",
+                    "#text": "Digest"
+                },
+                {
+                    "@tag": "SECTION_MAIL",
+                    "#text": "Mails"
+                },
+                {
+                    "@tag": "SECTION_NEW_FORUMS",
+                    "#text": "New forums"
+                },
+                {
+                    "@tag": "SECTION_NEW_USERS",
+                    "#text": "New users"
                 },
                 {
                     "@tag": "TITLE",

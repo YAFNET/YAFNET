@@ -362,7 +362,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                 await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Board Settings" })
                     .ClickAsync();
 
-                await page.GetByRole(AriaRole.Checkbox,
+                await page.GetByRole(AriaRole.Switch,
                     new PageGetByRoleOptions { Name = "Allow Digest Email Sending" }).CheckAsync();
 
                 await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save" }).ClickAsync();

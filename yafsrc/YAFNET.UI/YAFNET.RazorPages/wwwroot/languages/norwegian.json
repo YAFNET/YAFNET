@@ -2061,8 +2061,28 @@
             "#text": "Antall timer mellom utsending av sammendraget må være minst 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Foruminnstillingene ble lagret."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Du må skrive inn en kunngjøringsmelding."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Sammendrag"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-poster"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Nye forum"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Nye brukere"
           },
           {
             "@tag": "TITLE",

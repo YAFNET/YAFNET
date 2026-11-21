@@ -362,6 +362,21 @@
 }
 
 // Admin groups
+.admin-board-settings {
+    .board-logo-preview {
+        padding: .75rem;
+        border: var(--bs-border-width) solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background: var(--bs-tertiary-bg);
+        text-align: center;
+
+        img {
+            max-width: 100%;
+            max-height: 6rem;
+        }
+    }
+}
+
 .admin-groups {
     .group-row {
         display: flex;

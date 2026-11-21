@@ -48,6 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 });
 
+// A select with data-image-preview shows the image of the selected option (data-image) on the preview image,
+// without a selection the preview shows its data-default (e.g. the current logo of the board)
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLSelectElement>('.admin-edit-form select[data-image-preview]').forEach(select => {
+		const preview = document.querySelector<HTMLImageElement>(select.dataset.imagePreview ?? '');
+
+		if (!preview) {
+			return;
+		}
+
+		const update = () => {
+			const image = select.selectedOptions[0]?.dataset.image;
+
+			preview.src = select.value !== '' && image ? image : preview.dataset.default ?? '';
+		};
+
+		select.addEventListener('change', update);
+		update();
+	});
+});
+
 // The style of a role is shown on a preview of the name (the style can have a light and a dark part
 // "light!style/dark!style", the preview shows the color of the first part like the names of the forum)
 function decodeStyle(style: string): string {

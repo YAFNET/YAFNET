@@ -2061,8 +2061,28 @@
             "#text": "Số giờ giữa các lần gửi bản tóm tắt phải ít nhất là 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Đã lưu cài đặt diễn đàn."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Bạn cần nhập Tin nhắn thông báo."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Bản tóm tắt"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "Email"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Diễn đàn mới"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Người dùng mới"
           },
           {
             "@tag": "TITLE",

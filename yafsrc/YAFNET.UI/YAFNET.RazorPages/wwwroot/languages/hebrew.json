@@ -2061,8 +2061,28 @@
             "#text": "מספר השעות בין שליחות התקציר חייב להיות לפחות 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "הגדרות הפורום נשמרו."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "עליך להזין הודעת הודעה."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "תקציר"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "דואר"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "פורומים חדשים"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "משתמשים חדשים"
           },
           {
             "@tag": "TITLE",

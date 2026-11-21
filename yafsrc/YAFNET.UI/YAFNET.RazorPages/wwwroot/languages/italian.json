@@ -2061,8 +2061,28 @@
             "#text": "Le ore tra gli invii del riepilogo devono essere almeno 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Le impostazioni del forum sono state salvate."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "È necessario inserire un messaggio di annuncio."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Riepilogo"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "Email"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Nuovi forum"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Nuovi utenti"
           },
           {
             "@tag": "TITLE",

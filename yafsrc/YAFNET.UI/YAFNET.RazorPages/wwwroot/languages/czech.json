@@ -2061,8 +2061,28 @@
             "#text": "Počet hodin mezi odesíláním souhrnu musí být alespoň 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Nastavení fóra bylo uloženo."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Musíte zadat oznamovací zprávu."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Souhrn"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-maily"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Nová fóra"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Noví uživatelé"
           },
           {
             "@tag": "TITLE",

@@ -2061,8 +2061,28 @@
             "#text": "Koosteen lähetysten välisten tuntien on oltava vähintään 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Foorumin asetukset tallennettiin."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Sinun on annettava kuulutusviesti."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Kooste"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "Sähköpostit"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Uudet foorumit"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Uudet käyttäjät"
           },
           {
             "@tag": "TITLE",

@@ -2061,8 +2061,28 @@
             "#text": "Het aantal uren tussen het verzenden van de samenvatting moet minstens 1 zijn."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "De foruminstellingen zijn opgeslagen."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "U moet een aankondigingsbericht invoeren."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Samenvatting"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-mails"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Nieuwe fora"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Nieuwe gebruikers"
           },
           {
             "@tag": "TITLE",

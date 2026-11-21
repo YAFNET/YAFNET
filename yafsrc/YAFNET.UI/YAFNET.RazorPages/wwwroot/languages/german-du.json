@@ -2061,8 +2061,28 @@
             "#text": "Die Stunden zwischen dem Versand der Zusammenfassung müssen mindestens 1 sein."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Die Board-Einstellungen wurden gespeichert."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Sie müssen eine Ankündigungsnachricht eingeben."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Zusammenfassung"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-Mails"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Neue Foren"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Neue Benutzer"
           },
           {
             "@tag": "TITLE",

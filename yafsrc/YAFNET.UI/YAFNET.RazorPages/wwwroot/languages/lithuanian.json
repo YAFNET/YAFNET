@@ -2061,8 +2061,28 @@
             "#text": "Valandų tarp santraukos siuntimų turi būti bent 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Forumo nustatymai išsaugoti."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Reikia įvesti pranešimo pranešimą."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Santrauka"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "El. laiškai"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Nauji forumai"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Nauji vartotojai"
           },
           {
             "@tag": "TITLE",

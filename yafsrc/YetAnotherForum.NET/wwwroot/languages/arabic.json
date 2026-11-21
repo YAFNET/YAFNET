@@ -2061,8 +2061,28 @@
             "#text": "يجب أن تكون الساعات بين إرسال الملخص 1 على الأقل."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "تم حفظ إعدادات المنتدى."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "تحتاج إلى إدخال رسالة إعلان."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "الملخص"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "الرسائل البريدية"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "منتديات جديدة"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "مستخدمون جدد"
           },
           {
             "@tag": "TITLE",

@@ -2061,8 +2061,28 @@
             "#text": "Liczba godzin między wysyłkami podsumowania musi wynosić co najmniej 1."
           },
           {
+            "@tag": "MSG_SAVED",
+            "#text": "Ustawienia forum zostały zapisane."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Należy wprowadzić komunikat zapowiadający."
+          },
+          {
+            "@tag": "SECTION_DIGEST",
+            "#text": "Podsumowanie"
+          },
+          {
+            "@tag": "SECTION_MAIL",
+            "#text": "E-maile"
+          },
+          {
+            "@tag": "SECTION_NEW_FORUMS",
+            "#text": "Nowe fora"
+          },
+          {
+            "@tag": "SECTION_NEW_USERS",
+            "#text": "Nowi użytkownicy"
           },
           {
             "@tag": "TITLE",
