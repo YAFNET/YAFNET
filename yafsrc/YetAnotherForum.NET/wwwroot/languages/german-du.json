@@ -2717,6 +2717,22 @@
             "#text": "Wenn Sie hier eine Url eingeben, wird diese Url aufgerufen wenn man das Forum öffnet."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Darstellung"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Allgemein"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderation"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Optionen"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Sortiert nach:"
           },

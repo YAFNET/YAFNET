@@ -2721,6 +2721,22 @@
             "#text": "Zadajte tu url adresu a namiesto na fórum budete presmerovaní na túto url adresu."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Vzhľad"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Všeobecné"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderovanie"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Možnosti"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "ZoradiťPoradie:"
           },

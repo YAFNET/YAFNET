@@ -134,10 +134,18 @@ public class EditForumModel : AdminPage
     /// </summary>
     /// <param name="fa">The edit forum id.</param>
     /// <param name="copy">The copy forum id.</param>
+    /// <param name="c">The category of a new forum (the "+ forum" of a category).</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnGet(int? fa = null, bool copy = false)
+    public IActionResult OnGet(int? fa = null, bool copy = false, int? c = null)
     {
         this.Input = new EditForumInputModel();
+
+        // a new forum in the chosen category (only a category of the board)
+        if (!fa.HasValue && c is > 0 && this.GetRepository<Category>().Exists(
+                x => x.ID == c.Value && x.BoardID == this.PageBoardContext.PageBoardID))
+        {
+            this.Input.CategoryID = c.Value;
+        }
 
         return this.BindData(fa, copy);
     }

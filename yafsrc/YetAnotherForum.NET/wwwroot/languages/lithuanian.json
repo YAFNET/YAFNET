@@ -2721,6 +2721,22 @@
             "#text": "Įveskite čia url adresą ir vietoj to, kad eitumėte į forumą, būsite nukreipti į šį url adresą."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Išvaizda"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Bendra"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderavimas"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Parinktys"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Rikiuoti:"
           },

@@ -2721,6 +2721,22 @@
             "#text": "Kirjoita url-osoite tähän, ja foorumille menemisen sijasta sinut viedään tähän url-osoitteeseen."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Ulkoasu"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Yleiset"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderointi"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Asetukset"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Lajittelujärjestys:"
           },

@@ -2717,6 +2717,22 @@
             "#text": "یک آدرس اینترنتی را در اینجا وارد کنید، و به جای رفتن به انجمن، به این آدرس اینترنتی منتقل خواهید شد."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "ظاهر"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "عمومی"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "نظارت"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "گزینه‌ها"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "مرتب سازی:"
           },

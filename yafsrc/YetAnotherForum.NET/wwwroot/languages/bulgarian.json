@@ -2717,6 +2717,22 @@
             "#text": "Въведете URL адрес тук и вместо да отидете във форума, вместо това ще бъдете отведени в този URL адрес."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Външен вид"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Общи"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Модериране"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Опции"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Blackorder:"
           },

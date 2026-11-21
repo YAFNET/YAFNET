@@ -2717,6 +2717,22 @@
             "#text": "أدخل عنوان url هنا ، وبدلاً من الذهاب إلى المنتدى ، سيتم نقلك إلى عنوان url هذا بدلاً من ذلك."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "المظهر"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "عام"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "الإشراف"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "الخيارات"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "امر ترتيب:"
           },

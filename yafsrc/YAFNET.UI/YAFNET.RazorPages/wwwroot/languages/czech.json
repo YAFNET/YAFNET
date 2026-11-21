@@ -2721,6 +2721,22 @@
             "#text": "Zde zadejte adresu URL a místo toho, abyste přešli na fórum, budete přesměrováni na tuto adresu URL."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Vzhled"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Obecné"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderování"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Možnosti"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "ŘaditPořadí:"
           },

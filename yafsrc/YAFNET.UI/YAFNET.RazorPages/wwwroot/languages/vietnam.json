@@ -2721,6 +2721,22 @@
             "#text": "Nhập một url ở đây và thay vì vào diễn đàn, bạn sẽ được đưa đến url này."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Giao diện"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Chung"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Kiểm duyệt"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Tùy chọn"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Thứ tự sắp xếp:"
           },

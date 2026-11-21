@@ -2721,6 +2721,22 @@
             "#text": "Skriv in en webbadress här, så kommer du till den här webbadressen i stället för att gå till forumet."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Utseende"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Allmänt"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderering"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Alternativ"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Sortering:"
           },

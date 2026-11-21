@@ -2717,6 +2717,22 @@
             "#text": "Introduce una url aquí, y en vez de ir al foro serás llevado a esta url en su lugar."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Apariencia"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "General"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderación"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Opciones"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Orden de clasificación:"
           },

@@ -2721,6 +2721,22 @@
             "#text": "Sisestage siia URL ja foorumisse mineku asemel suunatakse teid sellele URL-ile."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Välimus"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Üldine"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Modereerimine"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Valikud"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Blackorder:"
           },

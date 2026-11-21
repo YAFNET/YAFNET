@@ -2721,6 +2721,22 @@
             "#text": "Buraya bir url girin ve foruma gitmek yerine bu url'ye yönlendirileceksiniz."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Görünüm"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Genel"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Denetim"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Seçenekler"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "SıralamaSırası:"
           },

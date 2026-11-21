@@ -2721,6 +2721,22 @@
             "#text": "Skriv inn en url her, og i stedet for å gå til forumet vil du bli ført til denne url i stedet."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Utseende"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Generelt"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderering"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Alternativer"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Sorteringsrekkefølge:"
           },

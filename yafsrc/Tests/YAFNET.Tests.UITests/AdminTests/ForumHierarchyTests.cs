@@ -472,6 +472,77 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// "+ Forum" of a category opens a new forum in this category.
+    /// </summary>
+    [Test]
+    public async Task NewForumOfACategoryTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var categoryId = await this.CreateCategoryAsync(page, $"PlusCategory{Random.Shared.Next()}");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Forums");
+
+                await page.SubmitAndWaitAsync(
+                    page.Locator($"[data-category-id='{categoryId}'] .card-header .btn-group a[href*='EditForum/false?c={categoryId}']"));
+
+                Assert.That(
+                    await page.Locator("#Input_CategoryID").InputValueAsync(),
+                    Is.EqualTo(categoryId),
+                    "The category is not chosen");
+            });
+    }
+
+    /// <summary>
+    /// The moderation options of a forum are shown and saved without sending the page (the switches show the options).
+    /// </summary>
+    [Test]
+    public async Task EditForumModerationOptionsAreSavedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var forumId = await this.SaveForumAsync(page, null, $"ModerationForum{Random.Shared.Next()}", null);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false/{forumId}");
+
+                var options = page.Locator("#ModerationOptions");
+                var count = page.Locator("#ModeratedPostCountRow");
+
+                await Assertions.Expect(options).ToBeHiddenAsync();
+
+                await page.Locator("#Input_Moderated").CheckAsync();
+                await Assertions.Expect(options).ToBeVisibleAsync();
+                await Assertions.Expect(count).ToBeHiddenAsync();
+
+                await page.Locator("#Input_ModerateAllPosts").UncheckAsync();
+                await Assertions.Expect(count).ToBeVisibleAsync();
+
+                await page.Locator("#Input_ModeratedPostCount").FillAsync("3");
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false/{forumId}");
+
+                Assert.That(await page.Locator("#Input_Moderated").IsCheckedAsync(), Is.True, "The forum is not moderated");
+                Assert.That(await page.Locator("#Input_ModerateAllPosts").IsCheckedAsync(), Is.False, "All posts are moderated");
+                Assert.That(await page.Locator("#Input_ModeratedPostCount").InputValueAsync(), Is.EqualTo("3"), "The post count was not saved");
+            });
+    }
+
+    /// <summary>
     /// The names of the sub forums in the forum list are shown as entered (not encoded twice).
     /// </summary>
     [Test]

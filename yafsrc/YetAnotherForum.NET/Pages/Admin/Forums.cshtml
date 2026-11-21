@@ -256,6 +256,14 @@
 							<span class="badge text-bg-secondary">@Html.Icon("eye-slash")@Html.LocalizedText("ADMIN_FORUMS", "INACTIVE")</span>
 						}
 						<div class="ms-auto btn-group btn-group-sm">
+							<a button-style="OutlineSecondary"
+							   button-size="Small"
+							   asp-page="@ForumPages.Admin_EditForum.GetPageName()"
+							   asp-route-copy="false"
+							   asp-route-c="@category.ID"
+							   title-localized-tag="NEW_FORUM"
+							   title-localized-page="ADMIN_FORUMS"
+							   Icon="plus"></a>
 							<a button-style="Primary"
 							   button-size="Small"
 							   asp-page="@ForumPages.Admin_EditCategory.GetPageName()"
@@ -311,6 +319,7 @@
 							   text-localized-tag="NEW_CATEGORY"></a>
 							<a asp-page="@ForumPages.Admin_EditForum.GetPageName()"
 							   asp-route-copy="false"
+							   asp-route-c="@category.ID"
 							   button-style="None"
 							   class="dropdown-item"
 							   Icon="plus-square"

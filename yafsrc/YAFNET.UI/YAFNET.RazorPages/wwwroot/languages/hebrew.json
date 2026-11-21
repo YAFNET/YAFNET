@@ -2721,6 +2721,22 @@
             "#text": "הזן כאן כתובת אתר, ובמקום ללכת לפורום אתה תועבר לכתובת האתר הזו במקום."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "מראה"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "כללי"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "פיקוח"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "אפשרויות"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "סדר המיון:"
           },

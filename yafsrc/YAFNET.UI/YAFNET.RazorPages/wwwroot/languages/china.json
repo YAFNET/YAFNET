@@ -2721,6 +2721,22 @@
             "#text": "在此处输入一个 url，而不是去论坛，你将被带到这个 url。"
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "外观"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "常规"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "审核"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "选项"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "排序："
           },

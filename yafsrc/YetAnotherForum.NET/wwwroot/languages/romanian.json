@@ -2721,6 +2721,22 @@
             "#text": "Introduceți un url aici și, în loc să accesați forumul, veți fi redirecționat către acest url."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Aspect"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "General"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderare"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Opțiuni"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Ordinea de sortare:"
           },

@@ -2717,6 +2717,22 @@
             "#text": "Если вы введёте ссылку, то вместо форума будет отображаться контент по этой ссылке."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Оформление"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Общие"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Модерация"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Параметры"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Сортировка:"
           },

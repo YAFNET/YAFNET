@@ -2717,6 +2717,22 @@
             "#text": "Voer hier een url in, waardoor gebruikers in plaats van naar het forum, naar een externe url gaan."
           },
           {
+            "@tag": "SECTION_APPEARANCE",
+            "#text": "Weergave"
+          },
+          {
+            "@tag": "SECTION_GENERAL",
+            "#text": "Algemeen"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderatie"
+          },
+          {
+            "@tag": "SECTION_OPTIONS",
+            "#text": "Opties"
+          },
+          {
             "@tag": "SORT_ORDER",
             "#text": "Sorteervolgorde:"
           },
