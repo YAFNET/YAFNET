@@ -341,6 +341,32 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// "Cancel" of the access mask editor was a submit button: the empty name of a new mask stopped it, else the
+    /// access masks were shown without the masks (the list was only loaded by a get).
+    /// </summary>
+    [Test]
+    public async Task CancelOfTheAccessMaskEditorShowsTheMasksTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditAccessMask");
+
+                    await page.SubmitAndWaitAsync(
+                        page.Locator("a, button", new PageLocatorOptions { HasTextString = "Cancel" }).Last);
+
+                    Assert.That(page.Url, Does.Contain("Admin/AccessMasks"), "Cancel did not open the access masks");
+                    Assert.That(await page.ContentAsync(), Does.Contain("Member Access"), "The access masks are not listed");
+                });
+    }
+
+    /// <summary>
     /// The id of a group of the groups page.
     /// </summary>
     private static async Task<string> GetGroupIdAsync(IPage page, TestConfig testSettings, string groupName)
