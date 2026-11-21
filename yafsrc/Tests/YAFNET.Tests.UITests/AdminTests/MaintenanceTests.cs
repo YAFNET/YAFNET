@@ -83,4 +83,26 @@ public class MaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 }
             });
     }
+
+    /// <summary>
+    /// The search of the deleted topics starts on the first page: it searched on the shown page, a search with less
+    /// results than that page showed nothing.
+    /// </summary>
+    [Test]
+    public async Task DeletedTopicsSearchStartsOnTheFirstPageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                // the second page of the deleted topics
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Restore/2/1");
+
+                var action = await page.Locator("button[formaction*='Refresh']").GetAttributeAsync("formaction");
+
+                Assert.That(action, Does.Not.Contain("/2/"), $"The search is on the shown page ({action})");
+            });
+    }
 }
