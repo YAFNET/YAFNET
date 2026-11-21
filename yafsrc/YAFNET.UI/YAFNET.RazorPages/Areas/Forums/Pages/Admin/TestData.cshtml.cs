@@ -708,7 +708,8 @@ public class TestDataModel : AdminPage
     {
         var forum = await this.GetRepository<Forum>().GetByIdAsync(forumId);
 
-        var priority = forumId <= 0 ? this.Input.TopicsPriorityList : 0;
+        // the selected priority (normal, sticky, announcement), it was only used without a forum (never)
+        var priority = this.Input.TopicsPriorityList;
 
         if (numTopics <= 0)
         {
