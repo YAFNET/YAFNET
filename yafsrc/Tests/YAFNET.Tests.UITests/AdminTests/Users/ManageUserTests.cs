@@ -674,4 +674,55 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 await Assertions.Expect(page.Locator("button[data-bs-target='#View7']")).ToHaveClassAsync(new Regex(@"\bactive\b"));
             });
     }
+    /// <summary>
+    /// Saving the profile of a user without a birthday keeps it empty: the empty field showed the 1.1.1903 and
+    /// saving it stored that date, the profile showed the birthday "January 1, 1903".
+    /// </summary>
+    [Test]
+    public async Task ProfileWithoutBirthdayKeepsItEmptyTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var userName = $"Birthday{Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/RegisterUser");
+                await page.Locator("#Input_UserName").FillAsync(userName);
+                await page.Locator("#Input_Email").FillAsync($"{userName.ToLower()}@test.com");
+                await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                await page.Locator("#Input_Password2").FillAsync(this.TestSettings.TestUserPassword);
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForumRegister']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+                await page.OpenUserFilterAsync();
+                await page.Locator("#Input_Name").FillAsync(userName);
+                await page.RunAndWaitForNextPageAsync(() => page.Locator("#Input_Name").PressAsync("Enter"));
+
+                var userId = await page.Locator(".user-row", new PageLocatorOptions { HasText = userName }).GetAttributeAsync("data-user-id");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
+
+                // the profile is saved without changes
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/UsersProfile?userId={userId}");
+
+                Assert.That(await page.Locator("#Input_Birthday").InputValueAsync(), Does.Not.Contain("1903"), "The empty birthday shows 1903");
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                // the profile of the user
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
+
+                var profileUrl = await page.Locator("a[href*='/user/']", new PageLocatorOptions { HasText = "View profile" }).GetAttributeAsync("href");
+
+                await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), profileUrl).ToString());
+
+                Assert.That(await page.ContentAsync(), Does.Not.Contain("1903"), "The profile shows the birthday 1903");
+            });
+    }
 }

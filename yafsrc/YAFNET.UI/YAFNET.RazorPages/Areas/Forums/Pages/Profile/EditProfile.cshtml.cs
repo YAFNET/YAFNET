@@ -341,7 +341,7 @@ public class EditProfileModel : ProfilePage
             this.PageBoardContext.MembershipUser.Profile_Birthday.HasValue && this.PageBoardContext.MembershipUser.Profile_Birthday.Value >
             DateTimeHelper.SqlDbMinTime()
                 ? this.PageBoardContext.MembershipUser.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
-                : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
+                : string.Empty;
 
         this.Input.DisplayName = this.PageBoardContext.PageUser.DisplayName;
         this.Input.City = this.PageBoardContext.MembershipUser.Profile_City;
@@ -519,7 +519,8 @@ public class EditProfileModel : ProfilePage
                 userBirthdate = DateTimeHelper.SqlDbMinTime().Date;
             }
 
-            if (userBirthdate >= DateTimeHelper.SqlDbMinTime().Date)
+            // the minimum date is "no birthday" (the empty field showed it and it was saved)
+            if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
             {
                 userProfile.Birthday = userBirthdate.Date;
             }
@@ -528,7 +529,8 @@ public class EditProfileModel : ProfilePage
         {
             DateTime.TryParse(this.Input.Birthday, this.CurrentCultureInfo, DateTimeStyles.None, out userBirthdate);
 
-            if (userBirthdate >= DateTimeHelper.SqlDbMinTime().Date)
+            // the minimum date is "no birthday" (the empty field showed it and it was saved)
+            if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
             {
                 // Attention! This is stored in profile in the user timezone date
                 userProfile.Birthday = userBirthdate.Date;

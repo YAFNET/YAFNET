@@ -68,7 +68,7 @@
 							}
 						}
 
-						@if (Model.CombinedUser.Item2.Profile_Birthday.HasValue && Model.CombinedUser.Item2.Profile_Birthday.Value >= DateTimeHelper.SqlDbMinTime())
+						@if (Model.CombinedUser.Item2.Profile_Birthday.HasValue && Model.CombinedUser.Item2.Profile_Birthday.Value.Date > DateTimeHelper.SqlDbMinTime().Date)
 						{
 							<span class="badge profile-pill text-bg-secondary">
 								@Html.Icon("cake-candles")

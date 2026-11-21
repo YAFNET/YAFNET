@@ -52,6 +52,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit User: Enter in "add points" or "remove points" set the points of the user to the value of "set points", Enter in the suspend duration of a suspended user removed the suspension (the first button of the form was sent)
 * [FIXED] Admin > Edit User: after changing the password of a user (or an error like passwords that do not match) only the password tab was shown, without the forum and the user editor around it; the user editor is shown again with the message
 * [FIXED] Admin > Edit User: after saving a tab (e.g. the roles or the settings) the editor showed the first tab instead of the saved tab (the tab of the address was not read)
+* [FIXED] Profile, Admin > Edit User: an empty birthday was shown as 1.1.1903 and saving the profile stored it, the profile showed the birthday "January 1, 1903"; the empty birthday stays empty and the profiles saved with it show no birthday
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
