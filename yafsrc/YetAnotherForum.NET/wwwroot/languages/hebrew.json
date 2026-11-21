@@ -771,6 +771,10 @@
             "#text": "מסכת גישה חדשה"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "לא בשימוש"
+          },
+          {
             "@tag": "POLL",
             "#text": "מִשׁאָל"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "העלה"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "בשימוש על ידי"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} תפקידים, {1} משתמשים"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "מאפשר למשתמשים לפרסם נושאים חדשים בפורום."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "חבר"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "מנחה"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "ללא גישה"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "קריאה בלבד"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "הגדרות מוכנות:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "גישה עדיפות"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "מאפשר למשתמשים להשיב לנושאים קיימים בפורום."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "ניהול"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "קריאה ופרסום"
           },
           {
             "@tag": "TITLE",

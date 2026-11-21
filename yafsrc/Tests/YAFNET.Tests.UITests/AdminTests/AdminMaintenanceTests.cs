@@ -451,7 +451,8 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
-    /// An access mask that is in use can't be deleted, the message is shown with the list of the masks.
+    /// An access mask that is in use can't be deleted: the delete button is disabled, a delete anyway shows the
+    /// message with the list of the masks.
     /// </summary>
     [Test]
     public async Task DeleteAccessMaskInUseShowsWarningTest()
@@ -467,7 +468,13 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                 var masks = await page.Locator("button[formaction*='/Edit?maskId=']").CountAsync();
 
                 // the first mask (admin access) is used by the forums of the test board
-                await page.Locator("button[formaction$='/Delete?maskId=1']:visible").First.ClickAsync();
+                var delete = page.Locator("button[formaction$='/Delete?maskId=1']:visible").First;
+
+                await Assertions.Expect(delete).ToBeDisabledAsync();
+
+                // the server refuses it as well
+                await delete.EvaluateAsync("button => button.disabled = false");
+                await delete.ClickAsync();
 
                 // the delete is confirmed in a dialog
                 await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));

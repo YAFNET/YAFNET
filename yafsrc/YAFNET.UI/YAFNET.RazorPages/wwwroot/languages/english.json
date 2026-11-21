@@ -771,6 +771,10 @@
                     "#text": "New Access Mask"
                 },
                 {
+                    "@tag": "NOT_USED",
+                    "#text": "Not used"
+                },
+                {
                     "@tag": "POLL",
                     "#text": "Poll"
                 },
@@ -797,6 +801,14 @@
                 {
                     "@tag": "UPLOAD",
                     "#text": "Upload"
+                },
+                {
+                    "@tag": "USED_BY",
+                    "#text": "Used by"
+                },
+                {
+                    "@tag": "USED_BY_COUNT",
+                    "#text": "{0} roles, {1} users"
                 },
                 {
                     "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
                     "#text": "Allows Users to Post New Topics in a Forum."
                 },
                 {
+                    "@tag": "PRESET_MEMBER",
+                    "#text": "Member"
+                },
+                {
+                    "@tag": "PRESET_MODERATOR",
+                    "#text": "Moderator"
+                },
+                {
+                    "@tag": "PRESET_NONE",
+                    "#text": "No access"
+                },
+                {
+                    "@tag": "PRESET_READ",
+                    "#text": "Read only"
+                },
+                {
+                    "@tag": "PRESETS",
+                    "#text": "Presets:"
+                },
+                {
                     "@tag": "PRIORITY_ACCESS",
                     "#text": "Priority Access"
                 },
@@ -2392,6 +2424,14 @@
                 {
                     "@tag": "REPLY_ACCESS_HELP",
                     "#text": "Allows Users to Reply to existing Topics in a Forum."
+                },
+                {
+                    "@tag": "SECTION_MODERATION",
+                    "#text": "Moderation"
+                },
+                {
+                    "@tag": "SECTION_POSTING",
+                    "#text": "Reading & posting"
                 },
                 {
                     "@tag": "TITLE",

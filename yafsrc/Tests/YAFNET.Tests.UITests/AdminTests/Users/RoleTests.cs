@@ -450,6 +450,56 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The presets of the access mask editor set the rights, a new mask with "read only" can only read.
+    /// </summary>
+    [Test]
+    public async Task AccessMaskPresetSetsTheRightsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    var maskName = $"Preset mask {Random.Shared.Next()}";
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditAccessMask");
+
+                    await page.Locator("#Input_Name").FillAsync(maskName);
+                    await page.Locator("[data-preset='PRESET_MODERATOR']").ClickAsync();
+                    await page.Locator("[data-preset='PRESET_READ']").ClickAsync();
+
+                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                    var row = page.Locator("tr[data-mask-id]", new PageLocatorOptions { HasText = maskName });
+                    var maskId = await row.GetAttributeAsync("data-mask-id");
+
+                    try
+                    {
+                        // read (the first right) is allowed, the others not
+                        var allowed = await row.Locator("td.text-center").EvaluateAllAsync<bool[]>(
+                                          "cells => cells.map(c => !!c.querySelector('.fa-check'))");
+
+                        Assert.That(allowed, Is.EqualTo(new[] { true, false, false, false, false, false, false, false, false }));
+                    }
+                    finally
+                    {
+                        await page.EvaluateAsync(
+                            """
+                            async url => {
+                                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                                await fetch(url, { method: 'POST', body: new URLSearchParams({ '__RequestVerificationToken': token }) });
+                            }
+                            """,
+                            $"{this.TestSettings.TestForumUrl}Admin/AccessMasks/Delete?maskId={maskId}");
+                    }
+                });
+    }
+
+    /// <summary>
     /// The id of a group of the groups page.
     /// </summary>
     private static async Task<string> GetGroupIdAsync(IPage page, TestConfig testSettings, string groupName)

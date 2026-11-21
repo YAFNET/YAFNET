@@ -771,6 +771,10 @@
             "#text": "Mască de acces nouă"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Nefolosită"
+          },
+          {
             "@tag": "POLL",
             "#text": "Sondaj"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Încărcați"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Folosită de"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} roluri, {1} utilizatori"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Permite utilizatorilor să posteze subiecte noi într-un forum."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Membru"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderator"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Fără acces"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Doar citire"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Presetări:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Acces prioritar"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Permite utilizatorilor să răspundă la subiectele existente într-un forum."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderare"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Citire și postare"
           },
           {
             "@tag": "TITLE",

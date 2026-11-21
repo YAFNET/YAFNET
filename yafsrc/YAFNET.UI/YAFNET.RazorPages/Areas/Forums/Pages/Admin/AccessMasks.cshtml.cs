@@ -28,6 +28,7 @@ using System.Threading.Tasks;
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
+using System.Linq;
 
 using YAF.Core.Extensions;
 using YAF.Types.Models;
@@ -43,6 +44,11 @@ public class AccessMasksModel : AdminPage
     /// <value>The access mask list.</value>
     [BindProperty]
     public IList<AccessMask> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the usage of the access masks (mask id, the number of roles and users that use it).
+    /// </summary>
+    public Dictionary<int, (int Roles, int Users)> Usage { get; set; } = [];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AccessMasksModel"/> class.
@@ -138,5 +144,17 @@ public class AccessMasksModel : AdminPage
     {
         // list all access masks for this board
         this.List = await this.GetRepository<AccessMask>().GetByBoardIdAsync();
+
+        // the roles (forum access) and users (user forum access) of the masks, a used mask can't be deleted
+        var ids = this.List.Select(m => m.ID).ToList();
+
+        var roles = (await this.GetRepository<ForumAccess>().GetAsync(x => ids.Contains(x.AccessMaskID)))
+            .GroupBy(x => x.AccessMaskID).ToDictionary(g => g.Key, g => g.Select(x => x.GroupID).Distinct().Count());
+        var users = (await this.GetRepository<UserForum>().GetAsync(x => ids.Contains(x.AccessMaskID)))
+            .GroupBy(x => x.AccessMaskID).ToDictionary(g => g.Key, g => g.Select(x => x.UserID).Distinct().Count());
+
+        this.Usage = ids.ToDictionary(
+            id => id,
+            id => (roles.GetValueOrDefault(id), users.GetValueOrDefault(id)));
     }
 }

@@ -771,6 +771,10 @@
             "#text": "Nauja prieigos kaukė"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Nenaudojama"
+          },
+          {
             "@tag": "POLL",
             "#text": "Apklausa"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Įkelti"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Naudoja"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} rolės, {1} vartotojai"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Leidžia naudotojams skelbti naujas temas forume."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Narys"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderatorius"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Jokios prieigos"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Tik skaityti"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Šablonai:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Pirmenybinė prieiga"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Leidžia naudotojams atsakyti į esamas forumo temas."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderavimas"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Skaitymas ir rašymas"
           },
           {
             "@tag": "TITLE",

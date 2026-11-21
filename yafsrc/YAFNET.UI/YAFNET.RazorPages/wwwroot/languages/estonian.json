@@ -771,6 +771,10 @@
             "#text": "Uus juurdepääsumask"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Pole kasutusel"
+          },
+          {
             "@tag": "POLL",
             "#text": "Küsitlus"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Laadi üles"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Kasutavad"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} rolli, {1} kasutajat"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Võimaldab kasutajatel postitada foorumisse uusi teemasid."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Liige"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderaator"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Juurdepääs puudub"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Ainult lugemine"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Eelseaded:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Prioriteetne juurdepääs"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Võimaldab kasutajatel vastata foorumis olemasolevatele teemadele."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Modereerimine"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Lugemine ja postitamine"
           },
           {
             "@tag": "TITLE",

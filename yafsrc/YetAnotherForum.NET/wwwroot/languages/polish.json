@@ -771,6 +771,10 @@
             "#text": "Nowa maska uprawnień"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Nieużywana"
+          },
+          {
             "@tag": "POLL",
             "#text": "Ankieta"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Załączniki"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Używana przez"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} ról, {1} użytkowników"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Pozwala użytkownikom stworzyć nowe tematy w dziale."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Członek"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderator"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Brak dostępu"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Tylko odczyt"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Ustawienia wstępne:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Priorytet"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Pozwala użytkownikom odpowiadać w istniejących tematach w działach."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderacja"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Czytanie i pisanie"
           },
           {
             "@tag": "TITLE",

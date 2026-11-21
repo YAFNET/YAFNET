@@ -771,6 +771,10 @@
             "#text": "新的访问掩码"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "未使用"
+          },
+          {
             "@tag": "POLL",
             "#text": "轮询"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "上传"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "使用者"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} 个角色，{1} 个用户"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "允许用户在论坛中发布新主题。"
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "成员"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "版主"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "无访问"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "只读"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "预设："
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "优先访问"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "允许用户回复论坛中的现有主题。"
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "管理"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "阅读和发帖"
           },
           {
             "@tag": "TITLE",

@@ -771,6 +771,10 @@
             "#text": "Nová přístupová maska"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Nepoužívá se"
+          },
+          {
             "@tag": "POLL",
             "#text": "Hlasování"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "nahrát"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Používá"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} rolí, {1} uživatelů"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Umožňuje uživatelům přidávat nová témata do fóra."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Člen"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderátor"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Bez přístupu"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Jen čtení"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Předvolby:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Prioritní přístup"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Umožňuje uživatelům odpovídat na existující témata ve fóru."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderování"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Čtení a psaní"
           },
           {
             "@tag": "TITLE",

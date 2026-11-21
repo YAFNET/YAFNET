@@ -414,6 +414,19 @@
     }
 }
 
+// Admin access masks
+.admin-access-masks {
+    .access-mask-name {
+        min-width: 10rem;
+        overflow-wrap: anywhere;
+    }
+
+    .access-mask-right {
+        min-width: 4.5rem;
+        font-weight: 500;
+    }
+}
+
 // Admin edit user
 .admin-edit-user {
     .edit-user-avatar {

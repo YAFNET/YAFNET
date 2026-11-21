@@ -771,6 +771,10 @@
             "#text": "Ny åtkomstmask"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Används inte"
+          },
+          {
             "@tag": "POLL",
             "#text": "Omröstning"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Ladda upp"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Används av"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} roller, {1} användare"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Tillåter användare att lägga upp nya ämnen i ett forum."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Medlem"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderator"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Ingen åtkomst"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Endast läsa"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Förval:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Prioriterad tillgång"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Gör det möjligt för användare att svara på befintliga ämnen i ett forum."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderering"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Läsa & skriva"
           },
           {
             "@tag": "TITLE",

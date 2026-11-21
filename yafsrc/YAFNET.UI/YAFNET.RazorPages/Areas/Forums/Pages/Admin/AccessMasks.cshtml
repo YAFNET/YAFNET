@@ -2,155 +2,171 @@
 @model AccessMasksModel
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using YAF.Types.Flags
 @using YAF.Web.HtmlHelpers
 
-<div class="row">
-    <div class="col-xl-12">
-        <div class="card mb-3">
-            <div class="card-header">
-                @Html.IconHeader("universal-access","ADMIN_ACCESSMASKS","TITLE")
-            </div>
-            <div class="card-body">
-                @if (!Model.List.NullOrEmpty())
-                {
-                    <form method="post">
-                        <ul class="list-group">
-                            @foreach (var accessMask in Model.List)
+@{
+    // the rights of an access mask (column title, icon, flag)
+    var rights = new (string Tag, string Icon, Func<AccessFlags, bool> Flag)[]
+    {
+        ("READ", "eye", f => f.ReadAccess),
+        ("POST", "pen", f => f.PostAccess),
+        ("REPLY", "reply", f => f.ReplyAccess),
+        ("PRIORITY", "thumbtack", f => f.PriorityAccess),
+        ("POLL", "poll", f => f.PollAccess),
+        ("VOTE", "check-square", f => f.VoteAccess),
+        ("MODERATOR", "gavel", f => f.ModeratorAccess),
+        ("EDIT", "edit", f => f.EditAccess),
+        ("DELETE", "trash", f => f.DeleteAccess)
+    };
+}
+
+<form method="post" class="admin-access-masks">
+
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <h2 class="h4 mb-0">
+        @Html.IconHeader("universal-access", "ADMIN_ACCESSMASKS", "TITLE")
+        <span class="badge rounded-pill text-bg-secondary align-middle">@(Model.List?.Count ?? 0)</span>
+    </h2>
+    <a asp-page="@ForumPages.Admin_EditAccessMask.GetPageName()"
+       button-style="Primary"
+       Icon="plus-square"
+       text-localized-tag="NEW_MASK">
+    </a>
+</div>
+
+@if (!Model.List.NullOrEmpty())
+{
+    <div class="card mb-3">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 access-mask-table">
+                <thead>
+                    <tr>
+                        <th scope="col">@Html.LocalizedText("ADMIN_ACCESSMASKS", "NAME")</th>
+                        @foreach (var right in rights)
+                        {
+                            <th scope="col" class="text-center access-mask-right">
+                                @Html.Icon(right.Icon, "d-block mx-auto mb-1", marginEnd: false)
+                                <span class="small">@Html.LocalizedText("ADMIN_ACCESSMASKS", right.Tag)</span>
+                            </th>
+                        }
+                        <th scope="col">@Html.LocalizedText("ADMIN_ACCESSMASKS", "USED_BY")</th>
+                        <th scope="col"><span class="visually-hidden">@Html.LocalizedText("ADMIN_ACCESSMASKS", "EDIT")</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var accessMask in Model.List)
+                    {
+                        var flags = accessMask.AccessFlags;
+                        var usage = Model.Usage.GetValueOrDefault(accessMask.ID);
+                        var inUse = usage.Roles > 0 || usage.Users > 0;
+
+                        <tr class="row-menu" data-mask-id="@accessMask.ID">
+                            <th scope="row" class="access-mask-name">
+                                <a asp-page="@ForumPages.Admin_EditAccessMask.GetPageName()"
+                                   asp-route-i="@accessMask.ID">@accessMask.Name</a>
+                                <div class="small text-body-secondary fw-normal">@Html.LocalizedText("SORT_ORDER") @accessMask.SortOrder</div>
+                            </th>
+                            @foreach (var right in rights)
                             {
-                                <li class="list-group-item list-group-item-action list-group-item-menu">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">@accessMask.Name</h5>
-                                        <small class="d-none d-md-block">
-                                            <span class="fw-bold">
-                                                @Html.LocalizedText("SORT_ORDER")
-                                            </span>
-                                            @Html.Raw(accessMask.SortOrder)
-                                        </small>
-                                    </div>
-                                    <p>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_ACCESSMASKS", "READ"):
-                                                <span class="@Html.Raw(Model.GetItemColor(accessMask.AccessFlags.ReadAccess))">
-                                                    @Html.Raw(Model.GetItemName(accessMask.AccessFlags.ReadAccess))
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_ACCESSMASKS", "POST"):
-                                                <span class="@Html.Raw(Model.GetItemColor(accessMask.AccessFlags.PostAccess))">
-                                                    @Html.Raw(Model.GetItemName(accessMask.AccessFlags.PostAccess))
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_ACCESSMASKS", "REPLY"):
-                                                <span class="@Html.Raw(Model.GetItemColor(accessMask.AccessFlags.ReplyAccess))">
-                                                    @Html.Raw(Model.GetItemName(accessMask.AccessFlags.ReplyAccess))
-                                                </span>
-                                            </li>
+                                var allowed = right.Flag(flags);
 
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_ACCESSMASKS", "PRIORITY"):
-                                                <span class="@Html.Raw(Model.GetItemColor(accessMask.AccessFlags.PriorityAccess))">
-                                                    @Html.Raw(Model.GetItemName(accessMask.AccessFlags.PriorityAccess))
-                                                </span>
-
-                                            </li>
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_ACCESSMASKS", "POLL"):
-                                                <span class="@Html.Raw(Model.GetItemColor(accessMask.AccessFlags.PollAccess))">
-                                                    @Html.Raw(Model.GetItemName(accessMask.AccessFlags.PollAccess))
-                                                </span>
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_ACCESSMASKS", "VOTE"):
-                                                <span class="@Html.Raw(Model.GetItemColor(accessMask.AccessFlags.VoteAccess))">
-                                                    @Html.Raw(Model.GetItemName(accessMask.AccessFlags.VoteAccess))
-                                                </span>
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_ACCESSMASKS", "MODERATOR"):
-                                                <span class="@Html.Raw(Model.GetItemColor(accessMask.AccessFlags.ModeratorAccess))">
-                                                    @Html.Raw(Model.GetItemName(accessMask.AccessFlags.ModeratorAccess))
-                                                </span>
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_ACCESSMASKS", "EDIT"):
-                                                <span class="@Html.Raw(Model.GetItemColor(accessMask.AccessFlags.EditAccess))">
-                                                    @Html.Raw(Model.GetItemName(accessMask.AccessFlags.EditAccess))
-                                                </span>
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_ACCESSMASKS", "DELETE"):
-                                                <span class="@Html.Raw(Model.GetItemColor(accessMask.AccessFlags.DeleteAccess))">
-                                                    @Html.Raw(Model.GetItemName(accessMask.AccessFlags.DeleteAccess))
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    </p>
-                                    <small>
-                                        <div class="btn-group btn-group-sm">
-                                            <button button-style="Info"
-                                                    button-size="Small"
-                                                    asp-page-handler="Edit"
-                                                    asp-route-maskId="@accessMask.ID"
-                                                    title-localized-tag="EDIT"
-                                                    Icon="edit"
-                                                    text-localized-tag="EDIT">
-                                            </button>
+                                <td class="text-center">
+                                    @if (allowed)
+                                    {
+                                        @Html.Icon("check", "text-success", marginEnd: false)
+                                    }
+                                    else
+                                    {
+                                        @Html.Icon("times", "text-body-tertiary", marginEnd: false)
+                                    }
+                                    <span class="visually-hidden">@Model.GetItemName(allowed)</span>
+                                </td>
+                            }
+                            <td class="small text-nowrap">
+                                @if (inUse)
+                                {
+                                    @Html.LocalizedTextFormatted("USED_BY_COUNT", usage.Roles, usage.Users)
+                                }
+                                else
+                                {
+                                    <span class="text-body-secondary">@Html.LocalizedText("ADMIN_ACCESSMASKS", "NOT_USED")</span>
+                                }
+                            </td>
+                            <td class="text-end text-nowrap">
+                                <div class="btn-group btn-group-sm">
+                                    <button button-style="Info"
+                                            button-size="Small"
+                                            asp-page-handler="Edit"
+                                            asp-route-maskId="@accessMask.ID"
+                                            title-localized-tag="EDIT"
+                                            Icon="edit"
+                                            text-localized-tag="EDIT">
+                                    </button>
+                                    @if (inUse)
+                                    {
+                                        @* a used mask can't be deleted (the server checks it as well) *@
+                                        <span class="d-inline-block" tabindex="0"
+                                              title="@Html.LocalizedText("ADMIN_ACCESSMASKS", "MSG_NOT_DELETE")">
                                             <button button-style="Danger"
                                                     button-size="Small"
                                                     asp-page-handler="Delete"
                                                     asp-route-maskId="@accessMask.ID"
-                                                    title-localized-tag="DELETE"
+                                                    disabled="disabled"
                                                     Icon="trash"
                                                     text-localized-tag="DELETE"
                                                     return-confirm-tag="CONFIRM_DELETE">
                                             </button>
-                                        </div>
-
-                                        <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                            <button button-style="None"
-                                                    class="dropdown-item"
-                                                    asp-page-handler="Edit"
-                                                    asp-route-maskId="@accessMask.ID"
-                                                    title-localized-tag="EDIT"
-                                                    Icon="edit"
-                                                    text-localized-tag="EDIT">
-                                            </button>
-                                            <button button-style="None"
-                                                    class="dropdown-item"
-                                                    asp-page-handler="Delete"
-                                                    asp-route-maskId="@accessMask.ID"
-                                                    title-localized-tag="DELETE"
-                                                    Icon="trash"
-                                                    text-localized-tag="DELETE"
-                                                    return-confirm-tag="CONFIRM_DELETE">
-                                            </button>
-                                            <div class="dropdown-divider"></div>
-                                            <button asp-page-handler="New"
-                                                    button-style="None"
-                                                    class="dropdown-item"
-                                                    Icon="plus-square"
-                                                    text-localized-tag="NEW_MASK"></button>
-                                        </div>
-                                    </small>
-                                </li>
-                            }
-
-                        </ul>
-                    </form>
-                }
-            </div>
-            <div class="card-footer text-center">
-                <a asp-page="@ForumPages.Admin_EditAccessMask.GetPageName()"
-                        button-style="Primary"
-                        Icon="plus-square"
-                        text-localized-tag="NEW_MASK"></a>
-            </div>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <button button-style="Danger"
+                                                button-size="Small"
+                                                asp-page-handler="Delete"
+                                                asp-route-maskId="@accessMask.ID"
+                                                title-localized-tag="DELETE"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE"
+                                                return-confirm-tag="CONFIRM_DELETE">
+                                        </button>
+                                    }
+                                </div>
+                                <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                    <button button-style="None"
+                                            class="dropdown-item"
+                                            asp-page-handler="Edit"
+                                            asp-route-maskId="@accessMask.ID"
+                                            title-localized-tag="EDIT"
+                                            Icon="edit"
+                                            text-localized-tag="EDIT">
+                                    </button>
+                                    @if (!inUse)
+                                    {
+                                        <button button-style="None"
+                                                class="dropdown-item"
+                                                asp-page-handler="Delete"
+                                                asp-route-maskId="@accessMask.ID"
+                                                title-localized-tag="DELETE"
+                                                Icon="trash"
+                                                text-localized-tag="DELETE"
+                                                return-confirm-tag="CONFIRM_DELETE">
+                                        </button>
+                                    }
+                                    <div class="dropdown-divider"></div>
+                                    <button asp-page-handler="New"
+                                            button-style="None"
+                                            class="dropdown-item"
+                                            Icon="plus-square"
+                                            text-localized-tag="NEW_MASK"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
+}
+
+</form>

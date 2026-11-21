@@ -771,6 +771,10 @@
             "#text": "قناع وصول جديد"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "غير مستخدم"
+          },
+          {
             "@tag": "POLL",
             "#text": "تصويت"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "تحميل"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "مستخدم من قبل"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} أدوار، {1} مستخدمين"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "يسمح للمستخدمين بنشر مواضيع جديدة في المنتدى."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "عضو"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "مشرف"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "بدون وصول"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "قراءة فقط"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "إعدادات جاهزة:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "وصول الأولوية"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "يسمح للمستخدمين بالرد على الموضوعات الموجودة في المنتدى."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "الإشراف"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "القراءة والنشر"
           },
           {
             "@tag": "TITLE",

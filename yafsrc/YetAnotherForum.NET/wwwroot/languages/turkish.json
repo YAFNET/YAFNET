@@ -771,6 +771,10 @@
             "#text": "Yeni Erişim Maskesi"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Kullanılmıyor"
+          },
+          {
             "@tag": "POLL",
             "#text": "Anket"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Yükle"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Kullanan"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} rol, {1} kullanıcı"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Kullanıcıların Bir Forumda Yeni Konular Açmasına İzin Verir."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Üye"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderatör"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Erişim yok"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Salt okunur"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Hazır ayarlar:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Öncelikli Erişim"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Kullanıcıların bir Forumdaki mevcut Konulara Yanıt Vermesine İzin Verir."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderasyon"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Okuma ve yazma"
           },
           {
             "@tag": "TITLE",

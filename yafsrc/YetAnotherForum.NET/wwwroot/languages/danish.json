@@ -771,6 +771,10 @@
             "#text": "Ny adgangsmaske"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Ikke brugt"
+          },
+          {
             "@tag": "POLL",
             "#text": "Afstemning"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Upload"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Bruges af"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} roller, {1} brugere"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Tillader brugere at poste nye emner i et forum."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Medlem"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderator"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Ingen adgang"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Kun læse"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Forudindstillinger:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Prioriteret adgang"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Tillader brugere at svare på eksisterende emner i et forum."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderering"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Læse & skrive"
           },
           {
             "@tag": "TITLE",

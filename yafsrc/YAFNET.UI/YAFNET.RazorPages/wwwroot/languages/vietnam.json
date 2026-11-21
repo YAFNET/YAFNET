@@ -771,6 +771,10 @@
             "#text": "Mặt nạ truy cập mới"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Không sử dụng"
+          },
+          {
             "@tag": "POLL",
             "#text": "Thăm dò ý kiến"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Tải lên"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Được dùng bởi"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} vai trò, {1} người dùng"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Cho phép người dùng đăng các chủ đề mới trong một diễn đàn."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Thành viên"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Điều hành viên"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Không truy cập"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Chỉ đọc"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Mẫu có sẵn:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Quyền truy cập ưu tiên"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Cho phép Người dùng Trả lời các Chủ đề hiện có trong Diễn đàn."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Điều hành"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Đọc & đăng bài"
           },
           {
             "@tag": "TITLE",

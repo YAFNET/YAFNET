@@ -771,6 +771,10 @@
             "#text": "Nieuw Toegangsmasker"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Niet gebruikt"
+          },
+          {
             "@tag": "POLL",
             "#text": "Poll maken"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Uploaden"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Gebruikt door"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} rollen, {1} gebruikers"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Hiermee kunnen gebruikers nieuwe onderwerpen op een forum plaatsen."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Lid"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderator"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Geen toegang"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Alleen lezen"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Voorinstellingen:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Prioritaire toegang"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Hiermee kunnen gebruikers reageren op bestaande onderwerpen in een forum."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderatie"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Lezen & plaatsen"
           },
           {
             "@tag": "TITLE",

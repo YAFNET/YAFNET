@@ -771,6 +771,10 @@
             "#text": "Nova Máscara de Acesso"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Não utilizado"
+          },
+          {
             "@tag": "POLL",
             "#text": "Sondagem"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Carregar"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Utilizado por"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} papéis, {1} utilizadores"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Permite aos Utilizadores Publicar Novos Tópicos num Fórum."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Membro"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderador"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Sem acesso"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Só leitura"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Predefinições:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Acesso prioritário"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Permite aos utilizadores responder a tópicos existentes num fórum."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderação"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Leitura e publicação"
           },
           {
             "@tag": "TITLE",

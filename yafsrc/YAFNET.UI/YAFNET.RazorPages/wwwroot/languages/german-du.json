@@ -771,6 +771,10 @@
             "#text": "Neue Zugangsmaske"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Nicht verwendet"
+          },
+          {
             "@tag": "POLL",
             "#text": "Umfrage"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Hochladen"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Verwendet von"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} Rollen, {1} Benutzer"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Erlaubt Benutzern, neue Themen in einem Forum zu veröffentlichen."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Mitglied"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Moderator"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Kein Zugriff"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Nur lesen"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Vorlagen:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Vorrangiger Zugang"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Ermöglicht es Benutzern, auf bestehende Themen in einem Forum zu antworten."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Moderation"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Lesen & Schreiben"
           },
           {
             "@tag": "TITLE",

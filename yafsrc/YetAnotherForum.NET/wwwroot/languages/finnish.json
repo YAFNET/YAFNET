@@ -771,6 +771,10 @@
             "#text": "Uusi käyttöoikeusmaski"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "Ei käytössä"
+          },
+          {
             "@tag": "POLL",
             "#text": "Kysely"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "Lataa"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Käyttäjät"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} roolia, {1} käyttäjää"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "Sallii käyttäjien lähettää uusia aiheita foorumille."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "Jäsen"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "Valvoja"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "Ei pääsyä"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "Vain luku"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "Esiasetukset:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "Ensisijainen pääsy"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "Antaa käyttäjien vastata foorumin olemassa oleviin aiheisiin."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "Valvonta"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "Lukeminen ja kirjoittaminen"
           },
           {
             "@tag": "TITLE",

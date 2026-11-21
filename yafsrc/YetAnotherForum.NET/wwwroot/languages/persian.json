@@ -771,6 +771,10 @@
             "#text": "قالب دسترسی جدید"
           },
           {
+            "@tag": "NOT_USED",
+            "#text": "استفاده نشده"
+          },
+          {
             "@tag": "POLL",
             "#text": "نظر سنجی"
           },
@@ -797,6 +801,14 @@
           {
             "@tag": "UPLOAD",
             "#text": "بارگذاری"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "استفاده شده توسط"
+          },
+          {
+            "@tag": "USED_BY_COUNT",
+            "#text": "{0} نقش، {1} کاربر"
           },
           {
             "@tag": "VOTE",
@@ -2370,6 +2382,26 @@
             "#text": "کاربرانی می توانند در انجمن موضوع جدید ارسال کنند."
           },
           {
+            "@tag": "PRESET_MEMBER",
+            "#text": "عضو"
+          },
+          {
+            "@tag": "PRESET_MODERATOR",
+            "#text": "ناظر"
+          },
+          {
+            "@tag": "PRESET_NONE",
+            "#text": "بدون دسترسی"
+          },
+          {
+            "@tag": "PRESET_READ",
+            "#text": "فقط خواندن"
+          },
+          {
+            "@tag": "PRESETS",
+            "#text": "پیش‌تنظیم‌ها:"
+          },
+          {
             "@tag": "PRIORITY_ACCESS",
             "#text": "دسترسی اولویت"
           },
@@ -2392,6 +2424,14 @@
           {
             "@tag": "REPLY_ACCESS_HELP",
             "#text": "کاربران می توانند برای موضوعات انجمن پاسخ ارسال نمایند."
+          },
+          {
+            "@tag": "SECTION_MODERATION",
+            "#text": "نظارت"
+          },
+          {
+            "@tag": "SECTION_POSTING",
+            "#text": "خواندن و ارسال"
           },
           {
             "@tag": "TITLE",
