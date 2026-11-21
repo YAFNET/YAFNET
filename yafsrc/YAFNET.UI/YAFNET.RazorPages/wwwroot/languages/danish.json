@@ -6519,6 +6519,14 @@
             "#text": "Vil du slette denne bruger?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Brug \"{0}\" i brugereditoren for også at slette brugerens indlæg."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Kontoen slettes. Brugerens emner og indlæg bevares (som indlæg fra en gæst med brugerens navn), brugerens private beskeder, album, avatar, venner og tak slettes. Dette kan ikke fortrydes."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-mail"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Intet filter]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Gæst"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Søg efter brugere"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Host-administrator"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Importer bruger(e)"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Tilmeldt"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Lås inaktive konti"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Lås alle konti, der ikke er besøgt i det angivne antal år?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Lås inaktive konti ældre end x år. "
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "{0} inaktiv(e) konto(er) blev låst."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Vis kun suspenderede brugere?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Suspenderet til {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Brugere"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Brugeren {0} er slettet."
           },
           {
             "@tag": "USER_NAME",

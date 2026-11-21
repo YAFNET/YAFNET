@@ -53,7 +53,7 @@ public class SuspendUserTests(ComposeScenario scenario) : DatabaseTestBase(scena
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                await page.OpenUserFilterAsync();
 
                 var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
                 await searchNameInput.FillAsync(userName);

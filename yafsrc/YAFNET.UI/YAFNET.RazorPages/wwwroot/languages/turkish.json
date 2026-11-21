@@ -6519,6 +6519,14 @@
             "#text": "Bu kullanıcıyı silelim mi?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Kullanıcının mesajlarını da silmek için kullanıcı düzenleyicisinde \"{0}\"ı kullanın."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Hesap silinir. Kullanıcının konuları ve mesajları korunur (kullanıcının adıyla bir misafirin mesajları olarak), özel mesajları, albümleri, avatarı, arkadaşları ve teşekkürleri silinir. Bu işlem geri alınamaz."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-posta"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Filtre Yok]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Misafir"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Kullanıcıları Ara"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Sunucu yöneticisi"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Kullanıcı(lar)ı İçe Aktar"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Katılma"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Etkin olmayan hesapları kilitleyin"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Belirtilen yıl sayısı boyunca ziyaret edilmeyen tüm hesaplar kilitlensin mi?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "X yıldan daha eski aktif olmayan hesapları kilitleyin. Bu, oradaki içeriği (gönderilen mesajlar gibi) silmez"
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "{0} etkin olmayan hesap kilitlendi."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Yalnızca askıya alınmış kullanıcıları göster?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "{0} tarihine kadar askıda"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Kullanıcılar"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "{0} kullanıcısı silindi."
           },
           {
             "@tag": "USER_NAME",

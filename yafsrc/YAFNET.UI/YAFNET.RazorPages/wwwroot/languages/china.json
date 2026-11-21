@@ -6519,6 +6519,14 @@
             "#text": "删除此用户？"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "如需同时删除该用户的帖子，请在用户编辑器中使用“{0}”。"
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "该帐户将被删除。用户的主题和帖子会保留（作为以该用户名显示的访客帖子），其私信、相册、头像、好友和感谢将被删除。此操作无法撤销。"
+          },
+          {
             "@tag": "EMAIL",
             "#text": "电子邮件"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[没有过滤器]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "访客"
+          },
+          {
             "@tag": "HEADER",
             "#text": "搜索用户"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "主机管理员"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "导入用户"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "注册时间"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "锁定非活动帐户"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "锁定在指定年数内未访问的所有帐户？"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "锁定超过 x 年的非活动帐户。"
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "已锁定 {0} 个不活跃帐户。"
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "只显示暂停的用户？"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "封禁至 {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "用户"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "用户 {0} 已删除。"
           },
           {
             "@tag": "USER_NAME",

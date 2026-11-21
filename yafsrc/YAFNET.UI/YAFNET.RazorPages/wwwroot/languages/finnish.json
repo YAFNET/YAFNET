@@ -6519,6 +6519,14 @@
             "#text": "Poista tämä käyttäjä?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Jos haluat poistaa myös käyttäjän viestit, käytä käyttäjäeditorin \"{0}\"-toimintoa."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Tili poistetaan. Käyttäjän aiheet ja viestit säilyvät (vieraan viesteinä käyttäjän nimellä), käyttäjän yksityisviestit, albumit, avatar, kaverit ja kiitokset poistetaan. Toimintoa ei voi perua."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Sähköposti"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Ei suodatinta]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Vieras"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Etsi käyttäjiä"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Isäntäylläpitäjä"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Tuo käyttäjä(t)"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Liittynyt"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Lukitse inaktiiviset tilit"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Lukitaanko kaikki tilit, joilla ei ole käyty annettuun vuosimäärään?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Lukitse toimimattomat tilit, jotka ovat yli x vuotta vanhoja. Tämä ei poista niiden sisältöä (kuten lähetettyjä viestejä)."
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "{0} passiivista tiliä lukittiin."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Näytä vain keskeytetyt käyttäjät?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Estetty {0} asti"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Käyttäjät"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Käyttäjä {0} poistettiin."
           },
           {
             "@tag": "USER_NAME",

@@ -131,7 +131,7 @@ public class ReputationTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Users and Roles" }).ClickAsync();
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Users", Exact = true }).ClickAsync();
                         // the list is paged (newest first), search the user
-                        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                        await page.OpenUserFilterAsync();
                         await page.Locator("//input[contains(@id,'_Name')]").FillAsync(this.TestSettings.TestUserName);
                         await page.RunAndWaitForNextPageAsync(
                             () => page.Locator("//input[contains(@id,'_Name')]").PressAsync("Enter"));

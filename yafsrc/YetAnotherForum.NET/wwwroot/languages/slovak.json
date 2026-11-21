@@ -6519,6 +6519,14 @@
             "#text": "Vymazať tohto používateľa?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Ak chcete odstrániť aj príspevky používateľa, použite v editore používateľa \"{0}\"."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Účet bude odstránený. Témy a príspevky používateľa zostanú zachované (ako príspevky hosťa s menom používateľa), jeho súkromné správy, albumy, avatar, priatelia a poďakovania budú odstránené. Túto akciu nemožno vrátiť."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-mail"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Bez filtra]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Hosť"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Vyhľadávanie používateľov"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Správca hostiteľa"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Importovať používateľa(ov)"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Registrovaný"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Zablokovanie neaktívnych účtov"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Uzamknúť všetky účty, ktoré neboli navštívené zadaný počet rokov?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Zablokovanie neaktívnych účtov starších ako x rokov. Tým sa neodstráni ich obsah (napríklad odoslané správy)."
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "Uzamknutých neaktívnych účtov: {0}."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Zobraziť len pozastavených používateľov?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Pozastavený do {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Používatelia"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Používateľ {0} bol odstránený."
           },
           {
             "@tag": "USER_NAME",

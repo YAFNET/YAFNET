@@ -6519,6 +6519,14 @@
             "#text": "Supprimer cet utilisateur ?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Pour supprimer aussi les messages de l'utilisateur, utilisez « {0} » dans l'éditeur de l'utilisateur."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Le compte est supprimé. Les sujets et messages de l'utilisateur sont conservés (comme messages d'un invité portant le nom de l'utilisateur), ses messages privés, albums, avatar, amis et remerciements sont supprimés. Cette action est irréversible."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Courriel :"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Pas de filtre]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Invité"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Recherche d'utilisateurs"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Administrateur hôte"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Utilisateur(s) importateur(s)"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Inscrit"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Verrouiller les comptes inactifs"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Verrouiller tous les comptes qui n'ont pas été visités depuis le nombre d'années indiqué ?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Verrouiller les comptes inactifs de plus de x années. Cela ne supprimera pas leur contenu (comme les messages postés)."
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "{0} compte(s) inactif(s) verrouillé(s)."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Afficher uniquement les utilisateurs suspendus ?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Suspendu jusqu'au {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Utilisateurs"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "L'utilisateur {0} a été supprimé."
           },
           {
             "@tag": "USER_NAME",

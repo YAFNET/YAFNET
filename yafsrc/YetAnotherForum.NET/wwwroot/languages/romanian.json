@@ -6519,6 +6519,14 @@
             "#text": "Ștergeți acest utilizator?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Pentru a șterge și mesajele utilizatorului, folosiți \"{0}\" în editorul utilizatorului."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Contul este șters. Subiectele și mesajele utilizatorului sunt păstrate (ca mesaje ale unui vizitator cu numele utilizatorului), mesajele private, albumele, avatarul, prietenii și mulțumirile sunt șterse. Acțiunea nu poate fi anulată."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-mail"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Fără filtru]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Vizitator"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Căutare utilizatori"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Administrator gazdă"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Utilizator(i) de import"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Înregistrat"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Blocați conturile inactive"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Blocați toate conturile care nu au fost vizitate de numărul de ani indicat?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Blocați conturile inactive mai vechi de x ani. Acest lucru nu va șterge conținutul acestora (cum ar fi mesajele postate)."
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "Au fost blocate {0} conturi inactive."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Afișați doar utilizatorii suspendați?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Suspendat până la {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Utilizatori"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Utilizatorul {0} a fost șters."
           },
           {
             "@tag": "USER_NAME",

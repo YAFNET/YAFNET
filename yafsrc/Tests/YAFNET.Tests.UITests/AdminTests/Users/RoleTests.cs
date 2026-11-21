@@ -180,7 +180,7 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     // the user is added to the group
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                    await page.OpenUserFilterAsync();
                     var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
                     await searchNameInput.FillAsync(userName);
                     await searchNameInput.PressAsync("Enter");

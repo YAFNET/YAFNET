@@ -6519,6 +6519,14 @@
             "#text": "Ta bort den här användaren?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Använd \"{0}\" i användarredigeraren för att även ta bort användarens inlägg."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Kontot tas bort. Användarens ämnen och inlägg behålls (som inlägg från en gäst med användarens namn), användarens privata meddelanden, album, avatar, vänner och tack tas bort. Detta kan inte ångras."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-post"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Inget filter]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Gäst"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Sök användare"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Värdadministratör"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Importanvändare"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Registrerad"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Lås inaktiva konton"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Låsa alla konton som inte har besökts på det angivna antalet år?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Lås inaktiva konton som är äldre än x år. Detta kommer inte att radera deras innehåll (t.ex. publicerade meddelanden)."
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "{0} inaktiva konto(n) låstes."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Visa endast avstängda användare?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Avstängd till {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Användare"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Användaren {0} har tagits bort."
           },
           {
             "@tag": "USER_NAME",

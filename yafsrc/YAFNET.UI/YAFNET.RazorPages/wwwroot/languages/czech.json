@@ -6519,6 +6519,14 @@
             "#text": "Smazat tohoto uživatele?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Chcete-li smazat i příspěvky uživatele, použijte v editoru uživatele \"{0}\"."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Účet bude smazán. Témata a příspěvky uživatele zůstanou zachovány (jako příspěvky hosta se jménem uživatele), jeho soukromé zprávy, alba, avatar, přátelé a poděkování budou smazány. Tuto akci nelze vrátit."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-mailem"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Žádný filtr]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Host"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Hledat uživatele"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Správce hostitele"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Importovat uživatele"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Registrován"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Uzamknout neaktivní účty"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Uzamknout všechny účty, které nebyly navštíveny zadaný počet let?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Uzamknout neaktivní účty starší x let. "
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "Uzamčeno neaktivních účtů: {0}."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Zobrazit pouze pozastavené uživatele?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Pozastaven do {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Uživatelé"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Uživatel {0} byl smazán."
           },
           {
             "@tag": "USER_NAME",

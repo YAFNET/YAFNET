@@ -347,6 +347,20 @@ public static class PageExtensions
         }
 
         /// <summary>
+        /// Opens the user filter of Admin > Users (on small screens it is collapsed behind the "Filter" button).
+        /// </summary>
+        public async Task OpenUserFilterAsync()
+        {
+            var name = page.Locator("#Input_Name");
+
+            if (!await name.IsVisibleAsync())
+            {
+                await page.Locator("[data-bs-target='#UserFilter']").ClickAsync();
+                await name.WaitForAsync();
+            }
+        }
+
+        /// <summary>
         /// Login test user
         /// </summary>
         /// <param name="testSettings">

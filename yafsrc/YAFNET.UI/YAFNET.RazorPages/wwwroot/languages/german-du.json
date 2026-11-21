@@ -6511,6 +6511,14 @@
             "#text": "Diesen Benutzer löschen?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Um auch die Beiträge des Benutzers zu löschen, nutze \"{0}\" im Benutzer-Editor."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Das Konto wird gelöscht. Die Themen und Beiträge des Benutzers bleiben erhalten (als Beiträge eines Gastes mit dem Namen des Benutzers), seine privaten Nachrichten, Alben, sein Avatar, seine Freunde und Danksagungen werden gelöscht. Das kann nicht rückgängig gemacht werden."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-Mail"
           },
@@ -6543,12 +6551,24 @@
             "#text": "[Kein Filter]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Gast"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Benutzer suchen"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Host-Admin"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Benuter Importieren"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Registriert"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6559,8 +6579,16 @@
             "#text": "Inaktive Konten sperren"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Alle Konten sperren, die seit der angegebenen Anzahl an Jahren nicht besucht wurden?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Sperren Sie inaktive Konten, die älter als x Jahre sind. Dadurch werden die Inhalte (wie gepostete Nachrichten) nicht gelöscht."
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "{0} inaktive(s) Konto/Konten wurde(n) gesperrt."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6611,8 +6639,16 @@
             "#text": "Nur gesperrte Benutzer anzeigen?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Gesperrt bis {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Benutzer"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Der Benutzer {0} wurde gelöscht."
           },
           {
             "@tag": "USER_NAME",

@@ -320,6 +320,47 @@
     }
 }
 
+// Admin users
+.admin-users {
+    .user-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem .75rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .user-avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        flex: 0 0 auto;
+    }
+
+    .user-main {
+        flex: 1 1 18rem;
+        min-width: 0;
+    }
+
+    .user-name {
+        font-weight: 600;
+        overflow-wrap: anywhere;
+    }
+
+    .user-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .125rem 1rem;
+        font-size: .8rem;
+        color: var(--bs-secondary-color);
+        overflow-wrap: anywhere;
+    }
+}
+
 // Admin edit pages (edit forum, edit category): the actions stay visible at the bottom of the window
 .admin-edit-form {
     .admin-edit-actions {

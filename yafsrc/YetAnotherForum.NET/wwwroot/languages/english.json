@@ -6511,6 +6511,14 @@
                     "#text": "Delete this user?"
                 },
                 {
+                    "@tag": "DELETE_POSTS_HINT",
+                    "#text": "To delete the posts of the user as well, use \"{0}\" in the user editor."
+                },
+                {
+                    "@tag": "DELETE_WARNING",
+                    "#text": "The account is deleted. The topics and posts of the user are kept (as posts of a guest with the name of the user), the private messages, albums, avatar, buddies and thanks of the user are deleted. This can not be undone."
+                },
+                {
                     "@tag": "EMAIL",
                     "#text": "Email"
                 },
@@ -6537,6 +6545,34 @@
                 {
                     "@tag": "FILTER_DROPDOWN",
                     "#text": "Filter"
+                },
+                {
+                    "@tag": "GUEST",
+                    "#text": "Guest"
+                },
+                {
+                    "@tag": "HOST_ADMIN",
+                    "#text": "Host admin"
+                },
+                {
+                    "@tag": "JOINED",
+                    "#text": "Joined"
+                },
+                {
+                    "@tag": "LOCK_INACTIVE_CONFIRM",
+                    "#text": "Lock all accounts that were not visited for the given number of years?"
+                },
+                {
+                    "@tag": "LOCKED_ACCOUNTS",
+                    "#text": "{0} inactive account(s) were locked."
+                },
+                {
+                    "@tag": "SUSPENDED_UNTIL",
+                    "#text": "Suspended until {0}"
+                },
+                {
+                    "@tag": "USER_DELETED",
+                    "#text": "The user {0} was deleted."
                 },
                 {
                     "@tag": "FILTER_NO",

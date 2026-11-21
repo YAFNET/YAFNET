@@ -6511,6 +6511,14 @@
             "#text": "Verwijder deze gebruiker?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Gebruik \"{0}\" in de gebruikerseditor om ook de berichten van de gebruiker te verwijderen."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Het account wordt verwijderd. De onderwerpen en berichten van de gebruiker blijven behouden (als berichten van een gast met de naam van de gebruiker), de privéberichten, albums, avatar, vrienden en bedankjes worden verwijderd. Dit kan niet ongedaan worden gemaakt."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-mail"
           },
@@ -6543,12 +6551,24 @@
             "#text": "[Geen filter]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Gast"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Zoek gebruikers"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Hostbeheerder"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Importeer Gebruiker(s)"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Lid sinds"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6559,8 +6579,16 @@
             "#text": "Inactieve accounts vergrendelen"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Alle accounts blokkeren die het opgegeven aantal jaren niet zijn bezocht?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Vergrendel inactieve accounts ouder dan x jaar. "
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "{0} inactieve account(s) geblokkeerd."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6611,8 +6639,16 @@
             "#text": "Alleen geschorste gebruikers weergeven?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Geschorst tot {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Gebruikers"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "De gebruiker {0} is verwijderd."
           },
           {
             "@tag": "USER_NAME",

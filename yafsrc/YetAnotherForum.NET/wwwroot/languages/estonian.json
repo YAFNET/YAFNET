@@ -6519,6 +6519,14 @@
             "#text": "Kas kustutada see kasutaja?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Kasutaja postituste kustutamiseks kasuta kasutaja muutmislehel valikut \"{0}\"."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Konto kustutatakse. Kasutaja teemad ja postitused jäävad alles (külalise postitustena kasutaja nimega), kasutaja privaatsõnumid, albumid, avatar, sõbrad ja tänud kustutatakse. Seda ei saa tagasi võtta."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "Meil"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Ilma filtrita]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Külaline"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Otsi kasutajaid"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Hosti administraator"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Impordi kasutaja(d)"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Liitunud"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Lukusta passiivsed kontod"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Kas lukustada kõik kontod, mida pole antud arvu aastate jooksul külastatud?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Lukustage mitteaktiivsed kontod, mis on vanemad kui x aastat. "
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "{0} mitteaktiivset kontot lukustati."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Kas kuvada ainult peatatud kasutajad?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Peatatud kuni {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Kasutajad"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Kasutaja {0} kustutati."
           },
           {
             "@tag": "USER_NAME",

@@ -25,6 +25,7 @@
 
 namespace YAF.Pages.Admin;
 
+using System.Net;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -126,7 +127,10 @@ public class UsersModel : AdminPage
 
         if (userToDelete is null)
         {
-            return this.Get<ILinkBuilder>().AccessDenied();
+            // a user of another board or a user that was deleted already (the page was sent again): the list
+            this.BindData();
+
+            return this.Page();
         }
 
         if (userToDelete.Item1.UserFlags.IsGuest)
@@ -152,10 +156,12 @@ public class UsersModel : AdminPage
         // all is good, user can be deleted
         await this.Get<IAspNetUsersHelper>().DeleteUserAsync(id);
 
-        // rebind data
+        // the list is shown again with the filter (the notification shows the message as html)
         this.BindData();
 
-        return this.Page();
+        return this.PageBoardContext.Notify(
+            this.GetTextFormatted("USER_DELETED", WebUtility.HtmlEncode(userToDelete.Item1.DisplayOrUserName())),
+            MessageTypes.success);
     }
 
     /// <summary>
@@ -272,7 +278,7 @@ public class UsersModel : AdminPage
     /// <summary>
     /// The lock accounts click.
     /// </summary>
-    public async Task OnPostLockAccountsAsync()
+    public async Task<IActionResult> OnPostLockAccountsAsync()
     {
         // at least one year, 0 or a negative value would lock (almost) all users
         var years = Math.Clamp(this.Input.YearsOld, 1, 100);
@@ -286,6 +292,8 @@ public class UsersModel : AdminPage
             EventLogTypes.UserSuspended);
 
         this.BindData();
+
+        return this.PageBoardContext.Notify(this.GetTextFormatted("LOCKED_ACCOUNTS", lockedCount), MessageTypes.success);
     }
 
     /// <summary>

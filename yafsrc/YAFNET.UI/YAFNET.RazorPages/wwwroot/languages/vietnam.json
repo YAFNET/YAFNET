@@ -6519,6 +6519,14 @@
             "#text": "Xóa người dùng này?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Để xóa cả bài viết của người dùng, hãy dùng \"{0}\" trong trình sửa người dùng."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Tài khoản sẽ bị xóa. Chủ đề và bài viết của người dùng được giữ lại (như bài viết của khách với tên người dùng), tin nhắn riêng, album, ảnh đại diện, bạn bè và lời cảm ơn sẽ bị xóa. Không thể hoàn tác thao tác này."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "E-mail"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Không có bộ lọc]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Khách"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Tìm kiếm người dùng"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Quản trị viên máy chủ"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Nhập (các) người dùng"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Tham gia"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Khóa các tài khoản không hoạt động"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Khóa tất cả tài khoản không được truy cập trong số năm đã cho?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Khóa các tài khoản không hoạt động cũ hơn x năm. Điều này sẽ không xóa nội dung đó (như tin nhắn đã đăng)"
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "Đã khóa {0} tài khoản không hoạt động."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Chỉ hiển thị những người dùng bị tạm ngừng?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Bị đình chỉ đến {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Người dùng"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Đã xóa người dùng {0}."
           },
           {
             "@tag": "USER_NAME",

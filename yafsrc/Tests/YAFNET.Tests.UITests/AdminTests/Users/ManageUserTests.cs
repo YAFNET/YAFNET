@@ -57,7 +57,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     "Login failed");
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                await page.OpenUserFilterAsync();
 
                 var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
                 await searchNameInput.FillAsync(userName);
@@ -123,7 +123,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                await page.OpenUserFilterAsync();
 
                 // Search for the new user
                 var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
@@ -142,9 +142,9 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 var userId = href[(href.LastIndexOf('/') + 1)..];
 
-                await page.Locator($"//button[contains(@formaction,'Delete?id={userId}')]").First.ClickAsync();
+                await page.Locator($".user-row[data-user-id='{userId}'] .user-actions [data-bs-target='#DeleteUserDialog']").ClickAsync();
 
-                await page.SubmitAndWaitAsync(page.Locator(".btn-success"));
+                await page.SubmitAndWaitAsync(page.Locator("#DeleteUserDialog button[formaction*='Delete']"));
 
                 // the search field still contains the name, the list must not
                 Assert.That(await editUserButton.CountAsync(), Is.Zero, $"{userName} was not deleted");
@@ -181,7 +181,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                await page.OpenUserFilterAsync();
 
                 // Search for TestUser
                 var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
@@ -205,7 +205,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
+                await page.OpenUserFilterAsync();
 
                 // Search for TestUser
                 searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
@@ -262,7 +262,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 // waits for the new page (the old page is loaded already when the response arrives)
                 var response = await page.RunAndWaitForNextPageResponseAsync(
-                                   () => page.EvaluateAsync("() => document.querySelector(\"button[formaction*='/Search']\").click()"));
+                                   () => page.EvaluateAsync("() => { const b = document.querySelector(\"button[formaction*='/Search']\"); b.form.requestSubmit(b); }"));
 
                 Assert.That(response?.Status, Is.EqualTo(200), "The filter failed");
 
@@ -277,7 +277,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 // waits for the new page, closing the page while it is loaded never ends
                 response = await page.RunAndWaitForNextPageResponseAsync(
-                               () => page.EvaluateAsync("() => document.querySelector(\"button[formaction*='/LockAccounts']\").click()"));
+                               () => page.EvaluateAsync("() => { const b = document.querySelector(\"button[formaction*='/LockAccounts']\"); b.form.requestSubmit(b); }"));
 
                 Assert.That(response?.Status, Is.EqualTo(200), "Lock inactive accounts failed");
             });
@@ -373,7 +373,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 var row = page.Locator(".list-group-item-menu", new PageLocatorOptions { HasText = this.TestSettings.AdminUserName }).First;
 
-                await row.Locator("h5").ClickAsync(new LocatorClickOptions { Button = MouseButton.Right, Position = new Position { X = 1, Y = 1 } });
+                await row.Locator(".user-meta").ClickAsync(new LocatorClickOptions { Button = MouseButton.Right, Position = new Position { X = 1, Y = 1 } });
 
                 var edit = row.Locator(".context-menu .dropdown-item", new LocatorLocatorOptions { HasText = "Edit" }).First;
 
@@ -434,11 +434,7 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 var name = page.Locator("#Input_Name");
 
-                // the filter can be in a dropdown
-                if (!await name.IsVisibleAsync())
-                {
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Filter" }).ClickAsync();
-                }
+                await page.OpenUserFilterAsync();
 
                 await name.FillAsync(this.TestSettings.AdminUserName);
 
@@ -448,6 +444,51 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 Assert.That(request.Url, Does.Not.Contain("LockAccounts"), "Enter locked the inactive accounts");
                 Assert.That(request.Url, Does.Contain("Search"), "Enter did not search");
+            });
+    }
+    /// <summary>
+    /// A user is deleted with the delete dialog of the list: the dialog names the user, the list is shown
+    /// again with a notification and without the user.
+    /// </summary>
+    [Test]
+    public async Task DeleteUserWithTheDialogTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+                await page.OpenUserFilterAsync();
+
+                var searchNameInput = page.Locator("#Input_Name");
+                await searchNameInput.FillAsync(userName);
+                await page.RunAndWaitForNextPageAsync(() => searchNameInput.PressAsync("Enter"));
+
+                var row = page.Locator(".user-row", new PageLocatorOptions { HasText = userName }).First;
+
+                await row.Locator(".user-actions [data-bs-target='#DeleteUserDialog']").ClickAsync();
+
+                var dialog = page.Locator("#DeleteUserDialog");
+
+                await Assertions.Expect(dialog).ToBeVisibleAsync();
+                await Assertions.Expect(dialog.Locator("[data-delete-user-name]")).ToHaveTextAsync(userName);
+
+                await page.SubmitAndWaitAsync(dialog.Locator("button[formaction*='Delete']"));
+
+                await Assertions.Expect(page.Locator(".toast").Last).ToContainTextAsync(userName);
+                Assert.That(
+                    await page.Locator(".user-row", new PageLocatorOptions { HasText = userName }).CountAsync(),
+                    Is.Zero,
+                    "The user was not deleted");
             });
     }
 }

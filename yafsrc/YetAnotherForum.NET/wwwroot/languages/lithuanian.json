@@ -6519,6 +6519,14 @@
             "#text": "Ištrinti šį naudotoją?"
           },
           {
+            "@tag": "DELETE_POSTS_HINT",
+            "#text": "Norėdami ištrinti ir naudotojo pranešimus, naudotojo redaktoriuje naudokite \"{0}\"."
+          },
+          {
+            "@tag": "DELETE_WARNING",
+            "#text": "Paskyra ištrinama. Naudotojo temos ir pranešimai išsaugomi (kaip svečio pranešimai su naudotojo vardu), naudotojo asmeninės žinutės, albumai, avataras, draugai ir padėkos ištrinami. Šio veiksmo atšaukti negalima."
+          },
+          {
             "@tag": "EMAIL",
             "#text": "El. paštas"
           },
@@ -6551,12 +6559,24 @@
             "#text": "[Nėra filtro]"
           },
           {
+            "@tag": "GUEST",
+            "#text": "Svečias"
+          },
+          {
             "@tag": "HEADER",
             "#text": "Paieškos naudotojai"
           },
           {
+            "@tag": "HOST_ADMIN",
+            "#text": "Prieglobos administratorius"
+          },
+          {
             "@tag": "IMPORT",
             "#text": "Importo naudotojas (-ai)"
+          },
+          {
+            "@tag": "JOINED",
+            "#text": "Užsiregistravo"
           },
           {
             "@tag": "LAST_VISIT",
@@ -6567,8 +6587,16 @@
             "#text": "Neaktyvių paskyrų užrakinimas"
           },
           {
+            "@tag": "LOCK_INACTIVE_CONFIRM",
+            "#text": "Užrakinti visas paskyras, kurios nebuvo aplankytos nurodytą metų skaičių?"
+          },
+          {
             "@tag": "LOCK_INACTIVE_HELP",
             "#text": "Užblokuokite neaktyvias paskyras, senesnes nei x metų. Tai nepašalins jų turinio (pvz., paskelbtų žinučių)."
+          },
+          {
+            "@tag": "LOCKED_ACCOUNTS",
+            "#text": "Užrakinta neaktyvių paskyrų: {0}."
           },
           {
             "@tag": "MSG_DELETE_ADMIN",
@@ -6619,8 +6647,16 @@
             "#text": "Rodyti tik sustabdytus naudotojus?"
           },
           {
+            "@tag": "SUSPENDED_UNTIL",
+            "#text": "Sustabdyta iki {0}"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Vartotojai"
+          },
+          {
+            "@tag": "USER_DELETED",
+            "#text": "Naudotojas {0} ištrintas."
           },
           {
             "@tag": "USER_NAME",
