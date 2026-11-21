@@ -41,6 +41,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Forums: a sub forum with a lower sort order than its parent was shown above the parent, the third level was indented like the second; the forums of a category are shown as a tree (each forum followed by its sub forums at any depth)
 * [FIXED] Forum select (move topics, delete forum, search, forum jump): a sub forum with a lower sort order than its parent was listed above the parent and apart from it, every level had the same indent; the forums are listed as a tree, indented per level
 * [FIXED] Admin > Edit Forum: saving a forum removed its parent forum when the forum was not in the first category, was a forum of the third level or was in an inactive category (the parent list had the forums without parent of the first category); the parent list has all forums of the category of the forum as a tree, without the forum and its sub forums
+* [FIXED] Admin > Users: "Import" opened the import of the spam words instead of the import of the users
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

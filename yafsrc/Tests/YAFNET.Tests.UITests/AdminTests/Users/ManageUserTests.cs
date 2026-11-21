@@ -324,4 +324,31 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                 await page.GetByText($"User {userName} Created Successfully.").WaitForAsync();
             });
     }
+
+    /// <summary>
+    /// "Import" of Admin > Users opens the import of users (it opened the import of the spam words).
+    /// </summary>
+    [Test]
+    public async Task ImportButtonOpensTheUsersImportTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+
+                await page.Locator("button[data-bs-toggle='ajax-modal'][data-url*='Import']").ClickAsync();
+
+                var form = page.Locator(".modal.show form#formImport");
+
+                await Assertions.Expect(form).ToBeVisibleAsync();
+
+                Assert.That(await form.GetAttributeAsync("action"), Does.Contain("UsersImport"), "The import of the users is not opened");
+            });
+    }
 }
