@@ -2057,6 +2057,10 @@
             "#text": "Mevcut Pano Ayarları"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Özet gönderimleri arasındaki saat en az 1 olmalıdır."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Bir Anons Mesajı girmeniz gerekir."
           },

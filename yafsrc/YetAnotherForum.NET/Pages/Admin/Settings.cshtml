@@ -166,7 +166,7 @@
                                asp-for="Input.DigestSendEveryXHours"
                                localized-tag="BOARD_DIGEST_HOURS"
                                localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <input type="number" asp-for="Input.DigestSendEveryXHours" class="form-control"/>
+                        <input type="number" asp-for="Input.DigestSendEveryXHours" min="1" class="form-control"/>
                     </div>
                 </div>
                 <div class="mb-3">

@@ -66,6 +66,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Group: the admin flag of the only group with admin rights could be removed, the board had no admins anymore (the group can't be deleted for the same reason); the flag is kept with a message
 * [FIXED] Admin > Edit Access Mask: "Cancel" was a submit button, the empty name of a new access mask stopped it, else the access masks page was shown without the access masks
 * [FIXED] Admin > Board Settings: the default page size was a free number, a page size of 0 (or less) was saved and the lists of the new users were empty, now one of the page sizes of the user settings is chosen (5 to 50)
+* [FIXED] Admin > Board Settings: the hours between the digests could be 0 or less, the digest was then sent on each run of the task, now at least 1 hour is needed
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

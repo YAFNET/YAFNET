@@ -2057,6 +2057,10 @@
             "#text": "Nuvarande inställningar för styrelsen"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Antalet timmar mellan utskick av sammanfattningen måste vara minst 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Du måste ange ett meddelande."
           },

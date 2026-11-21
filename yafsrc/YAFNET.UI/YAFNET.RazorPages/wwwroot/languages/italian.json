@@ -2057,6 +2057,10 @@
             "#text": "Impostazioni attuali della scheda"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Le ore tra gli invii del riepilogo devono essere almeno 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "È necessario inserire un messaggio di annuncio."
           },

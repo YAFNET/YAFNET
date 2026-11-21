@@ -2057,6 +2057,10 @@
             "#text": "Nykyiset hallituksen asetukset"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Koosteen lähetysten välisten tuntien on oltava vähintään 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Sinun on annettava kuulutusviesti."
           },

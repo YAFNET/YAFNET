@@ -2057,6 +2057,10 @@
             "#text": "Gjeldende styreinnstillinger"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Antall timer mellom utsending av sammendraget må være minst 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Du må skrive inn en kunngjøringsmelding."
           },

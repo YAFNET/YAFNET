@@ -120,18 +120,29 @@ public class SettingsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public Task OnGetAsync()
+    public async Task OnGetAsync()
     {
         this.Input = new SettingsInputModel();
 
-        return this.BindDataAsync();
+        await this.BindListsAsync();
+        await this.BindDataAsync();
     }
 
     /// <summary>
     /// Save the Board Settings
     /// </summary>
-    public IActionResult OnPostSave()
+    public async Task<IActionResult> OnPostSaveAsync()
     {
+        // at least one hour between the digests (else the digest is sent on each run of the task)
+        if (this.Input.DigestSendEveryXHours < 1)
+        {
+            await this.BindListsAsync();
+
+            return this.PageBoardContext.Notify(
+                this.GetText("ADMIN_BOARDSETTINGS", "MSG_DIGEST_HOURS"),
+                MessageTypes.danger);
+        }
+
         var languageFile = "english.json";
 
         var cultures = StaticDataHelper.Cultures().Where(c => c.CultureTag.Equals(this.Input.Culture)).ToList();
@@ -187,18 +198,13 @@ public class SettingsModel : AdminPage
     }
 
     /// <summary>
-    /// Binds the data.
+    /// Binds the lists of the selects.
     /// </summary>
-    private async Task BindDataAsync()
+    private async Task BindListsAsync()
     {
         this.CreateLogosList();
 
-        var board = await this.GetRepository<Board>().GetByIdAsync(this.PageBoardContext.PageBoardID);
-
         var boardSettings = this.PageBoardContext.BoardSettings;
-
-        this.Input.Name = board.Name;
-        this.Input.Description = board.Description;
 
         this.Themes = StaticDataHelper.Themes();
 
@@ -250,6 +256,19 @@ public class SettingsModel : AdminPage
             await this.GetRepository<AccessMask>().GetByBoardIdAsync(),
             nameof(AccessMask.ID),
             nameof(AccessMask.Name));
+    }
+
+    /// <summary>
+    /// Binds the data.
+    /// </summary>
+    private async Task BindDataAsync()
+    {
+        var board = await this.GetRepository<Board>().GetByIdAsync(this.PageBoardContext.PageBoardID);
+
+        var boardSettings = this.PageBoardContext.BoardSettings;
+
+        this.Input.Name = board.Name;
+        this.Input.Description = board.Description;
 
         this.Input.ForumDefaultAccessMask = boardSettings.ForumDefaultAccessMask;
 

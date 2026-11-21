@@ -56,6 +56,30 @@ public class BoardSettingsTests(ComposeScenario scenario) : DatabaseTestBase(sce
     }
 
     /// <summary>
+    /// The hours between the digests can't be 0 or less (the digest was sent on each run of the task).
+    /// </summary>
+    [Test]
+    public async Task DigestHoursBelowOneAreNotSavedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+
+                var before = await GetValueAsync(page, "Input.DigestSendEveryXHours");
+
+                await SubmitValueAsync(page, "Input.DigestSendEveryXHours", "-5");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+
+                Assert.That(await GetValueAsync(page, "Input.DigestSendEveryXHours"), Is.EqualTo(before), "The negative hours were saved");
+            });
+    }
+
+    /// <summary>
     /// Gets the value of a field of the board settings.
     /// </summary>
     private static Task<string> GetValueAsync(IPage page, string name)

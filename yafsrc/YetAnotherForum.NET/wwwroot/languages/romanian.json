@@ -2057,6 +2057,10 @@
             "#text": "Setări curente ale plăcii"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Numărul de ore dintre trimiterile rezumatului trebuie să fie cel puțin 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Trebuie să introduceți un mesaj de anunț."
           },

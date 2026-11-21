@@ -2057,6 +2057,10 @@
             "#text": "Aktuálne nastavenia dosky"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Počet hodín medzi odosielaním súhrnu musí byť aspoň 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Musíte zadať oznamovaciu správu."
           },

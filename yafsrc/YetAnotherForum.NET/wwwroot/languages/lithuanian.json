@@ -2057,6 +2057,10 @@
             "#text": "Dabartiniai lentos nustatymai"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Valandų tarp santraukos siuntimų turi būti bent 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Reikia įvesti pranešimo pranešimą."
           },

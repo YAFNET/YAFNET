@@ -2057,6 +2057,10 @@
             "#text": "Ustawienia tego forum"
           },
           {
+            "@tag": "MSG_DIGEST_HOURS",
+            "#text": "Liczba godzin między wysyłkami podsumowania musi wynosić co najmniej 1."
+          },
+          {
             "@tag": "NEED_MESSAGE",
             "#text": "Należy wprowadzić komunikat zapowiadający."
           },
