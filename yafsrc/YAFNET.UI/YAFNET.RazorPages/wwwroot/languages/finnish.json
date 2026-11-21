@@ -2806,6 +2806,10 @@
             "#text": "Kun tämä on valittuna, tämän roolin jäsenillä on joitakin YAF:n ylläpitäjän oikeuksia."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Vieraiden rooli (kirjautumattomat vierailijat), vierasmerkintää ei voi muuttaa."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Pääsy"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Tehtävän nimi."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Foorumien käyttöoikeus"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Näyttö"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Rajat"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Oikeudet"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Aseta kaikille foorumeille"
           },
           {
             "@tag": "SIG_BBCODES",

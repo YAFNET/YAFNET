@@ -2806,6 +2806,10 @@
             "#text": "Når dette er merket av, vil medlemmer av denne rollen ha noen admin-tilgangsrettigheter i YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Gjestenes rolle (besøkende som ikke er logget inn), gjesteflagget kan ikke endres."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Adgang"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Navnet på denne rollen."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Foratilgang"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Visning"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Grenser"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Rettigheter"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Sett alle fora til"
           },
           {
             "@tag": "SIG_BBCODES",

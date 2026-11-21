@@ -2802,6 +2802,10 @@
             "#text": "Wenn aktiviert werden Mitglieder dieser Gruppe ein paar Admin-Zugriffsrechte im Forum haben."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Die Rolle der Gäste (der nicht angemeldeten Besucher), das Gast-Merkmal kann nicht geändert werden."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Zugang"
           },
@@ -2872,6 +2876,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Name dieser Rolle."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Forenzugriff"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Darstellung"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Grenzen"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Rechte"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Alle Foren setzen auf"
           },
           {
             "@tag": "SIG_BBCODES",

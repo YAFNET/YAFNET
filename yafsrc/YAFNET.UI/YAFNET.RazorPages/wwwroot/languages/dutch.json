@@ -2802,6 +2802,10 @@
             "#text": "Als deze is aangevinkt, hebben de leden van deze rol enige beheerfunctionaliteiten."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "De rol van de gasten (de bezoekers die niet zijn ingelogd), de gastvlag kan niet worden gewijzigd."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Toegang"
           },
@@ -2872,6 +2876,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Naam van deze rol."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Forumtoegang"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Weergave"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Limieten"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Rechten"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Alle forums instellen op"
           },
           {
             "@tag": "SIG_BBCODES",

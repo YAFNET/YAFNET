@@ -59,6 +59,15 @@ public class EditGroupModel : AdminPage
     public SelectList NewAccessMasks { get; set; }
 
     /// <summary>
+    /// Gets or sets the access masks of the forums as the forum tree of each category.
+    /// </summary>
+    public List<(string Category, List<(int ForumID, string ForumName, int Depth, int AccessMaskID)> Forums)> ForumAccessTree
+    {
+        get;
+        set;
+    } = [];
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="EditGroupModel"/> class.
     /// </summary>
     public EditGroupModel()
@@ -307,6 +316,8 @@ public class EditGroupModel : AdminPage
         {
             this.AccessMasksList = this.GetRepository<ForumAccess>()
                 .ListByGroups(i.Value);
+
+            this.BindForumAccessTree();
         }
 
         this.NewAccessMasks = new SelectList(
@@ -319,6 +330,46 @@ public class EditGroupModel : AdminPage
     /// Only groups of the current board can be edited (all handlers, the id is sent by the client).
     /// </summary>
     /// <param name="context">The context.</param>
+    /// <summary>
+    /// The access masks of the forums as the forum tree of each category (the sub forums below their parent).
+    /// </summary>
+    private void BindForumAccessTree()
+    {
+        var masks = this.AccessMasksList.DistinctBy(x => x.ForumID).ToDictionary(x => x.ForumID, x => x.AccessMaskID);
+
+        // the categories and forums of the board in their order (the access masks only of the active categories)
+        var forums = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
+            .Where(x => x.Item2 is { ID: > 0 } && masks.ContainsKey(x.Item2.ID)).ToList();
+
+        this.ForumAccessTree = [];
+
+        foreach (var category in forums.GroupBy(x => x.Item1.ID))
+        {
+            var categoryForums = category.Select(x => x.Item2).ToList();
+            var ids = categoryForums.Select(f => f.ID).ToHashSet();
+            var rows = new List<(int ForumID, string ForumName, int Depth, int AccessMaskID)>();
+
+            void AddForums(IEnumerable<Forum> children, int depth)
+            {
+                foreach (var forum in children)
+                {
+                    rows.Add((forum.ID, forum.Name, depth, masks[forum.ID]));
+
+                    // a forum can't be its own parent (no endless loop with broken data)
+                    if (depth < 20)
+                    {
+                        AddForums(categoryForums.Where(f => f.ParentID == forum.ID && f.ID != forum.ID), depth + 1);
+                    }
+                }
+            }
+
+            // the forums without a parent in the category are the roots
+            AddForums(categoryForums.Where(f => f.ParentID is null || !ids.Contains(f.ParentID.Value)), 0);
+
+            this.ForumAccessTree.Add((category.First().Item1.Name, rows));
+        }
+    }
+
     public override void OnPageHandlerExecuting(Microsoft.AspNetCore.Mvc.Filters.PageHandlerExecutingContext context)
     {
         var id = context.HandlerArguments.TryGetValue("i", out var argument) && argument is int argumentId ? argumentId : this.Input?.Id;

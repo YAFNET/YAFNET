@@ -524,6 +524,30 @@
         background-color: var(--bs-tertiary-bg);
         box-shadow: 0 -4px 12px rgba(0, 0, 0, .06);
     }
+
+    // the access masks of the forums (edit role)
+    .group-access-category {
+        font-weight: 600;
+        background-color: var(--bs-tertiary-bg);
+    }
+
+    .group-access-forum {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: .25rem 1rem;
+
+        .form-select {
+            width: auto;
+            min-width: 12rem;
+        }
+    }
+
+    .group-access-name {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

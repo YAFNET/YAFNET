@@ -2802,6 +2802,10 @@
             "#text": "Cuando esto está seleccionado, los miembros de este rol tendrán algunos permisos de acceso de administrador en YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "El rol de los invitados (los visitantes que no han iniciado sesión), el indicador de invitado no se puede cambiar."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Acceso"
           },
@@ -2872,6 +2876,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Nobre de este rol."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Acceso a los foros"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Visualización"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Límites"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Derechos"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Establecer todos los foros en"
           },
           {
             "@tag": "SIG_BBCODES",

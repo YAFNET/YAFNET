@@ -2806,6 +2806,10 @@
             "#text": "Ak je táto možnosť začiarknutá, členovia tejto roly budú mať určité práva administrátora v systéme YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Rola hostí (neprihlásených návštevníkov), príznak hosťa nemožno zmeniť."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Prístup"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Názov tejto úlohy."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Prístup k fóram"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Zobrazenie"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Limity"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Práva"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Nastaviť všetkým fóram"
           },
           {
             "@tag": "SIG_BBCODES",

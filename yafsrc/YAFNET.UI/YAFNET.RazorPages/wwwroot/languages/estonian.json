@@ -2806,6 +2806,10 @@
             "#text": "Kui see on märgitud, on selle rolli liikmetel YAF-is teatud administraatori juurdepääsuõigused."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Külaliste roll (sisse logimata külastajad), külalise märget ei saa muuta."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Juurdepääs"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Selle rolli nimi."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Foorumite juurdepääs"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Kuvamine"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Piirangud"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Õigused"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Määra kõigile foorumitele"
           },
           {
             "@tag": "SIG_BBCODES",

@@ -16,3 +16,73 @@ document.addEventListener('DOMContentLoaded', () => {
 		update();
 	});
 });
+
+// A select with data-set-all sets the value of all selects of the selector (e.g. the access masks of all forums)
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLSelectElement>('.admin-edit-form select[data-set-all]').forEach(select => {
+		select.addEventListener('change', () => {
+			if (select.value === '') {
+				return;
+			}
+
+			document.querySelectorAll<HTMLSelectElement>(select.dataset.setAll ?? '').forEach(target => target.value = select.value);
+		});
+	});
+});
+
+// A button with data-set-checks sets the switches of its JSON object ({ "#id": true, ... }), e.g. the presets of an access mask
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLButtonElement>('.admin-edit-form button[data-set-checks]').forEach(button => {
+		button.addEventListener('click', () => {
+			const checks = JSON.parse(button.dataset.setChecks ?? '{}') as Record<string, boolean>;
+
+			Object.entries(checks).forEach(([selector, checked]) => {
+				const input = document.querySelector<HTMLInputElement>(selector);
+
+				if (input) {
+					input.checked = checked;
+					input.dispatchEvent(new Event('change', { bubbles: true }));
+				}
+			});
+		});
+	});
+});
+
+// The style of a role is shown on a preview of the name (the style can have a light and a dark part
+// "light!style/dark!style", the preview shows the color of the first part like the names of the forum)
+function decodeStyle(style: string): string {
+	const parts = style.trim().split('/').map(part => part.split('!')).filter(pair => pair.length > 1);
+
+	if (parts.length === 0) {
+		return style;
+	}
+
+	return parts[parts.length - 1][1].split(';').find(item => item.toLowerCase().includes('color')) ?? '';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>('.admin-edit-form [data-style-preview]').forEach(input => {
+		const preview = document.querySelector<HTMLElement>(input.dataset.stylePreview ?? '');
+
+		if (!preview) {
+			return;
+		}
+
+		const update = () => preview.setAttribute('style', decodeStyle(input.value));
+
+		input.addEventListener('input', update);
+		update();
+	});
+
+	document.querySelectorAll<HTMLInputElement>('.admin-edit-form [data-style-preview-text]').forEach(input => {
+		const preview = document.querySelector<HTMLElement>(input.dataset.stylePreviewText ?? '');
+
+		if (!preview) {
+			return;
+		}
+
+		const fallback = preview.textContent ?? '';
+
+		input.addEventListener('input', () => preview.textContent = input.value.trim() || fallback);
+	});
+});

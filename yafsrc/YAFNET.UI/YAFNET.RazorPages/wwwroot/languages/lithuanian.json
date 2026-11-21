@@ -2806,6 +2806,10 @@
             "#text": "Kai ši parinktis pažymėta, šio vaidmens nariai turės tam tikras administratoriaus teises YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Svečių rolė (neprisijungę lankytojai), svečio požymio pakeisti negalima."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Prieiga"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Šio vaidmens pavadinimas."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Prieiga prie forumų"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Rodymas"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Apribojimai"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Teisės"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Nustatyti visiems forumams"
           },
           {
             "@tag": "SIG_BBCODES",

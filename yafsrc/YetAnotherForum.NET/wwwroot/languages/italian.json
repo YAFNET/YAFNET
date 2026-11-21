@@ -2802,6 +2802,10 @@
             "#text": "Se questa opzione è selezionata, i membri di questo ruolo avranno alcuni diritti di accesso come amministratori in YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Il ruolo degli ospiti (i visitatori non connessi), l'indicatore ospite non può essere modificato."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Accesso"
           },
@@ -2872,6 +2876,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Nome del ruolo."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Accesso ai forum"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Visualizzazione"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Limiti"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Diritti"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Imposta tutti i forum su"
           },
           {
             "@tag": "SIG_BBCODES",

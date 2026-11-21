@@ -396,6 +396,60 @@ public class RoleTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// "Set all forums to" of the role editor sets the access mask of all forums, they are saved with the role.
+    /// </summary>
+    [Test]
+    public async Task SetAllForumsToOneAccessMaskTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    var roleName = $"MaskRole{Random.Shared.Next()}";
+
+                    await page.CreateNewRole(this.TestSettings, roleName);
+
+                    var groupId = await GetGroupIdAsync(page, this.TestSettings, roleName);
+
+                    try
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditGroup/{groupId}");
+
+                        await page.Locator("#SetAllMasks").SelectOptionAsync(new SelectOptionValue { Label = "Read Only Access" });
+
+                        var mask = await page.Locator("#SetAllMasks").InputValueAsync();
+
+                        await page.SubmitAndWaitAsync(page.Locator("#Save"));
+
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditGroup/{groupId}");
+
+                        var masks = await page.Locator("select.accessMasks").EvaluateAllAsync<string[]>("selects => selects.map(s => s.value)");
+
+                        Assert.That(masks, Is.Not.Empty, "The forums are not listed");
+                        Assert.That(masks, Is.All.EqualTo(mask), "Not all forums have the access mask");
+                    }
+                    finally
+                    {
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Groups");
+
+                        await page.EvaluateAsync(
+                            """
+                            async url => {
+                                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                                await fetch(url, { method: 'POST', body: new URLSearchParams({ '__RequestVerificationToken': token }) });
+                            }
+                            """,
+                            $"{this.TestSettings.TestForumUrl}Admin/Groups?handler=Delete&id={groupId}");
+                    }
+                });
+    }
+
+    /// <summary>
     /// The id of a group of the groups page.
     /// </summary>
     private static async Task<string> GetGroupIdAsync(IPage page, TestConfig testSettings, string groupName)

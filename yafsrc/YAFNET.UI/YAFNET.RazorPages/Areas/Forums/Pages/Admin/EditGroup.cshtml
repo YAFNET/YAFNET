@@ -6,28 +6,63 @@
 @using YAF.Web.HtmlHelpers
 @model EditGroupModel
 
-<form method="post" class="needs-validation" novalidate>
-<div class="row">
-    <div class="col-xl-12">
-        <div class="card mb-3">
-            <div class="card-header">
-                @Html.IconHeader("users","ADMIN_EDITGROUP","TITLE")
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label" info-button="true"
-                               asp-for="Input.Name"
-                               localized-tag="ROLE_NAME" localized-page="ADMIN_EDITGROUP"></label>
-                        <input type="text" asp-for="Input.Name" maxlength="255"
-                               required="required"
-                               class="form-control"/>
-                        <div class="invalid-feedback">
-                            @Html.LocalizedText("MSG_NAME")
+<form method="post" class="needs-validation admin-edit-form" novalidate>
+    <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("users")
+            @if (Model.Input.Id > 0)
+            {
+                @Html.LocalizedText("ADMIN_EDITGROUP", "TITLE")<strong class="ms-1">@Model.Input.Name</strong>
+            }
+            else
+            {
+                @Html.LocalizedText("ADMIN_GROUPS", "NEW_ROLE")
+            }
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+
+            @* general *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("info-circle")@Html.LocalizedText("ADMIN_EDITFORUM", "SECTION_GENERAL")
+                </div>
+                <div class="card-body">
+                    @if (Model.Input.IsGuestX)
+                    {
+                        @* the guest flag can't be changed (without it the board has no guest group) *@
+                        <div class="alert alert-secondary d-flex align-items-center gap-2 py-2" role="note">
+                            <span class="badge bg-body-tertiary text-body-secondary border">@Html.LocalizedText("ADMIN_GROUPS", "GUEST")</span>
+                            <span class="small">@Html.LocalizedText("ADMIN_EDITGROUP", "GUEST_NOTE")</span>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="mb-3 col-md-8">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Name"
+                                   localized-tag="ROLE_NAME" localized-page="ADMIN_EDITGROUP"></label>
+                            <input type="text" asp-for="Input.Name" maxlength="255"
+                                   required="required"
+                                   class="form-control"
+                                   data-style-preview-text="#StylePreview"/>
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("MSG_NAME")
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Priority"
+                                   localized-tag="PRIORITY" localized-page="ADMIN_EDITGROUP"></label>
+                            <input type="number" asp-for="Input.Priority"
+                                   class="form-control"
+                                   maxlength="5" />
                         </div>
                     </div>
-                    <div class="mb-3 col-md-6">
+                    <div class="mb-3">
                         <label class="form-label" info-button="true"
                                asp-for="Input.Description"
                                localized-tag="DESCRIPTION" localized-page="ADMIN_EDITGROUP"></label>
@@ -35,118 +70,129 @@
                                class="form-control"/>
                     </div>
                 </div>
-                    
-                @if (Model.Input.Id > 0 && Model.Input.IsGuestX)
-                {
-                    <div class="mb-3">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.IsGuestX"
-                               localized-tag="IS_GUEST" localized-page="ADMIN_EDITGROUP"></label>
-                        <div class="form-check form-switch">
-                            @* the guest flag can't be changed (without it the board has no guest group) *@
-                            <input type="checkbox" asp-for="Input.IsGuestX" 
-                                   class="form-check-input" disabled="disabled" />
-                        </div>
-                    </div>
-                }
+            </div>
 
-                    
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.IsStartX"
-                               localized-tag="IS_START" localized-page="ADMIN_EDITGROUP"></label>
-                        <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.IsStartX"
-                                   class="form-check-input"/>
+            @* rights *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("user-shield")@Html.LocalizedText("ADMIN_EDITGROUP", "SECTION_RIGHTS")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-sm-6 col-lg-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.IsStartX"
+                                   localized-tag="IS_START" localized-page="ADMIN_EDITGROUP"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.IsStartX" class="form-check-input" role="switch"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-sm-6 col-lg-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.IsModeratorX"
+                                   localized-tag="FORUM_MOD" localized-page="ADMIN_EDITGROUP"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.IsModeratorX" class="form-check-input" role="switch"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-sm-6 col-lg-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.IsAdminX"
+                                   localized-tag="IS_ADMIN" localized-page="ADMIN_EDITGROUP"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.IsAdminX" class="form-check-input" role="switch"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-sm-6 col-lg-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UploadAccess"
+                                   localized-tag="UPLOAD_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.UploadAccess" class="form-check-input" role="switch"/>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-sm-6 col-lg-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.DownloadAccess"
+                                   localized-tag="DOWNLOAD_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" asp-for="Input.DownloadAccess" class="form-check-input" role="switch"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.IsModeratorX"
-                               localized-tag="FORUM_MOD" localized-page="ADMIN_EDITGROUP"></label>
-                        <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.IsModeratorX"
-                                       class="form-check-input" />
+                </div>
+            </div>
+
+            @* limits *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("sliders-h")@Html.LocalizedText("ADMIN_EDITGROUP", "SECTION_LIMITS")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UsrSigChars"
+                                   localized-tag="SIGNATURE_LENGTH" localized-page="ADMIN_EDITGROUP"></label>
+                            <input type="number" asp-for="Input.UsrSigChars" min="0"
+                                   class="form-control" />
+                        </div>
+                        <div class="mb-3 col-md-8">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UsrSigBBCodes"
+                                   localized-tag="SIG_BBCODES" localized-page="ADMIN_EDITGROUP"></label>
+                            <input type="text" asp-for="Input.UsrSigBBCodes" maxlength="255"
+                                   class="form-control"/>
                         </div>
                     </div>
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.IsAdminX"
-                               localized-tag="IS_ADMIN" localized-page="ADMIN_EDITGROUP"></label>
-                        <div class="form-check form-switch">
-                            <input type="checkbox" asp-for="Input.IsAdminX"
-                                       class="form-check-input" />
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UsrAlbums"
+                                   localized-tag="ALBUM_NUMBER" localized-page="ADMIN_EDITGROUP"></label>
+                            <input type="number" asp-for="Input.UsrAlbums" min="0"
+                                   class="form-control" />
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UsrAlbumImages"
+                                   localized-tag="IMAGES_NUMBER" localized-page="ADMIN_EDITGROUP"></label>
+                            <input type="number" asp-for="Input.UsrAlbumImages" min="0"
+                                   class="form-control" />
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-md-2">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.UploadAccess"
-                               localized-tag="UPLOAD_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
-                        <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.UploadAccess" class="form-check-input" />
-                        </div>
-                    </div>
-                    <div class="mb-3 col-md-2">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.DownloadAccess"
-                               localized-tag="DOWNLOAD_ACCESS" localized-page="ADMIN_EDITACCESSMASKS"></label>
-                        <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.DownloadAccess" class="form-check-input" />
-                        </div>
-                    </div>
+            </div>
+
+            @* display *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("palette")@Html.LocalizedText("ADMIN_EDITGROUP", "SECTION_DISPLAY")
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" info-button="true" 
-                           asp-for="Input.Priority"
-                           localized-tag="PRIORITY" localized-page="ADMIN_EDITGROUP"></label>
-                    <input type="number" asp-for="Input.Priority" 
-                           class="form-control"
-                           maxlength="5" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" info-button="true" 
-                           asp-for="Input.UsrSigChars"
-                           localized-tag="SIGNATURE_LENGTH" localized-page="ADMIN_EDITGROUP"></label>
-                    <input type="number" asp-for="Input.UsrSigChars" 
-                           class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" info-button="true" 
-                           asp-for="Input.UsrSigBBCodes"
-                           localized-tag="SIG_BBCODES" localized-page="ADMIN_EDITGROUP"></label>
-                    <input type="text" asp-for="Input.UsrSigBBCodes" maxlength="255" 
-                           class="form-control"/>
-                </div>
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.UsrAlbums"
-                               localized-tag="ALBUM_NUMBER" localized-page="ADMIN_EDITGROUP"></label>
-                        <input type="number" asp-for="Input.UsrAlbums" 
-                               class="form-control" />
-                    </div>
-                    <div class="mb-3 col-md-4">
-                        <label class="form-label" info-button="true" 
-                               asp-for="Input.UsrAlbumImages"
-                               localized-tag="IMAGES_NUMBER" localized-page="ADMIN_EDITGROUP"></label>
-                        <input type="number" asp-for="Input.UsrAlbumImages" 
-                               class="form-control" />
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" info-button="true" 
-                           asp-for="Input.Style"
-                           localized-tag="STYLE" localized-page="ADMIN_EDITGROUP"></label>
-                    <textarea  asp-for="Input.Style" maxlength="255" 
-                                     class="form-control"></textarea>
-                </div>
-                    
-                @if (Model.Input.Id == 0)
-                {
+                <div class="card-body">
                     <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Style"
+                               localized-tag="STYLE" localized-page="ADMIN_EDITGROUP"></label>
+                        <textarea asp-for="Input.Style" maxlength="255" rows="2"
+                                  class="form-control font-monospace"
+                                  data-style-preview="#StylePreview"></textarea>
+                    </div>
+                    <div class="small text-body-secondary">
+                        @Html.LocalizedText("POSTMESSAGE", "PREVIEW"):
+                        <span id="StylePreview" class="fw-semibold ms-1">@(Model.Input.Name.IsSet() ? Model.Input.Name : Html.LocalizedText("ADMIN_GROUPS", "NAME"))</span>
+                    </div>
+                </div>
+            </div>
+
+            @* the access masks of the forums *@
+            @if (Model.Input.Id == 0)
+            {
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.Icon("universal-access")@Html.LocalizedText("ADMIN_EDITGROUP", "SECTION_ACCESS")
+                    </div>
+                    <div class="card-body">
                         <label class="form-label" info-button="true"
                                asp-for="Input.NewAccessMaskID"
                                localized-tag="INITIAL_MASK" localized-page="ADMIN_EDITGROUP"></label>
@@ -154,55 +200,80 @@
                                 asp-items="Model.NewAccessMasks"
                                 class="form-select"></select>
                     </div>
-                }
-                else
-                {
-                    @if (!Model.Input.IsGuestX)
-                    {
-                        <div class="row">
+                </div>
+            }
+            else if (!Model.Input.IsGuestX && Model.ForumAccessTree.Count > 0)
+            {
+                var index = 0;
 
-                            @for (var index = 0; index < Model.AccessMasksList.Count; index++)
+                <div class="card mb-3 group-access">
+                    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+                        <span>@Html.Icon("universal-access")@Html.LocalizedText("ADMIN_EDITGROUP", "SECTION_ACCESS")</span>
+                        @* sets the access mask of all forums (in the browser, saved with the form) *@
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="SetAllMasks" class="small text-nowrap mb-0">@Html.LocalizedText("ADMIN_EDITGROUP", "SET_ALL")</label>
+                            <select id="SetAllMasks" class="form-select form-select-sm" data-set-all="select.accessMasks">
+                                <option value=""></option>
+                                @foreach (var mask in Model.NewAccessMasks)
+                                {
+                                    <option value="@mask.Value">@mask.Text</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        @foreach (var category in Model.ForumAccessTree)
+                        {
+                            <div class="list-group-item group-access-category">
+                                @Html.Icon("folder")@category.Category
+                            </div>
+                            @foreach (var forum in category.Forums)
                             {
-                                var accessMask = Model.AccessMasksList[index];
-
-                                <div class="mb-3 col-md-4">
-                                    <input type="hidden" name="AccessMasks[@index].ForumID" value="@accessMask.ForumID" />
-                                    <label class="form-label" for="AccessMasks_@(index)_AccessMaskID">
-                                        @accessMask.ForumName
+                                <div class="list-group-item group-access-forum">
+                                    <input type="hidden" name="AccessMasks[@index].ForumID" value="@forum.ForumID" />
+                                    <label class="group-access-name" for="AccessMasks_@(index)_AccessMaskID"
+                                           style="padding-inline-start: @(forum.Depth * 20)px">
+                                        @if (forum.Depth > 0)
+                                        {
+                                            @Html.Icon("level-up-alt", "fa-rotate-90 text-body-tertiary")
+                                        }
+                                        @forum.ForumName
                                     </label>
                                     <select id="AccessMasks_@(index)_AccessMaskID" name="AccessMasks[@index].AccessMaskID"
-                                            class="form-select accessMasks">
+                                            class="form-select form-select-sm accessMasks">
                                         @foreach (var mask in Model.NewAccessMasks)
                                         {
-                                            <option value="@mask.Value" selected="@(mask.Value == accessMask.AccessMaskID.ToString())">@mask.Text</option>
+                                            <option value="@mask.Value" selected="@(mask.Value == forum.AccessMaskID.ToString())">@mask.Text</option>
                                         }
                                     </select>
                                 </div>
-                            }
 
-                        </div>
-                    }
-                }
-            </div>
-            <div class="card-footer text-center">
-                <button id="Save" class="me-2"
-                        asp-page-handler="Save"
-                        button-style="Primary"
-                        Icon="save"
-                        text-localized-tag="SAVE">
-                </button>
+                                index++;
+                            }
+                        }
+                    </div>
+                </div>
+            }
+
+            @* the actions stay visible at the bottom of the window *@
+            <div class="admin-edit-actions">
                 <a asp-page="@ForumPages.Admin_Groups.GetPageName()"
                    button-style="Secondary"
                    Icon="xmark"
                    text-localized-tag="CANCEL">
                 </a>
+                <button id="Save"
+                        asp-page-handler="Save"
+                        button-style="Primary"
+                        Icon="save"
+                        text-localized-tag="SAVE">
+                </button>
             </div>
         </div>
     </div>
-</div>
 </form>
-
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptPartial")
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
 }

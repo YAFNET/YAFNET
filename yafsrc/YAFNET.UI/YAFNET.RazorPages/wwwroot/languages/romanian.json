@@ -2806,6 +2806,10 @@
             "#text": "Atunci când această opțiune este bifată, membrii acestui rol vor avea anumite drepturi de acces administrativ în YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Rolul vizitatorilor (cei care nu sunt autentificați), indicatorul de vizitator nu poate fi schimbat."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Accesați"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Numele acestui rol."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Acces la forumuri"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Afișare"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Limite"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Drepturi"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Setează toate forumurile la"
           },
           {
             "@tag": "SIG_BBCODES",

@@ -2806,6 +2806,10 @@
             "#text": "选中此项后，此角色的成员将在 YAF 中拥有一些管理员访问权限。"
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "访客的角色（未登录的访问者），访客标记不能更改。"
+          },
+          {
             "@tag": "HEADER",
             "#text": "使用权"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "此角色的名称。"
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "论坛访问"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "显示"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "限制"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "权限"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "将所有论坛设置为"
           },
           {
             "@tag": "SIG_BBCODES",

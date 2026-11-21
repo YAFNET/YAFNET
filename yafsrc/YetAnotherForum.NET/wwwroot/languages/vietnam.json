@@ -2806,6 +2806,10 @@
             "#text": "Khi điều này được chọn, các thành viên của vai trò này sẽ có một số quyền truy cập quản trị viên trong YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Vai trò của khách (người truy cập chưa đăng nhập), không thể thay đổi cờ khách."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Truy cập"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Tên của vai trò này."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Quyền truy cập diễn đàn"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Hiển thị"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Giới hạn"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Quyền"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Đặt tất cả diễn đàn thành"
           },
           {
             "@tag": "SIG_BBCODES",

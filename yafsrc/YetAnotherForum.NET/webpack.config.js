@@ -25,6 +25,7 @@ module.exports = [
 			'admin-boards': './wwwroot/lib/pages/admin-boards.ts',
 			'admin-forums': './wwwroot/lib/pages/admin-forums.ts',
 			'admin-users': './wwwroot/lib/pages/admin-users.ts',
+			'admin-edit-form': './wwwroot/lib/pages/admin-edit-form.ts',
 			"serviceWorker": './wwwroot/lib/serviceWorker.ts'
 		},
 		output: {

@@ -2802,6 +2802,10 @@
             "#text": "Gdy ta opcja jest zaznaczona, członkowie tej roli będą mieli pewne prawa dostępu do administratora w YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Rola gości (niezalogowanych odwiedzających), flagi gościa nie można zmienić."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Dostęp"
           },
@@ -2872,6 +2876,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Nazwa tej roli."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Dostęp do forów"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Wygląd"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Limity"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Uprawnienia"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Ustaw wszystkie fora na"
           },
           {
             "@tag": "SIG_BBCODES",

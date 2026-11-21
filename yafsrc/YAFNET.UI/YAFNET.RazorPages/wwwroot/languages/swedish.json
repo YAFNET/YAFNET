@@ -2806,6 +2806,10 @@
             "#text": "När detta är markerat har medlemmar i denna roll vissa administratörsrättigheter i YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Gästernas roll (besökare som inte är inloggade), gästflaggan kan inte ändras."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Tillgång"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Namnet på denna roll."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Forumåtkomst"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Visning"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Gränser"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Rättigheter"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Sätt alla forum till"
           },
           {
             "@tag": "SIG_BBCODES",

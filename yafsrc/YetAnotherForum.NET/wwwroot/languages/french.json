@@ -2806,6 +2806,10 @@
             "#text": "Lorsque cette case est cochée, les membres de ce rôle auront certains droits d'accès d'administrateur dans le YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Le rôle des invités (les visiteurs non connectés), l'indicateur invité ne peut pas être modifié."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Accès"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Nom de ce rôle."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Accès aux forums"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Affichage"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Limites"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Droits"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Définir tous les forums sur"
           },
           {
             "@tag": "SIG_BBCODES",

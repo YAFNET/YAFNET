@@ -2806,6 +2806,10 @@
             "#text": "Quando isto for verificado, os membros desta função terão alguns direitos de acesso administrativo no YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "O papel dos convidados (os visitantes sem sessão iniciada), o indicador de convidado não pode ser alterado."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Acesso"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Nome desta função."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Acesso aos fóruns"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Apresentação"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Limites"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Direitos"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Definir todos os fóruns como"
           },
           {
             "@tag": "SIG_BBCODES",

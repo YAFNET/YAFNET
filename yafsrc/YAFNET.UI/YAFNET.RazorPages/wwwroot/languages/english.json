@@ -2802,6 +2802,10 @@
                     "#text": "When this is checked, members of this role will have some admin access rights in YAF."
                 },
                 {
+                    "@tag": "GUEST_NOTE",
+                    "#text": "The role of the guests (the visitors that are not logged in), the guest flag can't be changed."
+                },
+                {
                     "@tag": "HEADER",
                     "#text": "Access"
                 },
@@ -2844,6 +2848,26 @@
                 {
                     "@tag": "MSG_LAST_ADMIN",
                     "#text": "The admin flag can't be removed from the last group with admin rights, without it the board has no admins."
+                },
+                {
+                    "@tag": "SECTION_ACCESS",
+                    "#text": "Forum access"
+                },
+                {
+                    "@tag": "SECTION_DISPLAY",
+                    "#text": "Display"
+                },
+                {
+                    "@tag": "SECTION_LIMITS",
+                    "#text": "Limits"
+                },
+                {
+                    "@tag": "SECTION_RIGHTS",
+                    "#text": "Rights"
+                },
+                {
+                    "@tag": "SET_ALL",
+                    "#text": "Set all forums to"
                 },
                 {
                     "@tag": "IS_START_HELP",

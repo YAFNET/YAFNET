@@ -2806,6 +2806,10 @@
             "#text": "Když je toto zaškrtnuto, členové této role budou mít některá přístupová práva správce v YAF."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Role hostů (nepřihlášených návštěvníků), příznak hosta nelze změnit."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Přístup"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Název této role."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Přístup k fórům"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Zobrazení"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Limity"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Práva"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Nastavit všem fórům"
           },
           {
             "@tag": "SIG_BBCODES",

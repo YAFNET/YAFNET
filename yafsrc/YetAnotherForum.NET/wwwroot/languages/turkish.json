@@ -2806,6 +2806,10 @@
             "#text": "Bu işaretlendiğinde, bu rolün üyeleri YAF'ta bazı yönetici erişim haklarına sahip olacaktır."
           },
           {
+            "@tag": "GUEST_NOTE",
+            "#text": "Misafirlerin rolü (giriş yapmamış ziyaretçiler), misafir işareti değiştirilemez."
+          },
+          {
             "@tag": "HEADER",
             "#text": "Erişim"
           },
@@ -2876,6 +2880,26 @@
           {
             "@tag": "ROLE_NAME_HELP",
             "#text": "Bu rolün adı."
+          },
+          {
+            "@tag": "SECTION_ACCESS",
+            "#text": "Forum erişimi"
+          },
+          {
+            "@tag": "SECTION_DISPLAY",
+            "#text": "Görünüm"
+          },
+          {
+            "@tag": "SECTION_LIMITS",
+            "#text": "Sınırlar"
+          },
+          {
+            "@tag": "SECTION_RIGHTS",
+            "#text": "Haklar"
+          },
+          {
+            "@tag": "SET_ALL",
+            "#text": "Tüm forumları ayarla"
           },
           {
             "@tag": "SIG_BBCODES",
