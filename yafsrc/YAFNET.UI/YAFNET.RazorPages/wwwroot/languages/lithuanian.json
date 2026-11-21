@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Medalis nesuteiktas jokiai grupei."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Medalis nesuteiktas jokiam vartotojui."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Pranešimas:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Didžiausias ženklų skaičius naudotojo paraše pagal rangą."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Dabartinis pradinis rangas {0} praras žymę."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Ištrinti šį medalį?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Ištrinti medalį {0}? Jis bus atimtas iš {1} vartotojų ir {2} grupių."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Medalio vaizdas, kuris bus rodomas naudotojo lange."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Naujas medalis"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Be kategorijos"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "Ar pradėti"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Rangų kopėčios"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Kopėčiose nėra rangų"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Vartotojai pakyla į kitą kopėčių rangą pagal savo pranešimus."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Šio rango negalima ištrinti, nes jis yra naudojamas."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Naujas rangas"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Kiti rangai"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Šiuos rangus vartotojams suteikia administratorius."
+          },
+          {
             "@tag": "POSTS",
             "#text": "pranešimai"
+          },
+          {
+            "@tag": "START",
+            "#text": "Pradinis rangas"
           },
           {
             "@tag": "TITLE",

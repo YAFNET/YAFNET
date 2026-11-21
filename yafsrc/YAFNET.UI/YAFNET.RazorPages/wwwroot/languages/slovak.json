@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Medaila nie je udelená žiadnej skupine."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Medaila nie je udelená žiadnemu používateľovi."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Správa:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Maximálny počet znakov v podpise používateľa v hodnosti."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Súčasná počiatočná hodnosť {0} označenie stratí."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Vymazať túto medailu?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Odstrániť medailu {0}? Bude odobratá {1} používateľom a {2} skupinám."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Obrázok medaily, ktorý sa zobrazí v poli používateľa."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Nová medaila"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Bez kategórie"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "Je Štart"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Rebríček hodností"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Žiadne hodnosti na rebríčku"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Používatelia postupujú na ďalšiu hodnosť rebríčka podľa svojich príspevkov."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Túto hodnosť nemôžete odstrániť, pretože sa používa."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Nová hodnosť"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Ďalšie hodnosti"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Tieto hodnosti používateľom udeľuje správca."
+          },
+          {
             "@tag": "POSTS",
             "#text": "príspevky"
+          },
+          {
+            "@tag": "START",
+            "#text": "Počiatočná hodnosť"
           },
           {
             "@tag": "TITLE",

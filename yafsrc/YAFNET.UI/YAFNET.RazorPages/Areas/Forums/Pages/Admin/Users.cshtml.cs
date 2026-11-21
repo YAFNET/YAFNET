@@ -258,7 +258,8 @@ public class UsersModel : AdminPage
     /// The page_ load.
     /// </summary>
     /// <param name="g">The group to filter by (the members of a group of the groups page).</param>
-    public void OnGet(int? g = null)
+    /// <param name="r">The rank to filter by (the users of a rank of the ranks page).</param>
+    public void OnGet(int? g = null, int? r = null)
     {
         this.Input = new UsersInputModel
         {
@@ -267,7 +268,12 @@ public class UsersModel : AdminPage
             // only a group of the board
             Group = g is > 0 && this.GetRepository<Group>().Exists(x => x.ID == g && x.BoardID == this.PageBoardContext.PageBoardID)
                         ? g.Value
-                        : 0
+                        : 0,
+
+            // only a rank of the board
+            Rank = r is > 0 && this.GetRepository<Rank>().Exists(x => x.ID == r && x.BoardID == this.PageBoardContext.PageBoardID)
+                       ? r.Value
+                       : 0
         };
 
         this.BindData();

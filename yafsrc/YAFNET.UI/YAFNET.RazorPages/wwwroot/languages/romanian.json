@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Medalia nu este acordată niciunui grup."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Medalia nu este acordată niciunui utilizator."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Mesaj:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Numărul maxim de caractere din semnătura unui utilizator în clasament."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Rangul de start actual {0} pierde marcajul."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Să șterg această medalie?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Ștergeți medalia {0}? Va fi retrasă de la {1} utilizatori și {2} grupuri."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Imaginea medaliei așa cum va fi afișată în caseta de utilizator."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Medalie nouă"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Fără categorie"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "Este Start"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Scara rangurilor"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Niciun rang pe scară"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Utilizatorii avansează la următorul rang al scării prin mesajele lor."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Nu puteți șterge acest rang deoarece este în uz."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Noul rang"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Alte ranguri"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Aceste ranguri sunt acordate utilizatorilor de un administrator."
+          },
+          {
             "@tag": "POSTS",
             "#text": "posturi"
+          },
+          {
+            "@tag": "START",
+            "#text": "Rang de start"
           },
           {
             "@tag": "TITLE",

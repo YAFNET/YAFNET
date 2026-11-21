@@ -189,6 +189,28 @@ public class EditMedalModel : AdminPage
     }
 
     /// <summary>
+    /// Gets the categories of the medals of the board (suggested for the category).
+    /// </summary>
+    /// <returns>Returns the categories</returns>
+    public List<string> GetCategories()
+    {
+        return
+        [
+            .. this.GetRepository<Medal>().Get(m => m.BoardID == this.PageBoardContext.PageBoardID)
+                .Select(m => m.Category).Where(c => c.IsSet()).Distinct().Order()
+        ];
+    }
+
+    /// <summary>
+    /// Gets the url of the selected image (empty without a selection).
+    /// </summary>
+    /// <returns>Returns the url</returns>
+    public string GetImageUrl()
+    {
+        return this.MedalImages?.Find(x => x.Value.IsSet() && x.Text == this.Input?.MedalImage)?.Value ?? string.Empty;
+    }
+
+    /// <summary>
     /// Creates link to group editing admin interface.
     /// </summary>
     /// <param name="item">

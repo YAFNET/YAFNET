@@ -3208,6 +3208,14 @@
             "#text": "Kies een bestaande Gebruiker!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "De medaille is niet aan een groep toegekend."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "De medaille is niet aan een gebruiker toegekend."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Bericht:"
           },
@@ -3347,6 +3355,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Maximum aantal tekens dat een gebruiker mag gebruiken in zijn handtekening (onderschrift) bij deze rang."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "De huidige startrang {0} verliest de markering."
           },
           {
             "@tag": "TITLE",
@@ -5949,6 +5961,10 @@
             "#text": "Verwijder deze Medaille?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "De medaille {0} verwijderen? Ze wordt bij {1} gebruikers en {2} groepen verwijderd."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Afbeelding van de Medaille zoals weergegeven in het Gebruikersvak."
           },
@@ -5963,6 +5979,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Nieuwe Medaille"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Geen categorie"
           },
           {
             "@tag": "TITLE",
@@ -6204,6 +6224,18 @@
             "#text": "Is Begin"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Rangladder"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Geen rangen op de ladder"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Gebruikers stijgen met hun berichten naar de volgende rang van de ladder."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Je kunt deze rang niet verwijderen omdat hij nog in gebruik is."
           },
@@ -6220,8 +6252,20 @@
             "#text": "Nieuwe Rang"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Andere rangen"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Deze rangen worden door een beheerder aan gebruikers gegeven."
+          },
+          {
             "@tag": "POSTS",
             "#text": "berichten"
+          },
+          {
+            "@tag": "START",
+            "#text": "Startrang"
           },
           {
             "@tag": "TITLE",

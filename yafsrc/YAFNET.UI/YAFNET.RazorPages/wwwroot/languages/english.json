@@ -3208,6 +3208,14 @@
                     "#text": "Please specify valid user!"
                 },
                 {
+                    "@tag": "NO_GROUPS",
+                    "#text": "The medal is not awarded to a group."
+                },
+                {
+                    "@tag": "NO_USERS",
+                    "#text": "The medal is not awarded to a user."
+                },
+                {
                     "@tag": "OVERRIDE_MESSAGE",
                     "#text": "Message:"
                 },
@@ -3267,6 +3275,10 @@
                 {
                     "@tag": "MSG_START_RANK",
                     "#text": "The new users get the start rank, it can not lose the flag. Mark another rank as start rank instead."
+                },
+                {
+                    "@tag": "START_NOTE",
+                    "#text": "The current start rank {0} loses the flag."
                 },
                 {
                     "@tag": "IS_START_HELP",
@@ -5949,12 +5961,20 @@
                     "#text": "Delete this Medal?"
                 },
                 {
+                    "@tag": "CONFIRM_DELETE_AWARDS",
+                    "#text": "Delete the medal {0}? It is removed from {1} users and {2} groups."
+                },
+                {
                     "@tag": "DISPLAY_BOX",
                     "#text": "Medal image as it'll be displayed in user box."
                 },
                 {
                     "@tag": "EMPTY_HEADER",
                     "#text": "No Medals"
+                },
+                {
+                    "@tag": "NO_CATEGORY",
+                    "#text": "No category"
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",
@@ -6204,6 +6224,18 @@
                     "#text": "Is Start"
                 },
                 {
+                    "@tag": "LADDER",
+                    "#text": "Rank ladder"
+                },
+                {
+                    "@tag": "LADDER_EMPTY",
+                    "#text": "No ladder ranks"
+                },
+                {
+                    "@tag": "LADDER_INFO",
+                    "#text": "The users are promoted to the next rank of the ladder with their posts."
+                },
+                {
                     "@tag": "MSG_NOT_DELETE",
                     "#text": "You cannot delete this rank because it is in use."
                 },
@@ -6220,8 +6252,20 @@
                     "#text": "New Rank"
                 },
                 {
+                    "@tag": "OTHER",
+                    "#text": "Other ranks"
+                },
+                {
+                    "@tag": "OTHER_INFO",
+                    "#text": "These ranks are given to the users by an administrator."
+                },
+                {
                     "@tag": "POSTS",
                     "#text": "posts"
+                },
+                {
+                    "@tag": "START",
+                    "#text": "Start rank"
                 },
                 {
                     "@tag": "TITLE",

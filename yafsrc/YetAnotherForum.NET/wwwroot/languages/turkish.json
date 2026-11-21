@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Madalya hiçbir gruba verilmedi."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Madalya hiçbir kullanıcıya verilmedi."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Mesaj:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Sıralamadaki bir kullanıcı imzasındaki maksimum karakter sayısı."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Mevcut başlangıç rütbesi {0} işaretini kaybeder."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Bu madalyayı silelim mi?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "{0} madalyası silinsin mi? {1} kullanıcıdan ve {2} gruptan kaldırılacak."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Kullanıcı kutusunda görüntüleneceği gibi madalya resmi."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Yeni Madalya"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Kategori yok"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "Başlıyor"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Rütbe merdiveni"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Merdivende rütbe yok"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Kullanıcılar gönderileriyle merdivenin bir sonraki rütbesine yükselir."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Kullanımda olduğu için bu rütbeyi silemezsiniz."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Yeni Sıralama"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Diğer rütbeler"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Bu rütbeler kullanıcılara bir yönetici tarafından verilir."
+          },
+          {
             "@tag": "POSTS",
             "#text": "gönderiler"
+          },
+          {
+            "@tag": "START",
+            "#text": "Başlangıç rütbesi"
           },
           {
             "@tag": "TITLE",

@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Huy chương chưa được trao cho nhóm nào."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Huy chương chưa được trao cho người dùng nào."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Thông điệp:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Số ký tự tối đa trong chữ ký người dùng trong xếp hạng."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Cấp bậc khởi đầu hiện tại {0} sẽ mất đánh dấu."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Xóa Huy chương này?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Xóa huy chương {0}? Huy chương sẽ bị gỡ khỏi {1} người dùng và {2} nhóm."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Hình ảnh huy chương vì nó sẽ được hiển thị trong hộp người dùng."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Huy chương mới"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Không có danh mục"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "Đang bắt đầu"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Thang cấp bậc"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Không có cấp bậc trên thang"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Người dùng được thăng lên cấp bậc tiếp theo của thang theo số bài viết."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Bạn không thể xóa thứ hạng này vì nó đang được sử dụng."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Xếp hạng mới"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Cấp bậc khác"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Các cấp bậc này do quản trị viên trao cho người dùng."
+          },
+          {
             "@tag": "POSTS",
             "#text": "bài viết"
+          },
+          {
+            "@tag": "START",
+            "#text": "Cấp bậc khởi đầu"
           },
           {
             "@tag": "TITLE",

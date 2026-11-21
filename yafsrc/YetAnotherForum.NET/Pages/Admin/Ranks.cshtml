@@ -3,154 +3,183 @@
 @model RanksModel
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
+@using System.Threading.Tasks
+@using YAF.Types.Models
 @using YAF.Web.HtmlHelpers
 
+@{
+    async Task RenderRank(Rank rank, bool ladder)
+    {
+        var users = Model.GetUserCount(rank);
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("graduation-cap","ADMIN_RANKS","TITLE")
+        // the start rank and a rank that users have can't be deleted
+        var deleteInfo = rank.RankFlags.IsStart
+                             ? Model.GetText("ADMIN_RANKS", "MSG_START_RANK")
+                             : users > 0 ? Model.GetText("ADMIN_RANKS", "MSG_NOT_DELETE") : null;
+
+        <li class="list-group-item list-group-item-menu rank-row" data-rank-id="@rank.ID">
+            @if (ladder)
+            {
+                <div class="rank-step" title="@Model.GetText("ADMIN_EDITRANK", "MIN_POSTS").TrimEnd(':')">
+                    <span class="rank-step-posts">@(rank.MinPosts ?? 0)</span>
+                    <span class="rank-step-label">@Html.LocalizedText("ADMIN_RANKS", "POSTS")</span>
                 </div>
-                <div class="card-body">
-                    @if (!Model.List.NullOrEmpty())
+            }
+            <div class="rank-main">
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                    <span class="rank-name text-break" style="@Model.GetStyle(rank)">@rank.Name</span>
+                    @if (rank.RankFlags.IsStart)
                     {
-                        <ul class="list-group">
-
-                            @foreach (var rank in Model.List)
-                            {
-                                <li class="list-group-item list-group-item-action list-group-item-menu">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1 text-break">
-                                            <i class="fa fa-graduation-cap"></i>&nbsp;
-                                            @rank.Name
-                                        </h5>
-                                        <small>
-                                            @Html.LocalizedText("ADMIN_RANKS","IS_START")
-                                            <span class="@Html.Raw(Model.GetItemColor(rank.RankFlags.IsStart))">
-                                                @Html.Raw(Model.GetItemName(rank.RankFlags.IsStart))
-                                            </span>
-                                        </small>
-                                    </div>
-                                    <p>
-                                        @if (rank.Description.IsSet())
-                                        {
-                                            @Html.LocalizedText("ADMIN_EDITGROUP", "DESCRIPTION")
-                                            @rank.Description
-                                        }
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_EDITGROUP", "PRIORITY")
-                                                <span class="@Html.Raw(Model.GetItemColorString(rank.SortOrder.ToString()))">
-                                                    @Html.Raw(rank.SortOrder.ToString())
-                                                </span>
-                                            </li>
-
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_RANKS", "IS_LADDER")
-                                                <span class="@Html.Raw(Model.GetItemColor(rank.RankFlags.IsLadder))">
-                                                    @Html.Raw(Model.LadderInfo(rank))
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_EDITGROUP", "ALBUM_NUMBER")
-                                                <span class="@Html.Raw(Model.GetItemColorString(rank.UsrAlbums.ToString()))">
-                                                    @Html.Raw(rank.UsrAlbums.ToString())
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_EDITGROUP", "IMAGES_NUMBER")
-                                                <span class="@Html.Raw(Model.GetItemColorString(rank.UsrAlbumImages.ToString()))">
-                                                    @Html.Raw(rank.UsrAlbumImages.ToString())
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_EDITGROUP", "STYLE")&nbsp;
-                                                @if (rank.Style.IsSet() && rank.Style.Trim().Length > 0)
-                                                {
-                                                    <code>@rank.Style</code>
-                                                }
-                                                else
-                                                {
-                                                    <span class="@Html.Raw(Model.GetItemColorString(rank.Style))">
-		                                                @Html.Raw(Model.GetItemName(false))
-	                                                </span>
-                                                }
-                                            </li>
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_EDITGROUP","SIGNATURE_LENGTH")
-                                                <span class="@Html.Raw(Model.GetItemColorString(rank.UsrSigChars.ToString()))">
-                                                    @Html.Raw(rank.UsrSigChars.ToString().IsSet() ? rank.UsrSigChars.ToString() : Model.GetItemName(false))
-                                                </span>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                @Html.LocalizedText("ADMIN_EDITGROUP","SIG_BBCODES")
-                                                <span class="@Html.Raw(Model.GetItemColorString(rank.UsrSigBBCodes))">
-                                                    @Html.Raw(rank.UsrSigBBCodes.IsSet() ? rank.UsrSigBBCodes : Model.GetItemName(false))
-                                                </span>
-                                            </li>
-                                        </ul>
-
-                                    </p>
-                                    <div class="small">
-                                        <div class="btn-group btn-group-sm">
-                                            <a button-style="Info"
-                                               button-size="Small"
-                                               asp-page="@ForumPages.Admin_EditRank.GetPageName()"
-                                               asp-route-r="@Html.Raw(rank.ID)"
-                                               title-localized-tag="EDIT"
-                                               Icon="edit"
-                                               text-localized-tag="EDIT">
-                                            </a>
-                                            <button button-style="Danger"
-                                                    button-size="Small"
-                                                    asp-page-handler="Delete"
-                                                    asp-route-id="@Html.Raw(rank.ID)"
-                                                    title-localized-tag="DELETE"
-                                                    Icon="trash"
-                                                    text-localized-tag="DELETE"
-                                                    return-confirm-tag="CONFIRM_DELETE">
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                        <a button-style="None"
-                                           class="dropdown-item"
-                                           asp-page="@ForumPages.Admin_EditRank.GetPageName()"
-                                           asp-route-r="@Html.Raw(rank.ID)"
-                                           title-localized-tag="EDIT"
-                                           Icon="edit"
-                                           text-localized-tag="EDIT">
-                                        </a>
-                                        <button button-style="None"
-                                                class="dropdown-item"
-                                                asp-page-handler="Delete"
-                                                asp-route-id="@Html.Raw(rank.ID)"
-                                                title-localized-tag="DELETE"
-                                                Icon="trash"
-                                                text-localized-tag="DELETE"
-                                                return-confirm-tag="CONFIRM_DELETE">
-                                        </button>
-                                        <div class="dropdown-divider"></div>
-                                        <a asp-page="@ForumPages.Admin_EditRank.GetPageName()"
-                                           button-style="None"
-                                           class="dropdown-item"
-                                           Icon="plus-square"
-                                           text-localized-tag="NEW_RANK"></a>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
+                        <span class="badge text-bg-success">@Html.Icon("flag-checkered")@Html.LocalizedText("ADMIN_RANKS", "START")</span>
                     }
                 </div>
-                <div class="card-footer text-center">
-                    <a asp-page="@ForumPages.Admin_EditRank.GetPageName()"
-                       button-style="Primary"
-                       Icon="plus-square"
-                       text-localized-tag="NEW_RANK"></a>
+                @if (rank.Description.IsSet())
+                {
+                    <div class="small text-body-secondary text-break">@rank.Description</div>
+                }
+                <div class="rank-badges">
+                    <a class="badge text-bg-secondary text-decoration-none rank-users"
+                       asp-page="@ForumPages.Admin_Users.GetPageName()"
+                       asp-route-r="@rank.ID"
+                       title="@Html.LocalizedText("ADMIN_BOARDS", "USERS")">
+                        @Html.Icon("users")@users
+                    </a>
+                    <span class="badge bg-body-tertiary text-body-emphasis border" title="@Model.GetText("ADMIN_EDITRANK", "RANK_PRIO").TrimEnd(':')">
+                        @Html.Icon("sort-numeric-down")@rank.SortOrder
+                    </span>
+                    <span class="badge bg-body-tertiary text-body-emphasis border" title="@Model.GetText("ADMIN_EDITRANK", "SIG_LENGTH").TrimEnd(':')">
+                        @Html.Icon("signature")@rank.UsrSigChars
+                    </span>
+                    @if (rank.UsrSigBBCodes.IsSet())
+                    {
+                        <span class="badge bg-body-tertiary text-body-emphasis border text-break" title="@Model.GetText("ADMIN_EDITRANK", "SIG_BBCODE").TrimEnd(':')">
+                            @Html.Icon("code")@rank.UsrSigBBCodes
+                        </span>
+                    }
+                    <span class="badge bg-body-tertiary text-body-emphasis border" title="@Model.GetText("ADMIN_EDITRANK", "ALBUMS_NUMBER").TrimEnd(':') / @Model.GetText("ADMIN_EDITRANK", "IMAGES_NUMBER").TrimEnd(':')">
+                        @Html.Icon("images")@rank.UsrAlbums / @rank.UsrAlbumImages
+                    </span>
                 </div>
             </div>
-        </div>
+            <div class="btn-group btn-group-sm rank-actions">
+                <a button-style="Info"
+                   button-size="Small"
+                   asp-page="@ForumPages.Admin_EditRank.GetPageName()"
+                   asp-route-r="@rank.ID"
+                   title-localized-tag="EDIT"
+                   Icon="edit"
+                   text-localized-tag="EDIT"></a>
+                @if (deleteInfo is null)
+                {
+                    <button button-style="Danger"
+                            button-size="Small"
+                            asp-page-handler="Delete"
+                            asp-route-id="@rank.ID"
+                            title-localized-tag="DELETE"
+                            Icon="trash"
+                            text-localized-tag="DELETE"
+                            return-confirm-tag="CONFIRM_DELETE"></button>
+                }
+                else
+                {
+                    @* the reason is shown as tooltip (a disabled button shows none) *@
+                    <span class="d-inline-block rank-delete-info" tabindex="0" data-bs-toggle="tooltip" title="@deleteInfo">
+                        <button type="button" class="btn btn-danger btn-sm" disabled="disabled">
+                            @Html.Icon("trash")@Html.LocalizedText("DELETE")
+                        </button>
+                    </span>
+                }
+            </div>
+            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                <a button-style="None"
+                   class="dropdown-item"
+                   asp-page="@ForumPages.Admin_EditRank.GetPageName()"
+                   asp-route-r="@rank.ID"
+                   title-localized-tag="EDIT"
+                   Icon="edit"
+                   text-localized-tag="EDIT"></a>
+                @if (deleteInfo is null)
+                {
+                    <button button-style="None"
+                            class="dropdown-item"
+                            asp-page-handler="Delete"
+                            asp-route-id="@rank.ID"
+                            title-localized-tag="DELETE"
+                            Icon="trash"
+                            text-localized-tag="DELETE"
+                            return-confirm-tag="CONFIRM_DELETE"></button>
+                }
+                <a button-style="None"
+                   class="dropdown-item"
+                   asp-page="@ForumPages.Admin_Users.GetPageName()"
+                   asp-route-r="@rank.ID"
+                   Icon="users"
+                   text-localized-tag="USERS" text-localized-page="ADMIN_BOARDS"></a>
+                <div class="dropdown-divider"></div>
+                <a asp-page="@ForumPages.Admin_EditRank.GetPageName()"
+                   button-style="None"
+                   class="dropdown-item"
+                   Icon="plus-square"
+                   text-localized-tag="NEW_RANK"></a>
+            </div>
+        </li>
+    }
+}
+
+<form method="post" class="admin-ranks">
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("graduation-cap")@Html.LocalizedText("ADMIN_RANKS", "TITLE")
+            <span class="badge text-bg-secondary align-middle ms-1">@Model.List.Count</span>
+        </h2>
+        <a asp-page="@ForumPages.Admin_EditRank.GetPageName()"
+           button-style="Primary"
+           button-size="Small"
+           Icon="plus-square"
+           text-localized-tag="NEW_RANK"></a>
     </div>
+
+    @* the ranks of the ladder: the users are promoted with their posts *@
+    <div class="card mb-3" id="LadderRanks">
+        <div class="card-header">
+            @Html.Icon("stairs")@Html.LocalizedText("ADMIN_RANKS", "LADDER")
+            <div class="small text-body-secondary">@Html.LocalizedText("ADMIN_RANKS", "LADDER_INFO")</div>
+        </div>
+        @if (Model.LadderRanks.Count > 0)
+        {
+            <ul class="list-group list-group-flush rank-ladder">
+                @foreach (var rank in Model.LadderRanks)
+                {
+                    await RenderRank(rank, true);
+                }
+            </ul>
+        }
+        else
+        {
+            <div class="card-body">
+                <empty icon="stairs"
+                       header-text-page="ADMIN_RANKS" header-text-tag="LADDER_EMPTY"
+                       message-text-page="ADMIN_RANKS" message-text-tag="LADDER_INFO">
+                </empty>
+            </div>
+        }
+    </div>
+
+    @* the other ranks are given by an administrator *@
+    @if (Model.OtherRanks.Count > 0)
+    {
+        <div class="card mb-3" id="OtherRanks">
+            <div class="card-header">
+                @Html.Icon("user-tag")@Html.LocalizedText("ADMIN_RANKS", "OTHER")
+                <div class="small text-body-secondary">@Html.LocalizedText("ADMIN_RANKS", "OTHER_INFO")</div>
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var rank in Model.OtherRanks)
+                {
+                    await RenderRank(rank, false);
+                }
+            </ul>
+        </div>
+    }
 </form>

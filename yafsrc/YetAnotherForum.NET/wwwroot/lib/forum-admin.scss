@@ -595,6 +595,194 @@
     }
 }
 
+// Admin ranks: the ladder shows the minimum posts of each step
+.admin-ranks {
+    .rank-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem 1rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .rank-step {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 50%;
+        background-color: var(--bs-primary-bg-subtle);
+        color: var(--bs-primary-text-emphasis);
+        line-height: 1.1;
+    }
+
+    // the line between the steps of the ladder
+    .rank-ladder .rank-row:not(:last-child) .rank-step::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        width: 2px;
+        height: 1.25rem;
+        transform: translateX(-50%);
+        background-color: var(--bs-primary-border-subtle);
+    }
+
+    .rank-step-posts {
+        font-weight: 700;
+        font-size: 1.05rem;
+    }
+
+    .rank-step-label {
+        font-size: .65rem;
+        text-transform: uppercase;
+    }
+
+    .rank-main {
+        flex: 1 1 16rem;
+        min-width: 0;
+    }
+
+    .rank-name {
+        font-weight: 600;
+        font-size: 1.05rem;
+    }
+
+    .rank-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem;
+        margin-top: .25rem;
+
+        .badge {
+            font-weight: 500;
+        }
+    }
+}
+
+// Admin medals
+.admin-medals {
+    .medal-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem 1rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .medal-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+
+        img {
+            max-width: 3rem;
+            max-height: 3rem;
+        }
+    }
+
+    .medal-main {
+        flex: 1 1 16rem;
+        min-width: 0;
+    }
+
+    .medal-name {
+        font-weight: 600;
+    }
+
+    .medal-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem;
+        margin-top: .25rem;
+
+        .badge {
+            font-weight: 500;
+        }
+    }
+}
+
+// Admin edit medal: the preview and the awards
+.admin-edit-medal {
+    .medal-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        min-height: 8rem;
+        padding: 1rem;
+        border: 1px dashed var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-tertiary-bg);
+        text-align: center;
+
+        img {
+            max-width: 6rem;
+            max-height: 6rem;
+        }
+
+        img[src=""], img:not([src]) {
+            display: none;
+        }
+    }
+
+    .medal-preview-title {
+        font-size: .875rem;
+        padding: .25rem .5rem;
+        border-radius: var(--bs-border-radius);
+        background-color: var(--bs-emphasis-color);
+        color: var(--bs-body-bg);
+        word-break: break-word;
+    }
+
+    // without a message only the name is shown
+    #MedalPreviewMessage:has(#MedalPreviewMessageText:empty) {
+        display: none;
+    }
+
+    .award-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .5rem 1rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .award-main {
+        flex: 1 1 16rem;
+        min-width: 0;
+    }
+
+    .award-name {
+        font-weight: 600;
+    }
+
+    .award-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem;
+        margin-top: .25rem;
+
+        .badge {
+            font-weight: 500;
+        }
+    }
+}
+
 // Admin access masks
 .admin-access-masks {
     .access-mask-name {

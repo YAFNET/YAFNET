@@ -24,6 +24,7 @@
 
 namespace YAF.Pages.Admin;
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -31,6 +32,7 @@ using System.Web;
 using YAF.Core.Extensions;
 using YAF.Core.Services;
 using YAF.Types.EventProxies;
+using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 
@@ -43,6 +45,16 @@ public class MedalsModel : AdminPage
     /// Gets or sets the medals (only shown, a bound IOrderedEnumerable can not be created and every post failed).
     /// </summary>
     public IOrderedEnumerable<Medal> MedalList { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of users of each medal.
+    /// </summary>
+    public Dictionary<int, int> UserCounts { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the number of groups of each medal.
+    /// </summary>
+    public Dictionary<int, int> GroupCounts { get; set; } = [];
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MedalsModel" /> class.
@@ -121,12 +133,32 @@ public class MedalsModel : AdminPage
     }
 
     /// <summary>
+    /// Gets the text of the delete dialog, it names the awards that are removed with the medal.
+    /// </summary>
+    /// <param name="medal">The medal.</param>
+    /// <returns>Returns the text (html, the dialog shows it as html)</returns>
+    public string GetDeleteText(Medal medal)
+    {
+        return this.GetTextFormatted(
+            "CONFIRM_DELETE_AWARDS",
+            this.HtmlEncode(medal.Name),
+            this.UserCounts.GetValueOrDefault(medal.ID),
+            this.GroupCounts.GetValueOrDefault(medal.ID));
+    }
+
+    /// <summary>
     /// Bind data for this control.
     /// </summary>
     private void BindData()
     {
-        // list medals for this board
+        // list medals for this board (by category, then by name)
         this.MedalList = this.GetRepository<Medal>().Get(m => m.BoardID == this.PageBoardContext.PageBoardID)
-            .OrderBy(m => m.Category);
+            .OrderBy(m => m.Category.IsSet() ? 0 : 1).ThenBy(m => m.Category).ThenBy(m => m.Name);
+
+        foreach (var medal in this.MedalList)
+        {
+            this.UserCounts[medal.ID] = (int)this.GetRepository<UserMedal>().Count(m => m.MedalID == medal.ID);
+            this.GroupCounts[medal.ID] = (int)this.GetRepository<GroupMedal>().Count(m => m.MedalID == medal.ID);
+        }
     }
 }

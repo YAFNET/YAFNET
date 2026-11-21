@@ -850,6 +850,51 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// The medals are listed by category and the delete dialog names the awards that are removed with the medal.
+    /// </summary>
+    [Test]
+    public async Task MedalDeleteNamesTheAwardsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                var name = $"Award medal {Guid.NewGuid().ToString("N")[..8]}";
+                var category = $"Category {Guid.NewGuid().ToString("N")[..8]}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditMedal");
+                await page.Locator("#Input_Category").FillAsync(category);
+                await this.SaveMedalAsync(page, name);
+
+                var card = page.Locator(".medal-category", new PageLocatorOptions { HasText = category });
+
+                Assert.That(await card.Locator(".medal-name").AllInnerTextsAsync(), Is.EqualTo(new[] { name }), "The medal is not in its category");
+
+                // the medal is awarded to a group
+                var editUrl = new Uri(new Uri(page.Url), await card.Locator("a[href*='EditMedal']").First.GetAttributeAsync("href")).ToString();
+
+                await page.GotoAsync(editUrl);
+                await page.Locator("#AddGroup").ClickAsync();
+
+                var dialog = page.Locator(".modal.show");
+
+                await dialog.Locator("select[name='GroupId']").EvaluateAsync("s => s.value = s.options[s.options.length - 1].value");
+                await this.SaveDialogAsync(page, dialog, "MedalDeleteAward");
+
+                Assert.That(await page.Locator("#MedalGroups .award-row").CountAsync(), Is.EqualTo(1), "The medal was not awarded");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Medals");
+
+                Assert.That(
+                    await card.Locator(".medal-actions button[formaction*='Delete']").GetAttributeAsync("data-title"),
+                    Does.Contain($"{name}? It is removed from 0 users and 1 groups."),
+                    "The dialog does not name the awards");
+            });
+    }
+
+    /// <summary>
     /// Saves the medal form with the name and the first image.
     /// </summary>
     private async Task SaveMedalAsync(IPage page, string name)
@@ -1420,7 +1465,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                 // award the medal to a group
                 await page.GotoAsync(medalUrl);
 
-                await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").First.ClickAsync();
+                await page.Locator("#AddGroup").ClickAsync();
 
                 var dialog = page.Locator(".modal.show");
 
@@ -1466,7 +1511,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                 await page.GotoAsync(medalUrl);
 
-                await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").Last.ClickAsync();
+                await page.Locator("#AddUser").ClickAsync();
 
                 dialog = page.Locator(".modal.show");
 
@@ -1522,7 +1567,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                 foreach (var (group, message) in new[] { ("Registered Users", "Registered award"), ("Administrators", "Administrators award") })
                 {
                     await page.GotoAsync(medalUrl);
-                    await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").First.ClickAsync();
+                    await page.Locator("#AddGroup").ClickAsync();
 
                     var dialog = page.Locator(".modal.show");
 
@@ -1540,7 +1585,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                     var userId = await this.FindUserIdAsync(page, user);
 
                     await page.GotoAsync(medalUrl);
-                    await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").Last.ClickAsync();
+                    await page.Locator("#AddUser").ClickAsync();
 
                     var dialog = page.Locator(".modal.show");
 
@@ -1613,7 +1658,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
                     await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), editLink).ToString());
 
-                    await page.Locator(".card-footer button[data-bs-toggle='ajax-modal']").First.ClickAsync();
+                    await page.Locator("#AddGroup").ClickAsync();
 
                     var dialog = page.Locator(".modal.show");
 

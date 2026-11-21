@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "A medalha não está atribuída a nenhum grupo."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "A medalha não está atribuída a nenhum utilizador."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Mensagem:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Número máximo de caracteres numa assinatura do utilizador na classificação."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "A classificação inicial atual {0} perde a marcação."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Eliminar esta Medalha?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Eliminar a medalha {0}? É retirada a {1} utilizadores e {2} grupos."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Imagem da medalha, uma vez que será exibida na caixa do utilizador."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Nova Medalha"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Sem categoria"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "É Início"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Escada de classificações"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Nenhuma classificação na escada"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Os utilizadores sobem para a classificação seguinte da escada com as suas mensagens."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Não se pode apagar esta classificação porque está a ser utilizada."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Novo Rank"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Outras classificações"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Estas classificações são atribuídas aos utilizadores por um administrador."
+          },
+          {
             "@tag": "POSTS",
             "#text": "postagens"
+          },
+          {
+            "@tag": "START",
+            "#text": "Classificação inicial"
           },
           {
             "@tag": "TITLE",

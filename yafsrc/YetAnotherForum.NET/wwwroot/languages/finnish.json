@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Mitalia ei ole myönnetty millekään ryhmälle."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Mitalia ei ole myönnetty kenellekään käyttäjälle."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Viesti:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Käyttäjän allekirjoituksessa olevien merkkien enimmäismäärä rankissa."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Nykyinen aloitusarvo {0} menettää merkinnän."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Poistetaanko tämä mitali?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Poistetaanko mitali {0}? Se poistetaan {1} käyttäjältä ja {2} ryhmältä."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Medal-kuva sellaisena kuin se näytetään käyttäjälaatikossa."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Uusi mitali"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Ei luokkaa"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "On alku"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Arvoasteikko"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Ei arvoja asteikolla"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Käyttäjät nousevat asteikon seuraavaan arvoon viestiensä myötä."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Et voi poistaa tätä sijoitusta, koska se on käytössä."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Uusi sijoitus"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Muut arvot"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Ylläpitäjä antaa nämä arvot käyttäjille."
+          },
+          {
             "@tag": "POSTS",
             "#text": "virat"
+          },
+          {
+            "@tag": "START",
+            "#text": "Aloitusarvo"
           },
           {
             "@tag": "TITLE",

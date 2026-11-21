@@ -3208,6 +3208,14 @@
             "#text": "Specificare un utente valido!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "La medaglia non è assegnata a nessun gruppo."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "La medaglia non è assegnata a nessun utente."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Messaggio:"
           },
@@ -3347,6 +3355,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Numero massimo di caratteri nella firma di un utente nel rank."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "L’attuale grado iniziale {0} perde il contrassegno."
           },
           {
             "@tag": "TITLE",
@@ -5949,6 +5961,10 @@
             "#text": "Cancellare questa medaglia?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Eliminare la medaglia {0}? Viene tolta a {1} utenti e {2} gruppi."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "L'immagine della medaglia verrà visualizzata nel riquadro utente."
           },
@@ -5963,6 +5979,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Nuova medaglia"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Nessuna categoria"
           },
           {
             "@tag": "TITLE",
@@ -6204,6 +6224,18 @@
             "#text": "È Avvio"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Scala dei gradi"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Nessun grado nella scala"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Gli utenti salgono al grado successivo della scala con i loro messaggi."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Non è possibile eliminare questo grado perché è in uso."
           },
@@ -6220,8 +6252,20 @@
             "#text": "Nuova classifica"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Altri gradi"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Questi gradi vengono assegnati agli utenti da un amministratore."
+          },
+          {
             "@tag": "POSTS",
             "#text": "posti"
+          },
+          {
+            "@tag": "START",
+            "#text": "Grado iniziale"
           },
           {
             "@tag": "TITLE",

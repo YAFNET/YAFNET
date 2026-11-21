@@ -4,104 +4,122 @@
 @using YAF.Web.HtmlHelpers
 @model MedalsModel
 
+@{
+    var medals = Model.MedalList?.ToList() ?? [];
+}
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("medal","ADMIN_MEDALS","TITLE")
-                </div>
-                <div class="card-body"> 
-                    @if (!Model.MedalList.NullOrEmpty())
-                    {
-                        <ul class="list-group">
-                    
-                            @foreach (var medal in Model.MedalList)
-                            {
-                                <li class="list-group-item list-group-item-action list-group-item-menu">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1 text-break">
-                                            @Html.Raw(Model.RenderImages(medal))
-                                            @medal.Name
-                                        </h5>
-                                        <small class="d-none d-md-block">
-                                            <span class="fw-bold">
-                                                @Html.LocalizedText("MODERATE_DEFAULT", "CATEGORY"):
-                                            </span>
-                                            @medal.Category
-                                        </small>
-                                    </div>
-                                    <p class="mb-1">
-                                        <span class="fw-bold">
-                                            @Html.LocalizedText("ADMIN_BBCODE", "DESCRIPTION"):
-                                        </span>
-                                        @medal.Description
-                                    </p>
-                                    <div class="small">
-                                        <div class="btn-group btn-group-sm">
-                                            <a button-style="Info"
-                                                    button-size="Small"
-                                                    asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
-                                                    asp-route-medalId="@Html.Raw(medal.ID)"
-                                                    title-localized-tag="EDIT"
-                                                    Icon="edit"
-                                                    text-localized-tag="EDIT"></a>
-                                            <button button-style="Danger"
-                                                    button-size="Small"
-                                                    asp-page-handler="Delete"
-                                                    asp-route-medalId="@Html.Raw(medal.ID)"
-                                                    title-localized-tag="DELETE"
-                                                    Icon="trash"
-                                                    text-localized-tag="DELETE"
-                                                    return-confirm-tag="CONFIRM_DELETE"></button>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                        <a button-style="None"
-                                           class="dropdown-item"
-                                           asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
-                                           asp-route-medalId="@Html.Raw(medal.ID)"
-                                           title-localized-tag="EDIT"
-                                           Icon="edit"
-                                           text-localized-tag="EDIT">
-                                        </a>
-                                        <button button-style="None"
-                                                class="dropdown-item"
-                                                asp-page-handler="Delete"
-                                                asp-route-medalId="@Html.Raw(medal.ID)"
-                                                title-localized-tag="DELETE"
-                                                Icon="trash"
-                                                text-localized-tag="DELETE"
-                                                return-confirm-tag="CONFIRM_DELETE">
-                                        </button>
-                                        <div class="dropdown-divider"></div>
-                                        <a asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
-                                           button-style="None"
-                                           class="dropdown-item"
-                                           Icon="plus-square"
-                                           text-localized-tag="NEW_MEDAL"></a>
-                                    </div>
-                                </li>
-                            }
+<form method="post" class="admin-medals">
 
-                        </ul>
-                    }
-                    else
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0">
+            @Html.Icon("medal")@Html.LocalizedText("ADMIN_MEDALS", "TITLE")
+            <span class="badge text-bg-secondary align-middle ms-1">@medals.Count</span>
+        </h2>
+        <a asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
+           button-style="Primary"
+           button-size="Small"
+           Icon="plus-square"
+           text-localized-tag="NEW_MEDAL"></a>
+    </div>
+
+    @if (medals.Count > 0)
+    {
+        @* a card for each category *@
+        foreach (var category in medals.GroupBy(m => m.Category.IsSet() ? m.Category : string.Empty))
+        {
+            <div class="card mb-3 medal-category">
+                <div class="card-header d-flex align-items-center gap-2">
+                    @Html.Icon("folder")
+                    <span class="text-break">@(category.Key.IsSet() ? category.Key : Html.LocalizedText("ADMIN_MEDALS", "NO_CATEGORY"))</span>
+                    <span class="badge text-bg-secondary">@category.Count()</span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var medal in category)
                     {
-                        <empty icon="medal"
-                               header-text-page="ADMIN_MEDALS" header-text-tag="EMPTY_HEADER"
-                               message-text-page="ADMIN_MEDALS" message-text-tag="EMPTY_MESSAGE">
-                        </empty>
+                        var users = Model.UserCounts.GetValueOrDefault(medal.ID);
+                        var groups = Model.GroupCounts.GetValueOrDefault(medal.ID);
+
+                        <li class="list-group-item list-group-item-menu medal-row">
+                            <div class="medal-image">@Html.Raw(Model.RenderImages(medal))</div>
+                            <div class="medal-main">
+                                <div class="medal-name text-break">@medal.Name</div>
+                                @if (medal.Description.IsSet())
+                                {
+                                    <div class="small text-body-secondary text-break">@medal.Description</div>
+                                }
+                                <div class="medal-badges">
+                                    <span class="badge @(users > 0 ? "text-bg-secondary" : "bg-body-tertiary text-body-secondary border")"
+                                          title="@Html.LocalizedText("ADMIN_BOARDS", "USERS")">
+                                        @Html.Icon("user")@users
+                                    </span>
+                                    <span class="badge @(groups > 0 ? "text-bg-secondary" : "bg-body-tertiary text-body-secondary border")"
+                                          title="@Html.LocalizedText("POSTS", "GROUPS")">
+                                        @Html.Icon("users")@groups
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="btn-group btn-group-sm medal-actions">
+                                <a button-style="Info"
+                                   button-size="Small"
+                                   asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
+                                   asp-route-medalId="@medal.ID"
+                                   title-localized-tag="EDIT"
+                                   Icon="edit"
+                                   text-localized-tag="EDIT"></a>
+                                @* the dialog names the awards that are removed with the medal *@
+                                <button button-style="Danger"
+                                        button-size="Small"
+                                        asp-page-handler="Delete"
+                                        asp-route-medalId="@medal.ID"
+                                        title-localized-tag="DELETE"
+                                        Icon="trash"
+                                        text-localized-tag="DELETE"
+                                        bs-toggle="confirm"
+                                        data-title="@Model.GetDeleteText(medal)"
+                                        data-yes="@Html.LocalizedText("YES")"
+                                        data-no="@Html.LocalizedText("NO")"></button>
+                            </div>
+                            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                <a button-style="None"
+                                   class="dropdown-item"
+                                   asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
+                                   asp-route-medalId="@medal.ID"
+                                   title-localized-tag="EDIT"
+                                   Icon="edit"
+                                   text-localized-tag="EDIT"></a>
+                                <button button-style="None"
+                                        class="dropdown-item"
+                                        asp-page-handler="Delete"
+                                        asp-route-medalId="@medal.ID"
+                                        title-localized-tag="DELETE"
+                                        Icon="trash"
+                                        text-localized-tag="DELETE"
+                                        bs-toggle="confirm"
+                                        data-title="@Model.GetDeleteText(medal)"
+                                        data-yes="@Html.LocalizedText("YES")"
+                                        data-no="@Html.LocalizedText("NO")"></button>
+                                <div class="dropdown-divider"></div>
+                                <a asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
+                                   button-style="None"
+                                   class="dropdown-item"
+                                   Icon="plus-square"
+                                   text-localized-tag="NEW_MEDAL"></a>
+                            </div>
+                        </li>
                     }
-                </div>
-                <div class="card-footer text-center">
-                    <a asp-page="@ForumPages.Admin_EditMedal.GetPageName()"
-                       button-style="Primary"
-                       Icon="plus-square"
-                       text-localized-tag="NEW_MEDAL"></a>
-                </div>
+                </ul>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <empty icon="medal"
+                       header-text-page="ADMIN_MEDALS" header-text-tag="EMPTY_HEADER"
+                       message-text-page="ADMIN_MEDALS" message-text-tag="EMPTY_MESSAGE">
+                </empty>
             </div>
         </div>
-    </div>
+    }
 </form>

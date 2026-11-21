@@ -4,36 +4,42 @@
 @using YAF.Web.HtmlHelpers
 @model EditRankModel
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col-xl-12">
+@{
+    // the start rank loses the flag when this rank becomes the start rank
+    var otherStartRank = Model.GetOtherStartRankName();
+}
+
+<form method="post" class="needs-validation admin-edit-form admin-edit-rank" novalidate>
+    <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("graduation-cap")@Html.LocalizedText("ADMIN_EDITRANK", "TITLE")
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+
+            @* general *@
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.IconHeader("graduation-cap","ADMIN_EDITRANK","TITLE")
+                    @Html.Icon("info-circle")@Html.LocalizedText("ADMIN_EDITFORUM", "SECTION_GENERAL")
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
-                        <div class="mb-3 col-md-6">
+                        <div class="mb-3 col-md-8">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.Name"
                                    localized-tag="RANK_NAME" localized-page="ADMIN_EDITRANK"></label>
                             <input type="text" asp-for="Input.Name" maxlength="50"
                                    class="form-control"
-                                   required="required" />
+                                   required="required"
+                                   data-style-preview-text="#StylePreview" />
                             <div class="invalid-feedback">
-                                @Html.LocalizedText("NEED_NAME")
+                                @Html.LocalizedText("ADMIN_EDITRANK", "NEED_NAME")
                             </div>
                         </div>
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" info-button="true"
-                                   asp-for="Input.Description"
-                                   localized-tag="RANK_DESC" localized-page="ADMIN_EDITRANK"></label>
-                            <input type="text" asp-for="Input.Description" maxlength="128"
-                                   class="form-control" />
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="mb-3 col-md-4">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.RankPriority"
@@ -42,86 +48,134 @@
                                    class="form-control"
                                    required="required" />
                         </div>
-                        <div class="mb-3 col-md-4">
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Description"
+                               localized-tag="RANK_DESC" localized-page="ADMIN_EDITRANK"></label>
+                        <input type="text" asp-for="Input.Description" maxlength="128"
+                               class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            @* the rank ladder *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("stairs")@Html.LocalizedText("ADMIN_RANKS", "LADDER")
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.IsStart"
                                    localized-tag="IS_START" localized-page="ADMIN_EDITRANK"></label>
                             <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.IsStart"
-                                       class="form-check-input" />
+                                <input type="checkbox" asp-for="Input.IsStart" class="form-check-input" role="switch"
+                                       data-shows="#StartRankNote" />
                             </div>
+                            @if (otherStartRank.IsSet() && !Model.Input.IsStart)
+                            {
+                                <div id="StartRankNote" class="form-text">
+                                    @Html.Icon("circle-info")@Model.GetTextFormatted("START_NOTE", otherStartRank)
+                                </div>
+                            }
                         </div>
-                        <div class="mb-3 col-md-4">
+                        <div class="mb-3 col-md-6">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.IsLadder"
                                    localized-tag="LADDER_GROUP" localized-page="ADMIN_EDITRANK"></label>
                             <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.IsLadder"
-                                       class="form-check-input" />
+                                <input type="checkbox" asp-for="Input.IsLadder" class="form-check-input" role="switch"
+                                       data-shows="#LadderOptions" />
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="mb-3 col-md-4">
+                    @* the minimum posts are only used on the ladder *@
+                    <div id="LadderOptions" class="row">
+                        <div class="mb-0 col-md-6">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.MinPosts"
                                    localized-tag="MIN_POSTS" localized-page="ADMIN_EDITRANK"></label>
-                            <input type="number" asp-for="Input.MinPosts"
+                            <input type="number" asp-for="Input.MinPosts" min="0"
                                    class="form-control" />
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            @* limits *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("sliders")@Html.LocalizedText("ADMIN_EDITGROUP", "SECTION_LIMITS")
+                </div>
+                <div class="card-body">
+                    <div class="row">
                         <div class="mb-3 col-md-4">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.UsrSigChars"
                                    localized-tag="SIG_LENGTH" localized-page="ADMIN_EDITRANK"></label>
-                            <input type="number" asp-for="Input.UsrSigChars"
+                            <input type="number" asp-for="Input.UsrSigChars" min="0"
                                    class="form-control" />
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" info-button="true"
-                               asp-for="Input.UsrSigBBCodes"
-                               localized-tag="SIG_BBCODE" localized-page="ADMIN_EDITRANK"></label>
-                        <input type="text" asp-for="Input.UsrSigBBCodes" maxlength="255"
-                               class="form-control" />
+                        <div class="mb-3 col-md-8">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.UsrSigBBCodes"
+                                   localized-tag="SIG_BBCODE" localized-page="ADMIN_EDITRANK"></label>
+                            <input type="text" asp-for="Input.UsrSigBBCodes" maxlength="255" spellcheck="false"
+                                   class="form-control font-monospace" />
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="mb-3 col-md-4">
+                        <div class="mb-0 col-md-4">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.UsrAlbums"
                                    localized-tag="ALBUMS_NUMBER" localized-page="ADMIN_EDITRANK"></label>
-                            <input type="number" asp-for="Input.UsrAlbums"
+                            <input type="number" asp-for="Input.UsrAlbums" min="0"
                                    class="form-control" />
                         </div>
-                        <div class="mb-3 col-md-4">
+                        <div class="mb-0 col-md-4">
                             <label class="form-label" info-button="true"
                                    asp-for="Input.UsrAlbumImages"
                                    localized-tag="IMAGES_NUMBER" localized-page="ADMIN_EDITRANK"></label>
-                            <input type="number" asp-for="Input.UsrAlbumImages"
+                            <input type="number" asp-for="Input.UsrAlbumImages" min="0"
                                    class="form-control" />
                         </div>
                     </div>
+                </div>
+            </div>
+
+            @* appearance *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("palette")@Html.LocalizedText("ADMIN_EDITFORUM", "SECTION_APPEARANCE")
+                </div>
+                <div class="card-body">
                     <div class="mb-3">
                         <label class="form-label" info-button="true"
                                asp-for="Input.Style"
                                localized-tag="RANK_STYLE" localized-page="ADMIN_EDITRANK"></label>
-                        <textarea asp-for="Input.Style" maxlength="255"
-                                  class="form-control"></textarea>
+                        <textarea asp-for="Input.Style" maxlength="255" rows="2" spellcheck="false"
+                                  class="form-control font-monospace"
+                                  data-style-preview="#StylePreview"></textarea>
+                    </div>
+                    <div class="small text-body-secondary">
+                        @Html.LocalizedText("POSTMESSAGE", "PREVIEW"):
+                        <span id="StylePreview" class="fw-semibold ms-1">@(Model.Input.Name.IsSet() ? Model.Input.Name : Html.LocalizedText("ADMIN_RANKS", "NAME"))</span>
                     </div>
                 </div>
-                <div class="card-footer text-center">
-                    <button asp-page-handler="Save"
-                            class="me-2"
-                            type="submit"
-                            button-style="Primary"
-                            Icon="save"
-                            text-localized-tag="SAVE">
-                    </button>
-                    <a asp-page="@ForumPages.Admin_Ranks.GetPageName()"
-                       button-style="Secondary"
-                       Icon="xmark"
-                       text-localized-tag="CANCEL">
-                    </a>
-                </div>
+            </div>
+
+            @* the actions stay visible at the bottom of the window *@
+            <div class="admin-edit-actions">
+                <a asp-page="@ForumPages.Admin_Ranks.GetPageName()"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   text-localized-tag="CANCEL"></a>
+                <button asp-page-handler="Save"
+                        button-style="Primary"
+                        Icon="save"
+                        text-localized-tag="SAVE"></button>
             </div>
         </div>
     </div>
@@ -129,4 +183,5 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptPartial")
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
 }

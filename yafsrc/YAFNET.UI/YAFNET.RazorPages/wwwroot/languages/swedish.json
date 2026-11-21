@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Medaljen är inte tilldelad någon grupp."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Medaljen är inte tilldelad någon användare."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Meddelande:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Max antal tecken i en användarsignatur i rangordningen."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Den nuvarande startrangen {0} förlorar markeringen."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Ta bort denna medalj?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Ta bort medaljen {0}? Den tas bort från {1} användare och {2} grupper."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Medaljbilden som den kommer att visas i användarrutan."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Ny medalj"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Ingen kategori"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "Är Start"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Rangstege"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Inga ranger på stegen"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Användarna flyttas upp till nästa rang på stegen med sina inlägg."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Du kan inte ta bort denna rang eftersom den används."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Ny rangordning"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Andra ranger"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Dessa ranger ges till användarna av en administratör."
+          },
+          {
             "@tag": "POSTS",
             "#text": "inlägg"
+          },
+          {
+            "@tag": "START",
+            "#text": "Startrang"
           },
           {
             "@tag": "TITLE",

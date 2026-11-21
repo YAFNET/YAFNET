@@ -300,6 +300,42 @@ public class RankTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The ranks page shows the ladder by the minimum posts (Newbie first), the start rank can't be deleted and the
+    /// users of a rank are listed on the users page.
+    /// </summary>
+    [Test]
+    [Description("The ranks page shows the ladder")]
+    public async Task RanksPageShowsTheLadderTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Ranks");
+
+                    var ladder = await page.Locator("#LadderRanks .rank-name").AllInnerTextsAsync();
+
+                    Assert.That(System.Linq.Enumerable.Take(ladder, 3), Is.EqualTo(new[] { "Newbie", "Member", "Advanced Member" }), "The ladder is not sorted by the posts");
+
+                    var newbie = page.Locator("#LadderRanks li.rank-row", new PageLocatorOptions { Has = page.Locator(".rank-name", new PageLocatorOptions { HasTextString = "Newbie" }) });
+
+                    Assert.That(await newbie.Locator(".rank-actions button[formaction*='Delete']").CountAsync(), Is.Zero, "The start rank can be deleted");
+                    Assert.That(await newbie.Locator(".rank-delete-info").EvaluateAsync<string>("e => e.getAttribute('title') || e.getAttribute('data-bs-original-title')"), Does.Contain("start rank"), "The reason is missing");
+
+                    // the users of the rank
+                    await page.RunAndWaitForNextPageAsync(() => newbie.Locator("a.rank-users").ClickAsync());
+
+                    Assert.That(page.Url, Does.Contain("Admin/Users"), "The users page is not shown");
+                    Assert.That(
+                        await page.Locator("#Input_Rank").EvaluateAsync<string>("s => s.options[s.selectedIndex].text"),
+                        Is.EqualTo("Newbie"),
+                        "The users are not filtered by the rank");
+                });
+    }
+
+    /// <summary>
     /// Deletes a rank.
     /// </summary>
     /// <param name="page">The page.</param>
@@ -333,8 +369,8 @@ public class RankTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
         var href = await page.EvaluateAsync<string>(
             """
             name => {
-                for (const item of document.querySelectorAll('li.list-group-item')) {
-                    const title = item.querySelector('h5');
+                for (const item of document.querySelectorAll('li.rank-row')) {
+                    const title = item.querySelector('.rank-name');
                     const edit = item.querySelector('a[href*="EditRank"]');
                     if (title && edit && title.textContent.trim() === name) {
                         return edit.getAttribute('href');

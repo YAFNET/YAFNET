@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "La médaille n’est attribuée à aucun groupe."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "La médaille n’est attribuée à aucun utilisateur."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Message :"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Nombre maximum de caractères dans la signature d'un utilisateur dans le rang."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Le rang de départ actuel {0} perd cette option."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Supprimer cette médaille ?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Supprimer la médaille {0} ? Elle est retirée à {1} utilisateurs et {2} groupes."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "L'image de la médaille telle qu'elle sera affichée dans la boîte de l'utilisateur."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Nouvelle Médaille"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Aucune catégorie"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "Est Start"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Échelle des rangs"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Aucun rang dans l’échelle"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Les utilisateurs montent au rang suivant de l’échelle avec leurs messages."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Vous ne pouvez pas supprimer ce grade car il est en cours d'utilisation."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Nouveau rang"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Autres rangs"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Ces rangs sont attribués aux utilisateurs par un administrateur."
+          },
+          {
             "@tag": "POSTS",
             "#text": "postes"
+          },
+          {
+            "@tag": "START",
+            "#text": "Rang de départ"
           },
           {
             "@tag": "TITLE",

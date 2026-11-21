@@ -26,6 +26,8 @@ using System.Threading.Tasks;
 
 namespace YAF.Pages.Admin;
 
+using System.Linq;
+
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Types.Extensions;
@@ -62,6 +64,20 @@ public class EditRankModel : AdminPage
 
         // current page label (no link)
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
+    }
+
+    /// <summary>
+    /// Gets the name of the start rank of the board when it is another rank (it loses the flag when this rank
+    /// becomes the start rank).
+    /// </summary>
+    /// <returns>Returns the name or null</returns>
+    public string GetOtherStartRankName()
+    {
+        var id = this.Input?.Id ?? 0;
+
+        return this.GetRepository<Rank>()
+            .Get(x => x.BoardID == this.PageBoardContext.PageBoardID && (x.Flags & 1) == 1 && x.ID != id)
+            .Select(x => x.Name).FirstOrDefault();
     }
 
     /// <summary>

@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Medaljen er ikke tildelt noen gruppe."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Medaljen er ikke tildelt noen bruker."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Beskjed:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Maks antall tegn i en brukersignatur i rangeringen."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Den nåværende startrangen {0} mister markeringen."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Vil du slette denne medaljen?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Slette medaljen {0}? Den fjernes fra {1} brukere og {2} grupper."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Medaljebilde slik det vil bli vist i brukerboksen."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Ny medalje"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Ingen kategori"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "Er Start"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Rangstige"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Ingen ranger på stigen"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Brukerne rykker opp til neste rang på stigen med innleggene sine."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Du kan ikke slette denne rangeringen fordi den er i bruk."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Ny rangering"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Andre ranger"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Disse rangene gis til brukerne av en administrator."
+          },
+          {
             "@tag": "POSTS",
             "#text": "innlegg"
+          },
+          {
+            "@tag": "START",
+            "#text": "Startrang"
           },
           {
             "@tag": "TITLE",

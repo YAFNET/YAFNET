@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Medalit pole ühelegi grupile antud."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Medalit pole ühelegi kasutajale antud."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Sõnum:"
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Maksimaalne tähemärkide arv auastme kasutaja allkirjas."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Praegune algaste {0} kaotab märke."
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "Kas kustutada see medal?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Kas kustutada medal {0}? See eemaldatakse {1} kasutajalt ja {2} grupilt."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Medali pilt sellisena, nagu see kuvatakse kasutajakastis."
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Uus medal"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Kategooria puudub"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "On Start"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Astmeredel"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Redelil pole astmeid"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Kasutajad tõusevad oma postitustega redeli järgmisele astmele."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Te ei saa seda auastet kustutada, kuna see on kasutusel."
           },
@@ -6228,8 +6260,20 @@
             "#text": "Uus aste"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Muud astmed"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Need astmed annab kasutajatele administraator."
+          },
+          {
             "@tag": "POSTS",
             "#text": "postitusi"
+          },
+          {
+            "@tag": "START",
+            "#text": "Algaste"
           },
           {
             "@tag": "TITLE",

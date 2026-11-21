@@ -89,6 +89,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Ranks: the start rank could lose its flag, then the registration of new users failed with an error; now a warning is shown
 * [FIXED] Admin > Edit Rank: the spaces around the name were saved, a name of spaces was saved too; now it is refused
 * [FIXED] Admin > Edit Medal: the spaces around the name were saved, a name of spaces was saved too; now it is refused
+* [CHANGES] Admin > Ranks, Edit Rank, Medals, Edit Medal: new layouts; the rank ladder shows the steps by their minimum posts with the users of each rank (linked to the users list), the start rank and ranks in use can't be deleted (the reason is shown); the edit rank page has sections and a style preview; the medals are listed by category with the number of awards, the delete dialog names the removed awards; the edit medal page shows a preview of the medal in the profile, suggests the categories and lists the awarded users and groups in cards
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -3216,6 +3216,14 @@
             "#text": "Please specify valid user!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "该勋章未授予任何组。"
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "该勋章未授予任何用户。"
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "信息："
           },
@@ -3355,6 +3363,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "排名中用户签名中的最大字符数。"
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "当前的起始等级 {0} 将失去此标记。"
           },
           {
             "@tag": "TITLE",
@@ -5957,6 +5969,10 @@
             "#text": "删除此勋章？"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "删除勋章 {0}？它将从 {1} 个用户和 {2} 个组中移除。"
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "奖牌图像，因为它将显示在用户框中。"
           },
@@ -5971,6 +5987,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "新勋章"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "无分类"
           },
           {
             "@tag": "TITLE",
@@ -6212,6 +6232,18 @@
             "#text": "是开始"
           },
           {
+            "@tag": "LADDER",
+            "#text": "等级阶梯"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "阶梯中没有等级"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "用户随着发帖数晋升到阶梯中的下一个等级。"
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "您无法删除此排名，因为它正在使用中。"
           },
@@ -6228,8 +6260,20 @@
             "#text": "新排名"
           },
           {
+            "@tag": "OTHER",
+            "#text": "其他等级"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "这些等级由管理员授予用户。"
+          },
+          {
             "@tag": "POSTS",
             "#text": "帖子"
+          },
+          {
+            "@tag": "START",
+            "#text": "起始等级"
           },
           {
             "@tag": "TITLE",

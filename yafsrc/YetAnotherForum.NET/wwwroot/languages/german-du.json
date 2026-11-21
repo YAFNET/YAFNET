@@ -3208,6 +3208,14 @@
             "#text": "Bitte geben Sie gültige Benutzer  an!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Die Medaille ist keiner Gruppe verliehen."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Die Medaille ist keinem Benutzer verliehen."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Nachricht:"
           },
@@ -3347,6 +3355,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Max. Anzahl von Zeichen in einem Benutzer Signatur in diesem Rang."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Der bisherige Startrang {0} verliert die Markierung."
           },
           {
             "@tag": "TITLE",
@@ -5949,6 +5961,10 @@
             "#text": "Diese Medaille löschen?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Die Medaille {0} löschen? Sie wird {1} Benutzern und {2} Gruppen entzogen."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Medaillenbild, wie es in der Benutzerbox angezeigt wird."
           },
@@ -5963,6 +5979,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Neue Medaille"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Keine Kategorie"
           },
           {
             "@tag": "TITLE",
@@ -6204,6 +6224,18 @@
             "#text": "Ist Start"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Rangleiter"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Keine Ränge auf der Leiter"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Die Benutzer steigen mit ihren Beiträgen zum nächsten Rang der Leiter auf."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Du kannst diesen Rang nicht löschen, da er verwendet wird."
           },
@@ -6220,8 +6252,20 @@
             "#text": "Neuer Rang"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Weitere Ränge"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Diese Ränge werden den Benutzern von einem Administrator gegeben."
+          },
+          {
             "@tag": "POSTS",
             "#text": "Beiträge"
+          },
+          {
+            "@tag": "START",
+            "#text": "Startrang"
           },
           {
             "@tag": "TITLE",

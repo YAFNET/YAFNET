@@ -3208,6 +3208,14 @@
             "#text": "Proszę podać poprawnego użytkownika!"
           },
           {
+            "@tag": "NO_GROUPS",
+            "#text": "Medal nie został przyznany żadnej grupie."
+          },
+          {
+            "@tag": "NO_USERS",
+            "#text": "Medal nie został przyznany żadnemu użytkownikowi."
+          },
+          {
             "@tag": "OVERRIDE_MESSAGE",
             "#text": "Komunikat:"
           },
@@ -3347,6 +3355,10 @@
           {
             "@tag": "SIG_LENGTH_HELP",
             "#text": "Maksymalna liczba znaków w podpisie użytkownika w rankingu."
+          },
+          {
+            "@tag": "START_NOTE",
+            "#text": "Obecna ranga początkowa {0} utraci to oznaczenie."
           },
           {
             "@tag": "TITLE",
@@ -5949,6 +5961,10 @@
             "#text": "Usunąć ten Medal?"
           },
           {
+            "@tag": "CONFIRM_DELETE_AWARDS",
+            "#text": "Usunąć medal {0}? Zostanie odebrany {1} użytkownikom i {2} grupom."
+          },
+          {
             "@tag": "DISPLAY_BOX",
             "#text": "Obrazek medalu w takiej formie, w jakiej będzie wyświetlany w oknie użytkownika."
           },
@@ -5963,6 +5979,10 @@
           {
             "@tag": "NEW_MEDAL",
             "#text": "Nowy Medal"
+          },
+          {
+            "@tag": "NO_CATEGORY",
+            "#text": "Bez kategorii"
           },
           {
             "@tag": "TITLE",
@@ -6204,6 +6224,18 @@
             "#text": "Jest początek"
           },
           {
+            "@tag": "LADDER",
+            "#text": "Drabina rang"
+          },
+          {
+            "@tag": "LADDER_EMPTY",
+            "#text": "Brak rang na drabinie"
+          },
+          {
+            "@tag": "LADDER_INFO",
+            "#text": "Użytkownicy awansują na kolejną rangę drabiny dzięki swoim postom."
+          },
+          {
             "@tag": "MSG_NOT_DELETE",
             "#text": "Nie możesz usunąć tej rangi, ponieważ jest w użyciu."
           },
@@ -6220,8 +6252,20 @@
             "#text": "Nowa ranga"
           },
           {
+            "@tag": "OTHER",
+            "#text": "Inne rangi"
+          },
+          {
+            "@tag": "OTHER_INFO",
+            "#text": "Te rangi nadaje użytkownikom administrator."
+          },
+          {
             "@tag": "POSTS",
             "#text": "stanowiska"
+          },
+          {
+            "@tag": "START",
+            "#text": "Ranga początkowa"
           },
           {
             "@tag": "TITLE",

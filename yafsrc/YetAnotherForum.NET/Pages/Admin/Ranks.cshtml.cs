@@ -27,9 +27,11 @@ using System.Threading.Tasks;
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
+using System.Linq;
 
 using YAF.Core.Extensions;
 using YAF.Types.Extensions;
+using YAF.Types.Interfaces.Services;
 using YAF.Types.Models;
 
 /// <summary>
@@ -42,6 +44,21 @@ public class RanksModel : AdminPage
     /// </summary>
     [BindProperty]
     public IList<Rank> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ranks of the ladder (by their minimum posts, the users are promoted from one to the next).
+    /// </summary>
+    public List<Rank> LadderRanks { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the ranks outside the ladder (by their priority).
+    /// </summary>
+    public List<Rank> OtherRanks { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the number of users of each rank.
+    /// </summary>
+    public Dictionary<int, int> UserCounts { get; set; } = [];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RanksModel"/> class.
@@ -62,36 +79,23 @@ public class RanksModel : AdminPage
     }
 
     /// <summary>
-    /// Format string color.
+    /// Gets the style of the rank name (the style can be set for each theme).
     /// </summary>
-    /// <param name="item">
-    /// The item.
-    /// </param>
-    /// <returns>
-    /// Set values  are rendered green if true, and if not red
-    /// </returns>
-    public string GetItemColorString(string item)
+    /// <param name="rank">The rank.</param>
+    /// <returns>Returns the style</returns>
+    public string GetStyle(Rank rank)
     {
-        // show enabled flag red
-        return item.IsSet() ? "badge text-bg-success" : "badge text-bg-danger";
+        return rank.Style.IsSet() ? this.Get<IStyleTransform>().Decode(rank.Style) : string.Empty;
     }
 
     /// <summary>
-    /// Is Rank Ladder?
+    /// Gets the number of users of the rank.
     /// </summary>
-    /// <param name="rank">
-    /// The rank.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public string LadderInfo(Rank rank)
+    /// <param name="rank">The rank.</param>
+    /// <returns>Returns the number of users</returns>
+    public int GetUserCount(Rank rank)
     {
-        var isLadder = rank.RankFlags.IsLadder;
-
-        return isLadder
-                   ? $"{this.GetItemName(true)} ({rank.MinPosts} {this.GetText("ADMIN_RANKS", "POSTS")})"
-                   : this.GetItemName(false);
+        return this.UserCounts.TryGetValue(rank.ID, out var count) ? count : 0;
     }
 
     /// <summary>
@@ -136,5 +140,15 @@ public class RanksModel : AdminPage
     private async Task BindDataAsync()
     {
         this.List = await this.GetRepository<Rank>().GetByBoardIdAsync();
+
+        this.LadderRanks = [.. this.List.Where(r => r.RankFlags.IsLadder).OrderBy(r => r.MinPosts ?? 0).ThenBy(r => r.SortOrder)];
+        this.OtherRanks = [.. this.List.Where(r => !r.RankFlags.IsLadder).OrderBy(r => r.SortOrder).ThenBy(r => r.Name)];
+
+        var users = this.GetRepository<User>();
+
+        foreach (var rank in this.List)
+        {
+            this.UserCounts[rank.ID] = (int)await users.CountAsync(u => u.RankID == rank.ID);
+        }
     }
 }
