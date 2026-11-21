@@ -491,4 +491,43 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     "The user was not deleted");
             });
     }
+    /// <summary>
+    /// Admin > Users lists the users that are not approved yet (the email is not confirmed) with the
+    /// "not approved" badge (only the approved users were listed).
+    /// </summary>
+    [Test]
+    public async Task NotApprovedUsersAreListedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a new user has to confirm the email first
+                var userName = $"NotApproved{Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/RegisterUser");
+                await page.Locator("#Input_UserName").FillAsync(userName);
+                await page.Locator("#Input_Email").FillAsync($"{userName.ToLower()}@test.com");
+                await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                await page.Locator("#Input_Password2").FillAsync(this.TestSettings.TestUserPassword);
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForumRegister']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+                await page.OpenUserFilterAsync();
+
+                var searchNameInput = page.Locator("#Input_Name");
+                await searchNameInput.FillAsync(userName);
+                await page.RunAndWaitForNextPageAsync(() => searchNameInput.PressAsync("Enter"));
+
+                var row = page.Locator(".user-row", new PageLocatorOptions { HasText = userName });
+
+                Assert.That(await row.CountAsync(), Is.EqualTo(1), "The user that is not approved is not listed");
+                await Assertions.Expect(row.Locator(".badge.text-bg-danger")).ToContainTextAsync("Not Approved");
+            });
+    }
 }

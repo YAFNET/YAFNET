@@ -371,7 +371,8 @@ public class UsersModel : AdminPage
              sinceDate,
              this.Input.SuspendedOnly,
              this.Input.Group == 0 ? null : this.Input.Group,
-             this.Input.Rank == 0 ? null : this.Input.Rank);
+             this.Input.Rank == 0 ? null : this.Input.Rank,
+             includeNonApproved: true);
 
          // bind list
          this.List = users;

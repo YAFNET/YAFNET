@@ -518,6 +518,7 @@ public interface IAspNetUsersHelper
     /// <param name="groupId">The group identifier.</param>
     /// <param name="rankId">The rank identifier.</param>
     /// <param name="includeGuests">Include Guests ?!</param>
+    /// <param name="includeNonApproved">Include the users that are not approved (Admin > Users).</param>
     /// <returns>
     /// Returns the board users.
     /// </returns>
@@ -531,7 +532,8 @@ public interface IAspNetUsersHelper
         bool onlySuspended,
         int? groupId,
         int? rankId,
-        bool includeGuests = true);
+        bool includeGuests = true,
+        bool includeNonApproved = false);
 
     /// <summary>
     /// List Members Paged

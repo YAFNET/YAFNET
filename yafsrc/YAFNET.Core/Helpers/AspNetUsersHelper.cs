@@ -1080,6 +1080,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <param name="groupId">The group identifier.</param>
     /// <param name="rankId">The rank identifier.</param>
     /// <param name="includeGuests">Include Guests ?!</param>
+    /// <param name="includeNonApproved">Include the users that are not approved (Admin > Users).</param>
     /// <returns>
     /// Returns the board users.
     /// </returns>
@@ -1093,19 +1094,17 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         bool onlySuspended,
         int? groupId,
         int? rankId,
-        bool includeGuests = true)
+        bool includeGuests = true,
+        bool includeNonApproved = false)
     {
         return this.GetRepository<User>().DbAccess.Execute(
             db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-                    Expression<Func<User, bool>> whereCriteria =
-                        includeGuests
-                            ? u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID)
-                                   && (u.Flags & 2) == 2
-                            : u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID)
-                                   && (u.Flags & 2) == 2 && (u.Flags & 4) != 4;
+                    var userBoardId = boardId ?? this.GetRepository<User>().BoardID;
+
+                    Expression<Func<User, bool>> whereCriteria = u => u.BoardID == userBoardId;
 
                     // -- count total
                     var countTotalExpression = db.Connection.From<User>();
@@ -1116,6 +1115,21 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     countTotalExpression.Where(whereCriteria);
 
                     expression.Where(whereCriteria);
+
+                    // the users that are not approved yet (only for the admin)
+                    if (!includeNonApproved)
+                    {
+                        countTotalExpression.And<User>(u => (u.Flags & 2) == 2);
+
+                        expression.And<User>(u => (u.Flags & 2) == 2);
+                    }
+
+                    if (!includeGuests)
+                    {
+                        countTotalExpression.And<User>(u => (u.Flags & 4) != 4);
+
+                        expression.And<User>(u => (u.Flags & 4) != 4);
+                    }
 
                     // filter by name
                     if (name.IsSet())
