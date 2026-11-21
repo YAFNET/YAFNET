@@ -71,7 +71,8 @@ public class InternalCheck : ICheckForBot
             {
                 try
                 {
-                    if (!Regex.Match(emailAddress, mask, RegexOptions.None, Constants.RegexTimeout).Success)
+                    // e-mail addresses and names are not case sensitive (an address in capitals passed the ban)
+                    if (!Regex.Match(emailAddress, mask, RegexOptions.IgnoreCase, Constants.RegexTimeout).Success)
                     {
                         continue;
                     }
@@ -100,7 +101,7 @@ public class InternalCheck : ICheckForBot
             {
                 try
                 {
-                    if (!Regex.Match(userName, mask, RegexOptions.None,
+                    if (!Regex.Match(userName, mask, RegexOptions.IgnoreCase,
                             Constants.RegexTimeout).Success)
                     {
                         continue;

@@ -158,6 +158,48 @@ public class SpamProtectionTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// A banned email address is found in any case (an address in capitals passed the ban).
+    /// </summary>
+    [Test]
+    public async Task BannedEmailIgnoresTheCaseTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BannedEmails");
+
+                var number = Random.Shared.Next();
+                var email = $"UITestCase{number}@Example.com";
+
+                await PostApiAsync(
+                    page,
+                    $"{this.TestSettings.TestForumUrl}api/BannedEmail/Edit",
+                    new { id = 0, mask = $@"uitestcase{number}@example\.com", banReason = "test" });
+
+                // the registration with the address in other case (the check writes it to the spam log)
+                Assert.That(
+                    await page.SubmitRegistrationAsync(this.TestSettings, $"CaseBan{number}", email, this.TestSettings.TestUserPassword),
+                    Is.True,
+                    "Registrations are disabled");
+
+                await page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+                // the registration logged out the admin
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/SpamLog");
+
+                Assert.That(await page.ContentAsync(), Does.Contain(email), "The banned address in other case was not found");
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)
