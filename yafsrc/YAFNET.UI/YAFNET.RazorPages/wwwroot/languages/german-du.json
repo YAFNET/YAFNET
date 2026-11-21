@@ -6380,6 +6380,10 @@
             "#text": "Regulärer Ausdrucks Anweisung. Escape Punkte mit einem vorangestellten Schrägstrich (e.g. '\\.')."
           },
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Das Wort gibt es schon!"
+          },
+          {
             "@tag": "MSG_REGEX_BAD",
             "#text": "Die Regulärer Ausdrucks Anweisung die Sie eingeben haben ist ungültig."
           },

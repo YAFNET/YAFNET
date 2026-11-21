@@ -100,6 +100,33 @@ public class ContentTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A bad word can be added once (the same word was added again).
+    /// </summary>
+    [Test]
+    public async Task ReplaceWordAddedTwiceIsRefusedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ReplaceWords");
+
+                var word = $"uitesttwice{Random.Shared.Next()}";
+
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/ReplaceWords/Edit", new { id = 0, badWord = word, goodWord = "one" });
+                var response = await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/ReplaceWords/Edit", new { id = 0, badWord = word, goodWord = "two" });
+
+                Assert.That(response, Does.Contain("already exists"), "The dialog shows no message");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ReplaceWords");
+
+                Assert.That(await page.Locator($"li:has-text('{word}')").CountAsync(), Is.EqualTo(1), "The bad word was saved twice");
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)

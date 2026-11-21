@@ -93,12 +93,14 @@ public class ReplaceWordsController : ForumBaseController
                          w => w.BadWord == row["badword"].ToString()
                               && w.GoodWord == HtmlTagHelper.StripHtml(row["goodword"].ToString()))))
             {
-                // add this...
-                await this.GetRepository<ReplaceWords>().SaveAsync(
-                    null,
-                    row["badword"].ToString(),
-                    HtmlTagHelper.StripHtml(row["goodword"].ToString()));
-                importedCount++;
+                // add this (a bad word that is already a replace word is skipped)...
+                if (await this.GetRepository<ReplaceWords>().SaveAsync(
+                        null,
+                        row["badword"].ToString().Trim(),
+                        HtmlTagHelper.StripHtml(row["goodword"].ToString())))
+                {
+                    importedCount++;
+                }
             }
 
             return this.Ok(
@@ -147,11 +149,17 @@ public class ReplaceWordsController : ForumBaseController
         }
 
         // the good word is text (it is encoded in the pages), html is removed
-        await this.GetRepository<ReplaceWords>()
-            .SaveAsync(
-                model.Id,
-                model.BadWord,
-                HtmlTagHelper.StripHtml(model.GoodWord));
+        if (!await this.GetRepository<ReplaceWords>()
+                .SaveAsync(
+                    model.Id,
+                    model.BadWord,
+                    HtmlTagHelper.StripHtml(model.GoodWord)))
+        {
+            return this.Ok(
+                new MessageModalNotification(
+                    this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_EXIST"),
+                    MessageTypes.warning));
+        }
 
         return this.Ok();
     }

@@ -41,7 +41,8 @@ public static class ReplaceWordsRepositoryExtensions
     /// <param name="badWord">The bad word.</param>
     /// <param name="goodWord">The good word.</param>
     /// <param name="boardId">The board identifier.</param>
-    public async static Task SaveAsync(
+    /// <returns>False if the bad word is already a replace word of the board.</returns>
+    public async static Task<bool> SaveAsync(
         this IRepository<ReplaceWords> repository,
         int? replaceWordId,
         string badWord,
@@ -53,7 +54,13 @@ public static class ReplaceWordsRepositoryExtensions
 
         if (replaceWordId is > 0 && !await repository.ExistsAsync(x => x.ID == replaceWordId && x.BoardID == saveBoardId))
         {
-            return;
+            return true;
+        }
+
+        // the bad word of another entry (also when an entry is changed to it)
+        if (await repository.ExistsAsync(x => x.BoardID == saveBoardId && x.BadWord == badWord && x.ID != (replaceWordId ?? 0)))
+        {
+            return false;
         }
 
         await repository.UpsertAsync(
@@ -64,5 +71,7 @@ public static class ReplaceWordsRepositoryExtensions
                 BadWord = badWord,
                 GoodWord = goodWord
             });
+
+        return true;
     }
 }

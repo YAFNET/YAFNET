@@ -6388,6 +6388,10 @@
             "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Từ này đã tồn tại!"
+          },
+          {
             "@tag": "MSG_REGEX_BAD",
             "#text": "Câu lệnh Biểu thức chính quy bạn đã nhập không hợp lệ."
           },

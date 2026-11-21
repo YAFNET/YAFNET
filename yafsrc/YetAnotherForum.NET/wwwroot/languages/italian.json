@@ -6380,6 +6380,10 @@
             "#text": "Regular expression statement. Escape punctation with a preceding slash (e.g. '\\.')."
           },
           {
+            "@tag": "MSG_EXIST",
+            "#text": "La parola esiste già!"
+          },
+          {
             "@tag": "MSG_REGEX_BAD",
             "#text": "L'espressione regolare inserita non è valida."
           },
