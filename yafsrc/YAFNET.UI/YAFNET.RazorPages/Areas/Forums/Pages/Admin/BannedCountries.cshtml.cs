@@ -34,6 +34,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
+using YAF.Types.Extensions;
 using YAF.Types.Modals;
 using YAF.Types.Models;
 
@@ -48,6 +49,11 @@ public class BannedCountriesModel : AdminPage
     /// <value>The list.</value>
     [BindProperty]
     public List<BannedCountry> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of the banned countries.
+    /// </summary>
+    public int TotalRows { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BannedCountriesModel"/> class.
@@ -136,5 +142,8 @@ public class BannedCountriesModel : AdminPage
             x => x.BoardID == this.PageBoardContext.PageBoardID,
             this.PageBoardContext.PageIndex,
             this.Size);
+
+        this.TotalRows = this.GetRepository<BannedCountry>()
+            .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>();
     }
 }

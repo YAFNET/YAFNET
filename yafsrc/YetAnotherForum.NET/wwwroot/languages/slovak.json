@@ -7110,8 +7110,44 @@
             "#text": "Nastavenia"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Žiadna položka neobsahuje hľadaný text."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Ochrana pred nevyžiadanou poštou"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Otestovať"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "napr. meno@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Ukáže, ktoré zákazy zodpovedajú hodnote (ako kontrola pri registrácii a pri požiadavkách)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "napr. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" zodpovedá týmto zákazom:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "používateľské meno"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Hodnote \"{0}\" nezodpovedá žiadny zákaz."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "user agent"
           },
           {
             "@tag": "UPGRADE",

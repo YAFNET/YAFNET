@@ -9,176 +9,171 @@
 @using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
+@{
+    var totalRows = Model.List.NullOrEmpty() ? 0 : Model.List.FirstOrDefault()!.TotalRows;
+}
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-auto">
-                            @Html.IconHeader("shield-alt","ADMIN_SPAMLOG","TITLE")
-                        </div>
-                        <div class="col-auto">
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="input-group input-group-sm me-2" role="group">
-                                    <div class="input-group-text">
-                                        @Html.LocalizedText("SHOW"):
-                                    </div>
-                                    <select asp-for="@Model.Size"
-                                            asp-items="Model.PageSizeList"
-                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            class="form-select"
-                                            onchange="this.form.submit();"></select>
-                                </div>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button class="dropdown-toggle"
-                                            bs-toggle="dropdown"
-                                            button-size="Small"
-                                            button-style="Secondary"
-                                            Icon="filter"
-                                            text-localized-tag="FILTER_DROPDOWN"
-                                            text-localized-page="ADMIN_USERS"></button>
-                                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                                        <div class="px-3 py-1">
-                                            <div class="mb-3">
-                                                <label class="form-label" ID="SinceDateLabel" info-button="true"
-                                                       asp-for="Input.SinceDate"
-                                                       localized-page="ADMIN_EVENTLOG" localized-tag="SINCEDATE"></label>
-                                                <input type="date" asp-for="Input.SinceDate" 
-                                                       class="form-control"/>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" ID="ToDateLabel" info-button="true"
-                                                       asp-for="Input.ToDate"
-                                                       localized-page="ADMIN_EVENTLOG" localized-tag="TODATE"></label>
-                                                <input type="date" asp-for="Input.ToDate" 
-                                                       class="form-control"/>
-                                            </div>
-                                            <div class="mb-3 d-grid gap-2">
-                                                <button ID="ApplyButton" 
-                                                        button-style="Primary"
-                                                        asp-page-handler="ApplyButton"
-                                                        asp-route-p="1"
-                                                        text-localized-page="ADMIN_EVENTLOG"
-                                                        text-localized-tag="APPLY"
-                                                        Icon="check"></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class="admin-spam">
+
+@Html.SpamProtectionNav()
+
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <h2 class="h4 mb-0">
+        @Html.Icon("book")@Html.LocalizedText("ADMIN_SPAMLOG", "TITLE")
+        <span class="badge text-bg-secondary align-middle ms-1 spam-count">@totalRows</span>
+    </h2>
+    @if (totalRows > 0)
+    {
+        <div class="d-flex flex-wrap gap-2 spam-actions">
+            <button button-style="Danger"
+                    button-size="Small"
+                    form="SpamList"
+                    Icon="trash"
+                    asp-page-handler="DeleteAll"
+                    text-localized-page="ADMIN_EVENTLOG" text-localized-tag="DELETE_ALLOWED"
+                    return-confirm-tag="CONFIRM_DELETE_ALL"></button>
+        </div>
+    }
+</div>
+
+<form method="post" id="SpamList">
+    @* the time span of the entries *@
+    <div class="d-flex flex-wrap align-items-end gap-2 mb-3 spam-search">
+        <div>
+            <label class="form-label small mb-1" asp-for="Input.SinceDate"
+                   localized-page="ADMIN_EVENTLOG" localized-tag="SINCEDATE"></label>
+            <input type="date" asp-for="Input.SinceDate" class="form-control form-control-sm" />
+        </div>
+        <div>
+            <label class="form-label small mb-1" asp-for="Input.ToDate"
+                   localized-page="ADMIN_EVENTLOG" localized-tag="TODATE"></label>
+            <input type="date" asp-for="Input.ToDate" class="form-control form-control-sm" />
+        </div>
+        <button ID="ApplyButton"
+                button-style="Secondary"
+                button-size="Small"
+                asp-page-handler="ApplyButton"
+                asp-route-p="1"
+                text-localized-page="ADMIN_EVENTLOG"
+                text-localized-tag="APPLY"
+                Icon="check"></button>
+        <div class="input-group input-group-sm w-auto ms-auto">
+            <span class="input-group-text">@Html.LocalizedText("SHOW"):</span>
+            <select asp-for="@Model.Size"
+                    asp-items="Model.PageSizeList"
+                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    class="form-select"
+                    onchange="this.form.submit();"></select>
+        </div>
+    </div>
+
+    @if (!Model.List.NullOrEmpty())
+    {
+        <ul class="list-group mb-3 spam-list">
+            @foreach (var item in Model.List)
+            {
+                var summary = Model.GetSummary(item.Description);
+
+                <li class="list-group-item list-group-item-menu spam-log-row">
+                    <input type="hidden" id="EventTypeID" value="@item.Type" />
+                    <div class="d-flex flex-wrap justify-content-between gap-2">
+                        <span class="fw-semibold text-break">@(item.Source.IsSet() ? item.Source : "N/A")</span>
+                        <span class="small text-body-secondary text-nowrap">
+                            @Html.Icon("calendar-day")@Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(item.EventTime))
+                        </span>
                     </div>
-                </div>
-                <div class="card-body">
-                    @if (!Model.List.NullOrEmpty())
+                    @if (summary.Message.IsSet())
                     {
-                        <ul class="list-group">
-                            @foreach (var item in Model.List)
-                            {
-                                <li class="list-group-item list-group-item-action list-group-item-menu">
-                                    <div class="d-flex w-100 justify-content-between text-break"
-                                         onclick="javascript:document.querySelector('@($".btn-toggle-{item.ID}")').click();">
-                                        <h5 class="mb-1">
-                                            <input type="hidden" ID="EventTypeID" Value="@Html.Raw(item.Type)"/>
-                                            @Html.LocalizedText("ADMIN_EVENTLOG", "SOURCE"):&nbsp;
-                                            @Html.Raw(item.Source.IsSet() ? Html.HtmlEncode(item.Source) : "N/A")
-                                        </h5>
-                                        <small class="d-none d-md-block">
-                                            @Html.IconBadge("calendar-day", "clock")
-                                            @Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(item.EventTime))
-                                        </small>
-                                    </div>
-                                    <p class="mb-1" onclick="javascript:document.querySelector('@($".btn-toggle-{item.ID}")').click();">
-
-                                        <span class="fw-bold">
-                                            @Html.LocalizedText("ADMIN_EVENTLOG", "NAME"):
-                                        </span>
-
-                                        @Html.UserLink(item.UserID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name, item.Suspended, item.UserStyle)
-                                    </p>
-                                    <small>
-                                        <div class="btn-group btn-group-sm">
-                                            <button type="button"
-                                                    button-style="Info"
-                                                    button-size="Small"
-                                                    text-localized-tag="SHOW" text-localized-page="ADMIN_EVENTLOG"
-                                                    Icon="caret-square-down"
-                                                    class="@Html.Raw($"btn-toggle-{item.ID}")"
-                                                    bs-toggle="collapse"
-                                                    bs-target="@Html.Raw($"#eventDetails{item.ID}")">
-                                            </button>
-                                            <button button-style="Danger"
-                                                    button-size="Small"
-                                                    asp-page-handler="Delete"
-                                                    asp-route-id="@Html.Raw(item.ID)"
-                                                    return-confirm-tag="CONFIRM_DELETE"
-                                                    Icon="trash"
-                                                    text-localized-tag="DELETE">
-                                            </button>
-                                        </div>
-                                    </small>
-                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                        <button button-style="None"
-                                                class="dropdown-item"
-                                                asp-page-handler="Delete"
-                                                asp-route-id="@Html.Raw(item.ID)"
-                                                return-confirm-tag="CONFIRM_DELETE"
-                                                Icon="trash"
-                                                text-localized-tag="DELETE">
-                                        </button>
-                                        <div class="dropdown-divider"></div>
-                                        <button button-style="None"
-                                                class="dropdown-item"
-                                                Icon="trash"
-                                                asp-page-handler="DeleteAll"
-                                                text-localized-page="ADMIN_EVENTLOG" text-localized-tag="DELETE_ALLOWED"
-                                                return-confirm-tag="CONFIRM_DELETE_ALL">
-                                        </button>
-                                    </div>
-                                    <div class="collapse mt-3" id="@Html.Raw($"eventDetails{item.ID}")">
-                                        <div class="card card-body">
-                                            <pre class="pre-scrollable stacktrace overflow-auto">
-                                                <code>@Html.Raw(Model.FormatStackTrace(item.Description))</code>
-                                            </pre>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-
-                        </ul>
+                        <div class="spam-log-message text-break">@summary.Message</div>
                     }
-                    else
-                    {
-	                    @await Html.PartialAsync("_NoEntryInfo")
-                    }
-                </div>
-
-                @if (!Model.List.NullOrEmpty())
-                {
-                    <div class="card-footer text-center">
+                    <div class="spam-log-badges">
+                        @if (item.UserID > 0)
+                        {
+                            <span class="badge text-bg-light border">
+                                @Html.UserLink(item.UserID, Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name, item.Suspended, item.UserStyle)
+                            </span>
+                        }
+                        @if (summary.UserIp.IsSet())
+                        {
+                            <a class="badge text-bg-info text-decoration-none"
+                               href="@string.Format(Model.PageBoardContext.BoardSettings.IPInfoPageURL, summary.UserIp)"
+                               title="@Html.LocalizedText("COMMON", "TT_IPDETAILS")"
+                               target="_blank" rel="noopener">@Html.Icon("desktop")@summary.UserIp</a>
+                        }
+                        @if (summary.Url.IsSet())
+                        {
+                            <span class="badge text-bg-secondary text-break">@Html.Icon("globe")@summary.Url</span>
+                        }
+                        @if (summary.UserAgent.IsSet())
+                        {
+                            <span class="badge text-bg-light border text-break">@Html.Icon("computer")@summary.UserAgent</span>
+                        }
+                    </div>
+                    <div class="btn-group btn-group-sm mt-2">
+                        @if (summary.HasException)
+                        {
+                            <button type="button"
+                                    button-style="Info"
+                                    button-size="Small"
+                                    text-localized-tag="SHOW" text-localized-page="ADMIN_EVENTLOG"
+                                    Icon="caret-square-down"
+                                    class="@($"btn-toggle-{item.ID}")"
+                                    bs-toggle="collapse"
+                                    bs-target="@($"#eventDetails{item.ID}")"></button>
+                        }
                         <button button-style="Danger"
+                                button-size="Small"
+                                asp-page-handler="Delete"
+                                asp-route-id="@item.ID"
+                                return-confirm-tag="CONFIRM_DELETE"
+                                Icon="trash"
+                                text-localized-tag="DELETE"></button>
+                    </div>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <button button-style="None"
+                                class="dropdown-item"
+                                asp-page-handler="Delete"
+                                asp-route-id="@item.ID"
+                                return-confirm-tag="CONFIRM_DELETE"
+                                Icon="trash"
+                                text-localized-tag="DELETE"></button>
+                        <div class="dropdown-divider"></div>
+                        <button button-style="None"
+                                class="dropdown-item"
                                 Icon="trash"
                                 asp-page-handler="DeleteAll"
                                 text-localized-page="ADMIN_EVENTLOG" text-localized-tag="DELETE_ALLOWED"
-                                return-confirm-tag="CONFIRM_DELETE_ALL">
-                        </button>
+                                return-confirm-tag="CONFIRM_DELETE_ALL"></button>
                     </div>
-                }
+                    @if (summary.HasException)
+                    {
+                        <div class="collapse mt-3" id="@($"eventDetails{item.ID}")">
+                            <div class="card card-body">
+                                <pre class="pre-scrollable stacktrace overflow-auto"><code>@Html.Raw(Model.FormatStackTrace(item.Description))</code></pre>
+                            </div>
+                        </div>
+                    }
+                </li>
+            }
+        </ul>
+
+        @await Html.PartialAsync("_Pagination", new Pagination { TotalRows = totalRows, Size = Model.Size })
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                @await Html.PartialAsync("_NoEntryInfo")
             </div>
         </div>
-    </div>
-    @if (!Model.List.NullOrEmpty())
-    {
-	    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.List.FirstOrDefault().TotalRows, Size = Model.Size })
     }
 </form>
 
+</div>
+
 @section Scripts {
     <script>
-
     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CollapseToggleJs(
         Model.GetText("ADMIN_EVENTLOG", "HIDE"),
         Model.GetText("ADMIN_EVENTLOG", "SHOW"))));

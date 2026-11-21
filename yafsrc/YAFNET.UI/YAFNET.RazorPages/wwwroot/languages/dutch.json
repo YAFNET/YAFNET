@@ -7102,8 +7102,44 @@
             "#text": "Instellingen"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Geen item bevat de zoektekst."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Beveiliging tegen spam"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Testen"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "bijv. naam@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Toont welke blokkades bij de waarde passen (zoals de controle bij de registratie en de aanvragen)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "bijv. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" past bij deze blokkades:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "een gebruikersnaam"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Geen blokkade past bij \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "een user-agent"
           },
           {
             "@tag": "UPGRADE",

@@ -7110,8 +7110,44 @@
             "#text": "Nastavení"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Žádná položka neobsahuje hledaný text."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Ochrana proti spamu"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Otestovat"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "např. jmeno@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Ukáže, které zákazy odpovídají hodnotě (jako kontrola při registraci a u požadavků)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "např. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" odpovídá těmto zákazům:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "uživatelské jméno"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Hodnotě \"{0}\" neodpovídá žádný zákaz."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "user agent"
           },
           {
             "@tag": "UPGRADE",

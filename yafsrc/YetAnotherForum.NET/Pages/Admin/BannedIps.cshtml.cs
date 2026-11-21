@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -56,6 +57,17 @@ public class BannedIpsModel : AdminPage
     /// Gets or sets the number of the entries (of the search) for the pager.
     /// </summary>
     public int TotalRows { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value to test against the bans.
+    /// </summary>
+    [BindProperty]
+    public string TestInput { get; set; }
+
+    /// <summary>
+    /// Gets or sets the test box (which bans match the tested value).
+    /// </summary>
+    public BanTestBox TestBox { get; set; }
 
     /// <summary>
     /// Gets or sets the search input.
@@ -281,6 +293,25 @@ public class BannedIpsModel : AdminPage
     }
 
     /// <summary>
+    /// Shows the bans that match the tested value (like the ban check: not case sensitive).
+    /// </summary>
+    public IActionResult OnPostTest()
+    {
+        this.BindData();
+
+        var value = this.TestInput?.Trim();
+
+        if (value.IsSet())
+        {
+            this.TestBox.Value = value;
+            this.TestBox.Matches = [.. this.GetRepository<BannedIP>().Get(x => x.BoardID == this.PageBoardContext.PageBoardID)
+                .Select(x => x.Mask).Where(mask => mask.IsSet() && IPHelper.IsBanned(mask, value))];
+        }
+
+        return this.Page();
+    }
+
+    /// <summary>
     /// Binds the data.
     /// </summary>
     private void BindData()
@@ -294,7 +325,7 @@ public class BannedIpsModel : AdminPage
         if (searchText.IsSet())
         {
             bannedList = this.GetRepository<BannedIP>().GetPaged(
-                x => x.BoardID == this.PageBoardContext.PageBoardID && x.Mask == searchText,
+                x => x.BoardID == this.PageBoardContext.PageBoardID && x.Mask.Contains(searchText),
                 this.PageBoardContext.PageIndex,
                 this.Size);
         }
@@ -308,10 +339,12 @@ public class BannedIpsModel : AdminPage
 
         this.List = bannedList;
 
-        // the pager counts the entries of the search
+        // the search finds the entries that contain the text, the pager counts them
         this.TotalRows = searchText.IsSet()
             ? this.GetRepository<BannedIP>()
-                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.Mask == searchText).ToType<int>()
+                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.Mask.Contains(searchText)).ToType<int>()
             : this.GetRepository<BannedIP>().Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>();
+
+        this.TestBox = new BanTestBox { Placeholder = this.GetText("ADMINMENU", "SPAM_TEST_IP") };
     }
 }

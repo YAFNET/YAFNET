@@ -7102,8 +7102,44 @@
             "#text": "Einstellungen"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Kein Eintrag enthält den Suchtext."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Spam Schutz"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Testen"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "z. B. name@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Zeigt, welche Sperren auf den Wert passen (wie die Prüfung bei der Registrierung und den Aufrufen)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "z. B. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" passt auf diese Sperren:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "ein Benutzername"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Keine Sperre passt auf \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "ein User-Agent"
           },
           {
             "@tag": "UPGRADE",

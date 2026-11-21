@@ -7110,8 +7110,44 @@
             "#text": "Paramètres"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Aucune entrée ne contient le texte recherché."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Protection contre le spam"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Tester"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "p. ex. nom@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Affiche les bannissements qui correspondent à la valeur (comme le contrôle de l'inscription et des requêtes)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "p. ex. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "« {0} » correspond à ces bannissements :"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "un nom d'utilisateur"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Aucun bannissement ne correspond à « {0} »."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "un agent utilisateur"
           },
           {
             "@tag": "UPGRADE",

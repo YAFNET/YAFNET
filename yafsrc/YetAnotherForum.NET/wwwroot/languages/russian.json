@@ -7102,8 +7102,44 @@
             "#text": "Настройки"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Ни одна запись не содержит искомый текст."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Защита от спама"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Проверить"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "напр. imya@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Показывает, какие блокировки подходят к значению (как проверка при регистрации и запросах)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "напр. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" подходит к этим блокировкам:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "имя пользователя"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Ни одна блокировка не подходит к \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "user agent"
           },
           {
             "@tag": "UPGRADE",

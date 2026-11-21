@@ -88,6 +88,15 @@ public class SpamWordsModel : AdminPage
     }
 
     /// <summary>
+    /// Clears the search.
+    /// </summary>
+    public void OnPostClear()
+    {
+        this.SearchInput = string.Empty;
+        this.BindData();
+    }
+
+    /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
     public void OnGet()
@@ -189,7 +198,7 @@ public class SpamWordsModel : AdminPage
         if (searchText.IsSet())
         {
             bannedList = this.GetRepository<SpamWords>().GetPaged(
-                x => x.BoardID == this.PageBoardContext.PageBoardID && x.SpamWord == searchText,
+                x => x.BoardID == this.PageBoardContext.PageBoardID && x.SpamWord.Contains(searchText),
                 this.PageBoardContext.PageIndex,
                 this.Size);
         }
@@ -203,10 +212,10 @@ public class SpamWordsModel : AdminPage
 
         this.List = bannedList;
 
-        // the pager counts the entries of the search
+        // the search finds the entries that contain the text, the pager counts them
         this.TotalRows = searchText.IsSet()
             ? this.GetRepository<SpamWords>()
-                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.SpamWord == searchText).ToType<int>()
+                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.SpamWord.Contains(searchText)).ToType<int>()
             : this.GetRepository<SpamWords>().Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>();
     }
 

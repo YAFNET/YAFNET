@@ -1,0 +1,49 @@
+@using YAF.Core.Context
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+@model YAF.Types.Objects.BanTestBox
+
+@{
+    var localization = BoardContext.Current.Get<ILocalization>();
+}
+
+@* which bans match a value (an own form, Enter tests the value) *@
+<div class="collapse@(Model.Matches is not null ? " show" : "")" id="BanTest">
+    <form method="post" class="card card-body mb-3 ban-test">
+        <label class="form-label fw-semibold" for="TestInput">
+            @Html.Icon("vial")@Html.LocalizedText("ADMINMENU", "SPAM_TEST")
+        </label>
+        <div class="input-group">
+            <input type="text" class="form-control" id="TestInput" name="TestInput"
+                   value="@Model.Value" placeholder="@Model.Placeholder" maxlength="255" />
+            <button button-style="Secondary"
+                    asp-page-handler="Test"
+                    asp-route-p="1"
+                    Icon="vial"
+                    text-localized-tag="SPAM_TEST" text-localized-page="ADMINMENU"></button>
+        </div>
+        <div class="form-text">@Html.LocalizedText("ADMINMENU", "SPAM_TEST_HELP")</div>
+
+        @if (Model.Matches is not null)
+        {
+            if (Model.Matches.Count > 0)
+            {
+                <div class="alert alert-danger mt-3 mb-0 ban-test-result" role="status">
+                    @string.Format(localization.GetText("ADMINMENU", "SPAM_TEST_MATCH"), Model.Value)
+                    <ul class="mb-0 mt-1">
+                        @foreach (var mask in Model.Matches)
+                        {
+                            <li><code class="text-break">@mask</code></li>
+                        }
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-success mt-3 mb-0 ban-test-result" role="status">
+                    @string.Format(localization.GetText("ADMINMENU", "SPAM_TEST_NO_MATCH"), Model.Value)
+                </div>
+            }
+        }
+    </form>
+</div>

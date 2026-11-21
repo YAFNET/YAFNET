@@ -7102,8 +7102,44 @@
             "#text": "Настройки"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Нито един запис не съдържа търсения текст."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Защита на спам"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Тест"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "напр. ime@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Показва кои забрани съответстват на стойността (както проверката при регистрация и при заявките)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "напр. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" съответства на тези забрани:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "потребителско име"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Никоя забрана не съответства на \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "user agent"
           },
           {
             "@tag": "UPGRADE",

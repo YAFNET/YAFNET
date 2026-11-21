@@ -7110,8 +7110,44 @@
             "#text": "Ayarlar"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Hiçbir kayıt aranan metni içermiyor."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Spam Koruması"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Test et"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "örn. ad@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Değerle hangi yasakların eşleştiğini gösterir (kayıt ve isteklerdeki denetim gibi)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "örn. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" şu yasaklarla eşleşiyor:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "bir kullanıcı adı"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Hiçbir yasak \"{0}\" ile eşleşmiyor."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "bir kullanıcı aracısı"
           },
           {
             "@tag": "UPGRADE",

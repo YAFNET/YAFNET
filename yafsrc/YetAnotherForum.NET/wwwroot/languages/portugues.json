@@ -7110,8 +7110,44 @@
             "#text": "Definições"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Nenhuma entrada contém o texto pesquisado."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Protecção contra Spam"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Testar"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "p. ex. nome@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Mostra que bloqueios correspondem ao valor (como a verificação do registo e dos pedidos)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "p. ex. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" corresponde a estes bloqueios:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "um nome de utilizador"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Nenhum bloqueio corresponde a \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "um agente de utilizador"
           },
           {
             "@tag": "UPGRADE",

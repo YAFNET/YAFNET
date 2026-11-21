@@ -7110,8 +7110,44 @@
             "#text": "Seaded"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Ükski kirje ei sisalda otsitavat teksti."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Rämpsposti kaitse"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Testi"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "nt nimi@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Näitab, millised keelud väärtusele vastavad (nagu registreerimise ja päringute kontroll)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "nt 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" vastab nendele keeldudele:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "kasutajanimi"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Ükski keeld ei vasta väärtusele \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "kasutajaagent"
           },
           {
             "@tag": "UPGRADE",

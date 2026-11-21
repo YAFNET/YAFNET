@@ -7110,8 +7110,44 @@
             "#text": "设置"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "没有条目包含搜索文本。"
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "垃圾邮件防护"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "测试"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "例如 name@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "显示哪些封禁与该值匹配（与注册和请求时的检查相同）。"
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "例如 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "“{0}”匹配以下封禁："
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "用户名"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "没有封禁匹配“{0}”。"
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "用户代理"
           },
           {
             "@tag": "UPGRADE",

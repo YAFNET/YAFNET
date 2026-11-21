@@ -7110,8 +7110,44 @@
             "#text": "הגדרות"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "אף רשומה לא מכילה את טקסט החיפוש."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "הגנה מפני דואר זבל"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "בדיקה"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "למשל name@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "מציג אילו חסימות תואמות לערך (כמו הבדיקה בהרשמה ובבקשות)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "למשל 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" תואם לחסימות האלה:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "שם משתמש"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "אף חסימה לא תואמת ל-\"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "סוכן משתמש"
           },
           {
             "@tag": "UPGRADE",

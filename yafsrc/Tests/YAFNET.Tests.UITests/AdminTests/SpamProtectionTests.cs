@@ -217,10 +217,10 @@ public class SpamProtectionTests(ComposeScenario scenario) : DatabaseTestBase(sc
                 {
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BannedIps");
 
-                    await page.SubmitAndWaitAsync(page.Locator(".card-footer button[formaction*='ImportMostRecent']"));
+                    await page.SubmitAndWaitAsync(page.Locator(".spam-actions button[formaction*='ImportMostRecent']"));
 
                     Assert.That(page.Url, Does.Contain("Admin/BannedIps"), "The failed import showed an error page");
-                    Assert.That(await page.Locator(".card-footer button[formaction*='ImportMostRecent']").CountAsync(), Is.EqualTo(1), "The banned ips are not shown");
+                    Assert.That(await page.Locator(".spam-actions button[formaction*='ImportMostRecent']").CountAsync(), Is.EqualTo(1), "The banned ips are not shown");
                 }
                 finally
                 {
@@ -262,6 +262,68 @@ public class SpamProtectionTests(ComposeScenario scenario) : DatabaseTestBase(sc
                 var row = await page.Locator("li.list-group-item-menu").First.InnerTextAsync();
 
                 Assert.That(row, Does.Contain("Imported User Name"), "The import reason is wrong");
+            });
+    }
+
+    /// <summary>
+    /// The test box shows the bans that match a value (not case sensitive, like the check).
+    /// </summary>
+    [Test]
+    public async Task BanTestShowsTheMatchingBansTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BannedEmails");
+
+                var number = Random.Shared.Next();
+                var mask = $@".*@uitesttest{number}\.example$";
+
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/BannedEmail/Edit", new { id = 0, mask, banReason = "test" });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BannedEmails");
+
+                await page.Locator(".spam-actions button[data-bs-target='#BanTest']").ClickAsync();
+                await page.Locator("#TestInput").FillAsync($"Someone@UITestTest{number}.example");
+                await page.SubmitAndWaitAsync(page.Locator("#BanTest button[formaction*='Test']"));
+
+                var result = page.Locator(".ban-test-result");
+
+                Assert.That(await result.InnerTextAsync(), Does.Contain(mask), "The matching ban is not shown");
+
+                // a value without a ban
+                await page.Locator("#TestInput").FillAsync($"someone@other{number}.example");
+                await page.SubmitAndWaitAsync(page.Locator("#BanTest button[formaction*='Test']"));
+
+                Assert.That(await result.GetAttributeAsync("class"), Does.Contain("alert-success"), "A ban matched the other address");
+            });
+    }
+
+    /// <summary>
+    /// The search finds the entries that contain the text (it only found the whole mask).
+    /// </summary>
+    [Test]
+    public async Task SearchFindsPartOfTheMaskTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BannedNames");
+
+                var part = $"uitestpart{Random.Shared.Next()}";
+
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/BannedName/Edit", new { id = 0, mask = $"^{part}.*$", banReason = "test" });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BannedNames");
+                await SearchAsync(page, part);
+
+                Assert.That(await page.Locator("li.spam-row").CountAsync(), Is.EqualTo(1), "The ban was not found by a part of the mask");
             });
     }
 

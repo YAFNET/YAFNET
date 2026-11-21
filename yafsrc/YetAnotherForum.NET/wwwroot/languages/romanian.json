@@ -7110,8 +7110,44 @@
             "#text": "Setări"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Nicio intrare nu conține textul căutat."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Protecția împotriva spam-ului"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Testează"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "de ex. nume@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Arată ce interdicții se potrivesc cu valoarea (ca verificarea la înregistrare și la cereri)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "de ex. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" se potrivește cu aceste interdicții:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "un nume de utilizator"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Nicio interdicție nu se potrivește cu \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "un user agent"
           },
           {
             "@tag": "UPGRADE",

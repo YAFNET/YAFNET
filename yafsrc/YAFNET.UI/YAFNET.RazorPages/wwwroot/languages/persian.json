@@ -7102,8 +7102,44 @@
             "#text": "تنظیمات"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "هیچ موردی متن جستجو را ندارد."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "محافظت از اسپم ها"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "آزمایش"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "مثلاً name@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "نشان می‌دهد کدام مسدودسازی‌ها با مقدار جور هستند (مانند بررسی هنگام ثبت‌نام و درخواست‌ها)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "مثلاً 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" با این مسدودسازی‌ها جور است:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "یک نام کاربری"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "هیچ مسدودسازی با \"{0}\" جور نیست."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "یک عامل کاربر"
           },
           {
             "@tag": "UPGRADE",

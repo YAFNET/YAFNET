@@ -429,6 +429,80 @@
     }
 }
 
+// Admin spam protection (spam log, spam words, the bans)
+.admin-spam {
+    .admin-spam-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: .25rem;
+        margin-bottom: 1rem;
+        padding-bottom: .25rem;
+
+        .nav-link {
+            white-space: nowrap;
+        }
+    }
+
+    // the search field and the page size in one row
+    .spam-search > .input-group.flex-grow-1 {
+        flex: 1 1 16rem;
+        width: auto;
+    }
+
+    .spam-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: .25rem 1rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .spam-row-main {
+        flex: 1 1 16rem;
+        min-width: 0;
+    }
+
+    .spam-mask {
+        font-size: .95rem;
+        overflow-wrap: anywhere;
+    }
+
+    .spam-reason {
+        overflow-wrap: anywhere;
+    }
+
+    .spam-row-since {
+        white-space: nowrap;
+    }
+
+    .spam-log-row {
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    .spam-log-message {
+        white-space: pre-line;
+        margin-top: .25rem;
+    }
+
+    .spam-log-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem;
+        margin-top: .5rem;
+
+        .badge {
+            font-weight: 500;
+            white-space: normal;
+            text-align: start;
+        }
+    }
+}
+
 // Admin access masks
 .admin-access-masks {
     .access-mask-name {

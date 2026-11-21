@@ -7110,8 +7110,44 @@
             "#text": "Indstillinger"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Ingen post indeholder søgeteksten."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Spam beskyttelse"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "f.eks. navn@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Viser hvilke udelukkelser der passer til værdien (som kontrollen ved registrering og forespørgsler)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "f.eks. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" passer til disse udelukkelser:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "et brugernavn"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Ingen udelukkelse passer til \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "en user agent"
           },
           {
             "@tag": "UPGRADE",

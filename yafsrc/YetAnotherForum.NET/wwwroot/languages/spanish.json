@@ -7102,8 +7102,44 @@
             "#text": "Preferencias"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Ninguna entrada contiene el texto buscado."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Protección contra el spam"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Probar"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "p. ej. nombre@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Muestra qué bloqueos coinciden con el valor (como la comprobación del registro y de las solicitudes)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "p. ej. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" coincide con estos bloqueos:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "un nombre de usuario"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Ningún bloqueo coincide con \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "un agente de usuario"
           },
           {
             "@tag": "UPGRADE",

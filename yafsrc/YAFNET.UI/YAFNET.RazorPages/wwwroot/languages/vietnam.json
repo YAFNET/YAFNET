@@ -7110,8 +7110,44 @@
             "#text": "Cài đặt"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Không có mục nào chứa văn bản tìm kiếm."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Sự bảo vệ SPAM"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Kiểm tra"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "vd. ten@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Hiển thị các lệnh cấm khớp với giá trị (giống kiểm tra khi đăng ký và khi truy cập)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "vd. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" khớp với các lệnh cấm sau:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "một tên người dùng"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Không có lệnh cấm nào khớp với \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "một user agent"
           },
           {
             "@tag": "UPGRADE",

@@ -7110,8 +7110,44 @@
             "#text": "Inställningar"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Ingen post innehåller söktexten."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Skydd mot skräppost"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Testa"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "t.ex. namn@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Visar vilka spärrar som matchar värdet (som kontrollen vid registrering och förfrågningar)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "t.ex. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" matchar dessa spärrar:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "ett användarnamn"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Ingen spärr matchar \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "en user agent"
           },
           {
             "@tag": "UPGRADE",

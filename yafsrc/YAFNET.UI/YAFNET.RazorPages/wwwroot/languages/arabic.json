@@ -7102,8 +7102,44 @@
             "#text": "إعدادات"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "لا يحتوي أي إدخال على نص البحث."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "الحماية من البريد المزعج"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "اختبار"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "مثال: name@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "يعرض الحظر الذي يطابق القيمة (مثل التحقق عند التسجيل وفي الطلبات)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "مثال: 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" يطابق هذا الحظر:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "اسم مستخدم"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "لا يوجد حظر يطابق \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "وكيل مستخدم"
           },
           {
             "@tag": "UPGRADE",

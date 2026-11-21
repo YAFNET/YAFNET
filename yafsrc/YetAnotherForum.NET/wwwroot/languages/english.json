@@ -7102,8 +7102,44 @@
                     "#text": "Settings"
                 },
                 {
+                    "@tag": "SPAM_NO_MATCHES",
+                    "#text": "No entry contains the search text."
+                },
+                {
                     "@tag": "SPAM_PROTECTION",
                     "#text": "Spam Protection"
+                },
+                {
+                    "@tag": "SPAM_TEST",
+                    "#text": "Test"
+                },
+                {
+                    "@tag": "SPAM_TEST_EMAIL",
+                    "#text": "e.g. name@example.com"
+                },
+                {
+                    "@tag": "SPAM_TEST_HELP",
+                    "#text": "Shows which bans match the value (like the check of the registration and the requests)."
+                },
+                {
+                    "@tag": "SPAM_TEST_IP",
+                    "#text": "e.g. 192.0.2.10"
+                },
+                {
+                    "@tag": "SPAM_TEST_MATCH",
+                    "#text": "\"{0}\" matches these bans:"
+                },
+                {
+                    "@tag": "SPAM_TEST_NAME",
+                    "#text": "a user name"
+                },
+                {
+                    "@tag": "SPAM_TEST_NO_MATCH",
+                    "#text": "No ban matches \"{0}\"."
+                },
+                {
+                    "@tag": "SPAM_TEST_USERAGENT",
+                    "#text": "a user agent"
                 },
                 {
                     "@tag": "UPGRADE",

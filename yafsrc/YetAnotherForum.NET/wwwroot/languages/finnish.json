@@ -7110,8 +7110,44 @@
             "#text": "Asetukset"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Mikään merkintä ei sisällä hakutekstiä."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Roskapostisuojaus"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Testaa"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "esim. nimi@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Näyttää, mitkä estot vastaavat arvoa (kuten rekisteröinnin ja pyyntöjen tarkistus)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "esim. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" vastaa näitä estoja:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "käyttäjänimi"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Mikään esto ei vastaa arvoa \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "käyttäjäagentti"
           },
           {
             "@tag": "UPGRADE",

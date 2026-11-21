@@ -14,114 +14,98 @@
 	@await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
 }
 
-<form method="post">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-auto">
-                            @Html.IconHeader("user-secret","ADMIN_BANNED_COUNTRIES","TITLE")
-                        </div>
-                        <div class="col-auto">
-                            <div class="btn-toolbar" role="toolbar">
-                                <div class="input-group input-group-sm me-2" role="group">
-                                    <div class="input-group-text">
-                                        @Html.LocalizedText("SHOW"):
-                                    </div>
-                                    <select asp-for="@Model.Size"
-                                            asp-items="Model.PageSizeList"
-                                            title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-                                            class="form-select"
-                                            onchange="this.form.submit();"></select>
-                                </div>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button class="dropdown-toggle"
-                                            bs-toggle="dropdown"
-                                            button-size="Small"
-                                            button-style="Secondary"
-                                            Icon="filter"
-                                            text-localized-tag="FILTER_DROPDOWN"
-                                            text-localized-page="ADMIN_USERS"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                @if (!Model.List.NullOrEmpty())
-                {
-                    <div class="card-body">
-                        <ul class="list-group">
-                            @foreach (var item in Model.List)
-                            {
-                                <li class="list-group-item list-group-item-action list-group-item-menu">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <input type="hidden" ID="fID" Value='@Html.Raw(item.ID)' />
-                                        <h5 class="mb-1 text-break">
-                                            <span data-bs-toggle="tooltip" class="@($"fi fi-{item.Country.ToLower()}")" title="@(Model.GetText("COUNTRY", item.Country))"></span>
-	                                        @(Model.GetText("COUNTRY", item.Country))
-                                        </h5>
-                                    </div>
-                                    <small>
-                                        <div class="btn-group btn-group-sm">
-                                            <button button-style="Danger" button-size="Small"
-                                                    asp-page-handler="Delete"
-                                                    asp-route-id="@Html.Raw(item.ID)"
-                                                    text-localized-tag="DELETE" return-confirm-tag="MSG_DELETE"
-                                                    title-localized-tag="DELETE" Icon="trash" ></button>
-                                        </div>
-                                    </small>
-                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                                        <button button-style="None"
-                                                class="dropdown-item"
-                                                asp-page-handler="Delete"
-                                                asp-route-id="@Html.Raw(item.ID)"
-                                                text-localized-tag="DELETE" return-confirm-tag="MSG_DELETE"
-                                                title-localized-tag="DELETE" Icon="trash" ></button>
-                                        <div class="dropdown-divider"></div>
-                                        <button Icon="plus-square"
-                                                button-style="None"
-                                                class="dropdown-item"
-                                                text-localized-tag="ADD_COUNTRY" text-localized-page="ADMIN_BANNED_COUNTRIES"
-                                                bs-toggle="ajax-modal"
-                                                bs-target-url="@(Url.Page("BannedCountries", "Add"))"></button>
-                                        <div class="dropdown-divider"></div>
-                                    </div>
-                                </li>
-                            }
+<div class="admin-spam">
 
-                        </ul>
-                    </div>
-                }
-                else
-                {
-                    <div class="card-body">
-                        <empty icon="user-secret"
-                               header-text-page="ADMIN_BANNED_COUNTRIES" header-text-tag="EMPTY_HEADER"
-                               message-text-page="ADMIN_BANNED_COUNTRIES" message-text-tag="EMPTY_MESSAGE">
-                        </empty>
-                    </div>
-                }
+@Html.SpamProtectionNav()
 
-                <div class="card-footer text-center">
-                    <button class="mb-1"
-                            Icon="plus-square"
-                            button-style="Primary"
-                            text-localized-tag="ADD_COUNTRY" text-localized-page="ADMIN_BANNED_COUNTRIES"
-                            bs-toggle="ajax-modal"
-                            bs-target-url="@Url.Page("BannedCountries", "Add")"></button>
-                </div>
-            </div>
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <h2 class="h4 mb-0">
+        @Html.Icon("globe")@Html.LocalizedText("ADMIN_BANNED_COUNTRIES", "TITLE")
+        <span class="badge text-bg-secondary align-middle ms-1 spam-count">@Model.TotalRows</span>
+    </h2>
+    <div class="d-flex flex-wrap gap-2 spam-actions">
+        <button Icon="plus-square"
+                button-style="Primary"
+                button-size="Small"
+                bs-toggle="ajax-modal"
+                bs-target-url="@Url.Page("BannedCountries", "Add")"
+                text-localized-tag="ADD_COUNTRY" text-localized-page="ADMIN_BANNED_COUNTRIES"></button>
+    </div>
+</div>
+
+<form method="post" id="SpamList">
+    <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3 spam-search">
+        <div class="input-group input-group-sm w-auto">
+            <span class="input-group-text">@Html.LocalizedText("SHOW"):</span>
+            <select asp-for="@Model.Size"
+                    asp-items="Model.PageSizeList"
+                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                    class="form-select"
+                    onchange="this.form.submit();"></select>
         </div>
     </div>
+
     @if (!Model.List.NullOrEmpty())
     {
-	    @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = (await Model.GetRepository<BannedCountry>()
-		    .CountAsync(x => x.BoardID == Model.PageBoardContext.PageBoardID)).ToType<int>(), Size = Model.Size })
+        <ul class="list-group mb-3 spam-list">
+            @foreach (var item in Model.List)
+            {
+                var country = Model.GetText("COUNTRY", item.Country);
+
+                <li class="list-group-item list-group-item-menu spam-row">
+                    <input type="hidden" id="fID" value="@item.ID" />
+                    <div class="spam-row-main">
+                        <span class="@($"fi fi-{item.Country.ToLower()} me-2")" aria-hidden="true"></span>@country
+                        <code class="small text-body-secondary ms-1">@item.Country</code>
+                    </div>
+                    <div class="btn-group btn-group-sm spam-row-actions">
+                        <button button-style="Danger"
+                                button-size="Small"
+                                asp-page-handler="Delete"
+                                asp-route-id="@item.ID"
+                                text-localized-tag="DELETE"
+                                return-confirm-tag="MSG_DELETE"
+                                title-localized-tag="DELETE"
+                                Icon="trash"></button>
+                    </div>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <button button-style="None"
+                                class="dropdown-item"
+                                asp-page-handler="Delete"
+                                asp-route-id="@item.ID"
+                                text-localized-tag="DELETE"
+                                return-confirm-tag="MSG_DELETE"
+                                title-localized-tag="DELETE"
+                                Icon="trash"></button>
+                        <div class="dropdown-divider"></div>
+                        <button Icon="plus-square"
+                                button-style="None"
+                                class="dropdown-item"
+                                text-localized-tag="ADD_COUNTRY" text-localized-page="ADMIN_BANNED_COUNTRIES"
+                                bs-toggle="ajax-modal"
+                                bs-target-url="@(Url.Page("BannedCountries", "Add"))"></button>
+                    </div>
+                </li>
+            }
+        </ul>
+
+        @await Html.PartialAsync("_Pagination", new Pagination { TotalRows = Model.TotalRows, Size = Model.Size })
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <empty icon="globe"
+                       header-text-page="ADMIN_BANNED_COUNTRIES" header-text-tag="EMPTY_HEADER"
+                       message-text-page="ADMIN_BANNED_COUNTRIES" message-text-tag="EMPTY_MESSAGE">
+                </empty>
+            </div>
+        </div>
     }
 </form>
+
+</div>
 
 @section Scripts {
 	@await Html.PartialAsync("_ChoicesScriptsPartial")
@@ -130,6 +114,5 @@
 		@Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DialogFunctionsJs($"loadSelectMenus();{JavaScriptBlocks.ToolTipJs}")))
-
 	</script>
 }

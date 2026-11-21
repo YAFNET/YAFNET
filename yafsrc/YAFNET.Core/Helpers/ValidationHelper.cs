@@ -147,4 +147,28 @@ public static class ValidationHelper
 
         return true;
     }
+
+    /// <summary>
+    /// Checks if a ban mask (a regular expression) matches the input like the ban checks do:
+    /// not case sensitive, an invalid or too slow mask never matches.
+    /// </summary>
+    /// <param name="input">The input (e.g. an email address).</param>
+    /// <param name="pattern">The mask.</param>
+    /// <returns>True if the mask matches.</returns>
+    public static bool IsBanMatch(string input, string pattern)
+    {
+        if (input.IsNotSet() || pattern.IsNotSet())
+        {
+            return false;
+        }
+
+        try
+        {
+            return Regex.Match(input, pattern.Trim(), RegexOptions.IgnoreCase, Constants.RegexTimeout).Success;
+        }
+        catch (Exception ex) when (ex is ArgumentException or RegexMatchTimeoutException)
+        {
+            return false;
+        }
+    }
 }

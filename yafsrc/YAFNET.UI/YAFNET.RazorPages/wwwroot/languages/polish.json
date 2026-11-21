@@ -7102,8 +7102,44 @@
             "#text": "Ustawienia"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Żaden wpis nie zawiera szukanego tekstu."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Ochrona przed spamem"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Testuj"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "np. nazwa@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Pokazuje, które blokady pasują do wartości (jak sprawdzanie przy rejestracji i żądaniach)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "np. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" pasuje do tych blokad:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "nazwa użytkownika"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Żadna blokada nie pasuje do \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "user agent"
           },
           {
             "@tag": "UPGRADE",

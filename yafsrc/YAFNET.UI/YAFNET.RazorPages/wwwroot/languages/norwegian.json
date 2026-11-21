@@ -7110,8 +7110,44 @@
             "#text": "Innstillinger"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Ingen oppføring inneholder søketeksten."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Spambeskyttelse"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Test"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "f.eks. navn@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Viser hvilke utestengelser som passer til verdien (som kontrollen ved registrering og forespørsler)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "f.eks. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" passer til disse utestengelsene:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "et brukernavn"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Ingen utestengelse passer til \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "en user agent"
           },
           {
             "@tag": "UPGRADE",

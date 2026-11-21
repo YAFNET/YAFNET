@@ -7110,8 +7110,44 @@
             "#text": "Nustatymai"
           },
           {
+            "@tag": "SPAM_NO_MATCHES",
+            "#text": "Nė vienas įrašas neturi paieškos teksto."
+          },
+          {
             "@tag": "SPAM_PROTECTION",
             "#text": "Apsauga nuo nepageidaujamų laiškų"
+          },
+          {
+            "@tag": "SPAM_TEST",
+            "#text": "Tikrinti"
+          },
+          {
+            "@tag": "SPAM_TEST_EMAIL",
+            "#text": "pvz. vardas@example.com"
+          },
+          {
+            "@tag": "SPAM_TEST_HELP",
+            "#text": "Rodo, kurie draudimai atitinka reikšmę (kaip registracijos ir užklausų tikrinimas)."
+          },
+          {
+            "@tag": "SPAM_TEST_IP",
+            "#text": "pvz. 192.0.2.10"
+          },
+          {
+            "@tag": "SPAM_TEST_MATCH",
+            "#text": "\"{0}\" atitinka šiuos draudimus:"
+          },
+          {
+            "@tag": "SPAM_TEST_NAME",
+            "#text": "vartotojo vardas"
+          },
+          {
+            "@tag": "SPAM_TEST_NO_MATCH",
+            "#text": "Joks draudimas neatitinka \"{0}\"."
+          },
+          {
+            "@tag": "SPAM_TEST_USERAGENT",
+            "#text": "naršyklės identifikatorius"
           },
           {
             "@tag": "UPGRADE",

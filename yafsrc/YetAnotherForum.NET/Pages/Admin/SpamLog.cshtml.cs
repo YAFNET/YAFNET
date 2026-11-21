@@ -34,6 +34,7 @@ using FarsiLibrary.Core.Utils;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using StackTraceBeautify;
 
@@ -130,6 +131,27 @@ public class SpamLogModel : AdminPage
         catch (JsonReaderException)
         {
             return this.beautify.Beautify(this.HtmlEncode(input));
+        }
+    }
+
+    /// <summary>
+    /// Reads the parts of a spam log entry (the entries are saved as json by the logger).
+    /// </summary>
+    /// <param name="description">The description of the entry.</param>
+    /// <returns>The message, the ip address, the url, the user agent and if the entry has an exception.</returns>
+    public (string Message, string UserIp, string Url, string UserAgent, bool HasException) GetSummary(string description)
+    {
+        try
+        {
+            var json = JObject.Parse(description);
+
+            return ((string)json["Message"], (string)json["UserIP"], (string)json["Url"], (string)json["UserAgent"],
+                ((string)json["ExceptionMessage"]).IsSet() || ((string)json["ExceptionStackTrace"]).IsSet());
+        }
+        catch (Exception)
+        {
+            // an older entry (plain text)
+            return (description, null, null, null, false);
         }
     }
 

@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -37,6 +38,7 @@ using YAF.Core.Helpers;
 using YAF.Types.Extensions;
 using YAF.Types.Modals;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The Admin Banned UserAgents Page.
@@ -54,6 +56,17 @@ public class BannedUserAgentsModel : AdminPage
     /// Gets or sets the number of the entries (of the search) for the pager.
     /// </summary>
     public int TotalRows { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value to test against the bans.
+    /// </summary>
+    [BindProperty]
+    public string TestInput { get; set; }
+
+    /// <summary>
+    /// Gets or sets the test box (which bans match the tested value).
+    /// </summary>
+    public BanTestBox TestBox { get; set; }
 
     /// <summary>
     /// Gets or sets the search input.
@@ -210,6 +223,25 @@ public class BannedUserAgentsModel : AdminPage
     }
 
     /// <summary>
+    /// Shows the bans that match the tested value (like the ban check: not case sensitive).
+    /// </summary>
+    public IActionResult OnPostTest()
+    {
+        this.BindData();
+
+        var value = this.TestInput?.Trim();
+
+        if (value.IsSet())
+        {
+            this.TestBox.Value = value;
+            this.TestBox.Matches = [.. this.GetRepository<BannedUserAgent>().Get(x => x.BoardID == this.PageBoardContext.PageBoardID)
+                .Select(x => x.UserAgent).Where(mask => mask.IsSet() && ValidationHelper.IsBanMatch(value, mask))];
+        }
+
+        return this.Page();
+    }
+
+    /// <summary>
     /// Binds the data.
     /// </summary>
     private void BindData()
@@ -223,7 +255,7 @@ public class BannedUserAgentsModel : AdminPage
         if (searchText.IsSet())
         {
             bannedList = this.GetRepository<BannedUserAgent>().GetPaged(
-                x => x.BoardID == this.PageBoardContext.PageBoardID && x.UserAgent == searchText,
+                x => x.BoardID == this.PageBoardContext.PageBoardID && x.UserAgent.Contains(searchText),
                 this.PageBoardContext.PageIndex,
                 this.Size);
         }
@@ -237,10 +269,12 @@ public class BannedUserAgentsModel : AdminPage
 
         this.List = bannedList;
 
-        // the pager counts the entries of the search
+        // the search finds the entries that contain the text, the pager counts them
         this.TotalRows = searchText.IsSet()
             ? this.GetRepository<BannedUserAgent>()
-                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.UserAgent == searchText).ToType<int>()
+                .Count(x => x.BoardID == this.PageBoardContext.PageBoardID && x.UserAgent.Contains(searchText)).ToType<int>()
             : this.GetRepository<BannedUserAgent>().Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>();
+
+        this.TestBox = new BanTestBox { Placeholder = this.GetText("ADMINMENU", "SPAM_TEST_USERAGENT") };
     }
 }
