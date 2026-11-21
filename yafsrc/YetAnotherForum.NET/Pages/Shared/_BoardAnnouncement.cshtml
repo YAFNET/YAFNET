@@ -13,7 +13,8 @@
 
     var visible = true;
 
-    if (dateTime <= DateTime.Now)
+    // the end is saved in utc
+    if (dateTime <= DateTime.UtcNow)
     {
         var boardSettings = Current.BoardSettings;
 

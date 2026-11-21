@@ -16,7 +16,7 @@
                 @if (Model.PageBoardContext.BoardSettings.BoardAnnouncement.IsSet())
                 {
                     <alert ID="Current" type="info">
-                        <strong class="me-2">@Html.LocalizedText("ANNOUNCEMENT_CURRENT"):</strong> @Html.Raw(Model.PageBoardContext.BoardSettings.BoardAnnouncementUntil)
+                        <strong class="me-2">@Html.LocalizedText("ANNOUNCEMENT_CURRENT"):</strong> @Model.AnnouncementEnd
                         <button button-style="Danger"
                                 Icon="trash"
                                 asp-page-handler="Delete">

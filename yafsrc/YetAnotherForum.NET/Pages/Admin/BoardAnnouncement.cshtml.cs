@@ -58,6 +58,18 @@ public class BoardAnnouncementModel : AdminPage
     public List<SelectListItem> Types { get; set; }
 
     /// <summary>
+    /// Gets the end of the current announcement, formatted for the user.
+    /// </summary>
+    public string AnnouncementEnd =>
+        DateTime.TryParse(
+            this.PageBoardContext.BoardSettings.BoardAnnouncementUntil,
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.None,
+            out var until)
+            ? this.Get<IDateTimeService>().FormatDateTime(until)
+            : this.PageBoardContext.BoardSettings.BoardAnnouncementUntil;
+
+    /// <summary>
     ///   Initializes a new instance of the <see cref = "Attachments" /> class.
     /// </summary>
     public BoardAnnouncementModel()
@@ -88,7 +100,8 @@ public class BoardAnnouncementModel : AdminPage
     /// </summary>
     public IActionResult OnPostSaveAnnouncement()
     {
-        var boardAnnouncementUntil = DateTime.Now;
+        // the end is saved in utc (it is shown in the time zone of the user)
+        var boardAnnouncementUntil = DateTime.UtcNow;
 
         // number inserted by the admin (at least 1, at most 100 years, a huge value would fail)
         var count = Math.Clamp(
