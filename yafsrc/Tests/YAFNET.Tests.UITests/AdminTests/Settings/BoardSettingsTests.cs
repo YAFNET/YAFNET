@@ -80,6 +80,36 @@ public class BoardSettingsTests(ComposeScenario scenario) : DatabaseTestBase(sce
     }
 
     /// <summary>
+    /// An empty board name is not saved (it was only checked in the browser).
+    /// </summary>
+    [Test]
+    public async Task EmptyBoardNameIsNotSavedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+
+                var before = await GetValueAsync(page, "Input.Name");
+
+                Assert.That(before, Is.Not.Empty);
+
+                await SubmitValueAsync(page, "Input.Name", string.Empty);
+
+                // the settings are shown again with the message (and not an error page)
+                Assert.That(page.Url, Does.Contain("Admin/Settings"), "The empty name was not refused");
+                Assert.That(await page.ContentAsync(), Does.Contain("You must enter a name for the board."));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Settings");
+
+                Assert.That(await GetValueAsync(page, "Input.Name"), Is.EqualTo(before), "The empty board name was saved");
+            });
+    }
+
+    /// <summary>
     /// Gets the value of a field of the board settings.
     /// </summary>
     private static Task<string> GetValueAsync(IPage page, string name)

@@ -133,6 +133,16 @@ public class SettingsModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync()
     {
+        // the board needs a name (an empty name stopped the save with an error)
+        if (this.Input.Name.IsNotSet())
+        {
+            await this.BindListsAsync();
+
+            return this.PageBoardContext.Notify(
+                this.GetText("ADMIN_EDITBOARD", "MSG_NAME_BOARD"),
+                MessageTypes.danger);
+        }
+
         // at least one hour between the digests (else the digest is sent on each run of the task)
         if (this.Input.DigestSendEveryXHours < 1)
         {
@@ -154,7 +164,7 @@ public class SettingsModel : AdminPage
 
         this.GetRepository<Board>().Save(
             this.PageBoardContext.PageBoardID,
-            this.Input.Name,
+            this.Input.Name.Trim(),
             this.Input.Description,
             languageFile,
             this.Input.Culture);
