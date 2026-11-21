@@ -611,4 +611,63 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
                     "Enter sent another action");
             });
     }
+    /// <summary>
+    /// The admin changes the password of a user in the user editor: the editor is shown again with a message
+    /// (the result was shown on the page of the tab, without the forum around it).
+    /// </summary>
+    [Test]
+    public async Task AdminChangesPasswordOfUserTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var userName = $"ChangePass{Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/RegisterUser");
+                await page.Locator("#Input_UserName").FillAsync(userName);
+                await page.Locator("#Input_Email").FillAsync($"{userName.ToLower()}@test.com");
+                await page.Locator("#Input_Password").FillAsync(this.TestSettings.TestUserPassword);
+                await page.Locator("#Input_Password2").FillAsync(this.TestSettings.TestUserPassword);
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForumRegister']"));
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+                await page.OpenUserFilterAsync();
+                await page.Locator("#Input_Name").FillAsync(userName);
+                await page.RunAndWaitForNextPageAsync(() => page.Locator("#Input_Name").PressAsync("Enter"));
+
+                var userId = await page.Locator(".user-row", new PageLocatorOptions { HasText = userName }).GetAttributeAsync("data-user-id");
+
+                async Task ChangeAsync(string password, string confirm)
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditUser/{userId}");
+                    await page.Locator("button[data-bs-target='#View7']").ClickAsync();
+
+                    var tab = page.Locator("#View7");
+
+                    await tab.Locator("#Input_NewPassword").FillAsync(password);
+                    await tab.Locator("#Input_NewPasswordConfirm").FillAsync(confirm);
+                    await page.SubmitAndWaitAsync(tab.Locator("button[formaction*='ChangePassword']"));
+                }
+
+                // passwords that do not match: the message in the editor
+                await ChangeAsync("New-Password-1", "Other-Password-2");
+
+                Assert.That(page.Url, Does.Contain($"Admin/EditUser/{userId}"), "The editor is not shown after the error");
+                await Assertions.Expect(page.Locator("#EditUserTabs")).ToBeVisibleAsync();
+                await Assertions.Expect(page.Locator(".toast").Last).ToBeVisibleAsync();
+
+                // the new password
+                await ChangeAsync("New-Password-1", "New-Password-1");
+
+                Assert.That(page.Url, Does.Contain($"Admin/EditUser/{userId}"), "The editor is not shown after the change");
+                await Assertions.Expect(page.Locator("#EditUserTabs")).ToBeVisibleAsync();
+                await Assertions.Expect(page.Locator(".toast").Last).ToBeVisibleAsync();
+            });
+    }
 }

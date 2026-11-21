@@ -111,14 +111,14 @@ public class UsersChangePassModel : AdminPage
         {
             if(this.Input.NewPassword.IsNotSet())
             {
-                return this.PageBoardContext.Notify(
+                return this.ShowEditor(
                     this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_PASS_NOTMATCH"),
                     MessageTypes.danger);
             }
 
             if (this.Input.NewPassword != this.Input.NewPasswordConfirm)
             {
-                return this.PageBoardContext.Notify(
+                return this.ShowEditor(
                     this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_PASS_NOTMATCH"),
                     MessageTypes.danger);
             }
@@ -132,7 +132,7 @@ public class UsersChangePassModel : AdminPage
 
             if (!result.Succeeded)
             {
-                return this.PageBoardContext.Notify(result.Errors.FirstOrDefault()?.Description, MessageTypes.danger);
+                return this.ShowEditor(result.Errors.FirstOrDefault()?.Description, MessageTypes.danger);
             }
 
             if (this.EditUser.Item1.ID == this.PageBoardContext.PageUserID)
@@ -143,7 +143,7 @@ public class UsersChangePassModel : AdminPage
 
             if (!this.Input.EmailNotify)
             {
-                return this.PageBoardContext.Notify(
+                return this.ShowEditor(
                     this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED"),
                     MessageTypes.success);
             }
@@ -166,19 +166,33 @@ public class UsersChangePassModel : AdminPage
                 new MailboxAddress(this.EditUser.Item1.DisplayOrUserName(), this.EditUser.Item1.Email),
                 subject);
 
-            return this.PageBoardContext.Notify(
+            return this.ShowEditor(
                 this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED_NOTI"),
                 MessageTypes.success);
         }
         catch (Exception x)
         {
-            return this.PageBoardContext.Notify($"Exception: {x.Message}", MessageTypes.danger);
+            return this.ShowEditor($"Exception: {x.Message}", MessageTypes.danger);
         }
     }
 
     /// <summary>
     /// Binds the data.
     /// </summary>
+    /// <summary>
+    /// Shows the user editor with the message (the tab was sent as a page of its own, the result was shown
+    /// without the forum around it).
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="messageType">The type of the message.</param>
+    /// <returns>The redirect to the password tab of the user editor.</returns>
+    private IActionResult ShowEditor(string message, MessageTypes messageType)
+    {
+        this.PageBoardContext.SessionNotify(message, messageType);
+
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View7" });
+    }
+
     private IActionResult BindData(int userId)
     {
        if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, $"{userId}-{this.PageBoardContext.PageUserID}")] is not Tuple<User, AspNetUsers, Rank, VAccess> user)

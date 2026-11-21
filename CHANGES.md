@@ -49,6 +49,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Users: the texts of the "since" filter were not translated (English text in the code), the first option showed "Last Visit" without the date of the last visit
 * [FIXED] Admin > Users: Enter in a field of the user filter locked the inactive accounts (no visit for 5 years) instead of searching, "lock inactive accounts" was the first button of the form
 * [FIXED] Admin > Edit User: Enter in "add points" or "remove points" set the points of the user to the value of "set points", Enter in the suspend duration of a suspended user removed the suspension (the first button of the form was sent)
+* [FIXED] Admin > Edit User: after changing the password of a user (or an error like passwords that do not match) only the password tab was shown, without the forum and the user editor around it; the user editor is shown again with the message
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
