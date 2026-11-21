@@ -87,6 +87,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Ranks: the start rank of a new board (Newbie) was not on the rank ladder, the new users were never promoted to Member and Advanced Member (existing boards: switch on "Ladder Group" of the start rank)
 * [FIXED] Admin > Ranks: a new start rank kept the old start rank, the new users got one of them; now the old start rank loses the flag
 * [FIXED] Admin > Ranks: the start rank could lose its flag, then the registration of new users failed with an error; now a warning is shown
+* [FIXED] Admin > Edit Rank: the spaces around the name were saved, a name of spaces was saved too; now it is refused
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

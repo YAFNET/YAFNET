@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
+using YAF.Types.Extensions;
 using YAF.Types.Flags;
 using YAF.Types.Models;
 
@@ -100,6 +101,14 @@ public class EditRankModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync()
     {
+        // the name is saved without the spaces around it, a name of spaces is no name
+        this.Input.Name = this.Input.Name?.Trim();
+
+        if (this.Input.Name.IsNotSet())
+        {
+            return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITRANK", "NEED_NAME"), MessageTypes.warning);
+        }
+
         // Rank
         int? rankId = null;
 

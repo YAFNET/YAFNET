@@ -267,6 +267,39 @@ public class RankTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// The name of a rank is saved without the spaces around it and a name of spaces is refused: both were saved.
+    /// </summary>
+    [Test]
+    [Description("A rank name is trimmed, a blank name is refused")]
+    public async Task RankNameIsTrimmedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                    // a name of spaces
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditRank");
+                    await page.Locator("#Input_Name").FillAsync("   ");
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'EditRank') and contains(@formaction,'Save')]"));
+
+                    Assert.That(await page.ContentAsync(), Does.Contain("You must define a rank name."), "The blank name was saved");
+
+                    // the spaces around the name are removed
+                    var rankName = $"TrimRank{Random.Shared.Next()}";
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditRank");
+                    await page.Locator("#Input_Name").FillAsync($"  {rankName}  ");
+                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'EditRank') and contains(@formaction,'Save')]"));
+
+                    await page.GotoAsync(await this.GetEditRankUrlAsync(page, rankName));
+
+                    Assert.That(await page.Locator("#Input_Name").InputValueAsync(), Is.EqualTo(rankName), "The spaces were saved");
+                });
+    }
+
+    /// <summary>
     /// Deletes a rank.
     /// </summary>
     /// <param name="page">The page.</param>
