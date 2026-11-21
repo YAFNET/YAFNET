@@ -115,6 +115,49 @@ public class DbAccessExtensionsTests
     }
 
     [Test]
+    [Description("Shrink frees the unused pages of a SQLite database (the auto_vacuum pragma did nothing)")]
+    public async Task Shrink_Frees_Unused_Space_Test()
+    {
+        var text = new string('x', 2000);
+
+        for (var i = 0; i < 200; i++)
+        {
+            this.db.Execute(c => c.Connection.Insert(new Registry { Name = $"shrink{i}", Value = text }));
+        }
+
+        this.db.Execute(c => c.Connection.Delete<Registry>(r => r.Name.StartsWith("shrink")));
+
+        long FreePages() => this.db.Execute(c => c.Connection.Scalar<long>("PRAGMA freelist_count;"));
+
+        FreePages().Should().BeGreaterThan(0, "the deleted rows leave unused pages");
+
+        await this.db.ShrinkDatabaseAsync("yaf_");
+
+        FreePages().Should().Be(0, "the unused pages are removed");
+    }
+
+    [Test]
+    [Description("Re-index rebuilds the indexes of a SQLite database (the auto_vacuum pragma changed the vacuum mode)")]
+    public async Task ReIndex_Runs_Reindex_Test()
+    {
+        var statements = new List<string>();
+        var previous = OrmLiteConfig.BeforeExecFilter;
+        OrmLiteConfig.BeforeExecFilter = cmd => statements.Add(cmd.CommandText);
+
+        try
+        {
+            await this.db.ReIndexDatabaseAsync("yaf_");
+        }
+        finally
+        {
+            OrmLiteConfig.BeforeExecFilter = previous;
+        }
+
+        statements.Should().Contain(s => s.Contains("REINDEX"));
+        statements.Should().NotContain(s => s.Contains("auto_vacuum"));
+    }
+
+    [Test]
     [Description("Changing the recovery mode runs the recovery mode statement, not a re-index")]
     public async Task Change_Recovery_Mode_Test()
     {
