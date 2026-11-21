@@ -77,6 +77,12 @@ public class SettingsModel : AdminPage
     public SelectList ShowTopics { get; set; }
 
     /// <summary>
+    /// Gets or sets the page sizes (the same as in the settings of the users).
+    /// </summary>
+    /// <value>The page sizes.</value>
+    public List<SelectListItem> PageSizes { get; set; }
+
+    /// <summary>
     /// Gets or sets the forum default access masks.
     /// </summary>
     /// <value>The forum default access masks.</value>
@@ -162,7 +168,12 @@ public class SettingsModel : AdminPage
         boardSettings.BaseUrlMask = this.Input.ForumBaseUrlMask;
         boardSettings.ForumEmail = this.Input.ForumEmail;
         boardSettings.DigestSendEveryXHours = this.Input.DigestSendEveryXHours;
-        boardSettings.PageSizeDefault = this.Input.DefaultPageSize;
+
+        // only a page size the users can choose too (a page size of 0 shows empty lists)
+        if (StaticDataHelper.PageEntries().Exists(x => x.Value == this.Input.DefaultPageSize.ToString()))
+        {
+            boardSettings.PageSizeDefault = this.Input.DefaultPageSize;
+        }
 
         if (this.Input.BoardLogo.IsSet())
         {
@@ -200,6 +211,17 @@ public class SettingsModel : AdminPage
             StaticDataHelper.TopicTimes(),
             nameof(SelectListItem.Value),
             nameof(SelectListItem.Text));
+
+        this.PageSizes = StaticDataHelper.PageEntries();
+
+        // keep an older page size that is not in the list (but not an invalid one like 0)
+        if (boardSettings.PageSizeDefault > 0 && !this.PageSizes.Exists(x => x.Value == boardSettings.PageSizeDefault.ToString()))
+        {
+            this.PageSizes.Add(
+                new SelectListItem(
+                    boardSettings.PageSizeDefault.ToString(),
+                    boardSettings.PageSizeDefault.ToString()));
+        }
 
         // population default notification setting options...
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();

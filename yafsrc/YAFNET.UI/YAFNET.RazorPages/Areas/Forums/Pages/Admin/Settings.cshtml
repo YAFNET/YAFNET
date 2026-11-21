@@ -111,7 +111,7 @@
 	                       asp-for="Input.DefaultPageSize"
 	                       localized-tag="BOARD_DEFAULT_PAGESIZE"
 	                       localized-page="ADMIN_BOARDSETTINGS"></label>
-                        <input asp-for="Input.DefaultPageSize" class="form-control" type="number" />
+                        <select asp-for="Input.DefaultPageSize" asp-items="Model.PageSizes" class="select2-select"></select>
                 </div>
                 <div class="mb-3">
                         <label class="form-label" info-button="true"
