@@ -3290,6 +3290,22 @@
             "#text": "סיסמת האישור אינה תואמת"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "חשבון"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "תוכן"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "פיקוח"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "פרופיל"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "להרוג משתמש ולחסום"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "דרישות סיסמת חברות:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "נקודות"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "צפה בהכל"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "הצג פרופיל"
           }
         ]
       },

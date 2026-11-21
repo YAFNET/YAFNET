@@ -3290,6 +3290,22 @@
             "#text": "Le mot de passe de confirmation ne correspond pas"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Compte"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Contenu"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Modération"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Tuer l'utilisateur et bannir"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Exigences relatives aux mots de passe des membres :"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Points"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Voir tous"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Voir le profil"
           }
         ]
       },

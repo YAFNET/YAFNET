@@ -3282,6 +3282,22 @@
             "#text": "Паролата за потвърждение не съвпада"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Акаунт"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Съдържание"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Модериране"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Профил"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Убийте потребител и забранете"
           },
@@ -3340,6 +3356,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Изисквания за парола за членство:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Точки"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3464,6 +3484,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Вижте всички"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Преглед на профила"
           }
         ]
       },

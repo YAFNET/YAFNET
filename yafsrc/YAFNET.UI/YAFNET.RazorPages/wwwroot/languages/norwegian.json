@@ -3290,6 +3290,22 @@
             "#text": "Bekreftelsespassord stemmer ikke"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Innhold"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderering"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Drep bruker og utesteng"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Passordkrav for medlemskap:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Poeng"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Se alt"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Vis profil"
           }
         ]
       },

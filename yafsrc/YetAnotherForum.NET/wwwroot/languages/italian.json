@@ -3282,6 +3282,22 @@
             "#text": "La password di conferma non corrisponde"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Account"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Contenuti"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderazione"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profilo"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Uccidi utente e ban"
           },
@@ -3340,6 +3356,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Requisiti per la password di adesione:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Punti"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3464,6 +3484,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Visualizza tutti"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Visualizza profilo"
           }
         ]
       },

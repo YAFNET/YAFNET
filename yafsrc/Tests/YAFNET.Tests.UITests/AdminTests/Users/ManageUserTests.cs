@@ -372,6 +372,11 @@ public class ManageUserTests(ComposeScenario scenario) : DatabaseTestBase(scenar
 
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
 
+                // the list is paged (the users of the other tests come first)
+                await page.OpenUserFilterAsync();
+                await page.Locator("#Input_Name").FillAsync(this.TestSettings.AdminUserName);
+                await page.RunAndWaitForNextPageAsync(() => page.Locator("#Input_Name").PressAsync("Enter"));
+
                 var row = page.Locator(".list-group-item-menu", new PageLocatorOptions { HasText = this.TestSettings.AdminUserName }).First;
 
                 await row.Locator(".user-meta").ClickAsync(new LocatorClickOptions { Button = MouseButton.Right, Position = new Position { X = 1, Y = 1 } });

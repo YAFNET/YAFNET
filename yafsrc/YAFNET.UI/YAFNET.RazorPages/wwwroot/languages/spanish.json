@@ -3282,6 +3282,22 @@
             "#text": "La confirmación de contraseña no coincide"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Cuenta"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Contenido"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderación"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Perfil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Matar al usuario y prohibirlo"
           },
@@ -3340,6 +3356,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Requisitos de la contraseña:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Puntos"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3464,6 +3484,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Ver todo"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Ver perfil"
           }
         ]
       },

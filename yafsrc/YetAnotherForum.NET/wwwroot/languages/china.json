@@ -3290,6 +3290,22 @@
             "#text": "确认密码不匹配"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "帐户"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "内容"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "审核"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "个人资料"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "杀死用户并禁止"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "会员密码要求："
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "积分"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "查看全部"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "查看个人资料"
           }
         ]
       },

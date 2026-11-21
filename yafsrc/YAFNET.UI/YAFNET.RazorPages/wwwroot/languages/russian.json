@@ -3282,6 +3282,22 @@
             "#text": "Подтверждение и пароль не совпадают"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Учётная запись"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Содержимое"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Модерация"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Профиль"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Убить пользователя и запретить"
           },
@@ -3340,6 +3356,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Требования к паролю Membership:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Баллы"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3464,6 +3484,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Просмотреть всё"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Открыть профиль"
           }
         ]
       },

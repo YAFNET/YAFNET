@@ -3290,6 +3290,22 @@
             "#text": "Patvirtinimo slaptažodis nesutampa"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Paskyra"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Turinys"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderavimas"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profilis"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Nužudyti naudotoją ir uždrausti"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Narystės slaptažodžio reikalavimai:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Taškai"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Peržiūrėti viską"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Peržiūrėti profilį"
           }
         ]
       },

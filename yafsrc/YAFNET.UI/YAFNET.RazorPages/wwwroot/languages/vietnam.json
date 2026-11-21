@@ -3290,6 +3290,22 @@
             "#text": "Mật khẩu xác nhận không khớp"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Tài khoản"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Nội dung"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Kiểm duyệt"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Hồ sơ"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Giết người dùng và cấm"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Yêu cầu về mật khẩu thành viên:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Điểm"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Xem tất cả"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Xem hồ sơ"
           }
         ]
       },

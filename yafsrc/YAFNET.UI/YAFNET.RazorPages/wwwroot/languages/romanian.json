@@ -3290,6 +3290,22 @@
             "#text": "Parola de confirmare nu se potrivește"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Cont"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Conținut"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderare"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Kill User și Ban"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Cerințe privind parola de membru:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Puncte"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Vezi toate"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Vezi profilul"
           }
         ]
       },

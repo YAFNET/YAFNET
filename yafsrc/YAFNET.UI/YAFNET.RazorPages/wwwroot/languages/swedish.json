@@ -3290,6 +3290,22 @@
             "#text": "Bekräftelselösenordet matchar inte"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Innehåll"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderering"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Döda användare och förbjuda"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Krav på lösenord för medlemskap:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Poäng"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Visa alla"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Visa profil"
           }
         ]
       },

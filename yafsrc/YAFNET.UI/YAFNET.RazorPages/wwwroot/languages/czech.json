@@ -3290,6 +3290,22 @@
             "#text": "Heslo pro potvrzení se neshoduje"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Účet"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Obsah"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderování"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Zabijte uživatele a zakažte"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Požadavky na heslo pro členství:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Body"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Zobrazit vše"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Zobrazit profil"
           }
         ]
       },

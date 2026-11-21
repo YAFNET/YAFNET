@@ -3282,6 +3282,22 @@
             "#text": "De wachtwoorden komen niet overeen"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Account"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Inhoud"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderatie"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profiel"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Dood gebruiker en Ban"
           },
@@ -3340,6 +3356,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Eisen aan het wachtwoord:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Punten"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3464,6 +3484,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Bekijk alles"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Profiel bekijken"
           }
         ]
       },

@@ -3282,6 +3282,22 @@
             "#text": "Bestätigungs Passwort stimmt nicht überein"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Inhalte"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderation"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Benutzer töten und sperren"
           },
@@ -3340,6 +3356,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Die Membership Passwort-Anforderungen:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Punkte"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3464,6 +3484,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Alle anzeigen"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Profil ansehen"
           }
         ]
       },

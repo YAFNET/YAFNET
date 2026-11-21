@@ -3,7 +3,10 @@
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Utilities
+@using YAF.Types.Constants
+@using YAF.Types.Extensions
 @using YAF.Types.Interfaces
+@using YAF.Types.Interfaces.Services
 @using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
 
@@ -16,110 +19,159 @@
 }
 
 @{
-    var editUser = Model.EditUser;
+	var editUser = Model.EditUser;
+	var user = editUser.Item1;
+	var flags = user.UserFlags;
 
-    var userName = Html.HtmlEncode(editUser.Item1.DisplayOrUserName()).ToString();
+	var userName = Html.HtmlEncode(user.DisplayOrUserName()).ToString();
 
-    var header = string.Format(Model.GetText("ADMIN_EDITUSER", "TITLE"), userName);
+	var header = string.Format(Model.GetText("ADMIN_EDITUSER", "TITLE"), userName);
 
-    Model.PageBoardContext.CurrentForumPage.PageTitle = header;
+	Model.PageBoardContext.CurrentForumPage.PageTitle = header;
+
+	var dateTime = Model.Get<IDateTimeService>();
+
+	// a tab of the navigation (the tabs are loaded by the script)
+	async Task TabButton(string view, string page, string tag, string icon, string extraClass = "")
+	{
+		await Task.CompletedTask;
+
+		<button class="nav-link @extraClass" type="button" data-bs-target="#@view" data-bs-toggle="tab" role="tab">
+			@Html.Icon(icon)@Html.LocalizedText(page, tag)
+		</button>
+	}
 }
 
-<div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("user-edit", "ADMIN_EDITUSER", "TITLE", param0: userName)
-                </div>
-                <div class="card-body">
-                    <div id="EditUserTabs">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                            <button class ="nav-link" data-bs-target="#View1" data-bs-toggle="tab" data-bs-target="tab" role="tab">
-                                    @Html.LocalizedText("ADMIN_EDITUSER","USER_DETAILS")
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                            <button class="nav-link" data-bs-target="#View2" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_ROLES")
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                            <button class="nav-link" data-bs-target="#View3" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_PROFILE")
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                            <button class="nav-link" data-bs-target="#View10" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_SETTINGS")
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                            <button class="nav-link" data-bs-target="#View4" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_AVATAR")
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                            <button class="nav-link" data-bs-target="#View11" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ATTACHMENTS","TITLE")
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                            <button class="nav-link" data-bs-target="#View5" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_SIG")
-                            </button>
-                            </li>
-                            <li class="nav-item">
-                            <button class="nav-link" data-bs-target="#View6" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_REPUTATION")
-                                </button>
-                            </li>
+<div class="admin-edit-user">
+	@* the user: avatar, name, status and key figures *@
+	<div class="card mb-3">
+		<div class="card-body d-flex flex-wrap align-items-center gap-3">
+			<img class="edit-user-avatar" alt="" src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))"/>
+			<div class="flex-grow-1 min-w-0">
+				<h2 class="h4 mb-1 text-break">
+					@user.DisplayOrUserName()
+					@if (user.DisplayName.IsSet() && user.DisplayName != user.Name)
+					{
+						<small class="text-body-secondary fs-6">(@user.Name)</small>
+					}
+				</h2>
+				<div class="d-flex flex-wrap gap-1 mb-2">
+					@if (flags.IsGuest)
+					{
+						<span class="badge bg-body-tertiary text-body-secondary border">@Html.LocalizedText("ADMIN_USERS", "GUEST")</span>
+					}
+					@if (flags.IsHostAdmin)
+					{
+						<span class="badge text-bg-primary">@Html.Icon("crown")@Html.LocalizedText("ADMIN_USERS", "HOST_ADMIN")</span>
+					}
+					@if (flags.IsDeleted)
+					{
+						<span class="badge text-bg-warning">@Html.LocalizedText("ADMIN_EDITUSER", "DISABLED")</span>
+					}
+					else if (!flags.IsApproved && !flags.IsGuest)
+					{
+						<span class="badge text-bg-danger">@Html.LocalizedText("ADMIN_USERS", "NOT_APPROVED")</span>
+					}
+					@if (user.Suspended.HasValue)
+					{
+						<span class="badge text-bg-danger">
+							@Html.Icon("user-clock")@string.Format(Model.GetText("ADMIN_USERS", "SUSPENDED_UNTIL"), dateTime.FormatDateTimeShort(user.Suspended.Value))
+						</span>
+					}
+					@if (editUser.Item3 is not null)
+					{
+						<span class="badge bg-body-tertiary text-body-secondary border">@Html.Icon("award")@editUser.Item3.Name</span>
+					}
+				</div>
+				<div class="edit-user-figures">
+					@if (user.Email.IsSet())
+					{
+						<span title="@Model.GetText("ADMIN_USERS", "EMAIL")">@Html.Icon("envelope")@user.Email</span>
+					}
+					<span title="@Model.GetText("ADMIN_USERS", "POSTS")">@Html.Icon("comment")@($"{user.NumPosts:N0}")</span>
+					<span title="@Model.GetText("ADMIN_EDITUSER", "POINTS")">@Html.Icon("star")@($"{user.Points:N0}")</span>
+					<span title="@Model.GetText("ADMIN_USERS", "JOINED")">@Html.Icon("user-plus")@(dateTime.FormatDateShort(user.Joined))</span>
+					<span title="@Model.GetText("ADMIN_USERS", "LAST_VISIT")">@Html.Icon("clock")@(dateTime.FormatDateTimeShort(user.LastVisit))</span>
+				</div>
+			</div>
+			<div class="d-flex flex-wrap gap-2">
+				@if (!flags.IsGuest)
+				{
+					<a button-style="OutlineSecondary"
+					   href="@(Model.Get<ILinkBuilder>().GetUserProfileLink(user))"
+					   Icon="id-card"
+					   text-localized-tag="VIEW_PROFILE"
+					   text-localized-page="ADMIN_EDITUSER"></a>
+				}
+				<a button-style="Secondary"
+				   asp-page="@ForumPages.Admin_Users.GetPageName()"
+				   Icon="users"
+				   text-localized-tag="TITLE"
+				   text-localized-page="ADMIN_USERS"></a>
+			</div>
+		</div>
+	</div>
 
-                        @if (!editUser.Item1.UserFlags.IsGuest)
-                        {
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-target="#View7" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_PASS")
-                                </button>
-                            </li><li class="nav-item">
-                                <button class="nav-link" data-bs-target="#View8" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_SUSPEND")
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="nav-link" data-bs-target="#View9" data-bs-toggle="tab" role="tab">
-                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_KILL")
-                                </button>
-                            </li>
-                        }
+	<div id="EditUserTabs" class="row g-3">
+		@* the tabs as groups: a list on large screens, a row that scrolls on small screens *@
+		<div class="col-lg-3">
+			<nav class="card edit-user-nav">
+				<div class="card-body p-2">
+					<div class="nav nav-pills flex-lg-column" role="tablist">
+						<div class="edit-user-nav-group">@Html.LocalizedText("ADMIN_EDITUSER", "GROUP_ACCOUNT")</div>
+						@{ await TabButton("View1", "ADMIN_EDITUSER", "USER_DETAILS", "user"); }
+						@{ await TabButton("View2", "ADMIN_EDITUSER", "USER_ROLES", "users"); }
+						@if (!flags.IsGuest)
+						{
+							await TabButton("View7", "ADMIN_EDITUSER", "USER_PASS", "key");
+						}
 
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane fade" id="View1" role="tabpanel"></div>
-                            <div class="tab-pane fade" id="View2" role="tabpanel"></div>
-                            <div class="tab-pane fade" id="View3" role="tabpanel"></div>
-                            <div class="tab-pane fade" id="View10" role="tabpanel"></div>
-                            <div class="tab-pane fade" id="View11" role="tabpanel"></div>
-                            <div class="tab-pane fade" id="View4" role="tabpanel"></div>
-                            <div class="tab-pane fade" id="View5" role="tabpanel"></div>
-                            <div class="tab-pane fade" id="View6" role="tabpanel"></div>
-                            
-                            @if (!editUser.Item1.UserFlags.IsGuest)
-                            {
-                                <div class="tab-pane fade" id="View7" role="tabpanel"></div>
-                                <div class="tab-pane fade" id="View8" role="tabpanel"></div>
-                                <div class="tab-pane fade" id="View9" role="tabpanel"></div>
-                            }
+						<div class="edit-user-nav-group">@Html.LocalizedText("ADMIN_EDITUSER", "GROUP_PROFILE")</div>
+						@{ await TabButton("View3", "ADMIN_EDITUSER", "USER_PROFILE", "id-card"); }
+						@{ await TabButton("View10", "ADMIN_EDITUSER", "USER_SETTINGS", "cog"); }
+						@{ await TabButton("View4", "ADMIN_EDITUSER", "USER_AVATAR", "user-circle"); }
+						@{ await TabButton("View5", "ADMIN_EDITUSER", "USER_SIG", "signature"); }
 
-                        </div>
+						<div class="edit-user-nav-group">@Html.LocalizedText("ADMIN_EDITUSER", "GROUP_CONTENT")</div>
+						@{ await TabButton("View11", "ATTACHMENTS", "TITLE", "paperclip"); }
+						@{ await TabButton("View6", "ADMIN_EDITUSER", "USER_REPUTATION", "star"); }
 
-                    </div>
-                    <input type="hidden" asp-for="LastTab" Value="@Model.LastTab" />
-                </div>
-               </div>
-            </div>
-        </div>
+						@if (!flags.IsGuest)
+						{
+							<div class="edit-user-nav-group">@Html.LocalizedText("ADMIN_EDITUSER", "GROUP_MODERATION")</div>
+							await TabButton("View8", "ADMIN_EDITUSER", "USER_SUSPEND", "user-clock");
+							await TabButton("View9", "ADMIN_EDITUSER", "USER_KILL", "user-slash", "text-danger");
+						}
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="col-lg-9">
+			<div class="card">
+				<div class="card-body">
+					<div class="tab-content">
+						<div class="tab-pane fade" id="View1" role="tabpanel"></div>
+						<div class="tab-pane fade" id="View2" role="tabpanel"></div>
+						<div class="tab-pane fade" id="View3" role="tabpanel"></div>
+						<div class="tab-pane fade" id="View10" role="tabpanel"></div>
+						<div class="tab-pane fade" id="View11" role="tabpanel"></div>
+						<div class="tab-pane fade" id="View4" role="tabpanel"></div>
+						<div class="tab-pane fade" id="View5" role="tabpanel"></div>
+						<div class="tab-pane fade" id="View6" role="tabpanel"></div>
 
+						@if (!flags.IsGuest)
+						{
+							<div class="tab-pane fade" id="View7" role="tabpanel"></div>
+							<div class="tab-pane fade" id="View8" role="tabpanel"></div>
+							<div class="tab-pane fade" id="View9" role="tabpanel"></div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" asp-for="LastTab" Value="@Model.LastTab" />
+</div>
 
 @section Scripts {
     @await Html.PartialAsync("_ChoicesScriptsPartial")

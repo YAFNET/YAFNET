@@ -3290,6 +3290,22 @@
             "#text": "A palavra-chave de confirmação não corresponde"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Conta"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Conteúdo"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderação"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Perfil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Matar Utilizador e Proibir"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Requisitos para a palavra-passe de membro:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Pontos"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Ver tudo"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Ver perfil"
           }
         ]
       },

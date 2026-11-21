@@ -361,6 +361,65 @@
     }
 }
 
+// Admin edit user
+.admin-edit-user {
+    .edit-user-avatar {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .edit-user-figures {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem 1.25rem;
+        font-size: .85rem;
+        color: var(--bs-secondary-color);
+        overflow-wrap: anywhere;
+    }
+
+    .edit-user-nav {
+        .nav-link {
+            text-align: start;
+            white-space: nowrap;
+        }
+
+        // the group names only on large screens (the tabs are a row there that scrolls)
+        .edit-user-nav-group {
+            display: none;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .edit-user-nav {
+            position: sticky;
+            top: 1rem;
+
+            .edit-user-nav-group {
+                display: block;
+                margin: .75rem .75rem .25rem;
+                font-size: .7rem;
+                font-weight: 600;
+                letter-spacing: .04em;
+                text-transform: uppercase;
+                color: var(--bs-secondary-color);
+
+                &:first-child {
+                    margin-top: .25rem;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        .edit-user-nav .nav {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+    }
+}
+
 // Admin edit pages (edit forum, edit category): the actions stay visible at the bottom of the window
 .admin-edit-form {
     .admin-edit-actions {

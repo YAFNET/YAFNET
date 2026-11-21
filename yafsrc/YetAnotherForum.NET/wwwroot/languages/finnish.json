@@ -3290,6 +3290,22 @@
             "#text": "Vahvistussalasana ei täsmää"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Tili"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Sisältö"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderointi"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profiili"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Kill User ja Ban"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Jäsenyyden salasanavaatimukset:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Pisteet"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Näytä kaikki"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Näytä profiili"
           }
         ]
       },

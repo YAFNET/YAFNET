@@ -3282,6 +3282,22 @@
             "#text": "تأكيد كلمة المرور لا يتطابق"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "الحساب"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "المحتوى"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "الإشراف"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "الملف الشخصي"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "قتل المستخدم والحظر"
           },
@@ -3340,6 +3356,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "متطلبات كلمة مرور العضوية:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "النقاط"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3464,6 +3484,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "مشاهدة الكل"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "عرض الملف الشخصي"
           }
         ]
       },

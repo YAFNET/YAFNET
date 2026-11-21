@@ -3282,6 +3282,22 @@
             "#text": "کلمه عبور و تکرار کلمه عبور هم‌خوانی ندارند"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "حساب"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "محتوا"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "نظارت"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "نمایه"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "حذف کاربر و انسداد"
           },
@@ -3340,6 +3356,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "نیازمندی های کلمه عبور:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "امتیاز"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3464,6 +3484,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "نمایش همه"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "مشاهده نمایه"
           }
         ]
       },

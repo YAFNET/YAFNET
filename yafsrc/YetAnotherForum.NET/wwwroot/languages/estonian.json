@@ -3290,6 +3290,22 @@
             "#text": "Kinnitusparool ei ühti"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Sisu"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Modereerimine"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profiil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Tapa kasutaja ja blokeeri"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Liikme parooli nõuded:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Punktid"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Vaata kõiki"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Vaata profiili"
           }
         ]
       },

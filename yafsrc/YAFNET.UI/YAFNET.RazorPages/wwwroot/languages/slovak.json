@@ -3290,6 +3290,22 @@
             "#text": "Potvrdzovacie heslo sa nezhoduje"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Účet"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Obsah"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderovanie"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Zabiť používateľa a zakázať"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Požiadavky na členské heslo:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Body"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Zobraziť všetko"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Zobraziť profil"
           }
         ]
       },

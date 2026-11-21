@@ -3290,6 +3290,22 @@
             "#text": "Bekræftelsesadgangskoden stemmer ikke overens"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Konto"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "Indhold"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Moderering"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Dræb bruger og forbyd"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Adgangskodekrav for medlemskab:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Point"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Se alt"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Vis profil"
           }
         ]
       },

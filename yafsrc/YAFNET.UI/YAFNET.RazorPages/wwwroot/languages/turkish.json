@@ -3290,6 +3290,22 @@
             "#text": "Onay şifresi eşleşmiyor"
           },
           {
+            "@tag": "GROUP_ACCOUNT",
+            "#text": "Hesap"
+          },
+          {
+            "@tag": "GROUP_CONTENT",
+            "#text": "İçerik"
+          },
+          {
+            "@tag": "GROUP_MODERATION",
+            "#text": "Denetim"
+          },
+          {
+            "@tag": "GROUP_PROFILE",
+            "#text": "Profil"
+          },
+          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Kullanıcıyı Öldür ve Yasakla"
           },
@@ -3348,6 +3364,10 @@
           {
             "@tag": "PASSWORD_REQUIREMENTS",
             "#text": "Üyelik Şifresi Gereksinimleri:"
+          },
+          {
+            "@tag": "POINTS",
+            "#text": "Puan"
           },
           {
             "@tag": "REMOVE_POINTS",
@@ -3472,6 +3492,10 @@
           {
             "@tag": "VIEW_ALL",
             "#text": "Tümünü Görüntüle"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Profili görüntüle"
           }
         ]
       },
