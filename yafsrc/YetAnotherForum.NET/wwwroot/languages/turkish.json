@@ -1363,6 +1363,10 @@
             "#text": "IP Adresi veya Maske"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "AbuseIPDB kara listesi yüklenemedi: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Bu Yasaklı Öğeyi Silin?"
           },

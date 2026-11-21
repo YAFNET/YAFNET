@@ -1190,6 +1190,10 @@
                     "#text": "No Banned IP Addresses"
                 },
                 {
+                    "@tag": "MSG_BLACKLIST_FAILED",
+                    "#text": "The blacklist of AbuseIPDB could not be loaded: {0}"
+                },
+                {
                     "@tag": "EMPTY_MESSAGE",
                     "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
                 },

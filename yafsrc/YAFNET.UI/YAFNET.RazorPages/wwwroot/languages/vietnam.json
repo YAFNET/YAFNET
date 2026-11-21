@@ -1363,6 +1363,10 @@
             "#text": "Địa chỉ IP hoặc Mặt nạ"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "Không thể tải danh sách đen của AbuseIPDB: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Xóa mục bị cấm này?"
           },

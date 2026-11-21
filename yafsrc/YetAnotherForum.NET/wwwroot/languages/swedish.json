@@ -1363,6 +1363,10 @@
             "#text": "IP-adress eller mask"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "Svartlistan från AbuseIPDB kunde inte läsas in: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Ta bort denna förbjudna artikel?"
           },

@@ -1363,6 +1363,10 @@
             "#text": "IP-adres of masker"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "De blacklist van AbuseIPDB kon niet worden geladen: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Dit verbannen item verwijderen?"
           },

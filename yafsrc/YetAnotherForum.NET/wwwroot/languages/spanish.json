@@ -1363,6 +1363,10 @@
             "#text": "Dirección IP o máscara"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "No se pudo cargar la lista negra de AbuseIPDB: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "¿Borrar este artículo prohibido?"
           },

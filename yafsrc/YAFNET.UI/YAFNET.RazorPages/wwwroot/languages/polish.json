@@ -1363,6 +1363,10 @@
             "#text": "Adres IP lub maska"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "Nie udało się wczytać czarnej listy AbuseIPDB: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Usunąć ten zakazany element?"
           },

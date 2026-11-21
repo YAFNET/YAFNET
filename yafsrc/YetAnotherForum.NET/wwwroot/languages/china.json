@@ -1363,6 +1363,10 @@
             "#text": "IP 地址或掩码"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "无法加载 AbuseIPDB 黑名单：{0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "删除此禁用项目？"
           },

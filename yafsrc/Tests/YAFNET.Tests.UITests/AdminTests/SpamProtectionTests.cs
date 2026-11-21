@@ -200,6 +200,36 @@ public class SpamProtectionTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// A failed import of the AbuseIPDB blacklist (e.g. an invalid api key) shows a message (and not an error page).
+    /// </summary>
+    [Test]
+    public async Task FailedAbuseIpDbImportShowsAMessageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await SetAbuseIpDbApiKeyAsync(page, this.TestSettings, "invalid-ui-test-key");
+
+                try
+                {
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/BannedIps");
+
+                    await page.SubmitAndWaitAsync(page.Locator(".card-footer button[formaction*='ImportMostRecent']"));
+
+                    Assert.That(page.Url, Does.Contain("Admin/BannedIps"), "The failed import showed an error page");
+                    Assert.That(await page.Locator(".card-footer button[formaction*='ImportMostRecent']").CountAsync(), Is.EqualTo(1), "The banned ips are not shown");
+                }
+                finally
+                {
+                    await SetAbuseIpDbApiKeyAsync(page, this.TestSettings, string.Empty);
+                }
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)

@@ -1363,6 +1363,10 @@
             "#text": "IP-osoite tai maski"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "AbuseIPDB:n estolistaa ei voitu ladata: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Poista tämä kielletty kohde?"
           },

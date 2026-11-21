@@ -1363,6 +1363,10 @@
             "#text": "IP-aadress või mask"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "AbuseIPDB musta nimekirja ei õnnestunud laadida: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Kas kustutada see keelatud üksus?"
           },

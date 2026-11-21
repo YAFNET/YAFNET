@@ -1363,6 +1363,10 @@
             "#text": "IP adresas arba kaukė"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "Nepavyko įkelti AbuseIPDB juodojo sąrašo: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Ištrinti šį uždraustą elementą?"
           },

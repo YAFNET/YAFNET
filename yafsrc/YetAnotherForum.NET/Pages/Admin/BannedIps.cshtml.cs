@@ -38,6 +38,7 @@ using YAF.Core.Helpers;
 using YAF.Types.Extensions;
 using YAF.Types.Modals;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The Admin Banned IP Page.
@@ -232,11 +233,29 @@ public class BannedIpsModel : AdminPage
     {
         if (this.PageBoardContext.BoardSettings.AbuseIpDbApiKey.IsNotSet())
         {
+            this.BindData();
+
             return this.Page();
         }
 
-        var blackList = await this.Get<IIpInfoService>()
-            .GetAbuseIpDbBlackListAsync(this.PageBoardContext.BoardSettings.AbuseIpDbApiKey, 55, 10000);
+        AbuseIpDbBlackList blackList;
+
+        try
+        {
+            blackList = await this.Get<IIpInfoService>()
+                .GetAbuseIpDbBlackListAsync(this.PageBoardContext.BoardSettings.AbuseIpDbApiKey, 55, 10000);
+        }
+        catch (Exception x)
+        {
+            // e.g. an invalid api key or no connection (the page stopped with an error)
+            this.Get<ILogger<BannedIpsModel>>().Error(x, "The blacklist of AbuseIPDB could not be loaded");
+
+            this.BindData();
+
+            return this.PageBoardContext.Notify(
+                this.GetTextFormatted("MSG_BLACKLIST_FAILED", x.Message),
+                MessageTypes.danger);
+        }
 
         var importedCount = await this.Get<IDataImporter>()
             .BannedIpAddressesImportAsync(this.PageBoardContext.PageBoardID, this.PageBoardContext.PageUserID,

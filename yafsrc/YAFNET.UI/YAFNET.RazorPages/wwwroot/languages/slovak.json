@@ -1363,6 +1363,10 @@
             "#text": "IP adresa alebo maska"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "Čiernu listinu AbuseIPDB sa nepodarilo načítať: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Odstrániť túto zakázanú položku?"
           },

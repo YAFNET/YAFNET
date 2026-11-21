@@ -1363,6 +1363,10 @@
             "#text": "Indirizzo IP o maschera"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "Impossibile caricare la blacklist di AbuseIPDB: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Cancellare questo articolo vietato?"
           },

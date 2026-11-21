@@ -1363,6 +1363,10 @@
             "#text": "IP-adresse eller maske"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "Svartelisten fra AbuseIPDB kunne ikke lastes: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Vil du slette dette forbudte elementet?"
           },

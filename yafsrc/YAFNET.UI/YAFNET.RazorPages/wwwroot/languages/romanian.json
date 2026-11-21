@@ -1363,6 +1363,10 @@
             "#text": "Adresa IP sau masca"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "Lista neagră AbuseIPDB nu a putut fi încărcată: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Ștergeți acest element interzis?"
           },

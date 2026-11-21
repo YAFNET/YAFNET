@@ -1363,6 +1363,10 @@
             "#text": "IP-Adresse oder Maske"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "Die Blacklist von AbuseIPDB konnte nicht geladen werden: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "Diesen verbotenen Artikel löschen?"
           },

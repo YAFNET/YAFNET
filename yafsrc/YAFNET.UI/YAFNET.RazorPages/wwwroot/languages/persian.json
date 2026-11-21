@@ -1363,6 +1363,10 @@
             "#text": "آدرس IP یا ماسک"
           },
           {
+            "@tag": "MSG_BLACKLIST_FAILED",
+            "#text": "فهرست سیاه AbuseIPDB بارگذاری نشد: {0}"
+          },
+          {
             "@tag": "MSG_DELETE",
             "#text": "این مورد حذف شود؟"
           },
