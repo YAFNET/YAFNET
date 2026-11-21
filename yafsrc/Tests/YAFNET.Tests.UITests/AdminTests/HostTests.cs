@@ -62,6 +62,53 @@ public class HostTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// An emptied text is saved as the english text: null was written to the file and the page failed with an error
+    /// every time it was shown.
+    /// </summary>
+    [Test]
+    public async Task EditLanguageEmptyTextTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await LoadPageAsync(page, this.TestSettings, "ADMIN_TAGS");
+
+                var text = page.Locator("#Locals_0__LocalizedResourceText");
+                var translated = await text.InputValueAsync();
+                var original = await page.Locator("textarea#Locals_0__OriginalResourceText").InputValueAsync();
+
+                try
+                {
+                    await text.FillAsync(string.Empty);
+
+                    var response = await page.RunAndWaitForResponseAsync(
+                                       () => page.Locator("button[formaction*='Save']").ClickAsync(),
+                                       r => r.Request.Method == "POST" && r.Url.Contains("/Save"));
+
+                    Assert.That(response.Status, Is.LessThan(400), $"The save failed ({response.Status})");
+
+                    // the page is shown again
+                    var status = await LoadPageAsync(page, this.TestSettings, "ADMIN_TAGS");
+
+                    Assert.That(status, Is.LessThan(400), $"The page of the language fails ({status})");
+                    Assert.That(await text.InputValueAsync(), Is.EqualTo(original), "The english text is not used for the empty text");
+                }
+                finally
+                {
+                    // the translation is set back
+                    if (await text.CountAsync() > 0)
+                    {
+                        await text.FillAsync(translated);
+                        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+                    }
+                }
+            });
+    }
+
+    /// <summary>
     /// Loads a page of the vietnamese language file.
     /// </summary>
     /// <returns>The status of the response.</returns>

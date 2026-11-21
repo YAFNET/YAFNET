@@ -124,7 +124,10 @@ public class EditLanguageModel : AdminPage
     /// </summary>
     public string LocalizedTextBoxClass(Translation modelLocal)
     {
-        return modelLocal.LocalizedResourceText.Equals(modelLocal.OriginalResourceText, StringComparison.OrdinalIgnoreCase)
+        // a text that is missing in the file (null) is not translated
+        return modelLocal.LocalizedResourceText is null || modelLocal.LocalizedResourceText.Equals(
+                   modelLocal.OriginalResourceText,
+                   StringComparison.OrdinalIgnoreCase)
                                     ? "form-control is-invalid"
                                     : "form-control is-valid";
     }
@@ -193,7 +196,10 @@ public class EditLanguageModel : AdminPage
                     return;
                 }
 
-                resource.Text = translation.LocalizedResourceText;
+                // an empty text is not translated, the english text is used (null was written to the file)
+                resource.Text = translation.LocalizedResourceText.IsSet()
+                                    ? translation.LocalizedResourceText
+                                    : translation.OriginalResourceText;
             });
 
         var serializer = new JsonSerializer { Formatting = Formatting.Indented };
