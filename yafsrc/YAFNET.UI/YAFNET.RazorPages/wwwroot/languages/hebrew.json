@@ -6599,6 +6599,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "מילת הספאם כבר קיימת!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "משפט הביטוי הרגולרי שהזנת אינו חוקי."
           },

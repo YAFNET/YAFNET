@@ -40,7 +40,8 @@ public static class SpamWordsRepositoryExtensions
     /// <param name="spamWordId">The spam word identifier.</param>
     /// <param name="spamWord">The spam word.</param>
     /// <param name="boardId">The board identifier.</param>
-    public async static Task SaveAsync(
+    /// <returns>False if the word is already a spam word of the board.</returns>
+    public async static Task<bool> SaveAsync(
         this IRepository<SpamWords> repository,
         int? spamWordId,
         string spamWord,
@@ -51,7 +52,13 @@ public static class SpamWordsRepositoryExtensions
 
         if (spamWordId is > 0 && !await repository.ExistsAsync(x => x.ID == spamWordId && x.BoardID == saveBoardId))
         {
-            return;
+            return true;
+        }
+
+        // the word of another entry (also when an entry is changed to it)
+        if (await repository.ExistsAsync(x => x.BoardID == saveBoardId && x.SpamWord == spamWord && x.ID != (spamWordId ?? 0)))
+        {
+            return false;
         }
 
         await repository.UpsertAsync(
@@ -61,5 +68,7 @@ public static class SpamWordsRepositoryExtensions
                 ID = spamWordId ?? 0,
                 SpamWord = spamWord
             });
+
+        return true;
     }
 }

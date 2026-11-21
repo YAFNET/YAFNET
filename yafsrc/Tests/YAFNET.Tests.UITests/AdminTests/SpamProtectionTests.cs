@@ -65,6 +65,74 @@ public class SpamProtectionTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
+    /// A ban can't be changed to the mask of another ban: the dialog shows "already exists"
+    /// (the banned names stopped with an error, the banned user agents saved the mask twice).
+    /// </summary>
+    [TestCase("BannedNames", "BannedName", "The Banned Name Already exists!")]
+    [TestCase("BannedUserAgents", "BannedUserAgent", "The Banned UserAgent Already exists!")]
+    public async Task EditingABanToAnExistingMaskIsRefusedTest(string listPage, string api, string message)
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/{listPage}");
+
+                var first = $"uitestfirst{Random.Shared.Next()}";
+                var second = $"uitestsecond{Random.Shared.Next()}";
+
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/{api}/Edit", new { id = 0, mask = first, banReason = "test" });
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/{api}/Edit", new { id = 0, mask = second, banReason = "test" });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/{listPage}");
+                await SearchAsync(page, second);
+
+                var secondId = await page.Locator("li.list-group-item-menu input[id='fID']").First.GetAttributeAsync("value");
+
+                // the second ban is changed to the mask of the first ban
+                var response = await PostApiAsync(
+                    page,
+                    $"{this.TestSettings.TestForumUrl}api/{api}/Edit",
+                    new { id = int.Parse(secondId!), mask = first, banReason = "test" });
+
+                Assert.That(response, Does.Contain(message), "The dialog shows no message");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/{listPage}");
+                await SearchAsync(page, first);
+
+                Assert.That(await page.Locator("li.list-group-item-menu").CountAsync(), Is.EqualTo(1), "The mask was saved twice");
+            });
+    }
+
+    /// <summary>
+    /// A spam word is saved once (the same word was added again).
+    /// </summary>
+    [Test]
+    public async Task SpamWordAddedTwiceIsSavedOnceTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await page.LoginAdminUserAsync(this.TestSettings);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/SpamWords");
+
+                var word = $"uitesttwice{Random.Shared.Next()}";
+
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/SpamWords/Edit", new { id = 0, spamWord = word });
+                await PostApiAsync(page, $"{this.TestSettings.TestForumUrl}api/SpamWords/Edit", new { id = 0, spamWord = word });
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/SpamWords");
+                await SearchAsync(page, word);
+
+                Assert.That(await page.Locator("li.list-group-item-menu").CountAsync(), Is.EqualTo(1), "The spam word was saved twice");
+            });
+    }
+
+    /// <summary>
     /// Sends the json to the api of a dialog (with the antiforgery token of the page).
     /// </summary>
     private static Task<string> PostApiAsync(IPage page, string url, object data)

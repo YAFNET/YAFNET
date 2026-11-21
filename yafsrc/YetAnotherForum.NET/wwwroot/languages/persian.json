@@ -6591,6 +6591,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "این واژه هرزنامه از قبل وجود دارد!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "عبارت Regular عبارتی که وارد کرده اید نامعتبر است."
           },

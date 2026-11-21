@@ -6591,6 +6591,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Это спам-слово уже существует!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Введенное вами регулярное выражение недействительно."
           },

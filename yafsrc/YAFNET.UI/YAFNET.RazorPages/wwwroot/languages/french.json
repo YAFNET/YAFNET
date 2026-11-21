@@ -6599,6 +6599,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Ce mot de spam existe déjà !"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "L'expression régulière que vous avez saisie n'est pas valide."
           },

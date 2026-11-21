@@ -6599,6 +6599,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Từ spam này đã tồn tại!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Câu lệnh Biểu thức chính quy bạn đã nhập không hợp lệ."
           },

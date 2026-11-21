@@ -6599,6 +6599,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Toto spamové slovo už existuje!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Zadaný výraz regulárního výrazu je neplatný."
           },

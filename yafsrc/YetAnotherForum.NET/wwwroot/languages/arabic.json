@@ -6591,6 +6591,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "كلمة الإزعاج موجودة بالفعل!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "عبارة التعبير العادي التي أدخلتها غير صالحة."
           },

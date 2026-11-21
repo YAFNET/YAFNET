@@ -61,6 +61,12 @@ public static class BannedEmailRepositoryExtensions
         string reason,
         int? boardId = null)
     {
+        // the mask of another entry (also when an entry is changed to it)
+        if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask && b.ID != (id ?? 0)))
+        {
+            return false;
+        }
+
         if (id.HasValue)
         {
             repository.UpdateOnly(
@@ -71,11 +77,6 @@ public static class BannedEmailRepositoryExtensions
             repository.FireUpdated();
 
             return true;
-        }
-
-        if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
-        {
-            return false;
         }
 
         repository.Insert(

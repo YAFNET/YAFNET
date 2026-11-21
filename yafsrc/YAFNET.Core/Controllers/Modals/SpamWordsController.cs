@@ -115,9 +115,15 @@ public class SpamWordsController : ForumBaseController
                     MessageTypes.danger));
         }
 
-        await this.GetRepository<SpamWords>().SaveAsync(
-            model.Id,
-            model.SpamWord);
+        if (!await this.GetRepository<SpamWords>().SaveAsync(
+                model.Id,
+                model.SpamWord))
+        {
+            return this.Ok(
+                new MessageModalNotification(
+                    this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_EXIST"),
+                    MessageTypes.warning));
+        }
 
         return this.Ok();
     }

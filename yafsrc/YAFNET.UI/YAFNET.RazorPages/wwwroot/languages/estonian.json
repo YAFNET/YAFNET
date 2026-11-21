@@ -6599,6 +6599,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Rämpssõna on juba olemas!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Sisestatud regulaaravaldise lause on kehtetu."
           },

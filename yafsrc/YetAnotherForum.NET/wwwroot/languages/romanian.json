@@ -6599,6 +6599,10 @@
         "@name": "ADMIN_SPAMWORDS_EDIT",
         "Resource": [
           {
+            "@tag": "MSG_EXIST",
+            "#text": "Cuvântul spam există deja!"
+          },
+          {
             "@tag": "MSG_REGEX_SPAM",
             "#text": "Expresia de expresie regulată pe care ați introdus-o nu este valabilă."
           },
