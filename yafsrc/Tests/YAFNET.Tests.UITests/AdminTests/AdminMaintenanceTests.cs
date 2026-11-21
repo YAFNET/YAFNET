@@ -1713,7 +1713,7 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                     "The board was deleted with a wrong name");
 
                 // the dialog: the delete button is enabled only with the right name
-                await page.Locator($"[data-bs-target='#deleteBoard{boardId}']").ClickAsync();
+                await page.Locator($".board-card[data-board-id='{boardId}'] .card-footer [data-bs-target='#deleteBoard{boardId}']").ClickAsync();
 
                 var dialog = page.Locator($"#deleteBoard{boardId}");
                 var confirmName = dialog.Locator("input[name='confirmName']");
@@ -1736,6 +1736,51 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
                     Is.Zero,
                     "The board was not deleted");
                 await Assertions.Expect(page.Locator(".toast").Last).ToContainTextAsync(boardName);
+            });
+    }
+
+    /// <summary>
+    /// The context menu (right click) of a board has the actions of the buttons: the current board can not be
+    /// deleted, the delete of another board opens its delete dialog.
+    /// </summary>
+    [Test]
+    public async Task BoardContextMenuTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                var boardName = $"Menu Board {Random.Shared.Next()}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditBoard");
+                await page.Locator("#Input_Name").FillAsync(boardName);
+
+                if (await page.Locator("#Input_CreateAdminUser").IsCheckedAsync())
+                {
+                    await page.Locator("#Input_CreateAdminUser").UncheckAsync();
+                }
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction$='/Save'], button[formaction*='handler=Save']").First);
+
+                // the current board: edit and new board, no delete
+                var current = page.Locator(".board-card-current");
+                await current.Locator(".card-title").ClickAsync(new LocatorClickOptions { Button = MouseButton.Right });
+
+                var currentMenu = current.Locator(".context-menu");
+                await Assertions.Expect(currentMenu).ToBeVisibleAsync();
+                await Assertions.Expect(currentMenu.Locator("a[href*='/EditBoard/']")).ToHaveCountAsync(1);
+                await Assertions.Expect(currentMenu.Locator("[data-bs-target^='#deleteBoard']")).ToHaveCountAsync(0);
+
+                // another board: delete opens its dialog
+                var card = page.Locator(".board-card", new PageLocatorOptions { HasText = boardName });
+                var boardId = await card.GetAttributeAsync("data-board-id");
+
+                await card.Locator(".card-title").ClickAsync(new LocatorClickOptions { Button = MouseButton.Right });
+                await card.Locator(".context-menu [data-bs-target^='#deleteBoard']").ClickAsync();
+
+                await Assertions.Expect(page.Locator($"#deleteBoard{boardId}")).ToBeVisibleAsync();
             });
     }
 

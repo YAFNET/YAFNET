@@ -61,7 +61,7 @@
 				var culture = Model.Cultures.GetValueOrDefault(board.ID);
 
 				<div class="col">
-					<div class="card board-card h-100 @(isCurrent ? "board-card-current" : "")" data-board-id="@board.ID">
+					<div class="card board-card row-menu h-100 @(isCurrent ? "board-card-current" : "")" data-board-id="@board.ID">
 						<div class="card-body d-flex flex-column">
 							<div class="d-flex align-items-start justify-content-between gap-2 mb-1">
 								<h3 class="h5 card-title mb-0 text-break">
@@ -149,6 +149,29 @@
 									@Html.Icon("trash")@Html.LocalizedText("ADMIN_BOARDS", "DELETE")
 								</button>
 							}
+						</div>
+						@* right click (long press on mobile): the same actions as the buttons *@
+						<div class="dropdown-menu context-menu" aria-label="context menu">
+							<a button-style="None"
+							   class="dropdown-item"
+							   asp-page="@ForumPages.Admin_EditBoard.GetPageName()"
+							   asp-route-b="@board.ID"
+							   text-localized-tag="EDIT"
+							   Icon="edit"></a>
+							@if (!isCurrent)
+							{
+								<button type="button" class="dropdown-item"
+								        data-bs-toggle="modal"
+								        data-bs-target="#deleteBoard@(board.ID)">
+									@Html.Icon("trash")@Html.LocalizedText("ADMIN_BOARDS", "DELETE")
+								</button>
+							}
+							<div class="dropdown-divider"></div>
+							<a asp-page="@ForumPages.Admin_EditBoard.GetPageName()"
+							   button-style="None"
+							   class="dropdown-item"
+							   Icon="plus-square"
+							   text-localized-tag="NEW_BOARD"></a>
 						</div>
 					</div>
 				</div>

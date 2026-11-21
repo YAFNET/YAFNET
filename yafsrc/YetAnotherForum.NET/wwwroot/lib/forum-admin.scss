@@ -141,6 +141,11 @@
         }
     }
 
+    // an open context menu is shown above the next cards (the hover effect makes the card a stacking context)
+    .board-card:has(> .context-menu.show) {
+        z-index: 2;
+    }
+
     // the board the forum runs on
     .board-card-current {
         border-color: var(--bs-primary);
