@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2026 Ingo Herbote
@@ -176,13 +176,24 @@ public class EditLanguageModel : AdminPage
 
         var translationResource = this.Get<ILocalization>().LoadLanguageFile(Path.Combine(langPath, x));
 
-        var pageName = this.Input.Pages;
-        var pageTranslations = this.Locals;
+        var pageTranslations = this.Locals ?? [];
+
+        // the texts of the shown page are saved (another page can be selected without loading it, it failed then)
+        var pageName = pageTranslations.FirstOrDefault()?.PageName ?? this.Input.Pages;
+
+        this.Input.Pages = pageName;
 
         translationResource.Resources.Page.First(x => x.Name == pageName).Resource.ForEach(
             resource =>
             {
-                resource.Text = pageTranslations.First(x => x.ResourceName == resource.Tag).LocalizedResourceText;
+                var translation = pageTranslations.Find(x => x.ResourceName == resource.Tag);
+
+                if (translation is null)
+                {
+                    return;
+                }
+
+                resource.Text = translation.LocalizedResourceText;
             });
 
         var serializer = new JsonSerializer { Formatting = Formatting.Indented };

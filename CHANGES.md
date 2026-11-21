@@ -97,6 +97,7 @@ YetAnotherForum.NET Changelog
 [CHANGES] Admin > Event Log, Recycle Bin, Attachments, Tags, Prune, Private Messages: new layouts, the event types as filter chips with their counts, the deleted topics and posts on tabs with confirmed deletes, attachment previews with size and downloads, the tags as a grid with a search, the prune and the private messages as danger zones
 [FIXED] Admin > Host Settings: after a clear cache button or the search index task the selects were empty, a save then set the permissions, feeds and spam settings to forbidden or off
 [FIXED] Admin > Host Settings: a size that is no number (attachment, album image or avatar size) failed the save with an error
+[FIXED] Admin > Edit Language: saving after selecting another page (without loading it) failed with an error
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
