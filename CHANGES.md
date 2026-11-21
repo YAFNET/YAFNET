@@ -85,6 +85,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Admin > Board Announcement, Replace Words, BBCodes: new layouts; the announcement has a live preview, the style as colored buttons, quick durations (1 day, 1 week, 1 month) and the current announcement with "Remove"; the replace words are shown as "bad -> good" with a [NEW] "Test" that shows a text after the replacements; the bb codes show the tag, the order and if they use the toolbar or a module, "select all" for the export; Edit BBCode has sections, the module class is only shown with "use module", the scripts and styles can be collapsed
 * [CHANGES] Admin menu: the icons of the replace words, the spam protection pages and the mail page are the icons of the headers of the pages
 * [FIXED] Admin > Ranks: the start rank of a new board (Newbie) was not on the rank ladder, the new users were never promoted to Member and Advanced Member (existing boards: switch on "Ladder Group" of the start rank)
+* [FIXED] Admin > Ranks: a new start rank kept the old start rank, the new users got one of them; now the old start rank loses the flag
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

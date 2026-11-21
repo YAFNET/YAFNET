@@ -96,6 +96,23 @@ public class GroupsRanksMessagesTests
     }
 
     [Test]
+    [Description("A board has one start rank: saving a rank as start rank removes the flag from the old start rank")]
+    public async Task Rank_Save_Start_Rank_Test()
+    {
+        var ranks = this.Repository<Rank>();
+
+        var oldStart = this.db.AddRank("Old start", 0, isLadder: true, configure: r => r.Flags = 3);
+
+        await ranks.SaveAsync(null, TestDatabase.BoardId, "New start", new RankFlags { IsStart = true }, null, null, 2, "d", 100, "b", 1, 2);
+
+        var startRanks = await ranks.GetAsync(r => r.BoardID == TestDatabase.BoardId && (r.Flags & 1) == 1);
+        startRanks.Select(r => r.Name).Should().Equal(["New start"], "the new users get one start rank");
+
+        // the other flags are kept
+        (await ranks.GetByIdAsync(oldStart)).RankFlags.IsLadder.Should().BeTrue();
+    }
+
+    [Test]
     [Description("Rank lookups for a user")]
     public async Task Rank_User_Lookups_Test()
     {

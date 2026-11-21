@@ -190,6 +190,68 @@ public class RankTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
     }
 
     /// <summary>
+    /// A board has one start rank: a new start rank kept the old start rank, the new users got one of them.
+    /// </summary>
+    [Test]
+    [Description("Saving a rank as start rank removes the flag from the old start rank")]
+    public async Task NewStartRankReplacesTheOldStartRankTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                    var rankName = $"StartRank{Random.Shared.Next()}";
+
+                    try
+                    {
+                        // a new start rank
+                        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditRank");
+                        await page.Locator("#Input_Name").FillAsync(rankName);
+                        await page.Locator("#Input_IsStart").CheckAsync();
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'EditRank') and contains(@formaction,'Save')]"));
+
+                        await page.GotoAsync(await this.GetEditRankUrlAsync(page, rankName));
+                        Assert.That(await page.Locator("#Input_IsStart").IsCheckedAsync(), Is.True, "The new rank is not the start rank");
+
+                        await page.GotoAsync(await this.GetEditRankUrlAsync(page, "Newbie"));
+                        Assert.That(await page.Locator("#Input_IsStart").IsCheckedAsync(), Is.False, "The old start rank is still a start rank");
+                    }
+                    finally
+                    {
+                        // Newbie is the start rank again, the test rank is removed
+                        await page.GotoAsync(await this.GetEditRankUrlAsync(page, "Newbie"));
+                        await page.Locator("#Input_IsStart").CheckAsync();
+                        await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'EditRank') and contains(@formaction,'Save')]"));
+
+                        await this.DeleteRankAsync(page, rankName);
+                    }
+                });
+    }
+
+    /// <summary>
+    /// Deletes a rank.
+    /// </summary>
+    /// <param name="page">The page.</param>
+    /// <param name="name">The name of the rank.</param>
+    private async Task DeleteRankAsync(IPage page, string name)
+    {
+        var editUrl = await this.GetEditRankUrlAsync(page, name);
+        var rankId = System.Text.RegularExpressions.Regex.Match(new Uri(editUrl).AbsolutePath, @"(\d+)\D*$").Groups[1].Value;
+
+        await page.EvaluateAsync(
+            """
+            async url => {
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                const body = new URLSearchParams({ '__RequestVerificationToken': token });
+                await fetch(url, { method: 'POST', body: body });
+            }
+            """,
+            $"{this.TestSettings.TestForumUrl}Admin/Ranks?handler=Delete&id={rankId}");
+    }
+
+    /// <summary>
     /// Gets the url of the edit page of a rank.
     /// </summary>
     /// <param name="page">The page.</param>
