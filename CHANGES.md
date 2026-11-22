@@ -152,6 +152,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Index: "mark all read" and "watch all forums" on the page of a category acted on the forums of all categories and showed the whole board
 * [FIXED] Index: the collapse button of a category on the page of the category showed the whole board
 * [FIXED] Index: "load more" on the page of a category with more than 20 forums added the forums of the other categories
+* [FIXED] Topics, Posts: "new topic" was shown to the members in a locked forum and led to "access denied"
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

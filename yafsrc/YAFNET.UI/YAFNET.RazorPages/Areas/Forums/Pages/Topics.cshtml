@@ -65,8 +65,7 @@
                href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
         }
 
-        @if (Model.PageBoardContext.ForumPostAccess
-             || !Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
+        @if (Model.PageBoardContext.ForumPostAccess && (!Model.PageBoardContext.PageForum.ForumFlags.IsLocked || Model.PageBoardContext.ForumModeratorAccess))
         {
             <a role="button" button-style="Primary"
                icon="plus"
@@ -276,8 +275,7 @@
 			   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
 		}
 
-		@if (Model.PageBoardContext.ForumPostAccess
-		     || !Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
+		@if (Model.PageBoardContext.ForumPostAccess && (!Model.PageBoardContext.PageForum.ForumFlags.IsLocked || Model.PageBoardContext.ForumModeratorAccess))
 		{
 			<a role="button" button-style="Primary"
 			   icon="plus"

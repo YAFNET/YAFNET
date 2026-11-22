@@ -389,4 +389,67 @@ public class ForumAccessTests(ComposeScenario scenario) : DatabaseTestBase(scena
                 Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
             });
     }
+
+    /// <summary>
+    /// A member doesn't see "New Topic" in a locked forum (the button was shown and led to "access denied").
+    /// </summary>
+    [Test]
+    public async Task NoNewTopicButtonInALockedForumTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var forumName = $"Locked Forum {Random.Shared.Next()}";
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                // a forum the members can post in, it is locked after the topic is created
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+
+                await page.Locator("#Input_Name").FillAsync(forumName);
+                await page.Locator("#Input_Description").FillAsync("A forum of the locked forum test");
+                await page.Locator("#Input_SortOrder").FillAsync("99");
+
+                await page.GetByLabel("Registered").First.SelectOptionAsync(new SelectOptionValue { Label = "Member Access" });
+
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+                var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
+                                    .First.GetAttributeAsync("href");
+
+                Assert.That(forumLink, Is.Not.Null, "The forum was not created");
+
+                var forumId = int.Parse(Regex.Match(forumLink, @"/forum/(\d+)/").Groups[1].Value);
+
+                var topicId = await page.CreateTopicAsync(this.TestSettings, forumId, "Topic of a locked forum", "A topic of the locked forum test");
+
+                Assert.That(topicId, Is.Not.Null, $"The topic was not created ({page.Url})");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false/{forumId}");
+                await page.Locator("#Input_Locked").CheckAsync();
+                await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.TestUserName, this.TestSettings.TestUserPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}forum/{forumId}/locked");
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Topic of a locked forum"), "The forum can't be read");
+                Assert.That(await page.Locator("a[href*='PostTopic']").CountAsync(), Is.Zero, "New Topic is shown in the locked forum");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{topicId}/topic");
+
+                Assert.That(await page.Locator("a[href*='PostTopic']").CountAsync(), Is.Zero, "New Topic is shown in the topic of the locked forum");
+            });
+    }
 }

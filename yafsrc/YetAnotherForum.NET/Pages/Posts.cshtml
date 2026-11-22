@@ -102,7 +102,7 @@
             </div>
         }
             
-        @if (Model.PageBoardContext.ForumPostAccess || Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
+        @if (Model.PageBoardContext.ForumPostAccess && (!Model.PageBoardContext.PageForum.ForumFlags.IsLocked || Model.PageBoardContext.ForumModeratorAccess))
         {
             <a button-style="Secondary"
                text-localized-tag="BUTTON_NEWTOPIC" title-localized-tag="BUTTON_NEWTOPIC_TT"
@@ -409,7 +409,7 @@
                 </div>
             }
 
-            @if (Model.PageBoardContext.ForumPostAccess || Model.PageBoardContext.PageForum.ForumFlags.IsLocked && Model.PageBoardContext.ForumModeratorAccess)
+            @if (Model.PageBoardContext.ForumPostAccess && (!Model.PageBoardContext.PageForum.ForumFlags.IsLocked || Model.PageBoardContext.ForumModeratorAccess))
             {
                 <a button-style="Secondary"
                    text-localized-tag="BUTTON_NEWTOPIC" title-localized-tag="BUTTON_NEWTOPIC_TT"
