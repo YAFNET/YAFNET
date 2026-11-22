@@ -334,4 +334,51 @@ public class ActiveRepositoryTests
                 Platform = "Windows"
             });
     }
+
+    [Test]
+    [Description("ListUsersPaged with guestsOnly pages and counts only the guests (the members of a page were removed after the paging)")]
+    public void ListUsersPaged_Guests_Only_Test()
+    {
+        this.board.GrantAccess(this.alice, this.forum);
+
+        // the members are the newest sessions, they filled the first page
+        this.AddActive(this.bob, "m1", Registered, this.forum, lastActive: DateTime.UtcNow);
+        this.AddActive(this.bob, "m2", Registered, this.forum, lastActive: DateTime.UtcNow.AddMinutes(-1));
+        this.AddActive(this.guest, "g1", Guest, this.forum, lastActive: DateTime.UtcNow.AddMinutes(-2));
+        this.AddActive(this.guest, "g2", Guest, this.forum, lastActive: DateTime.UtcNow.AddMinutes(-3));
+
+        var users = this.Active.ListUsersPaged(this.alice, true, false, 1, 2, guestsOnly: true);
+
+        users.Select(u => u.SessionID).Should().Equal("g1", "g2");
+        users.Should().OnlyContain(u => u.UserCount == 2);
+    }
+
+    [Test]
+    [Description("ListUsersPaged with hideHidden leaves out the hidden users (but the viewer), hiddenOnly lists only them")]
+    public void ListUsersPaged_Hidden_Test()
+    {
+        this.board.GrantAccess(this.alice, this.forum);
+
+        var hidden = this.db.AddUser(
+            "Hidden",
+            u => u.Flags = (int)(UserFlags.Flags.IsApproved | UserFlags.Flags.IsActiveExcluded));
+
+        this.AddActive(hidden, "hidden", Registered, this.forum, lastActive: DateTime.UtcNow);
+        this.AddActive(this.bob, "bob", Registered, this.forum, lastActive: DateTime.UtcNow.AddMinutes(-1));
+        this.AddActive(this.alice, "alice", Registered, this.forum, lastActive: DateTime.UtcNow.AddMinutes(-2));
+
+        var visible = this.Active.ListUsersPaged(this.alice, false, false, 1, 1, hideHidden: true);
+
+        visible.Select(u => u.SessionID).Should().Equal("bob");
+        visible.Should().OnlyContain(u => u.UserCount == 2);
+
+        this.Active.ListUsersPaged(this.alice, false, false, 1, 10, hiddenOnly: true).Select(u => u.SessionID)
+            .Should().Equal("hidden");
+
+        // a hidden viewer sees the own session
+        this.board.GrantAccess(hidden, this.forum);
+
+        this.Active.ListUsersPaged(hidden, false, false, 1, 10, hideHidden: true).Select(u => u.SessionID)
+            .Should().Contain("hidden");
+    }
 }
