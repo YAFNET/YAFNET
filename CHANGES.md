@@ -125,6 +125,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] My Topics: the title of the page was "Reset Password" (the texts of the page had no title), the German "my topics" was "no topics"
 * [FIXED] My Topics: "mark all as read" marked only the topics of the first page (the list shows the next pages when it is scrolled)
 * [CHANGES] My Topics redesigned: header with the count and mark all as read, the lists as tabs (active topics since the last visit, the other lists all topics, a time selected afterwards is kept), the time and the page size in view, an empty state with show all
+* [FIXED] Albums: a new album was not counted (the number of the albums and the images of the user was cached), the albums page showed the number before it and "add new album" at the limit
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

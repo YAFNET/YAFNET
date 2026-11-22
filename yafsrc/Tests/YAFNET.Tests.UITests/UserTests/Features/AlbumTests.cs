@@ -892,4 +892,55 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     Assert.That(await page.ContentAsync(), Does.Not.Contain("Delete me"), "The album is still listed");
                 });
     }
+
+    /// <summary>
+    /// The number of the albums of the user is right after a new album: it was the number before the album (the
+    /// data of the user was cached), "add new album" was shown at the limit.
+    /// </summary>
+    [Test]
+    public async Task AlbumCountAfterNewAlbumTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                // the albums are enabled
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+                await page.RunAndWaitForNextPageAsync(
+                    () => page.EvaluateAsync(
+                        """
+                        () => {
+                            document.querySelector('#Input_EnableAlbum').checked = true;
+                            document.querySelector("button[formaction*='Save']").click();
+                        }
+                        """));
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyAccount");
+                await page.GetByText("Edit Albums").First.ClickAsync();
+                await page.WaitForLoadStateAsync();
+
+                var albumsUrl = page.Url;
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Currently you have 0 Album(s)"), "The new user has albums");
+
+                // a new album
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditAlbumImages/new");
+                await page.Locator("#AlbumTitle").FillAsync("Count album");
+                await page.Locator("#ImageFiles").SetInputFilesAsync(Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png"));
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
+
+                await page.GotoAsync(albumsUrl);
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Currently you have 1 Album(s)"), "The new album is not counted");
+            });
+    }
 }

@@ -204,6 +204,9 @@ public class EditAlbumImagesModel : ForumPageRegistered
             if (this.CheckValidFiles(this.ImageFiles))
             {
                 albumId = await this.SaveAttachmentsAsync(this.ImageFiles, albumId);
+
+                // the numbers of the albums and images of the user are cached (a new album was not counted)
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
             }
 
             return await this.BindDataAsync(albumId);
