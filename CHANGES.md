@@ -159,6 +159,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] New topic, reply, edit: a post found as spam (e.g. a new member with more than 10 links) failed with an error page, the logger of the pages was not registered
 * [FIXED] Edit message: a post edited to spam stayed approved and visible with the spam handling "flag as not approved"
 * [FIXED] New topic, reply, edit: Enter in a field (subject, reason of the edit, ...) showed the preview instead of saving
+* [FIXED] New topic: a missing subject showed "You must enter an email subject.", the preview had the title "Message:"
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

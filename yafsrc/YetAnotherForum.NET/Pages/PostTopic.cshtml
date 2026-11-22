@@ -110,7 +110,7 @@
                     @if (Model.Input.PreviewMessage.IsSet())
                     {
                         <h5 class="card-title">
-                            @Html.LocalizedText("previewtitle")
+                            @Html.LocalizedText("POSTMESSAGE", "previewtitle")
                         </h5>
                         <alert type="light">
                             <message message-flags="@(new MessageFlags{IsBBCode = true})" message-id="0" display-user-id="@Model.PageBoardContext.PageUserID" message="@Model.Input.PreviewMessage"></message>

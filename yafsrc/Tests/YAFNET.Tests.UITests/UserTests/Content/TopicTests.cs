@@ -1393,4 +1393,40 @@ public class TopicTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(page.Url, Does.Not.Contain("EditMessage"), "Enter in the reason did not save the edit");
             });
     }
+
+    /// <summary>
+    /// A new topic without subject gets the message of the topic subject, the preview has the preview title
+    /// (the texts of the email topic page and the delete page were shown).
+    /// </summary>
+    [Test]
+    public async Task NewTopicTextsTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}PostTopic/{this.TestSettings.TestForumId}");
+
+                var body = page.FrameLocator(".sceditor-container >> iframe").Locator("body");
+
+                await body.ClickAsync();
+                await body.FillAsync("A topic of the texts test");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'Preview')]"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Preview:"), "The preview has the wrong title");
+
+                await page.SubmitAndWaitAsync(page.Locator("//*[contains(@formaction,'PostReply')]"));
+
+                var content = await page.ContentAsync();
+
+                Assert.That(content, Does.Contain("Please enter a subject for the topic."), "The message of the missing subject is wrong");
+                Assert.That(content, Does.Not.Contain("You must enter an email subject."), "The message of the email topic page is shown");
+            });
+    }
 }

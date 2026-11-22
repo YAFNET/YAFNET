@@ -183,7 +183,7 @@ public class PostTopicModel : ForumPage
 
         if (HtmlTagHelper.StripHtml(this.Input.TopicSubject).IsNotSet())
         {
-            this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
+            this.PageBoardContext.Notify(this.GetText("POSTMESSAGE", "NEED_SUBJECT"), MessageTypes.warning);
             return false;
         }
 
