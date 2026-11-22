@@ -966,4 +966,64 @@ public class ForumHierarchyTests(ComposeScenario scenario) : DatabaseTestBase(sc
                 Assert.That(await subForum.IsVisibleAsync(), Is.True, "The sub forums were not expanded again");
             });
     }
+
+    /// <summary>
+    /// "Mark all read" and "Watch all forums" on the page of a category act on the forums of the category and show
+    /// the category again (the category was lost, the buttons acted on all forums and the whole board was shown).
+    /// </summary>
+    [Test]
+    public async Task MarkAllOnACategoryPageKeepsTheCategoryTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var categoryId = await this.CreateCategoryWithForumAsync(page, $"MarkAll{Random.Shared.Next()}");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}category/{categoryId}/test");
+
+                var categories = page.Locator("#category-list .card-body.collapse");
+
+                Assert.That(await categories.CountAsync(), Is.EqualTo(1), "The category page shows other categories");
+
+                foreach (var handler in new[] { "MarkAll", "WatchAll" })
+                {
+                    await page.SubmitAndWaitAsync(page.Locator($"button[formaction*='{handler}']"));
+
+                    Assert.That(await categories.CountAsync(), Is.EqualTo(1), $"{handler} did not keep the category");
+                }
+            });
+    }
+
+    /// <summary>
+    /// Creates a category with a forum, returns the id of the category.
+    /// </summary>
+    private async Task<string> CreateCategoryWithForumAsync(IPage page, string name)
+    {
+        var categoryId = await this.CreateCategoryAsync(page, name);
+
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+        await page.Locator("#Input_Name").FillAsync($"{name} forum");
+        await page.Locator("#Input_Description").FillAsync("A forum of the category test");
+
+        // the select is a Choices.js select (only the selected option is in the form)
+        await page.EvaluateAsync(
+            """
+            id => {
+                const select = document.querySelector('#Input_CategoryID');
+                select.add(new Option('', id, true, true));
+                select.value = id;
+            }
+            """,
+            categoryId);
+
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+        return categoryId;
+    }
 }

@@ -5,6 +5,12 @@
 @using YAF.Types.Interfaces;
 @using YAF.Core.Utilities;
 @model IndexModel
+@{
+    // the buttons of a category page act on the forums of the category, the category is a query value
+    var categoryRoute = Model.PageBoardContext.PageCategoryID > 0
+                            ? new Dictionary<string, string> { { "c", Model.PageBoardContext.PageCategoryID.ToString() } }
+                            : new Dictionary<string, string>();
+}
 
 <div class="index-toolbar">
     <div class="index-clock d-none d-md-inline-flex">
@@ -24,6 +30,7 @@
         <form method="post">
             <div class="btn-group" role="group" aria-label="Tools">
                 <button asp-page-handler="WatchAll"
+                        asp-all-route-data="categoryRoute"
                         button-style="Secondary"
                         button-size="Small"
                         icon="eye"
@@ -35,6 +42,7 @@
                 </button>
 
                 <button asp-page-handler="MarkAll"
+                        asp-all-route-data="categoryRoute"
                         button-style="Secondary"
                         button-size="Small"
                         icon="glasses"
