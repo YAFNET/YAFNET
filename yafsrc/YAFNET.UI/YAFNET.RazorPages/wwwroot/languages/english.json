@@ -12116,6 +12116,10 @@
             "@name": "PM",
             "Resource": [
                 {
+                    "@tag": "NOT_SENT",
+                    "#text": "The message was not sent: the user does not accept private messages from you."
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "Private Messages"
                 },

@@ -12152,6 +12152,10 @@
             "#text": "Nebyli nalezeni žádní uživatelé."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Zpráva nebyla odeslána: uživatel od vás nepřijímá soukromé zprávy."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Typ zprávy ..."
           },

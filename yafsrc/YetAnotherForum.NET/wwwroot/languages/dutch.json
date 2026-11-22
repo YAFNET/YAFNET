@@ -12136,6 +12136,10 @@
             "#text": "Geen gebruikers gevonden."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Het bericht is niet verzonden: de gebruiker accepteert geen privéberichten van jou."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Type bericht ..."
           },

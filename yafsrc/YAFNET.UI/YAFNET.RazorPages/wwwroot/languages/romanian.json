@@ -12152,6 +12152,10 @@
             "#text": "Nu s-au găsit utilizatori."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Mesajul nu a fost trimis: utilizatorul nu acceptă mesaje private de la tine."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Tastați mesaj ..."
           },

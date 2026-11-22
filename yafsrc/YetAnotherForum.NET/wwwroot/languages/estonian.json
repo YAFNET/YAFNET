@@ -12152,6 +12152,10 @@
             "#text": "Ühtegi kasutajat ei leitud."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Sõnumit ei saadetud: kasutaja ei võta sinult privaatsõnumeid vastu."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Tüüpi teade ..."
           },

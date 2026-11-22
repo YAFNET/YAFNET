@@ -12140,6 +12140,10 @@
             "#text": "Nie znaleziono żadnych użytkowników."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Wiadomość nie została wysłana: użytkownik nie przyjmuje od Ciebie prywatnych wiadomości."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Wpisz wiadomość ..."
           },

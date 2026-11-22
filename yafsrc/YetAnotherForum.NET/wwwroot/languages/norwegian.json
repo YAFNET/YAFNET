@@ -12152,6 +12152,10 @@
             "#text": "Ingen brukere funnet."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Meldingen ble ikke sendt: brukeren tar ikke imot private meldinger fra deg."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Skriv melding ..."
           },

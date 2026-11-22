@@ -12152,6 +12152,10 @@
             "#text": "Inga användare hittades."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Meddelandet skickades inte: användaren tar inte emot privata meddelanden från dig."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Typmeddelande ..."
           },

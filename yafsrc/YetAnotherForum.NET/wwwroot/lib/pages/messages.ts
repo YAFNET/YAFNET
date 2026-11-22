@@ -69,6 +69,33 @@ chatHub.on('sendPrivateMessage', (toUserId: number, message: string, toAvatar: s
 	updateConversation(toUserId, message, dateTime, isOwn);
 });
 
+// the message was not sent (the other user does not accept private messages from the user):
+// the text stays in the text box and a message is shown
+chatHub.on('privateMessageNotSent', (toUserId: number) => {
+	const control = document.getElementById(`private_${toUserId}`);
+	const text = control?.querySelector<HTMLTextAreaElement>('#txtPrivateMessage');
+
+	if (!control || !text) {
+		return;
+	}
+
+	if (text.value.length === 0) {
+		text.value = control.dataset.pending ?? '';
+	}
+
+	let alert = control.querySelector<HTMLDivElement>('#privateMessageNotSent');
+
+	if (!alert) {
+		alert = document.createElement('div');
+		alert.id = 'privateMessageNotSent';
+		alert.className = 'alert alert-warning small py-2 mb-2';
+		alert.setAttribute('role', 'alert');
+		text.closest('.input-group')?.before(alert);
+	}
+
+	alert.textContent = (document.getElementById('PriChatDiv') as HTMLElement).dataset.notSent ?? '';
+});
+
 // a new message in a conversation that is not open, the conversation is marked as unread
 chatHub.on('newPrivateMessage', (fromUserId: number) => {
 	const li = document.getElementById(`${fromUserId}`);
@@ -256,6 +283,10 @@ function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userNa
         if ($text) {
             const msg = $text.value;
             if (msg.trim().length > 0) {
+				// the text is shown again if the message was not sent
+				$div.dataset.pending = msg;
+				$div.querySelector('#privateMessageNotSent')?.remove();
+
                 chatHub.invoke('SendPrivateMessageAsync', parseInt(userId), msg);
                 $text.value = '';
             }

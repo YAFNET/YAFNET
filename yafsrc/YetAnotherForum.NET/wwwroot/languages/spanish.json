@@ -12136,6 +12136,10 @@
             "#text": "No se encontraron usuarios."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "El mensaje no se envió: el usuario no acepta mensajes privados de usted."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Tipo de mensaje ..."
           },

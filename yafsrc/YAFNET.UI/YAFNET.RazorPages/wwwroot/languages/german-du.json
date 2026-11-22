@@ -12136,6 +12136,10 @@
             "#text": "Keine Benutzer gefunden."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Die Nachricht wurde nicht gesendet: Der Benutzer nimmt keine privaten Nachrichten von dir an."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Nachricht eingeben ..."
           },

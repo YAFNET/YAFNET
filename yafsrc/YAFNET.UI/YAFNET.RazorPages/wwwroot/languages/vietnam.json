@@ -12152,6 +12152,10 @@
             "#text": "Không tìm thấy người dùng nào."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Tin nhắn chưa được gửi: người dùng không nhận tin nhắn riêng từ bạn."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Nhập tin nhắn ..."
           },

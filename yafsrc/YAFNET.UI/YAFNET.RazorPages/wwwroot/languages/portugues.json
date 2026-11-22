@@ -12152,6 +12152,10 @@
             "#text": "Nenhum usuário encontrado."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "A mensagem não foi enviada: o utilizador não aceita mensagens privadas suas."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Mensagem do tipo ..."
           },

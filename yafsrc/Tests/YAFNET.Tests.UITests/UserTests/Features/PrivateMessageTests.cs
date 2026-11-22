@@ -169,37 +169,6 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
     }
 
     /// <summary>
-    /// Gets the id of the admin (from the user list of the admin, the members list can have several pages),
-    /// the admin is logged out again.
-    /// </summary>
-    private async Task<string> GetAdminIdAsync(IPage page)
-    {
-        Assert.That(
-            await page.LoginUserAsync(
-                this.TestSettings,
-                this.TestSettings.AdminUserName,
-                this.TestSettings.AdminPassword),
-            Is.True,
-            "Login failed");
-
-        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
-        await page.OpenUserFilterAsync();
-
-        var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
-        await searchNameInput.FillAsync(this.TestSettings.AdminUserName);
-        await page.RunAndWaitForNextPageAsync(() => searchNameInput.PressAsync("Enter"));
-
-        var adminLink = await page.Locator(
-                            "//a[contains(@href,'EditUser')]",
-                            new PageLocatorOptions { HasText = this.TestSettings.AdminUserName }).First
-                            .GetAttributeAsync("href");
-
-        Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
-
-        return adminLink![(adminLink.LastIndexOf('/') + 1)..];
-    }
-
-    /// <summary>
     /// The conversation that the page opens can be clicked again before it was loaded: the messages are shown once
     /// (they were shown twice).
     /// </summary>
@@ -238,5 +207,134 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
 
                     Assert.That(await message.CountAsync(), Is.EqualTo(1), "The messages are shown twice");
                 });
+    }
+
+    /// <summary>
+    /// A message to a user that does not accept private messages (anymore) is not sent: the sender gets a message
+    /// and keeps the text (it was removed without a message).
+    /// </summary>
+    [Test]
+    public async Task MessageToUserThatBlocksIsNotLostTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var testUserId = await this.GetUserIdAsync(page, this.TestSettings.TestUserName);
+
+                    // a new user writes to the test user, then blocks private messages
+                    var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages?u={testUserId}");
+
+                    var hello = $"Hello {Random.Shared.Next()}";
+
+                    await page.Locator("#txtPrivateMessage").FillAsync(hello);
+                    await page.Locator("#txtPrivateMessage").PressAsync("Enter");
+                    await page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = hello }).WaitForAsync();
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/BlockOptions");
+                    await page.Locator("#BlockPMs").CheckAsync();
+                    await page.SubmitAndWaitAsync(page.Locator("button[type='submit']", new PageLocatorOptions { HasText = "Save" }));
+
+                    Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                    // the test user answers
+                    Assert.That(
+                        await page.LoginUserAsync(
+                            this.TestSettings,
+                            this.TestSettings.TestUserName,
+                            this.TestSettings.TestUserPassword),
+                        Is.True,
+                        "Login failed");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages");
+                    await page.Locator($"li.chat-list-user[data-name='{userName}']").ClickAsync();
+                    await page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = hello }).WaitForAsync();
+
+                    var answer = $"Answer {Random.Shared.Next()}";
+
+                    await page.Locator("#txtPrivateMessage").FillAsync(answer);
+                    await page.Locator("#txtPrivateMessage").PressAsync("Enter");
+
+                    var notSent = page.Locator("#privateMessageNotSent");
+
+                    await notSent.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+
+                    Assert.Multiple(
+                        async () =>
+                            {
+                                Assert.That(await notSent.IsVisibleAsync(), Is.True, "No message that the text was not sent");
+                                Assert.That(
+                                    await page.Locator("#txtPrivateMessage").InputValueAsync(),
+                                    Is.EqualTo(answer),
+                                    "The text that was not sent is lost");
+                                Assert.That(
+                                    await page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = answer }).CountAsync(),
+                                    Is.Zero,
+                                    "The message is shown as sent");
+                            });
+                });
+    }
+
+    /// <summary>
+    /// Gets the id of a user (from the user list of the admin), the admin is logged out again.
+    /// </summary>
+    private async Task<string> GetUserIdAsync(IPage page, string userName)
+    {
+        Assert.That(
+            await page.LoginUserAsync(
+                this.TestSettings,
+                this.TestSettings.AdminUserName,
+                this.TestSettings.AdminPassword),
+            Is.True,
+            "Login failed");
+
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+        await page.OpenUserFilterAsync();
+
+        var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
+        await searchNameInput.FillAsync(userName);
+        await page.RunAndWaitForNextPageAsync(() => searchNameInput.PressAsync("Enter"));
+
+        var userLink = await page.Locator(
+                            "//a[contains(@href,'EditUser')]",
+                            new PageLocatorOptions { HasText = userName }).First
+                            .GetAttributeAsync("href");
+
+        Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+        return userLink![(userLink.LastIndexOf('/') + 1)..];
+    }
+
+    /// <summary>
+    /// Gets the id of the admin (from the user list of the admin, the members list can have several pages),
+    /// the admin is logged out again.
+    /// </summary>
+    private async Task<string> GetAdminIdAsync(IPage page)
+    {
+        Assert.That(
+            await page.LoginUserAsync(
+                this.TestSettings,
+                this.TestSettings.AdminUserName,
+                this.TestSettings.AdminPassword),
+            Is.True,
+            "Login failed");
+
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Users");
+        await page.OpenUserFilterAsync();
+
+        var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
+        await searchNameInput.FillAsync(this.TestSettings.AdminUserName);
+        await page.RunAndWaitForNextPageAsync(() => searchNameInput.PressAsync("Enter"));
+
+        var adminLink = await page.Locator(
+                            "//a[contains(@href,'EditUser')]",
+                            new PageLocatorOptions { HasText = this.TestSettings.AdminUserName }).First
+                            .GetAttributeAsync("href");
+
+        Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+        return adminLink![(adminLink.LastIndexOf('/') + 1)..];
     }
 }

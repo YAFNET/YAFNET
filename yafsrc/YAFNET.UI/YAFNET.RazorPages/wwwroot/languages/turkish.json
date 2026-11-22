@@ -12152,6 +12152,10 @@
             "#text": "Hiçbir kullanıcı bulunamadı."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Mesaj gönderilmedi: kullanıcı sizden özel mesaj kabul etmiyor."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Mesaj yazın ..."
           },

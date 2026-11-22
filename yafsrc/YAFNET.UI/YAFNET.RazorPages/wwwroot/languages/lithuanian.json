@@ -12152,6 +12152,10 @@
             "#text": "Nerasta jokių vartotojų."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Žinutė neišsiųsta: naudotojas nepriima jūsų asmeninių žinučių."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Įveskite pranešimą ..."
           },

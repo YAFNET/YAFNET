@@ -12152,6 +12152,10 @@
             "#text": "Käyttäjiä ei löytynyt."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Viestiä ei lähetetty: käyttäjä ei vastaanota yksityisviestejä sinulta."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Kirjoita viesti ..."
           },

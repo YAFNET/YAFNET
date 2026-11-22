@@ -153,10 +153,16 @@ public class ChatHub : Hub, IHaveServiceLocator
                                     ? currentDateTime.ToRelativeTime()
                                     : this.Get<IDateTimeService>().Format(DateTimeFormat.Both, currentDateTime);
 
-        // a suspended user can't send messages (the forum pages send the user to the info page)
-        if (fromConnectUser == null || BoardContext.Current.IsSuspendedNow
-            || !await this.CanSendToAsync(fromConnectUser.UserId, toUserId))
+        if (fromConnectUser == null)
         {
+            return;
+        }
+
+        // a suspended user can't send messages (the forum pages send the user to the info page),
+        // the sender is told that the message was not sent (the text was removed without a message)
+        if (BoardContext.Current.IsSuspendedNow || !await this.CanSendToAsync(fromConnectUser.UserId, toUserId))
+        {
+            await this.Clients.Caller.SendAsync("privateMessageNotSent", toUserId);
             return;
         }
 

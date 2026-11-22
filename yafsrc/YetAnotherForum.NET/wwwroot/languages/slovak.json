@@ -12152,6 +12152,10 @@
             "#text": "Nenašli sa žiadni používatelia."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Správa nebola odoslaná: používateľ od vás neprijíma súkromné správy."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Zadajte správu ..."
           },

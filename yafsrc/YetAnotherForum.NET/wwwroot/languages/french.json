@@ -12152,6 +12152,10 @@
             "#text": "Aucun utilisateur trouvé."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Le message n’a pas été envoyé : l’utilisateur n’accepte pas vos messages privés."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Tapez Message..."
           },

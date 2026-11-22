@@ -12136,6 +12136,10 @@
             "#text": "Nessun utente trovato."
           },
           {
+            "@tag": "NOT_SENT",
+            "#text": "Il messaggio non è stato inviato: l’utente non accetta messaggi privati da te."
+          },
+          {
             "@tag": "PLACEHOLDER",
             "#text": "Digitare il messaggio ..."
           },
