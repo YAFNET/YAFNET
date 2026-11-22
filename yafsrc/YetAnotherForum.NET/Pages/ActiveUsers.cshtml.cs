@@ -186,12 +186,8 @@ public class ActiveUsersModel : ForumPage
                 return this.Get<ILinkBuilder>().AccessDenied();
         }
 
-        if (activeUsers.NullOrEmpty())
-        {
-            return this.Page();
-        }
-
-        this.UserList = activeUsers;
+        // an empty list (e.g. a page after the last page) shows "no entries"
+        this.UserList = activeUsers ?? [];
 
         return this.Page();
     }

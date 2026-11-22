@@ -161,4 +161,28 @@ public class ActiveUsersTests(ComposeScenario scenario) : DatabaseTestBase(scena
             }
         }
     }
+
+    /// <summary>
+    /// An empty page of the active users (e.g. a page after the last one) shows the list without entries
+    /// (the page failed with an error).
+    /// </summary>
+    [Test]
+    public async Task EmptyActiveUsersPageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.TestUserName, this.TestSettings.TestUserPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}active-users/1?p=50");
+
+                Assert.That(page.Url, Does.Not.Contain("Error"), "The empty page failed");
+                Assert.That(await page.Locator("select#Size").CountAsync(), Is.EqualTo(1), "The active users page is not shown");
+                Assert.That(await page.Locator(".active-user-row").CountAsync(), Is.Zero, "The page after the last page lists users");
+            });
+    }
 }

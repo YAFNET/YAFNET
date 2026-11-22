@@ -43,6 +43,12 @@
                 </div>
             </div>
             <div class="card-body">
+                @if (Model.UserList.NullOrEmpty())
+                {
+                    @await Html.PartialAsync("_NoEntryInfo")
+                }
+                else
+                {
                 <ul class="list-group">
                     @foreach (var user in Model.UserList)
                     {
@@ -122,6 +128,7 @@
                         </li>
                     }
                 </ul>
+                }
             </div>
         </div>
     </div>
