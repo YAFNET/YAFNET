@@ -140,6 +140,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Login: the "Register Instead" button was shown when registrations are disabled and led to an access denied page
 * [FIXED] Register: the button stayed "Loading..." and disabled when the browser did not send the form (an empty or wrong field), the form could not be sent again
 * [CHANGES] Login, Register, Lost Password, Reset Password, Validate Email and the two-factor code redesigned: one centered card with an icon and a short explanation, the lost password link next to the password, the register and login links at the bottom, the register page in sections with a "check your email" result, the reset password page with the password strength and its own labels
+* [FIXED] Move Message: Enter in the name of the new topic moved the message to the selected topic (without a selected topic only a warning was shown) instead of creating the new topic
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

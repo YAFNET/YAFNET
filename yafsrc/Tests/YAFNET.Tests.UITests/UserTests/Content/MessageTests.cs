@@ -1080,4 +1080,49 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 Assert.That(await page.Locator("body").InnerTextAsync(), Does.Contain($"Edited {id}"), "The edit was not saved");
             });
     }
+
+    /// <summary>
+    /// Enter in the name of the new topic on the move page creates the topic with the message
+    /// (it moved the message to the selected topic, without a selected topic only a warning was shown).
+    /// </summary>
+    [Test]
+    public async Task EnterInNewTopicNameSplitsTheMessageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    Assert.That(
+                        await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    Assert.That(
+                        await page.TryCreateNewReplyInTestTopicAsync(this.TestSettings, "A reply to split with enter"),
+                        Is.True,
+                        "The reply was not created");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}topic/{this.TestSettings.TestTopicId}/test");
+
+                    var moveLink = await page.Locator("a[href*='MoveMessage/']").Last.GetAttributeAsync("href");
+
+                    await page.GotoAsync(new Uri(new Uri(this.TestSettings.TestForumUrl), moveLink!).ToString());
+
+                    var topicName = $"Split with enter {Random.Shared.Next()}";
+
+                    await page.Locator("#Input_TopicSubject").FillAsync(topicName);
+
+                    await page.RunAndWaitForNavigationAsync(() => page.Locator("#Input_TopicSubject").PressAsync("Enter"));
+
+                    Assert.Multiple(
+                        async () =>
+                            {
+                                Assert.That(page.Url, Does.Not.Contain("MoveMessage"), "The move page is shown again");
+                                Assert.That(
+                                    await page.Locator("a", new PageLocatorOptions { HasText = topicName }).CountAsync(),
+                                    Is.GreaterThan(0),
+                                    "No topic was created");
+                            });
+                });
+    }
 }

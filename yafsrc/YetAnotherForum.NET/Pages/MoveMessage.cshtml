@@ -6,6 +6,8 @@
 @model MoveMessageModel
 
 <form method="post">
+    @* Enter in the name of the new topic creates the topic (the first submit button of the form, it was "move") *@
+    <button type="submit" asp-page-handler="CreateAndMove" asp-route-m="@Model.PageBoardContext.PageMessage.ID" class="visually-hidden" tabindex="-1" aria-hidden="true"></button>
     <div class="row">
         <div class="col">
             <div class="card mb-3">
