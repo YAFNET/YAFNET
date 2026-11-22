@@ -356,23 +356,23 @@ public class EditMessageModel : ForumPage
             switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
             {
                 case SpamPostHandling.DoNothing:
-                    this.Get<Logger<EditMessageModel>>().SpamMessageDetected(
+                    this.Get<ILogger<EditMessageModel>>().SpamMessageDetected(
                         this.PageBoardContext.PageUserID,
                         description);
                     break;
                 case SpamPostHandling.FlagMessageUnapproved:
                     isPossibleSpamMessage = true;
-                    this.Get<Logger<EditMessageModel>>().SpamMessageDetected(
+                    this.Get<ILogger<EditMessageModel>>().SpamMessageDetected(
                         this.PageBoardContext.PageUserID,
                         $"{description}, it was flagged as unapproved post.");
                     break;
                 case SpamPostHandling.RejectMessage:
-                    this.Get<Logger<EditMessageModel>>().SpamMessageDetected(
+                    this.Get<ILogger<EditMessageModel>>().SpamMessageDetected(
                         this.PageBoardContext.PageUserID,
                         $"{description}, post was rejected");
                     return this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                 case SpamPostHandling.DeleteBanUser:
-                    this.Get<Logger<EditMessageModel>>().SpamMessageDetected(
+                    this.Get<ILogger<EditMessageModel>>().SpamMessageDetected(
                         this.PageBoardContext.PageUserID,
                         $"{description}, user was deleted and banned");
 

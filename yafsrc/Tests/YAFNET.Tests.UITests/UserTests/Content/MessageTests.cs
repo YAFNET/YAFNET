@@ -1125,4 +1125,75 @@ public class MessageTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                             });
                 });
     }
+
+    /// <summary>
+    /// A new member posts more links than allowed (spam): the post is saved with the spam handling "do nothing"
+    /// (the page failed with an error, the logger of the page was not registered).
+    /// </summary>
+    [Test]
+    public async Task SpamPostOfANewMemberIsSavedTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                var forumId = await this.CreateMemberForumAsync(page, "Spam Post");
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, userName, this.TestSettings.TestUserPassword),
+                    Is.True,
+                    "Login failed");
+
+                // more links than a new user may post
+                var links = string.Empty;
+
+                for (var i = 1; i <= 11; i++)
+                {
+                    links += $" https://spam{i}.example.com";
+                }
+
+                var topicId = await page.CreateTopicAsync(this.TestSettings, forumId, $"Spam post {Random.Shared.Next()}", links);
+
+                Assert.That(topicId, Is.Not.Null, $"The post was not saved ({page.Url})");
+            });
+    }
+
+    /// <summary>
+    /// Creates a forum where the registered users have member access (no moderator access, the posts of the
+    /// moderators are not checked for spam), returns the id of the forum.
+    /// </summary>
+    private async Task<int> CreateMemberForumAsync(IPage page, string name)
+    {
+        var forumName = $"{name} Forum {Random.Shared.Next()}";
+
+        await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditForum/false");
+
+        await page.Locator("#Input_Name").FillAsync(forumName);
+        await page.Locator("#Input_Description").FillAsync("A forum of the spam tests");
+        await page.Locator("#Input_SortOrder").FillAsync("99");
+
+        await page.GetByLabel("Registered").First.SelectOptionAsync(new SelectOptionValue { Label = "Member Access" });
+
+        await page.SubmitAndWaitAsync(page.Locator("button[formaction*='Save']"));
+
+        await page.GotoAsync(this.TestSettings.TestForumUrl);
+
+        var forumLink = await page.Locator("a[href*='/forum/']", new PageLocatorOptions { HasText = forumName })
+                            .First.GetAttributeAsync("href");
+
+        Assert.That(forumLink, Is.Not.Null, "The forum was not created");
+
+        return int.Parse(System.Text.RegularExpressions.Regex.Match(forumLink, "/forum/([0-9]+)/").Groups[1].Value);
+    }
 }

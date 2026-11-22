@@ -366,24 +366,24 @@ public class PostTopicModel : ForumPage
             switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
             {
                 case SpamPostHandling.DoNothing:
-                    this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
+                    this.Get<ILogger<PostTopicModel>>().SpamMessageDetected(
                         this.PageBoardContext.PageUserID,
                         description);
                     break;
                 case SpamPostHandling.FlagMessageUnapproved:
                     this.spamApproved = false;
                     isPossibleSpamMessage = true;
-                    this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
+                    this.Get<ILogger<PostTopicModel>>().SpamMessageDetected(
                         this.PageBoardContext.PageUserID,
                         $"{description}, it was flagged as unapproved post.");
                     break;
                 case SpamPostHandling.RejectMessage:
-                    this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
+                    this.Get<ILogger<PostTopicModel>>().SpamMessageDetected(
                         this.PageBoardContext.PageUserID,
                         $"S{description}, post was rejected");
                     return this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                 case SpamPostHandling.DeleteBanUser:
-                    this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
+                    this.Get<ILogger<PostTopicModel>>().SpamMessageDetected(
                         this.PageBoardContext.PageUserID,
                         $"{description}, user was deleted and banned");
 
