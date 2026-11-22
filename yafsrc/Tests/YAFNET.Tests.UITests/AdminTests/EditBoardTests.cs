@@ -119,6 +119,38 @@ public class EditBoardTests(ComposeScenario scenario) : DatabaseTestBase(scenari
     }
 
     /// <summary>
+    /// Without a new admin its (hidden) fields don't stop the save of a new board, the switch shows them without a
+    /// new page.
+    /// </summary>
+    [Test]
+    public async Task NewBoardWithoutNewAdminTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditBoard");
+
+                var fields = page.Locator("#AdminUserFields");
+
+                Assert.That(await fields.IsVisibleAsync(), Is.False, "The fields of the new admin are shown");
+
+                await page.Locator("#Input_Name").FillAsync("A new board");
+
+                Assert.That(
+                    await page.Locator("form.admin-edit-board").EvaluateAsync<bool>("f => f.checkValidity()"),
+                    Is.True,
+                    "The hidden fields of the new admin stop the save");
+
+                await page.Locator("#Input_CreateAdminUser").CheckAsync(new LocatorCheckOptions { Force = true });
+
+                Assert.That(await fields.IsVisibleAsync(), Is.True, "The switch doesn't show the fields of the new admin");
+            });
+    }
+
+    /// <summary>
     /// Turns the switch of the new admin on (the fields are shown).
     /// </summary>
     private static async Task ShowAdminUserFieldsAsync(IPage page)

@@ -226,21 +226,6 @@ public class EditBoardModel : AdminPage
     }
 
     /// <summary>
-    /// The switch "create a new admin" sends the form: the page is shown again with (or without) the fields of the
-    /// new admin, the select of the cultures was empty (a new board had no culture).
-    /// </summary>
-    /// <returns>The <see cref="IActionResult"/>.</returns>
-    public IActionResult OnPost()
-    {
-        this.BindCultures(this.Input.Culture);
-
-        // the fields are not checked yet
-        this.ModelState.Clear();
-
-        return this.Page();
-    }
-
-    /// <summary>
     /// Save Current board / Create new Board
     /// </summary>
     public async Task<IActionResult> OnPostSaveAsync()

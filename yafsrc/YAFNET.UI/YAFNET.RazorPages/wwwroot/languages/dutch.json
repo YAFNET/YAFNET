@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Het overzicht nu verzenden naar alle gebruikers die het ontvangen?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "E-mail:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Verstuur Test"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Het overzicht is uitgeschakeld"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Het overzicht wordt verzonden naar de gebruikers die het ontvangen"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Samenvatting"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Schakel het in bij de foruminstellingen"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "De naam van het Board."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Nieuw forum"
           },
           {
             "@tag": "TITLE",
@@ -5988,6 +6008,10 @@
             "#text": "Weet je zeker dat je deze E-mail wilt versturen?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Deze mail verzenden naar de {0} ontvangers van de rol {1}?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Van postadres:"
           },
@@ -6018,6 +6042,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Onderwerp is verplicht"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} ontvangers"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6221,6 +6249,14 @@
             "#text": "Definitie verwijderen?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Het veld {0} verwijderen? Geen enkele gebruiker heeft er een waarde voor."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Het veld {0} verwijderen? {1} gebruikers hebben er een waarde voor, hun waarden worden ook verwijderd."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Geen aangepaste profieldefinities"
           },
@@ -6235,6 +6271,10 @@
           {
             "@tag": "TITLE",
             "#text": "Aangepaste profieldefinities"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} gebruikers"
           }
         ]
       },

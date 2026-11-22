@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Gửi bản tóm tắt ngay cho tất cả người dùng nhận nó?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "E-mail:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Gửi bài kiểm tra"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Bản tóm tắt đang tắt"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Bản tóm tắt được gửi cho những người dùng nhận nó"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tiêu"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Bật nó trong cài đặt diễn đàn"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Tên của hội đồng quản trị."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Diễn đàn mới"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "Bạn có chắc chắn muốn gửi thư này không?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Gửi thư này đến {0} người nhận của vai trò {1}?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Từ địa chỉ thư:"
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Chủ đề là bắt buộc"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} người nhận"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "Xóa định nghĩa?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Xóa trường {0}? Không người dùng nào có giá trị cho nó."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Xóa trường {0}? {1} người dùng có giá trị cho nó, giá trị của họ cũng bị xóa."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Không có định nghĩa hồ sơ tùy chỉnh"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "Định nghĩa cấu hình tùy chỉnh"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} người dùng"
           }
         ]
       },

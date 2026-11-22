@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Odeslat přehled nyní všem uživatelům, kteří ho dostávají?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "E-mailem:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Odeslat test"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Přehled je vypnutý"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Přehled se posílá uživatelům, kteří ho dostávají"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Strávit"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Zapněte ho v nastavení fóra"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Název desky."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Nové fórum"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "Opravdu chcete odeslat tento e-mail?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Odeslat tento e-mail příjemcům role {1} ({0})?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Z poštovní adresy:"
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Předmět je povinný"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "Příjemců: {0}"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "Smazat definici?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Smazat pole {0}? Žádný uživatel pro něj nemá hodnotu."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Smazat pole {0}? Uživatelé ({1}) pro něj mají hodnotu, jejich hodnoty se také smažou."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Žádné definice vlastního profilu"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "Definice vlastních profilů"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Uživatelů: {0}"
           }
         ]
       },

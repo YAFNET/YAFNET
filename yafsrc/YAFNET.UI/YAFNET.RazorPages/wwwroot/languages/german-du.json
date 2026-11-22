@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Die Zusammenfassung jetzt an alle Benutzer senden, die sie erhalten?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "E-Mail:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Test senden"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Die Zusammenfassung ist ausgeschaltet"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Die Zusammenfassung wird an die Benutzer gesendet, die sie erhalten"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Zusammenfassung (Digest)"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "In den Board-Einstellungen einschalten"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Der Name des Boards."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Neues Board"
           },
           {
             "@tag": "TITLE",
@@ -5988,6 +6008,10 @@
             "#text": "Sind Sie sicher das Sie diese Mail versenden wollen?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Diese Mail an die {0} Empfänger der Rolle {1} senden?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Von der Postadresse:"
           },
@@ -6018,6 +6042,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Betreff ist erforderlich"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} Empfänger"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6221,6 +6249,14 @@
             "#text": "Definition löschen?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Das Feld {0} löschen? Kein Benutzer hat einen Wert dafür."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Das Feld {0} löschen? {1} Benutzer haben einen Wert dafür, ihre Werte werden auch gelöscht."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Keine benutzerdefinierten Profildefinitionen"
           },
@@ -6235,6 +6271,10 @@
           {
             "@tag": "TITLE",
             "#text": "Benutzerdefinierte Profildefinitionen"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} Benutzer"
           }
         ]
       },

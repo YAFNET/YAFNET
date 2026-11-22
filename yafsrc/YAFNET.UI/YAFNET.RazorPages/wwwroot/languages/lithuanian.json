@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Siųsti santrauką dabar visiems ją gaunantiems naudotojams?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "El. paštas:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Siųsti testą"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Santrauka išjungta"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Santrauka siunčiama ją gaunantiems naudotojams"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Suvirškinti"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Įjunkite ją forumo nustatymuose"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Lentos pavadinimas."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Naujas forumas"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "Ar tikrai norite siųsti šį laišką?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Siųsti šį laišką rolės {1} gavėjams ({0})?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Iš pašto adreso:"
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Tema yra privaloma"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "Gavėjų: {0}"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "Ištrinti apibrėžtį?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Ištrinti lauką {0}? Nė vienas naudotojas neturi jam reikšmės."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Ištrinti lauką {0}? Naudotojai ({1}) turi jam reikšmę, jų reikšmės taip pat ištrinamos."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Nėra pasirinktinių profilio apibrėžimų"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "Pasirinktinės profilio apibrėžtys"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Naudotojų: {0}"
           }
         ]
       },

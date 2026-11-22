@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Lähetetäänkö kooste nyt kaikille sen saaville käyttäjille?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "Sähköposti:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Lähetä testi"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Kooste on poistettu käytöstä"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Kooste lähetetään sen saaville käyttäjille"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Sulattaa"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Ota se käyttöön foorumin asetuksissa"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Lautakunnan nimi."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Uusi foorumi"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "Haluatko varmasti lähettää tämän sähköpostin?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Lähetetäänkö tämä viesti roolin {1} {0} vastaanottajalle?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Postiosoite:"
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Aihe vaaditaan"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} vastaanottajaa"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "Määritelmän poistaminen?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Poistetaanko kenttä {0}? Yhdelläkään käyttäjällä ei ole sille arvoa."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Poistetaanko kenttä {0}? {1} käyttäjällä on sille arvo, myös heidän arvonsa poistetaan."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Ei mukautettuja profiilin määritelmiä"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "Mukautetut profiilin määritelmät"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} käyttäjää"
           }
         ]
       },

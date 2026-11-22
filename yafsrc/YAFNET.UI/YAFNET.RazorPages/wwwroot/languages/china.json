@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "现在将摘要发送给所有接收摘要的用户吗？"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "电子邮件："
           },
@@ -2320,8 +2324,20 @@
             "#text": "发送测试"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "摘要已关闭"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "摘要会发送给接收它的用户"
+          },
+          {
             "@tag": "TITLE",
             "#text": "消化"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "在论坛设置中开启"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "董事会的名称。"
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "新论坛"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "您确定要发送此邮件吗？"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "将此邮件发送给角色 {1} 的 {0} 位收件人吗？"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "从邮件地址："
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "主题是必需的"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} 位收件人"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "删除定义？"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "删除字段 {0}？没有用户为它填写值。"
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "删除字段 {0}？{1} 个用户为它填写了值，这些值也会被删除。"
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "没有自定义个人资料定义"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "自定义配置文件定义"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} 个用户"
           }
         ]
       },

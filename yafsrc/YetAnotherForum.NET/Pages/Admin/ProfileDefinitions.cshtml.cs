@@ -27,6 +27,9 @@ using System.Threading.Tasks;
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
+using System.Net;
+
+using ServiceStack.OrmLite;
 
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -44,6 +47,41 @@ public class ProfileDefinitionsModel : AdminPage
     /// </summary>
     [BindProperty]
     public IList<ProfileDefinition> List { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of the users that have a value of a definition (by the definition id).
+    /// </summary>
+    public Dictionary<int, int> UsageCounts { get; set; } = [];
+
+    /// <summary>
+    /// Gets the icon of a data type.
+    /// </summary>
+    /// <param name="dataType">The data type.</param>
+    /// <returns>The icon.</returns>
+    public static string GetTypeIcon(string dataType)
+    {
+        return dataType switch
+        {
+            "Number" => "hashtag",
+            "Check" => "square-check",
+            _ => "font"
+        };
+    }
+
+    /// <summary>
+    /// Gets the question of the delete dialog of a definition: the values of the users are deleted too.
+    /// </summary>
+    /// <param name="item">The definition.</param>
+    /// <param name="usages">The number of the users with a value.</param>
+    /// <returns>The question.</returns>
+    public string GetDeleteText(ProfileDefinition item, int usages)
+    {
+        var name = WebUtility.HtmlEncode(item.Name);
+
+        return usages > 0
+                   ? this.GetTextFormatted("DELETE_USED", name, usages)
+                   : this.GetTextFormatted("DELETE_UNUSED", name);
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ProfileDefinitionsModel"/> class.
@@ -144,5 +182,20 @@ public class ProfileDefinitionsModel : AdminPage
     {
         // list all access masks for this board
        this.List = await this.GetRepository<ProfileDefinition>().GetByBoardIdAsync();
+
+       // the number of the users with a value of each definition of the board (one query)
+       var boardId = this.PageBoardContext.PageBoardID;
+
+       this.UsageCounts = await this.GetRepository<ProfileCustom>().DbAccess.ExecuteAsync(
+           db =>
+           {
+               var expression = OrmLiteConfig.DialectProvider.SqlExpression<ProfileCustom>()
+                   .Join<ProfileDefinition>((c, d) => d.ID == c.ProfileDefinitionID)
+                   .Where<ProfileDefinition>(d => d.BoardID == boardId)
+                   .GroupBy(c => c.ProfileDefinitionID)
+                   .Select(c => new { c.ProfileDefinitionID, Count = Sql.CountDistinct(c.UserID) });
+
+               return db.DictionaryAsync<int, int>(expression);
+           });
     }
 }

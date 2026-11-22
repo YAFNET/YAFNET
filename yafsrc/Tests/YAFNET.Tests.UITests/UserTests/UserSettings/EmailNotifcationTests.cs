@@ -587,11 +587,13 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
                 {
                     await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Digest");
 
-                    var lastSend = await page.Locator("#LastSend").InputValueAsync();
+                    var lastSend = await page.Locator("#LastSend").InnerTextAsync();
 
                     Assert.That(lastSend, Is.Not.Empty, "The last send time is not shown");
 
-                    await page.SubmitAndWaitAsync(page.Locator("button[formaction*='ForceSend']"));
+                    // the digest to all users is confirmed in a dialog
+                    await page.Locator("button[formaction*='ForceSend']").ClickAsync();
+                    await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
 
                     Assert.That(
                         await page.ContentAsync(), Does.Contain("Digest Send Scheduled for Immediate Sending"),
@@ -599,7 +601,7 @@ public class EmailNotificationTests(ComposeScenario scenario) : DatabaseTestBase
 
                     // not compared with the value before: the digest task can run in between
                     Assert.That(
-                        await page.Locator("#LastSend").InputValueAsync(),
+                        (await page.Locator("#LastSend").InnerTextAsync()).Trim(),
                         Is.Not.Empty,
                         "The last send time is not shown after forcing the digest");
                 }

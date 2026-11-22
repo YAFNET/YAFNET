@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "¿Enviar el resumen ahora a todos los usuarios que lo reciben?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "Correo electrónico:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Enviar prueba"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "El resumen está desactivado"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "El resumen se envía a los usuarios que lo reciben"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Resumen"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Actívelo en la configuración del foro"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "El nombre del tablero."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Nuevo foro"
           },
           {
             "@tag": "TITLE",
@@ -5988,6 +6008,10 @@
             "#text": "¿Estás seguro de que quieres enviar este email?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "¿Enviar este correo a los {0} destinatarios del rol {1}?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "De la dirección de correo:"
           },
@@ -6018,6 +6042,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "El asunto es necesario"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} destinatarios"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6221,6 +6249,14 @@
             "#text": "¿Borrar la definición?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "¿Eliminar el campo {0}? Ningún usuario tiene un valor para él."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "¿Eliminar el campo {0}? {1} usuarios tienen un valor para él, sus valores también se eliminan."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "No hay definiciones de perfil personalizadas"
           },
@@ -6235,6 +6271,10 @@
           {
             "@tag": "TITLE",
             "#text": "Definiciones de perfiles personalizados"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} usuarios"
           }
         ]
       },

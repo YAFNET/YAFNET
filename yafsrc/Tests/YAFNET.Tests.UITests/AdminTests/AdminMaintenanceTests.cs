@@ -610,6 +610,73 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
     }
 
     /// <summary>
+    /// The question before the mail to a role names the selected role and the number of its recipients.
+    /// </summary>
+    [Test]
+    public async Task GroupMailConfirmNamesTheRoleTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Mail");
+
+                var role = page.Locator("#Input_ToListItem");
+
+                // the text of an option has the number of the recipients
+                var index = await role.EvaluateAsync<int>(
+                    "s => [...s.options].findIndex(o => o.textContent.trim().startsWith('Registered Users'))");
+
+                Assert.That(index, Is.GreaterThanOrEqualTo(0), "The role is missing");
+
+                await role.SelectOptionAsync(new SelectOptionValue { Index = index });
+
+                var count = await role.Locator("option:checked").GetAttributeAsync("data-count");
+                var question = await page.Locator("#Send").GetAttributeAsync("data-title");
+
+                Assert.That(question, Does.Contain("Registered Users").And.Contain(count), "The question doesn't name the role and the recipients");
+            });
+    }
+
+    /// <summary>
+    /// The question before the delete of a profile field names the field (its values are deleted too).
+    /// </summary>
+    [Test]
+    public async Task ProfileDefinitionDeleteQuestionTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                var fieldName = $"Question field {Random.Shared.Next(1000, 9999)}";
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/ProfileDefinitions");
+                await page.Locator("#NewProfileDefinition").ClickAsync();
+
+                var dialog = page.Locator(".modal.show");
+
+                await dialog.Locator("#Name").FillAsync(fieldName);
+                await dialog.Locator("#Length").FillAsync("20");
+
+                await page.RunAndWaitForNextPageAsync(() => dialog.Locator("button[data-bs-save='editModal']").ClickAsync());
+
+                var row = page.Locator(".profile-definition-row", new PageLocatorOptions { HasText = fieldName });
+                var delete = row.Locator(".profile-definition-actions button[formaction*='Delete']");
+
+                Assert.That(await delete.GetAttributeAsync("data-title"), Does.Contain(fieldName), "The question doesn't name the field");
+
+                await delete.ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+
+                Assert.That(await row.CountAsync(), Is.Zero, "The field was not deleted");
+            });
+    }
+
+    /// <summary>
     /// The execution order of a bb code is shown and saved (the field always showed 1,
     /// saving a bb code changed its order).
     /// </summary>

@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Özet şimdi onu alan tüm kullanıcılara gönderilsin mi?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "E-posta:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Test Gönder"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Özet kapalı"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Özet onu alan kullanıcılara gönderilir"
+          },
+          {
             "@tag": "TITLE",
             "#text": "sindirmek"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Forum ayarlarından açın"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Kurulun adı."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Yeni forum"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "Bu postayı göndermek istediğinizden emin misiniz?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Bu e-posta {1} rolünün {0} alıcısına gönderilsin mi?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Posta Adresinden:"
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Konu Gerekli"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} alıcı"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "Tanım Silinsin mi?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "{0} alanı silinsin mi? Hiçbir kullanıcının bu alan için değeri yok."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "{0} alanı silinsin mi? {1} kullanıcının bu alan için değeri var, değerleri de silinir."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Özel Profil Tanımı Yok"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "Özel Profil Tanımları"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} kullanıcı"
           }
         ]
       },

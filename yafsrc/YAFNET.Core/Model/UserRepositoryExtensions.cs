@@ -656,6 +656,26 @@ public static class UserRepositoryExtensions
         }
 
         /// <summary>
+        /// Gets the number of the users of each group of the board that get a mail to the group (the same users as
+        /// <see cref="GroupEmailsAsync"/>: approved, not disabled, with an email).
+        /// </summary>
+        /// <param name="boardId">The board id.</param>
+        /// <returns>The number of the users by the group id.</returns>
+        public Dictionary<int, int> GroupEmailCounts(int boardId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Join<UserGroup>((u, b) => b.UserID == u.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
+                .Where<User, UserGroup, Group>(
+                    (a, b, c) => c.BoardID == boardId && (c.Flags & 2) == 0 && a.Email != null && a.Email != string.Empty
+                                 && (a.Flags & 2) == 2 && (a.Flags & 32) == 0)
+                .GroupBy<UserGroup>(b => b.GroupID)
+                .Select<UserGroup>(b => new { b.GroupID, Count = Sql.Count(b.UserID) });
+
+            return repository.DbAccess.Execute(db => db.Connection.Dictionary<int, int>(expression));
+        }
+
+        /// <summary>
         /// Gets all Emails from User in Group
         /// </summary>
         /// <param name="groupId">

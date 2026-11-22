@@ -174,6 +174,32 @@ public class GroupsRanksMessagesTests
     }
 
     [Test]
+    [Description("GroupEmailCounts counts the users of a group that get a mail to it, like GroupEmails: approved, not disabled, with an email")]
+    public async Task Group_Email_Counts_Test()
+    {
+        var forum = this.db.AddForum();
+        var groupId = this.db.AddForumAccess(this.bob, forum);
+        var userGroups = this.Repository<UserGroup>();
+
+        userGroups.AddOrRemove(this.alice, groupId, true);
+
+        var noMail = this.db.AddUser("NoMail", u => u.Email = string.Empty);
+        var notApproved = this.db.AddUser("Waiting", u => u.Flags = 0);
+        var disabled = this.db.AddUser("Gone", u => u.Flags = (int)(UserFlags.Flags.IsApproved | UserFlags.Flags.IsDeleted));
+
+        foreach (var userId in new[] { noMail, notApproved, disabled })
+        {
+            userGroups.AddOrRemove(userId, groupId, true);
+        }
+
+        var counts = this.Repository<User>().GroupEmailCounts(TestDatabase.BoardId);
+
+        counts.Should().ContainKey(groupId);
+        counts[groupId].Should().Be(2);
+        (await this.Repository<User>().GroupEmailsAsync(groupId)).Should().HaveCount(counts[groupId]);
+    }
+
+    [Test]
     [Description("SetRole adds the user to an existing group with the role's name")]
     public void SetRole_Existing_Group_Test()
     {

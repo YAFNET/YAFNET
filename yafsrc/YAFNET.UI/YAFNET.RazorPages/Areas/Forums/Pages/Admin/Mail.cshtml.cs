@@ -59,6 +59,11 @@ public class MailModel : AdminPage
     public List<SelectListItem> List { get; set; }
 
     /// <summary>
+    /// Gets or sets the roles of the board with the number of the users that get a mail to the role.
+    /// </summary>
+    public List<(int Id, string Name, int Recipients)> Roles { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="MailModel"/> class.
     /// </summary>
     public MailModel()
@@ -181,6 +186,10 @@ public class MailModel : AdminPage
             .Where(g => !g.GroupFlags.IsGuest).ToList();
 
         this.List = [..new SelectList(groups, nameof(Group.ID), nameof(Group.Name))];
+
+        var counts = this.GetRepository<User>().GroupEmailCounts(this.PageBoardContext.PageBoardID);
+
+        this.Roles = [.. groups.Select(g => (g.ID, g.Name, counts.GetValueOrDefault(g.ID)))];
 
         this.Input.TestSubject = this.GetText("TEST_SUBJECT");
         this.Input.TestBody = this.GetText("TEST_BODY");

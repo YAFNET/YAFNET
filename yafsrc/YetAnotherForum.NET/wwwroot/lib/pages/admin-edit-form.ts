@@ -4,13 +4,23 @@
 // (e.g. the moderation options of a forum), the page is not sent to the server for it
 document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll<HTMLInputElement>('.admin-edit-form input[data-shows], .admin-edit-form input[data-hides]').forEach(input => {
+		// a hidden fieldset is disabled too: its required fields are not checked and not sent (e.g. the new admin
+		// of a new board)
+		const setHidden = (el: HTMLElement, hidden: boolean) => {
+			el.hidden = hidden;
+
+			if (el instanceof HTMLFieldSetElement) {
+				el.disabled = hidden;
+			}
+		};
+
 		const update = () => {
 			if (input.dataset.shows) {
-				document.querySelectorAll<HTMLElement>(input.dataset.shows).forEach(el => el.hidden = !input.checked);
+				document.querySelectorAll<HTMLElement>(input.dataset.shows).forEach(el => setHidden(el, !input.checked));
 			}
 
 			if (input.dataset.hides) {
-				document.querySelectorAll<HTMLElement>(input.dataset.hides).forEach(el => el.hidden = input.checked);
+				document.querySelectorAll<HTMLElement>(input.dataset.hides).forEach(el => setHidden(el, input.checked));
 			}
 		};
 
@@ -229,5 +239,37 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (active) {
 			select.value = active.dataset.bsTarget ?? '';
 		}
+	});
+});
+
+// A select with data-confirm-template sets the question of the confirm dialog of the button data-confirm-target:
+// {0} is the data-count of the selected option, {1} its text (e.g. the role and the number of the recipients of a mail)
+document.addEventListener('DOMContentLoaded', () => {
+	document.querySelectorAll<HTMLSelectElement>('.admin-edit-form select[data-confirm-template]').forEach(select => {
+		const button = document.querySelector<HTMLElement>(select.dataset.confirmTarget ?? '');
+
+		if (!button) {
+			return;
+		}
+
+		const escape = (text: string) => text.replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
+
+		const update = () => {
+			const option = select.selectedOptions[0];
+
+			if (!option) {
+				return;
+			}
+
+			// the text of the option without the number in brackets
+			const name = option.textContent?.replace(/\s*\([^)]*\)\s*$/, '').trim() ?? '';
+
+			button.dataset.title = (select.dataset.confirmTemplate ?? '')
+				.replace('{0}', escape(option.dataset.count ?? '0'))
+				.replace('{1}', escape(name));
+		};
+
+		select.addEventListener('change', update);
+		update();
 	});
 });

@@ -116,6 +116,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Edit Board: Cancel did nothing when the fields of a new board were empty (it sent the form, the form was checked)
 * [FIXED] Admin > Edit Board: the switch for a new admin of a new board emptied the select of the cultures (the board was created without a culture)
 * [FIXED] Admin > Edit Board: the message of a missing password of the new admin ended with ">"
+* [CHANGES] Admin > Digest, Mail, Profile Definitions and Edit Board redesigned: digest status card with the last send in the user's format and a confirm before sending, mail to a role with the number of recipients in the select and the question, profile fields with type, options and the number of users with a value (named in the delete question), board editor with sections, the fields of a new admin shown without a new page and a sticky save bar
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Odoslať prehľad teraz všetkým používateľom, ktorí ho dostávajú?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "E-mail:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Odoslať test"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Prehľad je vypnutý"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Prehľad sa posiela používateľom, ktorí ho dostávajú"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tráviť"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Zapnite ho v nastaveniach fóra"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Názov tabule."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Nové fórum"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "Ste si istí, že chcete odoslať tento mail?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Odoslať tento e-mail príjemcom roly {1} ({0})?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Z poštovej adresy:"
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Predmet je povinný"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "Príjemcov: {0}"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "Vymazať definíciu?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Odstrániť pole {0}? Žiadny používateľ preň nemá hodnotu."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Odstrániť pole {0}? Používatelia ({1}) preň majú hodnotu, ich hodnoty sa tiež odstránia."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Žiadne definície vlastného profilu"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "Vlastné definície profilu"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "Používateľov: {0}"
           }
         ]
       },

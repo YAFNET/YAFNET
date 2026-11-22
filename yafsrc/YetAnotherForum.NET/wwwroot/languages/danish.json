@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Send sammendraget nu til alle brugere, der modtager det?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "E-mail:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Send test"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Sammendraget er slået fra"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Sammendraget sendes til de brugere, der modtager det"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Fordøje"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Slå det til i forumindstillingerne"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Bestyrelsens navn."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Nyt forum"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "Er du sikker på, at du vil sende denne mail?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Send denne mail til de {0} modtagere i rollen {1}?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Fra mailadresse:"
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Emne er påkrævet"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} modtagere"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "Vil du slette definitionen?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Slet feltet {0}? Ingen brugere har en værdi for det."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Slet feltet {0}? {1} brugere har en værdi for det, deres værdier slettes også."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Ingen tilpassede profildefinitioner"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "Brugerdefinerede profildefinitioner"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} brugere"
           }
         ]
       },

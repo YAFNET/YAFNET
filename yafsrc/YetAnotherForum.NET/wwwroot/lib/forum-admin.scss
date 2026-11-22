@@ -1416,6 +1416,36 @@
     }
 }
 
+// Admin digest: the status of the digest
+.admin-digest {
+    .digest-status-icon {
+        @extend %maintenance-icon;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+}
+
+// Admin profile definitions: a row per field with its type and options
+.admin-profile-definitions {
+    .profile-definition-row {
+        @extend %maintenance-row;
+    }
+
+    .profile-definition-icon {
+        @extend %maintenance-icon;
+    }
+
+    .profile-definition-main {
+        flex: 1 1 14rem;
+        min-width: 0;
+    }
+
+    .profile-definition-meta {
+        @extend %maintenance-meta;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .admin-boards .board-card,
     .admin-boards .board-card:hover,

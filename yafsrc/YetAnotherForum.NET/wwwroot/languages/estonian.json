@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Kas saata kokkuvõte kohe kõigile kasutajatele, kes selle saavad?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "E-post:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Saada test"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Kokkuvõte on välja lülitatud"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Kokkuvõte saadetakse kasutajatele, kes selle saavad"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Seedida"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Lülita see foorumi seadetes sisse"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Juhatuse nimi."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Uus foorum"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "Kas olete kindel, et soovite selle meili saata?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Kas saata see kiri rolli {1} {0} adressaadile?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Meiliaadressilt:"
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Teema on kohustuslik"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} adressaati"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "Kas kustutada definitsioon?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Kas kustutada väli {0}? Ühelgi kasutajal pole selle jaoks väärtust."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Kas kustutada väli {0}? {1} kasutajal on selle jaoks väärtus, ka nende väärtused kustutatakse."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Ei ole kohandatud profiili määratlusi"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "Kohandatud profiili määratlused"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} kasutajat"
           }
         ]
       },

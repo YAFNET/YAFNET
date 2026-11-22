@@ -2260,6 +2260,10 @@
             "@name": "ADMIN_DIGEST",
             "Resource": [
                 {
+                    "@tag": "CONFIRM_FORCE",
+                    "#text": "Send the digest now to all users who receive it?"
+                },
+                {
                     "@tag": "DIGEST_EMAIL",
                     "#text": "Email:"
                 },
@@ -2320,8 +2324,20 @@
                     "#text": "Send Test"
                 },
                 {
+                    "@tag": "STATUS_OFF",
+                    "#text": "The digest is turned off"
+                },
+                {
+                    "@tag": "STATUS_ON",
+                    "#text": "The digest is sent to the users who receive it"
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "Digest"
+                },
+                {
+                    "@tag": "TURN_ON",
+                    "#text": "Turn it on in the board settings"
                 }
             ]
         },
@@ -2613,6 +2629,10 @@
                 {
                     "@tag": "NAME_HELP",
                     "#text": "The name of the board."
+                },
+                {
+                    "@tag": "NEW_BOARD",
+                    "#text": "New board"
                 },
                 {
                     "@tag": "TITLE",
@@ -5988,6 +6008,10 @@
                     "#text": "Are you sure you want to send this mail?"
                 },
                 {
+                    "@tag": "CONFIRM_SEND_ROLE",
+                    "#text": "Send this mail to the role {1}? Recipients: {0}"
+                },
+                {
                     "@tag": "FROM_MAIL",
                     "#text": "From Mail Address:"
                 },
@@ -6018,6 +6042,10 @@
                 {
                     "@tag": "MSG_SUBJECT",
                     "#text": "Subject is Required"
+                },
+                {
+                    "@tag": "RECIPIENTS",
+                    "#text": "Recipients: {0}"
                 },
                 {
                     "@tag": "SEND_MAIL",
@@ -6221,8 +6249,20 @@
                     "#text": "Delete Definition?"
                 },
                 {
+                    "@tag": "DELETE_UNUSED",
+                    "#text": "Delete the field {0}? No user has a value for it."
+                },
+                {
+                    "@tag": "DELETE_USED",
+                    "#text": "Delete the field {0}? {1} users have a value for it, their values are deleted too."
+                },
+                {
                     "@tag": "EMPTY_HEADER",
                     "#text": "No Custom Profile Definitions"
+                },
+                {
+                    "@tag": "USED_BY",
+                    "#text": "{0} users"
                 },
                 {
                     "@tag": "EMPTY_MESSAGE",

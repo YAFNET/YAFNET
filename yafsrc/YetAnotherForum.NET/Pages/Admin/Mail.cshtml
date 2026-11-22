@@ -2,19 +2,35 @@
 @using YAF.Web.HtmlHelpers
 @model MailModel
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card mb-3">
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+    <h2 class="h4 mb-0">
+        @Html.Icon("envelope")@Html.LocalizedText("ADMIN_MAIL", "TITLE")
+    </h2>
+</div>
+
+<div class="row g-3 admin-mail">
+    <div class="col-xl-7">
+        @* the mail to the members of a role *@
+        <form method="post" class="needs-validation admin-edit-form" novalidate>
+            <div class="card h-100" id="GroupMail">
                 <div class="card-header">
-                    @Html.IconHeader("envelope","ADMIN_MAIL","TITLE")
+                    @Html.Icon("users")@Html.LocalizedText("ADMIN_MAIL", "HEADER")
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
                         <label class="form-label" asp-for="Input.ToListItem"
                                localized-page="ADMIN_MAIL" localized-tag="MAIL_TO">
                         </label>
-                        <select asp-for="Input.ToListItem" class="select2-select" placeholder="" asp-items="Model.List"></select>
+                        <select asp-for="Input.ToListItem" class="form-select"
+                                data-confirm-target="#Send"
+                                data-confirm-template="@Model.GetText("ADMIN_MAIL", "CONFIRM_SEND_ROLE")">
+                            @foreach (var item in Model.Roles)
+                            {
+                                <option value="@item.Id" data-count="@item.Recipients">
+                                    @item.Name (@Model.GetTextFormatted("RECIPIENTS", item.Recipients))
+                                </option>
+                            }
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label"
@@ -23,21 +39,22 @@
                         </label>
                         <input type="text" asp-for="Input.Subject"
                                class="form-control"
+                               maxlength="255"
                                required="required" />
                         <div class="invalid-feedback">
                             @Html.LocalizedText("MSG_SUBJECT")
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-0">
                         <label class="form-label"
                                asp-for="Input.Body"
                                localized-page="ADMIN_MAIL" localized-tag="MAIL_MESSAGE">
                         </label>
                         <textarea asp-for="Input.Body"
-                                  class="form-control" rows="16"></textarea>
+                                  class="form-control" rows="12"></textarea>
                     </div>
                 </div>
-                <div class="card-footer text-center">
+                <div class="card-footer d-flex justify-content-end">
                     <button ID="Send"
                             asp-page-handler="Send"
                             button-style="Primary"
@@ -46,40 +63,34 @@
                             return-confirm-tag="CONFIRM_SEND"></button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
+    <div class="col-xl-5">
+        @* a test mail (checks the mail server) *@
+        <form method="post" class="needs-validation" novalidate>
+            <div class="card h-100" id="TestMail">
                 <div class="card-header">
-                    @Html.IconHeader("envelope", "ADMIN_MAIL", "TEST_MAIL_TITLE")
+                    @Html.Icon("vial")@Html.LocalizedText("ADMIN_MAIL", "TEST_MAIL_TITLE")
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" info-button="true"
-                                   localized-tag="FROM_MAIL"
-                                   asp-for="Input.TestFromEmail">
-                            </label>
-                            <input type="text" asp-for="Input.TestFromEmail"
-                                   required="required"
-                                   Placeholder="@Html.LocalizedText("FROM_MAIL")"
-                                   Type="Email"
-                                   class="form-control" />
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" info-button="true"
-                                   localized-tag="TO_MAIL"
-                                   asp-for="Input.TestToEmail">
-                            </label>
-                            <input type="text" asp-for="Input.TestToEmail"
-                                   required="required"
-                                   Placeholder="@Html.LocalizedText("MAIL_TO")"
-                                   class="form-control" />
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               localized-tag="FROM_MAIL"
+                               asp-for="Input.TestFromEmail">
+                        </label>
+                        <input type="email" asp-for="Input.TestFromEmail"
+                               required="required"
+                               class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" info-button="true"
+                               localized-tag="TO_MAIL"
+                               asp-for="Input.TestToEmail">
+                        </label>
+                        <input type="email" asp-for="Input.TestToEmail"
+                               required="required"
+                               class="form-control" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label"
@@ -90,28 +101,28 @@
                                required="required"
                                class="form-control" />
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-0">
                         <label class="form-label"
                                asp-for="Input.TestBody"
                                localized-page="ADMIN_MAIL" localized-tag="MAIL_MESSAGE">
                         </label>
                         <textarea asp-for="Input.TestBody"
                                   class="form-control"
-                                  rows="16"></textarea>
+                                  rows="5"></textarea>
                     </div>
                 </div>
-                <div class="card-footer text-center">
+                <div class="card-footer d-flex justify-content-end">
                     <button text-localized-tag="SEND_MAIL" text-localized-page="ADMIN_MAIL"
-                            button-style="Info"
+                            button-style="OutlineSecondary"
                             Icon="paper-plane"
                             asp-page-handler="TestSmtp"></button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
+</div>
 
 @section Scripts {
-    @await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_ValidationScriptPartial")
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
 }

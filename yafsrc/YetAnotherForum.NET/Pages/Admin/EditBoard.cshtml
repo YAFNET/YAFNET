@@ -4,125 +4,145 @@
 @using YAF.Web.HtmlHelpers
 @model EditBoardModel
 
-<form method="post" class="needs-validation" novalidate>
-    <div class="row">
-        <div class="col-xl-12">
+@{
+    var isNew = Model.Input.Id == 0;
+}
+
+<form method="post" class="needs-validation admin-edit-form admin-edit-board" novalidate>
+    <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("globe")@(isNew ? Model.GetText("ADMIN_EDITBOARD", "NEW_BOARD") : Model.Input.Name)
+        </h2>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xl-9">
+
+            @* general *@
             <div class="card mb-3">
                 <div class="card-header">
-                    @Html.IconHeader("globe","ADMIN_EDITBOARD","TITLE")
+                    @Html.Icon("info-circle")@Html.LocalizedText("ADMIN_EDITFORUM", "SECTION_GENERAL")
                 </div>
                 <div class="card-body">
-	                <div class="row">
-		                <div class="mb-3 col-md-6">
-			                <input type="hidden" asp-for="Input.Id" value="@Model.Input.Id" />
-			                <label class="form-label" info-button="true"
-			                       asp-for="Input.Name"
-			                       localized-tag="NAME" localized-page="ADMIN_EDITBOARD"></label>
-			                <input type="text" asp-for="Input.Name" maxlength="50"
-			                       required="required"
-			                       class="form-control"/>
-			                <div class="invalid-feedback">
-				                @Html.LocalizedText("MSG_NAME_BOARD")
-			                </div>
-		                </div>
-		                <div class="mb-3 col-md-6">
-			                <label class="form-label" info-button="true"
-			                       asp-for="Input.Culture"
-			                       localized-tag="CULTURE" localized-page="ADMIN_EDITBOARD"></label>
-			                <select asp-for="Input.Culture"
-			                        asp-items="Model.Cultures"
-			                        class="select2-select"></select>
-		                </div>
-	                </div>
-	                <div class="mb-3">
-		                <label class="form-label" info-button="true"
-		                       asp-for="Input.Description"
-		                       localized-tag="DESCRIPTION" localized-page="ADMIN_EDITBOARD"></label>
-		                <textarea asp-for="Input.Description" rows="3" maxlength="255"
-		                       class="form-control"></textarea>
-	                </div>
-
-                    @if (Model.Input.Id == 0)
-                    {
-                        <div class="mb-3">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
                             <label class="form-label" info-button="true"
-                               asp-for="Input.CreateAdminUser"
-                               localized-tag="ADMIN_USER" localized-page="ADMIN_EDITBOARD"></label>
-
-                            <div class="form-check form-switch">
-                                <input type="checkbox" asp-for="Input.CreateAdminUser"
-                                       onchange="this.form.submit();"
-                                       class="form-check-input" />
+                                   asp-for="Input.Name"
+                                   localized-tag="NAME" localized-page="ADMIN_EDITBOARD"></label>
+                            <input type="text" asp-for="Input.Name" maxlength="50"
+                                   required="required"
+                                   class="form-control" />
+                            <div class="invalid-feedback">
+                                @Html.LocalizedText("ADMIN_EDITBOARD", "MSG_NAME_BOARD")
                             </div>
                         </div>
-                    }
-
-                    @if (Model.Input.CreateAdminUser)
-                    {
-                        <h3>
-                            @Html.LocalizedText("ADMIN_EDITBOARD","HEADER2")
-                        </h3>
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" info-button="true"
-                                   asp-for="Input.UserName"
-                                   localized-tag="USER_NAME" localized-page="ADMIN_EDITBOARD"></label>
-                                <input type="text" asp-for="Input.UserName" maxlength="50"
-                                   required="required"
-                                   class="form-control" />
-                                <div class="invalid-feedback">
-                                    @Html.LocalizedText("MSG_NAME_ADMIN")
-                                </div>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" info-button="true"
-                                   asp-for="Input.UserEmail"
-                                   localized-tag="USER_MAIL" localized-page="ADMIN_EDITBOARD"></label>
-                                <input type="email" asp-for="Input.UserEmail" maxlength="100"
-                                   required="required"
-                                   class="form-control" />
-                                <div class="invalid-feedback">
-                                    @Html.LocalizedText("MSG_EMAIL_ADMIN")
-                                </div>
-                            </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label" info-button="true"
+                                   asp-for="Input.Culture"
+                                   localized-tag="CULTURE" localized-page="ADMIN_EDITBOARD"></label>
+                            <select asp-for="Input.Culture"
+                                    asp-items="Model.Cultures"
+                                    class="select2-select"></select>
                         </div>
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" info-button="true"
-                                   asp-for="Input.UserPass1"
-                                   localized-tag="USER_PASS" localized-page="ADMIN_EDITBOARD"></label>
-                                <input type="password" asp-for="Input.UserPass1"
-                                   required="required"
-                                   class="form-control" />
-                                <div class="invalid-feedback">
-                                    @Html.LocalizedText("MSG_PASS_ADMIN")
-                                </div>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label" info-button="true"
-                                   asp-for="Input.UserPass2"
-                                   localized-tag="VERIFY_PASS" localized-page="ADMIN_EDITBOARD"></label>
-                                <input type="password" asp-for="Input.UserPass2"
-                                   required="required"
-                                   class="form-control" />
-                                <div class="invalid-feedback">
-                                    @Html.LocalizedText("MSG_PASS_ADMIN")
-                                </div>
-                            </div>
-                        </div>
-                    }
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label" info-button="true"
+                               asp-for="Input.Description"
+                               localized-tag="DESCRIPTION" localized-page="ADMIN_EDITBOARD"></label>
+                        <textarea asp-for="Input.Description" rows="3" maxlength="255"
+                                  class="form-control"></textarea>
+                    </div>
                 </div>
-                <div class="card-footer text-center">
-                    <button asp-page-handler="Save"
-                            button-style="Primary"
-                            Icon="save"
-                            text-localized-tag="SAVE"></button>
-                    @* a link: the form is not checked (a button sent the form, the empty fields of a new board stopped it) *@
-                    <a asp-page="@ForumPages.Admin_Boards.GetPageName()"
-                       button-style="Secondary"
-                       Icon="xmark"
-                       text-localized-tag="CANCEL"></a>
+            </div>
+
+            @if (isNew)
+            {
+                @* the host admin of the new board: the current user or a new user *@
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.Icon("user-shield")@Html.LocalizedText("ADMIN_EDITBOARD", "HEADER2")
+                    </div>
+                    <div class="card-body">
+                        <div class="form-check form-switch mb-3">
+                            <input type="checkbox" asp-for="Input.CreateAdminUser" role="switch"
+                                   class="form-check-input"
+                                   data-shows="#AdminUserFields" />
+                            <label class="form-check-label" info-button="true"
+                                   asp-for="Input.CreateAdminUser"
+                                   localized-tag="ADMIN_USER" localized-page="ADMIN_EDITBOARD"></label>
+                        </div>
+
+                        @* hidden (and disabled: not checked, not sent) without a new user *@
+                        <fieldset id="AdminUserFields">
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" info-button="true"
+                                           asp-for="Input.UserName"
+                                           localized-tag="USER_NAME" localized-page="ADMIN_EDITBOARD"></label>
+                                    <input type="text" asp-for="Input.UserName" maxlength="50"
+                                           required="required"
+                                           autocomplete="off"
+                                           class="form-control" />
+                                    <div class="invalid-feedback">
+                                        @Html.LocalizedText("ADMIN_EDITBOARD", "MSG_NAME_ADMIN")
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" info-button="true"
+                                           asp-for="Input.UserEmail"
+                                           localized-tag="USER_MAIL" localized-page="ADMIN_EDITBOARD"></label>
+                                    <input type="email" asp-for="Input.UserEmail" maxlength="100"
+                                           required="required"
+                                           autocomplete="off"
+                                           class="form-control" />
+                                    <div class="invalid-feedback">
+                                        @Html.LocalizedText("ADMIN_EDITBOARD", "MSG_EMAIL_ADMIN")
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-0 col-md-6">
+                                    <label class="form-label" info-button="true"
+                                           asp-for="Input.UserPass1"
+                                           localized-tag="USER_PASS" localized-page="ADMIN_EDITBOARD"></label>
+                                    <input type="password" asp-for="Input.UserPass1"
+                                           required="required"
+                                           autocomplete="new-password"
+                                           class="form-control" />
+                                    <div class="invalid-feedback">
+                                        @Html.LocalizedText("ADMIN_EDITBOARD", "MSG_PASS_ADMIN")
+                                    </div>
+                                </div>
+                                <div class="mb-0 col-md-6">
+                                    <label class="form-label" info-button="true"
+                                           asp-for="Input.UserPass2"
+                                           localized-tag="VERIFY_PASS" localized-page="ADMIN_EDITBOARD"></label>
+                                    <input type="password" asp-for="Input.UserPass2"
+                                           required="required"
+                                           autocomplete="new-password"
+                                           class="form-control" />
+                                    <div class="invalid-feedback">
+                                        @Html.LocalizedText("ADMIN_EDITBOARD", "MSG_PASS_ADMIN")
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
                 </div>
+            }
+
+            <div class="admin-edit-actions">
+                <button asp-page-handler="Save"
+                        button-style="Primary"
+                        Icon="save"
+                        text-localized-tag="SAVE"></button>
+                @* a link: the form is not checked (a button sent the form, the empty fields of a new board stopped it) *@
+                <a asp-page="@ForumPages.Admin_Boards.GetPageName()"
+                   button-style="Secondary"
+                   Icon="xmark"
+                   text-localized-tag="CANCEL"></a>
             </div>
         </div>
     </div>
@@ -131,4 +151,5 @@
 @section Scripts {
     @await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_ValidationScriptPartial")
+    <script src="~/js/admin-edit-form.min.js" asp-append-version="true"></script>
 }

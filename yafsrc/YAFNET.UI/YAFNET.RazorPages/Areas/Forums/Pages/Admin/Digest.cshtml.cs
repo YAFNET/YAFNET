@@ -56,6 +56,11 @@ public class DigestModel : AdminPage
     public string LastSend { get; set; }
 
     /// <summary>
+    /// Gets or sets the time of the last digest (UTC), null if it was never sent.
+    /// </summary>
+    public DateTime? LastSendDate { get; set; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="DigestModel"/> class.
     /// </summary>
     public DigestModel()
@@ -139,6 +144,15 @@ public class DigestModel : AdminPage
     /// </summary>
     private void BindData()
     {
+        this.LastSendDate = this.PageBoardContext.BoardSettings.LastDigestSend.IsSet()
+                            && DateTime.TryParse(
+                                this.PageBoardContext.BoardSettings.LastDigestSend,
+                                CultureInfo.InvariantCulture,
+                                DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal,
+                                out var last)
+                                ? last
+                                : null;
+
         this.LastSend = this.PageBoardContext.BoardSettings.LastDigestSend.IsNotSet()
             ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
             : Convert.ToDateTime(

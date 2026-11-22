@@ -2260,6 +2260,10 @@
         "@name": "ADMIN_DIGEST",
         "Resource": [
           {
+            "@tag": "CONFIRM_FORCE",
+            "#text": "Skicka sammanfattningen nu till alla användare som får den?"
+          },
+          {
             "@tag": "DIGEST_EMAIL",
             "#text": "E-post:"
           },
@@ -2320,8 +2324,20 @@
             "#text": "Skicka test"
           },
           {
+            "@tag": "STATUS_OFF",
+            "#text": "Sammanfattningen är avstängd"
+          },
+          {
+            "@tag": "STATUS_ON",
+            "#text": "Sammanfattningen skickas till användarna som får den"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Sammanfattning"
+          },
+          {
+            "@tag": "TURN_ON",
+            "#text": "Slå på den i foruminställningarna"
           }
         ]
       },
@@ -2613,6 +2629,10 @@
           {
             "@tag": "NAME_HELP",
             "#text": "Styrelsens namn."
+          },
+          {
+            "@tag": "NEW_BOARD",
+            "#text": "Nytt forum"
           },
           {
             "@tag": "TITLE",
@@ -5996,6 +6016,10 @@
             "#text": "Är du säker på att du vill skicka det här meddelandet?"
           },
           {
+            "@tag": "CONFIRM_SEND_ROLE",
+            "#text": "Skicka det här meddelandet till de {0} mottagarna i rollen {1}?"
+          },
+          {
             "@tag": "FROM_MAIL",
             "#text": "Från postadress:"
           },
@@ -6026,6 +6050,10 @@
           {
             "@tag": "MSG_SUBJECT",
             "#text": "Ämnet krävs"
+          },
+          {
+            "@tag": "RECIPIENTS",
+            "#text": "{0} mottagare"
           },
           {
             "@tag": "SEND_MAIL",
@@ -6229,6 +6257,14 @@
             "#text": "Ta bort definition?"
           },
           {
+            "@tag": "DELETE_UNUSED",
+            "#text": "Ta bort fältet {0}? Ingen användare har ett värde för det."
+          },
+          {
+            "@tag": "DELETE_USED",
+            "#text": "Ta bort fältet {0}? {1} användare har ett värde för det, deras värden tas också bort."
+          },
+          {
             "@tag": "EMPTY_HEADER",
             "#text": "Inga anpassade profildefinitioner"
           },
@@ -6243,6 +6279,10 @@
           {
             "@tag": "TITLE",
             "#text": "Definitioner av anpassade profiler"
+          },
+          {
+            "@tag": "USED_BY",
+            "#text": "{0} användare"
           }
         ]
       },
