@@ -97,6 +97,28 @@ public class EditBoardTests(ComposeScenario scenario) : DatabaseTestBase(scenari
     }
 
     /// <summary>
+    /// The message of a missing password has no "&gt;" at the end.
+    /// </summary>
+    [Test]
+    public async Task PasswordMessageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditBoard");
+
+                await ShowAdminUserFieldsAsync(page);
+
+                var message = await page.Locator("#Input_UserPass1 ~ .invalid-feedback").TextContentAsync();
+
+                Assert.That(message?.Trim(), Is.Not.Empty.And.Not.EndWith(">"), "The message ends with >");
+            });
+    }
+
+    /// <summary>
     /// Turns the switch of the new admin on (the fields are shown).
     /// </summary>
     private static async Task ShowAdminUserFieldsAsync(IPage page)
