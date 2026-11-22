@@ -7647,12 +7647,40 @@
             "#text": "Albümlere sahip olmanıza izin verilmez."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{1} albümden {0}"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} Albüm: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Albümlere Geri Dön"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Kopyalandı"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "BBCode kopyala"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Kapak"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Henüz albüm yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Resimlerinizi paylaşmak için bir albüm oluşturun."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Resimler: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "Bu albümü silmek istiyor musunuz?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "{0} albümü {1} resmiyle birlikte silinsin mi?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Bu resimi silmek istiyor musunuz?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "{0} resmi silinsin mi?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{1} resimden {0}"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "resim başına en fazla {0} KB"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Albüm için bir başlık girin."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Albümü oluşturmak için bir başlık girin ve ilk resmi yükleyin."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Yüklenecek bir resim seçin."
           },
           {
             "@tag": "SELECT_FILE",

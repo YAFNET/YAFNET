@@ -201,6 +201,12 @@ public class EditAlbumImagesModel : ForumPageRegistered
 
         try
         {
+            // without a file nothing happened
+            if (this.ImageFiles is not { Count: > 0 })
+            {
+                this.PageBoardContext.Notify(this.GetText("EDIT_ALBUMIMAGES", "NO_FILE"), MessageTypes.warning);
+            }
+
             if (this.CheckValidFiles(this.ImageFiles))
             {
                 albumId = await this.SaveAttachmentsAsync(this.ImageFiles, albumId);

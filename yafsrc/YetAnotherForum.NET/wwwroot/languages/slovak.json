@@ -7647,12 +7647,40 @@
             "#text": "Nie je povolené mať albumy."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} z {1} albumov"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Späť na albumy"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Skopírované"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Kopírovať BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Obálka"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Zatiaľ žiadne albumy"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Vytvorte album a zdieľajte svoje obrázky."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Obrázky: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "Vymazať tento album?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Odstrániť album {0} aj s obrázkami ({1})?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Vymazať tento obrázok?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Odstrániť obrázok {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} z {1} obrázkov"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "max. {0} KB na obrázok"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Zadajte názov albumu."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Zadajte názov a nahrajte prvý obrázok, aby ste album vytvorili."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Vyberte obrázok na nahranie."
           },
           {
             "@tag": "SELECT_FILE",

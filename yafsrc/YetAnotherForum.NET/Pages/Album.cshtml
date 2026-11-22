@@ -10,150 +10,129 @@
 @model AlbumModel
 
 @{
-	var imagesCount = !Model.Images.NullOrEmpty() ? Model.GetRepository<UserAlbumImage>().List(Model.Images[0].AlbumID).Count.ToType<int>() : 0;
+    var imagesCount = !Model.Images.NullOrEmpty() ? Model.GetRepository<UserAlbumImage>().List(Model.Images[0].AlbumID).Count.ToType<int>() : 0;
+    var isOwn = Model.PageBoardContext.PageUserID == Model.AlbumUser.ID;
 }
 
-<div class="row">
-    <div class="col">
-        <div class="card mb-3">
-            <div class="card-header">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-auto">
-                        @Html.IconHeader("images", "ALBUM", "ALBUMS_TITLE",
-                                 param0: Html.HtmlEncode(Model.AlbumUser.DisplayOrUserName()).ToString(),
-                                 param1: Html.HtmlEncode(Html.StoredText(Model.Album.Title)).ToString())
-                    </div>
-                    <div class="col-auto">
-                        <div class="btn-group">
-                            @if (Model.PageBoardContext.PageUserID == Model.AlbumUser.ID)
-                            {
-                                <a role="button" button-style="OutlineSecondary"
-                                   button-size="Small"
-                                   icon="plus"
-                                   text-localized-page="BUTTON"
-                                   text-localized-tag="BUTTON_EDITALBUMIMAGES"
-                                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(
-                                             ForumPages.EditAlbumImages,
-                                             new {a = Model.Album.ID}))"></a>
-                            }
+<div class="album-page">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("images")@Model.GetTextFormatted("ALBUMS_TITLE", Model.AlbumUser.DisplayOrUserName(), Html.StoredText(Model.Album.Title))
+            <span class="badge text-bg-secondary align-middle ms-1" id="ImageCount">@imagesCount</span>
+        </h2>
+        <div class="d-flex flex-wrap gap-2">
+            @if (isOwn)
+            {
+                <a role="button" button-style="Primary"
+                   button-size="Small"
+                   icon="edit"
+                   text-localized-page="BUTTON"
+                   text-localized-tag="BUTTON_EDITALBUMIMAGES"
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.EditAlbumImages, new { a = Model.Album.ID }))"></a>
+            }
+            <a role="button" button-style="OutlineSecondary"
+               button-size="Small"
+               icon="arrow-circle-left"
+               text-localized-page="BUTTON"
+               text-localized-tag="BACK_ALBUMS"
+               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Albums, new { u = Model.AlbumUser.ID }))"></a>
+        </div>
+    </div>
 
-                            <a role="button" button-style="OutlineSecondary"
-                               button-size="Small"
-                               icon="arrow-circle-left"
-                               text-localized-page="BUTTON"
-                               text-localized-tag="BACK_ALBUMS"
-                               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(
-                                         ForumPages.Albums,
-                                         new {u = this.Request.RouteValues["u"].ToString()}))"></a>
+    <form method="post">
+        <div class="album-grid album-image-grid mb-3">
+            @foreach (var image in Model.Images)
+            {
+                var isCover = Model.Album.CoverImageID == image.ID;
+                var title = image.Caption.IsSet() ? Html.StoredText(image.Caption) : image.FileName;
+
+                <div class="card album-card @(isCover ? "is-cover" : string.Empty)" data-image-id="@image.ID">
+                    <a href="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId = image.ID }))"
+                       title="@title"
+                       class="album-cover-link"
+                       data-toggle="lightbox"
+                       data-gallery="@Model.Album.ID"
+                       data-caption="@Html.StoredText(image.Caption)">
+                        <img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = image.ID }))"
+                             class="album-cover"
+                             alt="@title" />
+                    </a>
+                    @if (isCover)
+                    {
+                        <span class="badge text-bg-primary album-cover-badge">@Html.Icon("tag")@Html.LocalizedText("ALBUM", "COVER")</span>
+                    }
+                    <div class="card-body">
+                        @if (isOwn)
+                        {
+                            var caption = image.Caption.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION") : Html.StoredText(image.Caption);
+
+                            <div class="album-title text-break">
+                                @Html.Icon("pen", "text-secondary")
+                                <a class="album-image-caption" data-type="text"
+                                   id="@image.ID"
+                                   data-id="@image.ID"
+                                   data-url="/api/Album/ChangeImageCaption"
+                                   data-title="@Html.LocalizedText(image.Caption.IsNotSet() ? "ALBUM_IMAGE_CHANGE_CAPTION" : "ALBUM_IMAGE_CHANGE_CAPTION2")">@caption</a>
+                            </div>
+                        }
+                        else if (image.Caption.IsSet())
+                        {
+                            <div class="album-title text-break">@Html.StoredText(image.Caption)</div>
+                        }
+                        <div class="album-footer">
+                            @if (isOwn)
+                            {
+                                @if (isCover)
+                                {
+                                    <button type="submit"
+                                            asp-page-handler="RemoveCover"
+                                            asp-route-u="@Model.AlbumUser.ID"
+                                            asp-route-a="@image.AlbumID"
+                                            button-style="OutlineSecondary"
+                                            button-size="Small"
+                                            text-localized-tag="BUTTON_RESETCOVER"
+                                            class="btn-cover"
+                                            icon="xmark"></button>
+                                }
+                                else
+                                {
+                                    <button type="submit"
+                                            asp-page-handler="SetCover"
+                                            asp-route-u="@Model.AlbumUser.ID"
+                                            asp-route-a="@image.AlbumID"
+                                            asp-route-id="@image.ID"
+                                            button-style="OutlineSecondary"
+                                            button-size="Small"
+                                            text-localized-tag="BUTTON_SETCOVER"
+                                            class="btn-cover"
+                                            icon="tag"></button>
+                                }
+                            }
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-secondary ms-auto album-copy"
+                                    data-copy="@($"[ALBUMIMG]{image.ID}[/ALBUMIMG]")"
+                                    data-copied="@Model.GetText("ALBUM", "COPIED")"
+                                    title="@Model.GetText("ALBUM", "COPY_BBCODE")"
+                                    aria-label="@Model.GetText("ALBUM", "COPY_BBCODE")">
+                                @Html.Icon("copy", marginEnd: false)
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body">
-	            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-		            @foreach (var image in Model.Images)
-		            {
-			            <div class="col">
-				            <div class="card album-card h-100">
-					            <a href="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId = image.ID }))"
-					               title="@Html.StoredText(image.Caption)"
-					               class="album-cover-link"
-					               data-toggle="lightbox"
-					               data-gallery="@Model.Album.ID"
-					               data-caption="@Html.StoredText(image.Caption)">
-						            <img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = image.ID }))"
-						                 class="card-img-top album-cover w-100 h-100 object-fit-cover"
-						                 alt="@(image.Caption.IsSet() ? Html.StoredText(image.Caption) : image.FileName)"
-						                 title="@(image.Caption.IsSet() ? Html.StoredText(image.Caption) : image.FileName)"/>
-					            </a>
-					            <div class="card-body">
-						            @if (Model.AlbumUser.ID != Model.PageBoardContext.PageUserID)
-						            {
-							            <div class="d-flex justify-content-between align-items-center">
-								            <div class="card-text">
-									            @Html.StoredText(image.Caption)
-								            </div>
-								            <div>
-									            <a href="javascript:@(JavaScriptBlocks.BootBoxPromptJs("Album IMG Code", "", Model.Localization.GetText("CANCEL"), Model.Localization.GetText("COPY_TO_CLIPBOARD"), $"Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]"))">@Html.Icon("share-from-square", "text-secondary")</a>
-								            </div>
-							            </div>
-						            }
-						            else
-						            {
-							            var caption = image.Caption.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION") : Html.StoredText(image.Caption);
-
-							            <p class="card-text mb-3">
-								            @Html.Icon("pen", "text-secondary")
-								            <a class="album-image-caption border-bottom border-danger border-3" data-type="text"
-								               id="@Html.Raw(image.ID)"
-								               data-id="@Html.Raw(image.ID)"
-								               data-url="/api/Album/ChangeImageCaption"
-								               data-title="@Html.LocalizedText(image.Caption.IsNotSet() ? "ALBUM_IMAGE_CHANGE_CAPTION" : "ALBUM_IMAGE_CHANGE_CAPTION2")">@caption</a>
-							            </p>
-						            }
-
-						            @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
-						            {
-							            <div class="d-flex justify-content-between align-items-center">
-								            <div class="btn-group">
-									            <form method="post">
-										            @if (Model.Album.CoverImageID == image.ID)
-										            {
-											            <button type="submit"
-											                    asp-page-handler="RemoveCover"
-											                    asp-route-u="@Model.AlbumUser.ID"
-											                    asp-route-a="@image.AlbumID"
-											                    button-style="OutlineSecondary"
-											                    button-size="Small"
-											                    text-localized-tag="BUTTON_RESETCOVER"
-											                    class="btn-cover"
-											                    icon="trash"></button>
-										            }
-										            else
-										            {
-											            <button type="submit"
-											                    asp-page-handler="SetCover"
-											                    asp-route-u="@Model.AlbumUser.ID"
-											                    asp-route-a="@image.AlbumID"
-											                    asp-route-id="@image.ID"
-											                    button-style="OutlineSecondary"
-											                    button-size="Small"
-											                    text-localized-tag="BUTTON_SETCOVER"
-											                    class="btn-cover"
-											                    icon="tag"></button>
-										            }
-
-									            </form>
-								            </div>
-
-								            <div class="float-end">
-									            <a href="javascript:@(JavaScriptBlocks.BootBoxPromptJs("Album IMG Code", "", Model.Localization.GetText("CANCEL"), Model.Localization.GetText("COPY_TO_CLIPBOARD"), $"Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]"))">@Html.Icon("share-from-square", "text-secondary")</a>
-								            </div>
-							            </div>
-						            }
-
-					            </div>
-				            </div>
-			            </div>
-		            }
-	            </div>
-            </div>
-			@if (imagesCount > Model.PageBoardContext.BoardSettings.AlbumImagesPerPage)
-			{
-				<div class="card-footer">
-					<div class="row justify-content-end">
-						<div class="col-auto">
-							<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumImagesPerPage" use-submit="false"
-							       count="@imagesCount">
-							</pager>
-						</div>
-					</div>
-				</div>
-			}
+            }
         </div>
-    </div>
+    </form>
+
+    @if (imagesCount > Model.PageBoardContext.BoardSettings.AlbumImagesPerPage)
+    {
+        <div class="d-flex justify-content-end mb-3">
+            <pager page-size="@Model.PageBoardContext.BoardSettings.AlbumImagesPerPage" use-submit="false"
+                   count="@imagesCount">
+            </pager>
+        </div>
+    }
 </div>
 
 @section Scripts {
-	<script src="~/js/albums.min.js" asp-append-version="true" defer></script>
+    <script src="~/js/albums.min.js" asp-append-version="true" defer></script>
 }

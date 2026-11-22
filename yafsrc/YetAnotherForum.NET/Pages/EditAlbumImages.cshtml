@@ -6,83 +6,112 @@
 
 @model EditAlbumImagesModel
 
+@{
+    var isNew = !Model.AlbumId.HasValue;
+    var backLink = isNew
+                       ? Model.Get<ILinkBuilder>().GetLink(ForumPages.Albums, new { u = Model.PageBoardContext.PageUserID })
+                       : Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = Model.PageBoardContext.PageUserID, a = Model.AlbumId });
+    var maxSize = Model.PageBoardContext.BoardSettings.AlbumImagesSizeMax;
+}
+
 <div class="row">
     <div class="col-12 col-lg-auto mb-3 mb-lg-0">
         <profileMenu></profileMenu>
     </div>
-    <div class="col">
-        <div class="card mb-3">
-            <div class="card-header">
-                @if (!Model.AlbumId.HasValue)
+    <div class="col edit-album">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+            <h2 class="h4 mb-0 text-break">
+                @Html.Icon("images")@(isNew ? Model.GetText("EDIT_ALBUMIMAGES", "TITLE_NEW") : Model.AlbumTitle)
+                @if (!isNew)
                 {
-                    @Html.IconHeader("image", "EDIT_ALBUMIMAGES", "TITLE_NEW")
+                    <span class="badge text-bg-secondary align-middle ms-1" id="ImageCount">@Model.Images.Count</span>
                 }
-                else
-                {
-                    @Html.IconHeader("image", "EDIT_ALBUMIMAGES", "TITLE")
-                }
+            </h2>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            @* the album *@
+            <div class="card mb-3">
+                <div class="card-header">
+                    @Html.Icon("info-circle")@Html.LocalizedText("EDIT_ALBUMIMAGES", "ALBUM_TITLE")
+                </div>
+                <div class="card-body">
+                    <label asp-for="AlbumTitle" class="form-label"
+                           localized-page="EDIT_ALBUMIMAGES"
+                           localized-tag="ALBUM_TITLE">
+                    </label>
+                    <div class="input-group">
+                        <input asp-for="AlbumTitle" maxlength="255" class="form-control" required
+                               title="@Model.GetText("EDIT_ALBUMIMAGES", "NEED_TITLE")" />
+                        @if (!isNew)
+                        {
+                            <button type="submit"
+                                    asp-page-handler="UpdateTitle"
+                                    asp-route-albumId="@Model.AlbumId"
+                                    text-localized-tag="SAVE"
+                                    button-style="Primary"
+                                    icon="save"></button>
+                        }
+                    </div>
+                    @if (isNew)
+                    {
+                        <div class="form-text">@Html.LocalizedText("EDIT_ALBUMIMAGES", "NEW_ALBUM_INFO")</div>
+                    }
+                </div>
             </div>
-            <div class="card-body">
-                <form method="post" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label asp-for="AlbumTitle" class="form-label"
-                               localized-page="EDIT_ALBUMIMAGES"
-                               localized-tag="ALBUM_TITLE">
-                        </label>
-                        <div class="input-group">
-                            <input asp-for="AlbumTitle" maxlength="255" class="form-control" required />
-                            <div class="invalid-feedback">
-                                <span asp-validation-for="AlbumTitle">
-                                    @Html.LocalizedText("NEED_USERNAME")
-                                </span>
-                            </div>
 
-                            @if (Model.AlbumId.HasValue)
-                            {
-                                <button type="submit"
-                                        asp-page-handler="UpdateTitle"
-                                        asp-route-albumId="@Model.AlbumId"
-                                        text-localized-tag="UPDATE"
-                                        button-style="Secondary"
-                                        icon="pen"></button>
-                            }
-
-                        </div>
+            @* the images *@
+            @if (!Model.Images.NullOrEmpty())
+            {
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @Html.Icon("image")@Html.LocalizedText("EDIT_ALBUMIMAGES", "IMAGES")
                     </div>
-                    <div class="mb-3">
-                        @Html.LocalizedText("IMAGES")
-                    </div>
-                    <ul class="list-group mb-3">
+                    <ul class="list-group list-group-flush">
                         @foreach (var image in Model.Images)
                         {
-                            <li class="list-group-item album-image-row d-flex align-items-center justify-content-between gap-2">
-                                <div class="d-flex align-items-center gap-2 text-truncate">
-                                    <img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = image.ID }))"
-                                         class="album-image-thumb object-fit-cover rounded-1" alt="@Html.HtmlEncode(image.FileName)" />
-                                    <span class="text-truncate">@image.FileName</span>
-                                    <span class="badge text-light-emphasis bg-light-subtle">@(image.Bytes / 1024) Kb</span>
+                            <li class="list-group-item album-image-row" data-image-id="@image.ID">
+                                <img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = image.ID }))"
+                                     class="album-image-thumb" alt="@image.FileName" />
+                                <div class="album-image-main">
+                                    <div class="text-break">@image.FileName</div>
+                                    <span class="badge bg-body-tertiary text-body-secondary border">@(image.Bytes / 1024) KB</span>
                                 </div>
-
                                 <button type="submit"
                                         asp-page-handler="DeleteImage"
                                         asp-route-albumId="@Model.AlbumId"
                                         asp-route-imageId="@image.ID"
+                                        formnovalidate="formnovalidate"
                                         text-localized-tag="DELETE"
-                                        return-confirm-tag="ASK_DELETEIMAGE"
-                                        button-style="Danger"
-                                        button-size="Small"
+                                        bs-toggle="confirm"
+                                        data-title="@Model.GetTextFormatted("ASK_DELETEIMAGE_NAME", Model.HtmlEncode(image.FileName))"
+                                        data-yes="@Html.LocalizedText("YES")"
+                                        data-no="@Html.LocalizedText("NO")"
+                                        button-style="None"
+                                        class="btn btn-sm btn-outline-danger"
                                         icon="trash"></button>
                             </li>
                         }
                     </ul>
+                </div>
+            }
 
+            @* the upload *@
+            <div class="card mb-3" id="AlbumUpload">
+                <div class="card-header">
+                    @Html.Icon("upload")@Html.LocalizedText("UPLOAD_TITLE")
+                </div>
+                <div class="card-body">
+                    <div class="small text-body-secondary mb-2 album-images-quota">
+                        @Model.GetTextFormatted("IMAGES_QUOTA", Model.Images.Count, Model.AllowedImages)
+                        @if (maxSize > 0)
+                        {
+                            <span>· @Model.GetTextFormatted("MAX_SIZE", maxSize / 1024)</span>
+                        }
+                    </div>
                     @if (Model.EnableUpload)
                     {
-	                    var fileTypes = StaticDataHelper.ImageFormats.Select(x => ".{0}".FormatWith(x)).ToDelimitedString(",");
-
-                        <h4>
-                            @Html.LocalizedText("UPLOAD_TITLE")
-                        </h4>
+                        var fileTypes = StaticDataHelper.ImageFormats.Select(x => ".{0}".FormatWith(x)).ToDelimitedString(",");
 
                         <label class="form-label"
                                asp-for="ImageFiles"
@@ -90,51 +119,44 @@
                                localized-page="EDIT_ALBUMIMAGES"
                                param0="@fileTypes">
                         </label>
-                        <div class="input-group mb-3">
-                            <input type="file" asp-for="ImageFiles" class="form-control mb-3" accept="@fileTypes" multiple />
+                        <div class="input-group">
+                            <input type="file" asp-for="ImageFiles" class="form-control" accept="@fileTypes" multiple />
                             <button asp-page-handler="Upload"
                                     asp-route-albumId="@Model.AlbumId"
                                     type="submit"
                                     button-style="Primary"
                                     icon="upload"
-                                    class="mb-3"
                                     text-localized-tag="UPLOAD"></button>
                         </div>
                     }
-
-                    <alert type="info" icon="info-circle" message="@Html.HtmlEncode(Model.Get<ILocalization>().GetTextFormatted("IMAGES_INFO", Model.Images.Count, Model.AllowedImages, Model.PageBoardContext.BoardSettings.AlbumImagesSizeMax / 1024))"></alert>
-
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="row justify-content-md-center">
-                    <div class="col-md-auto mb-1">
-                        <form method="post">
-                            @if (Model.AlbumId.HasValue)
-                            {
-                                <button type="submit"
-                                        button-style="Danger"
-                                        asp-page="@ForumPages.EditAlbumImages.GetPageName()"
-                                        asp-route-a="@Model.AlbumId"
-                                        asp-route-albumId="@Model.AlbumId"
-                                        icon="trash"
-                                        text-localized-tag="Button_DeleteAlbum"
-                                        return-confirm-tag="ASK_DELETEALBUM"></button>
-                            }
-                        </form>
-                    </div>
-                    <div class="col-md-auto mb-1">
-                        <form method="post">
-                            <button type="submit"
-                                    asp-page-handler="Back"
-                                    asp-route-albumId="@Model.AlbumId"
-                                    button-style="Secondary"
-                                    icon="reply"
-                                    text-localized-tag="BACK"></button>
-                        </form>
-                    </div>
+                    else
+                    {
+                        <alert type="info" icon="info-circle" message="@Html.HtmlEncode(Model.GetTextFormatted("IMAGES_COUNT_LIMIT", Model.AllowedImages))"></alert>
+                    }
                 </div>
             </div>
-        </div>
+
+            <div class="edit-album-actions">
+                <a href="@backLink"
+                   button-style="Secondary"
+                   icon="reply"
+                   text-localized-tag="BACK"></a>
+                @if (!isNew)
+                {
+                    <button type="submit"
+                            button-style="Danger"
+                            asp-page="@ForumPages.EditAlbumImages.GetPageName()"
+                            asp-route-a="@Model.AlbumId"
+                            asp-route-albumId="@Model.AlbumId"
+                            formnovalidate="formnovalidate"
+                            icon="trash"
+                            text-localized-tag="Button_DeleteAlbum"
+                            bs-toggle="confirm"
+                            data-title="@Model.GetTextFormatted("ASK_DELETEALBUM_COUNT", Model.HtmlEncode(Model.AlbumTitle), Model.Images.Count)"
+                            data-yes="@Html.LocalizedText("YES")"
+                            data-no="@Html.LocalizedText("NO")"></button>
+                }
+            </div>
+        </form>
     </div>
 </div>

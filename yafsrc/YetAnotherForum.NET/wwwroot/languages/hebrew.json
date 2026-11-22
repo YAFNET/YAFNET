@@ -7647,12 +7647,40 @@
             "#text": "אסור להחזיק אלבומים."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} מתוך {1} אלבומים"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} אלבום: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "חזור לאלבומים"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "הועתק"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "העתק BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "עטיפה"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "אין עדיין אלבומים"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "צור אלבום כדי לשתף את התמונות שלך."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "תמונות: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10173,8 +10201,16 @@
             "#text": "למחוק את האלבום הזה?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "למחוק את האלבום {0} עם {1} התמונות שבו?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "למחוק את התמונה הזו?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "למחוק את התמונה {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10191,6 +10227,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} מתוך {1} תמונות"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "עד {0} KB לתמונה"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "הזן כותרת לאלבום."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "הזן כותרת והעלה את התמונה הראשונה כדי ליצור את האלבום."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "בחר תמונה להעלאה."
           },
           {
             "@tag": "SELECT_FILE",

@@ -7647,12 +7647,40 @@
             "#text": "Nu aveți voie să aveți albume."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} din {1} albume"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Înapoi la Albume"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Copiat"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Copiază BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Copertă"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Încă nu există albume"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Creează un album pentru a-ți distribui imaginile."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Imagini: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "Să șterg acest album?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Ștergi albumul {0} cu cele {1} imagini?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Ștergeți această imagine?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Ștergi imaginea {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} din {1} imagini"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "max. {0} KB pe imagine"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Introdu un titlu pentru album."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Introdu un titlu și încarcă prima imagine pentru a crea albumul."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Alege o imagine de încărcat."
           },
           {
             "@tag": "SELECT_FILE",

@@ -7647,12 +7647,40 @@
             "#text": "Sinulla ei saa olla albumeita."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0}/{1} albumia"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} Albumi: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Palaa takaisin albumeihin"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Kopioitu"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Kopioi BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Kansikuva"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei vielä albumeita"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Luo albumi jakaaksesi kuviasi."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Kuvia: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "Poista tämä albumi?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Poistetaanko albumi {0} ja sen {1} kuvaa?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Poista tämä kuva?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Poistetaanko kuva {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0}/{1} kuvaa"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "enint. {0} kt kuvaa kohden"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Anna albumille otsikko."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Anna otsikko ja lataa ensimmäinen kuva luodaksesi albumin."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Valitse ladattava kuva."
           },
           {
             "@tag": "SELECT_FILE",

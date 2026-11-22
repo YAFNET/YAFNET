@@ -10,112 +10,145 @@
 @model AlbumsModel
 
 @{
-	var albumsCount = !Model.Albums.NullOrEmpty() ? Model.GetRepository<UserAlbum>().ListByUser(Model.AlbumUser.ID).Count.ToType<int>() : 0;
+    var albumsCount = !Model.Albums.NullOrEmpty() ? Model.GetRepository<UserAlbum>().ListByUser(Model.AlbumUser.ID).Count.ToType<int>() : 0;
+    var isOwn = Model.AlbumUser.ID == Model.PageBoardContext.PageUserID;
 }
 
-<div class="row">
-    <div class="col">
-        <div class="card mb-3">
-            <div class="card-header">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-auto">
-                        @Html.IconHeader("images", "ALBUM", "ALBUMS_HEADER_TEXT", param0: Html.Encode(Model.AlbumUser.DisplayOrUserName()))
+<div class="albums-page">
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+        <h2 class="h4 mb-0 text-break">
+            @Html.Icon("images")@Model.GetTextFormatted("ALBUMS_HEADER_TEXT", Model.AlbumUser.DisplayOrUserName())
+            <span class="badge text-bg-secondary align-middle ms-1" id="AlbumCount">@albumsCount</span>
+        </h2>
+        @* without albums the button is in the empty list *@
+        @if (Model.ShowAddAlbumButton && !Model.Albums.NullOrEmpty())
+        {
+            <a role="button"
+               button-style="Primary"
+               icon="plus"
+               text-localized-page="BUTTON"
+               text-localized-tag="BUTTON_ADDALBUM"
+               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.EditAlbumImages, new { a = "new" }))"></a>
+        }
+    </div>
+
+    @if (isOwn)
+    {
+        @* the albums the user can have *@
+        <div class="albums-quota mb-3" id="AlbumsQuota">
+            @if (Model.AlbumsAllowed > 0)
+            {
+                var percent = Math.Min(100, Model.AlbumsUsed * 100 / Model.AlbumsAllowed);
+
+                <div class="d-flex justify-content-between small mb-1">
+                    <span>@Model.GetTextFormatted("ALBUMS_QUOTA", Model.AlbumsUsed, Model.AlbumsAllowed)</span>
+                </div>
+                <div class="progress" role="progressbar"
+                     aria-label="@Model.GetTextFormatted("ALBUMS_QUOTA", Model.AlbumsUsed, Model.AlbumsAllowed)"
+                     aria-valuenow="@percent" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar @(percent >= 100 ? "bg-warning" : string.Empty)" style="width: @percent%"></div>
+                </div>
+            }
+            else
+            {
+                <div class="small text-body-secondary">@Html.LocalizedText("ALBUM", "ALBUMS_NOTALLOWED")</div>
+            }
+        </div>
+    }
+
+    @if (!Model.Albums.NullOrEmpty())
+    {
+        <div class="album-grid mb-3">
+            @foreach (var album in Model.Albums)
+            {
+                var albumLink = Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID });
+                var images = Model.ImageCounts.GetValueOrDefault(album.ID);
+
+                <div class="card album-card @(isOwn ? "list-group-item-menu" : string.Empty)" data-album-id="@album.ID">
+                    <a href="@albumLink" class="album-cover-link" title="@Html.StoredText(album.Title)">
+                        <img alt="@Html.StoredText(album.Title)" class="album-cover"
+                             src="@(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums", new { albumId = album.ID, coverId = album.CoverImageID ?? 0 }))" />
+                    </a>
+                    <div class="card-body">
+                        @if (isOwn)
+                        {
+                            var caption = album.Title.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE") : Html.StoredText(album.Title);
+
+                            <div class="album-title text-break">
+                                @Html.Icon("pen", "text-secondary")
+                                <a class="album-caption" data-type="text"
+                                   id="@album.ID"
+                                   data-id="@album.ID"
+                                   data-url="/api/Album/ChangeAlbumTitle"
+                                   data-title="@Html.LocalizedText("ALBUM_CHANGE_TITLE")">@caption</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <a class="album-title fw-semibold text-break" href="@albumLink">@Html.StoredText(album.Title)</a>
+                        }
+                        <div class="album-footer">
+                            <span class="badge bg-body-tertiary text-body-secondary border album-images">
+                                @Html.Icon("image")@Model.GetTextFormatted("IMAGES_COUNT", images)
+                            </span>
+                            @if (isOwn)
+                            {
+                                <a role="button"
+                                   button-style="OutlineSecondary"
+                                   button-size="Small"
+                                   icon="edit"
+                                   title-localized-page="BUTTON"
+                                   title-localized-tag="BUTTON_EDITALBUMIMAGES"
+                                   href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.EditAlbumImages, new { a = album.ID }))"></a>
+                            }
+                        </div>
                     </div>
-                    @if (Model.ShowAddAlbumButton)
+                    @if (isOwn)
                     {
-                        <div class="col-auto">
-                            <a role="button"
-                               button-style="Primary"
-                               button-size="Small"
-                               icon="images"
-                               text-localized-page="BUTTON"
-                               text-localized-tag="BUTTON_ADDALBUM"
-                               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.EditAlbumImages, new {a = "new"}))"></a>
+                        <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                            <a class="dropdown-item" href="@albumLink">
+                                @Html.Icon("images")@Html.LocalizedText("VIEW")
+                            </a>
+                            <a class="dropdown-item" href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.EditAlbumImages, new { a = album.ID }))">
+                                @Html.Icon("edit")@Html.LocalizedText("BUTTON", "BUTTON_EDITALBUMIMAGES")
+                            </a>
                         </div>
                     }
                 </div>
-                @if (Model.AlbumsInfo.IsSet())
+            }
+        </div>
+
+        @if (albumsCount > Model.PageBoardContext.BoardSettings.AlbumsPerPage)
+        {
+            <div class="d-flex justify-content-end mb-3">
+                <pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage" use-submit="false"
+                       count="@albumsCount">
+                </pager>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="card mb-3">
+            <div class="card-body text-center">
+                <empty icon="images"
+                       header-text-page="ALBUM" header-text-tag="EMPTY_HEADER"
+                       message-text-page="ALBUM" message-text-tag="EMPTY_MESSAGE">
+                </empty>
+                @if (Model.ShowAddAlbumButton)
                 {
-                    <p class="text-body-secondary mb-0 mt-2">
-                        @Model.AlbumsInfo
-                    </p>
+                    <a role="button"
+                       button-style="Primary"
+                       icon="plus"
+                       text-localized-page="BUTTON"
+                       text-localized-tag="BUTTON_ADDALBUM"
+                       href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.EditAlbumImages, new { a = "new" }))"></a>
                 }
             </div>
-            <div class="card-body">
-	            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-		            @foreach (var album in Model.Albums)
-		            {
-			            <div class="col">
-				            <div class="card album-card h-100">
-					            <a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
-					               class="album-cover-link"
-					               target="_parent" title="@Html.StoredText(album.Title)" bs-toggle="tooltip">
-						            <img title="@Html.StoredText(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top album-cover w-100 h-100 object-fit-cover"
-						                 src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums" , new { albumId=album.ID, coverId=album.CoverImageID ?? 0 }))' />
-					            </a>
-					            <div class="card-body">
-						            @if (Model.AlbumUser.ID != Model.PageBoardContext.PageUserID)
-						            {
-							            <p class="card-text">
-								            @Html.StoredText(album.Title)
-							            </p>
-						            }
-						            else
-						            {
-							            var caption = album.Title.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE") : Html.StoredText(album.Title);
-
-							            <p class="card-text mb-3">
-								            @Html.Icon("pen", "text-secondary")
-								            <a class="album-caption border-bottom border-danger border-3" data-type="text"
-								               id="@Html.Raw(album.ID)"
-								               data-id="@Html.Raw(album.ID)"
-								               data-url="/api/Album/ChangeAlbumTitle"
-								               data-title="@Html.LocalizedText("ALBUM_CHANGE_TITLE")">@caption</a>
-							            </p>
-						            }
-						            <form method="post">
-							            <div class="d-flex justify-content-between align-items-center">
-								            <div class="btn-group">
-									            <a role="button" button-style="OutlineSecondary"
-									               button-size="Small"
-									               text-localized-tag="VIEW"
-									               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new {u = album.UserID, a = album.ID}))"></a>
-
-									            @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
-									            {
-										            <a role="button"
-										               button-style="OutlineSecondary"
-										               button-size="Small"
-										               text-localized-page="BUTTON"
-										               text-localized-tag="EDIT"
-										               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.EditAlbumImages, new {a = album.ID}))"></a>
-									            }
-								            </div>
-							            </div>
-						            </form>
-					            </div>
-				            </div>
-			            </div>
-		            }
-	            </div>
-            </div>
-			@if (albumsCount > Model.PageBoardContext.BoardSettings.AlbumsPerPage)
-			{
-				<div class="card-footer">
-					<div class="row justify-content-end">
-						<div class="col-auto">
-							<pager page-size="@Model.PageBoardContext.BoardSettings.AlbumsPerPage" use-submit="false"
-							       count="@albumsCount">
-							</pager>
-						</div>
-					</div>
-				</div>
-			}
-           
         </div>
-    </div>
+    }
 </div>
 
 @section Scripts {
-	<script src="~/js/albums.min.js" asp-append-version="true" defer></script>
+    <script src="~/js/albums.min.js" asp-append-version="true" defer></script>
 }

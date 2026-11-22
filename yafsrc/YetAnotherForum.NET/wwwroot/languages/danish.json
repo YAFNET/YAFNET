@@ -7647,12 +7647,40 @@
             "#text": "Du må ikke have album."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} af {1} albums"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Gå tilbage til Albums"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Kopieret"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Kopiér BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Forside"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen albums endnu"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Opret et album for at dele dine billeder."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Billeder: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "Slet dette album?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Slet albummet {0} med dets {1} billede(r)?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Slet dette billede?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Slet billedet {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} af {1} billeder"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "maks. {0} KB pr. billede"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Angiv en titel til albummet."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Angiv en titel, og upload det første billede for at oprette albummet."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Vælg et billede, der skal uploades."
           },
           {
             "@tag": "SELECT_FILE",

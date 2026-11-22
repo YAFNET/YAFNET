@@ -7647,12 +7647,40 @@
             "#text": "Vous n'êtes pas autorisé à avoir des Albums."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} sur {1} albums"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "Album {0} : {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Retourner à Albums"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Copié"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Copier le BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Couverture"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucun album pour l’instant"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Créez un album pour partager vos images."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Images : {0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "Effacer cet album ?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Supprimer l’album {0} avec ses {1} image(s) ?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Effacer cette image ?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Supprimer l’image {0} ?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} sur {1} images"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "max. {0} Ko par image"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Saisissez un titre pour l’album."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Saisissez un titre et téléversez la première image pour créer l’album."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Choisissez une image à téléverser."
           },
           {
             "@tag": "SELECT_FILE",

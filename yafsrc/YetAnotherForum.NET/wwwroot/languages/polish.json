@@ -7639,12 +7639,40 @@
             "#text": "Nie możesz mieć albumów."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} z {1} albumów"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Wróc do listy albumów"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Skopiowano"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Kopiuj BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Okładka"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak albumów"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Utwórz album, aby udostępniać swoje obrazy."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Obrazy: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10165,8 +10193,16 @@
             "#text": "Usunąć ten album?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Usunąć album {0} wraz z obrazami ({1})?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Usunać ten obraz?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Usunąć obraz {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10183,6 +10219,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Informacja: Teraz ten album zawiera {0} obraz(ów), możesz mieć {1} obrazów w jednym albumie. Maksymalny rozmiar jednego obrazu to {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} z {1} obrazów"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "maks. {0} KB na obraz"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Wpisz tytuł albumu."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Wpisz tytuł i prześlij pierwszy obraz, aby utworzyć album."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Wybierz obraz do przesłania."
           },
           {
             "@tag": "SELECT_FILE",

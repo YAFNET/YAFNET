@@ -7639,12 +7639,40 @@
             "#text": "No tienes permiso para tener álbumes."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} de {1} álbumes"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} Álbum: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Ir atrás a los álbumes"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Copiado"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Copiar BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Portada"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aún no hay álbumes"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Cree un álbum para compartir sus imágenes."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Imágenes: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10161,8 +10189,16 @@
             "#text": "¿Eliminar este álbum?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "¿Eliminar el álbum {0} con sus {1} imagen(es)?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "¿Eliminar esta imagen?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "¿Eliminar la imagen {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10179,6 +10215,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Nota: Actualmente este álbum contiene {0} imagen(es). Tienes permisos para tener {1} imágenes en cada álbum. El tamaño máximo para una imagen es de {2} KB"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} de {1} imágenes"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "máx. {0} KB por imagen"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Escriba un título para el álbum."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Escriba un título y suba la primera imagen para crear el álbum."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Seleccione una imagen para subir."
           },
           {
             "@tag": "SELECT_FILE",

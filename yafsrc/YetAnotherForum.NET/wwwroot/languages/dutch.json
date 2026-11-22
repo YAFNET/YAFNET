@@ -7639,12 +7639,40 @@
             "#text": "Je mag geen albums hebben."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} van {1} albums"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0}Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Ga terug naar Albums"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Gekopieerd"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "BBCode kopiëren"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Omslag"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nog geen albums"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Maak een album om je afbeeldingen te delen."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Afbeeldingen: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10161,8 +10189,16 @@
             "#text": "Verwijder dit album?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Het album {0} met {1} afbeelding(en) verwijderen?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Verwijder dit plaatje?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "De afbeelding {0} verwijderen?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10179,6 +10215,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Let op: Dit Album bevat {0} Plaatje(s). Je mag {1} plaatjes in elk album hebben. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} van {1} afbeeldingen"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "max. {0} KB per afbeelding"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Voer een titel voor het album in."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Voer een titel in en upload de eerste afbeelding om het album te maken."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Kies een afbeelding om te uploaden."
           },
           {
             "@tag": "SELECT_FILE",

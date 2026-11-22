@@ -7647,12 +7647,40 @@
             "#text": "Teil ei ole lubatud omada albumeid."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0}/{1} albumit"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Mine tagasi albumite juurde"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Kopeeritud"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Kopeeri BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Kaanepilt"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Albumeid veel pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Loo album, et oma pilte jagada."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Pilte: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "Kas kustutan selle albumi?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Kas kustutada album {0} koos {1} pildiga?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Kas kustutan selle pildi?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Kas kustutada pilt {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0}/{1} pilti"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "max {0} KB pildi kohta"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Sisesta albumi pealkiri."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Sisesta pealkiri ja laadi üles esimene pilt, et album luua."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Vali üleslaaditav pilt."
           },
           {
             "@tag": "SELECT_FILE",

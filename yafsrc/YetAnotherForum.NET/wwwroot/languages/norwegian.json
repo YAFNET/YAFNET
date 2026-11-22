@@ -7647,12 +7647,40 @@
             "#text": "Du har ikke lov til å ha album."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} av {1} album"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Gå tilbake til album"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Kopiert"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Kopier BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Omslag"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen album ennå"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Opprett et album for å dele bildene dine."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Bilder: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "Vil du slette dette albumet?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Slette albumet {0} med {1} bilde(r)?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Vil du slette dette bildet?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Slette bildet {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} av {1} bilder"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "maks. {0} KB per bilde"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Skriv inn en tittel på albumet."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Skriv inn en tittel og last opp det første bildet for å opprette albumet."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Velg et bilde å laste opp."
           },
           {
             "@tag": "SELECT_FILE",

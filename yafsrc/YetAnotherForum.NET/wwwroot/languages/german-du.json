@@ -7639,12 +7639,40 @@
             "#text": "Sie dürfen keine Alben haben."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} von {1} Alben"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Zurück zu den Alben"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Kopiert"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "BBCode kopieren"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Titelbild"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Noch keine Alben"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Erstelle ein Album, um deine Bilder zu teilen."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Bilder: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10161,8 +10189,16 @@
             "#text": "Dieses Album löschen?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Das Album {0} mit seinen {1} Bild(ern) löschen?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Dieses Bild löschen?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Das Bild {0} löschen?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10179,6 +10215,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Notiz: Aktuell enthält das Album {0} Bilder sie sind berechtigt {1} Bilder pro Album hochzuladen. Die max. Dateigröße für ein Bild ist  {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} von {1} Bildern"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "max. {0} KB pro Bild"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Gib einen Titel für das Album ein."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Gib einen Titel ein und lade das erste Bild hoch, um das Album zu erstellen."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Wähle ein Bild zum Hochladen."
           },
           {
             "@tag": "SELECT_FILE",

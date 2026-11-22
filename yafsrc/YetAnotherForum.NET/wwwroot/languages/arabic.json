@@ -7639,12 +7639,40 @@
             "#text": "غير مسموح لك بالحصول على ألبومات."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} من {1} ألبومات"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} الألبوم: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "العودة إلى الألبومات"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "تم النسخ"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "نسخ BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "الغلاف"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "لا توجد ألبومات بعد"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "أنشئ ألبومًا لمشاركة صورك."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "الصور: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10157,8 +10185,16 @@
             "#text": "هل تريد حذف هذا الألبوم؟"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "هل تريد حذف الألبوم {0} مع صوره ({1})؟"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "هل تريد حذف هذه الصورة ؟"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "هل تريد حذف الصورة {0}؟"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10175,6 +10211,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} من {1} صور"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "بحد أقصى {0} كيلوبايت لكل صورة"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "أدخل عنوانًا للألبوم."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "أدخل عنوانًا وارفع الصورة الأولى لإنشاء الألبوم."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "اختر صورة لرفعها."
           },
           {
             "@tag": "SELECT_FILE",

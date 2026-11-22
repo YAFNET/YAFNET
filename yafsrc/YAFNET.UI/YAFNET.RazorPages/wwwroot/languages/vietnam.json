@@ -7647,12 +7647,40 @@
             "#text": "Bạn không được phép có Album."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0}/{1} album"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0} Anbom: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Quay lại Anbom"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Đã sao chép"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Sao chép BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Ảnh bìa"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Chưa có album nào"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tạo album để chia sẻ hình ảnh của bạn."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Hình ảnh: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "Xóa anbom này?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Xóa album {0} cùng {1} hình ảnh?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Xóa hình ảnh này?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Xóa hình ảnh {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0}/{1} hình ảnh"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "tối đa {0} KB mỗi hình"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Nhập tiêu đề cho album."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Nhập tiêu đề và tải lên hình đầu tiên để tạo album."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Chọn một hình để tải lên."
           },
           {
             "@tag": "SELECT_FILE",

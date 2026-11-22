@@ -27,6 +27,9 @@ using System.Threading.Tasks;
 namespace YAF.Pages;
 
 using System.Collections.Generic;
+using System.Linq;
+
+using ServiceStack.OrmLite;
 
 using Core.Extensions;
 using Core.Model;
@@ -70,6 +73,21 @@ public class AlbumsModel : ForumPage
     /// </summary>
     [BindProperty]
     public bool ShowAddAlbumButton { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of the images of the albums of the page (by the album id).
+    /// </summary>
+    public Dictionary<int, int> ImageCounts { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the number of the albums of the user (own albums).
+    /// </summary>
+    public int AlbumsUsed { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of albums the user can have (own albums, 0: none).
+    /// </summary>
+    public int AlbumsAllowed { get; set; }
 
     /// <summary>
     /// The on get.
@@ -122,6 +140,21 @@ public class AlbumsModel : ForumPage
         if (!albums.NullOrEmpty())
         {
             this.Albums = albums;
+
+            // the number of the images of each album (one query)
+            var ids = albums.Select(x => x.ID).ToList();
+
+            this.ImageCounts = this.GetRepository<UserAlbumImage>().DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
+
+                    expression.Where(x => Sql.In(x.AlbumID, ids))
+                        .GroupBy(x => x.AlbumID)
+                        .Select(x => new { x.AlbumID, Count = Sql.Count(x.ID) });
+
+                    return db.Connection.Dictionary<int, int>(expression);
+                });
         }
         else
         {
@@ -152,6 +185,9 @@ public class AlbumsModel : ForumPage
         {
             this.ShowAddAlbumButton = true;
         }
+
+        this.AlbumsUsed = this.PageBoardContext.NumAlbums;
+        this.AlbumsAllowed = userAlbum;
 
         this.AlbumsInfo = userAlbum > 0
                               ? this.Get<ILocalization>().GetTextFormatted(

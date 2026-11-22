@@ -7639,12 +7639,40 @@
             "#text": "Non puoi avere album."
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} di {1} album"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0}Album: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "Torna agli album"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "Copiato"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "Copia BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "Copertina"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessun album"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Crea un album per condividere le tue immagini."
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "Immagini: {0}"
           },
           {
             "@tag": "TITLE",
@@ -10161,8 +10189,16 @@
             "#text": "Eliminare questo album?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "Eliminare l’album {0} con le sue {1} immagini?"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "Eliminare questa immagine?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "Eliminare l’immagine {0}?"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10179,6 +10215,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Nota: al momento questo album contiene {0} immagini. Ogni album può contenere al massimo {1} immagini. La dimensione massima di una singola immagine è di {2} KB."
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} di {1} immagini"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "max. {0} KB per immagine"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "Inserisci un titolo per l’album."
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "Inserisci un titolo e carica la prima immagine per creare l’album."
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "Seleziona un’immagine da caricare."
           },
           {
             "@tag": "SELECT_FILE",

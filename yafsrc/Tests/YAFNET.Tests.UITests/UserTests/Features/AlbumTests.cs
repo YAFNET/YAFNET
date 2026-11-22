@@ -57,7 +57,6 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Host" }).ClickAsync();
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Host Settings" }).ClickAsync();
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Host Setup" }).ClickAsync();
-                        await page.GetByRole(AriaRole.Tab, new PageGetByRoleOptions { Name = "Album Settings" }).ClickAsync();
                         await page.GetByRole(AriaRole.Checkbox, new PageGetByRoleOptions { Name = "Enable Album Feature:" }).CheckAsync();
                         await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Save Settings" }).ClickAsync();
                     }
@@ -97,7 +96,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                     await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
 
-                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Back')]"));
+                    await page.SubmitAndWaitAsync(page.Locator(".edit-album-actions a").First);
 
                     pageSource = await page.ContentAsync();
 
@@ -144,7 +143,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     });
 
                     // Edit Album
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).First.ClickAsync();
+                    await page.Locator(".album-card a[href*='EditAlbumImages']").First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -199,7 +198,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     });
 
                     // View Album
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "View" }).First.ClickAsync();
+                    await page.Locator(".album-card .album-cover-link").First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -255,7 +254,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     });
 
                     // View Album
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "View" }).First.ClickAsync();
+                    await page.Locator(".album-card .album-cover-link").First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -313,7 +312,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     });
 
                     // View Album
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "View" }).First.ClickAsync();
+                    await page.Locator(".album-card .album-cover-link").First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -438,7 +437,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                 });
 
                 // Edit Album
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).First.ClickAsync();
+                await page.Locator(".album-card a[href*='EditAlbumImages']").First.ClickAsync();
 
                 pageSource = await page.ContentAsync();
 
@@ -484,7 +483,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GetByText("Edit Albums").First.ClickAsync();
 
-                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).First.ClickAsync();
+                await page.Locator(".album-card a[href*='EditAlbumImages']").First.ClickAsync();
 
                 pageSource = await page.ContentAsync();
 
@@ -535,11 +534,11 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     var albumsUrl = page.Url;
 
                     Assert.That(
-                        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).CountAsync(),
+                        await page.Locator(".album-card a[href*='EditAlbumImages']").CountAsync(),
                         Is.GreaterThan(0),
                         "The user has no album");
 
-                    await page.SubmitAndWaitAsync(page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit" }).First);
+                    await page.SubmitAndWaitAsync(page.Locator(".album-card a[href*='EditAlbumImages']").First);
 
                     var editUrl = page.Url;
                     var oldTitle = await page.Locator("#AlbumTitle").InputValueAsync();
@@ -603,7 +602,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                         await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
 
-                        var info = Regex.Match(await page.Locator("body").InnerTextAsync(), @"allowed to have (\d+) images");
+                        var info = Regex.Match(await page.Locator(".album-images-quota").InnerTextAsync(), @"\d+ of (\d+) images");
 
                         Assert.That(info.Success, Is.True, "The image limit is not shown");
 
@@ -711,7 +710,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     await page.Locator("#AlbumTitle").FillAsync(albumTitle);
                     await page.Locator("#ImageFiles").SetInputFilesAsync(Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png"));
                     await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
-                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Back')]"));
+                    await page.SubmitAndWaitAsync(page.Locator(".edit-album-actions a").First);
 
                     // "Back" shows the new album
                     var albumUrl = page.Url;
@@ -930,7 +929,7 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 var albumsUrl = page.Url;
 
-                Assert.That(await page.ContentAsync(), Does.Contain("Currently you have 0 Album(s)"), "The new user has albums");
+                Assert.That((await page.Locator("#AlbumsQuota").InnerTextAsync()).Trim(), Does.StartWith("0 of "), "The new user has albums");
 
                 // a new album
                 await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditAlbumImages/new");
@@ -940,7 +939,70 @@ public class AlbumTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
 
                 await page.GotoAsync(albumsUrl);
 
-                Assert.That(await page.ContentAsync(), Does.Contain("Currently you have 1 Album(s)"), "The new album is not counted");
+                Assert.That((await page.Locator("#AlbumsQuota").InnerTextAsync()).Trim(), Does.StartWith("1 of "), "The new album is not counted");
+            });
+    }
+
+    /// <summary>
+    /// The edit of an album says when no image was selected and names the image to delete, the album shows the cover
+    /// and the bb code of the images.
+    /// </summary>
+    [Test]
+    public async Task EditAlbumAndAlbumPageTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(
+                    await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/HostSettings");
+                await page.RunAndWaitForNextPageAsync(
+                    () => page.EvaluateAsync(
+                        """
+                        () => {
+                            document.querySelector('#Input_EnableAlbum').checked = true;
+                            document.querySelector("button[formaction*='Save']").click();
+                        }
+                        """));
+
+                Assert.That(await page.LogOutUserAsync(), Is.True, "Logout failed");
+
+                await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                // a new album with an image
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}EditAlbumImages/new");
+                await page.Locator("#AlbumTitle").FillAsync("Edit page album");
+                await page.Locator("#ImageFiles").SetInputFilesAsync(Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png"));
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
+
+                Assert.That(
+                    await page.Locator(".album-image-row button[formaction*='DeleteImage']").First.GetAttributeAsync("data-title"),
+                    Does.Contain("avatar.png"),
+                    "The question doesn't name the image");
+
+                // upload without an image
+                await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Upload')]"));
+
+                Assert.That(await page.ContentAsync(), Does.Contain("Select an image to upload."), "No message without an image");
+
+                // the album: the bb code of the image, the cover
+                await page.SubmitAndWaitAsync(page.Locator(".edit-album-actions a").First);
+
+                var image = page.Locator(".album-card").First;
+                var imageId = await image.GetAttributeAsync("data-image-id");
+
+                Assert.That(
+                    await image.Locator(".album-copy").GetAttributeAsync("data-copy"),
+                    Is.EqualTo($"[ALBUMIMG]{imageId}[/ALBUMIMG]"),
+                    "The bb code of the image is wrong");
+
+                await page.SubmitAndWaitAsync(image.Locator(".btn-cover"));
+
+                Assert.That(await page.Locator(".album-card.is-cover .album-cover-badge").CountAsync(), Is.EqualTo(1), "The cover is not shown");
             });
     }
 }

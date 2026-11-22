@@ -7647,12 +7647,40 @@
             "#text": "您不能拥有相册。"
           },
           {
+            "@tag": "ALBUMS_QUOTA",
+            "#text": "{0} / {1} 个相册"
+          },
+          {
             "@tag": "ALBUMS_TITLE",
             "#text": "{0}专辑：{1}"
           },
           {
             "@tag": "BACK_ALBUMS",
             "#text": "返回相册"
+          },
+          {
+            "@tag": "COPIED",
+            "#text": "已复制"
+          },
+          {
+            "@tag": "COPY_BBCODE",
+            "#text": "复制 BBCode"
+          },
+          {
+            "@tag": "COVER",
+            "#text": "封面"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "还没有相册"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "创建相册来分享你的图片。"
+          },
+          {
+            "@tag": "IMAGES_COUNT",
+            "#text": "图片：{0}"
           },
           {
             "@tag": "TITLE",
@@ -10169,8 +10197,16 @@
             "#text": "删除此相册?"
           },
           {
+            "@tag": "ASK_DELETEALBUM_COUNT",
+            "#text": "删除相册 {0} 及其 {1} 张图片？"
+          },
+          {
             "@tag": "ASK_DELETEIMAGE",
             "#text": "删除此图片?"
+          },
+          {
+            "@tag": "ASK_DELETEIMAGE_NAME",
+            "#text": "删除图片 {0}？"
           },
           {
             "@tag": "ERROR_TOOBIG",
@@ -10187,6 +10223,26 @@
           {
             "@tag": "IMAGES_INFO",
             "#text": "Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb"
+          },
+          {
+            "@tag": "IMAGES_QUOTA",
+            "#text": "{0} / {1} 张图片"
+          },
+          {
+            "@tag": "MAX_SIZE",
+            "#text": "每张图片最大 {0} KB"
+          },
+          {
+            "@tag": "NEED_TITLE",
+            "#text": "请输入相册标题。"
+          },
+          {
+            "@tag": "NEW_ALBUM_INFO",
+            "#text": "输入标题并上传第一张图片来创建相册。"
+          },
+          {
+            "@tag": "NO_FILE",
+            "#text": "请选择要上传的图片。"
           },
           {
             "@tag": "SELECT_FILE",

@@ -7639,12 +7639,40 @@
                     "#text": "You are not allowed to have Albums."
                 },
                 {
+                    "@tag": "ALBUMS_QUOTA",
+                    "#text": "{0} of {1} albums"
+                },
+                {
                     "@tag": "ALBUMS_TITLE",
                     "#text": "{0} Album: {1}"
                 },
                 {
                     "@tag": "BACK_ALBUMS",
                     "#text": "Go Back to Albums"
+                },
+                {
+                    "@tag": "COPIED",
+                    "#text": "Copied"
+                },
+                {
+                    "@tag": "COPY_BBCODE",
+                    "#text": "Copy BBCode"
+                },
+                {
+                    "@tag": "COVER",
+                    "#text": "Cover"
+                },
+                {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No albums yet"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "Create an album to share your images."
+                },
+                {
+                    "@tag": "IMAGES_COUNT",
+                    "#text": "Images: {0}"
                 },
                 {
                     "@tag": "TITLE",
@@ -10161,8 +10189,16 @@
                     "#text": "Delete this album?"
                 },
                 {
+                    "@tag": "ASK_DELETEALBUM_COUNT",
+                    "#text": "Delete the album {0} with its {1} image(s)?"
+                },
+                {
                     "@tag": "ASK_DELETEIMAGE",
                     "#text": "Delete this image?"
+                },
+                {
+                    "@tag": "ASK_DELETEIMAGE_NAME",
+                    "#text": "Delete the image {0}?"
                 },
                 {
                     "@tag": "ERROR_TOOBIG",
@@ -10179,6 +10215,26 @@
                 {
                     "@tag": "IMAGES_INFO",
                     "#text": "Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. file size for an Image is {2} kb"
+                },
+                {
+                    "@tag": "IMAGES_QUOTA",
+                    "#text": "{0} of {1} images"
+                },
+                {
+                    "@tag": "MAX_SIZE",
+                    "#text": "max. {0} KB per image"
+                },
+                {
+                    "@tag": "NEED_TITLE",
+                    "#text": "Enter a title for the album."
+                },
+                {
+                    "@tag": "NEW_ALBUM_INFO",
+                    "#text": "Enter a title and upload the first image to create the album."
+                },
+                {
+                    "@tag": "NO_FILE",
+                    "#text": "Select an image to upload."
                 },
                 {
                     "@tag": "SELECT_FILE",
