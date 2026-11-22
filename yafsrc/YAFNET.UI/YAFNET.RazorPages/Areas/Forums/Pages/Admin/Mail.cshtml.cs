@@ -128,6 +128,11 @@ public class MailModel : AdminPage
             }
         }
 
+        // the fields are empty after the mail was sent (the posted values were shown again, a second click sent the
+        // mail again)
+        this.ModelState.Remove("Input.Subject");
+        this.ModelState.Remove("Input.Body");
+
         this.Input.Subject = string.Empty;
         this.Input.Body = string.Empty;
 

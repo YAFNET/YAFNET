@@ -2006,4 +2006,31 @@ public class AdminMaintenanceTests(ComposeScenario scenario) : DatabaseTestBase(
 
         return (await badge.InnerTextAsync()).Trim();
     }
+
+    /// <summary>
+    /// After the mail to a group was sent the subject and the message are empty: they were shown again, a second
+    /// click sent the mail again.
+    /// </summary>
+    [Test]
+    public async Task GroupMailFormIsEmptyAfterSendTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                await this.LoginAdminAsync(page);
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/Mail");
+
+                await page.Locator("#Input_Subject").FillAsync("Group mail form test");
+                await page.Locator("#Input_Body").FillAsync("A mail to the group");
+
+                await page.Locator("#Send").ClickAsync();
+                await page.SubmitAndWaitAsync(page.Locator(".bootbox .btn-success"));
+
+                Assert.That(await page.ContentAsync(), Does.Not.Contain("Forum Error"), "The group mail failed");
+                Assert.That(await page.Locator("#Input_Subject").InputValueAsync(), Is.Empty, "The subject is shown again");
+                Assert.That(await page.Locator("#Input_Body").InputValueAsync(), Is.Empty, "The message is shown again");
+            });
+    }
 }

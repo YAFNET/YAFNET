@@ -111,6 +111,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Backup: a number of backups to keep that is too large was saved as 0 (all backups are kept)
 [CHANGES] Admin > Users: bulk actions for the selected users of a page (approve, suspend with presets, remove suspension, add to / remove from a role, delete with a dialog that lists them), the server skips the guest, host admins, yourself and for delete/suspend the admins, a user keeps at least one role
 [CHANGES] Admin: the version check is shown on the dashboard (running version, up to date or a link to the new version), the page Admin > Upgrade > Version was removed
+[FIXED] Admin > Mail: after the mail to a group was sent the subject and the message were shown again (a second click sent the mail again)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
