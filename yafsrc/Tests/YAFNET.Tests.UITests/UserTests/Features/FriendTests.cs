@@ -67,11 +67,10 @@ public class FriendTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
-                    await page.RunAndWaitForNextPageAsync(() => page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(["3"]));
+                    await page.SubmitAndWaitAsync(page.Locator("#FriendsTab3"));
 
                     // Select the First Request
-                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'Approve')]").First);
+                    await page.SubmitAndWaitAsync(page.Locator(".friend-card button[formaction*='ApproveAdd']").First);
 
                     pageSource = await page.ContentAsync();
 
@@ -123,17 +122,18 @@ public class FriendTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
-                    await page.RunAndWaitForNextPageAsync(() => page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(["3"]));
+                    await page.SubmitAndWaitAsync(page.Locator("#FriendsTab3"));
 
                     // Select the First Request
-                    await page.Locator("//button[contains(@formaction,'Deny')]").First.ClickAsync();
+                    await page.Locator(".friend-card button[formaction*='Deny']").First.ClickAsync();
 
                     await page.SubmitAndWaitAsync(page.GetByText("Yes"));
 
                     pageSource = await page.ContentAsync();
 
                     Assert.That(pageSource, Does.Contain("Friend request denied."), "Deny Request Failed");
+
+                    Assert.That(await page.Locator("#FriendsTab3.active").CountAsync(), Is.EqualTo(1), "The page does not show the received requests anymore");
                 });
     }
 
@@ -175,11 +175,10 @@ public class FriendTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                         pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
-                    await page.RunAndWaitForNextPageAsync(() => page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(["3"]));
+                    await page.SubmitAndWaitAsync(page.Locator("#FriendsTab3"));
 
                     // Select the First Request
-                    await page.SubmitAndWaitAsync(page.Locator("//button[contains(@formaction,'ApproveAdd')]").First);
+                    await page.SubmitAndWaitAsync(page.Locator(".friend-card button[formaction*='ApproveAdd']").First);
 
                     pageSource = await page.ContentAsync();
 

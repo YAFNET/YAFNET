@@ -107,6 +107,14 @@
             "#text": "Đã nhận được lời cảm ơn từ {0} trong chủ đề {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Hiện tất cả"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Hiện bài viết của bạn"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Chữ ký"
           },
@@ -10652,6 +10660,18 @@
             "#text": "Sửa danh sách bạn bè"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Thêm thành viên làm bạn từ hồ sơ của họ."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Lời mời kết bạn mới được hiển thị ở đây."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Bạn không có lời mời kết bạn nào đang chờ"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Bạn chưa có bất kỳ người bạn nào"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Bài viết"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Gửi tin nhắn riêng"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Xem hồ sơ"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Không có thông báo"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Lượt nhắc đến, trích dẫn, lời cảm ơn và trả lời trong chủ đề đang theo dõi được hiển thị ở đây."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Hiện tất cả"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Thông báo hoạt động của bạn"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Thông báo chưa đọc"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Cuộc trò chuyện của bạn"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Xóa cuộc trò chuyện"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Lọc cuộc trò chuyện..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Tìm người dùng (ít nhất 3 chữ cái) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Lần truy cập cuối: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

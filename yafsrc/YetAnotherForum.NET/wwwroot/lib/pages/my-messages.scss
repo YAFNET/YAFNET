@@ -61,3 +61,16 @@
         height: clamp(12rem, calc(100dvh - 16rem), 45rem);
     }
 }
+
+// the header of the open conversation: the avatar, the name and the last visit of the other user
+.page-MyMessages .direct-chat > .card-header {
+    .chat-header-avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 1px;
+    }
+
+    .min-w-0 {
+        min-width: 0;
+    }
+}

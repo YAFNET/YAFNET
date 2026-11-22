@@ -10,13 +10,20 @@
     <div class="col-12 col-lg-auto mb-3 mb-lg-0">
         <profileMenu></profileMenu>
     </div>
-    <div class="col">
+    <div class="col my-account">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+            <h2 class="h4 mb-0">@Html.Icon("address-card")@Html.LocalizedText("ACCOUNT", "YOUR_ACCOUNT")</h2>
+            <a role="button"
+               button-style="OutlineSecondary"
+               button-size="Small"
+               icon="user"
+               text-localized-page="ACCOUNT"
+               text-localized-tag="VIEW_PROFILE"
+               href="@(Model.Get<ILinkBuilder>().GetUserProfileLink(Model.PageBoardContext.PageUser))"></a>
+        </div>
         <div class="row">
             <div class="col">
                 <div class="card mb-3">
-                    <div class="card-header">
-                        @Html.IconHeader("address-card", "TOOLBAR", "MYPROFILE")
-                    </div>
                     <div class="card-body">
                         <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3 mb-3">
                             <div class="profile-avatar-frame flex-shrink-0 bg-body rounded-3">
@@ -41,9 +48,28 @@
                                     }
                                 </div>
                             </div>
+                            <div class="d-flex flex-wrap gap-2 account-links">
+                                <a role="button"
+                                   button-style="OutlineSecondary"
+                                   button-size="Small"
+                                   icon="user-edit"
+                                   text-localized-page="ACCOUNT"
+                                   text-localized-tag="EDIT_PROFILE"
+                                   href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.Profile_EditProfile))"></a>
+                                @if (Model.PageBoardContext.BoardSettings.AvatarUpload || Model.PageBoardContext.BoardSettings.AvatarGallery)
+                                {
+                                    <a role="button"
+                                       button-style="OutlineSecondary"
+                                       button-size="Small"
+                                       icon="user-tie"
+                                       text-localized-page="ACCOUNT"
+                                       text-localized-tag="EDIT_AVATAR"
+                                       href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.Profile_EditAvatar))"></a>
+                                }
+                            </div>
                         </div>
 
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2 g-md-3 account-detail-grid">
+                        <div class="account-detail-grid">
                             <div class="col">
                                 <div class="detail-tile bg-body-tertiary h-100">
                                     <div class="detail-tile-label">@Html.LocalizedText("YOUR_USERNAME")</div>
@@ -59,7 +85,17 @@
                             <div class="col">
                                 <div class="detail-tile bg-body-tertiary h-100">
                                     <div class="detail-tile-label">@Html.LocalizedText("NUMPOSTS")</div>
-                                    <div class="detail-tile-value">@Html.Raw($"{Model.PageBoardContext.PageUser.NumPosts:N0}")</div>
+                                    <div class="detail-tile-value">
+                                        @if (Model.PageBoardContext.PageUser.NumPosts > 0)
+                                        {
+                                            <a href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.Search, new { postedby = Model.PageBoardContext.PageUser.DisplayOrUserName() }))"
+                                               title="@Model.GetText("ACCOUNT", "SHOW_POSTS")">@($"{Model.PageBoardContext.PageUser.NumPosts:N0}")</a>
+                                        }
+                                        else
+                                        {
+                                            @("0")
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
@@ -86,31 +122,31 @@
                             <div class="card-body border-bottom py-2" id="activityFilters">
                                 <div class="d-flex flex-wrap align-items-center gap-2">
                                     <span class="text-muted">@Html.LocalizedText("FILTER_DROPDOWN"):</span>
-                                    <div class="btn-group flex-wrap" role="group" aria-label="Filters">
+                                    <div class="d-flex flex-wrap gap-2" role="group" aria-label="Filters">
                                         <input asp-for="CreatedTopic" class="btn-check" autocomplete="off" />
-                                        <label asp-for="CreatedTopic" class="btn btn-sm">
+                                        <label asp-for="CreatedTopic" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                             @Html.Icon("comment")@Html.LocalizedText("ACCOUNT", "CREATED_TOPIC")
                                         </label>
                                         <input asp-for="CreatedReply" class="btn-check" autocomplete="off" />
-                                        <label asp-for="CreatedReply" class="btn btn-sm">
+                                        <label asp-for="CreatedReply" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                             @Html.Icon("comment")@Html.LocalizedText("ACCOUNT", "CREATED_REPLY")
                                         </label>
                                         <input asp-for="GivenThanks" class="btn-check" autocomplete="off" />
-                                        <label asp-for="GivenThanks" class="btn btn-sm">
+                                        <label asp-for="GivenThanks" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                             @Html.Icon("heart")@Html.LocalizedText("ACCOUNT", "GIVEN_THANKS")
                                         </label>
                                         <input asp-for="BecomeFriends" class="btn-check" autocomplete="off" />
-                                        <label asp-for="BecomeFriends" class="btn btn-sm">
+                                        <label asp-for="BecomeFriends" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                             @Html.Icon("user-group")@Html.LocalizedText("ACCOUNT", "BECOME_FRIENDS")
                                         </label>
                                     </div>
                                     <button type="submit"
                                             asp-page-handler="Reset"
-                                            text-localized-page="COMMON"
-                                            text-localized-tag="CLEAR"
-                                            button-style="Secondary"
+                                            text-localized-page="ACCOUNT"
+                                            text-localized-tag="SHOW_ALL"
+                                            button-style="Link"
                                             button-size="Small"
-                                            Icon="trash">
+                                            Icon="eye">
                                     </button>
                                 </div>
                             </div>

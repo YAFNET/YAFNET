@@ -94,13 +94,19 @@ public class NotificationModel : ForumPageRegistered
     public bool BecomeFriends { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets the number of the unread notifications (all, not only the filtered).
+    /// </summary>
+    public int UnreadCount { get; set; }
+
+    /// <summary>
     /// Create the Page links.
     /// </summary>
     public override void CreatePageLinks()
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<ILinkBuilder>().GetLink(ForumPages.Notification));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("NOTIFICATION", "TITLE"), string.Empty);
     }
 
     /// <summary>
@@ -256,6 +262,9 @@ public class NotificationModel : ForumPageRegistered
     {
         var stream = this.GetFilteredNotifications(
             this.WasMentioned, this.ReceivedThanks, this.WasQuoted, this.WatchForumReply, this.WatchTopicReply, this.BecomeFriends);
+
+        this.UnreadCount = this.GetFilteredNotifications(true, true, true, true, true, true)
+            .Count(a => a.Item1.Notification);
 
         this.Notifications =
         [

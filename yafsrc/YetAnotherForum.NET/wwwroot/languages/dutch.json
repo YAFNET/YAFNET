@@ -107,6 +107,14 @@
             "#text": "Heeft een bedankje ontvangen van {0} in het onderwerp {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Alles tonen"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Je berichten tonen"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Handtekening"
           },
@@ -10644,6 +10652,18 @@
             "#text": "Bewerk vrienden"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Voeg leden als vriend toe via hun profiel."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Nieuwe vriendschapsverzoeken worden hier getoond."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Je hebt geen openstaande vriendschapsverzoeken"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Je hebt nog geen vrienden"
           },
@@ -10674,6 +10694,14 @@
           {
             "@tag": "POSTS",
             "#text": "Berichten"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Stuur een privébericht"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Profiel bekijken"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12099,8 +12127,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Geen meldingen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Vermeldingen, citaten, bedankjes en antwoorden in gevolgde onderwerpen worden hier getoond."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Alles tonen"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Uw activiteitenmeldingen"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Ongelezen meldingen"
           }
         ]
       },
@@ -12116,12 +12160,20 @@
             "#text": "Uw gesprekken"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Gesprek verwijderen"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Gesprekken filteren..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Zoek een gebruiker (minimaal 3 letters) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Laatste bezoek: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

@@ -107,6 +107,14 @@
             "#text": "Hat einen Dank von {0} im Thema {1} erhalten"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Alle anzeigen"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Deine Beiträge anzeigen"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Signatur"
           },
@@ -10644,6 +10652,18 @@
             "#text": "Freunde bearbeiten"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Füge Mitglieder über ihr Profil als Freunde hinzu."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Neue Freundschaftsanfragen werden hier angezeigt."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Du hast keine offenen Freundschaftsanfragen"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Sie haben noch keine Freunde"
           },
@@ -10674,6 +10694,14 @@
           {
             "@tag": "POSTS",
             "#text": "Beiträge"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Private Nachricht senden"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Profil anzeigen"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12099,8 +12127,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Keine Benachrichtigungen"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Erwähnungen, Zitate, Danksagungen und Antworten in beobachteten Themen werden hier angezeigt."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Alle anzeigen"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Ihre Aktivitätsbenachrichtigungen"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Ungelesene Benachrichtigungen"
           }
         ]
       },
@@ -12116,12 +12160,20 @@
             "#text": "Ihre Gespräche"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Unterhaltung löschen"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Gespräche filtern ..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Benutzer suchen (mindestens 3 Buchstaben) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Letzter Besuch: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

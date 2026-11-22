@@ -33,6 +33,7 @@ using YAF.Core.Helpers;
 using YAF.Types.Objects.Model;
 
 using System.Collections.Generic;
+using System.Linq;
 
 using YAF.Core.Model;
 using YAF.Types.Extensions;
@@ -86,6 +87,11 @@ public class FriendsModel : ForumPageRegistered
     public string Header { get; set; }
 
     /// <summary>
+    /// Gets or sets the number of the entries of each list (by the mode).
+    /// </summary>
+    public Dictionary<FriendMode, int> Counts { get; set; } = [];
+
+    /// <summary>
     /// Create the Page links.
     /// </summary>
     public override void CreatePageLinks()
@@ -111,9 +117,12 @@ public class FriendsModel : ForumPageRegistered
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    /// <param name="mode">The list (the friends, the received or the sent requests).</param>
+    public IActionResult OnGet(int? mode = null)
     {
-        this.Mode = FriendMode.Friends.ToInt();
+        this.Mode = mode is { } value && Enum.IsDefined(typeof(FriendMode), value)
+                        ? value
+                        : FriendMode.Friends.ToInt();
 
         return this.BindData();
     }
@@ -137,7 +146,7 @@ public class FriendsModel : ForumPageRegistered
             string.Format(this.GetText("REMOVEBUDDY_NOTIFICATION"), this.HtmlEncode(this.Get<IFriends>().Remove(userId))),
             MessageTypes.success);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends, new { mode = FriendMode.Friends.ToInt() });
     }
 
     /// <summary>
@@ -151,7 +160,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_REQUESTREMOVED"), MessageTypes.success);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends, new { mode = FriendMode.SendRequests.ToInt() });
     }
 
     /// <summary>
@@ -166,7 +175,7 @@ public class FriendsModel : ForumPageRegistered
         // only an existing request of that user can be approved
         if (user is null || !this.Get<IFriends>().ApproveRequest(new BuddyUser { UserID = user.ID, Activity = user.Activity }))
         {
-            return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends, new { mode = FriendMode.ReceivedRequests.ToInt() });
         }
 
         this.PageBoardContext.SessionNotify(
@@ -175,7 +184,7 @@ public class FriendsModel : ForumPageRegistered
                 this.HtmlEncode(user.DisplayOrUserName())),
             MessageTypes.success);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends, new { mode = FriendMode.ReceivedRequests.ToInt() });
     }
 
     /// <summary>
@@ -188,7 +197,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends, new { mode = FriendMode.Friends.ToInt() });
     }
 
     /// <summary>
@@ -202,7 +211,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends, new { mode = FriendMode.ReceivedRequests.ToInt() });
     }
 
     /// <summary>
@@ -215,7 +224,7 @@ public class FriendsModel : ForumPageRegistered
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyFriends, new { mode = FriendMode.ReceivedRequests.ToInt() });
     }
 
     /// <summary>
@@ -236,22 +245,17 @@ public class FriendsModel : ForumPageRegistered
 
         var mode = this.Mode.ToEnum<FriendMode>();
 
-        var friends = new List<BuddyUser>();
-
-        // In what mode should this control work?
-        // Refer to "rptBuddy_ItemCreate" event for more info.
-        switch (mode)
+        // the lists of all tabs (the tabs show the number of the entries)
+        var lists = new Dictionary<FriendMode, List<BuddyUser>>
         {
-            case FriendMode.Friends:
-                friends = this.GetRepository<Buddy>().GetAllFriends(this.PageBoardContext.PageUserID);
-                break;
-            case FriendMode.ReceivedRequests:
-                friends = this.GetRepository<Buddy>().GetReceivedRequests(this.PageBoardContext.PageUserID);
-                break;
-            case FriendMode.SendRequests:
-                friends = this.GetRepository<Buddy>().GetSendRequests(this.PageBoardContext.PageUserID);
-                break;
-        }
+            [FriendMode.Friends] = this.GetRepository<Buddy>().GetAllFriends(this.PageBoardContext.PageUserID),
+            [FriendMode.ReceivedRequests] = this.GetRepository<Buddy>().GetReceivedRequests(this.PageBoardContext.PageUserID),
+            [FriendMode.SendRequests] = this.GetRepository<Buddy>().GetSendRequests(this.PageBoardContext.PageUserID)
+        };
+
+        this.Counts = lists.ToDictionary(x => x.Key, x => x.Value.Count);
+
+        var friends = lists.GetValueOrDefault(mode) ?? [];
 
         this.ListCount = friends.Count;
 

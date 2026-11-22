@@ -107,6 +107,14 @@
             "#text": "on saanud tänu kasutajalt {0} teemal {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Näita kõiki"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Näita oma postitusi"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Allkiri"
           },
@@ -10652,6 +10660,18 @@
             "#text": "Muuda sõpru"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Lisa liikmeid sõpradeks nende profiilist."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Uued sõbrakutsed kuvatakse siin."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Sul pole avatud sõbrakutseid"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Sul ei ole veel ühtegi sõpra"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Postitused"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Saada privaatsõnum"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Vaata profiili"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Teavitusi pole"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Siin kuvatakse mainimised, tsitaadid, tänud ja vastused jälgitavates teemades."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Näita kõiki"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Teie tegevuse teatised"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Lugemata teavitused"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Teie vestlused"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Kustuta vestlus"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Vestluste filtreerimine ..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Leia kasutaja (vähemalt 3 tähte) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Viimane külastus: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

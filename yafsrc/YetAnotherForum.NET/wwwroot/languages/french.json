@@ -107,6 +107,14 @@
             "#text": "A reçu un remerciement de {0} dans le sujet {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Tout afficher"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Afficher vos messages"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Signature"
           },
@@ -10652,6 +10660,18 @@
             "#text": "Modifier les amis"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Ajoutez des membres comme amis depuis leur profil."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Les nouvelles demandes d’ami apparaissent ici."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Vous n’avez aucune demande d’ami en attente"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Vous n'avez pas encore d'amis"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Postes"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Envoyer un message privé"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Voir le profil"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Aucune notification"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Les mentions, citations, remerciements et réponses aux sujets suivis apparaissent ici."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Tout afficher"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Vos notifications d'activité"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Notifications non lues"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Vos conversations"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Supprimer la conversation"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Filtrer les conversations..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Trouver un utilisateur (au moins 3 lettres)..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Dernière visite : {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

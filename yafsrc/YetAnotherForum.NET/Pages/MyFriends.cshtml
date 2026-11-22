@@ -10,159 +10,188 @@
 
 @{
     var mode = Model.Mode.ToEnum<FriendMode>();
+    var allowMessages = Model.PageBoardContext.BoardSettings.AllowPrivateMessages;
+
+    var tabs = new[]
+                   {
+                       (Mode: FriendMode.Friends, Icon: "users", Text: Model.GetText("FRIENDS", "BUDDYLIST")),
+                       (Mode: FriendMode.ReceivedRequests, Icon: "user-plus", Text: Model.GetText("FRIENDS", "PENDING_REQUESTS")),
+                       (Mode: FriendMode.SendRequests, Icon: "paper-plane", Text: Model.GetText("FRIENDS", "YOUR_REQUESTS"))
+                   };
 }
 
 <div class="row">
     <div class="col-12 col-lg-auto mb-3 mb-lg-0">
         <profileMenu></profileMenu>
     </div>
-    <div class="col">
-        <div class="row">
-            <form method="post">
-	            <div class="card mb-3">
-		            <div class="card-header">
-			            <div class="row justify-content-between align-items-center">
-				            <div class="col-auto">
-					            @Html.Icon("user-friends")
-					            @Html.Raw(Model.Header)
-				            </div>
-				            <div class="col">
-					            <select asp-for="Mode"
-					                    asp-items="@Model.FriendListModes"
-					                    aria-label="friend mode"
-					                    class="form-select w-25"
-					                    onchange="this.form.submit();"></select>
-				            </div>
-				            <div class="col-auto">
-					            <div class="input-group input-group-sm me-2" role="group">
-						            <div class="input-group-text">
-							            @Html.LocalizedText("SHOW"):
-						            </div>
-                   
-						            <select asp-for="@Model.Size"
-						                    asp-items="Model.PageSizeList"
-						                    title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-						                    aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
-						                    class="form-select"
-						                    onchange="this.form.submit();"></select>
-                    
-					            </div>
-				            </div>
-			            </div>
-		            </div>
-		            @if (Model.ListView.NullOrEmpty())
-		            {
-			            <div class="card-body">
-				            @if (mode == FriendMode.Friends)
-				            {
-					            <alert type="info" icon="info" localized-tag="INFO_NO"></alert>
-				            }
-				            else
-				            {
-					            <alert type="success" icon="check" localized-tag="INFO_PENDING"></alert>
-				            }
-			            </div>
-		            }
-		            else
-		            {
-			            <div class="card-body">
-				            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 mb-2">
-
-					            @foreach (var item in Model.ListView)
-					            {
-						            <div class="col">
-							            <div class="card user-card">
-								            <div class="card-body">
-									            <div class="d-flex">
-										            <div class="preview">
-											            <img class="img-thumbnail object-fit-cover" src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(
-												                                                             item.UserID,
-												                                                             item.Avatar,
-												                                                             item.AvatarImage != null))"
-											                 alt="@(Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name)" />
-										            </div>
-										            <div class="ms-3">
-											            @Html.UserLink(item.UserID,
-												            Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name,
-												            item.Suspended,
-												            item.UserStyle)
-
-											            @if (mode == FriendMode.SendRequests)
-											            {
-												            @Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(item.Requested))
-											            }
-
-											            <div class="btn-group" role="group">
-												            @if (mode == FriendMode.SendRequests)
-												            {
-													            <button text-localized-tag="REMOVE"
-													                    asp-page-handler="RemoveRequest"
-													                    asp-route-userId="@(item.UserID)"
-													                    button-size="Small"
-													                    button-style="Danger"
-													                    Icon="trash"></button>
-												            }
-
-												            @if (mode == FriendMode.Friends)
-												            {
-													            <button text-localized-tag="REMOVEBUDDY"
-													                    return-confirm-tag="NOTIFICATION_REMOVE"
-													                    asp-page-handler="Remove"
-													                    asp-route-userId="@(item.UserID)"
-													                    button-size="Small"
-													                    button-style="Danger"
-													                    Icon="trash"></button>
-												            }
-
-												            @if (mode == FriendMode.ReceivedRequests)
-												            {
-													            <button button-size="Small"
-													                    asp-page-handler="ApproveAdd"
-													                    asp-route-userId="@(item.UserID)"
-													                    text-localized-tag="APPROVE"
-													                    button-style="Success"
-													                    Icon="check"></button>
-													            <button button-size="Small"
-													                    return-confirm-tag="NOTIFICATION_DENY"
-													                    asp-page-handler="Deny"
-													                    asp-route-userId="@(item.UserID)"
-													                    text-localized-tag="DENY"
-													                    button-style="Danger"
-													                    Icon="times-circle"></button>
-												            }
-											            </div>
-										            </div>
-									            </div>
-								            </div>
-							            </div>
-						            </div>
-					            }
-
-				            </div>
-			            </div>
-
-			            @if (mode == FriendMode.ReceivedRequests)
-			            {
-				            <div class="card-footer">
-					            <button return-confirm-tag="NOTIFICATION_APPROVEALLADD"
-					                    asp-page-handler="ApproveAddAll"
-					                    text-localized-tag="APPROVE_ALL"
-					                    button-style="Secondary"
-					                    Icon="check-double"></button>
-					            <button return-confirm-tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED"
-					                    asp-page-handler="DenyAll"
-					                    text-localized-tag="DENY_ALL"
-					                    button-style="Secondary"
-					                    Icon="times-circle"></button>
-				            </div>
-			            }
-		            }
-	            </div>
-	            @if (!Model.ListView.NullOrEmpty())
-	            {
-		            @await Html.PartialAsync("_Pagination", new Pagination() { TotalRows = Model.ListCount, Size = Model.Size })
-	            }
-            </form>
+    <div class="col my-friends">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+            <h2 class="h4 mb-0">
+                @Html.Icon("users")@Html.LocalizedText("TOOLBAR", "BUDDIES")
+                <span class="badge text-bg-secondary align-middle ms-1" id="FriendsCount">@Model.Counts.GetValueOrDefault(FriendMode.Friends)</span>
+            </h2>
         </div>
+
+        <ul class="nav nav-tabs mb-3" role="tablist">
+            @foreach (var tab in tabs)
+            {
+                var count = Model.Counts.GetValueOrDefault(tab.Mode);
+
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link @(tab.Mode == mode ? "active" : string.Empty)"
+                       id="FriendsTab@(tab.Mode.ToInt())"
+                       role="tab"
+                       aria-selected="@(tab.Mode == mode ? "true" : "false")"
+                       href="@Url.Page(ForumPages.MyFriends.GetPageName(), new { mode = tab.Mode.ToInt() })">
+                        @Html.Icon(tab.Icon)@tab.Text
+                        @if (count > 0)
+                        {
+                            <span class="badge rounded-pill @(tab.Mode == FriendMode.ReceivedRequests ? "text-bg-danger" : "text-bg-secondary") ms-1">@count</span>
+                        }
+                    </a>
+                </li>
+            }
+        </ul>
+
+        <form method="post" asp-page="@ForumPages.MyFriends.GetPageName()" asp-antiforgery="true">
+            <input type="hidden" asp-for="Mode" />
+
+            @if (Model.ListView.NullOrEmpty())
+            {
+                <div class="card mb-3">
+                    <div class="card-body text-center">
+                        <empty icon="@(mode == FriendMode.Friends ? "users" : mode == FriendMode.ReceivedRequests ? "user-plus" : "paper-plane")"
+                               header-text-page="FRIENDS"
+                               header-text-tag="@(mode == FriendMode.Friends ? "INFO_NO" : mode == FriendMode.ReceivedRequests ? "INFO_PENDING" : "EMPTY_SENT")"
+                               message-text-page="FRIENDS"
+                               message-text-tag="@(mode == FriendMode.Friends ? "EMPTY_FRIENDS_MESSAGE" : "EMPTY_REQUESTS_MESSAGE")">
+                        </empty>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @if (mode == FriendMode.ReceivedRequests)
+                {
+                    <div class="d-flex flex-wrap justify-content-end gap-2 mb-3">
+                        <button return-confirm-tag="NOTIFICATION_APPROVEALLADD"
+                                asp-page-handler="ApproveAddAll"
+                                text-localized-tag="APPROVE_ALL"
+                                button-style="OutlineSuccess"
+                                button-size="Small"
+                                Icon="check-double"></button>
+                        <button return-confirm-tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED"
+                                asp-page-handler="DenyAll"
+                                text-localized-tag="DENY_ALL"
+                                button-style="None"
+                                                class="btn btn-sm btn-outline-danger"
+                                button-size="Small"
+                                Icon="times-circle"></button>
+                    </div>
+                }
+
+                <div class="friend-grid mb-3">
+                    @foreach (var item in Model.ListView)
+                    {
+                        var name = Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name;
+                        var profileLink = Model.Get<ILinkBuilder>().GetUserProfileLink(item.UserID, name);
+
+                        <div class="card friend-card list-group-item-menu" data-user-id="@item.UserID">
+                            <div class="card-body">
+                                <img class="friend-avatar"
+                                     src="@Html.Raw(Model.Get<IAvatars>().GetAvatarUrlForUser(item.UserID, item.Avatar, item.AvatarImage != null))"
+                                     alt="@name" />
+                                <div class="friend-main">
+                                    <div class="text-truncate fw-semibold">
+                                        @Html.UserLink(item.UserID, name, item.Suspended, item.UserStyle)
+                                    </div>
+                                    @if (mode != FriendMode.Friends)
+                                    {
+                                        <div class="small text-body-secondary">
+                                            @Html.Icon("clock")@Html.Raw(Model.Get<IDateTimeService>().FormatDateLong(item.Requested))
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="card-footer friend-actions">
+                                @switch (mode)
+                                {
+                                    case FriendMode.Friends:
+                                        @if (allowMessages)
+                                        {
+                                            <a href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = item.UserID }))"
+                                               class="btn btn-sm btn-outline-secondary"
+                                               title="@Model.GetText("FRIENDS", "SEND_MESSAGE")">
+                                                @Html.Icon("envelope")<span class="visually-hidden">@Model.GetText("FRIENDS", "SEND_MESSAGE")</span>
+                                            </a>
+                                        }
+                                        <button text-localized-tag="REMOVEBUDDY"
+                                                return-confirm-tag="NOTIFICATION_REMOVE"
+                                                asp-page-handler="Remove"
+                                                asp-route-userId="@(item.UserID)"
+                                                button-size="Small"
+                                                button-style="None"
+                                                class="btn btn-sm btn-outline-danger"
+                                                Icon="user-minus"></button>
+                                        break;
+                                    case FriendMode.ReceivedRequests:
+                                        <button button-size="Small"
+                                                asp-page-handler="ApproveAdd"
+                                                asp-route-userId="@(item.UserID)"
+                                                text-localized-tag="APPROVE"
+                                                button-style="Success"
+                                                Icon="check"></button>
+                                        <button button-size="Small"
+                                                return-confirm-tag="NOTIFICATION_DENY"
+                                                asp-page-handler="Deny"
+                                                asp-route-userId="@(item.UserID)"
+                                                text-localized-tag="DENY"
+                                                button-style="None"
+                                                class="btn btn-sm btn-outline-danger"
+                                                Icon="times-circle"></button>
+                                        break;
+                                    case FriendMode.SendRequests:
+                                        <button text-localized-tag="REMOVE"
+                                                asp-page-handler="RemoveRequest"
+                                                asp-route-userId="@(item.UserID)"
+                                                button-size="Small"
+                                                button-style="None"
+                                                class="btn btn-sm btn-outline-danger"
+                                                Icon="trash"></button>
+                                        break;
+                                }
+                            </div>
+                            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                <a class="dropdown-item" href="@profileLink">
+                                    @Html.Icon("user")@Html.LocalizedText("FRIENDS", "VIEW_PROFILE")
+                                </a>
+                                @if (allowMessages && mode == FriendMode.Friends)
+                                {
+                                    <a class="dropdown-item" href="@(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = item.UserID }))">
+                                        @Html.Icon("envelope")@Html.LocalizedText("FRIENDS", "SEND_MESSAGE")
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                    <div class="input-group input-group-sm w-auto">
+                        <span class="input-group-text">@Html.LocalizedText("SHOW"):</span>
+                        <select asp-for="Size"
+                                asp-items="Model.PageSizeList"
+                                title="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                aria-label="@Html.LocalizedText("COMMON", "SHOW_TITLE")"
+                                class="form-select"
+                                onchange="this.form.submit();"></select>
+                    </div>
+                    @if (Model.ListCount > Model.Size)
+                    {
+                        <pager page-size="@Model.Size" count="@Model.ListCount"></pager>
+                    }
+                </div>
+            }
+        </form>
     </div>
 </div>

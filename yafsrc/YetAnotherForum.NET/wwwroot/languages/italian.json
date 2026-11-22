@@ -107,6 +107,14 @@
             "#text": "Ha ricevuto un ringraziamento da {0} nel Topic {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Mostra tutto"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Mostra i tuoi messaggi"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Firma"
           },
@@ -10644,6 +10652,18 @@
             "#text": "Modifica amici"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Aggiungi membri come amici dal loro profilo."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Le nuove richieste di amicizia vengono mostrate qui."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Non hai richieste di amicizia in sospeso"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Non hai ancora amici"
           },
@@ -10674,6 +10694,14 @@
           {
             "@tag": "POSTS",
             "#text": "Messaggi"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Invia un messaggio privato"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Visualizza profilo"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12099,8 +12127,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nessuna notifica"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Menzioni, citazioni, ringraziamenti e risposte alle discussioni seguite vengono mostrate qui."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Mostra tutto"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Le tue notifiche di attività"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Notifiche non lette"
           }
         ]
       },
@@ -12116,12 +12160,20 @@
             "#text": "Le tue conversazioni"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Elimina conversazione"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Filtra conversazioni..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Trova un utente (almeno 3 lettere) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Ultima visita: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

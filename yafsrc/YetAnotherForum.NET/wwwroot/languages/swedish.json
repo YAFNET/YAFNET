@@ -107,6 +107,14 @@
             "#text": "Har fått ett tack från {0} i ämnet {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Visa alla"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Visa dina inlägg"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Signatur"
           },
@@ -10652,6 +10660,18 @@
             "#text": "Redigera vänner"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Lägg till medlemmar som vänner från deras profil."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Nya vänförfrågningar visas här."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Du har inga öppna vänförfrågningar"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Du har inga vänner ännu"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Inlägg"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Skicka ett privat meddelande"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Visa profil"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Inga aviseringar"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Omnämnanden, citat, tack och svar i bevakade ämnen visas här."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Visa alla"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Dina aktivitetsmeddelanden"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Olästa aviseringar"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Dina konversationer"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Ta bort konversation"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Filtrera konversationer..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Hitta en användare (minst 3 bokstäver) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Senaste besök: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

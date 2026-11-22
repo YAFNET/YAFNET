@@ -107,6 +107,14 @@
                     "#text": "Has Received a Thanks from {0} in the Topic {1}"
                 },
                 {
+                    "@tag": "SHOW_ALL",
+                    "#text": "Show all"
+                },
+                {
+                    "@tag": "SHOW_POSTS",
+                    "#text": "Show your posts"
+                },
+                {
                     "@tag": "SIGNATURE",
                     "#text": "Signature"
                 },
@@ -10644,6 +10652,18 @@
                     "#text": "Edit Friends"
                 },
                 {
+                    "@tag": "EMPTY_FRIENDS_MESSAGE",
+                    "#text": "Add members as friends from their profile."
+                },
+                {
+                    "@tag": "EMPTY_REQUESTS_MESSAGE",
+                    "#text": "New friend requests are shown here."
+                },
+                {
+                    "@tag": "EMPTY_SENT",
+                    "#text": "You have no open friend requests"
+                },
+                {
                     "@tag": "INFO_NO",
                     "#text": "You don't have any friends yet"
                 },
@@ -10674,6 +10694,14 @@
                 {
                     "@tag": "POSTS",
                     "#text": "Posts"
+                },
+                {
+                    "@tag": "SEND_MESSAGE",
+                    "#text": "Send a private message"
+                },
+                {
+                    "@tag": "VIEW_PROFILE",
+                    "#text": "View profile"
                 },
                 {
                     "@tag": "YOUR_REQUESTS",
@@ -12115,6 +12143,14 @@
         {
             "@name": "PM",
             "Resource": [
+                {
+                    "@tag": "DELETE_CONVERSATION",
+                    "#text": "Delete conversation"
+                },
+                {
+                    "@tag": "LAST_VISIT",
+                    "#text": "Last visit: {0}"
+                },
                 {
                     "@tag": "NOT_SENT",
                     "#text": "The message was not sent: the user does not accept private messages from you."
@@ -14067,8 +14103,24 @@
             "@name": "NOTIFICATION",
             "Resource": [
                 {
+                    "@tag": "EMPTY_HEADER",
+                    "#text": "No notifications"
+                },
+                {
+                    "@tag": "EMPTY_MESSAGE",
+                    "#text": "Mentions, quotes, thanks and replies to watched topics are shown here."
+                },
+                {
+                    "@tag": "SHOW_ALL",
+                    "#text": "Show all"
+                },
+                {
                     "@tag": "TITLE",
                     "#text": "Your activity notifications"
+                },
+                {
+                    "@tag": "UNREAD",
+                    "#text": "Unread notifications"
                 }
             ]
         },

@@ -107,6 +107,14 @@
             "#text": "A primit o mulțumire de la {0} în tema {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Arată tot"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Arată mesajele tale"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Semnatura"
           },
@@ -10652,6 +10660,18 @@
             "#text": "Editeaza Friends"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Adaugă membri ca prieteni din profilul lor."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Cererile noi de prietenie apar aici."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Nu ai cereri de prietenie deschise"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Nu ai încă niciun prieten"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Mesaje"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Trimite un mesaj privat"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Vezi profilul"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Nicio notificare"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Aici apar mențiunile, citatele, mulțumirile și răspunsurile la subiectele urmărite."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Arată tot"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Notificările dvs. de activitate"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Notificări necitite"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Conversațiile tale"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Șterge conversația"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Filtrați conversațiile..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Găsiți un utilizator (cel puțin 3 litere)..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Ultima vizită: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

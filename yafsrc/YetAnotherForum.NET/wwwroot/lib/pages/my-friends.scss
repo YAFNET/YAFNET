@@ -1,10 +1,53 @@
-// MyFriends Page
-.page-MyFriends {
+// MyFriends Page: the friends and the requests as cards
+.my-friends {
+    .friend-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+        gap: 1rem;
+    }
 
-    .user-card {
-        .preview img {
-            width: 3.5rem;
-            height: 3.5rem;
+    .friend-card {
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+        &:hover {
+            border-color: var(--bs-primary-border-subtle);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
         }
+
+        .card-body {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+        }
+    }
+
+    .friend-avatar {
+        flex: 0 0 auto;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: var(--bs-border-radius);
+        object-fit: cover;
+    }
+
+    .friend-main {
+        min-width: 0;
+    }
+
+    .friend-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: .5rem;
+        background-color: transparent;
+    }
+
+    .nav-tabs .badge {
+        font-weight: 500;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .my-friends .friend-card {
+        transition: none;
     }
 }

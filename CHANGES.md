@@ -129,6 +129,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Albums redesigned: album cards with the cover, the number of images and the quota, a cover badge and copy BBCode on the album, the edit page with sections, a sticky bar and a message for an upload without a file
 * [FIXED] Messages: a conversation that was opened again before it was loaded showed the messages twice (a click on another conversation gave a script error)
 * [FIXED] Messages: a message to a user that does not accept private messages from the user was removed without a message, now the user is told and the text stays
+* [CHANGES] My Messages, Notifications, My Account and My Friends redesigned: headers with counts, the conversation header with the profile and last visit, a new sender is added to the conversation list, filter chips, the friends lists as tabs that stay selected after an action
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

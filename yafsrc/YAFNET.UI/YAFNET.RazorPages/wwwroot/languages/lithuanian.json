@@ -107,6 +107,14 @@
             "#text": "Gavo padėką iš {0} temoje {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Rodyti viską"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Rodyti jūsų įrašus"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Parašas "
           },
@@ -10652,6 +10660,18 @@
             "#text": "Redaguoti draugus"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Pridėkite narius prie draugų jų profilyje."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Nauji kvietimai draugauti rodomi čia."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Neturite atvirų kvietimų draugauti"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Dar neturite draugų"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Pranešimai"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Siųsti asmeninę žinutę"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Peržiūrėti profilį"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Pranešimų nėra"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Čia rodomi paminėjimai, citatos, padėkos ir atsakymai stebimose temose."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Rodyti viską"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Jūsų pranešimai apie veiklą"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Neskaityti pranešimai"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Jūsų pokalbiai"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Ištrinti pokalbį"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Filtruoti pokalbius..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Raskite vartotoją (bent 3 raidės)..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Paskutinis apsilankymas: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

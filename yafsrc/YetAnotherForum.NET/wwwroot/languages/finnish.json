@@ -107,6 +107,14 @@
             "#text": "On saanut Kiitos {0} aiheesta {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Näytä kaikki"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Näytä viestisi"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Allekirjoitus"
           },
@@ -10652,6 +10660,18 @@
             "#text": "Muokkaa ystäviä"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Lisää jäseniä kavereiksi heidän profiilistaan."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Uudet kaveripyynnöt näkyvät täällä."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Sinulla ei ole avoimia kaveripyyntöjä"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Sinulla ei ole vielä yhtään ystävää"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Virat"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Lähetä yksityisviesti"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Näytä profiili"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ei ilmoituksia"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Maininnat, lainaukset, kiitokset ja vastaukset seurattuihin aiheisiin näkyvät täällä."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Näytä kaikki"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Aktiviteettisi ilmoitukset"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Lukemattomat ilmoitukset"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Keskustelut"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Poista keskustelu"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Suodata keskustelut..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Etsi käyttäjä (vähintään 3 kirjainta) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Viimeksi paikalla: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

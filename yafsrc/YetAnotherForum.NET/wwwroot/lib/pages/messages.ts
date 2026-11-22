@@ -96,11 +96,84 @@ chatHub.on('privateMessageNotSent', (toUserId: number) => {
 	alert.textContent = (document.getElementById('PriChatDiv') as HTMLElement).dataset.notSent ?? '';
 });
 
+// the number of the unread messages in the header
+function changeUnreadTotal(change: number): void {
+	const total = document.getElementById('UnreadCount');
+
+	if (!total) {
+		return;
+	}
+
+	const count = Math.max(0, parseInt(total.textContent ?? '0') + change);
+
+	total.textContent = `${count}`;
+	total.classList.toggle('text-bg-danger', count > 0);
+	total.classList.toggle('text-bg-secondary', count === 0);
+}
+
+// decodes the html encoded text (the avatar url of the hub is html encoded)
+function decodeHtml(text: string): string {
+	const area = document.createElement('textarea');
+	area.innerHTML = text;
+	return area.value;
+}
+
+// a conversation with a user that is not in the list yet (the first message of the user)
+function addConversation(userId: number, name: string, avatar: string): HTMLLIElement | null {
+	let list = document.querySelector<HTMLUListElement>('.chat-list');
+
+	if (!list) {
+		// the page had no conversations: the list replaces the text
+		const body = document.querySelector<HTMLElement>('.my-messages .card .card-body');
+
+		if (!body) {
+			return null;
+		}
+
+		list = document.createElement('ul');
+		list.className = 'list-group list-group-flush chat-list mb-0';
+		body.replaceChildren(list);
+	}
+
+	const li = document.createElement('li');
+	li.id = `${userId}`;
+	li.className = 'chat-list-user list-group-item list-group-item-action d-flex align-items-center';
+	li.dataset.name = name;
+
+	const img = document.createElement('img');
+	img.className = 'img-thumbnail rounded chat-avatar me-2 flex-shrink-0 object-fit-cover';
+	img.src = decodeHtml(avatar);
+	img.alt = name;
+
+	const info = document.createElement('div');
+	info.className = 'chat-user-info flex-grow-1';
+
+	const line = document.createElement('div');
+	line.className = 'd-flex justify-content-between align-items-baseline';
+
+	const label = document.createElement('span');
+	label.className = 'name text-truncate';
+	label.textContent = name;
+
+	line.append(label);
+	info.append(line);
+	li.append(img, info);
+	list.prepend(li);
+
+	bindConversation(li);
+
+	return li;
+}
+
 // a new message in a conversation that is not open, the conversation is marked as unread
-chatHub.on('newPrivateMessage', (fromUserId: number) => {
-	const li = document.getElementById(`${fromUserId}`);
+chatHub.on('newPrivateMessage', (fromUserId: number, name?: string, avatar?: string) => {
+	let li = document.getElementById(`${fromUserId}`);
 
 	if (!li?.classList.contains('chat-list-user')) {
+		li = name ? addConversation(fromUserId, name, avatar ?? '') : null;
+	}
+
+	if (!li) {
 		return;
 	}
 
@@ -115,6 +188,8 @@ chatHub.on('newPrivateMessage', (fromUserId: number) => {
 
 	badge.textContent = `${parseInt(badge.textContent ?? '0') + 1}`;
 	li.classList.add('unread');
+
+	changeUnreadTotal(1);
 
 	moveToTop(li);
 });
@@ -179,6 +254,12 @@ function registerEvents(): void {
 
 	if (li) {
         addMessageUser(li);
+	} else {
+		// no conversation is open (the user has no conversations): the page is connected to get
+		// the first message of another user
+		const avatar = document.getElementsByClassName('img-navbar-avatar')[0]?.getAttribute('src') ?? '';
+
+		chatHub.invoke('ConnectAsync', avatar, 0);
 	}
 }
 function addMessageUser(li: HTMLLIElement): void {
@@ -198,7 +279,9 @@ function addMessageUser(li: HTMLLIElement): void {
 			ctrId,
 			toUserName,
 			avatarUrl,
-			avatar);
+			avatar,
+			li.dataset.profile ?? '',
+			li.dataset.lastVisit ?? '');
 	}
 
 	// the dialog of the confirm button (utilities.ts) clicks the button again after it was confirmed
@@ -236,7 +319,7 @@ function escapeAttribute(text: string): string {
 	return text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userName: string, toAvatarUrl: string, avatarUrl: string): void {
+function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userName: string, toAvatarUrl: string, avatarUrl: string, profileUrl: string, lastVisit: string): void {
 
 	// Append private chat div inside the main div
 	const priChatDiv = document.getElementById('PriChatDiv') as HTMLDivElement;
@@ -251,11 +334,17 @@ function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userNa
     $div.className = 'card direct-chat';
     $div.dataset.toAvatar = toAvatarUrl;
     $div.dataset.avatar = avatarUrl;
-    $div.innerHTML = `<div class="card-header"><div class="row justify-content-between align-items-center">
-                          <div class="col-auto"><h3 class="card-title">${userName}</h3></div>
-                          <div class="col-auto"><button id="deleteConversation" class="btn btn-danger" type="button"
+    const title = profileUrl ? `<a href="${escapeAttribute(profileUrl)}" class="text-reset text-decoration-none">${userName}</a>` : userName;
+
+    $div.innerHTML = `<div class="card-header d-flex align-items-center gap-2">
+                          <img class="chat-header-avatar img-thumbnail rounded object-fit-cover flex-shrink-0" src="${escapeAttribute(toAvatarUrl)}" alt="">
+                          <div class="flex-grow-1 min-w-0"><h3 class="card-title h6 mb-0 text-truncate">${title}</h3>
+                          <small class="text-body-secondary chat-last-visit">${escapeAttribute(lastVisit)}</small></div>
+                          <div class="dropdown"><button class="btn btn-sm btn-link text-body-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                  title="${escapeAttribute(texts.options ?? '')}" aria-label="${escapeAttribute(texts.options ?? '')}"><i class="fas fa-ellipsis-vertical"></i></button>
+                          <ul class="dropdown-menu dropdown-menu-end"><li><button id="deleteConversation" class="dropdown-item text-danger" type="button"
                                   data-bs-toggle="confirm" data-title="${escapeAttribute(texts.confirm ?? '')}"
-                                  data-yes="${escapeAttribute(texts.yes ?? '')}" data-no="${escapeAttribute(texts.no ?? '')}"><i class="fas fa-trash"></i><span class="ms-1 d-none d-md-inline">${escapeAttribute(texts.delete ?? '')}</span></button>  </div></div></div>
+                                  data-yes="${escapeAttribute(texts.yes ?? '')}" data-no="${escapeAttribute(texts.no ?? '')}"><i class="fas fa-trash me-1"></i>${escapeAttribute(texts.delete ?? '')}</button></li></ul></div></div>
                       <div class="card-body"> <div id="divMessage" class="direct-chat-messages"></div>  </div>
                       <div class="card-footer">  <div class="input-group mb-0">
                           <textarea rows="2" id="txtPrivateMessage" name="message" placeholder="${escapeAttribute(placeHolder)}" class="form-control"></textarea>
@@ -296,7 +385,7 @@ function openPrivateChatCard(chatHub: any, userId: string, ctrId: string, userNa
     });
 }
 
-document.querySelectorAll<HTMLLIElement>('.chat-list-user').forEach(user => {
+function bindConversation(user: HTMLLIElement): void {
 	user.addEventListener('click', () => {
 		const activeUser = document.querySelector<HTMLElement>('.chat-list .active');
 		if (activeUser) {
@@ -308,12 +397,20 @@ document.querySelectorAll<HTMLLIElement>('.chat-list-user').forEach(user => {
 		li.classList.add('active');
 
 		// opening the conversation marks all messages as read
+		const badge = li.querySelector('.chat-unread');
+
+		if (badge) {
+			changeUnreadTotal(-parseInt(badge.textContent ?? '0'));
+			badge.remove();
+		}
+
 		li.classList.remove('unread');
-		li.querySelector('.chat-unread')?.remove();
 
         addMessageUser(li);
 	});
-});
+}
+
+document.querySelectorAll<HTMLLIElement>('.chat-list-user').forEach(user => bindConversation(user));
 
 // filter the conversation list by the name of the user
 document.getElementById('FilterConversations')?.addEventListener('input', (e: Event) => {

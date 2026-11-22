@@ -24,19 +24,31 @@
 
 @Html.AntiForgeryToken()
 
-<div class="row">
+@{
+    // the open conversation is marked as read when it is loaded
+    var unreadTotal = Model.Users.NullOrEmpty() ? 0 : Model.Users.Where(x => !x.Selected).Sum(x => Model.UnreadCounts.GetValueOrDefault(x.ID));
+}
+
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3 my-messages-header">
+    <h2 class="h4 mb-0">
+        @Html.Icon("inbox")@Html.LocalizedText("PM", "TITLE")
+        <span class="badge @(unreadTotal > 0 ? "text-bg-danger" : "text-bg-secondary") align-middle ms-1"
+              id="UnreadCount"
+              title="@Model.GetText("COMMON", "UNREAD_MSG_TITLE")">@unreadTotal</span>
+    </h2>
+    <button type="button" class="btn btn-sm btn-primary"
+            data-bs-toggle="collapse" data-bs-target="#NewConversation"
+            aria-expanded="false" aria-controls="NewConversation">
+        @Html.Icon("plus")@Html.LocalizedText("PM", "NEW_CONVERSATION")
+    </button>
+</div>
+
+<div class="row my-messages">
     <div class="col-12 col-xl-3">
         <div class="card mb-3">
 
-            <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card-header">
                 @Html.LocalizedText("CONVERSATION_TITLE")
-                <button type="button" class="btn btn-sm btn-primary"
-                        data-bs-toggle="collapse" data-bs-target="#NewConversation"
-                        aria-expanded="false" aria-controls="NewConversation"
-                        title="@Model.GetText("PM", "NEW_CONVERSATION")">
-                    <i class="fas fa-plus"></i>
-                    <span class="visually-hidden">@Html.LocalizedText("PM", "NEW_CONVERSATION")</span>
-                </button>
             </div>
 
             <input id="UserId" type="hidden" value="@BoardContext.Current.PageUserID" />
@@ -74,7 +86,9 @@
                             var preview = Model.GetLastMessagePreview(user.ID);
 
                             <li id="@(user.ID)" class="chat-list-user list-group-item list-group-item-action d-flex align-items-center@(user.Selected ? " active" : "")@(unread > 0 ? " unread" : "")"
-                                data-name="@user.DisplayOrUserName()">
+                                data-name="@user.DisplayOrUserName()"
+                                data-profile="@(Model.Get<ILinkBuilder>().GetUserProfileLink(user))"
+                                data-last-visit="@Model.GetTextFormatted("LAST_VISIT", System.Net.WebUtility.HtmlDecode(YAF.Core.Helpers.HtmlTagHelper.StripHtml(Model.Get<IDateTimeService>().FormatDateTimeTopic(user.LastVisit))))">
                                 <img class="img-thumbnail rounded chat-avatar me-2 flex-shrink-0 object-fit-cover@(isOnline ? " chat-avatar-online" : "")" loading="lazy"
                                      src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))"
                                      alt="@(user.DisplayOrUserName())"
@@ -118,7 +132,8 @@
                      data-placeholder="@Model.GetText("PM", "PLACEHOLDER")"
                      data-send="@Model.GetText("PM", "SEND_TT")"
                      data-you="@Model.GetText("PM", "YOU")"
-                     data-delete="@Model.GetText("COMMON", "DELETE")"
+                     data-delete="@Model.GetText("PM", "DELETE_CONVERSATION")"
+                     data-options="@Model.GetText("POSTS", "TOOLS")"
                      data-confirm="@Model.GetText("PM", "CONFIRM_DELETE")"
                      data-not-sent="@Model.GetText("PM", "NOT_SENT")"
                      data-yes="@Model.GetText("COMMON", "YES")"

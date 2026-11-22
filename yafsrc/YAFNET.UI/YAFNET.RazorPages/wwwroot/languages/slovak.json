@@ -107,6 +107,14 @@
             "#text": "Dostal poďakovanie od {0} v téme {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Zobraziť všetko"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Zobraziť vaše príspevky"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Podpis"
           },
@@ -10652,6 +10660,18 @@
             "#text": "Upraviť priateľov"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Pridávajte členov medzi priateľov z ich profilu."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Nové žiadosti o priateľstvo sa zobrazia tu."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Nemáte žiadne otvorené žiadosti o priateľstvo"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Zatiaľ nemáte žiadnych priateľov"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Príspevky"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Poslať súkromnú správu"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Zobraziť profil"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Žiadne upozornenia"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tu sa zobrazujú zmienky, citácie, poďakovania a odpovede v sledovaných témach."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Zobraziť všetko"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Vaše oznámenia o činnosti"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Neprečítané upozornenia"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Vaše rozhovory"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Odstrániť konverzáciu"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Filtrovať konverzácie..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Nájsť používateľa (aspoň 3 písmená) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Posledná návšteva: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

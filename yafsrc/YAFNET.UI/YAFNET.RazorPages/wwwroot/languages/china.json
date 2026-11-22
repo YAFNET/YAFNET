@@ -107,6 +107,14 @@
             "#text": "已收到 {0} 在主题 {1} 中的感谢"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "显示全部"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "显示你的帖子"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "签名"
           },
@@ -10652,6 +10660,18 @@
             "#text": "编辑朋友"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "在成员的个人资料中将其添加为好友。"
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "新的好友请求会显示在这里。"
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "你没有待处理的好友请求"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "你还没有朋友"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "帖子"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "发送私信"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "查看个人资料"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "没有通知"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "提及、引用、感谢以及关注主题的回复会显示在这里。"
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "显示全部"
+          },
+          {
             "@tag": "TITLE",
             "#text": "您的活动通知"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "未读通知"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "您的对话"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "删除会话"
+          },
+          {
             "@tag": "FILTER",
             "#text": "过滤对话..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "查找用户（至少 3 个字母）..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "最后访问：{0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

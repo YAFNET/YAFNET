@@ -107,6 +107,14 @@
             "#text": "Otrzymał podziękowanie od {0} w temacie {1}."
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Pokaż wszystko"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Pokaż swoje posty"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Podpis"
           },
@@ -10648,6 +10656,18 @@
             "#text": "Edytuj znajomych"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Dodawaj członków do znajomych z poziomu ich profilu."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Nowe zaproszenia do znajomych są wyświetlane tutaj."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Nie masz otwartych zaproszeń do znajomych"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Nie masz jeszcze żadnych przyjaciół"
           },
@@ -10678,6 +10698,14 @@
           {
             "@tag": "POSTS",
             "#text": "Posty"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Wyślij prywatną wiadomość"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Zobacz profil"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12103,8 +12131,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Brak powiadomień"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Tutaj są wyświetlane wzmianki, cytaty, podziękowania i odpowiedzi w obserwowanych tematach."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Pokaż wszystko"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Twoje powiadomienia o aktywności"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Nieprzeczytane powiadomienia"
           }
         ]
       },
@@ -12120,12 +12164,20 @@
             "#text": "Twoje rozmowy"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Usuń rozmowę"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Filtruj rozmowy..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Znajdź użytkownika (co najmniej 3 litery) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Ostatnia wizyta: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

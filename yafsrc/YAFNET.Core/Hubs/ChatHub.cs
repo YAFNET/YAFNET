@@ -103,6 +103,12 @@ public class ChatHub : Hub, IHaveServiceLocator
 
         OpenConversations[id] = toUserId;
 
+        // the page has no open conversation (it only gets the new messages)
+        if (toUserId <= 0)
+        {
+            return;
+        }
+
         // Load existing conversations form db
         var conversation = await this.GetRepository<PrivateMessage>().GetConversationAsync(userId, toUserId);
 
@@ -214,9 +220,12 @@ public class ChatHub : Hub, IHaveServiceLocator
 
         foreach (var otherConnection in otherConnections)
         {
+            // the name and avatar: the conversation is added to the list if it is the first message of the user
             await this.Clients.Client(otherConnection.ConnectionId).SendAsync(
                 "newPrivateMessage",
-                fromConnectUser.UserId);
+                fromConnectUser.UserId,
+                fromConnectUser.DisplayName,
+                fromConnectUser.Avatar);
         }
 
         // send to caller user

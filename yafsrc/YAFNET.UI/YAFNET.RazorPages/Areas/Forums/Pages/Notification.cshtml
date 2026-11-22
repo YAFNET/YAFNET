@@ -9,48 +9,62 @@
         <div class="col-12 col-lg-auto mb-3 mb-lg-0">
             <profileMenu></profileMenu>
         </div>
-        <div class="col">
+        <div class="col notifications">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                <h2 class="h4 mb-0">
+                    @Html.Icon("bell")@Html.LocalizedText("ACCOUNT", "YOUR_NOTIFIY")
+                    <span class="badge @(Model.UnreadCount > 0 ? "text-bg-danger" : "text-bg-secondary") align-middle ms-1"
+                          id="UnreadCount"
+                          title="@Model.GetText("NOTIFICATION", "UNREAD")">@Model.UnreadCount</span>
+                </h2>
+                @if (Model.UnreadCount > 0)
+                {
+                    <button asp-page-handler="MarkAll"
+                            text-localized-tag="MARK_ALL_ASREAD" text-localized-page="DEFAULT"
+                            button-style="OutlineSecondary"
+                            button-size="Small"
+                            Icon="glasses"></button>
+                }
+            </div>
             <div class="row">
                 <div class="col">
                     <div class="card mb-3" id="activity">
-                        <div class="card-header">
-                            @Html.IconHeader("bell", "NOTIFICATION", "YOUR_NOTIFIY")
-                        </div>
                         <div class="card-body border-bottom py-2" id="notificationFilters">
 	                        <div class="d-flex flex-wrap align-items-center gap-2">
 		                        <span class="text-muted">@Html.LocalizedText("FILTER_DROPDOWN"):</span>
-                                <div class="btn-group flex-wrap" role="group" aria-label="Filters">
+                                <div class="d-flex flex-wrap gap-2" role="group" aria-label="Filters">
                                     <input asp-for="WasMentioned" class="btn-check" autocomplete="off" />
-                                    <label asp-for="WasMentioned" class="btn btn-sm">
+                                    <label asp-for="WasMentioned" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                         @Html.Icon("at")@Html.LocalizedText("NOTIFICATION", "WAS_MENTIONED")
                                     </label>
                                     <input asp-for="ReceivedThanks" class="btn-check" autocomplete="off" />
-                                    <label asp-for="ReceivedThanks" class="btn btn-sm">
+                                    <label asp-for="ReceivedThanks" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                         @Html.Icon("heart")@Html.LocalizedText("NOTIFICATION", "RECEIVED_THANKS")
                                     </label>
                                     <input asp-for="WasQuoted" class="btn-check" autocomplete="off" />
-                                    <label asp-for="WasQuoted" class="btn btn-sm">
+                                    <label asp-for="WasQuoted" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                         @Html.Icon("quote-left")@Html.LocalizedText("NOTIFICATION", "WAS_QUOTED")
                                     </label>
                                     <input asp-for="WatchForumReply" class="btn-check" autocomplete="off" />
-                                    <label asp-for="WatchForumReply" class="btn btn-sm">
+                                    <label asp-for="WatchForumReply" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                         @Html.Icon("comments")@Html.LocalizedText("NOTIFICATION", "WATCH_FORUM_REPLY")
                                     </label>
                                     <input asp-for="WatchTopicReply" class="btn-check" autocomplete="off" />
-                                    <label asp-for="WatchTopicReply" class="btn btn-sm">
+                                    <label asp-for="WatchTopicReply" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                         @Html.Icon("comment")@Html.LocalizedText("NOTIFICATION", "WATCH_TOPIC_REPLY")
                                     </label>
                                     <input asp-for="BecomeFriends" class="btn-check" autocomplete="off" />
-                                    <label asp-for="BecomeFriends" class="btn btn-sm">
+                                    <label asp-for="BecomeFriends" class="btn btn-sm btn-outline-secondary rounded-pill filter-chip">
                                         @Html.Icon("user-group")@Html.LocalizedText("ACCOUNT", "BECOME_FRIENDS")
                                     </label>
                                 </div>
                                 <button type="submit"
                                         asp-page-handler="Reset"
-                                        text-localized-tag="CLEAR"
-                                        button-style="Secondary"
+                                        text-localized-page="NOTIFICATION"
+                                        text-localized-tag="SHOW_ALL"
+                                        button-style="Link"
                                         button-size="Small"
-                                        Icon="trash">
+                                        Icon="eye">
                                 </button>
                             </div>
                         </div>
@@ -69,24 +83,11 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="card-body @(Model.Notifications.NullOrEmpty() ? string.Empty : "d-none")" id="notificationsEmpty">
-                            @await Html.PartialAsync("_NoEntryInfo")
-                        </div>
-
-                        <div class="card-footer">
-                            <div class="row justify-content-end align-items-center">
-                                <div class="col-auto">
-                                    <div class="btn-group" role="group" aria-label="Tools">
-                                        <button asp-page-handler="MarkAll"
-                                                text-localized-tag="MARK_ALL_ASREAD" text-localized-page="DEFAULT"
-                                                button-style="Secondary"
-                                                button-size="Small"
-                                                Icon="glasses"></button>
-                                    </div>
-                                </div>
-                            </div>
-
-
+                        <div class="card-body text-center @(Model.Notifications.NullOrEmpty() ? string.Empty : "d-none")" id="notificationsEmpty">
+                            <empty icon="bell"
+                                   header-text-page="NOTIFICATION" header-text-tag="EMPTY_HEADER"
+                                   message-text-page="NOTIFICATION" message-text-tag="EMPTY_MESSAGE">
+                            </empty>
                         </div>
                     </div>
 

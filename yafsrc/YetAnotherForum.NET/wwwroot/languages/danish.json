@@ -107,6 +107,14 @@
             "#text": "Har modtaget en tak fra {0} i emnet {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Vis alle"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Vis dine indlæg"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "Signatur"
           },
@@ -10652,6 +10660,18 @@
             "#text": "Rediger venner"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Tilføj medlemmer som venner fra deres profil."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Nye venneanmodninger vises her."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Du har ingen åbne venneanmodninger"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Du har ingen venner endnu"
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Indlæg"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Send en privat besked"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Vis profil"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Ingen notifikationer"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Omtaler, citater, tak og svar i overvågede emner vises her."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Vis alle"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Dine aktivitetsmeddelelser"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Ulæste notifikationer"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Dine samtaler"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Slet samtale"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Filtrer samtaler..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Find en bruger (mindst 3 bogstaver) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Seneste besøg: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

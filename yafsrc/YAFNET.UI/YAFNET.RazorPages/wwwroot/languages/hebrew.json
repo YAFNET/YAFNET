@@ -107,6 +107,14 @@
             "#text": "קיבל תודה מ-{0} בנושא {1}"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "הצג הכול"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "הצג את ההודעות שלך"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "חתימה"
           },
@@ -10656,6 +10664,18 @@
             "#text": "ערוך חברים"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "הוסף חברים מהפרופיל שלהם."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "בקשות חברות חדשות מוצגות כאן."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "אין לך בקשות חברות פתוחות"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "אין לך עדיין חברים"
           },
@@ -10686,6 +10706,14 @@
           {
             "@tag": "POSTS",
             "#text": "פוסטים"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "שלח הודעה פרטית"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "הצג פרופיל"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12119,8 +12147,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "אין התראות"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "אזכורים, ציטוטים, תודות ותגובות בנושאים במעקב מוצגים כאן."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "הצג הכול"
+          },
+          {
             "@tag": "TITLE",
             "#text": "התראות הפעילות שלך"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "התראות שלא נקראו"
           }
         ]
       },
@@ -12136,12 +12180,20 @@
             "#text": "השיחות שלך"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "מחק שיחה"
+          },
+          {
             "@tag": "FILTER",
             "#text": "סינון שיחות..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "מצא משתמש (לפחות 3 אותיות) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "ביקור אחרון: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

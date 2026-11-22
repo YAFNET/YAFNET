@@ -107,6 +107,14 @@
             "#text": "{1} Konusunda {0}'dan Bir Teşekkür Aldı"
           },
           {
+            "@tag": "SHOW_ALL",
+            "#text": "Tümünü göster"
+          },
+          {
+            "@tag": "SHOW_POSTS",
+            "#text": "Gönderilerinizi göster"
+          },
+          {
             "@tag": "SIGNATURE",
             "#text": "İmza"
           },
@@ -10652,6 +10660,18 @@
             "#text": "Arkadaşlarımı Düzenle"
           },
           {
+            "@tag": "EMPTY_FRIENDS_MESSAGE",
+            "#text": "Üyeleri profillerinden arkadaş olarak ekleyin."
+          },
+          {
+            "@tag": "EMPTY_REQUESTS_MESSAGE",
+            "#text": "Yeni arkadaşlık istekleri burada gösterilir."
+          },
+          {
+            "@tag": "EMPTY_SENT",
+            "#text": "Açık arkadaşlık isteğiniz yok"
+          },
+          {
             "@tag": "INFO_NO",
             "#text": "Henüz hiç arkadaşın yok."
           },
@@ -10682,6 +10702,14 @@
           {
             "@tag": "POSTS",
             "#text": "Mesajlar"
+          },
+          {
+            "@tag": "SEND_MESSAGE",
+            "#text": "Özel mesaj gönder"
+          },
+          {
+            "@tag": "VIEW_PROFILE",
+            "#text": "Profili görüntüle"
           },
           {
             "@tag": "YOUR_REQUESTS",
@@ -12115,8 +12143,24 @@
         "@name": "NOTIFICATION",
         "Resource": [
           {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Bildirim yok"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Bahsetmeler, alıntılar, teşekkürler ve izlenen konulara gelen yanıtlar burada gösterilir."
+          },
+          {
+            "@tag": "SHOW_ALL",
+            "#text": "Tümünü göster"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Etkinlik Bildirimleriniz"
+          },
+          {
+            "@tag": "UNREAD",
+            "#text": "Okunmamış bildirimler"
           }
         ]
       },
@@ -12132,12 +12176,20 @@
             "#text": "Sohbetleriniz"
           },
           {
+            "@tag": "DELETE_CONVERSATION",
+            "#text": "Konuşmayı sil"
+          },
+          {
             "@tag": "FILTER",
             "#text": "Konuşmaları filtrele..."
           },
           {
             "@tag": "FIND_USER",
             "#text": "Bir kullanıcı bulun (en az 3 harf) ..."
+          },
+          {
+            "@tag": "LAST_VISIT",
+            "#text": "Son ziyaret: {0}"
           },
           {
             "@tag": "NEW_CONVERSATION",

@@ -119,6 +119,7 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
                         "The last message is not shown in the conversation list");
 
                     // deleted for the test user after the confirm dialog (the page is reloaded)
+                    await page.Locator(".direct-chat [data-bs-toggle='dropdown']").ClickAsync();
                     await page.Locator("#deleteConversation").ClickAsync();
                     await page.RunAndWaitForNextPageAsync(() => page.Locator(".bootbox .btn-success").ClickAsync());
 
@@ -274,6 +275,76 @@ public class PrivateMessageTests(ComposeScenario scenario) : DatabaseTestBase(sc
                                     Is.Zero,
                                     "The message is shown as sent");
                             });
+                });
+    }
+
+    /// <summary>
+    /// The first message of a user is added to the conversation list of the open page (with the unread count).
+    /// </summary>
+    [Test]
+    public async Task NewSenderIsAddedToTheListTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    var userName = await page.RegisterNewTestUserAsync(this.TestSettings, this.Fixture.SmtpServer);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages");
+
+                    Assert.That(await page.Locator("li.chat-list-user").CountAsync(), Is.Zero, "The new user has conversations");
+
+                    // the admin writes to the user (in an own browser)
+                    await using var adminContext = await this.Fixture.Context.Browser!.NewContextAsync(
+                                                       new BrowserNewContextOptions
+                                                           {
+                                                               BaseURL = this.TestSettings.TestForumUrl,
+                                                               IgnoreHTTPSErrors = true
+                                                           });
+
+                    var adminPage = await adminContext.NewPageAsync();
+
+                    Assert.That(
+                        await adminPage.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword),
+                        Is.True,
+                        "Login failed");
+
+                    await adminPage.GotoAsync($"{this.TestSettings.TestForumUrl}MyMessages");
+                    await adminPage.Locator("[data-bs-target='#NewConversation']").First.ClickAsync();
+                    await adminPage.Locator("#FindUser").FillAsync(userName);
+
+                    var userLink = adminPage.Locator("#FindUserResults a", new PageLocatorOptions { HasText = userName });
+
+                    await userLink.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+                    await adminPage.RunAndWaitForNextPageAsync(() => userLink.ClickAsync());
+
+                    var text = $"Welcome {Random.Shared.Next()}";
+
+                    await adminPage.Locator("#txtPrivateMessage").FillAsync(text);
+                    await adminPage.Locator("#txtPrivateMessage").PressAsync("Enter");
+                    await adminPage.Locator(".direct-chat-text", new PageLocatorOptions { HasText = text }).WaitForAsync();
+
+                    // the conversation with the admin is added to the list of the user
+                    var conversation = page.Locator(
+                        "li.chat-list-user",
+                        new PageLocatorOptions { HasText = this.TestSettings.AdminUserName });
+
+                    await conversation.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+
+                    Assert.Multiple(
+                        async () =>
+                            {
+                                Assert.That(await conversation.Locator(".chat-unread").TextContentAsync(), Is.EqualTo("1"), "No unread message");
+                                Assert.That(await page.Locator("#UnreadCount").TextContentAsync(), Is.EqualTo("1"), "The unread messages are not counted");
+                            });
+
+                    // the conversation can be opened
+                    await conversation.ClickAsync();
+
+                    await page.Locator(".direct-chat-text", new PageLocatorOptions { HasText = text })
+                        .WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+
+                    Assert.That(await page.Locator("#UnreadCount").TextContentAsync(), Is.EqualTo("0"), "The read messages are counted");
                 });
     }
 

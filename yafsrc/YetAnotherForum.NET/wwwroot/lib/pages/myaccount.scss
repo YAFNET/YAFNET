@@ -44,3 +44,29 @@
         }
     }
 }
+
+// the tiles of the account: the email address is not broken in the middle of a word on wide screens
+.my-account {
+    .account-detail-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+        gap: .75rem;
+
+        .detail-tile-value {
+            overflow-wrap: anywhere;
+            word-break: normal;
+        }
+    }
+
+    .account-links {
+        align-self: flex-start;
+    }
+}
+
+// the filters of the activity and the notifications as chips
+.my-account,
+.notifications {
+    .filter-chip {
+        --bs-btn-padding-x: .75rem;
+    }
+}
