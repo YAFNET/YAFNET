@@ -74,4 +74,43 @@ public class EditBoardTests(ComposeScenario scenario) : DatabaseTestBase(scenari
                 Assert.That(page.Url, Does.EndWith("Admin/Boards"), "Cancel didn't go to the boards");
             });
     }
+
+    /// <summary>
+    /// The switch "create a new admin" keeps the cultures: the select was empty, a new board had no culture.
+    /// </summary>
+    [Test]
+    public async Task CreateAdminUserKeepsTheCulturesTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+            {
+                Assert.That(await page.LoginUserAsync(this.TestSettings, this.TestSettings.AdminUserName, this.TestSettings.AdminPassword), Is.True, "Login failed");
+
+                await page.GotoAsync($"{this.TestSettings.TestForumUrl}Admin/EditBoard");
+
+                await ShowAdminUserFieldsAsync(page);
+
+                Assert.That(await page.Locator("#Input_UserPass1").CountAsync(), Is.EqualTo(1), "The fields of the new admin are not shown");
+                Assert.That(await page.Locator("#Input_Culture option").CountAsync(), Is.GreaterThan(0), "The select of the cultures is empty");
+            });
+    }
+
+    /// <summary>
+    /// Turns the switch of the new admin on (the fields are shown).
+    /// </summary>
+    private static async Task ShowAdminUserFieldsAsync(IPage page)
+    {
+        var createAdmin = page.Locator("#Input_CreateAdminUser");
+
+        // the switch sent the form (the fields were made on the server)
+        if (await createAdmin.GetAttributeAsync("onchange") is not null)
+        {
+            await page.RunAndWaitForNextPageAsync(() => createAdmin.CheckAsync(new LocatorCheckOptions { Force = true }));
+        }
+        else
+        {
+            await createAdmin.CheckAsync(new LocatorCheckOptions { Force = true });
+        }
+    }
 }
