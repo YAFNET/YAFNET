@@ -29,6 +29,8 @@ namespace YAF.Pages;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 
+using YAF.Core.Context;
+
 using YAF.Types.Extensions;
 
 /// <summary>
@@ -81,6 +83,22 @@ public class ErrorModel : ForumPage
     }
 
     /// <summary>
+    /// Gets a value indicating whether the current user is a host admin (the error can be in the board context
+    /// itself: then the details are not shown).
+    /// </summary>
+    private static bool IsHostAdmin()
+    {
+        try
+        {
+            return BoardContext.Current?.PageUser?.UserFlags.IsHostAdmin == true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Shows the error.
     /// </summary>
     /// <returns>IActionResult.</returns>
@@ -104,10 +122,19 @@ public class ErrorModel : ForumPage
 
         var error = exceptionHandlerPathFeature.Error;
 
+        this.Get<ILogger<ErrorModel>>().Error(error, error.Message);
+
+        // the message and the stack trace show internals (paths, sql, settings): only the host admins see
+        // them, the others a general message (the error is in the event log)
+        if (!IsHostAdmin())
+        {
+            this.ErrorMessage = "Something went wrong while processing your request.";
+
+            return this.Page();
+        }
+
         this.ErrorMessage = error.Message;
         this.ErrorDescription = error.StackTrace;
-
-        this.Get<ILogger<ErrorModel>>().Error(error, error.Message);
 
         return this.Page();
     }

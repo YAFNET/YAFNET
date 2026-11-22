@@ -27,16 +27,20 @@
 		<p class="lead">
 			@Model.ErrorMessage
 		</p>
-		<p>
-			<button class="btn btn-outline-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseError" aria-expanded="false" aria-controls="collapseError">
-				Show Full Error
-			</button>
-		</p>
-		<div class="collapse" id="collapseError">
-			<div class="card card-body">
-				<pre class="stacktrace"><code>@Model.ErrorDescription</code></pre>
+		@* the details are only set for host admins *@
+		@if (!string.IsNullOrEmpty(Model.ErrorDescription))
+		{
+			<p>
+				<button class="btn btn-outline-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseError" aria-expanded="false" aria-controls="collapseError">
+					Show Full Error
+				</button>
+			</p>
+			<div class="collapse" id="collapseError">
+				<div class="card card-body">
+					<pre class="stacktrace"><code>@Model.ErrorDescription</code></pre>
+				</div>
 			</div>
-		</div>
+		}
 
 		<hr class="my-4" />
 		<p>
