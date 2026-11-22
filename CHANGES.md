@@ -131,6 +131,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Messages: a message to a user that does not accept private messages from the user was removed without a message, now the user is told and the text stays
 * [CHANGES] My Messages, Notifications, My Account and My Friends redesigned: headers with counts, the conversation header with the profile and last visit, a new sender is added to the conversation list, filter chips, the friends lists as tabs that stay selected after an action
 * [FIXED] Edit Profile: a field that was not accepted (e.g. a display name that is taken) loaded the page again and all changes were lost, now the form is shown again with the changes
+* [FIXED] Attachments: the size of an attachment showed the bytes and "/1024kb" instead of the size in KB
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11

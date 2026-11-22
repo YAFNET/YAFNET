@@ -1236,4 +1236,47 @@ public class ProfileTests(ComposeScenario scenario) : DatabaseTestBase(scenario)
                     }
                 });
     }
+
+    /// <summary>
+    /// The size of an attachment is shown in KB (the page showed the bytes and "/1024kb").
+    /// </summary>
+    [Test]
+    public async Task AttachmentSizeIsShownInKbTest()
+    {
+        await this.Fixture.Context.GotoPageAsync(
+            this.TestSettings.TestForumUrl,
+            async page =>
+                {
+                    await this.LoginAdminAsync(page);
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Attachments");
+
+                    var image = Convert.ToBase64String(
+                        await System.IO.File.ReadAllBytesAsync(System.IO.Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png")));
+                    var name = $"size{Random.Shared.Next()}.png";
+
+                    var status = await page.EvaluateAsync<int>(
+                        """
+                        async ([baseUrl, image, name]) => {
+                            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                            const bytes = Uint8Array.from(atob(image), c => c.charCodeAt(0));
+                            const data = new FormData();
+                            data.append('file', new File([bytes], name, { type: 'image/png' }));
+                            const response = await fetch(baseUrl + 'api/FileUpload/Upload', {
+                                method: 'POST', headers: { 'RequestVerificationToken': token }, body: data });
+                            return response.status;
+                        }
+                        """,
+                        new object[] { this.TestSettings.TestForumUrl, image, name });
+
+                    Assert.That(status, Is.EqualTo(200), "The attachment was not uploaded");
+
+                    await page.GotoAsync($"{this.TestSettings.TestForumUrl}Profile/Attachments");
+
+                    // the test image has 5480 bytes
+                    var item = page.Locator("li.list-group-item", new PageLocatorOptions { HasText = name });
+
+                    Assert.That(await item.First.InnerTextAsync(), Does.Contain("(5 KB)"), "The size is not shown in KB");
+                });
+    }
 }

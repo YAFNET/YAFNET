@@ -56,7 +56,7 @@
 
 										@Model.GetPreviewImage(Model.Attachments[i])
 										<span class="text-truncate">
-											@Model.Attachments[i].FileName <em>(@Model.Attachments[i].Bytes/1024kb)</em>
+											@Model.Attachments[i].FileName <em>(@(Math.Max(1, Model.Attachments[i].Bytes / 1024)) KB)</em>
 										</span>
 									</li>
 								}
