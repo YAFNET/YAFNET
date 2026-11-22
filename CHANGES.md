@@ -94,21 +94,21 @@ YetAnotherForum.NET Changelog
 * [FIXED] Admin > Recycle Bin: the search of the deleted topics searched on the shown page, a search with less results showed nothing
 * [FIXED] Admin > Event Log: the filter was applied on the shown page, a filter with less entries showed nothing
 * [FIXED] Admin > Private Messages: the number of the deleted messages was not shown after the delete
-[CHANGES] Admin > Event Log, Recycle Bin, Attachments, Tags, Prune, Private Messages: new layouts, the event types as filter chips with their counts, the deleted topics and posts on tabs with confirmed deletes, attachment previews with size and downloads, the tags as a grid with a search, the prune and the private messages as danger zones
-[FIXED] Admin > Host Settings: after a clear cache button or the search index task the selects were empty, a save then set the permissions, feeds and spam settings to forbidden or off
-[FIXED] Admin > Host Settings: a size that is no number (attachment, album image or avatar size) failed the save with an error
-[FIXED] Admin > Edit Language: saving after selecting another page (without loading it) failed with an error
-[FIXED] Admin > Edit Language: an emptied text was saved as null and the page of the language failed with an error every time
-[FIXED] Admin > Re-Index on SQLite: re-index and shrink only changed the vacuum mode, they now rebuild the indexes (REINDEX) and remove the unused space (VACUUM)
-[FIXED] Admin > Re-Index: a failed change of the recovery mode (e.g. missing rights, a database without recovery modes) was shown as a success
-[FIXED] Admin > Re-Index on SQL Server: the recovery mode could not be changed for a database name with a - or a space, the name is quoted (and only the recovery modes are accepted)
-[FIXED] Admin > Test Data: messages without a selected topic failed with an error (the topics of the forum were not loaded)
-[FIXED] Admin > Test Data: forums of the categories of another board failed with an error (the start access mask of the current board was searched in that board)
-[FIXED] Admin > Test Data: the priority of the topics (sticky, announcement) was never used
-[FIXED] Admin > Test Data: all created topics had the same name
-[FIXED] Admin > Test Data: the selects were empty after the data was created, a second launch used no board
-[FIXED] Admin > Backup: a number of backups to keep that is too large was saved as 0 (all backups are kept)
-[CHANGES] Admin > Host: redesigned Languages (cards with progress, incomplete first), Edit language (page list with progress, only untranslated switch, copy english text), Restart app, Database maintenance (action cards, database size, recovery mode only for SQL Server), Run SQL (Ctrl+Enter, row count), Backup (backup list, delete dialog names the file), Test data and Host settings (sections as cards, one save button that stays on the page, cache cards with a message after clear, search index card)
+* [CHANGES] Admin > Event Log, Recycle Bin, Attachments, Tags, Prune, Private Messages: new layouts, the event types as filter chips with their counts, the deleted topics and posts on tabs with confirmed deletes, attachment previews with size and downloads, the tags as a grid with a search, the prune and the private messages as danger zones
+* [FIXED] Admin > Host Settings: after a clear cache button or the search index task the selects were empty, a save then set the permissions, feeds and spam settings to forbidden or off
+* [FIXED] Admin > Host Settings: a size that is no number (attachment, album image or avatar size) failed the save with an error
+* [FIXED] Admin > Edit Language: saving after selecting another page (without loading it) failed with an error
+* [FIXED] Admin > Edit Language: an emptied text was saved as null and the page of the language failed with an error every time
+* [FIXED] Admin > Re-Index on SQLite: re-index and shrink only changed the vacuum mode, they now rebuild the indexes (REINDEX) and remove the unused space (VACUUM)
+* [FIXED] Admin > Re-Index: a failed change of the recovery mode (e.g. missing rights, a database without recovery modes) was shown as a success
+* [FIXED] Admin > Re-Index on SQL Server: the recovery mode could not be changed for a database name with a - or a space, the name is quoted (and only the recovery modes are accepted)
+* [FIXED] Admin > Test Data: messages without a selected topic failed with an error (the topics of the forum were not loaded)
+* [FIXED] Admin > Test Data: forums of the categories of another board failed with an error (the start access mask of the current board was searched in that board)
+* [FIXED] Admin > Test Data: the priority of the topics (sticky, announcement) was never used
+* [FIXED] Admin > Test Data: all created topics had the same name
+* [FIXED] Admin > Test Data: the selects were empty after the data was created, a second launch used no board
+* [FIXED] Admin > Backup: a number of backups to keep that is too large was saved as 0 (all backups are kept)
+* [CHANGES] Admin > Host: redesigned Languages (cards with progress, incomplete first), Edit language (page list with progress, only untranslated switch, copy english text), Restart app, Database maintenance (action cards, database size, recovery mode only for SQL Server), Run SQL (Ctrl+Enter, row count), Backup (backup list, delete dialog names the file), Test data and Host settings (sections as cards, one save button that stays on the page, cache cards with a message after clear, search index card)
 
 # YetAnotherForum.NET v4.0.11
 * Upgraded to .NET 11
